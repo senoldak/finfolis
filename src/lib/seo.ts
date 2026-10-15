@@ -5,6 +5,8 @@ export const SITE_URL = 'https://finfolis.com';
 export const ORG_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const LOGO_URL = `${SITE_URL}/favicon-512.png`;
+// NewsArticle publisher.logo: yatay 600×60 PNG (scripts/kapak/logo.mjs üretir).
+export const PUBLISHER_LOGO = { '@type': 'ImageObject', url: `${SITE_URL}/finfolis-logo.png`, width: 600, height: 60 };
 
 // Metni sözcük sınırında keser; sığmazsa sonuna "…" ekler.
 export function kisalt(metin: string, sinir: number) {
@@ -15,7 +17,8 @@ export function kisalt(metin: string, sinir: number) {
   return `${(bosluk > sinir * 0.6 ? kesik.slice(0, bosluk) : kesik).replace(/[\s,.;:–-]+$/, '')}…`;
 }
 
-const sameAs = Object.values(SITE.social).filter(Boolean);
+// Yalnızca gerçekten var olan hesaplar (src/lib/site.ts'te boş olmayanlar).
+export const sameAs = Object.values(SITE.social).filter(Boolean);
 
 export const siteJsonLd = {
   '@context': 'https://schema.org',

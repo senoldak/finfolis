@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import { category as categoryOf, formatDate } from '../lib/site';
 import { newsUrl, type Haber } from '../lib/news';
-import { gorselVar } from '../lib/gorsel.mjs';
+import { KART_DONUSUM, kartGorseliVar } from '../lib/gorsel.mjs';
 
 // Liste satırı: başlık, spot ve künye; kapak resmi varsa sağda küçük.
 // Görselsiz haberler varsayılan durumdur, satır onlarsız da eksiksiz görünür.
@@ -15,7 +15,8 @@ interface Props {
 const { haber, showCategory = true, showSpot = true } = Astro.props;
 const { title, description, date, category } = haber.data;
 // Başlığı tekrar eden metin kapağı (coverSitede: false) listede gösterilmez.
-const cover = gorselVar(date) && haber.data.coverSitede ? haber.data.cover : undefined;
+// Küçük resim yalnızca yeni yazılarda (dosya bütçesi: src/lib/gorsel.mjs); eski yazı görselsiz satırdır.
+const cover = kartGorseliVar(date) && haber.data.coverSitede ? haber.data.cover : undefined;
 const cat = categoryOf(category);
 ---
 
@@ -40,7 +41,8 @@ const cat = categoryOf(category);
   {
     cover && (
       <a href={newsUrl(haber)} class="satir-resim" tabindex="-1" aria-hidden="true">
-        <Image src={cover} alt="" width={1200} />
+        {/* Kart 132px (mobilde 96px): 1200px kapak yerine 264×198 kırpılmış küçük resim iner. */}
+        <Image src={cover} alt="" {...KART_DONUSUM} loading="lazy" decoding="async" />
       </a>
     )
   }

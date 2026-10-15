@@ -151,6 +151,7 @@ const today = new Date().toLocaleDateString(SITE.locale, {
           <a href="/yayin-ilkeleri/">Yayın İlkeleri</a>
           <a href="/rss.xml">RSS</a>
           {SITE.social.x && <a href={SITE.social.x} rel="noopener noreferrer" target="_blank" aria-label="X (yeni sekmede açılır)">X</a>}
+          {SITE.social.telegram && <a href={SITE.social.telegram} rel="noopener" target="_blank" aria-label="Telegram kanalı (yeni sekmede açılır)">Telegram</a>}
           {SITE.social.facebook && <a href={SITE.social.facebook} rel="noopener noreferrer" target="_blank" aria-label="Facebook (yeni sekmede açılır)">Facebook</a>}
         </nav>
       </div>

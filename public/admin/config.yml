@@ -71,6 +71,7 @@ collections:
           - { label: Ekonomi, value: ekonomi }
           - { label: Kişisel Finans, value: kisisel-finans }
       - { name: date, label: Yayın tarihi, widget: datetime, default: '{{now}}', input_timezone: Europe/Istanbul }
+      - { name: updated, label: Son güncelleme, widget: datetime, required: false, input_timezone: Europe/Istanbul }
       - { name: cover, label: Kapak resmi, widget: image, required: false }
       - { name: coverAlt, label: Resim açıklaması, widget: string, required: false }
       - { name: author, label: Yazar, widget: string, default: finfolis }

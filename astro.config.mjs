@@ -25,7 +25,9 @@ function tarihler() {
     const d = new Date(alan('date') ?? '');
     if (Number.isNaN(d.valueOf())) continue;
     // Kısa yazı (noindex) haritaya girmez; kural haber sayfasıyla ortak (src/lib/uzunluk.mjs).
-    if (indekslenir(md)) haber.set(ad, d);
+    // Haberin lastmod'u: elle güncellendiyse (updated) o tarih, yoksa yayın tarihi.
+    const g = new Date(alan('updated') ?? '');
+    if (indekslenir(md)) haber.set(ad, Number.isNaN(g.valueOf()) || g < d ? d : g);
     else kisa.add(ad);
     const k = alan('category');
     if (k && alan('tur') !== 'bulten' && (!kategori.get(k) || kategori.get(k) < d)) kategori.set(k, d);
@@ -42,6 +44,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       // 404, yönetim paneli ve henüz yazısı olmayan (noindex) kategori sayfaları haritaya girmez.
+      // Kategorinin 2. ve sonraki sayfaları (/kategori/<x>/2/) olağan sayfa olarak girer.
       filter: (page) => {
         const yol = new URL(page).pathname;
         if (/\/(404|admin)(\/|$)/.test(yol)) return false;
@@ -62,4 +65,6 @@ export default defineConfig({
   ],
   // CSP (public/_headers) satır içi stile izin vermez; tüm CSS ayrı dosya olarak yüklenir.
   build: { inlineStylesheets: 'never' },
+  // Aynı nedenle betikler de satır içine gömülmez (küçük betikler varsayılan olarak gömülür ve CSP'ye takılır).
+  vite: { build: { assetsInlineLimit: 0 } },
 });

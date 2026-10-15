@@ -6,7 +6,7 @@ import Indicators from '../components/Indicators.astro';
 import Cizelge from '../components/Cizelge.astro';
 import { CATEGORIES, category as categoryOf, formatDate } from '../lib/site';
 import { getNews, newsUrl } from '../lib/news';
-import { gorselVar } from '../lib/gorsel.mjs';
+import { KAPAK_DONUSUM } from '../lib/gorsel.mjs';
 
 const news = await getNews({ tur: 'haber' });
 const bulten = (await getNews({ tur: 'bulten' }))[0];
@@ -63,14 +63,10 @@ const sections = CATEGORIES.map((c) => ({
               </a>
               <time datetime={hero.data.date.toISOString()}>{formatDate(hero.data.date, true)}</time>
             </p>
-            {hero.data.cover && hero.data.coverSitede && gorselVar(hero.data.date) && (
+            {hero.data.cover && hero.data.coverSitede && (
               <a href={newsUrl(hero)} class="manset-resim" tabindex="-1" aria-hidden="true">
-                <Image
-                  src={hero.data.cover}
-                  alt=""
-                  width={1200}
-                  loading="eager"
-                />
+                {/* Haber sayfasının og:image JPEG'iyle aynı dosya; manşet için ayrı dosya üretilmez. */}
+                <Image src={hero.data.cover} alt="" {...KAPAK_DONUSUM} loading="eager" />
               </a>
             )}
           </article>

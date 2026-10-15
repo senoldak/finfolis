@@ -6,6 +6,8 @@ export const SITE = {
   social: {
     x: '',
     facebook: '',
+    // Haber botunun yazıları gönderdiği kanal (README, scripts/haberler/telegram.mjs).
+    telegram: 'https://t.me/finfolis',
   },
 };
 

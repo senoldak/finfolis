@@ -36,6 +36,12 @@ import { SITE } from '../lib/site';
         </p>
         <h2>İletişim</h2>
         <p>Haber önerileriniz ve düzeltme talepleriniz için <a href="mailto:iletisim@finfolis.com">iletisim@finfolis.com</a> adresine yazabilirsiniz.</p>
+        {SITE.social.telegram && (
+          <p>
+            Yeni haberleri <a href={SITE.social.telegram} rel="noopener" target="_blank">Telegram kanalımızdan</a> da
+            takip edebilirsiniz.
+          </p>
+        )}
       </div>
     </article>
   </div>

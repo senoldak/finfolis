@@ -3,7 +3,7 @@ import type { APIContext } from 'astro';
 import { getImage } from 'astro:assets';
 import { SITE, categoryName } from '../lib/site';
 import { getNews, newsUrl } from '../lib/news';
-import { gorselVar } from '../lib/gorsel.mjs';
+import { KAPAK_DONUSUM } from '../lib/gorsel.mjs';
 
 const xml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
@@ -12,8 +12,7 @@ export async function GET(context: APIContext) {
   const items = await Promise.all(
     news.slice(0, 50).map(async (h) => {
       // Kapak: haber sayfasının og:image dosyasıyla aynı (1200px JPEG); yeni dosya üretmez.
-      const cover = gorselVar(h.data.date) ? h.data.cover : undefined;
-      const img = cover ? await getImage({ src: cover, width: 1200, format: 'jpeg' }) : undefined;
+      const img = h.data.cover ? await getImage({ src: h.data.cover, ...KAPAK_DONUSUM }) : undefined;
       const media = img
         ? `<media:content url="${xml(new URL(img.src, context.site).href)}" medium="image" type="image/jpeg" width="${img.attributes.width}" height="${img.attributes.height}" />`
         : undefined;

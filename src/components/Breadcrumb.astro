@@ -1,0 +1,21 @@
+---
+// Görünür içerik yolu (Anasayfa › Kategori › …). Son öğe bulunulan sayfadır, bağlantı olmaz.
+// Aynı yolun BreadcrumbList JSON-LD'si sayfanın kendi şemasında durur.
+interface Props {
+  yol: { ad: string; href?: string }[];
+}
+
+const { yol } = Astro.props;
+---
+
+<nav class="yol" aria-label="İçerik yolu">
+  <ol>
+    {
+      yol.map((o, i) => (
+        <li>
+          {o.href && i < yol.length - 1 ? <a href={o.href}>{o.ad}</a> : <span aria-current="page">{o.ad}</span>}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

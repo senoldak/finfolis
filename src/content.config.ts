@@ -12,6 +12,8 @@ const haberler = defineCollection({
       title: z.string(),
       description: z.string(),
       date: z.coerce.date(),
+      // Yayından sonra metin elle düzeltildiyse son güncelleme; yoksa değiştirilme tarihi yayın tarihidir.
+      updated: z.coerce.date().optional(),
       category: z.enum(slugs),
       cover: image().optional(),
       coverAlt: z.string().optional(),
