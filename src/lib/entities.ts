@@ -9,19 +9,19 @@ export const FINANCIAL_ENTITIES: EntityMapping[] = [
   {
     name: 'Türkiye Cumhuriyet Merkez Bankası',
     type: 'Organization',
-    sameAs: 'https://www.wikidata.org/wiki/Q175908',
+    sameAs: 'https://www.wikidata.org/wiki/Q580829',
     keywords: ['TCMB', 'Merkez Bankası', 'PPK', 'politika faizi'],
   },
   {
     name: 'Borsa İstanbul',
     type: 'Organization',
-    sameAs: 'https://www.wikidata.org/wiki/Q1143899',
+    sameAs: 'https://www.wikidata.org/wiki/Q1407995',
     keywords: ['Borsa İstanbul', 'BIST', 'BIST 100', 'BIST 30'],
   },
   {
     name: 'Sermaye Piyasası Kurulu',
     type: 'Organization',
-    sameAs: 'https://www.wikidata.org/wiki/Q7454378',
+    sameAs: 'https://www.wikidata.org/wiki/Q5035620',
     keywords: ['SPK', 'Sermaye Piyasası Kurulu'],
   },
   {
@@ -39,7 +39,7 @@ export const FINANCIAL_ENTITIES: EntityMapping[] = [
   {
     name: 'Ethereum',
     type: 'FinancialProduct',
-    sameAs: 'https://www.wikidata.org/wiki/Q20716494',
+    sameAs: 'https://www.wikidata.org/wiki/Q16783523',
     keywords: ['Ethereum', 'ETH'],
   },
 ];

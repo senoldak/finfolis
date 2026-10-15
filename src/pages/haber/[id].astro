@@ -15,6 +15,8 @@ import { ORG_ID, PUBLISHER_LOGO, SITE_URL, WEBSITE_ID, kisalt, sameAs } from '..
 import { matchEntities } from '../../lib/entities';
 import { indekslenir } from '../../lib/uzunluk.mjs';
 import { ilgiliSec } from '../../lib/ilgili.mjs';
+import { yazininKonulari, konuUrl } from '../../lib/konu-sayfalari';
+import type { Konu } from '../../lib/konular.mjs';
 
 export async function getStaticPaths() {
   const news = await getNews();
@@ -27,21 +29,26 @@ export async function getStaticPaths() {
     aday: h.data.tur !== 'bulten' && indekslenir(h.body),
   }));
   const idIle = new Map(news.map((h) => [h.id, h]));
-  return news.map((haber, i) => ({
-    params: { id: haber.id },
-    props: {
-      haber,
-      related: ilgiliSec(ogeler[i], ogeler).map((id) => idIle.get(id)!),
-    },
-  }));
+  return Promise.all(
+    news.map(async (haber, i) => ({
+      params: { id: haber.id },
+      props: {
+        haber,
+        related: ilgiliSec(ogeler[i], ogeler).map((id) => idIle.get(id)!),
+        // Yazının geçtiği ve sayfası olan konular (src/lib/konular.mjs).
+        konular: await yazininKonulari(haber),
+      },
+    })),
+  );
 }
 
 interface Props {
   haber: Haber;
   related: Haber[];
+  konular: Konu[];
 }
 
-const { haber, related } = Astro.props;
+const { haber, related, konular } = Astro.props;
 const { title, description, date, category, coverAlt, rakamlar, sirada, tablo, grafik, kaynaklar } = haber.data;
 // Yazarı olmayan ya da uretim: bot işaretli yazı haber botunundur; sayfada yapay zekâ notu gösterilir.
 const botYazisi = haber.data.uretim === 'bot' || (!haber.data.author && haber.data.uretim !== 'editor');
@@ -193,6 +200,17 @@ const jsonLd = {
       {!tablo && grafik && kaynaklar[0] && <Grafik grafik={grafik} kaynak={kaynaklar[0]} tarih={date} />}
 
       <RakamSeridi rakamlar={rakamlar} sirada={sirada} />
+
+      {
+        konular.length > 0 && (
+          <nav class="konu-etiketleri" aria-label="Konular">
+            <span>Konular</span>
+            {konular.map((k) => (
+              <a href={konuUrl(k.slug)}>{k.ad}</a>
+            ))}
+          </nav>
+        )
+      }
 
 
       {

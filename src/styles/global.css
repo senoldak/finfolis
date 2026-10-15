@@ -760,7 +760,12 @@ main {
   align-items: center;
   gap: 4px 16px;
   padding: 36px 0 18px;
-  border-bottom: 4px solid var(--c);
+  border-bottom: 4px solid var(--c, var(--ink));
+}
+
+/* Simgesiz sayfa başı (konu, veri, sözlük, hesaplayıcı sayfaları) */
+.sayfa-bas-duz {
+  grid-template-columns: 1fr;
 }
 
 .sayfa-bas svg {
@@ -1057,6 +1062,78 @@ main {
 .bulunamadi a {
   font-family: var(--sans);
   font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* Konu, veri, sözlük ve hesaplayıcı sayfaları */
+.sayfa-giris {
+  max-width: 62ch;
+  margin: 22px 0 0;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.dizin-liste {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  column-gap: 48px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dizin-liste li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--hair);
+  font-family: var(--sans);
+}
+
+.dizin-liste a {
+  font-weight: 600;
+}
+
+.dizin-liste span {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.konu-etiketleri {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 18px;
+  margin: 32px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--hair);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+}
+
+.konu-etiketleri span {
+  color: var(--muted);
+}
+
+.konu-etiketleri a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+.konu-notu {
+  margin-top: 28px;
+}
+
+.konu-notu a,
+.veri-notu a {
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
