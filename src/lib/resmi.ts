@@ -88,3 +88,14 @@ export const KUR_SAYFALARI = [
 export function eskiMi(tarih: string, gun: number, simdi = new Date()) {
   return simdi.getTime() - new Date(`${tarih}T12:00:00Z`).getTime() > gun * 86400000;
 }
+
+// TÜFE aylık değişimlerini zincirler: bas ayının fiyatlarıyla 1 TL, bit ayının fiyatlarıyla kaç TL eder?
+// Anahtar = yıl × 12 + (ay − 1). Aylık oranlar iki ondalıkla yayımlandığı için TÜİK endeksinden küçük yuvarlama farkı olabilir.
+// public/hesapla.js aynı hesabı tarayıcıda yapar.
+export const ayAnahtari = (s: { yil: number; ay: number }) => s.yil * 12 + s.ay - 1;
+export function tufeCarpani(satirlar: TufeSatiri[], bas: number, bit: number) {
+  return satirlar.reduce((c, s) => {
+    const k = ayAnahtari(s);
+    return k > bas && k <= bit ? c * (1 + s.aylik / 100) : c;
+  }, 1);
+}

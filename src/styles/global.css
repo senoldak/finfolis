@@ -1280,6 +1280,189 @@ main {
   }
 }
 
+/* Hesaplayıcılar (/hesapla/…): form solda, formül açıklaması sağda; kutular kare, gölgesiz. */
+.dizin-liste-tek {
+  grid-template-columns: 1fr;
+  max-width: 900px;
+}
+
+.hesap-izgara {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0 48px;
+  align-items: start;
+  margin-top: 28px;
+}
+
+.hesap {
+  padding: 22px 22px 24px;
+  border: 1px solid var(--ink);
+  font-family: var(--sans);
+}
+
+.hesap-alanlar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px 20px;
+}
+
+.hesap label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.hesap label small {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.hesap input,
+.hesap select {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--ink-2);
+  border-radius: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 500;
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.hesap input:focus-visible,
+.hesap select:focus-visible,
+.hesap button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.hesap button {
+  margin-top: 18px;
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--paper);
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.hesap button[hidden] {
+  display: none;
+}
+
+.hesap-hata {
+  margin: 14px 0 0;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.hesap-sonuc {
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 4px solid var(--ink);
+}
+
+.hesap-sonuc > p {
+  margin: 0;
+  color: var(--ink-2);
+}
+
+.hesap-ana {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin: 6px 0 0 !important;
+}
+
+.hesap-ana output {
+  font-weight: 700;
+  font-size: clamp(2rem, 2.5vw, 2.3rem);
+  line-height: 1.1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.hesap-sonuc dl {
+  margin: 14px 0 0;
+}
+
+.hesap-sonuc dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--hair);
+}
+
+.hesap-sonuc dt {
+  color: var(--ink-2);
+}
+
+.hesap-sonuc dd {
+  margin: 0;
+  font-weight: 700;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.hesap-plan {
+  margin-top: 18px;
+}
+
+.hesap-plan summary {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hesap-plan .tablo-kaydir {
+  margin-top: 10px;
+  max-height: 420px;
+  overflow: auto;
+}
+
+.hesap-aciklama {
+  font-size: 1.05rem;
+}
+
+.hesap-aciklama h2 {
+  margin-top: 0;
+}
+
+.formul {
+  margin: 0.8em 0;
+  padding: 10px 14px;
+  background: var(--paper-2);
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.hesap-ornek {
+  max-width: 640px;
+}
+
+.hesap-sayfa .tavsiye-degil {
+  max-width: 720px;
+}
+
+@media (max-width: 900px) {
+  .hesap-izgara {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
 /* Alt bilgi */
 .site-footer {
   border-top: 4px solid var(--ink);

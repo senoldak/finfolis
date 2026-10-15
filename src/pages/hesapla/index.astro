@@ -1,0 +1,61 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { sayfaSemasi } from '../../lib/seo';
+
+const araclar = [
+  {
+    href: '/hesapla/enflasyon/',
+    ad: 'Enflasyon hesaplama',
+    not: 'Bir tutarın iki ay arasındaki karşılığı, TÜİK TÜFE verisiyle',
+  },
+  {
+    href: '/hesapla/mevduat-getirisi/',
+    ad: 'Mevduat getirisi hesaplama',
+    not: 'Brüt faiz, stopaj kesintisi ve net getiri',
+  },
+  {
+    href: '/hesapla/kredi-taksit/',
+    ad: 'Kredi taksit hesaplama',
+    not: 'Aylık taksit, toplam geri ödeme ve ödeme planı',
+  },
+];
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Hesapla', href: '/hesapla/' },
+];
+const description = 'Enflasyon, mevduat getirisi ve kredi taksit hesaplayıcıları; formülleri açıkça yazılı, hesap tarayıcınızda yapılır.';
+const jsonLd = sayfaSemasi({ yol, ad: 'Hesaplayıcılar', aciklama: description, tur: 'CollectionPage' });
+---
+
+<Base title="Hesaplayıcılar" description={description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <div class="container">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>Hesaplayıcılar</h1>
+      <p>Enflasyon, mevduat ve kredi</p>
+    </header>
+    <p class="sayfa-giris">
+      Her hesaplayıcının sayfasında kullandığı formül açıkça yazılıdır. Hesap tarayıcınızda yapılır; girdiğiniz rakamlar
+      hiçbir yere gönderilmez.
+    </p>
+    <section class="bolum">
+      <h2 class="bolum-baslik">Araçlar</h2>
+      <ul class="dizin-liste dizin-liste-tek">
+        {
+          araclar.map((a) => (
+            <li>
+              <a href={a.href}>{a.ad}</a>
+              <span>{a.not}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <aside class="tavsiye-degil" aria-label="Yasal uyarı">
+      <strong>Yatırım tavsiyesi değildir.</strong> Hesaplayıcılar bilgi amaçlıdır; sonuçlar bankaların uyguladığı koşullardan
+      farklı olabilir.
+    </aside>
+  </div>
+</Base>
