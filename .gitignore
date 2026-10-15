@@ -1,0 +1,41 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+
+# environment variables
+.env
+.env.production
+
+# macOS-specific files
+.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+# editor / claude
+.claude/
+.wrangler/
+
+# impeccable çalışma dosyaları (taslaklar, ekran görüntüleri)
+.impeccable/mocks/
+.impeccable/questions/
+.impeccable/review/
+.impeccable/live/
+
+# kapak demo çıktıları
+.kapak-ornekleri/
+.superpowers/
+
+# şifreli kaynak listesinin açık hali (bkz. scripts/haberler/gizli.mjs)
+scripts/haberler/kaynaklar/gizli-kaynaklar.json

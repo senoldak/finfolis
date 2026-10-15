@@ -1,0 +1,59 @@
+---
+import IsoRow from './IsoRow.astro';
+import Change from './Change.astro';
+import Spark from './Spark.astro';
+import { vitrin, deger, kaynakSatiri, notVitrinde, DEGISIM_NOTU } from '../lib/piyasa';
+
+// Gösterilecek gerçek gösterge yoksa bant hiç çizilmez.
+---
+
+{
+  vitrin.length > 0 && (
+    <section class="gostergeler" aria-labelledby="gostergeler-baslik">
+      <h2 id="gostergeler-baslik" class="sr-only">
+        Günün piyasa göstergeleri
+      </h2>
+      <div class="container gostergeler-izgara">
+        {vitrin.map((g) => (
+          <article class={`gosterge ink-${g.renk ?? 'black'}`}>
+            <h3 class="gosterge-ad">{g.ad}</h3>
+            <p class="gosterge-deger">
+              {deger(g)}
+              <Change value={g.degisim} />
+            </p>
+            <Spark ad={g.ad} noktalar={g.gecmis} />
+            <dl class="iso-tablo">
+              <div>
+                <dt>Bugün</dt>
+                <dd>
+                  <IsoRow miktar={g.deger} birim={g.simgeDegeri!} simge={g.simge} />
+                </dd>
+              </div>
+              <div>
+                <dt>
+                  {g.oncekiEtiket} <span class="iso-onceki">{deger(g, g.onceki)}</span>
+                </dt>
+                <dd>
+                  <IsoRow miktar={g.onceki!} birim={g.simgeDegeri!} simge={g.simge} soluk />
+                </dd>
+              </div>
+            </dl>
+            {g.anlam && <p class="gosterge-anlam">{g.anlam}</p>}
+            <p class="gosterge-lejant">
+              <svg aria-hidden="true">
+                <use href={`#s-${g.simge}`} />
+              </svg>
+              = {g.simgeEtiket}
+            </p>
+            <p class="veri-notu gosterge-kaynak">{kaynakSatiri(g)}</p>
+          </article>
+        ))}
+      </div>
+      {notVitrinde && (
+        <div class="container cizelge-satir">
+          <p class="veri-notu">{DEGISIM_NOTU}</p>
+        </div>
+      )}
+    </section>
+  )
+}

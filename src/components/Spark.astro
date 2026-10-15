@@ -1,0 +1,45 @@
+---
+// Mini çizgi grafik (sparkline). Tek mürekkep, dolgu yok, gradyan yok (DESIGN.md).
+// En az yedi gerçek nokta yoksa hiç çizilmez: sahte ya da yetersiz veri gösterilmez.
+interface Props {
+  ad: string;
+  noktalar?: { tarih: string; deger: number }[];
+}
+
+const { ad, noktalar = [] } = Astro.props;
+const W = 120;
+const H = 36;
+const PAD = 3;
+
+const ilk = noktalar[0];
+const son = noktalar.at(-1);
+const min = Math.min(...noktalar.map((p) => p.deger));
+const max = Math.max(...noktalar.map((p) => p.deger));
+const aralik = max - min || 1;
+
+const x = (i: number) => PAD + (i / Math.max(noktalar.length - 1, 1)) * (W - 2 * PAD);
+const y = (v: number) => PAD + (1 - (v - min) / aralik) * (H - 2 * PAD);
+
+const yol = noktalar.map((p, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)} ${y(p.deger).toFixed(1)}`).join(' ');
+
+const fark = son && ilk ? son.deger - ilk.deger : 0;
+const yon = fark > 0 ? 'yükseldi' : fark < 0 ? 'düştü' : 'değişmedi';
+---
+
+{
+  noktalar.length >= 7 && (
+    <svg class="spark" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${ad}, ${ilk?.tarih} ile ${son?.tarih} arasında ${yon}`} focusable="false">
+      <path d={yol} fill="none" stroke="var(--ink-2)" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+      <circle cx={x(noktalar.length - 1)} cy={y(son!.deger)} r="2.25" fill="var(--ink)" />
+    </svg>
+  )
+}
+
+<style>
+  .spark {
+    display: block;
+    width: 120px;
+    height: 36px;
+    overflow: visible;
+  }
+</style>

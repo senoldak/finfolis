@@ -1,0 +1,137 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import NewsCard from '../components/NewsCard.astro';
+import Indicators from '../components/Indicators.astro';
+import Cizelge from '../components/Cizelge.astro';
+import { CATEGORIES, category as categoryOf, formatDate } from '../lib/site';
+import { getNews, newsUrl } from '../lib/news';
+import { gorselVar } from '../lib/gorsel.mjs';
+
+const news = await getNews({ tur: 'haber' });
+const bulten = (await getNews({ tur: 'bulten' }))[0];
+const breaking = news.filter((h) => h.data.breaking).slice(0, 5);
+const hero = news.find((h) => h.data.featured) ?? news[0];
+const rest = news.filter((h) => h !== hero);
+const side = rest.slice(0, 4);
+const latest = rest.slice(4, 12);
+const heroCat = hero ? categoryOf(hero.data.category) : undefined;
+// Kategori blokları üstte (manşet, yan sütun, son haberler) gösterilenleri tekrar etmez.
+const ustte = new Set([hero, ...side, ...latest]);
+const sections = CATEGORIES.map((c) => ({
+  ...c,
+  items: news.filter((h) => h.data.category === c.slug && !ustte.has(h)).slice(0, 4),
+})).filter((s) => s.items.length > 0);
+---
+
+<Base>
+  {
+    breaking.length > 0 && (
+      <div class="son-dakika" role="region" aria-label="Son dakika">
+        <div class="container son-dakika-ic">
+          <span class="son-dakika-etiket">Son dakika</span>
+          <ul>
+            {breaking.map((h) => (
+              <li>
+                <a href={newsUrl(h)}>{h.data.title}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    )
+  }
+
+  <Indicators />
+
+  <div class="container">
+    <h1 class="sr-only">finfolis: piyasa, borsa, döviz, kripto ve ekonomi haberleri</h1>
+    {
+      hero && heroCat ? (
+        <section class="ust" aria-label="Manşet">
+          <article class="manset">
+            <h2>
+              <a href={newsUrl(hero)}>{hero.data.title}</a>
+            </h2>
+            <p class="manset-spot">{hero.data.description}</p>
+            <p class="kunye">
+              <a href={`/kategori/${heroCat.slug}/`} class={`kunye-kat ink-${heroCat.ink}`}>
+                <svg aria-hidden="true">
+                  <use href={`#s-${heroCat.icon}`} />
+                </svg>
+                {heroCat.name}
+              </a>
+              <time datetime={hero.data.date.toISOString()}>{formatDate(hero.data.date, true)}</time>
+            </p>
+            {hero.data.cover && hero.data.coverSitede && gorselVar(hero.data.date) && (
+              <a href={newsUrl(hero)} class="manset-resim" tabindex="-1" aria-hidden="true">
+                <Image
+                  src={hero.data.cover}
+                  alt=""
+                  width={1200}
+                  loading="eager"
+                />
+              </a>
+            )}
+          </article>
+
+          <div class="yan">
+            <Cizelge />
+            {bulten && (
+              <div class="yan-bulten">
+                <h2 class="bolum-baslik">Piyasa bülteni</h2>
+                <h3>
+                  <a href={newsUrl(bulten)}>{bulten.data.title}</a>
+                </h3>
+                <p class="kunye">
+                  <time datetime={bulten.data.date.toISOString()}>{formatDate(bulten.data.date, true)}</time>
+                </p>
+              </div>
+            )}
+            {side.length > 0 && (
+              <div class="yan-liste">
+                <h2 class="bolum-baslik">Gündem</h2>
+                {side.map((h) => (
+                  <NewsCard haber={h} showSpot={false} />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      ) : (
+        <p class="bos">Henüz haber yok. İlk haber yönetim panelinden eklenince burada görünecek.</p>
+      )
+    }
+
+    {
+      latest.length > 0 && (
+        <section class="bolum">
+          <h2 class="bolum-baslik">Son haberler</h2>
+          <div class="liste liste-iki">
+            {latest.map((h) => (
+              <NewsCard haber={h} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      sections.map((s) => (
+        <section class={`bolum ink-${s.ink}`}>
+          <h2 class="bolum-baslik">
+            <svg aria-hidden="true">
+              <use href={`#s-${s.icon}`} />
+            </svg>
+            <a href={`/kategori/${s.slug}/`}>{s.name}</a>
+          </h2>
+          <div class="liste liste-iki">
+            {s.items.map((h) => (
+              <NewsCard haber={h} showCategory={false} />
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</Base>

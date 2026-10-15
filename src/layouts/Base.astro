@@ -1,0 +1,166 @@
+---
+import { SITE, CATEGORIES } from '../lib/site';
+import Pictograms from '../components/Pictograms.astro';
+import Logo from '../components/Logo.astro';
+import { kisalt, siteJsonLd } from '../lib/seo';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description: rawDescription,
+  image,
+  imageWidth,
+  imageHeight,
+  imageAlt,
+  type = 'website',
+  noindex = false,
+} = Astro.props;
+// Arama sonucunda kesilmesin diye en çok 160 karakter; boşsa site açıklaması.
+const description = kisalt(rawDescription?.trim() || SITE.description, 160);
+const robots = noindex
+  ? 'noindex, follow'
+  : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+const fullTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | Piyasaları anlaşılır kılar`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image || '/og-default.png', Astro.site).href;
+const ogWidth = imageWidth ?? 1200;
+const ogHeight = imageHeight ?? 630;
+const ogAlt = imageAlt ?? title ?? SITE.name;
+const xHandle = SITE.social.x ? `@${SITE.social.x.replace(/\/+$/, '').split('/').pop()}` : undefined;
+const current = Astro.url.pathname;
+const today = new Date().toLocaleDateString(SITE.locale, {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'Europe/Istanbul',
+});
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href="/fonts/jost-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/literata-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#f4f3ee" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title ?? SITE.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content={String(ogWidth)} />
+    <meta property="og:image:height" content={String(ogHeight)} />
+    <meta property="og:image:alt" content={ogAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {xHandle && <meta name="twitter:site" content={xHandle} />}
+    <meta name="twitter:title" content={title ?? SITE.name} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogAlt} />
+    <script type="application/ld+json" set:html={JSON.stringify(siteJsonLd)} />
+    <!-- Cloudflare Web Analytics -->
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "3d01f5eb08d1413c9777e5cb4bf2af7e"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+    <slot name="head" />
+  </head>
+  <body>
+    <Pictograms />
+    <a class="skip" href="#icerik">İçeriğe geç</a>
+    <header class="masthead">
+      <div class="container masthead-ic">
+        <a href="/" class="wordmark" aria-label={`${SITE.name} anasayfa`}>
+          <Logo class="wordmark-isaret" />
+          <span>{SITE.name}</span>
+        </a>
+        <nav class="nav" aria-label="Kategoriler">
+          {
+            CATEGORIES.map((c) => (
+              <a
+                href={`/kategori/${c.slug}/`}
+                class={`ink-${c.ink}`}
+                aria-current={current.startsWith(`/kategori/${c.slug}`) ? 'page' : undefined}
+              >
+                <svg aria-hidden="true">
+                  <use href={`#s-${c.icon}`} />
+                </svg>
+                {c.name}
+              </a>
+            ))
+          }
+        </nav>
+        <p class="masthead-tarih">{today}</p>
+      </div>
+    </header>
+
+    <main id="icerik">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-izgara">
+        <div>
+          <a href="/" class="wordmark wordmark-sm">
+            <Logo class="wordmark-isaret" />
+            <span>{SITE.name}</span>
+          </a>
+          <p>
+            Yerel ve küresel piyasalardaki göstergeleri, eğilimleri ve fırsatları herkes için anlaşılır hale getiren
+            analiz platformu.
+          </p>
+        </div>
+        <div class="footer-okuma">
+          <h2>Simgeler nasıl okunur?</h2>
+          <p>
+            Rakamları simge dizileriyle gösteriyoruz. Her simge, yanındaki açıklamada yazan miktara eşittir; miktar
+            arttıkça simge büyümez, sayısı artar. Soluk dizi karşılaştırma içindir.
+          </p>
+        </div>
+        <nav aria-label="Alt menü">
+          {CATEGORIES.map((c) => <a href={`/kategori/${c.slug}/`}>{c.name}</a>)}
+          <a href="/hakkimizda/">Hakkımızda</a>
+          <a href="/yayin-ilkeleri/">Yayın İlkeleri</a>
+          <a href="/rss.xml">RSS</a>
+          {SITE.social.x && <a href={SITE.social.x} rel="noopener noreferrer" target="_blank" aria-label="X (yeni sekmede açılır)">X</a>}
+          {SITE.social.facebook && <a href={SITE.social.facebook} rel="noopener noreferrer" target="_blank" aria-label="Facebook (yeni sekmede açılır)">Facebook</a>}
+        </nav>
+      </div>
+      <div class="container footer-alt">
+        <p class="uyari">
+          <strong>Yatırım tavsiyesi değildir.</strong> Burada yer alan bilgi, yorum ve veriler yatırım danışmanlığı
+          kapsamında değildir; piyasa verileri gecikmeli olabilir.
+        </p>
+        <p>© {new Date().getFullYear()} {SITE.name}</p>
+      </div>
+    </footer>
+  </body>
+</html>

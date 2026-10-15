@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import { category as categoryOf, formatDate } from '../lib/site';
+import { newsUrl, type Haber } from '../lib/news';
+import { gorselVar } from '../lib/gorsel.mjs';
+
+// Liste satırı: başlık, spot ve künye; kapak resmi varsa sağda küçük.
+// Görselsiz haberler varsayılan durumdur, satır onlarsız da eksiksiz görünür.
+interface Props {
+  haber: Haber;
+  showCategory?: boolean;
+  showSpot?: boolean;
+}
+
+const { haber, showCategory = true, showSpot = true } = Astro.props;
+const { title, description, date, category } = haber.data;
+// Başlığı tekrar eden metin kapağı (coverSitede: false) listede gösterilmez.
+const cover = gorselVar(date) && haber.data.coverSitede ? haber.data.cover : undefined;
+const cat = categoryOf(category);
+---
+
+<article class:list={['satir', { 'satir-resimli': cover }]}>
+  <div class="satir-metin">
+    <h3><a href={newsUrl(haber)}>{title}</a></h3>
+    {showSpot && <p>{description}</p>}
+    <p class="kunye">
+      {
+        showCategory && (
+          <a href={`/kategori/${cat.slug}/`} class={`kunye-kat ink-${cat.ink}`}>
+            <svg aria-hidden="true">
+              <use href={`#s-${cat.icon}`} />
+            </svg>
+            {cat.name}
+          </a>
+        )
+      }
+      <time datetime={date.toISOString()}>{formatDate(date, true)}</time>
+    </p>
+  </div>
+  {
+    cover && (
+      <a href={newsUrl(haber)} class="satir-resim" tabindex="-1" aria-hidden="true">
+        <Image src={cover} alt="" width={1200} />
+      </a>
+    )
+  }
+</article>

@@ -1,0 +1,148 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/site';
+---
+
+<Base
+  title="Yayın İlkeleri"
+  description="finfolis editoryal bağımsızlık, IFJ etik şartı, The Trust Project ilkeleri, RSF Paris Yapay Zekâ Şartı, SABEW standartları ve düzeltme politikası."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Yayın İlkeleri</h1>
+      </header>
+      <div class="prose">
+        <p>
+          {SITE.name}, ekonomik ve finansal göstergeleri toplumun her kesimi için anlaşılır kılmayı amaçlayan bağımsız
+          bir veri ve analiz platformudur. Yayınlarımızda doğru veriye dayalı, tarafsız, şeffaf ve kamu yararını gözeten
+          bir gazetecilik anlayışını benimsiyoruz. Editoryal süreçlerimizde Uluslararası Gazeteciler Federasyonu’nun
+          (IFJ - International Federation of Journalists) <em>Küresel Gazetecilik Etiği Şartı (Global Charter of Ethics for Journalists)</em>
+          prensiplerini temel kılavuz kabul ediyoruz.
+        </p>
+
+        <h2>1. Kurumsal ve Editoryal Bağımsızlık</h2>
+        <p>
+          {SITE.name}, ticari ortaklıklardan, finansal kurumlardan, siyasi partilerden veya menfaat gruplarından
+          tamamen bağımsız bir editoryal çizgiye sahiptir. IFJ Küresel Gazetecilik Etiği Şartı doğrultusunda gerçeğe saygı,
+          toplumun doğru bilgilendirilme hakkı, editoryal dürüstlük ve mesleki bağımsızlık en temel görevimizdir. Yayınlanan
+          haberlerin, analizlerin ve veri göstergelerinin seçimi yalnızca editoryal ekibin vicdani değerlendirmesi ve
+          kamusal fayda kriterlerine göre belirlenir.
+        </p>
+        <p>
+          Hiçbir reklamveren, sponsor ya da ticari iş ortağı yayın politikamıza, analiz sonuçlarımıza veya haber
+          içeriklerimize müdahale edemez. Sponsorlu içerik ya da iş birliği durumunda (varsa), bu durum okuyucuyu
+          yanıltmayacak şekilde açıkça etiketlenir ve editoryal içerikten kesin çizgilerle ayrılır.
+        </p>
+
+        <h2>2. The Trust Project: 8 Güven Göstergesi</h2>
+        <p>
+          Uluslararası <em>The Trust Project</em> konsorsiyumu tarafından belirlenen gazetecilikte güven standartlarına
+          bağlı kalarak aşağıdaki 8 göstergeyi tüm yayın süreçlerimizde uyguluyoruz:
+        </p>
+        <ul>
+          <li>
+            <strong>En İyi Uygulamalar (Best Practices):</strong> Doğrulama standartları, editoryal misyon, etik ilkeler
+            ve şeffaf sahiplik yapımız kamuya açıktır.
+          </li>
+          <li>
+            <strong>Yazar Uzmanlığı (Author Expertise):</strong> İçeriklerimizi üreten analistlerin ve editörlerin finans,
+            ekonomi ve veri görselleştirme alanındaki uzmanlıkları, geçmiş deneyimleri ve biyografileri şeffafça sunulur.
+          </li>
+          <li>
+            <strong>İçerik Türü Etiketlemesi (Type of Work):</strong> Doğrudan veri haberi, piyasa bülteni, derinlemesine
+            analiz veya eğitici rehber türleri birbirinden açıkça ayrıştırılır; yorum ile veri birbirine karıştırılmaz.
+          </li>
+          <li>
+            <strong>Kaynaklar ve Atıflar (Citations &amp; References):</strong> Analizlerimizde kullanılan tüm verilerin
+            kaynakları (TCMB, TÜİK, FED, BIST, SEC, Eurostat, Dünya Bankası vb.) açıkça gösterilir ve okurun birincil
+            kaynağa erişebilmesi sağlanır.
+          </li>
+          <li>
+            <strong>Yöntem ve Metodoloji (Methods):</strong> Karşılaştırmalı göstergelerimizin, oran hesaplamalarımızın
+            ve Isotype simge dizisi görselleştirmelerimizin arkasındaki veri hesaplama yöntemleri okura açıkça izah edilir.
+          </li>
+          <li>
+            <strong>Yerel ve Özgün Kaynaklılık (Locally Sourced):</strong> Türkiye piyasaları ve küresel ekonomiye dair
+            veriler, yerel dinamikler ve resmi mevzuat göz önünde bulundurularak doğrudan kaynağında incelenir.
+          </li>
+          <li>
+            <strong>Çeşitli Bakış Açıları (Diverse Voices):</strong> Finansal gelişmeler ele alınırken tek bir piyasa
+            aktörünün veya aracı kurumun bakış açısıyla yetinilmez; verinin farklı sektör ve paydaşlara etkileri çok boyutlu sunulur.
+          </li>
+          <li>
+            <strong>Eyleme Dönüştürülebilir Geri Bildirim (Actionable Feedback):</strong> Okurlarımızın tespit ettiği
+            eksiklik veya hatalara ilişkin geri bildirim mekanizmaları her zaman aktiftir ve düzeltmeler şeffaflıkla duyurulur.
+          </li>
+        </ul>
+
+        <h2>3. RSF Paris Yapay Zekâ ve Gazetecilik Şartı (2023)</h2>
+        <p>
+          Sınır Tanımayan Gazeteciler (RSF) öncülüğünde ilan edilen <em>Paris Charter on AI and Journalism (2023)</em>
+          ilkeleri doğrultusunda, teknolojinin ve algoritmik araçların kullanımında şu esasları taahhüt ederiz:
+        </p>
+        <ul>
+          <li>
+            <strong>İnsan Editoryal Sorumluluğu:</strong> Veri işleme, istatistiksel tarama veya içerik taslağı süreçlerinde
+            algoritmik veya yapay zekâ destekli araçlardan yararlanılsın ya da yararlanılmasın; nihai kontrol, editoryal onay
+            ve sorumluluk istisnasız insan editörlere aittir.
+          </li>
+          <li>
+            <strong>Veri Otomasyonu ve Şeffaf Etiketleme:</strong> Otomatik veri akışları (fiyat değişimleri, piyasa
+            göstergeleri vb.) veya yapay zekâ desteğiyle derlenen bölümler okuyucunun görebileceği şekilde açıkça etiketlenir.
+          </li>
+          <li>
+            <strong>Sentetik Manipülasyondan Uzak Durma:</strong> Gerçekliği tahrif eden "deepfake", manipüle edilmiş grafikler
+            veya sahte veriler kesinlikle üretilmez ve kullanılmaz. Tüm grafik ve Isotype simge dizileri gerçek, doğrulanabilir
+            finansal verilere dayanır.
+          </li>
+        </ul>
+
+        <h2>4. SABEW Standartları ve Finansal Tarafsızlık (SPK &amp; ESMA Uyumu)</h2>
+        <p>
+          Ekonomi ve finans haberciliğinde <em>SABEW (Society for Advancing Business Editing and Writing)</em> etik kurallarını
+          ve SPK / ESMA regülasyonlarını titizlikle uygularız:
+        </p>
+        <ul>
+          <li>
+            <strong>Yatırım Tavsiyesi Değildir:</strong> {SITE.name} üzerinde yer alan haber, veri, grafik ve analizler
+            kesinlikle 6362 sayılı Sermaye Piyasası Kanunu veya ESMA düzenlemeleri kapsamında bir "yatırım danışmanlığı",
+            "bireysel portföy yönetimi" veya "al/sat tavsiyesi" değildir. Her yatırımcının kendi risk profilini bağımsızca
+            değerlendirmesi esastır.
+          </li>
+          <li>
+            <strong>Çıkar Çatışmasının Önlenmesi:</strong> Editörlerimiz ve analistlerimiz, yazdıkları veya analiz ettikleri
+            şirketler, hisseler ya da kripto varlıklar üzerinden kişisel menfaat sağlayamaz, önceden alım/satım
+            (front-running) yapamaz ve içerikleri spekülatif amaçlarla yönlendiremez.
+          </li>
+          <li>
+            <strong>Veri Bütünlüğü ve Bağımsızlık:</strong> Piyasa verileri herhangi bir kurumun lehine ya da aleyhine
+            değiştirilmeden, objektif ve tarafsız biçimde aktarılır.
+          </li>
+        </ul>
+
+        <h2 id="duzeltmeler">5. Düzeltme ve İtiraz Politikası</h2>
+        <p>
+          Hatasız habercilik temel hedefimiz olmakla birlikte, karmaşık finansal veri akışlarında oluşabilecek maddi hatalar
+          karşısında "şeffaf düzeltme" kuralını işletiriz:
+        </p>
+        <ul>
+          <li>
+            <strong>Açık ve Kalıcı Düzeltme:</strong> Tespit edilen hatalar sessizce silinmez. Hatanın niteliği, yapılan
+            düzeltme ve düzeltmenin yapıldığı tarih/saat bilgisi ilgili sayfanın altında "Düzeltme Notu" başlığı altında
+            açıkça ilan edilir.
+          </li>
+          <li>
+            <strong>Hızlı İnceleme:</strong> Okurlarımızdan veya veri kaynaklarımızdan gelen hata bildirimleri editoryal
+            ekip tarafından en geç 24 saat içinde incelenir ve teyit edilen yanlışlıklar ivedilikle giderilir.
+          </li>
+          <li>
+            <strong>Geri Bildirim Kanalı:</strong> Her türlü veri itirazı, olgu denetimi (fact-check) talebi ve düzeltme
+            bildirimi için doğrudan <a href="mailto:iletisim@finfolis.com">iletisim@finfolis.com</a> e-posta adresimiz
+            üzerinden editoryal ekibimize ulaşabilirsiniz.
+          </li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</Base>

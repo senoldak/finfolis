@@ -1,0 +1,28 @@
+---
+interface Props {
+  whyMatters?: string;
+  keyPoints?: string[];
+  description?: string;
+}
+
+const { whyMatters, keyPoints } = Astro.props;
+const hasContent = Boolean(whyMatters || (keyPoints && keyPoints.length > 0));
+---
+
+{
+  hasContent && (
+    <aside class="sentez-kutu" aria-label="Hızlı Çıkarım ve Önemli Noktalar">
+      <div class="sentez-baslik">
+        <span class="sentez-rozet">Hızlı Çıkarım</span>
+        {whyMatters && <p class="sentez-neden"><strong>Neden önemli?</strong> {whyMatters}</p>}
+      </div>
+      {keyPoints && keyPoints.length > 0 && (
+        <ul class="sentez-liste">
+          {keyPoints.map((point) => (
+            <li>{point}</li>
+          ))}
+        </ul>
+      )}
+    </aside>
+  )
+}

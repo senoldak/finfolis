@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/site';
+---
+
+<Base
+  title="Hakkımızda"
+  description="finfolis kimdir, rakamları nasıl gösterir, yasal uyarı ve iletişim bilgileri."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Hakkımızda</h1>
+      </header>
+      <div class="prose">
+        <p>
+          {SITE.name}, finansal piyasaların karmaşıklığını çözen ve yatırım kararlarını veriye dayalı içgörülerle
+          güçlendiren bir analiz platformudur. Yerel ve küresel piyasalardaki ekonomik göstergeleri, eğilimleri ve
+          fırsatları yatırımcılar için anlaşılır ve erişilebilir hale getirir.
+        </p>
+        <h2>Rakamları nasıl gösteriyoruz?</h2>
+        <p>
+          Önemli göstergeleri simge dizileriyle gösteriyoruz: her simge belirli bir miktara eşittir ve miktar arttıkça
+          simgelerin sayısı artar. Böylece bugünün rakamını geçen yılla bir bakışta karşılaştırabilirsiniz. Her
+          rakamın yanında hangi saate ait olduğu yazar.
+        </p>
+        <h2>Yasal uyarı</h2>
+        <p>
+          Bu sitede yer alan haber, yorum ve bilgiler yatırım danışmanlığı kapsamında değildir ve yatırım tavsiyesi
+          niteliği taşımaz. Yatırım kararlarınızı kendi araştırmanıza dayanarak ve gerekirse yetkili kuruluşlardan
+          destek alarak vermeniz önerilir.
+        </p>
+        <h2>Yayın İlkeleri</h2>
+        <p>
+          Editoryal bağımsızlık, çıkar çatışması politikamız, yapay zekâ kullanım standartlarımız ve şeffaflık ilkelerimiz hakkında detaylı bilgi için <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfamızı inceleyebilirsiniz.
+        </p>
+        <h2>İletişim</h2>
+        <p>Haber önerileriniz ve düzeltme talepleriniz için <a href="mailto:iletisim@finfolis.com">iletisim@finfolis.com</a> adresine yazabilirsiniz.</p>
+      </div>
+    </article>
+  </div>
+</Base>
