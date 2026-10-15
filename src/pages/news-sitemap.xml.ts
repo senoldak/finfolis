@@ -3,6 +3,7 @@
 import { SITE } from '../lib/site';
 import { getNews, newsUrl } from '../lib/news';
 import { SITE_URL } from '../lib/seo';
+import { indekslenir } from '../lib/uzunluk.mjs';
 
 const PENCERE_MS = 48 * 60 * 60 * 1000;
 
@@ -11,7 +12,10 @@ const xml = (s: string) =>
 
 export async function GET() {
   const simdi = Date.now();
-  const news = (await getNews()).filter((h) => simdi - h.data.date.valueOf() <= PENCERE_MS).slice(0, 1000);
+  // Kısa (noindex) yazılar haritaya girmez; kural src/lib/uzunluk.mjs'te, haber sayfasıyla ortak.
+  const news = (await getNews())
+    .filter((h) => simdi - h.data.date.valueOf() <= PENCERE_MS && indekslenir(h.body))
+    .slice(0, 1000);
   const urls = news
     .map(
       (h) => `  <url>

@@ -7,9 +7,14 @@
 //   5. Son kesin kontrol. Kalan her sorun {dur} döndürür; haber yayınlanmaz.
 import { gemini as varsayilanGemini } from './lib.mjs';
 import { dogrula } from './dogrula.mjs';
-import { duzelt, YAZI_SEMASI, KURALLAR } from './yazar.mjs';
+import { duzelt, uzat, YAZI_SEMASI, KURALLAR } from './yazar.mjs';
 import { ilgiliKisim } from './kaynak-kirp.mjs';
 import { gizliMedyaAdlari } from './gizli.mjs';
+import { kelimeSay } from '../../src/lib/uzunluk.mjs';
+
+// Gövdesi bu kelime sayısının altında kalan haber yayımlanmaz: kısa taslak önce bir kez kaynaktan genişletilir
+// (uzat), yine kısaysa durdurulur. Sitede 120 kelimenin altı zaten noindex olur (src/lib/uzunluk.mjs).
+export const EN_AZ_KELIME = 200;
 
 const KARAR_SEMASI = {
   type: 'object',
@@ -253,7 +258,7 @@ ${yazi.govde}`,
 }
 
 // Döner: {yazi} ya da {dur: sebep}. dur doluysa haber yayınlanmaz.
-export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini } = {}) {
+export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enAzKelime = EN_AZ_KELIME } = {}) {
   const g = { gemini };
   let yazi = seridiSuz(taslak, aday);
   // düzeltme ve redaksiyon yalnızca baslik/spot/govde döndürür; şerit değişmeden taşınır
@@ -263,6 +268,9 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini } = 
     ...(yazi.tablo ? { tablo: yazi.tablo } : {}),
     ...(yazi.grafik ? { grafik: yazi.grafik } : {}),
   };
+  const kisa = (y) => kelimeSay(y.govde) < enAzKelime;
+  // Kısa taslak bir kez kaynaktan genişletilir; genişletilmiş metin de aşağıdaki denetimlerden geçer.
+  if (kisa(yazi)) yazi = { ...(await uzat(yazi, aday, kelimeSay(yazi.govde), g)), ...serit };
   // Kontrol, sorun varsa düzeltme; en fazla 2 düzeltme turu, ardından son bir kontrol.
   for (let tur = 0; ; tur++) {
     // basit sorunlar (göreli zaman, yayın kuruluşu atfı) önce yerelde düzelir; Gemini'ye yalnızca kalanlar gider
@@ -276,13 +284,16 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini } = 
   // Redaksiyon da kontrol masasından geçmeli; hatasız onay almazsa onaylı önceki hâl kullanılır.
   const duzenli0 = await redaksiyon(yazi, g);
   const duzenli = duzenli0 === yazi ? yazi : yerelDuzelt({ ...duzenli0, ...serit });
-  if (duzenli !== yazi && bicimKorunur(yazi, duzenli) && kesinKontrol(duzenli, aday).length === 0) {
+  // Redaksiyon metni en az uzunluğun altına indiremez.
+  if (duzenli !== yazi && bicimKorunur(yazi, duzenli) && (!kisa(duzenli) || kisa(yazi)) && kesinKontrol(duzenli, aday).length === 0) {
     const karar = await kontrolMasasi(duzenli, aday, g);
     if (karar.onay) yazi = duzenli;
   }
 
   const kalan = kesinKontrol(yazi, aday);
   if (kalan.length) return { dur: `Son kontrol: ${kalan.join('; ')}` };
+  // kisa: olay ayrı haber olmaz ama bültende tek satır olabilir (bkz. hent-haberler.mjs).
+  if (kisa(yazi)) return { dur: `Metin kısa: ${kelimeSay(yazi.govde)} kelime (en az ${enAzKelime}); kaynak yeterli bilgi içermiyor`, kisa: true };
   return { yazi };
 }
 

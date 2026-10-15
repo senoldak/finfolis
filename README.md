@@ -43,7 +43,7 @@ node scripts/kapak/ornekler.mjs
 
 ## Haber botu
 
-Zamanlanmış bir GitHub Actions iş akışı (`.github/workflows/haberler.yml`) haberleri kendisi üretir. Kaynaklardan haberleri toplar, yayın kurulu aşamasından geçirir, her çalıştırmada bölgeli bir piyasa bülteni hazırlar ve gecikmeli gerçek piyasa verisini `src/data/piyasa.json`'a yazar. Örnek ya da uydurma veri asla kullanılmaz. Bot sonucu repoya commit'ler, Cloudflare siteyi yeniden derler.
+Zamanlanmış bir GitHub Actions iş akışı (`.github/workflows/haberler.yml`) haberleri kendisi üretir. Kaynaklardan haberleri toplar, yayın kurulu aşamasından geçirir, günde en fazla üç bölgeli piyasa bülteni (açılış, öğle, kapanış) hazırlar, son 72 saatte yayımlanmış bir olayı yeniden yazmaz (`scripts/haberler/tekrar.mjs`) ve gecikmeli gerçek piyasa verisini `src/data/piyasa.json`'a yazar. Örnek ya da uydurma veri asla kullanılmaz. Bot sonucu repoya commit'ler, Cloudflare siteyi yeniden derler.
 
 - **Zamanlama:** Oslo saatiyle 08:40, 10:40 … 22:40, 00:40, 02:40 (03:00–07:59 gece modu). Botu `saat/` klasöründeki Cloudflare Worker başlatır, çünkü GitHub'ın zamanlayıcısı çalışmaları geciktirip atlayabiliyor ve yaz/kış saatini izlemiyor (kurulum: `saat/README.md`). Actions sekmesinden elle de çalıştırılabilir (workflow_dispatch).
 - **Gerekli secret:** `GEMINI_API_KEY` (GitHub → Settings → Secrets and variables → Actions → Secrets).

@@ -15,30 +15,30 @@ function sahte({ duzelt }) {
     if (istem.includes('SORUNLAR')) return duzelt();
     return null; // redaksiyon: değişiklik yok
   };
-  return { gemini, cagrilar };
+  return { enAzKelime: 0, gemini, cagrilar };
 }
 
 test('uydurma rakam düzeltilir ve geçer', async () => {
   const { gemini } = sahte({ duzelt: () => iyi });
-  const r = await yayinKurulu(kotu, aday, { gemini });
+  const r = await yayinKurulu(kotu, aday, { enAzKelime: 0, gemini });
   assert.deepEqual(r, { yazi: iyi });
 });
 
 test('2 turdan sonra hâlâ yanlışsa dur', async () => {
   const { gemini } = sahte({ duzelt: () => kotu });
-  const r = await yayinKurulu(kotu, aday, { gemini });
+  const r = await yayinKurulu(kotu, aday, { enAzKelime: 0, gemini });
   assert.ok(r.dur);
   assert.match(r.dur, /7,9/);
 });
 
 test('kontrol masası reddederse dur', async () => {
   const gemini = async ({ sema, istem }) => (sema.properties.onay ? { onay: false, sorunlar: ['Yatırım tavsiyesi var'] } : istem.includes('SORUNLAR') ? iyi : null);
-  const r = await yayinKurulu(iyi, aday, { gemini });
+  const r = await yayinKurulu(iyi, aday, { enAzKelime: 0, gemini });
   assert.match(r.dur, /tavsiye/);
 });
 
 test('Gemini yoksa dur', async () => {
-  const r = await yayinKurulu(iyi, aday, { gemini: async () => null });
+  const r = await yayinKurulu(iyi, aday, { enAzKelime: 0, gemini: async () => null });
   assert.ok(r.dur);
 });
 
@@ -52,21 +52,21 @@ function redStub(redCikti, masa = () => ({ onay: true, sorunlar: [] })) {
 }
 
 test('redaksiyon uydurma rakam eklerse önceki metin yayınlanır', async () => {
-  const r = await yayinKurulu(iyi, aday, { gemini: redStub({ ...iyi, spot: iyi.spot + ' Oran 9,9 oldu.' }) });
+  const r = await yayinKurulu(iyi, aday, { enAzKelime: 0, gemini: redStub({ ...iyi, spot: iyi.spot + ' Oran 9,9 oldu.' }) });
   assert.deepEqual(r, { yazi: iyi });
 });
 
 test('redaksiyon nedensellik ekler, masa reddederse önceki metin yayınlanır', async () => {
   const ekli = { ...iyi, govde: iyi.govde + ' Bu yüzden borsa yükseldi.' };
   const masa = (istem) => (istem.includes('Bu yüzden') ? { onay: false, sorunlar: ['Kaynaksız neden-sonuç'] } : { onay: true, sorunlar: [] });
-  const r = await yayinKurulu(iyi, aday, { gemini: redStub(ekli, masa) });
+  const r = await yayinKurulu(iyi, aday, { enAzKelime: 0, gemini: redStub(ekli, masa) });
   assert.deepEqual(r, { yazi: iyi });
 });
 
 test('masa önce reddeder, bir düzeltmeden sonra onaylar', async () => {
   let n = 0;
   const masa = () => (n++ === 0 ? { onay: false, sorunlar: ['Atıf yok'] } : { onay: true, sorunlar: [] });
-  const r = await yayinKurulu({ ...iyi, baslik: 'Eski' }, aday, { gemini: redStub(null, masa) });
+  const r = await yayinKurulu({ ...iyi, baslik: 'Eski' }, aday, { enAzKelime: 0, gemini: redStub(null, masa) });
   assert.deepEqual(r, { yazi: iyi });
 });
 
@@ -85,30 +85,30 @@ const onayGemini = async ({ sema }) => (sema.properties.onay ? { onay: true, sor
 test('şeritteki kaynakta olmayan rakam şeritten düşer, haber durmaz', async () => {
   const r = await yayinKurulu(
     seritliYazi({ rakamlar: [{ etiket: 'Faiz', deger: '4,25' }, { etiket: 'Enflasyon', deger: '7,9' }] }),
-    seritAday, { gemini: onayGemini });
+    seritAday, { enAzKelime: 0, gemini: onayGemini });
   assert.ok(!r.dur);
   assert.deepEqual(r.yazi.rakamlar, [{ etiket: 'Faiz', deger: '4,25' }]);
 });
 
 test('şerit en fazla 4 rakam', async () => {
   const dort = ['4,25', '4,25', '4,25', '4,25', '4,25'].map((deger, i) => ({ etiket: 'E' + 'abcde'[i], deger }));
-  const r = await yayinKurulu(seritliYazi({ rakamlar: dort }), seritAday, { gemini: onayGemini });
+  const r = await yayinKurulu(seritliYazi({ rakamlar: dort }), seritAday, { enAzKelime: 0, gemini: onayGemini });
   assert.equal(r.yazi.rakamlar.length, 4);
 });
 
 test('sirada.tarih kaynakta yoksa sirada silinir', async () => {
-  const r = await yayinKurulu(seritliYazi({ sirada: { tarih: '17 Aralık 2026', olay: 'Toplantı' } }), seritAday, { gemini: onayGemini });
+  const r = await yayinKurulu(seritliYazi({ sirada: { tarih: '17 Aralık 2026', olay: 'Toplantı' } }), seritAday, { enAzKelime: 0, gemini: onayGemini });
   assert.ok(!r.dur);
   assert.equal(r.yazi.sirada, undefined);
 });
 
 test('sirada.tarih kaynakta varsa (İngilizce biçimde de) kalır', async () => {
-  const r = await yayinKurulu(seritliYazi({ sirada: { tarih: '12 Kasım 2026', olay: 'Toplantı' } }), { ...seritAday, kaynakMetni: seritAday.kaynakMetni.replace('(12 Kasım 2026)', '') }, { gemini: onayGemini });
+  const r = await yayinKurulu(seritliYazi({ sirada: { tarih: '12 Kasım 2026', olay: 'Toplantı' } }), { ...seritAday, kaynakMetni: seritAday.kaynakMetni.replace('(12 Kasım 2026)', '') }, { enAzKelime: 0, gemini: onayGemini });
   assert.equal(r.yazi.sirada.olay, 'Toplantı');
 });
 
 test('şerit ve sirada metni kesin kontrole girer (kaynakta olmayan rakam durdurur)', async () => {
-  const r = await yayinKurulu(seritliYazi({ sirada: { tarih: '12 Kasım 2026', olay: 'Faiz 9,9 olabilir' } }), seritAday, { gemini: onayGemini });
+  const r = await yayinKurulu(seritliYazi({ sirada: { tarih: '12 Kasım 2026', olay: 'Faiz 9,9 olabilir' } }), seritAday, { enAzKelime: 0, gemini: onayGemini });
   assert.ok(!r.dur);
   assert.equal(r.yazi.sirada, undefined);
 });
@@ -116,7 +116,7 @@ test('şerit ve sirada metni kesin kontrole girer (kaynakta olmayan rakam durdur
 test('etiketteki kaynakta olmayan rakam şeritten düşer', async () => {
   const r = await yayinKurulu(
     seritliYazi({ rakamlar: [{ etiket: 'Faiz', deger: '4,25' }, { etiket: '10 yıllık tahvil', deger: '4,25' }] }),
-    seritAday, { gemini: onayGemini });
+    seritAday, { enAzKelime: 0, gemini: onayGemini });
   assert.ok(!r.dur);
   assert.deepEqual(r.yazi.rakamlar, [{ etiket: 'Faiz', deger: '4,25' }]);
 });
@@ -165,8 +165,33 @@ test('yayinKurulu: göreli zaman yerelde düzelir, Gemini düzeltme çağrılmaz
     if (sema.properties.onay) return { onay: !/bugün/i.test(istem.split('TASLAK:')[1]), sorunlar: [] };
     return null;
   };
-  const r = await yayinKurulu({ ...iyi, spot: 'Bugün ' + iyi.spot }, aday, { gemini });
+  const r = await yayinKurulu({ ...iyi, spot: 'Bugün ' + iyi.spot }, aday, { enAzKelime: 0, gemini });
   assert.ok(r.yazi);
   assert.equal(r.yazi.spot, iyi.spot);
   assert.ok(!cagrilar.some((c) => c.includes('SORUNLAR')));
+});
+
+// En az uzunluk: kısa taslak bir kez kaynaktan genişletilir; yine kısaysa durur.
+const uzunGovde = Array.from({ length: 6 }, () => 'Fed’e göre aralık yüzde 4,25 ile 4,5 arasında kaldı ve kurul kararını oy birliğiyle verdi, toplantı tutanağı da üç hafta sonra yayımlanacak.').join(' ')
+  .concat(' ', 'Kurul enflasyonun hedefin üzerinde kaldığını, istihdamın ise güçlü seyrettiğini belirtti. '.repeat(8));
+
+test('kısa taslak genişletilir; genişletme yeterliyse yayınlanır', async () => {
+  const istemler = [];
+  const gemini = async ({ sema, istem }) => {
+    istemler.push(istem);
+    if (sema.properties.onay) return { onay: true, sorunlar: [] };
+    if (istem.includes('genişlet')) return { ...iyi, govde: uzunGovde };
+    return null;
+  };
+  const r = await yayinKurulu(iyi, aday, { gemini });
+  assert.ok(r.yazi, r.dur);
+  assert.equal(r.yazi.govde, uzunGovde);
+  assert.ok(istemler.some((i) => i.includes('250-400 kelime')));
+});
+
+test('genişletme sonrası da kısaysa dur (kisa işaretli)', async () => {
+  const gemini = async ({ sema }) => (sema.properties.onay ? { onay: true, sorunlar: [] } : null);
+  const r = await yayinKurulu(iyi, aday, { gemini });
+  assert.match(r.dur, /Metin kısa/);
+  assert.equal(r.kisa, true);
 });

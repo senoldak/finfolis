@@ -8,7 +8,7 @@ export const YAZI_SEMASI = {
   properties: {
     baslik: { type: 'string' },
     spot: { type: 'string', description: 'En fazla 2 cümle' },
-    govde: { type: 'string', description: 'Markdown gövde; 2-4 cümle' },
+    govde: { type: 'string', description: 'Markdown gövde; 250-400 kelime, 3-5 paragraf, yalnızca kaynaktaki bilgiler' },
     rakamlar: {
       type: 'array',
       maxItems: 4,
@@ -77,7 +77,7 @@ export function yazarIstemi(aday) {
   return `Aşağıdaki kaynaktan Türkçe bir haber yaz.
 - baslik: olanı doğru ve abartısız anlatan kısa başlık. Yalnızca ilk kelime ve özel adlar büyük harfle başlar ("Amerikalıların borç ödemelerinde büyük artış"; "Amerikalıların Borç Ödemelerinde Büyük Artış" değil). Sonda nokta yok.
 - spot: en fazla 2 cümle; ne oldu ve ana rakam.
-- govde: Markdown, 2-4 cümle: ne olduğunu ve ana rakamı anlat, gerekirse bir cümleyle bağlam ver. Ara başlık koyma. Kaynak bağlantısı ekleme, otomatik eklenir.
+- govde: Markdown, 250-400 kelime, 3-5 kısa paragraf. Sırayla: (1) ne oldu; (2) okur ve piyasalar için anlamı, kaynağın verdiği bağlam ve arka planla; (3) ana rakam, ait olduğu tarih ve açıklayan kurum ya da kişi. Yalnızca KAYNAK'taki bilgileri kullan: kaynak bu uzunluğa yetmiyorsa uydurma, tekrar ya da dolgu cümlesi yazma. Ara başlık koyma. Kaynak bağlantısı ekleme, otomatik eklenir.
 - rakamlar: en fazla 4 öğe ({etiket, deger}); yalnızca kaynakta aynen geçen rakamlar, Türkçe biçimde. Emin değilsen boş bırak.
 - sirada: {tarih, olay}; yalnızca kaynakta bir sonraki gelişmenin tarihi açıkça varsa ("12 Kasım 2026" biçiminde). Yoksa alanı hiç ekleme.
 - tablo: {baslik, sutunlar, satirlar}; yalnızca kaynak birden çok öğeyi (ülke, şirket, gösterge, dönem) sayısal olarak karşılaştırıyorsa, en fazla 8 satır. Hücre sayıları kaynakta aynen geçmeli. Emin değilsen alanı ekleme.
@@ -173,6 +173,27 @@ const yaziMi = (r) => {
 // Döner: {baslik, spot, govde} ya da null (anahtar yok / boş yanıt).
 export async function yaz(aday, { gemini = varsayilanGemini } = {}) {
   return yaziMi(await gemini({ sistem: SISTEM, istem: yazarIstemi(aday), sema: YAZI_SEMASI }));
+}
+
+// Kısa taslağı yalnızca kaynaktaki ek bilgilerle genişletir (bkz. yayin-kurulu.mjs, EN_AZ_KELIME).
+// Kaynakta ek bilgi yoksa model taslağı aynen döndürür; başarısızsa taslak aynen döner. Sonuç yine denetimden geçer.
+export async function uzat(taslak, aday, kelime, { gemini = varsayilanGemini } = {}) {
+  const r = await gemini({
+    sistem: SISTEM,
+    sema: YAZI_SEMASI,
+    istem: `Taslağın gövdesi ${kelime} kelime; okur ne olduğunu, neden önemli olduğunu ve ana rakamı tarihi ve kaynağıyla birlikte anlayabilmeli. Gövdeyi 250-400 kelimeye, 3-5 kısa paragrafa genişlet.
+Yalnızca KAYNAK'taki bilgileri ekle: bağlam, arka plan, önceki dönem rakamları, açıklayan kurumun değerlendirmesi (kuruma atfederek). Kaynakta olmayan bilgi, rakam, tahmin ya da yorum ekleme; aynı bilgiyi tekrar etme, dolgu cümlesi yazma. Kaynakta ek bilgi yoksa taslağı aynen döndür. Başlık ve spotu değiştirme, ara başlık koyma.
+
+KAYNAK:
+${ilgiliKisim(aday.kaynakMetni, `${taslak.baslik}\n${taslak.spot}\n${taslak.govde}`, 14000)}
+
+TASLAK:
+Başlık: ${taslak.baslik}
+Spot: ${taslak.spot}
+
+${taslak.govde}`,
+  });
+  return yaziMi(r) ?? taslak;
 }
 
 // Yayın kurulunun bulduğu sorunlara göre taslağı düzelttirir; başarısızsa taslak aynen döner.

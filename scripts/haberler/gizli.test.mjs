@@ -4,7 +4,7 @@ import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { adresiSil, coz, gizliKaynaklar, gizliMedyaAdlari, kaynakIzi, kaynakKodu, ozet, sifrele } from './gizli.mjs';
-import { hafizaAc, hafizaKapat } from './hent-haberler.mjs';
+import { hafizaAc, hafizaKapat, yayinAc, yayinKapat } from './hent-haberler.mjs';
 
 const A = Buffer.alloc(32, 1);
 const B = Buffer.alloc(32, 2);
@@ -55,4 +55,14 @@ test('olay hafızası: özet şifreli saklanır, değişmeyen kayıt yeniden şi
   const acik = hafizaAc(kapali);
   assert.equal(acik[0].ozet, 'Oil prices jump');
   assert.equal(hafizaKapat(acik)[0].ozetSifreli, kapali[0].ozetSifreli);
+});
+
+test('tekrar hafızası: kaynak başlık ve özetleri şifreli saklanır', () => {
+  const kayit = { slug: 'petrol-yukseldi', baslik: 'Petrol yükseldi', kaynaklar: [{ baslik: 'Oil prices jump', ozet: 'Brent rose' }], zaman: '2026-10-15T00:00:00Z' };
+  const kapali = yayinKapat([kayit]);
+  assert.equal(kapali[0].kaynaklar, undefined);
+  assert.ok(!JSON.stringify(kapali).includes('Oil'));
+  const acik = yayinAc(kapali);
+  assert.deepEqual(acik[0].kaynaklar, kayit.kaynaklar);
+  assert.equal(yayinKapat(acik)[0].kaynaklarSifreli, kapali[0].kaynaklarSifreli);
 });

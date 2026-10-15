@@ -17,7 +17,8 @@ import { yaz as yazarYaz } from './yazar.mjs';
 import { yayinKurulu as kurul } from './yayin-kurulu.mjs';
 import * as bultenModulu from './bulten.mjs';
 import { karneler as varsayilanKarneler } from './karne.mjs';
-import { BOLGELER } from './bulten.mjs';
+import { BOLGELER, dilimDolu, dilimKaydet } from './bulten.mjs';
+import { tekrarlariAyikla, hafizayaEkle, hafizaTohumla } from './tekrar.mjs';
 import { yaziYaz, gemini as varsayilanGemini } from './lib.mjs';
 import { kaynakKapagi, rakamKapagi, haberKapagi } from '../kapak/kapak.mjs';
 import { gorunur } from '../../src/lib/gorunur.mjs';
@@ -109,6 +110,23 @@ export function hafizaKapat(olaylar = []) {
   if (!anahtarVar()) return olaylar;
   return olaylar.map(({ ozet, ozetSifreli, ...h }) => ({ ...h, ozetSifreli: ozetSifreli ?? sifrele(ozet ?? '') }));
 }
+// Tekrar hafızasındaki (tekrar.mjs) kaynak başlık ve özetleri de şifreli saklanır. Anahtar yoksa düz metin
+// yazılmaz: kaynak metinleri atılır, kayıt yalnızca slug, kendi başlığımız ve zamanla kalır.
+export function yayinAc(yayinlar = []) {
+  return yayinlar.map(({ kaynaklarSifreli, ...h }) => {
+    if (kaynaklarSifreli === undefined) return h;
+    try {
+      return { ...h, kaynaklar: anahtarVar() ? coz(kaynaklarSifreli) : [], kaynaklarSifreli };
+    } catch {
+      return { ...h, kaynaklar: [] };
+    }
+  });
+}
+export function yayinKapat(yayinlar = []) {
+  return yayinlar.map(({ kaynaklar, kaynaklarSifreli, ...h }) =>
+    anahtarVar() ? { ...h, kaynaklarSifreli: kaynaklarSifreli ?? sifrele(kaynaklar ?? []) } : h,
+  );
+}
 
 export async function jsonOku(dosya, varsayilan) {
   try {
@@ -146,6 +164,9 @@ export async function calistir({
   durum.sonBulten ??= null;
   durum.kaynaklar ??= {};
   durum.olaylar = hafizaAc(durum.olaylar ?? []);
+  // Tekrar hafızası boşsa son 72 saatin yayımlanmış haberlerinden tohumlanır (tekrar.mjs).
+  durum.yayinlar = yayinAc(durum.yayinlar ?? []);
+  if (!durum.yayinlar.length) durum.yayinlar = await hafizaTohumla(rot, simdi);
   const iso = simdi.toISOString();
   const piyasaDosyasi = path.join(rot, 'src/data/piyasa.json');
 
@@ -226,6 +247,11 @@ export async function calistir({
     return sonuc;
   }
   for (const a of bilinen) durum.gorulen[a.id] = { zaman: iso };
+  // Son 72 saatte yayımlanan bir haberle aynı olay (tekrar.mjs): yazılmaz, bültene girmez, görüldü sayılır.
+  for (const t of tekrarlariAyikla(yeni, durum.yayinlar ?? [], simdi)) {
+    for (const a of t.olay.adaylar) durum.gorulen[a.id] = { zaman: iso };
+    log(`  - ${t.olay.id}: tekrar (${t.neden}), ${t.slug} ile aynı olay`);
+  }
   yeni.sort((a, b) => (b.onem ?? 0) - (a.onem ?? 0));
 
   // 5. Terfi eden olayları yaz, denetle, kaydet
@@ -261,7 +287,7 @@ export async function calistir({
       const r = await yayinKurulu(taslak, o, {});
       if (r.dur) {
         for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso };
-        dislanan.add(o);
+        if (!r.kisa) dislanan.add(o); // yalnızca kısa kaldığı için durana bültende yer var
         hatalar.push(`${o.id} «${o.baslik}»: yayınlanmadı, ${r.dur}`);
         log(`  - ${o.id}: durduruldu (${r.dur})`);
         continue;
@@ -295,7 +321,8 @@ export async function calistir({
   // 6. Bülten: yazılan haberler (bizim linkimizle) + terfi etmeyen olaylar.
   // Bülten yazılmazsa terfi etmeyen olayların adayları görülmedi kalır ve sonraki çalıştırmada birikir.
   const bultenOlaylari = yeni.filter((o) => !dislanan.has(o));
-  sonuc.bultenGerekli = bulten.bultenGerekli(bultenOlaylari.length);
+  // Günde en fazla üç bülten: bu dilimin (açılış/öğle/kapanış) bülteni yazıldıysa olaylar sonraki dilime kalır.
+  sonuc.bultenGerekli = bulten.bultenGerekli(bultenOlaylari.length) && !dilimDolu(durum, simdi);
   let bultendekiler = [];
   if (sonuc.bultenGerekli && butceBitti()) {
     log('  ! çalıştırma bütçesi aşıldı; bülten sonraki çalıştırmaya kaldı');
@@ -305,6 +332,7 @@ export async function calistir({
       if (b) {
         const slug = await yaziYaz(rot, b.yazi);
         durum.sonBulten = b.anlik;
+        dilimKaydet(durum, simdi);
         sonuc.bultenYazildi = true;
         sonuc.yazilar.push(slug);
         // Tavan dışı kalanlar da görüldü sayılır ve hafızaya girer: başka kaynaktan gelen kopyaları geri dönmesin.
@@ -336,6 +364,7 @@ export async function calistir({
   // 7. Olay hafızası ve temizlik: buradaki bir hata bu çalıştırmanın gorulen güncellemelerini kaybettirmez.
   try {
     durum.olaylar = olaylar.hafizaGuncelle(durum.olaylar, [...new Set([...yazilan, ...bultendekiler])], simdi);
+    durum.yayinlar = hafizayaEkle(durum.yayinlar, yazilan, simdi);
   } catch (e) {
     hatalar.push(`olay hafızası: ${e.message}`);
     console.error(`  ! olay hafızası: ${e.message}`);
@@ -355,7 +384,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const kuru = process.argv.includes('--kuru');
   const s = await calistir({ kuru });
   if (!kuru) {
-    await writeFile(DURUM_DOSYASI, JSON.stringify({ ...s.durum, olaylar: hafizaKapat(s.durum.olaylar) }, null, 2) + '\n');
+    await writeFile(DURUM_DOSYASI, JSON.stringify({ ...s.durum, olaylar: hafizaKapat(s.durum.olaylar), yayinlar: yayinKapat(s.durum.yayinlar) }, null, 2) + '\n');
     const adet = s.adet + (s.bultenYazildi ? 1 : 0);
     console.log(`Bitti: ${s.adet} yeni haber${s.bultenYazildi ? ', 1 bülten' : ''}.`);
     if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `adet=${adet}\n`);

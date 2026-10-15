@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { readdirSync, readFileSync } from 'node:fs';
+import { indekslenir } from './src/lib/uzunluk.mjs';
 
 // Site haritasındaki <lastmod> için yazı tarihleri: haber adresi → tarih, kategori → en yeni tarih.
 // Ön bilgi doğrudan dosyadan okunur (yapılandırma, içerik koleksiyonuna erişemez). Taslaklar atlanır.
@@ -9,6 +10,7 @@ function tarihler() {
   const kok = './src/content/haberler';
   const haber = new Map();
   const kategori = new Map();
+  const kisa = new Set();
   let enYeni;
   for (const ad of readdirSync(kok)) {
     let md;
@@ -22,12 +24,14 @@ function tarihler() {
     if (alan('draft') === 'true') continue;
     const d = new Date(alan('date') ?? '');
     if (Number.isNaN(d.valueOf())) continue;
-    haber.set(ad, d);
+    // Kısa yazı (noindex) haritaya girmez; kural haber sayfasıyla ortak (src/lib/uzunluk.mjs).
+    if (indekslenir(md)) haber.set(ad, d);
+    else kisa.add(ad);
     const k = alan('category');
     if (k && alan('tur') !== 'bulten' && (!kategori.get(k) || kategori.get(k) < d)) kategori.set(k, d);
     if (!enYeni || enYeni < d) enYeni = d;
   }
-  return { haber, kategori, enYeni };
+  return { haber, kategori, enYeni, kisa };
 }
 
 const T = tarihler();
@@ -41,6 +45,8 @@ export default defineConfig({
       filter: (page) => {
         const yol = new URL(page).pathname;
         if (/\/(404|admin)(\/|$)/.test(yol)) return false;
+        const h = yol.match(/^\/haber\/([^/]+)\/$/);
+        if (h && T.kisa.has(decodeURIComponent(h[1]))) return false;
         const k = yol.match(/^\/kategori\/([^/]+)\/$/);
         return !k || T.kategori.has(k[1]);
       },

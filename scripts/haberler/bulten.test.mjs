@@ -28,7 +28,7 @@ test('bultenGerekli: 3 ve üstü', () => {
 
 test('başlık biçimi', async () => {
   const r = await bultenYaz([olay('a', 'abd'), olay('b', 'abd'), olay('c', 'abd')], piyasa, { gemini: sahteGemini(iyi), simdi });
-  assert.equal(r.yazi.baslik, 'Piyasa bülteni · 11 Ekim');
+  assert.equal(r.yazi.baslik, 'Piyasa bülteni · 11 Ekim 2026, öğle');
   assert.equal(r.yazi.tur, 'bulten');
   assert.equal(r.yazi.kategori, 'piyasalar');
   assert.deepEqual(r.anlik.degerler, { dolar: 41.2 });
@@ -157,4 +157,26 @@ test('bütçe bittiyse tek tek kontrol yapılmaz, bülten null', async () => {
   const r = await bultenYaz(olaylar, piyasa, { gemini: g, simdi, butceBitti: () => true });
   assert.equal(r, null);
   assert.equal(kontrol, 1);
+});
+
+test('bultenDilimi: İstanbul saatine göre açılış, öğle, kapanış; gece önceki günün kapanışı', async () => {
+  const { bultenDilimi } = await import('./bulten.mjs');
+  assert.equal(bultenDilimi(new Date('2026-10-14T06:40:00Z')).anahtar, '2026-10-14:acilis'); // 09:40
+  assert.equal(bultenDilimi(new Date('2026-10-14T10:40:00Z')).anahtar, '2026-10-14:ogle'); // 13:40
+  assert.equal(bultenDilimi(new Date('2026-10-14T16:40:00Z')).anahtar, '2026-10-14:kapanis'); // 19:40
+  const gece = bultenDilimi(new Date('2026-10-14T22:40:00Z')); // 15 Ekim 01:40
+  assert.equal(gece.anahtar, '2026-10-14:kapanis');
+  assert.equal(`${gece.gun} ${gece.ay} ${gece.yil}, ${gece.ad}`, '14 Ekim 2026, kapanış');
+});
+
+test('dilimDolu / dilimKaydet: aynı dilimde ikinci bülten yok, hafıza sınırlı', async () => {
+  const { dilimDolu, dilimKaydet, DILIM_HAFIZA } = await import('./bulten.mjs');
+  const durum = {};
+  const t = new Date('2026-10-14T06:40:00Z');
+  assert.equal(dilimDolu(durum, t), false);
+  dilimKaydet(durum, t);
+  assert.equal(dilimDolu(durum, new Date('2026-10-14T08:40:00Z')), true); // 11:40, yine açılış
+  assert.equal(dilimDolu(durum, new Date('2026-10-14T10:40:00Z')), false); // öğle
+  for (let i = 0; i < 20; i++) dilimKaydet(durum, new Date(t.getTime() + i * 6 * 3600e3));
+  assert.equal(durum.bultenDilimleri.length, DILIM_HAFIZA);
 });

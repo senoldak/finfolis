@@ -918,6 +918,19 @@ main {
   color: var(--ink);
 }
 
+/* Bot yazılarında yapay zekâ üretim notu: sakin, uyarı değil bilgi. */
+.uretim-notu {
+  margin: 40px 0 0;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+
+.uretim-notu + .tavsiye-degil {
+  margin-top: 16px;
+}
+
 .paylas {
   display: flex;
   flex-wrap: wrap;

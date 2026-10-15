@@ -131,6 +131,8 @@ export async function yaziYaz(rot, yazi) {
     `date: ${yazi.tarih.toISOString()}`,
     `category: ${y(yazi.kategori)}`,
     `tur: ${y(yazi.tur ?? 'haber')}`,
+    // Bot yazısı işareti: sitede yapay zekâ üretim notu gösterilir (panelden girilen yazılarda author alanı olur).
+    'uretim: "bot"',
   ];
   const kaynaklar = yazi.kaynaklar ?? [];
   if (kaynaklar.length) {

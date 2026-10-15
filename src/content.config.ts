@@ -17,7 +17,9 @@ const haberler = defineCollection({
       coverAlt: z.string().optional(),
       // false: kapak başlığı/spotu tekrar eden metin kartı; sitede gösterilmez, yalnızca og:image ve Telegram için.
       coverSitede: z.boolean().default(true),
-      author: z.string().default('finfolis'),
+      // Panelden girilen yazılarda yazar alanı vardır; haber botu yazar yazmaz (uretim: bot). Yazarsız yazı bot yazısı sayılır.
+      author: z.string().optional(),
+      uretim: z.enum(['bot', 'editor']).optional(),
       featured: z.boolean().default(false),
       breaking: z.boolean().default(false),
       draft: z.boolean().default(false),

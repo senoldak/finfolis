@@ -22,11 +22,12 @@ test('anahtar yoksa null', async () => {
   assert.equal(await yaz({ baslik: 'x', kaynakMetni: 'y' }, { gemini: async () => null }), null);
 });
 
-test('yazarIstemi "Neden önemli" içermez ve 2-4 cümle ister', async () => {
+test('yazarIstemi "Neden önemli" ara başlığı içermez ve 250-400 kelime ister', async () => {
   const { yazarIstemi, YAZI_SEMASI } = await import('./yazar.mjs');
   const istem = yazarIstemi({ baslik: 'x', kaynakMetni: 'y', kaynaklar: [] });
   assert.ok(!/neden önemli/i.test(istem));
-  assert.match(istem, /2-4 cümle/);
+  assert.match(istem, /250-400 kelime/);
+  assert.match(istem, /uydurma/);
   assert.ok(YAZI_SEMASI.properties.rakamlar && YAZI_SEMASI.properties.sirada);
   assert.deepEqual(YAZI_SEMASI.required, ['baslik', 'spot', 'govde']);
 });

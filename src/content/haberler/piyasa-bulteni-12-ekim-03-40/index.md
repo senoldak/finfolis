@@ -1,5 +1,5 @@
 ---
-title: "Piyasa bülteni · 12 Ekim 03:40"
+title: "Piyasa bülteni · 11 Ekim 2026, kapanış"
 description: "Önceki bültenden bu yana öne çıkan gelişmeler, bölge bölge."
 date: 2026-10-12T00:40:54.839Z
 category: "piyasalar"
@@ -33,7 +33,7 @@ coverAlt: "03:40 piyasa bülteninin öne çıkan başlıkları"
 
 ## Küresel
 
-- **Ortadoğu ve Petrol Piyasası:** Ortadoğu'daki çatışmalar ve Suudi Arabistan ile Hürmüz Boğazı yakınlarındaki tanker saldırıları petrol fiyatlarının yükselmesine neden oldu. Küster gösterge Brent ham petrolünün varil fiyatı yüzde 0,7 artışla 105,45 ABD dolarına ulaştı. ([Ayrıntı](https://finfolis.com/haber/orta-dogu-daki-catismalar-ve-petrol-fiyatlarindaki-hareketlilik/))
+- **Ortadoğu ve Petrol Piyasası:** Ortadoğu'daki çatışmalar ve Suudi Arabistan ile Hürmüz Boğazı yakınlarındaki tanker saldırıları petrol fiyatlarının yükselmesine neden oldu. Küster gösterge Brent ham petrolünün varil fiyatı yüzde 0,7 artışla 105,45 ABD dolarına ulaştı. ([Ayrıntı](https://finfolis.com/haber/orta-dogu-gerilimiyle-petrol-fiyatlarinda-yukselis/))
 
 ## Göstergeler
 

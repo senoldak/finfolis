@@ -1,4 +1,4 @@
-// Her çalıştırmada (Oslo saatiyle 08:40 … 02:40, 2 saatte bir) bölgeli piyasa bülteni: olay başına tek madde (Gemini, doğrulamalı), göstergeler veriden.
+// Günde en fazla üç (açılış, öğle, kapanış; bkz. bultenDilimi) bölgeli piyasa bülteni: olay başına tek madde (Gemini, doğrulamalı), göstergeler veriden.
 import { gemini as varsayilanGemini } from './lib.mjs';
 import { kontrolMasasi } from './yayin-kurulu.mjs';
 import { dogrula } from './dogrula.mjs';
@@ -56,14 +56,30 @@ const MADDE_SEMASI = {
 
 const TR_AY = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
 
-// Başlıkta saat yazılmaz (sunucu UTC'de çalışıyor, okur için yanıltıcı); yalnızca gün ve ay.
-function baslikTarih(simdi) {
-  const p = Object.fromEntries(
-    new Intl.DateTimeFormat('en-US', { timeZone: TZ, day: 'numeric', month: 'numeric' })
-      .formatToParts(simdi)
-      .map((x) => [x.type, x.value]),
+const istanbul = (t) =>
+  Object.fromEntries(
+    new Intl.DateTimeFormat('en-US', { timeZone: TZ, year: 'numeric', day: 'numeric', month: 'numeric', hour: 'numeric', hourCycle: 'h23' })
+      .formatToParts(t)
+      .map((x) => [x.type, Number(x.value)]),
   );
-  return { gun: Number(p.day), ay: TR_AY[Number(p.month) - 1] };
+
+// Günde en fazla üç bülten (İstanbul saatiyle): açılış 06-12, öğle 12-18, kapanış 18-06.
+// Gece yarısından sonraki çalıştırmalar bir önceki günün kapanış dilimine düşer. Her dilimde ilk uygun
+// çalıştırma bülteni yazar; yazılan dilimler durum.bultenDilimleri'nde tutulur (bkz. hent-haberler.mjs).
+export const DILIM_ADLARI = { acilis: 'açılış', ogle: 'öğle', kapanis: 'kapanış' };
+export function bultenDilimi(simdi) {
+  const { hour: saat } = istanbul(simdi);
+  const dilim = saat >= 6 && saat < 12 ? 'acilis' : saat >= 12 && saat < 18 ? 'ogle' : 'kapanis';
+  const p = istanbul(saat < 6 ? new Date(simdi.getTime() - 6 * 3600 * 1000) : simdi);
+  const iso = `${p.year}-${String(p.month).padStart(2, '0')}-${String(p.day).padStart(2, '0')}`;
+  return { anahtar: `${iso}:${dilim}`, dilim, ad: DILIM_ADLARI[dilim], gun: p.day, ay: TR_AY[p.month - 1], yil: p.year };
+}
+export const DILIM_HAFIZA = 12; // son 4 günün dilimleri
+
+// Bu dilimin bülteni yazıldı mı?
+export const dilimDolu = (durum, simdi) => (durum.bultenDilimleri ?? []).includes(bultenDilimi(simdi).anahtar);
+export function dilimKaydet(durum, simdi) {
+  durum.bultenDilimleri = [...(durum.bultenDilimleri ?? []), bultenDilimi(simdi).anahtar].slice(-DILIM_HAFIZA);
 }
 
 async function maddeleriYaz(olaylar, gemini) {
@@ -132,7 +148,8 @@ export async function bultenYaz(
   const gostergeler = (piyasa?.gostergeler ?? []).filter((g) => Number.isFinite(g.deger));
   if (gostergeler.length) bolumler.push(`## Göstergeler\n\n${gostergeler.map(gostergeSatiri).join('\n')}`);
 
-  const { gun, ay } = baslikTarih(simdi);
+  // Başlıkta saat yazılmaz (sunucu UTC'de çalışıyor); tarih ve dilim yazılır, böylece her bülten başlığı tektir.
+  const { gun, ay, yil, ad: dilimAdi } = bultenDilimi(simdi);
   const kaynaklar = [];
   for (const k of [...gostergeler.map((g) => g.kaynak), ...maddeler.flatMap((m) => m.olay.kaynaklar ?? [])]) {
     if (k?.url && !kaynaklar.some((x) => x.url === k.url)) kaynaklar.push({ ad: k.ad, url: k.url });
@@ -140,7 +157,7 @@ export async function bultenYaz(
   const ilk3 = [...maddeler].sort((a, b) => (b.olay.onem ?? 0) - (a.olay.onem ?? 0)).slice(0, 3).map((m) => m.etiket);
 
   const yazi = {
-    baslik: `Piyasa bülteni · ${gun} ${ay}`,
+    baslik: `Piyasa bülteni · ${gun} ${ay} ${yil}, ${dilimAdi}`,
     spot: 'Önceki bültenden bu yana öne çıkan gelişmeler, bölge bölge.',
     govde: bolumler.join('\n\n'),
     kategori: 'piyasalar',

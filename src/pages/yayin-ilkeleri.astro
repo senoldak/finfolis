@@ -46,17 +46,20 @@ import { SITE } from '../lib/site';
             ve şeffaf sahiplik yapımız kamuya açıktır.
           </li>
           <li>
-            <strong>Yazar Uzmanlığı (Author Expertise):</strong> İçeriklerimizi üreten analistlerin ve editörlerin finans,
-            ekonomi ve veri görselleştirme alanındaki uzmanlıkları, geçmiş deneyimleri ve biyografileri şeffafça sunulur.
+            <strong>Yazar Bilgisi (Author Expertise):</strong> Her yazıda kimin ya da neyin yazdığı belirtilir. Kısa haberler
+            ve bültenler yapay zekâ desteğiyle otomatik yazılır ve sayfalarında bu açıkça yazar; bu yazıların kişi olarak bir
+            yazarı yoktur. Editörün yazdığı analizlerde yazar adı yer alır. Yazar biyografisi sayfası henüz yoktur.
           </li>
           <li>
             <strong>İçerik Türü Etiketlemesi (Type of Work):</strong> Doğrudan veri haberi, piyasa bülteni, derinlemesine
             analiz veya eğitici rehber türleri birbirinden açıkça ayrıştırılır; yorum ile veri birbirine karıştırılmaz.
           </li>
           <li>
-            <strong>Kaynaklar ve Atıflar (Citations &amp; References):</strong> Analizlerimizde kullanılan tüm verilerin
-            kaynakları (TCMB, TÜİK, FED, BIST, SEC, Eurostat, Dünya Bankası vb.) açıkça gösterilir ve okurun birincil
-            kaynağa erişebilmesi sağlanır.
+            <strong>Kaynaklar ve Atıflar (Citations &amp; References):</strong> Haber resmî bir kurumun (merkez bankası,
+            SEC gibi düzenleyiciler) duyurusuna ya da kamuya açık bir veri kaynağına dayanıyorsa bu kaynağa bağlantı
+            verilir. Yurt dışı haber kaynaklarının açık metinlerinden yazılan haberlerde o yayın kuruluşunun adı ve
+            bağlantısı verilmez; metindeki bilgi ve görüşler açıklamayı yapan kişi ya da kuruma atfedilir. Bu nedenle her
+            haberde birincil kaynak bağlantısı bulunmaz. Piyasa göstergelerinde verinin kaynağı ve zamanı yazar.
           </li>
           <li>
             <strong>Yöntem ve Metodoloji (Methods):</strong> Karşılaştırmalı göstergelerimizin, oran hesaplamalarımızın
@@ -83,13 +86,18 @@ import { SITE } from '../lib/site';
         </p>
         <ul>
           <li>
-            <strong>İnsan Editoryal Sorumluluğu:</strong> Veri işleme, istatistiksel tarama veya içerik taslağı süreçlerinde
-            algoritmik veya yapay zekâ destekli araçlardan yararlanılsın ya da yararlanılmasın; nihai kontrol, editoryal onay
-            ve sorumluluk istisnasız insan editörlere aittir.
+            <strong>Otomatik Haber Üretimi ve Editoryal Sorumluluk:</strong> Kısa haberlerimiz ve piyasa bültenlerimiz,
+            resmî kurumların (merkez bankaları, SEC gibi düzenleyiciler) duyurularından, kamuya açık piyasa verilerinden ve
+            yurt dışı haber kaynaklarının herkese açık metinlerinden yapay zekâ desteğiyle otomatik olarak yazılır ve yayından önce bir insan editörün onayından
+            geçmez. Bunun yerine her yazı otomatik denetimlerden geçer: metindeki her rakam ve alıntı kaynak metinde
+            aranır, ayrı bir yapay zekâ denetimi atıf, neden-sonuç ve tavsiye dilini kontrol eder; denetimi geçemeyen
+            yazı yayımlanmaz. Analizleri editörümüz kendisi yazar. Yayımlanan tüm içeriğin sorumluluğu {SITE.name}'e
+            aittir; hata bildirimlerini editörümüz inceler ve düzeltmeleri yapar.
           </li>
           <li>
-            <strong>Veri Otomasyonu ve Şeffaf Etiketleme:</strong> Otomatik veri akışları (fiyat değişimleri, piyasa
-            göstergeleri vb.) veya yapay zekâ desteğiyle derlenen bölümler okuyucunun görebileceği şekilde açıkça etiketlenir.
+            <strong>Şeffaf Etiketleme:</strong> Yapay zekâ desteğiyle otomatik üretilen her haber ve bültenin sayfasında bu
+            durum açıkça belirtilir. Piyasa göstergeleri (fiyat değişimleri, kurlar vb.) otomatik veri akışlarından gelir
+            ve her rakamın hangi zamana ait olduğu yanında yazar.
           </li>
           <li>
             <strong>Sentetik Manipülasyondan Uzak Durma:</strong> Gerçekliği tahrif eden "deepfake", manipüle edilmiş grafikler

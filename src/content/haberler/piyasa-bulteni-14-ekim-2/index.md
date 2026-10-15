@@ -1,5 +1,5 @@
 ---
-title: "Piyasa bülteni · 14 Ekim"
+title: "Piyasa bülteni · 13 Ekim 2026, kapanış"
 description: "Önceki bültenden bu yana öne çıkan gelişmeler, bölge bölge."
 date: 2026-10-14T00:40:23.628Z
 category: "piyasalar"
@@ -25,10 +25,10 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## Asya
 
-- **Bank of America'ya Ceza:** ABD'li düzenleyiciler, kara para aklamayla mücadele kurallarının ihlal edilmesi nedeniyle Bank of America'ya 1,2 milyar dolardan fazla para cezası verdi. Açıklamanın ardından bankanın hisseleri yüzde 2,6 değer kaybetti. ([Ayrıntı](https://finfolis.com/haber/bank-of-america-ya-kara-para-aklama-ihlalleri-nedeniyle-ceza/))
+- **Bank of America'ya Ceza:** ABD'li düzenleyiciler, kara para aklamayla mücadele kurallarının ihlal edilmesi nedeniyle Bank of America'ya 1,2 milyar dolardan fazla para cezası verdi. Açıklamanın ardından bankanın hisseleri yüzde 2,6 değer kaybetti. ([Ayrıntı](https://finfolis.com/haber/bank-of-america-ya-kara-para-aklama-cezasi/))
 - **Singapur Para Politikası:** Singapur Para Otoritesi, para politikası duruşunu korurken İran savaşının getirdiği enerji fiyatı baskıları nedeniyle enflasyonun yüksek kalacağı uyarısında bulundu. Kurum, artan ithalat maliyetlerinin etkisini hafifletmek amacıyla daha güçlü bir para birimi politikası izliyor. ([Ayrıntı](https://finfolis.com/haber/singapur-merkez-bankasi-para-politikasini-sabit-tuttu/))
 - **SoftBank Borçlanması:** SoftBank, yapay zeka yatırımlarını finanse etmek amacıyla 11 milyar dolar tutarında rekor düzeyde tahvil ihraç etti. Şirket yöneticileri, değerleneceğine inandıkları varlıkları elden çıkarmamak için bu borçlanmaya gittiklerini belirtti. ([Ayrıntı](https://finfolis.com/haber/softbank-in-tahvil-ihraci/))
-- **Petrol Fiyatlarındaki Artış:** Orta Doğu'daki saldırıların Basra Körfezi'nden enerji akışındaki belirsizliği artırmasıyla petrol fiyatları yükseldi. ABD, Hürmüz Boğazı'ndan 19 milyon varilden fazla ham petrol taşınmasına yardım ettiğini bildirdi. ([Ayrıntı](https://finfolis.com/haber/orta-dogu-daki-saldirilar-petrol-fiyatlarini-artirdi/))
+- **Petrol Fiyatlarındaki Artış:** Orta Doğu'daki saldırıların Basra Körfezi'nden enerji akışındaki belirsizliği artırmasıyla petrol fiyatları yükseldi. ABD, Hürmüz Boğazı'ndan 19 milyon varilden fazla ham petrol taşınmasına yardım ettiğini bildirdi. ([Ayrıntı](https://finfolis.com/haber/orta-dogu-gerilimiyle-petrol-fiyatlarinda-yukselis/))
 - **AirTrunk Halka Arzı Ertelendi:** Blackstone destekli veri merkezi işletmecisi AirTrunk, piyasalardaki yapay zeka ve teknoloji hisseleri satış dalgası nedeniyle planlanan Singapur halka arzını erteledi. Yaklaşık 1,5 milyar dolar toplaması beklenen halka arzın 2027 yılının başlarına kadar tamamlanması hedefleniyor. ([Ayrıntı](https://finfolis.com/haber/blackstone-destekli-airtrunk-singapur-halka-arzini-erteledi/))
 
 ## Göstergeler

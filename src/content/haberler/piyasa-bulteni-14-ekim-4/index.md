@@ -1,5 +1,5 @@
 ---
-title: "Piyasa bülteni · 14 Ekim"
+title: "Piyasa bülteni · 14 Ekim 2026, açılış"
 description: "Önceki bültenden bu yana öne çıkan gelişmeler, bölge bölge."
 date: 2026-10-14T08:40:32.938Z
 category: "piyasalar"
