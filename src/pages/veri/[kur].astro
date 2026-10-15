@@ -1,0 +1,171 @@
+---
+// Dolar, euro ve sterlin kuru sayfaları: TCMB gösterge niteliğindeki kurlar ve son 30 iş günü.
+// Değerler src/data/resmi.json'dan gelir; hiçbir değer türetilmez, yalnızca resmi rakamlar arasındaki fark hesaplanır.
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Change from '../../components/Change.astro';
+import { KUR_SAYFALARI, RESMI, eskiMi, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { sayfaSemasi } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return KUR_SAYFALARI.map((s) => ({ params: { kur: s.slug }, props: { sayfa: s } }));
+}
+
+interface Props {
+  sayfa: (typeof KUR_SAYFALARI)[number];
+}
+
+const { sayfa } = Astro.props;
+const kur = RESMI.kur;
+const k = kur?.liste.find((x) => x.kod === sayfa.kod);
+const gecmis = (kur?.gecmis ?? [])
+  .map((g) => ({ tarih: g.tarih, v: g[sayfa.kod] as { alis: number; satis: number } | null }))
+  .filter((g): g is { tarih: string; v: { alis: number; satis: number } } => Boolean(g.v));
+// Bir önceki iş gününe göre değişim: iki resmi satış kurunun farkı.
+const degisim =
+  gecmis.length > 1 && gecmis[0].tarih === kur?.tarih
+    ? Math.round(((gecmis[0].v.satis - gecmis[1].v.satis) / gecmis[1].v.satis) * 1000) / 10
+    : undefined;
+const baslik = `${sayfa.ad} kuru bugün`;
+const description = k
+  ? `${sayfa.ad} kuru: TCMB'nin ${gunYaz(kur!.tarih)} tarihli gösterge niteliğindeki kuruna göre döviz satış ${sayiYaz(k.dovizSatis)} TL. Son 30 iş günü tablosu.`
+  : `${sayfa.ad} kuru: TCMB gösterge niteliğindeki döviz kurları.`;
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: `${sayfa.ad} kuru`, href: `/veri/${sayfa.slug}/` },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(k && kur
+    ? {
+        sayfaEk: { dateModified: kur.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: `TCMB ${sayfa.tamAd} gösterge kuru (son 30 iş günü)`,
+            description: `Türkiye Cumhuriyet Merkez Bankası'nın ilan ettiği ${sayfa.tamAd} döviz alış ve satış kurları, son ${gecmis.length} iş günü.`,
+            url: `https://finfolis.com/veri/${sayfa.slug}/`,
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${gecmis.at(-1)?.tarih}/${gecmis[0]?.tarih}`,
+            dateModified: kur.alinma,
+            variableMeasured: ['Döviz alış kuru (TL)', 'Döviz satış kuru (TL)'],
+          },
+        ],
+      }
+    : {}),
+});
+const digerleri = KUR_SAYFALARI.filter((s) => s.slug !== sayfa.slug);
+---
+
+<Base title={baslik} description={description} noindex={!k}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>{sayfa.tamAd} / Türk lirası · TCMB gösterge kuru</p>
+    </header>
+    {
+      k && kur ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Döviz satış</dt>
+              <dd>
+                {sayiYaz(k.dovizSatis)} <small>TL</small>
+              </dd>
+              {degisim !== undefined && (
+                <dd class="veri-degisim">
+                  <Change value={degisim} /> önceki iş gününe göre
+                </dd>
+              )}
+            </div>
+            <div>
+              <dt>Döviz alış</dt>
+              <dd>
+                {sayiYaz(k.dovizAlis)} <small>TL</small>
+              </dd>
+            </div>
+            {k.efektifSatis && (
+              <div>
+                <dt>Efektif satış</dt>
+                <dd>
+                  {sayiYaz(k.efektifSatis)} <small>TL</small>
+                </dd>
+              </div>
+            )}
+            {k.efektifAlis && (
+              <div>
+                <dt>Efektif alış</dt>
+                <dd>
+                  {sayiYaz(k.efektifAlis)} <small>TL</small>
+                </dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={kur.kaynak.url} rel="noopener">{kur.kaynak.ad}</a>, {gunYaz(kur.tarih)} tarihli bülten ({kur.bultenNo}). Siteye alındığı zaman: {zamanYaz(kur.alinma)}.
+            {eskiMi(kur.tarih, 4) && <> Bu değer güncel olmayabilir; kaynağa son kez bu tarihte ulaşıldı.</>}
+          </p>
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son {gecmis.length} iş günü</h2>
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Tarih</th>
+                    <th scope="col" class="sag">Döviz alış</th>
+                    <th scope="col" class="sag">Döviz satış</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {gecmis.map((g) => (
+                    <tr>
+                      <td>{gunYaz(g.tarih)}</td>
+                      <td class="sag">{sayiYaz(g.v.alis)}</td>
+                      <td class="sag">{sayiYaz(g.v.satis)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                TCMB, gösterge niteliğindeki döviz kurlarını her iş günü saat 15.30’da ilan eder. Bu kurlar resmi işlemlerde ve
+                birçok sözleşmede referans olarak kullanılır; bankaların ve döviz bürolarının gün içinde uyguladığı kurlar
+                bunlardan farklı olabilir.
+              </p>
+              <p>
+                <strong>Döviz alış ve satış</strong> kurları hesap üzerinden yapılan (kaydi) işlemler içindir.{' '}
+                <strong>Efektif</strong> kurlar ise banknot, yani nakit döviz alım satımında geçerlidir. Satış kuru, dövizi
+                almak isteyenin ödediği fiyattır ve alış kurundan yüksektir; aradaki fark makas olarak adlandırılır.
+              </p>
+              <p>
+                Hafta sonu ve resmi tatillerde yeni kur ilan edilmez; bu günlerde son iş gününün kurları geçerli kalır.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Bu kur için resmi veri şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      {digerleri.map((s) => <a href={`/veri/${s.slug}/`}>{s.ad} kuru</a>)}
+      <a href="/veri/doviz-kurlari/">Tüm döviz kurları</a>
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+    </nav>
+    <aside class="tavsiye-degil" aria-label="Yasal uyarı">
+      <strong>Yatırım tavsiyesi değildir.</strong> Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı gösterge
+      niteliğindeki kurlardır; alım satım için bankanızın ya da aracı kurumunuzun güncel kurunu esas alın.
+    </aside>
+  </div>
+</Base>

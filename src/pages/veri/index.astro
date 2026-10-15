@@ -1,0 +1,96 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { KUR_SAYFALARI, RESMI, ayAdi, gunYaz, oranYaz, sayiYaz } from '../../lib/resmi';
+import { sayfaSemasi } from '../../lib/seo';
+
+const { kur, faiz, enflasyon } = RESMI;
+const son = enflasyon?.satirlar.at(-1);
+const satir = (kod: string) => kur?.liste.find((k) => k.kod === kod);
+const ogeler = [
+  ...KUR_SAYFALARI.map((s) => ({
+    href: `/veri/${s.slug}/`,
+    ad: `${s.ad} kuru`,
+    deger: satir(s.kod) ? `${sayiYaz(satir(s.kod)!.dovizSatis)} TL` : undefined,
+    not: kur ? `TCMB, ${gunYaz(kur.tarih)}` : undefined,
+  })),
+  { href: '/veri/doviz-kurlari/', ad: 'Tüm döviz kurları', deger: kur ? `${kur.liste.length} para birimi` : undefined, not: 'TCMB' },
+  {
+    href: '/veri/politika-faizi/',
+    ad: 'Politika faizi',
+    deger: faiz ? `%${oranYaz(faiz.oran)}` : undefined,
+    not: 'TCMB',
+  },
+  {
+    href: '/veri/enflasyon/',
+    ad: 'Yıllık enflasyon',
+    deger: son ? `%${sayiYaz(son.yillik, 2)}` : undefined,
+    not: son ? `TÜİK, ${ayAdi(son)}` : undefined,
+  },
+];
+const araclar = [
+  { href: '/hesapla/enflasyon/', ad: 'Enflasyon hesaplama', not: 'Paranın değeri TÜFE ile' },
+  { href: '/hesapla/mevduat-getirisi/', ad: 'Mevduat getirisi hesaplama', not: 'Faiz, stopaj ve net getiri' },
+  { href: '/hesapla/kredi-taksit/', ad: 'Kredi taksit hesaplama', not: 'Aylık taksit ve toplam geri ödeme' },
+];
+const description =
+  'Dolar ve euro kuru, politika faizi ve enflasyon: TCMB ve TÜİK’in resmi verileri, tarihleriyle. Enflasyon, mevduat ve kredi hesaplayıcıları.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+];
+const jsonLd = sayfaSemasi({ yol, ad: 'Veriler', aciklama: description, tur: 'CollectionPage' });
+---
+
+<Base title="Veriler: kur, faiz, enflasyon" description={description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <div class="container">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>Veriler</h1>
+      <p>Resmi kaynaklardan, tarihleriyle</p>
+    </header>
+    <p class="sayfa-giris">
+      Bu sayfalardaki rakamlar yalnızca TCMB ve TÜİK’in yayımladığı resmi verilerdir. Haber botu her çalıştığında kaynakları
+      kontrol eder; her sayfada verinin tarihi ve siteye alındığı zaman yazar.
+    </p>
+    <section class="bolum">
+      <h2 class="bolum-baslik">Kur, faiz ve enflasyon</h2>
+      <ul class="dizin-liste">
+        {
+          ogeler.map((o) => (
+            <li>
+              <a href={o.href}>{o.ad}</a>
+              {o.deger && (
+                <span>
+                  {o.deger}
+                  {o.not && ` · ${o.not}`}
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <section class="bolum">
+      <h2 class="bolum-baslik">Hesaplayıcılar</h2>
+      <ul class="dizin-liste">
+        {
+          araclar.map((o) => (
+            <li>
+              <a href={o.href}>{o.ad}</a>
+              <span>{o.not}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <section class="bolum">
+      <h2 class="bolum-baslik">Daha fazlası</h2>
+      <ul class="dizin-liste">
+        <li><a href="/sozluk/">Finans sözlüğü</a><span>Temel kavramlar</span></li>
+        <li><a href="/konu/">Konular</a><span>Kurum ve şirketler</span></li>
+      </ul>
+    </section>
+  </div>
+</Base>

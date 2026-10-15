@@ -1,0 +1,141 @@
+---
+// Enflasyon (TÜFE): TÜİK'in açıkladığı yıllık ve aylık değişim; TCMB Tüketici Fiyatları tablosundan.
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { RESMI, ayAdi, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { sayfaSemasi } from '../../lib/seo';
+
+const enf = RESMI.enflasyon;
+const son = enf?.satirlar.at(-1);
+const birYilOnce = son && enf?.satirlar.find((s) => s.yil === son.yil - 1 && s.ay === son.ay);
+const tablo = (enf?.satirlar ?? []).slice(-24).reverse();
+const yuzde = (n: number) => `%${sayiYaz(n, 2)}`;
+const baslik = 'Enflasyon (TÜFE)';
+const description =
+  son && enf
+    ? `TÜİK verisine göre yıllık enflasyon ${ayAdi(son)} itibarıyla ${yuzde(son.yillik)}, aylık ${yuzde(son.aylik)}. Son 24 ayın yıllık ve aylık TÜFE değişimi.`
+    : 'Türkiye tüketici fiyat endeksi (TÜFE) yıllık ve aylık değişim.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Enflasyon', href: '/veri/enflasyon/' },
+];
+const ilk = enf?.satirlar[0];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(enf && son && ilk
+    ? {
+        sayfaEk: { dateModified: enf.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Türkiye TÜFE yıllık ve aylık değişim oranları',
+            description: 'Türkiye İstatistik Kurumu’nun açıkladığı tüketici fiyat endeksi (TÜFE) yıllık ve aylık yüzde değişimleri, TCMB Tüketici Fiyatları tablosundan.',
+            url: 'https://finfolis.com/veri/enflasyon/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye İstatistik Kurumu', url: 'https://www.tuik.gov.tr/' },
+            temporalCoverage: `${ilk.yil}-${String(ilk.ay).padStart(2, '0')}/${son.yil}-${String(son.ay).padStart(2, '0')}`,
+            dateModified: enf.alinma,
+            variableMeasured: ['TÜFE yıllık değişim (%)', 'TÜFE aylık değişim (%)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Enflasyon oranı: ${son ? `${ayAdi(son)} TÜFE` : 'TÜFE'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Tüketici fiyat endeksi · TÜİK verisi</p>
+    </header>
+    {
+      son && enf ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Yıllık enflasyon</dt>
+              <dd>{yuzde(son.yillik)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}</dd>
+            </div>
+            <div>
+              <dt>Aylık değişim</dt>
+              <dd>{yuzde(son.aylik)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}</dd>
+            </div>
+            {birYilOnce && (
+              <div>
+                <dt>Bir yıl önce (yıllık)</dt>
+                <dd>{yuzde(birYilOnce.yillik)}</dd>
+                <dd class="veri-degisim">{ayAdi(birYilOnce)}</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={enf.kaynak.url} rel="noopener">{enf.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
+            {zamanYaz(enf.alinma)}.
+          </p>
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 24 ay</h2>
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Ay</th>
+                    <th scope="col" class="sag">Yıllık</th>
+                    <th scope="col" class="sag">Aylık</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tablo.map((s) => (
+                    <tr>
+                      <td>{ayAdi(s)}</td>
+                      <td class="sag">{yuzde(s.yillik)}</td>
+                      <td class="sag">{yuzde(s.aylik)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Enflasyon, mal ve hizmet fiyatlarının genel düzeyindeki artıştır. Türkiye’de resmi enflasyon, TÜİK’in her ay
+                açıkladığı tüketici fiyat endeksiyle (TÜFE) ölçülür. Endeks, hanelerin tükettiği mal ve hizmetlerden oluşan
+                bir sepetin fiyatını izler.
+              </p>
+              <p>
+                <strong>Yıllık enflasyon</strong>, fiyatların bir önceki yılın aynı ayına göre ne kadar arttığını gösterir.{' '}
+                <strong>Aylık değişim</strong> ise yalnızca bir önceki aya göre artıştır. Örneğin yıllık enflasyonun yüzde
+                30 olması, aynı sepetin bir yıl öncesine göre yüzde 30 daha pahalı olduğu anlamına gelir.
+              </p>
+              <p>
+                Paranızın değerinin dönemler arasında nasıl değiştiğini görmek için{' '}
+                <a href="/hesapla/enflasyon/">enflasyon hesaplayıcısını</a> kullanabilirsiniz.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Enflasyon verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+      <a href="/veri/dolar-kuru/">Dolar kuru</a>
+      <a href="/hesapla/enflasyon/">Enflasyon hesaplama</a>
+      <a href="/sozluk/tufe/">TÜFE nedir?</a>
+    </nav>
+    <aside class="tavsiye-degil" aria-label="Yasal uyarı">
+      <strong>Yatırım tavsiyesi değildir.</strong> Bu sayfadaki veriler bilgi amaçlıdır ve TÜİK’in açıkladığı resmi
+      rakamlardır.
+    </aside>
+  </div>
+</Base>

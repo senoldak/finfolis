@@ -46,3 +46,49 @@ export const siteJsonLd = {
     },
   ],
 };
+
+// Veri, sözlük ve hesaplayıcı sayfalarının ortak şeması: sayfa + içerik yolu (+ isteğe bağlı ek düğümler).
+// yol, görünür Breadcrumb bileşeniyle aynı dizidir; son öğe sayfanın kendisidir.
+export function sayfaSemasi({
+  yol,
+  ad,
+  aciklama,
+  tur = 'WebPage',
+  ekler = [],
+  sayfaEk = {},
+}: {
+  yol: { ad: string; href?: string }[];
+  ad: string;
+  aciklama: string;
+  tur?: string;
+  ekler?: Record<string, unknown>[];
+  sayfaEk?: Record<string, unknown>;
+}) {
+  const son = yol.at(-1)?.href ?? '/';
+  const url = `${SITE_URL}${son}`;
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': tur,
+        '@id': url,
+        url,
+        name: ad,
+        description: aciklama,
+        inLanguage: 'tr',
+        isPartOf: { '@id': WEBSITE_ID },
+        ...sayfaEk,
+      },
+      ...ekler,
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: yol.map((o, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: o.ad,
+          item: `${SITE_URL}${o.href ?? son}`,
+        })),
+      },
+    ],
+  };
+}

@@ -1,0 +1,142 @@
+---
+// TCMB politika faizi: güncel oran, son PPK kararı ve TCMB'nin yayımladığı değişiklik tablosu.
+// Tablo yalnızca TCMB "1 Hafta Repo" sayfasından gelir; elle yazılmış geçmiş değer yoktur.
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { RESMI, gunYaz, oranYaz as oran, zamanYaz } from '../../lib/resmi';
+import { sayfaSemasi } from '../../lib/seo';
+
+const faiz = RESMI.faiz;
+const oranYaz = (n: number) => `%${oran(n)}`;
+// Yeniden eskiye; değişim iki resmi oran arasındaki farktır (puan).
+const satirlar = (faiz?.gecmis ?? [])
+  .map((s, i, d) => ({ ...s, fark: i > 0 ? Math.round((s.oran - d[i - 1].oran) * 100) / 100 : undefined }))
+  .reverse();
+const baslik = 'Politika faizi';
+const description = faiz
+  ? `TCMB politika faizi ${oranYaz(faiz.oran)}. Bir hafta vadeli repo ihale faiz oranının TCMB'nin yayımladığı tüm değişiklikleri, ${satirlar.at(-1)?.tarih.slice(0, 4)}'dan bugüne.`
+  : 'TCMB politika faizi ve geçmiş değişiklikleri.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Politika faizi', href: '/veri/politika-faizi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: `${baslik} (TCMB)`,
+  aciklama: description,
+  ...(faiz
+    ? {
+        sayfaEk: { dateModified: faiz.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'TCMB bir hafta vadeli repo ihale faiz oranı değişiklikleri',
+            description: 'Türkiye Cumhuriyet Merkez Bankası’nın politika faizi olarak kullandığı bir hafta vadeli repo ihale faiz oranında yaptığı değişikliklerin tarihleri ve oranları.',
+            url: 'https://finfolis.com/veri/politika-faizi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${faiz.gecmis[0]?.tarih}/${faiz.gecmis.at(-1)?.tarih}`,
+            dateModified: faiz.alinma,
+            variableMeasured: 'Bir hafta vadeli repo ihale faiz oranı (%)',
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`${baslik}: TCMB güncel oran ve geçmiş`} description={description} noindex={!faiz}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Türkiye Cumhuriyet Merkez Bankası · bir hafta vadeli repo ihale faiz oranı</p>
+    </header>
+    {
+      faiz ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Politika faizi</dt>
+              <dd>{oranYaz(faiz.oran)}</dd>
+            </div>
+            <div>
+              <dt>Tablodaki son değişiklik</dt>
+              <dd class="veri-tarih">{gunYaz(faiz.gecerlilik)}</dd>
+            </div>
+            {faiz.sonKarar && (
+              <div>
+                <dt>Son PPK kararı</dt>
+                <dd class="veri-tarih">
+                  <a href={faiz.sonKarar.url} rel="noopener">
+                    {gunYaz(faiz.sonKarar.tarih)}
+                  </a>
+                </dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={faiz.kaynak.url} rel="noopener">{faiz.kaynak.ad}</a>{faiz.sonKarar && (
+              <> ve <a href={faiz.sonKarar.url} rel="noopener">PPK karar metni</a></>
+            )}. Siteye alındığı zaman: {zamanYaz(faiz.alinma)}.
+          </p>
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Faiz değişiklikleri</h2>
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Tarih</th>
+                    <th scope="col" class="sag">Oran</th>
+                    <th scope="col" class="sag">Değişim (puan)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {satirlar.map((s) => (
+                    <tr>
+                      <td>{gunYaz(s.tarih)}</td>
+                      <td class="sag">{oranYaz(s.oran)}</td>
+                      <td class="sag">
+                        {s.fark === undefined ? '–' : `${s.fark > 0 ? '+' : s.fark < 0 ? '−' : ''}${oran(Math.abs(s.fark))}`}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <p class="veri-notu">
+                Tablo, TCMB’nin bir hafta vadeli repo ihale faiz oranı için yayımladığı değişiklikleri ve TCMB tablosundaki
+                tarihleri içerir. Oranın değişmediği toplantılar tabloda yer almaz.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Politika faizi nedir?</h2>
+              <p>
+                Politika faizi, merkez bankasının para politikasını yönlendirmek için kullandığı temel faiz oranıdır. TCMB
+                politika faizi olarak bir hafta vadeli repo ihale faiz oranını kullanır: bankalar TCMB’den bir haftalık
+                vadeyle bu orandan borç alabilir.
+              </p>
+              <p>
+                Kararı TCMB Para Politikası Kurulu (PPK), önceden açıklanan bir takvime göre yaptığı toplantılarda verir.
+                Politika faizindeki değişiklik zamanla mevduat ve kredi faizlerine, kura ve talep üzerinden enflasyona
+                yansır.
+              </p>
+              <p>
+                <a href="/veri/enflasyon/">Enflasyon verileri</a> · <a href="/hesapla/mevduat-getirisi/">Mevduat getirisi hesaplama</a>
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Politika faizi verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <aside class="tavsiye-degil" aria-label="Yasal uyarı">
+      <strong>Yatırım tavsiyesi değildir.</strong> Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi
+      rakamlardır.
+    </aside>
+  </div>
+</Base>

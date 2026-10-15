@@ -38,6 +38,29 @@ function tarihler() {
 
 const T = tarihler();
 
+// Veri sayfalarının (/veri/…) lastmod'u: resmi verinin siteye alındığı zaman (src/data/resmi.json).
+// Bölümü hiç alınamamış sayfa noindex olur ve haritaya girmez.
+function veriTarihleri() {
+  let r = {};
+  try {
+    r = JSON.parse(readFileSync('./src/data/resmi.json', 'utf8'));
+  } catch {}
+  const t = (b) => (b?.alinma ? new Date(b.alinma) : undefined);
+  const harita = new Map([
+    ['/veri/dolar-kuru/', t(r.kur)],
+    ['/veri/euro-kuru/', t(r.kur)],
+    ['/veri/sterlin-kuru/', t(r.kur)],
+    ['/veri/doviz-kurlari/', t(r.kur)],
+    ['/veri/politika-faizi/', t(r.faiz)],
+    ['/veri/enflasyon/', t(r.enflasyon)],
+  ]);
+  const hepsi = [...harita.values()].filter(Boolean);
+  harita.set('/veri/', hepsi.length ? new Date(Math.max(...hepsi.map(Number))) : undefined);
+  return harita;
+}
+
+const V = veriTarihleri();
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://finfolis.com',
@@ -48,6 +71,7 @@ export default defineConfig({
       filter: (page) => {
         const yol = new URL(page).pathname;
         if (/\/(404|admin)(\/|$)/.test(yol)) return false;
+        if (V.has(yol) && !V.get(yol)) return false;
         const h = yol.match(/^\/haber\/([^/]+)\/$/);
         if (h && T.kisa.has(decodeURIComponent(h[1]))) return false;
         const k = yol.match(/^\/kategori\/([^/]+)\/$/);
@@ -57,7 +81,13 @@ export default defineConfig({
         const yol = new URL(item.url).pathname;
         const h = yol.match(/^\/haber\/([^/]+)\/$/);
         const k = yol.match(/^\/kategori\/([^/]+)\/$/);
-        const d = h ? T.haber.get(decodeURIComponent(h[1])) : k ? T.kategori.get(k[1]) : yol === '/' ? T.enYeni : undefined;
+        const d = h
+          ? T.haber.get(decodeURIComponent(h[1]))
+          : k
+            ? T.kategori.get(k[1])
+            : yol === '/'
+              ? T.enYeni
+              : V.get(yol);
         if (d) item.lastmod = d.toISOString();
         return item;
       },

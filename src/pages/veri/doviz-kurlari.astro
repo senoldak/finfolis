@@ -1,0 +1,112 @@
+---
+// TCMB'nin ilan ettiği tüm gösterge niteliğindeki döviz kurları (tek bülten).
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { KUR_SAYFALARI, RESMI, eskiMi, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { sayfaSemasi } from '../../lib/seo';
+
+const kur = RESMI.kur;
+const sayfaIle = new Map(KUR_SAYFALARI.map((s) => [s.kod as string, s.slug]));
+const baslik = 'Döviz kurları bugün';
+const description = kur
+  ? `TCMB'nin ${gunYaz(kur.tarih)} tarihli gösterge niteliğindeki döviz kurları: dolar, euro, sterlin ve ${kur.liste.length} para biriminin alış ve satış kurları.`
+  : 'TCMB gösterge niteliğindeki döviz kurları.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Döviz kurları', href: '/veri/doviz-kurlari/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(kur
+    ? {
+        sayfaEk: { dateModified: kur.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: `TCMB gösterge niteliğindeki döviz kurları, ${gunYaz(kur.tarih)}`,
+            description: `Türkiye Cumhuriyet Merkez Bankası'nın ${gunYaz(kur.tarih)} tarihli bülteninde ilan ettiği döviz ve efektif alış-satış kurları.`,
+            url: 'https://finfolis.com/veri/doviz-kurlari/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: kur.tarih,
+            dateModified: kur.alinma,
+          },
+        ],
+      }
+    : {}),
+});
+const ad = (s: string) => s.replace(/\s+/g, ' ').trim();
+---
+
+<Base title={baslik} description={description} noindex={!kur}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>TCMB gösterge niteliğindeki kurlar{kur && `, ${gunYaz(kur.tarih)}`}</p>
+    </header>
+    {
+      kur ? (
+        <>
+          <div class="tablo-kaydir">
+            <table class="cizelge veri-tablo veri-tablo-genis">
+              <thead>
+                <tr>
+                  <th scope="col">Para birimi</th>
+                  <th scope="col" class="sag">Birim</th>
+                  <th scope="col" class="sag">Döviz alış</th>
+                  <th scope="col" class="sag">Döviz satış</th>
+                  <th scope="col" class="sag">Efektif alış</th>
+                  <th scope="col" class="sag">Efektif satış</th>
+                </tr>
+              </thead>
+              <tbody>
+                {kur.liste.map((k) => (
+                  <tr>
+                    <th scope="row" class="cizelge-ad">
+                      {sayfaIle.has(k.kod) ? <a href={`/veri/${sayfaIle.get(k.kod)}/`}>{k.kod}</a> : k.kod}
+                      <small>{ad(k.ad)}</small>
+                    </th>
+                    <td class="sag">{k.birim}</td>
+                    <td class="sag">{sayiYaz(k.dovizAlis)}</td>
+                    <td class="sag">{sayiYaz(k.dovizSatis)}</td>
+                    <td class="sag">{k.efektifAlis ? sayiYaz(k.efektifAlis) : '–'}</td>
+                    <td class="sag">{k.efektifSatis ? sayiYaz(k.efektifSatis) : '–'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={kur.kaynak.url} rel="noopener">{kur.kaynak.ad}</a>, {gunYaz(kur.tarih)} tarihli bülten ({kur.bultenNo}). Siteye alındığı zaman: {zamanYaz(kur.alinma)}. Kurlar, Birim sütunundaki
+            miktar karşılığı Türk lirasıdır. Efektif kuru ilan edilmeyen para birimlerinde “–” yazar.
+            {eskiMi(kur.tarih, 4) && <> Bu değerler güncel olmayabilir; kaynağa son kez bu tarihte ulaşıldı.</>}
+          </p>
+        </>
+      ) : (
+        <p class="bos">Resmi kur verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <section class="bolum prose veri-aciklama">
+      <h2 class="bolum-baslik">Gösterge niteliğindeki kur nedir?</h2>
+      <p>
+        TCMB her iş günü saat 15.30’da gösterge niteliğindeki döviz kurlarını ilan eder. Bu kurlar resmi işlemlerde ve
+        birçok sözleşmede referans olarak kullanılır. Bankalar ve döviz
+        büroları kendi alış ve satış kurlarını serbestçe belirler; bu yüzden gün içinde gördüğünüz kur bu tablodan farklı
+        olabilir.
+      </p>
+    </section>
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      {KUR_SAYFALARI.map((s) => <a href={`/veri/${s.slug}/`}>{s.ad} kuru</a>)}
+      <a href="/veri/">Tüm veriler</a>
+    </nav>
+    <aside class="tavsiye-degil" aria-label="Yasal uyarı">
+      <strong>Yatırım tavsiyesi değildir.</strong> Bu sayfadaki veriler bilgi amaçlıdır; alım satım için bankanızın ya da
+      aracı kurumunuzun güncel kurunu esas alın.
+    </aside>
+  </div>
+</Base>
