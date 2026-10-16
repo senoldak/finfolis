@@ -16,6 +16,7 @@ const rest = news.filter((h) => h !== hero);
 const side = rest.slice(0, 4);
 const latest = rest.slice(4, 12);
 const heroCat = hero ? categoryOf(hero.data.category) : undefined;
+const mansetResimli = Boolean(hero?.data.cover && hero.data.coverSitede);
 // Kategori blokları üstte (manşet, yan sütun, son haberler) gösterilenleri tekrar etmez.
 const ustte = new Set([hero, ...side, ...latest]);
 const sections = CATEGORIES.map((c) => ({
@@ -93,22 +94,22 @@ const sections = CATEGORIES.map((c) => ({
               </div>
             )}
           </div>
+
+          {/* Manşetin altında, sol sütunda: yan sütun uzun olduğundan altı boş kalmasın.
+              Kapak görseli yoksa manşet kısadır; liste tek sütun akarak boşluğu doldurur. */}
+          {latest.length > 0 && (
+            <section class="ust-son" aria-label="Son haberler">
+              <h2 class="bolum-baslik">Son haberler</h2>
+              <div class:list={['liste', { 'liste-iki': mansetResimli }]}>
+                {latest.map((h) => (
+                  <NewsCard haber={h} />
+                ))}
+              </div>
+            </section>
+          )}
         </section>
       ) : (
         <p class="bos">Henüz haber yok. İlk haber yönetim panelinden eklenince burada görünecek.</p>
-      )
-    }
-
-    {
-      latest.length > 0 && (
-        <section class="bolum">
-          <h2 class="bolum-baslik">Son haberler</h2>
-          <div class="liste liste-iki">
-            {latest.map((h) => (
-              <NewsCard haber={h} />
-            ))}
-          </div>
-        </section>
       )
     }
 

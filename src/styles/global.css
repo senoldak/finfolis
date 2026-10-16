@@ -582,10 +582,17 @@ main {
 .ust {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 48px;
+  /* Yan sütun iki satırı kaplar; ilk satır manşet boyunda kalır, Son haberler hemen altına oturur. */
+  grid-template-rows: auto 1fr;
+  gap: 40px 48px;
   padding-top: 34px;
   padding-bottom: 44px;
   border-bottom: 1px solid var(--ink);
+}
+
+.ust .yan {
+  grid-column: 2;
+  grid-row: 1 / span 2;
 }
 
 .manset h2 {
@@ -1674,7 +1681,13 @@ main {
 @media (max-width: 900px) {
   .ust {
     grid-template-columns: 1fr;
+    grid-template-rows: none;
     gap: 28px;
+  }
+
+  .ust .yan {
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .footer-izgara {
