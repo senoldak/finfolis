@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-16T06:40:58.045Z",
+  "guncelleme": "2026-10-16T08:40:59.314Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -882,16 +882,16 @@
     {
       "id": "bist100",
       "ad": "BIST 100",
-      "deger": 12070.2002,
+      "deger": 11699.9297,
       "ondalik": 2,
       "simge": "fabrika",
       "kaynak": {
         "ad": "Yahoo Finance",
         "url": "https://finance.yahoo.com/"
       },
-      "zaman": "2026-10-15T00:00:00+03:00",
+      "zaman": "2026-10-16T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -0.4,
+      "degisim": -3.1,
       "gecmis": [
         {
           "tarih": "2026-07-20",
@@ -1148,13 +1148,17 @@
         {
           "tarih": "2026-10-15",
           "deger": 12070.2002
+        },
+        {
+          "tarih": "2026-10-16",
+          "deger": 11699.9297
         }
       ]
     },
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 4197,
+      "deger": 4205.7998,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
@@ -1163,7 +1167,7 @@
       },
       "zaman": "2026-10-16T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 0.6,
+      "degisim": 0.9,
       "gecmis": [
         {
           "tarih": "2026-07-20",
@@ -1419,7 +1423,7 @@
         },
         {
           "tarih": "2026-10-16",
-          "deger": 4197
+          "deger": 4205.7998
         }
       ],
       "onEk": "$"

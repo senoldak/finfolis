@@ -5156,12 +5156,10 @@
       "zaman": "2026-10-16T06:40:58.045Z"
     },
     "ka819b4:3d246fafb3fa0e42": {
-      "zaman": "2026-10-16T06:40:58.045Z",
-      "deneme": 1
+      "zaman": "2026-10-16T08:40:59.314Z"
     },
     "kf0d847:0f23bc7f72cdd120": {
-      "zaman": "2026-10-16T06:40:58.045Z",
-      "deneme": 1
+      "zaman": "2026-10-16T08:40:59.314Z"
     },
     "ka819b4:412622408d0e9c98": {
       "zaman": "2026-10-16T06:40:58.045Z",
@@ -5235,6 +5233,25 @@
     },
     "k6f19bd:847cd4afd37facc2": {
       "zaman": "2026-10-16T06:40:58.045Z"
+    },
+    "k5bfe66:0e64f2373999d324": {
+      "zaman": "2026-10-16T08:40:59.314Z",
+      "yazildi": true
+    },
+    "ka819b4:4d34d7f555c2b546": {
+      "zaman": "2026-10-16T08:40:59.314Z",
+      "yazildi": true
+    },
+    "ka819b4:326f4d6acbdb8429": {
+      "zaman": "2026-10-16T08:40:59.314Z",
+      "yazildi": true
+    },
+    "k9836af:d1cc200b3692efa4": {
+      "zaman": "2026-10-16T08:40:59.314Z",
+      "yazildi": true
+    },
+    "kf0d847:e3752d2c79839ea7": {
+      "zaman": "2026-10-16T08:40:59.314Z"
     }
   },
   "sonBulten": {
@@ -9927,40 +9944,17 @@
       "id": "k6f19bd:847cd4afd37facc2",
       "zaman": "2026-10-16T06:40:58.045Z",
       "ozetSifreli": "v1.dgnYQj5Bnsr0Pnrv.Hzckn4VBaVf8slv2GNxRPij/HE0uVH9DZmLhNh0FhwAjXfEqB4kwS+GcD6NNGczSGRCuisBMRWe7l81U6gkQwZhlzKAV0Fth1sDJvNg0XZIkJLIAo91NnG/LTZFIFkfmKNuftB6rLV2dQ2BfawNNSpN3B1gSO4rXolsZrvAMNY+CGnil83M="
+    },
+    {
+      "id": "k5bfe66:0e64f2373999d324",
+      "zaman": "2026-10-16T08:40:59.314Z",
+      "ozetSifreli": "v1.hxbqdGXmWlP4L4nL.W8BHac37WldrJB5K4Y8ZaWA8Iz6Pu5LIREd02qSyZpIqI1hDjLeRRr1p18rvz7tZ+GfOMESocelTwwsWhcs7brrO7fEm5RlM4lHoZH2xq0+kIp07X4goLKL0sOHECk5OGwi/4F1llO6NeHrRfdZQ8txTliLPXbGufpbFKIvtmL2MMm3mwvBljQUxZuqFmYhG1pCNZd2kI/IrjnKZENMqxftosBhBx9Q/eCeHvTK2vTJHVcnU20O12NRUXtcXljhgiLXHWxCbVNh106ZjP/SdOXRjCv5WAky9oKXz6fTDAVc1nr8s+p5b4OZ8OttxAgBqhIEQJozOUIqAv5ZvLjm3CjzjbSR1wJ6mFyNvdX5i2QzTVoY8ethbSQNfNtoqXa4x4XM3Ff8hbMAJX/eBQ9iJ8gBz3ElQ9xxVu1cH265x8zNTdwHzq5RF/O0lwTd4+Jn/LuyVmLWVboqBYWIWk9TRpw=="
     }
   ],
   "karne": {
     "enflasyon": "2026-09"
   },
   "yayinlar": [
-    {
-      "slug": "japon-omron-onlogic-i-satin-aliyor",
-      "baslik": "Japon Omron Onlogic'i satın alıyor",
-      "tohum": true,
-      "zaman": "2026-10-13T07:00:00.000Z",
-      "kaynaklarSifreli": "v1.uP+Qed1tDeAXSGwZ.lY9sBKkrpWVaXOR+OIBujayWORzJSXSoqYX0QRRQ+KTmuVZkWhMYN1/b8HZMLVykj6g/0dsVEE/GIjms0sQnpPXpZolFMtnJNs4Ywa1EJZCFZ4wOJA/XSdq82obovWRGlAlAxjH+DavR1zDMnvscyUPgvCa3cNl065OILwMkqwGQLiUwKbKHaiym9pDNWszBMqAztKE6Pc5TVfdypl7a6RfDray0TXb/olVBjvpDH7vhGZC+WQelAiZUFT0susIG4FxFK45FuYi9dDC+lci5rZJojg2kIgbMSNm35L2DsTf3qA=="
-    },
-    {
-      "slug": "anthropic-ten-yapay-zeka-modelleri-icin-kendi-kendini-kopyalama-uyarisi",
-      "baslik": "Anthropic'ten yapay zeka modelleri için kendi kendini kopyalama uyarısı",
-      "tohum": true,
-      "zaman": "2026-10-13T08:27:20.000Z",
-      "kaynaklarSifreli": "v1.f4Qe1YnxxOa9N+5v.2GB9SbNy2lxDr2ONXsKcYtmYhxVw3wnMCbylihrWrWwv1Jcmw6NTMlxbwPbRfC5VP+pvO5JqWG/5+aEP49W5UWqSIP0OCfVDRcLZpt9D3p2Tan6t5c34FcYjqgRPvfHx/mC7lykMHZJDVYl0pxjjuYUYe82G1uSzTpiCQujcWvEXWmX5FtiCVLfrghf8CEE24eC1NZ6HPoIc727BcK4J/jDlUNPAwa6F+RCVsRyfbXIpq9X+vvcXFjT10t6E9djYk1GTna3LHT8IZiDFKiUwtxLeX+CpTMpZrBRV9kc9oBpmR56ssoknoyH1Y7wngd8Q2wMID/33q9KuSdJGE3R0Po/iRhHN2EbedjQWY9HRk5FMvmZ0+FI34OgI+W6yWgkeskGaPjNOlSAFq3ke5DONWKLZJvfVr8quDY0WhI9H/KcSlrHwqks0hruHf+sue7PaXogNUQnLFbKvdosGLQ=="
-    },
-    {
-      "slug": "amerikan-tahvil-faizleri-enerji-fiyatlarindaki-dususle-geriledi",
-      "baslik": "Amerikan tahvil faizleri enerji fiyatlarındaki düşüşle geriledi",
-      "tohum": true,
-      "zaman": "2026-10-13T08:31:37.000Z",
-      "kaynaklarSifreli": "v1.Q5LLV3qbmeuSNT45.0tcGMN+yWhU2pRBn8Kg8EVLhDM4NsVkZgZd2vA4X/a41YguGyhUxCgSL/4Vsh10d5isLO7rvyMgUArRalsvnd2GbAGFXoduAHkzwZLe+e0BzdIJZOR1fqhZHZLmUbvokhLSaZQMg3MqcLb5tEZYjS5z82GJYF97Qp5RmkMREbbqTDkAMDJOwOW+QQd7MNhVRSa9uHTGid5ZX77VRGLJjWH5ONiFexJHay/yOawq/pAo/wQB5PMC0sC7/eIWSuJVkjobxbait8sgwVEW6H9NxfFTsIyEIeinZdItlIHHGXtIpCrV0Y+YfGl6g/9OH/9BNa0agO6RjDIefGVvX/lmmJc5qvybTVr4cK7/OiD+WR/uqrO1b3MSi2BMdDaVo++JSCFMSlSLl6yACsWd8x2KscCIUIxzXk05BWK03J7QiNQ=="
-    },
-    {
-      "slug": "fransa-da-butce-tartismalari-basliyor",
-      "baslik": "Fransa'da bütçe tartışmaları başlıyor",
-      "tohum": true,
-      "zaman": "2026-10-13T08:39:30.000Z",
-      "kaynaklarSifreli": "v1.G2I6pDi8oxZoKDs2.awOQ4V5HIE+2jBKxhG45GUvmNm/E/yO+hk5AmlpSHOtBUWMHC80X44yKHCqMWC7J3oaPlALrXZnXRsoO42RGd+cw9l4qfC5xDN9DYZkkug7wrcFgDH51LSM4gVyQ6ZY8TjufKdANjckZ2zziuxNjiCdVksyyMEoRzMkOs1AmDyEYI+gRdyYMRBGQbjEFLeAz2f7cFHxYYI5XEAdRqRLp9h8XZos1p2wuWU/gNWMZbhv4WeVx47azYtwI3Y/i6mYSnUw7YFtX4Ceg027z5818sm/JmI2XfWuS5nSfKlTNDWf2sIg="
-    },
     {
       "slug": "samsung-electronics-baskani-lee-hisse-alacak",
       "baslik": "Samsung Electronics başkanı Lee hisse alacak",
@@ -10790,6 +10784,12 @@
       "baslik": "Singapore’s key exports soar beyond expectations in September on AI and non-electronics boom",
       "zaman": "2026-10-16T06:40:58.045Z",
       "kaynaklarSifreli": "v1.zOsljUBR+OwoAt04.ppDUQ4pFMeWiSPt1u9mpC+Sosb8ehGTcCTlAsiqk2xaCxbgNLYrY9oUeYCQc1Hk1YygFvAkcJ3WkAQIUL7iIfNI9FMLWq8sl/W/2577gppOo33FQp8kUdIsEHH56/E81sfY+ZZVNY3VX8hg3TdpsMCBMA3jC0iJru54Uh4FNFjxlWn7A3wq+sOpDes0vn4bpmAYOPJBcrxbdTBQ6kTFUntWoBDdqCZLyUpwZX2jsfo5OX2YILhSm4VpGnWz9AoAeHrNoo+a/UYzszw=="
+    },
+    {
+      "slug": "amerikan-merkez-bankasi-baskani-faiz-beklentilerini-etkilemedi",
+      "baslik": "Here are the key things Fed Chairman Kevin Warsh said — and didn’t say — while Americans were sleeping Thursday night",
+      "zaman": "2026-10-16T08:40:59.314Z",
+      "kaynaklarSifreli": "v1.a01Anhuwz3q1l+5t.11CnQEZ1fIaMV45Zt6UtGsiF6hNiKlCnV9Pip9+B/8SoNMfLM5E+FX5qVsoN31rlkoNoRc8ALKrITZ+TuIRNzoCHruDyV3SEuwINyrwggBVyiXiRoKLHDGzIsnuetsfGWS2TKQDNpfQvmFj3Xfa47PL4n+1K/50DjqrnOt4dTV2DHCH+n3msV6yWDPTDue9tBAxLdS/avNUyul8m9liG2IGJlAeVBM2kLRr0ItmMhfBaT+uPoysY1wnZ2Lowa8HuNJ1rrrjr7qfN5njrzdypC3+0407znU5suB7DgvJ5DeKkvvZ1ejb4Pgje1PAcPpbYtInE1Vj6gaGpTPW6ukF2cmtZYtaSBfKuuqYDPQGWoXnVBUZeYp0L9yaoHu1LpHgkNw/EB9kMeGiCflB7qYEjc6CA/8Jy9h/gUPXmYd2Anelw4Mjk0wHcK19R8VwPzILUpXJ2ptvEOyegvaC/RlYP2UWeKN03jkFrHtPNPALkDjKAHRF4ycwsuZbs0LCGMtvJdoHZ5SI3GGMLDsgbhICDV36d6tkiyD8rwd0PbkW8jJJE/nZb5wc75IVQScTRwSivJxpqKMdfeyyEhDDBA584yAwvG7QvZ3QTzZ7QX+FRY/jQpADiccu1kUDBT7BPWZ5XVLp+/7aq41djLZS/0sSMGW0lvUaI5VQIbfiVbNbShQMr7tbh99pKfzWmyBLzrvvVEjlcRYPK3EIuPgaTZc+6yfH+NWhg0GXbpSEF+IEUdC0GMydNw6MbtMjy224FXL9WjL8YOZJz2gNPYubuZozB70YuztxPSRZuycFBNDwrGCp71m2F35Dfs+QYDG2RWgFmLT8Flb8dMOX6aBBl6LUQr1vvZadFHltIuB+vJqyHE8tiKgTpe8JJx7VgoCPcUH4Ng0y+oN9Shknf2h3bxVXpE+Wa1o55G0bTSq2fNqFQ5YXg+rEsRYNrcNMqfhp05LfH1yEs0Gv+VOTI33cc7aeRc7to1CRddn8WmWEgSZbOEnZNCeb8OhpBMtIC8DoOi90TDnnbRE0sKxI/pUqwr5Oz37iZbMDG6uO6C9ZJMFXowH2OfYvLmcVJJT3gAIxulkaOmZsqGYQ4IIdPcsMYyKPYS/VuT3nKNzRtkJbgqIvNZ6BjN/ilSt0mRGPT74w8eo8L0GLoqWczY7TEQEa+uRVpoVdTT9zjfOcCBFagcvYbxDgMZ+gKZ5vNnQWxNo2pV55Ls6LxW3LFTyWYK6tCWw50LOqvlnJZwA4NI4MszYk7x5IjQBRWHi/O2fRDbJsrtQ/3ZefCGWOsXMqE2xWOFOCSSltbVok="
     }
   ],
   "bultenDilimleri": [
