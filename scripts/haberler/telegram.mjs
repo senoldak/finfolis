@@ -1,13 +1,11 @@
 // Yeni yazıları Telegram kanalına kapak resmiyle gönderir (kifobu'daki haber-telegram-gonder.ts'in karşılığı).
-// Kullanım: node scripts/haberler/telegram.mjs (haber botu iş akışı çağırır; bkz. .github/workflows/haberler.yml)
-// Ortam değişkenleri: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID (ör. @finfolis; eski ad TELEGRAM_KANAL da kabul edilir).
-// Eksikse sessizce atlanır. Yalnız indekslenebilir (noindex olmayan) yazılar gider; her yazı bir kez.
+// Kullanım: node scripts/haberler/telegram.mjs
+// Ortam değişkenleri: TELEGRAM_BOT_TOKEN, TELEGRAM_KANAL (ör. @finfolis). Eksikse sessizce atlanır.
 // Bir yazı ancak sitede yayına girdikten sonra gönderilir (bağlantı 200 dönmeli), kanala kırık link gitmez.
 import path from 'node:path';
 import { readFile, writeFile, readdir, access } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
-import { indekslenir } from '../../src/lib/uzunluk.mjs';
 
 const HER = path.dirname(fileURLToPath(import.meta.url));
 const ROT = path.resolve(HER, '../..');
@@ -17,18 +15,9 @@ const AZAMI = 12; // bir çalıştırmada kanala en fazla bu kadar yazı (botun 
 const BEKLE_MS = 20_000;
 const AZAMI_BEKLEME = 8 * 60_000;
 
-// Telegram'dan siteye giden bağlantılara UTM eklenir (kampanya: haber ya da bulten).
-export function telegramLink(slug, tur) {
-  const u = new URL(`${SITE}/haber/${slug}/`);
-  u.searchParams.set('utm_source', 'telegram');
-  u.searchParams.set('utm_medium', 'social');
-  u.searchParams.set('utm_campaign', tur === 'bulten' ? 'bulten' : 'haber');
-  return u.href;
-}
-
 // Telegram açıklaması (fotoğraf altı en fazla 1024 karakter).
 export function aciklamaYaz({ baslik, spot, slug, tur, maddeler }) {
-  const link = telegramLink(slug, tur);
+  const link = `${SITE}/haber/${slug}/`;
   const bas = `🧮 ${baslik}\n\n`;
   const son = `\n\n🔗 ${link}`;
   const yer = 1024 - bas.length - son.length;
@@ -67,17 +56,15 @@ export async function yazilariOku(rot = ROT) {
     const v = parse(fm[1]);
     if (v.draft) continue;
     const kapak = v.cover ? path.join(taban, d.name, v.cover) : null;
-    // Noindex kuralı sitedeki haber sayfasıyla aynı (src/lib/uzunluk.mjs): kısa yazı kanala da gitmez.
     liste.push({ slug: d.name, baslik: v.title, spot: v.description, tarih: new Date(v.date), kapak, tur: v.tur,
-      indekslenebilir: indekslenir(md),
       maddeler: v.tur === 'bulten' ? bultenMaddeleri(md.slice(fm[0].length)) : undefined });
   }
   return liste.sort((a, b) => b.tarih - a.tarih);
 }
 
-// Gönderilecekler: indekslenebilir, hiç gönderilmemiş en yeni AZAMI yazı, eskiden yeniye (kanalda sıra doğru görünsün).
+// Gönderilecekler: hiç gönderilmemiş en yeni AZAMI yazı, eskiden yeniye (kanalda sıra doğru görünsün).
 export function sec(yazilar, gonderilen, azami = AZAMI) {
-  return yazilar.filter((y) => y.indekslenebilir && !gonderilen[y.slug]).slice(0, azami).reverse();
+  return yazilar.filter((y) => !gonderilen[y.slug]).slice(0, azami).reverse();
 }
 
 async function yayindaMi(slug) {
@@ -113,9 +100,9 @@ async function gonder(token, kanal, y) {
 
 async function calistir() {
   const token = process.env.TELEGRAM_BOT_TOKEN;
-  const kanal = process.env.TELEGRAM_CHAT_ID || process.env.TELEGRAM_KANAL;
+  const kanal = process.env.TELEGRAM_KANAL;
   if (!token || !kanal) {
-    console.log('Telegram: anahtar yok, atlandı.');
+    console.log('[telegram] TELEGRAM_BOT_TOKEN ya da TELEGRAM_KANAL yok, gönderim atlandı.');
     return;
   }
   const gonderilen = JSON.parse(await readFile(DURUM, 'utf8').catch(() => '{}'));
@@ -129,13 +116,12 @@ async function calistir() {
     try {
       await gonder(token, kanal, y);
       gonderilen[y.slug] = new Date().toISOString();
-      // Her başarılı gönderimde kaydet: iş zaman aşımına uğrarsa aynı yazı ikinci kez gitmesin.
-      await writeFile(DURUM, `${JSON.stringify(gonderilen, null, 2)}\n`);
       console.log(`[telegram] + ${y.slug}`);
     } catch (e) {
       console.error(`[telegram] ! ${y.slug}: ${e.message}`);
     }
   }
+  await writeFile(DURUM, `${JSON.stringify(gonderilen, null, 2)}\n`);
 }
 
 // Doğrudan çalıştırılınca gönder; testler içe aktarınca çalışmasın.
