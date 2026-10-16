@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { readdirSync, readFileSync } from 'node:fs';
 import { indekslenir } from './src/lib/uzunluk.mjs';
+import { satteri } from '@astrojs/markdown-satteri';
+import sozlukBagla from './src/lib/sozluk-bagla.mjs';
 
 // Site haritasındaki <lastmod> için yazı tarihleri: haber adresi → tarih, kategori → en yeni tarih.
 // Ön bilgi doğrudan dosyadan okunur (yapılandırma, içerik koleksiyonuna erişemez). Taslaklar atlanır.
@@ -93,6 +95,8 @@ export default defineConfig({
       },
     }),
   ],
+  // Haber gövdesinde ilk geçen finans terimleri /sozluk/ sayfalarına bağlanır (src/lib/sozluk-bagla.mjs).
+  markdown: { processor: satteri({ hastPlugins: [sozlukBagla] }) },
   // CSP (public/_headers) satır içi stile izin vermez; tüm CSS ayrı dosya olarak yüklenir.
   build: { inlineStylesheets: 'never' },
   // Aynı nedenle betikler de satır içine gömülmez (küçük betikler varsayılan olarak gömülür ve CSP'ye takılır).

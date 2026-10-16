@@ -147,6 +147,10 @@ const today = new Date().toLocaleDateString(SITE.locale, {
         </div>
         <nav aria-label="Alt menü">
           {CATEGORIES.map((c) => <a href={`/kategori/${c.slug}/`}>{c.name}</a>)}
+          <a href="/konu/">Konular</a>
+          <a href="/veri/">Veriler</a>
+          <a href="/hesapla/">Hesaplayıcılar</a>
+          <a href="/sozluk/">Sözlük</a>
           <a href="/hakkimizda/">Hakkımızda</a>
           <a href="/yayin-ilkeleri/">Yayın İlkeleri</a>
           <a href="/rss.xml">RSS</a>

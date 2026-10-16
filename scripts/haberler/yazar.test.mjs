@@ -60,3 +60,11 @@ test('mojibakeDuzelt: Windows-1252 bozulmasını geri çevirir, sağlam metne do
   }
   assert.equal(mojibakeDuzelt('yüzde 3,7'), 'yüzde 3,7');
 });
+
+test('yazarIstemi başlık kuralı: aranan kelimeyle başlar, iki noktalı ve soru başlık yasak', async () => {
+  const { yazarIstemi } = await import('./yazar.mjs');
+  const istem = yazarIstemi({ baslik: 'x', kaynakMetni: 'y', kaynaklar: [] });
+  assert.match(istem, /Aranan kelimeyle başlar/);
+  assert.match(istem, /İki noktalı başlangıç kullanma/);
+  assert.match(istem, /soru cümlesi yazma/);
+});

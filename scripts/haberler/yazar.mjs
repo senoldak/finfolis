@@ -75,7 +75,7 @@ ${KURALLAR}`;
 
 export function yazarIstemi(aday) {
   return `Aşağıdaki kaynaktan Türkçe bir haber yaz.
-- baslik: olanı doğru ve abartısız anlatan kısa başlık. Yalnızca ilk kelime ve özel adlar büyük harfle başlar ("Amerikalıların borç ödemelerinde büyük artış"; "Amerikalıların Borç Ödemelerinde Büyük Artış" değil). Sonda nokta yok.
+- baslik: olanı doğru ve abartısız anlatan kısa başlık. Aranan kelimeyle başlar (kişi, kurum, gösterge ya da olay adı ilk kelime olur). İki noktalı başlangıç kullanma ("Kurum: …" değil); soru cümlesi yazma; "Yeni gelişme", "Dikkat çeken adım" gibi belirsiz başlık yazma. Yalnızca ilk kelime ve özel adlar büyük harfle başlar ("Amerikalıların borç ödemelerinde büyük artış"; "Amerikalıların Borç Ödemelerinde Büyük Artış" değil). Sonda nokta yok.
 - spot: en fazla 2 cümle; ne oldu ve ana rakam.
 - govde: Markdown, 250-400 kelime, 3-5 kısa paragraf. Sırayla: (1) ne oldu; (2) okur ve piyasalar için anlamı, kaynağın verdiği bağlam ve arka planla; (3) ana rakam, ait olduğu tarih ve açıklayan kurum ya da kişi. Yalnızca KAYNAK'taki bilgileri kullan: kaynak bu uzunluğa yetmiyorsa uydurma, tekrar ya da dolgu cümlesi yazma. Ara başlık koyma. Kaynak bağlantısı ekleme, otomatik eklenir.
 - rakamlar: en fazla 4 öğe ({etiket, deger}); yalnızca kaynakta aynen geçen rakamlar, Türkçe biçimde. Emin değilsen boş bırak.
