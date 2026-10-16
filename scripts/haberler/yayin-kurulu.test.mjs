@@ -194,5 +194,4 @@ test('genişletme sonrası da kısaysa dur (kisa işaretli)', async () => {
   const r = await yayinKurulu(iyi, aday, { gemini });
   assert.match(r.dur, /Metin kısa/);
   assert.equal(r.kisa, true);
-  assert.ok(r.yazi?.govde, 'denetlenmiş kısa metin de döner (tek başına kısa haber olabilir)');
 });

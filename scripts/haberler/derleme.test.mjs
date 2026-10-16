@@ -209,31 +209,10 @@ test('derlemede geçici Gemini hatası: kısa haberler havuzda kalır, sonraki t
   assert.deepEqual(s.durum.havuz, []);
 });
 
-test('kısa kalan haber eş bulamazsa tek başına kısa haber olarak yayımlanır', async () => {
-  const bultendekiler = [];
-  const s = await ortam({
-    bulten: bultenYazan(bultendekiler),
-    yayinKurulu: async (t, a) => (a.haberler ? { yazi: t } : { dur: 'Metin kısa', kisa: true, yazi: t }),
-  });
+test('kısa haber eş bulamazsa tek başına yayımlanmaz, havuzda eş bekler', async () => {
+  const s = await ortam();
   s.kaynaklar = tekKaynak(s, ['a1', 'Copper prices climb']);
-  const r = await calistir(s);
-  assert.equal(r.adet, 1);
-  assert.deepEqual(await readdir(path.join(s.rot, 'src/content/haberler')), r.yazilar);
-  assert.deepEqual(s.durum.havuz, []);
-  assert.deepEqual(bultendekiler, []);
-  assert.equal(s.durum.gorulen.a1.yazildi, true);
-});
-
-test('aynı turda aynı kategoriden kısa haberler yine derleme olur, tek tek yayımlanmaz', async () => {
-  const s = await ortam({ yayinKurulu: async (t, a) => (a.haberler ? { yazi: t } : { dur: 'Metin kısa', kisa: true, yazi: t }) });
-  const r = await calistir(s);
-  assert.equal(r.adet, 1);
-  assert.equal((await readdir(path.join(s.rot, 'src/content/haberler'))).length, 1);
-});
-
-test('derleme yayın kurulundan geçemezse kısa metni olan haberler tek tek yayımlanır', async () => {
-  const s = await ortam({ yayinKurulu: async (t, a) => (a.haberler ? { dur: 'Son kontrol: x' } : { dur: 'Metin kısa', kisa: true, yazi: t }) });
-  const r = await calistir(s);
-  assert.equal(r.adet, 3);
-  assert.deepEqual(s.durum.havuz, []);
+  assert.equal((await calistir(s)).adet, 0);
+  assert.deepEqual(await readdir(path.join(s.rot, 'src/content/haberler')), []);
+  assert.deepEqual(s.durum.havuz.map((o) => o.id), ['a1']);
 });
