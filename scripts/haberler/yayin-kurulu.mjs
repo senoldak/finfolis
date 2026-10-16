@@ -102,7 +102,6 @@ const GENEL_MEDYA = [
   'CNN Türk',
   'Demirören Haber Ajansı',
   'DHA',
-  'Dow Jones',
   'Dünya Gazetesi',
   'Ekonomim',
   'Financial Times',
@@ -114,7 +113,6 @@ const GENEL_MEDYA = [
   'İhlas Haber Ajansı',
   'Milliyet',
   'New York Times',
-  'Nikkei',
   'NTV',
   'Politico',
   'Reuters',
@@ -130,9 +128,7 @@ const MEDYA_ADLARI = [...new Set([...GENEL_MEDYA, ...gizliMedyaAdlari()])]
   .sort((a, b) => b.length - a.length)
   .map(regexKacis)
   .join('|');
-// Borsa endeksi adları (Dow Jones endeksi, Nikkei 225) yayıncı değildir: adın ardından endeks sözcüğü ya da sayı gelirse yakalanmaz.
-const ENDEKS_SONEKI = String.raw`(?!\s+(?:[Ee]ndeks|[Ss]anayi|[Oo]rtalama|225|[Ii]ndex|[Ii]ndustrial))`;
-const MEDYA = new RegExp(String.raw`(?<![\p{L}\d])(${MEDYA_ADLARI})(?![\p{L}\d])${ENDEKS_SONEKI}`, 'gu');
+const MEDYA = new RegExp(String.raw`(?<![\p{L}\d])(${MEDYA_ADLARI})(?![\p{L}\d])`, 'gu');
 export function medyaKontrol(metin) {
   const bulunan = [...new Set(metin.match(MEDYA) ?? [])];
   return bulunan.length ? [`Yayın kuruluşu adı geçiyor: ${bulunan.join(', ')}`] : [];

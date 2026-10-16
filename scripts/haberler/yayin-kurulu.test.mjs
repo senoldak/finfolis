@@ -195,9 +195,3 @@ test('genişletme sonrası da kısaysa dur (kisa işaretli)', async () => {
   assert.match(r.dur, /Metin kısa/);
   assert.equal(r.kisa, true);
 });
-
-test('medyaKontrol: borsa endeksi adları (Dow Jones, Nikkei 225) yayıncı sayılmaz', async () => {
-  const { medyaKontrol } = await import('./yayin-kurulu.mjs');
-  assert.deepEqual(medyaKontrol('Dow Jones endeksi yüzde 1 geriledi; Nikkei 225 yükseldi.'), []);
-  assert.deepEqual(medyaKontrol('Nikkei endeksi ve Dow Jones Sanayi Ortalaması karışık seyretti.'), []);
-});
