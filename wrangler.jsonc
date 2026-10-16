@@ -1,12 +1,30 @@
 {
   // Cloudflare ayarı: site statik dosyalar olarak yayınlanır (ücretsiz).
+  // Worker yalnız /api/* isteklerini ve haftalık bülten zamanlayıcısını karşılar; diğer her şey statik dosyadır.
   "name": "finfolis",
   "compatibility_date": "2026-10-01",
+  "main": "worker/index.ts",
   "routes": [
     { "pattern": "finfolis.com", "custom_domain": true }
   ],
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  // Bülten aboneleri (migrations/0001_bulten.sql). Göç uzak veritabanına ayrıca uygulanır.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "finfolis-bulten",
+      "database_id": "f8c429c2-9214-4f95-b4cb-13099620886e",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // Pazartesi 06:00 UTC: haftalık bülten.
+  "triggers": { "crons": ["0 6 * * 1"] },
+  "vars": {
+    "BULTEN_GONDEREN": "finfolis <bulten@finfolis.com>"
   }
 }
