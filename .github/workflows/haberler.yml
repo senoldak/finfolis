@@ -90,7 +90,34 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run yayinla.yml --ref "${{ github.ref_name }}"
 
-      # Telegram gönderimi Cloudflare'deki mecmua-saat Worker'ında: haberler vardiyaya yayılarak 10 dakikada bir gider.
+      # Telegram: yalnız sitede yayına girmiş ve indekslenebilir yazılar, her biri bir kez (bkz. scripts/haberler/telegram.mjs).
+      # Anahtarlar yoksa adım "anahtar yok, atlandı" yazar ve başarılı biter; zaman aşımı ya da hata haber üretimini durdurmaz.
+      - name: Telegram'a gönder
+        timeout-minutes: 15
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: node scripts/haberler/telegram.mjs
+
+      # Gönderilen yazıların listesi depoya yazılır; sonraki çalıştırma aynı yazıyı tekrar göndermesin.
+      - name: Telegram durumunu kaydet
+        if: always()
+        run: |
+          git config user.name "finfolis-haber-botu"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/haberler/telegram-gonderilen.json
+          if git diff --cached --quiet; then
+            echo "Telegram durumunda değişiklik yok."
+            exit 0
+          fi
+          git commit -m "Telegram: gönderim durumu güncellendi [skip ci]"
+          for i in 1 2 3 4 5; do
+            git pull --rebase -X theirs && git push && exit 0
+            git rebase --abort 2>/dev/null || true
+            sleep $((i * 5))
+          done
+          exit 1
 
       - name: Yapılandırma hatası bildirimi
         if: steps.hent.outputs.konfig_hatasi == '1'

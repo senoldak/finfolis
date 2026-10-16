@@ -53,7 +53,11 @@ Zamanlanmış bir GitHub Actions iş akışı (`.github/workflows/haberler.yml`)
 
 ## Telegram
 
-Bot her çalıştırmada yeni yazıları [@finfolis](https://t.me/finfolis) kanalına kapak resmiyle gönderir (`scripts/haberler/telegram.mjs`): 🧮 başlık, özet ve site linki. Bir yazı sitede yayına girmeden gönderilmez; gönderilenler `scripts/haberler/telegram-gonderilen.json` dosyasında tutulur, bir çalıştırmada en fazla 3 yazı gider. Gereken GitHub Secret'ları: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_KANAL` (ör. `@finfolis`); bot kanalda yönetici olmalıdır.
+Haber botu her çalıştırmada yeni yazıları [@finfolis](https://t.me/finfolis) kanalına kapak resmiyle gönderir (`scripts/haberler/telegram.mjs`): 🧮 başlık, özet ve site linki. Yalnız indekslenebilir (noindex olmayan) yazılar gider ve bir yazı sitede yayına girmeden gönderilmez. Gönderilenler `scripts/haberler/telegram-gonderilen.json` dosyasında tutulur, her yazı bir kez gider. Bağlantılara UTM eklenir (`utm_source=telegram&utm_medium=social`). Gereken GitHub Secret'ları: `TELEGRAM_BOT_TOKEN` ve `TELEGRAM_CHAT_ID` (ör. `@finfolis`); bot kanalda yönetici olmalıdır. Secret'lar yoksa gönderim atlanır ve iş akışı başarısız olmaz.
+
+## Haftalık bülten
+
+`/bulten/` sayfasındaki form, e-posta adresini onaylatır ve her pazartesi (06:00 UTC) son yedi günün öne çıkan haberlerini gönderir. Cloudflare Worker'ı (`worker/`) abonelikleri ve gönderimi yönetir; veritabanı şeması `migrations/0001_bulten.sql` dosyasındadır. Gerekenler: D1 göçünü uzak veritabanına uygulamak (`npx wrangler d1 migrations apply finfolis-bulten --remote`), `npx wrangler secret put RESEND_API_KEY` ve Resend'de `finfolis.com` alan adının doğrulanması. Testler: `npm run test:bot`.
 
 ## Bilgisayarda çalıştırma
 
