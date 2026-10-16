@@ -13,7 +13,8 @@ import { rssHaberKaynagi } from './kaynaklar/rss-haber.mjs';
 import { BESLEMELER } from './kaynaklar/beslemeler.mjs';
 import * as ipucuModulu from './ipucu.mjs';
 import * as olaylarModulu from './olaylar.mjs';
-import { yaz as yazarYaz } from './yazar.mjs';
+import { yaz as yazarYaz, derlemeYaz as derlemeYazar } from './yazar.mjs';
+import { kisaGruplari, derlemeAdayi, derlemeOlayi, DERLEME_MAKS } from './derleme.mjs';
 import { yayinKurulu as kurul } from './yayin-kurulu.mjs';
 import * as bultenModulu from './bulten.mjs';
 import { karneler as varsayilanKarneler } from './karne.mjs';
@@ -144,6 +145,7 @@ export async function calistir({
   olaylar = olaylarModulu,
   gemini = varsayilanGemini,
   yaz = yazarYaz,
+  derlemeYaz = derlemeYazar,
   yayinKurulu = kurul,
   bulten = bultenModulu,
   karneler = varsayilanKarneler,
@@ -257,6 +259,7 @@ export async function calistir({
   // 5. Terfi eden olayları yaz, denetle, kaydet
   const yazilan = [];
   const dislanan = new Set(); // durdurulan, başarısız ya da yazılamayan (bütçe/konfig/tavan) terfi olayları
+  const kisaOlaylar = []; // yayın kurulunda kısa kalanlar: tema derlemesine aday (bkz. derleme.mjs)
   if (!geminiVar) console.error('UYARI: GEMINI_API_KEY yok; haber yazılmayacak, yalnızca piyasa verisi ve gösterge bülteni.');
   const terfi = geminiVar ? yeni.filter(terfiMi) : [];
   let dur = false;
@@ -288,6 +291,7 @@ export async function calistir({
       if (r.dur) {
         for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso };
         if (!r.kisa) dislanan.add(o); // yalnızca kısa kaldığı için durana bültende yer var
+        else kisaOlaylar.push(o);
         hatalar.push(`${o.id} «${o.baslik}»: yayınlanmadı, ${r.dur}`);
         log(`  - ${o.id}: durduruldu (${r.dur})`);
         continue;
@@ -315,6 +319,45 @@ export async function calistir({
       // Görüldü sayılmaz: sonraki çalıştırmada yeniden denenir.
       for (const a of o.adaylar) basarisiz(durum, a, iso, hatalar, e.message, log);
       console.error(`  ! ${o.id}: ${e.message}`);
+    }
+  }
+
+  // 5b. Kısa kalan olaylar tema derlemesine: aynı kategoriden birkaçı tek yazı olur. Derleme yazılamazsa ya da
+  // yayın kurulundan geçemezse olaylar bülten satırı olarak kalır.
+  for (const grup of kisaGruplari(kisaOlaylar).slice(0, DERLEME_MAKS)) {
+    if (dur || butceBitti()) break;
+    const birlesik = derlemeAdayi(grup);
+    try {
+      const taslak = await derlemeYaz(birlesik, {});
+      if (!taslak) {
+        log(`  - derleme (${grup.length} haber): yazar çıktı vermedi`);
+        continue;
+      }
+      const r = await yayinKurulu(taslak, birlesik, {});
+      if (r.dur) {
+        log(`  - derleme (${grup.length} haber): durduruldu (${r.dur})`);
+        continue;
+      }
+      const yazi = { ...r.yazi, kategori: birlesik.kategori, tarih: new Date(birlesik.tarih), tur: 'haber', kaynaklar: birlesik.kaynaklar, kaynakIzi: kaynakIzi(birlesik.gizliKaynaklar) };
+      Object.assign(yazi, varsayilanKapak(yazi, birlesik));
+      const slug = await yaziYaz(rot, yazi);
+      const o = derlemeOlayi(grup, birlesik, yazi.baslik, slug);
+      for (const k of grup) {
+        dislanan.add(k); // bültende ikinci kez yer almasın
+        for (const a of k.adaylar ?? []) durum.gorulen[a.id] = { zaman: iso, yazildi: true };
+      }
+      yazilan.push(o);
+      sonuc.adet++;
+      sonuc.yazilar.push(slug);
+      log(`  + derleme ${slug} (${grup.length} haber)`);
+    } catch (e) {
+      if (e.konfig) {
+        hatalar.push(`Gemini yapılandırma hatası: ${e.message}`);
+        sonuc.konfigHatasi = true;
+        dur = true;
+        break;
+      }
+      log(`  ! derleme: ${e.message}`);
     }
   }
 

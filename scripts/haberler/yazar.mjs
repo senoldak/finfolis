@@ -175,6 +175,30 @@ export async function yaz(aday, { gemini = varsayilanGemini } = {}) {
   return yaziMi(await gemini({ sistem: SISTEM, istem: yazarIstemi(aday), sema: YAZI_SEMASI }));
 }
 
+// Tema derlemesi (bkz. derleme.mjs): aynı kategorideki kısa haberler tek yazıda anlatılır.
+// aday.haberler: [{baslik, kaynakMetni}]; her haberin kendi kaynak metni verilir, yazı yalnızca bunlardan kurulur.
+export function derlemeIstemi(aday) {
+  const haberler = aday.haberler.map((h, i) => `### ${i + 1}. ${h.baslik}\n${h.kaynakMetni}`).join('\n\n');
+  return `Aşağıda aynı kategoriden ${aday.haberler.length} kısa haber var. Bunları tek bir Türkçe derleme haberinde topla.
+- baslik: haberlerin ortak temasını anlatan kısa başlık; tek bir haberi öne çıkarmaz. İki noktalı başlangıç kullanma; sonda nokta yok.
+- spot: en fazla 2 cümle; derlemenin ana noktası.
+- govde: Markdown, 250-400 kelime, her haber için bir paragraf (en fazla 5 paragraf). Her paragraf haberin konusuyla başlar. Yalnızca o haberin KAYNAK bölümündeki bilgileri kullan; bir haberin kaynağında yeterli bilgi yoksa o haberi yazma, uydurma ya da dolgu cümlesi ekleme. Ara başlık koyma.
+- rakamlar: en fazla 4 öğe ({etiket, deger}); yalnızca kaynakta aynen geçen rakamlar. Emin değilsen boş bırak.
+- tablo, grafik, sirada: kullanma.
+
+KATEGORİ: ${aday.kategori ?? ''}
+HABERLER:
+${haberler}`;
+}
+
+// Döner: derleme taslağı ({baslik, spot, govde, rakamlar?}) ya da null. Tablo, grafik ve sıradaki gelişme derlemede kullanılmaz.
+export async function derlemeYaz(aday, { gemini = varsayilanGemini } = {}) {
+  const y = yaziMi(await gemini({ sistem: SISTEM, istem: derlemeIstemi(aday), sema: YAZI_SEMASI }));
+  if (!y) return null;
+  const { tablo, grafik, sirada, ...kalan } = y;
+  return kalan;
+}
+
 // Kısa taslağı yalnızca kaynaktaki ek bilgilerle genişletir (bkz. yayin-kurulu.mjs, EN_AZ_KELIME).
 // Kaynakta ek bilgi yoksa model taslağı aynen döndürür; başarısızsa taslak aynen döner. Sonuç yine denetimden geçer.
 export async function uzat(taslak, aday, kelime, { gemini = varsayilanGemini } = {}) {
