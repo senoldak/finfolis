@@ -7,6 +7,7 @@ import path from 'node:path';
 import { calistir } from './hent-haberler.mjs';
 import { kisaGruplari, derlemeAdayi, DERLEME_AZAMI } from './derleme.mjs';
 import { derlemeIstemi } from './yazar.mjs';
+import { havuzAc, havuzKapat, HAVUZ_SAAT, SON_SAAT } from './havuz.mjs';
 
 const simdi = new Date('2026-10-12T07:00:00Z');
 const olay = (id, kategori, onem = 4) => ({
@@ -101,4 +102,92 @@ test('derleme yayın kurulundan geçemezse kısa haberler bülten satırı olara
   const r = await calistir(s);
   assert.equal(r.adet, 0);
   assert.deepEqual(bultendekiler.sort(), ['a1', 'a2', 'a3']);
+});
+
+// Kısa haber havuzu (havuz.mjs): tek kalan kısa haber çalıştırmalar arasında eş bekler.
+const saatSonra = (h) => new Date(simdi.getTime() + h * 3600e3);
+const tekKaynak = (s, ...liste) => [{ ad: 'A', hent: async () => liste.map(([id, baslik]) => s.aday(id, baslik)) }];
+const bultenYazan = (kayit) => ({
+  bultenGerekli: (n) => n >= 1,
+  bultenYaz: async (ol, _p, { simdi: t }) => {
+    kayit.push(...ol.map((o) => o.id));
+    return { yazi: { baslik: `Bülten ${t.toISOString()}`, spot: 's', govde: 'g', kategori: 'piyasalar', tarih: t, tur: 'bulten', kaynaklar: [] }, anlik: { zaman: 'z', degerler: {} } };
+  },
+});
+
+test('havuz: tek kısa haber bekler, sonraki çalıştırmada gelen eşiyle derleme olur', async () => {
+  const bultendekiler = [];
+  const s = await ortam({ bulten: bultenYazan(bultendekiler) });
+  s.kaynaklar = tekKaynak(s, ['a1', 'Copper prices climb']);
+  assert.equal((await calistir(s)).adet, 0);
+  assert.deepEqual(bultendekiler, []);
+  assert.deepEqual(s.durum.havuz.map((o) => o.id), ['a1']);
+
+  const r = await calistir({ ...s, simdi: saatSonra(2), kaynaklar: tekKaynak(s, ['a2', 'Gold slips']) });
+  assert.equal(r.adet, 1);
+  assert.deepEqual(s.durum.havuz, []);
+  assert.deepEqual(bultendekiler, []);
+  for (const id of ['a1', 'a2']) assert.equal(s.durum.gorulen[id].yazildi, true);
+});
+
+test('havuz: durum dosyasında kaynak metni ve adresi şifreli durur', async () => {
+  const s = await ortam();
+  s.kaynaklar = tekKaynak(s, ['a1', 'Copper prices climb']);
+  await calistir(s);
+  const kapali = havuzKapat(s.durum.havuz);
+  const metin = JSON.stringify(kapali);
+  assert.doesNotMatch(metin, /Uzun tam metin|https:\/\/k\/|Copper/);
+  assert.deepEqual(Object.keys(kapali[0]).sort(), ['havuzaGirdi', 'id', 'kategori', 'sifreli']);
+  const acik = havuzAc(kapali);
+  assert.equal(acik[0].id, 'a1');
+  assert.match(acik[0].adaylar[0].kaynakMetni, /Uzun tam metin a1/);
+});
+
+test('havuz: HAVUZ_SAAT içinde eş bulamayan kısa haber bülten satırı olur ve havuzdan çıkar', async () => {
+  const bultendekiler = [];
+  const s = await ortam({ bulten: bultenYazan(bultendekiler) });
+  s.kaynaklar = tekKaynak(s, ['a1', 'Copper prices climb']);
+  await calistir(s);
+  await calistir({ ...s, simdi: saatSonra(HAVUZ_SAAT - 1), kaynaklar: tekKaynak(s) });
+  assert.deepEqual(bultendekiler, []); // süre dolmadan bültene girmez
+  const r = await calistir({ ...s, simdi: saatSonra(HAVUZ_SAAT), kaynaklar: tekKaynak(s) });
+  assert.equal(r.bultenYazildi, true);
+  assert.deepEqual(bultendekiler, ['a1']);
+  assert.deepEqual(s.durum.havuz, []);
+});
+
+test('havuz: bültene de giremeyen kısa haber SON_SAAT sonra düşer', async () => {
+  const s = await ortam();
+  s.kaynaklar = tekKaynak(s, ['a1', 'Copper prices climb']);
+  await calistir(s);
+  await calistir({ ...s, simdi: saatSonra(HAVUZ_SAAT), kaynaklar: tekKaynak(s) });
+  assert.deepEqual(s.durum.havuz.map((o) => o.id), ['a1']); // bülten yazılmadı: bekler
+  await calistir({ ...s, simdi: saatSonra(SON_SAAT), kaynaklar: tekKaynak(s) });
+  assert.deepEqual(s.durum.havuz, []);
+});
+
+test('havuz: bekleyen olay bu arada başka kaynaktan tam haber olarak yazıldıysa havuzdan düşer', async () => {
+  const baslik = 'IonQ to buy cybersecurity firm Elisity in up to $1.3 billion deal';
+  const s = await ortam({ yayinKurulu: async (t, a) => (a.id === 'a1' ? { dur: 'Metin kısa', kisa: true } : { yazi: t }) });
+  s.kaynaklar = tekKaynak(s, ['a1', baslik]);
+  await calistir(s);
+  assert.equal(s.durum.havuz.length, 1);
+  const r = await calistir({ ...s, simdi: saatSonra(2), kaynaklar: tekKaynak(s, ['b1', baslik]) });
+  assert.equal(r.adet, 1);
+  assert.deepEqual(s.durum.havuz, []);
+});
+
+test('havuz: derlemesi yayımlanamayan grup bir daha denenmez, bülten satırı bekler', async () => {
+  let denemeler = 0;
+  const s = await ortam({
+    yayinKurulu: async () => ({ dur: 'Metin kısa', kisa: true }),
+    derlemeYaz: async () => (denemeler++, { baslik: 'D', spot: 's', govde: 'g', rakamlar: [] }),
+  });
+  await calistir(s); // a1–a3 kısa, derleme denenir ve durur; bülten yazılmaz
+  assert.equal(denemeler, 1);
+  assert.equal(s.durum.havuz.length, 3);
+  await calistir({ ...s, simdi: saatSonra(2), kaynaklar: tekKaynak(s) });
+  assert.equal(denemeler, 1);
+  const acik = havuzAc(havuzKapat(s.durum.havuz));
+  assert.ok(acik.every((o) => o.derlemeDenendi));
 });

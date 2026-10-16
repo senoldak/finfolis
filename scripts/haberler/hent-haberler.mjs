@@ -20,6 +20,7 @@ import * as bultenModulu from './bulten.mjs';
 import { karneler as varsayilanKarneler } from './karne.mjs';
 import { BOLGELER, dilimDolu, dilimKaydet } from './bulten.mjs';
 import { tekrarlariAyikla, hafizayaEkle, hafizaTohumla } from './tekrar.mjs';
+import { havuzAc, havuzKapat, havuzaHazirla, havuzAyir, derlemeDenendi } from './havuz.mjs';
 import { yaziYaz, gemini as varsayilanGemini } from './lib.mjs';
 import { kaynakKapagi, rakamKapagi, haberKapagi } from '../kapak/kapak.mjs';
 import { gorunur } from '../../src/lib/gorunur.mjs';
@@ -259,7 +260,7 @@ export async function calistir({
   // 5. Terfi eden olayları yaz, denetle, kaydet
   const yazilan = [];
   const dislanan = new Set(); // durdurulan, başarısız ya da yazılamayan (bütçe/konfig/tavan) terfi olayları
-  const kisaOlaylar = []; // yayın kurulunda kısa kalanlar: tema derlemesine aday (bkz. derleme.mjs)
+  const kisaOlaylar = []; // yayın kurulunda kısa kalanlar: havuza girer, tema derlemesine aday (bkz. havuz.mjs)
   if (!geminiVar) console.error('UYARI: GEMINI_API_KEY yok; haber yazılmayacak, yalnızca piyasa verisi ve gösterge bülteni.');
   const terfi = geminiVar ? yeni.filter(terfiMi) : [];
   let dur = false;
@@ -290,8 +291,9 @@ export async function calistir({
       const r = await yayinKurulu(taslak, o, {});
       if (r.dur) {
         for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso };
-        if (!r.kisa) dislanan.add(o); // yalnızca kısa kaldığı için durana bültende yer var
-        else kisaOlaylar.push(o);
+        // Yalnızca kısa kaldığı için duran olay bu turun bültenine girmez: havuzda eş bekler.
+        dislanan.add(o);
+        if (r.kisa) kisaOlaylar.push(o);
         hatalar.push(`${o.id} «${o.baslik}»: yayınlanmadı, ${r.dur}`);
         log(`  - ${o.id}: durduruldu (${r.dur})`);
         continue;
@@ -322,20 +324,38 @@ export async function calistir({
     }
   }
 
-  // 5b. Kısa kalan olaylar tema derlemesine: aynı kategoriden birkaçı tek yazı olur. Derleme yazılamazsa ya da
-  // yayın kurulundan geçemezse olaylar bülten satırı olarak kalır.
-  for (const grup of kisaGruplari(kisaOlaylar).slice(0, DERLEME_MAKS)) {
+  // 5b. Kısa haber havuzu ve tema derlemesi: bu turun kısa olayları önceki turlardan bekleyenlerle birleşir;
+  // aynı kategoriden birkaçı tek yazı olur. Derleme yazılamazsa ya da yayın kurulundan geçemezse olaylar bülten
+  // satırına aday olur. Eş bulamayan olay havuzda kalır; süresi dolunca bülten satırına adaydır (havuz.mjs).
+  const havuz = [...havuzAc(durum.havuz ?? []), ...kisaOlaylar.map((o) => havuzaHazirla(o, iso))];
+  // Bekleyen olay bu arada (bu turda ya da önceki turlarda) tam haber olarak yazıldıysa havuzdan düşer.
+  for (const t of tekrarlariAyikla(havuz, hafizayaEkle(durum.yayinlar ?? [], yazilan, simdi), simdi)) {
+    log(`  - havuz ${t.olay.id}: tekrar (${t.neden}), ${t.slug} ile aynı olay`);
+  }
+  const { bekleyen, suresiDolan, dusen } = havuzAyir(havuz, simdi);
+  for (const o of dusen) log(`  - havuz ${o.id}: bekleme süresi doldu, düştü`);
+  const bultenYedek = [...suresiDolan]; // bu turun bülteni yazılırsa satır olur, yazılmazsa havuzda bekler
+  let derlenmeyen = bekleyen;
+  for (const grup of kisaGruplari(bekleyen).slice(0, DERLEME_MAKS)) {
     if (dur || butceBitti()) break;
+    // Denenen grup sonucu ne olursa olsun havuzdan çıkar: başarısızsa bu turun bülten satırına adaydır.
+    derlenmeyen = derlenmeyen.filter((o) => !grup.includes(o));
+    const yedekle = () => {
+      for (const o of grup) derlemeDenendi(o);
+      bultenYedek.push(...grup);
+    };
     const birlesik = derlemeAdayi(grup);
     try {
       const taslak = await derlemeYaz(birlesik, {});
       if (!taslak) {
         log(`  - derleme (${grup.length} haber): yazar çıktı vermedi`);
+        yedekle();
         continue;
       }
       const r = await yayinKurulu(taslak, birlesik, {});
       if (r.dur) {
         log(`  - derleme (${grup.length} haber): durduruldu (${r.dur})`);
+        yedekle();
         continue;
       }
       const yazi = { ...r.yazi, kategori: birlesik.kategori, tarih: new Date(birlesik.tarih), tur: 'haber', kaynaklar: birlesik.kaynaklar, kaynakIzi: kaynakIzi(birlesik.gizliKaynaklar) };
@@ -355,15 +375,18 @@ export async function calistir({
         hatalar.push(`Gemini yapılandırma hatası: ${e.message}`);
         sonuc.konfigHatasi = true;
         dur = true;
+        derlenmeyen.push(...grup); // olayların suçu değil: havuzda beklemeye devam eder
         break;
       }
       log(`  ! derleme: ${e.message}`);
+      yedekle();
     }
   }
+  if (derlenmeyen.length) log(`  ~ havuz: ${derlenmeyen.length} kısa haber eş bekliyor`);
 
   // 6. Bülten: yazılan haberler (bizim linkimizle) + terfi etmeyen olaylar.
   // Bülten yazılmazsa terfi etmeyen olayların adayları görülmedi kalır ve sonraki çalıştırmada birikir.
-  const bultenOlaylari = yeni.filter((o) => !dislanan.has(o));
+  const bultenOlaylari = [...yeni.filter((o) => !dislanan.has(o)), ...bultenYedek];
   // Günde en fazla üç bülten: bu dilimin (açılış/öğle/kapanış) bülteni yazıldıysa olaylar sonraki dilime kalır.
   sonuc.bultenGerekli = bulten.bultenGerekli(bultenOlaylari.length) && !dilimDolu(durum, simdi);
   let bultendekiler = [];
@@ -380,6 +403,7 @@ export async function calistir({
         sonuc.yazilar.push(slug);
         // Tavan dışı kalanlar da görüldü sayılır ve hafızaya girer: başka kaynaktan gelen kopyaları geri dönmesin.
         bultendekiler = bultenOlaylari;
+        bultenYedek.length = 0; // satır oldu, havuza dönmez
         for (const o of bultenOlaylari) for (const a of o.adaylar) if (!durum.gorulen[a.id]?.yazildi) durum.gorulen[a.id] = { zaman: iso };
         log(`  + bülten ${slug}`);
       }
@@ -388,6 +412,9 @@ export async function calistir({
       console.error(`  ! bülten: ${e.message}`);
     }
   }
+
+  // Bülten satırı olamayan süresi dolmuş olaylar SON_SAAT'e kadar havuzda kalır.
+  durum.havuz = [...derlenmeyen, ...bultenYedek.filter((o) => o.havuzaGirdi)];
 
   // 6b. Karneler (haftalık, aylık, enflasyon): Gemini'siz, veriden şablonla; zamanı gelmediyse ağ isteği de yok.
   if (!butceBitti()) {
@@ -427,7 +454,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   const kuru = process.argv.includes('--kuru');
   const s = await calistir({ kuru });
   if (!kuru) {
-    await writeFile(DURUM_DOSYASI, JSON.stringify({ ...s.durum, olaylar: hafizaKapat(s.durum.olaylar), yayinlar: yayinKapat(s.durum.yayinlar) }, null, 2) + '\n');
+    await writeFile(DURUM_DOSYASI, JSON.stringify({ ...s.durum, olaylar: hafizaKapat(s.durum.olaylar), yayinlar: yayinKapat(s.durum.yayinlar), havuz: havuzKapat(s.durum.havuz ?? []) }, null, 2) + '\n');
     const adet = s.adet + (s.bultenYazildi ? 1 : 0);
     console.log(`Bitti: ${s.adet} yeni haber${s.bultenYazildi ? ', 1 bülten' : ''}.`);
     if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `adet=${adet}\n`);

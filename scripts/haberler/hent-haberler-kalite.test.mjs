@@ -64,7 +64,7 @@ test('aynı dilimde ikinci bülten yazılmaz; sonraki dilimde yazılır', async 
   assert.deepEqual(s.durum.bultenDilimleri, ['2026-10-12:acilis', '2026-10-12:ogle']);
 });
 
-test('yalnızca kısa kaldığı için duran olay bültene girer', async () => {
+test('yalnızca kısa kaldığı için duran olay hemen bültene girmez, havuzda eş bekler', async () => {
   let gelen = [];
   const s = await ortam({
     kaynaklar: [kaynak('A', [aday('a1', 'Copper prices climb')])],
@@ -73,5 +73,6 @@ test('yalnızca kısa kaldığı için duran olay bültene girer', async () => {
   });
   const r = await calistir(s);
   assert.equal(r.adet, 0);
-  assert.deepEqual(gelen, ['a1']);
+  assert.deepEqual(gelen, []);
+  assert.deepEqual(s.durum.havuz.map((o) => o.id), ['a1']);
 });
