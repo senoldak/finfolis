@@ -14,6 +14,8 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - 'wrangler.jsonc'
+      - 'worker/**'
+      - 'migrations/**'
       - '.github/workflows/yayinla.yml'
   workflow_dispatch:
 
