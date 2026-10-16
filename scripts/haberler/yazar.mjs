@@ -178,15 +178,18 @@ export async function yaz(aday, { gemini = varsayilanGemini } = {}) {
 // Tema derlemesi (bkz. derleme.mjs): aynı kategorideki kısa haberler tek yazıda anlatılır.
 // aday.haberler: [{baslik, kaynakMetni}]; her haberin kendi kaynak metni verilir, yazı yalnızca bunlardan kurulur.
 export function derlemeIstemi(aday) {
-  const haberler = aday.haberler.map((h, i) => `### ${i + 1}. ${h.baslik}\n${h.kaynakMetni}`).join('\n\n');
-  return `Aşağıda aynı kategoriden ${aday.haberler.length} kısa haber var. Bunları tek bir Türkçe derleme haberinde topla.
-- baslik: haberlerin ortak temasını anlatan kısa başlık; tek bir haberi öne çıkarmaz. İki noktalı başlangıç kullanma; sonda nokta yok.
-- spot: en fazla 2 cümle; derlemenin ana noktası.
-- govde: Markdown, 250-400 kelime, her haber için bir paragraf (en fazla 5 paragraf). Her paragraf haberin konusuyla başlar. Yalnızca o haberin KAYNAK bölümündeki bilgileri kullan; bir haberin kaynağında yeterli bilgi yoksa o haberi yazma, uydurma ya da dolgu cümlesi ekleme. Ara başlık koyma.
+  // Haberler kategori ara başlıkları altında; kategoriler gruptaki ilk görünüş sırasıyla.
+  const kategoriler = [...new Set(aday.haberler.map((h) => h.kategori ?? ''))];
+  const haberler = kategoriler
+    .map((k) => `## ${k}\n` + aday.haberler.filter((h) => (h.kategori ?? '') === k).map((h) => `### ${h.baslik}\n${h.kaynakMetni}`).join('\n\n'))
+    .join('\n\n');
+  return `Aşağıda aynı zaman diliminden ${aday.haberler.length} kısa haber var. Bunları tek bir Türkçe derleme haberinde topla.
+- baslik: dilimin öne çıkan konularını anlatan kısa başlık; tek bir haberi öne çıkarmaz. İki noktalı başlangıç kullanma; sonda nokta yok. Tarih ve saat yazma.
+- spot: en fazla 2 cümle; dilimin ana noktası.
+- govde: Markdown, 250-500 kelime. Her kategori için bir ara başlık ("## Kategori adı", HABERLER'deki sırayla), altında o kategorideki her haber için bir paragraf. Her paragraf haberin konusuyla başlar. Yalnızca o haberin KAYNAK bölümündeki bilgileri kullan; bir haberin kaynağında yetmeyen bilgi için başka haberin kaynağını kullanma, uydurma.
 - rakamlar: en fazla 4 öğe ({etiket, deger}); yalnızca kaynakta aynen geçen rakamlar. Emin değilsen boş bırak.
 - tablo, grafik, sirada: kullanma.
 
-KATEGORİ: ${aday.kategori ?? ''}
 HABERLER:
 ${haberler}`;
 }

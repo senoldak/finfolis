@@ -1,11 +1,12 @@
-// Kısa haber havuzu: yayın kurulunda yalnızca kısa kaldığı için duran olaylar hemen bültene düşmez, çalıştırmalar
-// arasında bekler. Aynı kategoriden bir eş gelince ikisi tema derlemesi olur (derleme.mjs). HAVUZ_SAAT içinde eş
-// bulamayan olay bülten satırına adaydır; SON_SAAT'e kadar bültene de giremezse düşer.
+// Kısa haber havuzu: yayın kurulunda yalnızca kısa kaldığı için duran olaylar tek başına yayımlanmaz; girdikleri
+// zaman diliminin (açılış/öğle/kapanış, İstanbul; bkz. bulten.mjs bultenDilimi) sonuna kadar havuzda birikir. Dilim
+// bitince o dilimin kısa haberleri kategori aranmadan tek derleme olur (derleme.mjs); tek kalan bülten satırına adaydır.
+// SON_SAAT'e kadar bültene de giremezse düşer.
 // Olaylar kaynak metni ve adresi taşır: durum dosyasında kayıt başına şifreli durur (gizli.mjs). Anahtar yoksa havuz
 // yazılmaz; düz metin hiçbir zaman dosyaya girmez.
 import { anahtarVar, coz, sifrele } from './gizli.mjs';
+import { bultenDilimi } from './bulten.mjs';
 
-export const HAVUZ_SAAT = 6; // eş bekleme süresi (finfolis turu 2 saatte bir: 3 tur)
 export const SON_SAAT = 24; // bülten satırı olarak da bekleme sınırı
 export const HAVUZ_AZAMI = 16; // aşan en eski olaylar beklemeden bülten adayı olur
 const KAYNAK_AZAMI = 3500; // olay başına saklanan kaynak metni (derleme isteminde de bu kadarı kullanılır)
@@ -56,17 +57,23 @@ export function derlemeDenendi(o) {
   delete o.sifreli; // değişti: kapatılırken yeniden şifrelenir
 }
 
-// bekleyen: eş aramaya devam edenler; suresiDolan: bülten satırına aday olanlar (HAVUZ_SAAT doldu, havuz taştı ya da
-// derlemesi denendi);
-// dusen: SON_SAAT'i geçenler.
+// Olayın havuza girdiği dilim (ör. "2026-10-12:acilis").
+export const dilimAnahtari = (o) => bultenDilimi(new Date(o.havuzaGirdi)).anahtar;
+
+// bekleyen: dilimi sürenler (derleme için birikir); olgun: dilimi bitmiş, derlemeye aday olanlar;
+// suresiDolan: bülten satırına aday olanlar (derlemesi denendi ya da havuz taştı); dusen: SON_SAAT'i geçenler.
 export function havuzAyir(havuz, simdi) {
   const dusen = havuz.filter((o) => yas(o, simdi) >= SON_SAAT);
   const kalan = havuz.filter((o) => yas(o, simdi) < SON_SAAT).sort((a, b) => Date.parse(b.havuzaGirdi) - Date.parse(a.havuzaGirdi));
+  const simdikiDilim = bultenDilimi(simdi).anahtar;
   const bekleyen = [];
+  const olgun = [];
   const suresiDolan = [];
   for (const o of kalan) {
-    if (!o.derlemeDenendi && yas(o, simdi) < HAVUZ_SAAT && bekleyen.length < HAVUZ_AZAMI) bekleyen.push(o);
+    if (o.derlemeDenendi) suresiDolan.push(o);
+    else if (dilimAnahtari(o) !== simdikiDilim) olgun.push(o);
+    else if (bekleyen.length < HAVUZ_AZAMI) bekleyen.push(o);
     else suresiDolan.push(o);
   }
-  return { bekleyen, suresiDolan, dusen };
+  return { bekleyen, olgun, suresiDolan, dusen };
 }

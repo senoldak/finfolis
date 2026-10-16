@@ -1,31 +1,51 @@
-// Tema derlemesi: tek başına yayın eşiğinin (yayin-kurulu.mjs, EN_AZ_KELIME) altında kalan kısa olayları,
-// aynı kategoriden olanları gruplayıp tek bir yazıda anlatır. Derleme de aynı yayın kurulu kapılarından geçer.
-// Bir grup yazılamazsa ya da yayın kurulundan geçemezse olaylar bülten satırı olarak kalır.
+// Dilim derlemesi: tek başına yayın eşiğinin (yayin-kurulu.mjs, EN_AZ_KELIME) altında kalan kısa olaylar, havuza
+// girdikleri dilim (açılış/öğle/kapanış) bitince kategori aranmadan tek yazıda toplanır; yazı içinde her kategori ara
+// başlık olur. Derleme de aynı yayın kurulu kapılarından geçer. Yazılamaz ya da geçemezse olaylar bülten satırı olur.
+import { CATEGORIES } from '../../src/lib/kategoriler.js';
+import { bultenDilimi } from './bulten.mjs';
+import { dilimAnahtari } from './havuz.mjs';
 
 export const DERLEME_EN_AZ = 2; // bir derlemede en az bu kadar kısa olay
-export const DERLEME_AZAMI = 4; // bir derlemede en fazla bu kadar kısa olay
+export const DERLEME_AZAMI = 8; // bir derlemede en fazla bu kadar kısa olay; fazlası bülten satırı olur
 export const DERLEME_MAKS = 2; // bir çalıştırmada en fazla derleme sayısı
 const HABER_BASINA_KAYNAK = 3500; // derleme isteminde her haber için kaynak metninden alınan karakter
 
-// Kısa olayları kategoriye göre gruplar; her grup önem sırasına göre en fazla DERLEME_AZAMI olay içerir.
-// Tek kalan olaylar (DERLEME_EN_AZ altı) gruba girmez ve bülten satırı olarak kalır.
-export function kisaGruplari(olaylar) {
-  const kategoriler = new Map();
+// Dilimi bitmiş kısa olayları dilime göre gruplar (en eski dilim önce). Her grup önem sırasıyla en fazla DERLEME_AZAMI
+// olay içerir; fazlası ve tek kalan dilimin olayı (DERLEME_EN_AZ altı) artan olur, bülten satırına adaydır.
+export function dilimGruplari(olaylar) {
+  const dilimler = new Map();
   for (const o of olaylar) {
-    const k = o.kategori ?? '';
-    if (!kategoriler.has(k)) kategoriler.set(k, []);
-    kategoriler.get(k).push(o);
+    const d = dilimAnahtari(o);
+    if (!dilimler.has(d)) dilimler.set(d, []);
+    dilimler.get(d).push(o);
   }
   const gruplar = [];
-  for (const liste of kategoriler.values()) {
-    const sirali = [...liste].sort((a, b) => (b.onem ?? 0) - (a.onem ?? 0));
-    for (let i = 0; i < sirali.length; i += DERLEME_AZAMI) {
-      const parca = sirali.slice(i, i + DERLEME_AZAMI);
-      if (parca.length >= DERLEME_EN_AZ) gruplar.push(parca);
+  const artan = [];
+  for (const d of [...dilimler.keys()].sort()) {
+    const sirali = [...dilimler.get(d)].sort((a, b) => (b.onem ?? 0) - (a.onem ?? 0));
+    if (sirali.length < DERLEME_EN_AZ) {
+      artan.push(...sirali);
+      continue;
     }
+    gruplar.push(sirali.slice(0, DERLEME_AZAMI));
+    artan.push(...sirali.slice(DERLEME_AZAMI));
   }
-  return gruplar;
+  return { gruplar, artan };
 }
+
+const kategoriAdi = (slug) => CATEGORIES.find((c) => c.slug === slug)?.name ?? slug ?? '';
+
+// En çok haberi olan kategori; eşitlikte gruptaki ilk (en önemli) haberinki.
+function enSikKategori(grup) {
+  const sayi = new Map();
+  for (const o of grup) sayi.set(o.kategori, (sayi.get(o.kategori) ?? 0) + 1);
+  return grup.reduce((en, o) => (sayi.get(o.kategori) > sayi.get(en) ? o.kategori : en), grup[0].kategori);
+}
+
+const dilimEki = (o) => {
+  const { gun, ay, ad } = bultenDilimi(new Date(o.havuzaGirdi ?? o.tarih ?? 0));
+  return `${gun} ${ay}, ${ad}`;
+};
 
 // Grubu tek bir "aday" gibi döndürür: yazar ve yayın kurulu bunu bekler.
 // kaynakMetni: sayı ve alıntı denetimi için birleşik kaynak (her haber kendi kısmında).
@@ -33,13 +53,15 @@ export function derlemeAdayi(grup) {
   const adaylar = grup.flatMap((o) => o.adaylar ?? []);
   const haberler = grup.map((o) => ({
     baslik: o.baslik ?? '',
+    kategori: kategoriAdi(o.kategori),
     kaynakMetni: (o.adaylar ?? []).map((a) => a.kaynakMetni ?? '').join('\n\n').slice(0, HABER_BASINA_KAYNAK),
   }));
   const kaynaklar = [...new Map(adaylar.flatMap((a) => a.kaynaklar ?? []).map((k) => [k.url, k])).values()];
   const tarihler = grup.map((o) => new Date(o.tarih ?? 0).getTime());
   return {
     id: `derleme:${grup.map((o) => o.id).join('+')}`,
-    kategori: grup[0].kategori,
+    kategori: enSikKategori(grup),
+    dilimEki: dilimEki(grup[0]),
     tarih: new Date(Math.max(...tarihler)).toISOString(),
     onem: Math.max(...grup.map((o) => o.onem ?? 0)),
     haberler,

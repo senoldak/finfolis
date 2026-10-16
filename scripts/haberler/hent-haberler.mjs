@@ -14,7 +14,7 @@ import { BESLEMELER } from './kaynaklar/beslemeler.mjs';
 import * as ipucuModulu from './ipucu.mjs';
 import * as olaylarModulu from './olaylar.mjs';
 import { yaz as yazarYaz, derlemeYaz as derlemeYazar } from './yazar.mjs';
-import { kisaGruplari, derlemeAdayi, derlemeOlayi, DERLEME_MAKS } from './derleme.mjs';
+import { dilimGruplari, derlemeAdayi, derlemeOlayi, DERLEME_MAKS } from './derleme.mjs';
 import { yayinKurulu as kurul } from './yayin-kurulu.mjs';
 import * as bultenModulu from './bulten.mjs';
 import { karneler as varsayilanKarneler } from './karne.mjs';
@@ -333,14 +333,17 @@ export async function calistir({
   for (const t of tekrarlariAyikla(havuz, hafizayaEkle(durum.yayinlar ?? [], yazilan, simdi), simdi)) {
     log(`  - havuz ${t.olay.id}: tekrar (${t.neden}), ${t.slug} ile aynı olay`);
   }
-  const { bekleyen, suresiDolan, dusen } = havuzAyir(havuz, simdi);
+  const { bekleyen, olgun, suresiDolan, dusen } = havuzAyir(havuz, simdi);
   for (const o of dusen) log(`  - havuz ${o.id}: bekleme süresi doldu, düştü`);
-  const bultenYedek = [...suresiDolan]; // bu turun bülteni yazılırsa satır olur, yazılmazsa havuzda bekler
-  let derlenmeyen = bekleyen;
-  for (const grup of kisaGruplari(bekleyen).slice(0, DERLEME_MAKS)) {
-    if (dur || butceBitti()) break;
-    // Denenen grup sonucu ne olursa olsun havuzdan çıkar: başarısızsa bu turun bülten satırına adaydır.
-    derlenmeyen = derlenmeyen.filter((o) => !grup.includes(o));
+  // Dilimi bitmiş kısa haberler derlemeye girer; tek kalanlar ve fazlası bülten satırı olur.
+  const { gruplar, artan } = dilimGruplari(olgun);
+  const bultenYedek = [...suresiDolan, ...artan]; // bu turun bülteni yazılırsa satır olur, yazılmazsa havuzda bekler
+  const derlenmeyen = [...bekleyen];
+  for (const [i, grup] of gruplar.entries()) {
+    if (i >= DERLEME_MAKS || dur || butceBitti()) {
+      derlenmeyen.push(...grup); // sonraki tura kalır
+      continue;
+    }
     const yedekle = () => {
       for (const o of grup) derlemeDenendi(o);
       bultenYedek.push(...grup);
@@ -359,7 +362,8 @@ export async function calistir({
         yedekle();
         continue;
       }
-      const yazi = { ...r.yazi, kategori: birlesik.kategori, tarih: new Date(birlesik.tarih), tur: 'haber', kaynaklar: birlesik.kaynaklar, kaynakIzi: kaynakIzi(birlesik.gizliKaynaklar) };
+      // Başlığa dilim eki: her dilimin derlemesi tek başlık taşır.
+      const yazi = { ...r.yazi, baslik: `${r.yazi.baslik} · ${birlesik.dilimEki}`, kategori: birlesik.kategori, tarih: new Date(birlesik.tarih), tur: 'haber', kaynaklar: birlesik.kaynaklar, kaynakIzi: kaynakIzi(birlesik.gizliKaynaklar) };
       Object.assign(yazi, varsayilanKapak(yazi, birlesik));
       const slug = await yaziYaz(rot, yazi);
       const o = derlemeOlayi(grup, birlesik, yazi.baslik, slug);
@@ -377,7 +381,7 @@ export async function calistir({
         sonuc.konfigHatasi = true;
         dur = true;
         derlenmeyen.push(...grup); // olayların suçu değil: havuzda beklemeye devam eder
-        break;
+        continue;
       }
       // Geçici hata (Gemini meşgul, ağ): olayların suçu değil, derleme denenmiş sayılmaz; havuzda bekler ve
       // sonraki turda yeniden denenir.
