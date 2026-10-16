@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { olaylariGrupla, hafizaGuncelle, ayniMakroOlay, mukerrerBul, ilgiliHafiza } from './olaylar.mjs';
+import { olaylariGrupla, hafizaGuncelle, ayniMakroOlay, mukerrerBul, ilgiliHafiza, resmiMi } from './olaylar.mjs';
+import { RESMI_BESLEMELER } from './kaynaklar/resmi-beslemeler.mjs';
 
 const aday = (id, o = {}) => ({
   id, baslik: `Başlık ${id}`, tarih: new Date('2026-10-11T10:00:00Z'), onem: 1, kategori: 'piyasalar',
@@ -203,4 +204,12 @@ test('ilgili hafıza boşsa istem (yok) der; hafızadaki olayla eşleşme yine t
   });
   assert.match(istem, /\(yok\)/);
   assert.equal(bilinen.length, 1);
+});
+
+test('resmiMi: merkez bankası modülleri ve resmi beslemeler resmi, gizli kodlar değil', () => {
+  assert.ok(resmiMi({ id: 'fed:https://www.federalreserve.gov/x' }));
+  assert.ok(resmiMi({ id: 'tcmb:https://www.tcmb.gov.tr/x' }));
+  for (const b of RESMI_BESLEMELER) assert.ok(resmiMi({ id: `${b.ad}:https://ornek.example.com/x` }), b.ad);
+  assert.ok(!resmiMi({ id: 'k1a2b3c:0123456789abcdef' }));
+  assert.ok(!resmiMi({ id: 'Dallas Fedx:https://ornek.example.com/x' }));
 });

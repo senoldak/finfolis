@@ -2,6 +2,7 @@
 // Aynı çağrıda her adaya haber değeri puanı (1-5) verilir; olayın önemi kaynağın önemiyle puanın büyüğüdür.
 // Böylece genel RSS adayları (kaynak önemi 2) da büyük bir gelişmeyse kısa habere terfi edebilir.
 import { gemini as varsayilanGemini } from './lib.mjs';
+import { RESMI_BESLEMELER } from './kaynaklar/resmi-beslemeler.mjs';
 
 // Bir hafta: yayımlanmış her haber ve bülten maddesi bu süre boyunca yeniden yazılmaz (geç düşen kopyalar dahil).
 export const HAFIZA_SAAT = 7 * 24;
@@ -73,7 +74,12 @@ export function ilgiliHafiza(adaylar, hafiza, azami = HAFIZA_AZAMI) {
     .map((x) => x.h);
 }
 
-const RESMI_ONEK = /^(fed|ecb|boj|tcmb|sec|bank of england):/i;
+// Resmi kaynak kimlik önekleri: merkez bankası/SEC modülleri ve resmi RSS beslemelerinin adları.
+const kacir = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const RESMI_ONEK = new RegExp(
+  `^(${['fed', 'ecb', 'boj', 'tcmb', 'sec', ...RESMI_BESLEMELER.map((b) => kacir(b.ad))].join('|')}):`,
+  'i',
+);
 
 export const resmiMi = (a) => RESMI_ONEK.test(String(a.id ?? ''));
 const acikTamMetinMi = (a) =>
