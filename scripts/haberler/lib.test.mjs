@@ -99,3 +99,16 @@ test('yaziYaz why_matters ve key_points frontmatter\'a yazılır; yoksa yazılma
   assert.ok(!/why_matters|key_points/.test(md2));
 });
 
+
+test('yaziYaz grafik ve tabloyu açık kaynağı olmayan (gizli kaynaklı) haberde de yazar', async () => {
+  const rot = await mkdtemp(path.join(os.tmpdir(), 'haber-'));
+  const temel = { spot: 's', govde: 'g', kategori: 'piyasalar', tarih: new Date(), kaynaklar: [] };
+  const grafik = { baslik: 'Faiz', simge: 'banka', birimEtiket: '%', satirlar: [{ metin: 'Eylül', deger: 4 }] };
+  const tablo = { baslik: 'Kur', sutunlar: ['A', 'B'], satirlar: [['1', '2']] };
+  const s1 = await yaziYaz(rot, { ...temel, baslik: 'Grafikli', grafik });
+  const fm1 = parse((await readFile(path.join(rot, 'src/content/haberler', s1, 'index.md'), 'utf8')).split('---')[1]);
+  assert.deepEqual(fm1.grafik, grafik);
+  const s2 = await yaziYaz(rot, { ...temel, baslik: 'Tablolu', tablo });
+  const fm2 = parse((await readFile(path.join(rot, 'src/content/haberler', s2, 'index.md'), 'utf8')).split('---')[1]);
+  assert.deepEqual(fm2.tablo, tablo);
+});

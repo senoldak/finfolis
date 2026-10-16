@@ -191,3 +191,49 @@ test('havuz: derlemesi yayımlanamayan grup bir daha denenmez, bülten satırı 
   const acik = havuzAc(havuzKapat(s.durum.havuz));
   assert.ok(acik.every((o) => o.derlemeDenendi));
 });
+
+test('derlemede geçici Gemini hatası: kısa haberler havuzda kalır, sonraki turda yeniden denenir', async () => {
+  let n = 0;
+  const s = await ortam({
+    derlemeYaz: async () => {
+      if (n++ === 0) throw new Error('Gemini: çok fazla deneme');
+      return { baslik: 'Piyasalar derlemesi', spot: 's', govde: 'g', rakamlar: [] };
+    },
+  });
+  assert.equal((await calistir(s)).adet, 0);
+  const acik = havuzAc(havuzKapat(s.durum.havuz));
+  assert.equal(acik.length, 3);
+  assert.ok(acik.every((o) => !o.derlemeDenendi));
+  const r = await calistir({ ...s, simdi: saatSonra(2), kaynaklar: tekKaynak(s) });
+  assert.equal(r.adet, 1);
+  assert.deepEqual(s.durum.havuz, []);
+});
+
+test('kısa kalan haber eş bulamazsa tek başına kısa haber olarak yayımlanır', async () => {
+  const bultendekiler = [];
+  const s = await ortam({
+    bulten: bultenYazan(bultendekiler),
+    yayinKurulu: async (t, a) => (a.haberler ? { yazi: t } : { dur: 'Metin kısa', kisa: true, yazi: t }),
+  });
+  s.kaynaklar = tekKaynak(s, ['a1', 'Copper prices climb']);
+  const r = await calistir(s);
+  assert.equal(r.adet, 1);
+  assert.deepEqual(await readdir(path.join(s.rot, 'src/content/haberler')), r.yazilar);
+  assert.deepEqual(s.durum.havuz, []);
+  assert.deepEqual(bultendekiler, []);
+  assert.equal(s.durum.gorulen.a1.yazildi, true);
+});
+
+test('aynı turda aynı kategoriden kısa haberler yine derleme olur, tek tek yayımlanmaz', async () => {
+  const s = await ortam({ yayinKurulu: async (t, a) => (a.haberler ? { yazi: t } : { dur: 'Metin kısa', kisa: true, yazi: t }) });
+  const r = await calistir(s);
+  assert.equal(r.adet, 1);
+  assert.equal((await readdir(path.join(s.rot, 'src/content/haberler'))).length, 1);
+});
+
+test('derleme yayın kurulundan geçemezse kısa metni olan haberler tek tek yayımlanır', async () => {
+  const s = await ortam({ yayinKurulu: async (t, a) => (a.haberler ? { dur: 'Son kontrol: x' } : { dur: 'Metin kısa', kisa: true, yazi: t }) });
+  const r = await calistir(s);
+  assert.equal(r.adet, 3);
+  assert.deepEqual(s.durum.havuz, []);
+});

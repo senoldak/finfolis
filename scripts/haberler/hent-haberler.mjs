@@ -291,10 +291,13 @@ export async function calistir({
       const r = await yayinKurulu(taslak, o, {});
       if (r.dur) {
         for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso };
-        // Yalnızca kısa kaldığı için duran olay bu turun bültenine girmez: havuzda eş bekler.
+        // Yalnızca kısa kaldığı için duran olay bu turun bültenine girmez: önce eş arar (derleme), eş yoksa
+        // denetlenmiş kısa metni tek başına yayımlanır (5b).
         dislanan.add(o);
-        if (r.kisa) kisaOlaylar.push(o);
-        hatalar.push(`${o.id} «${o.baslik}»: yayınlanmadı, ${r.dur}`);
+        if (r.kisa) {
+          if (r.yazi) o.kisaYazi = r.yazi;
+          kisaOlaylar.push(o);
+        } else hatalar.push(`${o.id} «${o.baslik}»: yayınlanmadı, ${r.dur}`);
         log(`  - ${o.id}: durduruldu (${r.dur})`);
         continue;
       }
@@ -340,9 +343,15 @@ export async function calistir({
     if (dur || butceBitti()) break;
     // Denenen grup sonucu ne olursa olsun havuzdan çıkar: başarısızsa bu turun bülten satırına adaydır.
     derlenmeyen = derlenmeyen.filter((o) => !grup.includes(o));
+    // Derlenemeyen grup: kısa metni olan haber tek başına yayımlanmaya döner, olmayan bülten satırı bekler.
     const yedekle = () => {
-      for (const o of grup) derlemeDenendi(o);
-      bultenYedek.push(...grup);
+      for (const o of grup) {
+        if (o.kisaYazi) derlenmeyen.push(o);
+        else {
+          derlemeDenendi(o);
+          bultenYedek.push(o);
+        }
+      }
     };
     const birlesik = derlemeAdayi(grup);
     try {
@@ -378,8 +387,30 @@ export async function calistir({
         derlenmeyen.push(...grup); // olayların suçu değil: havuzda beklemeye devam eder
         break;
       }
+      // Geçici hata (Gemini meşgul, ağ): olayların suçu değil, derleme denenmiş sayılmaz. Kısa metni olan
+      // aşağıda tek başına yayımlanır; olmayan havuzda bekler ve sonraki turda yeniden denenir.
       log(`  ! derleme: ${e.message}`);
-      yedekle();
+      derlenmeyen.push(...grup);
+    }
+  }
+  // Eş bulamayan kısa haber beklemez: yayın kurulundan geçmiş kısa metni tek başına yayımlanır. Kısa metni olmayan
+  // (önceki sürümden kalan) kayıtlar havuzda eş beklemeye devam eder.
+  for (const o of derlenmeyen.filter((x) => x.kisaYazi)) {
+    if (dur || butceBitti()) break;
+    try {
+      const yazi = { ...o.kisaYazi, kategori: o.kategori, tarih: new Date(o.tarih), tur: 'haber', kaynaklar: o.kaynaklar ?? [], kaynakIzi: kaynakIzi(o.gizliKaynaklar) };
+      const kapakli = (o.adaylar ?? []).find((a) => a.kapak);
+      Object.assign(yazi, kapakli ? { kapak: kapakli.kapak, kapakAlt: kapakli.kapakAlt } : varsayilanKapak(yazi, o));
+      const slug = await yaziYaz(rot, yazi);
+      derlenmeyen = derlenmeyen.filter((x) => x !== o);
+      for (const a of o.adaylar ?? []) durum.gorulen[a.id] = { zaman: iso, yazildi: true };
+      o.haberSlug = slug;
+      yazilan.push(o);
+      sonuc.adet++;
+      sonuc.yazilar.push(slug);
+      log(`  + kısa ${slug}`);
+    } catch (e) {
+      log(`  ! kısa ${o.id}: ${e.message}`); // havuzda kalır, sonraki turda yeniden denenir
     }
   }
   if (derlenmeyen.length) log(`  ~ havuz: ${derlenmeyen.length} kısa haber eş bekliyor`);

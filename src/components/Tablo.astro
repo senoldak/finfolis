@@ -1,10 +1,10 @@
 ---
 import { formatDate } from '../lib/site';
 
-// Haber içi karşılaştırma tablosu. Yalnızca kaynağı ve tarihi olan haberde çizilir (sayfa bunu garanti eder).
+// Haber içi karşılaştırma tablosu. Kaynak gizliyse (kaynak yok) not satırında yalnız tarih ve veri notu yer alır.
 interface Props {
   tablo: { baslik: string; sutunlar: string[]; satirlar: string[][] };
-  kaynak: { ad: string; url: string };
+  kaynak?: { ad: string; url: string }; // gizli kaynaklı haberde yok
   tarih: Date;
 }
 
@@ -40,7 +40,7 @@ const { tablo, kaynak, tarih } = Astro.props;
     </table>
   </div>
   <p class="veri-notu">
-    Kaynak: <a href={kaynak.url} rel="nofollow noopener" target="_blank">{kaynak.ad}</a> · <time datetime={tarih.toISOString()}>{formatDate(tarih)}</time>
+    {kaynak ? <>Kaynak: <a href={kaynak.url} rel="nofollow noopener" target="_blank">{kaynak.ad}</a></> : "Veriler haber metnindeki rakamlardır"} · <time datetime={tarih.toISOString()}>{formatDate(tarih)}</time>
   </p>
 </section>
 

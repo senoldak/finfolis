@@ -12,7 +12,7 @@ interface Props {
     birim: number;
     satirlar: { etiket: string; metin: string; deger: number }[];
   };
-  kaynak: { ad: string; url: string };
+  kaynak?: { ad: string; url: string }; // gizli kaynaklı haberde yok
   tarih: Date;
 }
 
@@ -42,7 +42,7 @@ const ondalik = grafik.birim < 1 ? 1 : 0;
     = {sayi(grafik.birim, ondalik)} {grafik.birimEtiket}
   </p>
   <p class="veri-notu">
-    Kaynak: <a href={kaynak.url} rel="nofollow noopener" target="_blank">{kaynak.ad}</a> · <time datetime={tarih.toISOString()}>{formatDate(tarih)}</time>
+    {kaynak ? <>Kaynak: <a href={kaynak.url} rel="nofollow noopener" target="_blank">{kaynak.ad}</a></> : "Veriler haber metnindeki rakamlardır"} · <time datetime={tarih.toISOString()}>{formatDate(tarih)}</time>
   </p>
 </section>
 

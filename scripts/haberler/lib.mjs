@@ -158,9 +158,10 @@ export async function yaziYaz(rot, yazi) {
     for (const r of yazi.rakamlar) fm.push(`  - etiket: ${y(r.etiket)}`, `    deger: ${y(r.deger)}`);
   }
   if (yazi.sirada?.tarih && yazi.sirada?.olay) fm.push('sirada:', `  tarih: ${y(yazi.sirada.tarih)}`, `  olay: ${y(yazi.sirada.olay)}`);
-  // Tablo yalnızca kaynağı olan haberde yazılır: sayfa kaynak ve tarih satırını bu kaynaklardan alır.
-  if (yazi.tablo && kaynaklar.length) fm.push(`tablo: ${JSON.stringify(yazi.tablo)}`);
-  if (yazi.grafik && kaynaklar.length) fm.push(`grafik: ${JSON.stringify(yazi.grafik)}`);
+  // Tablo ve grafiğin her satırı yayın kurulunda kaynak metinde doğrulanır (tabloKaynaktaMi, grafikKaynaktaMi).
+  // Kaynak gizliyse (kaynaklar boş) sayfa kaynak bağlantısı yerine yalnız tarihi gösterir.
+  if (yazi.tablo) fm.push(`tablo: ${JSON.stringify(yazi.tablo)}`);
+  if (yazi.grafik) fm.push(`grafik: ${JSON.stringify(yazi.grafik)}`);
   if (yazi.why_matters) fm.push(`why_matters: ${y(yazi.why_matters)}`);
   if (yazi.key_points?.length) {
     fm.push('key_points:');

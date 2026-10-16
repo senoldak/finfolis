@@ -290,8 +290,9 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
 
   const kalan = kesinKontrol(yazi, aday);
   if (kalan.length) return { dur: `Son kontrol: ${kalan.join('; ')}` };
-  // kisa: olay ayrı haber olmaz ama bültende tek satır olabilir (bkz. hent-haberler.mjs).
-  if (kisa(yazi)) return { dur: `Metin kısa: ${kelimeSay(yazi.govde)} kelime (en az ${enAzKelime}); kaynak yeterli bilgi içermiyor`, kisa: true };
+  // kisa: olay önce aynı kategoriden eşleriyle derlemeye adaydır; eş yoksa denetlenmiş kısa metin (yazi) tek başına
+  // kısa haber olur (bkz. hent-haberler.mjs). 120 kelimenin altı sitede noindex kalır (src/lib/uzunluk.mjs).
+  if (kisa(yazi)) return { dur: `Metin kısa: ${kelimeSay(yazi.govde)} kelime (en az ${enAzKelime}); kaynak yeterli bilgi içermiyor`, kisa: true, yazi };
   return { yazi };
 }
 

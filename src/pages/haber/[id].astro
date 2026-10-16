@@ -197,8 +197,8 @@ const jsonLd = {
         <Content />
       </div>
 
-      {tablo && kaynaklar[0] && <Tablo tablo={tablo} kaynak={kaynaklar[0]} tarih={date} />}
-      {!tablo && grafik && kaynaklar[0] && <Grafik grafik={grafik} kaynak={kaynaklar[0]} tarih={date} />}
+      {tablo && <Tablo tablo={tablo} kaynak={kaynaklar[0]} tarih={date} />}
+      {!tablo && grafik && <Grafik grafik={grafik} kaynak={kaynaklar[0]} tarih={date} />}
 
       <RakamSeridi rakamlar={rakamlar} sirada={sirada} />
 
