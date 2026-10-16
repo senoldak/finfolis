@@ -4,6 +4,7 @@ description: "Çapraz Piyasa Operasyonel Dirençlilik Grubu (CMORG), küresel bu
 date: 2026-10-09T09:00:00.000Z
 category: "ekonomi"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "Bank of England"
     url: "https://www.bankofengland.co.uk/news/2026/october/cmorg-holds-sector-wide-cloud-outage-simulation-exercise"

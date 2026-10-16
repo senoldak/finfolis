@@ -4,6 +4,7 @@ description: "Trex Bio, ilk halka arzı için izahnamesini 8 Ekim 2026 tarihinde
 date: 2026-10-09T21:03:17.000Z
 category: "borsa"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "SEC EDGAR"
     url: "https://www.sec.gov/Archives/edgar/data/2139097/000119312526419203/0001193125-26-419203-index.htm"

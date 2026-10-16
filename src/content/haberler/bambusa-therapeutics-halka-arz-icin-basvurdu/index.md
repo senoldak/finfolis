@@ -4,6 +4,7 @@ description: "Bambusa Therapeutics, halka arz süreci için 9 Ekim 2026 tarihind
 date: 2026-10-09T21:08:38.000Z
 category: "borsa"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "SEC EDGAR"
     url: "https://www.sec.gov/Archives/edgar/data/2044950/000162828026065557/0001628280-26-065557-index.htm"

@@ -4,6 +4,7 @@ description: "EuroSPAC Acquisition Corp., halka arz süreci kapsamında 13 Ekim 
 date: 2026-10-13T20:01:48.000Z
 category: "borsa"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "SEC EDGAR"
     url: "https://www.sec.gov/Archives/edgar/data/2156779/000147793226006184/0001477932-26-006184-index.htm"

@@ -22,6 +22,7 @@ import { BOLGELER, dilimDolu, dilimKaydet } from './bulten.mjs';
 import { tekrarlariAyikla, hafizayaEkle, hafizaTohumla } from './tekrar.mjs';
 import { havuzAc, havuzKapat, havuzaHazirla, havuzAyir, derlemeDenendi } from './havuz.mjs';
 import { yaziYaz, gemini as varsayilanGemini } from './lib.mjs';
+import { icerikTuru } from './icerik-turu.mjs';
 import { kaynakKapagi, rakamKapagi, haberKapagi } from '../kapak/kapak.mjs';
 import { gorunur } from '../../src/lib/gorunur.mjs';
 import { anahtarVar, coz, kaynakIzi, sifrele } from './gizli.mjs';
@@ -313,7 +314,7 @@ export async function calistir({
         log(`  - ${o.id}: durduruldu (${r.dur})`);
         continue;
       }
-      const yazi = { ...r.yazi, kategori: o.kategori, tarih: new Date(o.tarih), tur: 'haber', kaynaklar: o.kaynaklar ?? [], kaynakIzi: kaynakIzi(o.gizliKaynaklar) };
+      const yazi = { ...r.yazi, kategori: o.kategori, tarih: new Date(o.tarih), tur: 'haber', icerikTuru: icerikTuru(o.adaylar), kaynaklar: o.kaynaklar ?? [], kaynakIzi: kaynakIzi(o.gizliKaynaklar) };
       const kapakli = o.adaylar.find((a) => a.kapak);
       Object.assign(yazi, kapakli ? { kapak: kapakli.kapak, kapakAlt: kapakli.kapakAlt } : varsayilanKapak(yazi, o));
       const slug = await yaziYaz(rot, yazi);
@@ -441,7 +442,7 @@ export async function calistir({
   if (!zamanBitti()) {
     try {
       for (const yazi of await karneler({ durum, simdi, piyasa: veri, log })) {
-        const slug = await yaziYaz(rot, yazi);
+        const slug = await yaziYaz(rot, { icerikTuru: 'veri', ...yazi });
         sonuc.adet++;
         sonuc.yazilar.push(slug);
         log(`  + karne ${slug}`);

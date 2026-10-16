@@ -685,6 +685,18 @@ main {
   font-weight: 600;
 }
 
+/* İçerik türü (Araştırma, Resmi açıklama, Veri, Bülten): yazının neye dayandığı */
+.kunye-tur {
+  padding: 1px 7px;
+  border: 1px solid var(--hair);
+  border-radius: 3px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
 /* Liste satırları */
 .satir {
   display: grid;

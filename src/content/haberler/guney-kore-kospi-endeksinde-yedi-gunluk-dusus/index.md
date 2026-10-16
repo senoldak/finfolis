@@ -4,6 +4,7 @@ description: "Güney Kore KOSPI endeksi üst üste yedi işlem günüdür gerili
 date: 2026-10-14T21:00:00.000Z
 category: "borsa"
 tur: "haber"
+icerikTuru: "veri"
 kaynaklar:
   - ad: "Yahoo Finance"
     url: "https://finance.yahoo.com/"

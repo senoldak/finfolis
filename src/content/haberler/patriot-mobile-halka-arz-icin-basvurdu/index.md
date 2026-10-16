@@ -4,6 +4,7 @@ description: "Patriot Mobile Inc., halka arz süreci için 9 Ekim 2026 tarihinde
 date: 2026-10-09T21:08:19.000Z
 category: "borsa"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "SEC EDGAR"
     url: "https://www.sec.gov/Archives/edgar/data/2148546/000110465926115093/0001104659-26-115093-index.htm"

@@ -4,6 +4,7 @@ description: "Green Circle Decarbonize Technology Limited, 14 Ekim 2026 tarihind
 date: 2026-10-14T21:10:57.000Z
 category: "borsa"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "SEC EDGAR"
     url: "https://www.sec.gov/Archives/edgar/data/1926293/000149315226047046/0001493152-26-047046-index.htm"

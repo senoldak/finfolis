@@ -4,6 +4,7 @@ description: "Geçen hafta en çok FTSE 100 yükseldi (+%3,1), en çok Nikkei 22
 date: 2026-10-16T21:06:23.859Z
 category: "piyasalar"
 tur: "haber"
+icerikTuru: "veri"
 uretim: "bot"
 kaynaklar:
   - ad: "Yahoo Finance"

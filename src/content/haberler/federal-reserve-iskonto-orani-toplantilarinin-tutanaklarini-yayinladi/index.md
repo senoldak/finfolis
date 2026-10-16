@@ -4,6 +4,7 @@ description: "Federal Reserve Board, iskonto oranı toplantılarının tutanakla
 date: 2026-10-13T18:00:00.000Z
 category: "ekonomi"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "Federal Reserve"
     url: "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261013a.htm"

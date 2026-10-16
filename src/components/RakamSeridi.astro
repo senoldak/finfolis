@@ -2,14 +2,16 @@
 interface Props {
   rakamlar?: { etiket: string; deger: string }[];
   sirada?: { tarih: string; olay: string };
+  // Haberin başında (spot ve sentez bloğunun altında) gösterilir: okur önce sayıları görür.
+  bas?: boolean;
 }
 
-const { rakamlar = [], sirada } = Astro.props;
+const { rakamlar = [], sirada, bas = false } = Astro.props;
 ---
 
 {
   (rakamlar.length > 0 || sirada) && (
-    <section class="seritler" aria-label="Rakamlarla">
+    <section class:list={['seritler', { bas }]} aria-label={rakamlar.length ? 'Rakamlarla' : 'Sırada'}>
       {
         rakamlar.length > 0 && (
           <dl class="rakam-seridi">
@@ -39,6 +41,9 @@ const { rakamlar = [], sirada } = Astro.props;
   .seritler {
     margin: 28px 0 0;
     font-family: var(--sans);
+  }
+  .seritler.bas {
+    margin: 4px 0 24px;
   }
   .rakam-seridi {
     display: grid;

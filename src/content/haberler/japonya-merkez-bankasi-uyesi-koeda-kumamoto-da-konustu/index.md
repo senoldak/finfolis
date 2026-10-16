@@ -4,6 +4,7 @@ description: "Japonya Merkez Bankası Politika Kurulu Üyesi Junko Koeda, 15 Eki
 date: 2026-10-15T01:30:00.000Z
 category: "ekonomi"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "Japonya Merkez Bankası"
     url: "http://www.boj.or.jp/en/about/press/koen_2026/ko261015a.htm"

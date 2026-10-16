@@ -4,6 +4,7 @@ description: "Avrupa Merkez Bankası Yönetim Kurulu Üyesi Philip R. Lane, 5 Ek
 date: 2026-10-05T08:00:00.000Z
 category: "ekonomi"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "Avrupa Merkez Bankası"
     url: "https://www.ecb.europa.eu//press/key/date/2026/html/ecb.sp261005~1d8d998ef4.en.html"

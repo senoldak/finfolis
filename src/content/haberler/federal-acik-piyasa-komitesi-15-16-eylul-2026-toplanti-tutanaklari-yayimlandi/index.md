@@ -4,6 +4,7 @@ description: "Federal Reserve, 15-16 Eylül 2026 tarihlerinde yapılan Federal A
 date: 2026-10-07T18:00:00.000Z
 category: "ekonomi"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "Federal Reserve"
     url: "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261007a.htm"

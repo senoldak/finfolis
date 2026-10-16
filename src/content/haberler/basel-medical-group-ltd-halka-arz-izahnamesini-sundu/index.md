@@ -4,6 +4,7 @@ description: "Basel Medical Group Ltd, halka arzı için nihai izahnameyi 8 Ekim
 date: 2026-10-08T20:46:29.000Z
 category: "borsa"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "SEC EDGAR"
     url: "https://www.sec.gov/Archives/edgar/data/2004489/000149315226046355/0001493152-26-046355-index.htm"

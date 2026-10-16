@@ -4,6 +4,7 @@ description: "Retension Pharmaceuticals, 3.750.000 adet payın halka arzı için
 date: 2026-10-09T21:29:03.000Z
 category: "borsa"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "SEC EDGAR"
     url: "https://www.sec.gov/Archives/edgar/data/2002988/000121390026108587/0001213900-26-108587-index.htm"

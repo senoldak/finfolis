@@ -4,6 +4,7 @@ description: "Avrupa Merkez Bankası, 9-10 Eylül 2026 tarihlerinde yapılan par
 date: 2026-10-08T11:30:00.000Z
 category: "ekonomi"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "Avrupa Merkez Bankası"
     url: "https://www.ecb.europa.eu//press/accounts/2026/html/ecb.mg261008~a10153d090.en.html"

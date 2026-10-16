@@ -4,6 +4,7 @@ description: "TÜİK verisine göre tüketici fiyatları eylül ayında yüzde 1
 date: 2026-10-15T10:41:03.394Z
 category: "kisisel-finans"
 tur: "haber"
+icerikTuru: "veri"
 kaynaklar:
   - ad: "TÜİK, TCMB aracılığıyla"
     url: "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Enflasyon+Verileri/Tuketici+Fiyatlari"

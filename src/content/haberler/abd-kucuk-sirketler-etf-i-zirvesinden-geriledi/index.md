@@ -4,6 +4,7 @@ description: "ABD küçük şirketler ETF'i, 14 Ekim 2026 tarihindeki kapanış�
 date: 2026-10-13T21:00:00.000Z
 category: "borsa"
 tur: "haber"
+icerikTuru: "veri"
 kaynaklar:
   - ad: "Yahoo Finance"
     url: "https://finance.yahoo.com/"

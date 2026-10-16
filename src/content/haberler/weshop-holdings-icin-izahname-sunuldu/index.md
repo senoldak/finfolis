@@ -4,6 +4,7 @@ description: "WeShop Holdings Limited, A sınıfı olağan hisselerinin satış�
 date: 2026-10-13T21:22:48.000Z
 category: "borsa"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "SEC EDGAR"
     url: "https://www.sec.gov/Archives/edgar/data/2048271/000149315226046880/0001493152-26-046880-index.htm"

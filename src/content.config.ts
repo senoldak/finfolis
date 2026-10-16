@@ -26,6 +26,8 @@ const haberler = defineCollection({
       breaking: z.boolean().default(false),
       draft: z.boolean().default(false),
       tur: z.enum(['haber', 'bulten']).default('haber'),
+      // Yazının neye dayandığı (bkz. scripts/haberler/icerik-turu.mjs); yoksa düz haber.
+      icerikTuru: z.enum(['veri', 'arastirma', 'resmi']).optional(),
       rakamlar: z.array(z.object({ etiket: z.string(), deger: z.string() })).max(4).default([]),
       sirada: z.object({ tarih: z.string(), olay: z.string() }).optional(),
       tablo: z

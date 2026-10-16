@@ -4,6 +4,7 @@ description: "Amaero Inc. hisse başına 4,25 dolar fiyatla ilk halka arz izahna
 date: 2026-10-15T12:34:47.000Z
 category: "borsa"
 tur: "haber"
+icerikTuru: "resmi"
 kaynaklar:
   - ad: "SEC EDGAR"
     url: "https://www.sec.gov/Archives/edgar/data/2141616/000119312526422334/0001193125-26-422334-index.htm"

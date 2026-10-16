@@ -15,6 +15,7 @@ import { KAPAK_DONUSUM } from '../../lib/gorsel.mjs';
 import { ORG_ID, PUBLISHER_LOGO, SITE_URL, WEBSITE_ID, kisalt, sameAs } from '../../lib/seo';
 import { matchEntities } from '../../lib/entities';
 import { indekslenir } from '../../lib/uzunluk.mjs';
+import { okumaSuresi, turEtiketi } from '../../lib/yazi-bilgisi.mjs';
 import { ilgiliSec } from '../../lib/ilgili.mjs';
 import { yazininKonulari, konuUrl } from '../../lib/konu-sayfalari';
 import type { Konu } from '../../lib/konular.mjs';
@@ -60,6 +61,8 @@ const noindex = !indekslenir(haber.body);
 const cover = haber.data.cover;
 const { Content } = await render(haber);
 const cat = categoryOf(category);
+const turEtiket = turEtiketi(haber.data);
+const okumaDk = okumaSuresi(haber.body);
 
 // og:image ve JSON-LD görseli: 1200px JPEG (Google Discover en az 1200px ister).
 // Sayfadaki resim de aynı dönüşümü kullanır; dist'te tek dosya olur.
@@ -166,8 +169,10 @@ const jsonLd = {
             </svg>
             {cat.name}
           </a>
+          {turEtiket && <span class="kunye-tur">{turEtiket}</span>}
           <strong>{author}</strong>
           <time datetime={date.toISOString()}>{formatDate(date, true)}</time>
+          {okumaDk >= 2 && <span>{okumaDk} dk okuma</span>}
           {updated && (
             <span>
               Güncellendi: <time datetime={modified}>{formatDate(updated, true)}</time>
@@ -177,6 +182,8 @@ const jsonLd = {
       </header>
 
       <SentezBlok whyMatters={haber.data.why_matters} keyPoints={haber.data.key_points} description={description} />
+
+      <RakamSeridi rakamlar={rakamlar} bas />
 
       {
         cover && haber.data.coverSitede && (
@@ -200,7 +207,7 @@ const jsonLd = {
       {tablo && <Tablo tablo={tablo} kaynak={kaynaklar[0]} tarih={date} />}
       {!tablo && grafik && <Grafik grafik={grafik} kaynak={kaynaklar[0]} tarih={date} />}
 
-      <RakamSeridi rakamlar={rakamlar} sirada={sirada} />
+      <RakamSeridi sirada={sirada} />
 
       {
         konular.length > 0 && (

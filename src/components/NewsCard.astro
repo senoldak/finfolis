@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { category as categoryOf, formatDate } from '../lib/site';
 import { newsUrl, type Haber } from '../lib/news';
 import { KART_DONUSUM, kartGorseliVar } from '../lib/gorsel.mjs';
+import { okumaSuresi, turEtiketi } from '../lib/yazi-bilgisi.mjs';
 
 // Liste satırı: başlık, spot ve künye; kapak resmi varsa sağda küçük.
 // Görselsiz haberler varsayılan durumdur, satır onlarsız da eksiksiz görünür.
@@ -18,6 +19,9 @@ const { title, description, date, category } = haber.data;
 // Küçük resim yalnızca yeni yazılarda (dosya bütçesi: src/lib/gorsel.mjs); eski yazı görselsiz satırdır.
 const cover = kartGorseliVar(date) && haber.data.coverSitede ? haber.data.cover : undefined;
 const cat = categoryOf(category);
+const turEtiket = turEtiketi(haber.data);
+// Okuma süresi yalnız uzun yazıda (2 dk ve üstü) gösterilir: kısa haberlerin hepsi 1 dk olur, bilgi vermez.
+const okumaDk = okumaSuresi(haber.body);
 ---
 
 <article class:list={['satir', { 'satir-resimli': cover }]}>
@@ -35,7 +39,9 @@ const cat = categoryOf(category);
           </a>
         )
       }
+      {turEtiket && <span class="kunye-tur">{turEtiket}</span>}
       <time datetime={date.toISOString()}>{formatDate(date, true)}</time>
+      {okumaDk >= 2 && <span>{okumaDk} dk</span>}
     </p>
   </div>
   {
