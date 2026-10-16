@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-16T00:41:18.943Z",
+  "guncelleme": "2026-10-16T06:40:58.045Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -1154,16 +1154,16 @@
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 4176.2002,
+      "deger": 4197,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
         "ad": "Yahoo Finance",
         "url": "https://finance.yahoo.com/"
       },
-      "zaman": "2026-10-15T00:00:00+03:00",
+      "zaman": "2026-10-16T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 1.7,
+      "degisim": 0.6,
       "gecmis": [
         {
           "tarih": "2026-07-20",
@@ -1415,7 +1415,11 @@
         },
         {
           "tarih": "2026-10-15",
-          "deger": 4176.2002
+          "deger": 4170.1001
+        },
+        {
+          "tarih": "2026-10-16",
+          "deger": 4197
         }
       ],
       "onEk": "$"
