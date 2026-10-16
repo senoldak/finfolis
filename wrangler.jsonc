@@ -22,8 +22,9 @@
       "migrations_dir": "migrations"
     }
   ],
-  // Pazartesi 06:00 UTC: haftalık bülten.
-  "triggers": { "crons": ["0 6 * * 1"] },
+  // Her gün 06:00 UTC (09:00 Türkiye): süresi dolan onaysız kayıtlar silinir; haftalık bülten haftanın ilk çalışmasında (pazartesi) bir kez gider.
+  // Tek cron: ücretsiz planda hesap başına 5 cron sınırı var.
+  "triggers": { "crons": ["0 6 * * *"] },
   "vars": {
     "BULTEN_GONDEREN": "finfolis <bulten@finfolis.com>"
   }
