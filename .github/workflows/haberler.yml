@@ -39,6 +39,7 @@ jobs:
         id: hent
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_KULLANIM_DOSYASI: ${{ runner.temp }}/gemini-kullanim.json
           # Resmi olmayan kaynakların şifreli listesi ve izi için (bkz. scripts/haberler/gizli.mjs).
           KAYNAK_ANAHTARI: ${{ secrets.KAYNAK_ANAHTARI }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
@@ -97,3 +98,13 @@ jobs:
         run: |
           echo "::error::Gemini anahtarı/modeli reddedildi (400/401/403/404). GEMINI_API_KEY ve GEMINI_MODEL değerlerini kontrol edin; haberler harcanmadı."
           exit 1
+
+      # Katman 0 (Gemini kota planı): bu işin Gemini kullanımını model ve amaç başına mecmua-saat'e bildirir. İşi düşürmez.
+      - name: Gemini kullanımını saate bildir
+        if: always()
+        continue-on-error: true
+        env:
+          GEMINI_KULLANIM_DOSYASI: ${{ runner.temp }}/gemini-kullanim.json
+          MOTOR_URL: ${{ vars.MOTOR_URL }}
+          MOTOR_ANAHTARI: ${{ secrets.MOTOR_ANAHTARI }}
+        run: node scripts/haberler/gemini-rapor.mjs finfolis
