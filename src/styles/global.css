@@ -1523,6 +1523,94 @@ main {
   color: var(--ink);
 }
 
+/* Haftalık bülten formu (footer ve haber sonu) */
+.footer-bulten {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--hair);
+}
+
+.bulten-form {
+  max-width: 60ch;
+  font-family: var(--sans);
+}
+
+.bulten-baslik {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+}
+
+.bulten-satir {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.bulten-satir label {
+  flex-basis: 100%;
+  color: var(--ink-2);
+}
+
+.bulten-satir input {
+  flex: 1 1 240px;
+  min-width: 0;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink-2);
+}
+
+.bulten-satir button {
+  padding: 10px 18px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  cursor: pointer;
+}
+
+.bulten-satir button:focus-visible,
+.bulten-satir input:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.bulten-tuzak {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.bulten-not {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.bulten-durum {
+  margin: 16px 0;
+  padding: 12px 16px;
+  border-left: 4px solid var(--blue);
+  background: var(--paper-2);
+}
+
+.bulten-durum[hidden] {
+  display: none;
+}
+
+.bulten-durum p {
+  margin: 0;
+}
+
 @media (max-width: 1440px) {
   .masthead-tarih {
     display: none;

@@ -73,6 +73,8 @@ export default defineConfig({
       filter: (page) => {
         const yol = new URL(page).pathname;
         if (/\/(404|admin)(\/|$)/.test(yol)) return false;
+        // Haftalık bülten verisi (JSON) bir sayfa değildir.
+        if (yol.endsWith('.json')) return false;
         if (V.has(yol) && !V.get(yol)) return false;
         const h = yol.match(/^\/haber\/([^/]+)\/$/);
         if (h && T.kisa.has(decodeURIComponent(h[1]))) return false;

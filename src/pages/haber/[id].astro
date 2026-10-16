@@ -7,6 +7,7 @@ import Tablo from '../../components/Tablo.astro';
 import Grafik from '../../components/Grafik.astro';
 import NewsCard from '../../components/NewsCard.astro';
 import SentezBlok from '../../components/SentezBlok.astro';
+import BultenFormu from '../../components/BultenFormu.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { SITE, category as categoryOf, categoryName, formatDate } from '../../lib/site';
 import { getNews, type Haber } from '../../lib/news';
@@ -258,6 +259,9 @@ const jsonLd = {
         </section>
       )
     }
+  </div>
+  <div class="container">
+    <BultenFormu kimlik="bulten-eposta-haber" />
   </div>
   <script is:inline src="/paylas.js" defer></script>
 </Base>

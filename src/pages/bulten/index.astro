@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import BultenFormu from '../../components/BultenFormu.astro';
+import { SITE } from '../../lib/site';
+
+const durumlar = [
+  { kod: 'kontrol', metin: 'Adresiniz kayıtlıysa onay e-postası gönderildi. Gelen kutunuzu ve spam klasörünü kontrol edin; bağlantı 7 gün geçerlidir.' },
+  { kod: 'onaylandi', metin: 'Aboneliğiniz onaylandı. İlk bülten bir sonraki pazartesi gelecek.' },
+  { kod: 'gecersiz', metin: 'Bu bağlantı geçersiz ya da süresi dolmuş. Lütfen yeniden abone olun.' },
+  { kod: 'eposta-hatali', metin: 'Girdiğiniz e-posta adresi geçersiz görünüyor. Kontrol edip yeniden deneyin.' },
+  { kod: 'ayrildi', metin: 'Aboneliğiniz iptal edildi. Bir daha bülten almayacaksınız.' },
+  { kod: 'kapali', metin: 'Bülten şu an kapalı. Lütfen daha sonra yeniden deneyin.' },
+];
+---
+
+<Base
+  title="Haftalık bülten"
+  description="Her pazartesi, son bir haftanın öne çıkan finans haberlerini e-postanıza gönderen haftalık bülten. Ücretsiz, istediğiniz zaman ayrılabilirsiniz."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Haftalık bülten</h1>
+        <p class="makale-spot">Her pazartesi, son yedi günün öne çıkan haberlerini tek e-postada gönderiyoruz.</p>
+      </header>
+      <div class="prose">
+        <ul>
+          <li>Haftada bir, pazartesi sabahı; yalnızca sitedeki indekslenebilir haberler.</li>
+          <li>Abonelik için adresinizi onaylamanız gerekir; onaysız adrese bülten gönderilmez.</li>
+          <li>Her e-postanın altında tek tıkla ayrılma bağlantısı vardır.</li>
+        </ul>
+
+        <div class="bulten-durum" id="bulten-genel" role="status">
+          <p>Abonelik işleminizin sonucu bu alanda görünür. JavaScript kapalıysa bu genel açıklama kalır: abone olduktan sonra onay e-postasındaki bağlantıya tıklamanız gerekir.</p>
+        </div>
+        {
+          durumlar.map((d) => (
+            <div class="bulten-durum" data-durum={d.kod} hidden role="status">
+              <p>{d.metin}</p>
+            </div>
+          ))
+        }
+
+        <BultenFormu kimlik="bulten-eposta-sayfa" />
+        <p>
+          Bülten ve sitedeki diğer bilgiler yatırım tavsiyesi değildir. Ayrıntılar için <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> ve <a href="/gizlilik/">Gizlilik</a> sayfalarımıza bakabilirsiniz.
+        </p>
+      </div>
+    </article>
+  </div>
+  <script is:inline src="/bulten.js" defer></script>
+</Base>
