@@ -41,6 +41,38 @@ Her adaya finfolis'in (Türk okura dünya piyasalarını anlatan finans sitesi) 
 2 = rutin ya da küçük gelişme (bültende bir satır yeter);
 1 = haber değeri yok (yorum, tanıtım, liste, etkinlik).`;
 
+// Katman 2 (Gemini kota planı): gruplama istemi eskiden bütün 7 günlük hafızayı taşıyordu (~1.000 kayıt, ~50 bin
+// token). Artık yalnız adaylarla en az iki ayırt edici kelime paylaşan kayıtlar gider; 7 günlük koruma sürer.
+export const HAFIZA_AZAMI = 150;
+const HAFIZA_OZET = 140;
+const ADAY_OZET = 200;
+const SIRADAN = new Set(
+  ('that this with from have will said says after over more than into about their they been were what when which would could ' +
+    'also year years percent million billion week weeks month months today news live update updates report reports shares ' +
+    'stock stocks market markets amid first last new latest says day days rise rises rose fall falls fell company companies ' +
+    'yüzde milyon milyar olarak daha için gibi sonra ancak kadar göre ilgili yeni')
+    .split(' '),
+);
+
+const kelimeler = (metin) =>
+  new Set(
+    (String(metin ?? '').toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? []).filter(
+      (k) => !SIRADAN.has(k) && (k.length >= 4 || (/\d/.test(k) && k.length >= 2)),
+    ),
+  );
+
+// Adaylarla en az iki ortak kelimesi olan hafıza kayıtları; en çok ortak kelimesi olan önce, eşitse yeni önce.
+export function ilgiliHafiza(adaylar, hafiza, azami = HAFIZA_AZAMI) {
+  const havuz = new Set();
+  for (const a of adaylar) for (const k of kelimeler(`${a.baslik} ${String(a.ozet ?? a.kaynakMetni ?? '').slice(0, ADAY_OZET)}`)) havuz.add(k);
+  return hafiza
+    .map((h) => ({ h, puan: [...kelimeler(h.ozet)].filter((k) => havuz.has(k)).length }))
+    .filter((x) => x.puan >= 2)
+    .sort((x, y) => y.puan - x.puan || new Date(y.h.zaman) - new Date(x.h.zaman))
+    .slice(0, azami)
+    .map((x) => x.h);
+}
+
 const RESMI_ONEK = /^(fed|ecb|boj|tcmb|sec|bank of england):/i;
 
 export const resmiMi = (a) => RESMI_ONEK.test(String(a.id ?? ''));
@@ -76,11 +108,12 @@ function olayYap(adaylar) {
 
 export async function olaylariGrupla(adaylar, hafiza = [], { gemini = varsayilanGemini } = {}) {
   if (!adaylar.length) return { yeni: [], bilinen: [] };
+  const ilgili = ilgiliHafiza(adaylar, hafiza);
   const istem = `ADAYLAR:
-${adaylar.map((a, i) => `${i}. ${a.baslik} — ${String(a.ozet ?? a.kaynakMetni ?? '').slice(0, 300)}`).join('\n')}
+${adaylar.map((a, i) => `${i}. ${a.baslik} — ${String(a.ozet ?? a.kaynakMetni ?? '').slice(0, ADAY_OZET)}`).join('\n')}
 
-HAFIZA (son 7 günde işlenen olaylar):
-${hafiza.length ? hafiza.map((h) => `[${h.id}] ${h.ozet}`).join('\n') : '(yok)'}
+HAFIZA (son 7 günde işlenen, adaylara benzeyen olaylar):
+${ilgili.length ? ilgili.map((h) => `[${h.id}] ${String(h.ozet ?? '').slice(0, HAFIZA_OZET)}`).join('\n') : '(yok)'}
 
 Çıktı: gruplar = aynı olayı anlatan aday numaraları (her aday en çok bir grupta); eslesen = hafızadaki bir olayla aynı olan adaylar ({aday, hafiza: hafıza id'si}); puanlar = her aday için {aday, onem}.`;
   // Gruplama başarısızsa bütün tur boşa gider; bir kez daha denenir.

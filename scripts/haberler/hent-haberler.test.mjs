@@ -258,8 +258,11 @@ test('eşik altında bülten yazılmazsa terfi etmeyen adaylar görülmedi kalı
 test('ikinci çalıştırmada aynı olay yeni kaynakla gelirse yazı açılmaz', async () => {
   let tur = 0;
   const { secenek } = await ortam({
-    kaynaklar: [kaynak('A', [aday('a1')]), { ad: 'B', hent: async () => (tur === 0 ? [] : [aday('b1')]) }],
-    // ikinci çalıştırmada b1 hafızadaki a1 ile eşleşir
+    kaynaklar: [
+      kaynak('A', [aday('a1', 4, { baslik: 'Brent oil jumps after OPEC output cut' })]),
+      { ad: 'B', hent: async () => (tur === 0 ? [] : [aday('b1', 4, { baslik: 'OPEC output cut sends Brent higher' })]) },
+    ],
+    // ikinci çalıştırmada b1 hafızadaki a1 ile eşleşir (gruplama istemine yalnız ortak kelimeli hafıza gider)
     gemini: async ({ istem }) => (istem.includes('[a1]') ? { gruplar: [[0]], eslesen: [{ aday: 0, hafiza: 'a1' }] } : { gruplar: [] }),
   });
   assert.equal((await calistir(secenek)).adet, 1);

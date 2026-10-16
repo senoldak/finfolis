@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { olaylariGrupla, hafizaGuncelle, ayniMakroOlay, mukerrerBul } from './olaylar.mjs';
+import { olaylariGrupla, hafizaGuncelle, ayniMakroOlay, mukerrerBul, ilgiliHafiza } from './olaylar.mjs';
 
 const aday = (id, o = {}) => ({
   id, baslik: `Başlık ${id}`, tarih: new Date('2026-10-11T10:00:00Z'), onem: 1, kategori: 'piyasalar',
@@ -148,4 +148,59 @@ test('mükerrer denetimi farklı ülke, gösterge ya da dönemi ayırır', () =>
   assert.ok(!ayniMakroOlay('Fed may cut rates; US inflation data due', 'US jobs report may surprise')); // "may" ay değil
   assert.ok(!ayniMakroOlay('Tell us about growth in August', 'US GDP grew in August')); // "us" zamiri ABD değil
   assert.ok(ayniMakroOlay('China Q3 GDP growth slows to 4.6%', 'Chinese economy expands 4.6% in third quarter, GDP data shows'));
+});
+
+// Katman 2 (Gemini kota planı): gruplama istemine bütün hafıza değil, adaylarla kelime paylaşan kayıtlar gider.
+const kayit = (id, ozet, zaman = '2026-10-11T08:00:00Z') => ({ id, ozet, zaman });
+
+test('ilgiliHafiza: adaylarla en az iki ayırt edici kelime paylaşan kayıtları seçer', () => {
+  const hafiza = [
+    kayit('fed', 'Federal Reserve holds rates steady as inflation cools'),
+    kayit('nvidia', 'Nvidia shares jump after record quarterly revenue'),
+    kayit('yalniz-ortak', 'Reserve Bank of Australia minutes released'),
+  ];
+  const secilen = ilgiliHafiza([aday('a', { baslik: 'Federal Reserve keeps rates on hold', ozet: 'Inflation cooling' })], hafiza);
+  assert.deepEqual(secilen.map((h) => h.id), ['fed']);
+});
+
+test('ilgiliHafiza: sıradan kelimeler (the, after, percent) eşleşme sayılmaz', () => {
+  const hafiza = [kayit('x', 'Shares fell after the report, down percent this week')];
+  const secilen = ilgiliHafiza([aday('a', { baslik: 'Oil rose after the report this week', ozet: 'up percent' })], hafiza);
+  assert.equal(secilen.length, 0);
+});
+
+test('ilgiliHafiza: en çok azami kadar kayıt, önce en çok ortak kelimesi olan', () => {
+  const hafiza = [
+    kayit('iki', 'Tesla deliveries record'),
+    kayit('uc', 'Tesla deliveries record quarter'),
+    kayit('iki-b', 'Tesla deliveries slump'),
+  ];
+  const secilen = ilgiliHafiza([aday('a', { baslik: 'Tesla deliveries hit record in quarter', ozet: '' })], hafiza, 2);
+  assert.equal(secilen.length, 2);
+  assert.equal(secilen[0].id, 'uc');
+});
+
+test('gruplama istemi yalnız ilgili hafızayı ve kısaltılmış aday özetini taşır', async () => {
+  let istem = '';
+  const hafiza = [
+    kayit('fed', 'Federal Reserve holds rates steady'),
+    ...Array.from({ length: 50 }, (_, i) => kayit(`ilgisiz${i}`, `Unrelated cocoa harvest story number ${i}`)),
+  ];
+  const uzunOzet = 'Federal Reserve rates '.repeat(40);
+  await olaylariGrupla([aday('a', { baslik: 'Federal Reserve rates decision', ozet: uzunOzet })], hafiza, {
+    gemini: async (p) => { istem = p.istem; return { gruplar: [[0]] }; },
+  });
+  assert.match(istem, /\[fed\]/);
+  assert.doesNotMatch(istem, /ilgisiz/);
+  const adaySatiri = istem.split('\n').find((s) => s.startsWith('0. '));
+  assert.ok(adaySatiri.length <= 'Federal Reserve rates decision'.length + 3 + 3 + 200, adaySatiri.length);
+});
+
+test('ilgili hafıza boşsa istem (yok) der; hafızadaki olayla eşleşme yine tüm hafızaya göre doğrulanır', async () => {
+  let istem = '';
+  const { bilinen } = await olaylariGrupla([aday('a')], [kayit('eski1', 'Tamamen başka konu')], {
+    gemini: async (p) => { istem = p.istem; return { gruplar: [[0]], eslesen: [{ aday: 0, hafiza: 'eski1' }] }; },
+  });
+  assert.match(istem, /\(yok\)/);
+  assert.equal(bilinen.length, 1);
 });

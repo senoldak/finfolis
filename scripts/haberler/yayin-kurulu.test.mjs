@@ -175,7 +175,12 @@ test('yayinKurulu: göreli zaman yerelde düzelir, Gemini düzeltme çağrılmaz
 const uzunGovde = Array.from({ length: 6 }, () => 'Fed’e göre aralık yüzde 4,25 ile 4,5 arasında kaldı ve kurul kararını oy birliğiyle verdi, toplantı tutanağı da üç hafta sonra yayımlanacak.').join(' ')
   .concat(' ', 'Kurul enflasyonun hedefin üzerinde kaldığını, istihdamın ise güçlü seyrettiğini belirtti. '.repeat(8));
 
-test('kısa taslak genişletilir; genişletme yeterliyse yayınlanır', async () => {
+// 120-199 kelimelik taslak (Katman 2: uzatma yalnız bu aralıkta denenir).
+const ortaGovde = `${iyi.govde}
+
+${'Kurul kararını açıkladı ve piyasalar bunu bekliyordu. '.repeat(18)}`.trim();
+
+test('120-199 kelimelik taslak genişletilir; genişletme yeterliyse yayınlanır', async () => {
   const istemler = [];
   const gemini = async ({ sema, istem }) => {
     istemler.push(istem);
@@ -183,15 +188,28 @@ test('kısa taslak genişletilir; genişletme yeterliyse yayınlanır', async ()
     if (istem.includes('genişlet')) return { ...iyi, govde: uzunGovde };
     return null;
   };
-  const r = await yayinKurulu(iyi, aday, { gemini });
+  const r = await yayinKurulu({ ...iyi, govde: ortaGovde }, aday, { gemini });
   assert.ok(r.yazi, r.dur);
   assert.equal(r.yazi.govde, uzunGovde);
   assert.ok(istemler.some((i) => i.includes('250-400 kelime')));
 });
 
-test('genişletme sonrası da kısaysa dur (kisa işaretli)', async () => {
-  const gemini = async ({ sema }) => (sema.properties.onay ? { onay: true, sorunlar: [] } : null);
-  const r = await yayinKurulu(iyi, aday, { gemini });
+test('genişletme sonrası da kısaysa dur (kisa işaretli); kısa metin denetime girmez', async () => {
+  const cagrilar = [];
+  const gemini = async ({ sema, istem }) => {
+    cagrilar.push(istem);
+    return sema.properties.onay ? { onay: true, sorunlar: [] } : null;
+  };
+  const r = await yayinKurulu({ ...iyi, govde: ortaGovde }, aday, { gemini });
   assert.match(r.dur, /Metin kısa/);
   assert.equal(r.kisa, true);
+  assert.equal(cagrilar.length, 1); // yalnız uzatma
+});
+
+test('120 kelimenin altındaki taslak uzatılmaz; Gemini hiç çağrılmadan kisa döner', async () => {
+  let cagri = 0;
+  const r = await yayinKurulu(iyi, aday, { gemini: async () => { cagri++; return null; } });
+  assert.match(r.dur, /Metin kısa/);
+  assert.equal(r.kisa, true);
+  assert.equal(cagri, 0);
 });

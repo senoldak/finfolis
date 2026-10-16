@@ -10,11 +10,13 @@ import { dogrula } from './dogrula.mjs';
 import { duzelt, uzat, YAZI_SEMASI, KURALLAR } from './yazar.mjs';
 import { ilgiliKisim } from './kaynak-kirp.mjs';
 import { gizliMedyaAdlari } from './gizli.mjs';
-import { kelimeSay } from '../../src/lib/uzunluk.mjs';
+import { kelimeSay, INDEKS_ESIGI } from '../../src/lib/uzunluk.mjs';
 
 // Gövdesi bu kelime sayısının altında kalan haber yayımlanmaz: kısa taslak önce bir kez kaynaktan genişletilir
 // (uzat), yine kısaysa durdurulur. Sitede 120 kelimenin altı zaten noindex olur (src/lib/uzunluk.mjs).
 export const EN_AZ_KELIME = 200;
+// Bu sayının altındaki taslak uzatılmaz (Katman 2); sitedeki noindex eşiğiyle aynı.
+export const UZATMA_ESIGI = INDEKS_ESIGI;
 
 const KARAR_SEMASI = {
   type: 'object',
@@ -267,8 +269,15 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
     ...(yazi.grafik ? { grafik: yazi.grafik } : {}),
   };
   const kisa = (y) => kelimeSay(y.govde) < enAzKelime;
-  // Kısa taslak bir kez kaynaktan genişletilir; genişletilmiş metin de aşağıdaki denetimlerden geçer.
-  if (kisa(yazi)) yazi = { ...(await uzat(yazi, aday, kelimeSay(yazi.govde), g)), ...serit };
+  const kisaDur = () => ({ dur: `Metin kısa: ${kelimeSay(yazi.govde)} kelime (en az ${enAzKelime}); kaynak yeterli bilgi içermiyor`, kisa: true });
+  // Katman 2 (Gemini kota planı): kısa taslak yalnız UZATMA_ESIGI'nin üstündeyse bir kez kaynaktan genişletilir;
+  // daha kısası için kaynakta yeterli bilgi olmadığı neredeyse kesindir. Kısa kalan metin denetime girmez:
+  // yazısı kullanılmaz, olay havuza gider (bkz. hent-haberler.mjs).
+  if (kisa(yazi)) {
+    if (kelimeSay(yazi.govde) < UZATMA_ESIGI) return kisaDur();
+    yazi = { ...(await uzat(yazi, aday, kelimeSay(yazi.govde), g)), ...serit };
+    if (kisa(yazi)) return kisaDur();
+  }
   // Kontrol, sorun varsa düzeltme; en fazla 2 düzeltme turu, ardından son bir kontrol.
   for (let tur = 0; ; tur++) {
     // basit sorunlar (göreli zaman, yayın kuruluşu atfı) önce yerelde düzelir; Gemini'ye yalnızca kalanlar gider
@@ -291,7 +300,7 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
   const kalan = kesinKontrol(yazi, aday);
   if (kalan.length) return { dur: `Son kontrol: ${kalan.join('; ')}` };
   // kisa: olay ayrı haber olmaz; havuzda eş bekler (derleme), eş yoksa bültende tek satır olur (bkz. hent-haberler.mjs).
-  if (kisa(yazi)) return { dur: `Metin kısa: ${kelimeSay(yazi.govde)} kelime (en az ${enAzKelime}); kaynak yeterli bilgi içermiyor`, kisa: true };
+  if (kisa(yazi)) return kisaDur();
   return { yazi };
 }
 
