@@ -77,9 +77,10 @@ export function varsayilanKapak(yazi, o) {
 }
 
 // Önem eşiği olay gruplamadaki haber değeri puanıyla birlikte (bkz. olaylar.mjs). Resmî kaynak (merkez bankaları, SEC)
-// 3'le, genel RSS 4'le kısa habere terfi eder; altı yalnız bültende satır olur. Ücretli tek kaynak terfi etmez.
+// de genel RSS de 3'le ("kendi başına kısa haber olmaya değer") yazılır; kısa kalan dilim derlemesine girer (bkz.
+// havuz.mjs), altı yalnız bültende satır olur. Ücretli tek kaynak terfi etmez.
 export const TERFI_ESIGI = 3;
-export const RSS_TERFI_ESIGI = 4;
+export const RSS_TERFI_ESIGI = 3;
 export const terfiMi = (o) =>
   o.onem >= ((o.adaylar ?? []).some(olaylarModulu.resmiMi) ? TERFI_ESIGI : RSS_TERFI_ESIGI) && o.icerikli && !o.ucretliTek;
 // Log satırı: gruplamadan çıkan yeni olayların önem dağılımı ve terfi etmeme nedenleri (darboğaz görünsün diye).
