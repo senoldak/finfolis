@@ -197,6 +197,7 @@ function kesinKontrol(yazi, aday) {
 export async function kontrolMasasi(yazi, aday, { gemini = varsayilanGemini } = {}) {
   const sorunlar = kesinKontrol(yazi, aday);
   const r = await gemini({
+    denetim: true,
     sema: KARAR_SEMASI,
     sistem: 'Sen finfolis yayın kurulunun kontrol masasısın. Haberler insan onayı olmadan yayınlanır; son kapı sensin. Katı ol: şüphedeysen onaylama. Yanıtların Türkçe.',
     istem: `Yapay zekânın yazdığı taslağı KAYNAK ile karşılaştır. Aşağıdakilerden biri varsa onay=false ver ve her sorunu kısaca yaz:

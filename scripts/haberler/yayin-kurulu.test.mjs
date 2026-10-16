@@ -213,3 +213,12 @@ test('120 kelimenin altındaki taslak uzatılmaz; Gemini hiç çağrılmadan kis
   assert.equal(r.kisa, true);
   assert.equal(cagri, 0);
 });
+
+import { kontrolMasasi } from './yayin-kurulu.mjs';
+
+// Katman 4: kontrol masası evet/hayır denetimidir; ana model düşerse yedek Gemma olur.
+test('kontrol masası denetim çağrısı olarak gider', async () => {
+  let p;
+  await kontrolMasasi(iyi, aday, { gemini: async (x) => { p = x; return { onay: true, sorunlar: [] }; } });
+  assert.equal(p.denetim, true);
+});
