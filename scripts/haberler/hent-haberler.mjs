@@ -82,6 +82,15 @@ export const TERFI_ESIGI = 3;
 export const RSS_TERFI_ESIGI = 4;
 export const terfiMi = (o) =>
   o.onem >= ((o.adaylar ?? []).some(olaylarModulu.resmiMi) ? TERFI_ESIGI : RSS_TERFI_ESIGI) && o.icerikli && !o.ucretliTek;
+// Log satırı: gruplamadan çıkan yeni olayların önem dağılımı ve terfi etmeme nedenleri (darboğaz görünsün diye).
+export function terfiOzeti(olaylar) {
+  const say = (f) => olaylar.filter(f).length;
+  const dagilim = [5, 4, 3, 2, 1].map((n) => `${n}:${say((o) => (o.onem ?? 0) === n)}`).join(' ');
+  const terfi = say(terfiMi);
+  const ucretli = say((o) => o.ucretliTek);
+  const iceriksiz = say((o) => !o.ucretliTek && !o.icerikli);
+  return `olaylar: ${olaylar.length} yeni (önem ${dagilim}); terfi ${terfi}, eşik altı ${olaylar.length - terfi - ucretli - iceriksiz}, içeriksiz ${iceriksiz}, ücretli ${ucretli}`;
+}
 // Kalıcı olarak görüldü sayılır (başarısız deneme bekleyenler hariç).
 const goruldu = (durum, id) => Boolean(durum.gorulen[id]) && !durum.gorulen[id].deneme;
 // Başarısız deneme sayar; MAKS_DENEME'ye ulaşınca görüldü işaretler.
@@ -256,6 +265,7 @@ export async function calistir({
     log(`  - ${t.olay.id}: tekrar (${t.neden}), ${t.slug} ile aynı olay`);
   }
   yeni.sort((a, b) => (b.onem ?? 0) - (a.onem ?? 0));
+  log(terfiOzeti(yeni));
 
   // 5. Terfi eden olayları yaz, denetle, kaydet
   const yazilan = [];
