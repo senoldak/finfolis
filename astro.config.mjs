@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { readdirSync, readFileSync } from 'node:fs';
 import { indekslenir } from './src/lib/uzunluk.mjs';
+import { ARSIV_ESIGI } from './src/lib/arsiv.mjs';
+import { istanbulGunu } from './src/lib/seffaflik.mjs';
 import { satteri } from '@astrojs/markdown-satteri';
 import sozlukBagla from './src/lib/sozluk-bagla.mjs';
 
@@ -13,6 +15,8 @@ function tarihler() {
   const haber = new Map();
   const kategori = new Map();
   const kisa = new Set();
+  // Arşiv günü → o gün yayımlanan haber (bülten hariç) sayısı ve en yeni tarih.
+  const gun = new Map();
   let enYeni;
   for (const ad of readdirSync(kok)) {
     let md;
@@ -34,8 +38,12 @@ function tarihler() {
     const k = alan('category');
     if (k && alan('tur') !== 'bulten' && (!kategori.get(k) || kategori.get(k) < d)) kategori.set(k, d);
     if (!enYeni || enYeni < d) enYeni = d;
+    if (alan('tur') !== 'bulten') {
+      const g = gun.get(istanbulGunu(d)) ?? { sayi: 0, son: d };
+      gun.set(istanbulGunu(d), { sayi: g.sayi + 1, son: g.son < d ? d : g.son });
+    }
   }
-  return { haber, kategori, enYeni, kisa };
+  return { haber, kategori, enYeni, kisa, gun };
 }
 
 const T = tarihler();
@@ -78,6 +86,9 @@ export default defineConfig({
         if (V.has(yol) && !V.get(yol)) return false;
         const h = yol.match(/^\/haber\/([^/]+)\/$/);
         if (h && T.kisa.has(decodeURIComponent(h[1]))) return false;
+        // Arşivde az haberli gün (noindex) haritaya girmez; kural src/pages/arsiv/[gun].astro ile ortak.
+        const a = yol.match(/^\/arsiv\/(\d{4}-\d{2}-\d{2})\/$/);
+        if (a && (T.gun.get(a[1])?.sayi ?? 0) < ARSIV_ESIGI) return false;
         const k = yol.match(/^\/kategori\/([^/]+)\/$/);
         return !k || T.kategori.has(k[1]);
       },
@@ -85,7 +96,10 @@ export default defineConfig({
         const yol = new URL(item.url).pathname;
         const h = yol.match(/^\/haber\/([^/]+)\/$/);
         const k = yol.match(/^\/kategori\/([^/]+)\/$/);
-        const d = h
+        const a = yol.match(/^\/arsiv\/(\d{4}-\d{2}-\d{2})\/$/);
+        const d = a
+          ? T.gun.get(a[1])?.son
+          : h
           ? T.haber.get(decodeURIComponent(h[1]))
           : k
             ? T.kategori.get(k[1])

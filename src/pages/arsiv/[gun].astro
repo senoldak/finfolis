@@ -1,0 +1,107 @@
+---
+// Günlük arşiv sayfası: günün özeti (o günün son bülteni) ve o gün yayımlanan haberler.
+import Base from '../../layouts/Base.astro';
+import NewsCard from '../../components/NewsCard.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { getNews, newsUrl } from '../../lib/news';
+import { ARSIV_ESIGI, ayBasligi, bultenMaddeleri, gunBasligi, gunlereAyir } from '../../lib/arsiv.mjs';
+
+export async function getStaticPaths() {
+  const gunler = gunlereAyir(await getNews());
+  return gunler.map((g, i) => ({
+    params: { gun: g.gun },
+    // gunler yeniden eskiye sıralı: önceki gün bir sonraki eleman.
+    props: { g, onceki: gunler[i + 1]?.gun, sonraki: gunler[i - 1]?.gun },
+  }));
+}
+
+const { g, onceki, sonraki } = Astro.props;
+const baslik = gunBasligi(g.gun);
+const ay = g.gun.slice(0, 7);
+const noindex = g.haberler.length < ARSIV_ESIGI;
+// Günün özeti: o günün son bülteninin maddeleri (bölge bölge kalın başlık + tek cümle).
+const maddeler = bultenMaddeleri(g.bulten?.body);
+const ozet = maddeler.length ? maddeler.slice(0, 2).map((m) => `${m.baslik}: ${m.metin}`).join(' ') : undefined;
+---
+
+<Base
+  title={`${baslik} haberleri`}
+  description={ozet ?? `${baslik} tarihinde finfolis'te yayımlanan ${g.haberler.length} haber.`}
+  noindex={noindex}
+>
+  <div class="container">
+    <article class="makale">
+      <Breadcrumb yol={[{ ad: 'Anasayfa', href: '/' }, { ad: 'Arşiv', href: `/arsiv/#ay-${ay}` }, { ad: baslik }]} />
+      <header class="makale-bas">
+        <h1>{baslik}</h1>
+        <p class="kunye">
+          <span>{g.haberler.length} haber</span>
+          <a href={`/arsiv/#ay-${ay}`}>{ayBasligi(ay)} takvimi</a>
+        </p>
+      </header>
+
+      {
+        maddeler.length > 0 && (
+          <section class="gunun-ozeti" aria-labelledby="ozet-baslik">
+            <h2 id="ozet-baslik">Günün özeti</h2>
+            <ul>
+              {maddeler.map((m) => (
+                <li>
+                  <strong>{m.baslik}:</strong> {m.metin}
+                </li>
+              ))}
+            </ul>
+            <a href={newsUrl(g.bulten)}>Günün bültenini oku →</a>
+          </section>
+        )
+      }
+
+      <div class="liste">
+        {g.haberler.map((h) => <NewsCard haber={h} />)}
+      </div>
+
+      <nav class="gun-gezinti" aria-label="Günler arasında">
+        {onceki ? <a href={`/arsiv/${onceki}/`} rel="prev">← {gunBasligi(onceki)}</a> : <span />}
+        {sonraki && <a href={`/arsiv/${sonraki}/`} rel="next">{gunBasligi(sonraki)} →</a>}
+      </nav>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .gunun-ozeti {
+    margin: 8px 0 24px;
+    padding: 16px 0;
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--hair);
+    font-family: var(--sans);
+  }
+  .gunun-ozeti h2 {
+    margin: 0 0 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .gunun-ozeti ul {
+    margin: 0 0 10px;
+    padding-left: 1.1em;
+    font-family: var(--serif);
+    line-height: 1.5;
+  }
+  .gunun-ozeti li + li {
+    margin-top: 6px;
+  }
+  .liste {
+    margin-top: 8px;
+  }
+  .gun-gezinti {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 28px;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+  }
+</style>

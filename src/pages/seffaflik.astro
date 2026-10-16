@@ -1,0 +1,292 @@
+---
+// Şeffaflık: haber botu ne kadar içerik taradı, kaçını yayımladı, hangi kaynak türlerinden.
+// Kaynak adları gösterilmez (yayın ilkesi); resmi olmayan kaynaklar yalnız sayı olarak görünür.
+import Base from '../layouts/Base.astro';
+import { getNews } from '../lib/news';
+import { seffaflikVerisi } from '../lib/seffaflik.mjs';
+import durum from '../../scripts/haberler/gorulen.json';
+
+const haberler = await getNews();
+const v = seffaflikVerisi(
+  haberler.map((h) => ({ date: h.data.date, tur: h.data.tur, icerikTuru: h.data.icerikTuru })),
+  durum.gorulen,
+  { simdi: new Date() },
+);
+
+const sayi = (n: number) => n.toLocaleString('tr-TR');
+const gunAdi = (g: string) =>
+  new Date(`${g}T12:00:00Z`).toLocaleDateString('tr-TR', { day: 'numeric', month: 'short', timeZone: 'Europe/Istanbul' });
+const enCok = Math.max(1, ...v.gunluk.map((g) => g.yayinlanan));
+// Çubuk grafiği geometrisi: ince çubuk, üstte 4px yuvarlak uç, tabanda düz.
+const ADIM = 44;
+const CUBUK = 26;
+const G = {
+  genislik: v.gunluk.length * ADIM,
+  yukseklik: 200,
+  taban: 176,
+  cubuklar: v.gunluk.map((g, i) => {
+    const x = i * ADIM + (ADIM - CUBUK) / 2;
+    const h = Math.max(2, (g.yayinlanan / enCok) * 150);
+    const ust = 176 - h;
+    const r = Math.min(4, h / 2);
+    return {
+      x,
+      genislik: CUBUK,
+      orta: x + CUBUK / 2,
+      ust,
+      deger: g.yayinlanan,
+      gun: gunAdi(g.gun),
+      // Çok günde etiketler sıkışmasın: 10 günden fazlaysa gün adı iki günde bir yazılır.
+      etiketli: v.gunluk.length <= 10 || i % 2 === 0,
+      ipucu: `${gunAdi(g.gun)}: ${g.yayinlanan} haber, ${sayi(g.taranan)} içerik tarandı`,
+      yol: `M${x},176 V${ust + r} Q${x},${ust} ${x + r},${ust} H${x + CUBUK - r} Q${x + CUBUK},${ust} ${x + CUBUK},${ust + r} V176 Z`,
+    };
+  }),
+};
+const oran = (v.secilmeOrani * 100).toLocaleString('tr-TR', { maximumFractionDigits: 1 });
+
+const TUR_ADI: Record<string, string> = {
+  yayin: 'Haber siteleri ve yayınlar',
+  resmi: 'Resmi kurumlar (merkez bankaları, SEC)',
+  arastirma: 'Kurum araştırmaları (çalışma tebliği, blog)',
+  veri: 'Piyasa ve kur verisi',
+};
+const ICERIK_ADI: Record<string, string> = {
+  haber: 'Haber',
+  resmi: 'Resmi açıklama',
+  arastirma: 'Araştırma',
+  veri: 'Veri',
+  bulten: 'Bülten',
+};
+const icerikToplam = Object.values(v.icerik).reduce((t, n) => t + n, 0) || 1;
+---
+
+<Base
+  title="Şeffaflık: haberlerimiz nasıl seçiliyor"
+  description="finfolis haber botunun son günlerde taradığı içerik, yayımladığı haber ve kullandığı kaynak türleri."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Şeffaflık</h1>
+        <p class="makale-spot">
+          Haberlerimizin çoğunu yapay zekâ desteğiyle çalışan bir haber botu hazırlıyor. Bu sayfa, botun ne kadar içerik
+          taradığını ve bunların ne kadarının yayına dönüştüğünü gösterir. Veriler her yayında güncellenir.
+        </p>
+      </header>
+
+      <dl class="buyuk-sayilar" aria-label={`Son ${v.gunSayisi} gün`}>
+        <div>
+          <dt>Taranan içerik</dt>
+          <dd>{sayi(v.taranan)}</dd>
+        </div>
+        <div>
+          <dt>Yayımlanan haber</dt>
+          <dd>{sayi(v.yayinlanan)}</dd>
+        </div>
+        <div>
+          <dt>Yayına dönüşen aday</dt>
+          <dd>%{oran}</dd>
+        </div>
+        <div>
+          <dt>Kaynak</dt>
+          <dd>{sayi(v.kaynakSayisi)}</dd>
+        </div>
+      </dl>
+      <p class="donem">
+        Son {v.gunSayisi} gün: {gunAdi(v.ilkGun)} – {gunAdi(v.sonGun)}. Ayrıca {sayi(v.bulten)} bülten yayımlandı.
+      </p>
+
+      <section class="bolum" aria-labelledby="gunluk-baslik">
+        <h2 id="gunluk-baslik">Günlük yayımlanan haber</h2>
+        {/* SVG: yükseklikler öznitelikle verilir (CSP satır içi stile izin vermez). */}
+        <svg class="cubuklar" viewBox={`0 0 ${G.genislik} ${G.yukseklik}`} width={G.genislik} height={G.yukseklik} role="img" aria-labelledby="gunluk-baslik">
+          <line class="taban" x1="0" x2={G.genislik} y1={G.taban} y2={G.taban} />
+          {
+            G.cubuklar.map((c) => (
+              <g class="cubuk">
+                <title>{c.ipucu}</title>
+                <rect class="isabet" x={c.x - 6} y="0" width={c.genislik + 12} height={G.yukseklik} />
+                <path class="dolgu" d={c.yol} />
+                <text class="deger" x={c.orta} y={c.ust - 6}>{c.deger}</text>
+                {c.etiketli && <text class="gun" x={c.orta} y={G.taban + 16}>{c.gun}</text>}
+              </g>
+            ))
+          }
+        </svg>
+        <details class="tablo-gorunumu">
+          <summary>Tablo olarak göster</summary>
+          <table>
+            <thead>
+              <tr><th scope="col">Gün</th><th scope="col">Taranan</th><th scope="col">Haber</th><th scope="col">Bülten</th></tr>
+            </thead>
+            <tbody>
+              {
+                v.gunluk.map((g) => (
+                  <tr><th scope="row">{gunAdi(g.gun)}</th><td>{sayi(g.taranan)}</td><td>{g.yayinlanan}</td><td>{g.bulten}</td></tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </details>
+      </section>
+
+      <section class="bolum" aria-labelledby="kaynak-baslik">
+        <h2 id="kaynak-baslik">Taranan içeriğin kaynağı</h2>
+        <table class="dagilim">
+          <thead>
+            <tr><th scope="col">Kaynak türü</th><th scope="col">Kaynak</th><th scope="col">Taranan içerik</th></tr>
+          </thead>
+          <tbody>
+            {
+              v.kaynakTurleri.map((k) => (
+                <tr><th scope="row">{TUR_ADI[k.tur]}</th><td>{k.kaynak}</td><td>{sayi(k.taranan)}</td></tr>
+              ))
+            }
+          </tbody>
+        </table>
+        <p class="not">
+          Resmi olmayan kaynakların adlarını yayımlamıyoruz. Haberlerimiz bu kaynakları kopyalamaz: olguları birden çok
+          kaynakla karşılaştırıp kendi dilimizle yeniden yazarız. Resmi kurumların açıklamaları haberin altında kaynak olarak
+          bağlanır.
+        </p>
+      </section>
+
+      <section class="bolum" aria-labelledby="icerik-baslik">
+        <h2 id="icerik-baslik">Yayımlananların türü</h2>
+        <table class="dagilim">
+          <thead>
+            <tr><th scope="col">Tür</th><th scope="col">Yazı</th><th scope="col">Pay</th></tr>
+          </thead>
+          <tbody>
+            {
+              Object.entries(v.icerik)
+                .filter(([, n]) => n > 0)
+                .map(([t, n]) => (
+                  <tr>
+                    <th scope="row">{ICERIK_ADI[t]}</th>
+                    <td>{n}</td>
+                    <td>%{Math.round((n / icerikToplam) * 100)}</td>
+                  </tr>
+                ))
+            }
+          </tbody>
+        </table>
+        <p class="not">
+          Seçim ve yazım ilkelerimiz <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasındadır.
+        </p>
+      </section>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .buyuk-sayilar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+    margin: 8px 0 0;
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--hair);
+    font-family: var(--sans);
+  }
+  .buyuk-sayilar div {
+    padding: 14px 14px 14px 0;
+  }
+  .buyuk-sayilar dt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .buyuk-sayilar dd {
+    margin: 4px 0 0;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .donem,
+  .not {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .bolum {
+    margin-top: 40px;
+  }
+  .bolum h2 {
+    font-family: var(--sans);
+    font-size: 1.15rem;
+    margin: 0 0 14px;
+  }
+  .cubuklar {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    font-family: var(--sans);
+  }
+  .taban {
+    stroke: var(--hair);
+    stroke-width: 1;
+  }
+  .isabet {
+    fill: transparent;
+  }
+  .dolgu {
+    fill: var(--blue);
+  }
+  .cubuk:hover .dolgu {
+    fill: var(--ink-2);
+  }
+  .deger,
+  .gun {
+    text-anchor: middle;
+    font-variant-numeric: tabular-nums;
+  }
+  .deger {
+    font-size: 12px;
+    fill: var(--ink-2);
+  }
+  .gun {
+    font-size: 11px;
+    fill: var(--muted);
+  }
+  .tablo-gorunumu {
+    margin-top: 16px;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+  .tablo-gorunumu summary {
+    cursor: pointer;
+    color: var(--blue-text);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--sans);
+    font-size: 0.92rem;
+    font-variant-numeric: tabular-nums;
+    margin-top: 10px;
+  }
+  th,
+  td {
+    text-align: left;
+    padding: 8px 10px 8px 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  thead th {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  td,
+  thead th:not(:first-child) {
+    text-align: right;
+  }
+  th[scope='row'] {
+    font-weight: 500;
+  }
+</style>
