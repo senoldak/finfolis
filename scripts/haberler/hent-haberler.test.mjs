@@ -478,3 +478,26 @@ test('gruplamanın kaçırdığı aynı makro olay ikinci kez yazılmaz', async 
   assert.equal(s.adet, 1);
   assert.ok(secenek.durum.gorulen.g && !secenek.durum.gorulen.g.yazildi);
 });
+
+// Katman 3 (Gemini kota planı): tur payı bittiyse yeni habere başlanmaz; olay görülmedi kalır ve sonraki turda
+// yazılır. Bülten öncelikte birincidir: yine yazılır.
+test('Gemini tur payı bittiyse haber yazılmaz, olay görülmedi kalır; bülten yine yazılır', async () => {
+  const { butceYukle } = await import('./butce.mjs');
+  process.env.GEMINI_TUR_PAYI = '0';
+  await butceYukle();
+  try {
+    const kayit = {};
+    const { secenek } = await ortam({
+      kaynaklar: [kaynak('A', [aday('t1', 5), aday('d1', 2), aday('d2', 2), aday('d3', 2)])],
+      bulten: bultenSahte(kayit),
+    });
+    const s = await calistir(secenek);
+    assert.equal(s.adet, 0);
+    assert.equal(s.bultenYazildi, true);
+    assert.equal(secenek.durum.gorulen.t1, undefined);
+  } finally {
+    process.env.GEMINI_TUR_PAYI = '1000000';
+    await butceYukle();
+    delete process.env.GEMINI_TUR_PAYI;
+  }
+});

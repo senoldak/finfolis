@@ -25,6 +25,7 @@ import { yaziYaz, gemini as varsayilanGemini } from './lib.mjs';
 import { kaynakKapagi, rakamKapagi, haberKapagi } from '../kapak/kapak.mjs';
 import { gorunur } from '../../src/lib/gorunur.mjs';
 import { anahtarVar, coz, kaynakIzi, sifrele } from './gizli.mjs';
+import { butceYukle, geminiPayiBitti } from './butce.mjs';
 
 const HER = path.dirname(fileURLToPath(import.meta.url));
 const ROT = path.resolve(HER, '../..');
@@ -171,7 +172,9 @@ export async function calistir({
   log = console.log,
 } = {}) {
   const baslangic = saat();
-  const butceBitti = () => saat() - baslangic > BUTCE_MS;
+  const zamanBitti = () => saat() - baslangic > BUTCE_MS;
+  // Katman 3: haber ve derleme süre ya da Gemini tur payı bitince durur; bülten ve karneler yalnız süreye bakar.
+  const butceBitti = () => zamanBitti() || geminiPayiBitti();
   durum ??= await jsonOku(DURUM_DOSYASI, {});
   durum.gorulen ??= {};
   durum.sonBulten ??= null;
@@ -277,7 +280,7 @@ export async function calistir({
   let dur = false;
   for (const o of terfi) {
     if (!dur && butceBitti()) {
-      log('  ! çalıştırma bütçesi aşıldı; kalan olaylar sonraki çalıştırmaya kaldı');
+      log(`  ! çalıştırma bütçesi aşıldı (${zamanBitti() ? 'süre' : 'Gemini tur payı'}); kalan olaylar sonraki çalıştırmaya kaldı`);
       dur = true;
     }
     if (dur || yazilan.length >= maksHaber) {
@@ -408,7 +411,7 @@ export async function calistir({
   // Günde en fazla üç bülten: bu dilimin (açılış/öğle/kapanış) bülteni yazıldıysa olaylar sonraki dilime kalır.
   sonuc.bultenGerekli = bulten.bultenGerekli(bultenOlaylari.length) && !dilimDolu(durum, simdi);
   let bultendekiler = [];
-  if (sonuc.bultenGerekli && butceBitti()) {
+  if (sonuc.bultenGerekli && zamanBitti()) {
     log('  ! çalıştırma bütçesi aşıldı; bülten sonraki çalıştırmaya kaldı');
   } else if (sonuc.bultenGerekli) {
     try {
@@ -435,7 +438,7 @@ export async function calistir({
   durum.havuz = [...derlenmeyen, ...bultenYedek.filter((o) => o.havuzaGirdi)];
 
   // 6b. Karneler (haftalık, aylık, enflasyon): Gemini'siz, veriden şablonla; zamanı gelmediyse ağ isteği de yok.
-  if (!butceBitti()) {
+  if (!zamanBitti()) {
     try {
       for (const yazi of await karneler({ durum, simdi, piyasa: veri, log })) {
         const slug = await yaziYaz(rot, yazi);
@@ -470,6 +473,7 @@ export async function calistir({
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
   const kuru = process.argv.includes('--kuru');
+  if (!kuru) console.log(await butceYukle({ url: process.env.MOTOR_URL, anahtar: process.env.MOTOR_ANAHTARI, site: 'finfolis' }));
   const s = await calistir({ kuru });
   if (!kuru) {
     await writeFile(DURUM_DOSYASI, JSON.stringify({ ...s.durum, olaylar: hafizaKapat(s.durum.olaylar), yayinlar: yayinKapat(s.durum.yayinlar), havuz: havuzKapat(s.durum.havuz ?? []) }, null, 2) + '\n');

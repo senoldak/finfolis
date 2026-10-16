@@ -40,6 +40,8 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_KULLANIM_DOSYASI: ${{ runner.temp }}/gemini-kullanim.json
+          MOTOR_URL: ${{ vars.MOTOR_URL }} # Katman 3: tur başında Gemini bütçesi okunur
+          MOTOR_ANAHTARI: ${{ secrets.MOTOR_ANAHTARI }}
           # Resmi olmayan kaynakların şifreli listesi ve izi için (bkz. scripts/haberler/gizli.mjs).
           KAYNAK_ANAHTARI: ${{ secrets.KAYNAK_ANAHTARI }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
