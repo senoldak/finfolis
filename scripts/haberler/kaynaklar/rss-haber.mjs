@@ -9,6 +9,9 @@ import { adresiSil, kaynakKodu, ozet } from '../gizli.mjs';
 const GUN_MS = 86400000;
 const ESZAMANLI = 4; // eşzamanlı makale isteği sınırı
 const AZAMI_GUN = 7; // bundan eski kayıtlar aday olmaz
+// İleri tarihli kayıt (etkinlik takvimi, planlı duyuru) henüz olmamış bir şeydir, aday olmaz. Saat dilimi yanlış yazılmış
+// beslemeler için bu kadar pay bırakılır.
+const GELECEK_PAYI_MS = 3600e3;
 
 const duzMetin = (s) => metinTemizle(String(s ?? '').replace(/<[^>]*>/g, ' '));
 
@@ -48,7 +51,7 @@ export function rssHaberKaynagi({ ad: gercekAd, rss, bolge, ucretli, kategori, o
         throw resmi ? e : new Error(adresiSil(e.message));
       }
       let taze = ogeler(xml).filter(
-        (o) => !Number.isNaN(o.tarih?.getTime()) && simdi - o.tarih <= AZAMI_GUN * GUN_MS && !goruldu(kimlik(o.url)),
+        (o) => !Number.isNaN(o.tarih?.getTime()) && simdi - o.tarih <= AZAMI_GUN * GUN_MS && o.tarih - simdi <= GELECEK_PAYI_MS && !goruldu(kimlik(o.url)),
       );
       // ctx.limit: makale sayfaları çekilmeden önce en yeni N kayda indirilir; kesilenler ctx.kesilen'e bildirilir.
       if (Number.isFinite(ctx.limit)) {

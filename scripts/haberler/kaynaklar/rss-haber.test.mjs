@@ -78,6 +78,14 @@ test('7 günden eski kayıt atılır', async () => {
   assert.ok(!adaylar.some((a) => a.baslik === 'Eski haber'));
 });
 
+test('ileri tarihli kayıt (etkinlik takvimi) atılır; 1 saatlik saat dilimi payı geçer', async () => {
+  const oge = (yol, tarih) => `<item><title>${yol}</title><link>https://haber.example.com/${yol}</link><pubDate>${tarih}</pubDate><description>Özet.</description></item>`;
+  const rss = `<rss><channel>${oge('planli', 'Fri, 25 Dec 2026 00:00:00 GMT')}${oge('kayik', 'Sat, 10 Oct 2026 09:45:00 GMT')}</channel></rss>`;
+  sahteFetch({ 'haber.example.com/rss': rss, 'haber.example.com/': '<html><body><p>Metin.</p></body></html>' });
+  const adaylar = await acik().hent({ simdi: SIMDI });
+  assert.deepEqual(adaylar.map((a) => a.baslik), ['kayik']);
+});
+
 test('BESLEMELER: geçerli bölge ve alanlar', () => {
   for (const b of BESLEMELER) {
     assert.ok(['abd', 'avrupa', 'asya', 'kuresel'].includes(b.bolge), b.ad);

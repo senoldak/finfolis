@@ -13,5 +13,9 @@ export const RESMI_BESLEMELER = [
   { ad: 'ECB Working Papers', rss: 'https://www.ecb.europa.eu/rss/wppub.html', bolge: 'avrupa', ucretli: false, kategori: 'ekonomi', onem: 40, resmi: true, tur: 'arastirma' },
   { ad: 'BIS', rss: 'https://www.bis.org/rss.xml', bolge: 'kuresel', ucretli: false, kategori: 'ekonomi', onem: 40, resmi: true },
   { ad: 'BIS Working Papers', rss: 'https://www.bis.org/doclist/wppubls.rss', bolge: 'kuresel', ucretli: false, kategori: 'ekonomi', onem: 40, resmi: true, tur: 'arastirma' },
+  // Bank of Canada'nın genel beslemesi (/feed/) etkinlik takvimidir (ileri tarihli); basın bülteni ve yayın akışları
+  // kullanılır. Yayınlarda müzakere özeti gibi resmi metinler de olduğundan tür araştırma değil. Tebliğ akışları boş.
+  { ad: 'Bank of Canada', rss: 'https://www.bankofcanada.ca/content_type/press-releases/feed/', bolge: 'kuresel', ucretli: false, kategori: 'ekonomi', onem: 40, resmi: true },
+  { ad: 'Bank of Canada Publications', rss: 'https://www.bankofcanada.ca/content_type/publications/feed/', bolge: 'kuresel', ucretli: false, kategori: 'ekonomi', onem: 40, resmi: true },
   { ad: 'OECD Ecoscope', rss: 'https://oecdecoscope.blog/feed/', bolge: 'kuresel', ucretli: false, kategori: 'ekonomi', onem: 40, resmi: true, tur: 'arastirma' },
 ];
