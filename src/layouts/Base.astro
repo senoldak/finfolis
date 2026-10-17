@@ -4,7 +4,6 @@ import { getNews } from '../lib/news';
 import { jsonLdMetni } from '../lib/json-ld.mjs';
 import Pictograms from '../components/Pictograms.astro';
 import Logo from '../components/Logo.astro';
-import BultenFormu from '../components/BultenFormu.astro';
 import { kisalt, siteJsonLd } from '../lib/seo';
 import '../styles/global.css';
 
@@ -169,7 +168,6 @@ const today = new Date().toLocaleDateString(SITE.locale, {
           <a href="/veri/">Veriler</a>
           <a href="/hesapla/">Hesaplayıcılar</a>
           <a href="/sozluk/">Sözlük</a>
-          <a href="/bulten/">Haftalık bülten</a>
           <a href="/arsiv/">Arşiv</a>
           <a href="/hakkimizda/">Hakkımızda</a>
           <a href="/yayin-ilkeleri/">Yayın İlkeleri</a>
@@ -180,9 +178,6 @@ const today = new Date().toLocaleDateString(SITE.locale, {
           {SITE.social.telegram && <a href={SITE.social.telegram} rel="noopener" target="_blank" aria-label="Telegram kanalı (yeni sekmede açılır)">Telegram</a>}
           {SITE.social.facebook && <a href={SITE.social.facebook} rel="noopener noreferrer" target="_blank" aria-label="Facebook (yeni sekmede açılır)">Facebook</a>}
         </nav>
-      </div>
-      <div class="container footer-bulten">
-        <BultenFormu kimlik="bulten-eposta-alt" />
       </div>
       <div class="container footer-alt">
         <p class="uyari">

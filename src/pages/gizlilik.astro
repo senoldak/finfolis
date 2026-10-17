@@ -1,11 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SITE } from '../lib/site';
 ---
 
 <Base
   title="Gizlilik"
-  description="finfolis gizlilik bildirimi: haftalık bültende e-posta adresinin nasıl kullanıldığı, nerede saklandığı ve nasıl silindiği."
+  description="finfolis gizlilik bildirimi: sitede hangi verinin işlendiği ve ziyaretlerin nasıl ölçüldüğü."
 >
   <div class="container">
     <article class="makale">
@@ -14,30 +13,22 @@ import { SITE } from '../lib/site';
         <p class="makale-spot">Hangi veriyi topladığımızı, neden topladığımızı ve nasıl sildiğimizi burada açıklıyoruz.</p>
       </header>
       <div class="prose">
-        <h2>Haftalık bülten</h2>
+        <h2>Kişisel veri</h2>
         <p>
-          Bültene abone olmak isterseniz yalnızca e-posta adresinizi veririz. Adresinize bir onay bağlantısı gönderiyoruz;
-          bağlantıya tıklayıp onaylamadıkça size hiçbir bülten gönderilmez.
+          Sitede üyelik, yorum ya da e-posta aboneliği yoktur; sizden ad, e-posta adresi ya da başka bir kişisel bilgi istemiyoruz
+          ve böyle bir bilgiyi saklamıyoruz.
         </p>
-        <ul>
-          <li>E-posta adresiniz yalnızca haftalık bülteni göndermek için kullanılır. Reklam ya da başka bir amaçla kullanılmaz ve üçüncü kişilerle paylaşılmaz.</li>
-          <li>Adresler Cloudflare D1 veritabanında saklanır. Veritabanı, Cloudflare'in AB yargı bölgesinde tutulur.</li>
-          <li>Bülten e-postaları Resend aracılığıyla gönderilir; adresiniz yalnızca bu gönderim için Resend'e iletilir.</li>
-          <li>Onaylamadığınız adresler 7 gün sonra silinir.</li>
-          <li>Her e-postanın altındaki bağlantıyla ayrılabilirsiniz. Ayrılınca adresinizin kaydı veritabanından silinir.</li>
-          <li>IP adresinizi ya da tarayıcı bilgilerinizi bülten için saklamayız.</li>
-        </ul>
 
         <h2>Site ziyaretleri</h2>
         <p>
           Sitede ziyaretleri ölçmek için Cloudflare Web Analytics kullanıyoruz. Bu ölçüm çerez kullanmaz; sayfa görüntülemelerinin
-          toplu sayılarını verir. Bülten formu ve onay bağlantıları yalnızca yukarıda anlatılan verileri işler.
+          toplu sayılarını verir; sizi tanımlayan bir bilgi saklanmaz.
         </p>
 
         <h2>İletişim</h2>
         <p>
-          Verinizin silinmesini ya da bu bildirimle ilgili bir sorunuz olursa <a href={`mailto:contact@finfolis.com`}>contact@finfolis.com</a>
-          adresine yazabilirsiniz. Bülten gönderen adres: {SITE.name} &lt;bulten@finfolis.com&gt;.
+          Bu bildirimle ilgili bir sorunuz olursa <a href={`mailto:contact@finfolis.com`}>contact@finfolis.com</a>
+          adresine yazabilirsiniz.
         </p>
         <p>Bu bildirim, sitede yapılan değişikliklere göre güncellenir. Editoryal ilkeler için <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfasına bakın.</p>
       </div>

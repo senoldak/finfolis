@@ -46,3 +46,9 @@
 /haber/yapay-zeka-odakli-sirketlerin-hisselerinde-dusus-yasandi/ /haber/yapay-zeka-bulut-hisselerinde-dusus-ve-opsiyon-hareketleri/ 301
 /haber/yapay-zeka-yatirimlari-kuresel-buyumenin-surmesini-sagliyor/ /haber/uluslararasi-para-fonu-2026-kuresel-buyume-tahminini-yukseltti/ 301
 /haber/yapay-zeka-yatirimlari-kuresel-buyumeyi-destekliyor/ /haber/uluslararasi-para-fonu-2026-kuresel-buyume-tahminini-yukseltti/ 301
+# Kaldırılan haftalık e-posta bülteni (abonelik sayfası, ?durum= sonuç sayfaları, haftalık JSON ve eski e-postalardaki
+# onay/ayrılma bağlantıları) ana sayfaya yönlenir (17.10.2026). Saatlik piyasa bültenleri /haber/ altındadır, etkilenmez.
+/bulten / 301
+/bulten/ / 301
+/bulten/* / 301
+/api/bulten/* / 301

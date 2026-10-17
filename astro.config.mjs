@@ -84,7 +84,7 @@ export default defineConfig({
         if (/\/(404|arama)(\/|$)/.test(yol)) return false;
         // Hafta sayfaları gün sayfalarının toplamıdır (noindex).
         if (yol.startsWith('/arsiv/hafta/')) return false;
-        // Haftalık bülten verisi (JSON) bir sayfa değildir.
+        // JSON çıktıları (ör. arama verisi) sayfa değildir.
         if (yol.endsWith('.json')) return false;
         if (V.has(yol) && !V.get(yol)) return false;
         const h = yol.match(/^\/haber\/([^/]+)\/$/);
