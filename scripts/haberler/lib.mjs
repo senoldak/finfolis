@@ -144,11 +144,16 @@ export function slugla(baslik) {
 // Gövdedeki HTML etiketleri ve yorumları atılır, içlerindeki metin kalır. Markdown ham HTML'i olduğu gibi sayfaya
 // basar; model çıktısı kaynak metinden etiket taşırsa yayımlanan sayfaya bağlantı ya da işaretleme eklenmesin.
 // Yalnız etiket biçimi ("<ad", "</ad" + boşluk, "/" ya da ">") silinir: "3 < 5" ve <https://…> otomatik bağlantıları kalır.
+// http(s)/mailto dışında şema taşıyan bağlantılar (javascript:, data: …) düşer: otomatik bağlantı tümüyle, Markdown
+// bağlantısında metni kalır. Markdown adresteki "&#58;" gibi karakter referanslarını çözdüğü için "&" de şema sayılır.
+const guvenliAdres = (url) => /^(?:https?:\/\/|mailto:)/i.test(url) || !/^[^/?#]*[:&]/.test(url);
 export const htmlSok = (metin) =>
   String(metin)
     .replace(/<!--[\s\S]*?(?:-->|$)/g, '')
     .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, '')
-    .replace(/<\/?[a-z][a-z0-9-]*(?:\s[^<>]*)?\/?>/gi, '');
+    .replace(/<\/?[a-z][a-z0-9-]*(?:\s[^<>]*)?\/?>/gi, '')
+    .replace(/\[([^\]]*)\]\(\s*<?((?:[^()\s<>]|\([^()\s]*\))*)>?[^)]*\)/g, (m, txt, url) => (guvenliAdres(url) ? m : txt))
+    .replace(/<([a-z][a-z0-9+.-]*:[^\s<>]*)>/gi, (m, url) => (guvenliAdres(url) ? m : ''));
 
 // YAML'da güvenli çift tırnaklı metin (JSON dizgesi geçerli YAML'dır).
 const y = (s) => JSON.stringify(String(s));

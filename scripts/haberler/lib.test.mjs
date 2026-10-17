@@ -4,7 +4,7 @@ import { mkdtemp, readFile, access } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { parse } from 'yaml';
-import { slugla, yaziYaz } from './lib.mjs';
+import { htmlSok, slugla, yaziYaz } from './lib.mjs';
 
 test('slugla Türkçe harfleri çevirir', () => {
   assert.equal(
@@ -61,6 +61,22 @@ test('yaziYaz gövdedeki HTML etiketlerini ve yorumlarını atar, Markdown ve me
   assert.match(metin, /Oran 3 < 5 ve 7 > 2/);
   assert.match(metin, /\[rapor\]\(https:\/\/www\.tcmb\.gov\.tr\/\)/);
   assert.match(metin, /<https:\/\/www\.tcmb\.gov\.tr\/>/);
+});
+
+test('htmlSok http(s) dışı şemalı bağlantıları düşürür, güvenli bağlantıları korur', () => {
+  const metin = htmlSok(
+    [
+      '<javascript:alert(1)> <JavaScript:x> <data:text/html,x>',
+      '[bir](javascript:alert(1)) [iki](<javascript:x>) [üç](javascript&#58;alert(1)) [dört]( data:text/html,x )',
+      '[rapor](https://www.tcmb.gov.tr/a_(b)) [veri](/veri/enflasyon/) [yukarı](#ozet) [yaz](mailto:a@example.com)',
+      '<https://www.tcmb.gov.tr/> <mailto:a@example.com>',
+    ].join('\n'),
+  );
+  assert.doesNotMatch(metin, /javascript|data:/i);
+  assert.match(metin, /^bir iki üç dört$/m);
+  for (const k of ['[rapor](https://www.tcmb.gov.tr/a_(b))', '[veri](/veri/enflasyon/)', '[yukarı](#ozet)', '[yaz](mailto:a@example.com)', '<https://www.tcmb.gov.tr/>', '<mailto:a@example.com>']) {
+    assert.ok(metin.includes(k), k);
+  }
 });
 
 test('yaziYaz aynı başlıkta slug çakışmasını önler, kapaksız yazar', async () => {
