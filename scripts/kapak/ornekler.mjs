@@ -3,52 +3,41 @@
 // buradaki rakamlar yalnızca görsel denemedir, haber verisi değildir.
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { kapakCiz, kaynakKapagi, rakamKapagi, gostergeKapagi, bultenKapagi, haberKapagi } from './kapak.mjs';
+import { kapakCiz, kaynakKapagi, rakamKapagi, bultenKapagi, haberKapagi } from './kapak.mjs';
 
 const cikti = resolve(process.argv[2] ?? '.kapak-ornekleri');
 await mkdir(cikti, { recursive: true });
 
 const ornekler = {
-  'haber-demo': haberKapagi({
+  'haber-ekonomi': haberKapagi({
     kategori: 'ekonomi',
-    bolge: 'asya',
-    baslik: 'Singapurlu yatırımcıların yerel borsadaki risk iştahı düşük',
-    spot: 'Singapur Borsası Başkanı Koh Boon Hwee, yerel yatırımcıların yurt dışında risk almayı tercih ettiğini ve yerel hisselerde benzer talep oluşmadığını belirtti.',
+    baslik: 'İran savaşı her ABD hanesine yaklaşık 2.000 dolara mal oldu',
     ornek: true,
   }),
-  'haber-rakam-demo': haberKapagi({
-    kategori: 'ekonomi',
-    bolge: 'küresel',
-    baslik: 'Yapay zeka yatırımları küresel büyümeyi destekliyor',
-    spot: 'IMF, yapay zeka yatırımlarının etkisiyle 2026 yılı küresel büyüme tahminini yüzde 3,1 olarak güncelledi.',
-    rakam: { etiket: '2026 Büyüme Tahmini', deger: '%3,1' },
+  'haber-doviz-ochre': haberKapagi({
+    kategori: 'doviz',
+    baslik: 'Altın ons fiyatı rekor tazeledi, dolar endeksi geriledi',
     ornek: true,
   }),
-  'kaynak-demo': kaynakKapagi({
-    kategori: 'piyasalar',
-    konu: 'finfolis yayında',
-    alt: 'Piyasaları herkes için anlaşılır kılan analiz platformu',
+  'haber-kripto-uzun': haberKapagi({
+    kategori: 'kripto',
+    baslik: 'Anthropic gelir artışındaki yavaşlama halka arz değerlemesini tartışmaya açıyor',
+    ornek: true,
   }),
-  'gosterge-demo': gostergeKapagi({
+  'kaynak-borsa': kaynakKapagi({
     kategori: 'borsa',
-    baslik: 'Demo gösterge',
-    simge: 'fabrika',
-    birim: 1000,
-    birimEtiket: '1.000 puan',
-    satirlar: [
-      { etiket: 'A', deger: 7000 },
-      { etiket: 'B', deger: 9000 },
-    ],
+    konu: 'TRex Bio, Inc.',
+    alt: 'Halka arz nihai izahnamesi',
     ornek: true,
   }),
-  'bulten-demo': bultenKapagi({
+  'bulten-piyasalar': bultenKapagi({
     saat: '14:00',
     tarih: '11 Ekim',
-    basliklar: ['Demo başlık bir: örnek olay metni burada yer alır', 'Demo başlık iki', 'Demo başlık üç'],
+    basliklar: ['Tokenleştirme ve Sermaye', 'İran Savaşı ve Bütçe', 'Ortadoğu ve Petrol Piyasası'],
   }),
-  'rakam-demo': rakamKapagi({
+  'rakam-piyasalar': rakamKapagi({
     kategori: 'piyasalar',
-    ust: 'TCMB Politika Faizi',
+    ust: 'TCMB politika faizi',
     rakam: '%50,0',
     alt: 'Para Politikası Kurulu faiz oranını sabit tuttu.',
     ornek: true,

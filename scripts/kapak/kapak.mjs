@@ -79,10 +79,11 @@ function isoSatir(ad, miktar, birim, x, y, boyut, renk, opaklik = 1) {
 // ── Yazı katmanları ────────────────────────────────────────────────────
 
 // Bir metni sitenin fontuyla PNG olarak basar; genişlik verilirse kelimeden kaydırır.
-async function yazi(metin, { aile = 'Jost', boyut = 32, kalinlik = 400, renk = R.murekkep, genislik, aralik = 0, satirAraligi, buyukHarf = false }) {
+async function yazi(metin, { aile = 'Jost', boyut = 32, kalinlik = 400, renk = R.murekkep, genislik, aralik = 0, satirAraligi, buyukHarf = false, alfa }) {
   const icerik = esc(buyukHarf ? metin.toLocaleUpperCase('tr-TR') : metin);
   const harf = aralik ? ` letter_spacing="${Math.round(aralik * boyut * 1024)}"` : '';
-  const markup = `<span foreground="${renk}" font_weight="${kalinlik}"${harf}>${icerik}</span>`;
+  const sa = alfa ? ` alpha="${alfa}%"` : '';
+  const markup = `<span foreground="${renk}" font_weight="${kalinlik}"${harf}${sa}>${icerik}</span>`;
   const { data, info } = await sharp({
     text: {
       text: markup,
@@ -97,6 +98,43 @@ async function yazi(metin, { aile = 'Jost', boyut = 32, kalinlik = 400, renk = R
     .png()
     .toBuffer({ resolveWithObject: true });
   return { input: data, genislik: info.width, yukseklik: info.height };
+}
+
+
+// Yazı tipi bekçisi: sharp/Pango yazı tipi dosyasını yükleyemezse hata vermeden başka bir yazı tipine düşer ve kapak
+// sessizce bozulur. Kullanılan her aile+kalınlık için bilinen bir metin çizilir; genişlik, yükseklik ve mürekkep
+// (alfa toplamı) ölçülmüş parmak iziyle karşılaştırılır; komşu kalınlıklar da ayırt edilir (ör. Jost-600 ile 700).
+export const FONT_IZI = {
+  'Jost-500': { w: 1363, h: 115, murekkep: 34575 },
+  'Jost-600': { w: 1402, h: 118, murekkep: 40463 },
+  'Jost-700': { w: 1447, h: 122, murekkep: 46243 },
+  'Literata-400': { w: 1388, h: 116, murekkep: 25860 },
+  'Literata-500': { w: 1420, h: 117, murekkep: 30497 },
+  'Literata-600': { w: 1449, h: 118, murekkep: 34814 },
+  'Literata-700': { w: 1488, h: 121, murekkep: 41280 },
+};
+export async function fontIzi(aile, kalinlik) {
+  const { data, info } = await sharp({
+    text: { text: `<span font_weight="${kalinlik}">Hamburgefonstiv ığşİ ÖÇ 0123</span>`, font: `${aile} 100`, fontfile: path.join(FONT, `${aile}.ttf`), rgba: true, dpi: 72 },
+  }).raw().toBuffer({ resolveWithObject: true });
+  let a = 0;
+  for (let i = 3; i < data.length; i += 4) a += data[i];
+  return { w: info.width, h: info.height, murekkep: Math.round(a / 255) };
+}
+export function izUyusuyor(iz, bek) {
+  return !(Math.abs(iz.w - bek.w) / bek.w > 0.02 || Math.abs(iz.h - bek.h) > 6 || Math.abs(iz.murekkep - bek.murekkep) / bek.murekkep > 0.07);
+}
+let fontlarTamam = null;
+export function fontlariDenetle() {
+  fontlarTamam ??= (async () => {
+    for (const [ad, bek] of Object.entries(FONT_IZI)) {
+      const [aile, kalinlik] = ad.split('-');
+      const iz = await fontIzi(aile, kalinlik);
+      if (!izUyusuyor(iz, bek)) throw new Error(`::error::Yazı tipi ${ad} yüklenmedi ya da başka yazı tipine düşüldü (ölçülen ${JSON.stringify(iz)}, beklenen ${JSON.stringify(bek)})`);
+    }
+  })();
+  fontlarTamam.catch(() => { fontlarTamam = null; });
+  return fontlarTamam;
 }
 
 // ── Ortak çerçeve ──────────────────────────────────────────────────────
@@ -134,248 +172,121 @@ async function kategoriEtiketi(kat, x, y) {
 // ── Kapak türleri ──────────────────────────────────────────────────────
 // Her fonksiyon { svg, katmanlar } üreten bir async fonksiyon döner; kapakCiz bunu PNG'ye çevirir.
 
-// Haber kartı (Standart haberler için): Başlık ana odak noktasıdır.
-// Rakam varsa sağ tarafta şık, çerçeveli bir veri kutusunda bağlamıyla gösterilir (kocaman 210px yerine).
-// Rakam yoksa tam genişlikte zarif başlık ve spot paragrafı durur.
-export function haberKapagi({ kategori: slug, baslik, spot, bolge, rakam, kaynak, ornek }) {
-  return async () => {
-    const kat = kategori(slug);
-    const c = await cerceve(kat, { kaynak, ornek });
+// ── Mürekkep bloğu düzeni (haber, kaynak, rakam, bülten) ───────────────
+// Tüm zemin kategorinin mürekkep rengidir; yazı, işaret ve simge kâğıt renginde. Okunaklılık (WCAG 4,5:1) kâğıt
+// rengiyle: kırmızı 4,67, mavi 6,20, yeşil 5,00, kahve 5,21, siyah 15,5; koyu sarıda (ochre) yalnız 1,76 olduğundan
+// orada yazı, işaret ve simge mürekkep rengine (#1b1b1b, 8,82:1) döner.
+const ALT_BANT = 130; // altta marka + kategori şeridinin ayırdığı yükseklik
+const SAG_BOSLUK = 80; // başlık sağ üstteki simgenin altına taşmasın
+const YAZI_GEN = B - 128 - SAG_BOSLUK;
 
-    // Üst başlık (Kategori simgesi + Kategori adı + opsiyonel Bölge)
-    const ustY = 64;
-    const katYazi = await yazi(kat.name, { boyut: 24, kalinlik: 700, renk: kat.renk.text, aralik: 0.08, buyukHarf: true });
-    const ustKatmanlar = [{ ...katYazi, left: KENAR + 38, top: ustY }];
-    const ustSvg = simge(kat.icon, KENAR, ustY + Math.round((katYazi.yukseklik - 26) / 2), 26, kat.renk.fill);
-
-    if (bolge) {
-      const bYazi = await yazi(`· ${bolge.toLocaleUpperCase('tr-TR')}`, { boyut: 22, kalinlik: 500, renk: R.soluk, aralik: 0.05 });
-      ustKatmanlar.push({ ...bYazi, left: KENAR + 38 + katYazi.genislik + 12, top: ustY + Math.round((katYazi.yukseklik - bYazi.yukseklik) / 2) });
-    }
-
-    // Üst ayırıcı ince çizgi
-    const ayiriciY = ustY + katYazi.yukseklik + 20;
-    let ortaSvg = `<line x1="${KENAR}" y1="${ayiriciY}" x2="${B - KENAR}" y2="${ayiriciY}" stroke="${R.ince}" stroke-width="1"/>`;
-
-    const katmanlar = [...c.katmanlar, ...ustKatmanlar];
-    const icerikTop = ayiriciY + 32;
-    const maxIcerikH = H - 92 - icerikTop - 20;
-
-    if (rakam && rakam.deger) {
-      // ── DÜZEN A: Rakam Kartlı İki Kolonlu Gazete Düzeni ──
-      // Sol: Başlık + Spot (660px)
-      // Sağ: Şık çerçeveli Veri Kutusu (330px)
-      const solGenislik = 660;
-      const sagGenislik = 330;
-      const sagX = B - KENAR - sagGenislik;
-
-      const bBoyut = baslik.length > 80 ? 44 : baslik.length > 50 ? 50 : 58;
-      const b = await yazi(baslik, {
-        aile: 'Literata',
-        boyut: bBoyut,
-        kalinlik: 600,
-        genislik: solGenislik,
-        satirAraligi: -4,
-      });
-
-      let s = null;
-      if (spot) {
-        const temizSpot = spot.length > 130 ? `${spot.slice(0, 126)}…` : spot;
-        s = await yazi(temizSpot, {
-          aile: 'Literata',
-          boyut: 25,
-          kalinlik: 400,
-          renk: R.murekkep2,
-          genislik: solGenislik,
-          satirAraligi: 4,
-        });
-      }
-
-      const solToplamH = b.yukseklik + (s ? 18 + s.yukseklik : 0);
-      const solY = icerikTop + Math.max(0, Math.round((maxIcerikH - solToplamH) / 2));
-      katmanlar.push({ ...b, left: KENAR, top: solY });
-      if (s) {
-        katmanlar.push({ ...s, left: KENAR, top: solY + b.yukseklik + 18 });
-      }
-
-      // Sağ Rakam Kartı
-      const kartH = 250;
-      const kartY = icerikTop + Math.max(0, Math.round((maxIcerikH - kartH) / 2));
-
-      ortaSvg += `
-        <rect x="${sagX}" y="${kartY}" width="${sagGenislik}" height="${kartH}" fill="#ffffff" stroke="${kat.renk.fill}" stroke-width="2"/>
-        <rect x="${sagX}" y="${kartY}" width="${sagGenislik}" height="6" fill="${kat.renk.fill}"/>
-        <line x1="${sagX + 24}" y1="${kartY + 64}" x2="${sagX + sagGenislik - 24}" y2="${kartY + 64}" stroke="${R.ince}" stroke-width="1"/>
-      `;
-
-      const etiketYazi = await yazi(rakam.etiket || 'GÖSTERGE', {
-        boyut: 18,
-        kalinlik: 600,
-        renk: kat.renk.text,
-        genislik: sagGenislik - 48,
-        buyukHarf: true,
-        aralik: 0.05,
-      });
-      katmanlar.push({
-        ...etiketYazi,
-        left: sagX + 24,
-        top: kartY + 20 + Math.round((44 - etiketYazi.yukseklik) / 2),
-      });
-
-      const dLen = rakam.deger.length;
-      const rBoyut = dLen > 11 ? 40 : dLen > 8 ? 50 : 62;
-      const rYazi = await yazi(rakam.deger, {
-        aile: 'Jost',
-        boyut: rBoyut,
-        kalinlik: 700,
-        renk: R.murekkep,
-        genislik: sagGenislik - 48,
-      });
-      katmanlar.push({
-        ...rYazi,
-        left: sagX + 24,
-        top: kartY + 80 + Math.round((kartH - 96 - rYazi.yukseklik) / 2),
-      });
-    } else {
-      // ── DÜZEN B: Tam Genişlik Başlık Odaklı Kart ──
-      const tamGen = B - KENAR * 2;
-      const bBoyut = baslik.length > 90 ? 46 : baslik.length > 55 ? 54 : 64;
-      const b = await yazi(baslik, {
-        aile: 'Literata',
-        boyut: bBoyut,
-        kalinlik: 600,
-        genislik: tamGen,
-        satirAraligi: -4,
-      });
-
-      let s = null;
-      if (spot) {
-        const temizSpot = spot.length > 180 ? `${spot.slice(0, 175)}…` : spot;
-        s = await yazi(temizSpot, {
-          aile: 'Literata',
-          boyut: 29,
-          kalinlik: 400,
-          renk: R.murekkep2,
-          genislik: tamGen - 60,
-          satirAraligi: 6,
-        });
-      }
-
-      const toplamH = b.yukseklik + (s ? 24 + s.yukseklik : 0);
-      const y0 = icerikTop + Math.max(0, Math.round((maxIcerikH - toplamH) / 2));
-      katmanlar.push({ ...b, left: KENAR, top: y0 });
-      if (s) {
-        const cizgiY = y0 + b.yukseklik + 14;
-        ortaSvg += `<line x1="${KENAR}" y1="${cizgiY}" x2="${KENAR + 60}" y2="${cizgiY}" stroke="${kat.renk.fill}" stroke-width="3"/>`;
-        katmanlar.push({ ...s, left: KENAR, top: y0 + b.yukseklik + 30 });
-      }
-    }
-
-    return { svg: c.svg + ustSvg + ortaSvg, katmanlar };
-  };
+function isaretCiz(x, y, boyut, renk) {
+  return `<path transform="translate(${x} ${y}) scale(${boyut / 497}) translate(-62.9 -72.5)" d="${ISARET_D}" fill="${renk}" fill-rule="evenodd"/>`;
 }
 
-// Kategori / Kurum / Dosya kartı: özel dosya veya şirket duyuruları için.
-// (Eski 300px dev ikon kaldırıldı; yerine zarif tipografik düzen getirildi)
-export function kaynakKapagi({ kategori: slug, konu, alt, kaynak, ornek }) {
-  return async () => {
-    const kat = kategori(slug);
-    const c = await cerceve(kat, { kaynak, ornek });
-    const et = await kategoriEtiketi(kat, KENAR, 64);
-    const ayiriciY = 64 + et.yukseklik + 20;
-    let ortaSvg = `<line x1="${KENAR}" y1="${ayiriciY}" x2="${B - KENAR}" y2="${ayiriciY}" stroke="${R.ince}" stroke-width="1"/>`;
-
-    const gen = B - KENAR * 2;
-    const k = await yazi(konu, { aile: 'Literata', boyut: konu.length > 40 ? 56 : 68, kalinlik: 600, genislik: gen, satirAraligi: -4 });
-    const a = alt ? await yazi(alt, { aile: 'Literata', boyut: 32, kalinlik: 400, renk: R.murekkep2, genislik: gen }) : null;
-
-    const icerikTop = ayiriciY + 36;
-    const maxH = H - 92 - icerikTop - 20;
-    const blokH = k.yukseklik + (a ? 24 + a.yukseklik : 0);
-    const y0 = icerikTop + Math.max(0, Math.round((maxH - blokH) / 2));
-
-    const katmanlar = [...c.katmanlar, et.katman, { ...k, left: KENAR, top: y0 }];
-    if (a) {
-      const cizgiY = y0 + k.yukseklik + 14;
-      ortaSvg += `<line x1="${KENAR}" y1="${cizgiY}" x2="${KENAR + 60}" y2="${cizgiY}" stroke="${kat.renk.fill}" stroke-width="3"/>`;
-      katmanlar.push({ ...a, left: KENAR, top: y0 + k.yukseklik + 28 });
-    }
-
-    return { svg: c.svg + et.svg + ortaSvg, katmanlar };
-  };
+// Zemin, dev simge, alt bant (marka solda, kategori adı sağda) ve varsa "Örnek veri" notu.
+async function murekkepCerceve(kat, { ornek } = {}) {
+  const renk = kat.ink === 'ochre' ? R.murekkep : R.kagit;
+  await fontlariDenetle();
+  let svg = `<rect width="${B}" height="${H}" fill="${kat.renk.fill}"/>`;
+  svg += simge(kat.icon, B - 64 - 300, 40, 300, renk, { opaklik: 0.16 });
+  svg += isaretCiz(64, H - 112, 52, renk);
+  const ad = await yazi('finfolis', { aile: 'Jost', boyut: 40, kalinlik: 700, renk });
+  const ka = await yazi(kat.name, { aile: 'Jost', boyut: 30, kalinlik: 700, renk, aralik: 0.1, buyukHarf: true });
+  const katmanlar = [
+    { ...ad, left: 128, top: Math.round(H - 86 - ad.yukseklik / 2) },
+    { ...ka, left: B - 64 - ka.genislik, top: Math.round(H - 86 - ka.yukseklik / 2) },
+  ];
+  if (ornek) {
+    const o = await yazi('Örnek veri', { aile: 'Jost', boyut: 20, kalinlik: 600, renk, alfa: 70 });
+    katmanlar.push({ ...o, left: Math.round((B - o.genislik) / 2), top: Math.round(H - 86 - o.yukseklik / 2) });
+  }
+  return { svg, katmanlar, renk };
 }
 
-// Bülten kartı: "Piyasa bülteni" (saat verilirse "14:00 bülteni"), altında öne çıkan başlıklar, sağ üstte tarih.
+// Metin, verilen yüksekliğe sığana dek punto 4'er küçülür (alt sınıra kadar).
+async function sigdirYazi(metin, o, enFazlaY, enAz) {
+  let boyut = o.boyut;
+  for (;;) {
+    const r = await yazi(metin, { ...o, boyut });
+    if (r.yukseklik <= enFazlaY || boyut <= enAz) return r;
+    boyut -= 4;
+  }
+}
+
+const ALAN_H = H - ALT_BANT; // alt bantın üstündeki alan
+
+// Başlık: Literata kalın, alt bantın üstündeki alanda dikey ortalı.
+async function baslikKapagi(kat, baslik, { ornek, alt } = {}) {
+  const c = await murekkepCerceve(kat, { ornek });
+  const a = alt ? await yazi(alt, { aile: 'Literata', boyut: 34, kalinlik: 500, renk: c.renk, genislik: YAZI_GEN }) : null;
+  const ekH = a ? a.yukseklik + 20 : 0;
+  const b = await sigdirYazi(baslik, { aile: 'Literata', boyut: 92, kalinlik: 700, renk: c.renk, genislik: YAZI_GEN, satirAraligi: -6 }, ALAN_H - 80 - ekH, 56);
+  const y0 = Math.round((ALAN_H - b.yukseklik - ekH) / 2);
+  const katmanlar = [...c.katmanlar, { ...b, left: 64, top: y0 }];
+  if (a) katmanlar.push({ ...a, left: 64, top: y0 + b.yukseklik + 20 });
+  return { svg: c.svg, katmanlar };
+}
+
+// Haber kartı: yalnız kategori rengi, simge ve başlık. Spot, bölge, rakam ve kaynak görsele yazılmaz.
+export function haberKapagi({ kategori: slug, baslik, ornek }) {
+  return async () => baslikKapagi(kategori(slug), baslik, { ornek });
+}
+
+// Kategori / kurum / dosya kartı: konu başlık, varsa alt metin tek satırlık açıklama olarak altında.
+export function kaynakKapagi({ kategori: slug, konu, alt, ornek }) {
+  return async () => baslikKapagi(kategori(slug), konu, { ornek, alt });
+}
+
+// Bülten kartı: üstte tarih, "Piyasa bülteni" (saat verilirse "14:00 bülteni") başlık, altında en çok 3 madde.
 export function bultenKapagi({ saat, tarih, basliklar = [] }) {
   return async () => {
     const kat = kategori('piyasalar');
-    const c = await cerceve(kat, {});
-    const et = await kategoriEtiketi(kat, KENAR, 64);
-    const gen = B - KENAR * 2;
-    const t = await yazi(saat ? `${saat} bülteni` : 'Piyasa bülteni', { boyut: 76, kalinlik: 700, genislik: gen });
-    const d = await yazi(tarih, { boyut: 26, kalinlik: 500, renk: R.soluk });
-    const ms = [];
-    for (const b of basliklar.slice(0, 3)) {
-      ms.push(await yazi(`—  ${b.length > 80 ? `${b.slice(0, 77)}…` : b}`, { aile: 'Literata', boyut: 30, kalinlik: 500, renk: R.murekkep2, genislik: gen }));
+    const c = await murekkepCerceve(kat, {});
+    const u = tarih ? await yazi(tarih, { aile: 'Jost', boyut: 30, kalinlik: 700, renk: c.renk, aralik: 0.1, buyukHarf: true }) : null;
+    const t = await yazi(saat ? `${saat} bülteni` : 'Piyasa bülteni', { aile: 'Literata', boyut: 84, kalinlik: 700, renk: c.renk, genislik: YAZI_GEN, satirAraligi: -6 });
+    const maddeler = basliklar.slice(0, 3).map((b) => `—  ${b.length > 80 ? `${b.slice(0, 77)}…` : b}`);
+    let ms = [];
+    const ara = 14;
+    const ustH = (u ? u.yukseklik + 18 : 0) + t.yukseklik + (maddeler.length ? 24 : 0);
+    for (let boyut = 36; ; boyut -= 2) {
+      ms = [];
+      for (const m of maddeler) ms.push(await yazi(m, { aile: 'Literata', boyut, kalinlik: 500, renk: c.renk, genislik: YAZI_GEN }));
+      const toplam = ms.reduce((n, m) => n + m.yukseklik + ara, -ara);
+      if (!maddeler.length || ustH + toplam <= ALAN_H - 70 || boyut <= 26) break;
     }
-    const ara = 16;
-    const blokH = t.yukseklik + (ms.length ? 32 + ms.reduce((n, m) => n + m.yukseklik + ara, -ara) : 0);
-    const ayiriciY = 64 + et.yukseklik + 20;
-    const ortaSvg = `<line x1="${KENAR}" y1="${ayiriciY}" x2="${B - KENAR}" y2="${ayiriciY}" stroke="${R.ince}" stroke-width="1"/>`;
-    const icerikTop = ayiriciY + 30;
-    const maxH = H - 92 - icerikTop - 20;
-    let y = icerikTop + Math.max(0, Math.round((maxH - blokH) / 2));
-    const katmanlar = [...c.katmanlar, et.katman, { ...t, left: KENAR - 2, top: y }];
-    y += t.yukseklik + 32;
-    for (const m of ms) {
-      katmanlar.push({ ...m, left: KENAR, top: y });
-      y += m.yukseklik + ara;
-    }
-    katmanlar.push({ ...d, left: B - KENAR - d.genislik, top: 64 + Math.round((et.yukseklik - d.yukseklik) / 2) });
-    return { svg: c.svg + et.svg + ortaSvg, katmanlar };
+    const blokH = ustH + ms.reduce((n, m) => n + m.yukseklik + ara, -ara);
+    let y = Math.max(40, Math.round((ALAN_H - blokH) / 2));
+    const katmanlar = [...c.katmanlar];
+    if (u) { katmanlar.push({ ...u, left: 64, top: y }); y += u.yukseklik + 18; }
+    katmanlar.push({ ...t, left: 64, top: y });
+    y += t.yukseklik + 24;
+    for (const m of ms) { katmanlar.push({ ...m, left: 64, top: y }); y += m.yukseklik + ara; }
+    return { svg: c.svg, katmanlar };
   };
 }
 
-// Makro rakam kartı: tek bir sayının haberi (faiz kararı, enflasyon, kur sıçraması).
-// (Eski 210px dev font yerine: dengeli 100-112px rakam + belirgin başlık/bağlam)
-export function rakamKapagi({ kategori: slug, ust, rakam, alt, kaynak, ornek }) {
+// Rakam kartı: rakam kahramandır (Jost 600, genişliğe sığana dek küçülür); üstünde etiket, altında kısa satır.
+export function rakamKapagi({ kategori: slug, ust, rakam, alt, ornek }) {
   return async () => {
     const kat = kategori(slug);
-    const c = await cerceve(kat, { kaynak, ornek });
-    const et = await kategoriEtiketi(kat, KENAR, 64);
-    const ayiriciY = 64 + et.yukseklik + 20;
-    let ortaSvg = `<line x1="${KENAR}" y1="${ayiriciY}" x2="${B - KENAR}" y2="${ayiriciY}" stroke="${R.ince}" stroke-width="1"/>`;
-
-    const gen = B - KENAR * 2;
-    const u = await yazi(ust, { boyut: 28, kalinlik: 600, renk: kat.renk.text, aralik: 0.05, buyukHarf: true });
-
-    const rBoyut = rakam.length > 10 ? 84 : rakam.length > 7 ? 98 : 112;
-    const r = await yazi(rakam, { aile: 'Jost', boyut: rBoyut, kalinlik: 700, renk: R.murekkep });
-
-    const a = alt ? await yazi(alt, { aile: 'Literata', boyut: 42, kalinlik: 600, renk: R.murekkep, genislik: gen, satirAraligi: -2 }) : null;
-
-    const icerikTop = ayiriciY + 30;
-    const maxH = H - 92 - icerikTop - 20;
-    const ara = 14;
-    const blokH = u.yukseklik + ara + r.yukseklik + (a ? ara + 12 + a.yukseklik : 0);
-    const y0 = icerikTop + Math.max(0, Math.round((maxH - blokH) / 2));
-
-    const ry = y0 + u.yukseklik + ara;
-    const katmanlar = [
-      ...c.katmanlar,
-      et.katman,
-      { ...u, left: KENAR, top: y0 },
-      { ...r, left: KENAR - 4, top: ry },
-    ];
-    if (a) {
-      const ay = ry + r.yukseklik + ara + 8;
-      ortaSvg += `<line x1="${KENAR}" y1="${ay - 6}" x2="${KENAR + 80}" y2="${ay - 6}" stroke="${kat.renk.fill}" stroke-width="3"/>`;
-      katmanlar.push({ ...a, left: KENAR, top: ay + 8 });
+    const c = await murekkepCerceve(kat, { ornek });
+    const u = await yazi(ust, { aile: 'Jost', boyut: 30, kalinlik: 700, renk: c.renk, aralik: 0.1, buyukHarf: true, genislik: YAZI_GEN });
+    const a = alt ? await yazi(alt, { aile: 'Literata', boyut: 36, kalinlik: 500, renk: c.renk, genislik: YAZI_GEN }) : null;
+    let r;
+    for (let boyut = 180; ; boyut -= 4) {
+      r = await yazi(rakam, { aile: 'Jost', boyut, kalinlik: 600, renk: c.renk });
+      if (r.genislik <= YAZI_GEN || boyut <= 72) break;
     }
-
-    return { svg: c.svg + et.svg + ortaSvg, katmanlar };
+    const ara = 16;
+    const blokH = u.yukseklik + ara + r.yukseklik + (a ? 8 + a.yukseklik : 0);
+    const y0 = Math.max(24, Math.round((ALAN_H - blokH) / 2));
+    const katmanlar = [...c.katmanlar, { ...u, left: 64, top: y0 }, { ...r, left: 60, top: y0 + u.yukseklik + ara }];
+    if (a) katmanlar.push({ ...a, left: 64, top: y0 + u.yukseklik + ara + r.yukseklik + 8 });
+    return { svg: c.svg, katmanlar };
   };
 }
+
 
 // Resimli istatistik: birkaç dönemin değeri simge dizileriyle (1 simge = birim).
 // satirlar: [{ etiket: '2024', deger: 9831 }], son satır güncel değerdir (tam renk), öncekiler soluk.
@@ -652,6 +563,7 @@ async function sigdir({ input, left, top, genislik, yukseklik }) {
 }
 
 export async function kapakCiz(tur) {
+  await fontlariDenetle();
   const { svg, katmanlar } = await tur();
   const taban = `<svg xmlns="http://www.w3.org/2000/svg" width="${B}" height="${H}" viewBox="0 0 ${B} ${H}">${svg}</svg>`;
   return sharp(Buffer.from(taban))

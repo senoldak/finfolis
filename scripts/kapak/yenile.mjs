@@ -1,7 +1,7 @@
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { kapakCiz, haberKapagi, bultenKapagi, rakamKapagi } from './kapak.mjs';
+import { kapakCiz, haberKapagi, bultenKapagi } from './kapak.mjs';
 
 const HER = path.dirname(fileURLToPath(import.meta.url));
 const HABERLER_DIR = path.resolve(HER, '../../src/content/haberler');
@@ -51,64 +51,81 @@ function frontmatterParse(content) {
   return data;
 }
 
-export async function yenile(klasorler = null) {
+// Kapağın hangi türden çizildiği frontmatter'dan kesin bilinemez; yalnız kesin tanınanlar yeniden çizilir:
+//  - bülten: tur: bulten (başlıklar gövdedeki ilk 3 madde etiketidir)
+//  - haber: coverAlt "Bölge · başlık" ya da "etiket rakam" biçimindedir (hent-haberler.mjs haberKapagi'ni böyle yazar)
+// Rakam, kaynak, gösterge, grafik ve karne kapakları verisini frontmatter'da taşımaz; olduğu gibi bırakılır.
+const BOLGE_AD = ['Küresel', 'ABD', 'Avrupa', 'Asya', 'Türkiye'];
+const norm = (x) => String(x ?? '').toLocaleLowerCase('tr-TR').replace(/\s+/g, ' ').trim();
+const rakamMetni = (r) => (r && r.deger ? String(r.deger).replace(/^yüzde\s+/i, '%').trim() : null);
+
+export function kapakTuru(fm, govde = '') {
+  if (fm.tur === 'bulten') return 'bulten';
+  const alt = norm(fm.coverAlt);
+  const bas = norm(fm.title);
+  if (!alt) return null;
+  if (BOLGE_AD.some((b) => alt === `${norm(b)} · ${bas}`)) return 'haber';
+  const r = Array.isArray(fm.rakamlar) ? fm.rakamlar[0] : null;
+  if (r && rakamMetni(r) && alt === norm(`${r.etiket} ${rakamMetni(r)}`)) return 'haber';
+  return null;
+}
+
+export function bultenBasliklari(govde) {
+  return [...govde.matchAll(/^- \*\*(.+?):\*\*/gm)].map((m) => m[1]).slice(0, 3);
+}
+
+// klasorler: yalnız bu haber klasörleri; cikti: verilirse kapak.png yerine <cikti>/<klasor>.png yazılır (içerik değişmez).
+export async function yenile(klasorler = null, { cikti = null } = {}) {
   const entries = await readdir(HABERLER_DIR, { withFileTypes: true });
   const dirs = entries.filter((e) => e.isDirectory() && (!klasorler || klasorler.includes(e.name)));
+  if (cikti) await mkdir(cikti, { recursive: true });
 
   let basarili = 0;
+  let atlanan = 0;
   for (const dir of dirs) {
-    const mdPath = path.join(HABERLER_DIR, dir.name, 'index.md');
     let md;
     try {
-      md = await readFile(mdPath, 'utf8');
+      md = await readFile(path.join(HABERLER_DIR, dir.name, 'index.md'), 'utf8');
     } catch {
       continue;
     }
-
     const fm = frontmatterParse(md);
     if (!fm || !fm.title || !fm.cover) continue;
-
-    const kategori = fm.category || 'ekonomi';
-    const baslik = fm.title;
-    const spot = fm.description;
-    const rakamlar = Array.isArray(fm.rakamlar) ? fm.rakamlar : [];
-    const r = rakamlar[0];
-    const rakam = r && r.deger ? { etiket: r.etiket || 'GÖSTERGE', deger: String(r.deger).replace(/^yüzde\s+/i, '%').trim() } : undefined;
-
-    // Bülten haberi ise
+    const govde = md.replace(/^---\r?\n[\s\S]*?\r?\n---/, '');
+    const tur = kapakTuru(fm);
     let kapakFn;
-    if (fm.tur === 'bulten' || baslik.includes('bülteni')) {
-      const saatM = baslik.match(/(\d{1,2}:\d{2})/);
-      const saat = saatM ? saatM[1] : 'Piyasa';
+    if (tur === 'bulten') {
+      const saatM = fm.title.match(/(\d{1,2}:\d{2})/);
+      const gunM = fm.title.match(/·\s*(\d{1,2}\s+\p{L}+)/u);
       kapakFn = bultenKapagi({
-        saat,
-        tarih: new Date(fm.date || Date.now()).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' }),
-        basliklar: [spot],
+        saat: saatM ? saatM[1] : undefined,
+        tarih: gunM ? gunM[1] : new Date(fm.date || Date.now()).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' }),
+        basliklar: bultenBasliklari(govde),
       });
+    } else if (tur === 'haber') {
+      kapakFn = haberKapagi({ kategori: fm.category || 'ekonomi', baslik: fm.title });
     } else {
-      kapakFn = haberKapagi({
-        kategori,
-        baslik,
-        spot,
-        rakam,
-      });
+      atlanan++;
+      continue;
     }
-
     try {
       const png = await kapakCiz(kapakFn);
-      const outPath = path.join(HABERLER_DIR, dir.name, 'kapak.png');
-      await writeFile(outPath, png);
+      await writeFile(cikti ? path.join(cikti, `${dir.name}.png`) : path.join(HABERLER_DIR, dir.name, 'kapak.png'), png);
       basarili++;
     } catch (err) {
       console.error(`Hata: ${dir.name}: ${err.message}`);
     }
   }
-
-  console.log(`${basarili} haber kapağı başarıyla yeniden çizildi.`);
+  console.log(`${basarili} kapak yeniden çizildi${cikti ? ` (${cikti})` : ''}, ${atlanan} kapak türü tanınmadığı için olduğu gibi bırakıldı.`);
 }
 
-// Komut satırından çalıştırılırsa
+// Komut satırı: node scripts/kapak/yenile.mjs [--cikti=klasor] [haber-klasoru ...]
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const argDirs = process.argv.slice(2);
-  yenile(argDirs.length ? argDirs : null).catch(console.error);
+  const args = process.argv.slice(2);
+  const c = args.find((x) => x.startsWith('--cikti='));
+  const dirs = args.filter((x) => !x.startsWith('--'));
+  yenile(dirs.length ? dirs : null, { cikti: c ? path.resolve(c.slice(8)) : null }).catch((e) => {
+    console.error(e);
+    process.exitCode = 1;
+  });
 }

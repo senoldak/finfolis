@@ -83,3 +83,55 @@ test('eksenAdimi ve incelt: okunaklı adım, tepe ve son nokta korunur', async (
   assert.ok(az.some((p) => p.deger === 99999));
   assert.equal(az.at(-1), seri.at(-1));
 });
+
+test('mürekkep bloğu: zemin kategorinin mürekkep rengidir, koyu sarıda yazı mürekkep renginde', async () => {
+  const { default: sharp } = await import('sharp');
+  const piksel = async (png, x, y) => {
+    const { data, info } = await sharp(png).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+    const i = (y * info.width + x) * 4;
+    return [data[i], data[i + 1], data[i + 2]];
+  };
+  const yakin = (a, b) => a.every((v, i) => Math.abs(v - b[i]) <= 6);
+  const mavi = await kapakCiz(haberKapagi({ kategori: 'piyasalar', baslik: 'Test başlığı' }));
+  assert.ok(yakin(await piksel(mavi, 4, 4), [0x2e, 0x5d, 0x8a]));
+  const sari = await kapakCiz(haberKapagi({ kategori: 'doviz', baslik: 'Test başlığı' }));
+  assert.ok(yakin(await piksel(sari, 4, 4), [0xe0, 0xb4, 0x3a]));
+  // Alt bantta marka yazısı: sarıda koyu, mavide açık renkli piksel bulunur.
+  const enKoyu = async (png) => {
+    const { data } = await sharp(png).extract({ left: 120, top: 560, width: 150, height: 50 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+    let min = 765, max = 0;
+    for (let i = 0; i < data.length; i += 3) { const t = data[i] + data[i + 1] + data[i + 2]; min = Math.min(min, t); max = Math.max(max, t); }
+    return { min, max };
+  };
+  assert.ok((await enKoyu(sari)).min < 150);
+  assert.ok((await enKoyu(mavi)).max > 700);
+});
+
+test('rakamKapagi ve bultenKapagi: uzun rakam, uzun maddeler ve örnek notuyla PNG üretir', async () => {
+  const r = await kapakCiz(rakamKapagi({ kategori: 'doviz', ust: 'Gösterge tahvil getirisi', rakam: '1.234.567,89 milyar', alt: 'Kısa satır', ornek: true }));
+  assert.ok(r.length > 3000);
+  const b = await kapakCiz(bultenKapagi({ tarih: '13 Ekim', basliklar: ['Çok uzun bir madde '.repeat(8), 'İkinci', 'Üçüncü', 'Dördüncü (çizilmez)'] }));
+  assert.ok(b.length > 3000);
+});
+
+test('yazı tipi bekçisi: kullanılan kesimler denetimden geçer, yanlış kesim ya da yedek yazı tipi yakalanır', async () => {
+  const { fontlariDenetle, fontIzi, izUyusuyor, FONT_IZI } = await import('./kapak.mjs');
+  await fontlariDenetle();
+  for (const ad of ['Jost-600', 'Jost-700', 'Literata-500', 'Literata-700']) assert.ok(FONT_IZI[ad], ad);
+  assert.ok(izUyusuyor(await fontIzi('Jost', 700), FONT_IZI['Jost-700']));
+  // Komşu kalınlık ve başka aile eşleşmemeli.
+  assert.equal(izUyusuyor(await fontIzi('Jost', 600), FONT_IZI['Jost-700']), false);
+  assert.equal(izUyusuyor(await fontIzi('Literata', 700), FONT_IZI['Jost-700']), false);
+  // Tidsrost'ta ölçülen türden bir yedek yazı tipi izi (950×100, az mürekkep) reddedilir.
+  assert.equal(izUyusuyor({ w: 950, h: 100, murekkep: 12859 }, FONT_IZI['Literata-700']), false);
+});
+
+test('yenile.kapakTuru: yalnız kesin tanınan kapaklar yeniden çizilir', async () => {
+  const { kapakTuru, bultenBasliklari } = await import('./yenile.mjs');
+  assert.equal(kapakTuru({ tur: 'bulten', title: 'Piyasa bülteni · 11 Ekim 2026, kapanış' }), 'bulten');
+  assert.equal(kapakTuru({ title: 'Nasdaq düştü', coverAlt: 'ABD · Nasdaq düştü' }), 'haber');
+  assert.equal(kapakTuru({ title: 'Büyüme', coverAlt: 'Büyüme tahmini %3,1', rakamlar: [{ etiket: 'Büyüme tahmini', deger: 'yüzde 3,1' }] }), 'haber');
+  assert.equal(kapakTuru({ title: 'TCMB faizi sabit tuttu', coverAlt: 'TCMB politika faizi %50,0' }), null);
+  assert.equal(kapakTuru({ title: 'KOSPI düştü', coverAlt: 'Güney Kore KOSPI günlük kapanış grafiği' }), null);
+  assert.deepEqual(bultenBasliklari('## ABD\n\n- **A:** x\n- **B:** y\n\n## Asya\n\n- **C:** z\n- **D:** w'), ['A', 'B', 'C']);
+});
