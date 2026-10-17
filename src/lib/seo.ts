@@ -33,7 +33,7 @@ export const siteJsonLd = {
       publishingPrinciples: `${SITE_URL}/yayin-ilkeleri/`,
       correctionsPolicy: `${SITE_URL}/yayin-ilkeleri/#duzeltmeler`,
       knowsAbout: ['Finans', 'Borsa', 'Ekonomi', 'Kripto'],
-      email: 'iletisim@finfolis.com',
+      email: 'contact@finfolis.com',
       ...(sameAs.length ? { sameAs } : {}),
     },
     {
