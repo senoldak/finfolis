@@ -32,11 +32,11 @@ test('adresiSil hata mesajındaki adresleri siler', () => {
 
 test('gizliKaynaklar: dosyadan okur, anahtar yoksa boş döner', () => {
   const dosya = path.join(mkdtempSync(path.join(tmpdir(), 'gizli-')), 'k.sifreli');
-  const icerik = { beslemeler: [{ ad: 'Örnek Haber Business', rss: 'https://haber.example.com/rss' }], ipucu: [{ ad: 'İpucu', url: 'https://ipucu.example.com/rss' }], medya: ['Ek Yayın'] };
+  const icerik = { beslemeler: [{ ad: 'Örnek Haber Business', rss: 'https://haber.example.com/rss' }], ipucu: [{ ad: 'İpucu', url: 'https://ipucu.example.com/rss' }], medya: ['Ek Yayın'], derleyiciler: [{ ad: 'Derleyici', rss: 'https://derleyici.example.com/feed' }] };
   writeFileSync(dosya, sifrele(icerik, A));
   assert.deepEqual(gizliKaynaklar({ dosya, a: A }), icerik);
-  assert.deepEqual(gizliKaynaklar({ dosya, a: null, uyar: () => {} }), { beslemeler: [], ipucu: [], medya: [] });
-  assert.deepEqual(gizliMedyaAdlari(icerik), ['Örnek Haber', 'İpucu', 'Ek Yayın']);
+  assert.deepEqual(gizliKaynaklar({ dosya, a: null, uyar: () => {} }), { beslemeler: [], ipucu: [], medya: [], derleyiciler: [] });
+  assert.deepEqual(gizliMedyaAdlari(icerik), ['Örnek Haber', 'İpucu', 'Derleyici', 'Ek Yayın']);
 });
 
 test('kaynakIzi: tekilleştirip şifreler, boş listede alan yazılmaz', () => {

@@ -8,4 +8,7 @@ import { RESMI_BESLEMELER } from './resmi-beslemeler.mjs';
 
 export { RESMI_BESLEMELER };
 
-export const BESLEMELER = [...gizliKaynaklar().beslemeler, ...RESMI_BESLEMELER];
+const gizli = gizliKaynaklar();
+export const BESLEMELER = [...gizli.beslemeler, ...RESMI_BESLEMELER];
+// Bağlantı blogları (derleyici.mjs): adayları kendi yazıları değil, bağlantı verdikleri sayfalardır.
+export const DERLEYICILER = gizli.derleyiciler;

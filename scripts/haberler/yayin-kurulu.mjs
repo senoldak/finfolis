@@ -188,9 +188,33 @@ export function yerelDuzelt(yazi) {
   return y;
 }
 
+// Habere özel yayın adları: derleyici adaylarında bağlantı verilen site genel listede olmayabilir. Gizli kaynakların
+// site adı ve alan adının ana parçası (finance.ornek.com -> "ornek") metinde geçemez. Resmi kurum alanları atlanır.
+const RESMI_ALAN = /\.(gov|int|mil|edu)$|\.gov\.[a-z]{2}$|(^|\.)(europa\.eu|bis\.org|imf\.org|worldbank\.org|oecd\.org|nber\.org)$/i;
+export function adayMedyaKontrol(metin, gizliKaynaklar = []) {
+  const adlar = new Set();
+  for (const k of gizliKaynaklar) {
+    let alan;
+    try {
+      alan = new URL(k.url).hostname.toLowerCase().replace(/^www\./, '');
+    } catch {
+      continue;
+    }
+    if (RESMI_ALAN.test(alan)) continue;
+    // ornek.co.uk, ornek.com.tr gibi iki parçalı uzantılarda ana parça bir öncekidir.
+    const p = alan.split('.');
+    const ana = p.length > 2 && p.at(-1).length === 2 && /^(co|com|net|org|ac|gov)$/.test(p.at(-2)) ? p.at(-3) : p.at(-2);
+    for (const a of [k.ad, ana]) if (a && a.length >= 4) adlar.add(a);
+  }
+  const bulunan = [...adlar].filter((a) => new RegExp(String.raw`(?<![\p{L}\d])${regexKacis(a)}(?![\p{L}\d])`, 'iu').test(metin));
+  return bulunan.length ? [`Yayın kuruluşu adı geçiyor: ${bulunan.join(', ')}`] : [];
+}
+
 function kesinKontrol(yazi, aday) {
-  const { eksik } = dogrula(butunMetin(yazi), [aday.kaynakMetni ?? '']);
-  return [...eksik.map((e) => `Kaynakta bulunmayan rakam/alıntı: ${e}`), ...medyaKontrol(butunMetin(yazi))];
+  const metin = butunMetin(yazi);
+  const { eksik } = dogrula(metin, [aday.kaynakMetni ?? '']);
+  const medya = [...new Set([...medyaKontrol(metin), ...adayMedyaKontrol(metin, aday.gizliKaynaklar)])];
+  return [...eksik.map((e) => `Kaynakta bulunmayan rakam/alıntı: ${e}`), ...medya];
 }
 
 // Kontrol masası: önce kesin kontrol, sonra Gemini. Gemini çalışamazsa onay yok.

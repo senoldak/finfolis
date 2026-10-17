@@ -84,10 +84,11 @@ export function kaynakIzi(liste) {
 // Hata mesajındaki adresleri siler: açık Actions loglarına kaynak adresi düşmesin.
 export const adresiSil = (mesaj) => String(mesaj).replace(/https?:\/\/\S+/gi, '[adres]');
 
-// { beslemeler: [{ ad, rss, bolge, ucretli, kategori }], ipucu: [{ ad, url }], medya: [ad] }
+// { beslemeler: [{ ad, rss, bolge, ucretli, kategori }], ipucu: [{ ad, url }], medya: [ad],
+//   derleyiciler: [{ ad, rss, kategori, gunlukTavan, ucretliAlanlar, yaziFiltresi, grupFiltresi }] } (bkz. kaynaklar/derleyici.mjs)
 // medya: metinde anılmaması gereken ek yayın adları (yayin-kurulu.mjs genel listesine eklenir).
 export function gizliKaynaklar({ dosya = SIFRELI_DOSYA, a = anahtar(), uyar = console.warn } = {}) {
-  const bos = { beslemeler: [], ipucu: [], medya: [] };
+  const bos = { beslemeler: [], ipucu: [], medya: [], derleyiciler: [] };
   if (!a) {
     uyar('UYARI: KAYNAK_ANAHTARI yok; şifreli kaynaklar okunmadı, yalnızca resmi kaynaklar kullanılacak.');
     return bos;
@@ -98,13 +99,13 @@ export function gizliKaynaklar({ dosya = SIFRELI_DOSYA, a = anahtar(), uyar = co
     return bos;
   }
   const v = coz(readFileSync(dosya, 'utf8'), a);
-  return { beslemeler: v.beslemeler ?? [], ipucu: v.ipucu ?? [], medya: v.medya ?? [] };
+  return { beslemeler: v.beslemeler ?? [], ipucu: v.ipucu ?? [], medya: v.medya ?? [], derleyiciler: v.derleyiciler ?? [] };
 }
 
 // Beslemelerin yayın adları ("… Business", "… Ekonomi" gibi bölüm ekleri atılmış) ve ek medya adları.
 export function gizliMedyaAdlari(g = gizliKaynaklar({ uyar: () => {} })) {
   const bolum = /\s+(Business|Economy|Ekonomi|Markets|Piyasalar)$/i;
-  return [...g.beslemeler, ...g.ipucu].map((k) => k.ad.replace(bolum, '')).concat(g.medya);
+  return [...g.beslemeler, ...g.ipucu, ...(g.derleyiciler ?? [])].map((k) => k.ad.replace(bolum, '')).concat(g.medya);
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {

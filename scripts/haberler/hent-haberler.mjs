@@ -10,7 +10,8 @@ import sec from './kaynaklar/sec.mjs';
 import kurHareketi from './kaynaklar/kur-hareketi.mjs';
 import esikOlaylari from './kaynaklar/esik-olaylari.mjs';
 import { rssHaberKaynagi } from './kaynaklar/rss-haber.mjs';
-import { BESLEMELER } from './kaynaklar/beslemeler.mjs';
+import { BESLEMELER, DERLEYICILER } from './kaynaklar/beslemeler.mjs';
+import { derleyiciKaynagi } from './kaynaklar/derleyici.mjs';
 import * as ipucuModulu from './ipucu.mjs';
 import * as olaylarModulu from './olaylar.mjs';
 import { yaz as yazarYaz, derlemeYaz as derlemeYazar } from './yazar.mjs';
@@ -154,7 +155,7 @@ export async function jsonOku(dosya, varsayilan) {
 }
 
 export async function calistir({
-  kaynaklar = [merkezBankalari, sec, kurHareketi, esikOlaylari, ...BESLEMELER.map(rssHaberKaynagi)],
+  kaynaklar = [merkezBankalari, sec, kurHareketi, esikOlaylari, ...BESLEMELER.map(rssHaberKaynagi), ...DERLEYICILER.map(derleyiciKaynagi)],
   ipucu = ipucuModulu,
   olaylar = olaylarModulu,
   gemini = varsayilanGemini,
@@ -219,6 +220,10 @@ export async function calistir({
         // İlk çalıştırmada sınır dışında kalan eski kayıtlar görüldü sayılır.
         kesilen: (id) => {
           if (ilk && !kuru) durum.gorulen[id] = { zaman: iso };
+        },
+        // Kaynağın kendisinin elediği kayıt (derleyici: okunamayan, ücretli, tarihsiz sayfa): yeniden istenmez.
+        ele: (id) => {
+          if (!kuru) durum.gorulen[id] = { zaman: iso, elendi: true };
         },
       });
       let liste = ham.filter((a) => !goruldu(durum, a.id) && !adaylar.some((x) => x.id === a.id));
