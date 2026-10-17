@@ -218,9 +218,34 @@ h3 {
   padding-bottom: 0;
 }
 
-.masthead-tarih {
-  margin: 0 0 0 auto;
+/* Başlığın sağı: tarih ve arama bağlantısı */
+.masthead-sag {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-left: auto;
   padding-bottom: 16px;
+}
+
+.masthead-ara {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.masthead-ara:hover,
+.masthead-ara[aria-current='page'] {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.masthead-tarih {
+  margin: 0;
   font-family: var(--sans);
   font-size: 0.9rem;
   color: var(--muted);

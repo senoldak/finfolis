@@ -1,0 +1,161 @@
+---
+// Site içi arama. Sonuçlar tarayıcıda /arama.json dizininden süzülür (bkz. src/lib/arama-cekirdek.mjs);
+// betik ayrı dosya olarak yüklenir (CSP satır içi betiğe izin vermez). Sonuç sayfası arama motorlarına kapalıdır.
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<Base title="Haberlerde ara" description="finfolis haberlerinde başlık, spot ve kategoriye göre arama." noindex>
+  <div class="container">
+    <article class="makale arama">
+      <Breadcrumb yol={[{ ad: 'Anasayfa', href: '/' }, { ad: 'Arama' }]} />
+      <header class="makale-bas">
+        <h1>Haberlerde ara</h1>
+      </header>
+      <form class="arama-form" action="/arama/" method="get" role="search">
+        <label for="arama-q">Aranacak kelimeler</label>
+        <div class="arama-satir">
+          <input id="arama-q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="ör. dolar kuru, Fed faiz, enflasyon" />
+          <button type="submit">Ara</button>
+        </div>
+      </form>
+      <p class="arama-durum" id="arama-durum" aria-live="polite"></p>
+      <ol class="arama-sonuc" id="arama-sonuc"></ol>
+      <noscript>
+        <p class="arama-durum">Arama için tarayıcınızda JavaScript açık olmalı. Haberlere <a href="/arsiv/">arşivden</a> de ulaşabilirsiniz.</p>
+      </noscript>
+    </article>
+  </div>
+</Base>
+
+<script>
+  import { ara } from '../lib/arama-cekirdek.mjs';
+
+  type Kayit = { t: string; d: string; k: string; u: string; z: string };
+
+  const girdi = document.getElementById('arama-q') as HTMLInputElement;
+  const durum = document.getElementById('arama-durum')!;
+  const liste = document.getElementById('arama-sonuc')!;
+  const tarih = (iso: string) =>
+    new Date(iso).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Istanbul' });
+
+  let dizin: Kayit[] | undefined;
+  async function dizinYukle() {
+    if (!dizin) dizin = await fetch('/arama.json').then((r) => r.json());
+    return dizin!;
+  }
+
+  function goster(sonuc: Kayit[], sorgu: string) {
+    liste.replaceChildren(
+      ...sonuc.map((k) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = k.u;
+        a.textContent = k.t;
+        const h = document.createElement('h2');
+        h.append(a);
+        const p = document.createElement('p');
+        p.textContent = k.d;
+        const meta = document.createElement('p');
+        meta.className = 'arama-meta';
+        meta.textContent = `${k.k} · ${tarih(k.z)}`;
+        li.append(h, p, meta);
+        return li;
+      }),
+    );
+    durum.textContent = !sorgu.trim()
+      ? ''
+      : sonuc.length
+        ? `“${sorgu.trim()}” için ${sonuc.length === 50 ? 'en ilgili 50' : sonuc.length} sonuç`
+        : `“${sorgu.trim()}” için sonuç bulunamadı. Daha kısa ya da farklı bir kelime deneyin.`;
+  }
+
+  async function calistir(sorgu: string) {
+    const kayitlar = await dizinYukle();
+    goster(sorgu.trim() ? ara(kayitlar, sorgu) : [], sorgu);
+  }
+
+  const ilk = new URLSearchParams(location.search).get('q') ?? '';
+  girdi.value = ilk;
+  if (ilk) calistir(ilk);
+
+  let bekle: ReturnType<typeof setTimeout>;
+  girdi.addEventListener('input', () => {
+    clearTimeout(bekle);
+    bekle = setTimeout(() => {
+      const url = new URL(location.href);
+      if (girdi.value.trim()) url.searchParams.set('q', girdi.value);
+      else url.searchParams.delete('q');
+      history.replaceState(null, '', url);
+      calistir(girdi.value);
+    }, 150);
+  });
+  girdi.closest('form')!.addEventListener('submit', (e) => {
+    e.preventDefault();
+    calistir(girdi.value);
+  });
+</script>
+
+<style>
+  .arama-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .arama-satir {
+    display: flex;
+    gap: 8px;
+  }
+  .arama-satir input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--ink);
+    border-radius: 3px;
+    background: #fff;
+    font: inherit;
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+  .arama-satir button {
+    padding: 10px 18px;
+    border: 0;
+    border-radius: 3px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--sans);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .arama-durum {
+    margin: 16px 0 8px;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .arama-sonuc {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .arama-sonuc :global(li) {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  .arama-sonuc :global(h2) {
+    margin: 0 0 4px;
+    font-size: 1.1rem;
+    line-height: 1.3;
+  }
+  .arama-sonuc :global(p) {
+    margin: 0;
+  }
+  .arama-sonuc :global(.arama-meta) {
+    margin-top: 4px;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+</style>

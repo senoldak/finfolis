@@ -76,11 +76,12 @@ export default defineConfig({
   site: 'https://finfolis.com',
   integrations: [
     sitemap({
-      // 404, yönetim paneli ve henüz yazısı olmayan (noindex) kategori sayfaları haritaya girmez.
+      // 404, yönetim paneli, arama sayfası ve henüz yazısı olmayan (noindex) kategori sayfaları haritaya girmez.
       // Kategorinin 2. ve sonraki sayfaları (/kategori/<x>/2/) olağan sayfa olarak girer.
       filter: (page) => {
         const yol = new URL(page).pathname;
-        if (/\/(404|admin)(\/|$)/.test(yol)) return false;
+        // Arama sayfası noindex'tir (sonuçlar tarayıcıda üretilir).
+        if (/\/(404|admin|arama)(\/|$)/.test(yol)) return false;
         // Haftalık bülten verisi (JSON) bir sayfa değildir.
         if (yol.endsWith('.json')) return false;
         if (V.has(yol) && !V.get(yol)) return false;
