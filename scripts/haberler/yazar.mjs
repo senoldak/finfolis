@@ -177,21 +177,51 @@ export async function yaz(aday, { gemini = varsayilanGemini } = {}) {
 
 // Tema derlemesi (bkz. derleme.mjs): aynı kategorideki kısa haberler tek yazıda anlatılır.
 // aday.haberler: [{baslik, kaynakMetni}]; her haberin kendi kaynak metni verilir, yazı yalnızca bunlardan kurulur.
-export function derlemeIstemi(aday) {
-  // Haberler kategori ara başlıkları altında; kategoriler gruptaki ilk görünüş sırasıyla.
+// Derleme gövde hedefi: haber başına 50–80 kelimelik paragraf; tek cümlelik özet paragraflar derlemeyi
+// yayın eşiğinin (yayin-kurulu.mjs, EN_AZ_KELIME) altında bırakıyordu.
+export const derlemeHedefi = (n) => ({ alt: Math.max(250, n * 50), ust: Math.max(400, n * 80) });
+
+// Haberler kategori ara başlıkları altında; kategoriler gruptaki ilk görünüş sırasıyla.
+function haberBlogu(aday) {
   const kategoriler = [...new Set(aday.haberler.map((h) => h.kategori ?? ''))];
-  const haberler = kategoriler
+  return kategoriler
     .map((k) => `## ${k}\n` + aday.haberler.filter((h) => (h.kategori ?? '') === k).map((h) => `### ${h.baslik}\n${h.kaynakMetni}`).join('\n\n'))
     .join('\n\n');
+}
+
+export function derlemeIstemi(aday) {
+  const { alt, ust } = derlemeHedefi(aday.haberler.length);
   return `Aşağıda aynı zaman diliminden ${aday.haberler.length} kısa haber var. Bunları tek bir Türkçe derleme haberinde topla.
 - baslik: dilimin öne çıkan konularını anlatan kısa başlık; tek bir haberi öne çıkarmaz. İki noktalı başlangıç kullanma; sonda nokta yok. Tarih ve saat yazma.
 - spot: en fazla 2 cümle; dilimin ana noktası.
-- govde: Markdown, 250-500 kelime. Her kategori için bir ara başlık ("## Kategori adı", HABERLER'deki sırayla), altında o kategorideki her haber için bir paragraf. Her paragraf haberin konusuyla başlar. Yalnızca o haberin KAYNAK bölümündeki bilgileri kullan; bir haberin kaynağında yetmeyen bilgi için başka haberin kaynağını kullanma, uydurma.
+- govde: Markdown, ${alt}-${ust} kelime. Her kategori için bir ara başlık ("## Kategori adı", HABERLER'deki sırayla), altında o kategorideki her haber için bir paragraf. Her paragraf 50-80 kelime (3-4 cümle): haberin konusuyla başlar; ne olduğunu, ana rakamı ve kimin açıkladığını anlatır. Tek cümlelik özet yazma. Yalnızca o haberin KAYNAK bölümündeki bilgileri kullan; bir haberin kaynağında yetmeyen bilgi için başka haberin kaynağını kullanma, uydurma.
 - rakamlar: en fazla 4 öğe ({etiket, deger}); yalnızca kaynakta aynen geçen rakamlar. Emin değilsen boş bırak.
 - tablo, grafik, sirada: kullanma.
 
 HABERLER:
-${haberler}`;
+${haberBlogu(aday)}`;
+}
+
+// Kısa kalan derlemeyi genişletir: ara başlıklar ve sıra korunur, her paragraf yalnız kendi haberinin kaynağıyla
+// uzar. Tek haber uzatmasından (uzat) farkı budur; o ara başlık koymayı yasaklar. Başarısızsa taslak aynen döner.
+export async function derlemeUzat(taslak, aday, kelime, { gemini = varsayilanGemini } = {}) {
+  const { alt, ust } = derlemeHedefi(aday.haberler.length);
+  const r = await gemini({
+    sistem: SISTEM,
+    sema: YAZI_SEMASI,
+    istem: `Bu derleme haberinin gövdesi ${kelime} kelime; ${alt}-${ust} kelime olmalı. Her haber paragrafını 50-80 kelimeye (3-4 cümle) genişlet: ne olduğu, ana rakam, kimin açıkladığı, kaynaktaki bağlam.
+Her paragrafı yalnızca HABERLER'de o haberin kendi bölümündeki bilgilerle genişlet; başka haberin kaynağını kullanma. Kaynakta olmayan bilgi, rakam, tahmin ya da yorum ekleme; aynı bilgiyi tekrar etme, dolgu cümlesi yazma. Ara başlıkları ("## ..."), paragraf sırasını, başlığı ve spotu değiştirme.
+
+HABERLER:
+${haberBlogu(aday)}
+
+TASLAK:
+Başlık: ${taslak.baslik}
+Spot: ${taslak.spot}
+
+${taslak.govde}`,
+  });
+  return yaziMi(r) ?? taslak;
 }
 
 // Döner: derleme taslağı ({baslik, spot, govde, rakamlar?}) ya da null. Tablo, grafik ve sıradaki gelişme derlemede kullanılmaz.

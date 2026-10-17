@@ -7,7 +7,7 @@
 //   5. Son kesin kontrol. Kalan her sorun {dur} döndürür; haber yayınlanmaz.
 import { gemini as varsayilanGemini } from './lib.mjs';
 import { dogrula } from './dogrula.mjs';
-import { duzelt, uzat, YAZI_SEMASI, KURALLAR } from './yazar.mjs';
+import { duzelt, uzat, derlemeUzat, YAZI_SEMASI, KURALLAR } from './yazar.mjs';
 import { ilgiliKisim } from './kaynak-kirp.mjs';
 import { gizliMedyaAdlari } from './gizli.mjs';
 import { kelimeSay, INDEKS_ESIGI } from '../../src/lib/uzunluk.mjs';
@@ -274,9 +274,11 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
   // Katman 2 (Gemini kota planı): kısa taslak yalnız UZATMA_ESIGI'nin üstündeyse bir kez kaynaktan genişletilir;
   // daha kısası için kaynakta yeterli bilgi olmadığı neredeyse kesindir. Kısa kalan metin denetime girmez:
   // yazısı kullanılmaz, olay havuza gider (bkz. hent-haberler.mjs).
+  // Derleme (aday.haberler) eşikten bağımsız uzatılır: birden çok haberin kaynağı vardır, kısalık yazımdan gelir.
+  const derleme = Array.isArray(aday.haberler);
   if (kisa(yazi)) {
-    if (kelimeSay(yazi.govde) < UZATMA_ESIGI) return kisaDur();
-    yazi = { ...(await uzat(yazi, aday, kelimeSay(yazi.govde), g)), ...serit };
+    if (!derleme && kelimeSay(yazi.govde) < UZATMA_ESIGI) return kisaDur();
+    yazi = { ...(await (derleme ? derlemeUzat : uzat)(yazi, aday, kelimeSay(yazi.govde), g)), ...serit };
     if (kisa(yazi)) return kisaDur();
   }
   // Kontrol, sorun varsa düzeltme; en fazla 2 düzeltme turu, ardından son bir kontrol.

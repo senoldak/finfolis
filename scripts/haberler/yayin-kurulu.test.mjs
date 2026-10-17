@@ -222,3 +222,26 @@ test('kontrol masası denetim çağrısı olarak gider', async () => {
   await kontrolMasasi(iyi, aday, { gemini: async (x) => { p = x; return { onay: true, sorunlar: [] }; } });
   assert.equal(p.denetim, true);
 });
+
+test('yayinKurulu: kısa derleme eşik altında da derleme uzatmasıyla genişler, ara başlıklar korunur', async () => {
+  const derlemeAday = { ...aday, haberler: [{ baslik: 'Fed', kategori: 'Ekonomi', kaynakMetni: aday.kaynakMetni }] };
+  const kisa = { ...iyi, govde: '## Ekonomi\n\nFed aralığı korudu.' };
+  const uzun = { ...iyi, govde: '## Ekonomi\n\n' +'Fed aralığı yüzde 4,25 ile 4,5 arasında korudu. '.repeat(30) };
+  const istemler = [];
+  const gemini = async ({ sema, istem }) => {
+    istemler.push(istem);
+    if (sema.properties.onay) return { onay: true, sorunlar: [] };
+    if (istem.includes('Bu derleme haberinin gövdesi')) return uzun;
+    return null;
+  };
+  const r = await yayinKurulu(kisa, derlemeAday, { gemini });
+  assert.ok(r.yazi, r.dur);
+  assert.ok(istemler.some((i) => i.includes('Ara başlıkları')));
+});
+
+test('yayinKurulu: tek haber eşik altındaysa uzatılmaz', async () => {
+  const istemler = [];
+  const r = await yayinKurulu({ ...iyi, govde: 'Kısa.' }, aday, { gemini: async ({ istem }) => (istemler.push(istem), null) });
+  assert.ok(r.kisa);
+  assert.equal(istemler.length, 0);
+});

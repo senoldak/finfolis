@@ -7,7 +7,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { calistir } from './hent-haberler.mjs';
 import { dilimGruplari, derlemeAdayi, DERLEME_AZAMI } from './derleme.mjs';
-import { derlemeIstemi } from './yazar.mjs';
+import { derlemeIstemi, derlemeHedefi } from './yazar.mjs';
 import { havuzAc, havuzKapat, SON_SAAT } from './havuz.mjs';
 
 const simdi = new Date('2026-10-12T07:00:00Z'); // İstanbul 10:00, açılış dilimi; öğle 09:00Z'de başlar
@@ -55,6 +55,14 @@ test('derlemeIstemi: haberler kategori ara başlıkları altında; tablo/grafik 
   assert.match(istem, /## Piyasalar\n### Başlık a[\s\S]*### Başlık c[\s\S]*## Ekonomi\n### Başlık b/);
   assert.match(istem, /ara başlık/);
   assert.match(istem, /tablo, grafik, sirada: kullanma/);
+});
+
+test('derlemeIstemi: gövde hedefi haber sayısıyla büyür, paragraf başına 50-80 kelime', () => {
+  assert.deepEqual(derlemeHedefi(2), { alt: 250, ust: 400 });
+  assert.deepEqual(derlemeHedefi(8), { alt: 400, ust: 640 });
+  const istem = derlemeIstemi(derlemeAdayi('abcdefgh'.split('').map((id) => olay(id, 'piyasalar'))));
+  assert.match(istem, /govde: Markdown, 400-640 kelime/);
+  assert.match(istem, /Her paragraf 50-80 kelime/);
 });
 
 async function ortam(extra = {}) {
