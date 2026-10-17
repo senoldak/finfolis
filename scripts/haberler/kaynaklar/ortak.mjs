@@ -24,7 +24,8 @@ function etiketIcerik(blok, ad) {
 }
 
 // RSS 2.0 <item> listesi: { baslik, url, tarih: Date, aciklama, kategori }. Bozuk kayıt atlanır.
-export function rssOgeleri(xml) {
+// tarihsiz: tarihi olmayan kayıt atılmaz, tarih: null döner (bkz. rss-haber.mjs, ilk görülme zamanı).
+export function rssOgeleri(xml, { tarihsiz = false } = {}) {
   const out = [];
   for (const m of String(xml).matchAll(/<item\b[^>]*>([\s\S]*?)<\/item>/gi)) {
     try {
@@ -32,8 +33,9 @@ export function rssOgeleri(xml) {
       const url = etiketIcerik(m[1], 'link') || etiketIcerik(m[1], 'guid');
       // RSS 2.0 pubDate; RSS 1.0/RDF dc:date ve Atom updated yedek olarak kabul edilir.
       const tarih = new Date(etiketIcerik(m[1], 'pubDate') || etiketIcerik(m[1], 'dc:date') || etiketIcerik(m[1], 'updated'));
-      if (!baslik || !/^https?:\/\//.test(url) || Number.isNaN(tarih.getTime())) continue;
-      out.push({ baslik, url, tarih, aciklama: etiketIcerik(m[1], 'description'), kategori: etiketIcerik(m[1], 'category') });
+      const tarihYok = Number.isNaN(tarih.getTime());
+      if (!baslik || !/^https?:\/\//.test(url) || (tarihYok && !tarihsiz)) continue;
+      out.push({ baslik, url, tarih: tarihYok ? null : tarih, aciklama: etiketIcerik(m[1], 'description'), kategori: etiketIcerik(m[1], 'category') });
     } catch {
       // tek kayıt bozuksa atlanır
     }

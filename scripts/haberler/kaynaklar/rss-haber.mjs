@@ -16,12 +16,12 @@ const GELECEK_PAYI_MS = 3600e3;
 const duzMetin = (s) => metinTemizle(String(s ?? '').replace(/<[^>]*>/g, ' '));
 
 // RSS ya da Atom beslemesini ortak biçime çevirir: { baslik, url, tarih, ozet }. Bozuk XML boş liste verir.
-function ogeler(xml) {
+function ogeler(xml, tarihsiz = false) {
   try {
     if (/<entry\b/i.test(xml) && !/<item\b/i.test(xml)) {
       return atomGirdileri(xml).map((g) => ({ baslik: g.baslik, url: g.url, tarih: g.tarih, ozet: g.ozet }));
     }
-    return rssOgeleri(xml).map((o) => ({ baslik: o.baslik, url: o.url, tarih: o.tarih, ozet: duzMetin(o.aciklama) }));
+    return rssOgeleri(xml, { tarihsiz }).map((o) => ({ baslik: o.baslik, url: o.url, tarih: o.tarih, ozet: duzMetin(o.aciklama) }));
   } catch {
     return [];
   }
@@ -29,7 +29,9 @@ function ogeler(xml) {
 
 // Resmi olmayan beslemenin adı ve adresi kimliklere, loglara ve durum dosyasına girmez: kısa kod ve anahtarlı
 // özet kullanılır. Gerçek ad ve bağlantı yalnızca gizliKaynaklar'da taşınır, haberde şifreli kaynakIzi olur.
-export function rssHaberKaynagi({ ad: gercekAd, rss, bolge, ucretli, kategori, onem = 40, resmi = false }) {
+// tarihsiz: besleme kayıt tarihi taşımıyor; kaydın tarihi ilk görüldüğü turdur. Görülen kayıt durum dosyasına girer,
+// ilk turda yalnız en yeni FORSTE_GANG kayıt alınır (hent-haberler.mjs); böylece eski kayıtlar yeni sanılmaz.
+export function rssHaberKaynagi({ ad: gercekAd, rss, bolge, ucretli, kategori, onem = 40, resmi = false, tarihsiz = false }) {
   const ad = resmi ? gercekAd : kaynakKodu(gercekAd);
   const kimlik = (url) => (resmi ? `${ad}:${url}` : `${ad}:${ozet(url)}`);
   const alan = (url) => {
@@ -50,7 +52,7 @@ export function rssHaberKaynagi({ ad: gercekAd, rss, bolge, ucretli, kategori, o
       } catch (e) {
         throw resmi ? e : new Error(adresiSil(e.message));
       }
-      let taze = ogeler(xml).filter(
+      let taze = ogeler(xml, tarihsiz).map((o) => (o.tarih ? o : { ...o, tarih: simdi })).filter(
         (o) => !Number.isNaN(o.tarih?.getTime()) && simdi - o.tarih <= AZAMI_GUN * GUN_MS && o.tarih - simdi <= GELECEK_PAYI_MS && !goruldu(kimlik(o.url)),
       );
       // ctx.limit: makale sayfaları çekilmeden önce en yeni N kayda indirilir; kesilenler ctx.kesilen'e bildirilir.

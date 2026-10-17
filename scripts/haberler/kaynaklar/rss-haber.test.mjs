@@ -86,6 +86,16 @@ test('ileri tarihli kayıt (etkinlik takvimi) atılır; 1 saatlik saat dilimi pa
   assert.deepEqual(adaylar.map((a) => a.baslik), ['kayik']);
 });
 
+test('tarihsiz besleme: kayıt tarihi ilk görüldüğü tur olur; işaret yoksa tarihsiz kayıt atılır; görülen gelmez', async () => {
+  const rss = '<rss><channel><item><title>Yeni çalışma</title><link>https://teblig.example.com/w1</link><description>Özet.</description></item></channel></rss>';
+  sahteFetch({ 'teblig.example.com/rss': rss, 'teblig.example.com/w1': '<html><body><p>Metin.</p></body></html>' });
+  const k = (tarihsiz) => rssHaberKaynagi({ ad: 'Örnek Tebliğ', rss: 'https://teblig.example.com/rss', bolge: 'abd', ucretli: false, kategori: 'ekonomi', tarihsiz });
+  assert.deepEqual(await k(false).hent({ simdi: SIMDI }), []);
+  const [a] = await k(true).hent({ simdi: SIMDI });
+  assert.equal(new Date(a.tarih).getTime(), SIMDI.getTime());
+  assert.deepEqual(await k(true).hent({ simdi: SIMDI, goruldu: (id) => id === a.id }), []);
+});
+
 test('BESLEMELER: geçerli bölge ve alanlar', () => {
   for (const b of BESLEMELER) {
     assert.ok(['abd', 'avrupa', 'asya', 'kuresel'].includes(b.bolge), b.ad);
