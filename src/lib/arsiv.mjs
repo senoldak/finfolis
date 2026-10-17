@@ -75,3 +75,48 @@ export function bultenMaddeleri(govde = '', azami = 4) {
   }
   return maddeler;
 }
+
+/**
+ * Bülten gövdesindeki bölümler ("## Bölge") ve her bölümdeki madde sayısı; içindekiler tablosu için.
+ * @returns {{ baslik: string, sayi: number }[]}
+ */
+export function bultenBolumleri(govde = '') {
+  const bolumler = [];
+  for (const satir of String(govde).split(/\r?\n/)) {
+    const h = satir.match(/^##\s+(.+?)\s*$/);
+    if (h) bolumler.push({ baslik: h[1], sayi: 0 });
+    else if (bolumler.length && /^[-*]\s+\S/.test(satir)) bolumler.at(-1).sayi++;
+  }
+  return bolumler.filter((b) => b.sayi > 0);
+}
+
+/** ISO 8601 hafta: "2026-10-16" → { yil: 2026, no: 42, anahtar: "2026-42" } (pazartesi başlar). */
+export function isoHafta(gun) {
+  const [y, a, g] = gun.split('-').map(Number);
+  const t = new Date(Date.UTC(y, a - 1, g));
+  const haftaGunu = (t.getUTCDay() + 6) % 7; // pazartesi = 0
+  t.setUTCDate(t.getUTCDate() - haftaGunu + 3); // haftanın perşembesi
+  const yil = t.getUTCFullYear();
+  // Haftanın perşembesi hangi yıldaysa hafta o yılındır; numara, o yılın 1 Ocak'ından beri geçen tam hafta + 1.
+  const no = 1 + Math.floor((t - Date.UTC(yil, 0, 1)) / 86400000 / 7);
+  return { yil, no, anahtar: `${yil}-${String(no).padStart(2, '0')}` };
+}
+
+/** Günleri (gunlereAyir çıktısı) ISO haftalarına toplar; yeni hafta önce. */
+export function haftalaraAyir(gunler) {
+  const harita = new Map();
+  for (const g of gunler) {
+    const h = isoHafta(g.gun);
+    if (!harita.has(h.anahtar)) harita.set(h.anahtar, { ...h, gunler: [] });
+    harita.get(h.anahtar).gunler.push(g);
+  }
+  return [...harita.values()]
+    .map((h) => ({
+      ...h,
+      gunler: h.gunler.sort((a, b) => (a.gun < b.gun ? 1 : -1)),
+      ilk: h.gunler.map((g) => g.gun).sort()[0],
+      son: h.gunler.map((g) => g.gun).sort().at(-1),
+      sayi: h.gunler.reduce((t, g) => t + g.haberler.length, 0),
+    }))
+    .sort((a, b) => (a.anahtar < b.anahtar ? 1 : -1));
+}

@@ -1,0 +1,80 @@
+---
+// Haftalık arşiv: bir ISO haftasının haberleri, gün gün. Gün sayfalarının toplamı olduğu için noindex ve site haritası dışı.
+import Base from '../../../layouts/Base.astro';
+import NewsCard from '../../../components/NewsCard.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import { getNews } from '../../../lib/news';
+import { gunBasligi, gunlereAyir, haftalaraAyir } from '../../../lib/arsiv.mjs';
+
+export async function getStaticPaths() {
+  const haftalar = haftalaraAyir(gunlereAyir(await getNews()));
+  return haftalar.map((h, i) => ({
+    params: { hafta: h.anahtar },
+    props: { h, onceki: haftalar[i + 1], sonraki: haftalar[i - 1] },
+  }));
+}
+
+const { h, onceki, sonraki } = Astro.props;
+const aralik = (x: { ilk: string; son: string }) =>
+  x.ilk === x.son ? gunBasligi(x.ilk) : `${gunBasligi(x.ilk).replace(/ \d{4}$/, '')} – ${gunBasligi(x.son)}`;
+const baslik = `${h.no}. hafta`;
+---
+
+<Base title={`${baslik} haberleri (${aralik(h)})`} description={`${aralik(h)} arasında yayımlanan ${h.sayi} haber.`} noindex>
+  <div class="container">
+    <article class="makale">
+      <Breadcrumb yol={[{ ad: 'Anasayfa', href: '/' }, { ad: 'Arşiv', href: '/arsiv/' }, { ad: baslik }]} />
+      <header class="makale-bas">
+        <h1>{baslik}, {h.yil}</h1>
+        <p class="kunye"><span>{aralik(h)}</span><span>{h.sayi} haber</span></p>
+      </header>
+      {
+        h.gunler.map((g) => (
+          <section class="hafta-gun" aria-labelledby={`g-${g.gun}`}>
+            <h2 id={`g-${g.gun}`}>
+              <a href={`/arsiv/${g.gun}/`}>{gunBasligi(g.gun)}</a>
+              <span>{g.haberler.length} haber</span>
+            </h2>
+            {[...g.haberler].reverse().map((x) => <NewsCard haber={x} showSpot={false} />)}
+          </section>
+        ))
+      }
+      <nav class="gun-gezinti" aria-label="Haftalar arasında">
+        {onceki ? <a href={`/arsiv/hafta/${onceki.anahtar}/`} rel="prev">← {onceki.no}. hafta</a> : <span />}
+        {sonraki && <a href={`/arsiv/hafta/${sonraki.anahtar}/`} rel="next">{sonraki.no}. hafta →</a>}
+      </nav>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .hafta-gun {
+    margin-top: 28px;
+  }
+  .hafta-gun h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 0;
+    padding-bottom: 6px;
+    border-bottom: 3px solid var(--ink);
+    font-family: var(--sans);
+    font-size: 1.05rem;
+  }
+  .hafta-gun h2 a {
+    color: var(--ink);
+  }
+  .hafta-gun h2 span {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .gun-gezinti {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 28px;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+  }
+</style>

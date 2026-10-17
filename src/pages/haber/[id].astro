@@ -7,6 +7,7 @@ import Tablo from '../../components/Tablo.astro';
 import Grafik from '../../components/Grafik.astro';
 import NewsCard from '../../components/NewsCard.astro';
 import SentezBlok from '../../components/SentezBlok.astro';
+import BultenDizini from '../../components/BultenDizini.astro';
 import BultenFormu from '../../components/BultenFormu.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { SITE, category as categoryOf, categoryName, formatDate } from '../../lib/site';
@@ -59,7 +60,7 @@ const author = haber.data.author ?? SITE.name;
 const noindex = !indekslenir(haber.body);
 // Kapak her yaşta derlenir (dosya bütçesi: src/lib/gorsel.mjs).
 const cover = haber.data.cover;
-const { Content } = await render(haber);
+const { Content, headings } = await render(haber);
 const cat = categoryOf(category);
 const turEtiket = turEtiketi(haber.data);
 const okumaDk = okumaSuresi(haber.body);
@@ -184,6 +185,8 @@ const jsonLd = {
       <SentezBlok whyMatters={haber.data.why_matters} keyPoints={haber.data.key_points} description={description} />
 
       <RakamSeridi rakamlar={rakamlar} bas />
+
+      {haber.data.tur === 'bulten' && <BultenDizini govde={haber.body} basliklar={headings} />}
 
       {
         cover && haber.data.coverSitede && (

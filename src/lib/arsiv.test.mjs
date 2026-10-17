@@ -43,3 +43,31 @@ test('bultenMaddeleri: kalın başlık ve cümle, Ayrıntı bağlantısı atıl�
   ]);
   assert.deepEqual(bultenMaddeleri(''), []);
 });
+
+test('bultenBolumleri: ## başlıklar ve madde sayıları, maddesiz bölüm atılır', async () => {
+  const { bultenBolumleri } = await import('./arsiv.mjs');
+  const govde = `Giriş paragrafı\n\n## ABD\n\n- **A:** a\n- **B:** b\n\n## Boş\n\nMetin\n\n## Göstergeler\n\n- **Dolar / TL:** 49,42`;
+  assert.deepEqual(bultenBolumleri(govde), [
+    { baslik: 'ABD', sayi: 2 },
+    { baslik: 'Göstergeler', sayi: 1 },
+  ]);
+});
+
+test('isoHafta: yıl sınırları ve pazartesi başlangıcı', async () => {
+  const { isoHafta } = await import('./arsiv.mjs');
+  assert.equal(isoHafta('2026-10-16').anahtar, '2026-42');
+  assert.equal(isoHafta('2026-10-12').anahtar, '2026-42'); // pazartesi
+  assert.equal(isoHafta('2026-10-11').anahtar, '2026-41'); // pazar
+  assert.equal(isoHafta('2027-01-01').anahtar, '2026-53'); // cuma, önceki yılın 53. haftası
+  assert.equal(isoHafta('2024-12-30').anahtar, '2025-01'); // pazartesi, sonraki yılın 1. haftası
+});
+
+test('haftalaraAyir: yeni hafta önce, gün aralığı ve haber sayısı', async () => {
+  const { haftalaraAyir } = await import('./arsiv.mjs');
+  const g = (gun, n) => ({ gun, haberler: Array(n).fill({}) });
+  const h = haftalaraAyir([g('2026-10-16', 3), g('2026-10-12', 2), g('2026-10-09', 1)]);
+  assert.deepEqual(h.map((x) => [x.anahtar, x.ilk, x.son, x.sayi]), [
+    ['2026-42', '2026-10-12', '2026-10-16', 5],
+    ['2026-41', '2026-10-09', '2026-10-09', 1],
+  ]);
+});

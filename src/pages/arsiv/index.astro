@@ -3,13 +3,15 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { getNews } from '../../lib/news';
-import { ayBasligi, ayTakvimi, gunlereAyir } from '../../lib/arsiv.mjs';
+import { ayBasligi, ayTakvimi, gunBasligi, gunlereAyir, haftalaraAyir } from '../../lib/arsiv.mjs';
 
 const gunler = gunlereAyir(await getNews());
 const sayilar = new Map(gunler.map((g) => [g.gun, g.haberler.length]));
 const aylar = [...new Set(gunler.map((g) => g.gun.slice(0, 7)))];
 const toplam = gunler.reduce((t, g) => t + g.haberler.length, 0);
 const GUN_ADLARI = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+const haftalar = haftalaraAyir(gunler);
+const kisa = (g: string) => gunBasligi(g).replace(/ \d{4}$/, '');
 ---
 
 <Base title="Haber arşivi" description={`finfolis'te yayımlanan ${toplam} haber, gün gün takvimde.`}>
@@ -20,6 +22,27 @@ const GUN_ADLARI = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
         <h1>Arşiv</h1>
         <p class="makale-spot">Bir güne tıklayın: o günün özeti ve yayımlanan tüm haberler.</p>
       </header>
+
+      <nav class="suzgec" aria-label="Arşivi süz">
+        <div class="suzgec-satir">
+          <span class="suzgec-etiket">Ay</span>
+          <span class="cipler">
+            {aylar.map((ay) => <a class="cip" href={`#ay-${ay}`}>{ayBasligi(ay)}</a>)}
+          </span>
+        </div>
+        <div class="suzgec-satir">
+          <span class="suzgec-etiket">Hafta</span>
+          <span class="cipler">
+            {
+              haftalar.map((h) => (
+                <a class="cip" href={`/arsiv/hafta/${h.anahtar}/`} title={`${kisa(h.ilk)} – ${kisa(h.son)}, ${h.sayi} haber`}>
+                  {h.no}. hafta <span>{h.sayi}</span>
+                </a>
+              ))
+            }
+          </span>
+        </div>
+      </nav>
 
       {
         aylar.map((ay) => (
@@ -64,6 +87,51 @@ const GUN_ADLARI = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
 </Base>
 
 <style>
+  .suzgec {
+    display: grid;
+    gap: 10px;
+    padding: 14px 0;
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--hair);
+    font-family: var(--sans);
+  }
+  .suzgec-satir {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .suzgec-etiket {
+    flex: 0 0 52px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .cipler {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .cip {
+    padding: 3px 10px;
+    border: 1px solid var(--hair);
+    border-radius: 3px;
+    color: var(--ink);
+    font-size: 0.88rem;
+    text-decoration: none;
+  }
+  .cip:hover,
+  .cip:focus-visible {
+    border-color: var(--blue);
+    background: var(--paper-2);
+  }
+  .cip span {
+    margin-left: 4px;
+    font-size: 0.75rem;
+    color: var(--blue-text);
+    font-variant-numeric: tabular-nums;
+  }
   .ay {
     margin-top: 32px;
   }
