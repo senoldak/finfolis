@@ -80,10 +80,11 @@ export function varsayilanKapak(yazi, o) {
 }
 
 // Önem eşiği olay gruplamadaki haber değeri puanıyla birlikte (bkz. olaylar.mjs). Resmî kaynak (merkez bankaları, SEC)
-// de genel RSS de 70'le yazılır (0–100 ölçeği; 2026-10-17 site sahibinin kararıyla 3/5 → 3,5/5 = 70/100); kısa kalan dilim derlemesine girer (bkz.
-// havuz.mjs), altı yalnız bültende satır olur. Ücretli tek kaynak terfi etmez.
-export const TERFI_ESIGI = 70;
-export const RSS_TERFI_ESIGI = 70;
+// de genel RSS de 60'la yazılır (0–100 ölçeği). 2026-10-17'de 70'e çıkarıldı; hafta sonu akşamı turlarda hiç olay geçmeyince
+// site sahibinin kararıyla aynı gün 60'a (3/5) geri alındı. Kısa kalan dilim derlemesine girer (bkz. havuz.mjs), altı yalnız
+// bültende satır olur. Ücretli tek kaynak terfi etmez.
+export const TERFI_ESIGI = 60;
+export const RSS_TERFI_ESIGI = 60;
 export const terfiMi = (o) =>
   o.onem >= ((o.adaylar ?? []).some(olaylarModulu.resmiMi) ? TERFI_ESIGI : RSS_TERFI_ESIGI) && o.icerikli && !o.ucretliTek;
 const ARALIKLAR = [[90, 100, '90+'], [70, 89, '70-89'], [50, 69, '50-69'], [30, 49, '30-49'], [0, 29, '0-29']];

@@ -434,8 +434,8 @@ test('bütçe bittiyse bultenYaz çağrılmaz', async () => {
   assert.equal(secenek.durum.gorulen.d1, undefined);
 });
 
-test('genel RSS: önemi 70 olan içerikli olay habere terfi eder, 69 olan etmez', async () => {
-  const { secenek } = await ortam({ kaynaklar: [kaynak('A', [aday('u3', 70), aday('d2', 69)])] });
+test('genel RSS: önemi 60 olan içerikli olay habere terfi eder, 59 olan etmez', async () => {
+  const { secenek } = await ortam({ kaynaklar: [kaynak('A', [aday('u3', 60), aday('d2', 59)])] });
   const s = await calistir(secenek);
   assert.equal(s.adet, 1);
 });
