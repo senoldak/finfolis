@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-16T23:21:04.165Z",
+  "guncelleme": "2026-10-17T03:41:02.551Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -7,7 +7,7 @@
       "deger": 49.527,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 41.853,
+      "onceki": 41.949,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -293,7 +293,7 @@
       "deger": 55.7328,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 48.7549,
+      "onceki": 49.001,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -579,7 +579,7 @@
       "deger": 31.342,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 27.666,
+      "onceki": 27.889,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -894,16 +894,16 @@
     {
       "id": "bist100",
       "ad": "BIST 100",
-      "deger": 12070.2002,
+      "deger": 11721.7002,
       "ondalik": 2,
       "simge": "fabrika",
       "kaynak": {
         "ad": "Yahoo Finance",
         "url": "https://finance.yahoo.com/"
       },
-      "zaman": "2026-10-15T00:00:00+03:00",
+      "zaman": "2026-10-16T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -0.4,
+      "degisim": -2.9,
       "gecmis": [
         {
           "tarih": "2026-07-20",
@@ -1160,6 +1160,10 @@
         {
           "tarih": "2026-10-15",
           "deger": 12070.2002
+        },
+        {
+          "tarih": "2026-10-16",
+          "deger": 11721.7002
         }
       ]
     },
