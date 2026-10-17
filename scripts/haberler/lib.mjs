@@ -180,7 +180,7 @@ export async function yaziYaz(rot, yazi) {
     `tur: ${y(yazi.tur ?? 'haber')}`,
     // İçerik türü (veri | arastirma | resmi): okura yazının neye dayandığını söyler (bkz. icerik-turu.mjs).
     ...(yazi.icerikTuru ? [`icerikTuru: ${y(yazi.icerikTuru)}`] : []),
-    // Bot yazısı işareti: sitede yapay zekâ üretim notu gösterilir (panelden girilen yazılarda author alanı olur).
+    // Bot yazısı işareti: sitede yapay zekâ üretim notu gösterilir (elle girilen yazılarda author alanı olur).
     'uretim: "bot"',
   ];
   const kaynaklar = yazi.kaynaklar ?? [];

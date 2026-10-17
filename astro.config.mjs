@@ -81,7 +81,7 @@ export default defineConfig({
       filter: (page) => {
         const yol = new URL(page).pathname;
         // Arama sayfası noindex'tir (sonuçlar tarayıcıda üretilir).
-        if (/\/(404|admin|arama)(\/|$)/.test(yol)) return false;
+        if (/\/(404|arama)(\/|$)/.test(yol)) return false;
         // Hafta sayfaları gün sayfalarının toplamıdır (noindex).
         if (yol.startsWith('/arsiv/hafta/')) return false;
         // Haftalık bülten verisi (JSON) bir sayfa değildir.

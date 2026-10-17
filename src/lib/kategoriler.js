@@ -1,4 +1,3 @@
-// Kategori listesi panel ayarlarıyla (public/admin/config.yml) aynı tutulmalı.
 // ink: kategorinin sabit rengi (global.css'teki --ink-* değişkenleri), icon: src/lib/simgeler.js'teki simge.
 // Düz JS: hem site hem kapak çizici (scripts/kapak, Node 22) okur.
 export const CATEGORIES = /** @type {const} */ ([
