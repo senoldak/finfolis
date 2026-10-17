@@ -1,5 +1,6 @@
 ---
 import { SITE, CATEGORIES } from '../lib/site';
+import { getNews } from '../lib/news';
 import { jsonLdMetni } from '../lib/json-ld.mjs';
 import Pictograms from '../components/Pictograms.astro';
 import Logo from '../components/Logo.astro';
@@ -17,6 +18,10 @@ interface Props {
   type?: 'website' | 'article';
   noindex?: boolean;
 }
+
+// Menülerde yalnız yazısı olan kategoriler görünür (boş kategori sayfası "henüz yazı yok" der).
+const doluKategoriler = new Set((await getNews()).map((h) => h.data.category));
+const menuKategorileri = CATEGORIES.filter((c) => doluKategoriler.has(c.slug));
 
 const {
   title,
@@ -111,7 +116,7 @@ const today = new Date().toLocaleDateString(SITE.locale, {
         </a>
         <nav class="nav" aria-label="Kategoriler">
           {
-            CATEGORIES.map((c) => (
+            menuKategorileri.map((c) => (
               <a
                 href={`/kategori/${c.slug}/`}
                 class={`ink-${c.ink}`}
@@ -159,7 +164,7 @@ const today = new Date().toLocaleDateString(SITE.locale, {
           </p>
         </div>
         <nav aria-label="Alt menü">
-          {CATEGORIES.map((c) => <a href={`/kategori/${c.slug}/`}>{c.name}</a>)}
+          {menuKategorileri.map((c) => <a href={`/kategori/${c.slug}/`}>{c.name}</a>)}
           <a href="/konu/">Konular</a>
           <a href="/veri/">Veriler</a>
           <a href="/hesapla/">Hesaplayıcılar</a>
