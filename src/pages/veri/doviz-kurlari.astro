@@ -3,6 +3,7 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { KUR_SAYFALARI, RESMI, eskiMi, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
 const kur = RESMI.kur;
@@ -42,7 +43,7 @@ const ad = (s: string) => s.replace(/\s+/g, ' ').trim();
 ---
 
 <Base title={baslik} description={description} noindex={!kur}>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
   <div class="container veri-sayfa">
     <Breadcrumb yol={yol} />
     <header class="sayfa-bas sayfa-bas-duz">

@@ -4,6 +4,7 @@ import Base from '../../../layouts/Base.astro';
 import NewsCard from '../../../components/NewsCard.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { newsUrl, type Haber } from '../../../lib/news';
+import { jsonLdMetni } from '../../../lib/json-ld.mjs';
 import { konuSayfalari, konuUrl } from '../../../lib/konu-sayfalari';
 import type { Konu } from '../../../lib/konular.mjs';
 import { SITE_URL, WEBSITE_ID, kisalt } from '../../../lib/seo';
@@ -70,7 +71,7 @@ const jsonLd = {
 ---
 
 <Base title={baslik} description={description}>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
   <div class="container">
     <Breadcrumb
       yol={[

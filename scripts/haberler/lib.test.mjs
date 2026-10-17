@@ -42,6 +42,27 @@ test('yaziYaz frontmatter YAML olarak geri okunur', async () => {
   assert.match(md, /Gövde metni\./);
 });
 
+test('yaziYaz gövdedeki HTML etiketlerini ve yorumlarını atar, Markdown ve metni korur', async () => {
+  const rot = await mkdtemp(path.join(os.tmpdir(), 'haber-'));
+  const govde = [
+    'Enflasyon <b>yüzde 3</b> oldu.<script>alert(1)</script>',
+    '<a href="https://haber.example.com" onclick="x()">tıkla</a> <!-- gizli -->',
+    '<div class="kutu">',
+    'Oran 3 < 5 ve 7 > 2; ayrıntı için [rapor](https://www.tcmb.gov.tr/) ve <https://www.tcmb.gov.tr/>.',
+    '</div><br/>',
+  ].join('\n');
+  const slug = await yaziYaz(rot, { baslik: 'Etiketli', spot: 'x', govde, kategori: 'ekonomi', tarih: new Date('2026-10-10T08:00:00Z') });
+  const md = await readFile(path.join(rot, 'src/content/haberler', slug, 'index.md'), 'utf8');
+  const metin = md.split('---').slice(2).join('---');
+  assert.doesNotMatch(metin, /<\/?(b|a|script|div|br)\b/i);
+  assert.doesNotMatch(metin, /<!--|onclick|gizli/);
+  assert.match(metin, /Enflasyon yüzde 3 oldu\./);
+  assert.match(metin, /tıkla/);
+  assert.match(metin, /Oran 3 < 5 ve 7 > 2/);
+  assert.match(metin, /\[rapor\]\(https:\/\/www\.tcmb\.gov\.tr\/\)/);
+  assert.match(metin, /<https:\/\/www\.tcmb\.gov\.tr\/>/);
+});
+
 test('yaziYaz aynı başlıkta slug çakışmasını önler, kapaksız yazar', async () => {
   const rot = await mkdtemp(path.join(os.tmpdir(), 'haber-'));
   const yazi = { baslik: 'Aynı', spot: 's', govde: 'g', kategori: 'borsa', tarih: new Date(), tur: 'bulten', kaynaklar: [] };

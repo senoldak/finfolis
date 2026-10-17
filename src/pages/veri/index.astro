@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { KUR_SAYFALARI, RESMI, ayAdi, gunYaz, oranYaz, sayiYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
 const { kur, faiz, enflasyon } = RESMI;
@@ -43,7 +44,7 @@ const jsonLd = sayfaSemasi({ yol, ad: 'Veriler', aciklama: description, tur: 'Co
 ---
 
 <Base title="Veriler: kur, faiz, enflasyon" description={description}>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
   <div class="container">
     <Breadcrumb yol={yol} />
     <header class="sayfa-bas sayfa-bas-duz">

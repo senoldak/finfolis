@@ -141,6 +141,15 @@ export function slugla(baslik) {
     .replace(/-+$/, '');
 }
 
+// Gövdedeki HTML etiketleri ve yorumları atılır, içlerindeki metin kalır. Markdown ham HTML'i olduğu gibi sayfaya
+// basar; model çıktısı kaynak metinden etiket taşırsa yayımlanan sayfaya bağlantı ya da işaretleme eklenmesin.
+// Yalnız etiket biçimi ("<ad", "</ad" + boşluk, "/" ya da ">") silinir: "3 < 5" ve <https://…> otomatik bağlantıları kalır.
+export const htmlSok = (metin) =>
+  String(metin)
+    .replace(/<!--[\s\S]*?(?:-->|$)/g, '')
+    .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, '')
+    .replace(/<\/?[a-z][a-z0-9-]*(?:\s[^<>]*)?\/?>/gi, '');
+
 // YAML'da güvenli çift tırnaklı metin (JSON dizgesi geçerli YAML'dır).
 const y = (s) => JSON.stringify(String(s));
 
@@ -203,7 +212,7 @@ export async function yaziYaz(rot, yazi) {
     if (yazi.kapakSitede === false) fm.push('coverSitede: false');
   }
   fm.push('---');
-  await writeFile(path.join(taban, slug, 'index.md'), `${fm.join('\n')}\n\n${String(yazi.govde).trim()}\n`, 'utf8');
+  await writeFile(path.join(taban, slug, 'index.md'), `${fm.join('\n')}\n\n${htmlSok(yazi.govde).trim()}\n`, 'utf8');
   return slug;
 }
 

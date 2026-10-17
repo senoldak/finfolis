@@ -4,6 +4,7 @@ import Base from '../../../layouts/Base.astro';
 import NewsCard from '../../../components/NewsCard.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { CATEGORIES } from '../../../lib/site';
+import { jsonLdMetni } from '../../../lib/json-ld.mjs';
 import { getNews, newsUrl, type Haber } from '../../../lib/news';
 import { SITE_URL, WEBSITE_ID } from '../../../lib/seo';
 
@@ -80,7 +81,7 @@ const jsonLd = {
 ---
 
 <Base title={`${cat.name} haberleri${sayfaEki}`} description={description} noindex={page.total === 0}>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
   <div class="container">
     <Breadcrumb
       yol={[

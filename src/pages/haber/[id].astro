@@ -11,6 +11,7 @@ import BultenDizini from '../../components/BultenDizini.astro';
 import BultenFormu from '../../components/BultenFormu.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { SITE, category as categoryOf, categoryName, formatDate } from '../../lib/site';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { getNews, type Haber } from '../../lib/news';
 import { KAPAK_DONUSUM } from '../../lib/gorsel.mjs';
 import { ORG_ID, PUBLISHER_LOGO, SITE_URL, WEBSITE_ID, kisalt, sameAs } from '../../lib/seo';
@@ -146,7 +147,7 @@ const jsonLd = {
     <meta property="article:published_time" content={published} />
     <meta property="article:modified_time" content={modified} />
     <meta property="article:section" content={categoryName(category)} />
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
   </Fragment>
 
   <div class="container">

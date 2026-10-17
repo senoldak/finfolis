@@ -4,6 +4,7 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { sayfaSemasi } from '../../lib/seo';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
 
 const yol = [
   { ad: 'Anasayfa', href: '/' },
@@ -16,7 +17,7 @@ const jsonLd = sayfaSemasi({ yol, ad: 'Mevduat getirisi hesaplama', aciklama: de
 ---
 
 <Base title="Mevduat getirisi hesaplama" description={description}>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
   <div class="container hesap-sayfa">
     <Breadcrumb yol={yol} />
     <header class="sayfa-bas sayfa-bas-duz">

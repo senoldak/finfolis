@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { TERIMLER, terimUrl } from '../../data/sozluk.mjs';
 import { SITE_URL, sayfaSemasi } from '../../lib/seo';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
 
 export function getStaticPaths() {
   return TERIMLER.map((t) => ({ params: { slug: t.slug }, props: { terim: t } }));
@@ -43,7 +44,7 @@ const jsonLd = sayfaSemasi({
 ---
 
 <Base title={`${adSade} nedir?`} description={aciklama}>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
   <div class="container">
     <Breadcrumb yol={yol} />
     <header class="sayfa-bas sayfa-bas-duz">

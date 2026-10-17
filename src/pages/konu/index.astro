@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { konuSayfalari, konuUrl } from '../../lib/konu-sayfalari';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { KONU_TURLERI } from '../../lib/konular.mjs';
 import { SITE_URL, WEBSITE_ID } from '../../lib/seo';
 
@@ -44,7 +45,7 @@ const jsonLd = {
 ---
 
 <Base title="Konular" description={description} noindex={sayfalar.length === 0}>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
   <div class="container">
     <Breadcrumb yol={[{ ad: 'Anasayfa', href: '/' }, { ad: 'Konular' }]} />
     <header class="sayfa-bas sayfa-bas-duz">

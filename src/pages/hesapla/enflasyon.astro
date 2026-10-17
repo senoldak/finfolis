@@ -4,6 +4,7 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { RESMI, AYLAR, ayAdi, ayAnahtari, tufeCarpani, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
 const enf = RESMI.enflasyon;
@@ -34,7 +35,7 @@ const jsonLd = sayfaSemasi({ yol, ad: 'Enflasyon hesaplama', aciklama: descripti
 ---
 
 <Base title="Enflasyon hesaplama: paranın değeri" description={description}>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
   <div class="container hesap-sayfa">
     <Breadcrumb yol={yol} />
     <header class="sayfa-bas sayfa-bas-duz">

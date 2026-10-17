@@ -4,6 +4,7 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { RESMI, gunYaz, oranYaz as oran, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
 const faiz = RESMI.faiz;
@@ -47,7 +48,7 @@ const jsonLd = sayfaSemasi({
 ---
 
 <Base title={`${baslik}: TCMB güncel oran ve geçmiş`} description={description} noindex={!faiz}>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
   <div class="container veri-sayfa">
     <Breadcrumb yol={yol} />
     <header class="sayfa-bas sayfa-bas-duz">
