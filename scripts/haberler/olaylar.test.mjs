@@ -4,19 +4,19 @@ import { olaylariGrupla, hafizaGuncelle, ayniMakroOlay, mukerrerBul, ilgiliHafiz
 import { RESMI_BESLEMELER } from './kaynaklar/resmi-beslemeler.mjs';
 
 const aday = (id, o = {}) => ({
-  id, baslik: `Başlık ${id}`, tarih: new Date('2026-10-11T10:00:00Z'), onem: 1, kategori: 'piyasalar',
+  id, baslik: `Başlık ${id}`, tarih: new Date('2026-10-11T10:00:00Z'), onem: 20, kategori: 'piyasalar',
   bolge: 'abd', ucretli: false, ozet: `özet ${id}`, kaynakMetni: `metin ${id}`,
   kaynaklar: [{ ad: `K${id}`, url: `https://x/${id}` }], ...o,
 });
 
 test('aynı olayın iki adayı tek olay olur', async () => {
-  const adaylar = [aday('a', { onem: 2 }), aday('b', { onem: 5 }), aday('c')];
+  const adaylar = [aday('a', { onem: 40 }), aday('b', { onem: 100 }), aday('c')];
   const { yeni } = await olaylariGrupla(adaylar, [], { gemini: async () => ({ gruplar: [[0, 1], [2]] }) });
   assert.equal(yeni.length, 2);
   assert.equal(yeni[0].kaynaklar.length, 2);
   assert.match(yeni[0].kaynakMetni, /metin a/);
   assert.match(yeni[0].kaynakMetni, /metin b/);
-  assert.equal(yeni[0].onem, 5);
+  assert.equal(yeni[0].onem, 100);
   assert.equal(yeni[0].id, 'a');
 });
 
@@ -102,13 +102,13 @@ test('gemini hata/null: uyarı verilir, grupHatasi işaretlenir', async () => {
 });
 
 test('Gemini puanı olayın önemini yükseltir, kaynağın önemini düşürmez', async () => {
-  const adaylar = [aday('a', { onem: 2 }), aday('b', { onem: 5 }), aday('c', { onem: 2 })];
+  const adaylar = [aday('a', { onem: 40 }), aday('b', { onem: 100 }), aday('c', { onem: 40 })];
   const { yeni } = await olaylariGrupla(adaylar, [], {
-    gemini: async () => ({ gruplar: [[0], [1], [2]], puanlar: [{ aday: 0, onem: 4 }, { aday: 1, onem: 2 }, { aday: 2, onem: 9 }] }),
+    gemini: async () => ({ gruplar: [[0], [1], [2]], puanlar: [{ aday: 0, onem: 80 }, { aday: 1, onem: 40 }, { aday: 2, onem: 140 }] }),
   });
-  assert.equal(yeni.find((o) => o.id === 'a').onem, 4);
-  assert.equal(yeni.find((o) => o.id === 'b').onem, 5);
-  assert.equal(yeni.find((o) => o.id === 'c').onem, 2); // 1-5 dışındaki puan yok sayılır
+  assert.equal(yeni.find((o) => o.id === 'a').onem, 80);
+  assert.equal(yeni.find((o) => o.id === 'b').onem, 100);
+  assert.equal(yeni.find((o) => o.id === 'c').onem, 40); // 1–100 dışındaki puan yok sayılır
 });
 
 // 15.10.2026 06:40 çalıştırması: Gemini bu iki adayı ayrı gruplara koydu, iki haber yazıldı.

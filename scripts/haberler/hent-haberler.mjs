@@ -79,16 +79,17 @@ export function varsayilanKapak(yazi, o) {
 }
 
 // Önem eşiği olay gruplamadaki haber değeri puanıyla birlikte (bkz. olaylar.mjs). Resmî kaynak (merkez bankaları, SEC)
-// de genel RSS de 3'le ("kendi başına kısa haber olmaya değer") yazılır; kısa kalan dilim derlemesine girer (bkz.
+// de genel RSS de 70'le yazılır (0–100 ölçeği; 2026-10-17 site sahibinin kararıyla 3/5 → 3,5/5 = 70/100); kısa kalan dilim derlemesine girer (bkz.
 // havuz.mjs), altı yalnız bültende satır olur. Ücretli tek kaynak terfi etmez.
-export const TERFI_ESIGI = 3;
-export const RSS_TERFI_ESIGI = 3;
+export const TERFI_ESIGI = 70;
+export const RSS_TERFI_ESIGI = 70;
 export const terfiMi = (o) =>
   o.onem >= ((o.adaylar ?? []).some(olaylarModulu.resmiMi) ? TERFI_ESIGI : RSS_TERFI_ESIGI) && o.icerikli && !o.ucretliTek;
+const ARALIKLAR = [[90, 100, '90+'], [70, 89, '70-89'], [50, 69, '50-69'], [30, 49, '30-49'], [0, 29, '0-29']];
 // Log satırı: gruplamadan çıkan yeni olayların önem dağılımı ve terfi etmeme nedenleri (darboğaz görünsün diye).
 export function terfiOzeti(olaylar) {
   const say = (f) => olaylar.filter(f).length;
-  const dagilim = [5, 4, 3, 2, 1].map((n) => `${n}:${say((o) => (o.onem ?? 0) === n)}`).join(' ');
+  const dagilim = ARALIKLAR.map(([alt, ust, ad]) => `${ad}:${say((o) => (o.onem ?? 0) >= alt && (o.onem ?? 0) <= ust)}`).join(' ');
   const terfi = say(terfiMi);
   const ucretli = say((o) => o.ucretliTek);
   const iceriksiz = say((o) => !o.ucretliTek && !o.icerikli);

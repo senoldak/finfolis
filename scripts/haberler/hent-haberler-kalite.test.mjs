@@ -7,7 +7,7 @@ import path from 'node:path';
 import { calistir } from './hent-haberler.mjs';
 
 const simdi = new Date('2026-10-12T07:00:00Z'); // İstanbul 10:00, açılış dilimi
-const aday = (id, baslik, ek = {}) => ({ id, baslik, ozet: '', tarih: '2026-10-12T06:00:00Z', onem: 4, kategori: 'piyasalar', kaynakMetni: `Uzun tam metin ${id} `.repeat(5), kaynaklar: [{ ad: 'K', url: `https://k/${id}` }], ...ek });
+const aday = (id, baslik, ek = {}) => ({ id, baslik, ozet: '', tarih: '2026-10-12T06:00:00Z', onem: 80, kategori: 'piyasalar', kaynakMetni: `Uzun tam metin ${id} `.repeat(5), kaynaklar: [{ ad: 'K', url: `https://k/${id}` }], ...ek });
 const kaynak = (ad, liste) => ({ ad, hent: async () => liste });
 const bultenSahte = () => ({
   bultenGerekli: (n) => n >= 1,

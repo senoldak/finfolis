@@ -1,5 +1,5 @@
 // Merkez bankası duyuruları: Fed, ECB, BoJ (RSS) ve TCMB (PPK karar metni).
-// Faiz kararı onem 5, diğer para politikası duyuruları onem 3; geri kalanı atılır.
+// Faiz kararı onem 100, diğer para politikası duyuruları onem 60 (0–100 ölçeği); geri kalanı atılır.
 import { hentMetin } from '../lib.mjs';
 import { tcmbSonKarar } from '../piyasa-verisi.mjs';
 import { kaynakKapagi, rakamKapagi } from '../../kapak/kapak.mjs';
@@ -109,7 +109,7 @@ async function rssKaynagi(k, simdi) {
         id: `${k.kurum.toLowerCase()}:${o.url}`,
         baslik: o.baslik,
         tarih: o.tarih,
-        onem: tur === 'karar' ? 5 : 3,
+        onem: tur === 'karar' ? 100 : 60,
         kategori: tur === 'karar' ? 'piyasalar' : 'ekonomi',
         bolge: BOLGE[k.kurum],
         ucretli: false,
@@ -135,7 +135,7 @@ async function tcmbKaynagi(simdi) {
       id: `tcmb:${k.url}`,
       baslik: 'TCMB politika faizini açıkladı',
       tarih,
-      onem: 5,
+      onem: 100,
       kategori: 'piyasalar',
       bolge: 'kuresel',
       ucretli: false,

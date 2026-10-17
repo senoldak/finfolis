@@ -79,25 +79,25 @@ test('karar ve para politikası haberleri ayrışır, gerisi atılır', async ()
   const bul = (s) => adaylar.find((a) => a.id.includes(s));
 
   const fed = bul('monetary20261007a');
-  assert.equal(fed.onem, 5);
+  assert.equal(fed.onem, 100);
   assert.equal(fed.kategori, 'piyasalar');
   assert.equal(fed.tarih.toISOString(), '2026-10-07T18:00:00.000Z');
   assert.match(fed.kaynakMetni, /3-1\/2 to 3-3\/4 percent/);
   assert.equal(fed.kaynaklar[0].url, 'https://www.federalreserve.gov/newsevents/pressreleases/monetary20261007a.htm');
 
   const ecb = bul('ecb.mp261009');
-  assert.equal(ecb.onem, 5);
+  assert.equal(ecb.onem, 100);
   assert.match(ecb.kaynakMetni, /deposit facility will be decreased to 2\.00%/);
 
   const ecbHesap = bul('ecb.mg261008');
-  assert.equal(ecbHesap.onem, 3);
+  assert.equal(ecbHesap.onem, 60);
   assert.equal(ecbHesap.kategori, 'ekonomi');
 
-  assert.equal(bul('mpr_2026/k261009a').onem, 5); // BoJ karar bildirisi
-  assert.equal(bul('g260908').onem, 3); // BoJ tutanak
+  assert.equal(bul('mpr_2026/k261009a').onem, 100); // BoJ karar bildirisi
+  assert.equal(bul('g260908').onem, 60); // BoJ tutanak
 
   const tcmb = bul('duy2026-50');
-  assert.equal(tcmb.onem, 5);
+  assert.equal(tcmb.onem, 100);
   assert.match(tcmb.kaynakMetni, /yüzde 38,0/);
   assert.equal(tcmb.tarih.toISOString().slice(0, 10), '2026-10-08'); // 9 Ekim 00:00 +03:00
 

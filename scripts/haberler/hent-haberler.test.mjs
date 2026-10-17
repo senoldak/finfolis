@@ -6,7 +6,7 @@ import path from 'node:path';
 import { calistir } from './hent-haberler.mjs';
 
 const simdi = new Date('2026-10-12T09:00:00Z'); // Pazartesi
-const aday = (id, onem = 4, ek = {}) => ({ id, baslik: `Baslik ${id}`, tarih: '2026-10-12T08:00:00Z', onem, kategori: 'piyasalar', kaynakMetni: `Uzun tam metin ${id} `.repeat(5), kaynaklar: [{ ad: 'K', url: `https://k/${id}` }], ...ek });
+const aday = (id, onem = 80, ek = {}) => ({ id, baslik: `Baslik ${id}`, tarih: '2026-10-12T08:00:00Z', onem, kategori: 'piyasalar', kaynakMetni: `Uzun tam metin ${id} `.repeat(5), kaynaklar: [{ ad: 'K', url: `https://k/${id}` }], ...ek });
 const kaynak = (ad, liste) => ({ ad, hent: async () => liste });
 
 async function ortam(extra = {}) {
@@ -225,7 +225,7 @@ test('MAKS_HABER yoksa çalıştırma başına 8 haber; kalanlar görülmedi kal
 test('ücretli tek kaynaklı olay habere terfi etmez, bültende madde olur', async () => {
   const kayit = {};
   const { secenek } = await ortam({
-    kaynaklar: [kaynak('A', [aday('u1', 5, { ucretli: true }), aday('d1', 2), aday('d2', 2)])],
+    kaynaklar: [kaynak('A', [aday('u1', 100, { ucretli: true }), aday('d1', 40), aday('d2', 40)])],
     bulten: bultenSahte(kayit),
   });
   const s = await calistir(secenek);
@@ -238,7 +238,7 @@ test('ücretli tek kaynaklı olay habere terfi etmez, bültende madde olur', asy
 test('terfi eden olay bültende bizim linkimizle', async () => {
   const kayit = {};
   const { secenek } = await ortam({
-    kaynaklar: [kaynak('A', [aday('t1', 5), aday('d1', 2), aday('d2', 2)])],
+    kaynaklar: [kaynak('A', [aday('t1', 100), aday('d1', 40), aday('d2', 40)])],
     bulten: bultenSahte(kayit),
   });
   const s = await calistir(secenek);
@@ -250,7 +250,7 @@ test('terfi eden olay bültende bizim linkimizle', async () => {
 });
 
 test('eşik altında bülten yazılmazsa terfi etmeyen adaylar görülmedi kalır', async () => {
-  const { secenek } = await ortam({ kaynaklar: [kaynak('A', [aday('d1', 2)])], bulten: bultenSahte({}) });
+  const { secenek } = await ortam({ kaynaklar: [kaynak('A', [aday('d1', 40)])], bulten: bultenSahte({}) });
   await calistir(secenek);
   assert.equal(secenek.durum.gorulen.d1, undefined);
 });
@@ -259,8 +259,8 @@ test('ikinci çalıştırmada aynı olay yeni kaynakla gelirse yazı açılmaz',
   let tur = 0;
   const { secenek } = await ortam({
     kaynaklar: [
-      kaynak('A', [aday('a1', 4, { baslik: 'Brent oil jumps after OPEC output cut' })]),
-      { ad: 'B', hent: async () => (tur === 0 ? [] : [aday('b1', 4, { baslik: 'OPEC output cut sends Brent higher' })]) },
+      kaynak('A', [aday('a1', 80, { baslik: 'Brent oil jumps after OPEC output cut' })]),
+      { ad: 'B', hent: async () => (tur === 0 ? [] : [aday('b1', 80, { baslik: 'OPEC output cut sends Brent higher' })]) },
     ],
     // ikinci çalıştırmada b1 hafızadaki a1 ile eşleşir (gruplama istemine yalnız ortak kelimeli hafıza gider)
     gemini: async ({ istem }) => (istem.includes('[a1]') ? { gruplar: [[0]], eslesen: [{ aday: 0, hafiza: 'a1' }] } : { gruplar: [] }),
@@ -273,7 +273,7 @@ test('ikinci çalıştırmada aynı olay yeni kaynakla gelirse yazı açılmaz',
 });
 
 test('yeni kaynağın ilk çalıştırmasında yalnızca en yeni 2 aday', async () => {
-  const t = (id, saat) => aday(id, 4, { tarih: `2026-10-12T0${saat}:00:00Z` });
+  const t = (id, saat) => aday(id, 80, { tarih: `2026-10-12T0${saat}:00:00Z` });
   const { secenek } = await ortam({ kaynaklar: [kaynak('Taze', [t('e1', 1), t('e3', 3), t('e2', 2), t('e4', 4)])] });
   const s = await calistir(secenek);
   assert.equal(s.adet, 2);
@@ -316,19 +316,19 @@ test('çalıştırma bütçesi aşılınca kalan olaylar görülmedi kalır', as
 
 test('bültene giren bekleyen (deneme) aday görüldü olur, sonraki bültene girmez', async () => {
   const kayit = {};
-  const { secenek } = await ortam({ kaynaklar: [kaynak('A', [aday('p1', 2), aday('d1', 2), aday('d2', 2)])], bulten: bultenSahte(kayit) });
+  const { secenek } = await ortam({ kaynaklar: [kaynak('A', [aday('p1', 40), aday('d1', 40), aday('d2', 40)])], bulten: bultenSahte(kayit) });
   secenek.durum.gorulen.p1 = { zaman: simdi.toISOString(), deneme: 1 };
   await calistir(secenek);
   assert.equal(secenek.durum.gorulen.p1.deneme, undefined);
   kayit.olaylar = undefined;
-  secenek.kaynaklar = [kaynak('A', [aday('p1', 2), aday('n1', 2), aday('n2', 2)])];
+  secenek.kaynaklar = [kaynak('A', [aday('p1', 40), aday('n1', 40), aday('n2', 40)])];
   await calistir(secenek);
   assert.ok(!(kayit.olaylar ?? []).some((o) => o.id === 'p1'));
 });
 
 test('bultenYaz hata verirse adaylar görülmedi kalır', async () => {
   const { secenek } = await ortam({
-    kaynaklar: [kaynak('A', [aday('d1', 2), aday('d2', 2), aday('d3', 2)])],
+    kaynaklar: [kaynak('A', [aday('d1', 40), aday('d2', 40), aday('d3', 40)])],
     bulten: { bultenGerekli: (n) => n >= 3, bultenYaz: async () => { throw new Error('bozuk'); } },
   });
   const s = await calistir(secenek);
@@ -351,7 +351,7 @@ test('tavan yüzünden yazılmayan olay bültende yok ve eşiğe sayılmaz', asy
   const kayit = {};
   const b = bultenSahte(kayit);
   const { secenek } = await ortam({
-    kaynaklar: [kaynak('A', [aday('a1', 5), aday('a2', 4), aday('d1', 2), aday('d2', 2)])],
+    kaynaklar: [kaynak('A', [aday('a1', 100), aday('a2', 80), aday('d1', 40), aday('d2', 40)])],
     maksHaber: 1,
     bulten: { ...b, bultenGerekli: (n) => ((sayi = n), n >= 3) },
   });
@@ -385,7 +385,7 @@ test('kaynak bütçesi (8 dk) dolunca yeni kaynak başlatılmaz', async () => {
 test('gruplama hatasında terfi ve bülten yapılmaz, adaylar görülmedi kalır', async () => {
   let bultenCagrildi = false;
   const { secenek } = await ortam({
-    kaynaklar: [kaynak('A', [aday('a1'), aday('d1', 2), aday('d2', 2), aday('d3', 2)])],
+    kaynaklar: [kaynak('A', [aday('a1'), aday('d1', 40), aday('d2', 40), aday('d3', 40)])],
     gemini: async () => null,
     bulten: { bultenGerekli: () => true, bultenYaz: async () => ((bultenCagrildi = true), null) },
   });
@@ -404,7 +404,7 @@ test('gruplama hatasında terfi ve bülten yapılmaz, adaylar görülmedi kalır
 test('bülten tavanı aşan olaylar bülten yazılınca görüldü sayılır; bültene butceBitti verilir', async () => {
   let secenekler;
   const { secenek } = await ortam({
-    kaynaklar: [kaynak('A', [aday('d1', 2), aday('d2', 2), aday('d3', 2), aday('d4', 2)])],
+    kaynaklar: [kaynak('A', [aday('d1', 40), aday('d2', 40), aday('d3', 40), aday('d4', 40)])],
     bulten: {
       bultenGerekli: () => true,
       bultenYaz: async (ol, _p, s) => ((secenekler = s), {
@@ -424,7 +424,7 @@ test('bütçe bittiyse bultenYaz çağrılmaz', async () => {
   let t = 0;
   let cagri = false;
   const { secenek } = await ortam({
-    kaynaklar: [kaynak('A', [aday('a1'), aday('d1', 2), aday('d2', 2), aday('d3', 2)])],
+    kaynaklar: [kaynak('A', [aday('a1'), aday('d1', 40), aday('d2', 40), aday('d3', 40)])],
     saat: () => t,
     yaz: async (a) => ((t += 19 * 60_000), { baslik: a.baslik, spot: 's', govde: 'g' }),
     bulten: { bultenGerekli: () => true, bultenYaz: async () => ((cagri = true), null) },
@@ -434,8 +434,8 @@ test('bütçe bittiyse bultenYaz çağrılmaz', async () => {
   assert.equal(secenek.durum.gorulen.d1, undefined);
 });
 
-test('genel RSS: önemi 3 olan içerikli olay habere terfi eder, 2 olan etmez', async () => {
-  const { secenek } = await ortam({ kaynaklar: [kaynak('A', [aday('u3', 3), aday('d2', 2)])] });
+test('genel RSS: önemi 70 olan içerikli olay habere terfi eder, 69 olan etmez', async () => {
+  const { secenek } = await ortam({ kaynaklar: [kaynak('A', [aday('u3', 70), aday('d2', 69)])] });
   const s = await calistir(secenek);
   assert.equal(s.adet, 1);
 });
@@ -470,8 +470,8 @@ test('karneler Gemini olmadan yazılır, sayılır; karne hatası çalıştırma
 test('gruplamanın kaçırdığı aynı makro olay ikinci kez yazılmaz', async () => {
   const { secenek } = await ortam({
     kaynaklar: [
-      kaynak('A', [aday('c', 4, { baslik: 'UK economy grew 0.1% in August, beating expectations' })]),
-      kaynak('B', [aday('g', 4, { baslik: 'Tech stock sell-off intensifies; UK growth beats forecasts in August – business live', kaynakMetni: 'Canlı yayın metni '.repeat(20) })]),
+      kaynak('A', [aday('c', 80, { baslik: 'UK economy grew 0.1% in August, beating expectations' })]),
+      kaynak('B', [aday('g', 80, { baslik: 'Tech stock sell-off intensifies; UK growth beats forecasts in August – business live', kaynakMetni: 'Canlı yayın metni '.repeat(20) })]),
     ],
   });
   const s = await calistir(secenek);
@@ -488,7 +488,7 @@ test('Gemini tur payı bittiyse haber yazılmaz, olay görülmedi kalır; bülte
   try {
     const kayit = {};
     const { secenek } = await ortam({
-      kaynaklar: [kaynak('A', [aday('t1', 5), aday('d1', 2), aday('d2', 2), aday('d3', 2)])],
+      kaynaklar: [kaynak('A', [aday('t1', 100), aday('d1', 40), aday('d2', 40), aday('d3', 40)])],
       bulten: bultenSahte(kayit),
     });
     const s = await calistir(secenek);

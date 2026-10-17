@@ -41,7 +41,7 @@ export function alanAdi(s) {
   return m ? m[1].toLowerCase().replace(/^www\./, '') : null;
 }
 
-// Son 24 saatteki bir ipucuyla en az 2 anlamlı kelime paylaşan adaya +1 önem (en fazla 5).
+// Son 24 saatteki bir ipucuyla en az 2 anlamlı kelime paylaşan adaya +20 önem (0–100 ölçeğinde, en fazla 100).
 // Adayla aynı siteden gelen ipucu sayılmaz: bir besleme hem aday hem ipucu olursa kendi kendini onaylardı.
 export function onemArtir(adaylar, ipuclari, simdi = new Date()) {
   const sinir = simdi.getTime() - 24 * 3600 * 1000;
@@ -50,6 +50,6 @@ export function onemArtir(adaylar, ipuclari, simdi = new Date()) {
     const k = anahtarlar(a.baslik);
     const alan = a.alan ?? alanAdi(a.id);
     const eslesir = taze.some((t) => !(alan && t.alan === alan) && [...t.k].filter((w) => k.has(w)).length >= 2);
-    return eslesir ? { ...a, onem: Math.min(5, (a.onem ?? 0) + 1) } : a;
+    return eslesir ? { ...a, onem: Math.min(100, (a.onem ?? 0) + 20) } : a;
   });
 }

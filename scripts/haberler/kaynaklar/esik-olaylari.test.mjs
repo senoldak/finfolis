@@ -94,7 +94,7 @@ test('aday: kimlik, kaynak metni rakamları ve Türkçe yazılmış cümle doğr
   const a = adayYap(o, BIST, seri);
   assert.equal(a.id, `esik:bist100:dusus-20:${seri[z].tarih}`);
   assert.equal(a.kategori, 'borsa');
-  assert.equal(a.onem, 4);
+  assert.equal(a.onem, 80);
   assert.match(a.baslik, /yüzde 20'nin üzerinde geriledi/);
   assert.match(a.kaynakMetni, /ayı piyasası/);
   const cumle = `BIST 100 11.947,20 puandan kapandı ve 15.133,50 puanlık zirvesinin yüzde 21,1 altına indi. Zirveden yüzde 20 ve üzeri düşüşe ayı piyasası denir.`;

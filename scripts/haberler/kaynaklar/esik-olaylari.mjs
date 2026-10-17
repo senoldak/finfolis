@@ -351,7 +351,7 @@ export function adayYap(o, e, seri) {
     id: `esik:${e.id}:${kisa}:${kimlik}`,
     baslik,
     tarih: new Date(`${son.tarih}T00:00:00+03:00`),
-    onem: 4,
+    onem: 80,
     kategori: e.kategori,
     bolge: e.bolge,
     ucretli: false,

@@ -13,11 +13,11 @@ const AZAMI_BAYT = 300_000; // belgenin yalnızca başı okunur; kapak sayfasın
 const ARA_MS = 150;
 
 const FORMLAR = [
-  { tur: 'S-1', onem: 3 },
-  { tur: 'F-1', onem: 3 },
-  { tur: '424B4', onem: 4 },
-  { tur: 'N-1A', onem: 2 },
-  { tur: '485APOS', onem: 2 },
+  { tur: 'S-1', onem: 60 },
+  { tur: 'F-1', onem: 60 },
+  { tur: '424B4', onem: 80 },
+  { tur: 'N-1A', onem: 40 },
+  { tur: '485APOS', onem: 40 },
 ];
 const beslemeUrl = (tur) => `https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=${encodeURIComponent(tur)}&count=40&output=atom`;
 
@@ -126,7 +126,7 @@ async function adayla(g, form) {
       id: `sec:${acc}`,
       baslik: baslikOlustur(form.tur, sirket, tip === 'etf'),
       tarih: g.tarih,
-      onem: tip === 'etf' ? 2 : form.onem,
+      onem: tip === 'etf' ? 40 : form.onem,
       kategori: 'borsa',
       bolge: 'abd',
       ucretli: false,

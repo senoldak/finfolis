@@ -40,7 +40,7 @@ test('açık kaynak: tam metin çekilir', async () => {
   assert.ok(!a.id.includes('example'));
   assert.equal(a.alan, 'haber.example.com');
   assert.deepEqual(a.gizliKaynaklar, [{ ad: 'Örnek Haber', url: 'https://haber.example.com/2026/10/09/stocks-rally.html' }]);
-  assert.equal(a.onem, 2);
+  assert.equal(a.onem, 40);
 });
 
 test('ücretli kaynak: makale sayfası istenmez', async () => {

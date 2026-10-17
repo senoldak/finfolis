@@ -6,7 +6,7 @@ const piyasa = { gostergeler: [{ id: 'dolar', ad: 'Dolar / TL', deger: 41.2, deg
 const simdi = new Date('2026-10-11T11:00:00Z'); // İstanbul 14:00
 
 const olay = (id, bolge, kaynakMetni = 'Fed held rates at 4.25 percent.', ek = {}) => ({
-  id, baslik: `Olay ${id}`, bolge, onem: 5, kategori: 'piyasalar', tarih: '2026-10-11T10:00:00Z',
+  id, baslik: `Olay ${id}`, bolge, onem: 100, kategori: 'piyasalar', tarih: '2026-10-11T10:00:00Z',
   adaylar: [], kaynakMetni, kaynaklar: [{ ad: 'Kaynak', url: `https://k.test/${id}` }], ucretliTek: false, icerikli: true, ...ek,
 });
 
@@ -126,7 +126,7 @@ test('etiketi olmayan ya da etiketi doğrulanamayan madde düşer', async () => 
 test(`en fazla ${BULTEN_AZAMI} madde: önem, sonra tarih sırasıyla`, async () => {
   assert.equal(BULTEN_AZAMI, 12);
   const olaylar = Array.from({ length: 15 }, (_, i) =>
-    olay(`o${i}`, 'abd', undefined, { onem: i < 3 ? 1 : 3, tarih: `2026-10-11T${String(i % 10).padStart(2, '0')}:00:00Z` }));
+    olay(`o${i}`, 'abd', undefined, { onem: i < 3 ? 20 : 60, tarih: `2026-10-11T${String(i % 10).padStart(2, '0')}:00:00Z` }));
   let gonderilen;
   const gemini = async ({ sema, istem }) => {
     if (sema.properties.onay) return { onay: true, sorunlar: [] };

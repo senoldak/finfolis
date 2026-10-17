@@ -6,7 +6,7 @@ import { onemArtir } from './ipucu.mjs';
 test('ipucu metni yazarın istemine asla girmez', async () => {
   const ipucuMetni = 'Anadolu Ajansı özel: piyasalarda büyük panik yaşandı';
   const [aday] = onemArtir(
-    [{ id: 'x', baslik: 'Fed faiz kararı', onem: 3, kategori: 'Merkez bankaları', kaynakMetni: 'The Fed kept rates at 4.25 percent.', kaynaklar: [{ ad: 'Fed', url: 'https://fed' }] }],
+    [{ id: 'x', baslik: 'Fed faiz kararı', onem: 60, kategori: 'Merkez bankaları', kaynakMetni: 'The Fed kept rates at 4.25 percent.', kaynaklar: [{ ad: 'Fed', url: 'https://fed' }] }],
     [{ baslik: 'Fed faiz kararı ' + ipucuMetni, tarih: new Date() }],
   );
   const alinan = [];

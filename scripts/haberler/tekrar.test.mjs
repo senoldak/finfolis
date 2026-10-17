@@ -7,7 +7,7 @@ import { ayniOlay, iz, adlar, rakamlar, tekrarBul, hafizayaEkle, hafizaTohumla, 
 
 const simdi = new Date('2026-10-14T12:00:00Z');
 const aday = (baslik, ozet = '') => ({ id: `x:${baslik}`, baslik, ozet });
-const olay = (id, ...adaylar) => ({ id, baslik: adaylar[0].baslik, onem: 3, adaylar });
+const olay = (id, ...adaylar) => ({ id, baslik: adaylar[0].baslik, onem: 60, adaylar });
 const kayit = (slug, adaylar, saatOnce = 5) => ({
   slug,
   baslik: adaylar[0].baslik,
@@ -76,8 +76,8 @@ test('hafizayaEkle: yazılan olaylar eklenir, süresi dolanlar atılır, aynı s
 test('tekrarlariAyikla: hafızadakiyle ve aynı çalıştırmadaki kopyayla eşleşen çıkarılır', () => {
   const liste = [
     olay('fr2', aday('Hackers heat French supermarket fridges, sparking fires and spoiling food')),
-    { ...olay('ionq2', aday('IonQ to acquire cybersecurity firm Elisity in an all-stock deal for up to $1.3 billion')), onem: 4 },
-    { ...olay('ionq3', aday('IonQ to buy cybersecurity firm Elisity in up to $1.3 billion deal')), onem: 2 },
+    { ...olay('ionq2', aday('IonQ to acquire cybersecurity firm Elisity in an all-stock deal for up to $1.3 billion')), onem: 80 },
+    { ...olay('ionq3', aday('IonQ to buy cybersecurity firm Elisity in up to $1.3 billion deal')), onem: 40 },
     olay('baska', aday('Copper prices climb on supply worries')),
   ];
   const hafiza = [kayit('fransa', [aday('Hackers heat French supermarket fridges, sparking fires and food losses')])];

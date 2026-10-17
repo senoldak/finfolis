@@ -32,7 +32,10 @@ export function havuzAc(kayitlar = []) {
       continue;
     }
     try {
-      acik.push({ ...coz(k.sifreli), havuzaGirdi: k.havuzaGirdi, sifreli: k.sifreli });
+      const o = coz(k.sifreli);
+      // 2026-10-17 öncesi kayıtlar 1–5 ölçeğinde; 0–100'e çevrilir.
+      if (o.onem > 0 && o.onem <= 5) o.onem *= 20;
+      acik.push({ ...o, havuzaGirdi: k.havuzaGirdi, sifreli: k.sifreli });
     } catch {
       // çözülemeyen kayıt (anahtar değişti) düşer
     }

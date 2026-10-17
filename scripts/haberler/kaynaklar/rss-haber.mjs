@@ -26,7 +26,7 @@ function ogeler(xml) {
 
 // Resmi olmayan beslemenin adı ve adresi kimliklere, loglara ve durum dosyasına girmez: kısa kod ve anahtarlı
 // özet kullanılır. Gerçek ad ve bağlantı yalnızca gizliKaynaklar'da taşınır, haberde şifreli kaynakIzi olur.
-export function rssHaberKaynagi({ ad: gercekAd, rss, bolge, ucretli, kategori, onem = 2, resmi = false }) {
+export function rssHaberKaynagi({ ad: gercekAd, rss, bolge, ucretli, kategori, onem = 40, resmi = false }) {
   const ad = resmi ? gercekAd : kaynakKodu(gercekAd);
   const kimlik = (url) => (resmi ? `${ad}:${url}` : `${ad}:${ozet(url)}`);
   const alan = (url) => {

@@ -51,7 +51,7 @@ test('halka arz adayları: kanıt şartı, etiketli tutar, ETF kotası', async (
   const bul = (acc) => adaylar.find((a) => a.id === `sec:${acc}`);
 
   const s1 = bul('0001234567-26-000001');
-  assert.equal(s1.onem, 3);
+  assert.equal(s1.onem, 60);
   assert.equal(s1.kategori, 'borsa');
   assert.match(s1.baslik, /Acme Robotics.*halka arz/);
   assert.doesNotMatch(s1.kaynakMetni.split('\n')[0], /Offering size/); // kapak/özet rakam taşımaz
@@ -60,7 +60,7 @@ test('halka arz adayları: kanıt şartı, etiketli tutar, ETF kotası', async (
   assert.equal((await kapakCiz(s1.kapak)).subarray(1, 4).toString(), 'PNG');
 
   const fiyatli = bul('0001683168-26-007757');
-  assert.equal(fiyatli.onem, 4);
+  assert.equal(fiyatli.onem, 80);
   assert.doesNotMatch(fiyatli.kapakAlt, /teklif büyüklüğü/);
 
   // Tutarı olmayan halka arz yine aday olur, ama tutar etiketi ve rakamı yoktur.
@@ -75,7 +75,7 @@ test('halka arz adayları: kanıt şartı, etiketli tutar, ETF kotası', async (
 
   // ETF: adı olan, belgesi ETF diyen fon başvurusu; teklif büyüklüğü sözü yok. Klasik fon elenir.
   const etf = bul('0002222222-26-000004');
-  assert.equal(etf.onem, 2);
+  assert.equal(etf.onem, 40);
   assert.match(etf.baslik, /Alpha Growth ETF Trust.*ETF/);
   assert.doesNotMatch(etf.baslik + etf.kapakAlt + etf.kaynakMetni.split('\n')[0], /teklif|Offering size/);
   assert.equal((await kapakCiz(etf.kapak)).subarray(1, 4).toString(), 'PNG');
@@ -110,8 +110,8 @@ test('ETF kotası halka arz sınırından ayrıdır: 5 halka arz + en fazla 2 ET
     'doc.htm': '<p>Our initial public offering. Gross proceeds of $50,000,000.</p>',
   });
   const adaylar = await sec.hent({ simdi: SIMDI });
-  assert.equal(adaylar.filter((a) => a.onem === 2).length, 2);
-  assert.equal(adaylar.filter((a) => a.onem === 3).length, 5);
+  assert.equal(adaylar.filter((a) => a.onem === 40).length, 2);
+  assert.equal(adaylar.filter((a) => a.onem === 60).length, 5);
   assert.equal(new Set(adaylar.map((a) => a.id)).size, 7);
 });
 
@@ -141,6 +141,6 @@ test('halka arz S-1 belgesinde "ETFs" geçmesi onu ETF yapmaz; "ETFs\'e yatırı
   });
   const adaylar = await sec.hent({ simdi: SIMDI });
   assert.equal(adaylar.length, 1);
-  assert.equal(adaylar[0].onem, 3);
+  assert.equal(adaylar[0].onem, 60);
   assert.doesNotMatch(adaylar[0].kaynakMetni.split('\n')[0], /Offering size/);
 });

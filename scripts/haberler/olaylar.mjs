@@ -1,6 +1,6 @@
 // Olay gruplama: aynı olayı anlatan adayları tek olaya birleştirir, 7 günlük olay hafızasıyla eşler.
-// Aynı çağrıda her adaya haber değeri puanı (1-5) verilir; olayın önemi kaynağın önemiyle puanın büyüğüdür.
-// Böylece genel RSS adayları (kaynak önemi 2) da büyük bir gelişmeyse kısa habere terfi edebilir.
+// Aynı çağrıda her adaya haber değeri puanı (1–100) verilir; olayın önemi kaynağın önemiyle puanın büyüğüdür.
+// Böylece genel RSS adayları (kaynak önemi 40/100) da büyük bir gelişmeyse kısa habere terfi edebilir.
 import { gemini as varsayilanGemini } from './lib.mjs';
 import { RESMI_BESLEMELER } from './kaynaklar/resmi-beslemeler.mjs';
 
@@ -34,13 +34,14 @@ const SEMA = {
 const SISTEM = `Sen bir haber editörüsün. Aynı olayı anlatan haber adaylarını gruplar, ayrıca daha önce işlenmiş olaylarla eşleştirirsin.
 Kural: aynı kurumun yeni bir belgesi ya da yeni bir rakamı (karar -> tutanak, veri -> revizyon) YENİ olaydır; aynı konuyla ilgili olsa bile eski olayla eşleştirme ve aynı gruba koyma.
 Yalnızca aynı gelişmeyi anlatan adayları grupla.
-Her adaya finfolis'in (Türk okura dünya piyasalarını anlatan finans sitesi) okuru için haber değeri puanı ver (onem).
-Ölçüt piyasa ve ekonomi etkisidir: piyasalarla, şirket finansıyla, makro ekonomiyle ya da yatırımcıyla ilgisi zayıf haberler (tüketici ürünü tanıtımı, otomobil modeli, kültür, banknot tasarımı, tatbikat, genel siyaset) en fazla 1 alır.
-5 = piyasayı oynatan büyük gelişme (faiz kararı, enflasyon/istihdam verisi, büyük kriz);
-4 = önemli gelişme (büyük şirket bilançosu, milyar dolarlık birleşme/satın alma, büyük halka arz, önemli makro veri ya da düzenleme);
-3 = kendi başına kısa haber olmaya değer, rakamlı somut gelişme (şirket haberi, sektör verisi, emtia/kur hareketi, merkez bankası açıklaması);
-2 = rutin ya da küçük gelişme (bültende bir satır yeter);
-1 = haber değeri yok (yorum, tanıtım, liste, etkinlik).`;
+Her adaya finfolis'in (Türk okura dünya piyasalarını anlatan finans sitesi) okuru için 1–100 arası haber değeri puanı ver (onem).
+Ölçüt piyasa ve ekonomi etkisidir: piyasalarla, şirket finansıyla, makro ekonomiyle ya da yatırımcıyla ilgisi zayıf haberler (tüketici ürünü tanıtımı, otomobil modeli, kültür, banknot tasarımı, tatbikat, genel siyaset) en fazla 20 alır.
+90–100 = piyasayı oynatan büyük gelişme (faiz kararı, enflasyon/istihdam verisi, büyük kriz);
+70–89 = önemli gelişme (büyük şirket bilançosu, milyar dolarlık birleşme/satın alma, büyük halka arz, önemli makro veri ya da düzenleme);
+50–69 = kendi başına kısa haber olmaya değer, rakamlı somut gelişme (şirket haberi, sektör verisi, emtia/kur hareketi, merkez bankası açıklaması);
+30–49 = rutin ya da küçük gelişme (bültende bir satır yeter);
+1–29 = haber değeri yok (yorum, tanıtım, liste, etkinlik).
+Aralığın içinde ince ayar yap. 70 ve üstü ayrı haber olarak yayımlanır, altı yalnız bültende satır olur: emin değilsen 70 verme.`;
 
 // Katman 2 (Gemini kota planı): gruplama istemi eskiden bütün 7 günlük hafızayı taşıyordu (~1.000 kayıt, ~50 bin
 // token). Artık yalnız adaylarla en az iki ayırt edici kelime paylaşan kayıtlar gider; 7 günlük koruma sürer.
@@ -140,10 +141,10 @@ ${ilgili.length ? ilgili.map((h) => `[${h.id}] ${String(h.ozet ?? '').slice(0, H
     if (Number.isInteger(e?.aday) && adaylar[e.aday] && hafizaIdleri.has(e.hafiza)) bilinenIdx.add(e.aday);
   }
 
-  // Puan yalnızca önemi yükseltir; 1-5 dışındaki puanlar yok sayılır.
+  // Puan yalnızca önemi yükseltir; 1–100 dışındaki puanlar yok sayılır.
   const puanli = adaylar.map((a) => ({ ...a }));
   for (const p of Array.isArray(r?.puanlar) ? r.puanlar : []) {
-    if (Number.isInteger(p?.aday) && puanli[p.aday] && Number.isInteger(p.onem) && p.onem >= 1 && p.onem <= 5) {
+    if (Number.isInteger(p?.aday) && puanli[p.aday] && Number.isInteger(p.onem) && p.onem >= 1 && p.onem <= 100) {
       puanli[p.aday].onem = Math.max(puanli[p.aday].onem ?? 0, p.onem);
     }
   }

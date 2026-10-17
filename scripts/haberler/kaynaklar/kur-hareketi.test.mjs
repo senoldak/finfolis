@@ -27,7 +27,7 @@ test('yüzde 1,5 ve üzeri günlük kur hareketi aday olur', async () => {
   // brl +2,0 ve euro -1,5 aday; yen 1,4 eşik altı; dolar küçük; faiz kur değil.
   assert.deepEqual(adaylar.map((a) => a.id).sort(), ['kur:brl:2026-10-09', 'kur:euro:2026-10-09', 'kur:usdjpy:2026-10-09']);
   const brl = adaylar.find((a) => a.id === 'kur:brl:2026-10-09');
-  assert.equal(brl.onem, 4);
+  assert.equal(brl.onem, 80);
   assert.equal(brl.kategori, 'doviz');
   assert.match(brl.baslik, /Brezilya reali/);
   assert.match(brl.kaynakMetni, /7\.8123/);
@@ -44,7 +44,7 @@ test('USD/JPY çaprazı yuvarlanmamış Frankfurter verisinden hesaplanır', asy
   assert.equal(adaylar.length, 1);
   const a = adaylar[0];
   assert.equal(a.id, 'kur:usdjpy:2026-10-09');
-  assert.equal(a.onem, 4);
+  assert.equal(a.onem, 80);
   assert.match(a.baslik, /USD\/JPY günde yüzde 2,0 yükseldi/);
   assert.match(a.kaynakMetni, /158\.2000/);
   assert.match(a.kaynakMetni, /155\.1000/);

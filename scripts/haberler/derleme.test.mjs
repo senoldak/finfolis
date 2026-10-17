@@ -12,7 +12,7 @@ import { havuzAc, havuzKapat, SON_SAAT } from './havuz.mjs';
 
 const simdi = new Date('2026-10-12T07:00:00Z'); // İstanbul 10:00, açılış dilimi; öğle 09:00Z'de başlar
 const GIRIS = '2026-10-12T06:30:00Z'; // açılış dilimi
-const olay = (id, kategori, onem = 4, havuzaGirdi = GIRIS) => ({
+const olay = (id, kategori, onem = 80, havuzaGirdi = GIRIS) => ({
   id,
   baslik: `Başlık ${id}`,
   kategori,
@@ -61,7 +61,7 @@ async function ortam(extra = {}) {
   const rot = await mkdtemp(path.join(os.tmpdir(), 'hbd-'));
   await mkdir(path.join(rot, 'src/data'), { recursive: true });
   await mkdir(path.join(rot, 'src/content/haberler'), { recursive: true });
-  const aday = (id, baslik, kategori = 'piyasalar') => ({ id, baslik, ozet: '', tarih: '2026-10-12T06:00:00Z', onem: 4, kategori, kaynakMetni: `Uzun tam metin ${id} `.repeat(5), kaynaklar: [{ ad: 'K', url: `https://k/${id}` }] });
+  const aday = (id, baslik, kategori = 'piyasalar') => ({ id, baslik, ozet: '', tarih: '2026-10-12T06:00:00Z', onem: 80, kategori, kaynakMetni: `Uzun tam metin ${id} `.repeat(5), kaynaklar: [{ ad: 'K', url: `https://k/${id}` }] });
   return {
     rot,
     simdi,
