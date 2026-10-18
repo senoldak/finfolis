@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { olaylariGrupla, hafizaGuncelle, ayniMakroOlay, mukerrerBul, ilgiliHafiza, resmiMi } from './olaylar.mjs';
+import { olaylariGrupla, hafizaGuncelle, ayniMakroOlay, mukerrerBul, ilgiliHafiza, resmiMi, gruplamaSurumu } from './olaylar.mjs';
 import { RESMI_BESLEMELER } from './kaynaklar/resmi-beslemeler.mjs';
 
 const aday = (id, o = {}) => ({
@@ -212,4 +212,58 @@ test('resmiMi: merkez bankası modülleri ve resmi beslemeler resmi, gizli kodla
   for (const b of RESMI_BESLEMELER) assert.ok(resmiMi({ id: `${b.ad}:https://ornek.example.com/x` }), b.ad);
   assert.ok(!resmiMi({ id: 'k1a2b3c:0123456789abcdef' }));
   assert.ok(!resmiMi({ id: 'Dallas Fedx:https://ornek.example.com/x' }));
+});
+
+test('önbellek: aynı adaylar ikinci turda çağrısız aynı gruplara ve puana çözülür', async () => {
+  const onbellek = {};
+  let cagri = 0;
+  const g = async () => (cagri++, { gruplar: [[0, 1], [2]], puanlar: [{ aday: 0, onem: 75 }, { aday: 1, onem: 40 }, { aday: 2, onem: 30 }] });
+  const adaylar = () => [aday('a', { onem: 20 }), aday('b', { onem: 20 }), aday('c', { onem: 20 })];
+  const ilk = await olaylariGrupla(adaylar(), [], { gemini: g, onbellek });
+  const ikinci = await olaylariGrupla(adaylar(), [], { gemini: g, onbellek });
+  assert.equal(cagri, 1);
+  assert.equal(ikinci.onbellekten, true);
+  assert.deepEqual(ikinci.yeni.map((o) => [o.id, o.onem, o.adaylar.length]), ilk.yeni.map((o) => [o.id, o.onem, o.adaylar.length]));
+  assert.equal(ikinci.yeni[0].onem, 75);
+});
+
+test('önbellek: yeni aday varsa çağrı tüm adaylarla yapılır', async () => {
+  const onbellek = {};
+  let istemler = [];
+  const g = async ({ istem }) => (istemler.push(istem), { gruplar: [[0], [1]], puanlar: [] });
+  await olaylariGrupla([aday('a')], [], { gemini: g, onbellek });
+  await olaylariGrupla([aday('a'), aday('b')], [], { gemini: g, onbellek });
+  assert.equal(istemler.length, 2);
+  assert.match(istemler[1], /Başlık a/);
+  assert.match(istemler[1], /Başlık b/);
+});
+
+test('önbellek: 3 günden eski kayıt sorulur ve temizlenir', async () => {
+  const onbellek = {};
+  let cagri = 0;
+  const g = async () => (cagri++, { gruplar: [[0]], puanlar: [] });
+  const t0 = new Date('2026-10-11T10:00:00Z');
+  await olaylariGrupla([aday('a')], [], { gemini: g, onbellek, simdi: t0 });
+  await olaylariGrupla([aday('a')], [], { gemini: g, onbellek, simdi: new Date(t0.getTime() + 2 * 864e5) });
+  assert.equal(cagri, 1);
+  await olaylariGrupla([aday('a')], [], { gemini: g, onbellek, simdi: new Date(t0.getTime() + 4 * 864e5) });
+  assert.equal(cagri, 2);
+});
+
+test('önbellek: istem sürümü ya da eşik eki değişince boşalır', async () => {
+  const onbellek = {};
+  let cagri = 0;
+  const g = async () => (cagri++, { gruplar: [[0]], puanlar: [] });
+  await olaylariGrupla([aday('a')], [], { gemini: g, onbellek, surumEki: 'esik70' });
+  await olaylariGrupla([aday('a')], [], { gemini: g, onbellek, surumEki: 'esik70' });
+  assert.equal(cagri, 1);
+  await olaylariGrupla([aday('a')], [], { gemini: g, onbellek, surumEki: 'esik60' });
+  assert.equal(cagri, 2);
+  assert.notEqual(gruplamaSurumu('x'), gruplamaSurumu('y'));
+});
+
+test('önbellek: gruplama başarısızsa (null) kayıt yazılmaz', async () => {
+  const onbellek = {};
+  await olaylariGrupla([aday('a')], [], { gemini: async () => null, onbellek });
+  assert.deepEqual(onbellek.kayitlar, {});
 });

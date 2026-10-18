@@ -184,6 +184,7 @@ export async function calistir({
   durum.gorulen ??= {};
   durum.sonBulten ??= null;
   durum.kaynaklar ??= {};
+  durum.olayOnbellek ??= {}; // gruplama + puan önbelleği (olaylar.mjs)
   durum.olaylar = hafizaAc(durum.olaylar ?? []);
   // Tekrar hafızası boşsa son 72 saatin yayımlanmış haberlerinden tohumlanır (tekrar.mjs).
   durum.yayinlar = yayinAc(durum.yayinlar ?? []);
@@ -263,7 +264,7 @@ export async function calistir({
 
   // 4. Olay gruplama; hafızadaki olayla eşleşen adaylar yazılmadan görüldü sayılır.
   const temiz = adaylar.map(({ _kaynak, ...a }) => a);
-  const { yeni, bilinen, grupHatasi } = await olaylar.olaylariGrupla(temiz, durum.olaylar, { gemini });
+  const { yeni, bilinen, grupHatasi } = await olaylar.olaylariGrupla(temiz, durum.olaylar, { gemini, onbellek: durum.olayOnbellek, surumEki: `esik${TERFI_ESIGI}/${RSS_TERFI_ESIGI}`, simdi });
   if (grupHatasi) {
     // Gruplama yoksa mükerrer yayın riski: terfi ve bülten atlanır, adaylar görülmedi kalır.
     hatalar.push('olay gruplama başarısız; terfi ve bülten sonraki çalıştırmaya kaldı');

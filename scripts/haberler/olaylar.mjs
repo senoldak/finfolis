@@ -1,6 +1,7 @@
 // Olay gruplama: aynı olayı anlatan adayları tek olaya birleştirir, 7 günlük olay hafızasıyla eşler.
 // Aynı çağrıda her adaya haber değeri puanı (1–100) verilir; olayın önemi kaynağın önemiyle puanın büyüğüdür.
 // Böylece genel RSS adayları (kaynak önemi 40/100) da büyük bir gelişmeyse kısa habere terfi edebilir.
+import { createHash } from 'node:crypto';
 import { gemini as varsayilanGemini } from './lib.mjs';
 import { RESMI_BESLEMELER } from './kaynaklar/resmi-beslemeler.mjs';
 
@@ -113,8 +114,43 @@ function olayYap(adaylar) {
   };
 }
 
-export async function olaylariGrupla(adaylar, hafiza = [], { gemini = varsayilanGemini } = {}) {
+// Katman 2.3 (Gemini kota planı): gruplama ve puan kararı aday kimliğiyle saklanır. Görülmedi kalan adaylar (bütçe
+// bitti, tavan doldu, yazım denemesi) sonraki turda yeniden gelir; hepsi önbellekteyse gruplama çağrısı yapılmaz.
+// Karışık durumda (yeni aday var) çağrı tüm adaylarla yapılır: yeni aday önbellekteki bir adayla aynı olayı
+// anlatabilir, gruplama bunu görmeli. Önbellek kaydı: {puan, grup (grubun ilk adayının kimliği), zaman}.
+// Anahtar sürümü: istem + şema özeti ve çağıranın eki (eşik gibi); biri değişince önbellek boşalır.
+export const ONBELLEK_GUN = 3;
+export const gruplamaSurumu = (ek = '') =>
+  createHash('sha1').update(`${SISTEM}
+${JSON.stringify(SEMA)}
+${ek}`).digest('hex').slice(0, 10);
+
+function onbellekHazirla(onbellek, surum, simdi) {
+  if (onbellek.surum !== surum || typeof onbellek.kayitlar !== 'object' || !onbellek.kayitlar) {
+    onbellek.surum = surum;
+    onbellek.kayitlar = {};
+  }
+  const sinir = simdi.getTime() - ONBELLEK_GUN * 864e5;
+  for (const [id, k] of Object.entries(onbellek.kayitlar)) if (!(Date.parse(k?.zaman) >= sinir)) delete onbellek.kayitlar[id];
+  return onbellek.kayitlar;
+}
+
+export async function olaylariGrupla(adaylar, hafiza = [], { gemini = varsayilanGemini, onbellek, surumEki = '', simdi = new Date() } = {}) {
   if (!adaylar.length) return { yeni: [], bilinen: [] };
+  const kayitlar = onbellek ? onbellekHazirla(onbellek, gruplamaSurumu(surumEki), simdi) : null;
+  if (kayitlar && adaylar.every((a) => kayitlar[a.id])) {
+    const anahtarlar = [];
+    const gruplar = new Map();
+    adaylar.forEach((a, i) => {
+      const k = kayitlar[a.id];
+      if (!gruplar.has(k.grup)) {
+        gruplar.set(k.grup, []);
+        anahtarlar.push(k.grup);
+      }
+      gruplar.get(k.grup).push({ ...a, onem: Math.max(a.onem ?? 0, Number.isInteger(k.puan) ? k.puan : 0) });
+    });
+    return { yeni: anahtarlar.map((g) => olayYap(gruplar.get(g))), bilinen: [], onbellekten: true };
+  }
   const ilgili = ilgiliHafiza(adaylar, hafiza);
   const istem = `ADAYLAR:
 ${adaylar.map((a, i) => `${i}. ${a.baslik} — ${String(a.ozet ?? a.kaynakMetni ?? '').slice(0, ADAY_OZET)}`).join('\n')}
@@ -169,6 +205,15 @@ ${ilgili.length ? ilgili.map((h) => `[${h.id}] ${String(h.ozet ?? '').slice(0, H
   });
   gruplar.sort((x, y) => x[0] - y[0]);
 
+  if (kayitlar && r) {
+    const puanlar = new Map();
+    for (const p of Array.isArray(r.puanlar) ? r.puanlar : []) {
+      if (Number.isInteger(p?.aday) && Number.isInteger(p.onem) && p.onem >= 1 && p.onem <= 100) puanlar.set(p.aday, p.onem);
+    }
+    for (const g of gruplar) {
+      for (const i of g) kayitlar[adaylar[i].id] = { puan: puanlar.get(i) ?? null, grup: adaylar[g[0]].id, zaman: simdi.toISOString() };
+    }
+  }
   const sonuc = {
     yeni: gruplar.map((g) => olayYap(g.map((i) => puanli[i]))),
     bilinen: [...bilinenIdx].sort((a, b) => a - b).map((i) => adaylar[i]),
