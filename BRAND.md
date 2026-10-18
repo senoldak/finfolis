@@ -2,7 +2,7 @@
 
 > Sürüm 2 · 18 Ekim 2026. Sahibiyle adım adım, soru-cevapla kuruldu (kifobu ile aynı yöntem). Bu belge kimliğin tek
 > kaynağıdır; `DESIGN.md` (bugünkü Isotype teması) yeni kimlik uygulanınca bu belgeye göre yeniden yazılacak.
-> "Benim kararım" diye işaretli maddeler sahibin onayına açıktır.
+> "Benim kararım" diye işaretlenen maddelerin hepsini sahibi 19 Ekim 2026'da onayladı (karar bana bırakıldı); artık "Onaylandı" olarak işaretli.
 
 ## 1. Neden varız
 
@@ -55,7 +55,7 @@ Sahibinin seçimi: **öğretici ve sıcak.**
 
 - **Soldaki boncuklar mürekkep:** üstten alta 3, 2, 1, 0.
 - **Sağdaki boncuklar gri:** üstten alta 1, 2, 3, 4. Sağ üstteki tek boncuk vurgu yerinde **pişmiş toprak** olabilir
-  (kapaklarda büyük soluk abaküste öyledir); küçük işarette gri kalır. *Benim kararım.*
+  (kapaklarda büyük soluk abaküste öyledir); küçük işarette gri kalır. *Onaylandı (19 Ekim).*
 - **Anlamı:** boncuk saymak = karmaşayı düzene sokmak. Koyu boncuklar sayılmış ve anlaşılmış olandır.
 - **Geometri** (120 birimlik kare): teller y = 24, 48, 72, 96, x = 10–110; boncuk yarıçapı 8, aralık 17
   (sol sütun x = 18, 35, 52; sağ sütun x = 100, 83, 66, 49).
@@ -66,7 +66,7 @@ Sahibinin seçimi: **öğretici ve sıcak.**
 
 ## 6. Logo
 
-- İşaret solda, **"finfolis"** sağda: küçük harf, Bricolage Grotesque 600, sıkı harf aralığı. *Benim kararım.*
+- İşaret solda, **"finfolis"** sağda: küçük harf, Bricolage Grotesque 600, sıkı harf aralığı. *Onaylandı (19 Ekim).*
 - **Dikey düzen** (profil, baskı): işaret üstte, "finfolis" ortada, slogan altta.
 
 ## 7. Renk
@@ -89,11 +89,11 @@ Sahibinin seçimi: **öğretici ve sıcak.**
 | Ad | Hex | Kullanım |
 |---|---|---|
 | Yükseliş yeşili | `#3f7350` | ▲ yükseliş |
-| Düşüş kırmızısı | `#a3243b` | ▼ düşüş — pişmiş topraktan ayrı dursun diye daha koyu ve soğuk. *Benim kararım.* |
+| Düşüş kırmızısı | `#a3243b` | ▼ düşüş — pişmiş topraktan ayrı dursun diye daha koyu ve soğuk. *Onaylandı (19 Ekim).* |
 
 - Yeşil ve kırmızı hiçbir zaman tek başına anlam taşımaz; yön her zaman okla (▲ ▼) da yazılır.
 - Pişmiş toprak hiçbir zaman veri rengi olarak kullanılmaz.
-- Eski Isotype kategori renkleri (mavi, hardal, kahve) kalkar; kategori adı pişmiş toprakla yazılır. *Benim kararım.*
+- Eski Isotype kategori renkleri (mavi, hardal, kahve) kalkar; kategori adı pişmiş toprakla yazılır. *Onaylandı (19 Ekim).*
 
 ## 8. Yazı
 
