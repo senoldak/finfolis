@@ -1,5 +1,7 @@
 # finfolis Haber Botu Implementation Plan
 
+> **Durum (2026-10-18):** Uygulandı. Task 8 (zamanlayıcı) mecmua saat + haberler.yml ile yer değiştirdi.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build a scheduled bot that writes a few verified Turkish world-economy stories a day plus a 3-hourly market bulletin, keeps `src/data/piyasa.json` filled with real delayed data, and draws a cover for each post.
@@ -57,13 +59,13 @@ There is no free, republishable source for BIST 100, ETF/stock prices, Brent or 
   - `yaziYaz(rot, yazi) → Promise<slug>`. `yazi = { baslik, spot, govde, kategori, tarih: Date, tur: 'haber'|'bulten', kaynaklar: [{ad, url}], kapak?: () => Promise<Buffer>, kapakAlt? }`. Writes `index.md` with frontmatter and an optional `kapak.png`.
 - Schema adds `tur: z.enum(['haber','bulten']).default('haber')` and `kaynaklar: z.array(z.object({ ad: z.string(), url: z.string().url() })).default([])`.
 
-- [ ] Step 1: Tests in `lib.test.mjs`:
+- [x] Step 1: Tests in `lib.test.mjs`:
   - `slugla('Japonya Merkez Bankası faizi İkinci kez artırdı')` === `'japonya-merkez-bankasi-faizi-ikinci-kez-artirdi'`.
   - `yaziYaz` writes into a temp dir. Its frontmatter round-trips through the `yaml` package (already in node_modules via astro), including a title containing `"` and `:`. The tidsrost/finfolis coverAlt quoting bug must not recur.
-- [ ] Step 2: `npm run test:bot` → FAIL.
-- [ ] Step 3: Implement `lib.mjs`. Serialise YAML values with `JSON.stringify` (valid YAML).
-- [ ] Step 4: Make the article page render `kaynaklar` as a "Kaynaklar" list above the disclaimer. Run `npm run test:bot` → PASS, then `npx astro build` → Complete.
-- [ ] Step 5: Commit `Haber botu: iskelet, içerik şeması, yazı yazıcı`.
+- [x] Step 2: `npm run test:bot` → FAIL.
+- [x] Step 3: Implement `lib.mjs`. Serialise YAML values with `JSON.stringify` (valid YAML).
+- [x] Step 4: Make the article page render `kaynaklar` as a "Kaynaklar" list above the disclaimer. Run `npm run test:bot` → PASS, then `npx astro build` → Complete.
+- [x] Step 5: Commit `Haber botu: iskelet, içerik şeması, yazı yazıcı`.
 
 ### Task 2: Non-AI fact check (`dogrula.mjs`)
 
@@ -74,14 +76,14 @@ There is no free, republishable source for BIST 100, ETF/stock prices, Brent or 
 - Produces `dogrula(metin, kaynakMetinleri: string[], {tolerans=0.005}) → { tamam: boolean, eksik: string[] }`. Each number in the story must equal a source number after rounding to the story's precision, or be within relative tolerance. Exempt from checking: years 1900–2100, dates and day numbers inside a date phrase, and the numbers 1–10 written in words.
 - Produces `alintilariBul(metin) → string[]` (text in "…" or “…”). Each quote must appear verbatim, case- and whitespace-insensitive, in a source text; otherwise it lands in `eksik`.
 
-- [ ] Step 1: Tests:
+- [x] Step 1: Tests:
   - `sayilariBul('Dolar 49,17 liraya çıktı, %0,1 arttı')` → `[49.17, 0.1]`.
   - `dogrula('Dolar 49,17 lira', ['TRY":49.173'])` → `tamam: true`.
   - `dogrula('Dolar 50,17 lira', ['TRY":49.173'])` → `tamam: false` with `eksik` containing `'50,17'`.
   - `dogrula('2026 yılında ...', [''])` → `tamam: true`.
   - An invented quote → `tamam: false`.
-- [ ] Step 2: FAIL. Step 3: Implement. Step 4: PASS.
-- [ ] Step 5: Commit `Haber botu: yapay zekâsız rakam ve alıntı doğrulaması`.
+- [x] Step 2: FAIL. Step 3: Implement. Step 4: PASS.
+- [x] Step 5: Commit `Haber botu: yapay zekâsız rakam ve alıntı doğrulaması`.
 
 ### Task 3: Market data → `piyasa.json`, and the site shows only real data
 
@@ -103,15 +105,15 @@ There is no free, republishable source for BIST 100, ETF/stock prices, Brent or 
   - The "Örnek veri" label code is deleted.
 - Vitrin (Isotype) indicators in v1: Dolar/TL, Yıllık enflasyon, Euro/TL (the gold column is removed). The table shows Politika faizi, Japon yeni/TL and Brezilya reali/TL. Pictogram units: dolar 2 TL, enflasyon 3 puan, euro 2 TL.
 
-- [ ] Step 1: Tests with stubbed `fetch`, using JSON/HTML fixtures under `scripts/haberler/fixtures/`:
+- [x] Step 1: Tests with stubbed `fetch`, using JSON/HTML fixtures under `scripts/haberler/fixtures/`:
   - The Frankfurter fixture yields `deger` 49.173 for `dolar` (USD→TRY).
   - A Frankfurter 500 with `eski` given keeps the old value and old `zaman`.
   - A Frankfurter 500 without `eski` yields no `dolar` entry.
   - `gorunur({gecerlilik:'kur', zaman: 4 days ago})` → false.
   - `gorunur({gecerlilik:'aciklama', zaman: 40 days ago})` → true.
-- [ ] Step 2: FAIL. Step 3: Implement. Step 4: PASS.
-- [ ] Step 5: Run `node scripts/haberler/piyasa-verisi.mjs --yaz` for real, which writes `piyasa.json`. Then `npx astro build` → Complete. Check that the front page shows real values with source and time, and no "Örnek veri".
-- [ ] Step 6: Commit `Piyasa verisi: gerçek gecikmeli veri, örnek veri kaldırıldı`.
+- [x] Step 2: FAIL. Step 3: Implement. Step 4: PASS.
+- [x] Step 5: Run `node scripts/haberler/piyasa-verisi.mjs --yaz` for real, which writes `piyasa.json`. Then `npx astro build` → Complete. Check that the front page shows real values with source and time, and no "Örnek veri".
+- [x] Step 6: Commit `Piyasa verisi: gerçek gecikmeli veri, örnek veri kaldırıldı`.
 
 ### Task 4: Official sources
 
@@ -130,9 +132,9 @@ There is no free, republishable source for BIST 100, ETF/stock prices, Brent or 
 - `kur-hareketi`:
   - From Task 3 data: a daily move of at least 1.5% in JPY, BRL, EUR or USD against TRY or USD becomes a candidate (`onem` 4).
   - Cover: `gostergeKapagi` or `rakamKapagi`. Category `doviz`.
-- [ ] Step 1: For each module, a test that parses its fixture into the expected candidates. One fixture each: a rate decision, an S-1, a priced IPO, a 2% BRL move.
-- [ ] Step 2: FAIL. Step 3: Implement. Step 4: PASS.
-- [ ] Step 5: Commit `Haber botu: resmi kaynaklar (merkez bankaları, SEC, kur hareketi)`.
+- [x] Step 1: For each module, a test that parses its fixture into the expected candidates. One fixture each: a rate decision, an S-1, a priced IPO, a 2% BRL move.
+- [x] Step 2: FAIL. Step 3: Implement. Step 4: PASS.
+- [x] Step 5: Commit `Haber botu: resmi kaynaklar (merkez bankaları, SEC, kur hareketi)`.
 
 ### Task 5: Tips (RSS), the writer and the editorial board (yayın kurulu)
 
@@ -146,13 +148,13 @@ There is no free, republishable source for BIST 100, ETF/stock prices, Brent or 
 - `yayinKurulu(taslak, aday)` (the editorial board; owner's term, replaces `duzenle` → Promise<{yazi}|{dur: string}>`. Port of tidsrost `redaktor.mjs`:
   - Task 2 check, then a Gemini control desk, up to 2 fix rounds, Turkish copy edit, and a final Task 2 check.
   - Any leftover unverified number returns `{dur}`.
-- [ ] Step 1: Tests with `gemini` stubbed:
+- [x] Step 1: Tests with `gemini` stubbed:
   - A draft with an invented number gets fixed by the stub, then passes.
   - A draft that is still wrong after 2 rounds returns `{dur}`.
   - `onemArtir` raises a matching candidate and leaves a non-matching one alone.
   - A tip's text never appears in the writer's prompt (assert on the stub's received prompt).
-- [ ] Step 2: FAIL. Step 3: Implement. Step 4: PASS.
-- [ ] Step 5: Commit `Haber botu: yazar, yayın kurulu, ipucu akışları`.
+- [x] Step 2: FAIL. Step 3: Implement. Step 4: PASS.
+- [x] Step 5: Commit `Haber botu: yazar, yayın kurulu, ipucu akışları`.
 
 ### Task 6: 3-hour bulletin
 
@@ -166,13 +168,13 @@ There is no free, republishable source for BIST 100, ETF/stock prices, Brent or 
   - Title pattern `Piyasa bülteni: <gün> <saat>`.
   - The body is the indicator lines (built from data, no AI), then a Gemini paragraph about the top 3 candidates of the last 3 hours, checked with Task 2.
   - Cover: `gostergeKapagi`. `tur: 'bulten'`, category `piyasalar`.
-- [ ] Step 1: Tests:
+- [x] Step 1: Tests:
   - Saturday 12:00 → false.
   - Tuesday 23:30 → false.
   - Tuesday 12:00 with USD/TRY moving 0.5% → true.
   - Tuesday 12:00 with nothing moved and no candidates → false.
-- [ ] Step 2: FAIL. Step 3: Implement. Step 4: PASS, and `npx astro build` → Complete.
-- [ ] Step 5: Commit `Haber botu: 3 saatlik piyasa bülteni`.
+- [x] Step 2: FAIL. Step 3: Implement. Step 4: PASS, and `npx astro build` → Complete.
+- [x] Step 5: Commit `Haber botu: 3 saatlik piyasa bülteni`.
 
 ### Task 7: Orchestrator
 
@@ -190,13 +192,13 @@ There is no free, republishable source for BIST 100, ETF/stock prices, Brent or 
   7. Write a bulletin if `bultenGerekli`.
   8. Save `gorulen.json` and print `adet=<n>` to `$GITHUB_OUTPUT`.
 - On a source's first run, only its 2 newest candidates are taken and the rest marked seen (same as tidsrost `FORSTE_GANG`).
-- [ ] Step 1: Tests with all sources and Gemini stubbed:
+- [x] Step 1: Tests with all sources and Gemini stubbed:
   - A second run with the same candidates writes 0 stories.
   - A throwing source doesn't stop the others.
   - With 9 stories already today, 0 are written.
-- [ ] Step 2: FAIL. Step 3: Implement. Step 4: PASS.
-- [ ] Step 5: Run locally with `--kuru` against the real sources and paste the candidate list into the hand-off.
-- [ ] Step 6: Commit `Haber botu: yönetici akış`.
+- [x] Step 2: FAIL. Step 3: Implement. Step 4: PASS.
+- [x] Step 5: Run locally with `--kuru` against the real sources and paste the candidate list into the hand-off.
+- [x] Step 6: Commit `Haber botu: yönetici akış`.
 
 ### Task 8: Schedule, secret, go-live
 
@@ -206,11 +208,11 @@ There is no free, republishable source for BIST 100, ETF/stock prices, Brent or 
 - Delete: `src/content/haberler/ornek-*`, `scripts/kapak/ornekler.mjs` sample data (keep the file as a dev demo only if its output path is outside `src/content`)
 
 **Steps:**
-- [ ] Step 1: Check the Gemini key works with a single minimal request. The key is typed in by the owner, piped through stdin, and never echoed.
-- [ ] Step 2: Set the secret with `gh secret set GEMINI_API_KEY --repo senoldak/finfolis` (value from stdin).
-- [ ] Step 3: Write the workflow:
+- [x] Step 1: Check the Gemini key works with a single minimal request. The key is typed in by the owner, piped through stdin, and never echoed.
+- [x] Step 2: Set the secret with `gh secret set GEMINI_API_KEY --repo senoldak/finfolis` (value from stdin).
+- [x] Step 3: Write the workflow:
   - `npm ci`, run, commit `src/content/haberler src/data/piyasa.json scripts/haberler/gorulen.json`.
   - Use `[skip ci]` when `adet=0` and only state changed. Note: piyasa.json changes still need a rebuild, so `[skip ci]` only applies when piyasa.json is unchanged too.
-- [ ] Step 4: Delete the sample stories, run the workflow once with `workflow_dispatch`, and watch it succeed. Check the Workers Builds check-run is `success` and that the live site shows real indicators and at least the bulletin or one story.
-- [ ] Step 5: Deploy the cron Worker (`cd zamanlayici && npx wrangler deploy`). It needs a GitHub token as a Cloudflare secret, set up the same way as tidsur; follow tidsur/README.md.
-- [ ] Step 6: Commit `Haber botu: zamanlama ve yayın`, then push.
+- [x] Step 4: Delete the sample stories, run the workflow once with `workflow_dispatch`, and watch it succeed. Check the Workers Builds check-run is `success` and that the live site shows real indicators and at least the bulletin or one story.
+- [x] Step 5: Deploy the cron Worker (`cd zamanlayici && npx wrangler deploy`). It needs a GitHub token as a Cloudflare secret, set up the same way as tidsur; follow tidsur/README.md.
+- [x] Step 6: Commit `Haber botu: zamanlama ve yayın`, then push.
