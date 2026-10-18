@@ -501,3 +501,21 @@ test('Gemini tur payı bittiyse haber yazılmaz, olay görülmedi kalır; bülte
     delete process.env.GEMINI_TUR_PAYI;
   }
 });
+
+test('tur giriş-token tavanı dolunca kalan olaylar görülmedi kalır; bülten tavandan muaftır', async () => {
+  let yazildi = 0;
+  const kayit = {};
+  const { secenek } = await ortam({
+    kaynaklar: [kaynak('A', [aday('t1', 90), aday('t2', 85), aday('t3', 80), aday('d1', 40), aday('d2', 40), aday('d3', 40)])],
+    yaz: async (a) => (yazildi++, { baslik: a.baslik, spot: 's', govde: 'g' }),
+    tokenTavani: 10_000, // tek olay ~7.6 bin token tahmin edilir
+    harcananToken: () => yazildi * 5_000,
+    bulten: bultenSahte(kayit),
+  });
+  const s = await calistir(secenek);
+  assert.equal(s.adet, 1);
+  assert.ok(secenek.durum.gorulen.t1?.yazildi);
+  assert.equal(secenek.durum.gorulen.t2, undefined);
+  assert.equal(secenek.durum.gorulen.t3, undefined);
+  assert.equal(s.bultenYazildi, true);
+});

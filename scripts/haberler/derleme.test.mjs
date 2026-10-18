@@ -201,3 +201,40 @@ test('havuz: bekleyen olay bu arada başka kaynaktan tam haber olarak yazıldıy
   assert.equal(r.adet, 1);
   assert.deepEqual(s.durum.havuz, []);
 });
+
+// Katman 3 öncelik sırası: önem 70+ haberler > dilim derlemeleri > önem 60-69 haberler.
+test('öncelik: derleme, önem 60-69 haberlerden önce yazılır; 70+ haber derlemeden önce', async () => {
+  const sira = [];
+  const s = await ortam({
+    yaz: async (a) => (sira.push(`haber:${a.id}`), { baslik: a.baslik, spot: 's', govde: 'g' }),
+    derlemeYaz: async () => (sira.push('derleme'), { baslik: 'Gündem', spot: 's', govde: 'g', rakamlar: [] }),
+    yayinKurulu: async (t, a) => (a.haberler || !/^a\d/.test(a.id) ? { yazi: t } : { dur: 'Metin kısa', kisa: true }),
+  });
+  await calistir(s); // a1-a3 kısa kalır, havuza girer
+  sira.length = 0;
+  const yeni = (id, onem) => ({ ...s.aday(id, `Baslik ${id}`), onem });
+  const r = await calistir({ ...s, simdi: saatSonra(2), kaynaklar: [{ ad: 'A', hent: async () => [yeni('d1', 65), yeni('y1', 90), yeni('d2', 62)] }] });
+  assert.equal(r.adet, 4);
+  assert.deepEqual(sira, ['haber:y1', 'derleme', 'haber:d1', 'haber:d2']);
+});
+
+test('öncelik: tur payı derleme sonrası bitince önem 60-69 haber yazılmaz, derleme yazılmış olur', async () => {
+  const sira = [];
+  let yazilanSayi = 0;
+  const s = await ortam({
+    yaz: async (a) => (sira.push(`haber:${a.id}`), { baslik: a.baslik, spot: 's', govde: 'g' }),
+    derlemeYaz: async () => (sira.push('derleme'), yazilanSayi++, { baslik: 'Gündem', spot: 's', govde: 'g', rakamlar: [] }),
+    yayinKurulu: async (t, a) => (a.haberler || !/^a\d/.test(a.id) ? { yazi: t } : { dur: 'Metin kısa', kisa: true }),
+  });
+  await calistir(s);
+  sira.length = 0;
+  const yeni = (id, onem) => ({ ...s.aday(id, `Baslik ${id}`), onem });
+  // derleme yazıldıktan sonra Gemini payı dolmuş sayılır: harcananToken derleme sayısına bağlı
+  const r = await calistir({
+    ...s, simdi: saatSonra(2), tokenTavani: 100_000, harcananToken: () => (yazilanSayi ? 99_999 : 0),
+    kaynaklar: [{ ad: 'A', hent: async () => [yeni('d1', 65), yeni('y1', 90)] }],
+  });
+  assert.deepEqual(sira, ['haber:y1', 'derleme']);
+  assert.equal(r.adet, 2);
+  assert.equal(s.durum.gorulen.d1, undefined); // görülmedi kaldı, sonraki turda yazılır
+});
