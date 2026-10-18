@@ -2,6 +2,7 @@
 // TCMB politika faizi: güncel oran, son PPK kararı ve TCMB'nin yayımladığı değişiklik tablosu.
 // Tablo yalnızca TCMB "1 Hafta Repo" sayfasından gelir; elle yazılmış geçmiş değer yoktur.
 import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { RESMI, gunYaz, oranYaz as oran, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -135,9 +136,6 @@ const jsonLd = sayfaSemasi({
         <p class="bos">Politika faizi verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
       )
     }
-    <aside class="tavsiye-degil" aria-label="Yasal uyarı">
-      <strong>Yatırım tavsiyesi değildir.</strong> Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi
-      rakamlardır.
-    </aside>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır.</YasalUyari>
   </div>
 </Base>

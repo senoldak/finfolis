@@ -2,6 +2,7 @@
 // Dolar, euro ve sterlin kuru sayfaları: TCMB gösterge niteliğindeki kurlar ve son 30 iş günü.
 // Değerler src/data/resmi.json'dan gelir; hiçbir değer türetilmez, yalnızca resmi rakamlar arasındaki fark hesaplanır.
 import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import Change from '../../components/Change.astro';
 import { KUR_SAYFALARI, RESMI, eskiMi, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
@@ -164,9 +165,6 @@ const digerleri = KUR_SAYFALARI.filter((s) => s.slug !== sayfa.slug);
       <a href="/veri/enflasyon/">Enflasyon</a>
       <a href="/veri/politika-faizi/">Politika faizi</a>
     </nav>
-    <aside class="tavsiye-degil" aria-label="Yasal uyarı">
-      <strong>Yatırım tavsiyesi değildir.</strong> Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı gösterge
-      niteliğindeki kurlardır; alım satım için bankanızın ya da aracı kurumunuzun güncel kurunu esas alın.
-    </aside>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı gösterge niteliğindeki kurlardır; alım satım için bankanızın ya da aracı kurumunuzun güncel kurunu esas alın.</YasalUyari>
   </div>
 </Base>

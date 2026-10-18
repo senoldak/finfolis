@@ -2,6 +2,7 @@
 // Enflasyon hesaplayıcı: yalnızca TÜİK'in yayımladığı aylık TÜFE değişimleriyle (src/data/resmi.json).
 // Veri yoksa kullanıcı kendi yıllık oranını girer; tahmini oran gösterilmez.
 import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { RESMI, AYLAR, ayAdi, ayAnahtari, tufeCarpani, sayiYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -177,10 +178,7 @@ const jsonLd = sayfaSemasi({ yol, ad: 'Enflasyon hesaplama', aciklama: descripti
       )
     }
 
-    <aside class="tavsiye-degil" aria-label="Yasal uyarı">
-      <strong>Yatırım tavsiyesi değildir.</strong> Hesaplayıcı bilgi amaçlıdır; sonuçlar resmi TÜFE verisine dayanır ve
-      kişisel harcama sepetinizi yansıtmayabilir.
-    </aside>
+    <YasalUyari>Hesaplayıcı bilgi amaçlıdır; sonuçlar resmi TÜFE verisine dayanır ve kişisel harcama sepetinizi yansıtmayabilir.</YasalUyari>
   </div>
   <script is:inline src="/hesapla.js" defer></script>
 </Base>

@@ -1,6 +1,7 @@
 ---
 // Kredi taksit hesaplayıcı: eşit taksitli kredi. KKDF ve BSMV oranları kullanıcı girdisidir (kredi türüne göre değişir).
 import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { sayfaSemasi } from '../../lib/seo';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -116,10 +117,7 @@ const jsonLd = sayfaSemasi({ yol, ad: 'Kredi taksit hesaplama', aciklama: descri
       </section>
     </div>
 
-    <aside class="tavsiye-degil" aria-label="Yasal uyarı">
-      <strong>Yatırım tavsiyesi değildir.</strong> Hesaplayıcı bilgi amaçlıdır; bankanızın sunduğu ödeme planı, masraflar ve
-      vergiler nedeniyle farklı olabilir. Kesin tutar için bankanızın sözleşme öncesi bilgi formunu esas alın.
-    </aside>
+    <YasalUyari>Hesaplayıcı bilgi amaçlıdır; bankanızın sunduğu ödeme planı, masraflar ve vergiler nedeniyle farklı olabilir. Kesin tutar için bankanızın sözleşme öncesi bilgi formunu esas alın.</YasalUyari>
   </div>
   <script is:inline src="/hesapla.js" defer></script>
 </Base>

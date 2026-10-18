@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { YASAL_UYARI, YASAL_UYARI_BASLIK } from '../lib/yasal-uyari.mjs';
 import { SITE } from '../lib/site';
 ---
 
@@ -24,12 +25,8 @@ import { SITE } from '../lib/site';
           simgelerin sayısı artar. Böylece bugünün rakamını geçen yılla bir bakışta karşılaştırabilirsiniz. Her
           rakamın yanında hangi saate ait olduğu yazar.
         </p>
-        <h2>Yasal uyarı</h2>
-        <p>
-          Bu sitede yer alan haber, yorum ve bilgiler yatırım danışmanlığı kapsamında değildir ve yatırım tavsiyesi
-          niteliği taşımaz. Yatırım kararlarınızı kendi araştırmanıza dayanarak ve gerekirse yetkili kuruluşlardan
-          destek alarak vermeniz önerilir.
-        </p>
+        <h2>{YASAL_UYARI_BASLIK}</h2>
+        <p>{YASAL_UYARI}</p>
         <h2>Yayın İlkeleri</h2>
         <p>
           Editoryal bağımsızlık, çıkar çatışması politikamız, yapay zekâ kullanım standartlarımız ve şeffaflık ilkelerimiz hakkında detaylı bilgi için <a href="/yayin-ilkeleri/">Yayın İlkeleri</a> sayfamızı inceleyebilirsiniz.

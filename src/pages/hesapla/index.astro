@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { sayfaSemasi } from '../../lib/seo';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -54,9 +55,6 @@ const jsonLd = sayfaSemasi({ yol, ad: 'Hesaplayıcılar', aciklama: description,
         }
       </ul>
     </section>
-    <aside class="tavsiye-degil" aria-label="Yasal uyarı">
-      <strong>Yatırım tavsiyesi değildir.</strong> Hesaplayıcılar bilgi amaçlıdır; sonuçlar bankaların uyguladığı koşullardan
-      farklı olabilir.
-    </aside>
+    <YasalUyari>Hesaplayıcılar bilgi amaçlıdır; sonuçlar bankaların uyguladığı koşullardan farklı olabilir.</YasalUyari>
   </div>
 </Base>

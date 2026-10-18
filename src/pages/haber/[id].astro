@@ -1,5 +1,6 @@
 ---
 import { Image, getImage } from 'astro:assets';
+import YasalUyari from '../../components/YasalUyari.astro';
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import RakamSeridi from '../../components/RakamSeridi.astro';
@@ -223,10 +224,7 @@ const jsonLd = {
         )
       }
 
-      <aside class="tavsiye-degil" aria-label="Yasal uyarı">
-        <strong>Yatırım tavsiyesi değildir.</strong> Bu yazıdaki bilgi, yorum ve rakamlar yatırım danışmanlığı kapsamında
-        değildir. Yatırım kararlarınızı kendi araştırmanıza dayanarak, gerekirse yetkili kuruluşlardan destek alarak verin.
-      </aside>
+      <YasalUyari />
 
       <div class="paylas">
         <span>Paylaş</span>

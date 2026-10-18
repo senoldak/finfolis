@@ -41,8 +41,9 @@ Sahibinin seçimi: **öğretici ve sıcak.**
 - **Sıra:** ne oldu → neden önemli → kilit rakam ne → bu ne demek.
 - **Rakam bağlamıyla:** "geçen aya göre", "yıllık", "bir yıl önce".
 - **Sade Türkçe:** kısa cümle; terim ilk geçtiği yerde açıklanır.
-- **Tavsiye yok:** getiri vaadi, al/sat/tut, hedef fiyat yok. Her yazının altında ve sayfa altında:
-  **"Burada yer alan bilgiler yatırım tavsiyesi değildir."**
+- **Tavsiye yok:** getiri vaadi, al/sat/tut, hedef fiyat yok. Her yazının, veri ve hesaplayıcı sayfasının altında ve
+  sayfa altında sahibin verdiği **Yasal Uyarı** metni birebir durur (`src/lib/yasal-uyari.mjs`, `YasalUyari.astro`;
+  metin elle kısaltılmaz).
 - **Kaynak kuralı:** resmî olmayan haber kaynaklarının adı anılmaz, bağlantısı verilmez (bkz. `AGENTS.md`).
   Resmî kurumlar (TCMB, TÜİK, Fed, ECB, SEC…) anılır.
 

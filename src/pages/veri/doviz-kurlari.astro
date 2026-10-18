@@ -1,6 +1,7 @@
 ---
 // TCMB'nin ilan ettiği tüm gösterge niteliğindeki döviz kurları (tek bülten).
 import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { KUR_SAYFALARI, RESMI, eskiMi, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -105,9 +106,6 @@ const ad = (s: string) => s.replace(/\s+/g, ' ').trim();
       {KUR_SAYFALARI.map((s) => <a href={`/veri/${s.slug}/`}>{s.ad} kuru</a>)}
       <a href="/veri/">Tüm veriler</a>
     </nav>
-    <aside class="tavsiye-degil" aria-label="Yasal uyarı">
-      <strong>Yatırım tavsiyesi değildir.</strong> Bu sayfadaki veriler bilgi amaçlıdır; alım satım için bankanızın ya da
-      aracı kurumunuzun güncel kurunu esas alın.
-    </aside>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır; alım satım için bankanızın ya da aracı kurumunuzun güncel kurunu esas alın.</YasalUyari>
   </div>
 </Base>

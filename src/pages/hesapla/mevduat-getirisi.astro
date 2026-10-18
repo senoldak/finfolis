@@ -2,6 +2,7 @@
 // Mevduat getirisi hesaplayıcı. Stopaj oranı kullanıcıdan alınır: oran vadeye ve döneme göre değiştiği için
 // sitede varsayılan bir oran yazılmaz.
 import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { sayfaSemasi } from '../../lib/seo';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -96,10 +97,7 @@ const jsonLd = sayfaSemasi({ yol, ad: 'Mevduat getirisi hesaplama', aciklama: de
       </section>
     </div>
 
-    <aside class="tavsiye-degil" aria-label="Yasal uyarı">
-      <strong>Yatırım tavsiyesi değildir.</strong> Hesaplayıcı bilgi amaçlıdır; bankanızın uyguladığı faiz, gün sayımı ve
-      vergi kesintisi farklı olabilir. Kesin tutar için bankanızın hesaplamasını esas alın.
-    </aside>
+    <YasalUyari>Hesaplayıcı bilgi amaçlıdır; bankanızın uyguladığı faiz, gün sayımı ve vergi kesintisi farklı olabilir. Kesin tutar için bankanızın hesaplamasını esas alın.</YasalUyari>
   </div>
   <script is:inline src="/hesapla.js" defer></script>
 </Base>

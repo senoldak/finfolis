@@ -1,0 +1,11 @@
+---
+// Yasal uyarı kutusu: metin src/lib/yasal-uyari.mjs'te. Sayfaya özgü not (ör. hesaplayıcının bilgi amaçlı olduğu)
+// varsa slot olarak uyarının altına yazılır.
+import { YASAL_UYARI, YASAL_UYARI_BASLIK } from '../lib/yasal-uyari.mjs';
+---
+
+<aside class="tavsiye-degil" aria-label={YASAL_UYARI_BASLIK}>
+  <strong>{YASAL_UYARI_BASLIK}</strong>
+  <p>{YASAL_UYARI}</p>
+  {Astro.slots.has('default') && <p class="tavsiye-not"><slot /></p>}
+</aside>
