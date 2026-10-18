@@ -142,3 +142,13 @@ test('veri kapakları (grafik, karne, gösterge, rakam) kâğıt zeminli; karned
   assert.match(karne.svg, /fill="#3f7350"/);
   assert.match(karne.svg, /fill="#a3243b"/);
 });
+
+test('grafikKapagi: olay günleri veri renginde (düşüş kırmızı), olay yoksa çizgi mürekkep', async () => {
+  const seri = Array.from({ length: 40 }, (_, i) => ({ tarih: `2026-0${1 + Math.floor(i / 28)}-${String(1 + (i % 28)).padStart(2, '0')}`, deger: 100 - i }));
+  const d = await grafikKapagi({ kategori: 'borsa', baslik: 'Seri', seri, olay: { bas: seri.at(-8).tarih, yon: 'dusus' } })();
+  assert.match(d.svg, /stroke="#a3243b" stroke-width="6"/);
+  const y = await grafikKapagi({ kategori: 'borsa', baslik: 'Seri', seri, olay: { bas: seri.at(-8).tarih, yon: 'yukselis' } })();
+  assert.match(y.svg, /stroke="#3f7350" stroke-width="6"/);
+  const yok = await grafikKapagi({ kategori: 'borsa', baslik: 'Seri', seri })();
+  assert.doesNotMatch(yok.svg, /stroke-width="6"/);
+});

@@ -259,6 +259,8 @@ export function adayYap(o, e, seri) {
     `Close one year earlier: ${nokta(yilOnce.deger)} (${yilOnce.tarih}); change over the year: ${fark(son.deger, yilOnce.deger)}%.`,
   ];
   let baslik, kisa, vurgu, cizgiler, baslangic;
+  // Kapakta veri renginde vurgulanacak günler: varsayılan son gün (bir önceki kapanıştan bugüne).
+  let olay = { bas: seri.at(-2).tarih, yon: 'yukselis' };
   let kimlik = son.tarih.slice(0, 7); // rekor ve çok yıllık seviyeler ayda bir haber (ralli süresince her gün değil)
   if (o.tur === 'rekor') {
     baslik = `${e.ad} tüm zamanların en yüksek kapanışını gördü`;
@@ -286,6 +288,7 @@ export function adayYap(o, e, seri) {
       cizgiler = [{ deger: r.deger, etiket: `${trTarih(r.tarih)}: ${d(r.deger)}` }];
     }
     baslangic = Math.min(zaman(r.tarih) - YIL, zaman(son.tarih) - 3 * YIL);
+    if (!yuksek) olay.yon = 'dusus';
   } else if (o.tur === 'olagandisi') {
     const artis = o.yuzde > 0;
     baslik = `${e.ad} son ${sure(o.yil)} yılın en sert günlük ${artis ? 'yükselişini' : 'düşüşünü'} yaşadı`;
@@ -298,6 +301,7 @@ export function adayYap(o, e, seri) {
         : `No daily ${artis ? 'rise' : 'fall'} this large since the data series begins on ${seri[0].tarih}.`,
     );
     cizgiler = [{ deger: r.deger, etiket: `Önceki kapanış ${d(r.deger)}` }];
+    olay.yon = artis ? 'yukselis' : 'dusus';
     baslangic = zaman(son.tarih) - 0.5 * YIL;
     kimlik = son.tarih;
   } else if (o.tur === 'seri') {
@@ -315,6 +319,7 @@ export function adayYap(o, e, seri) {
     cizgiler = [{ deger: o.baslangic.deger, etiket: `Seri başı ${d(o.baslangic.deger)} · ${trTarih(o.baslangic.tarih)}` }];
     baslangic = zaman(son.tarih) - 0.5 * YIL;
     kimlik = o.baslangic.tarih; // seri başına bir haber
+    olay = { bas: o.baslangic.tarih, yon: yukari ? 'yukselis' : 'dusus' };
   } else if (o.tur === 'dusus') {
     baslik = `${e.ad} son bir yılın zirvesinden yüzde ${o.esik}${EK[o.esik] ?? ''} üzerinde geriledi`;
     kisa = `dusus-${o.esik}`;
@@ -331,6 +336,7 @@ export function adayYap(o, e, seri) {
     cizgiler = [{ deger: r.deger, etiket: `Zirve ${d(r.deger)} · ${trTarih(r.tarih)}` }];
     baslangic = zaman(son.tarih) - 1.25 * YIL;
     kimlik = r.tarih; // zirve başına bir haber
+    olay = { bas: r.tarih, yon: 'dusus' };
   } else {
     baslik = `${e.ad} son bir yılın dibinden yüzde ${o.esik}${EK[o.esik] ?? ''} üzerinde yükseldi`;
     kisa = `yukselis-${o.esik}`;
@@ -343,6 +349,7 @@ export function adayYap(o, e, seri) {
     cizgiler = [{ deger: r.deger, etiket: `Dip ${d(r.deger)} · ${trTarih(r.tarih)}` }];
     baslangic = zaman(son.tarih) - 1.25 * YIL;
     kimlik = r.tarih; // dip başına bir haber
+    olay = { bas: r.tarih, yon: 'yukselis' };
   }
   if (e.turet === 'bistusd') satirlar.push('BIST 100 in US dollars = BIST 100 index level divided by the USD/TRY exchange rate.');
   satirlar.push(`Prices are daily closing values. Source: ${YAHOO_KAYNAK.ad}.`);
@@ -363,6 +370,7 @@ export function adayYap(o, e, seri) {
       seri: seri.filter((p) => zaman(p.tarih) >= baslangic),
       cizgiler,
       vurgu,
+      olay,
       onEk: e.onEk ?? '',
       sonEk: e.sonEk ?? '',
       ondalik: od,

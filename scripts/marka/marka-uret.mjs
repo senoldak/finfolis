@@ -112,6 +112,17 @@ for (const [ad, ciz] of Object.entries(PARCALAR)) {
     n += 2;
   }
 }
+// Sosyal klasörüne siyah beyaz logo ve siyah beyaz profil seçeneği (kâğıt zemin, mürekkep ve gri boncuk).
+for (const ad of ['finfolis-logo-yatay', 'finfolis-logo-dikey-slogan']) {
+  for (const uz of ['png', 'svg']) fs.copyFileSync(`${KLASOR}/${ad}.${uz}`, `brand/sosyal/${ad}-siyah-beyaz.${uz}`);
+}
+{
+  const P = 1080;
+  const m = P * 0.56;
+  const svg = svgSar(P, P, `<rect width="${P}" height="${P}" fill="#ffffff"/>${abakusSvg({ boyut: m, ekler: `x="${(P - m) / 2}" y="${(P - m) / 2}"` })}`);
+  await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toFile('brand/sosyal/profil-1080-siyah-beyaz.png');
+}
+
 fs.writeFileSync(
   `${KLASOR}/BENIOKU.txt`,
   `finfolis logo paketi (BRAND.md §5–6). Üretici: scripts/marka/marka-uret.mjs — elle düzenlemeyin, yeniden üretin.
@@ -122,7 +133,7 @@ Hangi dosya nerede:
 - finfolis-logo-dikey-slogan Baskı ve tanıtım ("${SLOGAN}")
 - finfolis-isaret            Yazısız abaküs, 49 piksel ve üstü
 - finfolis-isaret-kucuk      48 piksel ve altı (üç telli; favicon gibi)
-Profil fotoğrafı ve kapak görselleri: ../sosyal/
+Profil fotoğrafı, kapak görselleri ve siyah beyaz logo: ../sosyal/
 
 "-koyu-zemin" ekli dosyalar koyu zemin içindir: koyu boncuklar ve yazı kâğıt rengine döner.
 SVG her boyda keskindir, öncelik onda. PNG'ler saydam zeminlidir.

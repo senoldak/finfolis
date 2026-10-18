@@ -357,7 +357,9 @@ export function incelt(seri, kova = 300) {
 }
 
 // Kâğıt zemin; yazı, eksen ve çizgi mürekkep (pişmiş toprak veri rengi değildir).
-export function grafikKapagi({ kategori: slug, baslik, seri, cizgiler = [], vurgu, ondalik = 2, onEk = '', sonEk = '', ornek }) {
+// olay: { bas: 'YYYY-MM-DD', yon: 'yukselis' | 'dusus' } — haberin konusu olan günler (seri, zirveden düşüş, dipten
+// yükseliş, son gün) çizginin o kısmında ve son değer etiketinde veri renginde vurgulanır; gerisi mürekkep.
+export function grafikKapagi({ kategori: slug, baslik, seri, cizgiler = [], vurgu, olay, ondalik = 2, onEk = '', sonEk = '', ornek }) {
   return async () => {
     const kat = kategori(slug);
     const c = await cerceve(kat, { ornek, buyukAbakus: false });
@@ -424,6 +426,16 @@ export function grafikKapagi({ kategori: slug, baslik, seri, cizgiler = [], vurg
     const yol = noktalar.map((p, i) => `${i ? 'L' : 'M'}${X(p).toFixed(1)} ${Y(p.deger).toFixed(1)}`).join('');
     svg += `<path d="${yol}L${x1} ${y1}L${x0} ${y1}Z" fill="${c.vurgu}" opacity="0.08"/>`;
     svg += `<path d="${yol}" fill="none" stroke="${c.veri}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>`;
+    const olayRengi = olay ? (olay.yon === 'dusus' ? MUREKKEP.red.fill : MUREKKEP.green.fill) : c.veri;
+    if (olay) {
+      // Olayın başladığı noktadan (o gün dahil, inceltmede düştüyse önceki nokta) sona kadar.
+      let i = noktalar.findIndex((p) => p.tarih >= olay.bas);
+      if (i < 0) i = noktalar.length - 1;
+      if (i > 0 && noktalar[i].tarih > olay.bas) i--;
+      const parca = noktalar.slice(Math.min(i, noktalar.length - 2));
+      const oy = parca.map((p, k) => `${k ? 'L' : 'M'}${X(p).toFixed(1)} ${Y(p.deger).toFixed(1)}`).join('');
+      svg += `<path d="${oy}" fill="none" stroke="${olayRengi}" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>`;
+    }
 
     // Referans çizgileri: kesikli, etiketi çizginin hemen üstünde solda (zemin renginde kutuda).
     for (const z of cizgiler) {
@@ -441,10 +453,10 @@ export function grafikKapagi({ kategori: slug, baslik, seri, cizgiler = [], vurg
     const son = noktalar.at(-1);
     const sx = X(son);
     const sy = Y(son.deger);
-    svg += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="8" fill="${c.veri}" stroke="${zemin}" stroke-width="3"/>`;
+    svg += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="8" fill="${olayRengi}" stroke="${zemin}" stroke-width="3"/>`;
     const se = await yazi(deger(son.deger), { boyut: 22, kalinlik: 700, renk: zemin });
     const kutuY = Math.round(Math.min(Math.max(sy - (se.yukseklik + 10) / 2, y0 - 8), y1 - se.yukseklik - 10));
-    svg += `<rect x="${x1 + 6}" y="${kutuY}" width="${Math.max(se.genislik + 16, 100)}" height="${se.yukseklik + 10}" fill="${c.veri}"/>`;
+    svg += `<rect x="${x1 + 6}" y="${kutuY}" width="${Math.max(se.genislik + 16, 100)}" height="${se.yukseklik + 10}" fill="${olayRengi}"/>`;
     katmanlar.push({ ...se, left: x1 + 14, top: kutuY + 5 });
 
     // Vurgu notu: grafik alanının dört köşesinden çizgiye, referans çizgilerine ve etiketlerine en az değeninde.
