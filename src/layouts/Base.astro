@@ -1,6 +1,6 @@
 ---
 import { SITE, CATEGORIES } from '../lib/site';
-import { YASAL_UYARI, YASAL_UYARI_BASLIK } from '../lib/yasal-uyari.mjs';
+import { YASAL_UYARI, YASAL_UYARI_BASLIK, YASAL_UYARI_EK } from '../lib/yasal-uyari.mjs';
 import { getNews } from '../lib/news';
 import { jsonLdMetni } from '../lib/json-ld.mjs';
 import Pictograms from '../components/Pictograms.astro';
@@ -177,7 +177,7 @@ const today = new Date().toLocaleDateString(SITE.locale, {
       </div>
       <div class="container footer-alt">
         <p class="uyari">
-          <strong>{YASAL_UYARI_BASLIK}:</strong> {YASAL_UYARI} Piyasa verileri gecikmeli olabilir.
+          <strong>{YASAL_UYARI_BASLIK}:</strong> {YASAL_UYARI} {YASAL_UYARI_EK}
         </p>
         <p>© {new Date().getFullYear()} {SITE.name}</p>
       </div>

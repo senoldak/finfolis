@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { YASAL_UYARI } from '../lib/yasal-uyari.mjs';
+import { YASAL_UYARI, YASAL_UYARI_EK } from '../lib/yasal-uyari.mjs';
 import { SITE } from '../lib/site';
 ---
 
@@ -123,7 +123,7 @@ import { SITE } from '../lib/site';
             <strong>Yatırım Tavsiyesi Değildir:</strong> {SITE.name} üzerinde yer alan haber, veri, grafik ve analizler
             kesinlikle 6362 sayılı Sermaye Piyasası Kanunu veya ESMA düzenlemeleri kapsamında bir "yatırım danışmanlığı",
             "bireysel portföy yönetimi" veya "al/sat tavsiyesi" değildir. Her yatırımcının kendi risk profilini bağımsızca
-            değerlendirmesi esastır. {YASAL_UYARI}
+            değerlendirmesi esastır. SPK'nın III-37.1 sayılı Tebliği EK/3 uyarı notu: {YASAL_UYARI} {YASAL_UYARI_EK}
           </li>
           <li>
             <strong>Çıkar Çatışmasının Önlenmesi:</strong> Editörlerimiz ve analistlerimiz, yazdıkları veya analiz ettikleri

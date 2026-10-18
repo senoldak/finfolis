@@ -42,8 +42,10 @@ Sahibinin seçimi: **öğretici ve sıcak.**
 - **Rakam bağlamıyla:** "geçen aya göre", "yıllık", "bir yıl önce".
 - **Sade Türkçe:** kısa cümle; terim ilk geçtiği yerde açıklanır.
 - **Tavsiye yok:** getiri vaadi, al/sat/tut, hedef fiyat yok. Her yazının, veri ve hesaplayıcı sayfasının altında ve
-  sayfa altında sahibin verdiği **Yasal Uyarı** metni birebir durur (`src/lib/yasal-uyari.mjs`, `YasalUyari.astro`;
-  metin elle kısaltılmaz).
+  sayfa altında **Yasal Uyarı** durur: SPK III-37.1 Tebliği EK/3 uyarı notu birebir, altında tamamlayıcı uyarı
+  (öneri/vaat değildir, doğruluk garantisi yok, veri gecikmeli olabilir, sorumluluk reddi). Tebliğin 79. maddesi gereği
+  metinle aynı yazı karakteri ve puntoda, dikkat çekici biçimde, metnin sonunda (`src/lib/yasal-uyari.mjs`,
+  `YasalUyari.astro`; EK/3 metnine dokunulmaz).
 - **Kaynak kuralı:** resmî olmayan haber kaynaklarının adı anılmaz, bağlantısı verilmez (bkz. `AGENTS.md`).
   Resmî kurumlar (TCMB, TÜİK, Fed, ECB, SEC…) anılır.
 
