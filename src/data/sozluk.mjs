@@ -128,7 +128,7 @@ export const TERIMLER = [
     bagla: ['zorunlu karşılık\\p{L}*', 'zorunlu karşılığ\\p{L}*'],
     tanim: [
       'Zorunlu karşılık, bankaların topladıkları mevduat ve benzeri yükümlülüklerin belirli bir oranını merkez bankasında tutmak zorunda olduğu tutardır. Merkez bankası bu oranları belirleyerek bankaların kredi verebileceği kaynak miktarını etkiler.',
-      'Zorunlu karşılık oranlarının artırılması bankaların elindeki serbest parayı azaltır ve kredi büyümesini yavaşlatabilir; düşürülmesi ise bankalara kaynak sağlar. Oranlar mevduatın vadesine ve para birimine göre farklılaştırılabilir. TCMB, zorunlu karşılığı faizin yanında tamamlayıcı bir para politikası aracı olarak kullanır. Zorunlu karşılık aynı zamanda bankacılık sisteminde ani likidite sıkışıklıklarına karşı bir tampon işlevi görür.',
+      'Zorunlu karşılık oranlarının artırılması bankaların elindeki serbest parayı azaltır ve kredi büyümesini yavaşlatabilir; düşürülmesi ise bankalara kaynak sağlar. Oranlar mevduatın vadesine ve para birimine göre farklılaştırılabilir. TCMB, zorunlu karşılığı faizin yanında tamamlayıcı bir para politikası aracı olarak kullanır. Zorunlu karşılık oranları, bankacılık sistemindeki likiditeyi yönetmenin de bir yoludur. Bankalar bu karşılıkları merkez bankasında tutmak zorunda olduğu için kredi olarak kullandıramaz.',
     ],
     ilgili: ['para-politikasi', 'likidite', 'vadeli-mevduat'],
   },
@@ -137,7 +137,7 @@ export const TERIMLER = [
     terim: 'Parasal sıkılaştırma',
     bagla: ['parasal sıkılaştırma\\p{L}*', 'parasal sıkılaşma\\p{L}*'],
     tanim: [
-      'Parasal sıkılaştırma, merkez bankasının ekonomideki para ve kredi miktarını azaltmaya, borçlanmayı pahalılaştırmaya yönelik adımlarının genel adıdır. En bilinen aracı politika faizinin artırılmasıdır. Zorunlu karşılık oranlarını yükseltmek, piyasaya verilen likiditeyi azaltmak ya da merkez bankasının elindeki tahvilleri azaltması da sıkılaştırma sayılır.',
+      'Parasal sıkılaştırma, merkez bankasının ekonomideki para ve kredi miktarını azaltmaya, borçlanmayı pahalılaştırmaya yönelik adımlarının genel adıdır. En bilinen aracı politika faizinin artırılmasıdır. Zorunlu karşılık oranlarını yükseltmek, piyasaya verilen likiditeyi azaltmak ya da merkez bankasının bilançosundaki tahvilleri azaltması da sıkılaştırma sayılır.',
       'Amaç genellikle enflasyonu düşürmektir: kredi pahalandıkça harcama ve talep yavaşlar, fiyat artışları da zamanla azalır. Sıkılaştırmanın bedeli büyümenin yavaşlaması olabilir. Bunun tersi olan para politikası gevşemesi ise faiz indirimi ve likidite artışıyla ekonomiyi canlandırmayı hedefler. Merkez bankaları sıkılaştırmanın ne kadar süreceğini, yayımladıkları metinlerdeki yönlendirmelerle piyasaya duyurmaya çalışır.',
     ],
     ilgili: ['politika-faizi', 'niceliksel-genisleme', 'zorunlu-karsilik'],
@@ -360,7 +360,7 @@ export const TERIMLER = [
     bagla: ['kur korumalı mevduat\\p{L}*', 'KKM'],
     tanim: [
       'Kur korumalı mevduat (KKM), Aralık 2021’de başlatılan ve Türk lirası mevduatı kur artışına karşı koruyan bir mevduat ürünüdür. Vade sonunda dolar/TL kurundaki artış hesaba yatırılan faizden fazla olursa, aradaki fark mevduat sahibine ayrıca ödenir.',
-      'Uygulamanın amacı, dövize yönelen tasarrufları Türk lirasında tutmak ve kur üzerindeki baskıyı azaltmaktı. Kur farkı ödemeleri kamu kaynaklarından ve TCMB’den karşılandığı için bütçe ve merkez bankası üzerinde maliyet oluşturdu. Haziran 2023’ten itibaren uygulanan politikalarla KKM bakiyesinin azaltılması ve tasarrufların standart Türk lirası mevduata geçirilmesi hedeflendi. Ürünün koşulları dönem içinde birçok kez değiştirildi.',
+      'Uygulamanın amacı, dövize yönelen tasarrufları Türk lirasında tutmak ve kur üzerindeki baskıyı azaltmaktı. Kur farkı ödemeleri kamu kaynaklarından ve TCMB’den karşılandığı için bütçe ve merkez bankası üzerinde maliyet oluşturdu. Haziran 2023’ten itibaren uygulanan politikalarla KKM bakiyesinin azaltılması ve tasarrufların standart Türk lirası mevduata geçirilmesi hedeflendi. TCMB, Ağustos 2025’te yeni hesap açılışını ve vade sonunda yenilemeyi durdurdu; uygulama bu nedenle sona ermiş sayılır. Ürünün koşulları dönem içinde birçok kez değiştirildi.',
     ],
     ilgili: ['vadeli-mevduat', 'doviz-kuru', 'rezerv'],
   },
@@ -381,7 +381,7 @@ export const TERIMLER = [
     harf: true,
     tanim: [
       'KKDF, Kaynak Kullanımını Destekleme Fonu’nun kısaltmasıdır. Bazı kredi işlemlerinde, faiz tutarı ya da kredi tutarı üzerinden alınan bir fon kesintisidir. Bireysel kredilerde banka bu kesintiyi taksitlere yansıtarak tahsil eder ve devlete aktarır.',
-      'KKDF oranları kredi türüne ve kullanım amacına göre farklıdır ve Cumhurbaşkanı kararıyla değiştirilebilir. Konut kredileri gibi bazı krediler KKDF’den muaf tutulabilir; bazı dönemlerde ise belirli dış finansman işlemlerine KKDF getirilerek kredi büyümesi yavaşlatılmaya çalışılmıştır. Tüketici kredisi maliyetini hesaplarken faiz oranının yanında KKDF ve BSMV’nin de eklenmesi gerekir; bankaların ödeme planlarında bu kalemler ayrıca gösterilir.',
+      'KKDF oranları kredi türüne ve kullanım amacına göre farklıdır ve Cumhurbaşkanı kararıyla değiştirilebilir. Konut edinimi amacıyla kullandırılan krediler KKDF’den muaftır; bazı dönemlerde ise belirli dış finansman işlemlerine KKDF getirilerek kredi büyümesi yavaşlatılmaya çalışılmıştır. Tüketici kredisi maliyetini hesaplarken faiz oranının yanında KKDF ve BSMV’nin de eklenmesi gerekir; bankaların ödeme planlarında bu kalemler ayrıca gösterilir.',
     ],
     ilgili: ['bsmv', 'faiz', 'stopaj'],
   },
@@ -392,7 +392,7 @@ export const TERIMLER = [
     harf: true,
     tanim: [
       'BSMV, Banka ve Sigorta Muameleleri Vergisi’nin kısaltmasıdır. Bankaların ve sigorta şirketlerinin yaptıkları işlemler nedeniyle lehlerine aldıkları paralar, örneğin kredi faizleri ve bazı komisyonlar, üzerinden alınan bir vergidir.',
-      'Bireysel kredilerde BSMV, faiz tutarı üzerinden hesaplanır ve taksitlere eklenerek müşteriden tahsil edilir. Oranlar işlem türüne göre farklıdır ve Cumhurbaşkanı kararıyla değiştirilebilir. Konut kredileri gibi bazı işlemler BSMV’den muaf olabilir. Döviz satışlarında da dönem dönem BSMV uygulanmıştır. Bir kredinin gerçek maliyetini görmek için faiz oranının yanında KKDF ve BSMV’nin etkisini de içeren yıllık maliyet oranına bakılır.',
+      'Bireysel kredilerde BSMV, faiz tutarı üzerinden hesaplanır ve taksitlere eklenerek müşteriden tahsil edilir. Oranlar işlem türüne göre farklıdır ve Cumhurbaşkanı kararıyla değiştirilebilir. Konut edinimi amacıyla kullandırılan krediler BSMV’den muaftır. Döviz satışlarında da dönem dönem BSMV uygulanmıştır. Bir kredinin gerçek maliyetini görmek için faiz oranının yanında KKDF ve BSMV’nin etkisini de içeren yıllık maliyet oranına bakılır.',
     ],
     ilgili: ['kkdf', 'faiz', 'stopaj'],
   },
@@ -481,7 +481,7 @@ export const TERIMLER = [
     terim: 'Yatırım fonu',
     bagla: ['yatırım fon\\p{L}*'],
     tanim: [
-      'Yatırım fonu, birçok yatırımcının parasının bir havuzda toplanıp profesyonel yöneticiler tarafından hisse senedi, tahvil, para piyasası araçları ya da altın gibi varlıklara yatırıldığı bir yatırım aracıdır. Yatırımcı fonun payını alır; payın değeri fondaki varlıkların değerine göre her gün yeniden hesaplanır.',
+      'Yatırım fonu, birçok yatırımcının parasının bir havuzda toplanıp profesyonel yöneticiler tarafından hisse senedi, tahvil, para piyasası araçları ya da altın gibi varlıklara yatırıldığı bir yatırım aracıdır. Yatırımcı fonun payını alır; payın değeri fondaki varlıkların değerine göre her işlem gününde yeniden hesaplanır.',
       'Türkiye’de yatırım fonlarını portföy yönetim şirketleri kurar ve yönetir; fonlar Sermaye Piyasası Kurulu’nun denetimine tabidir. Fonun ne tür varlıklara yatırım yapacağı izahnamesinde yazılıdır. Yatırım fonları küçük tutarlarla çeşitlendirilmiş bir portföye erişim sağlar; karşılığında yönetim ücreti alınır. Fon getirileri geçmişte iyi olsa bile gelecekte aynı olacağı anlamına gelmez.',
     ],
     ilgili: ['borsa-yatirim-fonu', 'hisse-senedi', 'stopaj'],
@@ -533,7 +533,7 @@ export const TERIMLER = [
     bagla: ['açığa satış\\p{L}*'],
     tanim: [
       'Açığa satış, yatırımcının sahip olmadığı bir hisseyi ödünç alarak satması ve ileride daha düşük fiyattan geri alıp ödünç verene iade etmeyi planlamasıdır. Fiyatın düşeceği beklentisiyle yapılır; fiyat düşerse aradaki fark kazanç olur.',
-      'Fiyat beklenenin tersine yükselirse yatırımcı hisseyi daha pahalıya geri almak zorunda kalır. Bir hissenin fiyatı teorik olarak sınırsız yükselebileceği için açığa satışın zararı da sınırsız olabilir. Açığa satış, piyasalarda fiyatların daha verimli oluşmasına katkı sağladığı gerekçesiyle serbesttir, ancak düzenleyiciler sert düşüş dönemlerinde bu işlemleri geçici olarak kısıtlayabilir. Türkiye’de açığa satış kuralları Sermaye Piyasası Kurulu ve Borsa İstanbul düzenlemeleriyle belirlenir.',
+      'Fiyat beklenenin tersine yükselirse yatırımcı hisseyi daha pahalıya geri almak zorunda kalır. Bir hissenin fiyatı teorik olarak sınırsız yükselebileceği için açığa satışın zararı da sınırsız olabilir. Açığa satışın piyasalarda fiyatların daha verimli oluşmasına katkı sağladığı savunulur, ancak düzenleyiciler sert düşüş dönemlerinde bu işlemleri geçici olarak yasaklayabilir. Türkiye’de açığa satış, Sermaye Piyasası Kurulu ve Borsa İstanbul düzenlemelerinde belirlenen koşullar ve hisse listeleriyle sınırlıdır.',
     ],
     ilgili: ['kaldirac', 'hisse-senedi', 'boga-ve-ayi-piyasasi'],
   },
