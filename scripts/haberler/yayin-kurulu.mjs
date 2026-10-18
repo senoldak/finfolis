@@ -3,7 +3,9 @@
 //   1. Kesin (yapay zekâsız) kontrol: her rakam ve alıntı kaynakta mı? (dogrula)
 //   2. Kontrol masası (Gemini): olgu, atıf, tavsiye/abartı, neden-sonuç, başlık doğruluğu.
 //   3. Sorun varsa yazara düzelttirme (en fazla 2 tur).
-//   4. Türkçe redaksiyon: TDK yazımı, Türkçe sayı biçimi, çeviri kokan ifadeler, sade dil.
+//   4. Türkçe redaksiyon: TDK yazımı, Türkçe sayı biçimi, çeviri kokan ifadeler, sade dil. Redaksiyon ayrı çağrı
+//      değildir: onay veren kontrol masası aynı çağrıda düzeltilmiş metni de döndürür (Katman 2.4); düzeltilmiş
+//      metin yeniden kontrol masasından geçer.
 //   5. Son kesin kontrol. Kalan her sorun {dur} döndürür; haber yayınlanmaz.
 import { gemini as varsayilanGemini } from './lib.mjs';
 import { dogrula } from './dogrula.mjs';
@@ -29,6 +31,38 @@ const KARAR_SEMASI = {
   },
   required: ['onay', 'sorunlar'],
 };
+
+// Kontrol masası çağrısı redaksiyon da istenirse (duzenle) şema düzeltilmiş metni de taşır.
+const DUZENLE_SEMASI = {
+  type: 'object',
+  properties: {
+    ...KARAR_SEMASI.properties,
+    duzeltilmis: {
+      type: 'object',
+      description: 'Yalnızca dili düzeltilmiş taslak; onay=false ise boş bırak',
+      properties: { baslik: { type: 'string' }, spot: { type: 'string' }, govde: { type: 'string' } },
+    },
+  },
+  required: KARAR_SEMASI.required,
+};
+
+// Redaksiyon kuralları: hem ayrı redaksiyon çağrısı hem birleşik kontrol çağrısı kullanır.
+const REDAKSIYON_KURALLARI = `Düzelt:
+- TDK yazım kuralları: yazım, noktalama, büyük harf, kesme işareti (Fed'in, TCMB'nin), bitişik/ayrı yazılanlar (de/da, ki, mi).
+- Türkçe sayı biçimi: ondalık virgül (4,25), binlik nokta (1.250), "yüzde 4,25", tarih "10 Ekim 2026". Rakamın değerini asla değiştirme.
+- Çeviri kokan ifadeler: İngilizceden birebir yapılar, gereksiz edilgen, "... olarak", "bir ... olan", "-mekte olan" yığılmaları, "önemli bir rol oynamak" gibi kalıplar.
+- Sade dil: kısa cümleler (tercihen 25 kelimeden az), etken çatı, cümle başına tek fikir; bürokratik ifadeleri gündelik ekonomi diline çevir.
+- Başlıkta yalnızca ilk kelime ve özel adlar büyük harfle başlar.
+- Abartı, heyecan ve korku dili sakinleştirilir.
+- "Dün", "bugün", "yarın" gibi göreli zaman ifadeleri metinde tarih varsa tarihle değiştirilir, yoksa çıkarılır.
+
+Değiştirme:
+- Olgular, rakamlar, isimler, tarihler, bilgilerin sırası.
+- Tırnak içindeki doğrudan alıntılar.
+- Atıflar ("Fed'e göre", "ECB'nin açıklamasına göre").
+- Uzunluk (belirgin biçimde).
+
+Metin zaten doğruysa aynen döndür.`;
 
 const butunMetin = (y) =>
   [y.baslik, y.spot, y.govde, ...(y.rakamlar ?? []).map((r) => `${r.etiket}: ${r.deger}`), y.sirada ? `${y.sirada.tarih}: ${y.sirada.olay}` : '']
@@ -234,11 +268,14 @@ function kesinKontrol(yazi, aday) {
 }
 
 // Kontrol masası: önce kesin kontrol, sonra Gemini. Gemini çalışamazsa onay yok.
-export async function kontrolMasasi(yazi, aday, { gemini = varsayilanGemini } = {}) {
+// duzenle: onay verirse aynı çağrıda taslağın redaksiyonunu da döndürür ({duzeltilmis}); onay ve sorunlar taslağın
+// kendisi için verilir. Çağrı hâlâ denetimdir: girdi kontrol masasıyla aynı (kaynak en çok 20 bin karakter,
+// ~5 bin token; toplam ~8 bin), çıktı birkaç yüz kelime; Gemma yedeğinin dakikada 16 bin token sınırına sığar.
+export async function kontrolMasasi(yazi, aday, { gemini = varsayilanGemini, duzenle = false } = {}) {
   const sorunlar = kesinKontrol(yazi, aday);
   const r = await gemini({
     denetim: true,
-    sema: KARAR_SEMASI,
+    sema: duzenle ? DUZENLE_SEMASI : KARAR_SEMASI,
     sistem: 'Sen finfolis yayın kurulunun kontrol masasısın. Haberler insan onayı olmadan yayınlanır; son kapı sensin. Katı ol: şüphedeysen onaylama. Yanıtların Türkçe.',
     istem: `Yapay zekânın yazdığı taslağı KAYNAK ile karşılaştır. Aşağıdakilerden biri varsa onay=false ver ve her sorunu kısaca yaz:
 1. Bir olgu (rakam, tarih, isim, unvan, kurum, olay) kaynakta yok ya da yanlış aktarılmış; İngilizce rakam Türkçe biçime çevrilirken değeri değişmiş.
@@ -248,7 +285,11 @@ export async function kontrolMasasi(yazi, aday, { gemini = varsayilanGemini } = 
 5. Başlık ya da spot metnin ve kaynağın desteklediğinden fazlasını söylüyor ya da yanıltıcı.
 6. Çeviri hatası anlamı değiştirmiş ("öneri" yerine "karar", "değerlendiriyor" yerine "karar verdi" gibi).
 Küçük dil kusurları ret sebebi değildir. Hiçbiri yoksa onay=true ve boş liste ver.
+${duzenle ? `
+Onay veriyorsan (onay=true) ayrıca duzeltilmis alanında taslağın redaksiyonunu ver; onay=false ise duzeltilmis boş kalsın. Redaksiyon YALNIZCA dili düzeltir:
 
+${REDAKSIYON_KURALLARI}
+` : ''}
 Yazara verilen kurallar:
 ${KURALLAR}
 
@@ -263,32 +304,20 @@ ${yazi.govde}`,
   });
   if (!r) return { onay: false, sorunlar: [...sorunlar, 'Yapay zekâ kontrolü çalıştırılamadı'] };
   sorunlar.push(...(r.sorunlar ?? []));
-  return { onay: Boolean(r.onay) && sorunlar.length === 0, sorunlar };
+  const d = r.duzeltilmis;
+  const duzeltilmis = duzenle && d?.baslik && d?.spot && d?.govde ? { baslik: d.baslik, spot: d.spot, govde: d.govde } : undefined;
+  return { onay: Boolean(r.onay) && sorunlar.length === 0, sorunlar, ...(duzeltilmis ? { duzeltilmis } : {}) };
 }
 
-// Türkçe redaksiyon: yalnızca dil; içerik değişmez. Başarısızsa metin aynen döner.
+// Türkçe redaksiyon (ayrı çağrı): yalnızca dil; içerik değişmez. Başarısızsa metin aynen döner.
+// yayinKurulu artık bunu çağırmaz (redaksiyon kontrol masası çağrısına katıldı); dışarıdan kullanım için kaldı.
 export async function redaksiyon(yazi, { gemini = varsayilanGemini } = {}) {
   const r = await gemini({
     sema: YAZI_SEMASI,
     sistem: "Sen finfolis'in Türkçe redaktörüsün. Yalnızca dili düzeltirsin, içeriğe asla dokunmazsın.",
     istem: `Aşağıdaki haberin redaksiyonunu yap. YALNIZCA dili düzelt.
 
-Düzelt:
-- TDK yazım kuralları: yazım, noktalama, büyük harf, kesme işareti (Fed'in, TCMB'nin), bitişik/ayrı yazılanlar (de/da, ki, mi).
-- Türkçe sayı biçimi: ondalık virgül (4,25), binlik nokta (1.250), "yüzde 4,25", tarih "10 Ekim 2026". Rakamın değerini asla değiştirme.
-- Çeviri kokan ifadeler: İngilizceden birebir yapılar, gereksiz edilgen, "... olarak", "bir ... olan", "-mekte olan" yığılmaları, "önemli bir rol oynamak" gibi kalıplar.
-- Sade dil: kısa cümleler (tercihen 25 kelimeden az), etken çatı, cümle başına tek fikir; bürokratik ifadeleri gündelik ekonomi diline çevir.
-- Başlıkta yalnızca ilk kelime ve özel adlar büyük harfle başlar.
-- Abartı, heyecan ve korku dili sakinleştirilir.
-- "Dün", "bugün", "yarın" gibi göreli zaman ifadeleri metinde tarih varsa tarihle değiştirilir, yoksa çıkarılır.
-
-Değiştirme:
-- Olgular, rakamlar, isimler, tarihler, bilgilerin sırası.
-- Tırnak içindeki doğrudan alıntılar.
-- Atıflar ("Fed'e göre", "ECB'nin açıklamasına göre").
-- Uzunluk (belirgin biçimde).
-
-Metin zaten doğruysa aynen döndür.
+${REDAKSIYON_KURALLARI}
 
 Başlık: ${yazi.baslik}
 Spot: ${yazi.spot}
@@ -327,19 +356,24 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
     yazi ={ ...(await (derleme ? derlemeUzat : uzat)(yazi, aday, kelimeSay(yazi.govde), g)), ...serit };
     if (kisa(yazi)) return kisaDur();
   }
-  // Kontrol, sorun varsa düzeltme; en fazla 2 düzeltme turu, ardından son bir kontrol.
+  // Kontrol, sorun varsa düzeltme; en fazla 2 düzeltme turu, ardından son bir kontrol. Kontrol onay verirse aynı
+  // çağrıda redaksiyon da gelir (Katman 2.4): ayrı redaksiyon çağrısı yok.
+  let duzenli0;
   for (let tur = 0; ; tur++) {
     // basit sorunlar (göreli zaman, yayın kuruluşu atfı) önce yerelde düzelir; Gemini'ye yalnızca kalanlar gider
     yazi = yerelDuzelt(yazi);
-    const karar = await kontrolMasasi(yazi, aday, g);
-    if (karar.onay) break;
+    const karar = await kontrolMasasi(yazi, aday, { ...g, duzenle: true });
+    if (karar.onay) {
+      duzenli0 = karar.duzeltilmis;
+      break;
+    }
     if (tur >= 2) return { dur: `Yayın kurulu onaylamadı: ${karar.sorunlar.join('; ')}` };
     yazi = { ...(await duzelt(yazi, aday, karar.sorunlar, g)), ...serit };
   }
 
   // Redaksiyon da kontrol masasından geçmeli; hatasız onay almazsa onaylı önceki hâl kullanılır.
-  const duzenli0 = await redaksiyon(yazi, g);
-  const duzenli = duzenli0 === yazi ? yazi : yerelDuzelt({ ...duzenli0, ...serit });
+  // Değişiklik yoksa ikinci denetim gerekmez.
+  const duzenli = duzenli0 && !ayniYazi(duzenli0, yazi) ? yerelDuzelt({ ...duzenli0, ...serit }) : yazi;
   // Redaksiyon metni en az uzunluğun altına indiremez.
   if (duzenli !== yazi && bicimKorunur(yazi, duzenli) && (!kisa(duzenli) || kisa(yazi)) && kesinKontrol(duzenli, aday).length === 0) {
     const karar = await kontrolMasasi(duzenli, aday, g);
@@ -352,6 +386,8 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
   if (kisa(yazi)) return kisaDur();
   return { yazi };
 }
+
+const ayniYazi = (a, b) => ['baslik', 'spot', 'govde'].every((k) => a[k] === b[k]);
 
 // Redaksiyon biçimi bozmamalı: paragraf/başlık satırları korunur ve özel adlar küçültülmez
 // (ör. "Trex Bio" → "Trex bio"). Bozulursa redaksiyon atılır, onaylı metin yayınlanır.

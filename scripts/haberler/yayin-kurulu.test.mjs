@@ -42,11 +42,13 @@ test('Gemini yoksa dur', async () => {
   assert.ok(r.dur);
 });
 
-// Redaksiyon istemi "redaksiyon" kelimesiyle ayırt edilir.
+// Redaksiyon artık kontrol masası çağrısının (şemada duzeltilmis olan) çıktısıdır; ikinci kontrol düzenlemesizdir.
 function redStub(redCikti, masa = () => ({ onay: true, sorunlar: [] })) {
   return async ({ sema, istem }) => {
-    if (sema.properties.onay) return masa(istem);
-    if (istem.includes('redaksiyonunu')) return redCikti;
+    if (sema.properties.onay) {
+      const r = masa(istem);
+      return sema.properties.duzeltilmis && redCikti && r.onay ? { ...r, duzeltilmis: redCikti } : r;
+    }
     return iyi;
   };
 }
@@ -279,4 +281,57 @@ test('kontrol masası yayın kuruluşu adını why_matters, key_points ve tablod
     assert.equal(karar.onay, false, JSON.stringify(ek));
     assert.ok(karar.sorunlar.some((s) => s.startsWith('Yayın kuruluşu adı geçiyor')), JSON.stringify(karar.sorunlar));
   }
+});
+
+// Katman 2.4: redaksiyon kontrol masası çağrısına katıldı.
+test('birleşik redaksiyon: ilk çağrı duzeltilmis ister, düzenlenmiş metin bir kez daha denetlenir (2 çağrı, ayrı redaksiyon yok)', async () => {
+  const duzenli = { ...iyi, spot: 'Fed, hedef aralığı yüzde 4,25-4,5 düzeyinde korudu.' };
+  const cagrilar = [];
+  const gemini = async (x) => {
+    cagrilar.push(x);
+    if (x.sema.properties.duzeltilmis) return { onay: true, sorunlar: [], duzeltilmis: duzenli };
+    return { onay: true, sorunlar: [] };
+  };
+  const r = await yayinKurulu(iyi, aday, { enAzKelime: 0, gemini });
+  assert.deepEqual(r, { yazi: duzenli });
+  assert.equal(cagrilar.length, 2);
+  assert.equal(cagrilar[0].denetim, true);
+  assert.match(cagrilar[0].istem, /TDK yazım kuralları/);
+  assert.ok(!cagrilar[1].sema.properties.duzeltilmis);
+  assert.ok(!cagrilar.some((c) => c.sema.properties.baslik)); // ayrı redaksiyon (yazı şemalı) çağrısı yok
+});
+
+test('birleşik redaksiyon: düzenleme yoksa ya da aynıysa ikinci kontrol çağrılmaz (1 çağrı)', async () => {
+  for (const duzeltilmis of [undefined, { ...iyi }]) {
+    let n = 0;
+    const gemini = async () => (n++, { onay: true, sorunlar: [], ...(duzeltilmis ? { duzeltilmis } : {}) });
+    const r = await yayinKurulu(iyi, aday, { enAzKelime: 0, gemini });
+    assert.deepEqual(r, { yazi: iyi });
+    assert.equal(n, 1);
+  }
+});
+
+test('birleşik redaksiyon: onay vermeyen çağrının duzeltilmis çıktısı kullanılmaz', async () => {
+  const r = await yayinKurulu(iyi, aday, {
+    enAzKelime: 0,
+    gemini: async ({ sema, istem }) => (sema.properties.onay ? { onay: false, sorunlar: ['x'], duzeltilmis: { ...iyi, spot: 'Başka spot.' } } : istem.includes('SORUNLAR') ? iyi : null),
+  });
+  assert.match(r.dur, /onaylamadı/);
+});
+
+test('birleşik redaksiyon: düzenlenmiş metin en az uzunluğun altına düşerse onaylı metin kalır', async () => {
+  const uzun = { ...iyi, govde: uzunGovde };
+  const kisaltilmis = { ...iyi, govde: 'Fed’e göre aralık yüzde 4,25 ile 4,5 arasında kaldı.\n\n## Neden önemli?\n\nEtkiler.' };
+  let n = 0;
+  const gemini = async ({ sema }) => (n++, sema.properties.duzeltilmis ? { onay: true, sorunlar: [], duzeltilmis: kisaltilmis } : { onay: true, sorunlar: [] });
+  const r = await yayinKurulu(uzun, aday, { gemini });
+  assert.deepEqual(r, { yazi: uzun });
+  assert.equal(n, 1);
+});
+
+test('kontrolMasasi: duzenle olmadan şema duzeltilmis taşımaz ve sonuç düzenleme döndürmez', async () => {
+  let sema;
+  const r = await kontrolMasasi(iyi, aday, { gemini: async (x) => { sema = x.sema; return { onay: true, sorunlar: [], duzeltilmis: iyi }; } });
+  assert.ok(!sema.properties.duzeltilmis);
+  assert.equal(r.duzeltilmis, undefined);
 });
