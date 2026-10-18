@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { kapakCiz, haberKapagi, rakamKapagi, kaynakKapagi, bultenKapagi, gostergeKapagi } from './kapak.mjs';
+import { kapakCiz, haberKapagi, rakamKapagi, kaynakKapagi, bultenKapagi, gostergeKapagi, grafikKapagi, karneKapagi } from './kapak.mjs';
 
 test('haberKapagi: rakamsız başlık ve spot ile geçerli PNG üretir', async () => {
   const png = await kapakCiz(haberKapagi({
@@ -84,7 +84,7 @@ test('eksenAdimi ve incelt: okunaklı adım, tepe ve son nokta korunur', async (
   assert.equal(az.at(-1), seri.at(-1));
 });
 
-test('mürekkep bloğu: zemin kategorinin mürekkep rengidir, koyu sarıda yazı mürekkep renginde', async () => {
+test('mürekkep bloğu: zemin kategorinin mürekkep rengidir; döviz & altında zemin beyaz, yazı mürekkep renginde', async () => {
   const { default: sharp } = await import('sharp');
   const piksel = async (png, x, y) => {
     const { data, info } = await sharp(png).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
@@ -95,7 +95,7 @@ test('mürekkep bloğu: zemin kategorinin mürekkep rengidir, koyu sarıda yazı
   const mavi = await kapakCiz(haberKapagi({ kategori: 'piyasalar', baslik: 'Test başlığı' }));
   assert.ok(yakin(await piksel(mavi, 4, 4), [0x2e, 0x5d, 0x8a]));
   const sari = await kapakCiz(haberKapagi({ kategori: 'doviz', baslik: 'Test başlığı' }));
-  assert.ok(yakin(await piksel(sari, 4, 4), [0xe0, 0xb4, 0x3a]));
+  assert.ok(yakin(await piksel(sari, 4, 4), [0xff, 0xff, 0xff]));
   // Alt bantta marka yazısı: sarıda koyu, mavide açık renkli piksel bulunur.
   const enKoyu = async (png) => {
     const { data } = await sharp(png).extract({ left: 120, top: 560, width: 150, height: 50 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
@@ -134,4 +134,20 @@ test('yenile.kapakTuru: yalnız kesin tanınan kapaklar yeniden çizilir', async
   assert.equal(kapakTuru({ title: 'TCMB faizi sabit tuttu', coverAlt: 'TCMB politika faizi %50,0' }), null);
   assert.equal(kapakTuru({ title: 'KOSPI düştü', coverAlt: 'Güney Kore KOSPI günlük kapanış grafiği' }), null);
   assert.deepEqual(bultenBasliklari('## ABD\n\n- **A:** x\n- **B:** y\n\n## Asya\n\n- **C:** z\n- **D:** w'), ['A', 'B', 'C']);
+});
+
+test('veri kapakları (grafik, karne, gösterge, rakam) her kategoride beyaz zeminli; karnede yükselen yeşil, düşen kırmızı', async () => {
+  const { default: sharp } = await import('sharp');
+  const sol = async (png) => [...(await sharp(png).extract({ left: 4, top: 4, width: 1, height: 1 }).removeAlpha().raw().toBuffer())];
+  const gun = (i) => `2026-0${1 + Math.floor(i / 28)}-${String(1 + (i % 28)).padStart(2, '0')}`;
+  const seri = Array.from({ length: 30 }, (_, i) => ({ tarih: gun(i), deger: 100 + i }));
+  for (const k of [
+    grafikKapagi({ kategori: 'borsa', baslik: 'KOSPI düştü', seri }),
+    rakamKapagi({ kategori: 'piyasalar', ust: 'TCMB politika faizi', rakam: '%39,50' }),
+    karneKapagi({ kategori: 'piyasalar', baslik: 'Karne', satirlar: [{ etiket: 'A', deger: 2 }, { etiket: 'B', deger: -1 }] }),
+    gostergeKapagi({ kategori: 'ekonomi', baslik: 'Gösterge', simge: 'fabrika', birim: 10, birimEtiket: '10', satirlar: [{ etiket: '2024', deger: 30 }] }),
+  ]) assert.deepEqual(await sol(await kapakCiz(k)), [255, 255, 255]);
+  const karne = await karneKapagi({ kategori: 'piyasalar', baslik: 'Karne', satirlar: [{ etiket: 'A', deger: 2 }, { etiket: 'B', deger: -1 }] })();
+  assert.match(karne.svg, /fill="#3f7350"/);
+  assert.match(karne.svg, /fill="#c43d2b"/);
 });
