@@ -12,8 +12,8 @@ kaynaklar:
     url: "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Enflasyon+Verileri/Tuketici+Fiyatlari"
   - ad: "TCMB Para Politikası Kurulu"
     url: "https://www.tcmb.gov.tr/wps/wcm/connect/tr/tcmb+tr/main+menu/duyurular/basin/2026/duy2026-38"
-  - ad: "Yahoo Finance"
-    url: "https://finance.yahoo.com/"
+  - ad: "Piyasa kapanış verisi"
+    url: "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
 kaynakIzi: "v1.cI6Cp20kynlzk3El.CJSQCWpBSTBIhH71vCGzbLb12h7vuSyE1OzEK8qhIyuPz3ug9BhvyGwiGCkJ31FbKK/qw5tdS5yK5OuT7wQmyA+ZXNk1I9+dQkS1Lsx6sW1u+GrntWbMx0ElvdXJanq2GCqlkYflyBTsbnD04+04KlapPAm+O9qVdsEgk22dkl5Kxbc8PaOplmzrEEfqW5N6hYdAj9gwMNHe+s172d+uDe6XNQYXL20DYFpZSW2kP4AmSHEa6l3+xkLdynMbEzs3QouP6WmonKgTptTGB2bIw04ve8skCu2wEV89ERSQnbJYiV/t/E84KlanLJuehmtM90UXEGkNEL2Wykqi/osJ5cqFQH86+U3ttt/G/sB/0CrQkXKETD4dC1hyqdSJwKlWDIreGnPQUz9joxo3oa2aSqzW5dXrlb+P+4cXIjkCa9aDrJ5yHg4UDlrixXfQr3yMDUt4JLmajIiT7OzbNLeZi6ZDzTugmFJNzLOhpwJ4O025/vnp3EkkykCC48SftL2DkmcmLURT5lh0okFVBjHbA7MMM17IYFvCa/NjClnfKqZkZ3v4bgkwQ1xBE3KMLvSHfKAHwiouTpD3FFTEv7leau1yugfn7akvlxkNYWCJAinBG7yXSrtJ8W8z9AF3ABCJrNtYWfXmejeeASsFHM4bWSU3DOQpT9VSlLyF0ilUUjLXUrgr0nfte1r4g3nTFb+tpHi6wajAWkOIGcUyEUwo5IzmhWG1X1s9le0iJgqvRgstFtCrUZZnuXcTlT7qUPKk64RIojCvZRNXkhI04NAvgo4m46jK5qkfPKkC2V3BzZrIxwt7DkVqYnb+rhjAs/x4I7J99oNAcAnIH5S02ySvG64HLmFYp7OepjH784+EMjiQtZwAynlKli4wOzsMIzlyym2c0ShqGsFRnaYDkdAgPR+fzdEWQeSzdUjYZC1moJ9DxfllvDgRIspZhkJDU9OkQghXNGUy/UMftDpnhX9yD9nHnCnVPFcEx2sDyczEJoXrFDTILAIRVi2qH7+yxxNpi5HWSc91Twm3jUpC7T3d0ZcwfO5nQkqitOxFjHwryympi5DA68LyZoFZxwcWyyhPmliGsSY+hW6pRbnWW4vxyZ4e/YOx2XP0gFfOun09zuS6hHtVuWuWSDfqlVLs8kwXqAufFaGpmEE="
 cover: kapak.png
 coverAlt: "Piyasa bülteninin öne çıkan başlıkları"

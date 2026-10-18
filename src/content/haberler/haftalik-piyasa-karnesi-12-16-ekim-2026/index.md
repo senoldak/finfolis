@@ -7,8 +7,8 @@ tur: "haber"
 icerikTuru: "veri"
 uretim: "bot"
 kaynaklar:
-  - ad: "Yahoo Finance"
-    url: "https://finance.yahoo.com/"
+  - ad: "Piyasa kapanış verisi"
+    url: "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
 rakamlar:
   - etiket: "En çok yükselen · FTSE 100"
     deger: "+%3,1"

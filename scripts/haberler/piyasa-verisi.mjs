@@ -15,6 +15,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { hentJson, hentMetin } from './lib.mjs';
+import { YAHOO_KAYNAK } from './yahoo-seri.mjs'; // okura görünen nötr etiket
 
 const FRANKFURTER = 'https://api.frankfurter.dev/v1';
 const ppkUrl = (yil) =>
@@ -36,7 +37,6 @@ const KURLAR = [
 
 // Borsa ve emtia göstergeleri: Yahoo Finance grafik verisi (anahtarsız). Günlük değişim ve son üç ay geçmişi buradan.
 const YAHOO = 'https://query1.finance.yahoo.com/v8/finance/chart';
-const YAHOO_KAYNAK = { ad: 'Yahoo Finance', url: 'https://finance.yahoo.com/' };
 const BORSA = [
   { id: 'bist100', ad: 'BIST 100', sembol: 'XU100.IS', simge: 'fabrika' },
   { id: 'altin', ad: 'Ons altın (USD)', sembol: 'GC=F', simge: 'altigen', onEk: '$' },

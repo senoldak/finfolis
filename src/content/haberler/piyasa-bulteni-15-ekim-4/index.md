@@ -11,8 +11,8 @@ kaynaklar:
     url: "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Enflasyon+Verileri/Tuketici+Fiyatlari"
   - ad: "TCMB Para Politikası Kurulu"
     url: "https://www.tcmb.gov.tr/wps/wcm/connect/tr/tcmb+tr/main+menu/duyurular/basin/2026/duy2026-38"
-  - ad: "Yahoo Finance"
-    url: "https://finance.yahoo.com/"
+  - ad: "Piyasa kapanış verisi"
+    url: "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
 cover: kapak.png
 coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 ---

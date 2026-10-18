@@ -40,7 +40,7 @@ test('karne yazısı: en çok yükselen/düşen spotta, gruplu gövde, uyarı ve
   assert.match(y.spot, /en çok S&P 500 yükseldi \(\+%3,0\), en çok Dolar endeksi geriledi \(−%12,0\)/);
   assert.match(y.govde, /## Borsalar/);
   assert.match(y.govde, /Geçmiş performans gelecekteki sonuçların göstergesi değildir/);
-  assert.equal(y.kaynaklar[0].ad, 'Yahoo Finance');
+  assert.equal(y.kaynaklar[0].ad, 'Piyasa kapanış verisi');
   const png = await kapakCiz(y.kapak);
   assert.equal(png.subarray(1, 4).toString(), 'PNG');
 });

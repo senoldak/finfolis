@@ -31,7 +31,7 @@ export function icerikTuru(adaylar = []) {
 
 // Yayımlanmış yazının kaynak adından tür (geriye dönük etiketleme için). Bilinmeyen ad undefined döner.
 const AD_TURU = [
-  [/referans kuru|Yahoo Finance|TÜİK/i, 'veri'],
+  [/referans kuru|Piyasa kapanış verisi|Yahoo Finance|TÜİK/i, 'veri'],
   [/SEC EDGAR|Federal Reserve|Merkez Bankası|Bank of England/i, 'resmi'],
 ];
 export function kaynakAdiTuru(ad = '') {

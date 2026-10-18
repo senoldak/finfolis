@@ -4,7 +4,9 @@
 import { hentJson } from './lib.mjs';
 
 const YAHOO = 'https://query1.finance.yahoo.com/v8/finance/chart';
-export const YAHOO_KAYNAK = { ad: 'Yahoo Finance', url: 'https://finance.yahoo.com/' };
+// Okura görünen kaynak etiketi: resmî olmayan veri sağlayıcının adı sitede anılmaz (BRAND.md §4, AGENTS.md); etiket,
+// verinin ne olduğunu ve resmî kurum yayını olmadığını açıklayan yayın ilkeleri bölümüne bağlanır.
+export const YAHOO_KAYNAK = { ad: 'Piyasa kapanış verisi', url: 'https://finfolis.com/yayin-ilkeleri/#piyasa-verisi' };
 const yuvarla = (n, o) => Math.round(n * 10 ** o) / 10 ** o;
 const zaman = (iso) => Date.parse(`${iso}T00:00:00Z`);
 

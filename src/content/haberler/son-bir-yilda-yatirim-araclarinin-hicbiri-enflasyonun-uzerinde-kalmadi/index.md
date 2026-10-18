@@ -8,8 +8,8 @@ icerikTuru: "veri"
 kaynaklar:
   - ad: "TÜİK, TCMB aracılığıyla"
     url: "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Enflasyon+Verileri/Tuketici+Fiyatlari"
-  - ad: "Yahoo Finance"
-    url: "https://finance.yahoo.com/"
+  - ad: "Piyasa kapanış verisi"
+    url: "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
 rakamlar:
   - etiket: "Aylık enflasyon"
     deger: "%1,84"

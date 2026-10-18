@@ -6,8 +6,8 @@ category: "borsa"
 tur: "haber"
 icerikTuru: "veri"
 kaynaklar:
-  - ad: "Yahoo Finance"
-    url: "https://finance.yahoo.com/"
+  - ad: "Piyasa kapanış verisi"
+    url: "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
 rakamlar:
   - etiket: "Son Kapanış"
     deger: "271,37 dolar"

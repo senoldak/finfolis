@@ -1,5 +1,5 @@
 ---
-title: "Avrupa Birligi guvenilir yapay zeka gundemini one cikariyor"
+title: "Avrupa Birliği güvenilir yapay zeka gündemini öne çıkarıyor"
 description: "Dublin'de düzenlenen uluslararası yapay zeka zirvesinde Avrupa Birliği liderleri güvenilir ve bağımsız yapay zekayı destekledi. Küresel yapay zeka bilişim kapasitesinin yüzde 75'i Amerika Birleşik Devletleri'nde bulunurken, Avrupa Birliği'nin payı yüzde 5 seviyesinde kaldı."
 date: 2026-10-16T09:07:00.000Z
 category: "ekonomi"
