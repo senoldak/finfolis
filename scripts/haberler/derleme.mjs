@@ -21,7 +21,10 @@ export function dilimGruplari(olaylar) {
   }
   const gruplar = [];
   const artan = [];
-  for (const d of [...dilimler.keys()].sort()) {
+  // Anahtar "YYYY-MM-DD:dilim"; düz sıralama aynı günde kapanışı öğleden önce koyar, dilimler gün içi sırayla dizilir.
+  const SIRA = { acilis: 0, ogle: 1, kapanis: 2 };
+  const anahtarSirasi = (k) => { const [g, d] = k.split(':'); return `${g}:${SIRA[d] ?? 9}`; };
+  for (const d of [...dilimler.keys()].sort((a, b) => anahtarSirasi(a).localeCompare(anahtarSirasi(b)))) {
     const sirali = [...dilimler.get(d)].sort((a, b) => (b.onem ?? 0) - (a.onem ?? 0));
     if (sirali.length < DERLEME_EN_AZ) {
       artan.push(...sirali);

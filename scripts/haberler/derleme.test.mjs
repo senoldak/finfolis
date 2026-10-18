@@ -238,3 +238,14 @@ test('öncelik: tur payı derleme sonrası bitince önem 60-69 haber yazılmaz, 
   assert.equal(r.adet, 2);
   assert.equal(s.durum.gorulen.d1, undefined); // görülmedi kaldı, sonraki turda yazılır
 });
+
+test('dilimGruplari: aynı günün dilimleri gün içi sırayla gelir (öğle kapanıştan önce)', () => {
+  // 18 Ekim 2026 İstanbul: 13:00 öğle, 19:00 kapanış (UTC+3)
+  const { gruplar } = dilimGruplari([
+    olay('k1', 'piyasalar', 80, '2026-10-18T16:00:00Z'),
+    olay('k2', 'piyasalar', 80, '2026-10-18T16:30:00Z'),
+    olay('o1', 'piyasalar', 80, '2026-10-18T10:00:00Z'),
+    olay('o2', 'piyasalar', 80, '2026-10-18T10:30:00Z'),
+  ]);
+  assert.deepEqual(gruplar.map((g) => g.map((o) => o.id).sort()), [['o1', 'o2'], ['k1', 'k2']]);
+});
