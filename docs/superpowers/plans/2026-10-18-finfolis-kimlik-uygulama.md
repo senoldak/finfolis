@@ -44,22 +44,22 @@ fontTools (yazı tipi yaması, Python), Node test runner (`npm test`).
 **Files:** Create `scripts/marka/tl-simgesi.py`, `scripts/kapak/fonts/BricolageGrotesque.ttf`,
 `scripts/kapak/fonts/OFL-Bricolage.txt`, `public/fonts/bricolage-latin{,-ext}-v1.woff2`.
 
-- [ ] Google Fonts deposundaki değişken TTF'yi indir; `wdth=100`'e sabitle (instancer).
-- [ ] ₺'yi TCMB geometrisiyle çiz (kifobu `tl-simgesi.py` ile aynı kurgu); ölçüler her ana noktada `I` gövdesinden
+- [x] Google Fonts deposundaki değişken TTF'yi indir; `wdth=100`'e sabitle (instancer).
+- [x] ₺'yi TCMB geometrisiyle çiz (kifobu `tl-simgesi.py` ile aynı kurgu); ölçüler her ana noktada `I` gövdesinden
   ve büyük harf yüksekliğinden alınır; ana noktalar opsz {12, 96} × wght {200, 400, 800}; deltalar
   `VariationModel` ile; ilerleme genişliği özgün glifinki (HVAR geçerli kalır).
-- [ ] latin / latin-ext woff2 alt kümeleri (unicode-range bugünkü `global.css` ile aynı).
-- [ ] Köşe örneklerini PNG'ye bas, göz kontrolü.
+- [x] latin / latin-ext woff2 alt kümeleri (unicode-range bugünkü `global.css` ile aynı).
+- [x] Köşe örneklerini PNG'ye bas, göz kontrolü.
 
 ### Görev 2: Ortak yardımcılar — abaküs işareti ve boncuk sırası
 
 **Files:** Create `src/lib/kimlik.js`, `src/lib/kimlik.test.mjs`, `scripts/marka/abakus-isaret.mjs`.
 
-- [ ] `KIMLIK` renk sabiti.
-- [ ] `abakusSvg({ boyut, kucuk, zemin: 'acik'|'toprak', vurgu })`: tam (4 tel, koyu 3·2·1·0, gri 1·2·3·4) ve küçük
+- [x] `KIMLIK` renk sabiti.
+- [x] `abakusSvg({ boyut, kucuk, zemin: 'acik'|'toprak', vurgu })`: tam (4 tel, koyu 3·2·1·0, gri 1·2·3·4) ve küçük
   (3 tel, koyu 2·1·0, gri 1·2·3); `vurgu` sağ üst boncuğu pişmiş toprak yapar; `toprak` zemin profil içindir.
-- [ ] `boncuklar(miktar, birim)` → tellere bölünmüş kesir listesi (10'arlı), testli.
-- [ ] `brand/` dosyaları: `finfolis-abakus.svg`, `-kucuk.svg`, `-koyu-zemin.svg`; eski f monogramı `brand/eski/`.
+- [x] `boncuklar(miktar, birim)` → tellere bölünmüş kesir listesi (10'arlı), testli.
+- [x] `brand/` dosyaları: `finfolis-abakus.svg`, `-kucuk.svg`, `-koyu-zemin.svg`; eski f monogramı `brand/eski/`.
 
 ### Görev 3: Site temeli
 
@@ -67,20 +67,20 @@ fontTools (yazı tipi yaması, Python), Node test runner (`npm test`).
 `src/components/Pictograms.astro`, `src/lib/kategoriler.js`, `public/favicon*`, `public/apple-touch-icon.png`,
 `public/site.webmanifest`, `public/finfolis-logo.png`, `public/og-default.png`.
 
-- [ ] `@font-face` Bricolage; `--sans` ve `--serif` Bricolage; Jost/Literata dosyaları kalkar.
-- [ ] Renk belirteçleri; `.ink-*` sınıfları pişmiş toprağa iner; `--red` düşüş kırmızısı olur.
-- [ ] Üst kısım ve alt kısım: abaküs + "finfolis" (600, sıkı aralık); üstte pişmiş toprak ince bant.
-- [ ] Menüdeki kategori piktogramları kalkar (benim kararım: Isotype simgeleri kimlikten çıktı).
-- [ ] Favicon: saydam; ≤32 piksel küçük abaküs. `?v=2` sürüm eki. Yayıncı logosu, og-default.
+- [x] `@font-face` Bricolage; `--sans` ve `--serif` Bricolage; Jost/Literata dosyaları kalkar.
+- [x] Renk belirteçleri; `.ink-*` sınıfları pişmiş toprağa iner; `--red` düşüş kırmızısı olur.
+- [x] Üst kısım ve alt kısım: abaküs + "finfolis" (600, sıkı aralık); üstte pişmiş toprak ince bant.
+- [x] Menüdeki kategori piktogramları kalkar (benim kararım: Isotype simgeleri kimlikten çıktı).
+- [x] Favicon: saydam; ≤32 piksel küçük abaküs. `?v=2` sürüm eki. Yayıncı logosu, og-default.
 
 ### Görev 4: Boncuk sıraları ve veri bileşenleri
 
 **Files:** `src/components/IsoRow.astro` → boncuk sırası (aynı props), `Indicators.astro`, `Grafik.astro`,
 `Change.astro` ve ilgili CSS.
 
-- [ ] Simge yerine boncuk: 10'arlı teller alt alta; bugün mürekkep, önceki gri; açıklama "● = ₺2".
-- [ ] Değişim okları ▲ ▼ ve veri renkleri.
-- [ ] Ana sayfa, kategori, haber, veri, sözlük, hesapla, arşiv, şeffaflık sayfalarında gözle kontrol (CSP'li
+- [x] Simge yerine boncuk: 10'arlı teller alt alta; bugün mürekkep, önceki gri; açıklama "● = ₺2".
+- [x] Değişim okları ▲ ▼ ve veri renkleri.
+- [x] Ana sayfa, kategori, haber, veri, sözlük, hesapla, arşiv, şeffaflık sayfalarında gözle kontrol (CSP'li
   önizleme).
 
 ### Görev 5: Kapaklar — C dili
@@ -88,24 +88,24 @@ fontTools (yazı tipi yaması, Python), Node test runner (`npm test`).
 **Files:** `scripts/kapak/kapak.mjs`, `scripts/kapak/kapak.test.mjs`, `scripts/kapak/logo.mjs`,
 `scripts/kapak/isaret.mjs`.
 
-- [ ] `yazi()` Pango yerine fontkitten glif yoluyla (arayüz aynı: PNG + genişlik/yükseklik); yazı tipi bekçisi buna göre.
-- [ ] Ortak çerçeve: kâğıt zemin, sağdan taşan soluk büyük abaküs (vurgu boncuğu pişmiş toprak), sol üstte kategori
+- [x] `yazi()` Pango yerine fontkitten glif yoluyla (arayüz aynı: PNG + genişlik/yükseklik); yazı tipi bekçisi buna göre.
+- [x] Ortak çerçeve: kâğıt zemin, sağdan taşan soluk büyük abaküs (vurgu boncuğu pişmiş toprak), sol üstte kategori
   pişmiş toprak büyük harf, sol altta "finfolis". Başlık 700, abaküsün solunda.
-- [ ] Haber, kaynak, bülten, rakam, gösterge, grafik, karne aynı çerçeveye.
-- [ ] Testler; örnek kapaklar (`ornekler.mjs`) göz kontrolü; son 14 günün kapakları `yenile.mjs` ile yeniden çizilir
+- [x] Haber, kaynak, bülten, rakam, gösterge, grafik, karne aynı çerçeveye.
+- [x] Testler; örnek kapaklar (`ornekler.mjs`) göz kontrolü; son 14 günün kapakları `yenile.mjs` ile yeniden çizilir
   (verisi saklanmayan eski rakam/kaynak kapakları dokunulmaz).
 
 ### Görev 6: Sosyal dosyalar ve logo paketi
 
 **Files:** Create `scripts/marka/sosyal-uret.mjs`, `scripts/marka/logo-paketi.mjs`, `brand/sosyal/*`, `brand/logo/*`.
 
-- [ ] Profil 1080 (pişmiş toprak zemin, kâğıt boncuklar), X 1500×500, Facebook 1640×624, LinkedIn 1128×191 (logo ve
+- [x] Profil 1080 (pişmiş toprak zemin, kâğıt boncuklar), X 1500×500, Facebook 1640×624, LinkedIn 1128×191 (logo ve
   slogan ortada, soluk büyük abaküs sağda).
-- [ ] Logo paketi: yatay, dikey, sloganlı dikey, işaret, küçük işaret; açık ve koyu zemin; SVG + saydam PNG.
+- [x] Logo paketi: yatay, dikey, sloganlı dikey, işaret, küçük işaret; açık ve koyu zemin; SVG + saydam PNG.
 
 ### Görev 7: Belgeler
 
-- [ ] `DESIGN.md` yeni kimliğe göre yeniden yazılır; `PRODUCT.md` marka satırları güncellenir.
+- [x] `DESIGN.md` yeni kimliğe göre yeniden yazılır; `PRODUCT.md` marka satırları güncellenir.
 
 ## Yayın sırası
 
