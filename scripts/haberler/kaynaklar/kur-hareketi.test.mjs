@@ -70,3 +70,22 @@ test('veri yoksa ya da değişim yoksa boş döner', async () => {
   assert.deepEqual(await kur.hent({ simdi: SIMDI }), []);
   assert.deepEqual(await kur.hent({ simdi: SIMDI, piyasa: { gostergeler: [{ id: 'brl', deger: 1 }] } }), []);
 });
+
+test('dolar/TL yüzde 1 eşiği; geçmiş varsa kapak altı aylık grafik, son nokta haberdeki değer', async () => {
+  sahte('hata', 500);
+  const gunler = [];
+  for (let t = Date.parse('2026-04-01T00:00:00Z'); t < Date.parse('2026-10-09T00:00:00Z'); t += 864e5) {
+    if (![0, 6].includes(new Date(t).getUTCDay())) gunler.push({ tarih: new Date(t).toISOString().slice(0, 10), deger: 40 + gunler.length * 0.01 });
+  }
+  const istenen = [];
+  const okuyucu = { gunluk: async (s) => (istenen.push(s), gunler) };
+  const p = { gostergeler: [{ ...piyasa.gostergeler[0], degisim: 1.1, deger: 41.9 }] };
+  const [a] = await kur.hent({ piyasa: p, simdi: SIMDI, okuyucu });
+  assert.equal(a.id, 'kur:dolar:2026-10-09');
+  assert.deepEqual(istenen, ['USDTRY=X']);
+  assert.match(a.kapakAlt, /son altı ay günlük kapanış grafiği: günlük \+%1,1, güncel kur 41,9/);
+  assert.equal((await kapakCiz(a.kapak)).subarray(1, 4).toString(), 'PNG');
+  // Geçmiş bayatsa rakam kartı.
+  const [b] = await kur.hent({ piyasa: p, simdi: SIMDI, okuyucu: { gunluk: async () => gunler.slice(0, 60) } });
+  assert.match(b.kapakAlt, /^Dolar \/ TL günlük değişim/);
+});

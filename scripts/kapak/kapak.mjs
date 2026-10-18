@@ -359,7 +359,8 @@ export function incelt(seri, kova = 300) {
 // Kâğıt zemin; yazı, eksen ve çizgi mürekkep (pişmiş toprak veri rengi değildir).
 // olay: { bas: 'YYYY-MM-DD', yon: 'yukselis' | 'dusus' } — haberin konusu olan günler (seri, zirveden düşüş, dipten
 // yükseliş, son gün) çizginin o kısmında ve son değer etiketinde veri renginde vurgulanır; gerisi mürekkep.
-export function grafikKapagi({ kategori: slug, baslik, seri, cizgiler = [], vurgu, olay, ondalik = 2, onEk = '', sonEk = '', ornek }) {
+// ust: başlığın üstünde küçük büyük harfli satır (ör. grafiğin neyi gösterdiği: "Brent petrol · son 6 ay").
+export function grafikKapagi({ kategori: slug, baslik, ust, seri, cizgiler = [], vurgu, olay, ondalik = 2, onEk = '', sonEk = '', ornek }) {
   return async () => {
     const kat = kategori(slug);
     const c = await cerceve(kat, { ornek, buyukAbakus: false });
@@ -369,8 +370,13 @@ export function grafikKapagi({ kategori: slug, baslik, seri, cizgiler = [], vurg
     const zemin = c.zemin;
     const deger = (n) => `${onEk}${sayi(n, ondalik)}${sonEk}`;
 
-    const b = await yazi(baslik, { boyut: baslik.length > 60 ? 44 : 56, kalinlik: 700, renk: on, genislik: B - 128, satirAraligi: -4 });
-    const bY = 48;
+    let bY = 48;
+    if (ust) {
+      const u = await yazi(ust, { boyut: 24, kalinlik: 700, renk: on, aralik: 0.1, buyukHarf: true, genislik: B - 128 });
+      katmanlar.push({ ...u, left: 64, top: bY });
+      bY += u.yukseklik + 10;
+    }
+    const b = await yazi(baslik, { boyut: baslik.length > 90 ? 38 : baslik.length > 60 ? 44 : 56, kalinlik: 700, renk: on, genislik: B - 128, satirAraligi: -4 });
     katmanlar.push({ ...b, left: 64, top: bY });
 
     // Grafik alanı: sağda değer ekseni için yer bırakılır.
@@ -399,7 +405,8 @@ export function grafikKapagi({ kategori: slug, baslik, seri, cizgiler = [], vurg
       const y = Y(v);
       svg += `<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="${on}" stroke-opacity="0.22" stroke-width="1"/>`;
       if (Math.abs(y - sonY) < 30) continue;
-      const e = await yazi(sayi(v, eksenOndalik), { boyut: 20, kalinlik: 500, renk: on, alfa: 80 });
+      // Kayan nokta toplamı sıfırı -0,0000001 yapabilir: etikette "-0" görünmesin.
+      const e = await yazi(sayi(Math.abs(v) < adim / 1e6 ? 0 : v, eksenOndalik), { boyut: 20, kalinlik: 500, renk: on, alfa: 80 });
       katmanlar.push({ ...e, left: x1 + 14, top: Math.round(y - e.yukseklik / 2) });
     }
 

@@ -247,7 +247,19 @@ test('rekor denetimi: 30 yıldan eski aylık tepe daha yüksekse rekor yazılmaz
 
 test('tavan: Türkiye olayları ayrıca sınırlanır, öncelik sırası korunur', () => {
   const a = (id, sira, tr) => ({ id, _sira: sira, _tur: 0, _tr: tr });
-  const sonuc = tavanUygula([a('t1', 1, true), a('t2', 1, true), a('t3', 1, true), a('d1', 2, false), a('d2', 3, false)], { toplam: 4, tr: TR_AZAMI });
+  const sonuc = tavanUygula([a('t1', 1, true), a('t2', 1, true), a('t3', 1, true), a('d1', 2, false), a('d2', 3, false)], { toplam: 4, tr: 2 });
   assert.deepEqual(sonuc.map((x) => x.id), ['t1', 't2', 'd1', 'd2']);
+  assert.ok(TR_AZAMI < GUNLUK_AZAMI);
   assert.ok(!('_sira' in sonuc[0]));
+});
+
+test('olağandışı gün: altı aydır görülmemiş sertlik yeter, başlık ay olarak söyler', () => {
+  // Sakin dalgalanma, 8 ay önce bir kez -%5, bugün -%4: bir yıl değil ama altı aydan uzun.
+  const f = (i) => (i === N - 170 ? 950 : i === N - 1 ? 960 : 1000 + (i % 2) * 5);
+  const seri = seriYap(N, f);
+  const o = olaylariBul(seri, SP)[0];
+  assert.equal(o.tur, 'olagandisi');
+  const a = adayYap(o, SP, seri);
+  assert.match(a.baslik, /son [6-9] ayın en sert günlük düşüşünü yaşadı/);
+  assert.match(a.kaynakMetni, /about [6-9] months ago/);
 });

@@ -1,8 +1,11 @@
 // Merkez bankası duyuruları: Fed, ECB, BoJ (RSS) ve TCMB (PPK karar metni).
 // Faiz kararı onem 100, diğer para politikası duyuruları onem 60 (0–100 ölçeği); geri kalanı atılır.
+// Kapak: Fed, ECB ve TCMB'de politika faizinin son beş yıllık grafiği (grafik-kapak.mjs); alınamazsa faiz rakamı ya da
+// konu kartı. BoJ için resmî, anahtarsız günlük seri yok: rakam/konu kartı.
 import { hentMetin } from '../lib.mjs';
 import { tcmbSonKarar } from '../piyasa-verisi.mjs';
 import { kaynakKapagi, rakamKapagi } from '../../kapak/kapak.mjs';
+import { faizGrafigi } from '../grafik-kapak.mjs';
 import { rssOgeleri, htmlMetni, trSayi } from './ortak.mjs';
 
 const GUN_MS = 86400000;
@@ -52,11 +55,13 @@ export function faizCoz(kurum, metin) {
   return null;
 }
 
-function kapakUret({ kurum, ad, tur, faiz, baslik, url }) {
+async function kapakUret({ kurum, ad, tur, faiz, url, tarih, grafik = faizGrafigi }) {
   const kategori = tur === 'karar' ? 'piyasalar' : 'ekonomi';
   const kaynak = `${ad} · ${new URL(url).hostname}`;
-  if (faiz) return { kapak: rakamKapagi({ kategori, ust: faiz.ust, rakam: faiz.rakam, alt: `${ad} faiz kararı`, kaynak }), kapakAlt: `${faiz.ust} ${faiz.rakam}` };
   const konu = tur === 'karar' ? `${ad} faiz kararı` : `${ad} para politikası duyurusu`;
+  const g = await grafik({ kurum, konu, kategori, tarih: tarih instanceof Date && !Number.isNaN(tarih.getTime()) ? tarih : new Date(), yeni: faiz?.yuksek });
+  if (g) return g;
+  if (faiz) return { kapak: rakamKapagi({ kategori, ust: faiz.ust, rakam: faiz.rakam, alt: `${ad} faiz kararı`, kaynak }), kapakAlt: `${faiz.ust} ${faiz.rakam}` };
   // Alt satıra kaynağın İngilizce başlığı yazılmaz; kapakta yalnızca Türkçe konu durur.
   return { kapak: kaynakKapagi({ kategori, konu, kaynak }), kapakAlt: konu };
 }
@@ -94,7 +99,7 @@ async function govdeMetni(url, baslik) {
   return { metin: htmlMetni(html) || baslik };
 }
 
-async function rssKaynagi(k, simdi) {
+async function rssKaynagi(k, simdi, grafik) {
   const ogeler = rssOgeleri(await hentMetin(k.rss));
   const adaylar = [];
   for (const o of ogeler) {
@@ -115,7 +120,7 @@ async function rssKaynagi(k, simdi) {
         ucretli: false,
         kaynakMetni,
         kaynaklar: belge ? [{ ad: k.ad, url: o.url }, { ad: `${k.ad} tutanak metni`, url: belge }] : [{ ad: k.ad, url: o.url }],
-        ...kapakUret({ kurum: k.kurum, ad: k.ad, tur, faiz, baslik: o.baslik, url: o.url }),
+        ...(await kapakUret({ kurum: k.kurum, ad: k.ad, tur, faiz, url: o.url, tarih: o.tarih, grafik })),
       });
     } catch (e) {
       console.error(`[${k.kurum}] kayıt atlandı: ${e.message}`);
@@ -124,12 +129,13 @@ async function rssKaynagi(k, simdi) {
   return adaylar;
 }
 
-async function tcmbKaynagi(simdi) {
+async function tcmbKaynagi(simdi, grafik = faizGrafigi) {
   const k = await tcmbSonKarar(simdi);
   const tarih = new Date(`${k.tarih}T00:00:00+03:00`);
   if (simdi - tarih > AZAMI_GUN * GUN_MS) return [];
   const rakam = `%${trSayi(k.faiz, 1)}`;
   const ad = 'TCMB Para Politikası Kurulu';
+  const g = await grafik({ kurum: 'TCMB', konu: `TCMB politika faizi ${rakam}`, kategori: 'piyasalar', tarih, yeni: k.faiz });
   return [
     {
       id: `tcmb:${k.url}`,
@@ -141,8 +147,10 @@ async function tcmbKaynagi(simdi) {
       ucretli: false,
       kaynakMetni: pencere(k.metin, k.metin.search(/bir hafta vadeli repo ihale faiz/i)),
       kaynaklar: [{ ad, url: k.url }],
-      kapak: rakamKapagi({ kategori: 'piyasalar', ust: 'TCMB politika faizi', rakam, alt: 'Para Politikası Kurulu kararı', kaynak: 'TCMB · tcmb.gov.tr' }),
-      kapakAlt: `TCMB politika faizi ${rakam}`,
+      ...(g ?? {
+        kapak: rakamKapagi({ kategori: 'piyasalar', ust: 'TCMB politika faizi', rakam, alt: 'Para Politikası Kurulu kararı', kaynak: 'TCMB · tcmb.gov.tr' }),
+        kapakAlt: `TCMB politika faizi ${rakam}`,
+      }),
     },
   ];
 }
@@ -152,7 +160,8 @@ export default {
   // Bir kaynak çökerse diğerleri çalışır; hepsi çökerse hata fırlatılır (orkestratör karar verir).
   async hent(ctx = {}) {
     const simdi = ctx.simdi ?? new Date();
-    const gorevler = [rssKaynagi(FED, simdi), rssKaynagi(ECB, simdi), rssKaynagi(BOJ, simdi), tcmbKaynagi(simdi)];
+    const grafik = ctx.faizGrafigi ?? faizGrafigi;
+    const gorevler = [rssKaynagi(FED, simdi, grafik), rssKaynagi(ECB, simdi, grafik), rssKaynagi(BOJ, simdi, grafik), tcmbKaynagi(simdi, grafik)];
     const sonuc = await Promise.allSettled(gorevler);
     for (const r of sonuc) if (r.status === 'rejected') console.error(`[merkez-bankalari] kaynak alınamadı: ${r.reason?.message}`);
     if (sonuc.every((r) => r.status === 'rejected')) throw sonuc[0].reason;

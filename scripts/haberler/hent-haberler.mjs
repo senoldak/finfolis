@@ -25,6 +25,8 @@ import { havuzAc, havuzKapat, havuzaHazirla, havuzAyir, derlemeDenendi } from '.
 import { yaziYaz, gemini as varsayilanGemini } from './lib.mjs';
 import { icerikTuru } from './icerik-turu.mjs';
 import { kaynakKapagi, rakamKapagi, haberKapagi } from '../kapak/kapak.mjs';
+import { haberGrafigi } from './grafik-kapak.mjs';
+import { seriOkuyucu } from './yahoo-seri.mjs';
 import { gorunur } from '../../src/lib/gorunur.mjs';
 import { kelimeSay } from '../../src/lib/uzunluk.mjs';
 import { anahtarVar, coz, kaynakIzi, sifrele } from './gizli.mjs';
@@ -171,6 +173,9 @@ export async function calistir({
   yayinKurulu = kurul,
   bulten = bultenModulu,
   karneler = varsayilanKarneler,
+  // Bir çalıştırmalık piyasa serisi okuyucusu: eşik olayları, kur grafikleri, haber kapakları ve karneler aynı sembolü
+  // bir kez indirir. null verilirse haber kapaklarına grafik çizilmez (testler ağsız çalışır).
+  okuyucu,
   piyasa = guncelle,
   rot = ROT,
   simdi = new Date(),
@@ -195,6 +200,7 @@ export async function calistir({
     if (tokenTavaniAsildi(tahmin, { harcanan: harcananToken(), tavan: tokenTavani })) return 'giriş token tavanı';
     return null;
   };
+  if (okuyucu === undefined) okuyucu = seriOkuyucu(simdi);
   durum ??= await jsonOku(DURUM_DOSYASI, {});
   durum.gorulen ??= {};
   durum.sonBulten ??= null;
@@ -234,6 +240,7 @@ export async function calistir({
         simdi,
         goruldu: (id) => goruldu(durum, id),
         gorulen: durum.gorulen, // salt okunur; esik-olaylari günlük tavanı için
+        ...(okuyucu ? { okuyucu } : {}),
         limit: ilk ? FORSTE_GANG : KAYNAK_LIMIT,
         // İlk çalıştırmada sınır dışında kalan eski kayıtlar görüldü sayılır.
         kesilen: (id) => {
@@ -341,8 +348,9 @@ export async function calistir({
         return;
       }
       const yazi = { ...r.yazi, kategori: o.kategori, tarih: new Date(o.tarih), tur: 'haber', icerikTuru: icerikTuru(o.adaylar), kaynaklar: o.kaynaklar ?? [], kaynakIzi: kaynakIzi(o.gizliKaynaklar) };
+      // Kapak: kaynağın tarifi; yoksa başlıkta anılan piyasa aracının grafiği; o da yoksa başlık kartı.
       const kapakli = o.adaylar.find((a) => a.kapak);
-      Object.assign(yazi, kapakli ? { kapak: kapakli.kapak, kapakAlt: kapakli.kapakAlt } : varsayilanKapak(yazi, o));
+      Object.assign(yazi, kapakli ? { kapak: kapakli.kapak, kapakAlt: kapakli.kapakAlt } : ((await haberGrafigi(yazi, o, okuyucu, simdi)) ?? varsayilanKapak(yazi, o)));
       const slug = await yaziYaz(rot, yazi);
       for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso, yazildi: true };
       o.haberSlug = slug;
@@ -490,7 +498,7 @@ export async function calistir({
   // 6b. Karneler (haftalık, aylık, enflasyon): Gemini'siz, veriden şablonla; zamanı gelmediyse ağ isteği de yok.
   if (!zamanBitti()) {
     try {
-      for (const yazi of await karneler({ durum, simdi, piyasa: veri, log })) {
+      for (const yazi of await karneler({ durum, simdi, piyasa: veri, log, ...(okuyucu ? { okuyucu } : {}) })) {
         const slug = await yaziYaz(rot, { icerikTuru: 'veri', ...yazi });
         sonuc.adet++;
         sonuc.yazilar.push(slug);

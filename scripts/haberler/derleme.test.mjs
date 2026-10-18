@@ -74,6 +74,8 @@ async function ortam(extra = {}) {
     rot,
     simdi,
     geminiVar: true,
+    okuyucu: null, // haber kapağına grafik için ağa çıkılmaz
+    karneler: async () => [], // test tarihi karne pencerelerine denk gelebilir; karneler ayrıca test edilir
     gemini: async () => ({ gruplar: [] }),
     log: () => {},
     ipucu: { hent: async () => [], onemArtir: (a) => a },

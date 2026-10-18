@@ -3,6 +3,10 @@
 //  - Aylık karne: ayın ilk haftası, biten ayın getirileri.
 //  - Enflasyon karnesi: TÜİK aylık TÜFE açıklandıktan sonra, TL bazında yatırım araçlarının aylık ve yıllık
 //    getirisi enflasyonla yan yana. Yalnızca geçmiş veridir; öneri değildir.
+//  - Haftanın hisseleri: pazar günü, biten haftada BIST'in ve ABD'nin büyük şirketlerinin getirileri (iki yazı).
+//  - Aylık sektör karnesi: ayın ilk haftası, ABD S&P 500 sektörlerinin (sektör ETF'leri) biten ay getirisi.
+//  - Yılbaşından bu yana karne: çeyrek bitince (ocak, nisan, temmuz, ekimin 8-14'ü) yıl başından çeyrek sonuna;
+//    ocakta biten yılın karnesi.
 // Her biri bir kez yazılır: durum.karne'de dönem anahtarı tutulur. Telegram'da yalnız @finfolis kanalına gider.
 import { seriOkuyucu, YAHOO_KAYNAK } from './yahoo-seri.mjs';
 import { karneKapagi } from '../kapak/kapak.mjs';
@@ -36,6 +40,25 @@ export const KARNE = [
   { ad: 'Dolar endeksi', sembol: 'DX-Y.NYB', grup: 'Döviz' },
 ];
 
+// Haftanın hisseleri: BIST'in en büyük şirketleri (TL) ve ABD'nin en büyük şirketleri (dolar).
+export const BIST_HISSELER = [
+  ['THY', 'THYAO'], ['Aselsan', 'ASELS'], ['Garanti BBVA', 'GARAN'], ['Akbank', 'AKBNK'], ['İş Bankası', 'ISCTR'],
+  ['Yapı Kredi', 'YKBNK'], ['Koç Holding', 'KCHOL'], ['Sabancı Holding', 'SAHOL'], ['Tüpraş', 'TUPRS'], ['BİM', 'BIMAS'],
+  ['Ereğli', 'EREGL'], ['Ford Otosan', 'FROTO'], ['Turkcell', 'TCELL'], ['Pegasus', 'PGSUS'], ['Şişecam', 'SISE'],
+  ['Türk Telekom', 'TTKOM'],
+].map(([ad, kod]) => ({ ad: `${ad} (${kod})`, sembol: `${kod}.IS`, sonEk: ' TL' }));
+export const ABD_HISSELER = [
+  ['Nvidia', 'NVDA'], ['Apple', 'AAPL'], ['Microsoft', 'MSFT'], ['Alphabet', 'GOOGL'], ['Amazon', 'AMZN'], ['Meta', 'META'],
+  ['Broadcom', 'AVGO'], ['Tesla', 'TSLA'], ['Berkshire Hathaway', 'BRK-B'], ['JPMorgan', 'JPM'], ['Eli Lilly', 'LLY'],
+  ['Visa', 'V'], ['Walmart', 'WMT'], ['Exxon Mobil', 'XOM'], ['Netflix', 'NFLX'], ['AMD', 'AMD'],
+].map(([ad, kod]) => ({ ad, sembol: kod, onEk: '$' }));
+// ABD S&P 500 sektörleri: her biri sektörün SPDR ETF'iyle ölçülür.
+export const SEKTORLER = [
+  ['Teknoloji', 'XLK'], ['Finans', 'XLF'], ['Enerji', 'XLE'], ['Sağlık', 'XLV'], ['Tüketici (zorunlu olmayan)', 'XLY'],
+  ['Tüketici (zorunlu)', 'XLP'], ['Sanayi', 'XLI'], ['Hammadde', 'XLB'], ['Kamu hizmetleri', 'XLU'], ['Gayrimenkul', 'XLRE'],
+  ['İletişim hizmetleri', 'XLC'],
+].map(([ad, kod]) => ({ ad, kod, sembol: kod, onEk: '$' }));
+
 // Enflasyon karnesi: TL bazında, Türkiye'deki okurun elindeki araçlar.
 export const ENFLASYON_ARACLARI = [
   // cumle: cümle içinde kullanılan ad
@@ -68,6 +91,22 @@ function istanbul(simdi) {
       .map((x) => [x.type, x.value]),
   );
   return { gun: `${p.year}-${p.month}-${p.day}`, haftaGunu: p.weekday };
+}
+
+// Pazar ise biten hafta (haftanın hisseleri cumartesiki piyasa karnesinden bir gün sonra yazılır). Değilse null.
+export function bitenHaftaPazar(simdi) {
+  return istanbul(simdi).haftaGunu === 'Sun' ? bitenHafta(simdi) : null;
+}
+
+// Çeyreği izleyen ayın 8-14'ü ise yılbaşından çeyrek sonuna dönem (ocakta biten yılın tamamı). Değilse null.
+export function bitenCeyrek(simdi) {
+  const { gun } = istanbul(simdi);
+  const [yil, ay, g] = [Number(gun.slice(0, 4)), Number(gun.slice(5, 7)), Number(gun.slice(8, 10))];
+  if (![1, 4, 7, 10].includes(ay) || g < 8 || g > 14) return null;
+  const bit = Date.UTC(yil, ay - 1, 0); // önceki ayın son günü = çeyrek sonu
+  const d = new Date(bit);
+  const dYil = d.getUTCFullYear();
+  return { anahtar: iso(bit).slice(0, 7), bas: `${dYil - 1}-12-31`, bit: iso(bit), ay: d.getUTCMonth() + 1, yil: dYil };
 }
 
 // Cumartesi ya da pazar ise biten hafta: { anahtar: cuma tarihi, bas: önceki cuma, bit: cuma }. Değilse null.
@@ -144,6 +183,38 @@ export function karneYazisi({ tur, donem, satirlar, simdi }) {
       satirlar: sirali.map((s) => ({ etiket: s.ad, deger: s.yuzde })),
     }),
     kapakAlt: `${haftalik ? 'Haftalık' : 'Aylık'} getiriler: en çok ${enIyi.ad} ${yuzde(enIyi.yuzde)}, en az ${enKotu.ad} ${yuzde(enKotu.yuzde)}`,
+  };
+}
+
+// Basit liste karnesi (hisseler, sektörler, yılbaşından bu yana): getiriye göre sıralı tek liste, spotta en iyi/en kötü.
+export function listeKarnesi({ baslik, kapakBaslik, etiket, zamanSozu, satirlar, donem, simdi, kategori = 'borsa', not }) {
+  const sirali = [...satirlar].sort((a, b) => b.yuzde - a.yuzde);
+  const [enIyi, enKotu] = [sirali[0], sirali.at(-1)];
+  const yukselen = sirali.filter((s) => s.yuzde > 0).length;
+  const spot =
+    enKotu.yuzde < 0 && enIyi.yuzde > 0
+      ? `${zamanSozu} ${sirali.length} kalemden ${yukselen} tanesi yükseldi; en çok ${enIyi.ad} (${yuzde(enIyi.yuzde)}) kazandırdı, en çok ${enKotu.ad} (${yuzde(enKotu.yuzde)}) kaybettirdi.`
+      : enKotu.yuzde >= 0
+        ? `${zamanSozu} ${sirali.length} kalemin hepsi yükseldi; en çok ${enIyi.ad} (${yuzde(enIyi.yuzde)}), en az ${enKotu.ad} (${yuzde(enKotu.yuzde)}).`
+        : `${zamanSozu} ${sirali.length} kalemin hepsi geriledi; en az ${enIyi.ad} (${yuzde(enIyi.yuzde)}), en çok ${enKotu.ad} (${yuzde(enKotu.yuzde)}).`;
+  const govde = [
+    sirali.map((s) => `- **${s.ad}:** ${yuzde(s.yuzde)} · ${degerYaz(s, s.son.deger)}`).join('\n'),
+    `Değişimler dönem başındaki ve sonundaki günlük kapanışlar arasındadır (${donem.bas} → ${donem.bit}).${not ? ` ${not}` : ''} Geçmiş performans gelecekteki sonuçların göstergesi değildir; bu liste yatırım tavsiyesi değildir.`,
+  ].join('\n\n');
+  return {
+    baslik,
+    spot,
+    govde,
+    kategori,
+    tarih: simdi,
+    tur: 'haber',
+    kaynaklar: [YAHOO_KAYNAK],
+    rakamlar: [
+      { etiket: `En çok yükselen · ${enIyi.ad}`, deger: yuzde(enIyi.yuzde) },
+      { etiket: `En çok düşen · ${enKotu.ad}`, deger: yuzde(enKotu.yuzde) },
+    ],
+    kapak: karneKapagi({ kategori, baslik: kapakBaslik, tarih: etiket, satirlar: sirali.map((s) => ({ etiket: s.ad, deger: s.yuzde })) }),
+    kapakAlt: `${kapakBaslik}: en çok ${enIyi.ad} ${yuzde(enIyi.yuzde)}, en az ${enKotu.ad} ${yuzde(enKotu.yuzde)}`,
   };
 }
 
@@ -240,6 +311,56 @@ export async function karneler({ durum, simdi = new Date(), piyasa, okuyucu, log
       yazilar.push(karneYazisi({ tur: 'ay', donem: ay, satirlar, simdi }));
       durum.karne.ay = ay.anahtar;
     } else log(`  ! aylık karne: yalnızca ${satirlar.length} araç alındı, ertelendi`);
+  }
+
+  // Haftanın hisseleri (pazar): BIST ve ABD ayrı yazı; ikisi aynı dönem anahtarıyla bir kez.
+  const pazar = bitenHaftaPazar(simdi);
+  if (pazar && durum.karne.hisseHafta !== pazar.anahtar) {
+    const ad = tarihAraligi(pazar.bas, pazar.bit);
+    const [bist, abd] = await Promise.all([getiriListesi(BIST_HISSELER, oku(), pazar.bas, pazar.bit), getiriListesi(ABD_HISSELER, oku(), pazar.bas, pazar.bit)]);
+    if (bist.length >= BIST_HISSELER.length - 3 && abd.length >= ABD_HISSELER.length - 3) {
+      yazilar.push(
+        listeKarnesi({ baslik: `Borsa İstanbul'da haftanın hisseleri · ${ad}`, kapakBaslik: "BIST'te büyük şirketlerin haftası", etiket: ad, zamanSozu: "Geçen hafta BIST'in büyük şirketlerinden", satirlar: bist, donem: pazar, simdi, not: 'Fiyatlar TL cinsindendir.' }),
+        listeKarnesi({ baslik: `ABD'nin en büyük şirketlerinde haftanın karnesi · ${ad}`, kapakBaslik: "ABD'de dev şirketlerin haftası", etiket: ad, zamanSozu: "Geçen hafta ABD'nin en büyük şirketlerinden", satirlar: abd, donem: pazar, simdi, not: 'Fiyatlar dolar cinsindendir.' }),
+      );
+      durum.karne.hisseHafta = pazar.anahtar;
+    } else log(`  ! hisse karneleri: BIST ${bist.length}, ABD ${abd.length} hisse alındı, ertelendi`);
+  }
+
+  // Aylık sektör karnesi (ABD), aylık piyasa karnesiyle aynı pencerede.
+  if (ay && durum.karne.sektorAy !== ay.anahtar) {
+    const satirlar = await getiriListesi(SEKTORLER, oku(), ay.bas, ay.bit);
+    if (satirlar.length >= SEKTORLER.length - 2) {
+      const adAy = `${TR_AY[ay.ay - 1]} ${ay.yil}`;
+      yazilar.push(
+        listeKarnesi({ baslik: `ABD borsasında sektörlerin aylık karnesi · ${adAy}`, kapakBaslik: "ABD'de sektörlerin ayı", etiket: adAy, zamanSozu: `${AY_DE[ay.ay - 1]} S&P 500'ün`, satirlar, donem: ay, simdi, not: `Her sektör, S&P 500 sektör ETF'iyle ölçülmüştür (${satirlar.map((s) => s.kod).join(', ')}).` }),
+      );
+      durum.karne.sektorAy = ay.anahtar;
+    } else log(`  ! sektör karnesi: yalnızca ${satirlar.length} sektör alındı, ertelendi`);
+  }
+
+  // Yılbaşından bu yana (çeyrek sonu) ya da biten yılın karnesi.
+  const ceyrek = bitenCeyrek(simdi);
+  if (ceyrek && durum.karne.ceyrek !== ceyrek.anahtar) {
+    const satirlar = await getiriListesi(KARNE, oku(), ceyrek.bas, ceyrek.bit);
+    if (satirlar.length >= KARNE.length - 3) {
+      const yillik = ceyrek.ay === 12;
+      const etiket = yillik ? String(ceyrek.yil) : `Ocak–${TR_AY[ceyrek.ay - 1]} ${ceyrek.yil}`;
+      yazilar.push(
+        listeKarnesi({
+          baslik: yillik ? `${ceyrek.yil} yılının piyasa karnesi` : `Yılbaşından bu yana piyasa karnesi · ${etiket}`,
+          kapakBaslik: yillik ? `${ceyrek.yil} yılında piyasalar` : 'Yılbaşından bu yana piyasalar',
+          etiket,
+          zamanSozu: yillik ? `${ceyrek.yil} yılında izlediğimiz` : `Yılbaşından ${TR_AY[ceyrek.ay - 1].toLocaleLowerCase('tr-TR')} sonuna izlediğimiz`,
+          satirlar,
+          donem: ceyrek,
+          simdi,
+          kategori: 'piyasalar',
+          not: 'Her borsa kendi para biriminde ölçülür; BIST 100 dolar bazındadır.',
+        }),
+      );
+      durum.karne.ceyrek = ceyrek.anahtar;
+    } else log(`  ! yılbaşından bu yana karne: yalnızca ${satirlar.length} araç alındı, ertelendi`);
   }
 
   // Enflasyon: piyasa verisindeki son TÜFE ayı yeni ise ve en fazla 45 gün önce bittiyse.

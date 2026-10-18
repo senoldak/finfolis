@@ -25,6 +25,7 @@ async function ortam(extra = {}) {
   return {
     rot,
     geminiVar: true,
+    okuyucu: null, // haber kapağına grafik için ağa çıkılmaz
     gemini: async () => ({ gruplar: [] }),
     log: () => {},
     ipucu: { hent: async () => [], onemArtir: (a) => a },

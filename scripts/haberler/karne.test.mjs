@@ -103,3 +103,31 @@ test('TCMB TÜFE tablosu: yıllık ve aylık sütun okunur', () => {
     { ay: 8, yil: 2026, yillik: 31.51 },
   ]);
 });
+
+test('pazar: BIST ve ABD haftanın hisseleri bir kez; cumartesi yazılmaz', async () => {
+  const okuyucu = sahteOkuyucu();
+  const durum = { karne: { hafta: '2026-10-16' } };
+  assert.deepEqual(await karneler({ durum, simdi: new Date('2026-10-17T09:00:00Z'), okuyucu }), []);
+  const pazar = new Date('2026-10-18T09:00:00Z');
+  const y = await karneler({ durum, simdi: pazar, okuyucu });
+  assert.deepEqual(y.map((x) => x.baslik), ["Borsa İstanbul'da haftanın hisseleri · 12–16 Ekim 2026", "ABD'nin en büyük şirketlerinde haftanın karnesi · 12–16 Ekim 2026"]);
+  assert.match(y[0].govde, /yatırım tavsiyesi değildir/);
+  assert.match(y[0].spot, /16 kalemin hepsi yükseldi/);
+  assert.equal(durum.karne.hisseHafta, '2026-10-16');
+  assert.equal((await kapakCiz(y[0].kapak)).subarray(1, 4).toString(), 'PNG');
+  assert.deepEqual(await karneler({ durum, simdi: pazar, okuyucu }), []);
+});
+
+test('ayın ilk haftası sektör karnesi; çeyreği izleyen ayın 8-14ü yılbaşından bu yana karne', async () => {
+  const okuyucu = sahteOkuyucu();
+  const durum = { karne: { ay: '2026-09' } };
+  const y = await karneler({ durum, simdi: new Date('2026-10-02T09:00:00Z'), okuyucu });
+  assert.deepEqual(y.map((x) => x.baslik), ['ABD borsasında sektörlerin aylık karnesi · Eylül 2026']);
+  assert.match(y[0].govde, /XLK/);
+  assert.equal(durum.karne.sektorAy, '2026-09');
+  const c = await karneler({ durum, simdi: new Date('2026-10-09T09:00:00Z'), okuyucu });
+  assert.deepEqual(c.map((x) => x.baslik), ['Yılbaşından bu yana piyasa karnesi · Ocak–Eylül 2026']);
+  assert.match(c[0].govde, /2025-12-31 → 2026-09-30/);
+  assert.equal(durum.karne.ceyrek, '2026-09');
+  assert.deepEqual(await karneler({ durum, simdi: new Date('2026-10-15T09:00:00Z'), okuyucu }), []);
+});

@@ -25,12 +25,15 @@ const YIL = 365.25 * GUN;
 // rekor: false ise "tüm zamanlar" denmez (tarihi 30 yıldan eskiye giden ya da türetilmiş seriler).
 // turler: yalnızca bu olay türleri aranır. tr: Türkiye olayı (ayrı tavan).
 // sicramaSiniri: tek günde bundan büyük hareket bölünme/bedelsiz düzeltmesi yapılmamış veri sayılır, olay aranmaz.
-const ENDEKS = { kategori: 'borsa', birim: 'puan', dusus: [10, 20], yukselis: 20, olagan: 2.5, seriEn: 7, borsa: true, sira: 1 };
-const PARITE = { kategori: 'doviz', birim: '', dusus: [10, 20], yukselis: 20, olagan: 1.2, seriEn: 7, ondalik: 4, rekor: false, sira: 2 };
-const EMTIA = { kategori: 'piyasalar', bolge: 'kuresel', birim: 'dolar', onEk: '$', dusus: [20, 30], yukselis: 30, olagan: 4, seriEn: 8, sira: 2 };
-const KRIPTO = { kategori: 'kripto', bolge: 'kuresel', birim: 'dolar', onEk: '$', dusus: [20, 40], yukselis: 40, olagan: 8, seriEn: 8, sira: 2 };
-const ETF = { kategori: 'borsa', birim: 'dolar', onEk: '$', dusus: [10, 20], yukselis: 20, olagan: 3, seriEn: 8, borsa: true, sira: 2, sicramaSiniri: 40 };
-const HISSE = { kategori: 'borsa', dusus: [20, 30], yukselis: 30, olagan: 7, seriEn: 9, sira: 3, sicramaSiniri: 40 };
+// 2026-10-18: grafikli haber sayısını artırmak için eşikler gevşetildi (seri 1-2 gün kısa, olağandışı gün ve hisse/emtia
+// düşüşü daha sığ); nadirlik penceresi de bir yıldan altı aya indi (NADIRLIK_YIL).
+const ENDEKS = { kategori: 'borsa', birim: 'puan', dusus: [10, 20], yukselis: 20, olagan: 2, seriEn: 6, borsa: true, sira: 1 };
+const PARITE = { kategori: 'doviz', birim: '', dusus: [10, 20], yukselis: 20, olagan: 1, seriEn: 6, ondalik: 4, rekor: false, sira: 2 };
+const EMTIA = { kategori: 'piyasalar', bolge: 'kuresel', birim: 'dolar', onEk: '$', dusus: [15, 30], yukselis: 25, olagan: 3.5, seriEn: 7, sira: 2 };
+const KRIPTO = { kategori: 'kripto', bolge: 'kuresel', birim: 'dolar', onEk: '$', dusus: [20, 40], yukselis: 30, olagan: 7, seriEn: 7, sira: 2 };
+const ETF = { kategori: 'borsa', birim: 'dolar', onEk: '$', dusus: [10, 20], yukselis: 20, olagan: 2.5, seriEn: 7, borsa: true, sira: 2, sicramaSiniri: 40 };
+const HISSE = { kategori: 'borsa', dusus: [15, 30], yukselis: 25, olagan: 5, seriEn: 8, sira: 3, sicramaSiniri: 40 };
+const AB_HISSE = { ...HISSE, bolge: 'avrupa', birim: 'avro', onEk: '€' };
 const BIST_HISSE = { ...HISSE, bolge: 'kuresel', birim: 'TL', sonEk: ' TL', tr: true };
 const ABD_HISSE = { ...HISSE, bolge: 'abd', birim: 'dolar', onEk: '$' };
 const ORAN = { kategori: 'piyasalar', bolge: 'kuresel', birim: '', ondalik: 2, rekor: false, turler: ['yuksek', 'dusuk'], sira: 2 };
@@ -44,12 +47,20 @@ export const ENSTRUMANLAR = [
   { ...ENDEKS, id: 'stoxx50', ad: 'Euro Stoxx 50', sembol: '^STOXX50E', bolge: 'avrupa' },
   { ...ENDEKS, id: 'dax', ad: 'Almanya DAX', sembol: '^GDAXI', bolge: 'avrupa', sira: 2 },
   { ...ENDEKS, id: 'ftse', ad: 'İngiltere FTSE 100', sembol: '^FTSE', bolge: 'avrupa', sira: 2 },
+  { ...ENDEKS, id: 'cac40', ad: 'Fransa CAC 40', sembol: '^FCHI', bolge: 'avrupa', sira: 2 },
+  { ...ENDEKS, id: 'ibex', ad: 'İspanya IBEX 35', sembol: '^IBEX', bolge: 'avrupa', sira: 2 },
+  { ...ENDEKS, id: 'ftsemib', ad: 'İtalya FTSE MIB', sembol: 'FTSEMIB.MI', bolge: 'avrupa', sira: 2 },
   // Asya
   { ...ENDEKS, id: 'nikkei', ad: 'Japonya Nikkei 225', sembol: '^N225', bolge: 'asya' },
   { ...ENDEKS, id: 'hangseng', ad: 'Hong Kong Hang Seng', sembol: '^HSI', bolge: 'asya', sira: 2 },
   { ...ENDEKS, id: 'sanghay', ad: 'Şanghay Bileşik', sembol: '000001.SS', bolge: 'asya', sira: 2 },
   { ...ENDEKS, id: 'nifty', ad: 'Hindistan Nifty 50', sembol: '^NSEI', bolge: 'asya', sira: 2 },
   { ...ENDEKS, id: 'kospi', ad: 'Güney Kore KOSPI', sembol: '^KS11', bolge: 'asya', sira: 2 },
+  { ...ENDEKS, id: 'taiex', ad: 'Tayvan TAIEX', sembol: '^TWII', bolge: 'asya', sira: 2 },
+  { ...ENDEKS, id: 'asx200', ad: 'Avustralya ASX 200', sembol: '^AXJO', bolge: 'asya', sira: 2 },
+  // Diğer
+  { ...ENDEKS, id: 'bovespa', ad: 'Brezilya Bovespa', sembol: '^BVSP', bolge: 'kuresel', sira: 2 },
+  { ...ENDEKS, id: 'sox', ad: 'Philadelphia yarı iletken endeksi (SOX)', sembol: '^SOX', bolge: 'abd', sira: 2 },
   // Türkiye
   { ...ENDEKS, id: 'bist100', ad: 'BIST 100', sembol: 'XU100.IS', bolge: 'kuresel', tr: true },
   { ...ENDEKS, id: 'bistusd', ad: 'Dolar bazında BIST 100', turet: 'bistusd', bolge: 'kuresel', birim: 'dolar', onEk: '$', ondalik: 2, rekor: false, tr: true },
@@ -61,6 +72,9 @@ export const ENSTRUMANLAR = [
   { ...PARITE, id: 'usdjpy', ad: 'USD/JPY paritesi', sembol: 'JPY=X', bolge: 'asya', ondalik: 2, sira: 1 },
   { ...PARITE, id: 'gbpusd', ad: 'GBP/USD paritesi', sembol: 'GBPUSD=X', bolge: 'avrupa' },
   { ...PARITE, id: 'usdcny', ad: 'USD/CNY (Çin yuanı)', sembol: 'CNY=X', bolge: 'asya' },
+  { ...PARITE, id: 'usdchf', ad: 'USD/CHF (İsviçre frangı)', sembol: 'CHF=X', bolge: 'avrupa' },
+  { ...PARITE, id: 'audusd', ad: 'AUD/USD (Avustralya doları)', sembol: 'AUDUSD=X', bolge: 'asya' },
+  { ...PARITE, id: 'usdinr', ad: 'USD/INR (Hindistan rupisi)', sembol: 'INR=X', bolge: 'asya', ondalik: 2 },
   { ...PARITE, id: 'dxy', ad: 'Dolar endeksi (DXY)', sembol: 'DX-Y.NYB', bolge: 'abd', ondalik: 2, sira: 1 },
   // Emtia
   { ...EMTIA, id: 'altin', ad: 'Ons altın', sembol: 'GC=F', kategori: 'doviz', dusus: [10, 20], yukselis: 20, olagan: 3, sira: 1 },
@@ -69,6 +83,11 @@ export const ENSTRUMANLAR = [
   { ...EMTIA, id: 'wti', ad: 'WTI ham petrol', sembol: 'CL=F', birim: 'dolar (varil)' },
   { ...EMTIA, id: 'dogalgaz', ad: 'ABD doğal gazı', sembol: 'NG=F', birim: 'dolar (MMBtu)', olagan: 8, seriEn: 9, ondalik: 3 },
   { ...EMTIA, id: 'bakir', ad: 'Bakır', sembol: 'HG=F', birim: 'dolar (libre)', ondalik: 3 },
+  { ...EMTIA, id: 'platin', ad: 'Platin', sembol: 'PL=F', kategori: 'doviz', birim: 'dolar (ons)' },
+  { ...EMTIA, id: 'bugday', ad: 'Buğday', sembol: 'ZW=F', birim: 'sent (buşel)', onEk: '', sonEk: ' sent' },
+  { ...EMTIA, id: 'misir', ad: 'Mısır', sembol: 'ZC=F', birim: 'sent (buşel)', onEk: '', sonEk: ' sent' },
+  { ...EMTIA, id: 'kahve', ad: 'Kahve', sembol: 'KC=F', birim: 'sent (libre)', onEk: '', sonEk: ' sent' },
+  { ...EMTIA, id: 'kakao', ad: 'Kakao', sembol: 'CC=F', birim: 'dolar (ton)', ondalik: 0 },
   // Oranlar
   { ...ORAN, id: 'altingumus', ad: 'Altın/gümüş oranı', turet: 'altingumus' },
   { ...ORAN, id: 'btcaltin', ad: 'Bitcoin/altın oranı', turet: 'btcaltin', kategori: 'kripto' },
@@ -79,6 +98,9 @@ export const ENSTRUMANLAR = [
   { ...ETF, id: 'iwm', ad: "ABD küçük şirketler ETF'i (IWM)", sembol: 'IWM', bolge: 'abd' },
   { ...ETF, id: 'eem', ad: "Gelişmekte olan piyasalar ETF'i (EEM)", sembol: 'EEM', bolge: 'kuresel' },
   { ...ETF, id: 'tur', ad: "Türkiye ETF'i (TUR)", sembol: 'TUR', bolge: 'kuresel', tr: true },
+  { ...ETF, id: 'tlt', ad: "ABD uzun vadeli tahvil ETF'i (TLT)", sembol: 'TLT', bolge: 'abd', borsa: false },
+  { ...ETF, id: 'xle', ad: "ABD enerji sektörü ETF'i (XLE)", sembol: 'XLE', bolge: 'abd', borsa: false },
+  { ...ETF, id: 'xlf', ad: "ABD finans sektörü ETF'i (XLF)", sembol: 'XLF', bolge: 'abd', borsa: false },
   // Hisseler
   { ...ABD_HISSE, id: 'aapl', ad: 'Apple hissesi', sembol: 'AAPL' },
   { ...ABD_HISSE, id: 'msft', ad: 'Microsoft hissesi', sembol: 'MSFT' },
@@ -87,6 +109,19 @@ export const ENSTRUMANLAR = [
   { ...ABD_HISSE, id: 'googl', ad: 'Alphabet hissesi', sembol: 'GOOGL' },
   { ...ABD_HISSE, id: 'meta', ad: 'Meta hissesi', sembol: 'META' },
   { ...ABD_HISSE, id: 'tsla', ad: 'Tesla hissesi', sembol: 'TSLA' },
+  { ...ABD_HISSE, id: 'avgo', ad: 'Broadcom hissesi', sembol: 'AVGO' },
+  { ...ABD_HISSE, id: 'tsm', ad: 'TSMC hissesi (ADR)', sembol: 'TSM', bolge: 'asya' },
+  { ...ABD_HISSE, id: 'jpm', ad: 'JPMorgan hissesi', sembol: 'JPM' },
+  { ...ABD_HISSE, id: 'lly', ad: 'Eli Lilly hissesi', sembol: 'LLY' },
+  { ...ABD_HISSE, id: 'nflx', ad: 'Netflix hissesi', sembol: 'NFLX' },
+  { ...ABD_HISSE, id: 'amd', ad: 'AMD hissesi', sembol: 'AMD' },
+  { ...ABD_HISSE, id: 'pltr', ad: 'Palantir hissesi', sembol: 'PLTR' },
+  { ...AB_HISSE, id: 'asml', ad: 'ASML hissesi', sembol: 'ASML.AS' },
+  { ...AB_HISSE, id: 'sap', ad: 'SAP hissesi', sembol: 'SAP.DE' },
+  { ...AB_HISSE, id: 'lvmh', ad: 'LVMH hissesi', sembol: 'MC.PA' },
+  { ...HISSE, id: 'novo', ad: 'Novo Nordisk hissesi', sembol: 'NOVO-B.CO', bolge: 'avrupa', birim: 'Danimarka kronu', sonEk: ' DKK' },
+  { ...HISSE, id: 'toyota', ad: 'Toyota hissesi', sembol: '7203.T', bolge: 'asya', birim: 'yen', sonEk: ' yen', ondalik: 0 },
+  { ...HISSE, id: 'samsung', ad: 'Samsung Electronics hissesi', sembol: '005930.KS', bolge: 'asya', birim: 'won', sonEk: ' won', ondalik: 0 },
   { ...BIST_HISSE, id: 'thyao', ad: 'Türk Hava Yolları (THYAO)', sembol: 'THYAO.IS' },
   { ...BIST_HISSE, id: 'asels', ad: 'Aselsan (ASELS)', sembol: 'ASELS.IS' },
   { ...BIST_HISSE, id: 'garan', ad: 'Garanti BBVA (GARAN)', sembol: 'GARAN.IS' },
@@ -94,28 +129,40 @@ export const ENSTRUMANLAR = [
   { ...BIST_HISSE, id: 'kchol', ad: 'Koç Holding (KCHOL)', sembol: 'KCHOL.IS' },
   { ...BIST_HISSE, id: 'tuprs', ad: 'Tüpraş (TUPRS)', sembol: 'TUPRS.IS' },
   { ...BIST_HISSE, id: 'bimas', ad: 'BİM (BIMAS)', sembol: 'BIMAS.IS' },
+  { ...BIST_HISSE, id: 'eregl', ad: 'Ereğli Demir Çelik (EREGL)', sembol: 'EREGL.IS' },
+  { ...BIST_HISSE, id: 'sahol', ad: 'Sabancı Holding (SAHOL)', sembol: 'SAHOL.IS' },
+  { ...BIST_HISSE, id: 'ykbnk', ad: 'Yapı Kredi (YKBNK)', sembol: 'YKBNK.IS' },
+  { ...BIST_HISSE, id: 'isctr', ad: 'İş Bankası (ISCTR)', sembol: 'ISCTR.IS' },
+  { ...BIST_HISSE, id: 'froto', ad: 'Ford Otosan (FROTO)', sembol: 'FROTO.IS' },
+  { ...BIST_HISSE, id: 'pgsus', ad: 'Pegasus (PGSUS)', sembol: 'PGSUS.IS' },
+  { ...BIST_HISSE, id: 'tcell', ad: 'Turkcell (TCELL)', sembol: 'TCELL.IS' },
+  { ...BIST_HISSE, id: 'sise', ad: 'Şişecam (SISE)', sembol: 'SISE.IS' },
 ];
 
 // Son 24 saatte en fazla bu kadar eşik olayı aday olur; her biri yazar ve yayın kurulunda birkaç Gemini çağrısı demek.
 // Telegram'da bunlar yalnız @finfolis kanalına gider; fundov grubuna yalnız piyasa bülteni gider (mecmua-saat).
-export const GUNLUK_AZAMI = 8;
-export const TR_AZAMI = 2; // bunların en fazla bu kadarı Türkiye olayı
+export const GUNLUK_AZAMI = 12;
+export const TR_AZAMI = 3; // bunların en fazla bu kadarı Türkiye olayı
 const ES_ZAMANLI = 4; // Yahoo'ya aynı anda en fazla bu kadar istek
 
 export const EN_AZ_YIL = 2; // "X yılın en yüksek/düşük seviyesi" için en kısa süre
 export const TAZE_GUN = 5; // eşik en fazla bu kadar işlem günü önce aşıldıysa haberdir
 export const REKOR_GECMIS_YIL = 5; // "tüm zamanlar" için serinin en az bu kadar geriye gitmesi gerekir
+export const NADIRLIK_YIL = 0.5; // olağandışı gün ve seri: aynı yönde bu kadar büyüğü en az bu süredir görülmemiş olmalı
 
 const TR_AY = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
 const trTarih = (iso) => `${Number(iso.slice(8, 10))} ${TR_AY[Number(iso.slice(5, 7)) - 1]} ${iso.slice(0, 4)}`;
 // Türkçe sayı eki: "yüzde 10'un", "yüzde 20'nin" ...
-const EK = { 10: "'un", 20: "'nin", 30: "'un", 40: "'ın", 50: "'nin" };
+const EK = { 10: "'un", 15: "'in", 20: "'nin", 25: "'in", 30: "'un", 40: "'ın", 50: "'nin" };
 const zaman = (iso) => Date.parse(`${iso}T00:00:00Z`);
 const yuvarla = (n, o) => Math.round(n * 10 ** o) / 10 ** o;
 const ONCELIK = ['rekor', 'olagandisi', 'dusus', 'yukselis', 'seri', 'yuksek', 'dusuk'];
 const izinli = (e, tur) => !e.turler || e.turler.includes(tur);
 // "son 1 yılın" yerine "son bir yılın"
 const sure = (yil) => (yil <= 1 ? 'bir' : String(yil));
+// Nadirlik süresi bir yıldan kısaysa ay olarak: "son 7 ayın" / "son bir yılın"; kaynak metinde "about 7 months".
+const sureTr = (yil) => (yil < 1 ? `son ${Math.floor(yil * 12)} ayın` : `son ${sure(Math.floor(yil))} yılın`);
+const sureEn = (yil) => (yil < 1 ? `about ${Math.floor(yil * 12)} months` : `about ${Math.floor(yil)} years`);
 
 // Son kapanış için en önemli olay (en fazla bir). Saf fonksiyon: ağ yok, test edilebilir.
 export function olaylariBul(seri, e) {
@@ -169,8 +216,8 @@ export function olaylariBul(seri, e) {
       while (j >= 1 && !(Math.sign(degisim(j)) === Math.sign(bugun) && Math.abs(degisim(j)) >= Math.abs(bugun))) j--;
       const bitis = j >= 1 ? seri[j].tarih : ilk.tarih;
       const yil = (zaman(son.tarih) - zaman(bitis)) / YIL;
-      if (yil >= 1) {
-        out.push({ tur: 'olagandisi', yuzde: bugun, yil: Math.floor(yil), referans: seri[n - 1], onceGun: j >= 1 ? { tarih: seri[j].tarih, yuzde: degisim(j) } : null });
+      if (yil >= NADIRLIK_YIL) {
+        out.push({ tur: 'olagandisi', yuzde: bugun, yil, referans: seri[n - 1], onceGun: j >= 1 ? { tarih: seri[j].tarih, yuzde: degisim(j) } : null });
       }
     }
   }
@@ -200,7 +247,7 @@ export function olaylariBul(seri, e) {
         i = k - 1;
       }
       const yil = (zaman(son.tarih) - zaman(onceki ? onceki.tarih : ilk.tarih)) / YIL;
-      if (yil >= 1) out.push({ tur: 'seri', yon: y > 0 ? 'yukari' : 'asagi', uzunluk, baslangic: seri[bas - 1], yil: Math.floor(yil), onceki, referans: seri[bas - 1] });
+      if (yil >= NADIRLIK_YIL) out.push({ tur: 'seri', yon: y > 0 ? 'yukari' : 'asagi', uzunluk, baslangic: seri[bas - 1], yil, onceki, referans: seri[bas - 1] });
     }
   }
 
@@ -291,13 +338,13 @@ export function adayYap(o, e, seri) {
     if (!yuksek) olay.yon = 'dusus';
   } else if (o.tur === 'olagandisi') {
     const artis = o.yuzde > 0;
-    baslik = `${e.ad} son ${sure(o.yil)} yılın en sert günlük ${artis ? 'yükselişini' : 'düşüşünü'} yaşadı`;
+    baslik = `${e.ad} ${sureTr(o.yil)} en sert günlük ${artis ? 'yükselişini' : 'düşüşünü'} yaşadı`;
     kisa = 'olagandisi';
     vurgu = `Günlük ${artis ? '+' : '−'}%${trSayi(Math.abs(o.yuzde), 1)}`;
     satirlar.push(
       `Daily change on ${son.tarih}: ${yuvarla(o.yuzde, 1)}% (previous close ${nokta(r.deger)} on ${r.tarih}).`,
       o.onceGun
-        ? `The last daily ${artis ? 'rise' : 'fall'} at least this large was on ${o.onceGun.tarih} (${yuvarla(o.onceGun.yuzde, 1)}%), about ${o.yil} years ago.`
+        ? `The last daily ${artis ? 'rise' : 'fall'} at least this large was on ${o.onceGun.tarih} (${yuvarla(o.onceGun.yuzde, 1)}%), ${sureEn(o.yil)} ago.`
         : `No daily ${artis ? 'rise' : 'fall'} this large since the data series begins on ${seri[0].tarih}.`,
     );
     cizgiler = [{ deger: r.deger, etiket: `Önceki kapanış ${d(r.deger)}` }];
@@ -313,7 +360,7 @@ export function adayYap(o, e, seri) {
     satirlar.push(
       `${e.ad} closed ${yukari ? 'higher' : 'lower'} for ${o.uzunluk} consecutive trading days, from ${nokta(o.baslangic.deger)} on ${o.baslangic.tarih} to ${nokta(son.deger)}; total change ${toplam}%.`,
       o.onceki
-        ? `The last ${yukari ? 'winning' : 'losing'} streak at least this long ended on ${o.onceki.tarih} (${o.onceki.uzunluk} days), about ${o.yil} years ago.`
+        ? `The last ${yukari ? 'winning' : 'losing'} streak at least this long ended on ${o.onceki.tarih} (${o.onceki.uzunluk} days), ${sureEn(o.yil)} ago.`
         : `This is the longest such streak since the data series begins on ${seri[0].tarih}.`,
     );
     cizgiler = [{ deger: o.baslangic.deger, etiket: `Seri başı ${d(o.baslangic.deger)} · ${trTarih(o.baslangic.tarih)}` }];
