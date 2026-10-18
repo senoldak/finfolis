@@ -213,10 +213,23 @@ export function adayMedyaKontrol(metin, gizliKaynaklar = []) {
   return bulunan.length ? [`Yayın kuruluşu adı geçiyor: ${bulunan.join(', ')}`] : [];
 }
 
+// Yayın kuruluşu adı yayımlanan her alanda aranır: sentez bloğu, tablo ve grafik de sayfada görünür.
+const yayimlananMetin = (y) =>
+  [
+    butunMetin(y),
+    y.why_matters,
+    ...(y.key_points ?? []),
+    y.tablo ? [y.tablo.baslik, ...y.tablo.sutunlar, ...y.tablo.satirlar.flat()].join('\n') : '',
+    y.grafik ? [y.grafik.baslik, y.grafik.birimEtiket, ...y.grafik.satirlar.map((s) => `${s.etiket}: ${s.metin}`)].join('\n') : '',
+  ]
+    .filter(Boolean)
+    .join('\n');
+
 function kesinKontrol(yazi, aday) {
   const metin = butunMetin(yazi);
   const { eksik } = dogrula(metin, [aday.kaynakMetni ?? '']);
-  const medya = [...new Set([...medyaKontrol(metin), ...adayMedyaKontrol(metin, aday.gizliKaynaklar)])];
+  const tum = yayimlananMetin(yazi);
+  const medya = [...new Set([...medyaKontrol(tum), ...adayMedyaKontrol(tum, aday.gizliKaynaklar)])];
   return [...eksik.map((e) => `Kaynakta bulunmayan rakam/alıntı: ${e}`), ...medya];
 }
 

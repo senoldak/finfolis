@@ -267,3 +267,16 @@ test('yayinKurulu: tek haber eşik altındaysa uzatılmaz', async () => {
   assert.ok(r.kisa);
   assert.equal(istemler.length, 0);
 });
+
+test('kontrol masası yayın kuruluşu adını why_matters, key_points ve tabloda da yakalar', async () => {
+  const gemini = async () => ({ onay: true, sorunlar: [] });
+  for (const ek of [
+    { why_matters: 'Reuters bunu önemli buldu.' },
+    { key_points: ['Endeks düştü', 'CNBC yorumladı'] },
+    { tablo: { baslik: 'Özet', sutunlar: ['Kaynak', 'Değer'], satirlar: [['Bloomberg', '5']] } },
+  ]) {
+    const karar = await kontrolMasasi({ ...iyi, ...ek }, aday, { gemini });
+    assert.equal(karar.onay, false, JSON.stringify(ek));
+    assert.ok(karar.sorunlar.some((s) => s.startsWith('Yayın kuruluşu adı geçiyor')), JSON.stringify(karar.sorunlar));
+  }
+});
