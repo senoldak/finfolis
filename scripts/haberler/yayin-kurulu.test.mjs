@@ -335,3 +335,21 @@ test('kontrolMasasi: duzenle olmadan şema duzeltilmis taşımaz ve sonuç düze
   assert.ok(!sema.properties.duzeltilmis);
   assert.equal(r.duzeltilmis, undefined);
 });
+
+test('yayinKurulu: düzeltme derlemeyi alt sınırın altına indirirse derleme bir kez yeniden uzatılır', async () => {
+  const haberler = Array.from({ length: 8 }, (_, i) => ({ baslik: `Haber ${i}`, kategori: 'Ekonomi', kaynakMetni: aday.kaynakMetni }));
+  const cumle = 'Fed aralığı yüzde 4,25 ile 4,5 arasında korudu ve kararını açıkladı. ';
+  const uzun = { ...iyi, govde: '## Ekonomi\n\n' + cumle.repeat(18) };
+  const kisalmis = { ...iyi, govde: '## Ekonomi\n\n' + cumle.repeat(10) };
+  let kontrol = 0;
+  const istemler = [];
+  const gemini = async ({ sema, istem }) => {
+    istemler.push(istem);
+    if (sema.properties.onay) return kontrol++ === 0 ? { onay: false, sorunlar: ['bir cümle sorunlu'] } : { onay: true, sorunlar: [] };
+    if (istem.includes('Bu derleme haberinin gövdesi')) return uzun;
+    return kisalmis; // düzeltme metni kısaltır
+  };
+  const r = await yayinKurulu(uzun, { ...aday, haberler }, { gemini });
+  assert.ok(r.yazi, r.dur);
+  assert.equal(istemler.filter((i) => i.includes('Bu derleme haberinin gövdesi')).length, 1);
+});

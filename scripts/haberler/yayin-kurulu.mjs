@@ -359,6 +359,7 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
   // Kontrol, sorun varsa düzeltme; en fazla 2 düzeltme turu, ardından son bir kontrol. Kontrol onay verirse aynı
   // çağrıda redaksiyon da gelir (Katman 2.4): ayrı redaksiyon çağrısı yok.
   let duzenli0;
+  let derlemeYenidenUzatildi = false;
   for (let tur = 0; ; tur++) {
     // basit sorunlar (göreli zaman, yayın kuruluşu atfı) önce yerelde düzelir; Gemini'ye yalnızca kalanlar gider
     yazi = yerelDuzelt(yazi);
@@ -369,6 +370,13 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
     }
     if (tur >= 2) return { dur: `Yayın kurulu onaylamadı: ${karar.sorunlar.join('; ')}` };
     yazi = { ...(await duzelt(yazi, aday, karar.sorunlar, g)), ...serit };
+    // Düzeltme sorunlu cümleleri silerek derlemeyi alt sınırın altına indirebiliyor (18 Ekim: 8 haber, 135 kelime);
+    // derleme bir kez daha kendi kaynaklarından genişletilir, sonra yine denetime girer.
+    if (derleme && kisa(yazi) && !derlemeYenidenUzatildi) {
+      derlemeYenidenUzatildi = true;
+      uzatmaOncesi = kelimeSay(yazi.govde);
+      yazi = { ...(await derlemeUzat(yazi, aday, uzatmaOncesi, g)), ...serit };
+    }
   }
 
   // Redaksiyon da kontrol masasından geçmeli; hatasız onay almazsa onaylı önceki hâl kullanılır.
