@@ -26,6 +26,7 @@ import { yaziYaz, gemini as varsayilanGemini } from './lib.mjs';
 import { icerikTuru } from './icerik-turu.mjs';
 import { kaynakKapagi, rakamKapagi, haberKapagi } from '../kapak/kapak.mjs';
 import { gorunur } from '../../src/lib/gorunur.mjs';
+import { kelimeSay } from '../../src/lib/uzunluk.mjs';
 import { anahtarVar, coz, kaynakIzi, sifrele } from './gizli.mjs';
 import { butceYukle, geminiPayiBitti } from './butce.mjs';
 
@@ -396,7 +397,7 @@ export async function calistir({
       yazilan.push(o);
       sonuc.adet++;
       sonuc.yazilar.push(slug);
-      log(`  + derleme ${slug} (${grup.length} haber)`);
+      log(`  + derleme ${slug} (${grup.length} haber, ${kelimeSay(yazi.govde)} kelime)`);
     } catch (e) {
       if (e.konfig) {
         hatalar.push(`Gemini yapılandırma hatası: ${e.message}`);

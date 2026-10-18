@@ -15,6 +15,9 @@ import { kelimeSay, INDEKS_ESIGI } from '../../src/lib/uzunluk.mjs';
 // Gövdesi bu kelime sayısının altında kalan haber yayımlanmaz: kısa taslak önce bir kez kaynaktan genişletilir
 // (uzat), yine kısaysa durdurulur. Sitede 120 kelimenin altı zaten noindex olur (src/lib/uzunluk.mjs).
 export const EN_AZ_KELIME = 200;
+// Derleme alt sınırı: havuzdaki haberler zaten kaynağı az olduğu için kısa kalanlardır; 8 haberlik derleme
+// uzatmadan sonra bile ~170 kelimede kalıyordu (18 Ekim). Haber başına 20 kelime, en az 150, en çok EN_AZ_KELIME.
+export const derlemeEnAz = (n) => Math.min(EN_AZ_KELIME, Math.max(150, n * 20));
 // Bu sayının altındaki taslak uzatılmaz (Katman 2); sitedeki noindex eşiğiyle aynı.
 export const UZATMA_ESIGI = INDEKS_ESIGI;
 
@@ -283,8 +286,10 @@ ${yazi.govde}`,
 }
 
 // Döner: {yazi} ya da {dur: sebep}. dur doluysa haber yayınlanmaz.
-export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enAzKelime = EN_AZ_KELIME } = {}) {
+export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enAzKelime } = {}) {
   const g = { gemini };
+  const derleme = Array.isArray(aday.haberler);
+  enAzKelime ??= derleme ? derlemeEnAz(aday.haberler.length) : EN_AZ_KELIME;
   let yazi = seridiSuz(taslak, aday);
   // düzeltme ve redaksiyon yalnızca baslik/spot/govde döndürür; şerit değişmeden taşınır
   const serit = {
@@ -294,15 +299,19 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
     ...(yazi.grafik ? { grafik: yazi.grafik } : {}),
   };
   const kisa = (y) => kelimeSay(y.govde) < enAzKelime;
-  const kisaDur = () => ({ dur: `Metin kısa: ${kelimeSay(yazi.govde)} kelime (en az ${enAzKelime}); kaynak yeterli bilgi içermiyor`, kisa: true });
+  let uzatmaOncesi = null; // logda uzatmanın gerçekten çalışıp çalışmadığı görünsün
+  const kisaDur = () => ({
+    dur: `Metin kısa: ${kelimeSay(yazi.govde)} kelime${uzatmaOncesi === null ? '' : `, uzatmadan önce ${uzatmaOncesi}`} (en az ${enAzKelime}); kaynak yeterli bilgi içermiyor`,
+    kisa: true,
+  });
   // Katman 2 (Gemini kota planı): kısa taslak yalnız UZATMA_ESIGI'nin üstündeyse bir kez kaynaktan genişletilir;
   // daha kısası için kaynakta yeterli bilgi olmadığı neredeyse kesindir. Kısa kalan metin denetime girmez:
   // yazısı kullanılmaz, olay havuza gider (bkz. hent-haberler.mjs).
   // Derleme (aday.haberler) eşikten bağımsız uzatılır: birden çok haberin kaynağı vardır, kısalık yazımdan gelir.
-  const derleme = Array.isArray(aday.haberler);
   if (kisa(yazi)) {
     if (!derleme && kelimeSay(yazi.govde) < UZATMA_ESIGI) return kisaDur();
-    yazi = { ...(await (derleme ? derlemeUzat : uzat)(yazi, aday, kelimeSay(yazi.govde), g)), ...serit };
+    uzatmaOncesi = kelimeSay(yazi.govde);
+    yazi ={ ...(await (derleme ? derlemeUzat : uzat)(yazi, aday, kelimeSay(yazi.govde), g)), ...serit };
     if (kisa(yazi)) return kisaDur();
   }
   // Kontrol, sorun varsa düzeltme; en fazla 2 düzeltme turu, ardından son bir kontrol.

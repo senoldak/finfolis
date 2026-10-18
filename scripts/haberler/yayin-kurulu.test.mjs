@@ -239,6 +239,28 @@ test('yayinKurulu: kısa derleme eşik altında da derleme uzatmasıyla genişle
   assert.ok(istemler.some((i) => i.includes('Ara başlıkları')));
 });
 
+test('derlemeEnAz: haber başına 20 kelime, 150 ile EN_AZ_KELIME arası', async () => {
+  const { derlemeEnAz, EN_AZ_KELIME } = await import('./yayin-kurulu.mjs');
+  assert.equal(derlemeEnAz(2), 150);
+  assert.equal(derlemeEnAz(8), 160);
+  assert.equal(derlemeEnAz(50), EN_AZ_KELIME);
+});
+
+test('yayinKurulu: 8 haberlik derleme 168 kelimeyle yayımlanır (tek haberin 200 sınırı uygulanmaz)', async () => {
+  const haberler = Array.from({ length: 8 }, (_, i) => ({ baslik: `Haber ${i}`, kategori: 'Ekonomi', kaynakMetni: aday.kaynakMetni }));
+  const govde = '## Ekonomi\n\n' + 'Fed aralığı yüzde 4,25 ile 4,5 arasında korudu ve kararını açıkladı. '.repeat(16);
+  const r = await yayinKurulu({ ...iyi, govde }, { ...aday, haberler }, { gemini: async ({ sema }) => (sema.properties.onay ? { onay: true, sorunlar: [] } : null) });
+  assert.ok(r.yazi, r.dur);
+});
+
+test('yayinKurulu: uzatma sonrası kısa kalan derlemenin durma sebebi önceki kelime sayısını da yazar', async () => {
+  const derlemeAday = { ...aday, haberler: [{ baslik: 'Fed', kategori: 'Ekonomi', kaynakMetni: aday.kaynakMetni }] };
+  const r = await yayinKurulu({ ...iyi, govde: '## Ekonomi\n\nFed aralığı korudu.' }, derlemeAday, { gemini: async () => null });
+  assert.equal(r.kisa, true);
+  assert.match(r.dur, /uzatmadan önce \d+/);
+  assert.match(r.dur, /en az 150/);
+});
+
 test('yayinKurulu: tek haber eşik altındaysa uzatılmaz', async () => {
   const istemler = [];
   const r = await yayinKurulu({ ...iyi, govde: 'Kısa.' }, aday, { gemini: async ({ istem }) => (istemler.push(istem), null) });
