@@ -1,20 +1,11 @@
 ---
-// Simge sprite'ı: Base.astro bir kez ekler; kullanım: <svg><use href="#s-lira" /></svg>
-// Simge çizimleri src/lib/simgeler.js'te (kapak çizici de aynı dosyayı kullanır).
-import { SIMGELER, ISARETLER } from '../lib/simgeler.js';
+// İşaret sprite'ı: Base.astro bir kez ekler; kullanım: <svg><use href="#s-yukari" /></svg> (Change.astro).
+// Kimlik v2'de Isotype piktogramları kalktı (rakamlar boncukla sayılır); yalnız yön işaretleri kaldı.
+import { ISARETLER } from '../lib/simgeler.js';
 ---
 
 <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
   <defs>
-    {
-      Object.entries(SIMGELER).map(([ad, parcalar]) => (
-        <symbol id={`s-${ad}`} viewBox="0 0 24 24">
-          {parcalar.map((p) => (
-            <path d={p.d} fill-rule={p.evenodd ? 'evenodd' : undefined} opacity={p.soluk} />
-          ))}
-        </symbol>
-      ))
-    }
     {
       Object.entries(ISARETLER).map(([ad, d]) => (
         <symbol id={`s-${ad}`} viewBox="0 0 12 12">

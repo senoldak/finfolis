@@ -5,7 +5,7 @@ export const SITE_URL = 'https://finfolis.com';
 export const ORG_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const LOGO_URL = `${SITE_URL}/favicon-512.png`;
-// NewsArticle publisher.logo: yatay 600×60 PNG (scripts/kapak/logo.mjs üretir).
+// NewsArticle publisher.logo: yatay 600×60 PNG (scripts/marka/marka-uret.mjs üretir).
 export const PUBLISHER_LOGO = { '@type': 'ImageObject', url: `${SITE_URL}/finfolis-logo.png`, width: 600, height: 60 };
 
 // Metni sözcük sınırında keser; sığmazsa sonuna "…" ekler.

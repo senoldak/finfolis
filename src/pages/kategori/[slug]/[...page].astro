@@ -91,9 +91,6 @@ const jsonLd = {
       ]}
     />
     <header class={`sayfa-bas ink-${cat.ink}`}>
-      <svg aria-hidden="true">
-        <use href={`#s-${cat.icon}`} />
-      </svg>
       <h1>{cat.name}{!ilkSayfa && <span class="sayfa-no"> · Sayfa {page.currentPage}</span>}</h1>
       <p>{page.total > 0 ? `${page.total} yazı` : 'Henüz yazı yok'}</p>
     </header>

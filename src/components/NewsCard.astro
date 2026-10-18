@@ -32,9 +32,6 @@ const okumaDk = okumaSuresi(haber.body);
       {
         showCategory && (
           <a href={`/kategori/${cat.slug}/`} class={`kunye-kat ink-${cat.ink}`}>
-            <svg aria-hidden="true">
-              <use href={`#s-${cat.icon}`} />
-            </svg>
             {cat.name}
           </a>
         )

@@ -157,9 +157,6 @@ const jsonLd = {
         <p class="makale-spot">{description}</p>
         <p class="kunye">
           <a href={`/kategori/${cat.slug}/`} class="kunye-kat">
-            <svg aria-hidden="true">
-              <use href={`#s-${cat.icon}`} />
-            </svg>
             {cat.name}
           </a>
           {turEtiket && <span class="kunye-tur">{turEtiket}</span>}

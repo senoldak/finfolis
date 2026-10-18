@@ -15,7 +15,7 @@ import { vitrin, deger, kaynakSatiri, notVitrinde, DEGISIM_NOTU } from '../lib/p
       </h2>
       <div class="container gostergeler-izgara">
         {vitrin.map((g) => (
-          <article class={`gosterge ink-${g.renk ?? 'black'}`}>
+          <article class="gosterge">
             <h3 class="gosterge-ad">{g.ad}</h3>
             <p class="gosterge-deger">
               {deger(g)}
@@ -40,9 +40,7 @@ import { vitrin, deger, kaynakSatiri, notVitrinde, DEGISIM_NOTU } from '../lib/p
             </dl>
             {g.anlam && <p class="gosterge-anlam">{g.anlam}</p>}
             <p class="gosterge-lejant">
-              <svg aria-hidden="true">
-                <use href={`#s-${g.simge}`} />
-              </svg>
+              <svg aria-hidden="true" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" /></svg>
               = {g.simgeEtiket}
             </p>
             <p class="veri-notu gosterge-kaynak">{kaynakSatiri(g)}</p>

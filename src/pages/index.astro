@@ -57,9 +57,6 @@ const sections = CATEGORIES.map((c) => ({
             <p class="manset-spot">{hero.data.description}</p>
             <p class="kunye">
               <a href={`/kategori/${heroCat.slug}/`} class={`kunye-kat ink-${heroCat.ink}`}>
-                <svg aria-hidden="true">
-                  <use href={`#s-${heroCat.icon}`} />
-                </svg>
                 {heroCat.name}
               </a>
               <time datetime={hero.data.date.toISOString()}>{formatDate(hero.data.date, true)}</time>
@@ -117,9 +114,6 @@ const sections = CATEGORIES.map((c) => ({
       sections.map((s) => (
         <section class={`bolum ink-${s.ink}`}>
           <h2 class="bolum-baslik">
-            <svg aria-hidden="true">
-              <use href={`#s-${s.icon}`} />
-            </svg>
             <a href={`/kategori/${s.slug}/`}>{s.name}</a>
           </h2>
           <div class="liste liste-iki">

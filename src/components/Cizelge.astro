@@ -33,9 +33,6 @@ import { cizelge, deger, kaynakSatiri, notCizelgede, DEGISIM_NOTU } from '../lib
           cizelge.map((g) => (
             <tr data-ad={g.ad} data-deger={g.deger} data-gunluk={g.degisim ?? ''}>
               <th scope="row">
-                <svg aria-hidden="true">
-                  <use href={`#s-${g.simge}`} />
-                </svg>
                 <span class="cizelge-ad">
                   {g.ad}
                   <small class="veri-notu">{kaynakSatiri(g)}</small>
@@ -144,12 +141,12 @@ import { cizelge, deger, kaynakSatiri, notCizelgede, DEGISIM_NOTU } from '../lib
   }
 
   .cizelge-grafik-baslik {
-    width: 132px;
-    padding-right: 12px;
+    width: 148px;
+    padding-inline: 16px 12px;
   }
 
   .cizelge-grafik {
-    width: 132px;
-    padding-right: 12px;
+    width: 148px;
+    padding-inline: 16px 12px;
   }
 </style>

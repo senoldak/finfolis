@@ -84,27 +84,25 @@ test('eksenAdimi ve incelt: okunaklı adım, tepe ve son nokta korunur', async (
   assert.equal(az.at(-1), seri.at(-1));
 });
 
-test('mürekkep bloğu: zemin kategorinin mürekkep rengidir; döviz & altında zemin beyaz, yazı mürekkep renginde', async () => {
+test('C dili: kâğıt zemin, başlık kapağında sağ üstte pişmiş toprak vurgu boncuğu, altta koyu marka yazısı', async () => {
   const { default: sharp } = await import('sharp');
   const piksel = async (png, x, y) => {
     const { data, info } = await sharp(png).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
     const i = (y * info.width + x) * 4;
     return [data[i], data[i + 1], data[i + 2]];
   };
-  const yakin = (a, b) => a.every((v, i) => Math.abs(v - b[i]) <= 6);
-  const mavi = await kapakCiz(haberKapagi({ kategori: 'piyasalar', baslik: 'Test başlığı' }));
-  assert.ok(yakin(await piksel(mavi, 4, 4), [0x2e, 0x5d, 0x8a]));
-  const sari = await kapakCiz(haberKapagi({ kategori: 'doviz', baslik: 'Test başlığı' }));
-  assert.ok(yakin(await piksel(sari, 4, 4), [0xff, 0xff, 0xff]));
-  // Alt bantta marka yazısı: sarıda koyu, mavide açık renkli piksel bulunur.
-  const enKoyu = async (png) => {
-    const { data } = await sharp(png).extract({ left: 120, top: 560, width: 150, height: 50 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
-    let min = 765, max = 0;
-    for (let i = 0; i < data.length; i += 3) { const t = data[i] + data[i + 1] + data[i + 2]; min = Math.min(min, t); max = Math.max(max, t); }
-    return { min, max };
-  };
-  assert.ok((await enKoyu(sari)).min < 150);
-  assert.ok((await enKoyu(mavi)).max > 700);
+  const yakin = (a, b) => a.every((v, i) => Math.abs(v - b[i]) <= 8);
+  for (const kategori of ['piyasalar', 'doviz', 'kripto']) {
+    const png = await kapakCiz(haberKapagi({ kategori, baslik: 'Test başlığı' }));
+    assert.ok(yakin(await piksel(png, 4, 4), [0xf4, 0xf3, 0xee]), kategori);
+    // Vurgu boncuğu: büyük abaküsün üst teli, sağ uç (x = 820 + 100/120 × 470 ≈ 1192, y = −30 + 24/120 × 470 ≈ 64).
+    assert.ok(yakin(await piksel(png, 1190, 64), [0xc2, 0x50, 0x2b]), kategori);
+  }
+  const png = await kapakCiz(haberKapagi({ kategori: 'ekonomi', baslik: 'Test başlığı' }));
+  const { data } = await sharp(png).extract({ left: 64, top: 585, width: 160, height: 50 }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  let min = 765;
+  for (let i = 0; i < data.length; i += 3) min = Math.min(min, data[i] + data[i + 1] + data[i + 2]);
+  assert.ok(min < 150);
 });
 
 test('rakamKapagi ve bultenKapagi: uzun rakam, uzun maddeler ve örnek notuyla PNG üretir', async () => {
@@ -114,16 +112,9 @@ test('rakamKapagi ve bultenKapagi: uzun rakam, uzun maddeler ve örnek notuyla P
   assert.ok(b.length > 3000);
 });
 
-test('yazı tipi bekçisi: kullanılan kesimler denetimden geçer, yanlış kesim ya da yedek yazı tipi yakalanır', async () => {
-  const { fontlariDenetle, fontIzi, izUyusuyor, FONT_IZI } = await import('./kapak.mjs');
+test('yazı tipi bekçisi: kapak yazı tipi Türkçe harfleri ve ₺ simgesini içerir', async () => {
+  const { fontlariDenetle } = await import('./kapak.mjs');
   await fontlariDenetle();
-  for (const ad of ['Jost-600', 'Jost-700', 'Literata-500', 'Literata-700']) assert.ok(FONT_IZI[ad], ad);
-  assert.ok(izUyusuyor(await fontIzi('Jost', 700), FONT_IZI['Jost-700']));
-  // Komşu kalınlık ve başka aile eşleşmemeli.
-  assert.equal(izUyusuyor(await fontIzi('Jost', 600), FONT_IZI['Jost-700']), false);
-  assert.equal(izUyusuyor(await fontIzi('Literata', 700), FONT_IZI['Jost-700']), false);
-  // Tidsrost'ta ölçülen türden bir yedek yazı tipi izi (950×100, az mürekkep) reddedilir.
-  assert.equal(izUyusuyor({ w: 950, h: 100, murekkep: 12859 }, FONT_IZI['Literata-700']), false);
 });
 
 test('yenile.kapakTuru: yalnız kesin tanınan kapaklar yeniden çizilir', async () => {
@@ -136,7 +127,7 @@ test('yenile.kapakTuru: yalnız kesin tanınan kapaklar yeniden çizilir', async
   assert.deepEqual(bultenBasliklari('## ABD\n\n- **A:** x\n- **B:** y\n\n## Asya\n\n- **C:** z\n- **D:** w'), ['A', 'B', 'C']);
 });
 
-test('veri kapakları (grafik, karne, gösterge, rakam) her kategoride beyaz zeminli; karnede yükselen yeşil, düşen kırmızı', async () => {
+test('veri kapakları (grafik, karne, gösterge, rakam) kâğıt zeminli; karnede yükselen yeşil, düşen kırmızı', async () => {
   const { default: sharp } = await import('sharp');
   const sol = async (png) => [...(await sharp(png).extract({ left: 4, top: 4, width: 1, height: 1 }).removeAlpha().raw().toBuffer())];
   const gun = (i) => `2026-0${1 + Math.floor(i / 28)}-${String(1 + (i % 28)).padStart(2, '0')}`;
@@ -145,9 +136,9 @@ test('veri kapakları (grafik, karne, gösterge, rakam) her kategoride beyaz zem
     grafikKapagi({ kategori: 'borsa', baslik: 'KOSPI düştü', seri }),
     rakamKapagi({ kategori: 'piyasalar', ust: 'TCMB politika faizi', rakam: '%39,50' }),
     karneKapagi({ kategori: 'piyasalar', baslik: 'Karne', satirlar: [{ etiket: 'A', deger: 2 }, { etiket: 'B', deger: -1 }] }),
-    gostergeKapagi({ kategori: 'ekonomi', baslik: 'Gösterge', simge: 'fabrika', birim: 10, birimEtiket: '10', satirlar: [{ etiket: '2024', deger: 30 }] }),
-  ]) assert.deepEqual(await sol(await kapakCiz(k)), [255, 255, 255]);
+    gostergeKapagi({ kategori: 'ekonomi', baslik: 'Gösterge', birim: 10, birimEtiket: '10', satirlar: [{ etiket: '2024', deger: 30 }] }),
+  ]) assert.deepEqual(await sol(await kapakCiz(k)), [0xf4, 0xf3, 0xee]);
   const karne = await karneKapagi({ kategori: 'piyasalar', baslik: 'Karne', satirlar: [{ etiket: 'A', deger: 2 }, { etiket: 'B', deger: -1 }] })();
   assert.match(karne.svg, /fill="#3f7350"/);
-  assert.match(karne.svg, /fill="#c43d2b"/);
+  assert.match(karne.svg, /fill="#a3243b"/);
 });

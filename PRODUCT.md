@@ -38,7 +38,7 @@ An analysis-and-explanation platform, not a ticker terminal or a tip sheet. Ever
 ## Brand Commitments
 
 - Name: **finfolis**, lowercase.
-- The user has an existing brand mark that must be kept. The current `public/favicon.svg` is Astro's default logo, not the finfolis mark; the real mark file is still to be supplied. Use a placeholder until then.
+- Identity v2 (2026-10-18): abacus mark, paper/ink with one accent (pişmiş toprak `#c2502b`), Bricolage Grotesque, slogan "Karmaşadan uzakta", personality öğretici ve sıcak. `BRAND.md` is the single source; the old f monogram is retired (`brand/eski/`).
 - Voice: plain, explanatory Turkish; no hype, no return promises, no "kaçırmayın" urgency.
 - An investment-advice disclaimer ("yatırım tavsiyesi değildir", SPK-compatible wording) is visible under every article and in the footer.
 

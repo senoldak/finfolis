@@ -36,9 +36,7 @@ const ondalik = grafik.birim < 1 ? 1 : 0;
     }
   </ul>
   <p class="veri-notu grafik-lejant">
-    <svg aria-hidden="true">
-      <use href={`#s-${grafik.simge}`} />
-    </svg>
+    <svg aria-hidden="true" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" /></svg>
     = {sayi(grafik.birim, ondalik)} {grafik.birimEtiket}
   </p>
   <p class="veri-notu">

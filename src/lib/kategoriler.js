@@ -1,4 +1,4 @@
-// ink: kategorinin sabit rengi (global.css'teki --ink-* değişkenleri), icon: src/lib/simgeler.js'teki simge.
+// ink: eski Isotype kategori rengi (Kimlik v2'de hepsi pişmiş toprağa iner, global.css .ink-*); icon artık çizilmez.
 // Düz JS: hem site hem kapak çizici (scripts/kapak, Node 22) okur.
 export const CATEGORIES = /** @type {const} */ ([
   { slug: 'piyasalar', name: 'Piyasalar', ink: 'blue', icon: 'terazi' },

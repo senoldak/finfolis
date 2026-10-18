@@ -1,34 +1,37 @@
 ---
-import { simgeler } from '../lib/piyasa';
+import { boncukTelleri } from '../lib/kimlik.js';
 
-// Bir Isotype satırı: miktar / birim kadar simge, son simge kesirliyse kısmen çizilir.
-// Simgeler onluk gruplar halinde dizilir ki okur saymakta zorlanmasın.
+// Boncuk sırası (BRAND.md §9): miktar / birim kadar abaküs boncuğu, onar onar tellere dizilir, teller alt alta durur.
+// Son boncuk kesirliyse soldan o kadarı çizilir. soluk: karşılaştırma (önceki) değeri, gri boncuk.
+// `simge` eski Isotype sırasından kaldı; boncuk sırası kullanmaz.
 interface Props {
   miktar: number;
   birim: number;
-  simge: string;
+  simge?: string;
   soluk?: boolean;
 }
 
-const { miktar, birim, simge, soluk = false } = Astro.props;
-const list = simgeler(miktar, birim);
-const gruplar: number[][] = [];
-list.forEach((k, i) => {
-  if (i % 10 === 0) gruplar.push([]);
-  gruplar[gruplar.length - 1].push(k);
-});
+const { miktar, birim, soluk = false } = Astro.props;
+const teller = boncukTelleri(miktar, birim);
+const R = 7;
+const ADIM = 17;
+const cx = (i: number) => R + 1 + i * ADIM;
+
+// Kesirli boncuk: dairenin soldaki `kesir` kadarı (dikey kirişe kadar), klip yolu gerekmesin diye yay olarak çizilir.
+function parca(x: number, kesir: number) {
+  const k = -R + 2 * R * kesir;
+  const h = Math.sqrt(R * R - k * k);
+  return `M${(x + k).toFixed(2)} ${(8 - h).toFixed(2)}A${R} ${R} 0 ${kesir > 0.5 ? 1 : 0} 0 ${(x + k).toFixed(2)} ${(8 + h).toFixed(2)}Z`;
+}
 ---
 
 <span class:list={['iso', { 'iso-soluk': soluk }]} aria-hidden="true">
   {
-    gruplar.map((g) => (
-      <span class="iso-grup">
-        {g.map((k) => (
-          <svg viewBox={`0 0 ${24 * k} 24`} class:list={{ 'iso-kesir': k < 1 }}>
-            <use href={`#s-${simge}`} />
-          </svg>
-        ))}
-      </span>
+    teller.map((tel) => (
+      <svg class="iso-grup" viewBox={`0 0 ${10 * ADIM} 16`}>
+        <line x1="0" y1="8" x2={10 * ADIM} y2="8" />
+        {tel.map((k, i) => (k < 1 ? <path d={parca(cx(i), k)} /> : <circle cx={cx(i)} cy="8" r={R} />))}
+      </svg>
     ))
   }
 </span>
