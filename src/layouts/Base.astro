@@ -39,7 +39,7 @@ const robots = noindex
   ? 'noindex, follow'
   : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 // Uzun başlıklarda site adı eklenmez (Google ~60 karakterden sonrasını keser).
-const fullTitle = title ? (title.length > 55 ? title : `${title} | ${SITE.name}`) : `${SITE.name} | Piyasaları anlaşılır kılar`;
+const fullTitle = title ? (title.length > 55 ? title : `${title} | ${SITE.name}`) : `${SITE.name} | Karmaşadan uzakta`;
 const ogTitle = title ?? fullTitle;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image || '/og-default.png', Astro.site).href;
@@ -146,10 +146,7 @@ const today = new Date().toLocaleDateString(SITE.locale, {
             <Logo class="wordmark-isaret" />
             <span>{SITE.name}</span>
           </a>
-          <p>
-            Yerel ve küresel piyasalardaki göstergeleri, eğilimleri ve fırsatları herkes için anlaşılır hale getiren
-            analiz platformu.
-          </p>
+          <p>Karmaşadan uzakta.</p>
         </div>
         <div class="footer-okuma">
           <h2>Boncuklar nasıl okunur?</h2>
