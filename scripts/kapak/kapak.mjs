@@ -31,9 +31,6 @@ const MUREKKEP = {
   black: { fill: '#1b1b1b', text: '#1b1b1b' },
 };
 
-// finfolis işaretinin viewBox'ı (brand/finfolis-mark.svg).
-const ISARET_VB = '62.9 72.5 497.1 497.1';
-
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const sayi = (n, d = 0) => n.toLocaleString('tr-TR', { minimumFractionDigits: d, maximumFractionDigits: d });
 
@@ -137,42 +134,10 @@ export function fontlariDenetle() {
   return fontlarTamam;
 }
 
-// ── Ortak çerçeve ──────────────────────────────────────────────────────
-
-// Üstte kategori renginde 14px şerit, altta 4px mürekkep çizgi; altında işaret + ad.
-// Kaynak adı görsele yazılmaz (yalnızca örnek kapaklarda "Örnek veri" notu çıkar).
-async function cerceve(kat, { kaynak, ornek }) {
-  const altY = H - 92;
-  const svg = `<rect width="${B}" height="${H}" fill="${R.kagit}"/>
-<rect width="${B}" height="14" fill="${kat.renk.fill}"/>
-<rect x="${KENAR}" y="${altY}" width="${B - KENAR * 2}" height="4" fill="${R.murekkep}"/>
-<svg x="${KENAR}" y="${altY + 26}" width="40" height="40" viewBox="${ISARET_VB}"><path fill-rule="evenodd" fill="${R.murekkep}" d="${ISARET_D}"/></svg>`;
-  const ad = await yazi('finfolis', { boyut: 34, kalinlik: 700 });
-  const katmanlar = [{ ...ad, left: KENAR + 52, top: altY + 26 + Math.round((40 - ad.yukseklik) / 2) }];
-  const not = ornek ? 'Örnek veri' : '';
-  if (not) {
-    const k = await yazi(not, { boyut: 22, kalinlik: 500, renk: R.soluk });
-    katmanlar.push({ ...k, left: B - KENAR - k.genislik, top: altY + 26 + Math.round((40 - k.yukseklik) / 2) });
-  }
-  return { svg, katmanlar };
-}
-
-async function kategoriEtiketi(kat, x, y) {
-  const e = await yazi(kat.name, { boyut: 26, kalinlik: 600, renk: kat.renk.text, aralik: 0.1, buyukHarf: true });
-  return {
-    svg: simge(kat.icon, x, y + Math.round((e.yukseklik - 28) / 2), 28, kat.renk.fill),
-    katman: { ...e, left: x + 40, top: y },
-    yukseklik: e.yukseklik,
-  };
-}
-
 // ── Kapak türleri ──────────────────────────────────────────────────────
 // Her fonksiyon { svg, katmanlar } üreten bir async fonksiyon döner; kapakCiz bunu PNG'ye çevirir.
 
-// ── Kapak türleri ──────────────────────────────────────────────────────
-// Her fonksiyon { svg, katmanlar } üreten bir async fonksiyon döner; kapakCiz bunu PNG'ye çevirir.
-
-// ── Mürekkep bloğu düzeni (haber, kaynak, rakam, bülten) ───────────────
+// ── Mürekkep bloğu düzeni (tüm türler; veri kapakları 2026-10-18'de geçti) ──
 // Tüm zemin kategorinin mürekkep rengidir; yazı, işaret ve simge kâğıt renginde. Okunaklılık (WCAG 4,5:1) kâğıt
 // rengiyle: kırmızı 4,67, mavi 6,20, yeşil 5,00, kahve 5,21, siyah 15,5; koyu sarıda (ochre) yalnız 1,76 olduğundan
 // orada yazı, işaret ve simge mürekkep rengine (#1b1b1b, 8,82:1) döner.
@@ -185,11 +150,12 @@ function isaretCiz(x, y, boyut, renk) {
 }
 
 // Zemin, dev simge, alt bant (marka solda, kategori adı sağda) ve varsa "Örnek veri" notu.
-async function murekkepCerceve(kat, { ornek } = {}) {
+// simgeYok: veri kapaklarında (gösterge, grafik, karne) büyük silik simge verinin arkasında kalabalık eder, çizilmez.
+async function murekkepCerceve(kat, { ornek, simgeYok = false } = {}) {
   const renk = kat.ink === 'ochre' ? R.murekkep : R.kagit;
   await fontlariDenetle();
   let svg = `<rect width="${B}" height="${H}" fill="${kat.renk.fill}"/>`;
-  svg += simge(kat.icon, B - 64 - 300, 40, 300, renk, { opaklik: 0.16 });
+  if (!simgeYok) svg += simge(kat.icon, B - 64 - 300, 40, 300, renk, { opaklik: 0.16 });
   svg += isaretCiz(64, H - 112, 52, renk);
   const ad = await yazi('finfolis', { aile: 'Jost', boyut: 40, kalinlik: 700, renk });
   const ka = await yazi(kat.name, { aile: 'Jost', boyut: 30, kalinlik: 700, renk, aralik: 0.1, buyukHarf: true });
@@ -289,41 +255,44 @@ export function rakamKapagi({ kategori: slug, ust, rakam, alt, ornek }) {
 
 
 // Resimli istatistik: birkaç dönemin değeri simge dizileriyle (1 simge = birim).
-// satirlar: [{ etiket: '2024', deger: 9831 }], son satır güncel değerdir (tam renk), öncekiler soluk.
-export function gostergeKapagi({ kategori: slug, baslik, simge: simgeAdi, birim, birimEtiket, satirlar, ondalik = 0, onEk = '', sonEk = '', kaynak, ornek }) {
+// satirlar: [{ etiket: '2024', deger: 9831 }], son satır güncel değerdir (tam ton), öncekiler soluk.
+// Mürekkep bloğu düzeni (2026-10-18): zemin kategori rengi, simgeler ve yazılar kâğıt renginde.
+export function gostergeKapagi({ kategori: slug, baslik, simge: simgeAdi, birim, birimEtiket, satirlar, ondalik = 0, onEk = '', sonEk = '', ornek }) {
   return async () => {
     const kat = kategori(slug);
-    const c = await cerceve(kat, { kaynak, ornek });
-    const b = await yazi(baslik, { aile: 'Literata', boyut: 50, kalinlik: 600, genislik: B - KENAR * 2 });
-    const top = 64;
-    const katmanlar = [...c.katmanlar, { ...b, left: KENAR, top }];
+    const c = await murekkepCerceve(kat, { ornek, simgeYok: true });
+    const b = await yazi(baslik, { aile: 'Literata', boyut: 56, kalinlik: 700, renk: c.renk, genislik: B - 128, satirAraligi: -4 });
+    const top = 52;
+    const katmanlar = [...c.katmanlar, { ...b, left: 64, top }];
     let svg = c.svg;
 
     // Satırlar: en uzun satır alana sığacak şekilde simge boyutu seçilir.
     const enCok = Math.max(...satirlar.map((s) => Math.ceil(s.deger / birim)));
     const etiketGen = 120;
     const degerGen = 210;
-    const alan = B - KENAR * 2 - etiketGen - degerGen;
+    const alan = B - 128 - etiketGen - degerGen;
     const boyut = Math.min(40, Math.floor(alan / (enCok * 1.12 + Math.floor(enCok / 10) * 0.45)));
-    const ust = top + b.yukseklik + 40;
-    const alanH = H - 92 - 70 - ust;
+    const ust0 = top + b.yukseklik + 36;
+    const alanH = ALAN_H - 56 - ust0;
     const satirH = Math.min(boyut + 34, Math.floor(alanH / satirlar.length));
+    // Az satırda blok, başlık ile lejant arasında dikey ortalanır.
+    const ust = ust0 + Math.max(0, Math.round((alanH - satirH * satirlar.length) / 2));
     for (const [i, s] of satirlar.entries()) {
       const guncel = i === satirlar.length - 1;
       const y = ust + i * satirH;
-      const e = await yazi(s.etiket, { boyut: 26, kalinlik: guncel ? 700 : 500, renk: guncel ? R.murekkep : R.soluk });
-      katmanlar.push({ ...e, left: KENAR, top: Math.round(y + (boyut - e.yukseklik) / 2) });
-      const satir = isoSatir(simgeAdi, s.deger, birim, KENAR + etiketGen, y, boyut, kat.renk.fill, guncel ? 1 : 0.38);
+      const e = await yazi(s.etiket, { boyut: 26, kalinlik: guncel ? 700 : 500, renk: c.renk, alfa: guncel ? undefined : 70 });
+      katmanlar.push({ ...e, left: 64, top: Math.round(y + (boyut - e.yukseklik) / 2) });
+      const satir = isoSatir(simgeAdi, s.deger, birim, 64 + etiketGen, y, boyut, c.renk, guncel ? 1 : 0.42);
       svg += satir.svg;
-      const d = await yazi(`${onEk}${sayi(s.deger, ondalik)}${sonEk}`, { boyut: 30, kalinlik: guncel ? 700 : 500, renk: guncel ? R.murekkep : R.soluk });
+      const d = await yazi(`${onEk}${sayi(s.deger, ondalik)}${sonEk}`, { boyut: 30, kalinlik: guncel ? 700 : 500, renk: c.renk, alfa: guncel ? undefined : 70 });
       katmanlar.push({ ...d, left: Math.round(satir.bitis + 16), top: Math.round(y + (boyut - d.yukseklik) / 2) });
     }
 
     // Lejant: 1 simge = birim.
-    const ly = H - 92 - 54;
-    svg += simge(simgeAdi, KENAR, ly, 26, kat.renk.fill);
-    const l = await yazi(`= ${birimEtiket}`, { boyut: 24, kalinlik: 500, renk: R.soluk });
-    katmanlar.push({ ...l, left: KENAR + 36, top: Math.round(ly + (26 - l.yukseklik) / 2) });
+    const ly = ALAN_H - 50;
+    svg += simge(simgeAdi, 64, ly, 26, c.renk);
+    const l = await yazi(`= ${birimEtiket}`, { boyut: 24, kalinlik: 500, renk: c.renk, alfa: 80 });
+    katmanlar.push({ ...l, left: 64 + 36, top: Math.round(ly + (26 - l.yukseklik) / 2) });
     return { svg, katmanlar };
   };
 }
@@ -360,25 +329,26 @@ export function incelt(seri, kova = 300) {
   return out;
 }
 
+// Mürekkep bloğu düzeni (2026-10-18): zemin kategori rengi; çizgi, eksen ve yazılar kâğıt renginde (ön plan).
 export function grafikKapagi({ kategori: slug, baslik, seri, cizgiler = [], vurgu, ondalik = 2, onEk = '', sonEk = '', ornek }) {
   return async () => {
     const kat = kategori(slug);
-    const c = await cerceve(kat, { ornek });
-    const et = await kategoriEtiketi(kat, KENAR, 56);
-    const katmanlar = [...c.katmanlar, et.katman];
-    let svg = c.svg + et.svg;
+    const c = await murekkepCerceve(kat, { ornek, simgeYok: true });
+    const katmanlar = [...c.katmanlar];
+    let svg = c.svg;
+    const on = c.renk;
+    const zemin = kat.renk.fill;
     const deger = (n) => `${onEk}${sayi(n, ondalik)}${sonEk}`;
 
-    const gen = B - KENAR * 2;
-    const b = await yazi(baslik, { aile: 'Literata', boyut: baslik.length > 60 ? 38 : 44, kalinlik: 600, genislik: gen - 20, satirAraligi: -4 });
-    const bY = 56 + et.yukseklik + 14;
-    katmanlar.push({ ...b, left: KENAR, top: bY });
+    const b = await yazi(baslik, { aile: 'Literata', boyut: baslik.length > 60 ? 44 : 56, kalinlik: 700, renk: on, genislik: B - 128, satirAraligi: -4 });
+    const bY = 48;
+    katmanlar.push({ ...b, left: 64, top: bY });
 
     // Grafik alanı: sağda değer ekseni için yer bırakılır.
-    const x0 = KENAR;
-    const x1 = B - KENAR - 112;
+    const x0 = 64;
+    const x1 = B - 64 - 112;
     const y0 = bY + b.yukseklik + 30;
-    const y1 = H - 92 - 46;
+    const y1 = ALAN_H - 44;
     const noktalar = incelt(seri);
     const t = (p) => Date.parse(`${p.tarih}T00:00:00Z`);
     const t0 = t(noktalar[0]);
@@ -398,9 +368,9 @@ export function grafikKapagi({ kategori: slug, baslik, seri, cizgiler = [], vurg
     const sonY = Y(noktalar.at(-1).deger);
     for (let v = Math.ceil(enAz / adim) * adim; v <= enCok; v += adim) {
       const y = Y(v);
-      svg += `<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="${R.ince}" stroke-width="1"/>`;
+      svg += `<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="${on}" stroke-opacity="0.22" stroke-width="1"/>`;
       if (Math.abs(y - sonY) < 30) continue;
-      const e = await yazi(sayi(v, eksenOndalik), { boyut: 19, kalinlik: 500, renk: R.soluk });
+      const e = await yazi(sayi(v, eksenOndalik), { boyut: 20, kalinlik: 500, renk: on, alfa: 80 });
       katmanlar.push({ ...e, left: x1 + 14, top: Math.round(y - e.yukseklik / 2) });
     }
 
@@ -416,43 +386,43 @@ export function grafikKapagi({ kategori: slug, baslik, seri, cizgiler = [], vurg
       if ((isaretler.length - 1 - i) % sik) continue;
       const x = X(p);
       if (x < x0 + 30 || x > x1 - 30) continue;
-      svg += `<line x1="${x.toFixed(1)}" y1="${y1}" x2="${x.toFixed(1)}" y2="${y1 + 8}" stroke="${R.soluk}" stroke-width="1"/>`;
+      svg += `<line x1="${x.toFixed(1)}" y1="${y1}" x2="${x.toFixed(1)}" y2="${y1 + 8}" stroke="${on}" stroke-width="1"/>`;
       const metin = uzun ? p.tarih.slice(0, 4) : `${TR_AY_KISA[Number(p.tarih.slice(5, 7)) - 1]} ${p.tarih.slice(2, 4)}`;
-      const e = await yazi(metin, { boyut: 19, kalinlik: 500, renk: R.soluk });
+      const e = await yazi(metin, { boyut: 20, kalinlik: 500, renk: on, alfa: 80 });
       katmanlar.push({ ...e, left: Math.round(x - e.genislik / 2), top: y1 + 12 });
     }
-    svg += `<line x1="${x0}" y1="${y1}" x2="${x1}" y2="${y1}" stroke="${R.murekkep}" stroke-width="1.5"/>`;
+    svg += `<line x1="${x0}" y1="${y1}" x2="${x1}" y2="${y1}" stroke="${on}" stroke-width="2"/>`;
 
     // Fiyat çizgisi ve altındaki hafif dolgu.
     const yol = noktalar.map((p, i) => `${i ? 'L' : 'M'}${X(p).toFixed(1)} ${Y(p.deger).toFixed(1)}`).join('');
-    svg += `<path d="${yol}L${x1} ${y1}L${x0} ${y1}Z" fill="${kat.renk.fill}" opacity="0.10"/>`;
-    svg += `<path d="${yol}" fill="none" stroke="${kat.renk.fill}" stroke-width="2.6" stroke-linejoin="round"/>`;
+    svg += `<path d="${yol}L${x1} ${y1}L${x0} ${y1}Z" fill="${on}" opacity="0.12"/>`;
+    svg += `<path d="${yol}" fill="none" stroke="${on}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>`;
 
-    // Referans çizgileri: kesikli, etiketi çizginin hemen üstünde solda.
+    // Referans çizgileri: kesikli, etiketi çizginin hemen üstünde solda (zemin renginde kutuda).
     for (const z of cizgiler) {
       const y = Y(z.deger);
-      svg += `<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="${R.murekkep2}" stroke-width="2" stroke-dasharray="9 7"/>`;
+      svg += `<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x1}" y2="${y.toFixed(1)}" stroke="${on}" stroke-opacity="0.8" stroke-width="2" stroke-dasharray="9 7"/>`;
       if (z.etiket) {
-        const e = await yazi(z.etiket, { boyut: 20, kalinlik: 600, renk: R.murekkep2 });
+        const e = await yazi(z.etiket, { boyut: 21, kalinlik: 600, renk: on });
         const ust = y - e.yukseklik - 6 > y0 - 10;
-        svg += `<rect x="${x0 + 8}" y="${(ust ? y - e.yukseklik - 8 : y + 4).toFixed(1)}" width="${e.genislik + 12}" height="${e.yukseklik + 4}" fill="${R.kagit}" opacity="0.92"/>`;
+        svg += `<rect x="${x0 + 8}" y="${(ust ? y - e.yukseklik - 8 : y + 4).toFixed(1)}" width="${e.genislik + 12}" height="${e.yukseklik + 4}" fill="${zemin}"/>`;
         katmanlar.push({ ...e, left: x0 + 14, top: Math.round(ust ? y - e.yukseklik - 6 : y + 6) });
       }
     }
 
-    // Son değer: nokta ve sağ eksende kategori renginde etiket.
+    // Son değer: nokta ve sağ eksende ters renkli etiket (ön plan renginde kutu, zemin renginde yazı).
     const son = noktalar.at(-1);
     const sx = X(son);
     const sy = Y(son.deger);
-    svg += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="7" fill="${kat.renk.fill}" stroke="${R.kagit}" stroke-width="3"/>`;
-    const se = await yazi(deger(son.deger), { boyut: 20, kalinlik: 700, renk: '#ffffff' });
+    svg += `<circle cx="${sx.toFixed(1)}" cy="${sy.toFixed(1)}" r="8" fill="${on}" stroke="${zemin}" stroke-width="3"/>`;
+    const se = await yazi(deger(son.deger), { boyut: 22, kalinlik: 700, renk: zemin });
     const kutuY = Math.round(Math.min(Math.max(sy - (se.yukseklik + 10) / 2, y0 - 8), y1 - se.yukseklik - 10));
-    svg += `<rect x="${x1 + 6}" y="${kutuY}" width="${Math.max(se.genislik + 16, 100)}" height="${se.yukseklik + 10}" fill="${kat.renk.fill === MUREKKEP.ochre.fill ? MUREKKEP.ochre.text : kat.renk.fill}"/>`;
+    svg += `<rect x="${x1 + 6}" y="${kutuY}" width="${Math.max(se.genislik + 16, 100)}" height="${se.yukseklik + 10}" fill="${on}"/>`;
     katmanlar.push({ ...se, left: x1 + 14, top: kutuY + 5 });
 
     // Vurgu notu: grafik alanının dört köşesinden çizgiye, referans çizgilerine ve etiketlerine en az değeninde.
     if (vurgu) {
-      const v = await yazi(vurgu, { boyut: 24, kalinlik: 700, renk: kat.renk.text });
+      const v = await yazi(vurgu, { boyut: 24, kalinlik: 700, renk: on });
       const w = v.genislik + 20;
       const h = v.yukseklik + 12;
       const koseler = [
@@ -477,7 +447,7 @@ export function grafikKapagi({ kategori: slug, baslik, seri, cizgiler = [], vurg
         return p;
       };
       const [kx, ky] = koseler.reduce((a, k) => (puan(k) < puan(a) ? k : a));
-      svg += `<rect x="${kx}" y="${ky}" width="${w}" height="${h}" fill="${R.kagit}" opacity="0.92"/>`;
+      svg += `<rect x="${kx}" y="${ky}" width="${w}" height="${h}" fill="${zemin}" stroke="${on}" stroke-width="1.5"/>`;
       katmanlar.push({ ...v, left: kx + 10, top: ky + 6 });
     }
 
@@ -487,33 +457,35 @@ export function grafikKapagi({ kategori: slug, baslik, seri, cizgiler = [], vurg
 
 // Karne kartı: dönem getirilerini büyükten küçüğe yatay çubuklarla gösterir (sıfır çizgisinin iki yanı).
 // satirlar: [{ etiket, deger }] yüzde; cizgi: { deger, etiket } isteğe bağlı referans (ör. enflasyon).
-// Yeşil/kırmızı bilgi içindir, alarm değil: tonlar sitenin mürekkepleri.
+// Mürekkep bloğu düzeni (2026-10-18): renkli zeminde yeşil/kırmızı okunmaz; artı tam ton, eksi soluk ton. İşaret
+// (+/−) ve sıfırın hangi yanında olduğu yönü zaten söyler.
 export function karneKapagi({ kategori: slug = 'piyasalar', baslik, tarih, satirlar, cizgi, ornek }) {
   return async () => {
     const kat = kategori(slug);
-    const c = await cerceve(kat, { ornek });
-    const et = await kategoriEtiketi(kat, KENAR, 52);
-    const katmanlar = [...c.katmanlar, et.katman];
-    let svg = c.svg + et.svg;
+    const c = await murekkepCerceve(kat, { ornek, simgeYok: true });
+    const katmanlar = [...c.katmanlar];
+    let svg = c.svg;
+    const on = c.renk;
+    let bY = 48;
     if (tarih) {
-      const t = await yazi(tarih, { boyut: 22, kalinlik: 500, renk: R.soluk });
-      katmanlar.push({ ...t, left: B - KENAR - t.genislik, top: 52 + Math.round((et.yukseklik - t.yukseklik) / 2) });
+      const t = await yazi(tarih, { aile: 'Jost', boyut: 26, kalinlik: 700, renk: on, aralik: 0.1, buyukHarf: true });
+      katmanlar.push({ ...t, left: 64, top: bY });
+      bY += t.yukseklik + 10;
     }
-    const b = await yazi(baslik, { aile: 'Literata', boyut: baslik.length > 55 ? 34 : 40, kalinlik: 600, genislik: B - KENAR * 2 });
-    const bY = 52 + et.yukseklik + 10;
-    katmanlar.push({ ...b, left: KENAR, top: bY });
+    const b = await yazi(baslik, { aile: 'Literata', boyut: baslik.length > 55 ? 44 : 56, kalinlik: 700, renk: on, genislik: B - 128 });
+    katmanlar.push({ ...b, left: 64, top: bY });
 
     const sirali = [...satirlar].sort((x, y) => y.deger - x.deger);
-    const ust0 = bY + b.yukseklik + (cizgi ? 44 : 22);
-    const alt = H - 92 - 16;
+    const ust0 = bY + b.yukseklik + (cizgi ? 46 : 24);
+    const alt = ALAN_H - 24;
     // Az satırlı kartta çubuklar büyür ve alan dikeyde ortalanır.
     const satirH = Math.min(sirali.length <= 8 ? 62 : 40, (alt - ust0) / sirali.length);
     const ust = ust0 + Math.max(0, (alt - ust0 - satirH * sirali.length) / 2 - 10);
-    const boyut = Math.max(15, Math.min(26, Math.round(satirH * 0.5)));
+    const boyut = Math.max(16, Math.min(28, Math.round(satirH * 0.5)));
     const etiketGen = 330;
-    const degerGen = 110;
-    const x0 = KENAR + etiketGen;
-    const x1 = B - KENAR - degerGen;
+    const degerGen = 120;
+    const x0 = 64 + etiketGen;
+    const x1 = B - 64 - degerGen;
     const degerler = [...sirali.map((s) => s.deger), ...(cizgi ? [cizgi.deger] : []), 0];
     const enAz = Math.min(...degerler);
     const enCok = Math.max(...degerler);
@@ -526,21 +498,21 @@ export function karneKapagi({ kategori: slug = 'piyasalar', baslik, tarih, satir
       const cubukH = Math.max(6, satirH * 0.58);
       const cy = y + (satirH - cubukH) / 2;
       const xs = X(s.deger);
-      const renk = s.deger >= 0 ? MUREKKEP.green.fill : MUREKKEP.red.fill;
-      svg += `<rect x="${Math.min(sifir, xs).toFixed(1)}" y="${cy.toFixed(1)}" width="${Math.max(2, Math.abs(xs - sifir)).toFixed(1)}" height="${cubukH.toFixed(1)}" fill="${renk}"/>`;
-      const e = await yazi(s.etiket, { boyut, kalinlik: 500, renk: R.murekkep });
-      katmanlar.push({ ...e, left: KENAR, top: Math.round(y + (satirH - e.yukseklik) / 2) });
-      const v = await yazi(yuzde(s.deger), { boyut, kalinlik: 700, renk: s.deger >= 0 ? MUREKKEP.green.text : MUREKKEP.red.text });
-      const vx = s.deger >= 0 ? Math.max(xs, sifir) + 8 : Math.max(sifir, xs) + 8;
-      katmanlar.push({ ...v, left: Math.round(Math.min(vx, B - KENAR - v.genislik)), top: Math.round(y + (satirH - v.yukseklik) / 2) });
+      const arti = s.deger >= 0;
+      svg += `<rect x="${Math.min(sifir, xs).toFixed(1)}" y="${cy.toFixed(1)}" width="${Math.max(2, Math.abs(xs - sifir)).toFixed(1)}" height="${cubukH.toFixed(1)}" fill="${on}" fill-opacity="${arti ? 1 : 0.45}"/>`;
+      const e = await yazi(s.etiket, { boyut, kalinlik: 600, renk: on });
+      katmanlar.push({ ...e, left: 64, top: Math.round(y + (satirH - e.yukseklik) / 2) });
+      const v = await yazi(yuzde(s.deger), { boyut, kalinlik: 700, renk: on });
+      const vx = Math.max(xs, sifir) + 10;
+      katmanlar.push({ ...v, left: Math.round(Math.min(vx, B - 64 - v.genislik)), top: Math.round(y + (satirH - v.yukseklik) / 2) });
     }
-    svg += `<line x1="${sifir.toFixed(1)}" y1="${ust - 6}" x2="${sifir.toFixed(1)}" y2="${(ust + sirali.length * satirH + 4).toFixed(1)}" stroke="${R.murekkep}" stroke-width="1.5"/>`;
+    svg += `<line x1="${sifir.toFixed(1)}" y1="${ust - 6}" x2="${sifir.toFixed(1)}" y2="${(ust + sirali.length * satirH + 4).toFixed(1)}" stroke="${on}" stroke-width="2"/>`;
     if (cizgi) {
       const cx = X(cizgi.deger);
-      svg += `<line x1="${cx.toFixed(1)}" y1="${ust - 14}" x2="${cx.toFixed(1)}" y2="${(ust + sirali.length * satirH + 4).toFixed(1)}" stroke="${R.murekkep2}" stroke-width="2" stroke-dasharray="7 6"/>`;
+      svg += `<line x1="${cx.toFixed(1)}" y1="${ust - 14}" x2="${cx.toFixed(1)}" y2="${(ust + sirali.length * satirH + 4).toFixed(1)}" stroke="${on}" stroke-opacity="0.85" stroke-width="2" stroke-dasharray="7 6"/>`;
       if (cizgi.etiket) {
-        const e = await yazi(cizgi.etiket, { boyut: 18, kalinlik: 600, renk: R.murekkep2 });
-        const sol = cx + 6 + e.genislik > B - KENAR ? cx - 6 - e.genislik : cx + 6;
+        const e = await yazi(cizgi.etiket, { boyut: 20, kalinlik: 600, renk: on });
+        const sol = cx + 6 + e.genislik > B - 64 ? cx - 6 - e.genislik : cx + 6;
         katmanlar.push({ ...e, left: Math.round(sol), top: Math.round(ust - 14 - e.yukseklik) });
       }
     }
