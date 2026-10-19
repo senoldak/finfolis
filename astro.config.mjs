@@ -5,11 +5,13 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { indekslenir } from './src/lib/uzunluk.mjs';
 import { ARSIV_ESIGI } from './src/lib/arsiv.mjs';
 import { istanbulGunu } from './src/lib/seffaflik.mjs';
+import { onyuzMaddesiYayinda } from './src/lib/yayinda.mjs';
 import { satteri } from '@astrojs/markdown-satteri';
 import sozlukBagla from './src/lib/sozluk-bagla.mjs';
 
 // Site haritasındaki <lastmod> için yazı tarihleri: haber adresi → tarih, kategori → en yeni tarih.
-// Ön bilgi doğrudan dosyadan okunur (yapılandırma, içerik koleksiyonuna erişemez). Taslaklar atlanır.
+// Ön bilgi doğrudan dosyadan okunur (yapılandırma, içerik koleksiyonuna erişemez). Taslaklar ve tarihi gelmemiş
+// (planlanmış) yazılar atlanır; kural news.ts ile ortak (src/lib/yayinda.mjs).
 function tarihler() {
   const kok = './src/content/haberler';
   const haber = new Map();
@@ -27,7 +29,7 @@ function tarihler() {
     }
     const on = md.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? '';
     const alan = (k) => on.match(new RegExp(`^${k}:\\s*"?([^"\\r\\n]*)"?`, 'm'))?.[1]?.trim();
-    if (alan('draft') === 'true') continue;
+    if (alan('draft') === 'true' || !onyuzMaddesiYayinda(md)) continue;
     const d = new Date(alan('date') ?? '');
     if (Number.isNaN(d.valueOf())) continue;
     // Kısa yazı (noindex) haritaya girmez; kural haber sayfasıyla ortak (src/lib/uzunluk.mjs).

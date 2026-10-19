@@ -6,6 +6,7 @@ import path from 'node:path';
 import { readFile, writeFile, readdir, access } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
+import { yayinda } from '../../src/lib/yayinda.mjs';
 
 const HER = path.dirname(fileURLToPath(import.meta.url));
 const ROT = path.resolve(HER, '../..');
@@ -54,7 +55,8 @@ export async function yazilariOku(rot = ROT) {
     const fm = md?.match(/^---\r?\n([\s\S]*?)\r?\n---/);
     if (!fm) continue;
     const v = parse(fm[1]);
-    if (v.draft) continue;
+    // Taslak ve tarihi gelmemiş (planlanmış) yazı kanala gitmez; vakti gelince sonraki turda gönderilir.
+    if (!yayinda(v)) continue;
     const kapak = v.cover ? path.join(taban, d.name, v.cover) : null;
     liste.push({ slug: d.name, baslik: v.title, spot: v.description, tarih: new Date(v.date), kapak, tur: v.tur,
       maddeler: v.tur === 'bulten' ? bultenMaddeleri(md.slice(fm[0].length)) : undefined });
