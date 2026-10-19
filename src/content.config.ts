@@ -14,6 +14,9 @@ const haberler = defineCollection({
       date: z.coerce.date(),
       // Yayından sonra metin elle düzeltildiyse son güncelleme; yoksa değiştirilme tarihi yayın tarihidir.
       updated: z.coerce.date().optional(),
+      // Yayından sonra yapılan düzeltmenin notu ("<tarih saat>: <ne düzeltildi>"); boşsa makalede hiçbir şey görünmez.
+      // Not `updated`'ı değiştirmez; sahibi elle günceller.
+      duzeltme: z.string().min(10).optional(),
       category: z.enum(slugs),
       cover: image().optional(),
       coverAlt: z.string().optional(),

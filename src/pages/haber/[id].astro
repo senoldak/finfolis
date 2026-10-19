@@ -18,6 +18,7 @@ import { ORG_ID, PUBLISHER_LOGO, SITE_URL, WEBSITE_ID, kisalt, sameAs } from '..
 import { matchEntities } from '../../lib/entities';
 import { indekslenir } from '../../lib/uzunluk.mjs';
 import { okumaSuresi, turEtiketi } from '../../lib/yazi-bilgisi.mjs';
+import { duzeltmeNotu } from '../../lib/duzeltme.mjs';
 import { ilgiliSec } from '../../lib/ilgili.mjs';
 import { yazininKonulari, konuUrl } from '../../lib/konu-sayfalari';
 import type { Konu } from '../../lib/konular.mjs';
@@ -57,6 +58,7 @@ const { title, description, date, category, coverAlt, rakamlar, sirada, tablo, g
 // Yazarı olmayan ya da uretim: bot işaretli yazı haber botunundur; sayfada yapay zekâ notu gösterilir.
 const botYazisi = haber.data.uretim === 'bot' || (!haber.data.author && haber.data.uretim !== 'editor');
 const author = haber.data.author ?? SITE.name;
+const duzeltme = duzeltmeNotu(haber.data, 'tr');
 // Kısa yazılar (src/lib/uzunluk.mjs) arama motoruna kapalı, bağlantıları izlenir; site haritaları da aynı kuralı kullanır.
 const noindex = !indekslenir(haber.body);
 // Kapak her yaşta derlenir (dosya bütçesi: src/lib/gorsel.mjs).
@@ -173,6 +175,16 @@ const jsonLd = {
       </header>
 
       <SentezBlok whyMatters={haber.data.why_matters} keyPoints={haber.data.key_points} description={description} />
+
+      {
+        duzeltme && (
+          <aside class="duzeltme">
+            <p>
+              <strong>{duzeltme.etiket}</strong> {duzeltme.metin} <a href={duzeltme.baglanti}>Düzeltme ilkemiz</a>
+            </p>
+          </aside>
+        )
+      }
 
       <RakamSeridi rakamlar={rakamlar} bas />
 
