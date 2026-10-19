@@ -17,12 +17,24 @@ export function yayinda(veri, simdi = Date.now()) {
   return !veri.draft && !Number.isNaN(t) && t <= simdi;
 }
 
-// Ham index.md metninin ön bilgisinden (--- … ---) `date` ve `draft` okunur; `date` yoksa false.
-export function onyuzMaddesiYayinda(metin, simdi = Date.now()) {
+// Ham index.md metninin ön bilgisinden (--- … ---) `date` ve `draft` okunur; ön bilgi yoksa undefined.
+function onyuzMaddesi(metin) {
   const on = String(metin ?? '').match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1];
-  if (on === undefined) return false;
+  if (on === undefined) return undefined;
   const alan = (k) => on.match(new RegExp(`^${k}:[ \\t]*(["']?)([^"'\\r\\n]*)\\1[ \\t]*$`, 'm'))?.[2]?.trim();
-  const date = alan('date');
-  if (!date) return false;
-  return yayinda({ date, draft: alan('draft') === 'true' }, simdi);
+  return { date: alan('date'), draft: alan('draft') === 'true' };
+}
+
+// Ham metin yayında mı; ön bilgide `date` yoksa false.
+export function onyuzMaddesiYayinda(metin, simdi = Date.now()) {
+  const veri = onyuzMaddesi(metin);
+  if (!veri?.date) return false;
+  return yayinda(veri, simdi);
+}
+
+// Ön bilgideki yayın tarihi (ms, yukarıdaki saat dilimi kuralıyla); tarih yoksa ya da okunamıyorsa NaN.
+// Planlı yayın denetimi (planlagt.mjs) "son günlerde vadesi geldi mi" sorusu için kullanır.
+export function onyuzMaddesiTarihi(metin) {
+  const veri = onyuzMaddesi(metin);
+  return veri?.date ? tarih(veri.date) : NaN;
 }

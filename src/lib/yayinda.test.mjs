@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { yayinda, onyuzMaddesiYayinda } from './yayinda.mjs';
+import { yayinda, onyuzMaddesiYayinda, onyuzMaddesiTarihi } from './yayinda.mjs';
 
 const SIMDI = Date.parse('2026-11-14T05:00:00Z');
 
@@ -66,4 +66,17 @@ test('onyuzMaddesiYayinda: date yoksa false', () => {
   assert.equal(onyuzMaddesiYayinda('ön bilgisi olmayan metin', SIMDI), false);
   // Gövdedeki "date:" satırı ön bilgi sayılmaz.
   assert.equal(onyuzMaddesiYayinda('---\ntitle: A\n---\n\ndate: 2026-11-13T05:00:00Z\n', SIMDI), false);
+});
+
+test('onyuzMaddesiTarihi: ön bilgideki tarih ms olarak okunur; ofsetsiz UTC, ofsetli ofsetiyle', () => {
+  const md = (on) => `---\ntitle: "A"\n${on}\n---\n\nGövde\n`;
+  assert.equal(onyuzMaddesiTarihi(md('date: 2026-11-14T08:00:00+03:00')), Date.parse('2026-11-14T05:00:00Z'));
+  assert.equal(onyuzMaddesiTarihi(md('date: "2026-11-14T08:00:00"')), Date.parse('2026-11-14T08:00:00Z'));
+  assert.equal(onyuzMaddesiTarihi(md("date: '2026-11-14'")), Date.parse('2026-11-14T00:00:00Z'));
+});
+
+test('onyuzMaddesiTarihi: tarih yoksa ya da okunamıyorsa NaN', () => {
+  assert.ok(Number.isNaN(onyuzMaddesiTarihi('---\ntitle: A\n---\n')));
+  assert.ok(Number.isNaN(onyuzMaddesiTarihi('---\ndate: dün\n---\n')));
+  assert.ok(Number.isNaN(onyuzMaddesiTarihi('ön bilgisi olmayan metin')));
 });

@@ -86,9 +86,15 @@ jobs:
           done
           exit 1
 
+      # Planlı (ileri tarihli) yazılar vakti gelince bu turla yayına girer: vadesi gelip sitede 404 dönen yazı varsa yayınla.
+      - name: Planlı yazılar
+        id: planlagt
+        if: steps.commit.outputs.yayin != '1'
+        run: node scripts/planlagt.mjs
+
       # Botun push'u yayın iş akışını kendiliğinden tetiklemez (GITHUB_TOKEN); elle başlatılır.
       - name: Siteyi yayınla
-        if: steps.commit.outputs.yayin == '1'
+        if: steps.commit.outputs.yayin == '1' || steps.planlagt.outputs.yayin == '1'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run yayinla.yml --ref "${{ github.ref_name }}"
