@@ -27,6 +27,9 @@ const EK = {
   gramaltin: { id: 'gramaltin', ad: 'Gram altın', turet: 'gramaltin', sonEk: ' TL', ondalik: 2 },
 };
 
+// "Hindistan hisseleri", "Japon borsası", "Wall Street": ülke adı + borsa/hisse/piyasa o ülkenin ana endeksidir.
+const piyasasi = (ulke) => `(?:${ulke})\\p{L}*(?:['’]\\p{L}+)? (?:borsa|hisse|piyasa)\\p{L}*`;
+
 // Desenler küçük harfe çevrilmiş ve "ı" yerine "i" yazılmış başlıkta aranır (BIST → bist, ALTIN → altin).
 // Önünde ve arkasında harf olmamalı; Türkçe ek kesmeyle ayrılır (Nvidia'nın), kesmesiz ekler desende açıkça yazılır.
 export const ESLESTIRME = [
@@ -49,6 +52,23 @@ export const ESLESTIRME = [
   ['i?bovespa', 'bovespa'],
   ['yari iletken endeks\\p{L}*', 'sox'],
   ['bist(?: ?100| ?30)?|borsa istanbul', 'bist100'],
+  [`wall street|${piyasasi('abd|amerikan')}`, 'sp500'],
+  [piyasasi('avrupa'), 'stoxx50'],
+  [piyasasi('alman'), 'dax'],
+  [`londra borsa\\p{L}*|${piyasasi('ingiltere|ingiliz')}`, 'ftse'],
+  [`paris borsa\\p{L}*|${piyasasi('fransa|fransiz')}`, 'cac40'],
+  [piyasasi('ispanya|ispanyol'), 'ibex'],
+  [piyasasi('italya|italyan'), 'ftsemib'],
+  [`tokyo borsa\\p{L}*|${piyasasi('japon')}`, 'nikkei'],
+  [piyasasi('hong kong'), 'hangseng'],
+  [piyasasi('çin'), 'sanghay'],
+  [piyasasi('hindistan|hint'), 'nifty'],
+  [piyasasi('güney kore|kore'), 'kospi'],
+  [piyasasi('tayvan'), 'taiex'],
+  [piyasasi('avustralya'), 'asx200'],
+  [piyasasi('endonezya'), 'jakarta'],
+  [piyasasi('brezilya'), 'bovespa'],
+  ['jci|jakarta bileşik', 'jakarta'],
   ['vix', 'vix'],
   ['abd\\p{L}*(?:\'\\p{L}+)? 10 yillik|10 yillik abd|abd tahvil faiz\\p{L}*', 'abd10y'],
   ['eur/usd|euro/dolar|euro-dolar', 'eurusd'],

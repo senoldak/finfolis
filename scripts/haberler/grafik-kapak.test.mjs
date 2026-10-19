@@ -13,6 +13,13 @@ test('eşleştirme: başlıkta ilk anılan araç; Türkçe ekler ve büyük harf
   assert.equal(id('Fed kararı öncesi altın ve gümüş'), 'altin');
   assert.equal(id("ABD'de 10 yıllık tahvil faizi yükseldi"), 'abd10y');
   assert.equal(id('Dolar/TL güne yükselişle başladı'), 'usdtry');
+  // Ülke + borsa/hisse/piyasa: o ülkenin ana endeksi.
+  assert.equal(id('Hindistan hisse senedi piyasası geriledi'), 'nifty');
+  assert.equal(id('Endonezya hisseleri altı yılın en düşük seviyesinde'), 'jakarta');
+  assert.equal(id('Japon borsası sert düştü'), 'nikkei');
+  assert.equal(id('Wall Street rekorla kapandı'), 'sp500');
+  assert.equal(id('Güney Kore emeklilik fonu hisse senetlerinde zarar etti'), null);
+  assert.equal(id('Japon sigorta şirketi satın alma teklifi verdi'), null);
   // "altında", "yeni", "garanti etti", "sap" eşleşmez.
   assert.equal(id('Enflasyon beklentilerin altında kaldı'), null);
   assert.equal(id('Yeni yatırım planı açıklandı'), null);

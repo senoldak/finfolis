@@ -58,6 +58,7 @@ export const ENSTRUMANLAR = [
   { ...ENDEKS, id: 'kospi', ad: 'Güney Kore KOSPI', sembol: '^KS11', bolge: 'asya', sira: 2 },
   { ...ENDEKS, id: 'taiex', ad: 'Tayvan TAIEX', sembol: '^TWII', bolge: 'asya', sira: 2 },
   { ...ENDEKS, id: 'asx200', ad: 'Avustralya ASX 200', sembol: '^AXJO', bolge: 'asya', sira: 2 },
+  { ...ENDEKS, id: 'jakarta', ad: 'Endonezya JCI', sembol: '^JKSE', bolge: 'asya', sira: 2 },
   // Diğer
   { ...ENDEKS, id: 'bovespa', ad: 'Brezilya Bovespa', sembol: '^BVSP', bolge: 'kuresel', sira: 2 },
   { ...ENDEKS, id: 'sox', ad: 'Philadelphia yarı iletken endeksi (SOX)', sembol: '^SOX', bolge: 'abd', sira: 2 },
@@ -292,6 +293,33 @@ export function rekorDenetle(o, seri, eskiTepe) {
   return { tur: 'yuksek', referans: o.referans, yil, veriBasi: seri[0].tarih };
 }
 
+// Kaynak metne bağlam: son gün, bir hafta, bir ay, üç ay ve yılbaşından bu yana değişim; son 12 ayın zirvesi ve dibi.
+// 18 Ekim: yalnız olay rakamıyla yazılan haberler ~100 kelimede kalıp "kısa" diye durduruluyordu (8 olay derlemeye gömüldü).
+export function baglamSatirlari(seri, nokta) {
+  const son = seri.at(-1);
+  const t = zaman(son.tarih);
+  const geri = (gun) => [...seri].reverse().find((p) => zaman(p.tarih) <= t - gun * GUN);
+  const out = [`Previous close: ${nokta(seri.at(-2).deger)} on ${seri.at(-2).tarih}; daily change ${fark(son.deger, seri.at(-2).deger)}%.`];
+  const donemler = [
+    [7, 'one week'],
+    [30, 'one month'],
+    [91, 'three months'],
+  ]
+    .map(([gun, ad]) => [geri(gun), ad])
+    .filter(([p]) => p)
+    .map(([p, ad]) => `${ad}: ${fark(son.deger, p.deger)}% (from ${nokta(p.deger)} on ${p.tarih})`);
+  const yilBasi = [...seri].reverse().find((p) => p.tarih < `${son.tarih.slice(0, 4)}-01-01`);
+  if (yilBasi) donemler.push(`year to date: ${fark(son.deger, yilBasi.deger)}% (from the ${yilBasi.tarih} close of ${nokta(yilBasi.deger)})`);
+  if (donemler.length) out.push(`Change over ${donemler.join('; ')}.`);
+  const yil = seri.filter((p) => zaman(p.tarih) >= t - YIL);
+  const tepe = yil.reduce((a, p) => (p.deger > a.deger ? p : a));
+  const dip = yil.reduce((a, p) => (p.deger < a.deger ? p : a));
+  out.push(
+    `12-month range: high ${nokta(tepe.deger)} on ${tepe.tarih} (latest close ${fark(son.deger, tepe.deger)}% from it), low ${nokta(dip.deger)} on ${dip.tarih} (latest close ${fark(son.deger, dip.deger)}% from it).`,
+  );
+  return out;
+}
+
 // Olayı haber adayına çevirir: deterministik başlık, kaynak metni (her rakam burada), grafik kapağı.
 export function adayYap(o, e, seri) {
   const son = seri.at(-1);
@@ -304,6 +332,7 @@ export function adayYap(o, e, seri) {
   const satirlar = [
     `${e.ad} (${kaynakAdi}) daily close: ${nokta(son.deger)}${e.birim ? ` ${e.birim}` : ''} on ${son.tarih}.`,
     `Close one year earlier: ${nokta(yilOnce.deger)} (${yilOnce.tarih}); change over the year: ${fark(son.deger, yilOnce.deger)}%.`,
+    ...baglamSatirlari(seri, nokta),
   ];
   let baslik, kisa, vurgu, cizgiler, baslangic;
   // Kapakta veri renginde vurgulanacak günler: varsayılan son gün (bir önceki kapanıştan bugüne).
@@ -409,6 +438,7 @@ export function adayYap(o, e, seri) {
     kategori: e.kategori,
     bolge: e.bolge,
     ucretli: false,
+    veriHaberi: true, // grafik haberin kendisi: yayın kurulunda daha kısa alt sınır (VERI_HABERI_EN_AZ)
     kaynakMetni: satirlar.join(' '),
     kaynaklar: [YAHOO_KAYNAK],
     kapak: grafikKapagi({

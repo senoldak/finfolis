@@ -17,6 +17,9 @@ import { kelimeSay, INDEKS_ESIGI } from '../../src/lib/uzunluk.mjs';
 // Gövdesi bu kelime sayısının altında kalan haber yayımlanmaz: kısa taslak önce bir kez kaynaktan genişletilir
 // (uzat), yine kısaysa durdurulur. Sitede 120 kelimenin altı zaten noindex olur (src/lib/uzunluk.mjs).
 export const EN_AZ_KELIME = 200;
+// Kendi verimizden grafikli haber (eşik olayı, kur grafiği): grafik içeriğin yarısıdır, alt sınır indeks eşiği.
+// 18 Ekim: 8 eşik olayı 94-126 kelimede kalıp durduruldu, kapaksız tek derlemeye gömüldü.
+export const VERI_HABERI_EN_AZ = INDEKS_ESIGI;
 // Derleme alt sınırı: havuzdaki haberler zaten kaynağı az olduğu için kısa kalanlardır; 8 haberlik derleme
 // uzatmadan sonra bile ~170 kelimede kalıyordu (18 Ekim). Haber başına 20 kelime, en az 150, en çok EN_AZ_KELIME.
 export const derlemeEnAz = (n) => Math.min(EN_AZ_KELIME, Math.max(150, n * 20));
@@ -331,7 +334,7 @@ ${yazi.govde}`,
 export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enAzKelime } = {}) {
   const g = { gemini };
   const derleme = Array.isArray(aday.haberler);
-  enAzKelime ??= derleme ? derlemeEnAz(aday.haberler.length) : EN_AZ_KELIME;
+  enAzKelime ??= derleme ? derlemeEnAz(aday.haberler.length) : aday.adaylar?.some((a) => a.veriHaberi) ? VERI_HABERI_EN_AZ : EN_AZ_KELIME;
   let yazi = seridiSuz(taslak, aday);
   // düzeltme ve redaksiyon yalnızca baslik/spot/govde döndürür; şerit değişmeden taşınır
   const serit = {
@@ -350,8 +353,10 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
   // daha kısası için kaynakta yeterli bilgi olmadığı neredeyse kesindir. Kısa kalan metin denetime girmez:
   // yazısı kullanılmaz, olay havuza gider (bkz. hent-haberler.mjs).
   // Derleme (aday.haberler) eşikten bağımsız uzatılır: birden çok haberin kaynağı vardır, kısalık yazımdan gelir.
+  // Veri haberi de öyle: kaynak metni kendi verimizdir, rakamları tükenmeden kısa kalması yazımdandır.
+  const veriHaberi = !derleme && aday.adaylar?.some((a) => a.veriHaberi);
   if (kisa(yazi)) {
-    if (!derleme && kelimeSay(yazi.govde) < UZATMA_ESIGI) return kisaDur();
+    if (!derleme && !veriHaberi && kelimeSay(yazi.govde) < UZATMA_ESIGI) return kisaDur();
     uzatmaOncesi = kelimeSay(yazi.govde);
     yazi ={ ...(await (derleme ? derlemeUzat : uzat)(yazi, aday, kelimeSay(yazi.govde), g)), ...serit };
     if (kisa(yazi)) return kisaDur();

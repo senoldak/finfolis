@@ -263,3 +263,12 @@ test('olağandışı gün: altı aydır görülmemiş sertlik yeter, başlık ay
   assert.match(a.baslik, /son [6-9] ayın en sert günlük düşüşünü yaşadı/);
   assert.match(a.kaynakMetni, /about [6-9] months ago/);
 });
+
+test('aday kaynak metni bağlam taşır (hafta, ay, üç ay, yılbaşı, 12 ay aralığı) ve veri haberi işaretlidir', () => {
+  const seri = seriYap(N, (i) => (i === N - 1 ? 2000 : 1000 + (i % 50)));
+  const a = adayYap(olaylariBul(seri, BIST)[0], BIST, seri);
+  assert.equal(a.veriHaberi, true);
+  assert.match(a.kaynakMetni, /Previous close: /);
+  assert.match(a.kaynakMetni, /one week: .*one month: .*three months: .*year to date: /);
+  assert.match(a.kaynakMetni, /12-month range: high 2000\.00 on /);
+});

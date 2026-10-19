@@ -26,7 +26,7 @@ coverSitede: false
 
 ## Piyasalar
 
-Hormuz Is Turning Shipping’s Fuel Bill Into a Supply Crisis başlıklı raporda petrol ve yakıt fiyatlarındaki son veriler yer aldı. WTI Crude 101,4 dolar seviyesinde bulunurken, Brent Crude ise 109,9 dolar olarak açıklandı. Küresel enerji piyasalarındaki bu hareketlilik çeşitli ham petrol türleri ve yakıt fiyatlarına da yansıdı.
+Petrol fiyatlarında son verilere göre WTI 101,4 dolar, Brent ise 109,9 dolar seviyesinde bulundu. Küresel enerji piyasalarındaki bu hareketlilik çeşitli ham petrol türleri ve yakıt fiyatlarına da yansıdı.
 
 ## Borsa
 

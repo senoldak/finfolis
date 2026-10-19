@@ -353,3 +353,13 @@ test('yayinKurulu: düzeltme derlemeyi alt sınırın altına indirirse derleme 
   assert.ok(r.yazi, r.dur);
   assert.equal(istemler.filter((i) => i.includes('Bu derleme haberinin gövdesi')).length, 1);
 });
+
+test('veri haberi (kendi grafiğimiz) 120 kelimelik alt sınırla geçer; sıradan haber 200 ister', async () => {
+  const kelime = (n) => Array.from({ length: n }, () => 'Fed').join(' ');
+  const yazi = { ...iyi, govde: `${iyi.govde}\n\n${kelime(130)}` };
+  const onay = async ({ sema }) => (sema.properties.onay ? { onay: true, sorunlar: [] } : null);
+  const veri = await yayinKurulu(yazi, { ...aday, adaylar: [{ id: 'esik:x', veriHaberi: true }] }, { gemini: onay });
+  assert.ok(veri.yazi, veri.dur);
+  const sirada = await yayinKurulu(yazi, { ...aday, adaylar: [{ id: 'k:x' }] }, { gemini: onay });
+  assert.ok(sirada.kisa);
+});

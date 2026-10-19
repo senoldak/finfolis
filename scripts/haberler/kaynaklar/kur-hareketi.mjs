@@ -45,6 +45,7 @@ export async function kurGrafigi({ id, ad, gun, deger, degisim, okuyucu, ondalik
     seri.push({ tarih: gun, deger });
     const vurgu = `Günlük ${isaretli(degisim)}`;
     return {
+      veriHaberi: true,
       kapak: grafikKapagi({
         kategori: 'doviz',
         baslik: baslikYap(ad, degisim),
