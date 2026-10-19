@@ -20,7 +20,7 @@ interface Props {
 }
 
 // Menülerde yalnız yazısı olan kategoriler görünür (boş kategori sayfası "henüz yazı yok" der).
-const doluKategoriler = new Set((await getNews()).map((h) => h.data.category));
+const doluKategoriler = new Set((await getNews({ indeksli: true })).map((h) => h.data.category));
 const menuKategorileri = CATEGORIES.filter((c) => doluKategoriler.has(c.slug));
 
 const {

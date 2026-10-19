@@ -8,7 +8,7 @@ import { KAPAK_DONUSUM } from '../lib/gorsel.mjs';
 const xml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
 export async function GET(context: APIContext) {
-  const news = await getNews();
+  const news = await getNews({ indeksli: true });
   const items = await Promise.all(
     news.slice(0, 50).map(async (h) => {
       // Kapak: haber sayfasının og:image dosyasıyla aynı (1200px JPEG); yeni dosya üretmez.

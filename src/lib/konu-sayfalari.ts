@@ -13,7 +13,7 @@ let onbellek: Promise<KonuSayfasi[]> | undefined;
 // Sayfası olan konular (en az KONU_ESIGI haber), her biri yeni tarihten eskiye haberleriyle. Bültenler sayılmaz.
 export function konuSayfalari(): Promise<KonuSayfasi[]> {
   onbellek ??= (async () => {
-    const news = await getNews({ tur: 'haber' });
+    const news = await getNews({ tur: 'haber', indeksli: true });
     const idIle = new Map(news.map((h) => [h.id, h]));
     const dizin = konuDizini(news.map((h) => ({ id: h.id, baslik: h.data.title, spot: h.data.description, govde: h.body ?? '' })));
     return dizin.map(({ konu, idler }) => ({ konu, haberler: idler.map((id) => idIle.get(id)!).filter(Boolean) }));

@@ -8,8 +8,8 @@ import { CATEGORIES, category as categoryOf, formatDate } from '../lib/site';
 import { getNews, newsUrl } from '../lib/news';
 import { KAPAK_DONUSUM } from '../lib/gorsel.mjs';
 
-const news = await getNews({ tur: 'haber' });
-const bulten = (await getNews({ tur: 'bulten' }))[0];
+const news = await getNews({ tur: 'haber', indeksli: true });
+const bulten = (await getNews({ tur: 'bulten', indeksli: true }))[0];
 const breaking = news.filter((h) => h.data.breaking).slice(0, 5);
 const hero = news.find((h) => h.data.featured) ?? news[0];
 const rest = news.filter((h) => h !== hero);

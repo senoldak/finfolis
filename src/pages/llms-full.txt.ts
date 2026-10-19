@@ -4,7 +4,7 @@ import { getNews, newsUrl } from '../lib/news';
 export const prerender = true;
 
 export const GET: APIRoute = async () => {
-  const news = await getNews();
+  const news = await getNews({ indeksli: true });
   const sonHaberler = news.slice(0, 40);
 
   let metin = `# Finfolis - Tam İçerik ve Haber Akışı\n\n`;

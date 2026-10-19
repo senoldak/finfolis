@@ -23,7 +23,7 @@ const ACIKLAMA: Record<string, string> = {
 // her sayfanın kendi canonical'ı vardır ve hepsi site haritasına girer.
 // (getStaticPaths ayrı derlenir; dışarıdaki sabitleri göremez, sayı burada yazılı kalır.)
 export const getStaticPaths = (async ({ paginate }) => {
-  const news = await getNews({ tur: 'haber' });
+  const news = await getNews({ tur: 'haber', indeksli: true });
   return CATEGORIES.flatMap((c) =>
     paginate(
       news.filter((h) => h.data.category === c.slug),
