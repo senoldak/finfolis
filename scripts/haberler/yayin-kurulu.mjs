@@ -176,6 +176,20 @@ export function medyaKontrol(metin) {
   return bulunan.length ? [`Yayın kuruluşu adı geçiyor: ${bulunan.join(', ')}`] : [];
 }
 
+// Kaynak haberin İngilizce başlığı metne aynen geçerse kaynağı ele verir (19 Ekim: "Hormuz Is Turning Shipping’s
+// Fuel Bill Into a Supply Crisis başlıklı raporda"). Yakalananlar: "… başlıklı rapor/haber/yazı" kalıbı ve en az altı
+// İngilizce kelimelik, başlık fiili ya da bağlacı içeren dizi. "Federal Reserve Bank of New York" gibi kurum adları
+// bu bağlaçları taşımadığı için geçer.
+const ING_KELIME = String.raw`[A-Za-z][A-Za-z0-9&.-]*(?:['’]s)?`;
+const ING_DIZI = new RegExp(String.raw`(?<![\p{L}\d])${ING_KELIME}(?:[ \t]+${ING_KELIME}){5,}(?![\p{L}\d])`, 'gu');
+const BASLIK_SOZCUGU = /^(?:is|are|was|were|will|could|would|should|can|how|why|what|into|amid|says|said|its|it's|turning|faces|hits|as|from|after)$/i;
+const BASLIKLI = new RegExp(String.raw`(?<![\p{L}\d])${ING_KELIME}(?:[ \t]+${ING_KELIME}){2,}["”’]?[ \t]+(?:başlıklı|adlı)[ \t]+(?:rapor|haber|yazı|makale|analiz|çalışma|köşe)`, 'u');
+export function yabanciBaslikKontrol(metin) {
+  const diziler = (metin.match(ING_DIZI) ?? []).filter((d) => d.split(/[ \t]+/).some((k) => BASLIK_SOZCUGU.test(k)));
+  const bulunan = [...new Set([...diziler, ...(BASLIKLI.test(metin) ? ['… başlıklı …'] : [])])];
+  return bulunan.length ? [`Kaynağın yabancı dildeki başlığı aynen geçiyor, Türkçe anlat ve başlığı yazma: ${bulunan.join(' | ')}`] : [];
+}
+
 // Yerel (yapay zekâsız) düzeltme: basit sorunlar için Gemini'ye tüm kaynağı yeniden göndermeyelim.
 // Yalnızca tırnak dışındaki metne dokunur; rakam ve isimler değişmez, cümle silinmez.
 const GORELI = /(?<![\p{L}\d])(?:dün|bugün|yarın)(?![\p{L}\d])[ \t]*,?[ \t]*/giu;
@@ -266,7 +280,7 @@ function kesinKontrol(yazi, aday) {
   const metin = butunMetin(yazi);
   const { eksik } = dogrula(metin, [aday.kaynakMetni ?? '']);
   const tum = yayimlananMetin(yazi);
-  const medya = [...new Set([...medyaKontrol(tum), ...adayMedyaKontrol(tum, aday.gizliKaynaklar)])];
+  const medya = [...new Set([...medyaKontrol(tum), ...adayMedyaKontrol(tum, aday.gizliKaynaklar), ...yabanciBaslikKontrol(tum)])];
   return [...eksik.map((e) => `Kaynakta bulunmayan rakam/alıntı: ${e}`), ...medya];
 }
 

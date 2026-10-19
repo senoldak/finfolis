@@ -363,3 +363,11 @@ test('veri haberi (kendi grafiğimiz) 120 kelimelik alt sınırla geçer; sırad
   const sirada = await yayinKurulu(yazi, { ...aday, adaylar: [{ id: 'k:x' }] }, { gemini: onay });
   assert.ok(sirada.kisa);
 });
+
+test('kaynağın İngilizce başlığı metne geçerse yakalanır; kurum adları geçer', async () => {
+  const { yabanciBaslikKontrol } = await import('./yayin-kurulu.mjs');
+  assert.equal(yabanciBaslikKontrol('Hormuz Is Turning Shipping’s Fuel Bill Into a Supply Crisis başlıklı raporda veriler yer aldı.').length, 1);
+  assert.equal(yabanciBaslikKontrol('Why Investors Are Fleeing the Bond Market Now adlı analiz yayımlandı.').length, 1);
+  assert.equal(yabanciBaslikKontrol('Şirketin “Yeni Dönem” başlıklı raporu yayımlandı.').length, 0);
+  assert.deepEqual(yabanciBaslikKontrol('Federal Reserve Bank of New York ve Bank of America açıklama yaptı. S&P 500 ve Nasdaq yükseldi.'), []);
+});
