@@ -21,7 +21,15 @@ export function yayinda(veri, simdi = Date.now()) {
 function onyuzMaddesi(metin) {
   const on = String(metin ?? '').match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1];
   if (on === undefined) return undefined;
-  const alan = (k) => on.match(new RegExp(`^${k}:[ \\t]*(["']?)([^"'\\r\\n]*)\\1[ \\t]*$`, 'm'))?.[2]?.trim();
+  // YAML gibi: tırnaklı değer tırnak içinden okunur (sonrası yok sayılır); tırnaksız değerde boşlukla başlayan
+  // ` # açıklama` değere dahil değildir (`draft: true # not` taslaktır).
+  const alan = (k) => {
+    const ham = on.match(new RegExp(`^${k}:[ \\t]*(.*)$`, 'm'))?.[1];
+    if (ham === undefined) return undefined;
+    const tirnakli = ham.match(/^(["'])(.*?)\1/);
+    if (tirnakli) return tirnakli[2].trim();
+    return ham.replace(/(^|[ \t])#.*$/, '').trim();
+  };
   return { date: alan('date'), draft: alan('draft') === 'true' };
 }
 

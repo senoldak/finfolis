@@ -56,7 +56,7 @@ async function ana() {
   const eksik = await eksikOlanlar({
     kimlikler,
     adres: (kimlik) => [haberAdresi(site, kimlik)],
-    getir: (url) => fetch(url, { method: 'HEAD', headers: { 'cache-control': 'no-cache' } }),
+    getir: (url) => fetch(url, { method: 'HEAD', headers: { 'cache-control': 'no-cache' }, signal: AbortSignal.timeout(15000) }),
   });
   console.log(
     eksik.length

@@ -80,3 +80,19 @@ test('onyuzMaddesiTarihi: tarih yoksa ya da okunamıyorsa NaN', () => {
   assert.ok(Number.isNaN(onyuzMaddesiTarihi('---\ndate: dün\n---\n')));
   assert.ok(Number.isNaN(onyuzMaddesiTarihi('ön bilgisi olmayan metin')));
 });
+
+// YAML gibi: tırnaksız değerin sonundaki ` # açıklama` değere dahil değildir; tırnak içi olduğu gibi kalır.
+test('onyuzMaddesiYayinda: tırnaksız değerdeki satır sonu açıklaması (# …) okunmaz', () => {
+  assert.equal(onyuzMaddesiYayinda(md('date: 2026-11-13T05:00:00Z\ndraft: true # henüz değil'), SIMDI), false);
+  assert.equal(onyuzMaddesiYayinda(md('date: 2026-11-13T05:00:00Z\ndraft: false # hazır'), SIMDI), true);
+  assert.equal(onyuzMaddesiYayinda(md('date: 2026-11-14T08:00:00+03:00 # İstanbul 08:00'), SIMDI), true);
+  assert.equal(onyuzMaddesiYayinda(md('date: 2026-11-14T08:00:00+03:00 # İstanbul 08:00'), SIMDI - 60_000), false);
+  assert.equal(onyuzMaddesiYayinda('---\r\ndate: 2026-11-13T05:00:00Z\r\ndraft: true\t# CRLF\r\n---\r\n', SIMDI), false);
+});
+
+test('onyuzMaddesiTarihi: açıklamalı satır; tırnak içi açıklama sayılmaz, bitişik # değerin parçası', () => {
+  assert.equal(onyuzMaddesiTarihi(md('date: 2026-11-14T08:00:00+03:00 # x')), Date.parse('2026-11-14T05:00:00Z'));
+  assert.equal(onyuzMaddesiTarihi(md('date: "2026-11-14T08:00:00+03:00" # x')), Date.parse('2026-11-14T05:00:00Z'));
+  assert.ok(Number.isNaN(onyuzMaddesiTarihi(md('date: "2026-11-14T08:00:00+03:00 # x"'))));
+  assert.ok(Number.isNaN(onyuzMaddesiTarihi(md('date: 2026-11-14T08:00:00+03:00#x'))));
+});

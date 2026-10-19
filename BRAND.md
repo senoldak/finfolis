@@ -141,6 +141,6 @@ Fotoğraf yok, illüstrasyon yok, doku yok. finfolis rakam, boncuk ve tipografiy
 - Getiri vaadi, al/sat/tut önerisi, hedef fiyat.
 - Örnek veya uydurma piyasa verisi; tarihsiz ya da kaynaksız rakam.
 - Medya kuruluşu adı veya bağlantısı.
-- Pişmiş toprağı veri rengi olarak kullanmak; yönü yalnız renkle söylemek.
+- Pişmiş toprağı veri rengi olarak kullanmak (yazı işleri grafiklerindeki istisna için bkz. §7 Renk); yönü yalnız renkle söylemek.
 - Fotoğraf, stok görsel, süs, doku, gölge, degrade.
 - Mevcut sayfalara sorulmadan yeni blok eklemek.
