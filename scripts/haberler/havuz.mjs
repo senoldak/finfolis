@@ -9,16 +9,27 @@ import { bultenDilimi } from './bulten.mjs';
 
 export const SON_SAAT = 24; // bülten satırı olarak da bekleme sınırı
 export const HAVUZ_AZAMI = 16; // aşan en eski olaylar beklemeden bülten adayı olur
-const KAYNAK_AZAMI = 3500; // olay başına saklanan kaynak metni (derleme isteminde de bu kadarı kullanılır)
+// Olay başına saklanan kaynak metni: derleme (derleme.mjs HABER_BASINA_KAYNAK) adayların birleşik metninin, bülten
+// satırı (bulten.mjs) olayın metninin yalnız başını kullanır. Fazlası şifrelenip her turda commit'lenir, kullanılmaz.
+export const KAYNAK_AZAMI = 3500;
 
 const yas = (o, simdi) => (simdi.getTime() - Date.parse(o.havuzaGirdi)) / 3600e3;
 
-// Kısa olayı havuza girecek biçime getirir: kaynak metni kırpılır, giriş zamanı eklenir.
+// Kısa olayı havuza girecek biçime getirir: kaynak metinleri kırpılır, giriş zamanı eklenir.
+// Adayların metni toplamda KAYNAK_AZAMI kadar tutulur (sırayla; derleme de birleşik metnin başını alır), olayın
+// birleşik kaynakMetni de aynı sınırla. 19 Ekim'de olay başına 7–95 KB'lık kayıtlar durum dosyasını 2,4 MB'a çıkarmıştı.
 export function havuzaHazirla(o, iso) {
+  let kalan = KAYNAK_AZAMI;
+  const adaylar = (o.adaylar ?? []).map((a) => {
+    const metin = String(a.kaynakMetni ?? '').slice(0, Math.max(kalan, 0));
+    kalan -= metin.length;
+    return { ...a, kaynakMetni: metin };
+  });
   return {
     ...o,
+    ...(o.kaynakMetni != null ? { kaynakMetni: String(o.kaynakMetni).slice(0, KAYNAK_AZAMI) } : {}),
     havuzaGirdi: iso,
-    adaylar: (o.adaylar ?? []).map((a) => ({ ...a, kaynakMetni: String(a.kaynakMetni ?? '').slice(0, KAYNAK_AZAMI) })),
+    adaylar,
   };
 }
 
