@@ -93,6 +93,7 @@ Sahibinin seçimi: **öğretici ve sıcak.**
 
 - Yeşil ve kırmızı hiçbir zaman tek başına anlam taşımaz; yön her zaman okla (▲ ▼) da yazılır.
 - Pişmiş toprak hiçbir zaman veri rengi olarak kullanılmaz.
+  - İstisna (19 Ekim 2026, sahibinin onayı): yazı işleri grafiklerinde güncel değerin boncuğu pişmiş toprak olabilir; önceki değerler boncuk grisi. Başka veri kullanımında kural geçerli.
 - Eski Isotype kategori renkleri (mavi, hardal, kahve) kalkar; kategori adı pişmiş toprakla yazılır. *Onaylandı (19 Ekim).*
 
 ## 8. Yazı

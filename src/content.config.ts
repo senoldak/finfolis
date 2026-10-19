@@ -2,6 +2,7 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { CATEGORIES } from './lib/site';
+import { VARSAYILAN_YAZI_TURU, YAZI_TURLERI } from './lib/yazi-turu.mjs';
 
 const slugs = CATEGORIES.map((c) => c.slug) as [string, ...string[]];
 
@@ -17,6 +18,8 @@ const haberler = defineCollection({
       // Yayından sonra yapılan düzeltmenin notu ("<tarih saat>: <ne düzeltildi>"); boşsa makalede hiçbir şey görünmez.
       // Not `updated`'ı değiştirmez; sahibi elle günceller.
       duzeltme: z.string().min(10).optional(),
+      // Yazı türü (bkz. src/lib/yazi-turu): haber, açıklayıcı ya da referans; yoksa haber. `tur` alanından ayrıdır.
+      yaziTuru: z.enum(YAZI_TURLERI).default(VARSAYILAN_YAZI_TURU),
       category: z.enum(slugs),
       cover: image().optional(),
       coverAlt: z.string().optional(),
