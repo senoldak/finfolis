@@ -55,12 +55,15 @@ jobs:
       # Veri sayfaları (/veri/…) için resmi TCMB/TÜİK verisi. Başarısız olursa son bilinen değer tarihiyle kalır;
       # haber üretimini durdurmaz. Veri değişmediyse dosyaya dokunulmaz, bu yüzden pratikte günde bir değişir.
       - name: Resmi verileri güncelle
+        # Acil durdurma açıksa tur hiçbir şey yazmaz (hent adımı durdu=1 çıktısı verir).
+        if: ${{ steps.hent.outputs.durdu != '1' }}
         continue-on-error: true
         timeout-minutes: 5
         run: node scripts/haberler/resmi-veri.mjs --yaz
 
       - name: Commit
         id: commit
+        if: ${{ steps.hent.outputs.durdu != '1' }}
         env:
           ADET: ${{ steps.hent.outputs.adet }}
         run: |
@@ -91,7 +94,7 @@ jobs:
       # Planlı (ileri tarihli) yazılar vakti gelince bu turla yayına girer: vadesi gelip sitede 404 dönen yazı varsa yayınla.
       - name: Planlı yazılar
         id: planlagt
-        if: ${{ !cancelled() && steps.commit.outputs.yayin != '1' }}
+        if: ${{ !cancelled() && steps.hent.outputs.durdu != '1' && steps.commit.outputs.yayin != '1' }}
         run: node scripts/planlagt.mjs
 
       # Botun push'u yayın iş akışını kendiliğinden tetiklemez (GITHUB_TOKEN); elle başlatılır.

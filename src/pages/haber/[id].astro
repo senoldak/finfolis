@@ -19,6 +19,7 @@ import { matchEntities } from '../../lib/entities';
 import { indekslenir } from '../../lib/uzunluk.mjs';
 import { okumaSuresi, turEtiketi } from '../../lib/yazi-bilgisi.mjs';
 import { duzeltmeNotu } from '../../lib/duzeltme.mjs';
+import { yapayZekaNotu } from '../../lib/yapay-zeka-notu.mjs';
 import { ilgiliSec } from '../../lib/ilgili.mjs';
 import { yazininKonulari, konuUrl } from '../../lib/konu-sayfalari';
 import type { Konu } from '../../lib/konular.mjs';
@@ -55,8 +56,6 @@ interface Props {
 
 const { haber, related, konular } = Astro.props;
 const { title, description, date, category, coverAlt, rakamlar, sirada, tablo, grafik, kaynaklar } = haber.data;
-// Yazarı olmayan ya da uretim: bot işaretli yazı haber botunundur; sayfada yapay zekâ notu gösterilir.
-const botYazisi = haber.data.uretim === 'bot' || (!haber.data.author && haber.data.uretim !== 'editor');
 const author = haber.data.author ?? SITE.name;
 const duzeltme = duzeltmeNotu(haber.data, 'tr');
 // Kısa yazılar (src/lib/uzunluk.mjs) arama motoruna kapalı, bağlantıları izlenir; site haritaları da aynı kuralı kullanır.
@@ -76,6 +75,8 @@ const ogImageUrl = ogImage ? new URL(ogImage, Astro.site).href : new URL('/og-de
 const ogWidth = og ? Number(og.attributes.width) : 1200;
 const ogHeight = og ? Number(og.attributes.height) : 630;
 const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+// Sayfa sonundaki tek yapay zekâ notu: bot yazısı ve sahip yazısı için ayrı metin (src/lib/yapay-zeka-notu.mjs).
+const yzNotu = yapayZekaNotu(haber.data, title, pageUrl);
 const share = encodeURIComponent(pageUrl);
 const shareText = encodeURIComponent(title);
 const published = date.toISOString();
@@ -226,15 +227,9 @@ const jsonLd = {
       }
 
 
-      {
-        botYazisi && (
-          <p class="uretim-notu">
-            Bu {haber.data.tur === 'bulten' ? 'bülten' : 'haber'}, kaynak metinlerden yapay zekâ desteğiyle otomatik olarak
-            yazıldı. Rakamlar ve alıntılar yayından önce kaynağa karşı otomatik olarak denetlendi; yayın öncesinde insan
-            editör onayından geçmedi. Bir hata gördüyseniz <a href="/yayin-ilkeleri/#duzeltmeler">bize bildirin</a>.
-          </p>
-        )
-      }
+      <p class="uretim-notu">
+        {yzNotu.metin} <a href={yzNotu.baglanti}>{yzNotu.baglantiMetni}</a>
+      </p>
 
       <YasalUyari />
 

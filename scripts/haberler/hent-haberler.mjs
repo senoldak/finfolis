@@ -16,7 +16,9 @@ import * as ipucuModulu from './ipucu.mjs';
 import * as olaylarModulu from './olaylar.mjs';
 import { yaz as yazarYaz, derlemeYaz as derlemeYazar } from './yazar.mjs';
 import { dilimGruplari, derlemeAdayi, derlemeOlayi, DERLEME_MAKS, derlenebilir, derlemeDilimiKaydet } from './derleme.mjs';
-import { yayinKurulu as kurul } from './yayin-kurulu.mjs';
+import { yayinKurulu as kurul, derlemeEnAz } from './yayin-kurulu.mjs';
+import { standartDenetle, standartOzeti } from './standart.mjs';
+import { standartKapisi, derlemeSuz, acilDurdurma } from './standart-kapi.mjs';
 import * as bultenModulu from './bulten.mjs';
 import { karneler as varsayilanKarneler } from './karne.mjs';
 import { BOLGELER, dilimDolu, dilimKaydet } from './bulten.mjs';
@@ -171,6 +173,7 @@ export async function calistir({
   yaz = yazarYaz,
   derlemeYaz = derlemeYazar,
   yayinKurulu = kurul,
+  standart = standartDenetle, // Standartlar Faz 0: kırmızı süzgeç (testlerde değiştirilebilir)
   bulten = bultenModulu,
   karneler = varsayilanKarneler,
   // Bir çalıştırmalık piyasa serisi okuyucusu: eşik olayları, kur grafikleri, haber kapakları ve karneler aynı sembolü
@@ -337,6 +340,13 @@ export async function calistir({
         return;
       }
       const r = await yayinKurulu(taslak, o, {});
+      if (r.dur && r.bekle) {
+        // Denetim çalışamadı (emin değil): yayımlanmaz, görüldü sayılmaz; sonraki turda yeniden denenir.
+        dislanan.add(o);
+        hatalar.push(`${o.id} «${o.baslik}»: ${r.dur}`);
+        log(`  - ${o.id}: bekletildi (${r.dur})`);
+        return;
+      }
       if (r.dur) {
         for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso };
         // Yalnızca kısa kaldığı için duran olay bu turun bültenine girmez: havuzda eş bekler (derleme). Kısa haber
@@ -347,12 +357,28 @@ export async function calistir({
         log(`  - ${o.id}: durduruldu (${r.dur})`);
         return;
       }
+      // Standartlar: son metin hazır, dosya yazılmadan önce kırmızı süzgeç. Kırmızı: elendi + gerekçe, yazı yok.
+      // Süzgeç çalışamazsa haber bekletilir (görüldü sayılmaz).
+      const std = standartKapisi(r.yazi, o.kaynakMetni ?? '', standart);
+      if (std.karar === 'hata') {
+        dislanan.add(o);
+        hatalar.push(`${o.id} «${o.baslik}»: standart denetimi çalıştırılamadı (${std.hata})`);
+        log(`  - ${o.id}: bekletildi (standart denetimi çalıştırılamadı)`);
+        return;
+      }
+      if (std.karar === 'kirmizi') {
+        for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso, elendi: true, gerekce: std.gerekce };
+        dislanan.add(o);
+        log(`  - ${o.id}: elendi, ${standartOzeti(std)}`);
+        return;
+      }
+      if (std.karar === 'sari') log(`  ~ ${o.id}: ${standartOzeti(std)}`);
       const yazi = { ...r.yazi, kategori: o.kategori, tarih: new Date(o.tarih), tur: 'haber', icerikTuru: icerikTuru(o.adaylar), kaynaklar: o.kaynaklar ?? [], kaynakIzi: kaynakIzi(o.gizliKaynaklar) };
       // Kapak: kaynağın tarifi; yoksa başlıkta anılan piyasa aracının grafiği; o da yoksa başlık kartı.
       const kapakli = o.adaylar.find((a) => a.kapak);
       Object.assign(yazi, kapakli ? { kapak: kapakli.kapak, kapakAlt: kapakli.kapakAlt } : ((await haberGrafigi(yazi, o, okuyucu, simdi)) ?? varsayilanKapak(yazi, o)));
       const slug = await yaziYaz(rot, yazi);
-      for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso, yazildi: true };
+      for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso, yazildi: true, ...(std.karar === 'sari' ? { gerekce: std.gerekce } : {}) };
       o.haberSlug = slug;
       yazilan.push(o);
       sonuc.adet++;
@@ -366,6 +392,12 @@ export async function calistir({
         console.error(`  ! yapılandırma hatası: ${e.message}`);
         sonuc.konfigHatasi = true;
         dur = true;
+        return;
+      }
+      // Günlük kota bitti: haberin suçu değil, deneme sayılmaz; yayımlanmaz, sonraki turda yeniden denenir.
+      if (e.kota) {
+        hatalar.push(`${o.id}: ${e.message}`);
+        log(`  - ${o.id}: bekletildi (${e.message})`);
         return;
       }
       // Görüldü sayılmaz: sonraki çalıştırmada yeniden denenir.
@@ -428,20 +460,47 @@ export async function calistir({
           continue;
         }
         const r = await yayinKurulu(taslak, birlesik, {});
+        if (r.dur && r.bekle) {
+          // Denetim çalışamadı: derleme yayımlanmaz, olaylar havuzda bekler.
+          log(`  - derleme (${grup.length} haber): bekletildi (${r.dur})`);
+          kalanlar.push(...grup);
+          continue;
+        }
         if (r.dur) {
           log(`  - derleme (${grup.length} haber): durduruldu (${r.dur})`);
           yedekle();
           continue;
         }
+        // Standartlar: kırmızı çıkan madde (paragraf) tek başına atılır; yazı bütünüyle düşmez. Atınca derleme alt sınırın
+        // altına inerse ya da süzgeç kırmızı kalırsa derleme yazılmaz, haberler bülten satırı adayı olur (her satır ayrıca süzülür).
+        const sz = derlemeSuz(r.yazi, birlesik.kaynakMetni ?? '', standart);
+        if (sz.karar === 'hata') {
+          log(`  - derleme (${grup.length} haber): bekletildi (standart denetimi çalıştırılamadı)`);
+          kalanlar.push(...grup);
+          continue;
+        }
+        if (sz.karar === 'kirmizi' || (sz.atilan.length && kelimeSay(sz.yazi.govde) < derlemeEnAz(grup.length))) {
+          log(`  - derleme (${grup.length} haber): yazılmadı, ${standartOzeti(sz.ozet)}${sz.atilan.length ? ' (kırmızı maddeler atılınca metin kısa kaldı)' : ''}`);
+          yedekle();
+          continue;
+        }
+        const derlemeGerekcesi = [
+          sz.atilan.length ? `standart:kirmizi-madde-atlandi:${[...new Set(sz.atilan.map((b) => b.kural))].join(',')}` : '',
+          sz.karar === 'sari' ? sz.gerekce : '',
+        ]
+          .filter(Boolean)
+          .join(' | ');
+        if (sz.atilan.length) log(`  ~ derleme: ${sz.atilan.length} madde atıldı, ${standartOzeti({ karar: 'kirmizi', kirmizi: sz.atilan, sari: [] })}`);
+        else if (sz.karar === 'sari') log(`  ~ derleme: ${standartOzeti(sz.ozet)}`);
         // Başlığa dilim eki: her dilimin derlemesi tek başlık taşır.
-        const yazi = { ...r.yazi, baslik: `${r.yazi.baslik} · ${birlesik.dilimEki}`, kategori: birlesik.kategori, tarih: new Date(birlesik.tarih), tur: 'haber', kaynaklar: birlesik.kaynaklar, kaynakIzi: kaynakIzi(birlesik.gizliKaynaklar) };
+        const yazi = { ...sz.yazi, baslik: `${r.yazi.baslik} · ${birlesik.dilimEki}`, kategori: birlesik.kategori, tarih: new Date(birlesik.tarih), tur: 'haber', kaynaklar: birlesik.kaynaklar, kaynakIzi: kaynakIzi(birlesik.gizliKaynaklar) };
         Object.assign(yazi, varsayilanKapak(yazi, birlesik));
         const slug = await yaziYaz(rot, yazi);
         derlemeDilimiKaydet(durum, dilim);
         const o = derlemeOlayi(grup, birlesik, yazi.baslik, slug);
         for (const k of grup) {
           dislanan.add(k); // bültende ikinci kez yer almasın
-          for (const a of k.adaylar ?? []) durum.gorulen[a.id] = { zaman: iso, yazildi: true };
+          for (const a of k.adaylar ?? []) durum.gorulen[a.id] = { zaman: iso, yazildi: true, ...(derlemeGerekcesi ? { gerekce: derlemeGerekcesi.slice(0, 300) } : {}) };
         }
         yazilan.push(o);
         sonuc.adet++;
@@ -475,13 +534,28 @@ export async function calistir({
   // Günde en fazla üç bülten: bu dilimin (açılış/öğle/kapanış) bülteni yazıldıysa olaylar sonraki dilime kalır.
   sonuc.bultenGerekli = bulten.bultenGerekli(bultenOlaylari.length) && !dilimDolu(durum, simdi);
   let bultendekiler = [];
+  const bultenElenen = new Set(); // standart süzgecinde kırmızı çıkan bülten maddesi olayları
+  const bultenBekleyen = new Set(); // süzgeç çalışamayan maddeler: görülmedi kalır
   if (sonuc.bultenGerekli && zamanBitti()) {
     log('  ! çalıştırma bütçesi aşıldı; bülten sonraki çalıştırmaya kaldı');
   } else if (sonuc.bultenGerekli) {
     try {
       // Bülten Gemini tur payına bakmaz, yalnız süreye (öncelik sırasında en üstte): pay haberlere gidince kontrol
       // masası reddi bülteni sessizce düşürüyordu (19 Ekim öğleden 20 Ekim sabahına kadar hiç bülten çıkmadı).
-      const b = await bulten.bultenYaz(bultenOlaylari, gorunurPiyasa, { simdi, butceBitti: zamanBitti });
+      const izleyici = {};
+      const b = await bulten.bultenYaz(bultenOlaylari, gorunurPiyasa, { simdi, butceBitti: zamanBitti, standart, izleyici });
+      // Standartlar: kırmızı çıkan madde elendi sayılır (gerekçesiyle, bülten yazılmasa da); süzgeci çalışamayan madde
+      // görülmedi kalır ve sonraki turda yeniden denenir. Havuzdaki kırmızı olay havuza geri dönmez.
+      for (const e of izleyici.elenen ?? []) {
+        for (const a of e.olay.adaylar ?? []) durum.gorulen[a.id] = { zaman: iso, elendi: true, gerekce: e.gerekce };
+        bultenElenen.add(e.olay.id);
+        log(`  - bülten maddesi elendi (${e.olay.id}): ${standartOzeti(e.ozet)}`);
+      }
+      for (const o of izleyici.bekleyen ?? []) {
+        bultenBekleyen.add(o.id);
+        log(`  - bülten maddesi bekletildi (${o.id}): standart denetimi çalıştırılamadı`);
+      }
+      for (const m of izleyici.sari ?? []) log(`  ~ bülten maddesi (${m.olay.id}): ${standartOzeti(m.ozet)}`);
       if (b) {
         const slug = await yaziYaz(rot, b.yazi);
         durum.sonBulten = b.anlik;
@@ -489,9 +563,12 @@ export async function calistir({
         sonuc.bultenYazildi = true;
         sonuc.yazilar.push(slug);
         // Tavan dışı kalanlar da görüldü sayılır ve hafızaya girer: başka kaynaktan gelen kopyaları geri dönmesin.
-        bultendekiler = bultenOlaylari;
-        bultenYedek.length = 0; // satır oldu, havuza dönmez
-        for (const o of bultenOlaylari) for (const a of o.adaylar) if (!durum.gorulen[a.id]?.yazildi) durum.gorulen[a.id] = { zaman: iso };
+        bultendekiler = bultenOlaylari.filter((o) => !bultenBekleyen.has(o.id) && !bultenElenen.has(o.id));
+        bultenYedek.splice(0, bultenYedek.length, ...bultenYedek.filter((o) => bultenBekleyen.has(o.id))); // satır oldu, havuza dönmez (bekletilenler hariç)
+        for (const o of bultendekiler) {
+          const sariGerekce = (izleyici.sari ?? []).find((m) => m.olay.id === o.id)?.gerekce;
+          for (const a of o.adaylar) if (!durum.gorulen[a.id]?.yazildi) durum.gorulen[a.id] = { zaman: iso, ...(sariGerekce ? { gerekce: sariGerekce } : {}) };
+        }
         log(`  + bülten ${slug}`);
       } else {
         log(`  - bülten yazılmadı (${bultenOlaylari.length} olay; doğrulanan ya da onaylanan madde 3'ten az)`);
@@ -503,12 +580,19 @@ export async function calistir({
   }
 
   // Bülten satırı olamayan süresi dolmuş olaylar SON_SAAT'e kadar havuzda kalır.
-  durum.havuz = [...derlenmeyen, ...bultenYedek.filter((o) => o.havuzaGirdi)];
+  durum.havuz = [...derlenmeyen, ...bultenYedek.filter((o) => o.havuzaGirdi && !bultenElenen.has(o.id))];
 
   // 6b. Karneler (haftalık, aylık, enflasyon): Gemini'siz, veriden şablonla; zamanı gelmediyse ağ isteği de yok.
   if (!zamanBitti()) {
     try {
       for (const yazi of await karneler({ durum, simdi, piyasa: veri, log, ...(okuyucu ? { okuyucu } : {}) })) {
+        // Standartlar: karne de yayımlanmadan önce süzgeçten geçer; kırmızı ya da çalışmayan süzgeçte yazılmaz.
+        const std = standartKapisi(yazi, '', standart);
+        if (std.karar === 'kirmizi' || std.karar === 'hata') {
+          log(`  - karne yazılmadı: ${std.karar === 'hata' ? 'standart denetimi çalıştırılamadı' : standartOzeti(std)}`);
+          continue;
+        }
+        if (std.karar === 'sari') log(`  ~ karne: ${standartOzeti(std)}`);
         const slug = await yaziYaz(rot, { icerikTuru: 'veri', ...yazi });
         sonuc.adet++;
         sonuc.yazilar.push(slug);
@@ -539,17 +623,31 @@ export async function calistir({
   return sonuc;
 }
 
-if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
-  const kuru = process.argv.includes('--kuru');
-  if (!kuru) console.log(await butceYukle({ url: process.env.MOTOR_URL, anahtar: process.env.MOTOR_ANAHTARI, site: 'finfolis' }));
-  const s = await calistir({ kuru });
+
+// Tur girişi. Acil durdurma bayrağı açıksa Gemini'ye hiç dokunmadan, hiçbir şey yazmadan döner (çıkış kodu 0, workflow'daki
+// sonraki adımlar durdu=1 çıktısıyla atlanır). Döner: { durdu }.
+export async function turBaslat({ kuru = false, env = process.env, acil = acilDurdurma, calis = calistir, log = console.log } = {}) {
+  if (!kuru) {
+    const d = await acil({ env, site: 'finfolis', log });
+    if (d.durdu) {
+      if (env.GITHUB_OUTPUT) await appendFile(env.GITHUB_OUTPUT, 'durdu=1\n');
+      return { durdu: true };
+    }
+    log(await butceYukle({ url: env.MOTOR_URL, anahtar: env.MOTOR_ANAHTARI, site: 'finfolis' }));
+  }
+  const s = await calis({ kuru });
   if (!kuru) {
     await writeFile(DURUM_DOSYASI, JSON.stringify({ ...s.durum, olaylar: hafizaKapat(s.durum.olaylar), yayinlar: yayinKapat(s.durum.yayinlar), havuz: havuzKapat(s.durum.havuz ?? []) }, null, 2) + '\n');
     const adet = s.adet + (s.bultenYazildi ? 1 : 0);
-    console.log(`Bitti: ${s.adet} yeni haber${s.bultenYazildi ? ', 1 bülten' : ''}.`);
-    if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `adet=${adet}\n`);
-    if (s.konfigHatasi && process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, 'konfig_hatasi=1\n');
-    if (process.env.GITHUB_STEP_SUMMARY && s.hatalar.length)
-      await appendFile(process.env.GITHUB_STEP_SUMMARY, `### Haber botu\n${s.hatalar.map((h) => `- ${h}`).join('\n')}\n`);
+    log(`Bitti: ${s.adet} yeni haber${s.bultenYazildi ? ', 1 bülten' : ''}.`);
+    if (env.GITHUB_OUTPUT) await appendFile(env.GITHUB_OUTPUT, `adet=${adet}\n`);
+    if (s.konfigHatasi && env.GITHUB_OUTPUT) await appendFile(env.GITHUB_OUTPUT, 'konfig_hatasi=1\n');
+    if (env.GITHUB_STEP_SUMMARY && s.hatalar.length)
+      await appendFile(env.GITHUB_STEP_SUMMARY, `### Haber botu\n${s.hatalar.map((h) => `- ${h}`).join('\n')}\n`);
   }
+  return { durdu: false };
+}
+
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
+  await turBaslat({ kuru: process.argv.includes('--kuru') });
 }

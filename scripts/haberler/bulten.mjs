@@ -5,6 +5,8 @@ import { dogrula } from './dogrula.mjs';
 import { KURALLAR, SES } from './yazar.mjs';
 import { bultenKapagi } from '../kapak/kapak.mjs';
 import { kaynakIzi } from './gizli.mjs';
+import { standartKapisi } from './standart-kapi.mjs';
+import { standartDenetle } from './standart.mjs';
 
 const TZ = 'Europe/Istanbul';
 export const EN_AZ_MADDE = 3;
@@ -118,7 +120,7 @@ const satirMetni = (m) => `${m.etiket}: ${m.metin}`;
 export async function bultenYaz(
   olaylar,
   piyasa,
-  { gemini = varsayilanGemini, simdi = new Date(), butceBitti = () => false, kapakYap = bultenKapagi } = {},
+  { gemini = varsayilanGemini, simdi = new Date(), butceBitti = () => false, kapakYap = bultenKapagi, standart = standartDenetle, izleyici = {} } = {},
 ) {
   if (!bultenGerekli(olaylar.length)) return null;
   const secilen = [...olaylar]
@@ -130,6 +132,25 @@ export async function bultenYaz(
   let maddeler = secilen
     .map((o) => ({ olay: o, ...yazilar.get(o.id) }))
     .filter((m) => m.metin && dogrula(satirMetni(m), [m.olay.kaynakMetni ?? '']).tamam);
+  if (maddeler.length < EN_AZ_MADDE) return null;
+
+  // Standartlar: her madde kırmızı süzgeçten geçer. Kırmızı madde tek başına atılır (olay elendi sayılır, gerekçesiyle);
+  // süzgeç çalışamazsa madde bu bültene girmez ve olay görülmedi kalır (bekleyen). Bülten bütünüyle düşmez.
+  // Sonuç izleyici nesnesine yazılır: elenen, bekleyen, sari ({olay, gerekce, ozet}).
+  izleyici.elenen = [];
+  izleyici.bekleyen = [];
+  izleyici.sari = [];
+  const sariHarita = new Map();
+  maddeler = maddeler.filter((m) => {
+    const k = standartKapisi({ baslik: m.etiket, spot: '', govde: m.metin }, m.olay.kaynakMetni ?? '', standart);
+    if (k.karar === 'kirmizi') izleyici.elenen.push({ olay: m.olay, gerekce: k.gerekce, ozet: k });
+    else if (k.karar === 'hata') izleyici.bekleyen.push(m.olay);
+    else {
+      if (k.karar === 'sari') sariHarita.set(m.olay.id, { gerekce: k.gerekce, ozet: k });
+      return true;
+    }
+    return false;
+  });
   if (maddeler.length < EN_AZ_MADDE) return null;
 
   // Tek kontrol masası turu; reddedilirse sorunlu maddeler tek tek bulunup düşer (yeniden yazma yok).
@@ -178,5 +199,6 @@ export async function bultenYaz(
     kapak: kapakYap({ tarih: `${gun} ${ay}`, basliklar: ilk3 }),
     kapakAlt: 'Piyasa bülteninin öne çıkan başlıkları',
   };
+  izleyici.sari = maddeler.filter((m) => sariHarita.has(m.olay.id)).map((m) => ({ olay: m.olay, ...sariHarita.get(m.olay.id) }));
   return { yazi, anlik: anlikAl(piyasa ?? {}, simdi), olaylar: maddeler.map((m) => m.olay) };
 }

@@ -320,7 +320,8 @@ Spot: ${yazi.spot}
 
 ${yazi.govde}`,
   });
-  if (!r) return { onay: false, sorunlar: [...sorunlar, 'Yapay zekâ kontrolü çalıştırılamadı'] };
+  // Standartlar: yanıt yok ya da bozuksa onay yok (fail-closed); calismadi işareti haberin kalıcı reddedilmeyip bekletilmesini sağlar.
+  if (!r || typeof r !== 'object' || typeof r.onay !== 'boolean') return { onay: false, calismadi: true, sorunlar: [...sorunlar, 'Yapay zekâ kontrolü çalıştırılamadı'] };
   sorunlar.push(...(r.sorunlar ?? []));
   const d = r.duzeltilmis;
   const duzeltilmis = duzenle && d?.baslik && d?.spot && d?.govde ? { baslik: d.baslik, spot: d.spot, govde: d.govde } : undefined;
@@ -388,6 +389,8 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
       duzenli0 = karar.duzeltilmis;
       break;
     }
+    // Denetim çalışmadıysa (boş ya da bozuk yanıt) metin düzeltmeye gönderilmez; haber bu tur yayımlanmaz, sonraki turda yeniden denenir.
+    if (karar.calismadi) return { dur: 'Yayın kurulu denetimi çalıştırılamadı; sonraki turda yeniden denenecek', bekle: true };
     if (tur >= 2) return { dur: `Yayın kurulu onaylamadı: ${karar.sorunlar.join('; ')}` };
     yazi = { ...(await duzelt(yazi, aday, karar.sorunlar, g)), ...serit };
     // Düzeltme sorunlu cümleleri silerek derlemeyi alt sınırın altına indirebiliyor (18 Ekim: 8 haber, 135 kelime);
