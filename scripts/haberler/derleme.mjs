@@ -2,7 +2,7 @@
 // girdikleri dilim (açılış/öğle/kapanış) bitince kategori aranmadan tek yazıda toplanır; yazı içinde her kategori ara
 // başlık olur. Derleme de aynı yayın kurulu kapılarından geçer. Yazılamaz ya da geçemezse olaylar bülten satırı olur.
 import { CATEGORIES } from '../../src/lib/kategoriler.js';
-import { bultenDilimi } from './bulten.mjs';
+import { bultenDilimi, DILIM_HAFIZA, oncekiDilimAnahtari } from './bulten.mjs';
 import { dilimAnahtari } from './havuz.mjs';
 
 export const DERLEME_EN_AZ = 2; // bir derlemede en az bu kadar kısa olay
@@ -34,6 +34,16 @@ export function dilimGruplari(olaylar) {
     artan.push(...sirali.slice(DERLEME_AZAMI));
   }
   return { gruplar, artan };
+}
+
+// Her dilimin tek derlemesi olur ve yalnız dilim biter bitmez (bir sonraki dilim sürerken) yazılır. Daha eski dilimin
+// grubu ya da derlemesi zaten yazılmış dilimin geç gelenleri derleme olmaz, bülten satırına adaydır. 19 Ekim'de bütçe
+// darlığıyla bekleyen gruplar ertesi sabaha kadar her turda yeniden derlendi: aynı "açılış" için dört yazı, akşam üst üste.
+export function derlenebilir(anahtar, simdi, durum) {
+  return anahtar === oncekiDilimAnahtari(simdi) && !(durum.derlemeDilimleri ?? []).includes(anahtar);
+}
+export function derlemeDilimiKaydet(durum, anahtar) {
+  durum.derlemeDilimleri = [...(durum.derlemeDilimleri ?? []).filter((a) => a !== anahtar), anahtar].slice(-DILIM_HAFIZA);
 }
 
 const kategoriAdi = (slug) => CATEGORIES.find((c) => c.slug === slug)?.name ?? slug ?? '';

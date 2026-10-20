@@ -251,3 +251,35 @@ test('dilimGruplari: aynı günün dilimleri gün içi sırayla gelir (öğle ka
   ]);
   assert.deepEqual(gruplar.map((g) => g.map((o) => o.id).sort()), [['o1', 'o2'], ['k1', 'k2']]);
 });
+
+test('oncekiDilimAnahtari: şu andan önce biten dilim (gece yarısı sonrası dünün kapanışı sürer)', async () => {
+  const { oncekiDilimAnahtari } = await import('./bulten.mjs');
+  assert.equal(oncekiDilimAnahtari(new Date('2026-10-12T11:40:00Z')), '2026-10-12:acilis'); // İstanbul 14:40
+  assert.equal(oncekiDilimAnahtari(new Date('2026-10-12T16:40:00Z')), '2026-10-12:ogle'); // 19:40
+  assert.equal(oncekiDilimAnahtari(new Date('2026-10-12T22:40:00Z')), '2026-10-12:ogle'); // 01:40, hâlâ dünün kapanışı
+  assert.equal(oncekiDilimAnahtari(new Date('2026-10-12T05:40:00Z')), '2026-10-11:kapanis'); // 08:40
+});
+
+test('derleme yalnız dilim biter bitmez yazılır; iki dilim sonra kalan grup bülten satırı olur', async () => {
+  const bultendekiler = [];
+  const s = await ortam({ bulten: bultenYazan(bultendekiler) });
+  await calistir(s); // açılışta havuza girer
+  const r = await calistir({ ...s, simdi: saatSonra(9), kaynaklar: tekKaynak(s) }); // İstanbul 19:00, kapanış
+  assert.equal(r.adet, 0);
+  assert.equal(r.bultenYazildi, true);
+  for (const d of await readdir(path.join(s.rot, 'src/content/haberler'))) {
+    assert.doesNotMatch(await readFile(path.join(s.rot, 'src/content/haberler', d, 'index.md'), 'utf8'), /Faiz ve emtia/); // derleme yok
+  }
+  assert.deepEqual(bultendekiler.sort(), ['a1', 'a2', 'a3']);
+});
+
+test('bir dilimin tek derlemesi olur: fazlası sonraki turda ikinci derleme olmaz, bülten bekler', async () => {
+  let derlemeler = 0;
+  const s = await ortam({ derlemeYaz: async () => (derlemeler++, { baslik: 'Faiz ve emtia gündemi', spot: 's', govde: 'g', rakamlar: [] }) });
+  s.kaynaklar = tekKaynak(s, ...Array.from({ length: DERLEME_AZAMI + 3 }, (_, i) => [`a${i}`, `Haber ${i} fiyatlar`]));
+  await calistir(s);
+  assert.equal((await calistir({ ...s, simdi: saatSonra(2), kaynaklar: tekKaynak(s) })).adet, 1);
+  assert.equal((await calistir({ ...s, simdi: saatSonra(4), kaynaklar: tekKaynak(s) })).adet, 0); // hâlâ öğle
+  assert.equal(derlemeler, 1);
+  assert.deepEqual(s.durum.derlemeDilimleri, ['2026-10-12:acilis']);
+});

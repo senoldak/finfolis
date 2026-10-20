@@ -15,13 +15,13 @@ import { derleyiciKaynagi } from './kaynaklar/derleyici.mjs';
 import * as ipucuModulu from './ipucu.mjs';
 import * as olaylarModulu from './olaylar.mjs';
 import { yaz as yazarYaz, derlemeYaz as derlemeYazar } from './yazar.mjs';
-import { dilimGruplari, derlemeAdayi, derlemeOlayi, DERLEME_MAKS } from './derleme.mjs';
+import { dilimGruplari, derlemeAdayi, derlemeOlayi, DERLEME_MAKS, derlenebilir, derlemeDilimiKaydet } from './derleme.mjs';
 import { yayinKurulu as kurul } from './yayin-kurulu.mjs';
 import * as bultenModulu from './bulten.mjs';
 import { karneler as varsayilanKarneler } from './karne.mjs';
 import { BOLGELER, dilimDolu, dilimKaydet } from './bulten.mjs';
 import { tekrarlariAyikla, hafizayaEkle, hafizaTohumla } from './tekrar.mjs';
-import { havuzAc, havuzKapat, havuzaHazirla, havuzAyir, derlemeDenendi } from './havuz.mjs';
+import { havuzAc, havuzKapat, havuzaHazirla, havuzAyir, derlemeDenendi, dilimAnahtari } from './havuz.mjs';
 import { yaziYaz, gemini as varsayilanGemini } from './lib.mjs';
 import { icerikTuru } from './icerik-turu.mjs';
 import { kaynakKapagi, rakamKapagi, haberKapagi } from '../kapak/kapak.mjs';
@@ -403,6 +403,11 @@ export async function calistir({
     bultenYedek.push(...suresiDolan, ...artan); // bu turun bülteni yazılırsa satır olur, yazılmazsa havuzda bekler
     const kalanlar = [...bekleyen];
     for (const grup of gruplar) {
+      const dilim = dilimAnahtari(grup[0]);
+      if (!derlenebilir(dilim, simdi, durum)) {
+        bultenYedek.push(...grup); // geç kalmış ya da derlemesi yazılmış dilim: bülten satırı olur
+        continue;
+      }
       const neden = derlemeDenemesi >= DERLEME_MAKS || dur ? 'sınır' : isBitti(derlemeTokenTahmini(grup));
       if (neden) {
         if (neden === 'giriş token tavanı' && !tokenLogu++) log('  ! giriş token tavanı: kalan derlemeler sonraki çalıştırmaya kaldı');
@@ -432,6 +437,7 @@ export async function calistir({
         const yazi = { ...r.yazi, baslik: `${r.yazi.baslik} · ${birlesik.dilimEki}`, kategori: birlesik.kategori, tarih: new Date(birlesik.tarih), tur: 'haber', kaynaklar: birlesik.kaynaklar, kaynakIzi: kaynakIzi(birlesik.gizliKaynaklar) };
         Object.assign(yazi, varsayilanKapak(yazi, birlesik));
         const slug = await yaziYaz(rot, yazi);
+        derlemeDilimiKaydet(durum, dilim);
         const o = derlemeOlayi(grup, birlesik, yazi.baslik, slug);
         for (const k of grup) {
           dislanan.add(k); // bültende ikinci kez yer almasın
@@ -473,7 +479,9 @@ export async function calistir({
     log('  ! çalıştırma bütçesi aşıldı; bülten sonraki çalıştırmaya kaldı');
   } else if (sonuc.bultenGerekli) {
     try {
-      const b = await bulten.bultenYaz(bultenOlaylari, gorunurPiyasa, { simdi, butceBitti });
+      // Bülten Gemini tur payına bakmaz, yalnız süreye (öncelik sırasında en üstte): pay haberlere gidince kontrol
+      // masası reddi bülteni sessizce düşürüyordu (19 Ekim öğleden 20 Ekim sabahına kadar hiç bülten çıkmadı).
+      const b = await bulten.bultenYaz(bultenOlaylari, gorunurPiyasa, { simdi, butceBitti: zamanBitti });
       if (b) {
         const slug = await yaziYaz(rot, b.yazi);
         durum.sonBulten = b.anlik;
@@ -485,6 +493,8 @@ export async function calistir({
         bultenYedek.length = 0; // satır oldu, havuza dönmez
         for (const o of bultenOlaylari) for (const a of o.adaylar) if (!durum.gorulen[a.id]?.yazildi) durum.gorulen[a.id] = { zaman: iso };
         log(`  + bülten ${slug}`);
+      } else {
+        log(`  - bülten yazılmadı (${bultenOlaylari.length} olay; doğrulanan ya da onaylanan madde 3'ten az)`);
       }
     } catch (e) {
       hatalar.push(`bülten: ${e.message}`);

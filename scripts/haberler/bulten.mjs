@@ -76,6 +76,16 @@ export function bultenDilimi(simdi) {
 }
 export const DILIM_HAFIZA = 12; // son 4 günün dilimleri
 
+// Şu andan önce biten dilimin anahtarı (ör. öğlen 14:40'ta "…:acilis", gece 01:00'de dünün "…:ogle").
+export function oncekiDilimAnahtari(simdi) {
+  const simdiki = bultenDilimi(simdi).anahtar;
+  for (let s = 1; s <= 24; s++) {
+    const a = bultenDilimi(new Date(simdi.getTime() - s * 3600e3)).anahtar;
+    if (a !== simdiki) return a;
+  }
+  return null;
+}
+
 // Bu dilimin bülteni yazıldı mı?
 export const dilimDolu = (durum, simdi) => (durum.bultenDilimleri ?? []).includes(bultenDilimi(simdi).anahtar);
 export function dilimKaydet(durum, simdi) {
