@@ -2,6 +2,7 @@
 import { mkdir, writeFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { kullanimEkle, hataEkle, amacBul, gunlukDolu } from './kullanim.mjs';
+import { golge } from './golge.mjs';
 import { kapakCiz } from '../kapak/kapak.mjs';
 
 export const USER_AGENT = 'finfolis-haber-botu (+https://finfolis.com)';
@@ -49,7 +50,7 @@ let sonGeminiCagri = 0;
 export const DENETIM_YEDEK_MODEL = 'gemma-4-26b-a4b-it';
 
 // denetim: evet/hayır denetim çağrısı; yedek model Gemma olur (Katman 4, bkz. DENETIM_YEDEK_MODEL).
-export async function gemini({ sistem, istem, sema, dusunme: seviye = 'low', denetim = false }) {
+export async function gemini({ sistem, istem, sema, dusunme: seviye = 'low', denetim = false, _model = null, _amac = null }) {
   const key = process.env.GEMINI_API_KEY;
   if (!key) return null;
   const bekle = sonGeminiCagri + GEMINI_ARALIK_MS - Date.now();
@@ -58,10 +59,10 @@ export async function gemini({ sistem, istem, sema, dusunme: seviye = 'low', den
   const yedek = denetim
     ? process.env.GEMINI_DENETIM_YEDEK_MODEL || DENETIM_YEDEK_MODEL
     : process.env.GEMINI_YEDEK_MODEL || 'gemini-flash-latest';
-  const modeller = [process.env.GEMINI_MODEL || 'gemini-flash-lite-latest', yedek];
+  const modeller = _model ? [_model] : [process.env.GEMINI_MODEL || 'gemini-flash-lite-latest', yedek];
   const carpan = Number(process.env.GEMINI_BEKLE_CARPAN ?? 1);
-  const enFazla = geminiKesik ? 2 : GEMINI_BEKLEMELER_SN.length + 1;
-  const amac = amacBul(); // Katman 0: çağıran dosya/fonksiyon
+  const enFazla = _model ? 1 : geminiKesik ? 2 : GEMINI_BEKLEMELER_SN.length + 1;
+  const amac = _amac ?? amacBul(); // Katman 0: çağıran dosya/fonksiyon
 
   // Düşünme seviyesi düşük tutulur; desteklemeyen modelde kapatılır.
   let dusunme = { thinkingLevel: seviye };
@@ -96,6 +97,7 @@ export async function gemini({ sistem, istem, sema, dusunme: seviye = 'low', den
       continue;
     }
     if (res.status === 429 || res.status >= 500) {
+      if (_model) return null; // gölge çağrısı: tek deneme, sayaçlara girmez
       hataEkle(model, amac, res.status);
       if (res.status === 429 && /PerDay/i.test(await res.clone().text())) {
         gunlukDolu.add(model);
@@ -121,8 +123,11 @@ export async function gemini({ sistem, istem, sema, dusunme: seviye = 'low', den
     const data = await res.json();
     kullanimEkle(data.usageMetadata, { model, amac });
     const metin = data.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') ?? '';
-    return JSON.parse(metin);
+    const sonuc = JSON.parse(metin);
+    if (denetim && !_model && model !== yedek) await golge(amac, sonuc, () => gemini({ sistem, istem, sema, dusunme: seviye, denetim: true, _model: yedek, _amac: `golge/${amac}` }));
+    return sonuc;
   }
+  if (_model) return null;
   geminiKesik = true;
   throw new Error('Gemini: çok fazla deneme');
 }
