@@ -27,7 +27,8 @@ const haberler = defineCollection({
       coverSitede: z.boolean().default(true),
       // Elle girilen yazılarda yazar alanı vardır; haber botu yazar yazmaz (uretim: bot). Yazarsız yazı bot yazısı sayılır.
       author: z.string().optional(),
-      uretim: z.enum(['bot', 'editor']).optional(),
+      // 'yazi-isleri': yazı işleri zincirinin yazısı (yerleştirme yazar); sayfa sonunda zincir notunu alır (src/lib/yapay-zeka-notu.mjs).
+      uretim: z.enum(['bot', 'editor', 'yazi-isleri']).optional(),
       featured: z.boolean().default(false),
       breaking: z.boolean().default(false),
       draft: z.boolean().default(false),

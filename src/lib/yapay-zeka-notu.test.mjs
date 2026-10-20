@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { yapayZekaNotu, sahipYazisiMi, BOT_NOTU, SAHIP_NOTU } from './yapay-zeka-notu.mjs';
+import { yapayZekaNotu, sahipYazisiMi, zincirYazisiMi, BOT_NOTU, SAHIP_NOTU, ZINCIR_NOTU } from './yapay-zeka-notu.mjs';
 
 test('bot yazısı bot notunu alır', () => {
   const n = yapayZekaNotu({ uretim: 'bot' }, 'Faiz kararı', 'https://finfolis.com/haber/x/');
@@ -31,4 +31,20 @@ test('bağlantı mailto: konu ve gövde kodlanır', () => {
 
 test('metinlerde "sorumlu" geçmez', () => {
   assert.ok(!/sorumlu/i.test(BOT_NOTU + SAHIP_NOTU));
+});
+
+test('yazı işleri zinciri (uretim yazi-isleri): yazı türü dolu ya da yazar Şenol Dak olsa da zincir notu; bağlantı aynı', () => {
+  const metin =
+    'Bu yazı yapay zekâ araçlarıyla yazıldı. Rakamlar ve alıntılar resmî kaynaklarla karşılaştırıldı; yazı yayından önce editör tarafından okunup onaylandı.';
+  assert.equal(ZINCIR_NOTU, metin);
+  for (const veri of [{ uretim: 'yazi-isleri', yaziTuru: 'aciklayici' }, { uretim: 'yazi-isleri', yaziTuru: 'referans', author: 'Şenol Dak' }]) {
+    const n = yapayZekaNotu(veri, 'Faiz kararı', 'https://finfolis.com/haber/x/');
+    assert.equal(n.metin, metin);
+    assert.notEqual(n.metin, SAHIP_NOTU);
+    assert.equal(n.baglantiMetni, 'Hata bildir →');
+    assert.equal(n.baglanti, yapayZekaNotu({}, 'Faiz kararı', 'https://finfolis.com/haber/x/').baglanti);
+  }
+  assert.equal(zincirYazisiMi({ uretim: 'yazi-isleri' }), true);
+  assert.equal(zincirYazisiMi({ uretim: 'editor', yaziTuru: 'aciklayici' }), false);
+  assert.ok(!/sorumlu/i.test(ZINCIR_NOTU));
 });
