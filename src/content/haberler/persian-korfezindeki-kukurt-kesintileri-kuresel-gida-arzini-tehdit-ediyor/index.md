@@ -1,6 +1,6 @@
 ---
-title: "Persian körfezindeki kükürt kesintileri küresel gıda arzını tehdit ediyor"
-description: "Persian Körfezi'ndeki kükürt ihracatındaki kesintiler fiyatların hızla yükselmesine yol açarak dünya genelinde fosfat gübre üretimini tehlikeye atıyor. Yazar Kurt Cobb'a göre bu durum tarım maliyetleri üzerinde baskı oluşturuyor."
+title: "Basra Körfezi'ndeki kükürt kesintileri küresel gıda arzını tehdit ediyor"
+description: "Basra Körfezi'ndeki kükürt ihracatındaki kesintiler fiyatların hızla yükselmesine yol açarak dünya genelinde fosfat gübre üretimini tehlikeye atıyor. Yazar Kurt Cobb'a göre bu durum tarım maliyetleri üzerinde baskı oluşturuyor."
 date: 2026-10-19T18:30:00.000Z
 category: "piyasalar"
 tur: "haber"
