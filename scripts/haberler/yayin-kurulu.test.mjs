@@ -379,3 +379,16 @@ test('150 kelimenin altındaki taslak uzatılmaz (19 Ekim: bu aralıkta uzatma n
   assert.equal(r.kisa, true);
   assert.equal(cagri, 0);
 });
+
+// Standartlar Faz 1: okura görünen ek alanlar da rakam ve ölçek kontrolüne girer.
+test('kontrol masası why_matters ve key_points içindeki kaynakta olmayan rakamı ve ölçek hatasını yakalar', async () => {
+  const gemini = async () => ({ onay: true, sorunlar: [] });
+  const rakam = await kontrolMasasi({ ...iyi, why_matters: 'Enflasyon yüzde 7,9 oldu.' }, aday, { gemini });
+  assert.equal(rakam.onay, false);
+  assert.ok(rakam.sorunlar.some((s) => s.includes('7,9')), JSON.stringify(rakam.sorunlar));
+  const crore = { ...aday, kaynakMetni: 'The Rs 852 crore IPO was subscribed 7.78 times.' };
+  const yazi = { baslik: 'Halka arz talep gördü', spot: 'Arz 7,78 kat talep gördü.', govde: 'Arz 7,78 kat talep gördü.', key_points: ['Arz büyüklüğü 852 milyar rupi'] };
+  const olcek = await kontrolMasasi(yazi, crore, { gemini });
+  assert.equal(olcek.onay, false);
+  assert.ok(olcek.sorunlar.some((s) => s.startsWith('Ölçek hatası')), JSON.stringify(olcek.sorunlar));
+});

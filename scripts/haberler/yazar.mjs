@@ -270,7 +270,7 @@ TASLAK:
 Başlık: ${taslak.baslik}
 Spot: ${taslak.spot}
 
-${taslak.govde}`,
+${taslak.govde}${taslak.why_matters ? `\n\nNeden önemli (why_matters): ${taslak.why_matters}` : ''}${taslak.key_points?.length ? `\nKısa maddeler (key_points): ${taslak.key_points.join(' | ')}` : ''}`,
   });
   return yaziMi(r) ?? taslak;
 }

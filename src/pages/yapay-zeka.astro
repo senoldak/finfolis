@@ -1,0 +1,107 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/site';
+
+// Yapay zekâ kullanım sayfası (Standartlar Faz 1). Yasal Bilgilendirme 7. maddeyi ayrıntılandırır; ikisi çelişmemeli.
+const GUNCELLEME = '20 Ekim 2026';
+---
+
+<Base
+  title="Yapay Zekâ Kullanımı"
+  description="finfolis'te yapay zekâ hangi araçlarla, ne için kullanılır; ne için kullanılmaz; haberler nasıl denetlenir ve hata nasıl bildirilir."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Yapay Zekâ Kullanımı</h1>
+        <p>Son güncelleme: {GUNCELLEME}</p>
+      </header>
+      <div class="prose">
+        <h2 id="kisaca">Kısaca</h2>
+        <p>
+          {SITE.name}'teki haberler yapay zekâ ile otomatik olarak yazılır ve yayımlanmadan önce otomatik olarak
+          denetlenir. Haberleri yayımlanmadan önce bir insan okumaz. Otomatik denetim bir sorun bulur da sorun
+          giderilemezse ya da denetim sonuç veremezse haber yayımlanmaz. Bu sayfa,
+          <a href="/yasal/#yapay-zeka">Yasal Bilgilendirme sayfasının 7. maddesini</a> ayrıntılandırır.
+        </p>
+
+        <h2 id="araclar">Hangi araç, ne için kullanılır</h2>
+        <table>
+          <thead>
+            <tr><th scope="col">Araç</th><th scope="col">Kullanıldığı iş</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Google Gemini ve Gemma dil modelleri (Google)</th>
+              <td>
+                Haber adaylarının önem puanlaması, haberlerin kaynak metinden yazılması, yazının kaynakla karşılaştırıldığı
+                yapay zekâ denetimi ve dil düzeltmesi.
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Claude (Anthropic)</th>
+              <td>Yayıncının imzasıyla yayımlanan yazılarda çeviri ve dil düzeltmesi.</td>
+            </tr>
+            <tr>
+              <th scope="row">Yapay zekâ kullanmayan denetim programları</th>
+              <td>
+                Rakam, tutar ve alıntıların kaynak metinle karşılaştırılması; hassas konuların, yatırım tavsiyesi
+                niteliği taşıyabilecek ifadelerin ve yayın kuruluşu adlarının ayıklanması.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Yapay zekâ hizmetlerine yalnız herkese açık kaynak metinler gönderilir. Okurlara ait kişisel veri ya da
+          yayımlanmamış gizli bilgi gönderilmez.
+        </p>
+
+        <h2 id="haberler">Haberler nasıl yazılır ve denetlenir</h2>
+        <ol>
+          <li>Kaynaklar düzenli olarak taranır. Önemli bulunan gelişme için yalnız kaynakta yazan bilgilere dayanan bir haber yazılır.</li>
+          <li>
+            Haberdeki her rakam ve alıntı, yapay zekâ kullanmayan bir programla kaynak metinde aranır. Buna başlık,
+            özet, "Hızlı Çıkarım" kutusu ("Neden önemli?" ve kısa maddeler) ve rakam şeridi de dahildir. Tutarlarda birim çevirisi de
+            denetlenir: kaynaktaki tutardan 10 kat ya da daha fazla sapan tutar (örneğin milyon ile milyarın
+            karıştırılması) sorun sayılır.
+          </li>
+          <li>Ayrı bir yapay zekâ denetimi, yazıyı kaynakla olgu, atıf ve başlık doğruluğu bakımından karşılaştırır.</li>
+          <li>Sorun bulunursa yazı düzelttirilir ve yeniden denetlenir. Sorun giderilemezse haber yayımlanmaz.</li>
+          <li>
+            Hassas konular ve yatırım tavsiyesi niteliği taşıyabilecek ifadeler otomatik olarak yayımlanmaz. Emin
+            olunamayan haber de yayımlanmaz. Gerektiğinde bütün otomatik yayını durduran bir acil durdurma anahtarı vardır.
+          </li>
+        </ol>
+
+        <h2 id="insan">İnsan incelemesi</h2>
+        <p>
+          Haberler yayımlanmadan önce tek tek insan incelemesinden geçmez: otomatik yazılır, otomatik denetlenir.
+          Hangi konuların otomatik yayımlanabileceğini ve denetimin ölçütlerini yayıncı belirler. Otomatik denetim her
+          hatayı yakalayamaz; bu nedenle içeriklerde hata bulunabilir.
+        </p>
+
+        <h2 id="yapilmayanlar">Yapay zekâ ne için kullanılmaz</h2>
+        <ul>
+          <li>Gerçek bir kişi, olay ya da belge izlenimi veren görsel, ses ya da alıntı üretilmez.</li>
+          <li>Yapay zekâ bilgi kaynağı sayılmaz: haberler yalnız kaynak metinde yazan bilgilere dayanır.</li>
+          <li>Kaynakta kelimesi kelimesine bulunmayan alıntı ve kaynakta bulunmayan rakam yayımlanmaz.</li>
+          <li>Yatırım tavsiyesi verilmez.</li>
+        </ul>
+
+        <h2 id="etiket">Okur bunu nereden anlar</h2>
+        <p>
+          Yapay zekâ ile yazılan her haberin altında bunu belirten bir not bulunur. Yayıncının imzasıyla yayımlanan
+          yazılarda yapay zekânın hangi aşamada kullanıldığı yazının notunda ayrıca belirtilir.
+        </p>
+
+        <h2 id="hata">Hata bildirimi ve düzeltmeler</h2>
+        <p>
+          Bir hata gördüyseniz her haberin altındaki "Hata bildir" bağlantısını kullanabilir ya da
+          <a href="mailto:contact@finfolis.com">contact@finfolis.com</a> adresine yazabilirsiniz. Hatalar
+          <a href="/duzeltme-politikasi/">Düzeltme Politikası</a>'na göre düzeltilir ve her düzeltme tarihiyle
+          <a href="/duzeltmeler/">Düzeltmeler</a> sayfasında listelenir.
+        </p>
+      </div>
+    </article>
+  </div>
+</Base>

@@ -9,6 +9,7 @@
 //   5. Son kesin kontrol. Kalan her sorun {dur} döndürür; haber yayınlanmaz.
 import { gemini as varsayilanGemini } from './lib.mjs';
 import { dogrula } from './dogrula.mjs';
+import { olcekKontrol } from './olcek.mjs';
 import { duzelt, uzat, derlemeUzat, YAZI_SEMASI, KURALLAR } from './yazar.mjs';
 import { ilgiliKisim } from './kaynak-kirp.mjs';
 import { gizliMedyaAdlari } from './gizli.mjs';
@@ -277,12 +278,16 @@ const yayimlananMetin = (y) =>
     .filter(Boolean)
     .join('\n');
 
+// Standartlar Faz 1: "Neden önemli" ve kısa maddeler de sayfada görünür; rakam/alıntı ve ölçek kontrolüne girer.
+const denetlenenMetin = (y) => [butunMetin(y), y.why_matters, ...(y.key_points ?? [])].filter(Boolean).join('\n');
+
 function kesinKontrol(yazi, aday) {
-  const metin = butunMetin(yazi);
+  const metin = denetlenenMetin(yazi);
   const { eksik } = dogrula(metin, [aday.kaynakMetni ?? '']);
+  const olcek = olcekKontrol(metin, aday.kaynakMetni ?? '');
   const tum = yayimlananMetin(yazi);
   const medya = [...new Set([...medyaKontrol(tum), ...adayMedyaKontrol(tum, aday.gizliKaynaklar), ...yabanciBaslikKontrol(tum)])];
-  return [...eksik.map((e) => `Kaynakta bulunmayan rakam/alıntı: ${e}`), ...medya];
+  return [...eksik.map((e) => `Kaynakta bulunmayan rakam/alıntı: ${e}`), ...olcek, ...medya];
 }
 
 // Kontrol masası: önce kesin kontrol, sonra Gemini. Gemini çalışamazsa onay yok.
@@ -403,8 +408,9 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
   }
 
   // Redaksiyon da kontrol masasından geçmeli; hatasız onay almazsa onaylı önceki hâl kullanılır.
-  // Değişiklik yoksa ikinci denetim gerekmez.
-  const duzenli = duzenli0 && !ayniYazi(duzenli0, yazi) ? yerelDuzelt({ ...duzenli0, ...serit }) : yazi;
+  // Değişiklik yoksa ikinci denetim gerekmez. Redaksiyon yalnız başlık/spot/gövde döndürür; "Hızlı Çıkarım" alanları
+  // onaylı hâlden taşınır (önceden düşüyordu).
+  const duzenli = duzenli0 && !ayniYazi(duzenli0, yazi) ? yerelDuzelt({ ...yazi, ...duzenli0, ...serit }) : yazi;
   // Redaksiyon metni en az uzunluğun altına indiremez.
   if (duzenli !== yazi && bicimKorunur(yazi, duzenli) && (!kisa(duzenli) || kisa(yazi)) && kesinKontrol(duzenli, aday).length === 0) {
     const karar = await kontrolMasasi(duzenli, aday, g);
