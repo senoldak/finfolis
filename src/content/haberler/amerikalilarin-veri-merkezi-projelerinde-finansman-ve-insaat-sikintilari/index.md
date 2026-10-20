@@ -22,7 +22,7 @@ coverAlt: "Geciken veya engellenen proje 47"
 coverSitede: false
 ---
 
-Amerika Birleşik Devletleri'nin yapay zeka altyapı patlaması; inşaat gecikmeleri, yerel muhalefet ve kredi piyasalarındaki sert değişimler nedeniyle baskı altında bulunuyor. Finansal Times'ın aktardığı verilere göre, bu yıl en az 47 büyük Amerikan projesi ertelendi, geri çekildi veya engellendi. Analistler, planlanan ABD veri merkezi hattının yalnızca yaklaşık üçte birinin güvenilir olduğunu tahmin ederken, 2026 yılında 1.000'den fazla topluluğun yapay zeka altyapısına yönelik moratoryum veya başka sınırlamalar aradığını bildirdi.
+Amerika Birleşik Devletleri'nin yapay zeka altyapı patlaması; inşaat gecikmeleri, yerel muhalefet ve kredi piyasalarındaki sert değişimler nedeniyle baskı altında bulunuyor. Aktarılan verilere göre, bu yıl en az 47 büyük Amerikan projesi ertelendi, geri çekildi veya engellendi. Analistler, planlanan ABD veri merkezi hattının yalnızca yaklaşık üçte birinin güvenilir olduğunu tahmin ederken, 2026 yılında 1.000'den fazla topluluğun yapay zeka altyapısına yönelik moratoryum veya başka sınırlamalar aradığını bildirdi.
 
 Finansman tarafında da borçlar bu hafta sert bir şekilde satıldı. CoreWeave'e ait teminatsız bir tahvil sıkıntılı bölgeye kayarken, şirket hisseleri hafta boyunca değerinin neredeyse dörtte birini kaybetti. Yüksek faiz oranları ve artan enflasyon, OpenAI ve Anthropic gibi önde gelen laboratuvarlardaki gelirlerin maliyetleri karşılamaya yeterli olup olmayacağına dair soru işaretlerini artırdı. Genç veri merkezi sağlayıcıları olan neocloud'lar da listeleme planlarını erteliyor. Örneğin, SoftBank destekli SB Energy, OpenAI ile yapılan sözleşmelerden kaynaklanan sermaye ihtiyaçlarına rağmen planlanan halka arzını rafa kaldırdı.
 

@@ -2,6 +2,7 @@
 title: "Anthropic araştırmacıları kendi kendini kopyalayan yapay zeka solucanlarını inceledi"
 description: "Anthropic şirketinin araştırma ekibi, internet bağlantılı akıllı televizyonlar arasında özerk şekilde yayılan kötü amaçlı bir yapay zeka programı geliştirdiğini açıkladı. Şirket, bu tür programların yıl sonuna kadar sıradan cihazlarda mümkün olabileceğini öngörüyor."
 date: 2026-10-18T13:30:00.000Z
+duzeltme: "20.10.2026: Haberde adı geçen bir kişinin adı ve kurumu yazıdan çıkarıldı."
 category: "ekonomi"
 tur: "haber"
 uretim: "bot"
@@ -26,4 +27,4 @@ Anthropic bünyesindeki araştırma ekibi, insan özellikleri barındırmayan ve
 
 Yapay zeka solucanları olarak adlandırılan bu programlar, geleneksel virüslerden farklı olarak yapay zeka modellerinin öğrendikçe uyum sağlayabilmesi nedeniyle öne çıkıyor. Geçmişte internet tarihindeki en büyük zararlardan bazılarına yol açan Morris, Stuxnet, NotPetya ve WannaCry gibi solucanlar bilinmeyen veya kapatılmamış güvenlik açıklarını hedef almıştı. Anthropic ekibi, akıllı cihazların telefon veya dizüstü bilgisayarlara göre daha seyrek güncelleme alması nedeniyle benzer bir yapay zekalı solucanın durdurulmasının daha zor olabileceğini teorize etti.
 
-Anthropic araştırmacıları, başarılı bir yapay zeka solucanının daha az güçlü cihazlarda mevcut duruma göre daha fazla yeteneğe ihtiyaç duyacağını, ancak mevcut eğilimlerin yıl sonuna kadar bunu mümkün kılacağını ifade etti. Konuyla ilgili olarak Toronto Üniversitesindeki uzmanların birkaç ay önce tam boyutlu bir bilgisayara bulaşan ve televizyon solucanından daha hızlı yayılan bir makale yayımladığı bildirildi. Çalışmanın ortak yazarı ve Toronto Üniversitesi doktora öğrencisi Jonas Guan, yeteneklerin çok hızlı geliştiğini belirtti.
+Anthropic araştırmacıları, başarılı bir yapay zeka solucanının daha az güçlü cihazlarda mevcut duruma göre daha fazla yeteneğe ihtiyaç duyacağını, ancak mevcut eğilimlerin yıl sonuna kadar bunu mümkün kılacağını ifade etti. Konuyla ilgili olarak Toronto Üniversitesindeki uzmanların birkaç ay önce tam boyutlu bir bilgisayara bulaşan ve televizyon solucanından daha hızlı yayılan bir makale yayımladığı bildirildi. Çalışmanın ortak yazarlarından bir doktora öğrencisi, yeteneklerin çok hızlı geliştiğini belirtti.

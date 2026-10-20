@@ -1,7 +1,8 @@
 ---
 title: "İki büyük bankanın ikinci çeyrek sonuçları ve piyasa durumları"
-description: "ICICI Bank ve HDFC Bank'ın ikinci çeyrek bilançoları ve piyasa performansları açıklandı. ICICI Bank büyümede öne çıkarken HDFC Bank değerleme fırsatı sunuyor."
+description: "ICICI Bank ve HDFC Bank'ın ikinci çeyrek bilançoları ve piyasa performansları açıklandı. ICICI Bank büyümede öne çıktı."
 date: 2026-10-19T06:56:19.000Z
+duzeltme: "20.10.2026: Aracı kurum tavsiyeleri, hedef fiyat ve açıklamadaki değerleme ifadesi yazıdan çıkarıldı. Bir bankanın kâr tutarı, iki haberde farklı geçtiği ve resmî kaynaktan doğrulanamadığı için çıkarıldı."
 category: "piyasalar"
 tur: "haber"
 uretim: "bot"
@@ -23,7 +24,7 @@ why_matters: "Hindistan'ın en büyük iki özel bankasının finansal performan
 key_points:
   - "ICICI Bank kârını yüzde 20 artırarak 14.800 crore rupiye ulaştırdı."
   - "HDFC Bank hisseleri 2026 yılında yüzde 28 oranında değer kaybetti."
-  - "HDFC Bank'ın net kârı yüzde 5 artışla 19.500 crore rupi oldu."
+  - "HDFC Bank'ın net kârı yüzde 5 arttı."
 cover: kapak.png
 coverAlt: "ICICI Bank Kâr Artışı %20"
 coverSitede: false
@@ -31,8 +32,8 @@ coverSitede: false
 
 Hindistan'ın iki büyük özel sektör bankası olan ICICI Bank ve HDFC Bank, piyasalarda farklı performanslar sergiliyor. ICICI Bank, 2026 yılında yüzde 3,5 oranında getiri sağlarken, HDFC Bank yüzde 28 oranında düşüş yaşadı. İkinci çeyrek sonuçlarına göre ICICI Bank, kredi büyümesi, mevduat, kârlılık ve getirilerde daha güçlü bir performans ortaya koydu.
 
-ICICI Bank'ın ikinci çeyrek kârı yüzde 20 artarak 14.800 crore rupiye ulaştı. Bankanın kredileri yüzde 30, mevduatları ise yüzde 27 oranında arttı. HDFC Bank'ın kârı ise yüzde 5 artışla 19.500 crore rupi oldu. HDFC Bank'ın kredi büyümesi yüzde 16,4 olarak gerçekleşirken, mevduatları yüzde 18,8 oranında arttı. Anand Rathi, HDFC Bank'ın birleşme sonrası dönemde temel operasyonel ölçütlerde ICICI Bank ile olan farkı kapatmakta zorlandığını belirtti.
+ICICI Bank'ın ikinci çeyrek kârı yüzde 20 artarak 14.800 crore rupiye ulaştı. Bankanın kredileri yüzde 30, mevduatları ise yüzde 27 oranında arttı. HDFC Bank'ın kârı ise yüzde 5 arttı. HDFC Bank'ın kredi büyümesi yüzde 16,4 olarak gerçekleşirken, mevduatları yüzde 18,8 oranında arttı.
 
-ICICI Bank, güçlü büyümesi ve operasyonel başarısı sayesinde primli bir değerlemeyle işlem görüyor. HDFC Bank ise yaşanan düşüşün ardından bir toparlanma hikayesi olarak değerlendiriliyor. Anand Rathi, HDFC Bank'ın getiri oranlarının orta vadede yüzde 14 civarında kalmasını bekliyor ve hisse için al tavsiyesi ile 966 rupi hedef fiyat öngörüyor. JM Financial ise HDFC Bank hisselerini cazip değerlemeler nedeniyle al konuma yükseltti.
+ICICI Bank ve HDFC Bank ikinci çeyrekte kârlarını artırdı.
 
-Her iki bankanın varlık kalitesi incelendiğinde, HDFC Bank'ın brüt NPA oranı yüzde 1,11 seviyesine gerilerken bu oran ICICI Bank için yüzde 1,20 oldu. ICICI Bank'ın net NPA oranı yüzde 0,30, HDFC Bank'ın ise yüzde 0,37 olarak kaydedildi. Anand Rathi, HDFC Bank'ta üst düzey yönetim geçişlerinin belirsizliği azalttığını ancak bazı üst düzey yönetici ayrılıklarının iş süreçlerinde aksama yaratabileceğini ifade etti.
+Her iki bankanın varlık kalitesi incelendiğinde, HDFC Bank'ın brüt NPA oranı yüzde 1,11 seviyesine gerilerken bu oran ICICI Bank için yüzde 1,20 oldu. ICICI Bank'ın net NPA oranı yüzde 0,30, HDFC Bank'ın ise yüzde 0,37 olarak kaydedildi.

@@ -2,6 +2,7 @@
 title: "Türkiye 2027 yılında yüzde 4,2 büyüme hedefliyor"
 description: "Hükümetin bütçe teklifini açıklayan Cumhurbaşkanı Yardımcısı Cevdet Yılmaz, 2027 yılı ekonomik büyüme hedefinin yüzde 4,2 olarak belirlendiğini söyledi. Bütçe teklifine göre 2027 yılında harcamaların 27,28 trilyon Türk lirası, gelirlerin ise 23,41 trilyon lira olması öngörülüyor."
 date: 2026-10-16T10:16:26.000Z
+duzeltme: "20.10.2026: Gelir tutarının yanında yer alan dolar karşılığı resmî kaynaktan doğrulanamadığı için çıkarıldı. Harcama ve gelir tutarları Türk lirası olarak korundu."
 category: "ekonomi"
 tur: "haber"
 uretim: "bot"
@@ -31,6 +32,6 @@ coverSitede: false
 
 Türkiye’nin 2027 yılı bütçe teklifi 16 Ekim 2026 tarihinde Cumhurbaşkanlığı Külliyesinde açıklandı. Cumhurbaşkanı Yardımcısı Cevdet Yılmaz tarafından duyurulan teklife göre, bu yıl yüzde 3,3 olarak öngörülen ekonomik büyümenin 2027 yılında yüzde 4,2 seviyesine çıkması bekleniyor. Yılmaz, bu büyümenin gelişen küresel görünüm ve dış talepteki toparlanmayla destekleneceğini ifade etti. Türkiye ekonomisi 2025 yılında yüzde 3,7 büyüme kaydetmişti. Hükümetin orta vadeli programın sonuna kadar büyüme oranını kademeli olarak yüzde 5 seviyesine ulaştırmayı amaçladığı belirtildi.
 
-Açıklanan bütçe teklifinde 2027 yılı harcamaları 27,28 trilyon Türk lirası, gelirler ise 23,41 trilyon lira ve 551,2 milyar dolar olarak yer aldı. Ulusal gelirin 2,24 trilyon dolara ulaşması beklenirken, bütçe açığının gayri safi yurt içi hasılanın yüzde 3,5'ine denk gelen 78,1 milyar dolar olması öngörüldü. Deprem harcamaları hariç tutulduğunda bu açığın oranı yüzde 2,8 olarak hesaplandı. Faiz harcamalarının ise 80,2 milyar dolar olması bekleniyor. Yılmaz, 2026 yılı için ise gayri safi yurt içi hasılanın yüzde 3,1'i oranında açık öngörüldüğünü bildirdi.
+Açıklanan bütçe teklifinde 2027 yılı harcamaları 27,28 trilyon Türk lirası, gelirler ise 23,41 trilyon lira olarak yer aldı. Ulusal gelirin 2,24 trilyon dolara ulaşması beklenirken, bütçe açığının gayri safi yurt içi hasılanın yüzde 3,5'ine denk gelen 78,1 milyar dolar olması öngörüldü. Deprem harcamaları hariç tutulduğunda bu açığın oranı yüzde 2,8 olarak hesaplandı. Faiz harcamalarının ise 80,2 milyar dolar olması bekleniyor. Yılmaz, 2026 yılı için ise gayri safi yurt içi hasılanın yüzde 3,1'i oranında açık öngörüldüğünü bildirdi.
 
 Fiyat istikrarının programın temel önceliği olduğunu belirten Yılmaz, eylül ayında yüzde 30'un altına gerileyen yıllık enflasyonun yıl sonunda yüzde 28,4 olmasının, 2027 sonunda ise yüzde 21'e gerilemesinin beklendiğini kaydetti. Cari açığın gayri safi yurt içi hasılaya oranının gelecek yıl 2026'daki öngörülen yüzde 2,6 seviyesinden yüzde 2'nin altına düşeceği öngörüldü. Kentsel dönüşüm fonlamasının 2027 yılında yüzde 176 artarak 5,57 milyar dolara yükseleceği, 2023 ile 2026 yılları arasındaki deprem yeniden inşa harcamalarının ise mevcut fiyatlarla 109 milyar dolar toplamına ulaştığı ifade edildi.

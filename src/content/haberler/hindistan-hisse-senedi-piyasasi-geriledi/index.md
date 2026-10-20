@@ -1,7 +1,8 @@
 ---
 title: "Hindistan hisse senedi piyasası geriledi"
-description: "Hindistan hisse senedi piyasası pazartesi günü düşüş yaşayarak Sensex 73.924 puana geriledi ve Nifty 50 endeksi 22.950 seviyesinin altına indi. Satış dalgası toplam piyasa değerinden yaklaşık 2,34 lak crore rupi sildi."
+description: "Hindistan hisse senedi piyasası pazartesi günü düşüş yaşayarak Sensex 73.924 puana geriledi ve Nifty 50 endeksi 22.950 seviyesinin altına indi. Satış dalgası toplam piyasa değerinden yaklaşık 2,34 lakh crore rupi sildi."
 date: 2026-10-19T04:34:53.000Z
+duzeltme: "20.10.2026: Bir bankanın kâr tutarı, başka bir haberde farklı geçtiği ve resmî kaynaktan doğrulanamadığı için çıkarıldı."
 category: "piyasalar"
 tur: "haber"
 uretim: "bot"
@@ -13,19 +14,19 @@ rakamlar:
   - etiket: "Nifty 50"
     deger: "22.950"
   - etiket: "Piyasa değeri kaybı"
-    deger: "2,34 lak crore rupi"
+    deger: "2,34 lakh crore rupi"
 why_matters: "Piyasadaki bu genel gerileme, özel banka hisselerindeki satışların yanı sıra küresel gelişmeler ve artan volatilite nedeniyle yatırımcıların risk algısındaki değişimi yansıtıyor."
 key_points:
   - "Sensex 73.924 puana geriledi"
   - "Nifty 50 endeksi 22.950 seviyesinin altına indi"
-  - "Piyasa değerinden yaklaşık 2,34 lak crore rupi silindi"
+  - "Piyasa değerinden yaklaşık 2,34 lakh crore rupi silindi"
 cover: kapak.png
 coverAlt: "Sensex 73.924"
 coverSitede: false
 ---
 
-Hindistan hisse senedi piyasası, 19 Ekim 2026 tarihinde, önceki haftaki kazanımların bir kısmını geri vererek günü kırmızı bölgede geçirdi. Yatırımcıların özel banka hisselerindeki satışlara yönelmesi ve diğer faktörlerin etkisiyle piyasa genelinde bir gerileme görüldü. Saat 12.55 itibarıyla Sensex endeksi 800 puandan fazla düşüşle 73.924 seviyesine gerilerken, Nifty 50 endeksi 200 puandan fazla kayıp yaşayarak 22.950 seviyesinin altına indi. Bu düşüşle birlikte Bombay Menkul Kıymetler Borsası'nda işlem gören tüm şirketlerin toplam piyasa değeri yaklaşık 2,34 lak crore rupi azalarak 470 lak crore rupiye düştü.
+Hindistan hisse senedi piyasası, 19 Ekim 2026 tarihinde, önceki haftaki kazanımların bir kısmını geri vererek günü kırmızı bölgede geçirdi. Yatırımcıların özel banka hisselerindeki satışlara yönelmesi ve diğer faktörlerin etkisiyle piyasa genelinde bir gerileme görüldü. Saat 12.55 itibarıyla Sensex endeksi 800 puandan fazla düşüşle 73.924 seviyesine gerilerken, Nifty 50 endeksi 200 puandan fazla kayıp yaşayarak 22.950 seviyesinin altına indi. Bu düşüşle birlikte Bombay Menkul Kıymetler Borsası'nda işlem gören tüm şirketlerin toplam piyasa değeri yaklaşık 2,34 lakh crore rupi azalarak 470 lakh crore rupiye düştü.
 
-Piyasadaki gerilemede, ikinci çeyrek sonuçları piyasa beklentilerini karşılamayan özel banka hisselerindeki düşüşler etkili oldu. Axis Bank hisseleri yüzde 4 civarında gerileyerek Sensex'teki kayıplara öncülük ederken, banka ikinci çeyrekte net kârını yüzde 38 artırarak 7.003 crore rupiye ulaştırdığını bildirdi ancak bu sonuç analist tahminlerinin altında kaldı. Benzer şekilde, HDFC Bank hisseleri de ikinci çeyrek kârının 19.510 crore rupiye yükseldiğini açıklamasının ardından yüzde 2'den fazla değer kaybetti. Infosys, Trent, HUL, Bajaj Finserv, NTPC, Bajaj Finance ve ICICI Bank hisseleri de yüzde 2'ye varan oranlarda düşüş yaşadı.
+Piyasadaki gerilemede, ikinci çeyrek sonuçları piyasa beklentilerini karşılamayan özel banka hisselerindeki düşüşler etkili oldu. Axis Bank hisseleri yüzde 4 civarında gerileyerek Sensex'teki kayıplara öncülük ederken, banka ikinci çeyrekte net kârını yüzde 38 artırarak 7.003 crore rupiye ulaştırdığını bildirdi ancak bu sonuç analist tahminlerinin altında kaldı. Benzer şekilde, HDFC Bank hisseleri de ikinci çeyrek sonuçlarını açıklamasının ardından yüzde 2'den fazla değer kaybetti. Infosys, Trent, HUL, Bajaj Finserv, NTPC, Bajaj Finance ve ICICI Bank hisseleri de yüzde 2'ye varan oranlarda düşüş yaşadı.
 
 Genel piyasa zayıflığına rağmen bazı şirketler ve sektörler farklı bir seyir izledi. Adani Ports ve Maruti Suzuki hisseleri yüzde 2'ye kadar artış kaydetti. Ayrıca, kamu bankası endeksi yüzde 2 civarında yükselerek özel bankacılık sektöründeki düşüşle zıt bir görünüm ortaya koydu. Öte yandan, Nifty Midcap 100 ve Nifty Smallcap 100 endeksleri yüzde 0,7'ye varan oranlarda geriledi. Piyasadaki volatilitemi ölçen India VIX ise yüzde 3'ten fazla artışla 14 seviyesini aştı.

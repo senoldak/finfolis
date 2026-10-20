@@ -2,6 +2,7 @@
 title: "Tonbo Imaging ve Zetwerk hisse halka arz talepleri açıklandı"
 description: "Halka arz edilen dört şirketin hisse talepleri ikinci günde farklı seviyelerde gerçekleşti. Tonbo Imaging en yüksek ilgiyi görürken, Zetwerk en düşük talebi aldı."
 date: 2026-10-18T11:20:14.000Z
+duzeltme: "20.10.2026: Gri piyasa primlerini ve tahmini listeleme fiyatlarını aktaran cümleler yazıdan çıkarıldı."
 category: "piyasalar"
 tur: "haber"
 uretim: "bot"
@@ -20,7 +21,7 @@ sirada:
   tarih: "19 Ekim 2026"
   olay: "Dört halka arzın talep toplamasının sona ermesi"
 tablo: {"baslik":"Halka Arz Talep Oranları","sutunlar":["Şirket","Talep Oranı"],"satirlar":[["Tonbo Imaging","7,77 kat"],["Bonfiglioli","yüzde 99"],["Sahajanand","yüzde 82"],["Zetwerk","yüzde 31"]]}
-why_matters: "Halka arz talepleri ve gri piyasa hareketleri, şirketlerin borsa performansına ve yatırımcıların piyasa iştahına ilişkin önemli ipuçları sunar."
+why_matters: "Halka arz talepleri, şirketlerin borsa performansına ve yatırımcıların piyasa iştahına ilişkin önemli ipuçları sunar."
 key_points:
   - "Tonbo Imaging halka arzı ikinci günde 7,77 kat talep gördü."
   - "Zetwerk halka arzı ikinci günde yüzde 31 oranında talep topladı."
@@ -34,4 +35,4 @@ Halka arz için talep toplayan dört şirket, 16 Ekim 2026 Cuma günü ikinci g�
 
 Tonbo Imaging India halka arzı ikinci günde 7,77 kat talep gördü. Bu talebin arkasında, kurum dışı yatırımcılardan gelen güçlü ilginin yanı sıra perakende yatırımcılar ve nitelikli kurumsal alıcıların katılımı yer aldı. Bonfiglioli Transmissions halka arzına gelen talep yüzde 99 seviyesindeydi; bu süreçte kurumsal alıcıların gördüğü yanıt görece sınırlı kaldı. Sahajanand Medical Technologies halka arzı ise ikinci günün sonunda yüzde 82 oranında abone oldu. Zetwerk Manufacturing Business halka arzı daha yavaş bir ilerleme kaydederek ikinci günde yüzde 31 oranında talep topladı.
 
-Piyasa uzmanlarına göre, halka arzların gri piyasa primleri ve tahmini listeleme fiyatları da çeşitlilik gösteriyor. Zetwerk için gri piyasa primi artı 7 düzeyindeyken, tahmini hisse fiyatı 158 rupi olarak öngörüldü. Sahajanand Medical Technologies için prim artı 22, tahmini fiyat 366 rupi oldu. Bonfiglioli Transmissions için prim artı 129 ve tahmini fiyat 715 rupi olarak belirtilirken, Tonbo Imaging için prim artı 505 ve tahmini fiyat 1.205 rupi seviyesinde işaret edildi. Dört halka arzın da 19 Ekim 2026 Pazartesi günü sona ermesi planlanıyor.
+Dört halka arzın da 19 Ekim 2026 Pazartesi günü sona ermesi planlanıyor.

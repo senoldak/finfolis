@@ -14,4 +14,4 @@ coverAlt: "ABD · Adalet Bakanlığından televizyon ağlarına antitröst incel
 coverSitede: false
 ---
 
-ABD Adalet Bakanlığı, ABC, CBS, CNN, Fox ve NBC'den oluşan televizyon basın havuzunun Trump'ın ortak video kapsamını geçici olarak durdurma kararını incelemeye aldı. Bakanlık, bu durumun Sherman Yasası'nı ihlal edip etmediğini araştırıyor. Yayıncı kuruluşlar, Beyaz Saray'ın bazı medya kuruluşlarının erişimini engellemesinin ardından ortak yayınları geçici olarak durdurmuştu.
+ABD Adalet Bakanlığı, büyük televizyon ağlarının oluşturduğu basın havuzunun Trump'ın ortak video kapsamını geçici olarak durdurma kararını incelemeye aldı. Bakanlık, bu durumun Sherman Yasası'nı ihlal edip etmediğini araştırıyor. Yayıncı kuruluşlar, Beyaz Saray'ın bazı medya kuruluşlarının erişimini engellemesinin ardından ortak yayınları geçici olarak durdurmuştu.

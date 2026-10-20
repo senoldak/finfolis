@@ -1,7 +1,8 @@
 ---
 title: "Küresel Piyasalar ve Ekonomik Gelişmeler · 18 Ekim, öğle"
-description: "Hint borsaları nisan ayından bu yana en güçlü haftalık kazancını elde ederken, kripto para piyasalarında yıl sonu beklentileri dikkat çekiyor. Kaliforniya'da ise milyarderlerden servet vergisi alınmasını öngören teklif tartışılıyor."
+description: "Hint borsaları nisan ayından bu yana en güçlü haftalık kazancını elde ederken, Kaliforniya'da milyarderlerden servet vergisi alınmasını öngören teklif tartışılıyor."
 date: 2026-10-18T13:28:52.000Z
+duzeltme: "20.10.2026: Bir kripto varlık için kurumların yıl sonu fiyat hedeflerini aktaran paragraf yazıdan çıkarıldı."
 category: "piyasalar"
 tur: "haber"
 uretim: "bot"
@@ -30,7 +31,5 @@ coverSitede: false
 ---
 
 Hint hisse senedi piyasaları, Nifty 50 ve Sensex endekslerinin yüzde 2,4'ten fazla yükselmesiyle nisan ayından bu yana en güçlü haftalık kazancını kaydetti. Yatırımcı duyarlılığının bu hafta şirket kazançları, Jio Platforms halka arzı, dalgalı ham petrol fiyatları, kurumsal akışlar ve bir tatil ile şekillenmesi bekleniyor. Şirket bilançoları ikinci çeyrek sonuçlarıyla ivme kazanırken, Infosys, Tata Motors ve Kotak Mahindra Bank gibi önemli şirketler eylül 2026'da sona eren döneme ait kazançlarını açıklamaya hazırlanıyor. Mukesh Ambani'nin Reliance Industries Limited destekli Jio Platforms halka arzı 21 Ekim 2026 Çarşamba günü talep toplamaya başlayıp 23 Ekim 2026 Cuma günü sona erecek; hisse için talep toplama öncesi ihale 19 Ekim 2026 Pazartesi günü yapılacak.
-
-Kripto para piyasalarında Bitcoin'in yıl sonuna kadar 100.000 dolara ulaşabileceği yönündeki beklentiler analistler arasında fikir ayrılıklarına yol açıyor. Enflasyon ve faiz artışı riskleri piyasadaki kazançları sınırlandırırken, Bitwise kurumsal benimseme ve varlık talebiyle fiyatın potansiyel olarak 100.000 doların üzerine çıkabileceğini öngörüyor. LO:TECH ise faiz belirsizliğinin piyasa üzerindeki ağırlığı nedeniyle 85.000 dolar ile 95.000 dolar arasında dar bir yıl sonu aralığı bekliyor.
 
 ABD'nin Kaliforniya eyaletinde kasım ayında yapılacak oylamada, eyaletteki yaklaşık 200 milyarderden bir defaya mahsus yüzde 5 oranında net değer vergisi alınmasını öngören 40 numaralı teklif ele alınacak. Sağlık çalışanları sendikası lideri Dave Regan, teklifin federal Medicaid fon kesintilerini telafi etmek amacıyla beş yıl içinde 100 milyar dolar toplamasını beklediklerini ve bu tutarın yüzde 90'ının doğrudan sağlık hizmetlerine ayrılacağını belirtti. Öte yandan Google kurucu ortaklarından Sergey Brin'in önlere karşı çıkmak için 100 milyon dolardan fazla harcama yaptığı belirtildi.

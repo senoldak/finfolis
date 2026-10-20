@@ -10,4 +10,4 @@ coverAlt: "Asya · Trump yönetimi yapay zeka test kurumu yetkililerini Beyaz Sa
 coverSitede: false
 ---
 
-The Information'ın haberine göre Trump yönetimi, Süper Zekada İlerleme ve İnovasyon Standartları Merkezi'ne bağlı üç üst düzey yetkiliyi Beyaz Saray'a taşımaya hazırlanıyor. Beyaz Saray ve Ticaret Bakanlığı konuyla ilgili henüz yorum yapmadı.
+Basına yansıyan bilgilere göre Trump yönetimi, Süper Zekada İlerleme ve İnovasyon Standartları Merkezi'ne bağlı üç üst düzey yetkiliyi Beyaz Saray'a taşımaya hazırlanıyor. Beyaz Saray ve Ticaret Bakanlığı konuyla ilgili henüz yorum yapmadı.

@@ -2,6 +2,7 @@
 title: "VietJet varlıklarına İngiltere mahkemesi kararıyla küresel dondurma kararı getirildi"
 description: "Londra merkezli yatırım firması FitzWalter ile yaşayan borç anlaşmazlığı nedeniyle VietJet'in varlıklarına küresel dondurma kararı getirildi. Karar, 251,6 milyon dolara kadar olan varlıkları kapsıyor."
 date: 2026-10-19T08:20:00.000Z
+duzeltme: "20.10.2026: Şirketin borç ödeme davranışına ilişkin atıfsız nitelendirme yumuşatıldı; gerekçe mahkeme kararına bağlandı."
 category: "ekonomi"
 tur: "haber"
 uretim: "bot"
@@ -25,7 +26,7 @@ coverAlt: "Asya · VietJet varlıklarına İngiltere mahkemesi kararıyla küres
 coverSitede: false
 ---
 
-Vietnam merkezli düşük maliyetli havayolu şirketi VietJet Aviation, bir Londra yatırım firmasına olan borcunu defalarca ödemekten kaçınması üzerine bir Birleşik Krallık mahkemesi tarafından küresel varlık dondurma kararıyla karşı karşıya kaldı. FitzWalter Capital'ın bir kolu olan FW Aviation, havayolunun varlıklarını gizlemeye veya harcamaya çalışacağı riski olduğuna karar veren bir Yüksek Mahkeme yargıcı tarafından bu emri aldı. VietJet, uçak kiralama şirketinin lehine verilen bir dizi karara rağmen borçlandığı paranın büyük çoğunluğunu ödemekte başarısız oldu.
+Vietnam merkezli düşük maliyetli havayolu şirketi VietJet Aviation, bir Londra yatırım firmasına olan borcunu ödemediği gerekçesiyle bir Birleşik Krallık mahkemesi tarafından küresel varlık dondurma kararıyla karşı karşıya kaldı. FitzWalter Capital'ın bir kolu olan FW Aviation, havayolunun varlıklarını gizlemeye veya harcamaya çalışacağı riski olduğuna karar veren bir Yüksek Mahkeme yargıcı tarafından bu emri aldı. VietJet, uçak kiralama şirketinin lehine verilen bir dizi karara rağmen borçlandığı paranın büyük çoğunluğunu ödemekte başarısız oldu.
 
 Söz konusu karar, VietJet'in kiralanmış olan mevcut filosunu ve Airbus SE A330-900 ile A321neo jetleri dahil olmak üzere henüz teslim almadığı sipariş edilen uçakları da kapsıyor. Mahkeme kararına göre bu durum kabin ekipmanları, Rolls-Royce Holdings'ten sipariş edilen motorlar, ön teslimat ödemeleri, bakım rezervleri, kiralama depozitoları ve acentelerden elde edilen bilet satış gelirlerini de içeriyor. VietJet, olağan iş akışı içinde varlıklarıyla işlem yapmaya devam edebiliyor, ancak uçak siparişleri, bakım rezervleri ve Vietnam dışında tutulan kiralama depozitoları için mahkeme iznine ihtiyaç duyuyor.
 

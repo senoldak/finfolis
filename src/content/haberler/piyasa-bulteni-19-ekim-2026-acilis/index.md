@@ -2,6 +2,7 @@
 title: "Piyasa bülteni · 19 Ekim 2026, açılış"
 description: "Önceki bültenden bu yana öne çıkan gelişmeler, bölge bölge."
 date: 2026-10-19T03:41:03.427Z
+duzeltme: "20.10.2026: Doğrulanamayan ve taraflı bir nitelendirme içeren cümle çıkarıldı."
 category: "piyasalar"
 tur: "bulten"
 uretim: "bot"
@@ -19,7 +20,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## ABD
 
-- **İran Ekonomisinde Daralma:** ABD Merkez Komutanlığı, uygulanan deniz ablukasının İran'ın en az 25 milyar dolar değerinde ham petrol ihraç etmesini engellediğini bildirdi. Finansal baskı nedeniyle rejimin asker maaşlarını ödemekte zorlandığı belirtildi.
+- **İran Ekonomisinde Daralma:** ABD Merkez Komutanlığı, uygulanan deniz ablukasının İran'ın en az 25 milyar dolar değerinde ham petrol ihraç etmesini engellediğini bildirdi.
 
 ## Avrupa
 

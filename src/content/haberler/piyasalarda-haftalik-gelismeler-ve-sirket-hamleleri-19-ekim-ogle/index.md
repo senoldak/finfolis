@@ -2,6 +2,7 @@
 title: "Piyasalarda Haftalık Gelişmeler ve Şirket Hamleleri · 19 Ekim, öğle"
 description: "Küresel piyasalarda ABD-İran müzakerelerinden çıkabilecek sonuçlar ve şirketlerin yapay zeka yatırımları öne çıkıyor. Borsa ve hisse senedi cephesinde ise yeni ortaklıklar ve borçlanma hamleleri takip ediliyor."
 date: 2026-10-19T12:15:47.000Z
+duzeltme: "20.10.2026: Bir hisse için verilen derecelendirme ve hedef fiyat ile buna ilişkin yorum cümlesi yazıdan çıkarıldı."
 category: "kripto"
 tur: "haber"
 uretim: "bot"
@@ -10,8 +11,6 @@ kaynakIzi: "v1.51g8cfONiQSNkcLs.95SV/eXYtWgowQosANxf0zqJiSFvrSZoZNsk+W+SHZ9Km02w
 rakamlar:
   - etiket: "Cipher Borçlanma"
     deger: "850 milyon dolar"
-  - etiket: "CoreWeave Hedef Fiyat"
-    deger: "106 dolar"
   - etiket: "LSEG Dava Tutarı"
     deger: "131 milyon sterlin"
   - etiket: "JPMorgan Yatırım"
@@ -19,15 +18,15 @@ rakamlar:
 why_matters: "ABD-İran gerilimi enerji fiyatlarını ve küresel piyasaları doğrudan etkilerken, teknoloji ve madencilik şirketlerinin devasa yapay zeka yatırımları sektördeki risk iştahını ve borçlanma dinamiklerini şekillendiriyor."
 key_points:
   - "Cipher Digital 40,7 milyon hisse ihraç etti ve 850 milyon dolar borçlandı."
-  - "Goldman Sachs, CoreWeave'in hedef fiyatını 106 dolar olarak belirledi."
+  - "CoreWeave, Meta ile uzun vadeli bir yapay zekâ altyapı anlaşması yaptı."
   - "ABD ve İran görüşmelerinin sonucunun bu hafta açıklanması bekleniyor."
 cover: kapak.png
 coverAlt: "Küresel · Piyasalarda Haftalık Gelişmeler ve Şirket Hamleleri · 19 Ekim, öğle"
 coverSitede: false
 ---
 
-ABD ile İran arasındaki müzakerelerde tarafların farklılıkları daraltmak ve yeni bir askeri gerilimi önlemek amacıyla çalışmasıyla birlikte bu hafta bir dönüm noktasının açıklanması bekleniyor. Al-Arabiya'nın aktardığına göre, müzakereciler karşılıklı tavizler üzerinde uzlaşmaya çalışırken bu raporun zamanlaması 3 Kasım 2026 tarihinde yapılacak ABD ara seçimlerine denk gelmesi açısından dikkat çekiyor. Enerji fiyatları üzerindeki baskıyı azaltmak isteyen Donald Trump, Hürmüz Boğazı'nın yeniden açılması için kısa vadeli bir anlaşma yapabilir. Taraflar, nükleer program ve limanlar ile petrol ihracatına yönelik yaptırımların kaldırılması konularında henüz tam olarak anlaşabilmiş değil. 
+ABD ile İran arasındaki müzakerelerde tarafların farklılıkları daraltmak ve yeni bir askeri gerilimi önlemek amacıyla çalışmasıyla birlikte bu hafta bir dönüm noktasının açıklanması bekleniyor. Müzakereciler karşılıklı tavizler üzerinde uzlaşmaya çalışırken bu raporun zamanlaması 3 Kasım 2026 tarihinde yapılacak ABD ara seçimlerine denk gelmesi açısından dikkat çekiyor. Enerji fiyatları üzerindeki baskıyı azaltmak isteyen Donald Trump, Hürmüz Boğazı'nın yeniden açılması için kısa vadeli bir anlaşma yapabilir. Taraflar, nükleer program ve limanlar ile petrol ihracatına yönelik yaptırımların kaldırılması konularında henüz tam olarak anlaşabilmiş değil. 
 
 Bitcoin madencisi Cipher Digital, yapay zeka genişlemesini finanse etmek amacıyla 40,7 milyon hisse ihracı gerçekleştirirken, 850 milyon dolar tutarında dönüştürülebilir tahvil ihracını tamamladı. Şirketin hisseleri son bir yılda yüzde 52'den fazla değer kaybederken, 16 Ekim 2026 seansında 8,98 dolardan kapandı. Bu işlemler, şirketin borçlarını yeniden yapılandırma ve yapay zeka veri merkezleri portföyünü büyütme çabalarının bir parçası olarak gerçekleşti. Yapılan borçlanma ve hisse ihraçları, mevcut yatırımcıların hisselerini seyreltirken şirketin borç yükümlülüklerini de artırdı.
 
-Öte yandan Goldman Sachs, yapay zeka bulut altyapısı sağlayıcısı CoreWeave'i Nötr seviyesinden Al seviyesine yükselterek hisse hedef fiyatını 106 dolar olarak belirledi. Yatırım bankası bu kararda Meta ile yapılan uzun vadeli yapay zeka altyapı anlaşmasını gerekçe gösterdi. Analistler, bu önemli ortaklığın şirketin finansal istikrarına yönelik güveni artırdığını ve iflas riskine ilişkin piyasa algısını olumlu yönde etkileyebileceğini belirtiyor. Şirketin operasyonel performansı ve büyük ortaklıklarındaki gelişmeler yakından izleniyor.
+Öte yandan yapay zeka bulut altyapısı sağlayıcısı CoreWeave'in Meta ile yaptığı uzun vadeli yapay zeka altyapı anlaşması takip ediliyor.

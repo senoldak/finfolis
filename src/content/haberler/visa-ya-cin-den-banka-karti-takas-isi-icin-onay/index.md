@@ -12,10 +12,10 @@ rakamlar:
     deger: "10,2 milyar"
 sirada:
   tarih: "13 Ekim 2026"
-  olay: "Çin'in resmi Xinhua Haber Ajansı, Visa'nın onay aldığını duyurdu."
+  olay: "Çin Halk Bankası'nın onayının açıklanması."
 cover: kapak.png
 coverAlt: "ABD · Visa'ya Çin'den banka kartı takas işi için onay"
 coverSitede: false
 ---
 
-Visa, Çin Halk Bankasından yurt içi banka kartı takas işini kurmak üzere onay aldı. Çin'in resmi haber ajansına göre şirket, lisans başvurusunda bulunmadan önce bir yıl içinde hazırlık çalışmalarını tamamlamak zorunda. Bu gelişmeyle Visa, daha önce onay alan Mastercard ve American Express gibi küresel rakiplerinin ardından ülkenin ödemeler piyasasında yer almak için hazırlıklara başladı.
+Visa, Çin Halk Bankasından yurt içi banka kartı takas işini kurmak üzere onay aldı. Çin Halk Bankası açıklamasına göre şirket, lisans başvurusunda bulunmadan önce bir yıl içinde hazırlık çalışmalarını tamamlamak zorunda. Bu gelişmeyle Visa, daha önce onay alan Mastercard ve American Express gibi küresel rakiplerinin ardından ülkenin ödemeler piyasasında yer almak için hazırlıklara başladı.
