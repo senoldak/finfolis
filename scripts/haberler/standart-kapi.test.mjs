@@ -41,7 +41,7 @@ const dosyalar = async (rot) => readdir(path.join(rot, 'src/content/haberler'));
 test('kırmızı haber yazılmaz, elendi olarak gerekçeyle kaydedilir', async () => {
   const { secenek } = await ortam({
     kaynaklar: [kaynak('A', [aday('k1')])],
-    yaz: async (a) => ({ baslik: a.baslik, spot: 's', govde: 'Şirketin mühendisi tutuklandı.' }),
+    yaz: async (a) => ({ baslik: a.baslik, spot: 's', govde: 'Şirketin mühendisi Ali Veli tutuklandı.' }),
   });
   const s = await calistir(secenek);
   assert.equal(s.adet, 0);
@@ -76,7 +76,7 @@ test('temiz haberde gerekçe alanı yok', async () => {
 test('okura görünen ek alanlar (Hızlı Çıkarım) da süzgeçten geçer', async () => {
   const { secenek } = await ortam({
     kaynaklar: [kaynak('A', [aday('e1')])],
-    yaz: async (a) => ({ baslik: a.baslik, spot: 's', govde: 'Merkez bankası faizi sabit tuttu.', key_points: ['Yönetici tutuklandı'] }),
+    yaz: async (a) => ({ baslik: a.baslik, spot: 's', govde: 'Merkez bankası faizi sabit tuttu.', key_points: ['Yönetici Ali Veli tutuklandı'] }),
   });
   await calistir(secenek);
   assert.equal((await dosyalar(secenek.rot)).length, 0);
@@ -164,7 +164,7 @@ test('standartKapisi: beklenmeyen yanıt hata sayılır', () => {
 });
 
 test('derlemeSuz: kırmızı paragraf atılır, yazı düşmez; başlıkta kırmızı varsa tümü kırmızı', () => {
-  const govde = '## Piyasalar\n\nMerkez bankası faizi sabit tuttu.\n\nŞirketin mühendisi tutuklandı.\n\n## Enerji\n\nPetrol fiyatı yüzde 2 arttı.';
+  const govde = '## Piyasalar\n\nMerkez bankası faizi sabit tuttu.\n\nŞirketin mühendisi Ali Veli tutuklandı.\n\n## Enerji\n\nPetrol fiyatı yüzde 2 arttı.';
   const yazi = { baslik: 'Günün özeti', spot: 'Öne çıkanlar.', govde, rakamlar: [{ etiket: 'Faiz', deger: '%40' }] };
   const s = derlemeSuz(yazi, '');
   assert.equal(s.karar, 'temiz');
@@ -173,20 +173,20 @@ test('derlemeSuz: kırmızı paragraf atılır, yazı düşmez; başlıkta kırm
   assert.match(s.yazi.govde, /## Piyasalar/);
   assert.match(s.yazi.govde, /Petrol/);
   assert.equal(s.yazi.rakamlar, undefined);
-  const k = derlemeSuz({ ...yazi, baslik: 'Mühendis tutuklandı' }, '');
+  const k = derlemeSuz({ ...yazi, baslik: 'Mühendis Ali Veli tutuklandı' }, '');
   assert.equal(k.karar, 'kirmizi');
   assert.equal(k.atilan.length, 0);
 });
 
 test('derlemeSuz: paragrafı kalmayan ara başlık da atılır', () => {
-  const s = derlemeSuz({ baslik: 'Özet', spot: 'Spot.', govde: '## A\n\nMüdür tutuklandı.\n\n## B\n\nFaiz sabit kaldı.' }, '');
+  const s = derlemeSuz({ baslik: 'Özet', spot: 'Spot.', govde: '## A\n\nMüdür Ali Veli tutuklandı.\n\n## B\n\nFaiz sabit kaldı.' }, '');
   assert.doesNotMatch(s.yazi.govde, /## A/);
   assert.match(s.yazi.govde, /## B/);
 });
 
 test('bülten: kırmızı madde tek başına atılır, bülten yazılır; süzgeç hatasında madde bekler', async () => {
   const olay = (id, kaynakMetni = 'Fed held rates at 4.25 percent.') => ({ id, baslik: id, bolge: 'abd', onem: 100, kategori: 'piyasalar', tarih: '2026-10-11T10:00:00Z', adaylar: [{ id: `a-${id}` }], kaynakMetni, kaynaklar: [] });
-  const metinler = { a: 'Fed faizi yüzde 4,25 düzeyinde tuttu.', b: 'Fed faizi yüzde 4,25 düzeyinde tuttu.', c: 'Fed faizi yüzde 4,25 düzeyinde tuttu.', d: 'Fed faizi yüzde 4,25 düzeyinde tuttu. Bir yönetici tutuklandı.' };
+  const metinler = { a: 'Fed faizi yüzde 4,25 düzeyinde tuttu.', b: 'Fed faizi yüzde 4,25 düzeyinde tuttu.', c: 'Fed faizi yüzde 4,25 düzeyinde tuttu.', d: 'Fed faizi yüzde 4,25 düzeyinde tuttu. Bir yönetici Ali Veli tutuklandı.' };
   const gemini = async ({ sema }) => {
     if (sema.properties.onay) return { onay: true, sorunlar: [] };
     return { maddeler: Object.entries(metinler).map(([k, metin], i) => ({ olay: String(i + 1), etiket: `Olay ${k}`, metin })) };
@@ -264,7 +264,7 @@ test('motor defteri: kırmızı elendi, sarı yazildi+slug; kimlik adres taşım
   const { secenek } = await ortam({
     kaynaklar: [kaynak('A', [aday('https://k/kirmizi1:x'), aday('s2')])],
     motor: async (k) => kayitlar.push(k),
-    yaz: async (a) => ({ baslik: a.baslik, spot: 's', govde: a.id.startsWith('http') ? 'Şirketin mühendisi tutuklandı.' : 'Fabrikadaki kazada iki kişi öldü.' }),
+    yaz: async (a) => ({ baslik: a.baslik, spot: 's', govde: a.id.startsWith('http') ? 'Şirketin mühendisi Ali Veli tutuklandı.' : 'Fabrikadaki kazada iki kişi öldü.' }),
   });
   await calistir(secenek);
   const red = kayitlar.find((k) => k.durum === 'elendi');
