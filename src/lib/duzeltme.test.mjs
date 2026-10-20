@@ -12,14 +12,14 @@ test('duzeltmeNotu: dolu alan tr etiket ve düzeltme ilkesi bağlantısı verir'
   assert.deepEqual(not, {
     etiket: 'Düzeltme:',
     metin: '19.10.2026 14:00: Faiz oranı düzeltildi.',
-    baglanti: '/yayin-ilkeleri/#duzeltmeler',
+    baglanti: '/duzeltme-politikasi/',
   });
 });
 
 test('duzeltmeNotu: dil verilmezse tr', () => {
   const not = duzeltmeNotu({ duzeltme: '19.10.2026 14:00: Faiz oranı düzeltildi.' });
   assert.equal(not?.etiket, 'Düzeltme:');
-  assert.equal(not?.baglanti, '/yayin-ilkeleri/#duzeltmeler');
+  assert.equal(not?.baglanti, '/duzeltme-politikasi/');
 });
 
 test('duzeltmeNotu: 10 karakterden kısa not şemadaki gibi reddedilir', () => {

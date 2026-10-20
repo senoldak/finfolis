@@ -1,0 +1,107 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/site';
+---
+
+<Base
+  title="Düzeltme, Güncelleme ve Yayından Kaldırma Politikası"
+  description="finfolis hata yaptığında nasıl düzeltir, içeriği ne zaman günceller ya da yayından kaldırır; hata nasıl bildirilir."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Düzeltme, Güncelleme ve Yayından Kaldırma Politikası</h1>
+      </header>
+      <div class="prose">
+        <h2>1. Taahhüdümüz</h2>
+        <p>
+          {SITE.name}, yayımladığı içeriklerin doğruluğundan sorumludur. Bir hata yaptığımızda bunu düzeltir, bir içeriği
+          yayından kaldırdığımızda nedenini açıklarız. Yaptığımız her değişikliği tarihiyle
+          <a href="/duzeltmeler/">Düzeltmeler</a> sayfasında gösteririz. Bir içeriği, değişikliği belirtmeden sessizce
+          değiştirmeyiz.
+        </p>
+
+        <h2>2. Kapsam</h2>
+        <p>
+          Bu politika, sitede yayımlanan tüm içerikler için geçerlidir. Otomatik olarak yazılan haberler ve yayıncının
+          imzasıyla yayımlanan yazılar da buna dahildir. Sosyal medya paylaşımlarında fark edilen hatalar da mümkün olan
+          ölçüde düzeltilir ya da paylaşım kaldırılır.
+        </p>
+
+        <h2>3. Tanımlar</h2>
+        <table>
+          <thead>
+            <tr><th scope="col">Terim</th><th scope="col">Anlamı</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Düzeltme</th><td>İçerikteki olgusal bir hatanın giderilmesi. Örnekler: yanlış rakam, ad, unvan, tarih, yer, çeviri hatası.</td></tr>
+            <tr><th scope="row">Açıklama</th><td>Teknik olarak yanlış olmayan ama yanlış anlaşılmaya yol açabilecek bir ifadenin netleştirilmesi.</td></tr>
+            <tr><th scope="row">Güncelleme</th><td>İçeriğe, yayımdan sonra ortaya çıkan yeni bilginin eklenmesi.</td></tr>
+            <tr><th scope="row">Yayından kaldırma</th><td>İçeriğin sitede erişime kapatılması.</td></tr>
+            <tr><th scope="row">Biçimsel düzeltme</th><td>Anlamı değiştirmeyen yazım, noktalama ve biçim hatalarının giderilmesi.</td></tr>
+          </tbody>
+        </table>
+
+        <h2>4. Düzeltme ve açıklama</h2>
+        <p>
+          4.1. Düzeltilen içeriğin sonuna tarihli bir not eklenir. Notta neyin yanlış olduğu ve doğrusunun ne olduğu açıkça
+          yazılır.
+        </p>
+        <p>4.2. Hata başlıkta, özette veya grafikte ise bunlar da düzeltilir ve notta belirtilir.</p>
+        <p>4.3. Düzeltme kaydı ayrıca <a href="/duzeltmeler/">Düzeltmeler</a> sayfasında yayımlanır.</p>
+        <p>4.4. Biçimsel düzeltmeler not düşülmeden yapılabilir.</p>
+
+        <h2>5. Güncelleme</h2>
+        <p>5.1. İçeriğe yeni bilgi eklendiğinde içeriğin sonuna "Güncellendi" notu tarihiyle eklenir.</p>
+        <p>5.2. Güncelleme bir hata düzeltmesi değildir; ikisi ayrı gösterilir.</p>
+        <p>5.3. İçeriğin ilk yayın tarihi değiştirilmez; güncelleme tarihi ayrıca gösterilir.</p>
+
+        <h2>6. Yayından kaldırma</h2>
+        <p>6.1. Bir içerik şu hâllerde yayından kaldırılabilir:</p>
+        <ul>
+          <li>düzeltmeyle giderilemeyecek ölçüde ciddi bir hata içermesi,</li>
+          <li>yayın ilkelerimize aykırı olduğunun anlaşılması,</li>
+          <li>hukuka aykırı olabileceğinin anlaşılması,</li>
+          <li>içerikte adı geçen bir kişinin haklı bulunan talebi,</li>
+          <li>yetkili bir merci kararı.</li>
+        </ul>
+        <p>
+          6.2. Kaldırılan içeriğin başlığı, ilk yayın tarihi, kaldırılma tarihi ve kaldırılma nedeni
+          <a href="/duzeltmeler/">Düzeltmeler</a> sayfasında yayımlanır.
+        </p>
+        <p>
+          6.3. Kişisel veri veya kişilik hakları nedeniyle kaldırılan içeriklerde, kişinin adı ve kişiyi belirlenebilir
+          kılan bilgiler Düzeltmeler sayfasında tekrar edilmez.
+        </p>
+
+        <h2>7. Hata bildirimi</h2>
+        <p>
+          7.1. Hata bildirmek için her içeriğin altındaki "Hata bildir" bağlantısını kullanabilir ya da
+          <a href="mailto:contact@finfolis.com">contact@finfolis.com</a> adresine yazabilirsiniz.
+        </p>
+        <p>7.2. Bildirimin hızla değerlendirilebilmesi için şunları ekleyin:</p>
+        <ul>
+          <li>içeriğin bağlantısı,</li>
+          <li>hatanın ne olduğu,</li>
+          <li>varsa doğru bilgiyi gösteren kaynak.</li>
+        </ul>
+        <p>7.3. Bildirimler en kısa sürede incelenir. Kişi haklarına ilişkin taleplere öncelik verilir.</p>
+        <p>7.4. Değerlendirmenin sonucu bildirimde bulunan kişiye iletilir.</p>
+        <p>7.5. Bildirimde bulunan kişinin kimliği, kendi izni olmadan paylaşılmaz.</p>
+
+        <h2>8. Cevap hakkı</h2>
+        <p>
+          Hakkında yayın yapılan kişi veya kuruluşların cevap ve düzeltme talepleri, <a href="/yasal/">Yasal Bilgilendirme</a>
+          sayfasının 13. maddesine göre değerlendirilir.
+        </p>
+
+        <h2>9. Kayıt ve şeffaflık</h2>
+        <p>
+          9.1. Tüm düzeltme, açıklama ve kaldırma kayıtları <a href="/duzeltmeler/">Düzeltmeler</a> sayfasında, en
+          yeniden eskiye doğru tarih sırasıyla listelenir.
+        </p>
+        <p>9.2. Bu kayıtlar silinmez.</p>
+      </div>
+    </article>
+  </div>
+</Base>

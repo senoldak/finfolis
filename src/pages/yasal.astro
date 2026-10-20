@@ -1,0 +1,182 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/site';
+---
+
+<Base
+  title="Yasal Bilgilendirme ve Künye"
+  description="finfolis künyesi, editoryal bağımsızlık, mali yapı, yapay zekâ kullanımı, yatırım tavsiyesi, hak ihlali ve cevap hakkı bildirimleri."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Yasal Bilgilendirme ve Künye</h1>
+      </header>
+      <div class="prose">
+        <h2 id="kunye">1. Künye</h2>
+        <table>
+          <tbody>
+            <tr><th scope="row">Yayın adı</th><td>{SITE.name}</td></tr>
+            <tr><th scope="row">Yayıncı ve editör</th><td>Şenol Dak</td></tr>
+            <tr><th scope="row">Yayın türü</th><td>Çevrim içi haber ve bilgilendirme yayını</td></tr>
+            <tr><th scope="row">İletişim</th><td><a href="mailto:contact@finfolis.com">contact@finfolis.com</a></td></tr>
+          </tbody>
+        </table>
+
+        <h2>2. Yayının amacı ve kapsamı</h2>
+        <p>
+          {SITE.name}; ekonomi, finans ve piyasalara ilişkin gelişmeleri, kamuya açık kaynaklara ve resmî verilere
+          dayanarak okurlarına aktarmayı amaçlayan bir çevrim içi yayındır. Yayın, kamuoyunun doğru ve anlaşılır bilgiye
+          erişimine katkı sağlamak amacıyla yürütülür.
+        </p>
+
+        <h2>3. Editoryal bağımsızlık</h2>
+        <p>
+          3.1. {SITE.name} bağımsız bir yayındır. Hiçbir siyasi parti, hükümet, kamu kurumu, şirket, dernek, vakıf ya da
+          başka bir kuruluşla organik, mali veya editoryal bağı yoktur.
+        </p>
+        <p>
+          3.2. Yayın içeriğine ilişkin kararlar yalnızca yayın ilkelerimize göre verilir. Hiçbir kişi ya da kuruluş,
+          içeriğin yayımlanması, değiştirilmesi veya yayımlanmaması konusunda {SITE.name}'e talimat veremez.
+        </p>
+
+        <h2>4. Mali yapı ve kâr amacı</h2>
+        <p>4.1. {SITE.name} kâr amacı gütmez.</p>
+        <p>
+          4.2. Yayında reklam, sponsorlu içerik, ücretli iş birliği, ürün yerleştirmesi ya da bağış bulunmaz.
+          {SITE.name}, yayımladığı içerik karşılığında hiçbir kişi veya kuruluştan maddi ya da başka türlü bir menfaat
+          sağlamaz.
+        </p>
+        <p>
+          4.3. Bu durumda bir değişiklik olması hâlinde okurlarımız, değişiklik yürürlüğe girmeden önce bu sayfa
+          aracılığıyla açıkça bilgilendirilir. Sponsorlu ya da ücretli bir içerik yayımlanırsa, içerik açıkça bu şekilde
+          etiketlenir.
+        </p>
+
+        <h2 id="cikar-catismasi">5. Çıkar çatışması</h2>
+        <p>
+          5.1. Yayıncı; haberlerde adı geçen şirketler, kuruluşlar, menkul kıymetler veya kampanyalarla, haberin
+          tarafsızlığını etkileyebilecek ticari bir ilişki içinde değildir.
+        </p>
+        <p>
+          5.2. Gelecekte böyle bir ilişki doğarsa, ilgili içerikte bu durum açıkça belirtilir ya da yayıncı o konuda
+          içerik yayımlamaz.
+        </p>
+
+        <h2>6. Tarafsızlık</h2>
+        <p>
+          6.1. {SITE.name} siyasi görüş bildirmez. Hiçbir partiyi, adayı, hareketi veya ideolojiyi desteklemez ya da
+          karşısında konumlanmaz.
+        </p>
+        <p>
+          6.2. Haberlerde olgular ve ilgili kaynakların açıklamaları aktarılır. Haber ile yorum birbirinden ayrı tutulur;
+          haber metinlerine görüş katılmaz.
+        </p>
+        <p>
+          6.3. Kişiler ve gruplar hakkında köken, uyruk, din, cinsiyet veya benzeri özellikler üzerinden genelleme ya da
+          ayrımcı ifade kullanılmaz.
+        </p>
+
+        <h2>7. Yapay zekâ ve otomasyon kullanımı</h2>
+        <p>
+          7.1. {SITE.name}'teki haberler yapay zekâ ile otomatik olarak yazılır ve yayımlanmadan önce otomatik
+          denetimlerden geçer. Bu denetimler; rakamların kaynakla karşılaştırılmasını, hassas konuların ve yatırım tavsiyesi
+          niteliği taşıyabilecek ifadelerin ayıklanmasını kapsar. Denetim bozulursa ya da emin olunamazsa haber
+          yayımlanmaz; bir acil durdurma anahtarı vardır.
+        </p>
+        <p>
+          7.2. Her haber yayımlanmadan önce tek tek insan denetiminden geçmez. Bu nedenle içeriklerde hata bulunabilir.
+          Fark edilen hatalar, <a href="/duzeltme-politikasi/">Düzeltme Politikamıza</a> göre düzeltilir.
+        </p>
+        <p>
+          7.3. Yapay zekâ ile üretilen içerikler, haberin altında bu yönde bir notla belirtilir. Yayıncının imzasıyla
+          yayımlanan yazılarda yapay zekânın hangi aşamada kullanıldığı ayrıca belirtilir.
+        </p>
+        <p>7.4. Yapay zekâ ile gerçek kişi, olay veya belge izlenimi veren görsel, ses ya da alıntı üretilmez.</p>
+
+        <h2>8. İçeriğin niteliği ve sorumluluğun sınırları</h2>
+        <p>8.1. Sitedeki içerikler yalnızca genel bilgilendirme amacı taşır.</p>
+        <p>
+          8.2. İçeriklerin doğru ve güncel olması için azami özen gösterilir. Bununla birlikte içeriklerin hatasız,
+          eksiksiz veya her an güncel olduğu garanti edilmez. Rakamlar ve bilgiler, yayın tarihinde erişilebilen
+          kaynaklara dayanır ve sonradan değişebilir.
+        </p>
+        <p>8.3. Okurlar, önemli kararlarını vermeden önce bilgiyi ilgili resmî kaynaktan doğrulamalıdır.</p>
+
+        <h2>9. Yatırım tavsiyesi değildir</h2>
+        <p>
+          9.1. Sitedeki hiçbir içerik yatırım danışmanlığı, yatırım tavsiyesi ya da kişiye özel öneri niteliği taşımaz.
+        </p>
+        <p>
+          9.2. {SITE.name}, yatırım danışmanlığı yapma yetkisine sahip bir kuruluş değildir. Hiçbir sermaye piyasası
+          aracını, fonu, kripto varlığı ya da kitle fonlama kampanyasını almayı, satmayı veya elde tutmayı önermez; hedef
+          fiyat vermez.
+        </p>
+        <p>
+          9.3. Yatırım kararları, kişinin kendi mali durumu ve risk tercihleri dikkate alınarak, yetkili kuruluşlardan
+          alınacak danışmanlıkla verilmelidir. Sitedeki bilgilere dayanılarak alınan kararların sonuçlarından
+          {SITE.name} sorumlu tutulamaz.
+        </p>
+
+        <h2>10. Dış bağlantılar</h2>
+        <p>
+          Sitede yer alan bağlantılar yalnızca okurun kaynağa ulaşmasını kolaylaştırmak içindir. Bağlantı verilen
+          sitelerin içeriğinden ve uygulamalarından o sitelerin sahipleri sorumludur.
+        </p>
+
+        <h2>11. Fikrî mülkiyet</h2>
+        <p>
+          11.1. Sitedeki metin, grafik ve görsellerin hakları {SITE.name}'e aittir; aksi belirtilen içerikler hariçtir.
+        </p>
+        <p>
+          11.2. İçeriklerden, kaynak gösterilerek ve bağlantı verilerek kısa alıntı yapılabilir. İçeriklerin tamamının ya
+          da önemli bir bölümünün izinsiz çoğaltılması yasaktır.
+        </p>
+        <p>
+          11.3. İçeriklerin yapay zekâ modellerinin eğitimi amacıyla toplu olarak kullanılması izne tabidir. Arama ve
+          yanıt sistemlerinin kaynak göstererek ve bağlantı vererek kısa alıntı yapması serbesttir.
+        </p>
+
+        <h2 id="hak-ihlali">12. Hak ihlali ve içerik kaldırma bildirimleri</h2>
+        <p>
+          12.1. Sitedeki bir içeriğin telif hakkınızı, kişilik haklarınızı veya başka bir hakkınızı ihlal ettiğini
+          düşünüyorsanız <a href="mailto:contact@finfolis.com">contact@finfolis.com</a> adresine yazabilirsiniz.
+        </p>
+        <p>12.2. Bildirimde şunlar yer almalıdır:</p>
+        <ul>
+          <li>ilgili içeriğin bağlantısı,</li>
+          <li>ihlal edildiğini düşündüğünüz hak,</li>
+          <li>talebiniz,</li>
+          <li>sizinle iletişim kurabileceğimiz bilgiler.</li>
+        </ul>
+        <p>
+          12.3. Bildirimler öncelikle incelenir. Talep haklı bulunursa içerik düzeltilir, ilgili kısım çıkarılır veya
+          içerik yayından kaldırılır. Sonuç bildirimde bulunan kişiye iletilir.
+        </p>
+
+        <h2 id="cevap-hakki">13. Cevap ve düzeltme hakkı</h2>
+        <p>
+          13.1. Hakkınızda yayımlanan bir içeriğin gerçeğe aykırı olduğunu veya şeref ve itibarınızı zedelediğini
+          düşünüyorsanız, cevap veya düzeltme metninizi <a href="mailto:contact@finfolis.com">contact@finfolis.com</a>
+          adresine iletebilirsiniz.
+        </p>
+        <p>
+          13.2. Talepler öncelikle incelenir. Talep yerinde bulunursa cevap veya düzeltme metni, ilgili içerikle birlikte
+          ve ona bağlantı verilerek yayımlanır.
+        </p>
+
+        <h2>14. Kişisel verilerin korunması</h2>
+        <p>14.1. Haberlerde özel kişilerin kişisel verilerine, haberin gerektirdiği ölçünün ötesinde yer verilmez.</p>
+        <p>
+          14.2. Bir içerikte kişisel verinizin gereksiz yere yer aldığını düşünüyorsanız bize yazabilirsiniz. Talebiniz
+          incelenir; gerekirse adınız veya ilgili bilgi içerikten çıkarılır.
+        </p>
+        <p>14.3. Site ziyaretçilerine ilişkin veri işleme hakkında bilgi için <a href="/gizlilik/">Gizlilik</a> sayfasına bakınız.</p>
+
+        <h2>15. Değişiklikler</h2>
+        <p>Bu metin gerektiğinde güncellenir. Okuru etkileyen önemli değişiklikler bu sayfada açıkça belirtilir.</p>
+        <p><strong>Son güncelleme:</strong> 20 Ekim 2026</p>
+      </div>
+    </article>
+  </div>
+</Base>

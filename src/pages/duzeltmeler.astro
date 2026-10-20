@@ -1,0 +1,54 @@
+---
+import Base from '../layouts/Base.astro';
+import { getNews } from '../lib/news';
+import { formatDate } from '../lib/site';
+import { duzeltmeKayitlari } from '../lib/duzeltmeler.mjs';
+import kaldirilan from '../data/duzeltmeler-kaldirilan.json';
+
+const kayitlar = duzeltmeKayitlari(await getNews(), kaldirilan);
+const TUR = { duzeltme: 'Düzeltme', kaldirildi: 'Yayından kaldırıldı' } as const;
+---
+
+<Base
+  title="Düzeltmeler"
+  description="finfolis'te yapılan düzeltmeler, güncellemeler ve yayından kaldırılan haberler."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Düzeltmeler</h1>
+      </header>
+      <div class="prose">
+        <p>
+          Bir haberde hata yaparsak düzeltir, bir haberi kaldırırsak nedenini söyleriz. Her değişikliği tarihiyle bu
+          sayfada açıkça yazarız.
+        </p>
+        <p>
+          Nasıl çalıştığımız için <a href="/duzeltme-politikasi/">Düzeltme Politikası</a> sayfamıza bakın. Bir hata
+          görürseniz her haberin sonundaki "Hata bildir" bağlantısını kullanabilirsiniz.
+        </p>
+
+        {
+          kayitlar.length === 0 ? (
+            <p>Henüz kayıt yok.</p>
+          ) : (
+            <ul class="duzeltme-kayitlari">
+              {kayitlar.map((k) => (
+                <li>
+                  <strong>
+                    {formatDate(k.tarih)} · {TUR[k.tur as keyof typeof TUR]}
+                  </strong>
+                  {' · '}
+                  {k.baslik && (k.href ? <a href={k.href}>{k.baslik}</a> : <>{k.baslik}</>)}
+                  {k.baslik && k.tur === 'kaldirildi' && k.ilkYayin && <> (ilk yayın {formatDate(k.ilkYayin)})</>}
+                  {k.baslik ? ': ' : ''}
+                  {k.metin}
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </article>
+  </div>
+</Base>

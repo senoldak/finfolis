@@ -177,16 +177,6 @@ const jsonLd = {
 
       <SentezBlok whyMatters={haber.data.why_matters} keyPoints={haber.data.key_points} description={description} />
 
-      {
-        duzeltme && (
-          <aside class="duzeltme">
-            <p>
-              <strong>{duzeltme.etiket}</strong> {duzeltme.metin} <a href={duzeltme.baglanti}>Düzeltme ilkemiz</a>
-            </p>
-          </aside>
-        )
-      }
-
       <RakamSeridi rakamlar={rakamlar} bas />
 
       {haber.data.tur === 'bulten' && <BultenDizini govde={haber.body} basliklar={headings} />}
@@ -226,6 +216,15 @@ const jsonLd = {
         )
       }
 
+      {
+        duzeltme && (
+          <aside class="duzeltme">
+            <p>
+              <strong>{duzeltme.etiket}</strong> {duzeltme.metin} <a href={duzeltme.baglanti}>Düzeltme Politikası</a>
+            </p>
+          </aside>
+        )
+      }
 
       <p class="uretim-notu">
         {yzNotu.metin} <a href={yzNotu.baglanti}>{yzNotu.baglantiMetni}</a>
