@@ -28,7 +28,7 @@ import { havuzAc, havuzKapat, havuzaHazirla, havuzAyir, derlemeDenendi, dilimAna
 import { yaziYaz, gemini as varsayilanGemini } from './lib.mjs';
 import { icerikTuru } from './icerik-turu.mjs';
 import { kaynakKapagi, rakamKapagi, haberKapagi } from '../kapak/kapak.mjs';
-import { haberGrafigi } from './grafik-kapak.mjs';
+import { haberGrafigi, GRAFIK_ARALIK_MS } from './grafik-kapak.mjs';
 import { seriOkuyucu } from './yahoo-seri.mjs';
 import { gorunur } from '../../src/lib/gorunur.mjs';
 import { kelimeSay } from '../../src/lib/uzunluk.mjs';
@@ -221,6 +221,8 @@ export async function calistir({
   durum.sonBulten ??= null;
   durum.kaynaklar ??= {};
   durum.olayOnbellek ??= {}; // gruplama + puan önbelleği (olaylar.mjs)
+  durum.grafikKapak ??= {}; // araç → son grafik kapak zamanı (grafik-kapak.mjs, 24 saat kuralı)
+  for (const [k, z] of Object.entries(durum.grafikKapak)) if (simdi - new Date(z) > 2 * GRAFIK_ARALIK_MS) delete durum.grafikKapak[k];
   durum.olaylar = hafizaAc(durum.olaylar ?? []);
   // Tekrar hafızası boşsa son 72 saatin yayımlanmış haberlerinden tohumlanır (tekrar.mjs).
   durum.yayinlar = yayinAc(durum.yayinlar ?? []);
@@ -389,7 +391,7 @@ export async function calistir({
       const yazi = { ...r.yazi, kategori: o.kategori, tarih: new Date(o.tarih), tur: 'haber', icerikTuru: icerikTuru(o.adaylar), kaynaklar: o.kaynaklar ?? [], kaynakIzi: kaynakIzi(o.gizliKaynaklar) };
       // Kapak: kaynağın tarifi; yoksa başlıkta anılan piyasa aracının grafiği; o da yoksa başlık kartı.
       const kapakli = o.adaylar.find((a) => a.kapak);
-      Object.assign(yazi, kapakli ? { kapak: kapakli.kapak, kapakAlt: kapakli.kapakAlt } : ((await haberGrafigi(yazi, o, okuyucu, simdi)) ?? varsayilanKapak(yazi, o)));
+      Object.assign(yazi, kapakli ? { kapak: kapakli.kapak, kapakAlt: kapakli.kapakAlt } : ((await haberGrafigi(yazi, o, okuyucu, simdi, durum.grafikKapak)) ?? varsayilanKapak(yazi, o)));
       const slug = await yaziYaz(rot, yazi);
       for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso, yazildi: true, ...(std.karar === 'sari' ? { gerekce: std.gerekce } : {}) };
       if (std.karar === 'sari') await motoraYaz(sariKayit(adayIdleri(o), slug, std.gerekce));

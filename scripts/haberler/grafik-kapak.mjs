@@ -142,11 +142,16 @@ export function enstrumanBul(baslik) {
 
 const yuzde = (v) => `${v > 0 ? '+' : v < 0 ? '−' : ''}%${tr(Math.abs(v))}`;
 
+// Aynı aracın grafiği bu süre içinde ikinci bir habere kapak olmaz (ana sayfada aynı resim art arda çıkmasın).
+export const GRAFIK_ARALIK_MS = 24 * 3600_000;
+
 // Haberin kapağı için aracın son altı aylık grafiği; { kapak, kapakAlt } ya da null.
-export async function haberGrafigi(yazi, o, okuyucu, simdi = new Date()) {
+// kullanilan: { [arac id]: ISO zaman } durum kaydı; verilirse 24 saat kuralı uygulanır ve kayıt güncellenir.
+export async function haberGrafigi(yazi, o, okuyucu, simdi = new Date(), kullanilan = null) {
   if (!okuyucu) return null;
   const e = enstrumanBul(yazi.baslik);
   if (!e) return null;
+  if (kullanilan?.[e.id] && simdi - new Date(kullanilan[e.id]) < GRAFIK_ARALIK_MS) return null;
   try {
     const ham = await okuyucu.seri(e);
     const son = ham.at(-1);
@@ -159,6 +164,7 @@ export async function haberGrafigi(yazi, o, okuyucu, simdi = new Date()) {
     const gunluk = son.deger - seri.at(-2).deger;
     const od = e.ondalik ?? 2;
     const deger = `${e.onEk ?? ''}${tr(son.deger, od)}${e.sonEk ?? ''}`;
+    if (kullanilan) kullanilan[e.id] = simdi.toISOString();
     return {
       kapak: grafikKapagi({
         kategori: o.kategori ?? yazi.kategori,

@@ -55,6 +55,18 @@ test('haber grafiği: altı aylık seri, vurgu ve üst satır; veri bayatsa ya d
   }
 });
 
+test('haber grafiği: aynı araç 24 saat içinde ikinci habere kapak olmaz; başka araç olur', async () => {
+  const okuyucu = { seri: async () => seri(400) };
+  const simdi = new Date('2026-10-17T09:00:00Z');
+  const o = { kategori: 'piyasalar', tarih: '2026-10-17T08:00:00Z' };
+  const kullanilan = {};
+  assert.ok(await haberGrafigi({ baslik: 'Brent petrol yükseldi' }, o, okuyucu, simdi, kullanilan));
+  assert.equal(kullanilan.brent, simdi.toISOString());
+  assert.equal(await haberGrafigi({ baslik: 'Brent yine yükseldi' }, o, okuyucu, new Date('2026-10-17T20:00:00Z'), kullanilan), null);
+  assert.ok(await haberGrafigi({ baslik: 'Altın rekor kırdı' }, o, okuyucu, simdi, kullanilan));
+  assert.ok(await haberGrafigi({ baslik: 'Brent düştü' }, o, okuyucu, new Date('2026-10-18T09:30:00Z'), kullanilan));
+});
+
 test('faiz serileri: FRED ve ECB CSV okunur; değişiklik listesi basamaklı seriye çevrilir', () => {
   assert.deepEqual(fredCsv('observation_date,DFEDTARU\n2026-10-16,4.00\n2026-10-17,.\n2026-10-18,4.00\n'), [
     { tarih: '2026-10-16', deger: 4 },
