@@ -39,3 +39,10 @@ pnpm-debug.log*
 
 # şifreli kaynak listesinin açık hali (bkz. scripts/haberler/gizli.mjs)
 scripts/haberler/kaynaklar/gizli-kaynaklar.json
+
+# strateji ve kimlik belgeleri yalnız yerelde durur (repo herkese açık)
+docs/superpowers/
+PRODUCT.md
+DESIGN.md
+BRAND.md
+AGENTS.md
