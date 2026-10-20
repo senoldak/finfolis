@@ -258,3 +258,37 @@ test('acilDurdurma: bayrak açık ve kapalı durumları loga yazılır', async (
   assert.equal(b.durdu, false);
   assert.match(loglar[1], /açık$/);
 });
+
+test('motor defteri: kırmızı elendi, sarı yazildi+slug; kimlik adres taşımaz', async () => {
+  const kayitlar = [];
+  const { secenek } = await ortam({
+    kaynaklar: [kaynak('A', [aday('https://k/kirmizi1:x'), aday('s2')])],
+    motor: async (k) => kayitlar.push(k),
+    yaz: async (a) => ({ baslik: a.baslik, spot: 's', govde: a.id.startsWith('http') ? 'Şirketin mühendisi tutuklandı.' : 'Fabrikadaki kazada iki kişi öldü.' }),
+  });
+  await calistir(secenek);
+  const red = kayitlar.find((k) => k.durum === 'elendi');
+  const sari = kayitlar.find((k) => k.durum === 'yazildi');
+  assert.match(red.gerekce, /^standart:kirmizi:suc/);
+  assert.equal(red.slug, undefined);
+  assert.match(sari.gerekce, /^standart:sari:/);
+  assert.match(sari.slug, /^[a-z0-9-]{1,120}$/);
+  for (const k of kayitlar) assert.match(k.kimlik, /^[A-Za-z0-9:_-]{1,128}$/);
+  assert.equal(kayitlar.length, 2);
+});
+
+test('motor yazılamazsa tur durmaz; temiz habere kayıt gitmez', async () => {
+  const { secenek } = await ortam({
+    kaynaklar: [kaynak('A', [aday('m1'), aday('m2')])],
+    motor: async () => {
+      throw new Error('saat kapalı');
+    },
+    yaz: async (a) => ({ baslik: a.baslik, spot: 's', govde: a.id === 'm1' ? 'Fabrikadaki kazada iki kişi öldü.' : 'Merkez bankası faizi sabit tuttu.' }),
+  });
+  const s = await calistir(secenek);
+  assert.equal(s.adet, 2);
+  const kayitlar = [];
+  const { secenek: s2 } = await ortam({ kaynaklar: [kaynak('A', [aday('t9')])], motor: async (k) => kayitlar.push(k) });
+  await calistir(s2);
+  assert.equal(kayitlar.length, 0);
+});

@@ -19,6 +19,7 @@ import { dilimGruplari, derlemeAdayi, derlemeOlayi, DERLEME_MAKS, derlenebilir, 
 import { yayinKurulu as kurul, derlemeEnAz } from './yayin-kurulu.mjs';
 import { standartDenetle, standartOzeti } from './standart.mjs';
 import { standartKapisi, derlemeSuz, acilDurdurma } from './standart-kapi.mjs';
+import { motorKaydet, kirmiziKayit, sariKayit } from './motor.mjs';
 import * as bultenModulu from './bulten.mjs';
 import { karneler as varsayilanKarneler } from './karne.mjs';
 import { BOLGELER, dilimDolu, dilimKaydet } from './bulten.mjs';
@@ -174,6 +175,7 @@ export async function calistir({
   derlemeYaz = derlemeYazar,
   yayinKurulu = kurul,
   standart = standartDenetle, // Standartlar Faz 0: kırmızı süzgeç (testlerde değiştirilebilir)
+  motor = (kayit) => motorKaydet({ url: process.env.MOTOR_URL, anahtar: process.env.MOTOR_ANAHTARI, kayit }), // karar defteri (testlerde değiştirilebilir)
   bulten = bultenModulu,
   karneler = varsayilanKarneler,
   // Bir çalıştırmalık piyasa serisi okuyucusu: eşik olayları, kur grafikleri, haber kapakları ve karneler aynı sembolü
@@ -205,6 +207,16 @@ export async function calistir({
   };
   if (okuyucu === undefined) okuyucu = seriOkuyucu(simdi);
   durum ??= await jsonOku(DURUM_DOSYASI, {});
+  // Motor defteri yardımcıdır: kuru çalışmada yazılmaz, hata turu durdurmaz.
+  const motoraYaz = async (kayit) => {
+    if (kuru) return;
+    try {
+      await motor(kayit);
+    } catch (e) {
+      log(`  motor kaydı yazılamadı: ${String(e?.message ?? e).slice(0, 100)}`);
+    }
+  };
+  const adayIdleri = (o) => (o.adaylar ?? []).map((a) => a.id);
   durum.gorulen ??= {};
   durum.sonBulten ??= null;
   durum.kaynaklar ??= {};
@@ -370,6 +382,7 @@ export async function calistir({
         for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso, elendi: true, gerekce: std.gerekce };
         dislanan.add(o);
         log(`  - ${o.id}: elendi, ${standartOzeti(std)}`);
+        await motoraYaz(kirmiziKayit(adayIdleri(o), std.gerekce));
         return;
       }
       if (std.karar === 'sari') log(`  ~ ${o.id}: ${standartOzeti(std)}`);
@@ -379,6 +392,7 @@ export async function calistir({
       Object.assign(yazi, kapakli ? { kapak: kapakli.kapak, kapakAlt: kapakli.kapakAlt } : ((await haberGrafigi(yazi, o, okuyucu, simdi)) ?? varsayilanKapak(yazi, o)));
       const slug = await yaziYaz(rot, yazi);
       for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso, yazildi: true, ...(std.karar === 'sari' ? { gerekce: std.gerekce } : {}) };
+      if (std.karar === 'sari') await motoraYaz(sariKayit(adayIdleri(o), slug, std.gerekce));
       o.haberSlug = slug;
       yazilan.push(o);
       sonuc.adet++;
@@ -502,6 +516,7 @@ export async function calistir({
           dislanan.add(k); // bültende ikinci kez yer almasın
           for (const a of k.adaylar ?? []) durum.gorulen[a.id] = { zaman: iso, yazildi: true, ...(derlemeGerekcesi ? { gerekce: derlemeGerekcesi.slice(0, 300) } : {}) };
         }
+        if (sz.karar === 'sari') await motoraYaz(sariKayit(grup.flatMap(adayIdleri), slug, derlemeGerekcesi));
         yazilan.push(o);
         sonuc.adet++;
         sonuc.yazilar.push(slug);
@@ -549,6 +564,7 @@ export async function calistir({
       for (const e of izleyici.elenen ?? []) {
         for (const a of e.olay.adaylar ?? []) durum.gorulen[a.id] = { zaman: iso, elendi: true, gerekce: e.gerekce };
         bultenElenen.add(e.olay.id);
+        await motoraYaz(kirmiziKayit(adayIdleri(e.olay), e.gerekce));
         log(`  - bülten maddesi elendi (${e.olay.id}): ${standartOzeti(e.ozet)}`);
       }
       for (const o of izleyici.bekleyen ?? []) {
@@ -568,6 +584,7 @@ export async function calistir({
         for (const o of bultendekiler) {
           const sariGerekce = (izleyici.sari ?? []).find((m) => m.olay.id === o.id)?.gerekce;
           for (const a of o.adaylar) if (!durum.gorulen[a.id]?.yazildi) durum.gorulen[a.id] = { zaman: iso, ...(sariGerekce ? { gerekce: sariGerekce } : {}) };
+          if (sariGerekce) await motoraYaz(sariKayit(adayIdleri(o), slug, sariGerekce));
         }
         log(`  + bülten ${slug}`);
       } else {
