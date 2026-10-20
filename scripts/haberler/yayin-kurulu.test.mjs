@@ -177,12 +177,12 @@ test('yayinKurulu: göreli zaman yerelde düzelir, Gemini düzeltme çağrılmaz
 const uzunGovde = Array.from({ length: 6 }, () => 'Fed’e göre aralık yüzde 4,25 ile 4,5 arasında kaldı ve kurul kararını oy birliğiyle verdi, toplantı tutanağı da üç hafta sonra yayımlanacak.').join(' ')
   .concat(' ', 'Kurul enflasyonun hedefin üzerinde kaldığını, istihdamın ise güçlü seyrettiğini belirtti. '.repeat(8));
 
-// 120-199 kelimelik taslak (Katman 2: uzatma yalnız bu aralıkta denenir).
+// 150-199 kelimelik taslak (Katman 2: uzatma yalnız bu aralıkta denenir).
 const ortaGovde = `${iyi.govde}
 
-${'Kurul kararını açıkladı ve piyasalar bunu bekliyordu. '.repeat(18)}`.trim();
+${'Kurul kararını açıkladı ve piyasalar bunu bekliyordu. '.repeat(22)}`.trim();
 
-test('120-199 kelimelik taslak genişletilir; genişletme yeterliyse yayınlanır', async () => {
+test('150-199 kelimelik taslak genişletilir; genişletme yeterliyse yayınlanır', async () => {
   const istemler = [];
   const gemini = async ({ sema, istem }) => {
     istemler.push(istem);
@@ -370,4 +370,12 @@ test('kaynağın İngilizce başlığı metne geçerse yakalanır; kurum adları
   assert.equal(yabanciBaslikKontrol('Why Investors Are Fleeing the Bond Market Now adlı analiz yayımlandı.').length, 1);
   assert.equal(yabanciBaslikKontrol('Şirketin “Yeni Dönem” başlıklı raporu yayımlandı.').length, 0);
   assert.deepEqual(yabanciBaslikKontrol('Federal Reserve Bank of New York ve Bank of America açıklama yaptı. S&P 500 ve Nasdaq yükseldi.'), []);
+});
+
+test('150 kelimenin altındaki taslak uzatılmaz (19 Ekim: bu aralıkta uzatma neredeyse hiç 200e ulaşmadı)', async () => {
+  let cagri = 0;
+  const govde = `${iyi.govde}\n\n${'Kurul kararını açıkladı ve piyasalar bunu bekliyordu. '.repeat(16)}`.trim();
+  const r = await yayinKurulu({ ...iyi, govde }, aday, { gemini: async () => { cagri++; return null; } });
+  assert.equal(r.kisa, true);
+  assert.equal(cagri, 0);
 });

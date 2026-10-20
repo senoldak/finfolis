@@ -357,7 +357,7 @@ export async function calistir({
       yazilan.push(o);
       sonuc.adet++;
       sonuc.yazilar.push(slug);
-      log(`  + ${slug}`);
+      log(`  + ${slug}${r.uzatma ? ` (uzatıldı ${r.uzatma[0]}→${r.uzatma[1]} kelime)` : ''}`);
     } catch (e) {
       dislanan.add(o);
       if (e.konfig) {

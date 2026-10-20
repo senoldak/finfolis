@@ -23,8 +23,9 @@ export const VERI_HABERI_EN_AZ = INDEKS_ESIGI;
 // Derleme alt sınırı: havuzdaki haberler zaten kaynağı az olduğu için kısa kalanlardır; 8 haberlik derleme
 // uzatmadan sonra bile ~170 kelimede kalıyordu (18 Ekim). Haber başına 20 kelime, en az 150, en çok EN_AZ_KELIME.
 export const derlemeEnAz = (n) => Math.min(EN_AZ_KELIME, Math.max(150, n * 20));
-// Bu sayının altındaki taslak uzatılmaz (Katman 2); sitedeki noindex eşiğiyle aynı.
-export const UZATMA_ESIGI = INDEKS_ESIGI;
+// Bu sayının altındaki taslak uzatılmaz (Katman 2). 19 Ekim: 88 uzatmanın 74'ü 200'e ulaşamadı; kazanç çoğunlukla
+// +0–40 kelime, 150'nin altından başlayıp 200'ü geçen yok denecek kadar az. Başarılı uzatmalar logda "uzatıldı" der.
+export const UZATMA_ESIGI = 150;
 
 const KARAR_SEMASI = {
   type: 'object',
@@ -411,7 +412,7 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
   if (kalan.length) return { dur: `Son kontrol: ${kalan.join('; ')}` };
   // kisa: olay ayrı haber olmaz; havuzda eş bekler (derleme), eş yoksa bültende tek satır olur (bkz. hent-haberler.mjs).
   if (kisa(yazi)) return kisaDur();
-  return { yazi };
+  return uzatmaOncesi === null ? { yazi } : { yazi, uzatma: [uzatmaOncesi, kelimeSay(yazi.govde)] };
 }
 
 const ayniYazi = (a, b) => ['baslik', 'spot', 'govde'].every((k) => a[k] === b[k]);
