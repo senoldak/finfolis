@@ -181,6 +181,9 @@ export async function calistir({
   motor = (kayit) => motorKaydet({ url: process.env.MOTOR_URL, anahtar: process.env.MOTOR_ANAHTARI, kayit }), // karar defteri (testlerde değiştirilebilir)
   bulten = bultenModulu,
   karneler = varsayilanKarneler,
+  // Ara kayıt (F4): her yazılan haberden sonra durum dosyası yazılır; süreç sonradan çökerse yazılan haberler görüldü
+  // kalır ve aynı adaylar için Gemini yeniden harcanmaz. Testlerde boş.
+  araKayit = async () => {},
   // Bir çalıştırmalık piyasa serisi okuyucusu: eşik olayları, kur grafikleri, haber kapakları ve karneler aynı sembolü
   // bir kez indirir. null verilirse haber kapaklarına grafik çizilmez (testler ağsız çalışır).
   okuyucu,
@@ -403,6 +406,7 @@ export async function calistir({
       sonuc.adet++;
       sonuc.yazilar.push(slug);
       log(`  + ${slug}${r.uzatma ? ` (uzatıldı ${r.uzatma[0]}→${r.uzatma[1]} kelime)` : ''}`);
+      await araKayit(durum).catch((e) => console.error(`  ! ara kayıt yazılamadı: ${e.message}`));
     } catch (e) {
       dislanan.add(o);
       if (e.konfig) {
@@ -534,6 +538,7 @@ export async function calistir({
         sonuc.adet++;
         sonuc.yazilar.push(slug);
         log(`  + derleme ${slug} (${grup.length} haber, ${kelimeSay(yazi.govde)} kelime)`);
+        await araKayit(durum).catch((e) => console.error(`  ! ara kayıt yazılamadı: ${e.message}`));
       } catch (e) {
         if (e.konfig) {
           hatalar.push(`Gemini yapılandırma hatası: ${e.message}`);
@@ -665,9 +670,11 @@ export async function turBaslat({ kuru = false, env = process.env, acil = acilDu
     }
     log(await butceYukle({ url: env.MOTOR_URL, anahtar: env.MOTOR_ANAHTARI, site: 'finfolis' }));
   }
-  const s = await calis({ kuru });
+  // Durum dosyası: tur sonunda ve (F4) her yazılan haberden sonra. Şifreleyiciler yeni nesne döner, bellekteki durum değişmez.
+  const durumYaz = (d) => writeFile(DURUM_DOSYASI, JSON.stringify({ ...d, olaylar: hafizaKapat(d.olaylar), yayinlar: yayinKapat(d.yayinlar), havuz: havuzKapat(d.havuz ?? []) }, null, 2) + '\n');
+  const s = await calis(kuru ? { kuru } : { kuru, araKayit: durumYaz });
   if (!kuru) {
-    await writeFile(DURUM_DOSYASI, JSON.stringify({ ...s.durum, olaylar: hafizaKapat(s.durum.olaylar), yayinlar: yayinKapat(s.durum.yayinlar), havuz: havuzKapat(s.durum.havuz ?? []) }, null, 2) + '\n');
+    await durumYaz(s.durum);
     const adet = s.adet + (s.bultenYazildi ? 1 : 0);
     log(`Bitti: ${s.adet} yeni haber${s.bultenYazildi ? ', 1 bülten' : ''}.`);
     if (env.GITHUB_OUTPUT) await appendFile(env.GITHUB_OUTPUT, `adet=${adet}\n`);

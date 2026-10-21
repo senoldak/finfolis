@@ -61,9 +61,11 @@ jobs:
         timeout-minutes: 5
         run: node scripts/haberler/resmi-veri.mjs --yaz
 
+      # Üretim adımı düşse de (zaman aşımı, beklenmeyen hata) o ana kadar yazılan haberler ve ara kayıtlı durum dosyası
+      # commit edilir (F4); aksi hâlde aynı adaylar sonraki turda Gemini'yi yeniden harcıyordu. İş yine kırmızı biter.
       - name: Commit
         id: commit
-        if: ${{ steps.hent.outputs.durdu != '1' }}
+        if: ${{ !cancelled() && steps.hent.outputs.durdu != '1' }}
         env:
           ADET: ${{ steps.hent.outputs.adet }}
         run: |
