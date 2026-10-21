@@ -11,6 +11,7 @@
 // taşımaz. BIST 100'ün anlamlı rekoru dolar bazında aranır. Türkiye olayları ayrıca günlük tavanla sınırlıdır.
 import { grafikKapagi } from '../../kapak/kapak.mjs';
 import { trSayi } from './ortak.mjs';
+import { sablonYazisi } from './esik-sablon.mjs';
 import { seriOkuyucu, YAHOO_KAYNAK, TURETILMIS } from '../yahoo-seri.mjs';
 
 export { kapanislar } from '../yahoo-seri.mjs';
@@ -140,7 +141,8 @@ export const ENSTRUMANLAR = [
   { ...BIST_HISSE, id: 'sise', ad: 'Şişecam (SISE)', sembol: 'SISE.IS' },
 ];
 
-// Son 24 saatte en fazla bu kadar eşik olayı aday olur; her biri yazar ve yayın kurulunda birkaç Gemini çağrısı demek.
+// Son 24 saatte en fazla bu kadar eşik olayı aday olur. Yazıları Gemini'siz şablonla yazılır (esik-sablon.mjs, A3); tavan
+// artık Gemini değil, yayın hacmi ve kapak çizimi içindir.
 // Telegram'da bunlar yalnız @finfolis kanalına gider; fundov grubuna yalnız piyasa bülteni gider (mecmua-saat).
 export const GUNLUK_AZAMI = 12;
 export const TR_AZAMI = 3; // bunların en fazla bu kadarı Türkiye olayı
@@ -430,8 +432,9 @@ export function adayYap(o, e, seri) {
   if (e.turet === 'bistusd') satirlar.push('BIST 100 in US dollars = BIST 100 index level divided by the USD/TRY exchange rate.');
   satirlar.push(`Prices are daily closing values. Source: ${YAHOO_KAYNAK.ad}.`);
 
+  const id = `esik:${e.id}:${kisa}:${kimlik}`;
   return {
-    id: `esik:${e.id}:${kisa}:${kimlik}`,
+    id,
     baslik,
     tarih: new Date(`${son.tarih}T00:00:00+03:00`),
     onem: 80,
@@ -440,6 +443,8 @@ export function adayYap(o, e, seri) {
     ucretli: false,
     veriHaberi: true, // grafik haberin kendisi: yayın kurulunda daha kısa alt sınır (VERI_HABERI_EN_AZ)
     kaynakMetni: satirlar.join(' '),
+    // Gemini'siz şablon yazısı (esik-sablon.mjs): hent-haberler bu alanı görünce yazar ve yayın kurulu çağrılmaz.
+    sablonYazi: sablonYazisi({ o, e, seri, baslik, d, kimlik: id }),
     kaynaklar: [YAHOO_KAYNAK],
     kapak: grafikKapagi({
       kategori: e.kategori,

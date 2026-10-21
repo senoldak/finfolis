@@ -281,7 +281,7 @@ const yayimlananMetin = (y) =>
 // Standartlar Faz 1: "Neden önemli" ve kısa maddeler de sayfada görünür; rakam/alıntı ve ölçek kontrolüne girer.
 const denetlenenMetin = (y) => [butunMetin(y), y.why_matters, ...(y.key_points ?? [])].filter(Boolean).join('\n');
 
-function kesinKontrol(yazi, aday) {
+export function kesinKontrol(yazi, aday) {
   const metin = denetlenenMetin(yazi);
   const { eksik } = dogrula(metin, [aday.kaynakMetni ?? '']);
   const olcek = olcekKontrol(metin, aday.kaynakMetni ?? '');
@@ -422,6 +422,17 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
   // kisa: olay ayrı haber olmaz; havuzda eş bekler (derleme), eş yoksa bültende tek satır olur (bkz. hent-haberler.mjs).
   if (kisa(yazi)) return kisaDur();
   return uzatmaOncesi === null ? { yazi } : { yazi, uzatma: [uzatmaOncesi, kelimeSay(yazi.govde)] };
+}
+
+// Şablon yazı (eşik olayı, bkz. kaynaklar/esik-sablon.mjs): Gemini kontrol masası çağrılmaz, çünkü metin yalnızca kendi
+// verimizden üretilir. Yine de yerel düzeltme, kesin kontrol (her rakam kaynak metinde, yayın kuruluşu adı yok) ve tam
+// uzunluk alt sınırı (EN_AZ_KELIME; veri haberi gevşetmesi uygulanmaz) çalışır. Döner: {yazi} ya da {dur}.
+export function sablonKontrol(sablon, aday) {
+  const yazi = yerelDuzelt(sablon);
+  const kalan = kesinKontrol(yazi, aday);
+  if (kalan.length) return { dur: `Şablon yazı kesin kontrolden geçmedi: ${kalan.join('; ')}` };
+  if (kelimeSay(yazi.govde) < EN_AZ_KELIME) return { dur: `Şablon yazı kısa: ${kelimeSay(yazi.govde)} kelime (en az ${EN_AZ_KELIME})` };
+  return { yazi };
 }
 
 const ayniYazi = (a, b) => ['baslik', 'spot', 'govde'].every((k) => a[k] === b[k]);

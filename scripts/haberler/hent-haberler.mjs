@@ -16,7 +16,7 @@ import * as ipucuModulu from './ipucu.mjs';
 import * as olaylarModulu from './olaylar.mjs';
 import { yaz as yazarYaz, derlemeYaz as derlemeYazar } from './yazar.mjs';
 import { dilimGruplari, derlemeAdayi, derlemeOlayi, DERLEME_MAKS, derlenebilir, derlemeDilimiKaydet } from './derleme.mjs';
-import { yayinKurulu as kurul, derlemeEnAz } from './yayin-kurulu.mjs';
+import { yayinKurulu as kurul, derlemeEnAz, sablonKontrol } from './yayin-kurulu.mjs';
 import { standartDenetle, standartOzeti } from './standart.mjs';
 import { standartKapisi, derlemeSuz, acilDurdurma } from './standart-kapi.mjs';
 import { motorKaydet, kirmiziKayit, sariKayit } from './motor.mjs';
@@ -309,7 +309,10 @@ export async function calistir({
 
   // 4. Olay gruplama; hafızadaki olayla eşleşen adaylar yazılmadan görüldü sayılır.
   const temiz = adaylar.map(({ _kaynak, ...a }) => a);
-  const { yeni, bilinen, grupHatasi } = await olaylar.olaylariGrupla(temiz, durum.olaylar, { gemini, onbellek: durum.olayOnbellek, surumEki: `esik${TERFI_ESIGI}/${RSS_TERFI_ESIGI}`, simdi });
+  // Şablon yazılan adaylar (eşik olayları) Gemini'siz yazılır: gruplama çağrısına girmez, her biri kendi olayıdır.
+  // Mükerrer denetimi yine çalışır: tekrarlariAyikla (72 saat) ve olayYaz içindeki mukerrerBul, ikisi de Gemini'siz.
+  const sablonAdaylari = temiz.filter((a) => a.sablonYazi);
+  const { yeni: grupYeni, bilinen, grupHatasi } = await olaylar.olaylariGrupla(temiz.filter((a) => !a.sablonYazi), durum.olaylar, { gemini, onbellek: durum.olayOnbellek, surumEki: `esik${TERFI_ESIGI}/${RSS_TERFI_ESIGI}`, simdi });
   if (grupHatasi) {
     // Gruplama yoksa mükerrer yayın riski: terfi ve bülten atlanır, adaylar görülmedi kalır.
     hatalar.push('olay gruplama başarısız; terfi ve bülten sonraki çalıştırmaya kaldı');
@@ -317,6 +320,7 @@ export async function calistir({
     sonuc.durum = durum;
     return sonuc;
   }
+  const yeni = [...grupYeni, ...sablonAdaylari.map((a) => olaylarModulu.olayYap([a]))];
   for (const a of bilinen) durum.gorulen[a.id] = { zaman: iso };
   // Son 72 saatte yayımlanan bir haberle aynı olay (tekrar.mjs): yazılmaz, bültene girmez, görüldü sayılır.
   for (const t of tekrarlariAyikla(yeni, durum.yayinlar ?? [], simdi)) {
@@ -334,13 +338,15 @@ export async function calistir({
   const terfi = geminiVar ? yeni.filter(terfiMi) : [];
   let dur = false;
   // Önem 70+ olaylar önce, 60-69 olaylar derlemelerden sonra yazılır (ONCELIKLI_ONEM).
+  let sablonAdet = 0; // Gemini'siz yazılanlar: ne Gemini bütçesine ne MAKS_HABER'e sayılır
   const olayYaz = async (o) => {
-    const neden = dur ? null : isBitti(olayTokenTahmini(o));
+    const sablon = o.adaylar?.length === 1 ? o.adaylar[0].sablonYazi : undefined;
+    const neden = dur || sablon ? null : isBitti(olayTokenTahmini(o));
     if (neden) {
       log(`  ! çalıştırma bütçesi aşıldı (${neden}); kalan olaylar sonraki çalıştırmaya kaldı`);
       dur = true;
     }
-    if (dur || yazilan.length >= maksHaber) {
+    if (sablon ? zamanBitti() : dur || yazilan.length - sablonAdet >= maksHaber) {
       dislanan.add(o); // görüldü sayılmaz, sonraki çalıştırmada yeniden gelir
       return;
     }
@@ -353,13 +359,17 @@ export async function calistir({
       return;
     }
     try {
-      const taslak = await yaz(o, {});
-      if (!taslak) {
-        for (const a of o.adaylar) basarisiz(durum, a, iso, hatalar, 'yazar çıktı vermedi', log);
-        dislanan.add(o);
-        return;
+      let r;
+      if (sablon) r = sablonKontrol(sablon, o);
+      else {
+        const taslak = await yaz(o, {});
+        if (!taslak) {
+          for (const a of o.adaylar) basarisiz(durum, a, iso, hatalar, 'yazar çıktı vermedi', log);
+          dislanan.add(o);
+          return;
+        }
+        r = await yayinKurulu(taslak, o, {});
       }
-      const r = await yayinKurulu(taslak, o, {});
       if (r.dur && r.bekle) {
         // Denetim çalışamadı (emin değil): yayımlanmaz, görüldü sayılmaz; sonraki turda yeniden denenir.
         dislanan.add(o);
@@ -402,6 +412,7 @@ export async function calistir({
       for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso, yazildi: true, ...(std.karar === 'sari' ? { gerekce: std.gerekce } : {}) };
       if (std.karar === 'sari') await motoraYaz(sariKayit(adayIdleri(o), slug, std.gerekce));
       o.haberSlug = slug;
+      if (sablon) sablonAdet++;
       yazilan.push(o);
       sonuc.adet++;
       sonuc.yazilar.push(slug);

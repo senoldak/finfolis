@@ -87,7 +87,7 @@ export const resmiMi = (a) => RESMI_ONEK.test(String(a.id ?? ''));
 const acikTamMetinMi = (a) =>
   !a.ucretli && String(a.kaynakMetni ?? '').length > `${a.baslik}\n${a.ozet ?? ''}`.length;
 
-function olayYap(adaylar) {
+export function olayYap(adaylar) {
   const ilk = adaylar[0];
   const kaynaklar = [];
   for (const a of adaylar) {
