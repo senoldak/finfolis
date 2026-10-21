@@ -42,6 +42,15 @@ jobs:
       - name: Bağımlılıkları kur
         run: npm ci --no-audit --no-fund
 
+      # Astro görsel önbelleği (node_modules/.astro): kapakların JPEG/WebP türevleri her derlemede sıfırdan kodlanıyordu;
+      # haber sayısıyla doğrusal artar. npm ci node_modules'ı sildiği için adım ondan sonra gelir.
+      - name: Astro görsel önbelleği
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: node_modules/.astro
+          key: astro-gorsel-${{ hashFiles('package-lock.json') }}-${{ github.run_id }}
+          restore-keys: astro-gorsel-${{ hashFiles('package-lock.json') }}-
+
       - name: Derle
         run: npm run build
 
