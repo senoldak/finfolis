@@ -240,7 +240,11 @@ export async function guncelle(eski, simdi = new Date()) {
       }
     }),
   );
-  return { guncelleme: simdi.toISOString(), gostergeler: sonuc.filter(Boolean) };
+  const gostergeler = sonuc.filter(Boolean);
+  // Değerler değişmediyse zaman damgası da değişmez: aksi hâlde her tur piyasa.json'ı değiştirip yazısız turda
+  // bile tam yayın tetikliyordu (ücretsiz plan denetimi B2, 21 Ekim). guncelleme = son veri değişimi.
+  if (eski?.guncelleme && JSON.stringify(eski.gostergeler) === JSON.stringify(gostergeler)) return eski;
+  return { guncelleme: simdi.toISOString(), gostergeler };
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {

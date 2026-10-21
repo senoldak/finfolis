@@ -168,3 +168,11 @@ test('borsa: Yahoo kapanışından son değer, günlük değişim ve 90 günlük
   assert.equal(g.zaman, '2026-10-13T00:00:00+03:00');
   assert.deepEqual(g.gecmis.map((p) => p.tarih), ['2026-10-13']); // 90 günden eski nokta düşer
 });
+
+test('değerler değişmediyse guncelleme zaman damgası korunur (gereksiz yayın tetiklenmez)', async () => {
+  sahteFetch();
+  const ilk = await guncelle(undefined, SIMDI);
+  const ikinci = await guncelle(ilk, new Date('2026-10-10T11:00:00Z'));
+  assert.equal(ikinci.guncelleme, ilk.guncelleme);
+  assert.deepEqual(ikinci.gostergeler, ilk.gostergeler);
+});
