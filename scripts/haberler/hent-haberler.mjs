@@ -49,6 +49,9 @@ export const ONCELIKLI_ONEM = 70;
 export const MAKS_HABER = 8; // çalıştırma başına; kalan olaylar sonraki çalıştırmaya kalır
 export const KAYNAK_BUTCE_MS = 8 * 60_000; // bu süreden sonra yeni kaynak başlatılmaz
 export const BUTCE_MS = 18 * 60_000; // workflow zaman aşımı 25 dk
+// Bülten payı (21 Ekim): dilimin bülteni yazılmadıysa haber ve derleme bütçenin son bu kadarına girmez. 20 Ekim'de
+// haberler 18 dakikayı üç tur üst üste doldurdu, kapanış bülteni 5-6 saat gecikti (bülten 1-4 dakika sürüyor).
+export const BULTEN_PAYI_MS = 4 * 60_000;
 // Kaynağı kapak tarifi vermeyen kısa haber (genel RSS) için kapak:
 // Başlık odaklı haberKapagi kullanılır. 8 karakterden kısa bir rakam varsa sağdaki veri kutusunda gösterilir.
 export function varsayilanKapak(yazi, o) {
@@ -200,7 +203,7 @@ export async function calistir({
   // Haber ve derleme ayrıca tur giriş-token tavanına bakar (TPM'den türetilir, bkz. token-tavani.mjs): sıradaki iş
   // tavanı aşacaksa kalan işler sonraki tura kalır. Bülten bu tavandan muaftır (en yüksek öncelik).
   const isBitti = (tahmin = 0) => {
-    if (zamanBitti()) return 'süre';
+    if (zamanBitti() || (!dilimDolu(durum, simdi) && saat() - baslangic > BUTCE_MS - BULTEN_PAYI_MS)) return 'süre';
     if (geminiPayiBitti()) return 'Gemini tur payı';
     if (tokenTavaniAsildi(tahmin, { harcanan: harcananToken(), tavan: tokenTavani })) return 'giriş token tavanı';
     return null;

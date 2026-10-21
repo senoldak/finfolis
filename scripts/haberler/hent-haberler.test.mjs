@@ -521,3 +521,18 @@ test('tur giriş-token tavanı dolunca kalan olaylar görülmedi kalır; bülten
   assert.equal(secenek.durum.gorulen.t3, undefined);
   assert.equal(s.bultenYazildi, true);
 });
+
+test('dilimin bülteni yazılmadıysa haberler bülten payını yemez, bülten aynı turda yazılır', async () => {
+  let t = 0;
+  let cagri = false;
+  const { secenek } = await ortam({
+    kaynaklar: [kaynak('A', [aday('a1'), aday('a2'), aday('a3'), aday('a4')])],
+    saat: () => t,
+    yaz: async (a) => ((t += 5 * 60_000), { baslik: a.baslik, spot: 's', govde: 'g' }),
+    bulten: { bultenGerekli: () => true, bultenYaz: async () => ((cagri = true), null) },
+  });
+  secenek.durum.kaynaklar.A = 'x';
+  const s = await calistir(secenek);
+  assert.equal(s.adet, 3); // 15. dakikada haber durur: 18 dk bütçenin son 4 dakikası bültenin
+  assert.equal(cagri, true);
+});
