@@ -40,6 +40,10 @@ const GEMINI_ARALIK_MS = Number(process.env.GEMINI_ARALIK_MS || 4500);
 // denenir (iki model ayrı kapasite ve ayrı ücretsiz kotadır). Bir çağrı tümüyle düşerse aynı çalışmadaki sonraki
 // çağrılar yalnız iki kez dener: Google uzun süre kapalıysa iş zaman aşımına düşmesin. İlk başarı bunu sıfırlar.
 const GEMINI_BEKLEMELER_SN = [15, 30, 60, 90, 120];
+// Çıkış tavanı (ücretsiz plan denetimi A2, 21 Ekim): tavansız çağrıda model bazen 170–270 KB bozuk JSON üretip
+// 125–145 sn ve 1 günlük istek yaktı. En uzun meşru yanıt (kontrol masası) ~8,5K token; 16K hem onu sığdırır
+// hem kaçak yanıtı beşte birine keser. Tavana çarpan yanıt "bozuk" sayılır ve aynı aday yeniden denenmez.
+const GEMINI_MAKS_CIKIS = Number(process.env.GEMINI_MAKS_CIKIS || 16384);
 let geminiKesik = false;
 let sonGeminiCagri = 0;
 
@@ -84,6 +88,7 @@ export async function gemini({ sistem, istem, sema, dusunme: seviye = 'low', den
         contents: [{ role: 'user', parts: [{ text: istem }] }],
         generationConfig: {
           temperature: 0.3,
+          maxOutputTokens: GEMINI_MAKS_CIKIS,
           responseMimeType: 'application/json',
           responseSchema: sema,
           ...(dusunme && { thinkingConfig: dusunme }),
@@ -123,7 +128,16 @@ export async function gemini({ sistem, istem, sema, dusunme: seviye = 'low', den
     const data = await res.json();
     kullanimEkle(data.usageMetadata, { model, amac });
     const metin = data.candidates?.[0]?.content?.parts?.map((p) => p.text).join('') ?? '';
-    const sonuc = JSON.parse(metin);
+    let sonuc;
+    try {
+      sonuc = JSON.parse(metin);
+    } catch (e) {
+      // Bozuk ya da tavana çarpıp kesilmiş yanıt: tek deneme, haberin yeniden yazılması için bir tur daha harcanmaz.
+      const kesik = data.candidates?.[0]?.finishReason === 'MAX_TOKENS';
+      const hata = new Error(`Gemini bozuk yanıt (${model}${kesik ? ', çıkış tavanına çarptı' : ''}): ${e.message.slice(0, 120)}`);
+      hata.bozuk = true;
+      throw hata;
+    }
     if (denetim && !_model && model !== yedek) await golge(amac, sonuc, () => gemini({ sistem, istem, sema, dusunme: seviye, denetim: true, _model: yedek, _amac: `golge/${amac}` }));
     return sonuc;
   }

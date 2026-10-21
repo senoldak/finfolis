@@ -419,6 +419,14 @@ export async function calistir({
         log(`  - ${o.id}: bekletildi (${e.message})`);
         return;
       }
+      // Bozuk yanıt (çıkış tavanı, geçersiz JSON): tek deneme; gerekçesiyle görüldü sayılır, yeniden yazılmaz.
+      if (e.bozuk) {
+        for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso, gerekce: 'bozuk yanıt' };
+        hatalar.push(`${o.id}: ${e.message}`);
+        log(`  - ${o.id}: bozuk yanıt, görüldü sayıldı (yeniden denenmez)`);
+        console.error(`  ! ${o.id}: ${e.message}`);
+        return;
+      }
       // Görüldü sayılmaz: sonraki çalıştırmada yeniden denenir.
       for (const a of o.adaylar) basarisiz(durum, a, iso, hatalar, e.message, log);
       console.error(`  ! ${o.id}: ${e.message}`);

@@ -149,3 +149,32 @@ test('yaziYaz grafik ve tabloyu açık kaynağı olmayan (gizli kaynaklı) haber
   const fm2 = parse((await readFile(path.join(rot, 'src/content/haberler', s2, 'index.md'), 'utf8')).split('---')[1]);
   assert.deepEqual(fm2.tablo, tablo);
 });
+
+test('gemini: çıkış tavanı gönderilir; tavana çarpan bozuk yanıt bozuk=true ile fırlatılır', async () => {
+  const { gemini } = await import('./lib.mjs');
+  const eskiFetch = globalThis.fetch;
+  const eskiKey = process.env.GEMINI_API_KEY;
+  process.env.GEMINI_API_KEY = 'test';
+  let govde;
+  globalThis.fetch = async (_url, { body }) => {
+    govde = JSON.parse(body);
+    return new Response(
+      JSON.stringify({
+        candidates: [{ finishReason: 'MAX_TOKENS', content: { parts: [{ text: '{"baslik": "yarım' }] } }],
+        usageMetadata: { promptTokenCount: 1, candidatesTokenCount: 1 },
+      }),
+      { status: 200 },
+    );
+  };
+  try {
+    await assert.rejects(
+      () => gemini({ istem: 'x', sema: { type: 'object' } }),
+      (e) => e.bozuk === true && /çıkış tavanına çarptı/.test(e.message),
+    );
+    assert.equal(govde.generationConfig.maxOutputTokens, 16384);
+  } finally {
+    globalThis.fetch = eskiFetch;
+    if (eskiKey === undefined) delete process.env.GEMINI_API_KEY;
+    else process.env.GEMINI_API_KEY = eskiKey;
+  }
+});
