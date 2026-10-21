@@ -1,6 +1,9 @@
 ---
 date: 2026-10-21T08:00:00+03:00
 yaziTuru: aciklayici
+cover: ./cover.png
+coverAlt: "Politika faizi %37'de sabitken enflasyonla arasındaki fark Eylül 2026'da 7,27 puana çıktı"
+coverSitede: false
 uretim: yazi-isleri
 title: "Politika faizi %37'de sabitken enflasyonla arasındaki fark Eylül 2026'da 7,27 puana çıktı"
 description: "Yıllık enflasyon Mayıs 2026'daki %32,61'den Eylül 2026'da %29,73'e indi. Piyasa katılımcılarının bir yıl sonrası için beklediği enflasyona göre hesaplanan fark ise 13,11 puan."
