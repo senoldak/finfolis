@@ -1,5 +1,5 @@
 ---
-title: "abd'de işsizlik maaşı başvuruları 57 yılın en düşük seviyelerine yakın seyrediyor"
+title: "ABD'de işsizlik maaşı başvuruları 57 yılın en düşük seviyelerine yakın seyrediyor"
 description: "Amerikalıların işsizlik maaşı başvuruları geçen hafta düşüş göstererek 57 yılın en düşük seviyelerine yaklaştı. Çalışma Bakanlığı verilerine göre ilk kez işsizlik maaşı başvurusunda bulunanların sayısı 194.000 oldu."
 date: 2026-10-22T13:46:42.000Z
 category: "ekonomi"

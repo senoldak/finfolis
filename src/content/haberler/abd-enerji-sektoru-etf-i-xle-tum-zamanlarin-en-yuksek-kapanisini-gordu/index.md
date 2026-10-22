@@ -1,5 +1,5 @@
 ---
-title: "abd enerji sektörü etf'i xle tüm zamanların en yüksek kapanışını gördü"
+title: "ABD enerji sektörü etf'i xle tüm zamanların en yüksek kapanışını gördü"
 description: "ABD enerji sektörü ETF'i XLE, 16 Ekim 2026 tarihinde 68,24 dolar ile tüm zamanların en yüksek günlük kapanışını gerçekleştirdi. Piyasa kapanış verilerine göre yıllık değişim yüzde 60 olarak kaydedildi."
 date: 2026-10-15T21:00:00.000Z
 category: "borsa"

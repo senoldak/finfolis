@@ -82,6 +82,7 @@ export function yazarIstemi(aday) {
 - sirada: {tarih, olay}; yalnızca kaynakta bir sonraki gelişmenin tarihi açıkça varsa ("12 Kasım 2026" biçiminde). Yoksa alanı hiç ekleme.
 - tablo: {baslik, sutunlar, satirlar}; yalnızca kaynak birden çok öğeyi (ülke, şirket, gösterge, dönem) sayısal olarak karşılaştırıyorsa, en fazla 8 satır. Hücre sayıları kaynakta aynen geçmeli. Emin değilsen alanı ekleme.
 - grafik: {baslik, simge, birimEtiket, satirlar}; tablo ile aynı koşul, ama tablo yerine görsel karşılaştırma için en fazla 6 satır, değerler sıfırdan küçük değil. Aynı haberde hem tablo hem grafik olmaz; biri seçilir. simge: lira (para), banka (faiz, kredi), sepet (fiyat, enflasyon). Emin değilsen alanı ekleme.
+- Unvanlar: CFO "finans direktörü", CEO "üst yönetici" (ilk geçişte "CEO" da yazılabilir), COO "operasyon direktörü", CTO "teknoloji direktörü" olur; "mali işler müdürü" gibi sözcük sözcük çeviri yazma.
 
 KONU: ${aday.baslik}
 KATEGORİ: ${aday.kategori ?? ''}
@@ -197,6 +198,7 @@ export function derlemeIstemi(aday) {
 - govde: Markdown, ${alt}-${ust} kelime. Her kategori için bir ara başlık ("## Kategori adı", HABERLER'deki sırayla), altında o kategorideki her haber için bir paragraf. Her paragraf 50-80 kelime (3-4 cümle): haberin konusuyla başlar; ne olduğunu, ana rakamı ve kimin açıkladığını anlatır. Tek cümlelik özet yazma. Yalnızca o haberin KAYNAK bölümündeki bilgileri kullan; bir haberin kaynağında yetmeyen bilgi için başka haberin kaynağını kullanma, uydurma.
 - rakamlar: en fazla 4 öğe ({etiket, deger}); yalnızca kaynakta aynen geçen rakamlar. Emin değilsen boş bırak.
 - tablo, grafik, sirada: kullanma.
+- Unvanlar: CFO "finans direktörü", CEO "üst yönetici" (ilk geçişte "CEO" da yazılabilir), COO "operasyon direktörü", CTO "teknoloji direktörü" olur; "mali işler müdürü" gibi sözcük sözcük çeviri yazma.
 
 HABERLER:
 ${haberBlogu(aday)}`;

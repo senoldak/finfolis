@@ -163,3 +163,13 @@ test('haber sitesi adayında kaynak listesi boş; resmi kurumda kurum adı ve ba
   assert.ok(RESMI_BESLEMELER.every((x) => x.resmi === true));
   assert.ok(BESLEMELER.filter((x) => !RESMI_BESLEMELER.includes(x)).every((x) => !x.resmi));
 });
+
+test('döviz beslemesi: kur/altın dışı konular ekonomi kategorisine düşer', async () => {
+  const { haberKategorisi } = await import('./rss-haber.mjs');
+  assert.equal(haberKategorisi('doviz', 'Japan exports jump 16.7% on AI chip demand', 'Trade deficit narrowed'), 'ekonomi');
+  assert.equal(haberKategorisi('doviz', 'US data center projects face delays', 'Financing is shaky'), 'ekonomi');
+  assert.equal(haberKategorisi('doviz', 'Gold climbs to record', ''), 'doviz');
+  assert.equal(haberKategorisi('doviz', 'Yen slides past 155 per dollar', ''), 'doviz');
+  assert.equal(haberKategorisi('doviz', 'Euro steadies', ''), 'doviz');
+  assert.equal(haberKategorisi('piyasalar', 'Japan exports jump', ''), 'piyasalar');
+});

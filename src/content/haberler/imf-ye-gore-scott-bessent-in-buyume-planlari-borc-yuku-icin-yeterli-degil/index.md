@@ -1,5 +1,5 @@
 ---
-title: "İmf'ye göre scott bessent'in büyüme planları borç yükü için yeterli değil"
+title: "IMF'ye göre scott bessent'in büyüme planları borç yükü için yeterli değil"
 description: "Uluslararası Para Fonu başkanı, ABD Hazine Bakanı Scott Bessent'in büyüme planlarının borç yükünü tek başına dizginleyemeyeceğini belirtti. IMF, ABD'nin brüt borcunun 2031 yılına kadar gayri safi yurt içi hasılanın yüzde 142'sine ulaşmasını bekliyor."
 date: 2026-10-14T08:53:35.000Z
 category: "piyasalar"

@@ -1,5 +1,5 @@
 ---
-title: "İmf'den tahvil getirileri ve borç uyarısı"
+title: "IMF'den tahvil getirileri ve borç uyarısı"
 description: "Uluslararası Para Fonu, artan borç ve enflasyon riskleri nedeniyle devlet tahvili getirilerinde düzensiz bir artış yaşanabileceği konusunda uyardı. Yapay zeka şirketlerinin borçlanmaları da tahvil piyasalarını zorluyor."
 date: 2026-10-13T04:54:07.000Z
 category: "piyasalar"

@@ -1,5 +1,5 @@
 ---
-title: "küresel piyasalarda yapay zeka ve merkez bankası kararları izleniyor"
+title: "Küresel piyasalarda yapay zeka ve merkez bankası kararları izleniyor"
 description: "Yatırımcılar bu hafta ABD'den gelecek büyük şirket bilançolarını ve Federal Rezerv'in faiz kararını takip ediyor. Yapay zeka hisselerindeki dalgalanmalar piyasalarda endişe yaratıyor."
 date: 2026-10-19T13:53:32.000Z
 category: "ekonomi"

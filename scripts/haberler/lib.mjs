@@ -174,12 +174,26 @@ export const htmlSok = (metin) =>
     .replace(/\[([^\]]*)\]\(\s*<?((?:[^()\s<>]|\([^()\s]*\))*)>?[^)]*\)/g, (m, txt, url) => (guvenliAdres(url) ? m : txt))
     .replace(/<([a-z][a-z0-9+.-]*:[^\s<>]*)>/gi, (m, url) => (guvenliAdres(url) ? m : ''));
 
+// Başlığın ilk sözcüğü büyük harfle başlar (Türkçe kurallarla: i -> İ, ı -> I). İlk sözcük bilinen bir kısaltmaysa
+// ("abd'de", "İmf'den") tümü büyütülür: "ABD'de", "IMF'den". Model bazen başlığı küçük harfle bırakıyordu.
+const KISALTMALAR = new Set(['abd', 'ab', 'imf', 'ecb', 'tcmb', 'bist', 'etf', 'gsyh', 'tüfe', 'üfe', 'opec', 'nato', 'bddk', 'spk', 'kdv', 'ötv', 'btc', 'eth', 'sec']);
+export function baslikBuyut(baslik) {
+  const b = String(baslik ?? '').trim();
+  const ilk = b.match(/^\p{L}+/u)?.[0];
+  // "eBay", "iPhone" gibi içinde büyük harf olan adlar olduğu gibi kalır.
+  if (!ilk || /\p{Lu}/u.test(ilk.slice(1))) return b;
+  const kucuk = ilk.toLocaleLowerCase('tr');
+  const bas = KISALTMALAR.has(kucuk) ? kucuk.toLocaleUpperCase('en-US') : ilk[0].toLocaleUpperCase('tr') + ilk.slice(1);
+  return bas + b.slice(ilk.length);
+}
+
 // YAML'da güvenli çift tırnaklı metin (JSON dizgesi geçerli YAML'dır).
 const y = (s) => JSON.stringify(String(s));
 
 // Haberi src/content/haberler/<slug>/index.md olarak yazar, slug'ı döner.
 export async function yaziYaz(rot, yazi) {
   const taban = path.join(rot, 'src/content/haberler');
+  const baslik = baslikBuyut(yazi.baslik);
   const temel = slugla(yazi.baslik) || 'haber';
   let slug = temel;
   for (let i = 2; ; i++) {
@@ -192,7 +206,7 @@ export async function yaziYaz(rot, yazi) {
   }
   const fm = [
     '---',
-    `title: ${y(yazi.baslik)}`,
+    `title: ${y(baslik)}`,
     `description: ${y(yazi.spot)}`,
     `date: ${yazi.tarih.toISOString()}`,
     `category: ${y(yazi.kategori)}`,

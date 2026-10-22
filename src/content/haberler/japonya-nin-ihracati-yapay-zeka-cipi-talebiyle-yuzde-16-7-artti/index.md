@@ -2,7 +2,7 @@
 title: "Japonya'nın ihracatı yapay zeka çipi talebiyle yüzde 16,7 arttı"
 description: "Japonya'nın eylül ayında ihracatı yıllık bazda yüzde 16,7 artarak art arda 13'üncü ayda da yükseliş kaydetti. Dış ticaret açığı ise ham petrol sevkiyatlarındaki gecikmelerin etkisiyle daraldı."
 date: 2026-10-21T00:31:17.000Z
-category: "doviz"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "İngiltere enflasyonu ve bütçe süreci öncesi piyasalarda beklentiler"
 description: "İngiltere'de eylül ayı manşet yıllık enflasyon tahmininin yüzde 3,4'e yükselmesi bekleniyor. Açıklanacak enflasyon verileri ve sonrasında beklenen bütçe kararları, İngiltere Merkez Bankası ile hükümetin işini zorlaştırabilir."
 date: 2026-10-19T09:48:35.000Z
-category: "doviz"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

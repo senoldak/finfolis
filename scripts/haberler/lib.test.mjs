@@ -178,3 +178,14 @@ test('gemini: çıkış tavanı gönderilir; tavana çarpan bozuk yanıt bozuk=t
     else process.env.GEMINI_API_KEY = eskiKey;
   }
 });
+
+test('baslikBuyut: ilk harfi Türkçe kurallarla büyütür, kısaltmayı tümüyle büyütür', async () => {
+  const { baslikBuyut } = await import('./lib.mjs');
+  assert.equal(baslikBuyut("abd'de işsizlik maaşı başvuruları düştü"), "ABD'de işsizlik maaşı başvuruları düştü");
+  assert.equal(baslikBuyut('eBay iş gücünü küçültüyor'), 'eBay iş gücünü küçültüyor');
+  assert.equal(baslikBuyut("İmf'den borç uyarısı"), "IMF'den borç uyarısı");
+  assert.equal(baslikBuyut('ışık hızında büyüme'), 'Işık hızında büyüme');
+  assert.equal(baslikBuyut('iş gücü azalıyor'), 'İş gücü azalıyor');
+  assert.equal(baslikBuyut('Çin ekonomisi büyüdü'), 'Çin ekonomisi büyüdü');
+  assert.equal(baslikBuyut('3 büyük banka'), '3 büyük banka');
+});

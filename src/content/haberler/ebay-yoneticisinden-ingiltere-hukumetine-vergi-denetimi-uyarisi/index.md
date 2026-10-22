@@ -1,5 +1,5 @@
 ---
-title: "Ebay yöneticisinden İngiltere hükümetine vergi denetimi uyarısı"
+title: "eBay yöneticisinden İngiltere hükümetine vergi denetimi uyarısı"
 description: "Ebay UK yöneticisi Eve Williams, çevrim içi pazaryerlerine yönelik vergi düzenlemelerinin küçük işletmeleri olumsuz etkilememesi gerektiğini belirtti. Bütçe kapsamında yapılacak değişikliklerle 1 milyar sterlin gelir bekleniyor."
 date: 2026-10-18T23:01:00.000Z
 category: "ekonomi"

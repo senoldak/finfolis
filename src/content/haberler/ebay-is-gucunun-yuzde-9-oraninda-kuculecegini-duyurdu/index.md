@@ -1,5 +1,5 @@
 ---
-title: "ebay iş gücünün yüzde 9 oranında küçüleceğini duyurdu"
+title: "eBay iş gücünün yüzde 9 oranında küçüleceğini duyurdu"
 description: "Ebay operasyonlarını sadeleştirmek amacıyla personel sayısını yaklaşık yüzde 9 oranında azaltma kararı aldı. Şirket CEO'su Jamie Iannone çalışanlara gönderdiği notta stratejilerinin çalıştığını belirtti."
 date: 2026-10-21T12:45:00.000Z
 category: "ekonomi"

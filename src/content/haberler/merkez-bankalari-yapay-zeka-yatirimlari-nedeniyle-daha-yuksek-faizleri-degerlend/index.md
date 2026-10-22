@@ -1,5 +1,5 @@
 ---
-title: "merkez bankaları yapay zeka yatırımları nedeniyle daha yüksek faizleri değerlendiriyor"
+title: "Merkez bankaları yapay zeka yatırımları nedeniyle daha yüksek faizleri değerlendiriyor"
 description: "Yapay zeka patlamasının küresel bir nakit yarışına yol açması, merkez bankası yetkililerini faizlerin daha yüksek kalabileceği bir geleceği düşünmeye itiyor. Bangkok'taki yıllık toplantılarda konuşan yetkililer, yatırımların enflasyon baskısı yarattığına dikkat çekti."
 date: 2026-10-19T13:52:00.000Z
 category: "ekonomi"

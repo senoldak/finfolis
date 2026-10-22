@@ -15,6 +15,16 @@ const GELECEK_PAYI_MS = 3600e3;
 
 const duzMetin = (s) => metinTemizle(String(s ?? '').replace(/<[^>]*>/g, ' '));
 
+// "Döviz & Altın" kategorisi yalnız kur, altın/gümüş/platin ve para birimi haberlerine aittir. Besleme başına sabit
+// kategori verildiği için döviz beslemesinin her kaydı (Japonya ihracatı, ABD veri merkezleri) bu kategoriye düşüyordu:
+// başlıkta ya da özette bu konulardan hiçbiri geçmiyorsa haber genel ekonomi kategorisine alınır.
+const DOVIZ_KONUSU = /(?<!\p{L})(?:dollar|euro|pound|sterling|yen|yuan|renminbi|franc|rupee|lira|currenc\p{L}*|forex|exchange rates?|gold|silver|platinum|palladium|bullion|bitcoin|dxy|safe[- ]haven|devaluation|dolar\p{L}*|sterlin\p{L}*|yuan\p{L}*|kurlar\p{L}*|kuru|kur|döviz\p{L}*|altın\p{L}*|gümüş\p{L}*|platin\p{L}*)(?!\p{L})/iu;
+export function haberKategorisi(kategori, baslik, ozet) {
+  if (kategori !== 'doviz') return kategori;
+  return DOVIZ_KONUSU.test(`${baslik}
+${ozet}`) ? kategori : 'ekonomi';
+}
+
 // RSS ya da Atom beslemesini ortak biçime çevirir: { baslik, url, tarih, ozet }. Bozuk XML boş liste verir.
 function ogeler(xml, tarihsiz = false) {
   try {
@@ -83,7 +93,7 @@ ${o.ozet}`;
             baslik: o.baslik,
             tarih: o.tarih,
             onem,
-            kategori,
+            kategori: haberKategorisi(kategori, o.baslik, o.ozet),
             bolge,
             ucretli,
             ozet: o.ozet,

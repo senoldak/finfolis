@@ -1,5 +1,5 @@
 ---
-title: "şişecam hisseleri son bir yılın zirvesinden yüzde 30'un üzerinde geriledi"
+title: "Şişecam hisseleri son bir yılın zirvesinden yüzde 30'un üzerinde geriledi"
 description: "Şişecam hisseleri 16 Ekim 2026 tarihinde 36,16 TL seviyesinden kapanırken, son bir yılın zirvesinden yüzde 30,9 oranında geriledi. Yıllık değişim yüzde 8,3 artış olarak kayıtlara geçti."
 date: 2026-10-15T21:00:00.000Z
 category: "borsa"

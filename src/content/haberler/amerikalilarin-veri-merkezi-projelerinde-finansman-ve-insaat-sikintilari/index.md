@@ -2,7 +2,7 @@
 title: "Amerikalıların veri merkezi projelerinde finansman ve inşaat sıkıntıları"
 description: "Amerika Birleşik Devletleri'ndeki veri merkezi projelerinin yalnızca üçte birinin finansal olarak güvenilir olduğu tahmin ediliyor. Projelerde inşaat gecikmeleri ve yerel itirazlar artarken yapay zeka altyapı borçlarında da satışlar yaşandı."
 date: 2026-10-18T23:24:42.000Z
-category: "doviz"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

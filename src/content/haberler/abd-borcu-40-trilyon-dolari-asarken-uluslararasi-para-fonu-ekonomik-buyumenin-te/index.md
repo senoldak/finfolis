@@ -1,5 +1,5 @@
 ---
-title: "Abd borcu 40 trilyon doları aşarken uluslararası para fonu ekonomik büyümenin tek başına yeterli olmayacağını belirtti"
+title: "ABD borcu 40 trilyon doları aşarken uluslararası para fonu ekonomik büyümenin tek başına yeterli olmayacağını belirtti"
 description: "Uluslararası Para Fonu (IMF), Amerika Birleşik Devletleri'nin borcunun 40 trilyon doları aşmasının ardından ekonomik büyümenin tek başına bu sorunu çözemeyeceğini bildirdi. Kurum bütçe açığının da azalması gerektiğine dikkat çekti."
 date: 2026-10-16T21:57:47.000Z
 category: "ekonomi"
