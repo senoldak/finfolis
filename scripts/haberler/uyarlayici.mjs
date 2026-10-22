@@ -125,15 +125,20 @@ const kes = (m, enCok, enCokBayt) => {
 };
 export const KAYNAK_METNI_ENCOK = 4000;
 
+export const YUK_AZAMI_BAYT = 11_000; // şifreli 16 KB'a sığmalı (motor AZAMI_YUK)
+
 /**
- * Adayın başka süreçte yeniden işlenmesine yetecek alanlar. Kaynak yalnız etiketiyle (resmî olmayanda kısa kod) anılır;
- * resmî olmayan sitenin adı ve gizliKaynaklar yüke girmez. Kapak çizimi ve şablon yazı taşınmaz (adayiKur ile gelen aday
- * bunlarsız kurulur; kapak haberin başlığından yeniden çizilir).
+ * Adayın başka süreçte yeniden işlenmesine yetecek alanlar. Yük motor defterinde şifreli durur (motor şifreler), bu yüzden
+ * resmî olmayan kaynağın gerçek adı ve gizliKaynaklar girişleri taşınır: yeniden kurulan aday adayMedyaKontrol'den aynı
+ * sonucu alır. Kapak çizimi taşınmaz (başlıktan yeniden çizilir). Şablon (sablonYazi) adaylar yükten kurulmaz: sablon
+ * işareti taşınır, eski bir şablon adayının yerine bu turun taze adayı işlenir (isle).
+ * Yükün JSON boyu YUK_AZAMI_BAYT'ın altında kalır; tırnak ve satır sonu kaçışları dahil.
  */
 export const adayYuku = (a) => {
   const tarih = a.tarih instanceof Date ? a.tarih.toISOString() : String(a.tarih ?? '');
+  const gizli = (a.gizliKaynaklar ?? []).filter((k) => k?.url).slice(0, 2).map((k) => ({ ad: kes(k.ad, 80, 160), url: kes(k.url, 300, 400) }));
   const link = [...(a.kaynaklar ?? []), ...(a.gizliKaynaklar ?? [])].find((k) => k?.url)?.url;
-  return {
+  const yuk = {
     id: a.id,
     kaynak: a._kaynak ?? '',
     baslik: kes(a.baslik, 300, 600),
@@ -146,12 +151,19 @@ export const adayYuku = (a) => {
     ucretli: Boolean(a.ucretli),
     alan: a.alan ? kes(a.alan, 100, 200) : undefined,
     kaynaklar: (a.kaynaklar ?? []).slice(0, 3).map((k) => ({ ad: kes(k.ad, 50, 100), url: kes(k.url, 250, 300) })),
+    gizliKaynaklar: gizli.length ? gizli : undefined,
+    sablon: a.sablonYazi ? true : undefined,
     kaynakMetni: kes(a.kaynakMetni, KAYNAK_METNI_ENCOK, 7000),
   };
+  // JSON kaçışları (tırnak, satır sonu, kontrol karakterleri) uzunluğu bayttan fazla şişirebilir: sınırın altına inene kadar kırp.
+  const boy = () => Buffer.byteLength(JSON.stringify(yuk));
+  for (const alan of ['kaynakMetni', 'ozet', 'baslik']) while (boy() >= YUK_AZAMI_BAYT && yuk[alan].length > 0) yuk[alan] = yuk[alan].slice(0, Math.floor(yuk[alan].length * 0.9));
+  return yuk;
 };
 
-/** Yükten aday kurar; kaynak (etiket) artık kaynak listesinde yoksa null. */
+/** Yükten aday kurar; kaynak (etiket) artık kaynak listesinde yoksa ya da yük şablon adaydan geldiyse null. */
 export function adayiKur(yuk, kaynaklar = varsayilanKaynaklar()) {
+  if (yuk.sablon) return null;
   if (!kaynaklar.some((k) => k.ad === yuk.kaynak)) return null;
   const resmi = (yuk.kaynaklar ?? []).length > 0;
   return {
@@ -166,7 +178,7 @@ export function adayiKur(yuk, kaynaklar = varsayilanKaynaklar()) {
     alan: yuk.alan ?? null,
     kaynakMetni: yuk.kaynakMetni ?? '',
     kaynaklar: yuk.kaynaklar ?? [],
-    gizliKaynaklar: !resmi && yuk.link ? [{ ad: yuk.kaynak, url: yuk.link }] : [],
+    gizliKaynaklar: resmi ? [] : yuk.gizliKaynaklar ?? (yuk.link ? [{ ad: yuk.kaynak, url: yuk.link }] : []),
   };
 }
 
@@ -308,7 +320,8 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
     const simdiki = (id) => sonuclar[yer.get(motorKimlik(id))];
     const uyeKoy = (ids, s) => ids.forEach((id) => koy({ kimlik: motorKimlik(id), ...s }));
     const elendiO = (o, gerekce) => uyeKoy(adayIdleri(o), { durum: 'elendi', gerekce: temiz(gerekce) });
-    const yazildiO = (o, slug) => uyeKoy(adayIdleri(o), { durum: 'yazildi', slug });
+    // Sarı karar gerekçesi yazildi sonucunda taşınır (motor modunda olay düzeyi kayıt yazılmaz, karar üye başına gider).
+    const yazildiO = (o, slug, gerekce) => uyeKoy(adayIdleri(o), { durum: 'yazildi', slug, ...(gerekce ? { gerekce: temiz(gerekce) } : {}) });
     const bekliyorO = (o, mesaj, ek = {}) => uyeKoy(adayIdleri(o), { durum: 'bekliyor', hata: new Error(temiz(mesaj)), ...ek });
     const havuzdaO = (o) => uyeKoy(adayIdleri(o), { durum: 'bekliyor', gerekce: 'havuzda', havuzda: true });
     const karar = (id, gerekce) => {
@@ -324,13 +337,14 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
     // Haber ve derleme ayrıca tur giriş-token tavanına bakar (TPM'den türetilir, bkz. token-tavani.mjs): sıradaki iş
     // tavanı aşacaksa kalan işler sonraki tura kalır. Bülten bu tavandan muaftır (en yüksek öncelik).
     const isBitti = (tahmin = 0) => {
-      if (zamanBitti() || (!surVar && !dilimDolu(durum, simdi) && B.saat() - baslangic > BUTCE_MS - BULTEN_PAYI_MS)) return 'süre';
+      if (zamanBitti() || (!dilimDolu(durum, simdi) && B.saat() - baslangic > BUTCE_MS - BULTEN_PAYI_MS)) return 'süre'; // bülten payı motor modunda da korunur
       if (geminiPayiBitti()) return 'Gemini tur payı';
       if (tokenTavaniAsildi(tahmin, { harcanan: A.harcananToken(), tavan: A.tokenTavani })) return 'giriş token tavanı';
       return null;
     };
+    // Motor modunda olay düzeyindeki karar kaydı (çok üyeli kimlik) yazılmaz: üye başına Sonuc kararı taşır.
     const motoraYaz = async (kayit) => {
-      if (A.kuru) return;
+      if (A.kuru || A.motorModu) return;
       await B.motorYaz(kayit);
     };
 
@@ -344,10 +358,12 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
         koy({ kimlik: a.kimlik, ...karar(id, 'önceki turda karar verildi') });
         continue;
       }
+      // Şablon adaylar yükten kurulmaz: bu turun taze eşi (aynı id) varsa o işlenir, yoksa kaynakta artık yok sayılır.
       const o = tam.get(id) ?? adayiKur(a.yuk, B.kaynaklar);
       if (!o) {
-        koy({ kimlik: a.kimlik, durum: 'elendi', gerekce: 'kaynak listeden çıkarıldı' });
-        durum.gorulen[id] = { zaman: iso, elendi: true, gerekce: 'kaynak listeden çıkarıldı' };
+        const gerekce = a.yuk.sablon ? 'kaynakta artık yok' : 'kaynak listeden çıkarıldı';
+        koy({ kimlik: a.kimlik, durum: 'elendi', gerekce });
+        durum.gorulen[id] = { zaman: iso, elendi: true, gerekce };
         continue;
       }
       if (a.eski && simdi - new Date(o.tarih) > A.yasGun * GUN_MS) {
@@ -489,7 +505,7 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
         yazilan.push(o);
         ozet.adet++;
         ozet.yazilar.push(slug);
-        yazildiO(o, slug);
+        yazildiO(o, slug, std.karar === 'sari' ? std.gerekce : undefined);
         log(`  + ${slug}${r.uzatma ? ` (uzatıldı ${r.uzatma[0]}→${r.uzatma[1]} kelime)` : ''}`);
         await B.araKayit(durum).catch((e) => console.error(`  ! ara kayıt yazılamadı: ${e.message}`));
       } catch (e) {
@@ -547,6 +563,7 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
       // Bekleyen olay bu arada (bu turda ya da önceki turlarda) tam haber olarak yazıldıysa havuzdan düşer.
       for (const t of tekrarlariAyikla(havuz, hafizayaEkle(durum.yayinlar ?? [], yazilan, simdi), simdi)) {
         log(`  - havuz ${t.olay.id}: tekrar (${t.neden}), ${t.slug} ile aynı olay`);
+        elendiO(t.olay, 'tekrar: yayımlanmış haberle aynı olay');
       }
       const { bekleyen, olgun, suresiDolan, dusen } = havuzAyir(havuz, simdi);
       for (const o of dusen) log(`  - havuz ${o.id}: bekleme süresi doldu, düştü`);
@@ -621,7 +638,7 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
           for (const k of grup) {
             dislanan.add(k); // bültende ikinci kez yer almasın
             for (const a of k.adaylar ?? []) durum.gorulen[a.id] = { zaman: iso, yazildi: true, ...(derlemeGerekcesi ? { gerekce: derlemeGerekcesi.slice(0, 300) } : {}) };
-            yazildiO(k, slug);
+            yazildiO(k, slug, derlemeGerekcesi);
           }
           if (sz.karar === 'sari') await motoraYaz(sariKayit(grup.flatMap(adayIdleri), slug, derlemeGerekcesi));
           yazilan.push(o);
@@ -695,7 +712,7 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
             const sariGerekce = (izleyici.sari ?? []).find((m) => m.olay.id === o.id)?.gerekce;
             for (const a of o.adaylar) if (!durum.gorulen[a.id]?.yazildi) durum.gorulen[a.id] = { zaman: iso, ...(sariGerekce ? { gerekce: sariGerekce } : {}) };
             // Bülten satırı olan her üye yazıldı sayılır (haberin kendi yazısı varsa onun sonucu kalır).
-            for (const a of o.adaylar) if (simdiki(a.id)?.durum !== 'yazildi') yazildiO({ adaylar: [a] }, slug);
+            for (const a of o.adaylar) if (simdiki(a.id)?.durum !== 'yazildi') yazildiO({ adaylar: [a] }, slug, sariGerekce);
             if (sariGerekce) await motoraYaz(sariKayit(adayIdleri(o), slug, sariGerekce));
           }
           log(`  + bülten ${slug}`);

@@ -33,6 +33,9 @@ pnpm-debug.log*
 .impeccable/review/
 .impeccable/live/
 
+# ortak motorun (private mecmua) CI'da çekildiği klasör
+.mecmua/
+
 # kapak demo çıktıları
 .kapak-ornekleri/
 .superpowers/

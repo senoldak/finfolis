@@ -35,6 +35,17 @@ jobs:
       - name: Bağımlılıkları kur
         run: npm ci --no-audit --no-fund
 
+      # Ortak motor private mecmua deposundadır: yalnız motor/ klasörü, salt-okur deploy anahtarıyla çekilir. Yalnız motor modunda.
+      - name: Motoru getir
+        if: ${{ vars.MOTOR_TUR == '1' }}
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: senoldak/mecmua
+          ssh-key: '${{ secrets.MECMUA_OKUMA }}'
+          path: .mecmua
+          sparse-checkout: motor
+          persist-credentials: false
+
       - name: Haberleri üret
         id: hent
         env:
@@ -48,6 +59,9 @@ jobs:
           # Gölge denetim (20 Ekim): turda en çok bu kadar denetim kararı Gemma'ya da sorulur, yalnız loga yazılır (golge.mjs).
           GEMINI_GOLGE: ${{ vars.GEMINI_GOLGE }}
           MAKS_HABER: ${{ vars.MAKS_HABER }}
+          # Ortak motor modu (private mecmua'dan salt-okur çekilir): vars.MOTOR_TUR=1 iken aday turu motorla sürülür.
+          MOTOR_TUR: ${{ vars.MOTOR_TUR }}
+          MOTOR_DIZIN: ${{ github.workspace }}/.mecmua/motor
         run: |
           if [ -z "$KAYNAK_ANAHTARI" ]; then echo "::error::KAYNAK_ANAHTARI secret'ı yok; haber beslemeleri okunamaz."; exit 1; fi
           node scripts/haberler/hent-haberler.mjs
@@ -55,19 +69,19 @@ jobs:
       # Veri sayfaları (/veri/…) için resmi TCMB/TÜİK verisi. Başarısız olursa son bilinen değer tarihiyle kalır;
       # haber üretimini durdurmaz. Veri değişmediyse dosyaya dokunulmaz, bu yüzden pratikte günde bir değişir.
       - name: Resmi verileri güncelle
-        # Acil durdurma açıksa tur hiçbir şey yazmaz (hent adımı durdu=1 çıktısı verir).
-        if: ${{ steps.hent.outputs.durdu != '1' }}
+        # Acil durdurma açıksa tur hiçbir şey yazmaz (hent adımı durdu=1 çıktısı verir). Motor turu hata verse de çalışır.
+        if: ${{ !cancelled() && steps.hent.outputs.durdu != '1' }}
         continue-on-error: true
         timeout-minutes: 5
         run: node scripts/haberler/resmi-veri.mjs --yaz
 
-      # Üretim adımı düşse de (zaman aşımı, beklenmeyen hata) o ana kadar yazılan haberler ve ara kayıtlı durum dosyası
+      # Üretim adımı düşse de (zaman aşımı, motor hatası, beklenmeyen hata) o ana kadar yazılan haberler ve durum dosyası
       # commit edilir (F4); aksi hâlde aynı adaylar sonraki turda Gemini'yi yeniden harcıyordu. İş yine kırmızı biter.
       - name: Commit
         id: commit
         if: ${{ !cancelled() && steps.hent.outputs.durdu != '1' }}
         env:
-          ADET: ${{ steps.hent.outputs.adet }}
+          ADET: ${{ steps.hent.outputs.adet || '0' }}
         run: |
           git config user.name "finfolis-haber-botu"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

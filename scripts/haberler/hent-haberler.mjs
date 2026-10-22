@@ -1,6 +1,7 @@
 // Açık kamu verilerinden ve yurtdışı haber beslemelerinden haber ve piyasa bülteni üretir; src/content/haberler ve src/data/piyasa.json'a yazar.
 // Kullanım: node scripts/haberler/hent-haberler.mjs [--kuru]   (--kuru: hiçbir şey yazmadan adayları listeler)
-// Ortam: GEMINI_API_KEY, MAKS_HABER (çalıştırma başına haber sınırı, varsayılan 8)
+// Ortam: GEMINI_API_KEY, MAKS_HABER (çalıştırma başına haber sınırı, varsayılan 8),
+//   MOTOR_TUR=1 + MOTOR_DIZIN (aday turu private mecmua deposundaki ortak motorla sürülür; bkz. motor-modu.mjs)
 // Akışın aday okuma + gruplama + yazım + havuz + bülten gövdesi uyarlayici.mjs'te (motor sözleşmesine uyan uyarlayıcı);
 // burada piyasa verisi, karneler ve tur girişi kalır.
 import path from 'node:path';
@@ -22,11 +23,12 @@ import { yaziYaz, gemini as varsayilanGemini } from './lib.mjs';
 import { GRAFIK_ARALIK_MS } from './grafik-kapak.mjs';
 import { seriOkuyucu } from './yahoo-seri.mjs';
 import { gorunur } from '../../src/lib/gorunur.mjs';
-import { anahtarVar, coz, sifrele } from './gizli.mjs';
+import { adresiSil, anahtarVar, coz, sifrele } from './gizli.mjs';
 import { butceYukle } from './butce.mjs';
 import { TUR_TOKEN_TAVANI } from './token-tavani.mjs';
 import { kullanim } from './kullanim.mjs';
 import { BUTCE_MS, MAKS_HABER, varsayilanKaynaklar, uyarlayiciKur, yerelTur } from './uyarlayici.mjs';
+import { turSec } from './motor-modu.mjs';
 
 export { ONCELIKLI_ONEM, MAKS_HABER, KAYNAK_BUTCE_MS, BUTCE_MS, BULTEN_PAYI_MS, TERFI_ESIGI, RSS_TERFI_ESIGI, terfiMi, terfiOzeti, varsayilanKapak } from './uyarlayici.mjs';
 
@@ -108,9 +110,12 @@ export async function calistir({
   geminiVar = Boolean(process.env.GEMINI_API_KEY),
   tokenTavani = TUR_TOKEN_TAVANI,
   harcananToken = () => kullanim.giris,
+  env = process.env,
+  tur = turSec, // aday turunu sürer: MOTOR_TUR=1 ise ortak motor, yoksa yerelTur (testlerde değiştirilebilir)
   log = console.log,
 } = {}) {
   const baslangic = saat();
+  const motorModu = env.MOTOR_TUR === '1';
   const zamanBitti = () => saat() - baslangic > BUTCE_MS;
   if (okuyucu === undefined) okuyucu = seriOkuyucu(simdi);
   durum ??= await jsonOku(DURUM_DOSYASI, {});
@@ -150,7 +155,7 @@ export async function calistir({
   const uyarlayici = uyarlayiciKur({
     durum,
     simdi,
-    ayar: { kuru, maksHaber, geminiVar, tokenTavani, harcananToken, baslangic, piyasa: gorunurPiyasa, log },
+    ayar: { kuru, maksHaber, geminiVar, tokenTavani, harcananToken, baslangic, piyasa: gorunurPiyasa, motorModu, log },
     bag: { kaynaklar, ipucu, olaylar, gemini, yaz, derlemeYaz, yayinKurulu, standart, motorYaz: motoraYaz, bulten, okuyucu, rot, saat, araKayit },
   });
 
@@ -165,10 +170,22 @@ export async function calistir({
     return sonuc;
   }
 
-  await yerelTur(uyarlayici, durum, { log });
+  // Motor modunda tur hata fırlatırsa (yapılandırma, defter, motor yüklenemedi) yine de durum, yazılan haberler ve sayaç yazılır;
+  // hata sonuçta taşınır ve çıkış kodu 1 olur. Yerel modda eski davranış: beklenmeyen hata olduğu gibi fırlar.
+  // surVar yalnız süre bütçesini taşır: Gemini tur payı haber ve derleme için uyarlayıcının içinde (isBitti) uygulanır; payı bitince
+  // bülten, karne ve Gemini'siz şablon haberler sürmeli (surVar'a katılırsa bunlar da durur).
+  let motorHatasi = null;
+  try {
+    await tur({ env, uyarlayici, durum, simdi, rot, yerel: (u, d) => yerelTur(u, d, { log }), surVar: () => !zamanBitti(), log });
+  } catch (e) {
+    if (!motorModu) throw e;
+    motorHatasi = e;
+    console.error(`  ! motor turu hatayla bitti: ${adresiSil(e?.message ?? e)}`);
+  }
   const o = uyarlayici.ozet;
-  const sonuc = { adet: o.adet, adaylar: uyarlayici.ham(), hatalar: o.hatalar, bultenYazildi: o.bultenYazildi, bultenGerekli: o.bultenGerekli, yazilar: o.yazilar, konfigHatasi: o.konfigHatasi };
+  const sonuc = { adet: o.adet, adaylar: uyarlayici.ham(), hatalar: o.hatalar, bultenYazildi: o.bultenYazildi, bultenGerekli: o.bultenGerekli, yazilar: o.yazilar, konfigHatasi: o.konfigHatasi, motorHatasi };
   const hatalar = sonuc.hatalar;
+  if (motorHatasi) hatalar.push(`motor turu: ${adresiSil(motorHatasi.message ?? motorHatasi)}`);
   if (o.gruplamaHatasi) {
     // Gruplama yoksa mükerrer yayın riski: terfi ve bülten atlanır, adaylar görülmedi kalır.
     sonuc.durum = durum;
@@ -211,7 +228,7 @@ export async function calistir({
 
 // Tur girişi. Acil durdurma bayrağı açıksa Gemini'ye hiç dokunmadan, hiçbir şey yazmadan döner (çıkış kodu 0, workflow'daki
 // sonraki adımlar durdu=1 çıktısıyla atlanır). Döner: { durdu }.
-export async function turBaslat({ kuru = false, env = process.env, acil = acilDurdurma, calis = calistir, log = console.log } = {}) {
+export async function turBaslat({ kuru = false, env = process.env, acil = acilDurdurma, calis = calistir, durumDosyasi = DURUM_DOSYASI, log = console.log } = {}) {
   if (!kuru) {
     const d = await acil({ env, site: 'finfolis', log });
     if (d.durdu) {
@@ -221,7 +238,7 @@ export async function turBaslat({ kuru = false, env = process.env, acil = acilDu
     log(await butceYukle({ url: env.MOTOR_URL, anahtar: env.MOTOR_ANAHTARI, site: 'finfolis' }));
   }
   // Durum dosyası: tur sonunda ve (F4) her yazılan haberden sonra. Şifreleyiciler yeni nesne döner, bellekteki durum değişmez.
-  const durumYaz = (d) => writeFile(DURUM_DOSYASI, JSON.stringify({ ...d, olaylar: hafizaKapat(d.olaylar), yayinlar: yayinKapat(d.yayinlar), havuz: havuzKapat(d.havuz ?? []) }, null, 2) + '\n');
+  const durumYaz = (d) => writeFile(durumDosyasi, JSON.stringify({ ...d, olaylar: hafizaKapat(d.olaylar), yayinlar: yayinKapat(d.yayinlar), havuz: havuzKapat(d.havuz ?? []) }, null, 2) + '\n');
   const s = await calis(kuru ? { kuru } : { kuru, araKayit: durumYaz });
   if (!kuru) {
     await durumYaz(s.durum);
@@ -232,9 +249,14 @@ export async function turBaslat({ kuru = false, env = process.env, acil = acilDu
     if (env.GITHUB_STEP_SUMMARY && s.hatalar.length)
       await appendFile(env.GITHUB_STEP_SUMMARY, `### Haber botu\n${s.hatalar.map((h) => `- ${h}`).join('\n')}\n`);
   }
+  if (!kuru && s.motorHatasi) {
+    log(`Tur hatayla bitti: ${adresiSil(s.motorHatasi.message ?? s.motorHatasi)}`);
+    return { durdu: false, hata: s.motorHatasi };
+  }
   return { durdu: false };
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
-  await turBaslat({ kuru: process.argv.includes('--kuru') });
+  const r = await turBaslat({ kuru: process.argv.includes('--kuru') });
+  if (r.hata) process.exitCode = 1; // durum ve yazılar yazıldı; iş kırmızı biter (Commit adımı yine çalışır)
 }

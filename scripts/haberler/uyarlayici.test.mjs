@@ -64,7 +64,7 @@ async function turla(k, opt) {
 const sonucu = (sonuclar, id) => sonuclar.find((s) => s.kimlik === motorKimlik(id));
 const SLUG = /^[a-z0-9-]+$/;
 
-test('adayYuku/adayiKur gidiş dönüş aynı adayı verir; yükte resmî olmayan kaynak adı ve gizliKaynaklar yok', () => {
+test('adayYuku/adayiKur gidiş dönüş aynı adayı verir; yük gizliKaynaklar girişlerini (gerçek ad dahil) taşır, şifrelemeyi motor yapar', () => {
   const kaynak = { ad: 'k1a2b3', hent: async () => [] };
   const a = aday('k1a2b3:x1', 'Orionlab yeni kuantum cipini tanıttı', 77, {
     _kaynak: 'k1a2b3',
@@ -76,9 +76,9 @@ test('adayYuku/adayiKur gidiş dönüş aynı adayı verir; yükte resmî olmaya
   const yuk = adayYuku(a);
   assert.equal(yuk.kaynak, 'k1a2b3');
   assert.equal(yuk.link, 'https://haber.example.com/x1');
-  assert.ok(!JSON.stringify(yuk).includes('Gerçek Sitenin Adı'));
-  assert.ok(!('gizliKaynaklar' in yuk));
+  assert.deepEqual(yuk.gizliKaynaklar, [{ ad: 'Gerçek Sitenin Adı', url: 'https://haber.example.com/x1' }]);
   const geri = adayiKur(yuk, [kaynak]);
+  assert.deepEqual(geri.gizliKaynaklar, a.gizliKaynaklar); // adayMedyaKontrol yeniden kurulan adayda aynı adları görür
   for (const alan of ['id', 'baslik', 'ozet', 'tarih', 'onem', 'kategori', 'bolge', 'kaynakMetni']) assert.deepEqual(geri[alan], a[alan], alan);
   assert.equal(geri.ucretli, false);
   // Kapak ve şablon yazı yükte taşınmaz.
@@ -508,4 +508,73 @@ test('eşitlik: calistir bölmeden önceki kodun ürettiği yazıları, gorulen 
   const simdi = await senaryolar(calistir);
   assert.deepEqual(Object.keys(simdi), Object.keys(altin));
   for (const ad of Object.keys(altin)) assert.deepEqual(simdi[ad], altin[ad], ad);
+});
+
+test('adayYuku: tırnak ve satır sonu dolu metinde de yük JSON boyu 11000 bayttan küçük; gizliKaynaklar en çok 2 giriş', () => {
+  const kacisli = '"\n\\'.repeat(3000);
+  const a = aday('k1a2b3:q1', kacisli, 60, {
+    _kaynak: 'k1a2b3',
+    ozet: kacisli,
+    kaynakMetni: kacisli,
+    kaynaklar: [],
+    gizliKaynaklar: [1, 2, 3].map((i) => ({ ad: `Ad ${i}`, url: `https://haber.example.com/${i}` })),
+  });
+  const yuk = adayYuku(a);
+  assert.ok(Buffer.byteLength(JSON.stringify(yuk)) < 11_000, `${Buffer.byteLength(JSON.stringify(yuk))} bayt`);
+  assert.equal(yuk.gizliKaynaklar.length, 2);
+  assert.ok(yuk.kaynakMetni.length > 0);
+});
+
+test('isle: eski şablon adayın taze eşi bu turda varsa taze olan işlenir; yoksa elendi "kaynakta artık yok"', async () => {
+  const sablon = (id) => aday(id, `Eşik olayı ${id}`, 80, { sablonYazi: { baslik: 'b', spot: 's', govde: 'kısa' } });
+  const eskiGirdi = (id) => ({ kimlik: motorKimlik(id), yuk: adayYuku({ ...sablon(id), _kaynak: 'A' }), baslik: id, eski: true });
+  assert.equal(eskiGirdi('s1').yuk.sablon, true);
+  assert.equal(adayiKur(eskiGirdi('s1').yuk, [{ ad: 'A' }]), null);
+  // Taze eş var: yükten kurulmaz, taze şablon adayı işlenir (kısa şablon kontrolden geçmez: gerekçe şablondan gelir).
+  const k = await kur({ liste: [sablon('s1')] });
+  await k.u.adaylar();
+  const s = await k.u.isle([eskiGirdi('s1'), eskiGirdi('s2')]);
+  assert.match(sonucu(s, 's1').gerekce, /Şablon yazı/);
+  assert.deepEqual(sonucu(s, 's2'), { kimlik: motorKimlik('s2'), durum: 'elendi', gerekce: 'kaynakta artık yok' });
+  assert.ok(k.durum.gorulen.s2.elendi);
+});
+
+test('isle: tekrarlariAyikla ile havuzdan çıkan üye elendi "tekrar: yayımlanmış haberle aynı olay"', async () => {
+  const girdi = new Date(SIMDI.getTime() - 2 * SAAT).toISOString();
+  const durum = {
+    gorulen: { p1: { zaman: girdi } },
+    kaynaklar: { A: 'x' },
+    yayinlar: [{ slug: 'brent-opec', baslik: 'Brent OPEC kesintisi sonrası yükseldi', zaman: SIMDI.toISOString(), kaynaklar: [{ baslik: 'Brent oil jumps after OPEC output cut', ozet: '' }] }],
+    havuz: [{ ...aday('p1', 'Brent oil jumps after OPEC output cut'), havuzaGirdi: girdi, adaylar: [aday('p1', 'Brent oil jumps after OPEC output cut')] }],
+  };
+  const k = await kur({ liste: [], durum });
+  const s = await turla(k);
+  assert.deepEqual(sonucu(s, 'p1'), { kimlik: motorKimlik('p1'), durum: 'elendi', gerekce: 'tekrar: yayımlanmış haberle aynı olay' });
+  assert.deepEqual(durum.havuz, []);
+});
+
+test('isle: motorModu açıkken olay düzeyi motorYaz çağrılmaz; sarı karar gerekçesi üye Sonuc içinde taşınır', async () => {
+  const sari = { karar: 'sari', kirmizi: [], sari: [{ kural: 's1' }], gerekce: 'standart:s1' };
+  const kirmizi = { karar: 'kirmizi', kirmizi: [{ kural: 'k1' }], sari: [], gerekce: 'standart:k1' };
+  for (const [motorModu, beklenen] of [[true, 0], [false, 2]]) {
+    const k = await kur({
+      liste: [aday('a1', 'Sarı haber', 90), aday('a2', 'Kırmızı haber', 85)],
+      ayar: { motorModu },
+      bag: { standart: (yazi) => (yazi.baslik.startsWith('Sarı') ? sari : kirmizi) },
+    });
+    const s = await turla(k);
+    assert.equal(k.kayit.motor.length, beklenen, `motorModu=${motorModu}`);
+    assert.equal(sonucu(s, 'a1').durum, 'yazildi');
+    assert.equal(sonucu(s, 'a1').gerekce, 'standart:s1');
+    assert.deepEqual(sonucu(s, 'a2'), { kimlik: motorKimlik('a2'), durum: 'elendi', gerekce: 'standart:k1' });
+  }
+});
+
+test('isle: surVar verilse de bülten payı korunur (dilim bülteni yazılmadıysa süre sonuna yakın haber yazılmaz)', async () => {
+  let t = 0;
+  const k = await kur({ liste: [aday('a1', 'Geç kalan haber', 90)], ayar: { baslangic: 0 }, bag: { saat: () => t } });
+  const hepsi = await k.u.adaylar();
+  t = 15 * 60_000; // BUTCE_MS 18 dk, bülten payı 4 dk: 14. dakikadan sonra haber yok
+  const s = await k.u.isle(hepsi, { surVar: () => true });
+  assert.equal(sonucu(s, 'a1'), undefined);
 });
