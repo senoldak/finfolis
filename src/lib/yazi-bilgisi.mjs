@@ -12,7 +12,8 @@ export function okumaSuresi(govde) {
 const ETIKET = { veri: 'Veri', arastirma: 'Araştırma', resmi: 'Resmi açıklama' };
 
 /** İçerik türü etiketi; düz haberde etiket yok (undefined). Bülten kendi türüyle etiketlenir. */
-export function turEtiketi({ tur, icerikTuru } = {}) {
+export function turEtiketi({ tur, icerikTuru, yaziTuru } = {}) {
   if (tur === 'bulten') return 'Bülten';
+  if (yaziTuru === 'analiz') return 'Analiz';
   return ETIKET[icerikTuru];
 }

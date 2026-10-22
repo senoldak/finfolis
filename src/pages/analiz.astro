@@ -1,0 +1,72 @@
+---
+// Analiz bölümü: yazı işleri zincirinin analiz yazıları (ön bilgi: yaziTuru: analiz). Reklam ya da yönlendirme bağlantısı yoktur.
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import NewsCard from '../components/NewsCard.astro';
+import { jsonLdMetni } from '../lib/json-ld.mjs';
+import { analizMi } from '../lib/yazi-turu.mjs';
+import { getNews, newsUrl } from '../lib/news';
+import { SITE_URL, WEBSITE_ID } from '../lib/seo';
+
+const haberler = (await getNews({ indeksli: true })).filter((h) => analizMi(h.data));
+const pageUrl = `${SITE_URL}/analiz/`;
+const description = 'Resmî verilere dayanan finans ve ekonomi analizleri. Analizler yatırım tavsiyesi değildir.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': pageUrl,
+      url: pageUrl,
+      name: 'Analiz',
+      description,
+      inLanguage: 'tr',
+      isPartOf: { '@id': WEBSITE_ID },
+      ...(haberler.length
+        ? {
+            mainEntity: {
+              '@type': 'ItemList',
+              itemListElement: haberler.slice(0, 50).map((h, i) => ({
+                '@type': 'ListItem',
+                position: i + 1,
+                url: `${SITE_URL}${newsUrl(h)}`,
+              })),
+            },
+          }
+        : {}),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Anasayfa', item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: 'Analiz', item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Base title="Analiz" description={description} noindex={haberler.length === 0}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container">
+    <Breadcrumb yol={[{ ad: 'Anasayfa', href: '/' }, { ad: 'Analiz' }]} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>Analiz</h1>
+      <p>{haberler.length} yazı</p>
+    </header>
+    <p class="sayfa-giris">
+      Rakamların ne anlama geldiğini resmî verilere dayanarak yorumluyoruz; kaynağa her zaman bağlantı veriyoruz.
+      Analizler yatırım tavsiyesi değildir.
+    </p>
+    {
+      haberler.length > 0 ? (
+        <div class="liste liste-iki">
+          {haberler.map((h) => <NewsCard haber={h} />)}
+        </div>
+      ) : (
+        <p class="bos">Henüz analiz yok.</p>
+      )
+    }
+  </div>
+</Base>

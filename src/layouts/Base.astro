@@ -2,6 +2,7 @@
 import { SITE, CATEGORIES } from '../lib/site';
 import { YASAL_UYARI, YASAL_UYARI_BASLIK, YASAL_UYARI_EK } from '../lib/yasal-uyari.mjs';
 import { getNews } from '../lib/news';
+import { analizMi } from '../lib/yazi-turu.mjs';
 import { jsonLdMetni } from '../lib/json-ld.mjs';
 import Pictograms from '../components/Pictograms.astro';
 import Logo from '../components/Logo.astro';
@@ -20,7 +21,10 @@ interface Props {
 }
 
 // Menülerde yalnız yazısı olan kategoriler görünür (boş kategori sayfası "henüz yazı yok" der).
-const doluKategoriler = new Set((await getNews({ indeksli: true })).map((h) => h.data.category));
+const menuHaberleri = await getNews({ indeksli: true });
+const doluKategoriler = new Set(menuHaberleri.map((h) => h.data.category));
+// "Analiz" bağlantısı yalnız yayımlanmış en az bir analiz varken görünür.
+const harAnaliz = menuHaberleri.some((h) => analizMi(h.data));
 const menuKategorileri = CATEGORIES.filter((c) => doluKategoriler.has(c.slug));
 
 const {
@@ -124,6 +128,13 @@ const today = new Date().toLocaleDateString(SITE.locale, {
               </a>
             ))
           }
+          {
+            harAnaliz && (
+              <a href="/analiz/" class="ink-black" aria-current={current.startsWith('/analiz') ? 'page' : undefined}>
+                Analiz
+              </a>
+            )
+          }
         </nav>
         <div class="masthead-sag">
           <p class="masthead-tarih">{today}</p>
@@ -157,6 +168,7 @@ const today = new Date().toLocaleDateString(SITE.locale, {
         </div>
         <nav aria-label="Alt menü">
           {menuKategorileri.map((c) => <a href={`/kategori/${c.slug}/`}>{c.name}</a>)}
+          {harAnaliz && <a href="/analiz/">Analiz</a>}
           <a href="/konu/">Konular</a>
           <a href="/veri/">Veriler</a>
           <a href="/hesapla/">Hesaplayıcılar</a>

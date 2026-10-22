@@ -22,6 +22,7 @@ import { duzeltmeNotu } from '../../lib/duzeltme.mjs';
 import { resmiKaynaklar, adsizKaynakSatiri } from '../../lib/resmi-kaynak.mjs';
 import { YAZAR, yazarSemasi, yazarUrl } from '../../lib/yazar.mjs';
 import { yapayZekaNotu } from '../../lib/yapay-zeka-notu.mjs';
+import { analizMi } from '../../lib/yazi-turu.mjs';
 import { ilgiliSec } from '../../lib/ilgili.mjs';
 import { yazininKonulari, konuUrl } from '../../lib/konu-sayfalari';
 import type { Konu } from '../../lib/konular.mjs';
@@ -92,7 +93,7 @@ const catUrl = `${SITE_URL}/kategori/${cat.slug}/`;
 const entities = matchEntities(`${title} ${description}`);
 
 const articleSchema: Record<string, any> = {
-  '@type': 'NewsArticle',
+  '@type': analizMi(haber.data) ? 'AnalysisNewsArticle' : 'NewsArticle',
   '@id': `${pageUrl}#article`,
   headline: kisalt(title, 110),
   description,
@@ -112,7 +113,7 @@ const articleSchema: Record<string, any> = {
   publisher: { '@id': ORG_ID },
   mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
   url: pageUrl,
-  articleSection: cat.name,
+  articleSection: analizMi(haber.data) ? [cat.name, 'Analiz'] : cat.name,
   inLanguage: 'tr',
   license: ICERIK_LISANSI_URL,
   isAccessibleForFree: true,

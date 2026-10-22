@@ -48,3 +48,9 @@ test('yazı işleri zinciri (uretim yazi-isleri): yazı türü dolu ya da yazar 
   assert.equal(zincirYazisiMi({ uretim: 'editor', yaziTuru: 'aciklayici' }), false);
   assert.ok(!/sorumlu/i.test(ZINCIR_NOTU));
 });
+
+test('analiz (yaziTuru analiz, uretim yazi-isleri): zincir notu; Şenol Dak imzası sahip notuna düşmez', () => {
+  const n = yapayZekaNotu({ yaziTuru: 'analiz', uretim: 'yazi-isleri', author: 'Şenol Dak' }, 'b', 'https://finfolis.com/haber/x/');
+  assert.equal(n.metin, ZINCIR_NOTU);
+  assert.equal(zincirYazisiMi({ yaziTuru: 'analiz', uretim: 'yazi-isleri' }), true);
+});

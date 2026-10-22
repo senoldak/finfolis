@@ -16,3 +16,9 @@ test('turEtiketi: düz haberde etiket yok, bülten ve içerik türleri etiketlen
   assert.equal(turEtiketi({ icerikTuru: 'resmi' }), 'Resmi açıklama');
   assert.equal(turEtiketi({ icerikTuru: 'veri' }), 'Veri');
 });
+
+test('turEtiketi: analiz yazısı "Analiz" etiketi alır (içerik türünden önce)', () => {
+  assert.equal(turEtiketi({ yaziTuru: 'analiz' }), 'Analiz');
+  assert.equal(turEtiketi({ yaziTuru: 'analiz', icerikTuru: 'veri' }), 'Analiz');
+  assert.equal(turEtiketi({ yaziTuru: 'aciklayici' }), undefined);
+});

@@ -22,7 +22,7 @@ const haberler = defineCollection({
       // Yayından sonra yapılan düzeltmenin notu ("<tarih saat>: <ne düzeltildi>"); boşsa makalede hiçbir şey görünmez.
       // Not `updated`'ı değiştirmez; sahibi elle günceller.
       duzeltme: z.string().min(10).optional().transform(duzeltmeKapisi),
-      // Yazı türü (bkz. src/lib/yazi-turu): haber, açıklayıcı ya da referans; yoksa haber. `tur` alanından ayrıdır.
+      // Yazı türü (bkz. src/lib/yazi-turu): haber, açıklayıcı, referans ya da analiz; yoksa haber. `tur` alanından ayrıdır.
       yaziTuru: z.enum(YAZI_TURLERI).default(VARSAYILAN_YAZI_TURU),
       category: z.enum(slugs),
       cover: image().optional(),
