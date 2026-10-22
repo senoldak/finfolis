@@ -2,7 +2,6 @@
 title: "Powerica hisseleri halka arz fiyatının yüzde 48 üzerinde işlem görüyor"
 description: "Powerica hisseleri halka arz fiyatından yüzde 48'e yakın yükselişle Cuma günü 584,85 liradan kapandı."
 date: 2026-10-19T09:01:45.000Z
-duzeltme: "20.10.2026: Aracı kurum tavsiyesi, hedef fiyat ve artış potansiyeli yazıdan çıkarıldı."
 category: "piyasalar"
 tur: "haber"
 uretim: "bot"

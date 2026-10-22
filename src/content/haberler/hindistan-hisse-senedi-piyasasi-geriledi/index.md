@@ -2,7 +2,6 @@
 title: "Hindistan hisse senedi piyasası geriledi"
 description: "Hindistan hisse senedi piyasası pazartesi günü düşüş yaşayarak Sensex 73.924 puana geriledi ve Nifty 50 endeksi 22.950 seviyesinin altına indi. Satış dalgası toplam piyasa değerinden yaklaşık 2,34 lakh crore rupi sildi."
 date: 2026-10-19T04:34:53.000Z
-duzeltme: "20.10.2026: Bir bankanın kâr tutarı, başka bir haberde farklı geçtiği ve resmî kaynaktan doğrulanamadığı için çıkarıldı."
 category: "piyasalar"
 tur: "haber"
 uretim: "bot"

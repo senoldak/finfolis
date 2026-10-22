@@ -2,7 +2,6 @@
 title: "İki büyük bankanın ikinci çeyrek sonuçları ve piyasa durumları"
 description: "ICICI Bank ve HDFC Bank'ın ikinci çeyrek bilançoları ve piyasa performansları açıklandı. ICICI Bank büyümede öne çıktı."
 date: 2026-10-19T06:56:19.000Z
-duzeltme: "20.10.2026: Aracı kurum tavsiyeleri, hedef fiyat ve açıklamadaki değerleme ifadesi yazıdan çıkarıldı. Bir bankanın kâr tutarı, iki haberde farklı geçtiği ve resmî kaynaktan doğrulanamadığı için çıkarıldı."
 category: "piyasalar"
 tur: "haber"
 uretim: "bot"

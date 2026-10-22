@@ -2,7 +2,6 @@
 title: "Piyasalarda Haftalık Gelişmeler ve Şirket Hamleleri · 19 Ekim, öğle"
 description: "Küresel piyasalarda ABD-İran müzakerelerinden çıkabilecek sonuçlar ve şirketlerin yapay zeka yatırımları öne çıkıyor. Borsa ve hisse senedi cephesinde ise yeni ortaklıklar ve borçlanma hamleleri takip ediliyor."
 date: 2026-10-19T12:15:47.000Z
-duzeltme: "20.10.2026: Bir hisse için verilen derecelendirme ve hedef fiyat ile buna ilişkin yorum cümlesi yazıdan çıkarıldı."
 category: "kripto"
 tur: "haber"
 uretim: "bot"

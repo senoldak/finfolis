@@ -2,7 +2,6 @@
 title: "Tonbo Imaging ve Zetwerk hisse halka arz talepleri açıklandı"
 description: "Halka arz edilen dört şirketin hisse talepleri ikinci günde farklı seviyelerde gerçekleşti. Tonbo Imaging en yüksek ilgiyi görürken, Zetwerk en düşük talebi aldı."
 date: 2026-10-18T11:20:14.000Z
-duzeltme: "20.10.2026: Gri piyasa primlerini ve tahmini listeleme fiyatlarını aktaran cümleler yazıdan çıkarıldı."
 category: "piyasalar"
 tur: "haber"
 uretim: "bot"

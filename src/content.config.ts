@@ -4,6 +4,10 @@ import { z } from 'astro/zod';
 import { CATEGORIES } from './lib/site';
 import { VARSAYILAN_YAZI_TURU, YAZI_TURLERI } from './lib/yazi-turu.mjs';
 
+// Düzeltme notları 1 Kasım 2026'dan önce gösterilmez (yapım aşaması; sahibinin kararı, 22 Ekim 2026).
+// Zincir de bu tarihten önce not yazmaz (mecmua yazi-isleri/guncelleme/icerik.mjs DUZELTME_ACILIS).
+const DUZELTME_ACILIS = Date.parse('2026-11-01T00:00:00+03:00');
+const duzeltmeKapisi = (v: string | undefined) => (Date.now() < DUZELTME_ACILIS ? undefined : v);
 const slugs = CATEGORIES.map((c) => c.slug) as [string, ...string[]];
 
 const haberler = defineCollection({
@@ -17,7 +21,7 @@ const haberler = defineCollection({
       updated: z.coerce.date().optional(),
       // Yayından sonra yapılan düzeltmenin notu ("<tarih saat>: <ne düzeltildi>"); boşsa makalede hiçbir şey görünmez.
       // Not `updated`'ı değiştirmez; sahibi elle günceller.
-      duzeltme: z.string().min(10).optional(),
+      duzeltme: z.string().min(10).optional().transform(duzeltmeKapisi),
       // Yazı türü (bkz. src/lib/yazi-turu): haber, açıklayıcı ya da referans; yoksa haber. `tur` alanından ayrıdır.
       yaziTuru: z.enum(YAZI_TURLERI).default(VARSAYILAN_YAZI_TURU),
       category: z.enum(slugs),

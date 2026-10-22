@@ -2,7 +2,6 @@
 title: "Emekliler aylık gelir sağlayan opsiyon ETF'lerine yöneliyor ancak vergi sürprizi riski bulunuyor"
 description: "Emekliler aylık gelir elde etmek amacıyla örtülü alım opsiyonu (covered call) ETF'lerine ilgi gösteriyor ancak uzmanlar vergi yükü konusunda uyarıyor."
 date: 2026-10-18T13:10:33.000Z
-duzeltme: "20.10.2026: Belirli fonların adları ve vergi oranı karşılaştırması ile bir hesap türü önerisi yazıdan çıkarıldı."
 category: "piyasalar"
 tur: "haber"
 uretim: "bot"

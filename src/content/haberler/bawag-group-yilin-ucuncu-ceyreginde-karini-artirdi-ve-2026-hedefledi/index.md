@@ -2,7 +2,6 @@
 title: "BAWAG Group üçüncü çeyrekte kârını artırdı ve 2026 net kâr hedefini teyit etti"
 description: "Avusturya merkezli BAWAG Group, yılın üçüncü çeyreğinde net kârının yüzde 13 artarak 248 milyon avroya yükseldiğini açıkladı ve 2026 net kâr hedefinin 960 milyon avrodan fazla olduğunu teyit etti."
 date: 2026-10-19T06:50:53.000Z
-duzeltme: "20.10.2026: Başlıktaki anlamsız ifade düzeltildi."
 category: "ekonomi"
 tur: "haber"
 uretim: "bot"

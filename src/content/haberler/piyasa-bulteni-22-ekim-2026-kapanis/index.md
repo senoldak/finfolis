@@ -1,7 +1,6 @@
 ---
 title: "Piyasa bülteni · 22 Ekim 2026, kapanış"
 description: "Önceki bültenden bu yana öne çıkan gelişmeler, bölge bölge."
-duzeltme: "22.10.2026: Politika faizi göstergesi TCMB'nin 22 Ekim kararıyla indirilen oran olan %36 olarak düzeltildi; önceki sürümde eski oran (%37) yazıyordu."
 date: 2026-10-22T15:41:07.856Z
 category: "piyasalar"
 tur: "bulten"

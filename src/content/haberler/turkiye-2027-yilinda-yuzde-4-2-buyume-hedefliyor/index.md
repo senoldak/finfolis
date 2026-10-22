@@ -2,7 +2,6 @@
 title: "Türkiye 2027 yılında yüzde 4,2 büyüme hedefliyor"
 description: "Hükümetin bütçe teklifini açıklayan Cumhurbaşkanı Yardımcısı Cevdet Yılmaz, 2027 yılı ekonomik büyüme hedefinin yüzde 4,2 olarak belirlendiğini söyledi. Bütçe teklifine göre 2027 yılında harcamaların 27,28 trilyon Türk lirası, gelirlerin ise 23,41 trilyon lira olması öngörülüyor."
 date: 2026-10-16T10:16:26.000Z
-duzeltme: "20.10.2026: Gelir tutarının yanında yer alan dolar karşılığı resmî kaynaktan doğrulanamadığı için çıkarıldı. Harcama ve gelir tutarları Türk lirası olarak korundu."
 category: "ekonomi"
 tur: "haber"
 uretim: "bot"

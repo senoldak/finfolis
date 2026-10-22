@@ -2,7 +2,6 @@
 title: "Anthropic araştırmacıları kendi kendini kopyalayan yapay zeka solucanlarını inceledi"
 description: "Anthropic şirketinin araştırma ekibi, internet bağlantılı akıllı televizyonlar arasında özerk şekilde yayılan kötü amaçlı bir yapay zeka programı geliştirdiğini açıkladı. Şirket, bu tür programların yıl sonuna kadar sıradan cihazlarda mümkün olabileceğini öngörüyor."
 date: 2026-10-18T13:30:00.000Z
-duzeltme: "20.10.2026: Haberde adı geçen bir kişinin adı ve kurumu yazıdan çıkarıldı."
 category: "ekonomi"
 tur: "haber"
 uretim: "bot"

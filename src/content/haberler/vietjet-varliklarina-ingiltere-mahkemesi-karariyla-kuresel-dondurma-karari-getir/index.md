@@ -2,7 +2,6 @@
 title: "VietJet varlıklarına İngiltere mahkemesi kararıyla küresel dondurma kararı getirildi"
 description: "Londra merkezli yatırım firması FitzWalter ile yaşayan borç anlaşmazlığı nedeniyle VietJet'in varlıklarına küresel dondurma kararı getirildi. Karar, 251,6 milyon dolara kadar olan varlıkları kapsıyor."
 date: 2026-10-19T08:20:00.000Z
-duzeltme: "20.10.2026: Şirketin borç ödeme davranışına ilişkin atıfsız nitelendirme yumuşatıldı; gerekçe mahkeme kararına bağlandı."
 category: "ekonomi"
 tur: "haber"
 uretim: "bot"

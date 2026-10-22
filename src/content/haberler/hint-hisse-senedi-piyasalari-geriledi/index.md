@@ -2,7 +2,6 @@
 title: "Hint hisse senedi piyasaları geriledi"
 description: "Hint hisse senedi piyasaları hafta başındaki işlemlerde zayıf küresel ipuçları ve hisse satışlarıyla geriledi. Yatırımcılar tek bir seansta büyük miktarda varlık kaybı yaşadı."
 date: 2026-10-19T08:19:09.000Z
-duzeltme: "20.10.2026: Yabancı yatırımcıların yıl geneli satış tutarı hatalı yazılmıştı ve resmî kaynaktan doğrulanamadığı için çıkarıldı."
 category: "piyasalar"
 tur: "haber"
 uretim: "bot"

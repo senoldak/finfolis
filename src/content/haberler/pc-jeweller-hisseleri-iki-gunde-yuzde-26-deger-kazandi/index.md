@@ -2,7 +2,6 @@
 title: "PC Jeweller hisseleri iki günde yüzde 26 değer kazandı"
 description: "PC Jeweller hisseleri, Cupid yöneticisi Aditya Kumar Halwasiya'nın hisse alımının ardından iki günde yüzde 26 yükseldi. Şirket, banka borçlarını kapatarak borçsuz bir yapıya ulaştı."
 date: 2026-10-19T05:21:56.000Z
-duzeltme: "20.10.2026: Bir şirket yöneticisine yönelik atıfsız övgü cümlesi ve konsorsiyumdaki bankaların adları yazıdan çıkarıldı."
 category: "piyasalar"
 tur: "haber"
 uretim: "bot"

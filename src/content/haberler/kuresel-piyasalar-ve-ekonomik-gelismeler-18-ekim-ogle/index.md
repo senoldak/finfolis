@@ -2,7 +2,6 @@
 title: "Küresel Piyasalar ve Ekonomik Gelişmeler · 18 Ekim, öğle"
 description: "Hint borsaları nisan ayından bu yana en güçlü haftalık kazancını elde ederken, Kaliforniya'da milyarderlerden servet vergisi alınmasını öngören teklif tartışılıyor."
 date: 2026-10-18T13:28:52.000Z
-duzeltme: "20.10.2026: Bir kripto varlık için kurumların yıl sonu fiyat hedeflerini aktaran paragraf yazıdan çıkarıldı."
 category: "piyasalar"
 tur: "haber"
 uretim: "bot"
