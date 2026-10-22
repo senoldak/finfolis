@@ -1,0 +1,534 @@
+{
+  "karisik1": {
+    "adet": 2,
+    "hatalar": [
+      "n09 «HATA haberi»: standart denetimi çalıştırılamadı (süzgeç çöktü)",
+      "n12: yazar çıktı vermedi",
+      "n02: geçici sorun",
+      "n03: günlük kota bitti",
+      "n04: bozuk yanıt",
+      "n05 «DURDU haberi»: yayınlanmadı, yayın kurulu durdurdu",
+      "n07 «BEKLE haberi»: denetim çalışamadı"
+    ],
+    "bultenYazildi": true,
+    "bultenGerekli": true,
+    "yazilar": [
+      "normal-haber-bir",
+      "sari-haberi",
+      "bulten-2026-10-12t07-00-00-000z"
+    ],
+    "konfigHatasi": false,
+    "gorulen": {
+      "n01": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "yazildi": true
+      },
+      "n02": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "deneme": 1
+      },
+      "n04": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "gerekce": "bozuk yanıt"
+      },
+      "n05": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      },
+      "n06": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      },
+      "n08": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "elendi": true,
+        "gerekce": "standart:k1"
+      },
+      "n10": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      },
+      "n11": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "yazildi": true,
+        "gerekce": "standart:s1"
+      },
+      "n12": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "deneme": 1
+      },
+      "n13": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      }
+    },
+    "havuz": [
+      "n06"
+    ],
+    "dosyalar": [
+      "bulten-2026-10-12t07-00-00-000z",
+      "normal-haber-bir",
+      "sari-haberi"
+    ],
+    "yayinlar": [
+      "normal-haber-bir",
+      "sari-haberi"
+    ],
+    "motor": [
+      "elendi||standart:k1",
+      "yazildi|sari-haberi|standart:s1"
+    ],
+    "yazCagri": 11,
+    "kurulCagri": 7,
+    "bultenOlaylari": [
+      "n01",
+      "n13",
+      "n11",
+      "n10"
+    ]
+  },
+  "karisik2": {
+    "adet": 0,
+    "hatalar": [
+      "n09 «HATA haberi»: standart denetimi çalıştırılamadı (süzgeç çöktü)",
+      "n12: yazar çıktı vermedi",
+      "n02: geçici sorun",
+      "n03: günlük kota bitti",
+      "n07 «BEKLE haberi»: denetim çalışamadı"
+    ],
+    "bultenYazildi": false,
+    "bultenGerekli": false,
+    "yazilar": [],
+    "konfigHatasi": false,
+    "gorulen": {
+      "n01": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "yazildi": true
+      },
+      "n02": {
+        "zaman": "2026-10-12T08:00:00.000Z",
+        "deneme": 2
+      },
+      "n04": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "gerekce": "bozuk yanıt"
+      },
+      "n05": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      },
+      "n06": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      },
+      "n08": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "elendi": true,
+        "gerekce": "standart:k1"
+      },
+      "n10": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      },
+      "n11": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "yazildi": true,
+        "gerekce": "standart:s1"
+      },
+      "n12": {
+        "zaman": "2026-10-12T08:00:00.000Z",
+        "deneme": 2
+      },
+      "n13": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      }
+    },
+    "havuz": [
+      "n06"
+    ],
+    "dosyalar": [
+      "bulten-2026-10-12t07-00-00-000z",
+      "normal-haber-bir",
+      "sari-haberi"
+    ],
+    "yayinlar": [
+      "normal-haber-bir",
+      "sari-haberi"
+    ],
+    "motor": [
+      "elendi||standart:k1",
+      "yazildi|sari-haberi|standart:s1"
+    ],
+    "yazCagri": 16,
+    "kurulCagri": 9,
+    "bultenOlaylari": [
+      "n01",
+      "n13",
+      "n11",
+      "n10"
+    ]
+  },
+  "karisik3": {
+    "adet": 0,
+    "hatalar": [
+      "n09 «HATA haberi»: standart denetimi çalıştırılamadı (süzgeç çöktü)",
+      "n12: yazar çıktı vermedi",
+      "n02: geçici sorun",
+      "n03: günlük kota bitti",
+      "n07 «BEKLE haberi»: denetim çalışamadı"
+    ],
+    "bultenYazildi": true,
+    "bultenGerekli": true,
+    "yazilar": [
+      "bulten-2026-10-12t09-00-00-000z"
+    ],
+    "konfigHatasi": false,
+    "gorulen": {
+      "n01": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "yazildi": true
+      },
+      "n02": {
+        "zaman": "2026-10-12T09:00:00.000Z"
+      },
+      "n04": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "gerekce": "bozuk yanıt"
+      },
+      "n05": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      },
+      "n06": {
+        "zaman": "2026-10-12T09:00:00.000Z"
+      },
+      "n08": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "elendi": true,
+        "gerekce": "standart:k1"
+      },
+      "n10": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      },
+      "n11": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "yazildi": true,
+        "gerekce": "standart:s1"
+      },
+      "n12": {
+        "zaman": "2026-10-12T09:00:00.000Z"
+      },
+      "n13": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      }
+    },
+    "havuz": [],
+    "dosyalar": [
+      "bulten-2026-10-12t07-00-00-000z",
+      "bulten-2026-10-12t09-00-00-000z",
+      "normal-haber-bir",
+      "sari-haberi"
+    ],
+    "yayinlar": [
+      "normal-haber-bir",
+      "sari-haberi"
+    ],
+    "motor": [
+      "elendi||standart:k1",
+      "yazildi|sari-haberi|standart:s1"
+    ],
+    "yazCagri": 21,
+    "kurulCagri": 11,
+    "bultenOlaylari": [
+      "n01",
+      "n13",
+      "n11",
+      "n10",
+      "n06"
+    ]
+  },
+  "karisik4": {
+    "adet": 0,
+    "hatalar": [
+      "n09 «HATA haberi»: standart denetimi çalıştırılamadı (süzgeç çöktü)",
+      "n03: günlük kota bitti",
+      "n07 «BEKLE haberi»: denetim çalışamadı"
+    ],
+    "bultenYazildi": false,
+    "bultenGerekli": false,
+    "yazilar": [],
+    "konfigHatasi": false,
+    "gorulen": {
+      "n01": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "yazildi": true
+      },
+      "n02": {
+        "zaman": "2026-10-12T09:00:00.000Z"
+      },
+      "n04": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "gerekce": "bozuk yanıt"
+      },
+      "n05": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      },
+      "n06": {
+        "zaman": "2026-10-12T09:00:00.000Z"
+      },
+      "n08": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "elendi": true,
+        "gerekce": "standart:k1"
+      },
+      "n10": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      },
+      "n11": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "yazildi": true,
+        "gerekce": "standart:s1"
+      },
+      "n12": {
+        "zaman": "2026-10-12T09:00:00.000Z"
+      },
+      "n13": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      }
+    },
+    "havuz": [],
+    "dosyalar": [
+      "bulten-2026-10-12t07-00-00-000z",
+      "bulten-2026-10-12t09-00-00-000z",
+      "normal-haber-bir",
+      "sari-haberi"
+    ],
+    "yayinlar": [
+      "normal-haber-bir",
+      "sari-haberi"
+    ],
+    "motor": [
+      "elendi||standart:k1",
+      "yazildi|sari-haberi|standart:s1"
+    ],
+    "yazCagri": 24,
+    "kurulCagri": 13,
+    "bultenOlaylari": [
+      "n01",
+      "n13",
+      "n11",
+      "n10",
+      "n06"
+    ]
+  },
+  "derleme1": {
+    "adet": 0,
+    "hatalar": [],
+    "bultenYazildi": false,
+    "bultenGerekli": false,
+    "yazilar": [],
+    "konfigHatasi": false,
+    "gorulen": {
+      "d1": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      },
+      "d2": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      },
+      "d3": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      }
+    },
+    "havuz": [
+      "d1",
+      "d2",
+      "d3"
+    ],
+    "dosyalar": [],
+    "yayinlar": [],
+    "motor": [],
+    "yazCagri": 3,
+    "kurulCagri": 0,
+    "bultenOlaylari": []
+  },
+  "derleme2": {
+    "adet": 1,
+    "hatalar": [],
+    "bultenYazildi": false,
+    "bultenGerekli": false,
+    "yazilar": [
+      "derleme-gundemi-12-ekim-acilis"
+    ],
+    "konfigHatasi": false,
+    "gorulen": {
+      "d1": {
+        "zaman": "2026-10-12T09:00:00.000Z",
+        "yazildi": true
+      },
+      "d2": {
+        "zaman": "2026-10-12T09:00:00.000Z",
+        "yazildi": true
+      },
+      "d3": {
+        "zaman": "2026-10-12T09:00:00.000Z",
+        "yazildi": true
+      }
+    },
+    "havuz": [],
+    "dosyalar": [
+      "derleme-gundemi-12-ekim-acilis"
+    ],
+    "yayinlar": [
+      "derleme-gundemi-12-ekim-acilis"
+    ],
+    "motor": [],
+    "yazCagri": 3,
+    "kurulCagri": 0,
+    "bultenOlaylari": []
+  },
+  "tek1": {
+    "adet": 0,
+    "hatalar": [],
+    "bultenYazildi": false,
+    "bultenGerekli": false,
+    "yazilar": [],
+    "konfigHatasi": false,
+    "gorulen": {
+      "e1": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      }
+    },
+    "havuz": [
+      "e1"
+    ],
+    "dosyalar": [],
+    "yayinlar": [],
+    "motor": [],
+    "yazCagri": 1,
+    "kurulCagri": 0,
+    "bultenOlaylari": []
+  },
+  "tek2": {
+    "adet": 0,
+    "hatalar": [],
+    "bultenYazildi": true,
+    "bultenGerekli": true,
+    "yazilar": [
+      "bulten-2026-10-12t09-00-00-000z"
+    ],
+    "konfigHatasi": false,
+    "gorulen": {
+      "e1": {
+        "zaman": "2026-10-12T09:00:00.000Z"
+      }
+    },
+    "havuz": [],
+    "dosyalar": [
+      "bulten-2026-10-12t09-00-00-000z"
+    ],
+    "yayinlar": [],
+    "motor": [],
+    "yazCagri": 1,
+    "kurulCagri": 0,
+    "bultenOlaylari": [
+      "e1"
+    ]
+  },
+  "konfig": {
+    "adet": 0,
+    "hatalar": [
+      "Gemini yapılandırma hatası: Gemini 403: anahtar"
+    ],
+    "bultenYazildi": true,
+    "bultenGerekli": true,
+    "yazilar": [
+      "bulten-2026-10-12t07-00-00-000z"
+    ],
+    "konfigHatasi": true,
+    "gorulen": {
+      "k3": {
+        "zaman": "2026-10-12T07:00:00.000Z"
+      }
+    },
+    "havuz": [],
+    "dosyalar": [
+      "bulten-2026-10-12t07-00-00-000z"
+    ],
+    "yayinlar": [],
+    "motor": [],
+    "yazCagri": 0,
+    "kurulCagri": 0,
+    "bultenOlaylari": [
+      "k3"
+    ]
+  },
+  "gruplamaHatasi": {
+    "adet": 0,
+    "hatalar": [
+      "olay gruplama başarısız; terfi ve bülten sonraki çalıştırmaya kaldı"
+    ],
+    "bultenYazildi": false,
+    "bultenGerekli": false,
+    "yazilar": [],
+    "konfigHatasi": false,
+    "gorulen": {},
+    "havuz": [],
+    "dosyalar": [],
+    "yayinlar": [],
+    "motor": [],
+    "yazCagri": 0,
+    "kurulCagri": 0,
+    "bultenOlaylari": []
+  },
+  "grup": {
+    "adet": 2,
+    "hatalar": [],
+    "bultenYazildi": true,
+    "bultenGerekli": true,
+    "yazilar": [
+      "ayni-olay-bir",
+      "baska-konu",
+      "bulten-2026-10-12t07-00-00-000z"
+    ],
+    "konfigHatasi": false,
+    "gorulen": {
+      "b1": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "yazildi": true
+      },
+      "b2": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "yazildi": true
+      },
+      "b3": {
+        "zaman": "2026-10-12T07:00:00.000Z",
+        "yazildi": true
+      }
+    },
+    "havuz": [],
+    "dosyalar": [
+      "ayni-olay-bir",
+      "baska-konu",
+      "bulten-2026-10-12t07-00-00-000z"
+    ],
+    "yayinlar": [
+      "ayni-olay-bir",
+      "baska-konu"
+    ],
+    "motor": [],
+    "yazCagri": 2,
+    "kurulCagri": 2,
+    "bultenOlaylari": [
+      "b1",
+      "b3"
+    ]
+  },
+  "kuru": {
+    "adet": 0,
+    "hatalar": [],
+    "bultenYazildi": false,
+    "bultenGerekli": true,
+    "yazilar": [],
+    "konfigHatasi": false,
+    "gorulen": {},
+    "havuz": [],
+    "dosyalar": [],
+    "yayinlar": [],
+    "motor": [],
+    "yazCagri": 0,
+    "kurulCagri": 0,
+    "bultenOlaylari": []
+  }
+}
