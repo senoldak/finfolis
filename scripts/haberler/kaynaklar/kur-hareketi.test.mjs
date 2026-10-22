@@ -1,0 +1,91 @@
+import { test, afterEach } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import kur from './kur-hareketi.mjs';
+import { kapakCiz } from '../../kapak/kapak.mjs';
+
+const gercekFetch = globalThis.fetch;
+afterEach(() => {
+  globalThis.fetch = gercekFetch;
+});
+const SIMDI = new Date('2026-10-10T09:00:00Z');
+// Frankfurter USD bazlı iki iş günü: USD/JPY +%2,0; USD/BRL ve EUR/USD eşik altı.
+const FRANKFURTER = JSON.stringify({
+  base: 'USD',
+  rates: { '2026-10-08': { JPY: 155.1, BRL: 5.0, EUR: 0.89 }, '2026-10-09': { JPY: 158.2, BRL: 5.005, EUR: 0.8924 } },
+});
+const sahte = (govde, durum = 200) => {
+  globalThis.fetch = async () => new Response(govde, { status: durum });
+};
+
+const piyasa = JSON.parse(readFileSync(new URL('./fixtures/piyasa-brl.json', import.meta.url), 'utf8'));
+
+test('yüzde 1,5 ve üzeri günlük kur hareketi aday olur', async () => {
+  sahte(FRANKFURTER);
+  const adaylar = await kur.hent({ piyasa, simdi: SIMDI });
+  assert.equal(kur.ad, 'kur-hareketi');
+  // brl +2,0 ve euro -1,5 aday; yen 1,4 eşik altı; dolar küçük; faiz kur değil.
+  assert.deepEqual(adaylar.map((a) => a.id).sort(), ['kur:brl:2026-10-09', 'kur:euro:2026-10-09', 'kur:usdjpy:2026-10-09']);
+  const brl = adaylar.find((a) => a.id === 'kur:brl:2026-10-09');
+  assert.equal(brl.onem, 80);
+  assert.equal(brl.kategori, 'doviz');
+  assert.match(brl.baslik, /Brezilya reali/);
+  assert.match(brl.kaynakMetni, /7\.8123/);
+  assert.match(brl.kaynakMetni, /2\.0/);
+  assert.equal(brl.kaynaklar[0].url, 'https://www.frankfurter.dev/');
+  assert.equal(brl.tarih.toISOString(), '2026-10-08T21:00:00.000Z');
+  const png = await kapakCiz(brl.kapak);
+  assert.equal(png.subarray(1, 4).toString(), 'PNG');
+});
+
+test('USD/JPY çaprazı yuvarlanmamış Frankfurter verisinden hesaplanır', async () => {
+  sahte(FRANKFURTER);
+  const adaylar = await kur.hent({ simdi: SIMDI });
+  assert.equal(adaylar.length, 1);
+  const a = adaylar[0];
+  assert.equal(a.id, 'kur:usdjpy:2026-10-09');
+  assert.equal(a.onem, 80);
+  assert.match(a.baslik, /USD\/JPY günde yüzde 2,0 yükseldi/);
+  assert.match(a.kaynakMetni, /158\.2000/);
+  assert.match(a.kaynakMetni, /155\.1000/);
+  assert.match(a.kaynakMetni, /\+2\.0%/);
+  assert.equal((await kapakCiz(a.kapak)).subarray(1, 4).toString(), 'PNG');
+});
+
+test('EUR/USD, USD->EUR kurunun tersinden hesaplanır', async () => {
+  sahte(JSON.stringify({ rates: { '2026-10-08': { EUR: 0.9 }, '2026-10-09': { EUR: 0.88 } } }));
+  const [a] = await kur.hent({ simdi: SIMDI });
+  assert.equal(a.id, 'kur:eurusd:2026-10-09');
+  assert.match(a.baslik, /EUR\/USD günde yüzde 2,3 yükseldi/);
+});
+
+test('çapraz kur alınamazsa TL çiftleri yine döner', async () => {
+  sahte('hata', 500);
+  const adaylar = await kur.hent({ piyasa, simdi: SIMDI });
+  assert.equal(adaylar.length, 2);
+});
+
+test('veri yoksa ya da değişim yoksa boş döner', async () => {
+  sahte(JSON.stringify({ rates: { '2026-10-08': { JPY: 155, BRL: 5, EUR: 0.9 }, '2026-10-09': { JPY: 155, BRL: 5, EUR: 0.9 } } }));
+  assert.deepEqual(await kur.hent({ simdi: SIMDI }), []);
+  assert.deepEqual(await kur.hent({ simdi: SIMDI, piyasa: { gostergeler: [{ id: 'brl', deger: 1 }] } }), []);
+});
+
+test('dolar/TL yüzde 1 eşiği; geçmiş varsa kapak altı aylık grafik, son nokta haberdeki değer', async () => {
+  sahte('hata', 500);
+  const gunler = [];
+  for (let t = Date.parse('2026-04-01T00:00:00Z'); t < Date.parse('2026-10-09T00:00:00Z'); t += 864e5) {
+    if (![0, 6].includes(new Date(t).getUTCDay())) gunler.push({ tarih: new Date(t).toISOString().slice(0, 10), deger: 40 + gunler.length * 0.01 });
+  }
+  const istenen = [];
+  const okuyucu = { gunluk: async (s) => (istenen.push(s), gunler) };
+  const p = { gostergeler: [{ ...piyasa.gostergeler[0], degisim: 1.1, deger: 41.9 }] };
+  const [a] = await kur.hent({ piyasa: p, simdi: SIMDI, okuyucu });
+  assert.equal(a.id, 'kur:dolar:2026-10-09');
+  assert.deepEqual(istenen, ['USDTRY=X']);
+  assert.match(a.kapakAlt, /son altı ay günlük kapanış grafiği: günlük \+%1,1, güncel kur 41,9/);
+  assert.equal((await kapakCiz(a.kapak)).subarray(1, 4).toString(), 'PNG');
+  // Geçmiş bayatsa rakam kartı.
+  const [b] = await kur.hent({ piyasa: p, simdi: SIMDI, okuyucu: { gunluk: async () => gunler.slice(0, 60) } });
+  assert.match(b.kapakAlt, /^Dolar \/ TL günlük değişim/);
+});

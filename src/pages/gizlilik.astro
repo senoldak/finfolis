@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Gizlilik"
+  description="finfolis gizlilik bildirimi: sitede hangi verinin işlendiği ve ziyaretlerin nasıl ölçüldüğü."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Gizlilik</h1>
+        <p class="makale-spot">Hangi veriyi topladığımızı, neden topladığımızı ve nasıl sildiğimizi burada açıklıyoruz.</p>
+      </header>
+      <div class="prose">
+        <h2>Kişisel veri</h2>
+        <p>
+          Sitede üyelik, yorum ya da e-posta aboneliği yoktur; sizden kişisel bilgi istemiyoruz. Bize e-posta yazarsanız
+          (örneğin "Hata bildir" ile), yazdıklarınızı ve e-posta adresinizi yalnızca yanıtlamak ve gerekirse düzeltme
+          yapmak için kullanırız.
+        </p>
+
+        <h2>Site ziyaretleri</h2>
+        <p>
+          Sitede ziyaretleri ölçmek için Cloudflare Web Analytics kullanıyoruz. Bu ölçüm çerez kullanmaz; sayfa görüntülemelerinin
+          toplu sayılarını verir; sizi tanımlayan bir bilgi saklanmaz.
+        </p>
+
+        <h2>İletişim</h2>
+        <p>
+          Bu bildirimle ilgili bir sorunuz olursa <a href={`mailto:contact@finfolis.com`}>contact@finfolis.com</a>
+          adresine yazabilirsiniz.
+        </p>
+        <p>Bu bildirim, sitede yapılan değişikliklere göre güncellenir. Editoryal ilkeler için <a href="/yayin-ilkeleri/">Yayın İlkeleri</a>, yasal bilgiler için <a href="/yasal/">Yasal Bilgilendirme</a> sayfasına bakın.</p>
+      </div>
+    </article>
+  </div>
+</Base>

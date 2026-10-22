@@ -1,0 +1,98 @@
+---
+import IsoRow from './IsoRow.astro';
+import { formatDate } from '../lib/site';
+import { sayi } from '../lib/piyasa';
+
+// Haber içi piktogram grafiği: her satır, değerin birim sayısı kadar simge. Sayı simge boyuyla değil adetle gösterilir.
+interface Props {
+  grafik: {
+    baslik: string;
+    simge: string;
+    birimEtiket: string;
+    birim: number;
+    satirlar: { etiket: string; metin: string; deger: number }[];
+  };
+  kaynak?: { ad: string; url: string }; // gizli kaynaklı haberde yok
+  tarih: Date;
+}
+
+const { grafik, kaynak, tarih } = Astro.props;
+const ondalik = grafik.birim < 1 ? 1 : 0;
+---
+
+<section class="haber-grafik" aria-labelledby="haber-grafik-baslik">
+  <h2 id="haber-grafik-baslik" class="bolum-baslik">{grafik.baslik}</h2>
+  <ul class="grafik-satirlar">
+    {
+      grafik.satirlar.map((s) => (
+        <li class="grafik-satir">
+          <span class="grafik-etiket">{s.etiket}</span>
+          <span class="grafik-simgeler">
+            <IsoRow miktar={s.deger} birim={grafik.birim} simge={grafik.simge} />
+          </span>
+          <span class="grafik-deger">{s.metin}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="veri-notu grafik-lejant">
+    <svg aria-hidden="true" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" /></svg>
+    = {sayi(grafik.birim, ondalik)} {grafik.birimEtiket}
+  </p>
+  <p class="veri-notu">
+    {kaynak ? <>Kaynak: <a href={kaynak.url} rel="nofollow noopener" target="_blank">{kaynak.ad}</a></> : "Veriler haber metnindeki rakamlardır"} · <time datetime={tarih.toISOString()}>{formatDate(tarih)}</time>
+  </p>
+</section>
+
+<style>
+  .haber-grafik {
+    margin: 32px 0;
+  }
+
+  .grafik-satirlar {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .grafik-satir {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 4px 16px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--hair);
+  }
+
+  .grafik-etiket {
+    grid-column: 1 / -1;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .grafik-simgeler {
+    min-width: 0;
+  }
+
+  .grafik-deger {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .grafik-lejant {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .grafik-lejant svg {
+    width: 16px;
+    height: 16px;
+    fill: var(--ink);
+  }
+</style>

@@ -1,0 +1,96 @@
+---
+interface Props {
+  rakamlar?: { etiket: string; deger: string }[];
+  sirada?: { tarih: string; olay: string };
+  // Haberin başında (spot ve sentez bloğunun altında) gösterilir: okur önce sayıları görür.
+  bas?: boolean;
+}
+
+const { rakamlar = [], sirada, bas = false } = Astro.props;
+---
+
+{
+  (rakamlar.length > 0 || sirada) && (
+    <section class:list={['seritler', { bas }]} aria-label={rakamlar.length ? 'Rakamlarla' : 'Sırada'}>
+      {
+        rakamlar.length > 0 && (
+          <dl class="rakam-seridi">
+            {rakamlar.map((r) => (
+              <div class="rakam">
+                <dt>{r.etiket}</dt>
+                <dd>{r.deger}</dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
+      {
+        sirada && (
+          <p class="sirada">
+            <span class="sirada-etiket">Sırada</span>
+            <time>{sirada.tarih}</time>
+            <span>{sirada.olay}</span>
+          </p>
+        )
+      }
+    </section>
+  )
+}
+
+<style>
+  .seritler {
+    margin: 28px 0 0;
+    font-family: var(--sans);
+  }
+  .seritler.bas {
+    margin: 4px 0 24px;
+  }
+  .rakam-seridi {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
+    margin: 0;
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--hair);
+  }
+  .rakam {
+    min-width: 0;
+    padding: 12px 14px 12px 0;
+  }
+  .rakam dt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    overflow-wrap: anywhere;
+  }
+  .rakam dd {
+    margin: 4px 0 0;
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+  .sirada {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    align-items: baseline;
+    margin: 12px 0 0;
+    font-size: 0.95rem;
+    color: var(--ink-2);
+  }
+  .sirada-etiket {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue-text);
+  }
+  .sirada time {
+    font-weight: 600;
+    color: var(--ink);
+  }
+</style>

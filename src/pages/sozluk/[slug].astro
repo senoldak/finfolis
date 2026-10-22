@@ -1,0 +1,73 @@
+---
+// Finans sözlüğü terim sayfası (/sozluk/<slug>/). Tanımlar src/data/sozluk.mjs'den gelir; güncel rakam içermez.
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { TERIMLER, terimUrl } from '../../data/sozluk.mjs';
+import { SITE_URL, sayfaSemasi } from '../../lib/seo';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+
+export function getStaticPaths() {
+  return TERIMLER.map((t) => ({ params: { slug: t.slug }, props: { terim: t } }));
+}
+
+interface Props {
+  terim: (typeof TERIMLER)[number];
+}
+
+const { terim } = Astro.props;
+const ilgili = terim.ilgili
+  .map((s) => TERIMLER.find((t) => t.slug === s))
+  .filter((t): t is (typeof TERIMLER)[number] => Boolean(t));
+const adSade = terim.terim.replace(/\s*\(.*\)$/, '');
+const aciklama = terim.tanim[0].split(/(?<=\.)\s/)[0];
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Sözlük', href: '/sozluk/' },
+  { ad: adSade, href: terimUrl(terim.slug) },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: `${adSade} nedir?`,
+  aciklama,
+  ekler: [
+    {
+      '@type': 'DefinedTerm',
+      '@id': `${SITE_URL}${terimUrl(terim.slug)}#terim`,
+      name: adSade,
+      description: terim.tanim.join(' '),
+      url: `${SITE_URL}${terimUrl(terim.slug)}`,
+      inDefinedTermSet: { '@id': `${SITE_URL}/sozluk/#sozluk` },
+      inLanguage: 'tr',
+    },
+  ],
+});
+---
+
+<Base title={`${adSade} nedir?`} description={aciklama}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{terim.terim} nedir?</h1>
+      <p>Finans sözlüğü</p>
+    </header>
+    <article class="prose sozluk-tanim">
+      {terim.tanim.map((p) => <p>{p}</p>)}
+    </article>
+    {
+      ilgili.length > 0 && (
+        <section class="bolum">
+          <h2 class="bolum-baslik">İlgili terimler</h2>
+          <ul class="dizin-liste">
+            {ilgili.map((t) => (
+              <li>
+                <a href={terimUrl(t.slug)}>{t.terim}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+    <p class="sayfa-giris"><a href="/sozluk/">Tüm terimler</a></p>
+  </div>
+</Base>

@@ -1,0 +1,194 @@
+---
+// Arşiv takvimi: her ay bir takvim; haberi olan gün kendi arşiv sayfasına bağlanır.
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { getNews } from '../../lib/news';
+import { ayBasligi, ayTakvimi, gunBasligi, gunlereAyir, haftalaraAyir } from '../../lib/arsiv.mjs';
+
+const gunler = gunlereAyir(await getNews());
+const sayilar = new Map(gunler.map((g) => [g.gun, g.haberler.length]));
+const aylar = [...new Set(gunler.map((g) => g.gun.slice(0, 7)))];
+const toplam = gunler.reduce((t, g) => t + g.haberler.length, 0);
+const GUN_ADLARI = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
+const haftalar = haftalaraAyir(gunler);
+const kisa = (g: string) => gunBasligi(g).replace(/ \d{4}$/, '');
+---
+
+<Base title="Haber arşivi" description={`finfolis'te yayımlanan ${toplam} haber, gün gün takvimde.`}>
+  <div class="container">
+    <article class="makale">
+      <Breadcrumb yol={[{ ad: 'Anasayfa', href: '/' }, { ad: 'Arşiv' }]} />
+      <header class="makale-bas">
+        <h1>Arşiv</h1>
+        <p class="makale-spot">Bir güne tıklayın: o günün özeti ve yayımlanan tüm haberler.</p>
+      </header>
+
+      <nav class="suzgec" aria-label="Arşivi süz">
+        <div class="suzgec-satir">
+          <span class="suzgec-etiket">Ay</span>
+          <span class="cipler">
+            {aylar.map((ay) => <a class="cip" href={`#ay-${ay}`}>{ayBasligi(ay)}</a>)}
+          </span>
+        </div>
+        <div class="suzgec-satir">
+          <span class="suzgec-etiket">Hafta</span>
+          <span class="cipler">
+            {
+              haftalar.map((h) => (
+                <a class="cip" href={`/arsiv/hafta/${h.anahtar}/`} title={`${kisa(h.ilk)} – ${kisa(h.son)}, ${h.sayi} haber`}>
+                  {h.no}. hafta <span>{h.sayi}</span>
+                </a>
+              ))
+            }
+          </span>
+        </div>
+      </nav>
+
+      {
+        aylar.map((ay) => (
+          <section class="ay" id={`ay-${ay}`} aria-labelledby={`ay-${ay}-baslik`}>
+            <h2 id={`ay-${ay}-baslik`}>{ayBasligi(ay)}</h2>
+            <table class="takvim">
+              <thead>
+                <tr>
+                  {GUN_ADLARI.map((d) => (
+                    <th scope="col">{d}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {ayTakvimi(ay, sayilar).map((hafta) => (
+                  <tr>
+                    {hafta.map((h) =>
+                      !h ? (
+                        <td />
+                      ) : h.sayi > 0 ? (
+                        <td class="dolu">
+                          <a href={`/arsiv/${h.gun}/`} aria-label={`${h.no} ${ayBasligi(ay)}: ${h.sayi} haber`}>
+                            <span class="no">{h.no}</span>
+                            <span class="sayi">{h.sayi}</span>
+                          </a>
+                        </td>
+                      ) : (
+                        <td class="bos">
+                          <span class="no">{h.no}</span>
+                        </td>
+                      ),
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+        ))
+      }
+    </article>
+  </div>
+</Base>
+
+<style>
+  .suzgec {
+    display: grid;
+    gap: 10px;
+    padding: 14px 0;
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--hair);
+    font-family: var(--sans);
+  }
+  .suzgec-satir {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .suzgec-etiket {
+    flex: 0 0 52px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .cipler {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .cip {
+    padding: 3px 10px;
+    border: 1px solid var(--hair);
+    border-radius: 3px;
+    color: var(--ink);
+    font-size: 0.88rem;
+    text-decoration: none;
+  }
+  .cip:hover,
+  .cip:focus-visible {
+    border-color: var(--blue);
+    background: var(--paper-2);
+  }
+  .cip span {
+    margin-left: 4px;
+    font-size: 0.75rem;
+    color: var(--blue-text);
+    font-variant-numeric: tabular-nums;
+  }
+  .ay {
+    margin-top: 32px;
+  }
+  .ay h2 {
+    font-family: var(--sans);
+    font-size: 1.15rem;
+    margin: 0 0 10px;
+  }
+  .takvim {
+    width: 100%;
+    max-width: 560px;
+    border-collapse: separate;
+    border-spacing: 4px;
+    table-layout: fixed;
+    font-family: var(--sans);
+    font-variant-numeric: tabular-nums;
+  }
+  .takvim th {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 4px;
+  }
+  .takvim td {
+    height: 52px;
+    padding: 0;
+    vertical-align: top;
+  }
+  .takvim .no {
+    display: block;
+    font-size: 0.85rem;
+  }
+  .takvim .bos {
+    padding: 6px 8px;
+    color: var(--hair);
+  }
+  .takvim .dolu a {
+    display: block;
+    height: 100%;
+    padding: 6px 8px;
+    border: 1px solid var(--hair);
+    border-radius: 3px;
+    color: var(--ink);
+    text-decoration: none;
+    background: var(--paper);
+  }
+  .takvim .dolu a:hover,
+  .takvim .dolu a:focus-visible {
+    border-color: var(--blue);
+    background: var(--paper-2);
+  }
+  .takvim .sayi {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.72rem;
+    color: var(--blue-text);
+  }
+</style>

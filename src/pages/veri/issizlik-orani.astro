@@ -1,0 +1,137 @@
+---
+// İşsizlik oranı: TÜİK'in mevsimsellikten arındırılmış aylık oranı; TCMB EVDS'den.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { RESMI, ayAdi, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const iss = RESMI.issizlik;
+const son = iss?.satirlar.at(-1);
+const ilk = iss?.satirlar[0];
+const birAyOnce = iss?.satirlar.at(-2);
+const birYilOnce = son && iss?.satirlar.find((s) => s.yil === son.yil - 1 && s.ay === son.ay);
+const tablo = (iss?.satirlar ?? []).slice(-24).reverse();
+const yuzde = (n: number) => `%${sayiYaz(n, 1)}`;
+const baslik = 'İşsizlik oranı';
+const description =
+  son && iss
+    ? `TÜİK verisine göre işsizlik oranı ${ayAdi(son)} itibarıyla ${yuzde(son.oran)} (mevsimsellikten arındırılmış). Son 24 ayın aylık işsizlik oranı.`
+    : 'Türkiye işsizlik oranı: TÜİK’in mevsimsellikten arındırılmış aylık verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'İşsizlik oranı', href: '/veri/issizlik-orani/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(iss && son && ilk
+    ? {
+        sayfaEk: { dateModified: iss.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Türkiye aylık işsizlik oranı (mevsimsellikten arındırılmış)',
+            description: 'Türkiye İstatistik Kurumu’nun işgücü istatistiklerinden mevsimsellikten arındırılmış aylık işsizlik oranı, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/issizlik-orani/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye İstatistik Kurumu', url: 'https://www.tuik.gov.tr/' },
+            temporalCoverage: `${ilk.yil}-${String(ilk.ay).padStart(2, '0')}/${son.yil}-${String(son.ay).padStart(2, '0')}`,
+            dateModified: iss.alinma,
+            variableMeasured: ['İşsizlik oranı (%)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`İşsizlik oranı: ${son ? ayAdi(son) : 'TÜİK verisi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Mevsimsellikten arındırılmış · TÜİK verisi</p>
+    </header>
+    {
+      son && iss ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>İşsizlik oranı</dt>
+              <dd>{yuzde(son.oran)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}</dd>
+            </div>
+            {birAyOnce && (
+              <div>
+                <dt>Bir ay önce</dt>
+                <dd>{yuzde(birAyOnce.oran)}</dd>
+                <dd class="veri-degisim">{ayAdi(birAyOnce)}</dd>
+              </div>
+            )}
+            {birYilOnce && (
+              <div>
+                <dt>Bir yıl önce</dt>
+                <dd>{yuzde(birYilOnce.oran)}</dd>
+                <dd class="veri-degisim">{ayAdi(birYilOnce)}</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={iss.kaynak.url} rel="noopener">{iss.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
+            {zamanYaz(iss.alinma)}.
+          </p>
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 24 ay</h2>
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Ay</th>
+                    <th scope="col" class="sag">İşsizlik oranı</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tablo.map((s) => (
+                    <tr>
+                      <td>{ayAdi(s)}</td>
+                      <td class="sag">{yuzde(s.oran)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                İşsizlik oranı, iş arayan ama çalışmayan kişilerin işgücüne oranıdır. İşgücü, çalışanlarla iş arayanların
+                toplamıdır; iş aramayan kişiler (öğrenciler, emekliler, ev işleriyle uğraşanlar gibi) bu hesaba girmez.
+                TÜİK oranı her ay hanehalkı işgücü araştırmasıyla ölçer ve 15 yaş ve üzeri nüfusu kapsar.
+              </p>
+              <p>
+                <strong>Mevsimsellikten arındırılmış</strong> oran, tarım ve turizm gibi işlerde her yıl aynı aylarda
+                tekrarlanan dalgalanmaların çıkarıldığı hâlidir. Bu sayede art arda gelen ayları birbiriyle karşılaştırmak
+                anlamlı olur. TÜİK’in her ay manşet olarak açıkladığı oran budur.
+              </p>
+              <p>Veri, ilgili ayın bitiminden birkaç hafta sonra açıklanır; TÜİK geçmiş ayları sonradan düzeltebilir.</p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">İşsizlik verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+      <a href="/veri/konut-fiyat-endeksi/">Konut fiyat endeksi</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TÜİK’in açıkladığı resmi rakamlardır.</YasalUyari>
+  </div>
+</Base>

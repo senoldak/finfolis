@@ -1,0 +1,79 @@
+---
+// Finans sözlüğü dizini (/sozluk/): terimler harflere göre gruplanır.
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { TERIMLER, terimUrl } from '../../data/sozluk.mjs';
+import { SITE_URL, WEBSITE_ID, ORG_ID } from '../../lib/seo';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+
+const ad = (t: (typeof TERIMLER)[number]) => t.terim.replace(/\s*\(.*\)$/, '');
+const sirali = [...TERIMLER].sort((a, b) => ad(a).localeCompare(ad(b), 'tr'));
+const harfler = new Map<string, typeof sirali>();
+for (const t of sirali) {
+  const h = ad(t).charAt(0).toLocaleUpperCase('tr');
+  harfler.set(h, [...(harfler.get(h) ?? []), t]);
+}
+const description = 'Enflasyon, faiz, tahvil, kur, borsa ve kripto gibi finans terimlerinin kısa ve anlaşılır tanımları.';
+const pageUrl = `${SITE_URL}/sozluk/`;
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Sözlük', href: '/sozluk/' },
+];
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'DefinedTermSet',
+      '@id': `${pageUrl}#sozluk`,
+      url: pageUrl,
+      name: 'finfolis finans sözlüğü',
+      description,
+      inLanguage: 'tr',
+      isPartOf: { '@id': WEBSITE_ID },
+      publisher: { '@id': ORG_ID },
+      hasDefinedTerm: sirali.map((t) => ({
+        '@type': 'DefinedTerm',
+        name: ad(t),
+        url: `${SITE_URL}${terimUrl(t.slug)}`,
+      })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: yol.map((o, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: o.ad,
+        item: `${SITE_URL}${o.href}`,
+      })),
+    },
+  ],
+};
+---
+
+<Base title="Finans sözlüğü" description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container">
+    <Breadcrumb yol={[{ ad: 'Anasayfa', href: '/' }, { ad: 'Sözlük' }]} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>Finans sözlüğü</h1>
+      <p>Haberlerde geçen temel terimler</p>
+    </header>
+    <p class="sayfa-giris">
+      {TERIMLER.length} terimin kısa tanımı. Haberlerde bu terimler ilk geçtiği yerde bu sayfalara bağlanır.
+    </p>
+    {
+      [...harfler.entries()].map(([h, liste]) => (
+        <section class="bolum">
+          <h2 class="bolum-baslik">{h}</h2>
+          <ul class="dizin-liste">
+            {liste.map((t) => (
+              <li>
+                <a href={terimUrl(t.slug)}>{ad(t)}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</Base>

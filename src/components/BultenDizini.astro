@@ -1,0 +1,87 @@
+---
+// Bültenin başında içindekiler: bölümler (ABD, Avrupa, Göstergeler…) madde sayılarıyla; açılır kapanır.
+// Bağlantılar Astro'nun başlıklara verdiği kimlikleri kullanır (render(haber).headings).
+import { bultenBolumleri } from '../lib/arsiv.mjs';
+
+interface Props {
+  govde?: string;
+  basliklar: { depth: number; slug: string; text: string }[];
+}
+
+const { govde, basliklar } = Astro.props;
+const bolumler = bultenBolumleri(govde)
+  .map((b) => ({ ...b, slug: basliklar.find((h) => h.depth === 2 && h.text.trim() === b.baslik)?.slug }))
+  .filter((b) => b.slug);
+const toplam = bolumler.reduce((t, b) => t + b.sayi, 0);
+---
+
+{
+  bolumler.length > 1 && (
+    <details class="bulten-dizin" open>
+      <summary>
+        Bu bültende <span>{toplam} madde, {bolumler.length} bölüm</span>
+      </summary>
+      <ol>
+        {bolumler.map((b) => (
+          <li>
+            <a href={`#${b.slug}`}>{b.baslik}</a>
+            <span class="sayi">{b.sayi}</span>
+          </li>
+        ))}
+      </ol>
+    </details>
+  )
+}
+
+<style>
+  .bulten-dizin {
+    margin: 4px 0 24px;
+    padding: 12px 0;
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--hair);
+    font-family: var(--sans);
+  }
+  .bulten-dizin summary {
+    cursor: pointer;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .bulten-dizin summary span {
+    margin-left: 8px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .bulten-dizin ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .bulten-dizin li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid var(--hair);
+    border-radius: 3px;
+  }
+  .bulten-dizin a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .bulten-dizin a:hover {
+    text-decoration: underline;
+  }
+  .bulten-dizin .sayi {
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--blue-text);
+  }
+</style>

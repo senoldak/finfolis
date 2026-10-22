@@ -1,0 +1,3162 @@
+{
+  "kur": {
+    "tarih": "2026-10-22",
+    "bultenNo": "2026/200",
+    "kaynak": {
+      "ad": "TCMB gösterge niteliğindeki döviz kurları",
+      "url": "https://www.tcmb.gov.tr/kurlar/today.xml"
+    },
+    "liste": [
+      {
+        "kod": "USD",
+        "ad": "ABD DOLARI",
+        "birim": 1,
+        "dovizAlis": 49.5389,
+        "dovizSatis": 49.6281,
+        "efektifAlis": 49.5042,
+        "efektifSatis": 49.7026
+      },
+      {
+        "kod": "AUD",
+        "ad": "AVUSTRALYA DOLARI",
+        "birim": 1,
+        "dovizAlis": 34.6595,
+        "dovizSatis": 34.8855,
+        "efektifAlis": 34.5001,
+        "efektifSatis": 35.0948
+      },
+      {
+        "kod": "DKK",
+        "ad": "DANİMARKA KRONU",
+        "birim": 1,
+        "dovizAlis": 7.4271,
+        "dovizSatis": 7.4636,
+        "efektifAlis": 7.4219,
+        "efektifSatis": 7.4807
+      },
+      {
+        "kod": "EUR",
+        "ad": "EURO",
+        "birim": 1,
+        "dovizAlis": 55.6041,
+        "dovizSatis": 55.7043,
+        "efektifAlis": 55.5652,
+        "efektifSatis": 55.7878
+      },
+      {
+        "kod": "GBP",
+        "ad": "İNGİLİZ STERLİNİ",
+        "birim": 1,
+        "dovizAlis": 66.2399,
+        "dovizSatis": 66.5852,
+        "efektifAlis": 66.1935,
+        "efektifSatis": 66.6851
+      },
+      {
+        "kod": "CHF",
+        "ad": "İSVİÇRE FRANGI",
+        "birim": 1,
+        "dovizAlis": 60.2099,
+        "dovizSatis": 60.5965,
+        "efektifAlis": 60.1196,
+        "efektifSatis": 60.6874
+      },
+      {
+        "kod": "SEK",
+        "ad": "İSVEÇ KRONU",
+        "birim": 1,
+        "dovizAlis": 4.9807,
+        "dovizSatis": 5.0323,
+        "efektifAlis": 4.9772,
+        "efektifSatis": 5.0438
+      },
+      {
+        "kod": "CAD",
+        "ad": "KANADA DOLARI",
+        "birim": 1,
+        "dovizAlis": 35.2764,
+        "dovizSatis": 35.4355,
+        "efektifAlis": 35.1459,
+        "efektifSatis": 35.5702
+      },
+      {
+        "kod": "KWD",
+        "ad": "KUVEYT DİNARI",
+        "birim": 1,
+        "dovizAlis": 159.939,
+        "dovizSatis": 162.0318,
+        "efektifAlis": 157.5399,
+        "efektifSatis": 164.4623
+      },
+      {
+        "kod": "NOK",
+        "ad": "NORVEÇ KRONU",
+        "birim": 1,
+        "dovizAlis": 5.2795,
+        "dovizSatis": 5.315,
+        "efektifAlis": 5.2758,
+        "efektifSatis": 5.3272
+      },
+      {
+        "kod": "SAR",
+        "ad": "SUUDİ ARABİSTAN RİYALİ",
+        "birim": 1,
+        "dovizAlis": 13.2054,
+        "dovizSatis": 13.2292,
+        "efektifAlis": 13.1064,
+        "efektifSatis": 13.3284
+      },
+      {
+        "kod": "JPY",
+        "ad": "JAPON YENİ",
+        "birim": 100,
+        "dovizAlis": 31.4763,
+        "dovizSatis": 31.6847,
+        "efektifAlis": 31.3598,
+        "efektifSatis": 31.8051
+      },
+      {
+        "kod": "RON",
+        "ad": "RUMEN LEYİ",
+        "birim": 1,
+        "dovizAlis": 10.3453,
+        "dovizSatis": 10.4806,
+        "efektifAlis": null,
+        "efektifSatis": null
+      },
+      {
+        "kod": "RUB",
+        "ad": "RUS RUBLESİ",
+        "birim": 1,
+        "dovizAlis": 0.60661,
+        "dovizSatis": 0.61454,
+        "efektifAlis": null,
+        "efektifSatis": null
+      },
+      {
+        "kod": "CNY",
+        "ad": "ÇİN YUANI",
+        "birim": 1,
+        "dovizAlis": 7.3815,
+        "dovizSatis": 7.4781,
+        "efektifAlis": null,
+        "efektifSatis": null
+      },
+      {
+        "kod": "PKR",
+        "ad": "PAKİSTAN RUPİSİ",
+        "birim": 1,
+        "dovizAlis": 0.17798,
+        "dovizSatis": 0.18031,
+        "efektifAlis": null,
+        "efektifSatis": null
+      },
+      {
+        "kod": "QAR",
+        "ad": "KATAR RİYALİ",
+        "birim": 1,
+        "dovizAlis": 13.5147,
+        "dovizSatis": 13.6916,
+        "efektifAlis": null,
+        "efektifSatis": null
+      },
+      {
+        "kod": "KRW",
+        "ad": "GÜNEY KORE WONU",
+        "birim": 1,
+        "dovizAlis": 0.03725,
+        "dovizSatis": 0.03773,
+        "efektifAlis": null,
+        "efektifSatis": null
+      },
+      {
+        "kod": "AZN",
+        "ad": "AZERBAYCAN YENİ MANATI",
+        "birim": 1,
+        "dovizAlis": 28.9772,
+        "dovizSatis": 29.3563,
+        "efektifAlis": null,
+        "efektifSatis": null
+      },
+      {
+        "kod": "AED",
+        "ad": "BİRLEŞİK ARAP EMİRLİKLERİ DİRHEMİ",
+        "birim": 1,
+        "dovizAlis": 13.4122,
+        "dovizSatis": 13.5877,
+        "efektifAlis": null,
+        "efektifSatis": null
+      },
+      {
+        "kod": "KZT",
+        "ad": "KAZAKİSTAN TENGESİ",
+        "birim": 1,
+        "dovizAlis": 0.10983,
+        "dovizSatis": 0.11127,
+        "efektifAlis": null,
+        "efektifSatis": null
+      }
+    ],
+    "gecmis": [
+      {
+        "tarih": "2026-10-22",
+        "USD": {
+          "alis": 49.5389,
+          "satis": 49.6281
+        },
+        "EUR": {
+          "alis": 55.6041,
+          "satis": 55.7043
+        },
+        "GBP": {
+          "alis": 66.2399,
+          "satis": 66.5852
+        }
+      },
+      {
+        "tarih": "2026-10-21",
+        "USD": {
+          "alis": 49.5123,
+          "satis": 49.6015
+        },
+        "EUR": {
+          "alis": 55.578,
+          "satis": 55.6781
+        },
+        "GBP": {
+          "alis": 66.1944,
+          "satis": 66.5396
+        }
+      },
+      {
+        "tarih": "2026-10-20",
+        "USD": {
+          "alis": 49.4889,
+          "satis": 49.578
+        },
+        "EUR": {
+          "alis": 55.5191,
+          "satis": 55.6191
+        },
+        "GBP": {
+          "alis": 65.9375,
+          "satis": 66.2813
+        }
+      },
+      {
+        "tarih": "2026-10-19",
+        "USD": {
+          "alis": 49.4632,
+          "satis": 49.5523
+        },
+        "EUR": {
+          "alis": 55.4677,
+          "satis": 55.5676
+        },
+        "GBP": {
+          "alis": 65.8058,
+          "satis": 66.1489
+        }
+      },
+      {
+        "tarih": "2026-10-16",
+        "USD": {
+          "alis": 49.3573,
+          "satis": 49.4463
+        },
+        "EUR": {
+          "alis": 55.5179,
+          "satis": 55.618
+        },
+        "GBP": {
+          "alis": 65.6633,
+          "satis": 66.0056
+        }
+      },
+      {
+        "tarih": "2026-10-15",
+        "USD": {
+          "alis": 49.3315,
+          "satis": 49.4204
+        },
+        "EUR": {
+          "alis": 55.3113,
+          "satis": 55.411
+        },
+        "GBP": {
+          "alis": 65.2551,
+          "satis": 65.5953
+        }
+      },
+      {
+        "tarih": "2026-10-14",
+        "USD": {
+          "alis": 49.3041,
+          "satis": 49.3929
+        },
+        "EUR": {
+          "alis": 55.2033,
+          "satis": 55.3027
+        },
+        "GBP": {
+          "alis": 65.291,
+          "satis": 65.6314
+        }
+      },
+      {
+        "tarih": "2026-10-13",
+        "USD": {
+          "alis": 49.2794,
+          "satis": 49.3681
+        },
+        "EUR": {
+          "alis": 55.1128,
+          "satis": 55.2121
+        },
+        "GBP": {
+          "alis": 65.1201,
+          "satis": 65.4596
+        }
+      },
+      {
+        "tarih": "2026-10-12",
+        "USD": {
+          "alis": 49.2471,
+          "satis": 49.3358
+        },
+        "EUR": {
+          "alis": 55.1075,
+          "satis": 55.2068
+        },
+        "GBP": {
+          "alis": 65.0881,
+          "satis": 65.4274
+        }
+      },
+      {
+        "tarih": "2026-10-09",
+        "USD": {
+          "alis": 49.1274,
+          "satis": 49.216
+        },
+        "EUR": {
+          "alis": 55.1112,
+          "satis": 55.2105
+        },
+        "GBP": {
+          "alis": 64.9046,
+          "satis": 65.243
+        }
+      },
+      {
+        "tarih": "2026-10-08",
+        "USD": {
+          "alis": 49.1267,
+          "satis": 49.2152
+        },
+        "EUR": {
+          "alis": 54.9548,
+          "satis": 55.0538
+        },
+        "GBP": {
+          "alis": 64.7214,
+          "satis": 65.0588
+        }
+      },
+      {
+        "tarih": "2026-10-07",
+        "USD": {
+          "alis": 49.1091,
+          "satis": 49.1976
+        },
+        "EUR": {
+          "alis": 54.9907,
+          "satis": 55.0898
+        },
+        "GBP": {
+          "alis": 64.8726,
+          "satis": 65.2108
+        }
+      },
+      {
+        "tarih": "2026-10-06",
+        "USD": {
+          "alis": 49.0918,
+          "satis": 49.1802
+        },
+        "EUR": {
+          "alis": 55.1853,
+          "satis": 55.2847
+        },
+        "GBP": {
+          "alis": 64.9049,
+          "satis": 65.2432
+        }
+      },
+      {
+        "tarih": "2026-10-05",
+        "USD": {
+          "alis": 49.0732,
+          "satis": 49.1616
+        },
+        "EUR": {
+          "alis": 54.9767,
+          "satis": 55.0757
+        },
+        "GBP": {
+          "alis": 64.7913,
+          "satis": 65.1291
+        }
+      },
+      {
+        "tarih": "2026-10-02",
+        "USD": {
+          "alis": 48.9699,
+          "satis": 49.0582
+        },
+        "EUR": {
+          "alis": 55.0826,
+          "satis": 55.1819
+        },
+        "GBP": {
+          "alis": 64.5796,
+          "satis": 64.9163
+        }
+      },
+      {
+        "tarih": "2026-10-01",
+        "USD": {
+          "alis": 48.9466,
+          "satis": 49.0348
+        },
+        "EUR": {
+          "alis": 55.2967,
+          "satis": 55.3963
+        },
+        "GBP": {
+          "alis": 64.6442,
+          "satis": 64.9812
+        }
+      },
+      {
+        "tarih": "2026-09-30",
+        "USD": {
+          "alis": 48.9303,
+          "satis": 49.0184
+        },
+        "EUR": {
+          "alis": 55.5567,
+          "satis": 55.6568
+        },
+        "GBP": {
+          "alis": 64.8493,
+          "satis": 65.1874
+        }
+      },
+      {
+        "tarih": "2026-09-29",
+        "USD": {
+          "alis": 48.9131,
+          "satis": 49.0013
+        },
+        "EUR": {
+          "alis": 55.5103,
+          "satis": 55.6103
+        },
+        "GBP": {
+          "alis": 64.6329,
+          "satis": 64.9699
+        }
+      },
+      {
+        "tarih": "2026-09-28",
+        "USD": {
+          "alis": 48.9008,
+          "satis": 48.9889
+        },
+        "EUR": {
+          "alis": 55.6307,
+          "satis": 55.731
+        },
+        "GBP": {
+          "alis": 64.7268,
+          "satis": 65.0643
+        }
+      },
+      {
+        "tarih": "2026-09-25",
+        "USD": {
+          "alis": 48.7901,
+          "satis": 48.878
+        },
+        "EUR": {
+          "alis": 55.5878,
+          "satis": 55.688
+        },
+        "GBP": {
+          "alis": 64.4761,
+          "satis": 64.8122
+        }
+      },
+      {
+        "tarih": "2026-09-24",
+        "USD": {
+          "alis": 48.7671,
+          "satis": 48.8549
+        },
+        "EUR": {
+          "alis": 55.4945,
+          "satis": 55.5945
+        },
+        "GBP": {
+          "alis": 64.4338,
+          "satis": 64.7697
+        }
+      },
+      {
+        "tarih": "2026-09-23",
+        "USD": {
+          "alis": 48.7499,
+          "satis": 48.8377
+        },
+        "EUR": {
+          "alis": 55.6521,
+          "satis": 55.7523
+        },
+        "GBP": {
+          "alis": 64.7052,
+          "satis": 65.0425
+        }
+      },
+      {
+        "tarih": "2026-09-22",
+        "USD": {
+          "alis": 48.7323,
+          "satis": 48.8201
+        },
+        "EUR": {
+          "alis": 55.8513,
+          "satis": 55.9519
+        },
+        "GBP": {
+          "alis": 65.0122,
+          "satis": 65.3512
+        }
+      },
+      {
+        "tarih": "2026-09-21",
+        "USD": {
+          "alis": 48.7131,
+          "satis": 48.8009
+        },
+        "EUR": {
+          "alis": 55.9243,
+          "satis": 56.025
+        },
+        "GBP": {
+          "alis": 65.0834,
+          "satis": 65.4228
+        }
+      },
+      {
+        "tarih": "2026-09-18",
+        "USD": {
+          "alis": 48.6116,
+          "satis": 48.6992
+        },
+        "EUR": {
+          "alis": 55.7981,
+          "satis": 55.8986
+        },
+        "GBP": {
+          "alis": 64.8549,
+          "satis": 65.193
+        }
+      },
+      {
+        "tarih": "2026-09-17",
+        "USD": {
+          "alis": 48.5873,
+          "satis": 48.6749
+        },
+        "EUR": {
+          "alis": 55.7548,
+          "satis": 55.8552
+        },
+        "GBP": {
+          "alis": 64.9574,
+          "satis": 65.2961
+        }
+      },
+      {
+        "tarih": "2026-09-16",
+        "USD": {
+          "alis": 48.5779,
+          "satis": 48.6654
+        },
+        "EUR": {
+          "alis": 56.0645,
+          "satis": 56.1655
+        },
+        "GBP": {
+          "alis": 65.319,
+          "satis": 65.6595
+        }
+      },
+      {
+        "tarih": "2026-09-15",
+        "USD": {
+          "alis": 48.5585,
+          "satis": 48.646
+        },
+        "EUR": {
+          "alis": 56.0207,
+          "satis": 56.1216
+        },
+        "GBP": {
+          "alis": 65.3297,
+          "satis": 65.6703
+        }
+      },
+      {
+        "tarih": "2026-09-14",
+        "USD": {
+          "alis": 48.5343,
+          "satis": 48.6218
+        },
+        "EUR": {
+          "alis": 56.0284,
+          "satis": 56.1294
+        },
+        "GBP": {
+          "alis": 65.3562,
+          "satis": 65.6969
+        }
+      },
+      {
+        "tarih": "2026-09-11",
+        "USD": {
+          "alis": 48.4305,
+          "satis": 48.5178
+        },
+        "EUR": {
+          "alis": 56.1754,
+          "satis": 56.2766
+        },
+        "GBP": {
+          "alis": 65.3215,
+          "satis": 65.6621
+        }
+      }
+    ],
+    "alinma": "2026-10-22T12:52:53.532Z"
+  },
+  "faiz": {
+    "oran": 36,
+    "gecerlilik": "2026-10-23",
+    "sonKarar": null,
+    "kaynak": {
+      "ad": "TCMB, bir hafta vadeli repo ihale faiz oranı",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Temel+Faaliyetler/Para+Politikasi/Merkez+Bankasi+Faiz+Oranlari/1+Hafta+Repo"
+    },
+    "gecmis": [
+      {
+        "tarih": "2010-05-20",
+        "oran": 7
+      },
+      {
+        "tarih": "2010-12-17",
+        "oran": 6.5
+      },
+      {
+        "tarih": "2011-01-21",
+        "oran": 6.25
+      },
+      {
+        "tarih": "2011-08-05",
+        "oran": 5.75
+      },
+      {
+        "tarih": "2012-12-19",
+        "oran": 5.5
+      },
+      {
+        "tarih": "2013-04-17",
+        "oran": 5
+      },
+      {
+        "tarih": "2013-05-17",
+        "oran": 4.5
+      },
+      {
+        "tarih": "2014-01-29",
+        "oran": 10
+      },
+      {
+        "tarih": "2014-05-23",
+        "oran": 9.5
+      },
+      {
+        "tarih": "2014-06-25",
+        "oran": 8.75
+      },
+      {
+        "tarih": "2014-07-18",
+        "oran": 8.25
+      },
+      {
+        "tarih": "2015-01-21",
+        "oran": 7.75
+      },
+      {
+        "tarih": "2015-02-25",
+        "oran": 7.5
+      },
+      {
+        "tarih": "2016-11-25",
+        "oran": 8
+      },
+      {
+        "tarih": "2018-06-01",
+        "oran": 16.5
+      },
+      {
+        "tarih": "2018-06-08",
+        "oran": 17.75
+      },
+      {
+        "tarih": "2018-09-14",
+        "oran": 24
+      },
+      {
+        "tarih": "2019-07-26",
+        "oran": 19.75
+      },
+      {
+        "tarih": "2019-09-13",
+        "oran": 16.5
+      },
+      {
+        "tarih": "2019-10-25",
+        "oran": 14
+      },
+      {
+        "tarih": "2019-12-13",
+        "oran": 12
+      },
+      {
+        "tarih": "2020-01-17",
+        "oran": 11.25
+      },
+      {
+        "tarih": "2020-02-20",
+        "oran": 10.75
+      },
+      {
+        "tarih": "2020-03-18",
+        "oran": 9.75
+      },
+      {
+        "tarih": "2020-04-23",
+        "oran": 8.75
+      },
+      {
+        "tarih": "2020-05-22",
+        "oran": 8.25
+      },
+      {
+        "tarih": "2020-09-25",
+        "oran": 10.25
+      },
+      {
+        "tarih": "2020-11-20",
+        "oran": 15
+      },
+      {
+        "tarih": "2020-12-25",
+        "oran": 17
+      },
+      {
+        "tarih": "2021-03-19",
+        "oran": 19
+      },
+      {
+        "tarih": "2021-09-24",
+        "oran": 18
+      },
+      {
+        "tarih": "2021-10-22",
+        "oran": 16
+      },
+      {
+        "tarih": "2021-11-19",
+        "oran": 15
+      },
+      {
+        "tarih": "2021-12-17",
+        "oran": 14
+      },
+      {
+        "tarih": "2022-08-19",
+        "oran": 13
+      },
+      {
+        "tarih": "2022-09-23",
+        "oran": 12
+      },
+      {
+        "tarih": "2022-10-21",
+        "oran": 10.5
+      },
+      {
+        "tarih": "2022-11-25",
+        "oran": 9
+      },
+      {
+        "tarih": "2023-02-24",
+        "oran": 8.5
+      },
+      {
+        "tarih": "2023-06-23",
+        "oran": 15
+      },
+      {
+        "tarih": "2023-07-21",
+        "oran": 17.5
+      },
+      {
+        "tarih": "2023-08-25",
+        "oran": 25
+      },
+      {
+        "tarih": "2023-09-22",
+        "oran": 30
+      },
+      {
+        "tarih": "2023-10-27",
+        "oran": 35
+      },
+      {
+        "tarih": "2023-11-24",
+        "oran": 40
+      },
+      {
+        "tarih": "2023-12-22",
+        "oran": 42.5
+      },
+      {
+        "tarih": "2024-01-26",
+        "oran": 45
+      },
+      {
+        "tarih": "2024-03-22",
+        "oran": 50
+      },
+      {
+        "tarih": "2024-12-27",
+        "oran": 47.5
+      },
+      {
+        "tarih": "2025-01-24",
+        "oran": 45
+      },
+      {
+        "tarih": "2025-03-07",
+        "oran": 42.5
+      },
+      {
+        "tarih": "2025-04-18",
+        "oran": 46
+      },
+      {
+        "tarih": "2025-07-25",
+        "oran": 43
+      },
+      {
+        "tarih": "2025-09-12",
+        "oran": 40.5
+      },
+      {
+        "tarih": "2025-10-24",
+        "oran": 39.5
+      },
+      {
+        "tarih": "2025-12-12",
+        "oran": 38
+      },
+      {
+        "tarih": "2026-01-23",
+        "oran": 37
+      },
+      {
+        "tarih": "2026-10-23",
+        "oran": 36
+      }
+    ],
+    "alinma": "2026-10-22T12:52:53.532Z"
+  },
+  "enflasyon": {
+    "kaynak": {
+      "ad": "TÜİK verisi, TCMB Tüketici Fiyatları tablosu",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Enflasyon+Verileri/Tuketici+Fiyatlari"
+    },
+    "satirlar": [
+      {
+        "yil": 2005,
+        "ay": 1,
+        "yillik": 9.24,
+        "aylik": 0.55
+      },
+      {
+        "yil": 2005,
+        "ay": 2,
+        "yillik": 8.69,
+        "aylik": 0.02
+      },
+      {
+        "yil": 2005,
+        "ay": 3,
+        "yillik": 7.94,
+        "aylik": 0.26
+      },
+      {
+        "yil": 2005,
+        "ay": 4,
+        "yillik": 8.18,
+        "aylik": 0.71
+      },
+      {
+        "yil": 2005,
+        "ay": 5,
+        "yillik": 8.7,
+        "aylik": 0.92
+      },
+      {
+        "yil": 2005,
+        "ay": 6,
+        "yillik": 8.95,
+        "aylik": 0.1
+      },
+      {
+        "yil": 2005,
+        "ay": 7,
+        "yillik": 7.82,
+        "aylik": -0.57
+      },
+      {
+        "yil": 2005,
+        "ay": 8,
+        "yillik": 7.91,
+        "aylik": 0.85
+      },
+      {
+        "yil": 2005,
+        "ay": 9,
+        "yillik": 7.99,
+        "aylik": 1.02
+      },
+      {
+        "yil": 2005,
+        "ay": 10,
+        "yillik": 7.52,
+        "aylik": 1.79
+      },
+      {
+        "yil": 2005,
+        "ay": 11,
+        "yillik": 7.61,
+        "aylik": 1.4
+      },
+      {
+        "yil": 2005,
+        "ay": 12,
+        "yillik": 7.72,
+        "aylik": 0.42
+      },
+      {
+        "yil": 2006,
+        "ay": 1,
+        "yillik": 7.93,
+        "aylik": 0.75
+      },
+      {
+        "yil": 2006,
+        "ay": 2,
+        "yillik": 8.15,
+        "aylik": 0.22
+      },
+      {
+        "yil": 2006,
+        "ay": 3,
+        "yillik": 8.16,
+        "aylik": 0.27
+      },
+      {
+        "yil": 2006,
+        "ay": 4,
+        "yillik": 8.83,
+        "aylik": 1.34
+      },
+      {
+        "yil": 2006,
+        "ay": 5,
+        "yillik": 9.86,
+        "aylik": 1.88
+      },
+      {
+        "yil": 2006,
+        "ay": 6,
+        "yillik": 10.12,
+        "aylik": 0.34
+      },
+      {
+        "yil": 2006,
+        "ay": 7,
+        "yillik": 11.69,
+        "aylik": 0.85
+      },
+      {
+        "yil": 2006,
+        "ay": 8,
+        "yillik": 10.26,
+        "aylik": -0.44
+      },
+      {
+        "yil": 2006,
+        "ay": 9,
+        "yillik": 10.55,
+        "aylik": 1.29
+      },
+      {
+        "yil": 2006,
+        "ay": 10,
+        "yillik": 9.98,
+        "aylik": 1.27
+      },
+      {
+        "yil": 2006,
+        "ay": 11,
+        "yillik": 9.86,
+        "aylik": 1.29
+      },
+      {
+        "yil": 2006,
+        "ay": 12,
+        "yillik": 9.65,
+        "aylik": 0.23
+      },
+      {
+        "yil": 2007,
+        "ay": 1,
+        "yillik": 9.93,
+        "aylik": 1
+      },
+      {
+        "yil": 2007,
+        "ay": 2,
+        "yillik": 10.16,
+        "aylik": 0.43
+      },
+      {
+        "yil": 2007,
+        "ay": 3,
+        "yillik": 10.86,
+        "aylik": 0.92
+      },
+      {
+        "yil": 2007,
+        "ay": 4,
+        "yillik": 10.72,
+        "aylik": 1.21
+      },
+      {
+        "yil": 2007,
+        "ay": 5,
+        "yillik": 9.23,
+        "aylik": 0.5
+      },
+      {
+        "yil": 2007,
+        "ay": 6,
+        "yillik": 8.6,
+        "aylik": -0.24
+      },
+      {
+        "yil": 2007,
+        "ay": 7,
+        "yillik": 6.9,
+        "aylik": -0.73
+      },
+      {
+        "yil": 2007,
+        "ay": 8,
+        "yillik": 7.39,
+        "aylik": 0.02
+      },
+      {
+        "yil": 2007,
+        "ay": 9,
+        "yillik": 7.12,
+        "aylik": 1.03
+      },
+      {
+        "yil": 2007,
+        "ay": 10,
+        "yillik": 7.7,
+        "aylik": 1.81
+      },
+      {
+        "yil": 2007,
+        "ay": 11,
+        "yillik": 8.4,
+        "aylik": 1.95
+      },
+      {
+        "yil": 2007,
+        "ay": 12,
+        "yillik": 8.39,
+        "aylik": 0.22
+      },
+      {
+        "yil": 2008,
+        "ay": 1,
+        "yillik": 8.17,
+        "aylik": 0.8
+      },
+      {
+        "yil": 2008,
+        "ay": 2,
+        "yillik": 9.1,
+        "aylik": 1.29
+      },
+      {
+        "yil": 2008,
+        "ay": 3,
+        "yillik": 9.15,
+        "aylik": 0.96
+      },
+      {
+        "yil": 2008,
+        "ay": 4,
+        "yillik": 9.66,
+        "aylik": 1.68
+      },
+      {
+        "yil": 2008,
+        "ay": 5,
+        "yillik": 10.74,
+        "aylik": 1.49
+      },
+      {
+        "yil": 2008,
+        "ay": 6,
+        "yillik": 10.61,
+        "aylik": -0.36
+      },
+      {
+        "yil": 2008,
+        "ay": 7,
+        "yillik": 12.06,
+        "aylik": 0.58
+      },
+      {
+        "yil": 2008,
+        "ay": 8,
+        "yillik": 11.77,
+        "aylik": -0.24
+      },
+      {
+        "yil": 2008,
+        "ay": 9,
+        "yillik": 11.13,
+        "aylik": 0.45
+      },
+      {
+        "yil": 2008,
+        "ay": 10,
+        "yillik": 11.99,
+        "aylik": 2.6
+      },
+      {
+        "yil": 2008,
+        "ay": 11,
+        "yillik": 10.76,
+        "aylik": 0.83
+      },
+      {
+        "yil": 2008,
+        "ay": 12,
+        "yillik": 10.06,
+        "aylik": -0.41
+      },
+      {
+        "yil": 2009,
+        "ay": 1,
+        "yillik": 9.5,
+        "aylik": 0.29
+      },
+      {
+        "yil": 2009,
+        "ay": 2,
+        "yillik": 7.73,
+        "aylik": -0.34
+      },
+      {
+        "yil": 2009,
+        "ay": 3,
+        "yillik": 7.89,
+        "aylik": 1.1
+      },
+      {
+        "yil": 2009,
+        "ay": 4,
+        "yillik": 6.13,
+        "aylik": 0.02
+      },
+      {
+        "yil": 2009,
+        "ay": 5,
+        "yillik": 5.24,
+        "aylik": 0.64
+      },
+      {
+        "yil": 2009,
+        "ay": 6,
+        "yillik": 5.73,
+        "aylik": 0.11
+      },
+      {
+        "yil": 2009,
+        "ay": 7,
+        "yillik": 5.39,
+        "aylik": 0.25
+      },
+      {
+        "yil": 2009,
+        "ay": 8,
+        "yillik": 5.33,
+        "aylik": -0.3
+      },
+      {
+        "yil": 2009,
+        "ay": 9,
+        "yillik": 5.27,
+        "aylik": 0.39
+      },
+      {
+        "yil": 2009,
+        "ay": 10,
+        "yillik": 5.08,
+        "aylik": 2.41
+      },
+      {
+        "yil": 2009,
+        "ay": 11,
+        "yillik": 5.53,
+        "aylik": 1.27
+      },
+      {
+        "yil": 2009,
+        "ay": 12,
+        "yillik": 6.53,
+        "aylik": 0.53
+      },
+      {
+        "yil": 2010,
+        "ay": 1,
+        "yillik": 8.19,
+        "aylik": 1.85
+      },
+      {
+        "yil": 2010,
+        "ay": 2,
+        "yillik": 10.13,
+        "aylik": 1.45
+      },
+      {
+        "yil": 2010,
+        "ay": 3,
+        "yillik": 9.56,
+        "aylik": 0.58
+      },
+      {
+        "yil": 2010,
+        "ay": 4,
+        "yillik": 10.19,
+        "aylik": 0.6
+      },
+      {
+        "yil": 2010,
+        "ay": 5,
+        "yillik": 9.1,
+        "aylik": -0.36
+      },
+      {
+        "yil": 2010,
+        "ay": 6,
+        "yillik": 8.37,
+        "aylik": -0.56
+      },
+      {
+        "yil": 2010,
+        "ay": 7,
+        "yillik": 7.58,
+        "aylik": -0.48
+      },
+      {
+        "yil": 2010,
+        "ay": 8,
+        "yillik": 8.33,
+        "aylik": 0.4
+      },
+      {
+        "yil": 2010,
+        "ay": 9,
+        "yillik": 9.24,
+        "aylik": 1.23
+      },
+      {
+        "yil": 2010,
+        "ay": 10,
+        "yillik": 8.62,
+        "aylik": 1.83
+      },
+      {
+        "yil": 2010,
+        "ay": 11,
+        "yillik": 7.29,
+        "aylik": 0.03
+      },
+      {
+        "yil": 2010,
+        "ay": 12,
+        "yillik": 6.4,
+        "aylik": -0.3
+      },
+      {
+        "yil": 2011,
+        "ay": 1,
+        "yillik": 4.9,
+        "aylik": 0.41
+      },
+      {
+        "yil": 2011,
+        "ay": 2,
+        "yillik": 4.16,
+        "aylik": 0.73
+      },
+      {
+        "yil": 2011,
+        "ay": 3,
+        "yillik": 3.99,
+        "aylik": 0.42
+      },
+      {
+        "yil": 2011,
+        "ay": 4,
+        "yillik": 4.26,
+        "aylik": 0.87
+      },
+      {
+        "yil": 2011,
+        "ay": 5,
+        "yillik": 7.17,
+        "aylik": 2.42
+      },
+      {
+        "yil": 2011,
+        "ay": 6,
+        "yillik": 6.24,
+        "aylik": -1.43
+      },
+      {
+        "yil": 2011,
+        "ay": 7,
+        "yillik": 6.31,
+        "aylik": -0.41
+      },
+      {
+        "yil": 2011,
+        "ay": 8,
+        "yillik": 6.65,
+        "aylik": 0.73
+      },
+      {
+        "yil": 2011,
+        "ay": 9,
+        "yillik": 6.15,
+        "aylik": 0.75
+      },
+      {
+        "yil": 2011,
+        "ay": 10,
+        "yillik": 7.66,
+        "aylik": 3.27
+      },
+      {
+        "yil": 2011,
+        "ay": 11,
+        "yillik": 9.48,
+        "aylik": 1.73
+      },
+      {
+        "yil": 2011,
+        "ay": 12,
+        "yillik": 10.45,
+        "aylik": 0.58
+      },
+      {
+        "yil": 2012,
+        "ay": 1,
+        "yillik": 10.61,
+        "aylik": 0.56
+      },
+      {
+        "yil": 2012,
+        "ay": 2,
+        "yillik": 10.43,
+        "aylik": 0.56
+      },
+      {
+        "yil": 2012,
+        "ay": 3,
+        "yillik": 10.43,
+        "aylik": 0.41
+      },
+      {
+        "yil": 2012,
+        "ay": 4,
+        "yillik": 11.14,
+        "aylik": 1.52
+      },
+      {
+        "yil": 2012,
+        "ay": 5,
+        "yillik": 8.28,
+        "aylik": -0.21
+      },
+      {
+        "yil": 2012,
+        "ay": 6,
+        "yillik": 8.87,
+        "aylik": -0.9
+      },
+      {
+        "yil": 2012,
+        "ay": 7,
+        "yillik": 9.07,
+        "aylik": -0.23
+      },
+      {
+        "yil": 2012,
+        "ay": 8,
+        "yillik": 8.88,
+        "aylik": 0.56
+      },
+      {
+        "yil": 2012,
+        "ay": 9,
+        "yillik": 9.19,
+        "aylik": 1.03
+      },
+      {
+        "yil": 2012,
+        "ay": 10,
+        "yillik": 7.8,
+        "aylik": 1.96
+      },
+      {
+        "yil": 2012,
+        "ay": 11,
+        "yillik": 6.37,
+        "aylik": 0.38
+      },
+      {
+        "yil": 2012,
+        "ay": 12,
+        "yillik": 6.16,
+        "aylik": 0.38
+      },
+      {
+        "yil": 2013,
+        "ay": 1,
+        "yillik": 7.31,
+        "aylik": 1.65
+      },
+      {
+        "yil": 2013,
+        "ay": 2,
+        "yillik": 7.03,
+        "aylik": 0.3
+      },
+      {
+        "yil": 2013,
+        "ay": 3,
+        "yillik": 7.29,
+        "aylik": 0.66
+      },
+      {
+        "yil": 2013,
+        "ay": 4,
+        "yillik": 6.13,
+        "aylik": 0.42
+      },
+      {
+        "yil": 2013,
+        "ay": 5,
+        "yillik": 6.51,
+        "aylik": 0.15
+      },
+      {
+        "yil": 2013,
+        "ay": 6,
+        "yillik": 8.3,
+        "aylik": 0.76
+      },
+      {
+        "yil": 2013,
+        "ay": 7,
+        "yillik": 8.88,
+        "aylik": 0.31
+      },
+      {
+        "yil": 2013,
+        "ay": 8,
+        "yillik": 8.17,
+        "aylik": -0.1
+      },
+      {
+        "yil": 2013,
+        "ay": 9,
+        "yillik": 7.88,
+        "aylik": 0.77
+      },
+      {
+        "yil": 2013,
+        "ay": 10,
+        "yillik": 7.71,
+        "aylik": 1.8
+      },
+      {
+        "yil": 2013,
+        "ay": 11,
+        "yillik": 7.32,
+        "aylik": 0.01
+      },
+      {
+        "yil": 2013,
+        "ay": 12,
+        "yillik": 7.4,
+        "aylik": 0.46
+      },
+      {
+        "yil": 2014,
+        "ay": 1,
+        "yillik": 7.75,
+        "aylik": 1.98
+      },
+      {
+        "yil": 2014,
+        "ay": 2,
+        "yillik": 7.89,
+        "aylik": 0.43
+      },
+      {
+        "yil": 2014,
+        "ay": 3,
+        "yillik": 8.39,
+        "aylik": 1.13
+      },
+      {
+        "yil": 2014,
+        "ay": 4,
+        "yillik": 9.38,
+        "aylik": 1.34
+      },
+      {
+        "yil": 2014,
+        "ay": 5,
+        "yillik": 9.66,
+        "aylik": 0.4
+      },
+      {
+        "yil": 2014,
+        "ay": 6,
+        "yillik": 9.16,
+        "aylik": 0.31
+      },
+      {
+        "yil": 2014,
+        "ay": 7,
+        "yillik": 9.32,
+        "aylik": 0.45
+      },
+      {
+        "yil": 2014,
+        "ay": 8,
+        "yillik": 9.54,
+        "aylik": 0.09
+      },
+      {
+        "yil": 2014,
+        "ay": 9,
+        "yillik": 8.86,
+        "aylik": 0.14
+      },
+      {
+        "yil": 2014,
+        "ay": 10,
+        "yillik": 8.96,
+        "aylik": 1.9
+      },
+      {
+        "yil": 2014,
+        "ay": 11,
+        "yillik": 9.15,
+        "aylik": 0.18
+      },
+      {
+        "yil": 2014,
+        "ay": 12,
+        "yillik": 8.17,
+        "aylik": -0.44
+      },
+      {
+        "yil": 2015,
+        "ay": 1,
+        "yillik": 7.24,
+        "aylik": 1.1
+      },
+      {
+        "yil": 2015,
+        "ay": 2,
+        "yillik": 7.55,
+        "aylik": 0.71
+      },
+      {
+        "yil": 2015,
+        "ay": 3,
+        "yillik": 7.61,
+        "aylik": 1.19
+      },
+      {
+        "yil": 2015,
+        "ay": 4,
+        "yillik": 7.91,
+        "aylik": 1.63
+      },
+      {
+        "yil": 2015,
+        "ay": 5,
+        "yillik": 8.09,
+        "aylik": 0.56
+      },
+      {
+        "yil": 2015,
+        "ay": 6,
+        "yillik": 7.2,
+        "aylik": -0.51
+      },
+      {
+        "yil": 2015,
+        "ay": 7,
+        "yillik": 6.81,
+        "aylik": 0.09
+      },
+      {
+        "yil": 2015,
+        "ay": 8,
+        "yillik": 7.14,
+        "aylik": 0.4
+      },
+      {
+        "yil": 2015,
+        "ay": 9,
+        "yillik": 7.95,
+        "aylik": 0.89
+      },
+      {
+        "yil": 2015,
+        "ay": 10,
+        "yillik": 7.58,
+        "aylik": 1.55
+      },
+      {
+        "yil": 2015,
+        "ay": 11,
+        "yillik": 8.1,
+        "aylik": 0.67
+      },
+      {
+        "yil": 2015,
+        "ay": 12,
+        "yillik": 8.81,
+        "aylik": 0.21
+      },
+      {
+        "yil": 2016,
+        "ay": 1,
+        "yillik": 9.58,
+        "aylik": 1.82
+      },
+      {
+        "yil": 2016,
+        "ay": 2,
+        "yillik": 8.78,
+        "aylik": -0.02
+      },
+      {
+        "yil": 2016,
+        "ay": 3,
+        "yillik": 7.46,
+        "aylik": -0.04
+      },
+      {
+        "yil": 2016,
+        "ay": 4,
+        "yillik": 6.57,
+        "aylik": 0.78
+      },
+      {
+        "yil": 2016,
+        "ay": 5,
+        "yillik": 6.58,
+        "aylik": 0.58
+      },
+      {
+        "yil": 2016,
+        "ay": 6,
+        "yillik": 7.64,
+        "aylik": 0.47
+      },
+      {
+        "yil": 2016,
+        "ay": 7,
+        "yillik": 8.79,
+        "aylik": 1.16
+      },
+      {
+        "yil": 2016,
+        "ay": 8,
+        "yillik": 8.05,
+        "aylik": -0.29
+      },
+      {
+        "yil": 2016,
+        "ay": 9,
+        "yillik": 7.28,
+        "aylik": 0.18
+      },
+      {
+        "yil": 2016,
+        "ay": 10,
+        "yillik": 7.16,
+        "aylik": 1.44
+      },
+      {
+        "yil": 2016,
+        "ay": 11,
+        "yillik": 7,
+        "aylik": 0.52
+      },
+      {
+        "yil": 2016,
+        "ay": 12,
+        "yillik": 8.53,
+        "aylik": 1.64
+      },
+      {
+        "yil": 2017,
+        "ay": 1,
+        "yillik": 9.22,
+        "aylik": 2.46
+      },
+      {
+        "yil": 2017,
+        "ay": 2,
+        "yillik": 10.13,
+        "aylik": 0.81
+      },
+      {
+        "yil": 2017,
+        "ay": 3,
+        "yillik": 11.29,
+        "aylik": 1.02
+      },
+      {
+        "yil": 2017,
+        "ay": 4,
+        "yillik": 11.87,
+        "aylik": 1.31
+      },
+      {
+        "yil": 2017,
+        "ay": 5,
+        "yillik": 11.72,
+        "aylik": 0.45
+      },
+      {
+        "yil": 2017,
+        "ay": 6,
+        "yillik": 10.9,
+        "aylik": -0.27
+      },
+      {
+        "yil": 2017,
+        "ay": 7,
+        "yillik": 9.79,
+        "aylik": 0.15
+      },
+      {
+        "yil": 2017,
+        "ay": 8,
+        "yillik": 10.68,
+        "aylik": 0.52
+      },
+      {
+        "yil": 2017,
+        "ay": 9,
+        "yillik": 11.2,
+        "aylik": 0.65
+      },
+      {
+        "yil": 2017,
+        "ay": 10,
+        "yillik": 11.9,
+        "aylik": 2.08
+      },
+      {
+        "yil": 2017,
+        "ay": 11,
+        "yillik": 12.98,
+        "aylik": 1.49
+      },
+      {
+        "yil": 2017,
+        "ay": 12,
+        "yillik": 11.92,
+        "aylik": 0.69
+      },
+      {
+        "yil": 2018,
+        "ay": 1,
+        "yillik": 10.35,
+        "aylik": 1.02
+      },
+      {
+        "yil": 2018,
+        "ay": 2,
+        "yillik": 10.26,
+        "aylik": 0.73
+      },
+      {
+        "yil": 2018,
+        "ay": 3,
+        "yillik": 10.23,
+        "aylik": 0.99
+      },
+      {
+        "yil": 2018,
+        "ay": 4,
+        "yillik": 10.85,
+        "aylik": 1.87
+      },
+      {
+        "yil": 2018,
+        "ay": 5,
+        "yillik": 12.15,
+        "aylik": 1.62
+      },
+      {
+        "yil": 2018,
+        "ay": 6,
+        "yillik": 15.39,
+        "aylik": 2.61
+      },
+      {
+        "yil": 2018,
+        "ay": 7,
+        "yillik": 15.85,
+        "aylik": 0.55
+      },
+      {
+        "yil": 2018,
+        "ay": 8,
+        "yillik": 17.9,
+        "aylik": 2.3
+      },
+      {
+        "yil": 2018,
+        "ay": 9,
+        "yillik": 24.52,
+        "aylik": 6.3
+      },
+      {
+        "yil": 2018,
+        "ay": 10,
+        "yillik": 25.24,
+        "aylik": 2.67
+      },
+      {
+        "yil": 2018,
+        "ay": 11,
+        "yillik": 21.62,
+        "aylik": -1.44
+      },
+      {
+        "yil": 2018,
+        "ay": 12,
+        "yillik": 20.3,
+        "aylik": -0.4
+      },
+      {
+        "yil": 2019,
+        "ay": 1,
+        "yillik": 20.35,
+        "aylik": 1.06
+      },
+      {
+        "yil": 2019,
+        "ay": 2,
+        "yillik": 19.67,
+        "aylik": 0.16
+      },
+      {
+        "yil": 2019,
+        "ay": 3,
+        "yillik": 19.71,
+        "aylik": 1.03
+      },
+      {
+        "yil": 2019,
+        "ay": 4,
+        "yillik": 19.5,
+        "aylik": 1.69
+      },
+      {
+        "yil": 2019,
+        "ay": 5,
+        "yillik": 18.71,
+        "aylik": 0.95
+      },
+      {
+        "yil": 2019,
+        "ay": 6,
+        "yillik": 15.72,
+        "aylik": 0.03
+      },
+      {
+        "yil": 2019,
+        "ay": 7,
+        "yillik": 16.65,
+        "aylik": 1.36
+      },
+      {
+        "yil": 2019,
+        "ay": 8,
+        "yillik": 15.01,
+        "aylik": 0.86
+      },
+      {
+        "yil": 2019,
+        "ay": 9,
+        "yillik": 9.26,
+        "aylik": 0.99
+      },
+      {
+        "yil": 2019,
+        "ay": 10,
+        "yillik": 8.55,
+        "aylik": 2
+      },
+      {
+        "yil": 2019,
+        "ay": 11,
+        "yillik": 10.56,
+        "aylik": 0.38
+      },
+      {
+        "yil": 2019,
+        "ay": 12,
+        "yillik": 11.84,
+        "aylik": 0.74
+      },
+      {
+        "yil": 2020,
+        "ay": 1,
+        "yillik": 12.15,
+        "aylik": 1.35
+      },
+      {
+        "yil": 2020,
+        "ay": 2,
+        "yillik": 12.37,
+        "aylik": 0.35
+      },
+      {
+        "yil": 2020,
+        "ay": 3,
+        "yillik": 11.86,
+        "aylik": 0.57
+      },
+      {
+        "yil": 2020,
+        "ay": 4,
+        "yillik": 10.94,
+        "aylik": 0.85
+      },
+      {
+        "yil": 2020,
+        "ay": 5,
+        "yillik": 11.39,
+        "aylik": 1.36
+      },
+      {
+        "yil": 2020,
+        "ay": 6,
+        "yillik": 12.62,
+        "aylik": 1.13
+      },
+      {
+        "yil": 2020,
+        "ay": 7,
+        "yillik": 11.76,
+        "aylik": 0.58
+      },
+      {
+        "yil": 2020,
+        "ay": 8,
+        "yillik": 11.77,
+        "aylik": 0.86
+      },
+      {
+        "yil": 2020,
+        "ay": 9,
+        "yillik": 11.75,
+        "aylik": 0.97
+      },
+      {
+        "yil": 2020,
+        "ay": 10,
+        "yillik": 11.89,
+        "aylik": 2.13
+      },
+      {
+        "yil": 2020,
+        "ay": 11,
+        "yillik": 14.03,
+        "aylik": 2.3
+      },
+      {
+        "yil": 2020,
+        "ay": 12,
+        "yillik": 14.6,
+        "aylik": 1.25
+      },
+      {
+        "yil": 2021,
+        "ay": 1,
+        "yillik": 14.97,
+        "aylik": 1.68
+      },
+      {
+        "yil": 2021,
+        "ay": 2,
+        "yillik": 15.61,
+        "aylik": 0.91
+      },
+      {
+        "yil": 2021,
+        "ay": 3,
+        "yillik": 16.19,
+        "aylik": 1.08
+      },
+      {
+        "yil": 2021,
+        "ay": 4,
+        "yillik": 17.14,
+        "aylik": 1.68
+      },
+      {
+        "yil": 2021,
+        "ay": 5,
+        "yillik": 16.59,
+        "aylik": 0.89
+      },
+      {
+        "yil": 2021,
+        "ay": 6,
+        "yillik": 17.53,
+        "aylik": 1.94
+      },
+      {
+        "yil": 2021,
+        "ay": 7,
+        "yillik": 18.95,
+        "aylik": 1.8
+      },
+      {
+        "yil": 2021,
+        "ay": 8,
+        "yillik": 19.25,
+        "aylik": 1.12
+      },
+      {
+        "yil": 2021,
+        "ay": 9,
+        "yillik": 19.58,
+        "aylik": 1.25
+      },
+      {
+        "yil": 2021,
+        "ay": 10,
+        "yillik": 19.89,
+        "aylik": 2.39
+      },
+      {
+        "yil": 2021,
+        "ay": 11,
+        "yillik": 21.31,
+        "aylik": 3.51
+      },
+      {
+        "yil": 2021,
+        "ay": 12,
+        "yillik": 36.08,
+        "aylik": 13.58
+      },
+      {
+        "yil": 2022,
+        "ay": 1,
+        "yillik": 48.69,
+        "aylik": 11.1
+      },
+      {
+        "yil": 2022,
+        "ay": 2,
+        "yillik": 54.44,
+        "aylik": 4.81
+      },
+      {
+        "yil": 2022,
+        "ay": 3,
+        "yillik": 61.14,
+        "aylik": 5.46
+      },
+      {
+        "yil": 2022,
+        "ay": 4,
+        "yillik": 69.97,
+        "aylik": 7.25
+      },
+      {
+        "yil": 2022,
+        "ay": 5,
+        "yillik": 73.5,
+        "aylik": 2.98
+      },
+      {
+        "yil": 2022,
+        "ay": 6,
+        "yillik": 78.62,
+        "aylik": 4.95
+      },
+      {
+        "yil": 2022,
+        "ay": 7,
+        "yillik": 79.6,
+        "aylik": 2.37
+      },
+      {
+        "yil": 2022,
+        "ay": 8,
+        "yillik": 80.21,
+        "aylik": 1.46
+      },
+      {
+        "yil": 2022,
+        "ay": 9,
+        "yillik": 83.45,
+        "aylik": 3.08
+      },
+      {
+        "yil": 2022,
+        "ay": 10,
+        "yillik": 85.51,
+        "aylik": 3.54
+      },
+      {
+        "yil": 2022,
+        "ay": 11,
+        "yillik": 84.39,
+        "aylik": 2.88
+      },
+      {
+        "yil": 2022,
+        "ay": 12,
+        "yillik": 64.27,
+        "aylik": 1.18
+      },
+      {
+        "yil": 2023,
+        "ay": 1,
+        "yillik": 57.68,
+        "aylik": 6.65
+      },
+      {
+        "yil": 2023,
+        "ay": 2,
+        "yillik": 55.18,
+        "aylik": 3.15
+      },
+      {
+        "yil": 2023,
+        "ay": 3,
+        "yillik": 50.51,
+        "aylik": 2.29
+      },
+      {
+        "yil": 2023,
+        "ay": 4,
+        "yillik": 43.68,
+        "aylik": 2.39
+      },
+      {
+        "yil": 2023,
+        "ay": 5,
+        "yillik": 39.59,
+        "aylik": 0.04
+      },
+      {
+        "yil": 2023,
+        "ay": 6,
+        "yillik": 38.21,
+        "aylik": 3.92
+      },
+      {
+        "yil": 2023,
+        "ay": 7,
+        "yillik": 47.83,
+        "aylik": 9.49
+      },
+      {
+        "yil": 2023,
+        "ay": 8,
+        "yillik": 58.94,
+        "aylik": 9.09
+      },
+      {
+        "yil": 2023,
+        "ay": 9,
+        "yillik": 61.53,
+        "aylik": 4.75
+      },
+      {
+        "yil": 2023,
+        "ay": 10,
+        "yillik": 61.36,
+        "aylik": 3.43
+      },
+      {
+        "yil": 2023,
+        "ay": 11,
+        "yillik": 61.98,
+        "aylik": 3.28
+      },
+      {
+        "yil": 2023,
+        "ay": 12,
+        "yillik": 64.77,
+        "aylik": 2.93
+      },
+      {
+        "yil": 2024,
+        "ay": 1,
+        "yillik": 64.86,
+        "aylik": 6.7
+      },
+      {
+        "yil": 2024,
+        "ay": 2,
+        "yillik": 67.07,
+        "aylik": 4.53
+      },
+      {
+        "yil": 2024,
+        "ay": 3,
+        "yillik": 68.5,
+        "aylik": 3.16
+      },
+      {
+        "yil": 2024,
+        "ay": 4,
+        "yillik": 69.8,
+        "aylik": 3.18
+      },
+      {
+        "yil": 2024,
+        "ay": 5,
+        "yillik": 75.45,
+        "aylik": 3.37
+      },
+      {
+        "yil": 2024,
+        "ay": 6,
+        "yillik": 71.6,
+        "aylik": 1.64
+      },
+      {
+        "yil": 2024,
+        "ay": 7,
+        "yillik": 61.78,
+        "aylik": 3.23
+      },
+      {
+        "yil": 2024,
+        "ay": 8,
+        "yillik": 51.97,
+        "aylik": 2.47
+      },
+      {
+        "yil": 2024,
+        "ay": 9,
+        "yillik": 49.38,
+        "aylik": 2.97
+      },
+      {
+        "yil": 2024,
+        "ay": 10,
+        "yillik": 48.58,
+        "aylik": 2.88
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "yillik": 47.09,
+        "aylik": 2.24
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "yillik": 44.38,
+        "aylik": 1.03
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "yillik": 42.12,
+        "aylik": 5.03
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "yillik": 39.05,
+        "aylik": 2.27
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "yillik": 38.1,
+        "aylik": 2.46
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "yillik": 37.86,
+        "aylik": 3
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "yillik": 35.41,
+        "aylik": 1.53
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "yillik": 35.05,
+        "aylik": 1.37
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "yillik": 33.52,
+        "aylik": 2.06
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "yillik": 32.95,
+        "aylik": 2.04
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "yillik": 33.29,
+        "aylik": 3.23
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "yillik": 32.87,
+        "aylik": 2.55
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "yillik": 31.07,
+        "aylik": 0.87
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "yillik": 30.89,
+        "aylik": 0.89
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "yillik": 30.65,
+        "aylik": 4.84
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "yillik": 31.53,
+        "aylik": 2.96
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "yillik": 30.87,
+        "aylik": 1.94
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "yillik": 32.37,
+        "aylik": 4.18
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "yillik": 32.61,
+        "aylik": 1.71
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "yillik": 32.11,
+        "aylik": 0.99
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "yillik": 31.75,
+        "aylik": 1.78
+      },
+      {
+        "yil": 2026,
+        "ay": 8,
+        "yillik": 31.51,
+        "aylik": 1.84
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "yillik": 29.73,
+        "aylik": 1.84
+      }
+    ],
+    "alinma": "2026-10-15T20:12:31.435Z"
+  },
+  "konut": {
+    "kaynak": {
+      "ad": "TCMB, Konut Fiyat Endeksi (EVDS)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "bolgeler": [
+      {
+        "kod": "TR",
+        "ad": "Türkiye"
+      },
+      {
+        "kod": "TR10",
+        "ad": "İstanbul"
+      },
+      {
+        "kod": "TR51",
+        "ad": "Ankara"
+      },
+      {
+        "kod": "TR31",
+        "ad": "İzmir"
+      }
+    ],
+    "satirlar": [
+      {
+        "yil": 2024,
+        "ay": 10,
+        "bolgeler": {
+          "TR": {
+            "endeks": 151.08,
+            "yillik": 26.76623595
+          },
+          "TR10": {
+            "endeks": 141.15,
+            "yillik": 21.37759051
+          },
+          "TR51": {
+            "endeks": 158.5,
+            "yillik": 32.74706868
+          },
+          "TR31": {
+            "endeks": 148.98,
+            "yillik": 28.65284974
+          }
+        }
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "bolgeler": {
+          "TR": {
+            "endeks": 155.38,
+            "yillik": 29.40784542
+          },
+          "TR10": {
+            "endeks": 145.4,
+            "yillik": 26.25911775
+          },
+          "TR51": {
+            "endeks": 163.84,
+            "yillik": 34.82554312
+          },
+          "TR31": {
+            "endeks": 151.63,
+            "yillik": 26.59041576
+          }
+        }
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "bolgeler": {
+          "TR": {
+            "endeks": 158.46,
+            "yillik": 29.4290615
+          },
+          "TR10": {
+            "endeks": 148.57,
+            "yillik": 26.46407899
+          },
+          "TR51": {
+            "endeks": 167.19,
+            "yillik": 34.50522928
+          },
+          "TR31": {
+            "endeks": 152.32,
+            "yillik": 25.2528575
+          }
+        }
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "bolgeler": {
+          "TR": {
+            "endeks": 165.88,
+            "yillik": 31.95449845
+          },
+          "TR10": {
+            "endeks": 153.01,
+            "yillik": 29.59261455
+          },
+          "TR51": {
+            "endeks": 177.15,
+            "yillik": 36.89050305
+          },
+          "TR31": {
+            "endeks": 159.77,
+            "yillik": 29.63083164
+          }
+        }
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "bolgeler": {
+          "TR": {
+            "endeks": 170.55,
+            "yillik": 31.32363132
+          },
+          "TR10": {
+            "endeks": 157.12,
+            "yillik": 28.55506464
+          },
+          "TR51": {
+            "endeks": 182.92,
+            "yillik": 37.19342984
+          },
+          "TR31": {
+            "endeks": 165.98,
+            "yillik": 32.89031225
+          }
+        }
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "bolgeler": {
+          "TR": {
+            "endeks": 173.88,
+            "yillik": 32.23819302
+          },
+          "TR10": {
+            "endeks": 160.77,
+            "yillik": 30.43160798
+          },
+          "TR51": {
+            "endeks": 186.45,
+            "yillik": 38.68640286
+          },
+          "TR31": {
+            "endeks": 172.42,
+            "yillik": 32.61036764
+          }
+        }
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "bolgeler": {
+          "TR": {
+            "endeks": 176.41,
+            "yillik": 32.93896006
+          },
+          "TR10": {
+            "endeks": 165.17,
+            "yillik": 34.42662977
+          },
+          "TR51": {
+            "endeks": 191.96,
+            "yillik": 42.08734271
+          },
+          "TR31": {
+            "endeks": 172.47,
+            "yillik": 30.67889074
+          }
+        }
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "bolgeler": {
+          "TR": {
+            "endeks": 182.33,
+            "yillik": 32.21899927
+          },
+          "TR10": {
+            "endeks": 169.52,
+            "yillik": 32.47889966
+          },
+          "TR51": {
+            "endeks": 198.92,
+            "yillik": 41.1681215
+          },
+          "TR31": {
+            "endeks": 177.77,
+            "yillik": 31.10848883
+          }
+        }
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "bolgeler": {
+          "TR": {
+            "endeks": 185.96,
+            "yillik": 32.80011426
+          },
+          "TR10": {
+            "endeks": 173.13,
+            "yillik": 32.58538827
+          },
+          "TR51": {
+            "endeks": 203.64,
+            "yillik": 42.19677397
+          },
+          "TR31": {
+            "endeks": 183.62,
+            "yillik": 31.99626195
+          }
+        }
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "bolgeler": {
+          "TR": {
+            "endeks": 187.78,
+            "yillik": 32.86634119
+          },
+          "TR10": {
+            "endeks": 174.17,
+            "yillik": 33.53522963
+          },
+          "TR51": {
+            "endeks": 206.37,
+            "yillik": 43.09388434
+          },
+          "TR31": {
+            "endeks": 181.93,
+            "yillik": 31.12072072
+          }
+        }
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "bolgeler": {
+          "TR": {
+            "endeks": 192.44,
+            "yillik": 31.35836177
+          },
+          "TR10": {
+            "endeks": 179.45,
+            "yillik": 30.23441469
+          },
+          "TR51": {
+            "endeks": 212.28,
+            "yillik": 41.15300219
+          },
+          "TR31": {
+            "endeks": 186.14,
+            "yillik": 31.60350679
+          }
+        }
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "bolgeler": {
+          "TR": {
+            "endeks": 195.66,
+            "yillik": 32.19377069
+          },
+          "TR10": {
+            "endeks": 182.07,
+            "yillik": 30.59101994
+          },
+          "TR51": {
+            "endeks": 217.3,
+            "yillik": 41.22311042
+          },
+          "TR31": {
+            "endeks": 191.3,
+            "yillik": 34.17029036
+          }
+        }
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "bolgeler": {
+          "TR": {
+            "endeks": 198.87,
+            "yillik": 31.63224782
+          },
+          "TR10": {
+            "endeks": 186.87,
+            "yillik": 32.39107333
+          },
+          "TR51": {
+            "endeks": 219.37,
+            "yillik": 38.40378549
+          },
+          "TR31": {
+            "endeks": 194.95,
+            "yillik": 30.8564908
+          }
+        }
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "bolgeler": {
+          "TR": {
+            "endeks": 204.04,
+            "yillik": 31.31677179
+          },
+          "TR10": {
+            "endeks": 191.32,
+            "yillik": 31.58184319
+          },
+          "TR51": {
+            "endeks": 225.94,
+            "yillik": 37.90283203
+          },
+          "TR31": {
+            "endeks": 199.43,
+            "yillik": 31.52410473
+          }
+        }
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "bolgeler": {
+          "TR": {
+            "endeks": 204.36,
+            "yillik": 28.96630064
+          },
+          "TR10": {
+            "endeks": 190.92,
+            "yillik": 28.50508178
+          },
+          "TR51": {
+            "endeks": 225.46,
+            "yillik": 34.85256295
+          },
+          "TR31": {
+            "endeks": 198.84,
+            "yillik": 30.54096639
+          }
+        }
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "bolgeler": {
+          "TR": {
+            "endeks": 211.73,
+            "yillik": 27.64046299
+          },
+          "TR10": {
+            "endeks": 196.7,
+            "yillik": 28.5536893
+          },
+          "TR51": {
+            "endeks": 233.3,
+            "yillik": 31.69630257
+          },
+          "TR31": {
+            "endeks": 205.92,
+            "yillik": 28.88527258
+          }
+        }
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "bolgeler": {
+          "TR": {
+            "endeks": 215.4,
+            "yillik": 26.29727353
+          },
+          "TR10": {
+            "endeks": 200.95,
+            "yillik": 27.89587576
+          },
+          "TR51": {
+            "endeks": 237.14,
+            "yillik": 29.64137328
+          },
+          "TR31": {
+            "endeks": 208.53,
+            "yillik": 25.63561875
+          }
+        }
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "bolgeler": {
+          "TR": {
+            "endeks": 219.52,
+            "yillik": 26.24798712
+          },
+          "TR10": {
+            "endeks": 205.1,
+            "yillik": 27.57355228
+          },
+          "TR51": {
+            "endeks": 243,
+            "yillik": 30.32984714
+          },
+          "TR31": {
+            "endeks": 214.1,
+            "yillik": 24.17352975
+          }
+        }
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "bolgeler": {
+          "TR": {
+            "endeks": 223.32,
+            "yillik": 26.59146307
+          },
+          "TR10": {
+            "endeks": 208.32,
+            "yillik": 26.1245989
+          },
+          "TR51": {
+            "endeks": 249.43,
+            "yillik": 29.93852886
+          },
+          "TR31": {
+            "endeks": 218.58,
+            "yillik": 26.73508436
+          }
+        }
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "bolgeler": {
+          "TR": {
+            "endeks": 226.99,
+            "yillik": 24.49404925
+          },
+          "TR10": {
+            "endeks": 212.47,
+            "yillik": 25.33624351
+          },
+          "TR51": {
+            "endeks": 252.96,
+            "yillik": 27.16670018
+          },
+          "TR31": {
+            "endeks": 218.44,
+            "yillik": 22.87787591
+          }
+        }
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "bolgeler": {
+          "TR": {
+            "endeks": 231.34,
+            "yillik": 24.40309744
+          },
+          "TR10": {
+            "endeks": 216.62,
+            "yillik": 25.11985213
+          },
+          "TR51": {
+            "endeks": 255.69,
+            "yillik": 25.55981143
+          },
+          "TR31": {
+            "endeks": 225.16,
+            "yillik": 22.62280797
+          }
+        }
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "bolgeler": {
+          "TR": {
+            "endeks": 234.55,
+            "yillik": 24.90680584
+          },
+          "TR10": {
+            "endeks": 222.4,
+            "yillik": 27.69133605
+          },
+          "TR51": {
+            "endeks": 261.03,
+            "yillik": 26.48640791
+          },
+          "TR31": {
+            "endeks": 223.47,
+            "yillik": 22.83295773
+          }
+        }
+      },
+      {
+        "yil": 2026,
+        "ay": 8,
+        "bolgeler": {
+          "TR": {
+            "endeks": 236.5,
+            "yillik": 22.89544793
+          },
+          "TR10": {
+            "endeks": 226.36,
+            "yillik": 26.14098635
+          },
+          "TR51": {
+            "endeks": 264.82,
+            "yillik": 24.75032975
+          },
+          "TR31": {
+            "endeks": 229.14,
+            "yillik": 23.1008918
+          }
+        }
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "bolgeler": {
+          "TR": {
+            "endeks": 239.38,
+            "yillik": 22.34488398
+          },
+          "TR10": {
+            "endeks": 230.85,
+            "yillik": 26.79189323
+          },
+          "TR51": {
+            "endeks": 265.17,
+            "yillik": 22.02945237
+          },
+          "TR31": {
+            "endeks": 231.42,
+            "yillik": 20.97229482
+          }
+        }
+      }
+    ],
+    "alinma": "2026-10-22T11:01:24.257Z"
+  },
+  "issizlik": {
+    "kaynak": {
+      "ad": "TÜİK verisi, TCMB EVDS temel işgücü göstergeleri (mevsimsellikten arındırılmış)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "satirlar": [
+      {
+        "yil": 2024,
+        "ay": 8,
+        "oran": 8.5
+      },
+      {
+        "yil": 2024,
+        "ay": 9,
+        "oran": 8.6
+      },
+      {
+        "yil": 2024,
+        "ay": 10,
+        "oran": 8.7
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "oran": 8.4
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "oran": 8.6
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "oran": 8.5
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "oran": 8.2
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "oran": 8
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "oran": 8.6
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "oran": 8.4
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "oran": 8.7
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "oran": 8.1
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "oran": 8.6
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "oran": 8.6
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "oran": 8.5
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "oran": 8.6
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "oran": 7.8
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "oran": 8.1
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "oran": 8.4
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "oran": 8.1
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "oran": 8.2
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "oran": 8.1
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "oran": 7.6
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "oran": 8.1
+      },
+      {
+        "yil": 2026,
+        "ay": 8,
+        "oran": 7.8
+      }
+    ],
+    "alinma": "2026-10-22T11:01:24.257Z"
+  }
+}

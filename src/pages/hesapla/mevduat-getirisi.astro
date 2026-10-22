@@ -1,0 +1,103 @@
+---
+// Mevduat getirisi hesaplayıcı. Stopaj oranı kullanıcıdan alınır: oran vadeye ve döneme göre değiştiği için
+// sitede varsayılan bir oran yazılmaz.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { sayfaSemasi } from '../../lib/seo';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Hesapla', href: '/hesapla/' },
+  { ad: 'Mevduat getirisi hesaplama', href: '/hesapla/mevduat-getirisi/' },
+];
+const description =
+  'Vadeli mevduat getirisi hesaplama: anapara, yıllık faiz, vade (gün) ve stopaj oranıyla brüt faiz, stopaj kesintisi ve net getiriyi hesaplayın.';
+const jsonLd = sayfaSemasi({ yol, ad: 'Mevduat getirisi hesaplama', aciklama: description });
+---
+
+<Base title="Mevduat getirisi hesaplama" description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container hesap-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>Mevduat getirisi hesaplama</h1>
+      <p>Brüt faiz, stopaj ve net getiri</p>
+    </header>
+
+    <div class="hesap-izgara">
+      <form class="hesap" data-hesap="mevduat">
+        <div class="hesap-alanlar">
+          <label>
+            Anapara (TL)
+            <input name="anapara" type="text" inputmode="decimal" value="100.000" required />
+          </label>
+          <label>
+            Yıllık brüt faiz oranı (%)
+            <input name="faiz" type="text" inputmode="decimal" required />
+          </label>
+          <label>
+            Vade (gün)
+            <input name="gun" type="text" inputmode="numeric" value="32" required />
+          </label>
+          <label>
+            Stopaj oranı (%)
+            <input name="stopaj" type="text" inputmode="decimal" required aria-describedby="stopaj-not" />
+            <small id="stopaj-not">Bankanızın uyguladığı güncel oranı girin; vergi yoksa 0.</small>
+          </label>
+        </div>
+        <button type="submit" hidden>Hesapla</button>
+        <noscript>
+          <p class="veri-notu">Hesaplama için tarayıcınızda JavaScript açık olmalı. Formül aşağıda.</p>
+        </noscript>
+        <p class="hesap-hata" data-hata hidden role="alert"></p>
+        <div class="hesap-sonuc" data-sonuclar aria-live="polite" hidden>
+          <p class="hesap-ana">
+            <output data-sonuc="net"></output>
+            <span>net getiri</span>
+          </p>
+          <dl>
+            <div>
+              <dt>Brüt faiz</dt>
+              <dd><output data-sonuc="brut"></output></dd>
+            </div>
+            <div>
+              <dt>Stopaj kesintisi</dt>
+              <dd><output data-sonuc="stopaj"></output></dd>
+            </div>
+            <div>
+              <dt>Vade sonunda toplam</dt>
+              <dd><output data-sonuc="toplam"></output></dd>
+            </div>
+            <div>
+              <dt>Yıllık net faiz oranı</dt>
+              <dd><output data-sonuc="netOran"></output></dd>
+            </div>
+          </dl>
+        </div>
+      </form>
+
+      <section class="prose hesap-aciklama">
+        <h2>Nasıl hesaplanır?</h2>
+        <p>Türk lirası vadeli mevduatta faiz, yılı 365 gün sayarak basit faizle hesaplanır:</p>
+        <p class="formul">Brüt faiz = Anapara × (Yıllık faiz / 100) × (Gün / 365)</p>
+        <p class="formul">Stopaj = Brüt faiz × (Stopaj oranı / 100)</p>
+        <p class="formul">Net getiri = Brüt faiz − Stopaj</p>
+        <p>
+          <strong>Stopaj</strong>, faiz gelirinden banka tarafından kesilip devlete ödenen gelir vergisidir. Oranı vadeye göre
+          farklılaşabilir ve zaman zaman Cumhurbaşkanı kararıyla değiştirilir. Bu yüzden hesaplayıcı varsayılan bir oran
+          kullanmaz; güncel oranı bankanızdan ya da Gelir İdaresi Başkanlığı’ndan öğrenip girin.
+        </p>
+        <p>
+          Vade sonunda anapara ve net faiz yeniden yatırılırsa (bileşik faiz) yıllık getiri bu hesaptan biraz yüksek olur.
+          Getirinin enflasyonun üstünde kalıp kalmadığını görmek için <a href="/veri/enflasyon/">enflasyon verilerine</a>{' '}
+          bakabilirsiniz. <a href="/sozluk/stopaj/">Stopaj nedir?</a>
+        </p>
+      </section>
+    </div>
+
+    <YasalUyari>Hesaplayıcı bilgi amaçlıdır; bankanızın uyguladığı faiz, gün sayımı ve vergi kesintisi farklı olabilir. Kesin tutar için bankanızın hesaplamasını esas alın.</YasalUyari>
+  </div>
+  <script is:inline src="/hesapla.js" defer></script>
+</Base>

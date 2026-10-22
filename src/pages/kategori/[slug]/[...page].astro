@@ -1,0 +1,120 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import Base from '../../../layouts/Base.astro';
+import NewsCard from '../../../components/NewsCard.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
+import { CATEGORIES } from '../../../lib/site';
+import { jsonLdMetni } from '../../../lib/json-ld.mjs';
+import { getNews, newsUrl, type Haber } from '../../../lib/news';
+import { SITE_URL, WEBSITE_ID } from '../../../lib/seo';
+
+
+// Her kategori sayfasının arama sonucunda görünen kendi açıklaması.
+const ACIKLAMA: Record<string, string> = {
+  piyasalar: 'Küresel ve yerel piyasalarda günün gelişmeleri: faiz, emtia, petrol ve risk iştahı üzerine haber ve analizler.',
+  borsa: 'Borsa İstanbul ve dünya borsalarından hisse senedi, endeks ve şirket haberleri, bilanço ve piyasa analizleri.',
+  doviz: 'Dolar, euro ve altın fiyatlarındaki hareketler; kur, değerli metal ve merkez bankası kararları üzerine haberler.',
+  kripto: 'Bitcoin, Ethereum ve diğer kripto paralardaki gelişmeler; düzenleme, piyasa ve teknoloji haberleri.',
+  ekonomi: 'Türkiye ve dünya ekonomisinden enflasyon, büyüme, istihdam, para ve maliye politikası haberleri.',
+  'kisisel-finans': 'Bütçe, birikim, kredi, emeklilik ve vergi gibi kişisel finans konularında anlaşılır haber ve rehberler.',
+};
+
+// Sayfa başına 30 yazı. /kategori/<x>/ ilk sayfa, /kategori/<x>/2/ ve sonrası düz bağlantılarla gezilir;
+// her sayfanın kendi canonical'ı vardır ve hepsi site haritasına girer.
+// (getStaticPaths ayrı derlenir; dışarıdaki sabitleri göremez, sayı burada yazılı kalır.)
+export const getStaticPaths = (async ({ paginate }) => {
+  const news = await getNews({ tur: 'haber', indeksli: true });
+  return CATEGORIES.flatMap((c) =>
+    paginate(
+      news.filter((h) => h.data.category === c.slug),
+      { params: { slug: c.slug }, props: { cat: c }, pageSize: 30 },
+    ),
+  );
+}) satisfies GetStaticPaths;
+
+interface Props {
+  cat: (typeof CATEGORIES)[number];
+  page: Page<Haber>;
+}
+
+const { cat, page } = Astro.props;
+const items = page.data;
+const ilkSayfa = page.currentPage === 1;
+const sayfaEki = ilkSayfa ? '' : ` · Sayfa ${page.currentPage}`;
+const description = `${ACIKLAMA[cat.slug] ?? `${cat.name} haberleri ve analizleri`}${ilkSayfa ? '' : ` Sayfa ${page.currentPage}.`}`;
+// paginate adresleri sonda eğik çizgisiz verir; site genelinde adresler eğik çizgiyle biter.
+const egik = (u?: string) => (u ? (u.endsWith('/') ? u : `${u}/`) : undefined);
+const onceki = egik(page.url.prev);
+const sonraki = egik(page.url.next);
+const catUrl = `${SITE_URL}/kategori/${cat.slug}/`;
+const pageUrl = `${SITE_URL}${egik(page.url.current)}`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': pageUrl,
+      url: pageUrl,
+      name: `${cat.name} haberleri${sayfaEki}`,
+      description,
+      inLanguage: 'tr',
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: items.map((h, i) => ({
+          '@type': 'ListItem',
+          position: page.start + i + 1,
+          url: `${SITE_URL}${newsUrl(h)}`,
+        })),
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Anasayfa', item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: cat.name, item: catUrl },
+        ...(ilkSayfa ? [] : [{ '@type': 'ListItem', position: 3, name: `Sayfa ${page.currentPage}`, item: pageUrl }]),
+      ],
+    },
+  ],
+};
+---
+
+<Base title={`${cat.name} haberleri${sayfaEki}`} description={description} noindex={page.total === 0}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container">
+    <Breadcrumb
+      yol={[
+        { ad: 'Anasayfa', href: '/' },
+        { ad: cat.name, href: `/kategori/${cat.slug}/` },
+        ...(ilkSayfa ? [] : [{ ad: `Sayfa ${page.currentPage}` }]),
+      ]}
+    />
+    <header class={`sayfa-bas ink-${cat.ink}`}>
+      <h1>{cat.name}{!ilkSayfa && <span class="sayfa-no"> · Sayfa {page.currentPage}</span>}</h1>
+      <p>{page.total > 0 ? `${page.total} yazı` : 'Henüz yazı yok'}</p>
+    </header>
+    {
+      items.length > 0 ? (
+        <div class="liste liste-iki">
+          {items.map((h) => (
+            <NewsCard haber={h} showCategory={false} />
+          ))}
+        </div>
+      ) : (
+        <p class="bos">Bu kategoride henüz yazı yok. Yeni yazılar yayımlandıkça burada listelenecek.</p>
+      )
+    }
+    {
+      page.lastPage > 1 && (
+        <nav class="sayfalar" aria-label="Sayfalar">
+          {onceki ? <a href={onceki}>← Daha yeni</a> : <span />}
+          <span>
+            Sayfa {page.currentPage} / {page.lastPage}
+          </span>
+          {sonraki ? <a href={sonraki}>Daha eski →</a> : <span />}
+        </nav>
+      )
+    }
+  </div>
+</Base>

@@ -1,0 +1,152 @@
+---
+import Change from './Change.astro';
+import Spark from './Spark.astro';
+import { cizelge, deger, kaynakSatiri, notCizelgede, DEGISIM_NOTU } from '../lib/piyasa';
+
+// Simgesiz gösterilen diğer göstergeler: çizgili çizelge.
+// Sütunlar: değer, 90 gün, günlük değişim. Başlıklara tıklayarak sıralanır.
+---
+
+{
+  cizelge.length > 0 && (
+<section class="cizelge-kutu" aria-labelledby="cizelge-baslik">
+  <h2 id="cizelge-baslik" class="bolum-baslik">Diğer göstergeler</h2>
+  <div class="cizelge-kaydir">
+    <table class="cizelge" data-sirali>
+      <caption class="sr-only">Diğer piyasa göstergeleri, değerleri ve günlük değişimleri</caption>
+      <thead>
+        <tr>
+          <th scope="col" aria-sort="none">
+            <button type="button" class="sirala" data-anahtar="ad">Gösterge</button>
+          </th>
+          <th scope="col" class="sayisal" aria-sort="none">
+            <button type="button" class="sirala" data-anahtar="deger">Değer</button>
+          </th>
+          <th scope="col" class="cizelge-grafik-baslik">90 gün</th>
+          <th scope="col" class="sayisal" aria-sort="none">
+            <button type="button" class="sirala" data-anahtar="gunluk">Günlük</button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          cizelge.map((g) => (
+            <tr data-ad={g.ad} data-deger={g.deger} data-gunluk={g.degisim ?? ''}>
+              <th scope="row">
+                <span class="cizelge-ad">
+                  {g.ad}
+                  <small class="veri-notu">{kaynakSatiri(g)}</small>
+                </span>
+              </th>
+              <td class="cizelge-deger">{deger(g)}</td>
+              <td class="cizelge-grafik">
+                <Spark ad={g.ad} noktalar={g.gecmis} />
+              </td>
+              <td class="sayisal cizelge-degisim">
+                <Change value={g.degisim} />
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  {notCizelgede && <p class="veri-notu">{DEGISIM_NOTU}</p>}
+  <script>
+    // Başlığa tıklanınca satırları sıralar. Ad sütunu A→Z, sayısal sütunlar büyükten küçüğe başlar.
+    // Eksik değerler (—) her zaman sona gider.
+    const tablo = document.querySelector<HTMLTableElement>('table[data-sirali]');
+    if (tablo) {
+      const govde = tablo.tBodies[0];
+      const basliklar = tablo.querySelectorAll<HTMLTableCellElement>('thead th');
+
+      basliklar.forEach((th) => {
+        const dugme = th.querySelector<HTMLButtonElement>('button.sirala');
+        dugme?.addEventListener('click', () => {
+          const anahtar = dugme.dataset.anahtar!;
+          const onceki = th.getAttribute('aria-sort');
+          const yeni = onceki === 'descending' ? 'ascending' : onceki === 'ascending' ? 'descending' : anahtar === 'ad' ? 'ascending' : 'descending';
+          basliklar.forEach((b) => b.setAttribute('aria-sort', 'none'));
+          th.setAttribute('aria-sort', yeni);
+
+          const satirlar = Array.from(govde.rows);
+          const deger = (tr: HTMLTableRowElement) => tr.dataset[anahtar] ?? '';
+          satirlar.sort((a, b) => {
+            const va = deger(a);
+            const vb = deger(b);
+            if (va === '' || vb === '') return va === '' ? (vb === '' ? 0 : 1) : -1;
+            if (anahtar === 'ad') {
+              const sonuc = va.localeCompare(vb, 'tr');
+              return yeni === 'ascending' ? sonuc : -sonuc;
+            }
+            const sonuc = Number(va) - Number(vb);
+            return yeni === 'ascending' ? sonuc : -sonuc;
+          });
+          govde.append(...satirlar);
+        });
+      });
+    }
+  </script>
+</section>
+  )
+}
+
+<style>
+  .cizelge-kaydir {
+    overflow-x: auto;
+  }
+
+  .cizelge th.sayisal,
+  .cizelge td.sayisal {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .cizelge td.sayisal {
+    font-size: 0.95rem;
+  }
+
+  .sirala {
+    all: unset;
+    cursor: pointer;
+    font: inherit;
+    text-transform: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    border-bottom: 1px solid transparent;
+  }
+
+  .sirala:hover,
+  .sirala:focus-visible {
+    border-bottom-color: var(--ink);
+  }
+
+  .sirala:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  th[aria-sort='ascending'] .sirala::after {
+    content: ' ▲';
+    font-size: 0.7em;
+  }
+
+  th[aria-sort='descending'] .sirala::after {
+    content: ' ▼';
+    font-size: 0.7em;
+  }
+
+  .cizelge-degisim {
+    width: 84px;
+  }
+
+  .cizelge-grafik-baslik {
+    width: 148px;
+    padding-inline: 16px 12px;
+  }
+
+  .cizelge-grafik {
+    width: 148px;
+    padding-inline: 16px 12px;
+  }
+</style>

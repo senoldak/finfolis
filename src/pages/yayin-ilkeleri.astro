@@ -1,0 +1,159 @@
+---
+import Base from '../layouts/Base.astro';
+import { YASAL_UYARI, YASAL_UYARI_EK } from '../lib/yasal-uyari.mjs';
+import { SITE } from '../lib/site';
+---
+
+<Base
+  title="Yayın İlkeleri"
+  description="finfolis'in yayın ilkeleri: bağımsızlık, yapay zekâ kullanımı, kaynaklar, yatırım tavsiyesi ve düzeltmeler."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Yayın İlkeleri</h1>
+      </header>
+      <div class="prose">
+        <p>
+          Künye ve yasal bilgiler için <a href="/yasal/">Yasal Bilgilendirme</a>, düzeltmeler için
+          <a href="/duzeltme-politikasi/">Düzeltme Politikası</a> sayfalarına bakın.
+        </p>
+        <p>
+          {SITE.name}; ekonomi, finans ve piyasalara ilişkin gelişmeleri okurlarına anlaşılır biçimde aktaran, bağımsız ve
+          kâr amacı gütmeyen bir çevrim içi yayındır. Haberlerimiz yapay zekâ ile otomatik yazılır ve otomatik denetimden
+          geçer; tek tek insan onayından geçmez. Etik ilkelerde Uluslararası Gazeteciler Federasyonu’nun
+          (IFJ - International Federation of Journalists) <em>Küresel Gazetecilik Etiği Şartı (Global Charter of Ethics for Journalists)</em>
+          ilkelerini örnek alırız. Hiçbir kuruluşa üye değiliz.
+        </p>
+
+        <h2>1. Kurumsal ve Editoryal Bağımsızlık</h2>
+        <p>
+          {SITE.name}, ticari ortaklıklardan, finansal kurumlardan, siyasi partilerden veya menfaat gruplarından
+          tamamen bağımsız bir yayın çizgisine sahiptir. Gerçeğe saygı, toplumun doğru bilgilendirilme hakkı ve
+          bağımsızlık en temel görevimizdir. Haberlerin seçimi ve yazımı otomatik sistemle, yayın ilkelerimize göre
+          yapılır. Hiçbir kişi ya da kuruluş içeriğin yayımlanması, değiştirilmesi veya yayımlanmaması konusunda talimat
+          veremez.
+        </p>
+        <p>
+          Bağımsız ve kâr amacı gütmeyen bir yayındır. Reklam, sponsorlu içerik ya da ücretli iş birliği yoktur. Bu durum
+          değişirse okurlarımıza açıkça bildiririz.
+        </p>
+
+        <h2>2. Güven göstergeleri (The Trust Project’i örnek alırız)</h2>
+        <p>
+          <em>The Trust Project</em>’in güven göstergelerini örnek alırız. Bir üyeliğimiz ya da sertifikamız yoktur.
+          Aşağıda her gösterge için bugün yaptığımızı yazıyoruz:
+        </p>
+        <ul>
+          <li>
+            <strong>En İyi Uygulamalar (Best Practices):</strong> Yayın ilkelerimiz, künyemiz ve düzeltme politikamız
+            herkese açıktır (<a href="/yasal/">Yasal Bilgilendirme</a> ve <a href="/duzeltme-politikasi/">Düzeltme Politikası</a>
+            sayfaları).
+          </li>
+          <li>
+            <strong>Yazar Bilgisi (Author Expertise):</strong> Haberler ve bültenler yapay zekâ ile otomatik yazılır; her
+            haberin sonunda bu belirtilir ve "Hata bildir" bağlantısı bulunur. Yayıncının adıyla çıkan yazılarda, yazının
+            sonunda yapay zekâ araçlarının yazım ve dil düzeltmesinde kullanıldığı, rakamların resmî kaynaklardan alınıp
+            kontrol edildiği yazar.
+          </li>
+          <li>
+            <strong>İçerik Türü Etiketlemesi (Type of Work):</strong> Veri, resmî açıklama, araştırma ve bülten yazıları
+            etiketle ayrılır. Haber metinlerine görüş katılmaz.
+          </li>
+          <li>
+            <strong>Kaynaklar ve Atıflar (Citations &amp; References):</strong> Resmî kurum açıklamalarına dayanan
+            haberlerde kaynak bağlantısı vermeye geçiyoruz. Başka yayınlardan alınan haberlerde kaynak yayının adı verilmez;
+            bu nedenle her haberde kaynak bağlantısı bulunmaz.
+          </li>
+          <li id="piyasa-verisi">
+            <strong>Piyasa kapanış verisi:</strong> Borsa endeksleri, emtia ve kripto fiyatları ile haftalık karnelerdeki
+            getiriler, kamuya açık ve ücretsiz bir piyasa verisi hizmetinin günlük kapanışlarından alınır. Bu veri resmî bir
+            kurumun yayını değildir ve gecikmelidir. Kur, faiz ve enflasyon gibi resmî veriler, yayımlayan kurumun verisine
+            dayanır. Piyasa verilerinin zamanı, verinin alındığı kaynağa göre değişebilir.
+          </li>
+          <li>
+            <strong>Yöntem ve Metodoloji (Methods):</strong> Karşılaştırmalı göstergelerimizin, oran hesaplamalarımızın
+            ve boncuk sırası görselleştirmelerimizin arkasındaki veri hesaplama yöntemleri okura açıkça izah edilir.
+          </li>
+          <li>
+            <strong>Eyleme Dönüştürülebilir Geri Bildirim (Actionable Feedback):</strong> Her haberin sonunda "Hata bildir"
+            bağlantısı vardır. Düzeltmeler tarihiyle <a href="/duzeltmeler/">Düzeltmeler</a> sayfasında yayımlanır.
+          </li>
+        </ul>
+
+        <h2>3. Yapay zekâ kullanımı (RSF Paris Şartı’nı örnek alırız)</h2>
+        <p>
+          Sınır Tanımayan Gazeteciler’in (RSF) <em>Paris Charter on AI and Journalism (2023)</em> adlı şartını örnek alırız.
+          Şartın tarafı ya da imzacısı değiliz. Yapay zekâ kullanımımız şöyledir:
+        </p>
+        <ul>
+          <li>
+            <strong>Otomatik haber üretimi:</strong> Haberlerimiz yapay zekâ ile otomatik yazılır ve otomatik denetimden
+            geçer; tek tek insan onayından geçmez. Denetimler, metindeki rakam ve alıntıların kaynak metinde bulunmasını ve
+            ayrı bir yapay zekâ denetimini kapsar. Denetim bozulursa ya da emin olunamazsa haber yayımlanmaz; bir acil
+            durdurma anahtarı vardır. Suç ve yargı süreçlerinde özel kişiler, çocuklar, intihar ve kendine zarar, terör,
+            savaş taraflarının dili, gruplar hakkında genelleme, yatırım tavsiyesi niteliği taşıyan ifadeler ve tek bir
+            yayına ait özel haberler gibi hassas konular otomatik olarak yayımlanmaz. Otomatik denetim hatayı azaltır,
+            ortadan kaldırmaz; hata bildirimleri <a href="/duzeltme-politikasi/">Düzeltme Politikamıza</a> göre ele alınır.
+          </li>
+          <li>
+            <strong>Şeffaf Etiketleme:</strong> Her haberin sonunda yapay zekâ notu bulunur: "Bu haber yapay zekâ ile
+            otomatik yazıldı ve otomatik denetimden geçti. Hata bildir →". Piyasa göstergeleri otomatik veri akışlarından
+            gelir.
+          </li>
+          <li>
+            <strong>Sentetik Manipülasyondan Uzak Durma:</strong> Gerçekliği tahrif eden "deepfake", manipüle edilmiş grafikler
+            veya sahte veriler kesinlikle üretilmez ve kullanılmaz. Tüm grafik ve boncuk sıraları gerçek, doğrulanabilir
+            finansal verilere dayanır.
+          </li>
+        </ul>
+
+        <h2>4. Finansal tarafsızlık ve yatırım tavsiyesi</h2>
+        <p>
+          Ekonomi ve finans haberciliğinde <em>SABEW (Society for Advancing Business Editing and Writing)</em> etik kurallarını
+          örnek alırız. Yatırım tavsiyesi vermeyiz:
+        </p>
+        <ul>
+          <li>
+            <strong>Yatırım Tavsiyesi Değildir:</strong> {SITE.name} üzerinde yer alan haber, veri, grafik ve içerikler
+            6362 sayılı Sermaye Piyasası Kanunu kapsamında bir "yatırım danışmanlığı", "bireysel portföy yönetimi" veya
+            "al/sat tavsiyesi" değildir. Her yatırımcının kendi risk profilini bağımsızca
+            değerlendirmesi esastır. SPK'nın III-37.1 sayılı Tebliği EK/3 uyarı notu: {YASAL_UYARI} {YASAL_UYARI_EK}
+          </li>
+          <li>
+            <strong>Çıkar Çatışmasının Önlenmesi:</strong> Yayıncı, haberlerde adı geçen şirket, hisse ya da kripto
+            varlıklarla ticari bir ilişki içinde değildir ve bu varlıklar üzerinden kişisel menfaat sağlamaz. Ayrıntı:
+            <a href="/yasal/">Yasal Bilgilendirme</a>, madde 5.
+          </li>
+          <li>
+            <strong>Veri Bütünlüğü ve Bağımsızlık:</strong> Piyasa verileri herhangi bir kurumun lehine ya da aleyhine
+            değiştirilmeden, objektif ve tarafsız biçimde aktarılır.
+          </li>
+        </ul>
+
+        <h2 id="duzeltmeler">5. Düzeltmeler</h2>
+        <p>
+          Bir haberde hata yaparsak düzeltir, bir haberi kaldırırsak nedenini söyleriz. Her değişikliği tarihiyle
+          <a href="/duzeltmeler/">Düzeltmeler</a> sayfasında açıkça yazarız. Ayrıntılar
+          <a href="/duzeltme-politikasi/">Düzeltme Politikamızdadır</a>. Şikâyetlerin nasıl ele alındığı
+          <a href="/sikayet/">Şikâyet Prosedürü</a> sayfasında, düzeltme ve şikâyet sayıları üç ayda bir
+          <a href="/standartlar-raporu/">Standartlar Raporu</a>'nda yer alır.
+        </p>
+        <ul>
+          <li>
+            <strong>Açık ve Kalıcı Düzeltme:</strong> Düzeltilen haberin altında tarihli bir düzeltme notu bulunur;
+            düzeltme ve kaldırma kayıtları ayrıca Düzeltmeler sayfasında listelenir.
+          </li>
+          <li>
+            <strong>Hızlı İnceleme:</strong> Hata bildirimleri en kısa sürede incelenir; teyit edilen yanlışlıklar giderilir.
+          </li>
+          <li>
+            <strong>Geri Bildirim Kanalı:</strong> Veri itirazı ve düzeltme bildirimi için her haberin sonundaki "Hata
+            bildir" bağlantısını ya da <a href="mailto:contact@finfolis.com">contact@finfolis.com</a> adresini
+            kullanabilirsiniz.
+          </li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</Base>

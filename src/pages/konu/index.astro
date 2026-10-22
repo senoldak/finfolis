@@ -1,0 +1,79 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { konuSayfalari, konuUrl } from '../../lib/konu-sayfalari';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { KONU_TURLERI } from '../../lib/konular.mjs';
+import { SITE_URL, WEBSITE_ID } from '../../lib/seo';
+
+const sayfalar = await konuSayfalari();
+const gruplar = KONU_TURLERI.map((g) => ({ ...g, ogeler: sayfalar.filter((s) => s.konu.tur === g.tur) })).filter(
+  (g) => g.ogeler.length > 0,
+);
+const description = 'Merkez bankaları, düzenleyici kurumlar, şirketler ve temalara göre derlenmiş finans ve ekonomi haberleri.';
+const pageUrl = `${SITE_URL}/konu/`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': pageUrl,
+      url: pageUrl,
+      name: 'Konular',
+      description,
+      inLanguage: 'tr',
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: sayfalar.map((s, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: s.konu.ad,
+          url: `${SITE_URL}${konuUrl(s.konu.slug)}`,
+        })),
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Anasayfa', item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: 'Konular', item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Base title="Konular" description={description} noindex={sayfalar.length === 0}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container">
+    <Breadcrumb yol={[{ ad: 'Anasayfa', href: '/' }, { ad: 'Konular' }]} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>Konular</h1>
+      <p>Kurum, şirket ve temalara göre haberler</p>
+    </header>
+    <p class="sayfa-giris">
+      Sık haber konusu olan kurum, şirket ve temaların her biri için ayrı bir sayfa var. Bir konunun sayfası, o konuda en
+      az üç haber yayımlandığında açılır.
+    </p>
+    {
+      gruplar.length === 0 ? (
+        <p class="bos">Henüz konu sayfası yok.</p>
+      ) : (
+        gruplar.map((g) => (
+          <section class="bolum">
+            <h2 class="bolum-baslik">{g.ad}</h2>
+            <ul class="dizin-liste">
+              {g.ogeler.map((s) => (
+                <li>
+                  <a href={konuUrl(s.konu.slug)}>{s.konu.ad}</a>
+                  <span>{s.haberler.length} haber</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      )
+    }
+  </div>
+</Base>

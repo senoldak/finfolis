@@ -1,0 +1,33 @@
+---
+title: "Kuresel Piyasalarda Hareketlilik ve Sirket Gelismeleri · 19 Ekim, açılış"
+description: "Kuresel piyasalarda borsa ve kripto varliklar yukselirken, bazi sirketler kar artislarıyla gundeme geldi. Fransa'daki olaylar ekonomi üzerindeki baskıları artırdı."
+date: 2026-10-19T05:12:40.000Z
+category: "piyasalar"
+tur: "haber"
+uretim: "bot"
+kaynaklar: []
+kaynakIzi: "v1.MLlntawdpY5xZNno.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"
+rakamlar:
+  - etiket: "Bitcoin"
+    deger: "82.500 dolar"
+  - etiket: "Cin Buyume"
+    deger: "yuzde 4,5"
+  - etiket: "Protestocu"
+    deger: "550.000"
+  - etiket: "Kar Artisi"
+    deger: "yuzde 143"
+why_matters: "Kuresel ekonomik veriler, siyasi gelismeler ve sirket kirlilikleri piyasalarin yonunu belirlemeye devam ediyor."
+key_points:
+  - "Bitcoin 82.500 dolar seviyesinde islem gordu"
+  - "Fransa'daki protestolara yaklasik 550.000 kisi katildi"
+  - "Kross'un net kari yuzde 143 artti"
+cover: kapak.png
+coverAlt: "Küresel · Kuresel Piyasalarda Hareketlilik ve Sirket Gelismeleri · 19 Ekim, açılış"
+coverSitede: false
+---
+
+Kuresel piyasalarda Bitcoin fiyati 82.500 dolar seviyesinde islem gordu. Omkar Godbole'e gore, Cin ekonomisinin yuzde 4,5 buyumesi ve dusen petrol fiyatlari yatirimcilarin risk istahini artirdi. Nasdaq vadeli islemleri yuzde 1'in uzerinde deger kazanirken, Asya borsalari da teknoloji odakli gecen haftanin kayiplarinin ardindan yükseliş kaydetti. Çin ekonomisi üçüncü çeyrekte geçen yılın aynı dönemine göre yüzde 4,5 büyüme kaydetti.
+
+Fransa'da yasam maliyeti ve butce tasarruflari nedeniyle duzenlenen protestolarda yaklasik 550.000 kisi yer aldi. Anniek Bao'ya gore gosteriler sirasinda 2.400'e yakin kisi gozaltina alindi ve gosterilerin şiddete dönmesiyle birlikte çok sayıda iş yeri zarar gördü. İçişleri bakanlığına göre olaylar sırasında yaklaşık 1.000 polis memuru ve jandarma yaralandı. Başbakan Sébastien Lecornu'nun azınlık hükümeti, bütçe açığını daraltmak amacıyla 2027 bütçesinde 54 milyar euro mali tasarruf hedefliyor.
+
+Kross sirketinin ikinci ceyrek net kari yuzde 143 artarak 19,69 crore rupiye ulasti. Ritesh Presswala'ya gore sirketin hisseleri yuzde 16 oraninda ralli yapti ve BSE'de 314,35 rupiye yukseldi. Şirketin faaliyet gelirleri geçen yılın aynı dönemine göre yüzde 80 artarak 235,09 crore rupiye yükseldi. Yönetim kurulu dosyasında yer alan bilgilere göre şirket, eylül çeyreğinde güçlü solo finansal sonuçlar açıkladı.

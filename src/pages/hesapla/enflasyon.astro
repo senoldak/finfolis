@@ -1,0 +1,184 @@
+---
+// Enflasyon hesaplayıcı: yalnızca TÜİK'in yayımladığı aylık TÜFE değişimleriyle (src/data/resmi.json).
+// Veri yoksa kullanıcı kendi yıllık oranını girer; tahmini oran gösterilmez.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { RESMI, AYLAR, ayAdi, ayAnahtari, tufeCarpani, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const enf = RESMI.enflasyon;
+const satirlar = enf?.satirlar ?? [];
+const ilk = satirlar[0];
+const son = satirlar.at(-1);
+// Seçilebilir aylar: ilk değişimin bir önceki ayından (taban) son açıklanan aya kadar.
+const anahtarlar = ilk && son ? Array.from({ length: ayAnahtari(son) - ayAnahtari(ilk) + 2 }, (_, i) => ayAnahtari(ilk) - 1 + i) : [];
+const adi = (k: number) => `${AYLAR[k % 12]} ${Math.floor(k / 12)}`;
+const varsayilanBas = son ? ayAnahtari(son) - 60 : 0;
+const tufeVerisi = JSON.stringify(satirlar.map((s) => [ayAnahtari(s), s.aylik]));
+// Derleme anında hesaplanan örnek tablo (betik kapalıyken de görünür): her yılın ocak ayındaki 1.000 TL.
+const ornekler = son
+  ? [1, 2, 3, 5, 10, 15, 20]
+      .map((y) => ({ yil: son.yil - y, k: (son.yil - y) * 12 }))
+      .filter((o) => ilk && o.k >= ayAnahtari(ilk) - 1)
+      .map((o) => ({ ...o, karsilik: 1000 * tufeCarpani(satirlar, o.k, ayAnahtari(son)) }))
+  : [];
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Hesapla', href: '/hesapla/' },
+  { ad: 'Enflasyon hesaplama', href: '/hesapla/enflasyon/' },
+];
+const description = son
+  ? `Paranızın değeri enflasyonla nasıl değişti? TÜİK TÜFE verisiyle (${ilk ? ayAdi(ilk) : ''} – ${ayAdi(son)}) iki ay arasında paranın bugünkü karşılığını hesaplayın.`
+  : 'Enflasyon hesaplayıcı: yıllık enflasyon oranıyla paranın gelecekteki karşılığını hesaplayın.';
+const jsonLd = sayfaSemasi({ yol, ad: 'Enflasyon hesaplama', aciklama: description });
+---
+
+<Base title="Enflasyon hesaplama: paranın değeri" description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container hesap-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>Enflasyon hesaplama</h1>
+      <p>Paranın değeri, TÜFE ile</p>
+    </header>
+
+    <div class="hesap-izgara">
+      {
+        son ? (
+          <form class="hesap" data-hesap="enflasyon" data-tufe={tufeVerisi}>
+            <div class="hesap-alanlar">
+              <label>
+                Tutar (TL)
+                <input name="tutar" type="text" inputmode="decimal" value="1.000" required />
+              </label>
+              <label>
+                Başlangıç ayı
+                <select name="baslangic">
+                  {anahtarlar.slice(0, -1).map((k) => (
+                    <option value={k} selected={k === varsayilanBas}>
+                      {adi(k)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Bitiş ayı
+                <select name="bitis">
+                  {anahtarlar.slice(1).map((k) => (
+                    <option value={k} selected={k === ayAnahtari(son)}>
+                      {adi(k)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <button type="submit" hidden>Hesapla</button>
+            <noscript>
+              <p class="veri-notu">Hesaplama için tarayıcınızda JavaScript açık olmalı. Formül ve örnek tablo aşağıda.</p>
+            </noscript>
+            <p class="hesap-hata" data-hata hidden role="alert" />
+            <div class="hesap-sonuc" data-sonuclar aria-live="polite" hidden>
+              <p data-sonuc="aciklama" />
+              <p class="hesap-ana">
+                <output data-sonuc="karsilik" />
+              </p>
+              <dl>
+                <div>
+                  <dt>Fiyatlardaki toplam artış</dt>
+                  <dd>
+                    <output data-sonuc="artis" />
+                  </dd>
+                </div>
+                <div>
+                  <dt>Bitiş ayındaki aynı tutarın başlangıç ayı fiyatlarıyla değeri</dt>
+                  <dd>
+                    <output data-sonuc="alim" />
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </form>
+        ) : (
+          <form class="hesap" data-hesap="enflasyon">
+            <div class="hesap-alanlar">
+              <label>
+                Tutar (TL)
+                <input name="tutar" type="text" inputmode="decimal" value="1.000" required />
+              </label>
+              <label>
+                Yıllık enflasyon oranı (%)
+                <input name="oran" type="text" inputmode="decimal" required />
+              </label>
+              <label>
+                Süre (yıl)
+                <input name="yil" type="text" inputmode="decimal" value="1" required />
+              </label>
+            </div>
+            <button type="submit" hidden>Hesapla</button>
+            <p class="hesap-hata" data-hata hidden role="alert" />
+            <div class="hesap-sonuc" data-sonuclar aria-live="polite" hidden>
+              <p data-sonuc="aciklama" />
+              <p class="hesap-ana">
+                <output data-sonuc="karsilik" />
+              </p>
+            </div>
+          </form>
+        )
+      }
+
+      <section class="prose hesap-aciklama">
+        <h2>Nasıl hesaplanır?</h2>
+        <p>
+          Hesaplayıcı, TÜİK’in her ay açıkladığı tüketici fiyat endeksindeki (TÜFE) aylık değişimleri zincirler. Başlangıç
+          ayından sonraki her ayın değişim oranı birbiriyle çarpılır:
+        </p>
+        <p class="formul">
+          Karşılık = Tutar × (1 + a<sub>1</sub>/100) × (1 + a<sub>2</sub>/100) × … × (1 + a<sub>n</sub>/100)
+        </p>
+        <p>
+          Burada a<sub>1</sub> … a<sub>n</sub>, başlangıç ayından sonra bitiş ayına kadar her ayın yüzde olarak aylık TÜFE
+          değişimidir. Sonuç, başlangıç ayında belli bir tutarla alınabilen mal ve hizmet sepetini bitiş ayında almak için
+          gereken tutarı gösterir. Aylık oranlar iki ondalık basamakla yayımlandığı için sonuç, TÜİK’in endeks değerleriyle
+          yapılan hesaptan çok küçük farklılık gösterebilir.
+        </p>
+        <p>
+          Bu hesap ortalama bir tüketici sepetini yansıtır; sizin harcamalarınızdaki artış farklı olabilir.{' '}
+          <a href="/veri/enflasyon/">Güncel enflasyon verileri</a> · <a href="/sozluk/tufe/">TÜFE nedir?</a>
+        </p>
+      </section>
+    </div>
+
+    {
+      ornekler.length > 0 && son && (
+        <section class="bolum hesap-ornek">
+          <h2 class="bolum-baslik">1.000 TL’nin {ayAdi(son)} karşılığı</h2>
+          <table class="cizelge veri-tablo">
+            <thead>
+              <tr>
+                <th scope="col">Başlangıç</th>
+                <th scope="col" class="sag">{ayAdi(son)} fiyatlarıyla</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ornekler.map((o) => (
+                <tr>
+                  <td>Ocak {o.yil}</td>
+                  <td class="sag">{sayiYaz(o.karsilik, 2)} TL</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="veri-notu">
+            TÜFE verisi: <a href={enf!.kaynak.url} rel="noopener">{enf!.kaynak.ad}</a>, son veri {ayAdi(son)}. Siteye
+            alındığı zaman: {zamanYaz(enf!.alinma)}.
+          </p>
+        </section>
+      )
+    }
+
+    <YasalUyari>Hesaplayıcı bilgi amaçlıdır; sonuçlar resmi TÜFE verisine dayanır ve kişisel harcama sepetinizi yansıtmayabilir.</YasalUyari>
+  </div>
+  <script is:inline src="/hesapla.js" defer></script>
+</Base>

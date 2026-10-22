@@ -1,0 +1,65 @@
+---
+import { formatDate } from '../lib/site';
+
+// Haber içi karşılaştırma tablosu. Kaynak gizliyse (kaynak yok) not satırında yalnız tarih ve veri notu yer alır.
+interface Props {
+  tablo: { baslik: string; sutunlar: string[]; satirlar: string[][] };
+  kaynak?: { ad: string; url: string }; // gizli kaynaklı haberde yok
+  tarih: Date;
+}
+
+const { tablo, kaynak, tarih } = Astro.props;
+---
+
+<section class="haber-tablo" aria-labelledby="haber-tablo-baslik">
+  <h2 id="haber-tablo-baslik" class="bolum-baslik">{tablo.baslik}</h2>
+  <div class="cizelge-kaydir">
+    <table class="cizelge">
+      <thead>
+        <tr>
+          {tablo.sutunlar.map((s, i) => (
+            <th scope="col" class={i === 0 ? undefined : 'sayisal'}>{s}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {
+          tablo.satirlar.map((satir) => (
+            <tr>
+              {satir.map((hucre, i) =>
+                i === 0 ? (
+                  <th scope="row">{hucre}</th>
+                ) : (
+                  <td class="sayisal">{hucre}</td>
+                ),
+              )}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="veri-notu">
+    {kaynak ? <>Kaynak: <a href={kaynak.url} rel="nofollow noopener" target="_blank">{kaynak.ad}</a></> : "Veriler haber metnindeki rakamlardır"} · <time datetime={tarih.toISOString()}>{formatDate(tarih)}</time>
+  </p>
+</section>
+
+<style>
+  .haber-tablo {
+    margin: 32px 0;
+  }
+
+  .cizelge-kaydir {
+    overflow-x: auto;
+  }
+
+  .cizelge th.sayisal,
+  .cizelge td.sayisal {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .haber-tablo .veri-notu {
+    margin-top: 8px;
+  }
+</style>

@@ -1,0 +1,98 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/site';
+
+// Metnin kaynağı: mecmua/docs/standartlar-faz2-sayfalar-onay.md, bölüm 1. Yayın tarihinde GUNCELLEME'yi güncelle.
+const GUNCELLEME = '22 Ekim 2026';
+---
+
+<Base
+  title="Şikâyet Prosedürü"
+  description="finfolis'te yayımlanan bir içerik hakkındaki şikâyet nasıl yapılır, hangi sürelerde yanıtlanır ve karardan memnun kalınmazsa nereye başvurulur."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Şikâyet Prosedürü</h1>
+        <p>Son güncelleme: {GUNCELLEME}</p>
+      </header>
+      <div class="prose">
+        <p>Bu sayfa, {SITE.name}'te yayımlanan bir içerik hakkındaki şikâyetinizi nasıl ele aldığımızı anlatır.</p>
+
+        <h2>1. Neyi şikâyet edebilirsiniz</h2>
+        <ul>
+          <li>Bir içerikteki olgusal hata: yanlış rakam, ad, tarih, çeviri.</li>
+          <li>
+            Yayın ilkelerimize aykırılık: taraf tutan ya da ayrımcı dil, yatırım tavsiyesi niteliği taşıyan ifade, eksik
+            yapay zekâ notu.
+          </li>
+          <li>Kişilik haklarınızın, özel hayatınızın ya da kişisel verilerinizin zedelendiği düşündüğünüz bir içerik.</li>
+          <li>Telif hakkınızın ihlal edildiğini düşündüğünüz bir içerik.</li>
+        </ul>
+        <p>
+          Cevap ve düzeltme hakkı <a href="/yasal/">Yasal Bilgilendirme</a> sayfasının 13. maddesine, hak ihlali
+          bildirimleri 12. maddesine göre de değerlendirilir.
+        </p>
+
+        <h2>2. Nasıl şikâyet edersiniz</h2>
+        <p>
+          Her haberin sonundaki "Hata bildir" bağlantısını kullanın ya da
+          <a href="mailto:contact@finfolis.com">contact@finfolis.com</a> adresine yazın. Şikâyetinize şunları ekleyin:
+        </p>
+        <ul>
+          <li>içeriğin bağlantısı,</li>
+          <li>sorunun ne olduğu ve varsa hangi yayın ilkemize aykırı bulduğunuz,</li>
+          <li>varsa doğru bilgiyi gösteren kaynak,</li>
+          <li>size yanıt verebileceğimiz bir e-posta adresi.</li>
+        </ul>
+
+        <h2>3. Süreler</h2>
+        <ul>
+          <li><strong>En geç 72 saat içinde</strong> şikâyetinizi aldığımızı ve nasıl ele alacağımızı bildiririz.</li>
+          <li><strong>En geç 28 gün içinde</strong> kararımızı gerekçesiyle size yazarız.</li>
+          <li>
+            Açık bir olgusal hatayı ve kişi haklarına ilişkin talepleri bu süreleri beklemeden düzeltiriz ya da içeriği
+            yayından kaldırırız.
+          </li>
+          <li>28 gün yetmezse nedenini ve yeni tarihi size bildiririz.</li>
+        </ul>
+
+        <h2>4. Şikâyeti kim inceler</h2>
+        <p>
+          Şikâyetleri yayıncı ve editör inceler. {SITE.name} tek kişilik bir yayındır; ayrı bir okur temsilcisi yoktur.
+          Bu nedenle kararımızdan memnun kalmazsanız aşağıdaki dış yola başvurabilirsiniz.
+        </p>
+
+        <h2>5. Olası sonuçlar</h2>
+        <ul>
+          <li>
+            <strong>Şikâyet yerinde:</strong> içerik <a href="/duzeltme-politikasi/">Düzeltme Politikamıza</a> göre
+            düzeltilir, açıklanır, güncellenir ya da yayından kaldırılır. Değişiklik
+            <a href="/duzeltmeler/">Düzeltmeler</a> sayfasında tarihiyle yayımlanır.
+          </li>
+          <li>
+            <strong>Kısmen yerinde:</strong> yerinde bulunan kısım için aynısı yapılır; kalanın gerekçesi size yazılır.
+          </li>
+          <li><strong>Yerinde değil:</strong> içeriği neden değiştirmediğimizi gerekçesiyle size yazarız.</li>
+        </ul>
+
+        <h2>6. Kararımızdan memnun kalmazsanız</h2>
+        <p>
+          Basın Konseyi, Basın Meslek İlkeleri'ne aykırı bulunan yayınlar hakkındaki şikâyetleri inceleyen bir öz denetim
+          kuruluşudur. Şikâyetinizi Konsey'e iletebilirsiniz:
+          <a href="https://basinkonseyi.org.tr/nasil-sikayet-edebilirim/" rel="noopener">basinkonseyi.org.tr, "Nasıl şikâyet edebilirim" sayfası</a>.
+          Konsey, yayından itibaren iki ay içinde yapılan başvuruları kabul ettiğini belirtmektedir. Şikâyeti incelemeye
+          alıp almayacağına Konsey karar verir.
+        </p>
+        <p>Yasal başvuru yollarınız her durumda saklıdır.</p>
+
+        <h2>7. Kayıt ve gizlilik</h2>
+        <ul>
+          <li>Şikâyetler ve kararlar kayda geçirilir. Sayıları üç ayda bir <a href="/standartlar-raporu/">Standartlar Raporu</a>'nda yayımlanır.</li>
+          <li>Şikâyette bulunan kişinin kimliği, kendi izni olmadan paylaşılmaz.</li>
+          <li>Tehdit ya da hakaret içeren yazışmalar yanıtlanmayabilir.</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</Base>

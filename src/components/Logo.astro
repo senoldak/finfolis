@@ -1,0 +1,14 @@
+---
+// finfolis işareti: abaküs (BRAND.md §5). Çizim src/lib/kimlik.js'te; site, kapak ve marka dosyaları aynı kaynağı kullanır.
+import { abakusSvg } from '../lib/kimlik.js';
+
+interface Props {
+  class?: string;
+  kucuk?: boolean;
+}
+
+const { class: className, kucuk = false } = Astro.props;
+const ekler = `${className ? `class="${className}" ` : ''}aria-hidden="true" focusable="false"`;
+---
+
+<Fragment set:html={abakusSvg({ kucuk, ekler }).replace(/ width="\d+" height="\d+"/, '')} />

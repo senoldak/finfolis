@@ -1,0 +1,64 @@
+---
+// Yazar sayfası: sitedeki bütün yazıların görünen yazarı. Biyografi uydurulmaz; ad, unvan, nötr tek cümle ve son yazılar.
+import Base from '../../layouts/Base.astro';
+import NewsCard from '../../components/NewsCard.astro';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { YAZAR, yazarUrl } from '../../lib/yazar.mjs';
+import { getNews, newsUrl } from '../../lib/news';
+import { ORG_ID, SITE_URL, WEBSITE_ID } from '../../lib/seo';
+
+const haberler = await getNews({ indeksli: true });
+const pageUrl = yazarUrl(SITE_URL);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfilePage',
+      '@id': `${pageUrl}#page`,
+      url: pageUrl,
+      name: `${YAZAR.ad} – ${YAZAR.unvan}`,
+      description: YAZAR.aciklama,
+      inLanguage: 'tr',
+      isPartOf: { '@id': WEBSITE_ID },
+      mainEntity: {
+        '@type': 'Person',
+        '@id': `${pageUrl}#person`,
+        name: YAZAR.ad,
+        jobTitle: YAZAR.unvan,
+        description: YAZAR.aciklama,
+        url: pageUrl,
+        email: 'contact@finfolis.com',
+        worksFor: { '@id': ORG_ID },
+      },
+      hasPart: haberler.slice(0, 50).map((h) => ({ '@type': 'NewsArticle', url: new URL(newsUrl(h), SITE_URL).href, headline: h.data.title })),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Anasayfa', item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: YAZAR.ad, item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Base title={`${YAZAR.ad} – ${YAZAR.unvan}`} description={YAZAR.aciklama}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>{YAZAR.ad}</h1>
+        <p class="makale-spot">{YAZAR.unvan}</p>
+      </header>
+      <div class="prose">
+        <p>{YAZAR.aciklama}</p>
+        <p>İletişim: <a href="mailto:contact@finfolis.com">contact@finfolis.com</a></p>
+        <p>Yapay zekâ kullanımı hakkında ayrıntı için <a href="/yapay-zeka-kullanimi/">Yapay zekâ kullanımı</a> sayfasına bakın.</p>
+        <h2>Son yazılar</h2>
+      </div>
+      {haberler.slice(0, 30).map((h) => <NewsCard haber={h} />)}
+    </article>
+  </div>
+</Base>

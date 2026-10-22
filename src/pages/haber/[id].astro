@@ -1,0 +1,286 @@
+---
+import { Image, getImage } from 'astro:assets';
+import YasalUyari from '../../components/YasalUyari.astro';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import RakamSeridi from '../../components/RakamSeridi.astro';
+import Tablo from '../../components/Tablo.astro';
+import Grafik from '../../components/Grafik.astro';
+import NewsCard from '../../components/NewsCard.astro';
+import SentezBlok from '../../components/SentezBlok.astro';
+import BultenDizini from '../../components/BultenDizini.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { SITE, category as categoryOf, categoryName, formatDate } from '../../lib/site';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { getNews, type Haber } from '../../lib/news';
+import { KAPAK_DONUSUM } from '../../lib/gorsel.mjs';
+import { ORG_ID, PUBLISHER_LOGO, SITE_URL, WEBSITE_ID, kisalt, sameAs } from '../../lib/seo';
+import { matchEntities } from '../../lib/entities';
+import { indekslenir } from '../../lib/uzunluk.mjs';
+import { okumaSuresi, turEtiketi } from '../../lib/yazi-bilgisi.mjs';
+import { duzeltmeNotu } from '../../lib/duzeltme.mjs';
+import { resmiKaynaklar } from '../../lib/resmi-kaynak.mjs';
+import { YAZAR, yazarSemasi, yazarUrl } from '../../lib/yazar.mjs';
+import { yapayZekaNotu } from '../../lib/yapay-zeka-notu.mjs';
+import { ilgiliSec } from '../../lib/ilgili.mjs';
+import { yazininKonulari, konuUrl } from '../../lib/konu-sayfalari';
+import type { Konu } from '../../lib/konular.mjs';
+
+export async function getStaticPaths() {
+  const news = await getNews();
+  // İlgili yazılar ortak varlıklara (kurum, şirket, ürün) göre seçilir; bülten ve kısa (noindex) yazı aday olmaz.
+  const ogeler = news.map((h) => ({
+    id: h.id,
+    kategori: h.data.category,
+    tarih: h.data.date.valueOf(),
+    varliklar: matchEntities(`${h.data.title} ${h.data.description}`).map((e) => e.name),
+    aday: h.data.tur !== 'bulten' && indekslenir(h.body),
+  }));
+  const idIle = new Map(news.map((h) => [h.id, h]));
+  return Promise.all(
+    news.map(async (haber, i) => ({
+      params: { id: haber.id },
+      props: {
+        haber,
+        related: ilgiliSec(ogeler[i], ogeler).map((id) => idIle.get(id)!),
+        // Yazının geçtiği ve sayfası olan konular (src/lib/konular.mjs).
+        konular: await yazininKonulari(haber),
+      },
+    })),
+  );
+}
+
+interface Props {
+  haber: Haber;
+  related: Haber[];
+  konular: Konu[];
+}
+
+const { haber, related, konular } = Astro.props;
+const { title, description, date, category, coverAlt, rakamlar, sirada, tablo, grafik, kaynaklar } = haber.data;
+const duzeltme = duzeltmeNotu(haber.data, 'tr');
+// Resmî kaynaklı haberde kurumun bağlantısı; medya kaynaklı habere kaynak adı ya da bağlantısı yazılmaz.
+const resmi = resmiKaynaklar(haber.data);
+// Kısa yazılar (src/lib/uzunluk.mjs) arama motoruna kapalı, bağlantıları izlenir; site haritaları da aynı kuralı kullanır.
+const noindex = !indekslenir(haber.body);
+// Kapak her yaşta derlenir (dosya bütçesi: src/lib/gorsel.mjs).
+const cover = haber.data.cover;
+const { Content, headings } = await render(haber);
+const cat = categoryOf(category);
+const turEtiket = turEtiketi(haber.data);
+const okumaDk = okumaSuresi(haber.body);
+
+// og:image ve JSON-LD görseli: 1200px JPEG (Google Discover en az 1200px ister).
+// Sayfadaki resim de aynı dönüşümü kullanır; dist'te tek dosya olur.
+const og = cover ? await getImage({ src: cover, ...KAPAK_DONUSUM }) : undefined;
+const ogImage = og?.src;
+const ogImageUrl = ogImage ? new URL(ogImage, Astro.site).href : new URL('/og-default.png', Astro.site).href;
+const ogWidth = og ? Number(og.attributes.width) : 1200;
+const ogHeight = og ? Number(og.attributes.height) : 630;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+// Sayfa sonundaki tek yapay zekâ notu: bot yazısı ve sahip yazısı için ayrı metin (src/lib/yapay-zeka-notu.mjs).
+const yzNotu = yapayZekaNotu(haber.data, title, pageUrl);
+const share = encodeURIComponent(pageUrl);
+const shareText = encodeURIComponent(title);
+const published = date.toISOString();
+// Değiştirilme tarihi: ön bilgide updated varsa o (yayından önceyse yok sayılır), yoksa yayın tarihi.
+const updated = haber.data.updated && haber.data.updated > date ? haber.data.updated : undefined;
+const modified = (updated ?? date).toISOString();
+const catUrl = `${SITE_URL}/kategori/${cat.slug}/`;
+
+const entities = matchEntities(`${title} ${description}`);
+
+const articleSchema: Record<string, any> = {
+  '@type': 'NewsArticle',
+  '@id': `${pageUrl}#article`,
+  headline: kisalt(title, 110),
+  description,
+  image: [
+    {
+      '@type': 'ImageObject',
+      url: ogImageUrl,
+      width: ogWidth,
+      height: ogHeight,
+    },
+  ],
+  datePublished: published,
+  dateModified: modified,
+  // Görünen yazar her yazıda aynıdır (src/lib/yazar.mjs); ön bilgideki author alanı kullanılmaz.
+  author: yazarSemasi(SITE_URL, ORG_ID),
+  // Yayıncının tek tanımı Base.astro'daki Organization düğümünde (src/lib/seo.ts); aynı @id ile çelişen ikinci logo yazılmaz.
+  publisher: { '@id': ORG_ID },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
+  url: pageUrl,
+  articleSection: cat.name,
+  inLanguage: 'tr',
+  isAccessibleForFree: true,
+  isPartOf: { '@id': WEBSITE_ID },
+};
+
+if (entities.length > 0) {
+  articleSchema.about = entities;
+}
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    articleSchema,
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Anasayfa', item: `${SITE_URL}/` },
+        { '@type': 'ListItem', position: 2, name: cat.name, item: catUrl },
+        { '@type': 'ListItem', position: 3, name: kisalt(title, 110), item: pageUrl },
+      ],
+    },
+  ],
+};
+---
+
+<Base
+  title={title}
+  description={description}
+  image={ogImage}
+  imageWidth={ogWidth}
+  imageHeight={ogHeight}
+  imageAlt={coverAlt ?? title}
+  type="article"
+  noindex={noindex}
+>
+  <Fragment slot="head">
+    <meta name="author" content={YAZAR.ad} />
+    <meta property="article:author" content={yazarUrl(SITE_URL)} />
+    <meta property="article:published_time" content={published} />
+    <meta property="article:modified_time" content={modified} />
+    <meta property="article:section" content={categoryName(category)} />
+    <script type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  </Fragment>
+
+  <div class="container">
+    <article class="makale">
+      <Breadcrumb yol={[{ ad: 'Anasayfa', href: '/' }, { ad: cat.name, href: `/kategori/${cat.slug}/` }, { ad: kisalt(title, 70) }]} />
+      <header class={`makale-bas ink-${cat.ink}`}>
+        <h1>{title}</h1>
+        <p class="makale-spot">{description}</p>
+        <p class="kunye">
+          <a href={`/kategori/${cat.slug}/`} class="kunye-kat">
+            {cat.name}
+          </a>
+          {turEtiket && <span class="kunye-tur">{turEtiket}</span>}
+          <span>
+            Yazan: <a rel="author" href={YAZAR.yol}>{YAZAR.ad}</a>
+          </span>
+          <time datetime={date.toISOString()}>{formatDate(date, true)}</time>
+          {okumaDk >= 2 && <span>{okumaDk} dk okuma</span>}
+          {updated && (
+            <span>
+              Güncellendi: <time datetime={modified}>{formatDate(updated, true)}</time>
+            </span>
+          )}
+        </p>
+      </header>
+
+      <SentezBlok whyMatters={haber.data.why_matters} keyPoints={haber.data.key_points} description={description} />
+
+      <RakamSeridi rakamlar={rakamlar} bas />
+
+      {haber.data.tur === 'bulten' && <BultenDizini govde={haber.body} basliklar={headings} />}
+
+      {
+        cover && haber.data.coverSitede && (
+          <figure class="makale-resim">
+            <Image
+              src={cover}
+              alt={coverAlt ?? title}
+              {...KAPAK_DONUSUM}
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </figure>
+        )
+      }
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      {tablo && <Tablo tablo={tablo} kaynak={kaynaklar[0]} tarih={date} />}
+      {!tablo && grafik && <Grafik grafik={grafik} kaynak={kaynaklar[0]} tarih={date} />}
+
+      <RakamSeridi sirada={sirada} />
+
+      {
+        konular.length > 0 && (
+          <nav class="konu-etiketleri" aria-label="Konular">
+            <span>Konular</span>
+            {konular.map((k) => (
+              <a href={konuUrl(k.slug)}>{k.ad}</a>
+            ))}
+          </nav>
+        )
+      }
+
+      {
+        duzeltme && (
+          <aside class="duzeltme">
+            <p>
+              <strong>{duzeltme.etiket}</strong> {duzeltme.metin} <a href={duzeltme.baglanti}>Düzeltme Politikası</a>
+            </p>
+          </aside>
+        )
+      }
+
+      {
+        resmi.length > 0 && (
+          <p class="resmi-kaynak">
+            {resmi.length > 1 ? 'Resmî kaynaklar:' : 'Resmî kaynak:'}{' '}
+            {resmi.map((k, i) => (
+              <>
+                {i > 0 && ', '}
+                <a href={k.url} rel="noopener">{k.ad}</a>
+              </>
+            ))}
+          </p>
+        )
+      }
+
+      <p class="uretim-notu">
+        {yzNotu.metin} <a href={yzNotu.baglanti}>{yzNotu.baglantiMetni}</a>
+      </p>
+
+      <YasalUyari />
+
+      <div class="paylas">
+        <span>Paylaş</span>
+        <a href={`https://x.com/intent/post?url=${share}&text=${shareText}`} target="_blank" rel="noopener">X</a>
+        <a href={`https://www.facebook.com/sharer/sharer.php?u=${share}`} target="_blank" rel="noopener">Facebook</a>
+        <a href={`https://wa.me/?text=${shareText}%20${share}`} target="_blank" rel="noopener">WhatsApp</a>
+        <a href={`https://t.me/share/url?url=${share}&text=${shareText}`} target="_blank" rel="noopener">Telegram</a>
+        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${share}`} target="_blank" rel="noopener">LinkedIn</a>
+        <a href={`https://bsky.app/intent/compose?text=${shareText}%20${share}`} target="_blank" rel="noopener">Bluesky</a>
+        {/* Betik (public/paylas.js) panoya erişebiliyorsa düğmeyi gösterir; yoksa gizli kalır. */}
+        <button type="button" class="kopyala" data-kopyala={pageUrl} aria-live="polite" hidden>Bağlantıyı kopyala</button>
+      </div>
+      {SITE.social.telegram && (
+        <p class="kanal-notu">
+          Yeni haberler <a href={SITE.social.telegram} rel="noopener" target="_blank">Telegram kanalımızda</a>.
+        </p>
+      )}
+    </article>
+
+    {
+      related.length > 0 && (
+        <section class="bolum ilgili">
+          <h2 class="bolum-baslik">İlgili haberler</h2>
+          <div class="liste liste-iki">
+            {related.map((h) => (
+              <NewsCard haber={h} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </div>
+  <script is:inline src="/paylas.js" defer></script>
+</Base>

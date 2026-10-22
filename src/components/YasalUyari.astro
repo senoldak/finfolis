@@ -1,0 +1,12 @@
+---
+// Yasal uyarı kutusu (SPK III-37.1 EK/3 + tamamlayıcı uyarı): metin src/lib/yasal-uyari.mjs'te. Sayfaya özgü not (ör. hesaplayıcının bilgi amaçlı olduğu)
+// varsa slot olarak uyarının altına yazılır.
+import { YASAL_UYARI, YASAL_UYARI_BASLIK, YASAL_UYARI_EK } from '../lib/yasal-uyari.mjs';
+---
+
+<aside class="tavsiye-degil" aria-label={YASAL_UYARI_BASLIK}>
+  <strong>{YASAL_UYARI_BASLIK}</strong>
+  <p>{YASAL_UYARI}</p>
+  <p>{YASAL_UYARI_EK}</p>
+  {Astro.slots.has('default') && <p class="tavsiye-not"><slot /></p>}
+</aside>

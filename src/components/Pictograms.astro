@@ -1,0 +1,17 @@
+---
+// İşaret sprite'ı: Base.astro bir kez ekler; kullanım: <svg><use href="#s-yukari" /></svg> (Change.astro).
+// Kimlik v2'de Isotype piktogramları kalktı (rakamlar boncukla sayılır); yalnız yön işaretleri kaldı.
+import { ISARETLER } from '../lib/simgeler.js';
+---
+
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    {
+      Object.entries(ISARETLER).map(([ad, d]) => (
+        <symbol id={`s-${ad}`} viewBox="0 0 12 12">
+          <path d={d} />
+        </symbol>
+      ))
+    }
+  </defs>
+</svg>

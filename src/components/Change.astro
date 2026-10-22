@@ -1,0 +1,23 @@
+---
+import { sayi } from '../lib/piyasa';
+
+interface Props {
+  value?: number;
+}
+
+const { value } = Astro.props;
+const yon = value === undefined || value === 0 ? 'sabit' : value > 0 ? 'yukari' : 'asagi';
+const etiket = { yukari: 'yükseldi', asagi: 'düştü', sabit: 'değişmedi' }[yon];
+---
+
+{
+  value !== undefined && (
+    <span class={`change change-${yon}`}>
+      <svg aria-hidden="true">
+        <use href={`#s-${yon}`} />
+      </svg>
+      <span class="sr-only">Günlük {etiket}:</span>
+      {yon === 'sabit' ? 'sabit' : `%${sayi(Math.abs(value), 1)}`}
+    </span>
+  )
+}

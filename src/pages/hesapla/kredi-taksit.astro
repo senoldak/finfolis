@@ -1,0 +1,123 @@
+---
+// Kredi taksit hesaplayıcı: eşit taksitli kredi. KKDF ve BSMV oranları kullanıcı girdisidir (kredi türüne göre değişir).
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { sayfaSemasi } from '../../lib/seo';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Hesapla', href: '/hesapla/' },
+  { ad: 'Kredi taksit hesaplama', href: '/hesapla/kredi-taksit/' },
+];
+const description =
+  'Kredi taksit hesaplama: kredi tutarı, aylık faiz, vade ve vergi oranlarıyla eşit taksitli kredinin aylık taksitini, toplam geri ödemesini ve ödeme planını hesaplayın.';
+const jsonLd = sayfaSemasi({ yol, ad: 'Kredi taksit hesaplama', aciklama: description });
+---
+
+<Base title="Kredi taksit hesaplama" description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container hesap-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>Kredi taksit hesaplama</h1>
+      <p>Aylık taksit, toplam geri ödeme ve ödeme planı</p>
+    </header>
+
+    <div class="hesap-izgara">
+      <form class="hesap" data-hesap="kredi">
+        <div class="hesap-alanlar">
+          <label>
+            Kredi tutarı (TL)
+            <input name="anapara" type="text" inputmode="decimal" value="100.000" required />
+          </label>
+          <label>
+            Aylık faiz oranı (%)
+            <input name="faiz" type="text" inputmode="decimal" required />
+          </label>
+          <label>
+            Vade (ay)
+            <input name="vade" type="text" inputmode="numeric" value="12" required />
+          </label>
+          <label>
+            KKDF oranı (%)
+            <input name="kkdf" type="text" inputmode="decimal" aria-describedby="vergi-not" />
+          </label>
+          <label>
+            BSMV oranı (%)
+            <input name="bsmv" type="text" inputmode="decimal" aria-describedby="vergi-not" />
+            <small id="vergi-not">Boş bırakılırsa vergisiz hesaplanır. Oranlar kredi türüne göre değişir.</small>
+          </label>
+        </div>
+        <button type="submit" hidden>Hesapla</button>
+        <noscript>
+          <p class="veri-notu">Hesaplama için tarayıcınızda JavaScript açık olmalı. Formül aşağıda.</p>
+        </noscript>
+        <p class="hesap-hata" data-hata hidden role="alert"></p>
+        <div class="hesap-sonuc" data-sonuclar aria-live="polite" hidden>
+          <p class="hesap-ana">
+            <output data-sonuc="taksit"></output>
+            <span>aylık taksit</span>
+          </p>
+          <dl>
+            <div>
+              <dt>Toplam geri ödeme</dt>
+              <dd><output data-sonuc="toplam"></output></dd>
+            </div>
+            <div>
+              <dt>Toplam faiz ve vergi</dt>
+              <dd><output data-sonuc="maliyet"></output></dd>
+            </div>
+          </dl>
+          <details class="hesap-plan" data-plan-kutu hidden>
+            <summary>Ödeme planı</summary>
+            <div class="tablo-kaydir">
+              <table class="cizelge veri-tablo veri-tablo-genis">
+                <thead>
+                  <tr>
+                    <th scope="col">Ay</th>
+                    <th scope="col" class="sag">Taksit</th>
+                    <th scope="col" class="sag">Anapara</th>
+                    <th scope="col" class="sag">Faiz</th>
+                    <th scope="col" class="sag">Vergi</th>
+                    <th scope="col" class="sag">Kalan anapara</th>
+                  </tr>
+                </thead>
+                <tbody data-plan></tbody>
+              </table>
+            </div>
+          </details>
+        </div>
+      </form>
+
+      <section class="prose hesap-aciklama">
+        <h2>Nasıl hesaplanır?</h2>
+        <p>
+          Eşit taksitli kredilerde her ay aynı tutar ödenir. Vergiler faize eklenerek aylık maliyet oranı bulunur, taksit bu
+          oranla hesaplanır:
+        </p>
+        <p class="formul">r = Aylık faiz × (1 + KKDF + BSMV)</p>
+        <p class="formul">
+          Taksit = Kredi tutarı × r × (1 + r)<sup>n</sup> / ((1 + r)<sup>n</sup> − 1)
+        </p>
+        <p>
+          Burada n vadeyi (ay), oranlar ise ondalık değeri gösterir (yüzde 3 için 0,03). İlk taksitlerde faiz payı yüksek,
+          anapara payı düşüktür; vade ilerledikçe anapara payı artar.
+        </p>
+        <p>
+          <strong>KKDF</strong> (Kaynak Kullanımını Destekleme Fonu) ve <strong>BSMV</strong> (Banka ve Sigorta Muameleleri
+          Vergisi), bazı bireysel kredilerde faiz tutarı üzerinden alınır; konut kredileri gibi bazı kredi türleri bu
+          kesintilerden muaf olabilir. Güncel oranları bankanızdan öğrenin. Dosya masrafı, sigorta gibi ek maliyetler bu hesaba
+          dahil değildir.
+        </p>
+        <p>
+          <a href="/veri/politika-faizi/">Politika faizi</a> · <a href="/sozluk/faiz/">Faiz nedir?</a>
+        </p>
+      </section>
+    </div>
+
+    <YasalUyari>Hesaplayıcı bilgi amaçlıdır; bankanızın sunduğu ödeme planı, masraflar ve vergiler nedeniyle farklı olabilir. Kesin tutar için bankanızın sözleşme öncesi bilgi formunu esas alın.</YasalUyari>
+  </div>
+  <script is:inline src="/hesapla.js" defer></script>
+</Base>

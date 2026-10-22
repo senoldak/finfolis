@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import { YASAL_UYARI, YASAL_UYARI_BASLIK, YASAL_UYARI_EK } from '../lib/yasal-uyari.mjs';
+import { SITE, YAZAR } from '../lib/site';
+---
+
+<Base
+  title="Hakkımızda"
+  description="finfolis kimdir, rakamları nasıl gösterir, yasal uyarı ve iletişim bilgileri."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Hakkımızda</h1>
+      </header>
+      <div class="prose">
+        <p>
+          {SITE.name}; ekonomi, finans ve piyasalara ilişkin gelişmeleri okurlarına anlaşılır biçimde aktaran bir
+          çevrim içi haber ve bilgilendirme yayınıdır. Bağımsız ve kâr amacı gütmeyen bir yayındır. Reklam, sponsorlu
+          içerik ya da ücretli iş birliği yoktur. Bu durum değişirse okurlarımıza açıkça bildiririz.
+        </p>
+        <h2>Rakamları nasıl gösteriyoruz?</h2>
+        <p>
+          Önemli göstergeleri simge dizileriyle gösteriyoruz: her simge belirli bir miktara eşittir ve miktar arttıkça
+          simgelerin sayısı artar. Böylece bugünün rakamını geçen yılla bir bakışta karşılaştırabilirsiniz. Veriler
+          gecikmeli olabilir; veri tarihi göstergenin yanında belirtilir.
+        </p>
+        <h2>Haberler nasıl yazılıyor?</h2>
+        <p>
+          Haberlerimiz yapay zekâ ile otomatik yazılır ve otomatik denetimden geçer; tek tek insan onayından geçmez. Suç
+          ve yargı süreçlerinde özel kişiler, çocuklar, intihar ve kendine zarar, terör, savaş taraflarının dili, gruplar
+          hakkında genelleme, yatırım tavsiyesi niteliği taşıyan ifadeler ve tek bir yayına ait özel haberler gibi hassas
+          konular otomatik olarak yayımlanmaz. Her haberin sonunda yapay zekâ notu ve "Hata bildir" bağlantısı vardır.
+        </p>
+        <h2>{YASAL_UYARI_BASLIK}</h2>
+        <p>{YASAL_UYARI}</p>
+        <p>{YASAL_UYARI_EK}</p>
+        <h2>Yayın İlkeleri</h2>
+        <p>
+          Editoryal bağımsızlık, yapay zekâ kullanımı ve şeffaflık ilkelerimiz için <a href="/yayin-ilkeleri/">Yayın İlkeleri</a>;
+          künye ve yasal bilgiler için <a href="/yasal/">Yasal Bilgilendirme</a>; hata ve düzeltme süreci için
+          <a href="/duzeltme-politikasi/">Düzeltme Politikası</a> ve <a href="/duzeltmeler/">Düzeltmeler</a> sayfalarına
+          bakabilirsiniz.
+        </p>
+        <h2 id="kunye">Künye</h2>
+        <p>
+          <strong>Yayın adı:</strong> {SITE.name}<br />
+          <strong>Yayın yönetmeni:</strong> <a href={YAZAR.yol}>{YAZAR.ad}</a><br />
+          <strong>Yayın türü:</strong> Çevrim içi haber ve bilgilendirme yayını<br />
+          <strong>E-posta:</strong> <a href="mailto:contact@finfolis.com">contact@finfolis.com</a>
+        </p>
+        <p>Tam künye ve yasal bilgiler: <a href="/yasal/">Yasal Bilgilendirme</a>.</p>
+        <h2>İletişim</h2>
+        <p>
+          Haber önerileriniz için <a href="mailto:contact@finfolis.com">contact@finfolis.com</a> adresine yazabilirsiniz.
+          Hata ve düzeltme bildirimleri için her haberin sonundaki "Hata bildir" bağlantısını ya da
+          <a href="/duzeltme-politikasi/">Düzeltme Politikası</a> sayfasını kullanın.
+        </p>
+        {SITE.social.telegram && (
+          <p>
+            Yeni haberleri <a href={SITE.social.telegram} rel="noopener" target="_blank">Telegram kanalımızdan</a> da
+            takip edebilirsiniz.
+          </p>
+        )}
+      </div>
+    </article>
+  </div>
+</Base>

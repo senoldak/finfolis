@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="isokur.xsl"?>
+<Tarih_Date Tarih="15.10.2026" Date="10/15/2026"  Bulten_No="2026/195" >
+	<Currency CrossOrder="0" Kod="USD" CurrencyCode="USD">
+			<Unit>1</Unit>
+			<Isim>ABD DOLARI</Isim>
+			<CurrencyName>US DOLLAR</CurrencyName>
+			<ForexBuying>49.3315</ForexBuying>
+			<ForexSelling>49.4204</ForexSelling>
+			<BanknoteBuying>49.2970</BanknoteBuying>
+			<BanknoteSelling>49.4945</BanknoteSelling>
+			<CrossRateUSD/>
+			<CrossRateOther/>
+	</Currency>
+	<Currency CrossOrder="9" Kod="EUR" CurrencyCode="EUR">
+			<Unit>1</Unit>
+			<Isim>EURO</Isim>
+			<CurrencyName>EURO</CurrencyName>
+			<ForexBuying>55.3113</ForexBuying>
+			<ForexSelling>55.4110</ForexSelling>
+			<BanknoteBuying>55.2726</BanknoteBuying>
+			<BanknoteSelling>55.4941</BanknoteSelling>
+				<CrossRateUSD/>
+				<CrossRateOther>1.1212</CrossRateOther>
+	</Currency>
+	<Currency CrossOrder="11" Kod="JPY" CurrencyCode="JPY">
+			<Unit>100</Unit>
+			<Isim>JAPON YENİ</Isim>
+			<CurrencyName>JAPENESE YEN</CurrencyName>
+			<ForexBuying>31.1708</ForexBuying>
+			<ForexSelling>31.3772</ForexSelling>
+			<BanknoteBuying>30.9733</BanknoteBuying>
+			<BanknoteSelling>31.4874</BanknoteSelling>
+	</Currency>
+	<Currency CrossOrder="21" Kod="XDR" CurrencyCode="XDR">
+			<Unit>1</Unit>
+			<Isim>ÖZEL ÇEKME HAKKI (SDR)                            </Isim>
+			<CurrencyName>SPECIAL DRAWING RIGHT (SDR)                       </CurrencyName>
+			<ForexBuying>67.4021</ForexBuying>
+			<ForexSelling></ForexSelling>
+			<BanknoteBuying></BanknoteBuying>
+			<BanknoteSelling></BanknoteSelling>
+	</Currency>
+</Tarih_Date>

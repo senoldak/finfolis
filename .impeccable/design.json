@@ -1,0 +1,448 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-15T09:18:03.336Z",
+  "title": "Design System: finfolis",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Newsprint",
+        "canonical": "#f4f3ee",
+        "oklch": "oklch(96.4% 0.007 97)",
+        "tonalRamp": [
+          "oklch(15% 0.007 97)",
+          "oklch(25% 0.007 97)",
+          "oklch(35% 0.007 97)",
+          "oklch(45% 0.007 97)",
+          "oklch(55% 0.007 97)",
+          "oklch(65% 0.007 97)",
+          "oklch(80% 0.007 97)",
+          "oklch(95% 0.007 97)"
+        ]
+      },
+      "paper-2": {
+        "role": "neutral",
+        "displayName": "Folded Newsprint",
+        "canonical": "#e9e7df",
+        "oklch": "oklch(92.7% 0.011 95)",
+        "tonalRamp": [
+          "oklch(15% 0.011 95)",
+          "oklch(25% 0.011 95)",
+          "oklch(35% 0.011 95)",
+          "oklch(45% 0.011 95)",
+          "oklch(55% 0.011 95)",
+          "oklch(65% 0.011 95)",
+          "oklch(80% 0.011 95)",
+          "oklch(95% 0.011 95)"
+        ]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Press Black",
+        "canonical": "#1b1b1b",
+        "oklch": "oklch(22.2% 0.000 90)",
+        "tonalRamp": [
+          "oklch(15% 0.000 90)",
+          "oklch(25% 0.000 90)",
+          "oklch(35% 0.000 90)",
+          "oklch(45% 0.000 90)",
+          "oklch(55% 0.000 90)",
+          "oklch(65% 0.000 90)",
+          "oklch(80% 0.000 90)",
+          "oklch(95% 0.000 90)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Soft Ink",
+        "canonical": "#3d3c38",
+        "oklch": "oklch(35.6% 0.007 95)",
+        "tonalRamp": [
+          "oklch(15% 0.007 95)",
+          "oklch(25% 0.007 95)",
+          "oklch(35% 0.007 95)",
+          "oklch(45% 0.007 95)",
+          "oklch(55% 0.007 95)",
+          "oklch(65% 0.007 95)",
+          "oklch(80% 0.007 95)",
+          "oklch(95% 0.007 95)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Pencil Grey",
+        "canonical": "#5d5b55",
+        "oklch": "oklch(47.1% 0.010 92)",
+        "tonalRamp": [
+          "oklch(15% 0.010 92)",
+          "oklch(25% 0.010 92)",
+          "oklch(35% 0.010 92)",
+          "oklch(45% 0.010 92)",
+          "oklch(55% 0.010 92)",
+          "oklch(65% 0.010 92)",
+          "oklch(80% 0.010 92)",
+          "oklch(95% 0.010 92)"
+        ]
+      },
+      "hair": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#cfccc2",
+        "oklch": "oklch(84.5% 0.014 93)",
+        "tonalRamp": [
+          "oklch(15% 0.014 93)",
+          "oklch(25% 0.014 93)",
+          "oklch(35% 0.014 93)",
+          "oklch(45% 0.014 93)",
+          "oklch(55% 0.014 93)",
+          "oklch(65% 0.014 93)",
+          "oklch(80% 0.014 93)",
+          "oklch(95% 0.014 93)"
+        ]
+      },
+      "red": {
+        "role": "secondary",
+        "displayName": "Isotype Red (fill, Borsa)",
+        "canonical": "#c43d2b",
+        "oklch": "oklch(55.4% 0.175 31)",
+        "tonalRamp": [
+          "oklch(15% 0.175 31)",
+          "oklch(25% 0.175 31)",
+          "oklch(35% 0.175 31)",
+          "oklch(45% 0.175 31)",
+          "oklch(55% 0.175 31)",
+          "oklch(65% 0.175 31)",
+          "oklch(80% 0.175 31)",
+          "oklch(95% 0.030 31)"
+        ]
+      },
+      "red-text": {
+        "role": "secondary",
+        "displayName": "Isotype Red (text)",
+        "canonical": "#b2351f",
+        "oklch": "oklch(51.4% 0.165 32)",
+        "tonalRamp": [
+          "oklch(15% 0.165 32)",
+          "oklch(25% 0.165 32)",
+          "oklch(35% 0.165 32)",
+          "oklch(45% 0.165 32)",
+          "oklch(55% 0.165 32)",
+          "oklch(65% 0.165 32)",
+          "oklch(80% 0.165 32)",
+          "oklch(95% 0.030 32)"
+        ]
+      },
+      "blue": {
+        "role": "secondary",
+        "displayName": "Signal Blue (fill and text, Piyasalar)",
+        "canonical": "#2e5d8a",
+        "oklch": "oklch(46.7% 0.090 249)",
+        "tonalRamp": [
+          "oklch(15% 0.090 249)",
+          "oklch(25% 0.090 249)",
+          "oklch(35% 0.090 249)",
+          "oklch(45% 0.090 249)",
+          "oklch(55% 0.090 249)",
+          "oklch(65% 0.090 249)",
+          "oklch(80% 0.090 249)",
+          "oklch(95% 0.030 249)"
+        ]
+      },
+      "ochre": {
+        "role": "secondary",
+        "displayName": "Bullion Ochre (fill, Döviz & Altın)",
+        "canonical": "#e0b43a",
+        "oklch": "oklch(78.9% 0.142 88)",
+        "tonalRamp": [
+          "oklch(15% 0.142 88)",
+          "oklch(25% 0.142 88)",
+          "oklch(35% 0.142 88)",
+          "oklch(45% 0.142 88)",
+          "oklch(55% 0.142 88)",
+          "oklch(65% 0.142 88)",
+          "oklch(80% 0.142 88)",
+          "oklch(95% 0.030 88)"
+        ]
+      },
+      "ochre-text": {
+        "role": "secondary",
+        "displayName": "Bullion Ochre (text)",
+        "canonical": "#80600c",
+        "oklch": "oklch(50.8% 0.100 85)",
+        "tonalRamp": [
+          "oklch(15% 0.100 85)",
+          "oklch(25% 0.100 85)",
+          "oklch(35% 0.100 85)",
+          "oklch(45% 0.100 85)",
+          "oklch(55% 0.100 85)",
+          "oklch(65% 0.100 85)",
+          "oklch(80% 0.100 85)",
+          "oklch(95% 0.030 85)"
+        ]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "Ledger Green (fill, Kişisel Finans)",
+        "canonical": "#3f7350",
+        "oklch": "oklch(50.9% 0.079 153)",
+        "tonalRamp": [
+          "oklch(15% 0.079 153)",
+          "oklch(25% 0.079 153)",
+          "oklch(35% 0.079 153)",
+          "oklch(45% 0.079 153)",
+          "oklch(55% 0.079 153)",
+          "oklch(65% 0.079 153)",
+          "oklch(80% 0.079 153)",
+          "oklch(95% 0.030 153)"
+        ]
+      },
+      "green-text": {
+        "role": "secondary",
+        "displayName": "Ledger Green (text)",
+        "canonical": "#3a6b4a",
+        "oklch": "oklch(48.3% 0.076 153)",
+        "tonalRamp": [
+          "oklch(15% 0.076 153)",
+          "oklch(25% 0.076 153)",
+          "oklch(35% 0.076 153)",
+          "oklch(45% 0.076 153)",
+          "oklch(55% 0.076 153)",
+          "oklch(65% 0.076 153)",
+          "oklch(80% 0.076 153)",
+          "oklch(95% 0.030 153)"
+        ]
+      },
+      "brown": {
+        "role": "secondary",
+        "displayName": "Earth Brown (fill, Ekonomi)",
+        "canonical": "#8b5a3c",
+        "oklch": "oklch(51.5% 0.078 52)",
+        "tonalRamp": [
+          "oklch(15% 0.078 52)",
+          "oklch(25% 0.078 52)",
+          "oklch(35% 0.078 52)",
+          "oklch(45% 0.078 52)",
+          "oklch(55% 0.078 52)",
+          "oklch(65% 0.078 52)",
+          "oklch(80% 0.078 52)",
+          "oklch(95% 0.030 52)"
+        ]
+      },
+      "brown-text": {
+        "role": "secondary",
+        "displayName": "Earth Brown (text)",
+        "canonical": "#83533a",
+        "oklch": "oklch(49.0% 0.075 48)",
+        "tonalRamp": [
+          "oklch(15% 0.075 48)",
+          "oklch(25% 0.075 48)",
+          "oklch(35% 0.075 48)",
+          "oklch(45% 0.075 48)",
+          "oklch(55% 0.075 48)",
+          "oklch(65% 0.075 48)",
+          "oklch(80% 0.075 48)",
+          "oklch(95% 0.030 48)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Manşet and article headlines (Literata 600)."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Indicator values; Jost 700 with tabular numerals."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "List-row headlines."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default reading text."
+      },
+      "prose": {
+        "displayName": "Prose",
+        "purpose": "Article body inside a 720px column."
+      },
+      "section-label": {
+        "displayName": "Section label",
+        "purpose": "Uppercase tracked section heads and indicator names."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav, künye, legends, dates, data notes."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "iso-count-in",
+        "value": "0.42s cubic-bezier(0.16, 1, 0.3, 1) both; 26ms stagger per pictogram; comparison row +380ms; from opacity 0, translateY(4px) scale(0.7)",
+        "purpose": "Pictograms count in one by one on first load; static under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "masthead-date-hidden",
+        "value": "1440px"
+      },
+      {
+        "name": "nav-wraps",
+        "value": "1240px"
+      },
+      {
+        "name": "indicator-rows",
+        "value": "1100px"
+      },
+      {
+        "name": "single-column-front",
+        "value": "900px"
+      },
+      {
+        "name": "mobile",
+        "value": "700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Category Nav",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Masthead category links led by the category pictogram in its ink; 4px category-ink underline on hover and current page.",
+      "html": "<nav class=\"ds-nav\"><a href=\"#\" class=\"ds-ink-red\" aria-current=\"page\"><svg viewBox=\"0 0 24 24\"><path d=\"M2 21V11l5 3v-3l5 3v-3l5 3V3h3.5v18Z\"/></svg>Borsa</a><a href=\"#\" class=\"ds-ink-ochre\"><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg>Döviz &amp; Altın</a><a href=\"#\" class=\"ds-ink-black\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 2 21 7v10l-9 5-9-5V7Z\"/></svg>Kripto</a></nav>",
+      "css": ".ds-nav{display:flex;gap:24px;border-bottom:4px solid var(--ink,#1b1b1b);background:var(--paper,#f4f3ee);padding-top:12px}.ds-ink-red{--c:var(--red,#c43d2b)}.ds-ink-ochre{--c:var(--ochre,#e0b43a)}.ds-ink-black{--c:var(--ink,#1b1b1b)}.ds-nav a{display:flex;align-items:center;gap:8px;padding:0 0 16px;margin-bottom:-4px;border-bottom:4px solid transparent;font-family:Jost,Futura,'Century Gothic',sans-serif;font-weight:500;font-size:.92rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink,#1b1b1b);text-decoration:none}.ds-nav a:hover{border-bottom-color:var(--c)}.ds-nav a:focus-visible{outline:2px solid var(--ink,#1b1b1b);outline-offset:3px}.ds-nav a[aria-current=page]{border-bottom-color:var(--c);font-weight:700}.ds-nav svg{width:16px;height:16px;fill:var(--c)}"
+    },
+    {
+      "name": "Isotype Indicator",
+      "kind": "custom",
+      "refersTo": "indicator-value",
+      "description": "Signature: value with triangle change mark, a full-ink today row and a 0.38-opacity comparison row of identical pictograms in groups of ten, fractional last pictogram cropped by viewBox, legend stating the unit.",
+      "html": "<article class=\"ds-gosterge\"><h3>Gram altın</h3><p class=\"ds-deger\">5.214 TL <span class=\"ds-change\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 4 22 20H2Z\"/></svg>%0,8</span></p><p class=\"ds-dt\">Bugün</p><span class=\"ds-iso\"><span class=\"ds-grup\"><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg></span><span class=\"ds-grup\"><svg viewBox=\"0 0 10 24\" class=\"ds-kesir\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg></span></span><p class=\"ds-dt\">Bir yıl önce <b>2.900 TL</b></p><span class=\"ds-iso ds-soluk\"><span class=\"ds-grup\"><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg><svg viewBox=\"0 0 19 24\" class=\"ds-kesir19\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg></span></span><p class=\"ds-lejant\"><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg>= 500 TL</p></article>",
+      "css": ".ds-gosterge{--c:var(--ochre,#e0b43a);background:var(--paper,#f4f3ee);color:var(--ink,#1b1b1b);padding:24px}.ds-gosterge h3{margin:0;font:700 .95rem Jost,Futura,sans-serif;text-transform:uppercase;letter-spacing:.1em}.ds-deger{display:flex;align-items:baseline;gap:14px;margin:4px 0 14px;font:700 2.3rem/1.05 Jost,Futura,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.01em}.ds-change{display:inline-flex;align-items:center;gap:4px;font:500 1.05rem Jost,sans-serif;color:var(--ink-2,#3d3c38)}.ds-change svg{width:.62em;height:.62em;fill:currentColor}.ds-dt{margin:10px 0 4px;font:500 .8rem Jost,sans-serif;color:var(--muted,#5d5b55);text-transform:uppercase;letter-spacing:.08em}.ds-dt b{color:var(--ink-2,#3d3c38);text-transform:none;letter-spacing:0;font-weight:500}.ds-iso{display:flex;flex-wrap:wrap;gap:6px 10px;fill:var(--c)}.ds-soluk{opacity:.38}.ds-grup{display:flex;gap:2px}.ds-iso svg{height:22px;width:22px}.ds-iso svg.ds-kesir{width:9.2px}.ds-iso svg.ds-kesir19{width:17.4px}.ds-lejant{display:flex;align-items:center;gap:6px;margin:14px 0 0;font:500 .85rem Jost,sans-serif;color:var(--muted,#5d5b55)}.ds-lejant svg{width:14px;height:14px;fill:var(--c)}@media (prefers-reduced-motion:no-preference){.ds-iso svg{animation:ds-bas .42s cubic-bezier(.16,1,.3,1) both}.ds-soluk svg{animation-delay:380ms}}@keyframes ds-bas{from{opacity:0;transform:translateY(4px) scale(.7)}}"
+    },
+    {
+      "name": "Section Head",
+      "kind": "custom",
+      "refersTo": "section-head",
+      "description": "Uppercase Jost label with the category pictogram over a 4px rule in the category ink (ink by default).",
+      "html": "<h2 class=\"ds-bolum\"><svg viewBox=\"0 0 24 24\"><path d=\"M2 21V11l5 3v-3l5 3v-3l5 3V3h3.5v18Z\"/></svg>Borsa</h2>",
+      "css": ".ds-bolum{--c:var(--red,#c43d2b);display:flex;align-items:center;gap:10px;margin:0;padding-bottom:10px;border-bottom:4px solid var(--c);font:700 1.05rem Jost,Futura,sans-serif;text-transform:uppercase;letter-spacing:.1em;color:var(--ink,#1b1b1b)}.ds-bolum svg{width:20px;height:20px;fill:var(--c)}"
+    },
+    {
+      "name": "News Row",
+      "kind": "card",
+      "refersTo": "news-row",
+      "description": "Ruled list row: Literata headline, spot, künye line with category pictogram (fill ink) and name (text ink), then date. Complete without an image.",
+      "html": "<article class=\"ds-satir\"><h3><a href=\"#\">Gram altın bir yılda yüzde 80 yükseldi</a></h3><p>Ons fiyatındaki artış ve kur birlikte yükselişi taşıdı.</p><p class=\"ds-kunye\"><a href=\"#\" class=\"ds-kat\"><svg viewBox=\"0 0 24 24\"><path d=\"M6.5 6h11l2 5h-15Z\"/><path d=\"M3.8 12.5h16.4l2.3 6H1.5Z\"/></svg>Döviz &amp; Altın</a><time>9 Ekim 2026 20:00</time></p></article>",
+      "css": ".ds-satir{padding:16px 0 18px;border-bottom:1px solid var(--hair,#cfccc2);background:var(--paper,#f4f3ee);color:var(--ink,#1b1b1b);font-family:Literata,Georgia,serif}.ds-satir h3{margin:0 0 6px;font-weight:600;font-size:1.18rem;line-height:1.3}.ds-satir a{color:inherit;text-decoration:none}.ds-satir a:hover{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.18em}.ds-satir a:focus-visible{outline:2px solid var(--ink,#1b1b1b);outline-offset:3px}.ds-satir>p:not(.ds-kunye){margin:0 0 10px;color:var(--ink-2,#3d3c38);font-size:.98rem;line-height:1.5}.ds-kunye{display:flex;gap:14px;align-items:center;margin:0;font:.85rem Jost,sans-serif;color:var(--muted,#5d5b55)}.ds-satir .ds-kat{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ochre-text,#80600c)}.ds-kat svg{width:14px;height:14px;fill:var(--ochre,#e0b43a)}"
+    },
+    {
+      "name": "Breaking Strip",
+      "kind": "custom",
+      "refersTo": "breaking-label",
+      "description": "Reversed ink label for the strip (not a heading kicker) followed by headlines, closed by a 1px ink rule.",
+      "html": "<div class=\"ds-sd\"><span class=\"ds-sd-etiket\">Son dakika</span><a href=\"#\">finfolis yayında</a></div>",
+      "css": ".ds-sd{display:flex;align-items:center;gap:18px;padding:8px 0;border-bottom:1px solid var(--ink,#1b1b1b);background:var(--paper,#f4f3ee);font:500 1rem Jost,sans-serif}.ds-sd-etiket{background:var(--ink,#1b1b1b);color:var(--paper,#f4f3ee);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.1em;padding:6px 10px}.ds-sd a{color:var(--ink,#1b1b1b);text-decoration:none}.ds-sd a:hover{text-decoration:underline;text-underline-offset:.18em}.ds-sd a:focus-visible{outline:2px solid var(--ink,#1b1b1b);outline-offset:3px}"
+    },
+    {
+      "name": "Indicator Table",
+      "kind": "custom",
+      "description": "Ruled table of other indicators: ink pictogram, uppercase sortable name, bold tabular value, year-ago value, yearly and daily triangle change marks in soft ink, hairline rows.",
+      "html": "<table class=\"ds-cizelge\"><thead><tr><th scope=\"col\"><button type=\"button\" class=\"ds-sirala\">Gösterge</button></th><th scope=\"col\" class=\"ds-n\"><button type=\"button\" class=\"ds-sirala\">Değer</button></th><th scope=\"col\" class=\"ds-n\"><button type=\"button\" class=\"ds-sirala\">Bir yıl önce</button></th><th scope=\"col\" class=\"ds-n\"><button type=\"button\" class=\"ds-sirala\">Yıllık</button></th><th scope=\"col\" class=\"ds-n\"><button type=\"button\" class=\"ds-sirala\">Günlük</button></th></tr></thead><tbody><tr><th scope=\"row\"><svg viewBox=\"0 0 24 24\"><path d=\"M2 21V11l5 3v-3l5 3v-3l5 3V3h3.5v18Z\"/></svg>BIST 100</th><td class=\"ds-v\">10.482</td><td class=\"ds-n\">9.120</td><td class=\"ds-n\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 4 22 20H2Z\"/></svg>%14,9</td><td class=\"ds-c\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 4 22 20H2Z\"/></svg>%1,2</td></tr><tr><th scope=\"row\"><svg viewBox=\"0 0 24 24\"><path d=\"M5 2h14v20H5Z\"/></svg>Brent petrol</th><td class=\"ds-v\">$64,1</td><td class=\"ds-n\">$71,3</td><td class=\"ds-n\"><svg viewBox=\"0 0 24 24\"><path d=\"M2 4h20L12 20Z\"/></svg>%10,1</td><td class=\"ds-c\"><svg viewBox=\"0 0 24 24\"><path d=\"M2 4h20L12 20Z\"/></svg>%1,4</td></tr></tbody></table>",
+      "css": ".ds-cizelge{width:100%;border-collapse:collapse;font-family:Jost,sans-serif;font-variant-numeric:tabular-nums;background:var(--paper,#f4f3ee);color:var(--ink,#1b1b1b)}.ds-cizelge th,.ds-cizelge td{padding:10px 0;border-bottom:1px solid var(--hair,#cfccc2)}.ds-cizelge th{text-align:left;font-weight:500;font-size:.9rem;text-transform:uppercase;letter-spacing:.06em}.ds-cizelge th svg{width:18px;height:18px;fill:var(--ink,#1b1b1b);vertical-align:-3px;margin-right:10px}.ds-sirala{all:unset;cursor:pointer;font:inherit;text-transform:inherit;letter-spacing:inherit;color:inherit;border-bottom:1px solid transparent}.ds-sirala:hover,.ds-sirala:focus-visible{border-bottom-color:var(--ink,#1b1b1b)}.ds-v{text-align:right;font-weight:700;font-size:1.05rem}.ds-n{text-align:right;white-space:nowrap;font-size:.95rem}.ds-c{text-align:right;width:84px;font-size:.88rem;color:var(--ink-2,#3d3c38);font-weight:500}.ds-c svg,.ds-n svg{width:.62em;height:.62em;fill:currentColor;margin-right:4px}"
+    },
+    {
+      "name": "Disclaimer Box",
+      "kind": "card",
+      "refersTo": "disclaimer-box",
+      "description": "Square 1px ink box under every article carrying the not-investment-advice notice.",
+      "html": "<p class=\"ds-tavsiye\"><strong>Yatırım tavsiyesi değildir.</strong> Bu içerik yalnızca bilgilendirme amaçlıdır.</p>",
+      "css": ".ds-tavsiye{margin:0;padding:16px 18px;border:1px solid var(--ink,#1b1b1b);background:var(--paper,#f4f3ee);font:.92rem/1.55 Jost,sans-serif;color:var(--ink-2,#3d3c38)}.ds-tavsiye strong{color:var(--ink,#1b1b1b)}"
+    },
+    {
+      "name": "Sparkline",
+      "kind": "custom",
+      "description": "Ninety-day trend line for currencies: one ink line, no fill, latest point marked in ink. Drawn only from at least seven real points.",
+      "html": "<svg class=\"ds-spark\" viewBox=\"0 0 120 36\" role=\"img\" aria-label=\"Dolar / TL, 90 gün yükseldi\"><path d=\"M3 33 L30 30 L60 22 L90 18 L117 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.25\" stroke-linejoin=\"round\" stroke-linecap=\"round\" vector-effect=\"non-scaling-stroke\"/><circle cx=\"117\" cy=\"6\" r=\"2.25\" fill=\"currentColor\"/></svg>",
+      "css": ".ds-spark{display:block;width:120px;height:36px;overflow:visible;color:var(--ink-2,#3d3c38)}.ds-spark circle{color:var(--ink,#1b1b1b)}"
+    },
+    {
+      "name": "Article Table",
+      "kind": "custom",
+      "description": "Comparison table inside a story: ruled, sans header and first column, right-aligned tabular figures. Drawn only when every number is in the source.",
+      "html": "<table class=\"ds-tablo\"><thead><tr><th scope=\"col\">Ay</th><th scope=\"col\" class=\"ds-n\">Yıllık</th></tr></thead><tbody><tr><th scope=\"row\">Eylül</th><td class=\"ds-n\">yüzde 3,7</td></tr><tr><th scope=\"row\">Ağustos</th><td class=\"ds-n\">yüzde 3,3</td></tr></tbody></table>",
+      "css": ".ds-tablo{width:100%;border-collapse:collapse;font-family:Jost,sans-serif;font-variant-numeric:tabular-nums}.ds-tablo th,.ds-tablo td{padding:10px 0;border-bottom:1px solid var(--hair,#cfccc2);text-align:left}.ds-tablo th{font-weight:500;font-size:.9rem;text-transform:uppercase;letter-spacing:.06em}.ds-n{text-align:right;white-space:nowrap}"
+    },
+    {
+      "name": "Pictogram Chart",
+      "kind": "custom",
+      "description": "Comparison in a story as rows of identical pictograms with a legend; each row ends with its value text.",
+      "html": "<ul class=\"ds-grafik\"><li><span class=\"ds-etiket\">Eylül</span><span class=\"ds-simgeler\">▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲</span><span class=\"ds-deger\">yüzde 3,7</span></li></ul>",
+      "css": ".ds-grafik{list-style:none;margin:0;padding:0}.ds-grafik li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:12px 0;border-bottom:1px solid var(--hair,#cfccc2)}.ds-etiket{grid-column:1/-1;font-family:Jost,sans-serif;font-size:.9rem;text-transform:uppercase;letter-spacing:.06em}.ds-deger{font-family:Jost,sans-serif;font-weight:700;white-space:nowrap}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Statistical Yearbook",
+    "overview": "finfolis is a page of pictorial statistics in the Neurath/Arntz Isotype tradition, printed on neutral paper in black ink plus a few flat inks. A number is shown as a countable row of identical silhouettes (one pictogram equals a stated unit), so a reader counts the day before reading about it. Everything else (the rules, the labels, the reading type) is quiet and typographic, so that the pictograms are the only pictures the system draws.\n\nThe density is a newspaper's: ruled lists, a masthead, a 2/3 + 1/3 front page, with text-only stories treated as the default case, not a fallback. The world is light-only. It is printed paper, and there is deliberately no dark scheme (`color-scheme: light`). It turns down the ticker strip with a photo hero, the dark trading terminal, and red/green alarm signalling. Sister sites tidsrost and kifobu share the code skeleton but must never share this look.",
+    "keyCharacteristics": [
+      "Neutral printed-paper ground, black ink, flat category inks, no gradients.",
+      "Quantity shown as the number of identical pictograms, never as their size.",
+      "Jost (Futura lineage) for labels, numbers and navigation; Literata for headlines and reading.",
+      "Heavy 4px ink rules for structure, 1px rules for everything else.",
+      "Square, flat, and shadowless everywhere."
+    ],
+    "rules": [
+      {
+        "name": "The One Ink, One Meaning Rule",
+        "body": "Every category ink is bound to one category and one pictogram. An ink never appears as decoration, as a background wash, or on a second category.",
+        "section": "colors"
+      },
+      {
+        "name": "The Fill Is Not Text Rule",
+        "body": "Pictograms and rules use the fill token, and type uses the text token. Never set type in the `ochre` fill.",
+        "section": "colors"
+      },
+      {
+        "name": "The No Alarm Rule",
+        "body": "Red and green never encode up or down. Change direction is drawn as a small ink triangle (up, down, or a dash for flat) in `ink-2`, with a screen-reader word (\"yükseldi / düştü / değişmedi\").",
+        "section": "colors"
+      },
+      {
+        "name": "The Sans Counts, Serif Tells Rule",
+        "body": "Anything you count, scan or navigate is set in Jost. Anything you read is set in Literata.",
+        "section": "typography"
+      },
+      {
+        "name": "The No Kicker Rule",
+        "body": "Headings stand alone. No small uppercase line sits above a headline. The category belongs in the künye line below (icon + name + date).",
+        "section": "typography"
+      },
+      {
+        "name": "The Rule Weight Rule",
+        "body": "A 4px rule marks structure: under the masthead, under section heads (in the category ink where there is one), above article heads, and above the footer. A 1px ink rule closes bands. 1px `hair` rules separate rows. Article tables use a single 2px ink rule under their header.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do show quantity as a count of identical pictograms, in groups of ten, cropping the last one for fractions.",
+      "Do pair every pictogram row with a legend stating the unit, and mark sample data \"Örnek veri\" with its as-of time.",
+      "Do use each category's fill token for pictograms and rules and its text token for type.",
+      "Do use 4px ink or category-ink rules for structure and 1px rules elsewhere.",
+      "Do set every figure in Jost with tabular numerals.",
+      "Do give every motion a static `prefers-reduced-motion` fallback.",
+      "Do style through classes in the stylesheet. The CSP forbids inline styles, so no `style` attributes."
+    ],
+    "donts": [
+      "Don't scale a pictogram to show a bigger number, or use pictograms as decoration.",
+      "Don't encode up or down with red or green.",
+      "Don't put kickers or eyebrows above headings.",
+      "Don't use shadows, rounded corners or gradients.",
+      "Don't add a dark scheme. The world is printed paper.",
+      "Don't reassign an ink to a second category or set type in the ochre fill.",
+      "Don't borrow tidsrost or kifobu visual devices. finfolis has no family look."
+    ]
+  }
+}

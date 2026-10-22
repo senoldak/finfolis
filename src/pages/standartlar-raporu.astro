@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import { getNews } from '../lib/news';
+import kaldirilan from '../data/duzeltmeler-kaldirilan.json';
+import sikayetler from '../data/sikayetler.json';
+import { ceyrekSayimlari, raporSatirlari, gunMetni } from '../lib/standartlar-raporu.mjs';
+
+// Defter sayıları src/data/standartlar-raporu/<YYYY>-c<N>.json'dan (çeyrek bitince bot yazar), kalanlar site içeriğinden sayılır.
+const defterler = Object.values(
+  import.meta.glob('../data/standartlar-raporu/*.json', { eager: true, import: 'default' }),
+) as any[];
+defterler.sort((a, b) => String(b.ceyrek).localeCompare(String(a.ceyrek)));
+
+const haberler = await getNews();
+const raporlar = defterler.map((d) =>
+  raporSatirlari(d, ceyrekSayimlari({ haberler, kaldirilan, sikayetler: sikayetler as any, bas: d.bas, son: d.son })),
+);
+const virgul = (liste: { ad: string; n: number }[]) => liste.map((r) => `${r.ad} ${r.n}`).join(', ');
+---
+
+<Base
+  title="Standartlar Raporu"
+  description="finfolis'in yayın ilkelerini üç ayda bir rakamlarla gösteren raporu: yayımlananlar, yayımlanmayanlar, düzeltmeler, şikâyetler."
+>
+  <div class="container">
+    <article class="makale">
+      <header class="makale-bas">
+        <h1>Standartlar Raporu</h1>
+      </header>
+      <div class="prose">
+        <p>
+          Üç ayda bir, yayın ilkelerimizi nasıl uyguladığımızı rakamlarla gösteririz. Rakamlar sitenin kendi
+          kayıtlarından otomatik sayılır.
+        </p>
+
+        {raporlar.length === 0 && <p>İlk rapor Ocak 2027'nin başında yayımlanacak.</p>}
+
+        {
+          raporlar.map((r) => (
+            <section>
+              <h2>
+                {r.baslik} ({r.aralik})
+              </h2>
+
+              <p><strong>Yayımlananlar</strong></p>
+              <ul>
+                <li>Yapay zekâ ile otomatik yazılan haber: {r.bot}</li>
+                <li>
+                  Yayıncının adıyla yayımlanan yazı: {r.yayinci} (yazım ve dil düzeltmesinde yapay zekâ araçları
+                  kullanıldı)
+                </li>
+                {r.zincir > 0 && <li>Yapay zekâ araçlarıyla yazılıp editör onayıyla yayımlanan yazı: {r.zincir}</li>}
+                <li>
+                  Hassas konu olarak işaretlenip yayımlanan haber: {r.sariToplam}
+                  {r.sariKurallar.length > 0 && <> ({virgul(r.sariKurallar)})</>}
+                </li>
+              </ul>
+
+              <p><strong>Yayımlanmayanlar</strong></p>
+              <ul>
+                <li>
+                  Otomatik denetimde yayımlanmayan aday: {r.elendi}.
+                  {r.kirmizi > 0 && (
+                    <>
+                      {' '}Bunlardan hassas konu süzgecine takılan: {r.kirmizi}
+                      {r.kirmiziKurallar.length > 0 && <> ({virgul(r.kirmiziKurallar)})</>}.
+                    </>
+                  )}
+                  {r.kalanElenen > 0 && (
+                    <> (Kalanlar haber değeri, yinelenme ya da yetersiz bilgi gibi nedenlerle elendi.)</>
+                  )}
+                </li>
+              </ul>
+
+              <p><strong>Düzeltmeler ve şikâyetler</strong></p>
+              <ul>
+                <li>
+                  Düzeltme: {r.duzeltme} · Yayından kaldırılan: {r.kaldirilan} (ayrıntı:
+                  <a href="/duzeltmeler/">Düzeltmeler</a> sayfası)
+                </li>
+                <li>
+                  Kayda geçen şikâyet: {r.sikayet.toplam} (yerinde {r.sikayet.yerinde}, kısmen yerinde {r.sikayet.kismen},
+                  yerinde değil {r.sikayet.yerindeDegil})
+                </li>
+              </ul>
+
+              <p><strong>Kurallar ve araçlar</strong></p>
+              <ul>
+                <li>
+                  Hassas konu kurallarında yapılan değişiklik:
+                  {r.kuralDegisiklikleri === null
+                    ? ' kayıt yok'
+                    : ` ${r.kuralDegisiklikleri.length} (${r.kuralDegisiklikleri.map((t: string) => gunMetni(t)).join(', ')})`}
+                </li>
+                <li>
+                  Yapay zekâ kullanımı: haberler Google Gemini modelleriyle yazılır ve denetlenir; bu çeyrekte
+                  {r.geminiCagri} model çağrısı yapıldı.
+                </li>
+              </ul>
+
+              {r.defterGecKaldi && (
+                <p>
+                  Not: Otomatik denetim kaydı {gunMetni(r.defterGecKaldi)} tarihinde başladı; bu çeyreğin
+                  "yayımlanmayanlar" rakamları o tarihten başlar.
+                </p>
+              )}
+            </section>
+          ))
+        }
+      </div>
+    </article>
+  </div>
+</Base>
