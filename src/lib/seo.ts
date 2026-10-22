@@ -2,6 +2,7 @@
 import { SITE } from './site';
 
 export const SITE_URL = 'https://finfolis.com';
+export const ICERIK_LISANSI_URL = 'https://creativecommons.org/licenses/by-nc/4.0/deed.tr';
 export const ORG_ID = `${SITE_URL}/#organization`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const LOGO_URL = `${SITE_URL}/favicon-512.png`;

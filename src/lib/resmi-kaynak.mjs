@@ -1,6 +1,6 @@
 // Haberin altındaki "Resmî kaynak" satırı. Yalnız resmî kurumların kendi alan adlarındaki bağlantılar gösterilir
-// (izin listesi; bilinmeyen alan adı gösterilmez). Medya kaynağı izi (kaynakIzi) taşıyan haberde satır hiç çıkmaz:
-// medya kaynaklı ya da karma habere kaynak bağlantısı ve adı eklenmez.
+// (izin listesi; bilinmeyen alan adı gösterilmez). Medya kaynağı izi (kaynakIzi) taşıyan haberde resmî satır çıkmaz;
+// onun yerine adsız kaynak satırı (adsizKaynakSatiri) gösterilir: kaynak bağlantısı ve adı eklenmez.
 const RESMI_ALANLAR = [
   'tcmb.gov.tr', 'tuik.gov.tr', 'spk.gov.tr', 'bddk.org.tr', 'kap.org.tr', 'hmb.gov.tr', 'resmigazete.gov.tr',
   'sec.gov', 'federalreserve.gov', 'newyorkfed.org', 'treasury.gov', 'bls.gov', 'bea.gov',
@@ -29,4 +29,13 @@ export function resmiKaynaklar(veri) {
     sonuc.push({ ad: String(k.ad), url });
   }
   return sonuc;
+}
+
+// Medya kaynaklı haberde (kaynakIzi dolu) resmî satırın yerine geçen adsız satır. Bülten karma kaynaklıdır.
+// Kaynakİzi yoksa null (resmî kaynaklı haber ve sahibin adıyla çıkan yazılarda satır değişmez).
+export function adsizKaynakSatiri(veri) {
+  if (!(typeof veri?.kaynakIzi === 'string' && veri.kaynakIzi.trim())) return null;
+  return veri.tur === 'bulten'
+    ? 'Kaynak: resmî veriler ve birden fazla bağımsız yayın organının haberleri (adları verilmez).'
+    : 'Kaynak: birden fazla bağımsız yayın organının haberleri (adları verilmez).';
 }

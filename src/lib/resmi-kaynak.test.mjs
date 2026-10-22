@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { resmiKaynaklar } from './resmi-kaynak.mjs';
+import { resmiKaynaklar, adsizKaynakSatiri } from './resmi-kaynak.mjs';
 
 test('resmî kurum bağlantısı gösterilir', () => {
   assert.deepEqual(resmiKaynaklar({ kaynaklar: [{ ad: 'TCMB', url: 'https://www.tcmb.gov.tr/wps/wcm/connect/TR/ppk' }] }), [
@@ -30,4 +30,22 @@ test('aracı veri servisi kurumun sayfasına bağlanır; aynı adres bir kez', (
   });
   assert.equal(r.length, 1);
   assert.match(r[0].url, /^https:\/\/www\.ecb\.europa\.eu\//);
+});
+
+test('medya kaynaklı haberde adsız kaynak satırı; bültende karma satır', () => {
+  assert.equal(
+    adsizKaynakSatiri({ kaynakIzi: 'v1.abc' }),
+    'Kaynak: birden fazla bağımsız yayın organının haberleri (adları verilmez).',
+  );
+  assert.equal(
+    adsizKaynakSatiri({ kaynakIzi: 'v1.abc', tur: 'bulten' }),
+    'Kaynak: resmî veriler ve birden fazla bağımsız yayın organının haberleri (adları verilmez).',
+  );
+});
+
+test('kaynakIzi yoksa adsız satır yok (resmî kaynaklı haber, sahibin yazısı)', () => {
+  assert.equal(adsizKaynakSatiri({ kaynaklar: [{ ad: 'TCMB', url: 'https://www.tcmb.gov.tr/' }] }), null);
+  assert.equal(adsizKaynakSatiri({ kaynakIzi: '  ' }), null);
+  assert.equal(adsizKaynakSatiri({ tur: 'bulten' }), null);
+  assert.equal(adsizKaynakSatiri(undefined), null);
 });
