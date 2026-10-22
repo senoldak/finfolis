@@ -122,3 +122,28 @@ test('rakamlar: Türkçe biçim İngilizceyle aynı anahtara çevrilir', () => {
   assert.deepEqual([...rakamlar('yüzde 3,1 büyüme ve 1,2 milyar dolar')].sort(), ['1.2 billion', '3.1 %']);
   assert.deepEqual([...rakamlar('growth of 3.1% and $1.2 billion')].sort(), ['1.2 billion', '3.1 %']);
 });
+
+// 21-22.10.2026: Meta'nın üçüncü çeyrek bilançosu dört ayrı haber oldu (sonuç, kâr, "hisse yükseldi", "değer kaybetti").
+test('aynı şirketin bilançosu 48 saat içinde farklı başlık ve rakamla gelse de tekrar sayılır', () => {
+  const ilk = kayit('meta-gelir', [aday('Meta Q3 revenue rises 26% to $64.6 billion as AI spending climbs', 'Meta Platforms reported third-quarter revenue of $64.60 billion.')], 20);
+  const adaylar = [
+    aday('Meta shares jump after-hours as AI agent Muse draws investor interest', 'Shares of Meta rose more than 4% in extended trading after the company reported earnings.'),
+    aday('Meta stock falls as free cash flow turns negative', 'Meta shares fell 6% Thursday after the third-quarter results showed higher capital spending.'),
+  ];
+  for (const a of adaylar) assert.deepEqual(tekrarBul(olay('m', a), [ilk], simdi), { slug: 'meta-gelir', neden: 'şirket+olay' });
+  // Türkçe tohum kaydı da İngilizce adayı yakalar.
+  const tohum = { ...kayit('meta-tr', [aday('Meta üçüncü çeyrekte gelirini artırdı', 'Meta Platforms, üçüncü çeyrekte geliri yüzde 26 artırdı.')], 20), tohum: true };
+  assert.equal(tekrarBul(olay('m', adaylar[1]), [tohum], simdi)?.slug, 'meta-tr');
+});
+
+test('şirket+olay kuralı: 48 saati geçen, başka şirket ya da başka türdeki haber tekrar sayılmaz', () => {
+  const a = aday('Meta stock falls as free cash flow turns negative', 'Meta shares fell 6% after the third-quarter results.');
+  const bilanco = [aday('Meta Q3 revenue rises 26%', 'Meta Platforms reported third-quarter revenue.')];
+  assert.equal(tekrarBul(olay('m', a), [kayit('eski', bilanco, 60)], simdi), null); // 72 saat içinde ama 48'i geçti
+  assert.equal(tekrarBul(olay('m', aday('Tesla stock falls after quarterly results', 'Tesla shares fell 5% after earnings.')), [kayit('meta', bilanco, 5)], simdi), null);
+  assert.equal(tekrarBul(olay('m', aday('Meta unveils new AI model Muse Wonder', 'Meta launched Muse Wonder for its assistants.')), [kayit('meta', bilanco, 5)], simdi), null);
+  // Başka şirketin bilançosu özette Meta'yı ansa da tekrar sayılmaz (şirket yalnız başlıktan okunur).
+  assert.equal(tekrarBul(olay('m', aday('Alphabet beats quarterly estimates on cloud growth', 'Alphabet outpaced rivals Meta and Microsoft in third-quarter results.')), [kayit('meta', bilanco, 5)], simdi), null);
+  // Başlığı "Stocks"/"Shares" ile başlayan iki farklı şirketin bilançosu şirket anahtarı sayılmaz.
+  assert.equal(tekrarBul(olay('m', aday('Stocks slide after Nike earnings', 'Nike shares fell.')), [kayit('x', [aday('Stocks rise after Tesla earnings', 'Tesla shares rose.')], 5)], simdi), null);
+});

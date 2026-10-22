@@ -9,6 +9,8 @@ import path from 'node:path';
 import { readdir, readFile } from 'node:fs/promises';
 
 export const TEKRAR_SAAT = 72;
+// Şirket + olay türü kuralının (bkz. ayniSirketOlayi) penceresi: aynı şirketin bilançosu 48 saat içinde ikinci kez yazılmaz.
+export const SIRKET_OLAY_SAAT = 48;
 
 const DURAK = new Set(
   `a an the and or of to in on for at by with from as into over after before about amid than that this these those its it
@@ -103,10 +105,30 @@ const ortaklik = (a, b) => {
   return o ? o / Math.min(a.size, b.size) : 0;
 };
 
+// Şirket olayı türleri (Türkçe ve İngilizce): aynı şirketin aynı türde iki haberi tek olaydır. Şimdilik yalnız bilanço
+// (çeyrek sonucu, ardından gelen hisse tepkisi, beklenti aşımı); kural kasıtlı dar tutulur.
+const OLAY_TURLERI = { bilanco: /\b(?:earnings|quarterly|quarter|q[1-4]|results|eps)\b|çeyrek|bilanço/i };
+
+// Şirket anahtarları yalnız başlıktan: ayırt edici adların ilk kelimesi ("Meta Platforms" → "meta") ve başlığın ilk kelimesi
+// (adlar() cümle başındaki tek kelimeyi atlar). Özet kullanılmaz: bilanço döneminde özet rakip şirketleri de anar.
+const GENEL_ILK = new Set(
+  `stocks, stock, shares, share, markets, market, wall, futures, oil, gold, bitcoin, crypto, tech, bank, banks, why, how, what,
+  here, these, top, big, hisse, hisseleri, borsa, piyasalar, piyasa, altın, petrol, dolar, bitcoin'in`.split(',').map((x) => x.trim()),
+);
+function sirketler(ilk, baslik) {
+  const out = new Set();
+  for (const a of adlar(baslik)) out.add(a.split(' ')[0]);
+  if (ilk.length >= 3 && !DURAK.has(ilk) && !GENEL_AD.has(ilk) && !GENEL_ILK.has(ilk)) out.add(ilk);
+  return out;
+}
+
 // Kaynak metni: {baslik, ozet}. İz bir kez çıkarılır.
 export function iz({ baslik = '', ozet = '' }) {
+  const ilk = kucuk(String(baslik).trim().split(/\s+/)[0] ?? '').replace(/['’]s$/, '');
   return {
-    ilk: kucuk(String(baslik).trim().split(/\s+/)[0] ?? '').replace(/['’]s$/, ''),
+    sirketler: sirketler(ilk, baslik),
+    olayTurleri: new Set(Object.entries(OLAY_TURLERI).filter(([, re]) => re.test(`${baslik} ${ozet}`)).map(([t]) => t)),
+    ilk,
     baslikRakam: rakamlar(baslik),
     baslik: kelimeler(baslik),
     metin: kelimeler(`${baslik} ${ozet}`),
@@ -142,6 +164,12 @@ export function ayniOlay(x, y, { dilAyri = false } = {}) {
   return null;
 }
 
+// Aynı şirket + aynı olay türü (ör. Meta bilançosu): rakam, ad ya da başlık ortaklığı aranmaz. Farklı kaynaklar aynı
+// bilançoyu başka başlık ve rakamla anlatır; sonuç, "hisse yükseldi", "hisse düştü" haberleri de aynı olaydır.
+export function ayniSirketOlayi(x, y) {
+  return ortak(x.sirketler, y.sirketler) >= 1 && ortak(x.olayTurleri, y.olayTurleri) >= 1 ? 'şirket+olay' : null;
+}
+
 const kaynakMetinleri = (o) => (o.adaylar?.length ? o.adaylar : [o]).map((a) => ({ baslik: a.baslik ?? '', ozet: a.ozet ?? '' }));
 
 // Olayın bir adayı hafızadaki (son TEKRAR_SAAT saat) bir yayınla aynı olaysa {slug, neden} döner, yoksa null.
@@ -150,10 +178,11 @@ export function tekrarBul(olay, hafiza = [], simdi = new Date()) {
   const izler = kaynakMetinleri(olay).map(iz);
   for (const h of hafiza) {
     if (!(new Date(h.zaman).getTime() >= sinir)) continue;
+    const yeni48 = new Date(h.zaman).getTime() >= simdi.getTime() - SIRKET_OLAY_SAAT * 3600 * 1000;
     for (const k of h.kaynaklar ?? []) {
       const hi = iz(k);
       for (const x of izler) {
-        const neden = ayniOlay(x, hi, { dilAyri: Boolean(h.tohum) });
+        const neden = ayniOlay(x, hi, { dilAyri: Boolean(h.tohum) }) ?? (yeni48 ? ayniSirketOlayi(x, hi) : null);
         if (neden) return { slug: h.slug, neden };
       }
     }
