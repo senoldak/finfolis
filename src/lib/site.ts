@@ -12,6 +12,8 @@ export const SITE = {
     facebook: '',
     // Haber botunun yazıları gönderdiği kanal (gönderimi mecmua-saat'in D1 kuyruğu yapar).
     telegram: 'https://t.me/finfolis',
+    // Şirket sayfası (urn:li:organization:106661771).
+    linkedin: 'https://www.linkedin.com/company/106661771/',
   },
 };
 
