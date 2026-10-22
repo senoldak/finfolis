@@ -80,6 +80,18 @@ jobs:
 
       # Üretim adımı düşse de (zaman aşımı, motor hatası, beklenmeyen hata) o ana kadar yazılan haberler ve durum dosyası
       # commit edilir (F4); aksi hâlde aynı adaylar sonraki turda Gemini'yi yeniden harcıyordu. İş yine kırmızı biter.
+      # Üç aylık standartlar raporu (yol haritası madde 22): biten çeyreğin ilk 31 gününde defter sayıları bir kez
+      # src/data/standartlar-raporu/<YYYY>-c<N>.json'a yazılır. Hata haber işini düşürmez.
+      - name: Çeyrek standartlar raporu
+        if: ${{ !cancelled() && vars.MOTOR_TUR == '1' }}
+        continue-on-error: true
+        timeout-minutes: 2
+        env:
+          MOTOR_URL: ${{ vars.MOTOR_URL }}
+          MOTOR_ANAHTARI: ${{ secrets.MOTOR_ANAHTARI }}
+          GH_TOKEN: ${{ github.token }}
+        run: node .mecmua/motor/bin/ceyrek-raporu.mjs --site finfolis --dizin src/data/standartlar-raporu --kural scripts/haberler/standart-kurallar.json
+
       - name: Commit
         id: commit
         if: ${{ !cancelled() && steps.hent.outputs.durdu != '1' }}
@@ -88,7 +100,7 @@ jobs:
         run: |
           git config user.name "finfolis-haber-botu"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/content/haberler src/data/piyasa.json src/data/resmi.json scripts/haberler/gorulen.json
+          git add src/content/haberler src/data/piyasa.json src/data/resmi.json scripts/haberler/gorulen.json src/data/standartlar-raporu
           if git diff --cached --quiet; then
             echo "Değişiklik yok."
             exit 0
