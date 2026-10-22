@@ -65,6 +65,8 @@ function veriTarihleri() {
     ['/veri/doviz-kurlari/', t(r.kur)],
     ['/veri/politika-faizi/', t(r.faiz)],
     ['/veri/enflasyon/', t(r.enflasyon)],
+    ['/veri/konut-fiyat-endeksi/', t(r.konut)],
+    ['/veri/issizlik-orani/', t(r.issizlik)],
   ]);
   const hepsi = [...harita.values()].filter(Boolean);
   harita.set('/veri/', hepsi.length ? new Date(Math.max(...hepsi.map(Number))) : undefined);

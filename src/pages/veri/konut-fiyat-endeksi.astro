@@ -1,0 +1,141 @@
+---
+// Konut fiyat endeksi (KFE): TCMB'nin açıkladığı endeks ve yıllık değişim; TCMB EVDS'den.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { RESMI, ayAdi, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const kfe = RESMI.konut;
+const son = kfe?.satirlar.at(-1);
+const ilk = kfe?.satirlar[0];
+const tablo = (kfe?.satirlar ?? []).slice().reverse();
+const iller = (kfe?.bolgeler ?? []).filter((b) => b.kod !== 'TR');
+const yuzde = (n: number) => `%${sayiYaz(n, 1)}`;
+const baslik = 'Konut fiyat endeksi';
+const description =
+  son && kfe
+    ? `TCMB konut fiyat endeksine göre konut fiyatları ${ayAdi(son)} itibarıyla yıllık ${yuzde(son.bolgeler.TR.yillik)} arttı. İstanbul, Ankara ve İzmir ile son 24 ay.`
+    : 'Türkiye konut fiyat endeksi (KFE): TCMB verisiyle yıllık değişim, İstanbul, Ankara ve İzmir.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Konut fiyat endeksi', href: '/veri/konut-fiyat-endeksi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(kfe && son && ilk
+    ? {
+        sayfaEk: { dateModified: kfe.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Türkiye konut fiyat endeksi ve yıllık değişim',
+            description: 'Türkiye Cumhuriyet Merkez Bankası’nın konut fiyat endeksi (KFE): Türkiye, İstanbul, Ankara ve İzmir için aylık endeks düzeyi ve yıllık yüzde değişim, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/konut-fiyat-endeksi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ilk.yil}-${String(ilk.ay).padStart(2, '0')}/${son.yil}-${String(son.ay).padStart(2, '0')}`,
+            dateModified: kfe.alinma,
+            variableMeasured: ['Konut fiyat endeksi', 'Konut fiyat endeksi yıllık değişim (%)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Konut fiyat endeksi: ${son ? `${ayAdi(son)} yıllık değişim` : 'KFE'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Konut fiyatlarındaki değişim · TCMB verisi</p>
+    </header>
+    {
+      son && kfe ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Türkiye, yıllık</dt>
+              <dd>{yuzde(son.bolgeler.TR.yillik)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}</dd>
+            </div>
+            {iller.map((b) => (
+              <div>
+                <dt>{b.ad}, yıllık</dt>
+                <dd>{yuzde(son.bolgeler[b.kod].yillik)}</dd>
+                <dd class="veri-degisim">{ayAdi(son)}</dd>
+              </div>
+            ))}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={kfe.kaynak.url} rel="noopener">{kfe.kaynak.ad}</a>. Yıllık değişimler TCMB’nin
+            kendi hesabıdır. Siteye alındığı zaman: {zamanYaz(kfe.alinma)}.
+          </p>
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 24 ay, yıllık değişim</h2>
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Ay</th>
+                    <th scope="col" class="sag">Endeks</th>
+                    <th scope="col" class="sag">Türkiye</th>
+                    {iller.map((b) => (
+                      <th scope="col" class="sag">{b.ad}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {tablo.map((s) => (
+                    <tr>
+                      <td>{ayAdi(s)}</td>
+                      <td class="sag">{sayiYaz(s.bolgeler.TR.endeks, 2)}</td>
+                      <td class="sag">{yuzde(s.bolgeler.TR.yillik)}</td>
+                      {iller.map((b) => (
+                        <td class="sag">{yuzde(s.bolgeler[b.kod].yillik)}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Konut fiyat endeksi, Türkiye’de satılan konutların fiyatlarındaki genel değişimi izler. TCMB endeksi her ay,
+                bankaların konut kredisi için yaptırdığı değerleme raporlarına dayanarak hesaplar. Endeks düzeyi tek başına
+                bir fiyat değildir; dönemler arasındaki değişimi göstermek için kullanılır.
+              </p>
+              <p>
+                <strong>Yıllık değişim</strong>, endeksin bir önceki yılın aynı ayına göre ne kadar arttığını gösterir. Bu
+                rakam enflasyonu da içerir (nominal değişim). Konut fiyatlarının genel fiyatlara göre nasıl değiştiğini
+                görmek için aynı ayın <a href="/veri/enflasyon/">yıllık enflasyonuna</a> bakabilirsiniz.
+              </p>
+              <p>
+                İstanbul, Ankara ve İzmir için verilen rakamlar TCMB’nin bölge endeksleridir. Endeks yeni yapılan ve
+                ikinci el konutları birlikte kapsar.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Konut fiyat endeksi verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+      <a href="/hesapla/kredi-taksit/">Kredi taksit hesaplama</a>
+      <a href="/veri/issizlik-orani/">İşsizlik oranı</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin açıkladığı resmi rakamlardır; yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>

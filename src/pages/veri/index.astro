@@ -5,8 +5,10 @@ import { KUR_SAYFALARI, RESMI, ayAdi, gunYaz, oranYaz, sayiYaz } from '../../lib
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
-const { kur, faiz, enflasyon } = RESMI;
+const { kur, faiz, enflasyon, konut, issizlik } = RESMI;
 const son = enflasyon?.satirlar.at(-1);
+const konutSon = konut?.satirlar.at(-1);
+const issizlikSon = issizlik?.satirlar.at(-1);
 const satir = (kod: string) => kur?.liste.find((k) => k.kod === kod);
 const ogeler = [
   ...KUR_SAYFALARI.map((s) => ({
@@ -28,6 +30,18 @@ const ogeler = [
     deger: son ? `%${sayiYaz(son.yillik, 2)}` : undefined,
     not: son ? `TÜİK, ${ayAdi(son)}` : undefined,
   },
+  {
+    href: '/veri/konut-fiyat-endeksi/',
+    ad: 'Konut fiyatları (yıllık)',
+    deger: konutSon ? `%${sayiYaz(konutSon.bolgeler.TR.yillik, 1)}` : undefined,
+    not: konutSon ? `TCMB, ${ayAdi(konutSon)}` : undefined,
+  },
+  {
+    href: '/veri/issizlik-orani/',
+    ad: 'İşsizlik oranı',
+    deger: issizlikSon ? `%${sayiYaz(issizlikSon.oran, 1)}` : undefined,
+    not: issizlikSon ? `TÜİK, ${ayAdi(issizlikSon)}` : undefined,
+  },
 ];
 const araclar = [
   { href: '/hesapla/enflasyon/', ad: 'Enflasyon hesaplama', not: 'Paranın değeri TÜFE ile' },
@@ -35,7 +49,7 @@ const araclar = [
   { href: '/hesapla/kredi-taksit/', ad: 'Kredi taksit hesaplama', not: 'Aylık taksit ve toplam geri ödeme' },
 ];
 const description =
-  'Dolar ve euro kuru, politika faizi ve enflasyon: TCMB ve TÜİK’in resmi verileri, tarihleriyle. Enflasyon, mevduat ve kredi hesaplayıcıları.';
+  'Dolar ve euro kuru, politika faizi, enflasyon, konut fiyatları ve işsizlik: TCMB ve TÜİK’in resmi verileri, tarihleriyle. Enflasyon, mevduat ve kredi hesaplayıcıları.';
 const yol = [
   { ad: 'Anasayfa', href: '/' },
   { ad: 'Veriler', href: '/veri/' },
@@ -56,7 +70,7 @@ const jsonLd = sayfaSemasi({ yol, ad: 'Veriler', aciklama: description, tur: 'Co
       kontrol eder; her sayfada verinin tarihi ve siteye alındığı zaman yazar.
     </p>
     <section class="bolum">
-      <h2 class="bolum-baslik">Kur, faiz ve enflasyon</h2>
+      <h2 class="bolum-baslik">Kur, faiz, fiyatlar ve işgücü</h2>
       <ul class="dizin-liste">
         {
           ogeler.map((o) => (

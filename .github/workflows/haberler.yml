@@ -73,6 +73,9 @@ jobs:
         if: ${{ !cancelled() && steps.hent.outputs.durdu != '1' }}
         continue-on-error: true
         timeout-minutes: 5
+        env:
+          # Konut fiyat endeksi ve işsizlik (TCMB EVDS). Yoksa bu iki bölüm atlanır, son bilinen değer kalır.
+          EVDS_API_KEY: ${{ secrets.EVDS_API_KEY }}
         run: node scripts/haberler/resmi-veri.mjs --yaz
 
       # Üretim adımı düşse de (zaman aşımı, motor hatası, beklenmeyen hata) o ana kadar yazılan haberler ve durum dosyası

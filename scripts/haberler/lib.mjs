@@ -28,7 +28,7 @@ async function indir(url, { timeout = 20000, headers = {} } = {}) {
   throw sonHata;
 }
 
-export const hentMetin = (url, { timeout = 20000 } = {}) => indir(url, { timeout });
+export const hentMetin = (url, { timeout = 20000, headers } = {}) => indir(url, { timeout, headers });
 
 export async function hentJson(url) {
   return JSON.parse(await indir(url, { headers: { Accept: 'application/json' } }));

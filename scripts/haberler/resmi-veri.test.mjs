@@ -1,7 +1,7 @@
 import { test, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { guncelle, kurXml, repoSatirlari } from './resmi-veri.mjs';
+import { guncelle, kurXml, repoSatirlari, evdsAylik, KONUT_BOLGELERI } from './resmi-veri.mjs';
 
 const fx = (ad) => readFileSync(new URL(`./fixtures/${ad}`, import.meta.url), 'utf8');
 const gercekFetch = globalThis.fetch;
@@ -101,4 +101,74 @@ test('guncelle: TÜFE tablosunda ay boşluğu varsa enflasyon bölümü güncell
   sahteFetch({ 'Tuketici+Fiyatlari': fx('tcmb-tufe-30ay.html').replace(/<tr><td>06-2025<\/td>[^\n]*\n/, '') });
   const v = await guncelle(undefined, SIMDI, { gun: 1 });
   assert.equal(v.enflasyon, undefined);
+});
+
+// EVDS yanıtı: 2024-10 ile 2026-09 arası (konut) ya da 2024-08 ile 2026-08 arası (işsizlik), son ay henüz boş.
+function evdsYanit(url) {
+  const u = decodeURIComponent(String(url));
+  const aylar = (bas, n) => Array.from({ length: n }, (_, i) => ({ yil: bas[0] + Math.floor((bas[1] - 1 + i) / 12), ay: ((bas[1] - 1 + i) % 12) + 1 }));
+  if (u.includes('TP.KFE')) {
+    const items = aylar([2024, 10], 25).map((a, i) => {
+      const it = { Tarih: `${a.yil}-${a.ay}` };
+      for (const b of KONUT_BOLGELERI) {
+        it[`TP_KFE_${b.kod}`] = i < 24 ? (200 + i).toFixed(8) : null;
+        it[`TP_KFE_${b.kod}-3`] = i < 24 ? (20 + i / 10).toFixed(8) : null;
+      }
+      return it;
+    });
+    return JSON.stringify({ totalCount: items.length, items });
+  }
+  if (u.includes('TP.TIG08')) {
+    const items = aylar([2024, 8], 26).map((a, i) => ({ Tarih: `${a.yil}-${a.ay}`, TP_TIG08: i < 25 ? (8 + i / 10).toFixed(8) : null }));
+    return JSON.stringify({ totalCount: items.length, items });
+  }
+  return null;
+}
+
+test('evdsAylik: alan adları seri kodundan ve formülden, boş değer null', async () => {
+  let baslik;
+  globalThis.fetch = async (url, op) => {
+    baslik = op.headers.key;
+    return yanit(evdsYanit(url));
+  };
+  const s = await evdsAylik(['TP.TIG08'], [0], SIMDI, 'deneme-anahtar');
+  assert.equal(baslik, 'deneme-anahtar');
+  assert.equal(s.length, 26);
+  assert.deepEqual(s[0], { yil: 2024, ay: 8, TP_TIG08: 8 });
+  assert.equal(s.at(-1).TP_TIG08, null);
+});
+
+test('guncelle: anahtar varsa konut ve işsizlik EVDS’den gelir, boş son ay atılır', async () => {
+  sahteFetch();
+  const yedek = globalThis.fetch;
+  globalThis.fetch = async (url, op) => (String(url).includes('igmevdsms-dis') ? yanit(evdsYanit(url)) : yedek(url, op));
+  const v = await guncelle(undefined, SIMDI, { gun: 1, evdsAnahtari: 'x' });
+  assert.equal(v.konut.satirlar.length, 24);
+  assert.deepEqual(v.konut.satirlar.at(-1).bolgeler.TR10, { endeks: 223, yillik: 22.3 });
+  assert.deepEqual(v.konut.satirlar.at(-1), { ...v.konut.satirlar.at(-1), yil: 2026, ay: 9 });
+  assert.equal(v.issizlik.satirlar.length, 25);
+  assert.deepEqual(v.issizlik.satirlar.at(-1), { yil: 2026, ay: 8, oran: 10.4 });
+  assert.equal(v.issizlik.alinma, SIMDI.toISOString());
+});
+
+test('guncelle: anahtar yoksa EVDS bölümleri atlanır, eskisi kalır', async () => {
+  sahteFetch();
+  const eski = { konut: { satirlar: [], alinma: 'eski' } };
+  const v = await guncelle(eski, SIMDI, { gun: 1, evdsAnahtari: '' });
+  assert.deepEqual(v.konut, eski.konut);
+  assert.equal(v.issizlik, undefined);
+});
+
+test('guncelle: EVDS serisinin ortasında boşluk varsa bölüm güncellenmez', async () => {
+  sahteFetch();
+  const yedek = globalThis.fetch;
+  globalThis.fetch = async (url, op) => {
+    if (!String(url).includes('igmevdsms-dis')) return yedek(url, op);
+    const j = JSON.parse(evdsYanit(url));
+    if (j.items[0].TP_TIG08 !== undefined) j.items[10].TP_TIG08 = null;
+    return yanit(JSON.stringify(j));
+  };
+  const v = await guncelle(undefined, SIMDI, { gun: 1, evdsAnahtari: 'x' });
+  assert.equal(v.issizlik, undefined);
+  assert.ok(v.konut);
 });

@@ -8,9 +8,12 @@
 //      .../Para+Politikasi/Merkez+Bankasi+Faiz+Oranlari/1+Hafta+Repo (Tarih | Borç alma | Borç verme)
 //  - Son PPK karar metni: piyasa-verisi.mjs tcmbSonKarar (PPK yıl sayfası -> karar duyurusu)
 //  - TÜFE (TÜİK verisi) aylık ve yıllık değişim: TCMB "Enflasyon Verileri / Tüketici Fiyatları" tablosu
+//  - TCMB EVDS (ücretsiz anahtar, EVDS_API_KEY; doğrulandı 22.10.2026): konut fiyat endeksi (TCMB) ve mevsimsellikten
+//      arındırılmış işsizlik oranı (TÜİK). Yıllık değişim EVDS'nin kendi formülüyle (formulas=3) alınır, burada hesaplanmaz.
+//      Anahtar yoksa bu iki bölüm atlanır, son bilinen değer kalır.
 //
-// Altın (gram) ve BIST 100 için resmi, ücretsiz ve anahtarsız bir kaynak bulunamadı (TCMB EVDS anahtar ister);
-// bu yüzden burada yoktur.
+// Altın (gram) için resmi, ücretsiz bir günlük kaynak bulunamadı. BIST 100 EVDS'de var ama Borsa İstanbul verisinin
+// yeniden yayımı lisansa bağlı; bu yüzden ikisi de burada yoktur.
 //
 // Bir kaynak alınamazsa o bölümün son bilinen değeri kendi tarihleriyle kalır. Veri değişmediyse dosyaya
 // dokunulmaz (bot her çalıştığında boş commit oluşmasın).
@@ -30,6 +33,17 @@ const arsivUrl = (g) => `https://www.tcmb.gov.tr/kurlar/${g.slice(0, 4)}${g.slic
 // Geçmişi tutulan kurlar (dolar, euro, sterlin sayfaları); geçmiş en fazla bu kadar iş günü.
 export const GECMIS_KURLAR = ['USD', 'EUR', 'GBP'];
 const GECMIS_UZUNLUK = 30;
+
+export const EVDS_URL = 'https://evds3.tcmb.gov.tr/igmevdsms-dis';
+// Konut fiyat endeksi: Türkiye ve üç büyük il (İBBS 2. düzey bölge kodları).
+export const KONUT_BOLGELERI = [
+  { kod: 'TR', ad: 'Türkiye' },
+  { kod: 'TR10', ad: 'İstanbul' },
+  { kod: 'TR51', ad: 'Ankara' },
+  { kod: 'TR31', ad: 'İzmir' },
+];
+export const ISSIZLIK_SERISI = 'TP.TIG08';
+const EVDS_AY = 36;
 
 const sayi = (s) => {
   const n = Number(String(s ?? '').trim());
@@ -154,6 +168,72 @@ async function enflasyonuAl() {
   };
 }
 
+// EVDS seri isteği: [{ yil, ay, <alan>: sayı | null }] eskiden yeniye. Alan adı seri kodunun noktası alt çizgi olmuş
+// hâlidir, formüllü seride sonuna '-<formül>' eklenir (TP_KFE_TR-3).
+export async function evdsAylik(seriler, formuller, simdi, anahtar) {
+  const g = (d) => `01-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${d.getUTCFullYear()}`;
+  const bas = new Date(Date.UTC(simdi.getUTCFullYear(), simdi.getUTCMonth() - EVDS_AY, 1));
+  const url = `${EVDS_URL}/series=${seriler.join('-')}&startDate=${g(bas)}&endDate=${g(simdi)}&type=json&formulas=${formuller.join('-')}`;
+  const veri = JSON.parse(await hentMetin(url, { headers: { key: anahtar } }));
+  if (!Array.isArray(veri?.items)) throw new Error('EVDS yanıtı ayrıştırılamadı');
+  return veri.items
+    .map((it) => {
+      const m = String(it.Tarih ?? '').match(/^(\d{4})-(\d{1,2})$/);
+      if (!m) return null;
+      const satir = { yil: Number(m[1]), ay: Number(m[2]) };
+      seriler.forEach((sr, i) => {
+        const alan = sr.replaceAll('.', '_') + (formuller[i] ? `-${formuller[i]}` : '');
+        const n = it[alan] == null || it[alan] === '' ? NaN : Number(it[alan]);
+        satir[alan] = Number.isFinite(n) ? n : null;
+      });
+      return satir;
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.yil * 12 + a.ay - (b.yil * 12 + b.ay));
+}
+
+// Değeri henüz yayımlanmamış son aylar (null) atılır; ortada boşluk olan seri güncellenmez.
+function kesintisiz(satirlar, dolu, ad) {
+  const s = satirlar.filter(dolu);
+  for (let i = 1; i < s.length; i++) {
+    if (s[i].yil * 12 + s[i].ay !== s[i - 1].yil * 12 + s[i - 1].ay + 1) throw new Error(`${ad} serisinde boşluk`);
+  }
+  return s;
+}
+
+async function konutuAl(simdi, anahtar) {
+  const seriler = KONUT_BOLGELERI.map((b) => `TP.KFE.${b.kod}`);
+  const ham = await evdsAylik([...seriler, ...seriler], [...seriler.map(() => 0), ...seriler.map(() => 3)], simdi, anahtar);
+  const satirlar = kesintisiz(
+    ham.map((h) => ({
+      yil: h.yil,
+      ay: h.ay,
+      bolgeler: Object.fromEntries(
+        KONUT_BOLGELERI.map((b) => [b.kod, { endeks: h[`TP_KFE_${b.kod}`], yillik: h[`TP_KFE_${b.kod}-3`] }]),
+      ),
+    })),
+    (s) => Object.values(s.bolgeler).every((v) => v.endeks != null && v.yillik != null),
+    'Konut fiyat endeksi',
+  );
+  if (satirlar.length < 12) throw new Error('Konut fiyat endeksi yetersiz');
+  return {
+    kaynak: { ad: 'TCMB, Konut Fiyat Endeksi (EVDS)', url: 'https://evds3.tcmb.gov.tr/' },
+    bolgeler: KONUT_BOLGELERI,
+    satirlar: satirlar.slice(-24),
+  };
+}
+
+async function issizligiAl(simdi, anahtar) {
+  const alan = ISSIZLIK_SERISI.replaceAll('.', '_');
+  const ham = await evdsAylik([ISSIZLIK_SERISI], [0], simdi, anahtar);
+  const satirlar = kesintisiz(ham, (h) => h[alan] != null, 'İşsizlik oranı');
+  if (satirlar.length < 13) throw new Error('İşsizlik serisi yetersiz');
+  return {
+    kaynak: { ad: 'TÜİK verisi, TCMB EVDS temel işgücü göstergeleri (mevsimsellikten arındırılmış)', url: 'https://evds3.tcmb.gov.tr/' },
+    satirlar: satirlar.slice(-25).map((h) => ({ yil: h.yil, ay: h.ay, oran: h[alan] })),
+  };
+}
+
 // Bölümün verisi değiştiyse yeni hâli ve alınma zamanı; değişmediyse eskisi aynen (alınma zamanı dahil).
 function birlestir(eski, yeni, iso) {
   if (!yeni) return eski;
@@ -162,7 +242,7 @@ function birlestir(eski, yeni, iso) {
   return { ...yeni, alinma: iso };
 }
 
-export async function guncelle(eski, simdi = new Date(), { gun = 14 } = {}) {
+export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtari = process.env.EVDS_API_KEY } = {}) {
   const iso = simdi.toISOString();
   const dene = async (ad, f) => {
     try {
@@ -172,13 +252,17 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14 } = {}) {
       return null;
     }
   };
-  const [kur, faiz, enflasyon] = await Promise.all([
+  const evds = (ad, f) =>
+    evdsAnahtari ? dene(ad, () => f(simdi, evdsAnahtari)) : (console.error(`[resmi] EVDS_API_KEY yok, ${ad} atlandı`), null);
+  const [kur, faiz, enflasyon, konut, issizlik] = await Promise.all([
     dene('kurlar', () => kurlariAl(eski?.kur, simdi, gun)),
     dene('faiz', () => faiziAl(simdi)),
     dene('enflasyon', () => enflasyonuAl()),
+    evds('konut', konutuAl),
+    evds('issizlik', issizligiAl),
   ]);
   const sonuc = {};
-  for (const [ad, yeni] of Object.entries({ kur, faiz, enflasyon })) {
+  for (const [ad, yeni] of Object.entries({ kur, faiz, enflasyon, konut, issizlik })) {
     const b = birlestir(eski?.[ad], yeni, iso);
     if (b) sonuc[ad] = b;
   }

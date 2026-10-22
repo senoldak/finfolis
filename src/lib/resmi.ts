@@ -44,7 +44,34 @@ export interface EnflasyonBolumu {
   alinma: string;
 }
 
-export const RESMI = data as unknown as { kur?: KurBolumu; faiz?: FaizBolumu; enflasyon?: EnflasyonBolumu };
+export interface KonutSatiri {
+  yil: number;
+  ay: number;
+  bolgeler: Record<string, { endeks: number; yillik: number }>;
+}
+
+// Konut fiyat endeksi (TCMB, EVDS): endeks düzeyi ve TCMB'nin hesapladığı yıllık değişim.
+export interface KonutBolumu {
+  kaynak: { ad: string; url: string };
+  bolgeler: { kod: string; ad: string }[];
+  satirlar: KonutSatiri[];
+  alinma: string;
+}
+
+// İşsizlik oranı (TÜİK, mevsimsellikten arındırılmış; EVDS'den).
+export interface IssizlikBolumu {
+  kaynak: { ad: string; url: string };
+  satirlar: { yil: number; ay: number; oran: number }[];
+  alinma: string;
+}
+
+export const RESMI = data as unknown as {
+  kur?: KurBolumu;
+  faiz?: FaizBolumu;
+  enflasyon?: EnflasyonBolumu;
+  konut?: KonutBolumu;
+  issizlik?: IssizlikBolumu;
+};
 
 export const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
 
