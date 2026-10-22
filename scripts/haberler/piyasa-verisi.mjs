@@ -155,9 +155,11 @@ export async function tcmbSonKarar(simdi) {
     const ham = await hentMetin(url);
     if (/<title>[^<]*Özeti/i.test(ham)) continue;
     const metin = ham.replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ');
-    const m = metin.match(/bir hafta vadeli repo ihale faiz oran\S*\s+yüzde\s+(\d+(?:,\d+)?)/i);
+    // Değişiklik kararında metin "yüzde 37’den yüzde 36’ya" der: yeni oran ikinci sayıdır.
+    const m = metin.match(/bir hafta vadeli repo ihale faiz oran\S*\s+yüzde\s+(\d+(?:,\d+)?)(?:\S*\s+yüzde\s+(\d+(?:,\d+)?))?/i);
     if (!m) throw new Error(`TCMB karar metni ayrıştırılamadı: ${url}`);
-    return { tarih: b.tarih, url, metin: metin.replace(/\s+/g, ' ').trim(), faiz: Number(m[1].replace(',', '.')) };
+    const oran = m[2] ?? m[1];
+    return { tarih: b.tarih, url, metin: metin.replace(/\s+/g, ' ').trim(), faiz: Number(oran.replace(',', '.')) };
   }
   throw new Error('TCMB karar duyurusu bulunamadı');
 }

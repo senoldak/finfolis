@@ -1,6 +1,7 @@
 ---
 title: "Piyasa bülteni · 22 Ekim 2026, kapanış"
 description: "Önceki bültenden bu yana öne çıkan gelişmeler, bölge bölge."
+duzeltme: "22.10.2026: Politika faizi göstergesi TCMB'nin 22 Ekim kararıyla indirilen oran olan %36 olarak düzeltildi; önceki sürümde eski oran (%37) yazıyordu."
 date: 2026-10-22T15:41:07.856Z
 category: "piyasalar"
 tur: "bulten"
@@ -48,6 +49,6 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 - **Euro / TL:** 55,61 (günlük değişim: %-0,2)
 - **100 Japon yeni / TL:** 31,60 (günlük değişim: %+0,6)
 - **Yıllık enflasyon:** %29,7
-- **Politika faizi:** %37,0
+- **Politika faizi:** %36,0
 - **BIST 100:** 11.220,37 (günlük değişim: %-3,1)
 - **Ons altın (USD):** $4.067,50 (günlük değişim: %-2,0)

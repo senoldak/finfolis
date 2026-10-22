@@ -65,6 +65,22 @@ test('politika faizi TCMB kararından okunur', async () => {
   assert.ok(f.kaynak.url.endsWith('duy2026-38')); // 17 Eylül özeti atlandı, değer 99 değil 37
 });
 
+test('politika faizi değişince yeni oran okunur, eskisi değil', async () => {
+  const karar =
+    '<html><head><title>Basın Duyurusu</title></head><body><p>Para Politikası Kurulu (Kurul), politika faizi olan bir hafta vadeli repo ihale faiz oranının yüzde 37’den yüzde 36’ya indirilmesine karar vermiştir. Kurul ayrıca gecelik borç verme faiz oranını yüzde 40’tan yüzde 39’a indirmiştir.</p></body></html>';
+  sahteFetch({ sayfalar: { 'duy2026-38': karar } });
+  const v = await guncelle(undefined, SIMDI);
+  assert.equal(v.gostergeler.find((g) => g.id === 'faiz').deger, 36);
+});
+
+test('politika faizi artırılınca da yeni oran okunur', async () => {
+  const karar =
+    "<html><head><title>Basın Duyurusu</title></head><body><p>politika faizi olan bir hafta vadeli repo ihale faiz oranının yüzde 36,5'ten yüzde 38'e yükseltilmesine karar vermiştir.</p></body></html>";
+  sahteFetch({ sayfalar: { 'duy2026-38': karar } });
+  const v = await guncelle(undefined, SIMDI);
+  assert.equal(v.gostergeler.find((g) => g.id === 'faiz').deger, 38);
+});
+
 test('Frankfurter 500 ve eski varsa eski değer ve zaman korunur', async () => {
   sahteFetch({ frankfurterDurum: 500 });
   const eski = {
