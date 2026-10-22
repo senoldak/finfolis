@@ -43,7 +43,9 @@ jobs:
           repository: senoldak/mecmua
           ssh-key: '${{ secrets.MECMUA_OKUMA }}'
           path: .mecmua
-          sparse-checkout: motor
+          sparse-checkout: |
+            motor
+            standartlar
           persist-credentials: false
 
       - name: Haberleri üret
@@ -61,6 +63,8 @@ jobs:
           MAKS_HABER: ${{ vars.MAKS_HABER }}
           # Ortak motor modu (private mecmua'dan salt-okur çekilir): vars.MOTOR_TUR=1 iken aday turu motorla sürülür.
           MOTOR_TUR: ${{ vars.MOTOR_TUR }}
+          # Standartlar kural kitabı tek kaynaktan (mecmua/standartlar/siteler); dosya yoksa standart.mjs yerel kopyayı okur.
+          STANDART_KURALLAR: ${{ github.workspace }}/.mecmua/standartlar/siteler/finfolis.json
           MOTOR_DIZIN: ${{ github.workspace }}/.mecmua/motor
         run: |
           if [ -z "$KAYNAK_ANAHTARI" ]; then echo "::error::KAYNAK_ANAHTARI secret'ı yok; haber beslemeleri okunamaz."; exit 1; fi

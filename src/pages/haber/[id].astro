@@ -19,6 +19,7 @@ import { matchEntities } from '../../lib/entities';
 import { indekslenir } from '../../lib/uzunluk.mjs';
 import { okumaSuresi, turEtiketi } from '../../lib/yazi-bilgisi.mjs';
 import { duzeltmeNotu } from '../../lib/duzeltme.mjs';
+import { resmiKaynaklar } from '../../lib/resmi-kaynak.mjs';
 import { yapayZekaNotu } from '../../lib/yapay-zeka-notu.mjs';
 import { ilgiliSec } from '../../lib/ilgili.mjs';
 import { yazininKonulari, konuUrl } from '../../lib/konu-sayfalari';
@@ -58,6 +59,8 @@ const { haber, related, konular } = Astro.props;
 const { title, description, date, category, coverAlt, rakamlar, sirada, tablo, grafik, kaynaklar } = haber.data;
 const author = haber.data.author ?? SITE.name;
 const duzeltme = duzeltmeNotu(haber.data, 'tr');
+// Resmî kaynaklı haberde kurumun bağlantısı; medya kaynaklı habere kaynak adı ya da bağlantısı yazılmaz.
+const resmi = resmiKaynaklar(haber.data);
 // Kısa yazılar (src/lib/uzunluk.mjs) arama motoruna kapalı, bağlantıları izlenir; site haritaları da aynı kuralı kullanır.
 const noindex = !indekslenir(haber.body);
 // Kapak her yaşta derlenir (dosya bütçesi: src/lib/gorsel.mjs).
@@ -223,6 +226,20 @@ const jsonLd = {
               <strong>{duzeltme.etiket}</strong> {duzeltme.metin} <a href={duzeltme.baglanti}>Düzeltme Politikası</a>
             </p>
           </aside>
+        )
+      }
+
+      {
+        resmi.length > 0 && (
+          <p class="resmi-kaynak">
+            {resmi.length > 1 ? 'Resmî kaynaklar:' : 'Resmî kaynak:'}{' '}
+            {resmi.map((k, i) => (
+              <>
+                {i > 0 && ', '}
+                <a href={k.url} rel="noopener">{k.ad}</a>
+              </>
+            ))}
+          </p>
         )
       }
 
