@@ -578,3 +578,91 @@ test('isle: surVar verilse de bülten payı korunur (dilim bülteni yazılmadıy
   const s = await k.u.isle(hepsi, { surVar: () => true });
   assert.equal(sonucu(s, 'a1'), undefined);
 });
+
+// Yayın kapısı (ikinci okuma): kapi(metinler) -> { karar: 'gec'|'elendi'|'bekle', gerekce, hata? }.
+const sariStd = { karar: 'sari', kirmizi: [], sari: [{ kural: 's1', ham: 'x' }], gerekce: 'standart:sari:s1' };
+const kapiKur = (sonuc) => {
+  const cagrilar = [];
+  const f = async (m) => {
+    cagrilar.push(m);
+    if (typeof sonuc === 'function') return sonuc(m);
+    return sonuc;
+  };
+  f.cagrilar = cagrilar;
+  return f;
+};
+
+test('kapı: elendi yazmaz, belirlenimci kırmızıyla aynı yol (elendi + gerekçe, görüldü, kırmızı kayıt)', async () => {
+  const kapi = kapiKur({ karar: 'elendi', gerekce: 'standart:kirmizi:kapi-iftira @m#1' });
+  const k = await kur({ liste: [aday('a1', 'Haber bir', 90)] });
+  const s = await turla(k, { kapi });
+  assert.equal(kapi.cagrilar.length, 1);
+  assert.equal(kapi.cagrilar[0][0].dil, 'tr');
+  assert.equal(sonucu(s, 'a1').durum, 'elendi');
+  assert.equal(sonucu(s, 'a1').gerekce, 'standart:kirmizi:kapi-iftira @m#1');
+  assert.equal(k.durum.gorulen.a1.elendi, true);
+  assert.equal(k.u.ozet.adet, 0);
+  assert.equal(k.kayit.motor.length, 1);
+});
+
+test('kapı: bekle yazmaz, bekliyor + sayilmaz, görülmedi kalır', async () => {
+  const k = await kur({ liste: [aday('a1', 'Haber bir', 90)] });
+  const s = await turla(k, { kapi: kapiKur({ karar: 'bekle', gerekce: 'kapi:hata', hata: 'zaman aşımı' }) });
+  assert.equal(sonucu(s, 'a1').durum, 'bekliyor');
+  assert.equal(sonucu(s, 'a1').sayilmaz, true);
+  assert.equal(k.durum.gorulen.a1, undefined);
+  assert.equal(k.u.ozet.adet, 0);
+});
+
+test('kapı: gec yazar; kayıt gerekçesi sarı gerekçe + kapı gerekçesi (boşlukla, 300 ile kesik)', async () => {
+  const k = await kur({ liste: [aday('a1', 'Haber bir', 90)], bag: { standart: () => sariStd } });
+  const s = await turla(k, { kapi: kapiKur({ karar: 'gec', gerekce: 'kapi:temiz @m#1' }) });
+  assert.equal(sonucu(s, 'a1').durum, 'yazildi');
+  assert.equal(sonucu(s, 'a1').gerekce, 'standart:sari:s1 kapi:temiz @m#1');
+  assert.equal(k.durum.gorulen.a1.gerekce, 'standart:sari:s1 kapi:temiz @m#1');
+  const uzun = await kur({ liste: [aday('a1', 'Haber bir', 90)] });
+  const s2 = await turla(uzun, { kapi: kapiKur({ karar: 'gec', gerekce: 'k'.repeat(500) }) });
+  assert.equal(sonucu(s2, 'a1').gerekce.length, 300);
+  const sade = await kur({ liste: [aday('a1', 'Haber bir', 90)] });
+  const s3 = await turla(sade, { kapi: kapiKur({ karar: 'gec', gerekce: 'kapi:temiz @m#1' }) });
+  assert.equal(sonucu(s3, 'a1').gerekce, 'kapi:temiz @m#1');
+});
+
+test('kapı: null iken davranış eskisi gibi (sarıda yalnız sarı gerekçe, temizde gerekçe yok)', async () => {
+  const k = await kur({ liste: [aday('a1', 'Haber bir', 90)], bag: { standart: () => sariStd } });
+  const s = await turla(k, { kapi: null });
+  assert.equal(sonucu(s, 'a1').durum, 'yazildi');
+  assert.equal(sonucu(s, 'a1').gerekce, 'standart:sari:s1');
+  const t = await kur({ liste: [aday('a1', 'Haber bir', 90)] });
+  const s2 = await turla(t);
+  assert.equal('gerekce' in sonucu(s2, 'a1'), false);
+});
+
+test('kapı: belirlenimci kırmızıda kapı çağrılmaz', async () => {
+  const kapi = kapiKur({ karar: 'gec', gerekce: 'x' });
+  const k = await kur({
+    liste: [aday('a1', 'Haber bir', 90)],
+    bag: { standart: () => ({ karar: 'kirmizi', kirmizi: [{ kural: 'k1', ham: 'x' }], sari: [], gerekce: 'standart:k1' }) },
+  });
+  const s = await turla(k, { kapi });
+  assert.equal(kapi.cagrilar.length, 0);
+  assert.equal(sonucu(s, 'a1').durum, 'elendi');
+});
+
+test('kapı: ayar hatası turu durdurur (sonuçlarla fırlatılır, deneme sayılmaz)', async () => {
+  const kapi = kapiKur(() => {
+    throw hata('GitHub Models 401', { ayar: true });
+  });
+  const k = await kur({ liste: [aday('a1', 'Birinci', 90), aday('a2', 'İkinci', 85)] });
+  await assert.rejects(
+    () => turla(k, { kapi }),
+    (e) => {
+      assert.equal(e.ayar, true);
+      assert.ok(Array.isArray(e.sonuclar));
+      return true;
+    },
+  );
+  assert.equal(kapi.cagrilar.length, 1); // dur: ikinci olaya geçilmez
+  assert.equal(k.durum.gorulen.a1, undefined);
+  assert.equal(k.u.ozet.konfigHatasi, true);
+});

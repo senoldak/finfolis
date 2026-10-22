@@ -16,7 +16,7 @@ import * as olaylarModulu from './olaylar.mjs';
 import { dilimGruplari, derlemeAdayi, derlemeOlayi, DERLEME_MAKS, derlenebilir, derlemeDilimiKaydet } from './derleme.mjs';
 import { derlemeEnAz, sablonKontrol } from './yayin-kurulu.mjs';
 import { standartOzeti } from './standart.mjs';
-import { standartKapisi, derlemeSuz } from './standart-kapi.mjs';
+import { standartKapisi, derlemeSuz, yaziEkleri } from './standart-kapi.mjs';
 import { kirmiziKayit, sariKayit, motorKimlik } from './motor.mjs';
 import { BOLGELER, dilimDolu, dilimKaydet } from './bulten.mjs';
 import { tekrarlariAyikla, hafizayaEkle } from './tekrar.mjs';
@@ -306,7 +306,7 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
     return liste.map((a) => ({ kimlik: motorKimlik(a.id), yuk: adayYuku(a), baslik: a.baslik }));
   }
 
-  async function isle(girdi, { surVar, log = A.log } = {}) {
+  async function isle(girdi, { surVar, log = A.log, kapi = null } = {}) {
     const sonuclar = [];
     const yer = new Map();
     // Aynı kimliğe sonradan gelen sonuç öncekinin yerine geçer (havuza girip aynı turda derlemeye giren olay gibi).
@@ -317,6 +317,10 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
         sonuclar.push(s);
       }
     };
+    // Yayın kapısı, ikinci okuma (ortak/kapi.mjs): yalnız belirlenimci süzgeç kırmızı değilken ve kapi fonksiyonsa çağrılır.
+    // Döner null (kapı yok) ya da { karar: 'gec'|'elendi'|'bekle', gerekce, hata? }; ayar hatasında kapi fırlatır (e.ayar).
+    const kapidan = async (metinler) => (typeof kapi === 'function' ? kapi(metinler) : null);
+    const kapiGerekcesi = (sari, k) => [sari, k?.gerekce].filter((x) => typeof x === 'string' && x.trim()).join(' ').slice(0, 300);
     const simdiki = (id) => sonuclar[yer.get(motorKimlik(id))];
     const uyeKoy = (ids, s) => ids.forEach((id) => koy({ kimlik: motorKimlik(id), ...s }));
     const elendiO = (o, gerekce) => uyeKoy(adayIdleri(o), { durum: 'elendi', gerekce: temiz(gerekce) });
@@ -493,26 +497,43 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
           return;
         }
         if (std.karar === 'sari') log(`  ~ ${o.id}: ${standartOzeti(std)}`);
+        const kr = await kapidan([{ dil: 'tr', baslik: r.yazi.baslik, ozet: r.yazi.spot, metin: r.yazi.govde, ekler: yaziEkleri(r.yazi) }]);
+        if (kr?.karar === 'elendi') {
+          for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso, elendi: true, gerekce: kr.gerekce };
+          dislanan.add(o);
+          log(`  - ${o.id}: elendi, yayın kapısı (${kr.gerekce})`);
+          elendiO(o, kr.gerekce);
+          await motoraYaz(kirmiziKayit(adayIdleri(o), kr.gerekce));
+          return;
+        }
+        if (kr?.karar === 'bekle') {
+          dislanan.add(o);
+          hatalar.push(`${o.id} «${o.baslik}»: yayın kapısı okuyamadı (${kr.hata ?? kr.gerekce})`);
+          log(`  - ${o.id}: bekletildi (yayın kapısı okuyamadı)`);
+          bekliyorO(o, `yayın kapısı okuyamadı (${kr.hata ?? kr.gerekce})`, { sayilmaz: true });
+          return;
+        }
+        const yazGerekce = kr?.karar === 'gec' ? kapiGerekcesi(std.karar === 'sari' ? std.gerekce : '', kr) : std.karar === 'sari' ? std.gerekce : '';
         const yazi = { ...r.yazi, kategori: o.kategori, tarih: new Date(o.tarih), tur: 'haber', icerikTuru: icerikTuru(o.adaylar), kaynaklar: o.kaynaklar ?? [], kaynakIzi: kaynakIzi(o.gizliKaynaklar) };
         // Kapak: kaynağın tarifi; yoksa başlıkta anılan piyasa aracının grafiği; o da yoksa başlık kartı.
         const kapakli = o.adaylar.find((a) => a.kapak);
         Object.assign(yazi, kapakli ? { kapak: kapakli.kapak, kapakAlt: kapakli.kapakAlt } : ((await haberGrafigi(yazi, o, B.okuyucu, simdi, durum.grafikKapak)) ?? varsayilanKapak(yazi, o)));
         const slug = await yaziYaz(B.rot, yazi);
-        for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso, yazildi: true, ...(std.karar === 'sari' ? { gerekce: std.gerekce } : {}) };
+        for (const a of o.adaylar) durum.gorulen[a.id] = { zaman: iso, yazildi: true, ...(yazGerekce ? { gerekce: yazGerekce } : {}) };
         if (std.karar === 'sari') await motoraYaz(sariKayit(adayIdleri(o), slug, std.gerekce));
         o.haberSlug = slug;
         if (sablon) sablonAdet++;
         yazilan.push(o);
         ozet.adet++;
         ozet.yazilar.push(slug);
-        yazildiO(o, slug, std.karar === 'sari' ? std.gerekce : undefined);
+        yazildiO(o, slug, yazGerekce || undefined);
         log(`  + ${slug}${r.uzatma ? ` (uzatıldı ${r.uzatma[0]}→${r.uzatma[1]} kelime)` : ''}`);
         await B.araKayit(durum).catch((e) => console.error(`  ! ara kayıt yazılamadı: ${e.message}`));
       } catch (e) {
         dislanan.add(o);
-        if (e.konfig) {
-          // Anahtar/model hatası haberin suçu değil: deneme sayılmaz, çalıştırma durur.
-          hatalar.push(`Gemini yapılandırma hatası: ${e.message}`);
+        if (e.konfig || e.ayar) {
+          // Anahtar/model hatası haberin suçu değil: deneme sayılmaz, çalıştırma durur (e.ayar: yayın kapısı ayarı).
+          hatalar.push(`${e.ayar ? 'Yayın kapısı' : 'Gemini'} yapılandırma hatası: ${e.message}`);
           console.error(`  ! yapılandırma hatası: ${e.message}`);
           ozet.konfigHatasi = true;
           ayarHatasi ??= e;
@@ -629,6 +650,24 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
             .join(' | ');
           if (sz.atilan.length) log(`  ~ derleme: ${sz.atilan.length} madde atıldı, ${standartOzeti({ karar: 'kirmizi', kirmizi: sz.atilan, sari: [] })}`);
           else if (sz.karar === 'sari') log(`  ~ derleme: ${standartOzeti(sz.ozet)}`);
+          // Yayın kapısı (ikinci okuma): derleme bütünü tek çağrıyla. Elendi: yazı yazılmaz, üyeleri elendi; bekle: üyeleri havuzda bekler.
+          const kd = await kapidan([{ dil: 'tr', baslik: sz.yazi.baslik, ozet: sz.yazi.spot, metin: sz.yazi.govde, ekler: yaziEkleri(sz.yazi) }]);
+          if (kd?.karar === 'elendi') {
+            log(`  - derleme (${grup.length} haber): elendi, yayın kapısı (${kd.gerekce})`);
+            for (const k of grup) {
+              dislanan.add(k);
+              for (const a of k.adaylar ?? []) durum.gorulen[a.id] = { zaman: iso, elendi: true, gerekce: kd.gerekce };
+              elendiO(k, kd.gerekce);
+              await motoraYaz(kirmiziKayit(adayIdleri(k), kd.gerekce));
+            }
+            continue;
+          }
+          if (kd?.karar === 'bekle') {
+            log(`  - derleme (${grup.length} haber): bekletildi (yayın kapısı okuyamadı)`);
+            kalanlar.push(...grup);
+            continue;
+          }
+          const kapiDerleme = kd?.karar === 'gec' ? kapiGerekcesi(derlemeGerekcesi, kd) : derlemeGerekcesi;
           // Başlığa dilim eki: her dilimin derlemesi tek başlık taşır.
           const yazi = { ...sz.yazi, baslik: `${r.yazi.baslik} · ${birlesik.dilimEki}`, kategori: birlesik.kategori, tarih: new Date(birlesik.tarih), tur: 'haber', kaynaklar: birlesik.kaynaklar, kaynakIzi: kaynakIzi(birlesik.gizliKaynaklar) };
           Object.assign(yazi, varsayilanKapak(yazi, birlesik));
@@ -637,8 +676,8 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
           const o = derlemeOlayi(grup, birlesik, yazi.baslik, slug);
           for (const k of grup) {
             dislanan.add(k); // bültende ikinci kez yer almasın
-            for (const a of k.adaylar ?? []) durum.gorulen[a.id] = { zaman: iso, yazildi: true, ...(derlemeGerekcesi ? { gerekce: derlemeGerekcesi.slice(0, 300) } : {}) };
-            yazildiO(k, slug, derlemeGerekcesi);
+            for (const a of k.adaylar ?? []) durum.gorulen[a.id] = { zaman: iso, yazildi: true, ...(kapiDerleme ? { gerekce: kapiDerleme.slice(0, 300) } : {}) };
+            yazildiO(k, slug, kapiDerleme);
           }
           if (sz.karar === 'sari') await motoraYaz(sariKayit(grup.flatMap(adayIdleri), slug, derlemeGerekcesi));
           yazilan.push(o);
@@ -647,8 +686,8 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
           log(`  + derleme ${slug} (${grup.length} haber, ${kelimeSay(yazi.govde)} kelime)`);
           await B.araKayit(durum).catch((e) => console.error(`  ! ara kayıt yazılamadı: ${e.message}`));
         } catch (e) {
-          if (e.konfig) {
-            hatalar.push(`Gemini yapılandırma hatası: ${e.message}`);
+          if (e.konfig || e.ayar) {
+            hatalar.push(`${e.ayar ? 'Yayın kapısı' : 'Gemini'} yapılandırma hatası: ${e.message}`);
             ozet.konfigHatasi = true;
             ayarHatasi ??= e;
             dur = true;
@@ -699,7 +738,24 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
           log(`  - bülten maddesi bekletildi (${o.id}): standart denetimi çalıştırılamadı`);
         }
         for (const m of izleyici.sari ?? []) log(`  ~ bülten maddesi (${m.olay.id}): ${standartOzeti(m.ozet)}`);
-        if (b) {
+        // Yayın kapısı (ikinci okuma): bülten bütünü tek çağrıyla. Elendi: bülten yazılmaz, üyeleri elendi; bekle: üyeleri bekler.
+        const kb = b ? await kapidan([{ dil: 'tr', baslik: b.yazi.baslik, ozet: b.yazi.spot, metin: b.yazi.govde, ekler: yaziEkleri(b.yazi) }]) : null;
+        const kapiUyeleri = bultenOlaylari.filter((o) => !bultenBekleyen.has(o.id) && !bultenElenen.has(o.id));
+        if (kb?.karar === 'elendi') {
+          for (const o of kapiUyeleri) {
+            for (const a of o.adaylar ?? []) durum.gorulen[a.id] = { zaman: iso, elendi: true, gerekce: kb.gerekce };
+            bultenElenen.add(o.id);
+            elendiO(o, kb.gerekce);
+            await motoraYaz(kirmiziKayit(adayIdleri(o), kb.gerekce));
+          }
+          log(`  - bülten elendi, yayın kapısı (${kb.gerekce})`);
+        } else if (kb?.karar === 'bekle') {
+          for (const o of kapiUyeleri) {
+            bultenBekleyen.add(o.id);
+            bekliyorO(o, `yayın kapısı okuyamadı (${kb.hata ?? kb.gerekce})`, { sayilmaz: true });
+          }
+          log('  - bülten bekletildi (yayın kapısı okuyamadı)');
+        } else if (b) {
           const slug = await yaziYaz(B.rot, b.yazi);
           durum.sonBulten = b.anlik;
           dilimKaydet(durum, simdi);
@@ -709,17 +765,22 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
           bultendekiler = bultenOlaylari.filter((o) => !bultenBekleyen.has(o.id) && !bultenElenen.has(o.id));
           bultenYedek.splice(0, bultenYedek.length, ...bultenYedek.filter((o) => bultenBekleyen.has(o.id))); // satır oldu, havuza dönmez (bekletilenler hariç)
           for (const o of bultendekiler) {
-            const sariGerekce = (izleyici.sari ?? []).find((m) => m.olay.id === o.id)?.gerekce;
+            const sariGerekce0 = (izleyici.sari ?? []).find((m) => m.olay.id === o.id)?.gerekce;
+            const sariGerekce = kb?.karar === 'gec' ? kapiGerekcesi(sariGerekce0, kb) : sariGerekce0;
             for (const a of o.adaylar) if (!durum.gorulen[a.id]?.yazildi) durum.gorulen[a.id] = { zaman: iso, ...(sariGerekce ? { gerekce: sariGerekce } : {}) };
             // Bülten satırı olan her üye yazıldı sayılır (haberin kendi yazısı varsa onun sonucu kalır).
             for (const a of o.adaylar) if (simdiki(a.id)?.durum !== 'yazildi') yazildiO({ adaylar: [a] }, slug, sariGerekce);
-            if (sariGerekce) await motoraYaz(sariKayit(adayIdleri(o), slug, sariGerekce));
+            if (sariGerekce0) await motoraYaz(sariKayit(adayIdleri(o), slug, sariGerekce));
           }
           log(`  + bülten ${slug}`);
         } else {
           log(`  - bülten yazılmadı (${bultenOlaylari.length} olay; doğrulanan ya da onaylanan madde 3'ten az)`);
         }
       } catch (e) {
+        if (e.ayar) {
+          ozet.konfigHatasi = true;
+          ayarHatasi ??= e;
+        }
         hatalar.push(`bülten: ${e.message}`);
         console.error(`  ! bülten: ${e.message}`);
       }
