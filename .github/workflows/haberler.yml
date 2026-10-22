@@ -104,7 +104,9 @@ jobs:
         run: |
           git config user.name "finfolis-haber-botu"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/content/haberler src/data/piyasa.json src/data/resmi.json scripts/haberler/gorulen.json src/data/standartlar-raporu
+          git add src/content/haberler src/data/piyasa.json src/data/resmi.json scripts/haberler/gorulen.json
+          # Çeyrek raporu klasörü ilk rapora kadar yoktur; yoksa git add pathspec hatası verir.
+          [ -d src/data/standartlar-raporu ] && git add src/data/standartlar-raporu
           if git diff --cached --quiet; then
             echo "Değişiklik yok."
             exit 0
