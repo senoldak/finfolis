@@ -654,7 +654,11 @@
   "faiz": {
     "oran": 36,
     "gecerlilik": "2026-10-23",
-    "sonKarar": null,
+    "sonKarar": {
+      "tarih": "2026-10-22",
+      "oran": 36,
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/tr/tcmb+tr/main+menu/duyurular/basin/2026/duy2026-45"
+    },
     "kaynak": {
       "ad": "TCMB, bir hafta vadeli repo ihale faiz oranı",
       "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Temel+Faaliyetler/Para+Politikasi/Merkez+Bankasi+Faiz+Oranlari/1+Hafta+Repo"
@@ -893,7 +897,7 @@
         "oran": 36
       }
     ],
-    "alinma": "2026-10-22T12:52:53.532Z"
+    "alinma": "2026-10-22T21:47:10.480Z"
   },
   "enflasyon": {
     "kaynak": {
