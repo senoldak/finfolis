@@ -242,7 +242,7 @@ function birlestir(eski, yeni, iso) {
   return { ...yeni, alinma: iso };
 }
 
-export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtari = process.env.EVDS_API_KEY } = {}) {
+export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtari = process.env.EVDS_API_KEY?.replace(/^﻿/, '').trim() } = {}) {
   const iso = simdi.toISOString();
   const dene = async (ad, f) => {
     try {
