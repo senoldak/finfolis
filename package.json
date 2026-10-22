@@ -15,10 +15,10 @@
     "test": "node --test \"scripts/**/*.test.mjs\" \"src/lib/**/*.test.mjs\""
   },
   "dependencies": {
-    "@astrojs/markdown-satteri": "0.4.3",
+    "@astrojs/markdown-satteri": "0.4.4",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
-    "astro": "^7.3.8",
+    "astro": "^7.4.1",
     "fontkitten": "^1.0.3",
     "sharp": "^0.35.5",
     "yaml": "^2.9.1"
