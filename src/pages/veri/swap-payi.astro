@@ -1,0 +1,166 @@
+---
+// TCMB Rezervlerinde Swap Payı: Resmi rezerv varlıkları içindeki swap (emanet/borç) payının tarihsel seyri.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import data from '../../data/tcmb-swap-orani.json';
+import { sayiYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const seri = data.seri;
+const son = seri.at(-1)!;
+const nisan24 = seri.find((s) => s.tarih === '2024-4' || s.tarih === '2024-04') || seri[35];
+
+const baslik = 'TCMB Rezervlerinde Swap Payı (%)';
+const altBaslik = 'Merkez Bankası resmi rezervlerinin ne kadarı emanet ve takas kaynaklı?';
+
+const description = `TCMB resmi rezervlerinde swap payı son veride %${sayiYaz(son.swap_payi_toplam_yuzde, 1)}. Nisan 2024'te %${sayiYaz(nisan24.swap_payi_toplam_yuzde, 1)} olan oran, swapların tasfiyesi ve öz rezerv birikimiyle geriledi. Güncel tarihsel grafik ve tablo.`;
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'TCMB Swap Payı', href: '/veri/swap-payi/' },
+];
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  sayfaEk: { dateModified: data.guncellenme },
+  ekler: [
+    {
+      '@type': 'Dataset',
+      name: 'TCMB Uluslararası Rezervlerinde Swap Oranı',
+      description: 'Merkez Bankası resmi rezerv varlıkları ve net swap yükümlülüklerinden hesaplanan swap payı zaman serisi.',
+      url: 'https://finfolis.com/veri/swap-payi/',
+      isAccessibleForFree: true,
+      creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+      temporalCoverage: `${seri[0]?.tarih}/${son?.tarih}`,
+      dateModified: data.guncellenme,
+      variableMeasured: ['Swap Payı (%)', 'Toplam Resmi Rezerv ($ Milyar)', 'Swap Stoku ($ Milyar)'],
+    },
+  ],
+});
+
+// Tablo için son 24 ay (yeniden eskiye)
+const tabloVerisi = [...seri].slice(-24).reverse();
+---
+
+<Base title={`${baslik} · finfolis`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>{altBaslik}</p>
+    </header>
+
+    <dl class="veri-rakamlar">
+      <div>
+        <dt>Güncel Swap Payı</dt>
+        <dd class="vurgulu-sayi">%{sayiYaz(son.swap_payi_toplam_yuzde, 1)}</dd>
+        <dd class="veri-degisim">
+          {son.etiket} itibarıyla
+        </dd>
+      </div>
+      <div>
+        <dt>Toplam Resmi Rezerv</dt>
+        <dd>{sayiYaz(son.toplam_rezerv_milyar_usd, 1)} milyar $</dd>
+        <dd class="veri-tarih">Döviz + Altın</dd>
+      </div>
+      <div>
+        <dt>Swap Yükümlülüğü (Stok)</dt>
+        <dd>{sayiYaz(son.swap_stoku_milyar_usd, 1)} milyar $</dd>
+        <dd class="veri-tarih">Emanet/Takas Döviz</dd>
+      </div>
+      <div>
+        <dt>2024 Zirvesi (Nisan 24)</dt>
+        <dd>%{sayiYaz(nisan24.swap_payi_toplam_yuzde, 1)}</dd>
+        <dd class="veri-degisim" style="color: #c2502b;">Zirveden hızla geriledi</dd>
+      </div>
+    </dl>
+
+    <p class="veri-notu veri-kaynak">
+      <strong>Kaynak:</strong>{' '}
+      <a href="https://evds3.tcmb.gov.tr/" rel="noopener" target="_blank">
+        TCMB EVDS &amp; Uluslararası Rezervler ve Döviz Likiditesi (IMF SDDS Şablonu)
+      </a>. Veriler aylık resmi yükümlülük raporlarına dayanmaktadır.
+    </p>
+
+    <!-- Grafik Bölümü -->
+    <section class="bolum grafik-alani">
+      <h2 class="bolum-baslik">TCMB Resmi Rezervlerinin Ne Kadarı Swap Kaynaklı? (%)</h2>
+      <p class="bolum-aciklama">Mayıs 2021'den bugüne Merkez Bankası kasasındaki swap kaynaklı döviz yükümlülüğünün toplam resmi rezervlere oranı.</p>
+      <div class="grafik-kapsayici" style="background: #ffffff; padding: 1rem; border-radius: 8px; border: 1px solid var(--hair, #e5e5e5);">
+        <img
+          src="/grafikler/tcmb-swap-orani.svg"
+          alt="TCMB Resmi Rezervlerinde Swap Payı Tarihsel Grafiği"
+          style="width: 100%; height: auto; display: block;"
+          loading="lazy"
+        />
+      </div>
+      <p class="veri-notu">
+        * Nisan 2024'te yerel bankalarla yapılan swapların yoğun kullanımıyla zirveye ulaşan oran, TCMB'nin yerel bankalarla swapları sıfırlaması ve ikili ülke swaplarını azaltmasıyla tek hanelere geriledi.
+      </p>
+    </section>
+
+    <!-- Açıklama ve Tablo -->
+    <div class="veri-izgara">
+      <section class="bolum prose veri-aciklama">
+        <h2 class="bolum-baslik">Bu Oran Neden Önemli?</h2>
+        <p>
+          Merkez Bankası'nın açıkladığı manşet brüt rezerv, bankanın kasasındaki tüm döviz ve altın varlıkları toplamıdır.
+          Ancak bir merkez bankasının rezerv gücünü ve şoklara karşı dayanıklılığını ölçerken <strong>"bu rezervin ne kadarının emanet, ne kadarının öz varlık olduğu"</strong> belirleyicidir.
+        </p>
+        <p>
+          Swap işlemleri (para takası), Merkez Bankası'nın piyasadan veya yabancı merkez bankalarından belirli bir vadeyle döviz ödünç alıp karşılığında TL verdiği işlemlerdir. Bu işlemler brüt rezervi artırsa da arka planda eşit miktarda döviz borcu (yükümlülük) oluşturur.
+        </p>
+        <h3>%65'ten Düşüş Ne Anlama Geliyor?</h3>
+        <p>
+          2021–2024 döneminde Merkez Bankası rezervlerinin yarıdan fazlası yerli bankalardan ve Körfez/Asya merkez bankalarından alınan emanet swap dövizlerinden oluşuyordu. 2024 yılının ortasından itibaren uygulanan programla:
+        </p>
+        <ul>
+          <li>TCMB yerli bankalarla yaptığı TL karşılığı döviz swaplarını tamamen sıfırladı.</li>
+          <li>Yabancı merkez bankalarıyla yapılan ikili swapların bir kısmı vadesi geldikçe kapatıldı veya yenilenmedi.</li>
+          <li>Kendi öz döviz rezervi (swap hariç net rezerv) artırıldı.</li>
+        </ul>
+        <p>
+          Bu tablonun sonucu olarak swapların toplam rezervdeki payı %60'ların üzerinden tek haneli seviyelere gerileyerek rezerv kalitesinde belirgin bir iyileşmeye işaret etti.
+        </p>
+        <p>
+          <a href="/veri/net-doviz-pozisyonu/" class="veri-link">→ TCMB Net Döviz Pozisyonu Sayfasına Git</a>
+        </p>
+      </section>
+
+      <section class="bolum">
+        <h2 class="bolum-baslik">Son 24 Ayın Tarihsel Tablosu</h2>
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col">Dönem</th>
+              <th scope="col" class="sag">Toplam Rezerv ($ Milyar)</th>
+              <th scope="col" class="sag">Swap Stoku ($ Milyar)</th>
+              <th scope="col" class="sag">Swap Payı (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tabloVerisi.map((satir) => (
+              <tr>
+                <td><strong>{satir.etiket}</strong></td>
+                <td class="sag">{sayiYaz(satir.toplam_rezerv_milyar_usd, 1)}</td>
+                <td class="sag">{sayiYaz(satir.swap_stoku_milyar_usd, 1)}</td>
+                <td class="sag" style={satir.swap_payi_toplam_yuzde > 40 ? 'color: #c2502b; font-weight: 700;' : 'font-weight: 600;'}>
+                  %{sayiYaz(satir.swap_payi_toplam_yuzde, 1)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <YasalUyari />
+  </div>
+</Base>

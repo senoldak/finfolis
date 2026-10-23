@@ -15,8 +15,8 @@ const altBaslik = 'Swaplar ve Hazine dövizi hariç net rezerv';
 const milyar = (n: number) => `${n > 0 ? '+' : ''}${sayiYaz(n, 1)} milyar $`;
 
 const description = rezerv
-  ? `TCMB net döviz pozisyonu (swaplar ve Hazine dövizi hariç) ${gunYaz(rezerv.tarih)} itibarıyla ${milyar(rezerv.netDovizPozisyonu)}. Analitik bilanço kalemleri, geçmiş seyir ve detaylı hesaplama tablosu.`
-  : 'TCMB net döviz pozisyonu, swap ve Hazine hariç rezerv verileri ve geçmiş değişimi.';
+  ? `TCMB net döviz pozisyonu (swaplar ve Hazine dövizi hariç) ${gunYaz(rezerv.tarih)} itibarıyla ${milyar(rezerv.netDovizPozisyonu)}. Altın etkisi dışlanmış günlük değişim grafiği, analitik bilanço kalemleri ve geçmiş seyir tablosu.`
+  : 'TCMB net döviz pozisyonu, swap ve Hazine hariç rezerv verileri ve günlük değişim grafiği.';
 
 const yol = [
   { ad: 'Anasayfa', href: '/' },
@@ -36,7 +36,7 @@ const jsonLd = sayfaSemasi({
             '@type': 'Dataset',
             name: 'TCMB Swaplar ve Hazine Dövizi Hariç Net Döviz Pozisyonu',
             description:
-              'Türkiye Cumhuriyet Merkez Bankası’nın Analitik Bilançosu ve swap yükümlülüklerinden hesaplanan net döviz pozisyonu.',
+              'Türkiye Cumhuriyet Merkez Bankası’nın Analitik Bilançosu ve swap yükümlülüklerinden hesaplanan net döviz pozisyonu ve günlük değişimleri.',
             url: 'https://finfolis.com/veri/net-doviz-pozisyonu/',
             isAccessibleForFree: true,
             creator: {
@@ -53,12 +53,64 @@ const jsonLd = sayfaSemasi({
     : {}),
 });
 
-// SVG Çizim Parametreleri
+// Veri Noktaları
 const noktalar = rezerv?.gecmis ?? [];
-const svgW = 720;
+
+// 1. Günlük Değişim Çubuk Grafiği (Altın Etkisi Dışlanmış) Parametreleri
+interface GunlukDegisim {
+  tarih: string;
+  tarihKisa: string;
+  deger: number;
+}
+
+const gunlukDegisimler: GunlukDegisim[] = [];
+for (let i = 1; i < noktalar.length; i++) {
+  const onceki = noktalar[i - 1].deger;
+  const suanki = noktalar[i].deger;
+  const fark = Math.round((suanki - onceki) * 10) / 10;
+  const d = noktalar[i].tarih;
+  const tarihKisa = `${d.slice(8, 10)}.${d.slice(5, 7)}`;
+  gunlukDegisimler.push({
+    tarih: d,
+    tarihKisa,
+    deger: fark,
+  });
+}
+// Son 20 iş günü (yaklaşık 1 aylık görünüm)
+const barNoktalar = gunlukDegisimler.slice(-20);
+
+const barSvgW = 760;
+const barSvgH = 320;
+const barPadL = 48;
+const barPadR = 25;
+const barPadT = 32;
+const barPadB = 55;
+
+const barDegerler = barNoktalar.map((b) => b.deger);
+const maxAbs = Math.max(5, ...barDegerler.map((v) => Math.ceil(Math.abs(v))));
+const barMaxY = maxAbs;
+const barMinY = -maxAbs;
+const barAralikY = barMaxY - barMinY;
+
+const barYCoord = (val: number) =>
+  barPadT + (1 - (val - barMinY) / barAralikY) * (barSvgH - barPadT - barPadB);
+
+const barYZero = barYCoord(0);
+
+const barColWidth = (barSvgW - barPadL - barPadR) / Math.max(barNoktalar.length, 1);
+const barWidth = Math.max(Math.floor(barColWidth * 0.65), 14);
+
+const barYCizgileri: number[] = [];
+const adim = maxAbs > 6 ? 2 : 1;
+for (let v = barMinY; v <= barMaxY; v += adim) {
+  barYCizgileri.push(v);
+}
+
+// 2. Kümülatif Çizgi Grafik Parametreleri
+const svgW = 760;
 const svgH = 260;
-const padL = 40;
-const padR = 20;
+const padL = 48;
+const padR = 25;
 const padT = 20;
 const padB = 30;
 
@@ -77,11 +129,16 @@ const pathD = noktalar
   .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xCoord(i).toFixed(1)} ${yCoord(p.deger).toFixed(1)}`)
   .join(' ');
 
-// Y Ekseninde 10'ar milyar aralıklı kılavuz çizgileri
 const yCizgileri = [20, 30, 40, 50, 60].filter((v) => v >= minVal && v <= maxVal);
 
-// X Ekseninde belirli aralıklarla tarih etiketleri
-const xEtiketleri = noktalar.filter((_, i) => i === 0 || i === Math.floor(noktalar.length * 0.25) || i === Math.floor(noktalar.length * 0.5) || i === Math.floor(noktalar.length * 0.75) || i === noktalar.length - 1);
+const xEtiketleri = noktalar.filter(
+  (_, i) =>
+    i === 0 ||
+    i === Math.floor(noktalar.length * 0.25) ||
+    i === Math.floor(noktalar.length * 0.5) ||
+    i === Math.floor(noktalar.length * 0.75) ||
+    i === noktalar.length - 1,
+);
 ---
 
 <Base title={`${baslik}: TCMB güncel ve geçmiş veriler`} description={description} noindex={!rezerv}>
@@ -102,7 +159,7 @@ const xEtiketleri = noktalar.filter((_, i) => i === 0 || i === Math.floor(noktal
               <dd class="vurgulu-sayi">{milyar(rezerv.netDovizPozisyonu)}</dd>
               <dd class="veri-degisim">
                 {rezerv.degisimGunluk !== 0 && (
-                  <span>
+                  <span class={rezerv.degisimGunluk > 0 ? 'pozitif-yazi' : 'negatif-yazi'}>
                     Günlük {rezerv.degisimGunluk > 0 ? '+' : ''}
                     {sayiYaz(rezerv.degisimGunluk, 1)} milyar $
                   </span>
@@ -130,10 +187,97 @@ const xEtiketleri = noktalar.filter((_, i) => i === 0 || i === Math.floor(noktal
             {zamanYaz(rezerv.alinma)}.
           </p>
 
+          <!-- 1. BÖLÜM: GÜNLÜK DEĞİŞİM ÇUBUK GRAFİĞİ -->
           <section class="bolum grafik-alani">
-            <h2 class="bolum-baslik">Net Döviz Pozisyonu Seyri (Milyar $)</h2>
+            <div class="grafik-baslik-kutusu">
+              <h2 class="bolum-baslik">TCMB net pozisyonu günlük değişimi</h2>
+              <span class="grafik-altbaslik">(Altın etkisi dışlanmış, milyar $)</span>
+            </div>
+
             <div class="grafik-kapsayici">
-              <svg viewBox={`0 0 ${svgW} ${svgH}`} class="rezerv-grafik" role="img" aria-label="TCMB net döviz pozisyonu geçmiş grafiği">
+              <svg viewBox={`0 0 ${barSvgW} ${barSvgH}`} class="rezerv-grafik" role="img" aria-label="TCMB net pozisyonu günlük değişimi çubuk grafiği">
+                <!-- Yatay Kılavuz Çizgileri -->
+                {barYCizgileri.map((yVal) => (
+                  <g class="kilavuz-grup">
+                    <line
+                      x1={barPadL}
+                      y1={barYCoord(yVal)}
+                      x2={barSvgW - barPadR}
+                      y2={barYCoord(yVal)}
+                      stroke={yVal === 0 ? 'var(--ink, #1b1b1b)' : 'var(--hair, #cfccc2)'}
+                      stroke-width={yVal === 0 ? '1.5' : '1'}
+                      stroke-dasharray={yVal === 0 ? 'none' : '2 2'}
+                    />
+                    <text
+                      x={barPadL - 8}
+                      y={barYCoord(yVal) + 4}
+                      text-anchor="end"
+                      class={`grafik-eksen-metin ${yVal === 0 ? 'eksen-sifir' : ''}`}
+                    >
+                      {yVal > 0 ? `+${yVal}` : yVal}
+                    </text>
+                  </g>
+                ))}
+
+                <!-- Çubuklar ve Değerler -->
+                {barNoktalar.map((b, i) => {
+                  const xCenter = barPadL + (i + 0.5) * barColWidth;
+                  const xLeft = xCenter - barWidth / 2;
+                  const isPositive = b.deger >= 0;
+                  const yVal = barYCoord(b.deger);
+                  const yTop = isPositive ? yVal : barYZero;
+                  const height = Math.max(Math.abs(yVal - barYZero), 2);
+                  const barColor = isPositive ? 'var(--yukselis, #3f7350)' : 'var(--dusus, #a3243b)';
+                  const labelY = isPositive ? yVal - 7 : yVal + 14;
+                  const labelColor = isPositive ? 'var(--yukselis, #3f7350)' : 'var(--dusus, #a3243b)';
+                  const labelText = `${isPositive && b.deger > 0 ? '+' : ''}${sayiYaz(b.deger, 1)}`;
+
+                  return (
+                    <g class="bar-grup" tabindex="0">
+                      <title>{`${gunYaz(b.tarih)}: ${labelText} milyar $`}</title>
+                      <!-- Çubuk -->
+                      <rect
+                        x={xLeft}
+                        y={yTop}
+                        width={barWidth}
+                        height={height}
+                        fill={barColor}
+                      />
+                      <!-- Değer Etiketi -->
+                      <text
+                        x={xCenter}
+                        y={labelY}
+                        text-anchor="middle"
+                        class={`bar-deger-metin ${isPositive ? 'pozitif' : 'negatif'}`}
+                        fill={labelColor}
+                      >
+                        {labelText}
+                      </text>
+                      <!-- Tarih Etiketi (Eğik) -->
+                      <text
+                        x={xCenter}
+                        y={barSvgH - 12}
+                        text-anchor="middle"
+                        class="grafik-tarih-metin"
+                        transform={`rotate(-40, ${xCenter}, ${barSvgH - 12})`}
+                      >
+                        {b.tarihKisa}
+                      </text>
+                    </g>
+                  );
+                })}
+              </svg>
+            </div>
+            <p class="veri-notu">
+              * Çubuklar, TCMB Analitik Bilançosu döviz varlık ve yükümlülüklerinden hesaplanan net pozisyonun günlük farkını gösterir. Küresel ons altın dalgalanmalarının yarattığı muhasebesel değerleme etkisi dışlanmıştır; pozitif barlar TCMB'nin piyasadan döviz çektiğini, negatif barlar ise piyasaya döviz verdiğini ifade eder.
+            </p>
+          </section>
+
+          <!-- 2. BÖLÜM: KÜMÜLATİF SEYİR ÇİZGİ GRAFİĞİ -->
+          <section class="bolum grafik-alani">
+            <h2 class="bolum-baslik">Net Döviz Pozisyonu Düzeyi (Milyar $)</h2>
+            <div class="grafik-kapsayici">
+              <svg viewBox={`0 0 ${svgW} ${svgH}`} class="rezerv-grafik" role="img" aria-label="TCMB net döviz pozisyonu geçmiş seviye grafiği">
                 <!-- Yatay Kılavuz Çizgileri -->
                 {yCizgileri.map((yVal) => (
                   <g class="kilavuz-grup">
@@ -142,7 +286,7 @@ const xEtiketleri = noktalar.filter((_, i) => i === 0 || i === Math.floor(noktal
                       y1={yCoord(yVal)}
                       x2={svgW - padR}
                       y2={yCoord(yVal)}
-                      stroke="var(--hair, #e5e5e5)"
+                      stroke="var(--hair, #cfccc2)"
                       stroke-dasharray="2 2"
                     />
                     <text
@@ -160,10 +304,10 @@ const xEtiketleri = noktalar.filter((_, i) => i === 0 || i === Math.floor(noktal
                 <path
                   d={pathD}
                   fill="none"
-                  stroke="#c2502b"
+                  stroke="var(--toprak, #c2502b)"
                   stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  stroke-linecap="square"
+                  stroke-linejoin="miter"
                 />
 
                 <!-- Son Nokta -->
@@ -172,7 +316,7 @@ const xEtiketleri = noktalar.filter((_, i) => i === 0 || i === Math.floor(noktal
                     cx={xCoord(noktalar.length - 1)}
                     cy={yCoord(rezerv.netDovizPozisyonu)}
                     r="4.5"
-                    fill="#c2502b"
+                    fill="var(--toprak, #c2502b)"
                   />
                 )}
 
@@ -251,19 +395,22 @@ const xEtiketleri = noktalar.filter((_, i) => i === 0 || i === Math.floor(noktal
                 borçlardan oluşur.
               </p>
               <p>
+                <strong>Neden Altın Etkisi Dışlanır?</strong><br />
+                Merkez Bankası kasasındaki yüzlerce ton altının piyasa değeri, küresel piyasalarda ons altın fiyatı değiştikçe her gün dalgalanır. TCMB piyasada tek bir dolar alıp satmasa dahi, ons altının yükseldiği bir gün bilançodaki net rezerv kağıt üzerinde 1 milyar dolar artabilir. Piyasaya yapılan doğrudan döviz müdahalesini veya piyasadan çekilen nakit likiditeyi net görebilmek için ons altın kaynaklı muhasebesel değerleme farkları formülden dışlanır.
+              </p>
+              <p>
+                <strong>Günlük Grafikteki Artı ve Eksi Barların Anlamı:</strong><br />
+                Yeşil (pozitif) çubuklar, TCMB'nin piyasadan doğrudan döviz toplayarak rezerv biriktirdiğini (ihracatçı döviz devirleri, reeskont kredisi geri dönüşleri vb.) gösterir. Kırmızı (negatif) çubuklar ise Merkez Bankası'nın piyasanın döviz talebini karşılamak veya kuru dengelemek amacıyla piyasaya döviz sattığını ifade eder.
+              </p>
+              <p>
                 <strong>Neden Swaplar Düşülür?</strong><br />
                 TCMB yerel bankalarla veya yabancı merkez bankalarıyla swap yaptığında bilançoya döviz girer; fakat vade bitiminde
-                bu döviz geri ödeneceği için gerçek bir rezerv varlığı değil, bir yükümlülüktür.
+                bu döviz geri ödeneceği için gerçek bir rezerv varlığı değil, bir yükümlülüktür. Swapların resmi rezerv içindeki tarihsel payını ve değişimini <a href="/veri/swap-payi/">TCMB Swap Payı Grafiği</a> üzerinden inceleyebilirsiniz.
               </p>
               <p>
                 <strong>Neden Hazine Dövizi Düşülür?</strong><br />
                 Hazine'nin Merkez Bankası'nda tuttuğu mevduat doğrudan devlete aittir; Merkez Bankası'nın kendi para politikası
                 veya döviz likiditesi için serbestçe tasarruf edebileceği bir rezerv değildir.
-              </p>
-              <p>
-                Bu iki kalem arındırıldığında geriye kalan <strong>Swap ve Hazine Hariç Net Döviz Pozisyonu</strong>, Merkez
-                Bankası'nın dışarıdan hiçbir borç veya emanet almaksızın sahip olduğu "öz" cephaneyi gösterir. Piyasa
-                ekonomistlerinin rezerv kalitesini ölçerken en çok başvurduğu temel referans bu göstergedir.
               </p>
             </section>
           </div>
@@ -274,6 +421,7 @@ const xEtiketleri = noktalar.filter((_, i) => i === 0 || i === Math.floor(noktal
     }
 
     <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/swap-payi/">TCMB swap payı (%)</a>
       <a href="/veri/doviz-kurlari/">Döviz kurları</a>
       <a href="/veri/politika-faizi/">Politika faizi</a>
       <a href="/veri/enflasyon/">Enflasyon</a>
@@ -289,15 +437,39 @@ const xEtiketleri = noktalar.filter((_, i) => i === 0 || i === Math.floor(noktal
   .vurgulu-sayi {
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--terracotta, #c2502b);
+    color: var(--toprak, #c2502b);
+  }
+
+  .pozitif-yazi {
+    color: var(--yukselis, #3f7350);
+    font-weight: 700;
+  }
+
+  .negatif-yazi {
+    color: var(--dusus, #a3243b);
+    font-weight: 700;
+  }
+
+  .grafik-baslik-kutusu {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .grafik-altbaslik {
+    font-size: 0.95rem;
+    color: var(--muted, #5d5b55);
+    font-weight: 500;
   }
 
   .grafik-kapsayici {
     width: 100%;
     overflow-x: auto;
-    background: var(--surface, #faf8f5);
-    border: 1px solid var(--hair, #e8e4df);
-    border-radius: 6px;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    border-radius: 0px;
     padding: 16px;
     margin: 16px 0 8px;
   }
@@ -305,26 +477,51 @@ const xEtiketleri = noktalar.filter((_, i) => i === 0 || i === Math.floor(noktal
   .rezerv-grafik {
     width: 100%;
     height: auto;
-    min-width: 480px;
+    min-width: 520px;
     display: block;
   }
 
   .grafik-eksen-metin {
     font-size: 11px;
-    fill: var(--ink-muted, #73706c);
+    fill: var(--muted, #5d5b55);
     font-family: var(--sans, sans-serif);
   }
 
+  .eksen-sifir {
+    font-weight: 700;
+    fill: var(--ink, #1b1b1b);
+  }
+
+  .bar-deger-metin {
+    font-size: 11px;
+    font-family: var(--sans, sans-serif);
+    font-weight: 700;
+  }
+
+  .bar-deger-metin.negatif {
+    font-weight: 800;
+  }
+
+  .grafik-tarih-metin {
+    font-size: 10px;
+    fill: var(--muted, #5d5b55);
+    font-family: var(--sans, sans-serif);
+  }
+
+  .bar-grup:hover rect {
+    opacity: 0.82;
+  }
+
   .ara-toplam {
-    background: var(--surface-subtle, rgba(0, 0, 0, 0.02));
-    border-top: 1px solid var(--hair, #e5e5e5);
-    border-bottom: 1px solid var(--hair, #e5e5e5);
+    background: var(--paper-2, #e9e7df);
+    border-top: 1px solid var(--hair, #cfccc2);
+    border-bottom: 1px solid var(--hair, #cfccc2);
   }
 
   .vurgulu-sonuc {
-    background: var(--surface-accent, rgba(194, 80, 43, 0.06));
-    border-top: 2px solid var(--terracotta, #c2502b);
-    border-bottom: 2px solid var(--terracotta, #c2502b);
+    background: var(--soluk, #e4e1d7);
+    border-top: 2px solid var(--toprak, #c2502b);
+    border-bottom: 2px solid var(--toprak, #c2502b);
     font-size: 1.05rem;
   }
 </style>

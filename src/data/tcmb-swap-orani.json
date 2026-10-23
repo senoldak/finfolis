@@ -1,0 +1,657 @@
+{
+  "guncellenme": "2026-10-23T09:33:26.295Z",
+  "kaynak": "TCMB EVDS - Uluslararası Rezervler ve Döviz Likiditesi Tablosu",
+  "kayit_sayisi": 65,
+  "seri": [
+    {
+      "tarih": "2021-5",
+      "etiket": "Mayıs 21",
+      "toplam_rezerv_milyar_usd": 92.03,
+      "doviz_rezervi_milyar_usd": 46.52,
+      "altin_rezervi_milyar_usd": 43.95,
+      "swap_stoku_milyar_usd": 54.03,
+      "swap_payi_toplam_yuzde": 58.7,
+      "swap_payi_doviz_yuzde": 116.2
+    },
+    {
+      "tarih": "2021-6",
+      "etiket": "Haziran 21",
+      "toplam_rezerv_milyar_usd": 97.69,
+      "doviz_rezervi_milyar_usd": 55.61,
+      "altin_rezervi_milyar_usd": 40.53,
+      "swap_stoku_milyar_usd": 59.71,
+      "swap_payi_toplam_yuzde": 61.1,
+      "swap_payi_doviz_yuzde": 107.4
+    },
+    {
+      "tarih": "2021-7",
+      "etiket": "Temmuz 21",
+      "toplam_rezerv_milyar_usd": 105.76,
+      "doviz_rezervi_milyar_usd": 62.61,
+      "altin_rezervi_milyar_usd": 41.59,
+      "swap_stoku_milyar_usd": 60.49,
+      "swap_payi_toplam_yuzde": 57.2,
+      "swap_payi_doviz_yuzde": 96.6
+    },
+    {
+      "tarih": "2021-8",
+      "etiket": "Ağustos 21",
+      "toplam_rezerv_milyar_usd": 117.76,
+      "doviz_rezervi_milyar_usd": 69.28,
+      "altin_rezervi_milyar_usd": 40.59,
+      "swap_stoku_milyar_usd": 61.96,
+      "swap_payi_toplam_yuzde": 52.6,
+      "swap_payi_doviz_yuzde": 89.4
+    },
+    {
+      "tarih": "2021-9",
+      "etiket": "Eylül 21",
+      "toplam_rezerv_milyar_usd": 121.26,
+      "doviz_rezervi_milyar_usd": 74.88,
+      "altin_rezervi_milyar_usd": 38.52,
+      "swap_stoku_milyar_usd": 63.32,
+      "swap_payi_toplam_yuzde": 52.2,
+      "swap_payi_doviz_yuzde": 84.6
+    },
+    {
+      "tarih": "2021-10",
+      "etiket": "Ekim 21",
+      "toplam_rezerv_milyar_usd": 123.93,
+      "doviz_rezervi_milyar_usd": 76.4,
+      "altin_rezervi_milyar_usd": 39.68,
+      "swap_stoku_milyar_usd": 63.18,
+      "swap_payi_toplam_yuzde": 51,
+      "swap_payi_doviz_yuzde": 82.7
+    },
+    {
+      "tarih": "2021-11",
+      "etiket": "Kasım 21",
+      "toplam_rezerv_milyar_usd": 125.59,
+      "doviz_rezervi_milyar_usd": 78.53,
+      "altin_rezervi_milyar_usd": 39.3,
+      "swap_stoku_milyar_usd": 53.5,
+      "swap_payi_toplam_yuzde": 42.6,
+      "swap_payi_doviz_yuzde": 68.1
+    },
+    {
+      "tarih": "2021-12",
+      "etiket": "Aralık 21",
+      "toplam_rezerv_milyar_usd": 111.18,
+      "doviz_rezervi_milyar_usd": 64.83,
+      "altin_rezervi_milyar_usd": 38.49,
+      "swap_stoku_milyar_usd": 58.53,
+      "swap_payi_toplam_yuzde": 52.6,
+      "swap_payi_doviz_yuzde": 90.3
+    },
+    {
+      "tarih": "2022-1",
+      "etiket": "Ocak 22",
+      "toplam_rezerv_milyar_usd": 109.72,
+      "doviz_rezervi_milyar_usd": 63.3,
+      "altin_rezervi_milyar_usd": 38.59,
+      "swap_stoku_milyar_usd": 59.34,
+      "swap_payi_toplam_yuzde": 54.1,
+      "swap_payi_doviz_yuzde": 93.7
+    },
+    {
+      "tarih": "2022-2",
+      "etiket": "Şubat 22",
+      "toplam_rezerv_milyar_usd": 110.5,
+      "doviz_rezervi_milyar_usd": 60.96,
+      "altin_rezervi_milyar_usd": 41.7,
+      "swap_stoku_milyar_usd": 57.73,
+      "swap_payi_toplam_yuzde": 52.2,
+      "swap_payi_doviz_yuzde": 94.7
+    },
+    {
+      "tarih": "2022-3",
+      "etiket": "Mart 22",
+      "toplam_rezerv_milyar_usd": 105.92,
+      "doviz_rezervi_milyar_usd": 56.15,
+      "altin_rezervi_milyar_usd": 41.99,
+      "swap_stoku_milyar_usd": 58.37,
+      "swap_payi_toplam_yuzde": 55.1,
+      "swap_payi_doviz_yuzde": 104
+    },
+    {
+      "tarih": "2022-4",
+      "etiket": "Nisan 22",
+      "toplam_rezerv_milyar_usd": 106.86,
+      "doviz_rezervi_milyar_usd": 57.85,
+      "altin_rezervi_milyar_usd": 41.47,
+      "swap_stoku_milyar_usd": 61.11,
+      "swap_payi_toplam_yuzde": 57.2,
+      "swap_payi_doviz_yuzde": 105.6
+    },
+    {
+      "tarih": "2022-5",
+      "etiket": "Mayıs 22",
+      "toplam_rezerv_milyar_usd": 101.69,
+      "doviz_rezervi_milyar_usd": 52.2,
+      "altin_rezervi_milyar_usd": 41.88,
+      "swap_stoku_milyar_usd": 60.73,
+      "swap_payi_toplam_yuzde": 59.7,
+      "swap_payi_doviz_yuzde": 116.3
+    },
+    {
+      "tarih": "2022-6",
+      "etiket": "Haziran 22",
+      "toplam_rezerv_milyar_usd": 98.34,
+      "doviz_rezervi_milyar_usd": 49.71,
+      "altin_rezervi_milyar_usd": 41.14,
+      "swap_stoku_milyar_usd": 59.31,
+      "swap_payi_toplam_yuzde": 60.3,
+      "swap_payi_doviz_yuzde": 119.3
+    },
+    {
+      "tarih": "2022-7",
+      "etiket": "Temmuz 22",
+      "toplam_rezerv_milyar_usd": 101.26,
+      "doviz_rezervi_milyar_usd": 53.68,
+      "altin_rezervi_milyar_usd": 40.16,
+      "swap_stoku_milyar_usd": 60.93,
+      "swap_payi_toplam_yuzde": 60.2,
+      "swap_payi_doviz_yuzde": 113.5
+    },
+    {
+      "tarih": "2022-8",
+      "etiket": "Ağustos 22",
+      "toplam_rezerv_milyar_usd": 111.22,
+      "doviz_rezervi_milyar_usd": 63.73,
+      "altin_rezervi_milyar_usd": 40.19,
+      "swap_stoku_milyar_usd": 61.95,
+      "swap_payi_toplam_yuzde": 55.7,
+      "swap_payi_doviz_yuzde": 97.2
+    },
+    {
+      "tarih": "2022-9",
+      "etiket": "Eylül 22",
+      "toplam_rezerv_milyar_usd": 107.04,
+      "doviz_rezervi_milyar_usd": 60.88,
+      "altin_rezervi_milyar_usd": 39,
+      "swap_stoku_milyar_usd": 65.62,
+      "swap_payi_toplam_yuzde": 61.3,
+      "swap_payi_doviz_yuzde": 107.8
+    },
+    {
+      "tarih": "2022-10",
+      "etiket": "Ekim 22",
+      "toplam_rezerv_milyar_usd": 113.48,
+      "doviz_rezervi_milyar_usd": 67.14,
+      "altin_rezervi_milyar_usd": 39.07,
+      "swap_stoku_milyar_usd": 69.21,
+      "swap_payi_toplam_yuzde": 61,
+      "swap_payi_doviz_yuzde": 103.1
+    },
+    {
+      "tarih": "2022-11",
+      "etiket": "Kasım 22",
+      "toplam_rezerv_milyar_usd": 122.36,
+      "doviz_rezervi_milyar_usd": 71.97,
+      "altin_rezervi_milyar_usd": 43,
+      "swap_stoku_milyar_usd": 65.39,
+      "swap_payi_toplam_yuzde": 53.4,
+      "swap_payi_doviz_yuzde": 90.9
+    },
+    {
+      "tarih": "2022-12",
+      "etiket": "Aralık 22",
+      "toplam_rezerv_milyar_usd": 128.74,
+      "doviz_rezervi_milyar_usd": 75.41,
+      "altin_rezervi_milyar_usd": 45.85,
+      "swap_stoku_milyar_usd": 67.76,
+      "swap_payi_toplam_yuzde": 52.6,
+      "swap_payi_doviz_yuzde": 89.9
+    },
+    {
+      "tarih": "2023-1",
+      "etiket": "Ocak 23",
+      "toplam_rezerv_milyar_usd": 125.34,
+      "doviz_rezervi_milyar_usd": 67.16,
+      "altin_rezervi_milyar_usd": 50.58,
+      "swap_stoku_milyar_usd": 67.16,
+      "swap_payi_toplam_yuzde": 53.6,
+      "swap_payi_doviz_yuzde": 100
+    },
+    {
+      "tarih": "2023-2",
+      "etiket": "Şubat 23",
+      "toplam_rezerv_milyar_usd": 117.41,
+      "doviz_rezervi_milyar_usd": 61.29,
+      "altin_rezervi_milyar_usd": 48.66,
+      "swap_stoku_milyar_usd": 59.16,
+      "swap_payi_toplam_yuzde": 50.4,
+      "swap_payi_doviz_yuzde": 96.5
+    },
+    {
+      "tarih": "2023-3",
+      "etiket": "Mart 23",
+      "toplam_rezerv_milyar_usd": 122.42,
+      "doviz_rezervi_milyar_usd": 62.68,
+      "altin_rezervi_milyar_usd": 52.18,
+      "swap_stoku_milyar_usd": 58.1,
+      "swap_payi_toplam_yuzde": 47.5,
+      "swap_payi_doviz_yuzde": 92.7
+    },
+    {
+      "tarih": "2023-4",
+      "etiket": "Nisan 23",
+      "toplam_rezerv_milyar_usd": 114.88,
+      "doviz_rezervi_milyar_usd": 60.87,
+      "altin_rezervi_milyar_usd": 46.41,
+      "swap_stoku_milyar_usd": 55.75,
+      "swap_payi_toplam_yuzde": 48.5,
+      "swap_payi_doviz_yuzde": 91.6
+    },
+    {
+      "tarih": "2023-5",
+      "etiket": "Mayıs 23",
+      "toplam_rezerv_milyar_usd": 97.08,
+      "doviz_rezervi_milyar_usd": 48.27,
+      "altin_rezervi_milyar_usd": 41.33,
+      "swap_stoku_milyar_usd": 52.63,
+      "swap_payi_toplam_yuzde": 54.2,
+      "swap_payi_doviz_yuzde": 109
+    },
+    {
+      "tarih": "2023-6",
+      "etiket": "Haziran 23",
+      "toplam_rezerv_milyar_usd": 108.58,
+      "doviz_rezervi_milyar_usd": 59.65,
+      "altin_rezervi_milyar_usd": 41.43,
+      "swap_stoku_milyar_usd": 57.16,
+      "swap_payi_toplam_yuzde": 52.6,
+      "swap_payi_doviz_yuzde": 95.8
+    },
+    {
+      "tarih": "2023-7",
+      "etiket": "Temmuz 23",
+      "toplam_rezerv_milyar_usd": 111.62,
+      "doviz_rezervi_milyar_usd": 62.65,
+      "altin_rezervi_milyar_usd": 41.43,
+      "swap_stoku_milyar_usd": 57.34,
+      "swap_payi_toplam_yuzde": 51.4,
+      "swap_payi_doviz_yuzde": 91.5
+    },
+    {
+      "tarih": "2023-8",
+      "etiket": "Ağustos 23",
+      "toplam_rezerv_milyar_usd": 116.65,
+      "doviz_rezervi_milyar_usd": 67.4,
+      "altin_rezervi_milyar_usd": 41.78,
+      "swap_stoku_milyar_usd": 69.53,
+      "swap_payi_toplam_yuzde": 59.6,
+      "swap_payi_doviz_yuzde": 103.2
+    },
+    {
+      "tarih": "2023-9",
+      "etiket": "Eylül 23",
+      "toplam_rezerv_milyar_usd": 122.2,
+      "doviz_rezervi_milyar_usd": 74.2,
+      "altin_rezervi_milyar_usd": 40.63,
+      "swap_stoku_milyar_usd": 74.29,
+      "swap_payi_toplam_yuzde": 60.8,
+      "swap_payi_doviz_yuzde": 100.1
+    },
+    {
+      "tarih": "2023-10",
+      "etiket": "Ekim 23",
+      "toplam_rezerv_milyar_usd": 126.19,
+      "doviz_rezervi_milyar_usd": 74.53,
+      "altin_rezervi_milyar_usd": 44.28,
+      "swap_stoku_milyar_usd": 78.07,
+      "swap_payi_toplam_yuzde": 61.9,
+      "swap_payi_doviz_yuzde": 104.8
+    },
+    {
+      "tarih": "2023-11",
+      "etiket": "Kasım 23",
+      "toplam_rezerv_milyar_usd": 136.68,
+      "doviz_rezervi_milyar_usd": 82.85,
+      "altin_rezervi_milyar_usd": 46.31,
+      "swap_stoku_milyar_usd": 78.93,
+      "swap_payi_toplam_yuzde": 57.8,
+      "swap_payi_doviz_yuzde": 95.3
+    },
+    {
+      "tarih": "2023-12",
+      "etiket": "Aralık 23",
+      "toplam_rezerv_milyar_usd": 140.88,
+      "doviz_rezervi_milyar_usd": 85.16,
+      "altin_rezervi_milyar_usd": 48.16,
+      "swap_stoku_milyar_usd": 69.35,
+      "swap_payi_toplam_yuzde": 49.2,
+      "swap_payi_doviz_yuzde": 81.4
+    },
+    {
+      "tarih": "2024-1",
+      "etiket": "Ocak 24",
+      "toplam_rezerv_milyar_usd": 133.86,
+      "doviz_rezervi_milyar_usd": 78,
+      "altin_rezervi_milyar_usd": 48.38,
+      "swap_stoku_milyar_usd": 69.67,
+      "swap_payi_toplam_yuzde": 52.1,
+      "swap_payi_doviz_yuzde": 89.3
+    },
+    {
+      "tarih": "2024-2",
+      "etiket": "Şubat 24",
+      "toplam_rezerv_milyar_usd": 128.49,
+      "doviz_rezervi_milyar_usd": 71.6,
+      "altin_rezervi_milyar_usd": 49.43,
+      "swap_stoku_milyar_usd": 63.73,
+      "swap_payi_toplam_yuzde": 49.6,
+      "swap_payi_doviz_yuzde": 89
+    },
+    {
+      "tarih": "2024-3",
+      "etiket": "Mart 24",
+      "toplam_rezerv_milyar_usd": 123.12,
+      "doviz_rezervi_milyar_usd": 61.29,
+      "altin_rezervi_milyar_usd": 54.38,
+      "swap_stoku_milyar_usd": 76.65,
+      "swap_payi_toplam_yuzde": 62.3,
+      "swap_payi_doviz_yuzde": 125.1
+    },
+    {
+      "tarih": "2024-4",
+      "etiket": "Nisan 24",
+      "toplam_rezerv_milyar_usd": 124.29,
+      "doviz_rezervi_milyar_usd": 58.69,
+      "altin_rezervi_milyar_usd": 58.19,
+      "swap_stoku_milyar_usd": 57.56,
+      "swap_payi_toplam_yuzde": 46.3,
+      "swap_payi_doviz_yuzde": 98.1
+    },
+    {
+      "tarih": "2024-5",
+      "etiket": "Mayıs 24",
+      "toplam_rezerv_milyar_usd": 143.65,
+      "doviz_rezervi_milyar_usd": 76.46,
+      "altin_rezervi_milyar_usd": 59.74,
+      "swap_stoku_milyar_usd": 39.29,
+      "swap_payi_toplam_yuzde": 27.3,
+      "swap_payi_doviz_yuzde": 51.4
+    },
+    {
+      "tarih": "2024-6",
+      "etiket": "Haziran 24",
+      "toplam_rezerv_milyar_usd": 142.91,
+      "doviz_rezervi_milyar_usd": 77.43,
+      "altin_rezervi_milyar_usd": 58.08,
+      "swap_stoku_milyar_usd": 24.57,
+      "swap_payi_toplam_yuzde": 17.2,
+      "swap_payi_doviz_yuzde": 31.7
+    },
+    {
+      "tarih": "2024-7",
+      "etiket": "Temmuz 24",
+      "toplam_rezerv_milyar_usd": 147.85,
+      "doviz_rezervi_milyar_usd": 83.24,
+      "altin_rezervi_milyar_usd": 57.15,
+      "swap_stoku_milyar_usd": 23.11,
+      "swap_payi_toplam_yuzde": 15.6,
+      "swap_payi_doviz_yuzde": 27.8
+    },
+    {
+      "tarih": "2024-8",
+      "etiket": "Ağustos 24",
+      "toplam_rezerv_milyar_usd": 149.37,
+      "doviz_rezervi_milyar_usd": 81.74,
+      "altin_rezervi_milyar_usd": 60.04,
+      "swap_stoku_milyar_usd": 22.34,
+      "swap_payi_toplam_yuzde": 15,
+      "swap_payi_doviz_yuzde": 27.3
+    },
+    {
+      "tarih": "2024-9",
+      "etiket": "Eylül 24",
+      "toplam_rezerv_milyar_usd": 152.07,
+      "doviz_rezervi_milyar_usd": 81.08,
+      "altin_rezervi_milyar_usd": 63.36,
+      "swap_stoku_milyar_usd": 22.44,
+      "swap_payi_toplam_yuzde": 14.8,
+      "swap_payi_doviz_yuzde": 27.7
+    },
+    {
+      "tarih": "2024-10",
+      "etiket": "Ekim 24",
+      "toplam_rezerv_milyar_usd": 159.82,
+      "doviz_rezervi_milyar_usd": 84.96,
+      "altin_rezervi_milyar_usd": 67.38,
+      "swap_stoku_milyar_usd": 22.36,
+      "swap_payi_toplam_yuzde": 14,
+      "swap_payi_doviz_yuzde": 26.3
+    },
+    {
+      "tarih": "2024-11",
+      "etiket": "Kasım 24",
+      "toplam_rezerv_milyar_usd": 157.74,
+      "doviz_rezervi_milyar_usd": 85.42,
+      "altin_rezervi_milyar_usd": 64.92,
+      "swap_stoku_milyar_usd": 22.28,
+      "swap_payi_toplam_yuzde": 14.1,
+      "swap_payi_doviz_yuzde": 26.1
+    },
+    {
+      "tarih": "2024-12",
+      "etiket": "Aralık 24",
+      "toplam_rezerv_milyar_usd": 155.23,
+      "doviz_rezervi_milyar_usd": 83.52,
+      "altin_rezervi_milyar_usd": 64.36,
+      "swap_stoku_milyar_usd": 22.26,
+      "swap_payi_toplam_yuzde": 14.3,
+      "swap_payi_doviz_yuzde": 26.7
+    },
+    {
+      "tarih": "2025-1",
+      "etiket": "Ocak 25",
+      "toplam_rezerv_milyar_usd": 165.97,
+      "doviz_rezervi_milyar_usd": 89.95,
+      "altin_rezervi_milyar_usd": 68.66,
+      "swap_stoku_milyar_usd": 19.54,
+      "swap_payi_toplam_yuzde": 11.8,
+      "swap_payi_doviz_yuzde": 21.7
+    },
+    {
+      "tarih": "2025-2",
+      "etiket": "Şubat 25",
+      "toplam_rezerv_milyar_usd": 165.42,
+      "doviz_rezervi_milyar_usd": 87.36,
+      "altin_rezervi_milyar_usd": 70.66,
+      "swap_stoku_milyar_usd": 19.54,
+      "swap_payi_toplam_yuzde": 11.8,
+      "swap_payi_doviz_yuzde": 22.4
+    },
+    {
+      "tarih": "2025-3",
+      "etiket": "Mart 25",
+      "toplam_rezerv_milyar_usd": 156.51,
+      "doviz_rezervi_milyar_usd": 73.14,
+      "altin_rezervi_milyar_usd": 75.9,
+      "swap_stoku_milyar_usd": 19.53,
+      "swap_payi_toplam_yuzde": 12.5,
+      "swap_payi_doviz_yuzde": 26.7
+    },
+    {
+      "tarih": "2025-4",
+      "etiket": "Nisan 25",
+      "toplam_rezerv_milyar_usd": 138.14,
+      "doviz_rezervi_milyar_usd": 49.02,
+      "altin_rezervi_milyar_usd": 81.47,
+      "swap_stoku_milyar_usd": 19.57,
+      "swap_payi_toplam_yuzde": 14.2,
+      "swap_payi_doviz_yuzde": 39.9
+    },
+    {
+      "tarih": "2025-5",
+      "etiket": "Mayıs 25",
+      "toplam_rezerv_milyar_usd": 153.19,
+      "doviz_rezervi_milyar_usd": 62.4,
+      "altin_rezervi_milyar_usd": 83.16,
+      "swap_stoku_milyar_usd": 19.62,
+      "swap_payi_toplam_yuzde": 12.8,
+      "swap_payi_doviz_yuzde": 31.4
+    },
+    {
+      "tarih": "2025-6",
+      "etiket": "Haziran 25",
+      "toplam_rezerv_milyar_usd": 149.9,
+      "doviz_rezervi_milyar_usd": 59.07,
+      "altin_rezervi_milyar_usd": 83.09,
+      "swap_stoku_milyar_usd": 19.6,
+      "swap_payi_toplam_yuzde": 13.1,
+      "swap_payi_doviz_yuzde": 33.2
+    },
+    {
+      "tarih": "2025-7",
+      "etiket": "Temmuz 25",
+      "toplam_rezerv_milyar_usd": 169.21,
+      "doviz_rezervi_milyar_usd": 77.22,
+      "altin_rezervi_milyar_usd": 84.32,
+      "swap_stoku_milyar_usd": 19.62,
+      "swap_payi_toplam_yuzde": 11.6,
+      "swap_payi_doviz_yuzde": 25.4
+    },
+    {
+      "tarih": "2025-8",
+      "etiket": "Ağustos 25",
+      "toplam_rezerv_milyar_usd": 178.36,
+      "doviz_rezervi_milyar_usd": 83.33,
+      "altin_rezervi_milyar_usd": 87.33,
+      "swap_stoku_milyar_usd": 19.66,
+      "swap_payi_toplam_yuzde": 11,
+      "swap_payi_doviz_yuzde": 23.6
+    },
+    {
+      "tarih": "2025-9",
+      "etiket": "Eylül 25",
+      "toplam_rezerv_milyar_usd": 180.12,
+      "doviz_rezervi_milyar_usd": 74.64,
+      "altin_rezervi_milyar_usd": 97.77,
+      "swap_stoku_milyar_usd": 19.67,
+      "swap_payi_toplam_yuzde": 10.9,
+      "swap_payi_doviz_yuzde": 26.3
+    },
+    {
+      "tarih": "2025-10",
+      "etiket": "Ekim 25",
+      "toplam_rezerv_milyar_usd": 183.6,
+      "doviz_rezervi_milyar_usd": 72.72,
+      "altin_rezervi_milyar_usd": 103.22,
+      "swap_stoku_milyar_usd": 19.66,
+      "swap_payi_toplam_yuzde": 10.7,
+      "swap_payi_doviz_yuzde": 27
+    },
+    {
+      "tarih": "2025-11",
+      "etiket": "Kasım 25",
+      "toplam_rezerv_milyar_usd": 183.24,
+      "doviz_rezervi_milyar_usd": 67.96,
+      "altin_rezervi_milyar_usd": 107.63,
+      "swap_stoku_milyar_usd": 17.75,
+      "swap_payi_toplam_yuzde": 9.7,
+      "swap_payi_doviz_yuzde": 26.1
+    },
+    {
+      "tarih": "2025-12",
+      "etiket": "Aralık 25",
+      "toplam_rezerv_milyar_usd": 184.02,
+      "doviz_rezervi_milyar_usd": 63.91,
+      "altin_rezervi_milyar_usd": 112.39,
+      "swap_stoku_milyar_usd": 17.29,
+      "swap_payi_toplam_yuzde": 9.4,
+      "swap_payi_doviz_yuzde": 27
+    },
+    {
+      "tarih": "2026-1",
+      "etiket": "Ocak 26",
+      "toplam_rezerv_milyar_usd": 218.16,
+      "doviz_rezervi_milyar_usd": 76.62,
+      "altin_rezervi_milyar_usd": 133.75,
+      "swap_stoku_milyar_usd": 17.31,
+      "swap_payi_toplam_yuzde": 7.9,
+      "swap_payi_doviz_yuzde": 22.6
+    },
+    {
+      "tarih": "2026-2",
+      "etiket": "Şubat 26",
+      "toplam_rezerv_milyar_usd": 210.26,
+      "doviz_rezervi_milyar_usd": 65.69,
+      "altin_rezervi_milyar_usd": 136.83,
+      "swap_stoku_milyar_usd": 16.41,
+      "swap_payi_toplam_yuzde": 7.8,
+      "swap_payi_doviz_yuzde": 25
+    },
+    {
+      "tarih": "2026-3",
+      "etiket": "Mart 26",
+      "toplam_rezerv_milyar_usd": 150.77,
+      "doviz_rezervi_milyar_usd": 41.59,
+      "altin_rezervi_milyar_usd": 101.54,
+      "swap_stoku_milyar_usd": 21.28,
+      "swap_payi_toplam_yuzde": 14.1,
+      "swap_payi_doviz_yuzde": 51.2
+    },
+    {
+      "tarih": "2026-4",
+      "etiket": "Nisan 26",
+      "toplam_rezerv_milyar_usd": 165.48,
+      "doviz_rezervi_milyar_usd": 48.88,
+      "altin_rezervi_milyar_usd": 108.88,
+      "swap_stoku_milyar_usd": 20.18,
+      "swap_payi_toplam_yuzde": 12.2,
+      "swap_payi_doviz_yuzde": 41.3
+    },
+    {
+      "tarih": "2026-5",
+      "etiket": "Mayıs 26",
+      "toplam_rezerv_milyar_usd": 159.22,
+      "doviz_rezervi_milyar_usd": 45.52,
+      "altin_rezervi_milyar_usd": 105.99,
+      "swap_stoku_milyar_usd": 20.33,
+      "swap_payi_toplam_yuzde": 12.8,
+      "swap_payi_doviz_yuzde": 44.7
+    },
+    {
+      "tarih": "2026-6",
+      "etiket": "Haziran 26",
+      "toplam_rezerv_milyar_usd": 147.43,
+      "doviz_rezervi_milyar_usd": 45.54,
+      "altin_rezervi_milyar_usd": 94.25,
+      "swap_stoku_milyar_usd": 17.67,
+      "swap_payi_toplam_yuzde": 12,
+      "swap_payi_doviz_yuzde": 38.8
+    },
+    {
+      "tarih": "2026-7",
+      "etiket": "Temmuz 26",
+      "toplam_rezerv_milyar_usd": 164.45,
+      "doviz_rezervi_milyar_usd": 56.15,
+      "altin_rezervi_milyar_usd": 100.64,
+      "swap_stoku_milyar_usd": 16.7,
+      "swap_payi_toplam_yuzde": 10.2,
+      "swap_payi_doviz_yuzde": 29.7
+    },
+    {
+      "tarih": "2026-8",
+      "etiket": "Ağustos 26",
+      "toplam_rezerv_milyar_usd": 186.69,
+      "doviz_rezervi_milyar_usd": 61.88,
+      "altin_rezervi_milyar_usd": 117.09,
+      "swap_stoku_milyar_usd": 16.55,
+      "swap_payi_toplam_yuzde": 8.9,
+      "swap_payi_doviz_yuzde": 26.7
+    },
+    {
+      "tarih": "2026-9",
+      "etiket": "Eylül 26",
+      "toplam_rezerv_milyar_usd": 166.07,
+      "doviz_rezervi_milyar_usd": 51.32,
+      "altin_rezervi_milyar_usd": 107.09,
+      "swap_stoku_milyar_usd": 20.15,
+      "swap_payi_toplam_yuzde": 12.1,
+      "swap_payi_doviz_yuzde": 39.3
+    }
+  ]
+}

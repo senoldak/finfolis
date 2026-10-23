@@ -23,6 +23,12 @@ const ogeler = [
   })),
   { href: '/veri/doviz-kurlari/', ad: 'Tüm döviz kurları', deger: kur ? `${kur.liste.length} para birimi` : undefined, not: 'TCMB' },
   {
+    href: '/veri/swap-payi/',
+    ad: 'TCMB rezervlerinde swap payı',
+    deger: '%8,9',
+    not: 'TCMB IMF SDDS · Emanet rezerv oranı',
+  },
+  {
     href: '/veri/net-doviz-pozisyonu/',
     ad: 'TCMB net döviz pozisyonu',
     deger: rezerv ? `${rezerv.netDovizPozisyonu > 0 ? '+' : ''}${sayiYaz(rezerv.netDovizPozisyonu, 1)} milyar $` : undefined,
