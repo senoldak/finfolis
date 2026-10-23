@@ -41,6 +41,12 @@ const ogeler = [
     not: 'TCMB',
   },
   {
+    href: '/veri/piyasa-faizleri/',
+    ad: 'Piyasa faizleri (kredi & mevduat)',
+    deger: piyasaSon ? `İhtiyaç aylık %${sayiYaz(piyasaSon.ihtiyac / 12, 2)}` : undefined,
+    not: piyasaSon ? `TCMB akım · ${gunYaz(piyasaSon.tarih)}` : undefined,
+  },
+  {
     href: '/veri/enflasyon/',
     ad: 'Yıllık enflasyon',
     deger: son ? `%${sayiYaz(son.yillik, 2)}` : undefined,
