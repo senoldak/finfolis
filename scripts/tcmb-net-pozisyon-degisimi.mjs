@@ -97,7 +97,7 @@ function svgUret(veriler) {
     const fill = isPos ? '#3f7350' : '#a3243b';
 
     const labelY = isPos ? py - 8 : py + 14;
-    const valText = (val > 0 ? `+${val.toFixed(1)}` : val.toFixed(1)).replace('.', ',');
+    const valText = (isPos ? `▲ +${val.toFixed(1)}` : `▼ ${val.toFixed(1)}`).replace('.', ',');
 
     bars += `
       <rect x="${bx.toFixed(1)}" y="${barY.toFixed(1)}" width="${barW.toFixed(1)}" height="${barH.toFixed(1)}" fill="${fill}" />

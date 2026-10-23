@@ -82,7 +82,7 @@ const sonAylar = [...aylikVerisi].reverse();
               <dd class="veri-degisim">
                 {sonGunDegisim !== 0 && (
                   <span class={sonGunDegisim > 0 ? 'pozitif-yazi' : 'negatif-yazi'}>
-                    Son gün {sonGunDegisim > 0 ? '+' : ''}
+                    Son gün {sonGunDegisim > 0 ? '▲ +' : '▼ '}
                     {sayiYaz(sonGunDegisim, 1)} milyar $ (altın arındırılmış)
                   </span>
                 )}
@@ -218,16 +218,16 @@ const sonAylar = [...aylikVerisi].reverse();
                         <tr>
                           <td><strong>{ay.etiket}</strong></td>
                           <td class={`sag ${netAkif > 0 ? 'pozitif-yazi' : netAkif < 0 ? 'negatif-yazi' : ''}`}>
-                            <strong>{netAkif > 0 ? '+' : ''}{sayiYaz(netAkif, 1)} milyar $</strong>
+                            <strong>{netAkif > 0 ? '▲ +' : netAkif < 0 ? '▼ ' : ''}{sayiYaz(netAkif, 1)} milyar $</strong>
                           </td>
                           <td class="sag soluk-sayi">
                             {ay.toplam_ham_degisim_milyar_usd > 0 ? '+' : ''}{sayiYaz(ay.toplam_ham_degisim_milyar_usd, 1)} mlr $
                           </td>
                           <td class="orta">
                             <span class="gun-dagilimi">
-                              <span class="alis-rozet">{ay.alis_gunleri} alım</span>
+                              <span class="alis-rozet">▲ {ay.alis_gunleri} alım</span>
                               <span class="ayrac">/</span>
-                              <span class="satis-rozet">{ay.satis_gunleri} satış</span>
+                              <span class="satis-rozet">▼ {ay.satis_gunleri} satış</span>
                             </span>
                           </td>
                           <td class="sag">
@@ -264,7 +264,7 @@ const sonAylar = [...aylikVerisi].reverse();
   .vurgulu-sayi {
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--toprak, #c2502b);
+    color: var(--ink, #1b1b1b);
   }
 
   .pozitif-yazi {
@@ -285,8 +285,8 @@ const sonAylar = [...aylikVerisi].reverse();
 
   .vurgulu-sonuc {
     background: var(--soluk, #e4e1d7);
-    border-top: 2px solid var(--toprak, #c2502b);
-    border-bottom: 2px solid var(--toprak, #c2502b);
+    border-top: 2px solid var(--ink, #1b1b1b);
+    border-bottom: 2px solid var(--ink, #1b1b1b);
     font-size: 1.05rem;
   }
 
@@ -298,11 +298,11 @@ const sonAylar = [...aylikVerisi].reverse();
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     border: 1px solid var(--hair, #cfccc2);
-    background: var(--paper-2, #ece9df);
+    background: var(--paper-2, #e9e7df);
   }
 
   .soluk-sayi {
-    color: var(--soluk-yazi, #6b6960);
+    color: var(--muted, #5d5b55);
     font-size: 0.9rem;
   }
 
