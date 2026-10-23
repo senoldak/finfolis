@@ -20,12 +20,15 @@ const W = 800;
 const H = 350;
 const PAD_TOP = 25;
 const PAD_BOTTOM = 45;
-const PAD_LEFT = 55;
-const PAD_RIGHT = 30;
+const PAD_LEFT = 75;
+const PAD_RIGHT = 25;
 
 const tumDegerler = satirlar.map((s) => s.toplam);
-const minDeger = tumDegerler.length ? Math.floor(Math.min(...tumDegerler) / 5000) * 5000 : 240000;
-const maxDeger = tumDegerler.length ? Math.ceil(Math.max(...tumDegerler) / 5000) * 5000 : 280000;
+const minRaw = tumDegerler.length ? Math.min(...tumDegerler) : 240000;
+const maxRaw = tumDegerler.length ? Math.max(...tumDegerler) : 280000;
+const aralikRaw = maxRaw - minRaw || 10000;
+const minDeger = Math.floor((minRaw - aralikRaw * 0.08) / 5000) * 5000;
+const maxDeger = Math.ceil((maxRaw + aralikRaw * 0.08) / 5000) * 5000;
 const yAralik = maxDeger - minDeger || 1;
 
 const xPos = (i: number, len: number) =>
@@ -154,7 +157,7 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
               stroke-width="1"
               stroke-dasharray="3 3"
             />
-            <text x={PAD_LEFT - 8} y={yPos(val) + 4} text-anchor="end" class="eksen-yazi">
+            <text x={PAD_LEFT - 10} y={yPos(val) + 4} text-anchor="end" class="eksen-yazi">
               ${Math.round(val / 1000)} Mr
             </text>
           </g>
@@ -205,14 +208,24 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
       <!-- Zirve ve Dip Statik İşaretleri -->
       <g id="zirve-noktasi" class="vurgu-isareti">
         <circle cx={xPos(zirveIdx, satirlar.length)} cy={yPos(satirlar[zirveIdx].toplam)} r="4" fill="var(--ink)" />
-        <text x={xPos(zirveIdx, satirlar.length)} y={yPos(satirlar[zirveIdx].toplam) - 8} text-anchor="middle" class="vurgu-yazi">
+        <text
+          x={xPos(zirveIdx, satirlar.length)}
+          y={yPos(satirlar[zirveIdx].toplam) - 9}
+          text-anchor={zirveIdx < 3 ? 'start' : zirveIdx > satirlar.length - 4 ? 'end' : 'middle'}
+          class="vurgu-yazi"
+        >
           Zirve: {milyarUsd(satirlar[zirveIdx].toplam)}
         </text>
       </g>
 
       <g id="dip-noktasi" class="vurgu-isareti">
         <circle cx={xPos(dipIdx, satirlar.length)} cy={yPos(satirlar[dipIdx].toplam)} r="4" fill="var(--ink)" />
-        <text x={xPos(dipIdx, satirlar.length)} y={yPos(satirlar[dipIdx].toplam) + 16} text-anchor="middle" class="vurgu-yazi">
+        <text
+          x={xPos(dipIdx, satirlar.length)}
+          y={yPos(satirlar[dipIdx].toplam) - 9}
+          text-anchor={dipIdx < 3 ? 'start' : dipIdx > satirlar.length - 4 ? 'end' : 'middle'}
+          class="vurgu-yazi"
+        >
           Dip: {milyarUsd(satirlar[dipIdx].toplam)}
         </text>
       </g>

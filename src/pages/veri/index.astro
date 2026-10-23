@@ -1,30 +1,61 @@
 ---
-// Veriler Ana Sayfası: finfolis Göstergeleri, Görsel Kartlar ve Resmi Seriler
+// Veriler Ana Sayfası: Tüm Göstergeler ve Zaman Serileri
+// Son güncellenen serilerden başlayarak kronolojik olarak sıralanmış kartlar.
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import VeriKarti from '../../components/VeriKarti.astro';
 import { KUR_SAYFALARI, RESMI, ayAdi, gunYaz, oranYaz, sayiYaz } from '../../lib/resmi';
 import bistTufeData from '../../data/bist-tufe.json';
 import reelBistData from '../../data/reel-bist.json';
+import altinData from '../../data/tcmb-altin-kazanci.json';
+import swapData from '../../data/tcmb-swap-orani.json';
+import abdTahvilleriData from '../../data/abd-tahvilleri.json';
+import abdTahvilData from '../../data/abd-tahvil.json';
+import makroData from '../../data/makro-soklar.json';
+import sektorData from '../../data/sektorler.json';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
-const { kur, faiz, enflasyon, konut, issizlik } = RESMI;
-const son = enflasyon?.satirlar.at(-1);
+const { kur, faiz, enflasyon, konut, issizlik, rezerv, piyasaFaizleri, mevduat } = RESMI;
+
+// Resmi tekil göstergelerin son değerleri
+const enflasyonSon = enflasyon?.satirlar.at(-1);
 const konutSon = konut?.satirlar.at(-1);
 const issizlikSon = issizlik?.satirlar.at(-1);
+const piyasaFaizleriSon = piyasaFaizleri?.satirlar.at(-1);
+const mevduatSon = mevduat?.satirlar.at(-1);
+const mevduatOnceki = mevduat?.satirlar.at(-2);
+const farkMevduat = mevduatSon && mevduatOnceki ? mevduatSon.toplam - mevduatOnceki.toplam : 0;
+
+// Bağımsız veri setlerinin son değerleri
+const altinSon = altinData?.seri?.at(-1);
+const swapSon = swapData?.seri?.at(-1);
+const abdTahvilleriSon = abdTahvilleriData?.sonNokta;
+const abdTahvilSon = abdTahvilData?.seri?.at(-1);
+
 const satir = (kod: string) => kur?.liste.find((k) => k.kod === kod);
 
-// Görsel Kart Serileri
+// Görsel Sparkline Trend Serileri
+const usdSeri = kur?.gecmis?.map((g) => (g as Record<string, { satis: number }>).USD?.satis).filter((v): v is number => typeof v === 'number').slice(-30) ?? [];
+const eurSeri = kur?.gecmis?.map((g) => (g as Record<string, { satis: number }>).EUR?.satis).filter((v): v is number => typeof v === 'number').slice(-30) ?? [];
+const altinSeri = altinData?.seri?.slice(-30).map((s) => s.kazanc_milyar_usd) ?? [];
+const faizSeri = faiz?.gecmis?.slice(-16).map((g) => g.oran) ?? [];
+const sektorSeri = sektorData?.sektorler?.slice(0, 14).map((s) => s.aylik) ?? [];
+const netPozSeri = rezerv?.gecmis?.slice(-30).map((g) => g.deger) ?? [];
+const bistTufeSeri = bistTufeData?.noktalar?.slice(-30).map((n: { deger: number }) => n.deger) ?? [];
+const piyasaFaizSeri = piyasaFaizleri?.satirlar?.slice(-24).map((s) => s.mevduat) ?? [];
+const mevduatSeri = mevduat?.satirlar?.slice(-24).map((s) => s.toplam / 1000) ?? [];
 const reelBistSeri = reelBistData?.noktalar?.slice(-36).map((n: { reelEndeks: number }) => n.reelEndeks) ?? [];
 const tufeSeri = enflasyon?.satirlar?.slice(-24).map((s) => s.yillik) ?? [];
-const bistTufeSeri = bistTufeData?.noktalar?.slice(-24).map((n: { deger: number }) => n.deger) ?? [];
+const swapSeri = swapData?.seri?.slice(-24).map((s) => s.swap_payi_toplam_yuzde) ?? [];
 const konutSeri = konut?.satirlar?.slice(-24).map((s) => s.bolgeler.TR.yillik) ?? [];
-const faizSeri = faiz?.gecmis?.slice(-12).map((g) => g.oran) ?? [];
-const usdSeri = kur?.gecmis?.map((g) => (g as Record<string, { satis: number }>).USD?.satis).filter((v): v is number => typeof v === 'number') ?? [];
+const abdTahvilAkimSeri = abdTahvilData?.seri?.slice(-24).map((s) => s.netAkim) ?? [];
+const abdTahvilleriSeri = abdTahvilleriData?.noktalar?.slice(-24).map((n) => n.toplamUSD / 1000) ?? [];
+const issizlikSeri = issizlik?.satirlar?.slice(-24).map((s) => s.oran) ?? [];
+const makroSokSeri = (makroData?.gostergeler?.tge?.top10 ?? []).slice(0, 10).map((s) => s.diff).reverse();
 
 const description =
-  'TÜFE’den arındırılmış BİST 30, BİST 100 değerleme rasyoları, döviz kurları, politika faizi ve enflasyon: TCMB ve TÜİK resmi verileriyle görsel gösterge kartları.';
+  'TCMB net döviz pozisyonu, döviz kurları, politika faizi, TÜFE’den arındırılmış BİST 30, BİST 100 rasyoları, ABD tahvil akımları ve konut fiyatları: Son güncellenen resmi verilerle interaktif gösterge kartları.';
 const yol = [
   { ad: 'Anasayfa', href: '/' },
   { ad: 'Veriler', href: '/veri/' },
@@ -38,67 +69,135 @@ const araclar = [
 ];
 ---
 
-<Base title="Piyasa Göstergeleri ve Resmi Veriler" description={description}>
+<Base title="Piyasa Göstergeleri ve Zaman Serileri" description={description}>
   <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
   <div class="container veri-dizin-sayfa">
     <Breadcrumb yol={yol} />
 
     <header class="sayfa-bas sayfa-bas-duz">
       <h1>Piyasa Göstergeleri ve Veriler</h1>
-      <p>Borsa, enflasyon, faiz ve kurların resmi serileri ve finfolis analizleri</p>
+      <p>Borsa, enflasyon, faiz, rezerv ve kurların resmi serileri ve finfolis analizleri</p>
     </header>
 
     <p class="sayfa-giris">
-      Rakamlar doğrudan TCMB, TÜİK ve Borsa İstanbul bültenlerinden derlenir. Veriler yalnızca nominal değerleriyle değil,
-      enflasyondan arındırılmış satın alma gücü ve tarihsel standart sapmalarıyla analiz edilir.
+      Rakamlar doğrudan TCMB, TÜİK, Borsa İstanbul ve ABD Hazine Bakanlığı bültenlerinden derlenir. Veriler yalnızca nominal değerleriyle değil,
+      enflasyondan arındırılmış satın alma gücü, tarihsel standart sapmaları ve zaman serisi eğrileriyle analiz edilir.
     </p>
 
-    <!-- Öne Çıkan Görsel Gösterge Kartları Izgarası -->
+    <!-- Tüm Gösterge Kartları Izgarası (Son Güncellenenden Başlayarak Sıralı) -->
     <section class="bolum" aria-labelledby="gostergeler-baslik">
       <div class="bolum-baslik-sarici">
-        <h2 id="gostergeler-baslik" class="bolum-baslik">Öne Çıkan Göstergeler</h2>
-        <span class="bolum-ipucu">Aylık trendler ve grafikler</span>
+        <h2 id="gostergeler-baslik" class="bolum-baslik">Tüm Göstergeler ve Zaman Serileri</h2>
+        <span class="bolum-ipucu">Son güncellenen veriden geriye doğru kronolojik sıralama (17 Gösterge)</span>
       </div>
 
       <div class="kartlar-izgara">
-        <!-- 1. TÜFE'den Temizlenmiş BİST 30 (Reel Getiri) -->
+        <!-- 1. Dolar / TL (23 Ekim 2026) -->
         {
-          reelBistData && (
+          satir('USD') && (
             <VeriKarti
-              href="/veri/reel-bist-30/"
-              kategori="Borsa & Enflasyon"
-              baslik="TÜFE’den Temizlenmiş BİST 30"
-              deger={sayiYaz(reelBistData.istatistik.sonNokta.reelEndeks, 1)}
-              birim="puan"
-              degisim={reelBistData.istatistik.reelDegisimToplam >= 0 ? `▲ %${sayiYaz(reelBistData.istatistik.reelDegisimToplam, 1)}` : `▼ %${sayiYaz(Math.abs(reelBistData.istatistik.reelDegisimToplam), 1)}`}
-              degisimYon={reelBistData.istatistik.reelDegisimToplam >= 0 ? 'yukselis' : 'dusus'}
-              aciklama="Eylül 2014=100 alım gücü eşiğine göre reel getiri"
-              kaynak={`BİST & TÜİK · ${ayAdi(reelBistData.istatistik.sonNokta)}`}
-              seri={reelBistSeri}
-              oneCikan={true}
+              href="/veri/dolar-kuru/"
+              kategori="Döviz Piyasası"
+              baslik="Dolar / TL"
+              deger={`₺${sayiYaz(satir('USD')!.dovizSatis, 2)}`}
+              degisim={`Efektif Satış: ₺${sayiYaz(satir('USD')!.efektifSatis ?? satir('USD')!.dovizSatis, 2)}`}
+              degisimYon="notr"
+              aciklama="TCMB gösterge niteliğindeki resmi döviz satış kuru"
+              kaynak={kur ? `TCMB · ${gunYaz(kur.tarih)}` : 'TCMB'}
+              seri={usdSeri}
             />
           )
         }
 
-        <!-- 2. Yıllık Enflasyon (TÜFE) -->
+        <!-- 2. Euro / TL (23 Ekim 2026) -->
         {
-          son && (
+          satir('EUR') && (
             <VeriKarti
-              href="/veri/enflasyon/"
-              kategori="Fiyatlar Genel Düzeyi"
-              baslik="Tüketici Enflasyonu (TÜFE)"
-              deger={`%${sayiYaz(son.yillik, 2)}`}
-              degisim={`Aylık artış: ▲ %${sayiYaz(son.aylik, 2)}`}
-              degisimYon="dusus"
-              aciklama={`Resmi tüketici fiyat endeksi yıllık değişim oranı (${ayAdi(son)})`}
-              kaynak="TÜİK & TCMB"
-              seri={tufeSeri}
-              oneCikan={true}
+              href="/veri/euro-kuru/"
+              kategori="Döviz Piyasası"
+              baslik="Euro / TL"
+              deger={`₺${sayiYaz(satir('EUR')!.dovizSatis, 2)}`}
+              degisim={`Efektif Satış: ₺${sayiYaz(satir('EUR')!.efektifSatis ?? satir('EUR')!.dovizSatis, 2)}`}
+              degisimYon="notr"
+              aciklama="TCMB gösterge niteliğindeki resmi Euro satış kuru"
+              kaynak={kur ? `TCMB · ${gunYaz(kur.tarih)}` : 'TCMB'}
+              seri={eurSeri}
             />
           )
         }
 
-        <!-- 3. BİST 100 / TÜFE Standart Sapma Analizi -->
+        <!-- 3. TCMB Altın Rezervi Kazancı (23 Ekim 2026) -->
+        {
+          altinSon && (
+            <VeriKarti
+              href="/veri/altin-kazanci/"
+              kategori="Rezerv & Emtia"
+              baslik="TCMB Altın Portföyü Kazancı"
+              deger={`+$${sayiYaz(altinSon.kazanc_milyar_usd, 1)}`}
+              birim="milyar $"
+              degisim={`Ons Altın: $${sayiYaz(altinSon.ons_fiyat_usd, 0)} · Rekor kâr`}
+              degisimYon="yukselis"
+              aciklama="Küresel ons rallisiyle TCMB altın rezervinde biriken değerleme kazancı"
+              kaynak="TCMB & LBMA · 23 Ekim 2026"
+              seri={altinSeri}
+            />
+          )
+        }
+
+        <!-- 4. TCMB Politika Faizi (23 Ekim 2026) -->
+        {
+          faiz && (
+            <VeriKarti
+              href="/veri/politika-faizi/"
+              kategori="Para Politikası"
+              baslik="TCMB Politika Faizi"
+              deger={`%${oranYaz(faiz.oran)}`}
+              degisim="1 hafta vadeli repo ihale faizi"
+              degisimYon="notr"
+              aciklama="Para Politikası Kurulu (PPK) resmi politika faizi kararı"
+              kaynak="TCMB PPK · 23 Ekim 2026"
+              seri={faizSeri}
+            />
+          )
+        }
+
+        <!-- 5. BIST Sektör Endeksleri (23 Ekim 2026) -->
+        {
+          sektorData && (
+            <VeriKarti
+              href="/veri/sektorler/"
+              kategori="Borsa İstanbul"
+              baslik="BIST Sektör Endeksleri"
+              deger="26"
+              birim="endeks"
+              degisim="Mali, Sınai, Hizmet ve Tematik"
+              degisimYon="notr"
+              aciklama="Sektör endekslerinin aylık getiri karnesi ve piyasa değerleri sıralaması"
+              kaynak="BİST · 23 Ekim 2026"
+              seri={sektorSeri}
+            />
+          )
+        }
+
+        <!-- 6. TCMB Net Döviz Pozisyonu (22 Ekim 2026) -->
+        {
+          rezerv && (
+            <VeriKarti
+              href="/veri/net-doviz-pozisyonu/"
+              kategori="Merkez Bankası"
+              baslik="TCMB Net Döviz Pozisyonu"
+              deger={`+$${sayiYaz(rezerv.netDovizPozisyonu, 1)}`}
+              birim="milyar $"
+              degisim={`Günlük: ${rezerv.degisimGunluk >= 0 ? '+' : ''}${sayiYaz(rezerv.degisimGunluk, 2)} milyar $`}
+              degisimYon={rezerv.degisimGunluk >= 0 ? 'yukselis' : 'dusus'}
+              aciklama="Swaplar ve Hazine dövizi hariç net çekirdek rezerv pozisyonu"
+              kaynak={`TCMB · ${gunYaz(rezerv.tarih)}`}
+              seri={netPozSeri}
+            />
+          )
+        }
+
+        <!-- 7. BİST 100 / TÜFE Standart Sapma Analizi (22 Ekim 2026) -->
         {
           bistTufeData && (
             <VeriKarti
@@ -110,45 +209,103 @@ const araclar = [
               degisim={`${bistTufeData.zSkoru >= 0 ? '+' : ''}${bistTufeData.zSkoru}σ (${bistTufeData.durum})`}
               degisimYon={bistTufeData.zSkoru >= 0 ? 'yukselis' : 'dusus'}
               aciklama="2 yıllık hareketli ortalama ve standart sapma bantları"
-              kaynak="finfolis analizi"
+              kaynak="finfolis · 22 Ekim 2026"
               seri={bistTufeSeri}
             />
           )
         }
 
-        <!-- 4. TCMB Politika Faizi -->
+        <!-- 8. Piyasa Faizleri (16 Ekim 2026) -->
         {
-          faiz && (
+          piyasaFaizleriSon && (
             <VeriKarti
-              href="/veri/politika-faizi/"
-              kategori="Para Politikası"
-              baslik="TCMB Politika Faizi"
-              deger={`%${oranYaz(faiz.oran)}`}
-              aciklama="Bir hafta vadeli repo ihale faiz oranı (en son PPK kararı)"
-              kaynak="TCMB PPK"
-              seri={faizSeri}
-            />
-          )
-        }
-
-        <!-- 5. Dolar / TL Kuru -->
-        {
-          satir('USD') && (
-            <VeriKarti
-              href="/veri/dolar-kuru/"
-              kategori="Döviz Piyasası"
-              baslik="Dolar / TL"
-              deger={`₺${sayiYaz(satir('USD')!.dovizSatis, 2)}`}
-              degisim={`Efektif Satış: ₺${sayiYaz(satir('USD')!.efektifSatis ?? satir('USD')!.dovizSatis, 2)}`}
+              href="/veri/piyasa-faizleri/"
+              kategori="Bankacılık & Kredi"
+              baslik="Piyasa Faizleri"
+              deger={`%${sayiYaz(piyasaFaizleriSon.mevduat, 1)}`}
+              birim="mevduat"
+              degisim={`İhtiyaç: %${sayiYaz(piyasaFaizleriSon.ihtiyac, 1)} · Konut: %${sayiYaz(piyasaFaizleriSon.konut, 1)}`}
               degisimYon="notr"
-              aciklama="TCMB gösterge niteliğindeki döviz satış kuru"
-              kaynak={kur ? `TCMB · ${gunYaz(kur.tarih)}` : 'TCMB'}
-              seri={usdSeri}
+              aciklama="TCMB haftalık akım verileriyle 1-3 ay vadeli TL mevduat ve kredi faizleri"
+              kaynak={`TCMB EVDS · ${gunYaz(piyasaFaizleriSon.tarih)}`}
+              seri={piyasaFaizSeri}
             />
           )
         }
 
-        <!-- 6. Konut Fiyat Endeksi -->
+        <!-- 9. Döviz Mevduatları (YP) (16 Ekim 2026) -->
+        {
+          mevduatSon && (
+            <VeriKarti
+              href="/veri/doviz-mevduatlari/"
+              kategori="Dolarlaşma & Likidite"
+              baslik="Döviz Mevduatları (YP)"
+              deger={`$${sayiYaz(mevduatSon.toplam / 1000, 1)}`}
+              birim="milyar $"
+              degisim={`Haftalık: ${farkMevduat >= 0 ? '+' : ''}$${sayiYaz(farkMevduat / 1000, 2)} mlr`}
+              degisimYon={farkMevduat >= 0 ? 'yukselis' : 'dusus'}
+              aciklama="Bankacılık sektörü yurtiçi yerleşiklerin döviz ve altın mevduat toplamı"
+              kaynak={`TCMB EVDS · ${gunYaz(mevduatSon.tarih)}`}
+              seri={mevduatSeri}
+            />
+          )
+        }
+
+        <!-- 10. TÜFE'den Temizlenmiş BİST 30 (Eylül 2026) -->
+        {
+          reelBistData && (
+            <VeriKarti
+              href="/veri/reel-bist-30/"
+              kategori="Borsa & Reel Getiri"
+              baslik="TÜFE’den Temizlenmiş BİST 30"
+              deger={sayiYaz(reelBistData.istatistik.sonNokta.reelEndeks, 1)}
+              birim="puan"
+              degisim={reelBistData.istatistik.reelDegisimToplam >= 0 ? `▲ %${sayiYaz(reelBistData.istatistik.reelDegisimToplam, 1)}` : `▼ %${sayiYaz(Math.abs(reelBistData.istatistik.reelDegisimToplam), 1)}`}
+              degisimYon={reelBistData.istatistik.reelDegisimToplam >= 0 ? 'yukselis' : 'dusus'}
+              aciklama="Eylül 2014=100 alım gücü eşiğine göre reel alım gücü endeksi"
+              kaynak={`BİST & TÜİK · ${ayAdi(reelBistData.istatistik.sonNokta)}`}
+              seri={reelBistSeri}
+            />
+          )
+        }
+
+        <!-- 11. Yıllık Enflasyon (TÜFE) (Eylül 2026) -->
+        {
+          enflasyonSon && (
+            <VeriKarti
+              href="/veri/enflasyon/"
+              kategori="Fiyatlar Genel Düzeyi"
+              baslik="Tüketici Enflasyonu (TÜFE)"
+              deger={`%${sayiYaz(enflasyonSon.yillik, 2)}`}
+              birim="yıllık"
+              degisim={`Aylık artış: ▲ %${sayiYaz(enflasyonSon.aylik, 2)}`}
+              degisimYon="dusus"
+              aciklama={`Resmi tüketici fiyat endeksi yıllık ve aylık değişim oranları (${ayAdi(enflasyonSon)})`}
+              kaynak="TÜİK · Eylül 2026"
+              seri={tufeSeri}
+            />
+          )
+        }
+
+        <!-- 12. TCMB Rezervinde Swap Payı (Eylül 2026) -->
+        {
+          swapSon && (
+            <VeriKarti
+              href="/veri/swap-payi/"
+              kategori="Rezerv Kalitesi"
+              baslik="TCMB Swap Payı"
+              deger={`%${sayiYaz(swapSon.swap_payi_toplam_yuzde, 1)}`}
+              birim="toplam"
+              degisim={`Döviz swap payı: %${sayiYaz(swapSon.swap_payi_doviz_yuzde, 1)}`}
+              degisimYon="dusus"
+              aciklama="Resmi rezervler içindeki takas ve borç payının tarihsel seyri"
+              kaynak="TCMB · Eylül 2026"
+              seri={swapSeri}
+            />
+          )
+        }
+
+        <!-- 13. Konut Fiyat Endeksi (Eylül 2026) -->
         {
           konutSon && (
             <VeriKarti
@@ -157,9 +314,83 @@ const araclar = [
               baslik="Konut Fiyatları (KFE)"
               deger={`%${sayiYaz(konutSon.bolgeler.TR.yillik, 1)}`}
               birim="yıllık"
-              aciklama={`Türkiye geneli konut fiyat endeksi yıllık nominal artış (${ayAdi(konutSon)})`}
-              kaynak="TCMB EVDS"
+              degisim="Türkiye geneli konut fiyat artışı"
+              degisimYon="notr"
+              aciklama={`TCMB Konut Fiyat Endeksi Türkiye geneli yıllık nominal artış (${ayAdi(konutSon)})`}
+              kaynak="TCMB EVDS · Eylül 2026"
               seri={konutSeri}
+            />
+          )
+        }
+
+        <!-- 14. ABD Tahvili Alımları (Akım) (Ağustos 2026) -->
+        {
+          abdTahvilSon && (
+            <VeriKarti
+              href="/veri/abd-tahvil-akimlari/"
+              kategori="Dış Varlıklar & Akım"
+              baslik="ABD Tahvili Alımları (Akım)"
+              deger={`+$${sayiYaz(abdTahvilSon.netAkim / 1000, 2)}`}
+              birim="milyar $"
+              degisim={`Son 4 ayda +$${sayiYaz(abdTahvilData.son4AyTicNetAlimMilyarUsd, 2)} mlr net alım`}
+              degisimYon="yukselis"
+              aciklama="Türkiye mukimlerinin aylık net ABD Hazine tahvili alım-satım akımları"
+              kaynak="ABD Hazinesi TIC · Ağustos 2026"
+              seri={abdTahvilAkimSeri}
+            />
+          )
+        }
+
+        <!-- 15. ABD Hazine Tahvilleri Portföyü (Ağustos 2026) -->
+        {
+          abdTahvilleriSon && (
+            <VeriKarti
+              href="/veri/abd-tahvilleri/"
+              kategori="Dış Varlıklar & Portföy"
+              baslik="ABD Tahvilleri Portföyü"
+              deger={`$${sayiYaz(abdTahvilleriSon.toplamUSD / 1000, 2)}`}
+              birim="milyar $"
+              degisim={`Kısa vadeli T-Bill payı: %${abdTahvilleriSon.kisaOran}`}
+              degisimYon="notr"
+              aciklama="Türkiye mukimlerinin elindeki kısa ve uzun vadeli ABD tahvili stoku"
+              kaynak="ABD Hazinesi TIC · Ağustos 2026"
+              seri={abdTahvilleriSeri}
+            />
+          )
+        }
+
+        <!-- 16. İşsizlik Oranı (Ağustos 2026) -->
+        {
+          issizlikSon && (
+            <VeriKarti
+              href="/veri/issizlik-orani/"
+              kategori="İstihdam & İşgücü"
+              baslik="İşsizlik Oranı"
+              deger={`%${sayiYaz(issizlikSon.oran, 1)}`}
+              birim="oran"
+              degisim="Mevsimsellikten arındırılmış"
+              degisimYon="notr"
+              aciklama={`15 ve daha yukarı yaştaki işsizlerin işgücü içindeki oranı (${ayAdi(issizlikSon)})`}
+              kaynak="TÜİK · Ağustos 2026"
+              seri={issizlikSeri}
+            />
+          )
+        }
+
+        <!-- 17. Makro Şoklar ve Borsa (Ağustos 2026) -->
+        {
+          makroData && (
+            <VeriKarti
+              href="/veri/makro-soklar/"
+              kategori="Stres Testi & Krizler"
+              baslik="Makro Şoklar ve Borsa"
+              deger="20 Yıl"
+              birim="analiz"
+              degisim="TGE, RKGE, Sanayi ve REK şokları"
+              degisimYon="notr"
+              aciklama="Tarihi makroekonomik kırılmaların ardından BİST 100 endeksi toparlanma performansı"
+              kaynak="finfolis · Ağustos 2026"
+              seri={makroSokSeri}
             />
           )
         }
@@ -168,7 +399,10 @@ const araclar = [
 
     <!-- Hesaplayıcılar ve Araçlar -->
     <section class="bolum">
-      <h2 class="bolum-baslik">Finansal Hesaplayıcılar</h2>
+      <div class="bolum-baslik-sarici">
+        <h2 class="bolum-baslik">Finansal Hesaplayıcılar</h2>
+        <span class="bolum-ipucu">TÜFE, getiri ve taksit formülleri</span>
+      </div>
       <div class="araclar-izgara">
         {
           araclar.map((o) => (
@@ -182,9 +416,12 @@ const araclar = [
       </div>
     </section>
 
-    <!-- Tüm Veri Sayfaları Dizini -->
+    <!-- Tüm Veri Sayfaları ve Kurlar Hızlı Dizini -->
     <section class="bolum">
-      <h2 class="bolum-baslik">Tüm Veri Sayfaları</h2>
+      <div class="bolum-baslik-sarici">
+        <h2 class="bolum-baslik">Tüm Veri ve Döviz Kurları Dizini</h2>
+        <span class="bolum-ipucu">Doğrudan sayfalara hızlı erişim</span>
+      </div>
       <ul class="dizin-liste">
         {
           KUR_SAYFALARI.map((s) => ({
@@ -205,40 +442,68 @@ const araclar = [
           ))
         }
         <li>
-          <a href="/veri/doviz-kurlari/">Tüm döviz kurları</a>
+          <a href="/veri/doviz-kurlari/">Tüm döviz kurları (22 Para Birimi)</a>
           <span>{kur ? `${kur.liste.length} para birimi · TCMB` : 'TCMB'}</span>
         </li>
         <li>
-          <a href="/veri/politika-faizi/">Politika faizi</a>
-          <span>{faiz ? `%${oranYaz(faiz.oran)} · TCMB` : 'TCMB'}</span>
+          <a href="/veri/altin-kazanci/">TCMB Altın Portföyü Kazancı (P/L)</a>
+          <span>{altinSon ? `+$${sayiYaz(altinSon.kazanc_milyar_usd, 1)} milyar · Değerleme Kârı` : 'TCMB'}</span>
         </li>
         <li>
-          <a href="/veri/enflasyon/">Yıllık enflasyon (TÜFE)</a>
-          <span>{son ? `%${sayiYaz(son.yillik, 2)} · TÜİK, ${ayAdi(son)}` : 'TÜİK'}</span>
+          <a href="/veri/politika-faizi/">TCMB Politika faizi</a>
+          <span>{faiz ? `%${oranYaz(faiz.oran)} · TCMB PPK` : 'TCMB'}</span>
         </li>
         <li>
-          <a href="/veri/reel-bist-30/">TÜFE’den Temizlenmiş BİST 30</a>
-          <span>{reelBistData ? `${sayiYaz(reelBistData.istatistik.sonNokta.reelEndeks, 1)} puan · Reel Alım Gücü` : 'finfolis'}</span>
+          <a href="/veri/sektorler/">BIST Sektör Endeksleri Karnesi</a>
+          <span>26 Sektör Endeksi · Borsa İstanbul</span>
+        </li>
+        <li>
+          <a href="/veri/net-doviz-pozisyonu/">TCMB Net Döviz Pozisyonu</a>
+          <span>{rezerv ? `+$${sayiYaz(rezerv.netDovizPozisyonu, 1)} milyar · Swap ve Hazine Hariç` : 'TCMB'}</span>
         </li>
         <li>
           <a href="/veri/bist-100-tufe/">BİST 100 / TÜFE Değerleme Rasyosu</a>
           <span>{bistTufeData ? `${sayiYaz(bistTufeData.guncelDeger, 1)} (${bistTufeData.zSkoru}σ)` : 'finfolis'}</span>
         </li>
         <li>
-          <a href="/veri/konut-fiyat-endeksi/">Konut fiyat endeksi</a>
+          <a href="/veri/piyasa-faizleri/">Piyasa Faizleri (Mevduat ve Kredi)</a>
+          <span>{piyasaFaizleriSon ? `Mevduat: %${sayiYaz(piyasaFaizleriSon.mevduat, 1)} · TCMB EVDS` : 'TCMB'}</span>
+        </li>
+        <li>
+          <a href="/veri/doviz-mevduatlari/">Döviz Mevduatları (YP Mevduat)</a>
+          <span>{mevduatSon ? `$${sayiYaz(mevduatSon.toplam / 1000, 1)} milyar · TCMB EVDS` : 'TCMB'}</span>
+        </li>
+        <li>
+          <a href="/veri/reel-bist-30/">TÜFE’den Temizlenmiş BİST 30</a>
+          <span>{reelBistData ? `${sayiYaz(reelBistData.istatistik.sonNokta.reelEndeks, 1)} puan · Reel Alım Gücü` : 'finfolis'}</span>
+        </li>
+        <li>
+          <a href="/veri/enflasyon/">Yıllık tüketici enflasyonu (TÜFE)</a>
+          <span>{enflasyonSon ? `%${sayiYaz(enflasyonSon.yillik, 2)} · TÜİK, ${ayAdi(enflasyonSon)}` : 'TÜİK'}</span>
+        </li>
+        <li>
+          <a href="/veri/swap-payi/">TCMB Rezervlerinde Swap Payı</a>
+          <span>{swapSon ? `%${sayiYaz(swapSon.swap_payi_toplam_yuzde, 1)} · TCMB Rezerv Verisi` : 'TCMB'}</span>
+        </li>
+        <li>
+          <a href="/veri/konut-fiyat-endeksi/">Konut fiyat endeksi (KFE)</a>
           <span>{konutSon ? `%${sayiYaz(konutSon.bolgeler.TR.yillik, 1)} · TCMB, ${ayAdi(konutSon)}` : 'TCMB'}</span>
+        </li>
+        <li>
+          <a href="/veri/abd-tahvil-akimlari/">Türkiye'nin ABD tahvili alımları (Aylık Akım)</a>
+          <span>{abdTahvilData ? `Son 4 ayda +$${sayiYaz(abdTahvilData.son4AyTicNetAlimMilyarUsd, 2)} milyar · TIC` : 'ABD Hazinesi'}</span>
+        </li>
+        <li>
+          <a href="/veri/abd-tahvilleri/">Türkiye'nin elindeki ABD tahvilleri (Portföy)</a>
+          <span>{abdTahvilleriSon ? `$${sayiYaz(abdTahvilleriSon.toplamUSD / 1000, 2)} milyar · ABD Hazinesi (TIC)` : 'ABD Hazinesi'}</span>
         </li>
         <li>
           <a href="/veri/issizlik-orani/">İşsizlik oranı</a>
           <span>{issizlikSon ? `%${sayiYaz(issizlikSon.oran, 1)} · TÜİK, ${ayAdi(issizlikSon)}` : 'TÜİK'}</span>
         </li>
         <li>
-          <a href="/veri/abd-tahvilleri/">Türkiye'nin elindeki ABD tahvilleri (Portföy)</a>
-          <span>$5,73 milyar · ABD Hazinesi (TIC) &amp; Rezerv Dinamikleri</span>
-        </li>
-        <li>
-          <a href="/veri/abd-tahvil-akimlari/">Türkiye'nin ABD tahvili alımları (Aylık Akım)</a>
-          <span>Son 4 ayda +$3,96 milyar alım · TIC &amp; TCMB Uyumu</span>
+          <a href="/veri/makro-soklar/">Makro Şoklar ve Borsa Stres Testi</a>
+          <span>TGE, RKGE, Sanayi ve Reel Kur Kırılmaları · 20 Yıl</span>
         </li>
       </ul>
     </section>
@@ -257,6 +522,8 @@ const araclar = [
     margin-bottom: 16px;
     border-bottom: 1px solid var(--hair);
     padding-bottom: 8px;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 
   .bolum-ipucu {
@@ -269,7 +536,7 @@ const araclar = [
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
-    margin-bottom: 32px;
+    margin-bottom: 36px;
   }
 
   /* Hesaplayıcı Araç Kartları */
@@ -278,6 +545,7 @@ const araclar = [
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 14px;
     margin-top: 14px;
+    margin-bottom: 36px;
   }
 
   .arac-karti {
