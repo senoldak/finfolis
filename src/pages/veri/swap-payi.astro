@@ -3,6 +3,7 @@
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import SwapOraniGrafik from '../../components/SwapOraniGrafik.astro';
 import data from '../../data/tcmb-swap-orani.json';
 import { sayiYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -89,21 +90,9 @@ const tabloVerisi = [...seri].slice(-24).reverse();
       </a>. Veriler aylık resmi yükümlülük raporlarına dayanmaktadır.
     </p>
 
-    <!-- Grafik Bölümü -->
+    <!-- İnteraktif Grafik Bölümü -->
     <section class="bolum grafik-alani">
-      <h2 class="bolum-baslik">TCMB Resmi Rezervlerinin Ne Kadarı Swap Kaynaklı? (%)</h2>
-      <p class="bolum-aciklama">Mayıs 2021'den bugüne Merkez Bankası kasasındaki swap kaynaklı döviz yükümlülüğünün toplam resmi rezervlere oranı.</p>
-      <div class="grafik-kapsayici" style="background: #ffffff; padding: 1rem; border-radius: 8px; border: 1px solid var(--hair, #e5e5e5);">
-        <img
-          src="/grafikler/tcmb-swap-orani.svg"
-          alt="TCMB Resmi Rezervlerinde Swap Payı Tarihsel Grafiği"
-          style="width: 100%; height: auto; display: block;"
-          loading="lazy"
-        />
-      </div>
-      <p class="veri-notu">
-        * Nisan 2024'te yerel bankalarla yapılan swapların yoğun kullanımıyla zirveye ulaşan oran, TCMB'nin yerel bankalarla swapları sıfırlaması ve ikili ülke swaplarını azaltmasıyla tek hanelere geriledi.
-      </p>
+      <SwapOraniGrafik seri={seri} />
     </section>
 
     <!-- Açıklama ve Tablo -->

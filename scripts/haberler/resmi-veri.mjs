@@ -25,6 +25,7 @@ import { hentMetin } from './lib.mjs';
 import { tcmbSonKarar, tufeSatirlari, TUFE_URL } from './piyasa-verisi.mjs';
 import { rezerviAl } from './tcmb-rezerv.mjs';
 import { piyasaFaizleriniAl } from './tcmb-piyasa-faizleri.mjs';
+import { mevduatiAl } from './tcmb-mevduat.mjs';
 
 const DOSYA = fileURLToPath(new URL('../../src/data/resmi.json', import.meta.url));
 export const KUR_URL = 'https://www.tcmb.gov.tr/kurlar/today.xml';
@@ -256,7 +257,7 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
   };
   const evds = (ad, f) =>
     evdsAnahtari ? dene(ad, () => f(simdi, evdsAnahtari)) : (console.error(`[resmi] EVDS_API_KEY yok, ${ad} atlandı`), null);
-  const [kur, faiz, enflasyon, konut, issizlik, rezerv, piyasaFaizleri] = await Promise.all([
+  const [kur, faiz, enflasyon, konut, issizlik, rezerv, piyasaFaizleri, mevduat] = await Promise.all([
     dene('kurlar', () => kurlariAl(eski?.kur, simdi, gun)),
     dene('faiz', () => faiziAl(simdi)),
     dene('enflasyon', () => enflasyonuAl()),
@@ -264,9 +265,10 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
     evds('issizlik', issizligiAl),
     evds('rezerv', (s, key) => rezerviAl(s, key, eski?.rezerv)),
     evds('piyasaFaizleri', (s, key) => piyasaFaizleriniAl(s, key, eski?.faiz?.gecmis, eski?.piyasaFaizleri)),
+    evds('mevduat', (s, key) => mevduatiAl(s, key, eski?.mevduat)),
   ]);
   const sonuc = {};
-  for (const [ad, yeni] of Object.entries({ kur, faiz, enflasyon, konut, issizlik, rezerv, piyasaFaizleri })) {
+  for (const [ad, yeni] of Object.entries({ kur, faiz, enflasyon, konut, issizlik, rezerv, piyasaFaizleri, mevduat })) {
     const b = birlestir(eski?.[ad], yeni, iso);
     if (b) sonuc[ad] = b;
   }

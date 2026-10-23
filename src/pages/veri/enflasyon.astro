@@ -3,6 +3,7 @@
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import AylikReelGetiriGrafigi from '../../components/AylikReelGetiriGrafigi.astro';
 import { RESMI, ayAdi, sayiYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
@@ -15,7 +16,7 @@ const yuzde = (n: number) => `%${sayiYaz(n, 2)}`;
 const baslik = 'Enflasyon (TÜFE)';
 const description =
   son && enf
-    ? `TÜİK verisine göre yıllık enflasyon ${ayAdi(son)} itibarıyla ${yuzde(son.yillik)}, aylık ${yuzde(son.aylik)}. Son 24 ayın yıllık ve aylık TÜFE değişimi.`
+    ? `TÜİK verisine göre yıllık enflasyon ${ayAdi(son)} itibarıyla ${yuzde(son.yillik)}, aylık ${yuzde(son.aylik)}. Son 24 ayın yıllık ve aylık TÜFE değişimi ile aylık reel getiri kıyası.`
     : 'Türkiye tüketici fiyat endeksi (TÜFE) yıllık ve aylık değişim.';
 const yol = [
   { ad: 'Anasayfa', href: '/' },
@@ -40,7 +41,7 @@ const jsonLd = sayfaSemasi({
             creator: { '@type': 'GovernmentOrganization', name: 'Türkiye İstatistik Kurumu', url: 'https://www.tuik.gov.tr/' },
             temporalCoverage: `${ilk.yil}-${String(ilk.ay).padStart(2, '0')}/${son.yil}-${String(son.ay).padStart(2, '0')}`,
             dateModified: enf.alinma,
-            variableMeasured: ['TÜFE yıllık değişim (%)', 'TÜFE aylık değişim (%)'],
+            variableMeasured: ['TÜFE yıllık değişim (%)', 'TÜFE aylık değişim (%)', 'Aylık Reel Getiri & Enflasyon Kıyası'],
           },
         ],
       }
@@ -82,6 +83,8 @@ const jsonLd = sayfaSemasi({
             <strong>Kaynak:</strong> <a href={enf.kaynak.url} rel="noopener">{enf.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
             {zamanYaz(enf.alinma)}.
           </p>
+
+          <AylikReelGetiriGrafigi />
 
           <div class="veri-izgara">
             <section class="bolum">

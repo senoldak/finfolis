@@ -1,5 +1,5 @@
 ---
-import { SITE, CATEGORIES } from '../lib/site';
+import { SITE, CATEGORIES, YAZAR } from '../lib/site';
 import { YASAL_UYARI, YASAL_UYARI_BASLIK, YASAL_UYARI_EK } from '../lib/yasal-uyari.mjs';
 import { getNews } from '../lib/news';
 import { analizMi } from '../lib/yazi-turu.mjs';
@@ -112,11 +112,16 @@ const today = new Date().toLocaleDateString(SITE.locale, {
     <a class="skip" href="#icerik">İçeriğe geç</a>
     <header class="masthead">
       <div class="container masthead-ic">
-        <a href="/" class="wordmark" aria-label={`${SITE.name} anasayfa`}>
-          <Logo class="wordmark-isaret" />
-          <span>{SITE.name}</span>
-        </a>
-        <nav class="nav" aria-label="Kategoriler">
+        <div class="masthead-sol">
+          <a href="/" class="wordmark" aria-label={`${SITE.name} anasayfa`}>
+            <Logo class="wordmark-isaret" />
+            <span class="wordmark-metin">{SITE.name}</span>
+          </a>
+          <span class="wordmark-ayrac" aria-hidden="true">|</span>
+          <span class="wordmark-slogan">Karmaşadan uzakta.</span>
+        </div>
+
+        <nav class="nav" aria-label="Ana Menü">
           {
             menuKategorileri.map((c) => (
               <a
@@ -135,7 +140,18 @@ const today = new Date().toLocaleDateString(SITE.locale, {
               </a>
             )
           }
+          <span class="nav-bolucu" aria-hidden="true"></span>
+          <a href="/veri/" class="nav-vurgu" aria-current={current.startsWith('/veri') ? 'page' : undefined}>
+            Veriler
+          </a>
+          <a href="/hesapla/" class="nav-ikincil" aria-current={current.startsWith('/hesapla') ? 'page' : undefined}>
+            Hesapla
+          </a>
+          <a href="/sozluk/" class="nav-ikincil" aria-current={current.startsWith('/sozluk') ? 'page' : undefined}>
+            Sözlük
+          </a>
         </nav>
+
         <div class="masthead-sag">
           <p class="masthead-tarih">{today}</p>
           <a href="/arama/" class="masthead-ara" aria-current={current.startsWith('/arama') ? 'page' : undefined}>
@@ -152,45 +168,84 @@ const today = new Date().toLocaleDateString(SITE.locale, {
 
     <footer class="site-footer">
       <div class="container footer-izgara">
-        <div>
+        <!-- 1. Sütun: Marka & Künye -->
+        <div class="footer-kolon footer-marka-kolon">
           <a href="/" class="wordmark wordmark-sm">
             <Logo class="wordmark-isaret" />
             <span>{SITE.name}</span>
           </a>
-          <p>Karmaşadan uzakta.</p>
-        </div>
-        <div class="footer-okuma">
-          <h2>Boncuklar nasıl okunur?</h2>
-          <p>
-            Rakamları abaküs boncuklarıyla gösteriyoruz. Her boncuk, yanındaki açıklamada yazan miktara eşittir; miktar
-            arttıkça boncuk büyümez, sayısı artar. Her tel on boncuktur. Gri boncuklar karşılaştırma içindir.
+          <p class="footer-slogan">Karmaşadan uzakta.</p>
+          <p class="footer-tanim">
+            Finansal piyasaların karmaşıklığını çözen, yatırım kararlarını veriye dayalı içgörülerle güçlendiren bağımsız analiz platformu.
           </p>
+          <dl class="footer-kunye">
+            <div>
+              <dt>Yayın Yönetmeni ve Editör</dt>
+              <dd><a href={YAZAR.yol}>{YAZAR.ad}</a></dd>
+            </div>
+          </dl>
+          <div class="footer-sosyal">
+            {SITE.social.telegram && <a href={SITE.social.telegram} rel="noopener" target="_blank" aria-label="Telegram kanalı">Telegram</a>}
+            {SITE.social.linkedin && <a href={SITE.social.linkedin} rel="noopener noreferrer" target="_blank" aria-label="LinkedIn">LinkedIn</a>}
+            {SITE.social.x && <a href={SITE.social.x} rel="noopener noreferrer" target="_blank" aria-label="X">X</a>}
+            <a href="/rss.xml">RSS</a>
+          </div>
         </div>
-        <nav aria-label="Alt menü">
-          {menuKategorileri.map((c) => <a href={`/kategori/${c.slug}/`}>{c.name}</a>)}
-          {harAnaliz && <a href="/analiz/">Analiz</a>}
-          <a href="/konu/">Konular</a>
-          <a href="/veri/">Veriler</a>
-          <a href="/hesapla/">Hesaplayıcılar</a>
-          <a href="/sozluk/">Sözlük</a>
-          <a href="/arsiv/">Arşiv</a>
-          <a href="/hakkimizda/">Hakkımızda</a>
-          <a href="/yayin-ilkeleri/">Yayın İlkeleri</a>
-          <a href="/yasal/">Yasal Bilgilendirme</a>
-          <a href="/yapay-zeka-kullanimi/">Yapay Zekâ Kullanımı</a>
-          <a href="/duzeltme-politikasi/">Düzeltme Politikası</a>
-          <a href="/duzeltmeler/">Düzeltmeler</a>
-          <a href="/sikayet/">Şikâyet</a>
-          <a href="/standartlar-raporu/">Standartlar Raporu</a>
-          <a href="/seffaflik/">Şeffaflık</a>
-          <a href="/gizlilik/">Gizlilik</a>
-          <a href="/rss.xml">RSS</a>
-          {SITE.social.x && <a href={SITE.social.x} rel="noopener noreferrer" target="_blank" aria-label="X (yeni sekmede açılır)">X</a>}
-          {SITE.social.telegram && <a href={SITE.social.telegram} rel="noopener" target="_blank" aria-label="Telegram kanalı (yeni sekmede açılır)">Telegram</a>}
-          {SITE.social.facebook && <a href={SITE.social.facebook} rel="noopener noreferrer" target="_blank" aria-label="Facebook (yeni sekmede açılır)">Facebook</a>}
-          {SITE.social.linkedin && <a href={SITE.social.linkedin} rel="noopener noreferrer" target="_blank" aria-label="LinkedIn (yeni sekmede açılır)">LinkedIn</a>}
-        </nav>
+
+        <!-- 2. Sütun: Yayınlar & Analiz -->
+        <div class="footer-kolon">
+          <h2 class="footer-baslik">Yayınlar & Analiz</h2>
+          <nav class="footer-liste" aria-label="Yayınlar">
+            {menuKategorileri.map((c) => <a href={`/kategori/${c.slug}/`}>{c.name}</a>)}
+            {harAnaliz && <a href="/analiz/"><strong>Analiz Dosyaları</strong></a>}
+            <a href="/konu/">Konular Dizini</a>
+            <a href="/arsiv/">Haber Arşivi</a>
+            <a href={YAZAR.yol}>Yazar Sayfası</a>
+          </nav>
+        </div>
+
+        <!-- 3. Sütun: Veriler & Araçlar -->
+        <div class="footer-kolon">
+          <h2 class="footer-baslik">Veri & Araçlar</h2>
+          <nav class="footer-liste" aria-label="Veriler ve Araçlar">
+            <a href="/veri/makro-soklar/"><strong>Makro Şoklar & Borsa</strong></a>
+            <a href="/veri/bist-100-tufe/">BİST 100 / TÜFE (Reel Borsa)</a>
+            <a href="/veri/reel-bist-30/">TÜFE'den Arındırılmış BİST 30</a>
+            <a href="/veri/politika-faizi/">Politika Faizi (TCMB)</a>
+            <a href="/veri/enflasyon/">Yıllık Enflasyon (TÜİK)</a>
+            <a href="/veri/doviz-kurlari/">Döviz Kurları</a>
+            <a href="/veri/">Tüm Veri Sayfaları</a>
+            <a href="/hesapla/">Hesaplayıcılar</a>
+            <a href="/sozluk/">Finans Sözlüğü</a>
+          </nav>
+        </div>
+
+        <!-- 4. Sütun: Kurumsal & İlkeler -->
+        <div class="footer-kolon">
+          <h2 class="footer-baslik">Kurumsal & İlkeler</h2>
+          <nav class="footer-liste" aria-label="Kurumsal">
+            <a href="/hakkimizda/">Hakkımızda</a>
+            <a href="/yayin-ilkeleri/">Yayın İlkeleri</a>
+            <a href="/standartlar-raporu/">Standartlar Raporu</a>
+            <a href="/seffaflik/">Şeffaflık</a>
+            <a href="/yapay-zeka-kullanimi/">Yapay Zekâ Kullanımı</a>
+            <a href="/duzeltme-politikasi/">Düzeltme Politikası</a>
+            <a href="/duzeltmeler/">Düzeltmeler</a>
+            <a href="/sikayet/">Şikâyet Bildirimi</a>
+            <a href="/yasal/">Yasal Bilgilendirme</a>
+            <a href="/gizlilik/">Gizlilik Politikası</a>
+          </nav>
+        </div>
       </div>
+
+      <!-- Boncuk Okuma Notu -->
+      <div class="container footer-boncuk-notu">
+        <p>
+          <span class="boncuk-isaret" aria-hidden="true">●</span>
+          <strong>Boncuklar nasıl okunur?</strong> Rakamları abaküs boncuklarıyla gösteriyoruz. Her boncuk, yanındaki açıklamada yazan miktara eşittir; miktar arttıkça boncuk büyümez, sayısı artar. Her tel on boncuktur. Gri boncuklar karşılaştırma içindir.
+        </p>
+      </div>
+
       <div class="container footer-alt">
         <p class="uyari">
           <strong>{YASAL_UYARI_BASLIK}:</strong> {YASAL_UYARI} {YASAL_UYARI_EK}

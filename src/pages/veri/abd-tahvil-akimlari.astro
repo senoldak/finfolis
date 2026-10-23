@@ -1,0 +1,203 @@
+---
+// Türkiye'nin ABD Tahvili Alım-Satımları ve TCMB Rezerv Portföyü Analizi
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import abdTahvilData from '../../data/abd-tahvil.json';
+import { sayiYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const baslik = "Türkiye'nin ABD Tahvili Alım-Satımları (TIC)";
+const altBaslik = 'ABD Hazine Bakanlığı akım verileri ve TCMB rezerv analizi';
+
+const { ozet, seri } = {
+  ozet: abdTahvilData,
+  seri: abdTahvilData.seri,
+};
+
+const son = seri.at(-1)!;
+const son4AyNetMilyar = ozet.son4AyTicNetAlimMilyarUsd;
+const son4AyTcmbFarkMilyar = ozet.son4AyTcmbMenkulFarkMilyarUsd;
+
+const description = `Türkiye'nin aylık ABD tahvili net alım-satım verileri (TIC). Nisan-Ağustos döneminde yapılan toplam $${sayiYaz(son4AyNetMilyar, 2)} milyarlık net alım ve TCMB rezervlerindeki menkul kıymet portföyü ile birebir uyumu. Güncel grafik ve tarihsel tablo.`;
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'ABD Tahvili İşlemleri', href: '/veri/abd-tahvil-akimlari/' },
+];
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  sayfaEk: { dateModified: ozet.guncellenme },
+  ekler: [
+    {
+      '@type': 'Dataset',
+      name: "Türkiye'nin Aylık ABD Hazine Tahvili Net Alımları ve Portföyü",
+      description: 'ABD Hazine Bakanlığı (TIC) ve TCMB Uluslararası Rezervler verilerine dayalı tahvil alım-satım zaman serisi.',
+      url: 'https://finfolis.com/veri/abd-tahvil-akimlari/',
+      isAccessibleForFree: true,
+      creator: { '@type': 'GovernmentOrganization', name: 'U.S. Department of the Treasury (TIC) & TCMB' },
+      temporalCoverage: `${seri[0]?.donem}/${son?.donem}`,
+      dateModified: ozet.guncellenme,
+      variableMeasured: ['Aylık Net Tahvil Alımı ($ Milyon)', 'Toplam ABD Tahvil Stoğu ($ Milyon)', 'TCMB Rezerv Menkul Kıymet Portföyü ($ Milyon)'],
+    },
+  ],
+});
+
+// Son 24 ayı tersten sırala (en yeniden eskiye)
+const tabloVerisi = [...seri].slice(-24).reverse();
+---
+
+<Base title={`${baslik} · finfolis`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>{altBaslik}</p>
+    </header>
+
+    <dl class="veri-rakamlar">
+      <div>
+        <dt>Son 4 Ay Net Alım (TIC)</dt>
+        <dd class="vurgulu-sayi">+{sayiYaz(son4AyNetMilyar, 2)} milyar $</dd>
+        <dd class="veri-degisim">
+          {ozet.son4AyDonem} toplamı
+        </dd>
+      </div>
+      <div>
+        <dt>TCMB Portföy Artışı</dt>
+        <dd style="color: #2563eb; font-weight: 700;">+{sayiYaz(son4AyTcmbFarkMilyar || 0, 2)} milyar $</dd>
+        <dd class="veri-tarih">Dış Varlıklar / Menkul Kıymet</dd>
+      </div>
+      <div>
+        <dt>Toplam ABD Tahvili Stoğu</dt>
+        <dd>{sayiYaz((son.stok || 0) / 1000, 2)} milyar $</dd>
+        <dd class="veri-tarih">{son.etiket} itibarıyla</dd>
+      </div>
+      <div>
+        <dt>Son Ay Net Akım ({son.etiket})</dt>
+        <dd style={son.netAkim >= 0 ? 'color: #2563eb;' : 'color: #c2502b;'}>
+          {son.netAkim >= 0 ? '+' : ''}{sayiYaz(son.netAkim / 1000, 2)} milyar $
+        </dd>
+        <dd class="veri-degisim">Aylık net işlem hacmi</dd>
+      </div>
+    </dl>
+
+    <p class="veri-notu veri-kaynak">
+      <strong>Kaynaklar:</strong>{' '}
+      <a href="https://home.treasury.gov/data/treasury-international-capital-tic-system" rel="noopener" target="_blank">
+        ABD Hazine Bakanlığı (TIC Sistemi - Series: FORTREASNET12807 &amp; FORTREASPOS12807)
+      </a>{' '}
+      ve{' '}
+      <a href="https://evds3.tcmb.gov.tr/" rel="noopener" target="_blank">
+        TCMB EVDS (Uluslararası Rezervler ve Döviz Likiditesi Tablosu - TP.REZVARPD.K3)
+      </a>. Veriler T+45 gün gecikmeyle açıklanmaktadır.
+    </p>
+
+    <!-- Grafik Bölümü -->
+    <section class="bolum grafik-alani">
+      <h2 class="bolum-baslik">Türkiye'nin Aylık ABD Tahvili Alım-Satımları (Milyon USD)</h2>
+      <p class="bolum-aciklama">
+        2024 yılı başından bugüne Türkiye yerleşikleri tarafından gerçekleştirilen net ABD Hazine tahvili (Treasury Notes &amp; Bonds) alım ve satımları.
+      </p>
+      <div class="grafik-kapsayici" style="background: #ffffff; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--hair, #e5e5e5);">
+        <img
+          src="/grafikler/turkiye-abd-tahvil-akimlari.svg"
+          alt="Türkiye'nin aylık ABD tahvili alım-satımları (TIC)"
+          style="width: 100%; height: auto; display: block;"
+          loading="lazy"
+        />
+      </div>
+      <p class="veri-notu">
+        * Mavi barlar net tahvil alımını, pişmiş toprak (kırmızı) barlar net tahvil satışını veya itfasını temsil eder. Sarı kutuyla vurgulanan son 4-5 aylık periyotta Türkiye net alıcı konumuna geçmiştir.
+      </p>
+    </section>
+
+    <!-- Analiz ve Açıklama Bölümü -->
+    <div class="veri-izgara">
+      <section class="bolum prose veri-aciklama">
+        <h2 class="bolum-baslik">Bu Rakamlar Nasıl Hesaplanıyor ve TCMB İzi Nasıl Bulunuyor?</h2>
+        
+        <h3>1. Verinin Kaynağı: ABD Hazine Bakanlığı TIC Sistemi</h3>
+        <p>
+          ABD Hazine Bakanlığı, <strong>Treasury International Capital (TIC)</strong> sistemi aracılığıyla yabancı ülkelerin ABD menkul kıymetlerindeki aylık işlemlerini (akım) ve tuttukları toplam portföyü (stok) düzenli olarak yayınlar.
+          Türkiye'nin ülke kodu <code>12807</code> olup, Federal Reserve (FRED) veri tabanındaki <code>FORTREASNET12807</code> serisi Türkiye yerleşiklerinin aylık net ABD tahvili işlemlerini milyon dolar cinsinden gösterir.
+        </p>
+
+        <h3>2. Kurumsal Dağılım Açıklanmıyorsa TCMB Olduğu Nereden Biliniyor?</h3>
+        <p>
+          ABD Hazinesi yasal gizlilik gereği alımı yapanın doğrudan Merkez Bankası mı, ticari bankalar mı yoksa özel portföy yöneticileri mi olduğunu ülke bazında ayrıntılandırmaz.
+          Ancak ekonomistler ve veri analistleri bunu <strong>çapraz bilanço kontrolü</strong> ile kesinleştirir:
+        </p>
+        <ul>
+          <li>
+            <strong>TCMB Menkul Kıymet Rezervi:</strong> TCMB'nin her ay IMF standartlarında yayınladığı <em>Uluslararası Rezervler ve Döviz Likiditesi</em> tablosundaki menkul kıymetler portföyü incelenir.
+          </li>
+          <li>
+            <strong>Matematiksel Uyum:</strong> Nisan 2026'da TCMB kasasındaki döviz cinsi menkul kıymet stoku <strong>2.810 milyon dolar</strong> seviyesindeyken, Ağustos 2026'da <strong>6.751 milyon dolara</strong> çıkmıştır (Artış: <strong>+$3.941 milyon dolar</strong>).
+          </li>
+          <li>
+            Aynı 4 aylık dönemde ABD Hazine verilerindeki Türkiye net alımı <strong>+$3.957 milyon dolardır</strong>. Aradaki %99,6'lık tam örtüşme, alımların neredeyse tamamının TCMB tarafından rezerv yönetimi kapsamında yapıldığını doğrular.
+          </li>
+        </ul>
+
+        <h3>3. Tarihsel Rekorlar Ne Söylüyor?</h3>
+        <p>
+          Grafikte görülen büyük dalgalanmalar Türkiye'nin makroekonomik ve rezerv yönetimi döngülerini yansıtır:
+        </p>
+        <ul>
+          <li><strong>Ağustos 2025 (+9.467 Milyon $):</strong> Rezerv çeşitlendirme ve yüksek ABD tahvil faizlerinden yararlanma adımlarıyla gerçekleşen rekor alım ayı.</li>
+          <li><strong>Mart 2026 (-13.977 Milyon $):</strong> Vadesi gelen tahvillerin nakde çekilmesi ve rezerv kompozisyonundaki likidite ihtiyacıyla gerçekleşen tarihsel en büyük net itfa/satış dönemi.</li>
+          <li><strong>Nisan-Ağustos 2026 (+3.957 Milyon $):</strong> Rezerv kalitesini güçlendirme ve döviz rezervlerini risksiz faiz getirisi sunan ABD Hazine kağıtlarında nemalandırma sürecinin yeniden başlaması.</li>
+        </ul>
+
+        <p>
+          <a href="/veri/net-doviz-pozisyonu/" class="veri-link">→ TCMB Net Döviz Pozisyonu Sayfasına Git</a><br />
+          <a href="/veri/swap-payi/" class="veri-link">→ TCMB Rezervlerinde Swap Payı Sayfasına Git</a>
+        </p>
+      </section>
+
+      <section class="bolum">
+        <h2 class="bolum-baslik">Son 24 Ayın Karşılaştırmalı Tablosu</h2>
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col">Dönem</th>
+              <th scope="col" class="sag">TIC Net Alım ($ Milyon)</th>
+              <th scope="col" class="sag">Toplam Stok ($ Milyon)</th>
+              <th scope="col" class="sag">TCMB Menkul ($ Milyon)</th>
+              <th scope="col" class="sag">TCMB Değişimi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tabloVerisi.map((satir) => {
+              const netAlim = satir.netAkim;
+              const tcmbFark = satir.tcmbAylikFark;
+              return (
+                <tr>
+                  <td><strong>{satir.etiket}</strong></td>
+                  <td class="sag" style={netAlim >= 0 ? 'color: #2563eb; font-weight: 600;' : 'color: #c2502b; font-weight: 600;'}>
+                    {netAlim >= 0 ? '+' : ''}{sayiYaz(netAlim, 0)}
+                  </td>
+                  <td class="sag">{satir.stok ? sayiYaz(satir.stok, 0) : '—'}</td>
+                  <td class="sag">{satir.tcmbStok ? sayiYaz(satir.tcmbStok, 0) : '—'}</td>
+                  <td class="sag" style={tcmbFark !== null ? (tcmbFark >= 0 ? 'color: #2563eb;' : 'color: #c2502b;') : ''}>
+                    {tcmbFark !== null ? (tcmbFark >= 0 ? '+' : '') + sayiYaz(tcmbFark, 0) : '—'}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <YasalUyari />
+  </div>
+</Base>

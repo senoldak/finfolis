@@ -15,8 +15,6 @@ const enDusen = siraliAylik[siraliAylik.length - 1];
 const enBuyukPiyasa = [...sektorler]
   .filter((s) => s.kategori !== 'ana-endeks' && s.piyasaDegeri)
   .sort((a, b) => (b.piyasaDegeri ?? 0) - (a.piyasaDegeri ?? 0))[0];
-
-const maksMutlakGetiri = Math.max(...sektorler.map((s) => Math.abs(s.aylik)), 40);
 ---
 
 <section class="sektor-karnesi-alani" aria-labelledby="sektor-baslik">
@@ -89,13 +87,11 @@ const maksMutlakGetiri = Math.max(...sektorler.map((s) => Math.abs(s.aylik)), 40
           <th scope="col" class="sayisal" aria-sort="none">
             <button type="button" class="sirala" data-anahtar="piyasa">Piyasa Değeri</button>
           </th>
-          <th scope="col" class="grafik-kolonu">Getiri Dağılımı</th>
         </tr>
       </thead>
       <tbody>
         {
           siraliAylik.map((s) => {
-            const barGenislik = Math.min(100, Math.round((Math.abs(s.aylik) / maksMutlakGetiri) * 100));
             const pozitif = s.aylik >= 0;
             return (
               <tr
@@ -126,15 +122,6 @@ const maksMutlakGetiri = Math.max(...sektorler.map((s) => Math.abs(s.aylik)), 40
                 </td>
                 <td class="sayisal piyasa-hucre" title={piyasaDegeriTam(s.piyasaDegeri)}>
                   <span class="piyasa-kisa">{piyasaDegeriMetni(s.piyasaDegeri)}</span>
-                </td>
-                <td class="grafik-hucre">
-                  <div class="mini-bar-sarici" aria-hidden="true">
-                    <div class="merkez-cizgi" />
-                    <div
-                      class={`mini-bar ${pozitif ? 'bar-pozitif' : 'bar-negatif'}`}
-                      style={`width: ${barGenislik}%;`}
-                    />
-                  </div>
                 </td>
               </tr>
             );
@@ -284,11 +271,11 @@ const maksMutlakGetiri = Math.max(...sektorler.map((s) => Math.abs(s.aylik)), 40
   }
 
   .ozet-deger.kazanc {
-    color: var(--yukselis, #3f7350);
+    color: var(--green, #3f7350);
   }
 
   .ozet-deger.kayip {
-    color: var(--dusus, #a3243b);
+    color: var(--red, #a3243b);
   }
 
   .ozet-ad {
@@ -304,11 +291,11 @@ const maksMutlakGetiri = Math.max(...sektorler.map((s) => Math.abs(s.aylik)), 40
   }
 
   .ozet-oran.pozitif {
-    color: var(--yukselis, #3f7350);
+    color: var(--green, #3f7350);
   }
 
   .ozet-oran.negatif {
-    color: var(--dusus, #a3243b);
+    color: var(--red, #a3243b);
   }
 
   /* Filtre Seridi */
@@ -357,7 +344,7 @@ const maksMutlakGetiri = Math.max(...sektorler.map((s) => Math.abs(s.aylik)), 40
 
   .sektor-tablosu th,
   .sektor-tablosu td {
-    padding: 10px 8px;
+    padding: 10px 12px;
     border-bottom: 1px solid var(--hair, #cfccc2);
     vertical-align: middle;
   }
@@ -366,6 +353,7 @@ const maksMutlakGetiri = Math.max(...sektorler.map((s) => Math.abs(s.aylik)), 40
     font-weight: 700;
     color: var(--ink, #1b1b1b);
     white-space: nowrap;
+    width: 100px;
   }
 
   .endeks-kodu {
@@ -396,61 +384,17 @@ const maksMutlakGetiri = Math.max(...sektorler.map((s) => Math.abs(s.aylik)), 40
   }
 
   .aylik-hucre.artis {
-    color: var(--yukselis, #3f7350);
+    color: var(--green, #3f7350);
   }
 
   .aylik-hucre.azalis {
-    color: var(--dusus, #a3243b);
+    color: var(--red, #a3243b);
   }
 
   .piyasa-hucre {
-    font-size: 0.9rem;
-    color: var(--ink-2, #3d3c38);
-  }
-
-  /* Mini Getiri Dağılım Çubuğu */
-  .grafik-kolonu {
-    width: 120px;
-    padding-left: 12px;
-  }
-
-  .grafik-hucre {
-    width: 120px;
-    padding-left: 12px;
-  }
-
-  .mini-bar-sarici {
-    position: relative;
-    width: 100%;
-    height: 14px;
-    background: var(--paper-2, #e9e7df);
-    overflow: hidden;
-  }
-
-  .merkez-cizgi {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--hair, #cfccc2);
-    z-index: 1;
-  }
-
-  .mini-bar {
-    height: 100%;
-    position: absolute;
-    top: 0;
-  }
-
-  .bar-pozitif {
-    background: var(--yukselis, #3f7350);
-    left: 50%;
-  }
-
-  .bar-negatif {
-    background: var(--dusus, #a3243b);
-    right: 50%;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink, #1b1b1b);
   }
 
   /* Sıralama Düğmeleri */
@@ -478,7 +422,7 @@ const maksMutlakGetiri = Math.max(...sektorler.map((s) => Math.abs(s.aylik)), 40
   }
 
   .sektor-dipnot {
-    margin-top: 12px;
+    margin-top: 14px;
   }
 
   .veri-notu {

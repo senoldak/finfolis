@@ -1,0 +1,557 @@
+---
+// TCMB Net Döviz Pozisyonu (Swaplar ve Hazine Dövizi Hariç) İnteraktif Grafiği
+// Finfolis tasarım dili: Kâğıt & mürekkep, Bricolage Grotesque, tam etkileşimli, sıfır harici kütüphane.
+interface Props {
+  noktalar: { tarih: string; deger: number }[];
+  guncelDeger: number;
+  guncelTarih: string;
+}
+
+const { noktalar = [], guncelDeger, guncelTarih } = Astro.props;
+
+const W = 800;
+const H = 380;
+const PAD_TOP = 25;
+const PAD_BOTTOM = 45;
+const PAD_LEFT = 45;
+const PAD_RIGHT = 30;
+
+const degerler = noktalar.map((p) => p.deger);
+const minDeger = Math.floor((Math.min(...degerler, 20) - 2) / 5) * 5;
+const maxDeger = Math.ceil((Math.max(...degerler, 60) + 2) / 5) * 5;
+const yAralik = maxDeger - minDeger || 1;
+
+const xPos = (i: number, len: number) =>
+  PAD_LEFT + (i / Math.max(len - 1, 1)) * (W - PAD_LEFT - PAD_RIGHT);
+const yPos = (v: number) =>
+  PAD_TOP + (1 - (v - minDeger) / yAralik) * (H - PAD_TOP - PAD_BOTTOM);
+
+const cizgiYolu = noktalar
+  .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i, noktalar.length).toFixed(1)} ${yPos(p.deger).toFixed(1)}`)
+  .join(' ');
+
+// Y ekseni ızgara değerleri (10'ar birim)
+const izgaraDegerleri: number[] = [];
+for (let v = minDeger; v <= maxDeger; v += 10) {
+  izgaraDegerleri.push(v);
+}
+
+// X ekseni ay etiketleri
+const ayEtiketleri: { etiket: string; x: number }[] = [];
+let oncekiAy = '';
+noktalar.forEach((p, i) => {
+  const ay = p.tarih.slice(0, 7);
+  if (ay !== oncekiAy) {
+    const d = new Date(p.tarih + 'T12:00:00Z');
+    const ayAdi = d.toLocaleDateString('tr-TR', { month: 'short' });
+    ayEtiketleri.push({ etiket: ayAdi.toUpperCase(), x: xPos(i, noktalar.length) });
+    oncekiAy = ay;
+  }
+});
+
+const sonNokta = noktalar.at(-1) ?? { tarih: guncelTarih, deger: guncelDeger };
+const sonX = xPos(noktalar.length - 1, noktalar.length);
+const sonY = yPos(sonNokta.deger);
+---
+
+<div class="rezerv-interaktif-kapsayici" data-rezerv-grafik data-noktalar={JSON.stringify(noktalar)}>
+  <!-- Üst Başlık ve Zaman Filtreleri -->
+  <div class="grafik-ust-bar">
+    <div class="grafik-baslik-alani">
+      <h3 class="grafik-baslik">Net Döviz Pozisyonu Seyri</h3>
+      <p class="grafik-altbaslik">TCMB Analitik Bilanço · Swap ve Hazine dövizi hariç</p>
+    </div>
+
+    <div class="zaman-filtre-alani" role="group" aria-label="Zaman aralığı filtreleri">
+      <button type="button" class="filtre-btn" data-periyot="1a">Son 1 Ay</button>
+      <button type="button" class="filtre-btn" data-periyot="3a">Son 3 Ay</button>
+      <button type="button" class="filtre-btn aktif" data-periyot="tum">Tümü</button>
+    </div>
+  </div>
+
+  <!-- Canlı Bilgi Kartı (Fare/Dokunma ile güncellenir) -->
+  <div class="canli-bilgi-paneli" id="rezerv-canli-kutu">
+    <div class="canli-oge">
+      <span class="canli-etiket">Tarih</span>
+      <strong class="canli-deger" id="canli-tarih">{sonNokta.tarih}</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Net Döviz Pozisyonu</span>
+      <strong class="canli-deger vurgulu-rakam" id="canli-net">+{sonNokta.deger.toFixed(1)} Milyar $</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Günlük Değişim</span>
+      <strong class="canli-deger" id="canli-fark">—</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Dönemsel Konum</span>
+      <span class="canli-rozet" id="canli-konum">Güncel</span>
+    </div>
+  </div>
+
+  <!-- SVG Çizim Alanı -->
+  <div class="svg-kapsayici">
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      class="rezerv-svg"
+      role="img"
+      aria-label="TCMB net döviz pozisyonu interaktif eğrisi"
+      id="rezerv-svg"
+    >
+      <defs>
+        <!-- Eğri Altı Hafif Renk Geçişi -->
+        <linearGradient id="rezervDegrade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c2502b" stop-opacity="0.18" />
+          <stop offset="100%" stop-color="#c2502b" stop-opacity="0.0" />
+        </linearGradient>
+      </defs>
+
+      <!-- Izgara Çizgileri ve Y Eksen Etiketleri -->
+      <g id="katman-izgara">
+        {
+          izgaraDegerleri.map((v) => {
+            const y = yPos(v);
+            return (
+              <g class="izgara-cizgi-grup">
+                <line x1={PAD_LEFT} y1={y} x2={W - PAD_RIGHT} y2={y} stroke="var(--hair, #e8e4df)" stroke-dasharray="2 2" stroke-width="1" />
+                <text x={PAD_LEFT - 8} y={y + 4} text-anchor="end" class="eksen-metin">
+                  {v}
+                </text>
+              </g>
+            );
+          })
+        }
+      </g>
+
+      <!-- X Ekseni Ay Etiketleri -->
+      <g id="katman-x-eksen">
+        {
+          ayEtiketleri.map((item) => (
+            <g class="ay-etiket-grup">
+              <line x1={item.x} y1={PAD_TOP} x2={item.x} y2={H - PAD_BOTTOM} stroke="var(--hair, #e8e4df)" stroke-dasharray="3 3" stroke-width="1" />
+              <text x={item.x + 4} y={H - PAD_BOTTOM + 20} class="eksen-metin ay-metin">
+                {item.etiket}
+              </text>
+            </g>
+          ))
+        }
+      </g>
+
+      <!-- Eğri Altı Alan Dolgusu -->
+      <path
+        id="rezerv-dolgu"
+        d={`${cizgiYolu} L ${xPos(noktalar.length - 1, noktalar.length).toFixed(1)} ${yPos(minDeger).toFixed(1)} L ${xPos(0, noktalar.length).toFixed(1)} ${yPos(minDeger).toFixed(1)} Z`}
+        fill="url(#rezervDegrade)"
+      />
+
+      <!-- Ana Çizgi Eğrisi -->
+      <path
+        id="ana-rezerv-cizgi"
+        d={cizgiYolu}
+        fill="none"
+        stroke="#c2502b"
+        stroke-width="2.75"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+      <!-- İnteraktif Dikey Kılavuz Çizgisi -->
+      <line
+        id="rehber-dikey"
+        x1={sonX}
+        y1={PAD_TOP}
+        x2={sonX}
+        y2={H - PAD_BOTTOM}
+        stroke="#c2502b"
+        stroke-width="1.5"
+        stroke-dasharray="3 3"
+        opacity="0.8"
+      />
+
+      <!-- Odak Noktası -->
+      <circle
+        id="odak-noktasi"
+        cx={sonX}
+        cy={sonY}
+        r="5.5"
+        fill="#c2502b"
+        stroke="var(--paper, #faf8f5)"
+        stroke-width="2.5"
+      />
+
+      <!-- Şeffaf Etkileşim Katmanı -->
+      <rect
+        id="etkilesim-katmani"
+        x={PAD_LEFT}
+        y={PAD_TOP}
+        width={W - PAD_LEFT - PAD_RIGHT}
+        height={H - PAD_TOP - PAD_BOTTOM}
+        fill="transparent"
+        style="cursor: crosshair; touch-action: none;"
+      />
+    </svg>
+  </div>
+
+  <div class="grafik-alt-ipucu">
+    <span class="ipucu-yazi">👆 Parmağınızı veya farenizi grafiğin üzerinde kaydırarak geçmiş günlerin rezervini inceleyin</span>
+    <span class="kaynak-etiket">TCMB Analitik Bilanço & Swap Verileri</span>
+  </div>
+</div>
+
+<script>
+  // Grafik İnteraktif Çekirdek Mantığı
+  const container = document.querySelector<HTMLElement>('[data-rezerv-grafik]');
+  if (container) {
+    const rawData: { tarih: string; deger: number }[] = JSON.parse(
+      container.dataset.noktalar || '[]'
+    );
+
+    const overlay = container.querySelector<SVGRectElement>('#etkilesim-katmani')!;
+    const anaCizgi = container.querySelector<SVGPathElement>('#ana-rezerv-cizgi')!;
+    const dolgu = container.querySelector<SVGPathElement>('#rezerv-dolgu')!;
+    const rehberDikey = container.querySelector<SVGLineElement>('#rehber-dikey')!;
+    const odakNoktasi = container.querySelector<SVGCircleElement>('#odak-noktasi')!;
+    const svgElem = container.querySelector<SVGSVGElement>('#rezerv-svg')!;
+
+    // Canlı Panel Elemanları
+    const canliTarih = container.querySelector<HTMLElement>('#canli-tarih')!;
+    const canliNet = container.querySelector<HTMLElement>('#canli-net')!;
+    const canliFark = container.querySelector<HTMLElement>('#canli-fark')!;
+    const canliKonum = container.querySelector<HTMLElement>('#canli-konum')!;
+
+    // Filtre Butonları
+    const filtreButonlari = container.querySelectorAll<HTMLButtonElement>('.filtre-btn');
+
+    const W = 800;
+    const H = 380;
+    const PAD_TOP = 25;
+    const PAD_BOTTOM = 45;
+    const PAD_LEFT = 45;
+    const PAD_RIGHT = 30;
+
+    let aktifVeri = [...rawData];
+
+    function hesaplaSinirlar(veri: typeof rawData) {
+      const vals = veri.map((p) => p.deger);
+      const min = Math.floor((Math.min(...vals, 20) - 2) / 5) * 5;
+      const max = Math.ceil((Math.max(...vals, 60) + 2) / 5) * 5;
+      return { min, max, aralik: max - min || 1 };
+    }
+
+    let { min: minDeger, aralik: yAralik } = hesaplaSinirlar(aktifVeri);
+
+    const xPos = (i: number, len: number) =>
+      PAD_LEFT + (i / Math.max(len - 1, 1)) * (W - PAD_LEFT - PAD_RIGHT);
+    const yPos = (v: number) =>
+      PAD_TOP + (1 - (v - minDeger) / yAralik) * (H - PAD_TOP - PAD_BOTTOM);
+
+    function cizgiUret(veri: typeof rawData) {
+      return veri
+        .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i, veri.length).toFixed(1)} ${yPos(p.deger).toFixed(1)}`)
+        .join(' ');
+    }
+
+    function guncelleGrafik(yeniVeri: typeof rawData) {
+      aktifVeri = yeniVeri;
+      const sinirlar = hesaplaSinirlar(aktifVeri);
+      minDeger = sinirlar.min;
+      yAralik = sinirlar.aralik;
+
+      const pathD = cizgiUret(aktifVeri);
+      anaCizgi.setAttribute('d', pathD);
+
+      const sonIdx = aktifVeri.length - 1;
+      const sonP = aktifVeri[sonIdx];
+      const sonX = xPos(sonIdx, aktifVeri.length);
+      const sonY = yPos(sonP.deger);
+
+      dolgu.setAttribute(
+        'd',
+        `${pathD} L ${sonX.toFixed(1)} ${yPos(minDeger).toFixed(1)} L ${xPos(0, aktifVeri.length).toFixed(1)} ${yPos(minDeger).toFixed(1)} Z`
+      );
+
+      rehberDikey.setAttribute('x1', sonX.toFixed(1));
+      rehberDikey.setAttribute('x2', sonX.toFixed(1));
+      rehberDikey.setAttribute('y1', PAD_TOP.toString());
+      rehberDikey.setAttribute('y2', (H - PAD_BOTTOM).toString());
+
+      odakNoktasi.setAttribute('cx', sonX.toFixed(1));
+      odakNoktasi.setAttribute('cy', sonY.toFixed(1));
+
+      guncelleKart(sonIdx);
+    }
+
+    function guncelleKart(idx: number) {
+      const nokta = aktifVeri[idx];
+      if (!nokta) return;
+
+      const onceki = idx > 0 ? aktifVeri[idx - 1] : null;
+      const fark = onceki ? nokta.deger - onceki.deger : 0;
+
+      canliTarih.textContent = nokta.tarih;
+      canliNet.textContent = `${nokta.deger > 0 ? '+' : ''}${nokta.deger.toFixed(1)} Milyar $`;
+
+      if (onceki) {
+        const isaret = fark > 0 ? '+' : '';
+        canliFark.textContent = `${isaret}${fark.toFixed(1)} Milyar $`;
+        canliFark.className = `canli-deger ${fark > 0 ? 'artis' : fark < 0 ? 'azalis' : ''}`;
+      } else {
+        canliFark.textContent = '—';
+        canliFark.className = 'canli-deger';
+      }
+
+      if (nokta.deger >= 50) {
+        canliKonum.textContent = 'Zirve Bölgesi';
+        canliKonum.className = 'canli-rozet zirve';
+      } else if (nokta.deger <= 28) {
+        canliKonum.textContent = 'Dip Bölgesi';
+        canliKonum.className = 'canli-rozet dip';
+      } else {
+        canliKonum.textContent = 'Dengelenme';
+        canliKonum.className = 'canli-rozet';
+      }
+    }
+
+    function koordinattanIndeks(e: PointerEvent) {
+      const rect = svgElem.getBoundingClientRect();
+      const clientX = e.clientX;
+      const svgX = ((clientX - rect.left) / rect.width) * W;
+
+      const cizimW = W - PAD_LEFT - PAD_RIGHT;
+      const relX = Math.max(0, Math.min(cizimW, svgX - PAD_LEFT));
+      const oran = relX / cizimW;
+      const idx = Math.round(oran * (aktifVeri.length - 1));
+      return Math.max(0, Math.min(aktifVeri.length - 1, idx));
+    }
+
+    function imlecTasi(e: PointerEvent) {
+      const idx = koordinattanIndeks(e);
+      const nokta = aktifVeri[idx];
+      if (!nokta) return;
+
+      const cx = xPos(idx, aktifVeri.length);
+      const cy = yPos(nokta.deger);
+
+      rehberDikey.setAttribute('x1', cx.toFixed(1));
+      rehberDikey.setAttribute('x2', cx.toFixed(1));
+      odakNoktasi.setAttribute('cx', cx.toFixed(1));
+      odakNoktasi.setAttribute('cy', cy.toFixed(1));
+
+      guncelleKart(idx);
+    }
+
+    overlay.addEventListener('pointerdown', (e) => {
+      overlay.setPointerCapture(e.pointerId);
+      imlecTasi(e);
+    });
+
+    overlay.addEventListener('pointermove', imlecTasi);
+
+    overlay.addEventListener('pointerleave', () => {
+      const sonIdx = aktifVeri.length - 1;
+      const sonNokta = aktifVeri[sonIdx];
+      if (sonNokta) {
+        const cx = xPos(sonIdx, aktifVeri.length);
+        const cy = yPos(sonNokta.deger);
+        rehberDikey.setAttribute('x1', cx.toFixed(1));
+        rehberDikey.setAttribute('x2', cx.toFixed(1));
+        odakNoktasi.setAttribute('cx', cx.toFixed(1));
+        odakNoktasi.setAttribute('cy', cy.toFixed(1));
+        guncelleKart(sonIdx);
+      }
+    });
+
+    // Zaman Butonları Etkileşimi
+    filtreButonlari.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filtreButonlari.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+
+        const periyot = btn.dataset.periyot;
+        if (periyot === '1a') {
+          guncelleGrafik(rawData.slice(-22));
+        } else if (periyot === '3a') {
+          guncelleGrafik(rawData.slice(-66));
+        } else {
+          guncelleGrafik(rawData);
+        }
+      });
+    });
+
+    // Başlangıç durumu
+    guncelleKart(aktifVeri.length - 1);
+  }
+</script>
+
+<style>
+  .rezerv-interaktif-kapsayici {
+    background: var(--surface, #faf8f5);
+    border: 1px solid var(--hair, #e8e4df);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+  }
+
+  .grafik-ust-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--hair, #e8e4df);
+    padding-bottom: 14px;
+  }
+
+  .grafik-baslik {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--ink, #1b1b1b);
+  }
+
+  .grafik-altbaslik {
+    font-size: 0.85rem;
+    color: var(--ink-muted, #73706c);
+    margin: 2px 0 0;
+  }
+
+  .zaman-filtre-alani {
+    display: inline-flex;
+    background: var(--paper, #f2eee8);
+    border: 1px solid var(--hair, #dfdad3);
+    border-radius: 6px;
+    padding: 2px;
+  }
+
+  .filtre-btn {
+    border: none;
+    background: transparent;
+    padding: 5px 12px;
+    font-size: 0.82rem;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--ink-muted, #73706c);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+  }
+
+  .filtre-btn:hover {
+    color: var(--ink, #1b1b1b);
+  }
+
+  .filtre-btn.aktif {
+    background: var(--surface, #fff);
+    color: var(--ink, #1b1b1b);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  .canli-bilgi-paneli {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    background: var(--paper, #f7f4ee);
+    border: 1px solid var(--hair, #e8e4df);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .canli-oge {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .canli-etiket {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted, #73706c);
+    margin-bottom: 2px;
+  }
+
+  .canli-deger {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+  }
+
+  .canli-deger.vurgulu-rakam {
+    color: #c2502b;
+  }
+
+  .canli-deger.artis {
+    color: #2d6a4f;
+  }
+
+  .canli-deger.azalis {
+    color: #ba1a1a;
+  }
+
+  .canli-rozet {
+    display: inline-block;
+    width: fit-content;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #e8e4df;
+    color: var(--ink, #1b1b1b);
+    margin-top: 2px;
+  }
+
+  .canli-rozet.zirve {
+    background: rgba(45, 106, 79, 0.15);
+    color: #2d6a4f;
+  }
+
+  .canli-rozet.dip {
+    background: rgba(186, 26, 26, 0.15);
+    color: #ba1a1a;
+  }
+
+  .svg-kapsayici {
+    width: 100%;
+    overflow-x: auto;
+    position: relative;
+  }
+
+  .rezerv-svg {
+    width: 100%;
+    height: auto;
+    min-width: 480px;
+    display: block;
+    user-select: none;
+  }
+
+  .eksen-metin {
+    font-size: 11px;
+    fill: var(--ink-muted, #73706c);
+    font-family: var(--sans, sans-serif);
+  }
+
+  .ay-metin {
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .grafik-alt-ipucu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--ink-muted, #73706c);
+  }
+
+  .ipucu-yazi {
+    font-weight: 500;
+  }
+
+  .kaynak-etiket {
+    font-style: italic;
+  }
+</style>

@@ -84,6 +84,13 @@ jobs:
           EVDS_API_KEY: ${{ secrets.EVDS_API_KEY }}
         run: node scripts/haberler/resmi-veri.mjs --yaz
 
+      # BIST sektör ve tematik endeks karnesi (gecikmeli piyasa verisi).
+      - name: Sektör karnesini güncelle
+        if: ${{ !cancelled() && steps.hent.outputs.durdu != '1' }}
+        continue-on-error: true
+        timeout-minutes: 5
+        run: node scripts/haberler/sektor-karnesi.mjs --yaz
+
       # Üretim adımı düşse de (zaman aşımı, motor hatası, beklenmeyen hata) o ana kadar yazılan haberler ve durum dosyası
       # commit edilir (F4); aksi hâlde aynı adaylar sonraki turda Gemini'yi yeniden harcıyordu. İş yine kırmızı biter.
       # Üç aylık standartlar raporu (yol haritası madde 22): biten çeyreğin ilk 31 gününde defter sayıları bir kez
@@ -106,14 +113,14 @@ jobs:
         run: |
           git config user.name "finfolis-haber-botu"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/content/haberler src/data/piyasa.json src/data/resmi.json scripts/haberler/gorulen.json
+          git add src/content/haberler src/data/piyasa.json src/data/resmi.json src/data/sektorler.json scripts/haberler/gorulen.json
           # Çeyrek raporu klasörü ilk rapora kadar yoktur; yoksa git add pathspec hatası verir.
           [ -d src/data/standartlar-raporu ] && git add src/data/standartlar-raporu
           if git diff --cached --quiet; then
             echo "Değişiklik yok."
             exit 0
           fi
-          ICERIK=$(git diff --cached --name-only -- src/content/haberler src/data/piyasa.json src/data/resmi.json)
+          ICERIK=$(git diff --cached --name-only -- src/content/haberler src/data/piyasa.json src/data/resmi.json src/data/sektorler.json)
           if [ -z "$ICERIK" ]; then
             git commit -m "Haber botu: durum güncellendi [skip ci]"
           elif [ "${ADET:-0}" = "0" ]; then

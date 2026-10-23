@@ -1,0 +1,281 @@
+---
+// Türkiye'nin Elindeki ABD Tahvilleri Yığılmış Alan (Stacked Area) Grafiği.
+// Finfolis tasarım dili: Kâğıt & mürekkep, sıfır harici kütüphane bağımlılığı.
+import type { TahvilAnalizi } from '../lib/abd-tahvilleri.d.mts';
+
+interface Props {
+  veri: TahvilAnalizi;
+}
+
+const { veri } = Astro.props;
+const { noktalar, tarihselZirve, sonNokta } = veri;
+
+// Grafik boyutları
+const W = 800;
+const H = 380;
+const PAD_TOP = 40;
+const PAD_BOTTOM = 45;
+const PAD_LEFT = 55;
+const PAD_RIGHT = 35;
+
+const cizimW = W - PAD_LEFT - PAD_RIGHT;
+const cizimH = H - PAD_TOP - PAD_BOTTOM;
+
+// Y ekseni ölçeği (0 ile 90.000 Milyon USD arası)
+const maxY = 90000;
+const minY = 0;
+
+const xPos = (i: number) => PAD_LEFT + (i / Math.max(noktalar.length - 1, 1)) * cizimW;
+const yPos = (val: number) => PAD_TOP + (1 - (val - minY) / (maxY - minY)) * cizimH;
+const ySifir = yPos(0);
+
+// Uzun Vadeli Alanı (Tabandan Uzun Değerine)
+// D = M x0 ySifir L x0 yUzun ... L xN yUzun L xN ySifir Z
+const uzunNoktalar = noktalar.map((p, i) => `${xPos(i).toFixed(1)},${yPos(p.uzunUSD).toFixed(1)}`);
+const uzunAlanD = `M ${xPos(0).toFixed(1)},${ySifir.toFixed(1)} L ${uzunNoktalar.join(' L ')} L ${xPos(noktalar.length - 1).toFixed(1)},${ySifir.toFixed(1)} Z`;
+
+// Kısa Vadeli Alanı (Uzun Vadeli Değerinden Toplam Değerine)
+// Üst çizgi: Toplam noktaları (soldan sağa)
+// Alt çizgi: Uzun noktaları (sağdan sola)
+const toplamNoktalar = noktalar.map((p, i) => `${xPos(i).toFixed(1)},${yPos(p.toplamUSD).toFixed(1)}`);
+const uzunNoktalarTers = [...uzunNoktalar].reverse();
+const kisaAlanD = `M ${toplamNoktalar[0]} L ${toplamNoktalar.join(' L ')} L ${uzunNoktalarTers.join(' L ')} Z`;
+
+// Üst çizgi (toplam eğrisi konturu)
+const toplamCizgiD = `M ${toplamNoktalar.join(' L ')}`;
+
+// Y Ekseni Çizgileri (0, 20k, 40k, 60k, 80k)
+const yIzgaraSeviyeleri = [0, 20000, 40000, 60000, 80000];
+
+// X Ekseni Yıl Etiketleri (iki yılda bir)
+const xEtiketleri: { yil: string; x: number }[] = [];
+let sonEtiketYili = 0;
+noktalar.forEach((p, i) => {
+  const yil = parseInt(p.tarih.slice(0, 4), 10);
+  if (yil >= 2011 && yil % 2 !== 0 && yil !== sonEtiketYili) {
+    xEtiketleri.push({ yil: `${yil}-${p.tarih.slice(5, 7)}`, x: xPos(i) });
+    sonEtiketYili = yil;
+  }
+});
+// Son tarihi de ekleyelim
+xEtiketleri.push({ yil: sonNokta.tarih.slice(0, 7), x: xPos(noktalar.length - 1) });
+
+// Önemli İşaretçiler (Milestones)
+// Zirve: 2015-01 (82.431)
+const zirveIndex = noktalar.findIndex((p) => p.toplamUSD === tarihselZirve.toplamUSD);
+const zirveX = zirveIndex >= 0 ? xPos(zirveIndex) : 0;
+const zirveY = zirveIndex >= 0 ? yPos(tarihselZirve.toplamUSD) : 0;
+
+// Son nokta (5.731)
+const sonX = xPos(noktalar.length - 1);
+const sonY = yPos(sonNokta.toplamUSD);
+---
+
+<div class="abd-tahvilleri-grafik">
+  <div class="grafik-lejant">
+    <div class="lejant-oge">
+      <span class="renk-kutu kisa"></span>
+      <span class="ad">Kısa Vadeli (T-Bills, &le;1 yıl)</span>
+      <strong class="deger">${sonNokta.kisaUSD.toLocaleString('tr-TR')} M (%{sonNokta.kisaOran})</strong>
+    </div>
+    <div class="lejant-oge">
+      <span class="renk-kutu uzun"></span>
+      <span class="ad">Uzun Vadeli (Tahvil, &gt;1 yıl)</span>
+      <strong class="deger">${sonNokta.uzunUSD.toLocaleString('tr-TR')} M (%{sonNokta.uzunOran})</strong>
+    </div>
+    <div class="lejant-oge toplam">
+      <span class="ad">Toplam Portföy:</span>
+      <strong class="deger">${sonNokta.toplamUSD.toLocaleString('tr-TR')} M ($5,73 Milyar)</strong>
+    </div>
+  </div>
+
+  <div class="svg-tasiyici">
+    <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" class="grafik-svg" role="img" aria-label="Türkiye'nin elindeki ABD tahvilleri yığılmış alan grafiği">
+      <defs>
+        <!-- Kırmızı/Kiremit Alan Gradyanı -->
+        <linearGradient id="kisaGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#b91c1c" stop-opacity="0.9" />
+          <stop offset="100%" stop-color="#991b1b" stop-opacity="0.8" />
+        </linearGradient>
+        <!-- Mavi Alan Gradyanı -->
+        <linearGradient id="uzunGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.9" />
+          <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.85" />
+        </linearGradient>
+      </defs>
+
+      <!-- Y ızgara çizgileri ve etiketleri -->
+      {yIzgaraSeviyeleri.map((seviye) => {
+        const y = yPos(seviye);
+        return (
+          <g class="izgara-seviye">
+            <line x1={PAD_LEFT} y1={y} x2={W - PAD_RIGHT} y2={y} stroke="var(--c-izgara, #e2e8f0)" stroke-dasharray="3,3" stroke-width="1" />
+            <text x={PAD_LEFT - 8} y={y + 4} text-anchor="end" class="eksen-metin">
+              {seviye.toLocaleString('tr-TR')}
+            </text>
+          </g>
+        );
+      })}
+
+      <!-- Y Birim Etiketi -->
+      <text x={PAD_LEFT} y={PAD_TOP - 15} class="birim-metin">
+        milyon USD, TIC data
+      </text>
+
+      <!-- Katman 1: Uzun Vadeli Alan (Mavi) -->
+      <path d={uzunAlanD} fill="url(#uzunGrad)" class="alan-uzun" />
+
+      <!-- Katman 2: Kısa Vadeli Alan (Kiremit Kırmızı) -->
+      <path d={kisaAlanD} fill="url(#kisaGrad)" class="alan-kisa" />
+
+      <!-- Katman 3: Toplam Kontur Çizgisi -->
+      <path d={toplamCizgiD} fill="none" stroke="#7f1d1d" stroke-width="1.2" class="cizgi-toplam" />
+
+      <!-- X ekseni taban çizgisi -->
+      <line x1={PAD_LEFT} y1={ySifir} x2={W - PAD_RIGHT} y2={ySifir} stroke="var(--c-kenar, #94a3b8)" stroke-width="1" />
+
+      <!-- X Ekseni Etiketleri -->
+      {xEtiketleri.map((etk) => (
+        <g class="x-etiket-grup" transform={`translate(${etk.x}, ${ySifir + 16})`}>
+          <line x1="0" y1="-16" x2="0" y2="-12" stroke="var(--c-kenar, #94a3b8)" stroke-width="1" />
+          <text x="0" y="0" text-anchor="middle" class="eksen-metin x-metin">
+            {etk.yil}
+          </text>
+        </g>
+      ))}
+
+      <!-- Metin Vurguları: KISA VADELİ / UZUN VADELİ etiketleri -->
+      <text x={W * 0.38} y={yPos(40000)} text-anchor="middle" class="alan-etiket kisa-etiket">
+        KISA VADELİ
+      </text>
+      <text x={W * 0.38} y={yPos(12000)} text-anchor="middle" class="alan-etiket uzun-etiket">
+        UZUN VADELİ
+      </text>
+
+      <!-- Zirve Noktası Vurgusu -->
+      {zirveIndex >= 0 && (
+        <g class="vurgu-zirve">
+          <circle cx={zirveX} cy={zirveY} r="4" fill="#7f1d1d" stroke="#ffffff" stroke-width="1.5" />
+          <text x={zirveX} y={zirveY - 10} text-anchor="middle" class="vurgu-metin">
+            {tarihselZirve.toplamUSD.toLocaleString('tr-TR')}
+          </text>
+        </g>
+      )}
+
+      <!-- Son Nokta Vurgusu -->
+      <g class="vurgu-son">
+        <circle cx={sonX} cy={sonY} r="4.5" fill="#991b1b" stroke="#ffffff" stroke-width="2" />
+        <text x={sonX - 5} y={sonY - 10} text-anchor="end" class="vurgu-metin vurgu-son-metin">
+          {sonNokta.toplamUSD.toLocaleString('tr-TR')}
+        </text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .abd-tahvilleri-grafik {
+    background: var(--c-kart, #ffffff);
+    border: 1px solid var(--c-kenar, #e2e8f0);
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .grafik-lejant {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid var(--c-izgara, #f1f5f9);
+    font-size: 0.875rem;
+  }
+
+  .lejant-oge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .lejant-oge.toplam {
+    margin-left: auto;
+    background: var(--c-zemin, #f8fafc);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    border: 1px solid var(--c-kenar, #e2e8f0);
+  }
+
+  .renk-kutu {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .renk-kutu.kisa {
+    background-color: #b91c1c;
+  }
+
+  .renk-kutu.uzun {
+    background-color: #3b82f6;
+  }
+
+  .svg-tasiyici {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .grafik-svg {
+    width: 100%;
+    height: auto;
+    min-width: 600px;
+    display: block;
+    font-family: inherit;
+  }
+
+  .eksen-metin {
+    font-size: 11px;
+    fill: var(--c-metin-hafif, #64748b);
+  }
+
+  .birim-metin {
+    font-size: 12px;
+    font-weight: 600;
+    fill: var(--c-metin, #334155);
+  }
+
+  .alan-etiket {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    fill: #ffffff;
+    opacity: 0.95;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+  }
+
+  .vurgu-metin {
+    font-size: 13px;
+    font-weight: 700;
+    fill: var(--c-metin, #0f172a);
+  }
+
+  .vurgu-son-metin {
+    fill: #991b1b;
+  }
+
+  @media (max-width: 640px) {
+    .grafik-lejant {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .lejant-oge.toplam {
+      margin-left: 0;
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+</style>

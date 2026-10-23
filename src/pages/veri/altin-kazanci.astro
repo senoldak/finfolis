@@ -1,0 +1,173 @@
+---
+// TCMB Altın Rezervi Değerleme Kazancı (Mark-to-Market P/L)
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import data from '../../data/tcmb-altin-kazanci.json';
+import { sayiYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const seri = data.seri;
+const son = seri.at(-1)!;
+const zirve = seri.reduce((max, cur) => (cur.kazanc_milyar_usd > max.kazanc_milyar_usd ? cur : max), seri[0]);
+
+const baslik = 'TCMB Altın Portföyü Kazancı (P/L)';
+const altBaslik = 'Küresel altın rallisinde Merkez Bankası kasasındaki kâr ve değerleme farkı nasıl değişti?';
+
+const description = `TCMB net altın rezervi, Mart 2025'ten bu yana küresel ons altın rallisiyle güncelde +$${sayiYaz(son.kazanc_milyar_usd, 1)} milyar değerleme kazancına ulaştı (zirvede +$${sayiYaz(zirve.kazanc_milyar_usd, 1)} milyar). Güncel grafik ve analiz.`;
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'TCMB Altın Kazancı', href: '/veri/altin-kazanci/' },
+];
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  sayfaEk: { dateModified: data.guncellenme },
+  ekler: [
+    {
+      '@type': 'Dataset',
+      name: 'TCMB Altın Rezervi Değerleme Farkı ve Kazancı',
+      description: 'TCMB net altın rezervlerinin spot ons altın (XAU/USD) piyasa değerlemesi üzerinden hesaplanan kümülatif kazanç serisi.',
+      url: 'https://finfolis.com/veri/altin-kazanci/',
+      isAccessibleForFree: true,
+      creator: { '@type': 'Organization', name: 'finfolis', url: 'https://finfolis.com/' },
+      temporalCoverage: `${data.baz_tarih}/${son.tarih}`,
+      dateModified: data.guncellenme,
+      variableMeasured: ['Ons Fiyatı (USD)', 'Kümülatif Kazanç ($ Milyar)', 'Ons Fiyat Farkı (USD)'],
+    },
+  ],
+});
+
+// Tablo için son 20 işlem günü (yeniden eskiye)
+const tabloVerisi = [...seri].slice(-20).reverse();
+---
+
+<Base title={`${baslik} · finfolis`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>{altBaslik}</p>
+    </header>
+
+    <dl class="veri-rakamlar">
+      <div>
+        <dt>Güncel Değerleme Kazancı</dt>
+        <dd class="vurgulu-sayi" style={son.kazanc_milyar_usd >= 0 ? 'color: var(--yukselis, #3f7350);' : 'color: var(--dusus, #a3243b);'}>
+          {son.kazanc_milyar_usd >= 0 ? '+' : ''}${sayiYaz(son.kazanc_milyar_usd, 1)} milyar
+        </dd>
+        <dd class="veri-degisim">
+          {son.tarih} itibarıyla (20 Mart 2025 bazlı)
+        </dd>
+      </div>
+      <div>
+        <dt>Görülen Tarihi Zirve</dt>
+        <dd>+${sayiYaz(zirve.kazanc_milyar_usd, 1)} milyar</dd>
+        <dd class="veri-tarih">{zirve.tarih} (Ons: ${sayiYaz(zirve.ons_fiyat_usd, 0)})</dd>
+      </div>
+      <div>
+        <dt>Net Altın Rezervi</dt>
+        <dd>~{sayiYaz(data.rezerv_ons / 1e6, 2)}M ons</dd>
+        <dd class="veri-tarih">Yaklaşık {data.rezerv_ton_esdegeri} ton (TCMB mülkiyeti)</dd>
+      </div>
+      <div>
+        <dt>Ons Altın Değişimi</dt>
+        <dd>${sayiYaz(son.ons_fiyat_usd, 0)}</dd>
+        <dd class="veri-degisim" style="color: var(--yukselis, #3f7350);">
+          +${sayiYaz(son.ons_fark_usd, 0)} (${sayiYaz(data.baz_fiyat_usd, 0)}'den)
+        </dd>
+      </div>
+    </dl>
+
+    <p class="veri-notu veri-kaynak">
+      <strong>Kaynak:</strong>{' '}
+      <a href="https://evds3.tcmb.gov.tr/" rel="noopener" target="_blank">TCMB Analitik Bilanço &amp; Rezerv İstatistikleri</a>{' '}
+      ve Küresel Spot Ons Altın (LBMA / XAU-USD).
+    </p>
+
+    <!-- Grafik Bölümü -->
+    <section class="bolum grafik-alani">
+      <h2 class="bolum-baslik">Altın Dalgalarında TCMB'nin Kâr/Zarar Seyri (Milyar Dolar)</h2>
+      <p class="bolum-aciklama">
+        20 Mart 2025 tarihindeki altın fiyatı (3.043 $/ons) baz alınarak TCMB'nin mülkiyetindeki ~20,75 milyon ons altın portföyünün piyasa değer artışı (Mark-to-Market).
+      </p>
+      <div class="grafik-kapsayici" style="background: #ffffff; padding: 1rem; border-radius: 8px; border: 1px solid var(--hair, #cfccc2);">
+        <img
+          src="/grafikler/tcmb-altin-pl.svg"
+          alt="TCMB Altın Portföyü Kazancı P/L Grafiği"
+          style="width: 100%; height: auto; display: block;"
+          loading="lazy"
+        />
+      </div>
+      <p class="veri-notu">
+        * Tahmini hesaplama: TCMB'nin bankalara ait emanetler hariç kendi net mülkiyetindeki altın rezervi esas alınmıştır. Gerçekleşmemiş (unrealized) değerleme farkıdır.
+      </p>
+    </section>
+
+    <!-- Açıklama ve Tablo -->
+    <div class="veri-izgara">
+      <section class="bolum prose veri-aciklama">
+        <h2 class="bolum-baslik">Bu Hesaplama Nasıl Yapılıyor ve Neden Önemli?</h2>
+        <p>
+          Merkez Bankası kasasında yaklaşık <strong>645 ton (20,75 milyon troy ons)</strong> mülkiyeti doğrudan TCMB'ye ait altın bulunmaktadır. Bankaların zorunlu karşılık olarak yatırdığı emanet altınlar hariç tutulduğunda, TCMB dünyanın en büyük net altın rezervi sahiplerinden biridir.
+        </p>
+        <p>
+          Altın fiyatı uluslararası piyasalarda ons (yaklaşık 31,1 gram) başına ABD Doları olarak işlem görür. Dolayısıyla ons fiyatındaki her dalgalanma TCMB'nin rezerv bilançosunda doğrudan bir <strong>değerleme kârı veya zararı (Mark-to-Market P/L)</strong> yaratır.
+        </p>
+
+        <h3>Altındaki Her 100 Dolarlık Hareket Rezervi Kaç Dolar Etkiler?</h3>
+        <p>
+          Hesaplamanın matematiksel formülü oldukça basittir:
+        </p>
+        <blockquote>
+          <strong>Değerleme Farkı</strong> = Rezerv Miktarı (20,75 Milyon Ons) × (Güncel Fiyat − Başlangıç Fiyatı)
+        </blockquote>
+        <p>
+          Bu formüle göre ons altındaki <strong>her 100 dolarlık artış</strong>, TCMB'nin altın rezervini yaklaşık <strong>2,08 milyar dolar</strong> yukarı taşır. Tersi durumda 100 dolarlık düşüş rezerv değerini aynı miktarda eritir.
+        </p>
+
+        <h3>"Gerçekleşmemiş Kâr" Ne Anlama Gelir?</h3>
+        <p>
+          Bu kazanç Merkez Bankası altınları satmadığı sürece fiziki nakde dönüşmüş bir kâr değildir. Muhasebesel olarak bilançonun pasifindeki <em>Değerleme Hesabı</em> kaleminde takip edilir. Ancak Türkiye'nin toplam brüt rezervlerini yukarı taşıyarak ödemeler dengesi ve ülke kredi riski (CDS) üzerinde olumlu bir güvenlik kalkanı sağlar.
+        </p>
+      </section>
+
+      <section class="bolum">
+        <h2 class="bolum-baslik">Son 20 İşlem Günü Tablosu</h2>
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col">Tarih</th>
+              <th scope="col" class="sag">Ons Fiyat ($)</th>
+              <th scope="col" class="sag">Ons Farkı ($)</th>
+              <th scope="col" class="sag">Kümülatif P/L ($ Milyar)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tabloVerisi.map((satir) => (
+              <tr>
+                <td><strong>{satir.tarih}</strong></td>
+                <td class="sag">${sayiYaz(satir.ons_fiyat_usd, 1)}</td>
+                <td class="sag" style={satir.ons_fark_usd >= 0 ? 'color: var(--yukselis, #3f7350);' : 'color: var(--dusus, #a3243b);'}>
+                  {satir.ons_fark_usd >= 0 ? '+' : ''}${sayiYaz(satir.ons_fark_usd, 1)}
+                </td>
+                <td class="sag" style={satir.kazanc_milyar_usd >= 0 ? 'color: var(--yukselis, #3f7350); font-weight: 700;' : 'color: var(--dusus, #a3243b); font-weight: 700;'}>
+                  {satir.kazanc_milyar_usd >= 0 ? '+' : ''}${sayiYaz(satir.kazanc_milyar_usd, 1)}B
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <YasalUyari />
+  </div>
+</Base>

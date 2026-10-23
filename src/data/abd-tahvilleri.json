@@ -1,0 +1,1536 @@
+{
+  "guncelleme": "2026-10-23T09:52:51.164Z",
+  "sonNokta": {
+    "tarih": "2026-08-01",
+    "uzunUSD": 1622,
+    "kisaUSD": 4109,
+    "toplamUSD": 5731,
+    "kisaOran": 71.7,
+    "uzunOran": 28.3
+  },
+  "oncekiNokta": {
+    "tarih": "2026-07-01",
+    "uzunUSD": 1611,
+    "kisaUSD": 2848,
+    "toplamUSD": 4459,
+    "kisaOran": 63.9,
+    "uzunOran": 36.1
+  },
+  "aylikDegisimUSD": 1272,
+  "aylikDegisimYuzde": 28.5,
+  "tarihselZirve": {
+    "tarih": "2015-01-01",
+    "toplamUSD": 82431
+  },
+  "tarihselDip": {
+    "tarih": "2022-01-01",
+    "toplamUSD": 1510
+  },
+  "zirvedenFarkYuzde": -93,
+  "noktalar": [
+    {
+      "tarih": "2011-01-01",
+      "uzunUSD": 9661,
+      "kisaUSD": 23685,
+      "toplamUSD": 33346,
+      "kisaOran": 71,
+      "uzunOran": 29
+    },
+    {
+      "tarih": "2011-02-01",
+      "uzunUSD": 9781,
+      "kisaUSD": 25012,
+      "toplamUSD": 34793,
+      "kisaOran": 71.9,
+      "uzunOran": 28.1
+    },
+    {
+      "tarih": "2011-03-01",
+      "uzunUSD": 9928,
+      "kisaUSD": 26823,
+      "toplamUSD": 36751,
+      "kisaOran": 73,
+      "uzunOran": 27
+    },
+    {
+      "tarih": "2011-04-01",
+      "uzunUSD": 10416,
+      "kisaUSD": 28195,
+      "toplamUSD": 38611,
+      "kisaOran": 73,
+      "uzunOran": 27
+    },
+    {
+      "tarih": "2011-05-01",
+      "uzunUSD": 11755,
+      "kisaUSD": 28418,
+      "toplamUSD": 40173,
+      "kisaOran": 70.7,
+      "uzunOran": 29.3
+    },
+    {
+      "tarih": "2011-06-01",
+      "uzunUSD": 12105,
+      "kisaUSD": 30699,
+      "toplamUSD": 42804,
+      "kisaOran": 71.7,
+      "uzunOran": 28.3
+    },
+    {
+      "tarih": "2011-07-01",
+      "uzunUSD": 13175,
+      "kisaUSD": 29862,
+      "toplamUSD": 43037,
+      "kisaOran": 69.4,
+      "uzunOran": 30.6
+    },
+    {
+      "tarih": "2011-08-01",
+      "uzunUSD": 13479,
+      "kisaUSD": 27173,
+      "toplamUSD": 40652,
+      "kisaOran": 66.8,
+      "uzunOran": 33.2
+    },
+    {
+      "tarih": "2011-09-01",
+      "uzunUSD": 13268,
+      "kisaUSD": 27408,
+      "toplamUSD": 40676,
+      "kisaOran": 67.4,
+      "uzunOran": 32.6
+    },
+    {
+      "tarih": "2011-10-01",
+      "uzunUSD": 13519,
+      "kisaUSD": 26883,
+      "toplamUSD": 40402,
+      "kisaOran": 66.5,
+      "uzunOran": 33.5
+    },
+    {
+      "tarih": "2011-11-01",
+      "uzunUSD": 12894,
+      "kisaUSD": 27246,
+      "toplamUSD": 40140,
+      "kisaOran": 67.9,
+      "uzunOran": 32.1
+    },
+    {
+      "tarih": "2011-12-01",
+      "uzunUSD": 14098,
+      "kisaUSD": 17871,
+      "toplamUSD": 31969,
+      "kisaOran": 55.9,
+      "uzunOran": 44.1
+    },
+    {
+      "tarih": "2012-01-01",
+      "uzunUSD": 13767,
+      "kisaUSD": 13681,
+      "toplamUSD": 27448,
+      "kisaOran": 49.8,
+      "uzunOran": 50.2
+    },
+    {
+      "tarih": "2012-02-01",
+      "uzunUSD": 13143,
+      "kisaUSD": 16953,
+      "toplamUSD": 30096,
+      "kisaOran": 56.3,
+      "uzunOran": 43.7
+    },
+    {
+      "tarih": "2012-03-01",
+      "uzunUSD": 13031,
+      "kisaUSD": 17343,
+      "toplamUSD": 30374,
+      "kisaOran": 57.1,
+      "uzunOran": 42.9
+    },
+    {
+      "tarih": "2012-04-01",
+      "uzunUSD": 11599,
+      "kisaUSD": 16534,
+      "toplamUSD": 28133,
+      "kisaOran": 58.8,
+      "uzunOran": 41.2
+    },
+    {
+      "tarih": "2012-05-01",
+      "uzunUSD": 11523,
+      "kisaUSD": 15585,
+      "toplamUSD": 27108,
+      "kisaOran": 57.5,
+      "uzunOran": 42.5
+    },
+    {
+      "tarih": "2012-06-01",
+      "uzunUSD": 11817,
+      "kisaUSD": 17295,
+      "toplamUSD": 29112,
+      "kisaOran": 59.4,
+      "uzunOran": 40.6
+    },
+    {
+      "tarih": "2012-07-01",
+      "uzunUSD": 11772,
+      "kisaUSD": 18509,
+      "toplamUSD": 30281,
+      "kisaOran": 61.1,
+      "uzunOran": 38.9
+    },
+    {
+      "tarih": "2012-08-01",
+      "uzunUSD": 11585,
+      "kisaUSD": 22996,
+      "toplamUSD": 34581,
+      "kisaOran": 66.5,
+      "uzunOran": 33.5
+    },
+    {
+      "tarih": "2012-09-01",
+      "uzunUSD": 11652,
+      "kisaUSD": 30931,
+      "toplamUSD": 42583,
+      "kisaOran": 72.6,
+      "uzunOran": 27.4
+    },
+    {
+      "tarih": "2012-10-01",
+      "uzunUSD": 9827,
+      "kisaUSD": 41739,
+      "toplamUSD": 51566,
+      "kisaOran": 80.9,
+      "uzunOran": 19.1
+    },
+    {
+      "tarih": "2012-11-01",
+      "uzunUSD": 9572,
+      "kisaUSD": 46070,
+      "toplamUSD": 55642,
+      "kisaOran": 82.8,
+      "uzunOran": 17.2
+    },
+    {
+      "tarih": "2012-12-01",
+      "uzunUSD": 9921,
+      "kisaUSD": 47711,
+      "toplamUSD": 57632,
+      "kisaOran": 82.8,
+      "uzunOran": 17.2
+    },
+    {
+      "tarih": "2013-01-01",
+      "uzunUSD": 14931,
+      "kisaUSD": 42745,
+      "toplamUSD": 57676,
+      "kisaOran": 74.1,
+      "uzunOran": 25.9
+    },
+    {
+      "tarih": "2013-02-01",
+      "uzunUSD": 14947,
+      "kisaUSD": 40985,
+      "toplamUSD": 55932,
+      "kisaOran": 73.3,
+      "uzunOran": 26.7
+    },
+    {
+      "tarih": "2013-03-01",
+      "uzunUSD": 15321,
+      "kisaUSD": 41344,
+      "toplamUSD": 56665,
+      "kisaOran": 73,
+      "uzunOran": 27
+    },
+    {
+      "tarih": "2013-04-01",
+      "uzunUSD": 16596,
+      "kisaUSD": 43810,
+      "toplamUSD": 60406,
+      "kisaOran": 72.5,
+      "uzunOran": 27.5
+    },
+    {
+      "tarih": "2013-05-01",
+      "uzunUSD": 17475,
+      "kisaUSD": 42724,
+      "toplamUSD": 60199,
+      "kisaOran": 71,
+      "uzunOran": 29
+    },
+    {
+      "tarih": "2013-06-01",
+      "uzunUSD": 18114,
+      "kisaUSD": 40976,
+      "toplamUSD": 59090,
+      "kisaOran": 69.3,
+      "uzunOran": 30.7
+    },
+    {
+      "tarih": "2013-07-01",
+      "uzunUSD": 18712,
+      "kisaUSD": 36304,
+      "toplamUSD": 55016,
+      "kisaOran": 66,
+      "uzunOran": 34
+    },
+    {
+      "tarih": "2013-08-01",
+      "uzunUSD": 18792,
+      "kisaUSD": 39571,
+      "toplamUSD": 58363,
+      "kisaOran": 67.8,
+      "uzunOran": 32.2
+    },
+    {
+      "tarih": "2013-09-01",
+      "uzunUSD": 19390,
+      "kisaUSD": 34959,
+      "toplamUSD": 54349,
+      "kisaOran": 64.3,
+      "uzunOran": 35.7
+    },
+    {
+      "tarih": "2013-10-01",
+      "uzunUSD": 23350,
+      "kisaUSD": 28131,
+      "toplamUSD": 51481,
+      "kisaOran": 54.6,
+      "uzunOran": 45.4
+    },
+    {
+      "tarih": "2013-11-01",
+      "uzunUSD": 24533,
+      "kisaUSD": 28896,
+      "toplamUSD": 53429,
+      "kisaOran": 54.1,
+      "uzunOran": 45.9
+    },
+    {
+      "tarih": "2013-12-01",
+      "uzunUSD": 23938,
+      "kisaUSD": 28247,
+      "toplamUSD": 52185,
+      "kisaOran": 54.1,
+      "uzunOran": 45.9
+    },
+    {
+      "tarih": "2014-01-01",
+      "uzunUSD": 24089,
+      "kisaUSD": 24814,
+      "toplamUSD": 48903,
+      "kisaOran": 50.7,
+      "uzunOran": 49.3
+    },
+    {
+      "tarih": "2014-02-01",
+      "uzunUSD": 24583,
+      "kisaUSD": 25042,
+      "toplamUSD": 49625,
+      "kisaOran": 50.5,
+      "uzunOran": 49.5
+    },
+    {
+      "tarih": "2014-03-01",
+      "uzunUSD": 25452,
+      "kisaUSD": 25420,
+      "toplamUSD": 50872,
+      "kisaOran": 50,
+      "uzunOran": 50
+    },
+    {
+      "tarih": "2014-04-01",
+      "uzunUSD": 25384,
+      "kisaUSD": 25116,
+      "toplamUSD": 50500,
+      "kisaOran": 49.7,
+      "uzunOran": 50.3
+    },
+    {
+      "tarih": "2014-05-01",
+      "uzunUSD": 24956,
+      "kisaUSD": 28261,
+      "toplamUSD": 53217,
+      "kisaOran": 53.1,
+      "uzunOran": 46.9
+    },
+    {
+      "tarih": "2014-06-01",
+      "uzunUSD": 24498,
+      "kisaUSD": 28329,
+      "toplamUSD": 52827,
+      "kisaOran": 53.6,
+      "uzunOran": 46.4
+    },
+    {
+      "tarih": "2014-07-01",
+      "uzunUSD": 23008,
+      "kisaUSD": 31889,
+      "toplamUSD": 54897,
+      "kisaOran": 58.1,
+      "uzunOran": 41.9
+    },
+    {
+      "tarih": "2014-08-01",
+      "uzunUSD": 23503,
+      "kisaUSD": 49896,
+      "toplamUSD": 73399,
+      "kisaOran": 68,
+      "uzunOran": 32
+    },
+    {
+      "tarih": "2014-09-01",
+      "uzunUSD": 23307,
+      "kisaUSD": 51392,
+      "toplamUSD": 74699,
+      "kisaOran": 68.8,
+      "uzunOran": 31.2
+    },
+    {
+      "tarih": "2014-10-01",
+      "uzunUSD": 21518,
+      "kisaUSD": 54132,
+      "toplamUSD": 75650,
+      "kisaOran": 71.6,
+      "uzunOran": 28.4
+    },
+    {
+      "tarih": "2014-11-01",
+      "uzunUSD": 19680,
+      "kisaUSD": 60825,
+      "toplamUSD": 80505,
+      "kisaOran": 75.6,
+      "uzunOran": 24.4
+    },
+    {
+      "tarih": "2014-12-01",
+      "uzunUSD": 18362,
+      "kisaUSD": 58654,
+      "toplamUSD": 77016,
+      "kisaOran": 76.2,
+      "uzunOran": 23.8
+    },
+    {
+      "tarih": "2015-01-01",
+      "uzunUSD": 18200,
+      "kisaUSD": 64231,
+      "toplamUSD": 82431,
+      "kisaOran": 77.9,
+      "uzunOran": 22.1
+    },
+    {
+      "tarih": "2015-02-01",
+      "uzunUSD": 16828,
+      "kisaUSD": 62698,
+      "toplamUSD": 79526,
+      "kisaOran": 78.8,
+      "uzunOran": 21.2
+    },
+    {
+      "tarih": "2015-03-01",
+      "uzunUSD": 16836,
+      "kisaUSD": 59374,
+      "toplamUSD": 76210,
+      "kisaOran": 77.9,
+      "uzunOran": 22.1
+    },
+    {
+      "tarih": "2015-04-01",
+      "uzunUSD": 17223,
+      "kisaUSD": 60578,
+      "toplamUSD": 77801,
+      "kisaOran": 77.9,
+      "uzunOran": 22.1
+    },
+    {
+      "tarih": "2015-05-01",
+      "uzunUSD": 18337,
+      "kisaUSD": 60133,
+      "toplamUSD": 78470,
+      "kisaOran": 76.6,
+      "uzunOran": 23.4
+    },
+    {
+      "tarih": "2015-06-01",
+      "uzunUSD": 18685,
+      "kisaUSD": 57160,
+      "toplamUSD": 75845,
+      "kisaOran": 75.4,
+      "uzunOran": 24.6
+    },
+    {
+      "tarih": "2015-07-01",
+      "uzunUSD": 19024,
+      "kisaUSD": 56331,
+      "toplamUSD": 75355,
+      "kisaOran": 74.8,
+      "uzunOran": 25.2
+    },
+    {
+      "tarih": "2015-08-01",
+      "uzunUSD": 19943,
+      "kisaUSD": 52956,
+      "toplamUSD": 72899,
+      "kisaOran": 72.6,
+      "uzunOran": 27.4
+    },
+    {
+      "tarih": "2015-09-01",
+      "uzunUSD": 21272,
+      "kisaUSD": 47629,
+      "toplamUSD": 68901,
+      "kisaOran": 69.1,
+      "uzunOran": 30.9
+    },
+    {
+      "tarih": "2015-10-01",
+      "uzunUSD": 22842,
+      "kisaUSD": 39074,
+      "toplamUSD": 61916,
+      "kisaOran": 63.1,
+      "uzunOran": 36.9
+    },
+    {
+      "tarih": "2015-11-01",
+      "uzunUSD": 21229,
+      "kisaUSD": 45913,
+      "toplamUSD": 67142,
+      "kisaOran": 68.4,
+      "uzunOran": 31.6
+    },
+    {
+      "tarih": "2015-12-01",
+      "uzunUSD": 22160,
+      "kisaUSD": 42418,
+      "toplamUSD": 64578,
+      "kisaOran": 65.7,
+      "uzunOran": 34.3
+    },
+    {
+      "tarih": "2016-01-01",
+      "uzunUSD": 21378,
+      "kisaUSD": 38468,
+      "toplamUSD": 59846,
+      "kisaOran": 64.3,
+      "uzunOran": 35.7
+    },
+    {
+      "tarih": "2016-02-01",
+      "uzunUSD": 22051,
+      "kisaUSD": 31368,
+      "toplamUSD": 53419,
+      "kisaOran": 58.7,
+      "uzunOran": 41.3
+    },
+    {
+      "tarih": "2016-03-01",
+      "uzunUSD": 21865,
+      "kisaUSD": 31077,
+      "toplamUSD": 52942,
+      "kisaOran": 58.7,
+      "uzunOran": 41.3
+    },
+    {
+      "tarih": "2016-04-01",
+      "uzunUSD": 22280,
+      "kisaUSD": 32376,
+      "toplamUSD": 54656,
+      "kisaOran": 59.2,
+      "uzunOran": 40.8
+    },
+    {
+      "tarih": "2016-05-01",
+      "uzunUSD": 24795,
+      "kisaUSD": 25938,
+      "toplamUSD": 50733,
+      "kisaOran": 51.1,
+      "uzunOran": 48.9
+    },
+    {
+      "tarih": "2016-06-01",
+      "uzunUSD": 24798,
+      "kisaUSD": 33805,
+      "toplamUSD": 58603,
+      "kisaOran": 57.7,
+      "uzunOran": 42.3
+    },
+    {
+      "tarih": "2016-07-01",
+      "uzunUSD": 26137,
+      "kisaUSD": 33565,
+      "toplamUSD": 59702,
+      "kisaOran": 56.2,
+      "uzunOran": 43.8
+    },
+    {
+      "tarih": "2016-08-01",
+      "uzunUSD": 23147,
+      "kisaUSD": 33400,
+      "toplamUSD": 56547,
+      "kisaOran": 59.1,
+      "uzunOran": 40.9
+    },
+    {
+      "tarih": "2016-09-01",
+      "uzunUSD": 24235,
+      "kisaUSD": 37300,
+      "toplamUSD": 61535,
+      "kisaOran": 60.6,
+      "uzunOran": 39.4
+    },
+    {
+      "tarih": "2016-10-01",
+      "uzunUSD": 23629,
+      "kisaUSD": 34701,
+      "toplamUSD": 58330,
+      "kisaOran": 59.5,
+      "uzunOran": 40.5
+    },
+    {
+      "tarih": "2016-11-01",
+      "uzunUSD": 24218,
+      "kisaUSD": 31567,
+      "toplamUSD": 55785,
+      "kisaOran": 56.6,
+      "uzunOran": 43.4
+    },
+    {
+      "tarih": "2016-12-01",
+      "uzunUSD": 24841,
+      "kisaUSD": 34278,
+      "toplamUSD": 59119,
+      "kisaOran": 58,
+      "uzunOran": 42
+    },
+    {
+      "tarih": "2017-01-01",
+      "uzunUSD": 24573,
+      "kisaUSD": 33828,
+      "toplamUSD": 58401,
+      "kisaOran": 57.9,
+      "uzunOran": 42.1
+    },
+    {
+      "tarih": "2017-02-01",
+      "uzunUSD": 25186,
+      "kisaUSD": 33081,
+      "toplamUSD": 58267,
+      "kisaOran": 56.8,
+      "uzunOran": 43.2
+    },
+    {
+      "tarih": "2017-03-01",
+      "uzunUSD": 25202,
+      "kisaUSD": 33835,
+      "toplamUSD": 59037,
+      "kisaOran": 57.3,
+      "uzunOran": 42.7
+    },
+    {
+      "tarih": "2017-04-01",
+      "uzunUSD": 25416,
+      "kisaUSD": 31015,
+      "toplamUSD": 56431,
+      "kisaOran": 55,
+      "uzunOran": 45
+    },
+    {
+      "tarih": "2017-05-01",
+      "uzunUSD": 23895,
+      "kisaUSD": 25636,
+      "toplamUSD": 49531,
+      "kisaOran": 51.8,
+      "uzunOran": 48.2
+    },
+    {
+      "tarih": "2017-06-01",
+      "uzunUSD": 22890,
+      "kisaUSD": 35969,
+      "toplamUSD": 58859,
+      "kisaOran": 61.1,
+      "uzunOran": 38.9
+    },
+    {
+      "tarih": "2017-07-01",
+      "uzunUSD": 24420,
+      "kisaUSD": 30069,
+      "toplamUSD": 54489,
+      "kisaOran": 55.2,
+      "uzunOran": 44.8
+    },
+    {
+      "tarih": "2017-08-01",
+      "uzunUSD": 24605,
+      "kisaUSD": 33059,
+      "toplamUSD": 57664,
+      "kisaOran": 57.3,
+      "uzunOran": 42.7
+    },
+    {
+      "tarih": "2017-09-01",
+      "uzunUSD": 24757,
+      "kisaUSD": 36081,
+      "toplamUSD": 60838,
+      "kisaOran": 59.3,
+      "uzunOran": 40.7
+    },
+    {
+      "tarih": "2017-10-01",
+      "uzunUSD": 23291,
+      "kisaUSD": 38176,
+      "toplamUSD": 61467,
+      "kisaOran": 62.1,
+      "uzunOran": 37.9
+    },
+    {
+      "tarih": "2017-11-01",
+      "uzunUSD": 23403,
+      "kisaUSD": 37822,
+      "toplamUSD": 61225,
+      "kisaOran": 61.8,
+      "uzunOran": 38.2
+    },
+    {
+      "tarih": "2017-12-01",
+      "uzunUSD": 24968,
+      "kisaUSD": 27612,
+      "toplamUSD": 52580,
+      "kisaOran": 52.5,
+      "uzunOran": 47.5
+    },
+    {
+      "tarih": "2018-01-01",
+      "uzunUSD": 22487,
+      "kisaUSD": 27161,
+      "toplamUSD": 49648,
+      "kisaOran": 54.7,
+      "uzunOran": 45.3
+    },
+    {
+      "tarih": "2018-02-01",
+      "uzunUSD": 21675,
+      "kisaUSD": 23898,
+      "toplamUSD": 45573,
+      "kisaOran": 52.4,
+      "uzunOran": 47.6
+    },
+    {
+      "tarih": "2018-03-01",
+      "uzunUSD": 21215,
+      "kisaUSD": 19657,
+      "toplamUSD": 40872,
+      "kisaOran": 48.1,
+      "uzunOran": 51.9
+    },
+    {
+      "tarih": "2018-04-01",
+      "uzunUSD": 18933,
+      "kisaUSD": 19289,
+      "toplamUSD": 38222,
+      "kisaOran": 50.5,
+      "uzunOran": 49.5
+    },
+    {
+      "tarih": "2018-05-01",
+      "uzunUSD": 15048,
+      "kisaUSD": 17524,
+      "toplamUSD": 32572,
+      "kisaOran": 53.8,
+      "uzunOran": 46.2
+    },
+    {
+      "tarih": "2018-06-01",
+      "uzunUSD": 12480,
+      "kisaUSD": 16359,
+      "toplamUSD": 28839,
+      "kisaOran": 56.7,
+      "uzunOran": 43.3
+    },
+    {
+      "tarih": "2018-07-01",
+      "uzunUSD": 12868,
+      "kisaUSD": 16741,
+      "toplamUSD": 29609,
+      "kisaOran": 56.5,
+      "uzunOran": 43.5
+    },
+    {
+      "tarih": "2018-08-01",
+      "uzunUSD": 12790,
+      "kisaUSD": 5671,
+      "toplamUSD": 18461,
+      "kisaOran": 30.7,
+      "uzunOran": 69.3
+    },
+    {
+      "tarih": "2018-09-01",
+      "uzunUSD": 9602,
+      "kisaUSD": 3241,
+      "toplamUSD": 12843,
+      "kisaOran": 25.2,
+      "uzunOran": 74.8
+    },
+    {
+      "tarih": "2018-10-01",
+      "uzunUSD": 7538,
+      "kisaUSD": 2695,
+      "toplamUSD": 10233,
+      "kisaOran": 26.3,
+      "uzunOran": 73.7
+    },
+    {
+      "tarih": "2018-11-01",
+      "uzunUSD": 7554,
+      "kisaUSD": 2022,
+      "toplamUSD": 9576,
+      "kisaOran": 21.1,
+      "uzunOran": 78.9
+    },
+    {
+      "tarih": "2018-12-01",
+      "uzunUSD": 6288,
+      "kisaUSD": 1154,
+      "toplamUSD": 7442,
+      "kisaOran": 15.5,
+      "uzunOran": 84.5
+    },
+    {
+      "tarih": "2019-01-01",
+      "uzunUSD": 2713,
+      "kisaUSD": 461,
+      "toplamUSD": 3174,
+      "kisaOran": 14.5,
+      "uzunOran": 85.5
+    },
+    {
+      "tarih": "2019-02-01",
+      "uzunUSD": 2714,
+      "kisaUSD": 656,
+      "toplamUSD": 3370,
+      "kisaOran": 19.5,
+      "uzunOran": 80.5
+    },
+    {
+      "tarih": "2019-03-01",
+      "uzunUSD": 1359,
+      "kisaUSD": 665,
+      "toplamUSD": 2024,
+      "kisaOran": 32.9,
+      "uzunOran": 67.1
+    },
+    {
+      "tarih": "2019-04-01",
+      "uzunUSD": 1327,
+      "kisaUSD": 567,
+      "toplamUSD": 1894,
+      "kisaOran": 29.9,
+      "uzunOran": 70.1
+    },
+    {
+      "tarih": "2019-05-01",
+      "uzunUSD": 1344,
+      "kisaUSD": 409,
+      "toplamUSD": 1753,
+      "kisaOran": 23.3,
+      "uzunOran": 76.7
+    },
+    {
+      "tarih": "2019-06-01",
+      "uzunUSD": 1535,
+      "kisaUSD": 235,
+      "toplamUSD": 1770,
+      "kisaOran": 13.3,
+      "uzunOran": 86.7
+    },
+    {
+      "tarih": "2019-07-01",
+      "uzunUSD": 1608,
+      "kisaUSD": 56,
+      "toplamUSD": 1664,
+      "kisaOran": 3.4,
+      "uzunOran": 96.6
+    },
+    {
+      "tarih": "2019-08-01",
+      "uzunUSD": 1617,
+      "kisaUSD": 61,
+      "toplamUSD": 1678,
+      "kisaOran": 3.6,
+      "uzunOran": 96.4
+    },
+    {
+      "tarih": "2019-09-01",
+      "uzunUSD": 1644,
+      "kisaUSD": 55,
+      "toplamUSD": 1699,
+      "kisaOran": 3.2,
+      "uzunOran": 96.8
+    },
+    {
+      "tarih": "2019-10-01",
+      "uzunUSD": 1640,
+      "kisaUSD": 52,
+      "toplamUSD": 1692,
+      "kisaOran": 3.1,
+      "uzunOran": 96.9
+    },
+    {
+      "tarih": "2019-11-01",
+      "uzunUSD": 1647,
+      "kisaUSD": 48,
+      "toplamUSD": 1695,
+      "kisaOran": 2.8,
+      "uzunOran": 97.2
+    },
+    {
+      "tarih": "2019-12-01",
+      "uzunUSD": 1642,
+      "kisaUSD": 347,
+      "toplamUSD": 1989,
+      "kisaOran": 17.4,
+      "uzunOran": 82.6
+    },
+    {
+      "tarih": "2020-01-01",
+      "uzunUSD": 2253,
+      "kisaUSD": 541,
+      "toplamUSD": 2794,
+      "kisaOran": 19.4,
+      "uzunOran": 80.6
+    },
+    {
+      "tarih": "2020-02-01",
+      "uzunUSD": 1883,
+      "kisaUSD": 452,
+      "toplamUSD": 2335,
+      "kisaOran": 19.4,
+      "uzunOran": 80.6
+    },
+    {
+      "tarih": "2020-03-01",
+      "uzunUSD": 1988,
+      "kisaUSD": 517,
+      "toplamUSD": 2505,
+      "kisaOran": 20.6,
+      "uzunOran": 79.4
+    },
+    {
+      "tarih": "2020-04-01",
+      "uzunUSD": 1678,
+      "kisaUSD": 352,
+      "toplamUSD": 2030,
+      "kisaOran": 17.3,
+      "uzunOran": 82.7
+    },
+    {
+      "tarih": "2020-05-01",
+      "uzunUSD": 1675,
+      "kisaUSD": 430,
+      "toplamUSD": 2105,
+      "kisaOran": 20.4,
+      "uzunOran": 79.6
+    },
+    {
+      "tarih": "2020-06-01",
+      "uzunUSD": 2067,
+      "kisaUSD": 502,
+      "toplamUSD": 2569,
+      "kisaOran": 19.5,
+      "uzunOran": 80.5
+    },
+    {
+      "tarih": "2020-07-01",
+      "uzunUSD": 1952,
+      "kisaUSD": 314,
+      "toplamUSD": 2266,
+      "kisaOran": 13.9,
+      "uzunOran": 86.1
+    },
+    {
+      "tarih": "2020-08-01",
+      "uzunUSD": 1509,
+      "kisaUSD": 280,
+      "toplamUSD": 1789,
+      "kisaOran": 15.7,
+      "uzunOran": 84.3
+    },
+    {
+      "tarih": "2020-09-01",
+      "uzunUSD": 1497,
+      "kisaUSD": 411,
+      "toplamUSD": 1908,
+      "kisaOran": 21.5,
+      "uzunOran": 78.5
+    },
+    {
+      "tarih": "2020-10-01",
+      "uzunUSD": 1499,
+      "kisaUSD": 369,
+      "toplamUSD": 1868,
+      "kisaOran": 19.8,
+      "uzunOran": 80.2
+    },
+    {
+      "tarih": "2020-11-01",
+      "uzunUSD": 1496,
+      "kisaUSD": 517,
+      "toplamUSD": 2013,
+      "kisaOran": 25.7,
+      "uzunOran": 74.3
+    },
+    {
+      "tarih": "2020-12-01",
+      "uzunUSD": 1494,
+      "kisaUSD": 451,
+      "toplamUSD": 1945,
+      "kisaOran": 23.2,
+      "uzunOran": 76.8
+    },
+    {
+      "tarih": "2021-01-01",
+      "uzunUSD": 1516,
+      "kisaUSD": 764,
+      "toplamUSD": 2280,
+      "kisaOran": 33.5,
+      "uzunOran": 66.5
+    },
+    {
+      "tarih": "2021-02-01",
+      "uzunUSD": 1549,
+      "kisaUSD": 915,
+      "toplamUSD": 2464,
+      "kisaOran": 37.1,
+      "uzunOran": 62.9
+    },
+    {
+      "tarih": "2021-03-01",
+      "uzunUSD": 1547,
+      "kisaUSD": 784,
+      "toplamUSD": 2331,
+      "kisaOran": 33.6,
+      "uzunOran": 66.4
+    },
+    {
+      "tarih": "2021-04-01",
+      "uzunUSD": 1572,
+      "kisaUSD": 873,
+      "toplamUSD": 2445,
+      "kisaOran": 35.7,
+      "uzunOran": 64.3
+    },
+    {
+      "tarih": "2021-05-01",
+      "uzunUSD": 1575,
+      "kisaUSD": 796,
+      "toplamUSD": 2371,
+      "kisaOran": 33.6,
+      "uzunOran": 66.4
+    },
+    {
+      "tarih": "2021-06-01",
+      "uzunUSD": 1280,
+      "kisaUSD": 848,
+      "toplamUSD": 2128,
+      "kisaOran": 39.8,
+      "uzunOran": 60.2
+    },
+    {
+      "tarih": "2021-07-01",
+      "uzunUSD": 1314,
+      "kisaUSD": 711,
+      "toplamUSD": 2025,
+      "kisaOran": 35.1,
+      "uzunOran": 64.9
+    },
+    {
+      "tarih": "2021-08-01",
+      "uzunUSD": 1265,
+      "kisaUSD": 486,
+      "toplamUSD": 1751,
+      "kisaOran": 27.8,
+      "uzunOran": 72.2
+    },
+    {
+      "tarih": "2021-09-01",
+      "uzunUSD": 1254,
+      "kisaUSD": 503,
+      "toplamUSD": 1757,
+      "kisaOran": 28.6,
+      "uzunOran": 71.4
+    },
+    {
+      "tarih": "2021-10-01",
+      "uzunUSD": 1258,
+      "kisaUSD": 503,
+      "toplamUSD": 1761,
+      "kisaOran": 28.6,
+      "uzunOran": 71.4
+    },
+    {
+      "tarih": "2021-11-01",
+      "uzunUSD": 1391,
+      "kisaUSD": 502,
+      "toplamUSD": 1893,
+      "kisaOran": 26.5,
+      "uzunOran": 73.5
+    },
+    {
+      "tarih": "2021-12-01",
+      "uzunUSD": 1302,
+      "kisaUSD": 601,
+      "toplamUSD": 1903,
+      "kisaOran": 31.6,
+      "uzunOran": 68.4
+    },
+    {
+      "tarih": "2022-01-01",
+      "uzunUSD": 1021,
+      "kisaUSD": 489,
+      "toplamUSD": 1510,
+      "kisaOran": 32.4,
+      "uzunOran": 67.6
+    },
+    {
+      "tarih": "2022-02-01",
+      "uzunUSD": 1084,
+      "kisaUSD": 490,
+      "toplamUSD": 1574,
+      "kisaOran": 31.1,
+      "uzunOran": 68.9
+    },
+    {
+      "tarih": "2022-03-01",
+      "uzunUSD": 1108,
+      "kisaUSD": 487,
+      "toplamUSD": 1595,
+      "kisaOran": 30.5,
+      "uzunOran": 69.5
+    },
+    {
+      "tarih": "2022-04-01",
+      "uzunUSD": 1129,
+      "kisaUSD": 474,
+      "toplamUSD": 1603,
+      "kisaOran": 29.6,
+      "uzunOran": 70.4
+    },
+    {
+      "tarih": "2022-05-01",
+      "uzunUSD": 1162,
+      "kisaUSD": 504,
+      "toplamUSD": 1666,
+      "kisaOran": 30.3,
+      "uzunOran": 69.7
+    },
+    {
+      "tarih": "2022-06-01",
+      "uzunUSD": 1218,
+      "kisaUSD": 456,
+      "toplamUSD": 1674,
+      "kisaOran": 27.2,
+      "uzunOran": 72.8
+    },
+    {
+      "tarih": "2022-07-01",
+      "uzunUSD": 1302,
+      "kisaUSD": 501,
+      "toplamUSD": 1803,
+      "kisaOran": 27.8,
+      "uzunOran": 72.2
+    },
+    {
+      "tarih": "2022-08-01",
+      "uzunUSD": 1277,
+      "kisaUSD": 611,
+      "toplamUSD": 1888,
+      "kisaOran": 32.4,
+      "uzunOran": 67.6
+    },
+    {
+      "tarih": "2022-09-01",
+      "uzunUSD": 1193,
+      "kisaUSD": 621,
+      "toplamUSD": 1814,
+      "kisaOran": 34.2,
+      "uzunOran": 65.8
+    },
+    {
+      "tarih": "2022-10-01",
+      "uzunUSD": 1210,
+      "kisaUSD": 624,
+      "toplamUSD": 1834,
+      "kisaOran": 34,
+      "uzunOran": 66
+    },
+    {
+      "tarih": "2022-11-01",
+      "uzunUSD": 1309,
+      "kisaUSD": 684,
+      "toplamUSD": 1993,
+      "kisaOran": 34.3,
+      "uzunOran": 65.7
+    },
+    {
+      "tarih": "2022-12-01",
+      "uzunUSD": 1368,
+      "kisaUSD": 659,
+      "toplamUSD": 2027,
+      "kisaOran": 32.5,
+      "uzunOran": 67.5
+    },
+    {
+      "tarih": "2023-01-01",
+      "uzunUSD": 1400,
+      "kisaUSD": 754,
+      "toplamUSD": 2154,
+      "kisaOran": 35,
+      "uzunOran": 65
+    },
+    {
+      "tarih": "2023-02-01",
+      "uzunUSD": 1260,
+      "kisaUSD": 728,
+      "toplamUSD": 1988,
+      "kisaOran": 36.6,
+      "uzunOran": 63.4
+    },
+    {
+      "tarih": "2023-03-01",
+      "uzunUSD": 1424,
+      "kisaUSD": 727,
+      "toplamUSD": 2151,
+      "kisaOran": 33.8,
+      "uzunOran": 66.2
+    },
+    {
+      "tarih": "2023-04-01",
+      "uzunUSD": 1677,
+      "kisaUSD": 449,
+      "toplamUSD": 2126,
+      "kisaOran": 21.1,
+      "uzunOran": 78.9
+    },
+    {
+      "tarih": "2023-05-01",
+      "uzunUSD": 1621,
+      "kisaUSD": 454,
+      "toplamUSD": 2075,
+      "kisaOran": 21.9,
+      "uzunOran": 78.1
+    },
+    {
+      "tarih": "2023-06-01",
+      "uzunUSD": 1664,
+      "kisaUSD": 591,
+      "toplamUSD": 2255,
+      "kisaOran": 26.2,
+      "uzunOran": 73.8
+    },
+    {
+      "tarih": "2023-07-01",
+      "uzunUSD": 1772,
+      "kisaUSD": 580,
+      "toplamUSD": 2352,
+      "kisaOran": 24.7,
+      "uzunOran": 75.3
+    },
+    {
+      "tarih": "2023-08-01",
+      "uzunUSD": 1839,
+      "kisaUSD": 225,
+      "toplamUSD": 2064,
+      "kisaOran": 10.9,
+      "uzunOran": 89.1
+    },
+    {
+      "tarih": "2023-09-01",
+      "uzunUSD": 1872,
+      "kisaUSD": 230,
+      "toplamUSD": 2102,
+      "kisaOran": 10.9,
+      "uzunOran": 89.1
+    },
+    {
+      "tarih": "2023-10-01",
+      "uzunUSD": 1865,
+      "kisaUSD": 481,
+      "toplamUSD": 2346,
+      "kisaOran": 20.5,
+      "uzunOran": 79.5
+    },
+    {
+      "tarih": "2023-11-01",
+      "uzunUSD": 1871,
+      "kisaUSD": 488,
+      "toplamUSD": 2359,
+      "kisaOran": 20.7,
+      "uzunOran": 79.3
+    },
+    {
+      "tarih": "2023-12-01",
+      "uzunUSD": 1941,
+      "kisaUSD": 225,
+      "toplamUSD": 2166,
+      "kisaOran": 10.4,
+      "uzunOran": 89.6
+    },
+    {
+      "tarih": "2024-01-01",
+      "uzunUSD": 2884,
+      "kisaUSD": 212,
+      "toplamUSD": 3096,
+      "kisaOran": 6.8,
+      "uzunOran": 93.2
+    },
+    {
+      "tarih": "2024-02-01",
+      "uzunUSD": 2872,
+      "kisaUSD": 214,
+      "toplamUSD": 3086,
+      "kisaOran": 6.9,
+      "uzunOran": 93.1
+    },
+    {
+      "tarih": "2024-03-01",
+      "uzunUSD": 2894,
+      "kisaUSD": 217,
+      "toplamUSD": 3111,
+      "kisaOran": 7,
+      "uzunOran": 93
+    },
+    {
+      "tarih": "2024-04-01",
+      "uzunUSD": 2900,
+      "kisaUSD": 215,
+      "toplamUSD": 3115,
+      "kisaOran": 6.9,
+      "uzunOran": 93.1
+    },
+    {
+      "tarih": "2024-05-01",
+      "uzunUSD": 3041,
+      "kisaUSD": 221,
+      "toplamUSD": 3262,
+      "kisaOran": 6.8,
+      "uzunOran": 93.2
+    },
+    {
+      "tarih": "2024-06-01",
+      "uzunUSD": 3201,
+      "kisaUSD": 237,
+      "toplamUSD": 3438,
+      "kisaOran": 6.9,
+      "uzunOran": 93.1
+    },
+    {
+      "tarih": "2024-07-01",
+      "uzunUSD": 4809,
+      "kisaUSD": 1283,
+      "toplamUSD": 6092,
+      "kisaOran": 21.1,
+      "uzunOran": 78.9
+    },
+    {
+      "tarih": "2024-08-01",
+      "uzunUSD": 4883,
+      "kisaUSD": 1266,
+      "toplamUSD": 6149,
+      "kisaOran": 20.6,
+      "uzunOran": 79.4
+    },
+    {
+      "tarih": "2024-09-01",
+      "uzunUSD": 4994,
+      "kisaUSD": 1301,
+      "toplamUSD": 6295,
+      "kisaOran": 20.7,
+      "uzunOran": 79.3
+    },
+    {
+      "tarih": "2024-10-01",
+      "uzunUSD": 9034,
+      "kisaUSD": 2931,
+      "toplamUSD": 11965,
+      "kisaOran": 24.5,
+      "uzunOran": 75.5
+    },
+    {
+      "tarih": "2024-11-01",
+      "uzunUSD": 9250,
+      "kisaUSD": 2845,
+      "toplamUSD": 12095,
+      "kisaOran": 23.5,
+      "uzunOran": 76.5
+    },
+    {
+      "tarih": "2024-12-01",
+      "uzunUSD": 9565,
+      "kisaUSD": 3287,
+      "toplamUSD": 12852,
+      "kisaOran": 25.6,
+      "uzunOran": 74.4
+    },
+    {
+      "tarih": "2025-01-01",
+      "uzunUSD": 11862,
+      "kisaUSD": 6348,
+      "toplamUSD": 18210,
+      "kisaOran": 34.9,
+      "uzunOran": 65.1
+    },
+    {
+      "tarih": "2025-02-01",
+      "uzunUSD": 12841,
+      "kisaUSD": 7630,
+      "toplamUSD": 20471,
+      "kisaOran": 37.3,
+      "uzunOran": 62.7
+    },
+    {
+      "tarih": "2025-03-01",
+      "uzunUSD": 12224,
+      "kisaUSD": 3694,
+      "toplamUSD": 15918,
+      "kisaOran": 23.2,
+      "uzunOran": 76.8
+    },
+    {
+      "tarih": "2025-04-01",
+      "uzunUSD": 5052,
+      "kisaUSD": 2085,
+      "toplamUSD": 7137,
+      "kisaOran": 29.2,
+      "uzunOran": 70.8
+    },
+    {
+      "tarih": "2025-05-01",
+      "uzunUSD": 5460,
+      "kisaUSD": 1583,
+      "toplamUSD": 7043,
+      "kisaOran": 22.5,
+      "uzunOran": 77.5
+    },
+    {
+      "tarih": "2025-06-01",
+      "uzunUSD": 5525,
+      "kisaUSD": 2167,
+      "toplamUSD": 7692,
+      "kisaOran": 28.2,
+      "uzunOran": 71.8
+    },
+    {
+      "tarih": "2025-07-01",
+      "uzunUSD": 5753,
+      "kisaUSD": 4185,
+      "toplamUSD": 9938,
+      "kisaOran": 42.1,
+      "uzunOran": 57.9
+    },
+    {
+      "tarih": "2025-08-01",
+      "uzunUSD": 7340,
+      "kisaUSD": 12084,
+      "toplamUSD": 19424,
+      "kisaOran": 62.2,
+      "uzunOran": 37.8
+    },
+    {
+      "tarih": "2025-09-01",
+      "uzunUSD": 7645,
+      "kisaUSD": 5634,
+      "toplamUSD": 13279,
+      "kisaOran": 42.4,
+      "uzunOran": 57.6
+    },
+    {
+      "tarih": "2025-10-01",
+      "uzunUSD": 8083,
+      "kisaUSD": 6525,
+      "toplamUSD": 14608,
+      "kisaOran": 44.7,
+      "uzunOran": 55.3
+    },
+    {
+      "tarih": "2025-11-01",
+      "uzunUSD": 8264,
+      "kisaUSD": 7459,
+      "toplamUSD": 15723,
+      "kisaOran": 47.4,
+      "uzunOran": 52.6
+    },
+    {
+      "tarih": "2025-12-01",
+      "uzunUSD": 8654,
+      "kisaUSD": 5349,
+      "toplamUSD": 14003,
+      "kisaOran": 38.2,
+      "uzunOran": 61.8
+    },
+    {
+      "tarih": "2026-01-01",
+      "uzunUSD": 10766,
+      "kisaUSD": 6137,
+      "toplamUSD": 16903,
+      "kisaOran": 36.3,
+      "uzunOran": 63.7
+    },
+    {
+      "tarih": "2026-02-01",
+      "uzunUSD": 11051,
+      "kisaUSD": 4664,
+      "toplamUSD": 15715,
+      "kisaOran": 29.7,
+      "uzunOran": 70.3
+    },
+    {
+      "tarih": "2026-03-01",
+      "uzunUSD": 839,
+      "kisaUSD": 945,
+      "toplamUSD": 1784,
+      "kisaOran": 53,
+      "uzunOran": 47
+    },
+    {
+      "tarih": "2026-04-01",
+      "uzunUSD": 1005,
+      "kisaUSD": 1605,
+      "toplamUSD": 2610,
+      "kisaOran": 61.5,
+      "uzunOran": 38.5
+    },
+    {
+      "tarih": "2026-05-01",
+      "uzunUSD": 1005,
+      "kisaUSD": 1299,
+      "toplamUSD": 2304,
+      "kisaOran": 56.4,
+      "uzunOran": 43.6
+    },
+    {
+      "tarih": "2026-06-01",
+      "uzunUSD": 1018,
+      "kisaUSD": 1707,
+      "toplamUSD": 2725,
+      "kisaOran": 62.6,
+      "uzunOran": 37.4
+    },
+    {
+      "tarih": "2026-07-01",
+      "uzunUSD": 1611,
+      "kisaUSD": 2848,
+      "toplamUSD": 4459,
+      "kisaOran": 63.9,
+      "uzunOran": 36.1
+    },
+    {
+      "tarih": "2026-08-01",
+      "uzunUSD": 1622,
+      "kisaUSD": 4109,
+      "toplamUSD": 5731,
+      "kisaOran": 71.7,
+      "uzunOran": 28.3
+    }
+  ]
+}

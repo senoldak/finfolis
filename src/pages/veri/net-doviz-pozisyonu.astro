@@ -4,7 +4,9 @@
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import TcmbRezervGrafik from '../../components/TcmbRezervGrafik.astro';
 import { RESMI, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
+import netPozisyonVerisi from '../../data/tcmb-net-pozisyon-degisimi.json';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
@@ -61,23 +63,48 @@ interface GunlukDegisim {
   tarih: string;
   tarihKisa: string;
   deger: number;
+  hamDegisim?: number;
+  altinEtkisi?: number;
+  usdKuru?: number;
 }
 
-const gunlukDegisimler: GunlukDegisim[] = [];
-for (let i = 1; i < noktalar.length; i++) {
-  const onceki = noktalar[i - 1].deger;
-  const suanki = noktalar[i].deger;
-  const fark = Math.round((suanki - onceki) * 10) / 10;
-  const d = noktalar[i].tarih;
-  const tarihKisa = `${d.slice(8, 10)}.${d.slice(5, 7)}`;
-  gunlukDegisimler.push({
-    tarih: d,
-    tarihKisa,
-    deger: fark,
-  });
+let barNoktalar: GunlukDegisim[] = [];
+
+if (netPozisyonVerisi?.seri && Array.isArray(netPozisyonVerisi.seri) && netPozisyonVerisi.seri.length > 0) {
+  barNoktalar = (netPozisyonVerisi.seri as Array<{
+    tarih: string;
+    etiket: string;
+    usd_kuru: number;
+    ham_degisim_milyar_usd: number;
+    altin_degerleme_etkisi_milyar_usd: number;
+    degisim_altin_arindirilmis_milyar_usd: number;
+  }>)
+    .slice(-22)
+    .map((item) => ({
+      tarih: item.tarih,
+      tarihKisa: item.etiket,
+      deger: item.degisim_altin_arindirilmis_milyar_usd,
+      hamDegisim: item.ham_degisim_milyar_usd,
+      altinEtkisi: item.altin_degerleme_etkisi_milyar_usd,
+      usdKuru: item.usd_kuru,
+    }));
+} else {
+  // Yedek hesaplama: resmi.json'daki kümülatif seriden türet
+  const yedek: GunlukDegisim[] = [];
+  for (let i = 1; i < noktalar.length; i++) {
+    const onceki = noktalar[i - 1].deger;
+    const suanki = noktalar[i].deger;
+    const fark = Math.round((suanki - onceki) * 10) / 10;
+    const d = noktalar[i].tarih;
+    const tarihKisa = `${d.slice(8, 10)}.${d.slice(5, 7)}`;
+    yedek.push({
+      tarih: d,
+      tarihKisa,
+      deger: fark,
+    });
+  }
+  barNoktalar = yedek.slice(-20);
 }
-// Son 20 iş günü (yaklaşık 1 aylık görünüm)
-const barNoktalar = gunlukDegisimler.slice(-20);
 
 const barSvgW = 760;
 const barSvgH = 320;
@@ -106,39 +133,8 @@ for (let v = barMinY; v <= barMaxY; v += adim) {
   barYCizgileri.push(v);
 }
 
-// 2. Kümülatif Çizgi Grafik Parametreleri
-const svgW = 760;
-const svgH = 260;
-const padL = 48;
-const padR = 25;
-const padT = 20;
-const padB = 30;
-
-const degerler = noktalar.map((p) => p.deger);
-const minVal = Math.min(20, ...(degerler.length ? degerler : [20]));
-const maxVal = Math.max(60, ...(degerler.length ? degerler : [60]));
-const aralikY = maxVal - minVal || 1;
-
-const xCoord = (index: number) =>
-  padL + (index / Math.max(noktalar.length - 1, 1)) * (svgW - padL - padR);
-
-const yCoord = (val: number) =>
-  padT + (1 - (val - minVal) / aralikY) * (svgH - padT - padB);
-
-const pathD = noktalar
-  .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xCoord(i).toFixed(1)} ${yCoord(p.deger).toFixed(1)}`)
-  .join(' ');
-
-const yCizgileri = [20, 30, 40, 50, 60].filter((v) => v >= minVal && v <= maxVal);
-
-const xEtiketleri = noktalar.filter(
-  (_, i) =>
-    i === 0 ||
-    i === Math.floor(noktalar.length * 0.25) ||
-    i === Math.floor(noktalar.length * 0.5) ||
-    i === Math.floor(noktalar.length * 0.75) ||
-    i === noktalar.length - 1,
-);
+// Son günün altın arındırılmış değişimi
+const sonGunDegisim = barNoktalar.at(-1)?.deger ?? rezerv?.degisimGunluk ?? 0;
 ---
 
 <Base title={`${baslik}: TCMB güncel ve geçmiş veriler`} description={description} noindex={!rezerv}>
@@ -158,10 +154,10 @@ const xEtiketleri = noktalar.filter(
               <dt>Net Döviz Pozisyonu</dt>
               <dd class="vurgulu-sayi">{milyar(rezerv.netDovizPozisyonu)}</dd>
               <dd class="veri-degisim">
-                {rezerv.degisimGunluk !== 0 && (
-                  <span class={rezerv.degisimGunluk > 0 ? 'pozitif-yazi' : 'negatif-yazi'}>
-                    Günlük {rezerv.degisimGunluk > 0 ? '+' : ''}
-                    {sayiYaz(rezerv.degisimGunluk, 1)} milyar $
+                {sonGunDegisim !== 0 && (
+                  <span class={sonGunDegisim > 0 ? 'pozitif-yazi' : 'negatif-yazi'}>
+                    Son gün {sonGunDegisim > 0 ? '+' : ''}
+                    {sayiYaz(sonGunDegisim, 1)} milyar $ (altın arındırılmış)
                   </span>
                 )}
               </dd>
@@ -234,7 +230,7 @@ const xEtiketleri = noktalar.filter(
 
                   return (
                     <g class="bar-grup" tabindex="0">
-                      <title>{`${gunYaz(b.tarih)}: ${labelText} milyar $`}</title>
+                      <title>{`${b.tarih}: ${labelText} milyar $ (Altın arındırılmış net değişim)`}</title>
                       <!-- Çubuk -->
                       <rect
                         x={xLeft}
@@ -273,73 +269,12 @@ const xEtiketleri = noktalar.filter(
             </p>
           </section>
 
-          <!-- 2. BÖLÜM: KÜMÜLATİF SEYİR ÇİZGİ GRAFİĞİ -->
-          <section class="bolum grafik-alani">
-            <h2 class="bolum-baslik">Net Döviz Pozisyonu Düzeyi (Milyar $)</h2>
-            <div class="grafik-kapsayici">
-              <svg viewBox={`0 0 ${svgW} ${svgH}`} class="rezerv-grafik" role="img" aria-label="TCMB net döviz pozisyonu geçmiş seviye grafiği">
-                <!-- Yatay Kılavuz Çizgileri -->
-                {yCizgileri.map((yVal) => (
-                  <g class="kilavuz-grup">
-                    <line
-                      x1={padL}
-                      y1={yCoord(yVal)}
-                      x2={svgW - padR}
-                      y2={yCoord(yVal)}
-                      stroke="var(--hair, #cfccc2)"
-                      stroke-dasharray="2 2"
-                    />
-                    <text
-                      x={padL - 8}
-                      y={yCoord(yVal) + 4}
-                      text-anchor="end"
-                      class="grafik-eksen-metin"
-                    >
-                      {yVal}
-                    </text>
-                  </g>
-                ))}
-
-                <!-- Trend Çizgisi -->
-                <path
-                  d={pathD}
-                  fill="none"
-                  stroke="var(--toprak, #c2502b)"
-                  stroke-width="2.5"
-                  stroke-linecap="square"
-                  stroke-linejoin="miter"
-                />
-
-                <!-- Son Nokta -->
-                {noktalar.length > 0 && (
-                  <circle
-                    cx={xCoord(noktalar.length - 1)}
-                    cy={yCoord(rezerv.netDovizPozisyonu)}
-                    r="4.5"
-                    fill="var(--toprak, #c2502b)"
-                  />
-                )}
-
-                <!-- X Ekseni Tarihleri -->
-                {xEtiketleri.map((nokta) => {
-                  const idx = noktalar.indexOf(nokta);
-                  return (
-                    <text
-                      x={xCoord(idx)}
-                      y={svgH - 8}
-                      text-anchor="middle"
-                      class="grafik-eksen-metin"
-                    >
-                      {nokta.tarih.slice(5).replace('-', '.')}
-                    </text>
-                  );
-                })}
-              </svg>
-            </div>
-            <p class="veri-notu">
-              * Veriler TCMB iş günü analitik bilançolarına dayanır. Swap ve Hazine mevduatları düşülmüş çekirdek rezerv büyüklüğünü gösterir.
-            </p>
-          </section>
+          <!-- 2. BÖLÜM: İNTERAKTİF KÜMÜLATİF SEYİR GRAFİĞİ -->
+          <TcmbRezervGrafik
+            noktalar={noktalar}
+            guncelDeger={rezerv.netDovizPozisyonu}
+            guncelTarih={rezerv.tarih}
+          />
 
           <div class="veri-izgara">
             <section class="bolum">
@@ -405,7 +340,7 @@ const xEtiketleri = noktalar.filter(
               <p>
                 <strong>Neden Swaplar Düşülür?</strong><br />
                 TCMB yerel bankalarla veya yabancı merkez bankalarıyla swap yaptığında bilançoya döviz girer; fakat vade bitiminde
-                bu döviz geri ödeneceği için gerçek bir rezerv varlığı değil, bir yükümlülüktür. Swapların resmi rezerv içindeki tarihsel payını ve değişimini <a href="/veri/swap-payi/">TCMB Swap Payı Grafiği</a> üzerinden inceleyebilirsiniz.
+                bu döviz geri ödeneceği için gerçek bir rezerv varlığı değil, bir yükümlülüktür.
               </p>
               <p>
                 <strong>Neden Hazine Dövizi Düşülür?</strong><br />
@@ -421,7 +356,6 @@ const xEtiketleri = noktalar.filter(
     }
 
     <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
-      <a href="/veri/swap-payi/">TCMB swap payı (%)</a>
       <a href="/veri/doviz-kurlari/">Döviz kurları</a>
       <a href="/veri/politika-faizi/">Politika faizi</a>
       <a href="/veri/enflasyon/">Enflasyon</a>

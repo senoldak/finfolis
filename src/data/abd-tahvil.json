@@ -1,0 +1,371 @@
+{
+  "guncellenme": "2026-10-23T09:50:08.957Z",
+  "sonDonem": "2026-08",
+  "sonEtiket": "Ağustos 2026",
+  "sonNetAkimMilyonUsd": 1270,
+  "sonToplamStokMilyonUsd": 5731,
+  "sonTcmbMenkulStokMilyonUsd": 6751,
+  "son4AyDonem": "Nisan - Ağustos 2026",
+  "son4AyTicNetAlimMilyonUsd": 3957,
+  "son4AyTicNetAlimMilyarUsd": 3.96,
+  "son4AyTcmbMenkulFarkMilyonUsd": 3941,
+  "son4AyTcmbMenkulFarkMilyarUsd": 3.94,
+  "analiz": {
+    "tahminiKaynak": "TCMB Rezerv Yönetimi",
+    "neden": "Nisan-Ağustos dönemindeki ~$4.0 milyarlık TIC ABD tahvili net alımı ile TCMB uluslararası rezervlerindeki menkul kıymet portföyünün ~$3.94 milyarlık artışı neredeyse birebir örtüşmektedir."
+  },
+  "seri": [
+    {
+      "donem": "2023-01",
+      "etiket": "Ocak 2023",
+      "netAkim": 104,
+      "stok": 2154,
+      "tcmbStok": 6527,
+      "tcmbAylikFark": null
+    },
+    {
+      "donem": "2023-02",
+      "etiket": "Şubat 2023",
+      "netAkim": -163,
+      "stok": 1988,
+      "tcmbStok": 6189,
+      "tcmbAylikFark": -338
+    },
+    {
+      "donem": "2023-03",
+      "etiket": "Mart 2023",
+      "netAkim": 150,
+      "stok": 2151,
+      "tcmbStok": 5568,
+      "tcmbAylikFark": -621
+    },
+    {
+      "donem": "2023-04",
+      "etiket": "Nisan 2023",
+      "netAkim": -26,
+      "stok": 2126,
+      "tcmbStok": 5855,
+      "tcmbAylikFark": 287
+    },
+    {
+      "donem": "2023-05",
+      "etiket": "Mayıs 2023",
+      "netAkim": -43,
+      "stok": 2075,
+      "tcmbStok": 3352,
+      "tcmbAylikFark": -2503
+    },
+    {
+      "donem": "2023-06",
+      "etiket": "Haziran 2023",
+      "netAkim": 185,
+      "stok": 2255,
+      "tcmbStok": 3308,
+      "tcmbAylikFark": -44
+    },
+    {
+      "donem": "2023-07",
+      "etiket": "Temmuz 2023",
+      "netAkim": 100,
+      "stok": 2352,
+      "tcmbStok": 3435,
+      "tcmbAylikFark": 127
+    },
+    {
+      "donem": "2023-08",
+      "etiket": "Ağustos 2023",
+      "netAkim": -288,
+      "stok": 2064,
+      "tcmbStok": 3381,
+      "tcmbAylikFark": -54
+    },
+    {
+      "donem": "2023-09",
+      "etiket": "Eylül 2023",
+      "netAkim": 37,
+      "stok": 2102,
+      "tcmbStok": 3364,
+      "tcmbAylikFark": -17
+    },
+    {
+      "donem": "2023-10",
+      "etiket": "Ekim 2023",
+      "netAkim": 246,
+      "stok": 2346,
+      "tcmbStok": 3363,
+      "tcmbAylikFark": -1
+    },
+    {
+      "donem": "2023-11",
+      "etiket": "Kasım 2023",
+      "netAkim": 6,
+      "stok": 2359,
+      "tcmbStok": 3461,
+      "tcmbAylikFark": 98
+    },
+    {
+      "donem": "2023-12",
+      "etiket": "Aralık 2023",
+      "netAkim": -230,
+      "stok": 2166,
+      "tcmbStok": 3559,
+      "tcmbAylikFark": 98
+    },
+    {
+      "donem": "2024-01",
+      "etiket": "Ocak 2024",
+      "netAkim": 938,
+      "stok": 3096,
+      "tcmbStok": 10730,
+      "tcmbAylikFark": 7171
+    },
+    {
+      "donem": "2024-02",
+      "etiket": "Şubat 2024",
+      "netAkim": 1,
+      "stok": 3086,
+      "tcmbStok": 11592,
+      "tcmbAylikFark": 862
+    },
+    {
+      "donem": "2024-03",
+      "etiket": "Mart 2024",
+      "netAkim": 29,
+      "stok": 3111,
+      "tcmbStok": 11599,
+      "tcmbAylikFark": 7
+    },
+    {
+      "donem": "2024-04",
+      "etiket": "Nisan 2024",
+      "netAkim": 17,
+      "stok": 3115,
+      "tcmbStok": 11489,
+      "tcmbAylikFark": -110
+    },
+    {
+      "donem": "2024-05",
+      "etiket": "Mayıs 2024",
+      "netAkim": 139,
+      "stok": 3262,
+      "tcmbStok": 11672,
+      "tcmbAylikFark": 183
+    },
+    {
+      "donem": "2024-06",
+      "etiket": "Haziran 2024",
+      "netAkim": 169,
+      "stok": 3438,
+      "tcmbStok": 12551,
+      "tcmbAylikFark": 879
+    },
+    {
+      "donem": "2024-07",
+      "etiket": "Temmuz 2024",
+      "netAkim": 2628,
+      "stok": 6092,
+      "tcmbStok": 16290,
+      "tcmbAylikFark": 3739
+    },
+    {
+      "donem": "2024-08",
+      "etiket": "Ağustos 2024",
+      "netAkim": 34,
+      "stok": 6149,
+      "tcmbStok": 16515,
+      "tcmbAylikFark": 225
+    },
+    {
+      "donem": "2024-09",
+      "etiket": "Eylül 2024",
+      "netAkim": 127,
+      "stok": 6295,
+      "tcmbStok": 19045,
+      "tcmbAylikFark": 2530
+    },
+    {
+      "donem": "2024-10",
+      "etiket": "Ekim 2024",
+      "netAkim": 5746,
+      "stok": 11965,
+      "tcmbStok": 24373,
+      "tcmbAylikFark": 5328
+    },
+    {
+      "donem": "2024-11",
+      "etiket": "Kasım 2024",
+      "netAkim": 127,
+      "stok": 12095,
+      "tcmbStok": 24130,
+      "tcmbAylikFark": -243
+    },
+    {
+      "donem": "2024-12",
+      "etiket": "Aralık 2024",
+      "netAkim": 818,
+      "stok": 12852,
+      "tcmbStok": 24794,
+      "tcmbAylikFark": 664
+    },
+    {
+      "donem": "2025-01",
+      "etiket": "Ocak 2025",
+      "netAkim": 5376,
+      "stok": 18210,
+      "tcmbStok": 31621,
+      "tcmbAylikFark": 6827
+    },
+    {
+      "donem": "2025-02",
+      "etiket": "Şubat 2025",
+      "netAkim": 2214,
+      "stok": 20471,
+      "tcmbStok": 33928,
+      "tcmbAylikFark": 2307
+    },
+    {
+      "donem": "2025-03",
+      "etiket": "Mart 2025",
+      "netAkim": -4570,
+      "stok": 15918,
+      "tcmbStok": 25641,
+      "tcmbAylikFark": -8287
+    },
+    {
+      "donem": "2025-04",
+      "etiket": "Nisan 2025",
+      "netAkim": -8873,
+      "stok": 7137,
+      "tcmbStok": 10486,
+      "tcmbAylikFark": -15155
+    },
+    {
+      "donem": "2025-05",
+      "etiket": "Mayıs 2025",
+      "netAkim": -71,
+      "stok": 7043,
+      "tcmbStok": 10419,
+      "tcmbAylikFark": -67
+    },
+    {
+      "donem": "2025-06",
+      "etiket": "Haziran 2025",
+      "netAkim": 681,
+      "stok": 7692,
+      "tcmbStok": 11136,
+      "tcmbAylikFark": 717
+    },
+    {
+      "donem": "2025-07",
+      "etiket": "Temmuz 2025",
+      "netAkim": 2269,
+      "stok": 9938,
+      "tcmbStok": 13347,
+      "tcmbAylikFark": 2211
+    },
+    {
+      "donem": "2025-08",
+      "etiket": "Ağustos 2025",
+      "netAkim": 9467,
+      "stok": 19424,
+      "tcmbStok": 34658,
+      "tcmbAylikFark": 21311
+    },
+    {
+      "donem": "2025-09",
+      "etiket": "Eylül 2025",
+      "netAkim": -6145,
+      "stok": 13279,
+      "tcmbStok": 29526,
+      "tcmbAylikFark": -5132
+    },
+    {
+      "donem": "2025-10",
+      "etiket": "Ekim 2025",
+      "netAkim": 1335,
+      "stok": 14608,
+      "tcmbStok": 28546,
+      "tcmbAylikFark": -980
+    },
+    {
+      "donem": "2025-11",
+      "etiket": "Kasım 2025",
+      "netAkim": 1105,
+      "stok": 15723,
+      "tcmbStok": 26773,
+      "tcmbAylikFark": -1773
+    },
+    {
+      "donem": "2025-12",
+      "etiket": "Aralık 2025",
+      "netAkim": -1713,
+      "stok": 14003,
+      "tcmbStok": 25019,
+      "tcmbAylikFark": -1754
+    },
+    {
+      "donem": "2026-01",
+      "etiket": "Ocak 2026",
+      "netAkim": 2935,
+      "stok": 16903,
+      "tcmbStok": 30238,
+      "tcmbAylikFark": 5219
+    },
+    {
+      "donem": "2026-02",
+      "etiket": "Şubat 2026",
+      "netAkim": -1209,
+      "stok": 15715,
+      "tcmbStok": 26677,
+      "tcmbAylikFark": -3561
+    },
+    {
+      "donem": "2026-03",
+      "etiket": "Mart 2026",
+      "netAkim": -13977,
+      "stok": 1784,
+      "tcmbStok": 2482,
+      "tcmbAylikFark": -24195
+    },
+    {
+      "donem": "2026-04",
+      "etiket": "Nisan 2026",
+      "netAkim": 831,
+      "stok": 2610,
+      "tcmbStok": 2810,
+      "tcmbAylikFark": 328
+    },
+    {
+      "donem": "2026-05",
+      "etiket": "Mayıs 2026",
+      "netAkim": -303,
+      "stok": 2304,
+      "tcmbStok": 2791,
+      "tcmbAylikFark": -19
+    },
+    {
+      "donem": "2026-06",
+      "etiket": "Haziran 2026",
+      "netAkim": 425,
+      "stok": 2725,
+      "tcmbStok": 3307,
+      "tcmbAylikFark": 516
+    },
+    {
+      "donem": "2026-07",
+      "etiket": "Temmuz 2026",
+      "netAkim": 1734,
+      "stok": 4459,
+      "tcmbStok": 4908,
+      "tcmbAylikFark": 1601
+    },
+    {
+      "donem": "2026-08",
+      "etiket": "Ağustos 2026",
+      "netAkim": 1270,
+      "stok": 5731,
+      "tcmbStok": 6751,
+      "tcmbAylikFark": 1843
+    }
+  ]
+}

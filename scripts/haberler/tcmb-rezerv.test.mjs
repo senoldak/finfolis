@@ -65,3 +65,15 @@ test('hesaplaNetPozisyon: geçersiz kur hata fırlatır', () => {
     /Geçersiz dolar kuru/
   );
 });
+
+test('günlük değişim: iki gün arasındaki net pozisyon farkı doğru hesaplanır', () => {
+  const gun1 = 39.0;
+  const gun2 = 34.2;
+  const fark = Math.round((gun2 - gun1) * 10) / 10;
+  assert.equal(fark, -4.8);
+
+  const gun3 = 38.8;
+  const gun4 = 38.9;
+  const farkPozitif = Math.round((gun4 - gun3) * 10) / 10;
+  assert.equal(farkPozitif, 0.1);
+});

@@ -1,6 +1,6 @@
 ---
-// BİST 100 / TÜFE Reel Endeks ve Standart Sapma Bantları Grafiği.
-// Finfolis tasarım dili: Kâğıt & mürekkep, Bricolage Grotesque, sıfır harici kütüphane bağımlılığı.
+// BİST 100 / TÜFE Reel Endeks ve Standart Sapma Bantları Grafiği (İnteraktif).
+// Finfolis tasarım dili: Kâğıt & mürekkep, Bricolage Grotesque, tam etkileşimli, sıfır harici kütüphane.
 interface Props {
   veri: {
     guncelleme: string;
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const { veri } = Astro.props;
-const { noktalar, ortalama, arti2Std, eksi2Std, eksi3Std } = veri;
+const { noktalar, ortalama, arti2Std, eksi2Std, eksi3Std, stdSapma } = veri;
 
 // Görsel boyutlar (SVG koordinatları)
 const W = 800;
@@ -33,12 +33,12 @@ const maxDeger = Math.max(...degerler, arti2Std) + 3;
 const yArallik = maxDeger - minDeger || 1;
 
 // Koordinat dönüştürücüler
-const xPos = (i: number) => PAD_LEFT + (i / Math.max(noktalar.length - 1, 1)) * (W - PAD_LEFT - PAD_RIGHT);
+const xPos = (i: number, len: number) => PAD_LEFT + (i / Math.max(len - 1, 1)) * (W - PAD_LEFT - PAD_RIGHT);
 const yPos = (v: number) => PAD_TOP + (1 - (v - minDeger) / yArallik) * (H - PAD_TOP - PAD_BOTTOM);
 
 // Ana eğri çizgisi
 const cizgiYolu = noktalar
-  .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i).toFixed(1)} ${yPos(p.deger).toFixed(1)}`)
+  .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i, noktalar.length).toFixed(1)} ${yPos(p.deger).toFixed(1)}`)
   .join(' ');
 
 // Referans çizgileri Y koordinatları
@@ -47,18 +47,18 @@ const yArti2 = yPos(arti2Std);
 const yEksi2 = yPos(eksi2Std);
 const yEksi3 = yPos(eksi3Std);
 
-// X ekseninde gösterilecek yıl etiketleri (2025, 2026 gibi)
+// X ekseninde gösterilecek yıl etiketleri
 const yillar: { yil: string; x: number }[] = [];
 let oncekiYil = '';
 noktalar.forEach((p, i) => {
   const yil = p.tarih.slice(0, 4);
   if (yil !== oncekiYil) {
-    yillar.push({ yil, x: xPos(i) });
+    yillar.push({ yil, x: xPos(i, noktalar.length) });
     oncekiYil = yil;
   }
 });
 
-// Y ekseni ızgara seviyeleri (5'er birimlik adımlar)
+// Y ekseni ızgara seviyeleri
 const adim = 5;
 const izgaraDegerleri: number[] = [];
 const taban = Math.ceil(minDeger / adim) * adim;
@@ -67,82 +67,284 @@ for (let v = taban; v <= maxDeger; v += adim) {
 }
 
 const sonNokta = noktalar.at(-1)!;
-const sonX = xPos(noktalar.length - 1);
+const sonX = xPos(noktalar.length - 1, noktalar.length);
 const sonY = yPos(sonNokta.deger);
 ---
 
-<div class="grafik-kapsayici">
+<div
+  class="grafik-kapsayici"
+  data-bist-grafik
+  data-noktalar={JSON.stringify(noktalar)}
+  data-ortalama={ortalama}
+  data-std={stdSapma}
+  data-arti2={arti2Std}
+  data-eksi2={eksi2Std}
+  data-eksi3={eksi3Std}
+>
+  <!-- Üst Bilgi ve Butonlar -->
   <div class="grafik-ust-bilgi">
     <div class="grafik-baslik-alani">
       <h3 class="grafik-baslik">BİST 100 / TÜFE Reel Değer Seyri</h3>
-      <p class="grafik-altbaslik">2 Yıllık Dönem Ortalaması ve Standart Sapma Bantları</p>
+      <p class="grafik-altbaslik">Grafik üzerinde gezinebilir, periyot seçebilirsiniz</p>
     </div>
-    <div class="grafik-etiket-kutusu">
-      <span class="etiket-oge"><span class="renk-nokta nokta-ort"></span> 2Y Ort: {ortalama}</span>
-      <span class="etiket-oge"><span class="renk-nokta nokta-arti2"></span> +2σ: {arti2Std}</span>
-      <span class="etiket-oge"><span class="renk-nokta nokta-eksi2"></span> -2σ: {eksi2Std}</span>
-      <span class="etiket-oge"><span class="renk-nokta nokta-eksi3"></span> -3σ: {eksi3Std}</span>
+    
+    <!-- Zaman Aralığı Filtreleri -->
+    <div class="zaman-filtre-alani">
+      <button type="button" class="filtre-butonu" data-periyot="6a">Son 6 Ay</button>
+      <button type="button" class="filtre-butonu" data-periyot="1y">1 Yıl</button>
+      <button type="button" class="filtre-butonu aktif" data-periyot="2y">2 Yıl (Tümü)</button>
     </div>
   </div>
 
+  <!-- Dinamik Canlı Değer Bandı (Hover sırasında değişir) -->
+  <div class="canli-deger-kutusu" id="bist-canli-kutu">
+    <div class="canli-oge">
+      <span class="canli-etiket">Seçilen Tarih</span>
+      <strong class="canli-veri" id="canli-tarih">{sonNokta.tarih}</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Reel BİST / TÜFE</span>
+      <strong class="canli-veri vurgu-reel" id="canli-reel">{sonNokta.deger.toFixed(2)}</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Nominal BİST 100</span>
+      <strong class="canli-veri" id="canli-nominal">{sonNokta.bist.toLocaleString('tr-TR')}</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Sapma & Z-Skoru</span>
+      <strong class="canli-veri" id="canli-zskor">{veri.zSkoru > 0 ? `+${veri.zSkoru}` : veri.zSkoru}σ</strong>
+    </div>
+    <div class="canli-oge canli-teshis-alani">
+      <span class="canli-etiket">Bölge Teşhisi</span>
+      <span class="canli-durum-rozet" id="canli-teshis">{veri.durum}</span>
+    </div>
+  </div>
+
+  <!-- SVG Çizim Alanı -->
   <div class="svg-sarici">
-    <svg viewBox={`0 0 ${W} ${H}`} class="bist-tufe-svg" role="img" aria-label="BİST 100 TÜFE rasyosu ve standart sapma bantları">
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      class="bist-tufe-svg"
+      role="img"
+      aria-label="BİST 100 TÜFE rasyosu ve standart sapma bantları"
+      id="bist-svg"
+    >
       <!-- Izgara çizgileri ve Y eksen etiketleri -->
-      {
-        izgaraDegerleri.map((v) => {
-          const y = yPos(v);
-          return (
-            <g class="izgara-grup">
-              <line x1={PAD_LEFT} y1={y} x2={W - PAD_RIGHT} y2={y} stroke="var(--soluk)" stroke-width="1" />
-              <text x={PAD_LEFT - 8} y={y + 4} text-anchor="end" class="eksen-metin">
-                {v}
+      <g id="katman-izgara">
+        {
+          izgaraDegerleri.map((v) => {
+            const y = yPos(v);
+            return (
+              <g class="izgara-grup">
+                <line x1={PAD_LEFT} y1={y} x2={W - PAD_RIGHT} y2={y} stroke="var(--soluk)" stroke-width="1" />
+                <text x={PAD_LEFT - 8} y={y + 4} text-anchor="end" class="eksen-metin">
+                  {v}
+                </text>
+              </g>
+            );
+          })
+        }
+      </g>
+
+      <!-- X ekseni yıl etiketleri -->
+      <g id="katman-yillar">
+        {
+          yillar.map((y) => (
+            <g class="yil-grup">
+              <line x1={y.x} y1={PAD_TOP} x2={y.x} y2={H - PAD_BOTTOM} stroke="var(--soluk)" stroke-dasharray="3 3" stroke-width="1" />
+              <text x={y.x + 4} y={H - PAD_BOTTOM + 18} class="eksen-metin yil-metin">
+                |{y.yil.slice(2)}
               </text>
             </g>
-          );
-        })
-      }
-
-      <!-- X ekseni yıl etiketleri ve dikey çizgileri -->
-      {
-        yillar.map((y) => (
-          <g class="yil-grup">
-            <line x1={y.x} y1={PAD_TOP} x2={y.x} y2={H - PAD_BOTTOM} stroke="var(--soluk)" stroke-dasharray="3 3" stroke-width="1" />
-            <text x={y.x + 4} y={H - PAD_BOTTOM + 18} class="eksen-metin yil-metin">
-              |{y.yil.slice(2)}
-            </text>
-          </g>
-        ))
-      }
+          ))
+        }
+      </g>
 
       <!-- +2 Standart Sapma Bandı -->
-      <line x1={PAD_LEFT} y1={yArti2} x2={W - PAD_RIGHT} y2={yArti2} stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 3" />
-      <text x={W - PAD_RIGHT + 8} y={yArti2 + 4} class="bant-metin">+2 Std Sapma</text>
+      <line id="cizgi-arti2" x1={PAD_LEFT} y1={yArti2} x2={W - PAD_RIGHT} y2={yArti2} stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 3" />
+      <text id="metin-arti2" x={W - PAD_RIGHT + 8} y={yArti2 + 4} class="bant-metin">+2 Std Sapma</text>
 
       <!-- 2 Yıllık Ortalama (Turuncu/Toprak) -->
-      <line x1={PAD_LEFT} y1={yOrt} x2={W - PAD_RIGHT} y2={yOrt} stroke="var(--toprak)" stroke-width="1.5" stroke-dasharray="4 3" />
-      <text x={W - PAD_RIGHT + 8} y={yOrt + 4} class="bant-metin bant-ort">2Y Ort.</text>
+      <line id="cizgi-ort" x1={PAD_LEFT} y1={yOrt} x2={W - PAD_RIGHT} y2={yOrt} stroke="var(--toprak)" stroke-width="1.5" stroke-dasharray="4 3" />
+      <text id="metin-ort" x={W - PAD_RIGHT + 8} y={yOrt + 4} class="bant-metin bant-ort">2Y Ort.</text>
 
       <!-- -2 Standart Sapma Bandı (Mavi/Lacivert) -->
-      <line x1={PAD_LEFT} y1={yEksi2} x2={W - PAD_RIGHT} y2={yEksi2} stroke="#2b5c8f" stroke-width="1.5" stroke-dasharray="4 3" />
-      <text x={W - PAD_RIGHT + 8} y={yEksi2 + 4} class="bant-metin bant-eksi2">-2 Std Sapma</text>
+      <line id="cizgi-eksi2" x1={PAD_LEFT} y1={yEksi2} x2={W - PAD_RIGHT} y2={yEksi2} stroke="#2b5c8f" stroke-width="1.5" stroke-dasharray="4 3" />
+      <text id="metin-eksi2" x={W - PAD_RIGHT + 8} y={yEksi2 + 4} class="bant-metin bant-eksi2">-2 Std Sapma</text>
 
       <!-- -3 Standart Sapma Bandı (Koyu Kırmızı/Düşüş) -->
-      <line x1={PAD_LEFT} y1={yEksi3} x2={W - PAD_RIGHT} y2={yEksi3} stroke="var(--dusus)" stroke-width="1.5" stroke-dasharray="2 2" />
-      <text x={W - PAD_RIGHT + 8} y={yEksi3 + 4} class="bant-metin bant-eksi3">-3 Std Sapma</text>
+      <line id="cizgi-eksi3" x1={PAD_LEFT} y1={yEksi3} x2={W - PAD_RIGHT} y2={yEksi3} stroke="var(--dusus)" stroke-width="1.5" stroke-dasharray="2 2" />
+      <text id="metin-eksi3" x={W - PAD_RIGHT + 8} y={yEksi3 + 4} class="bant-metin bant-eksi3">-3 Std Sapma</text>
 
       <!-- Ana Eğri (Reel BİST 100) -->
-      <path d={cizgiYolu} fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path id="ana-egri" d={cizgiYolu} fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
-      <!-- Son Nokta -->
-      <circle cx={sonX} cy={sonY} r="4.5" fill="var(--dusus)" stroke="var(--paper)" stroke-width="2" />
+      <!-- İnteraktif Dikey Rehber Çizgisi (Crosshair) -->
+      <line id="rehber-cizgi" x1={sonX} y1={PAD_TOP} x2={sonX} y2={H - PAD_BOTTOM} stroke="var(--toprak)" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.8" />
+
+      <!-- Hareket Eden Odak Noktası -->
+      <circle id="fokus-cemberi" cx={sonX} cy={sonY} r="5" fill="var(--toprak)" stroke="var(--paper)" stroke-width="2.5" />
+
+      <!-- Saydam Etkileşim Katmanı (Tüm grafiği kaplar) -->
+      <rect
+        id="etkilesim-katmani"
+        x={PAD_LEFT}
+        y={PAD_TOP}
+        width={W - PAD_LEFT - PAD_RIGHT}
+        height={H - PAD_TOP - PAD_BOTTOM}
+        fill="transparent"
+        style="cursor: crosshair; touch-action: none;"
+      />
     </svg>
   </div>
 
   <div class="grafik-alt-bilgi">
-    <span class="kaynak-notu">Kaynak: Yahoo Finance (XU100), TÜİK (TÜFE), Finfolis Analizi</span>
-    <span class="tarih-notu">Son İşlem Günü: {sonNokta.tarih} (Reel Değer: {sonNokta.deger})</span>
+    <span class="kaynak-notu">Kaynak: Yahoo Finance (XU100.IS), TÜİK (TÜFE), Finfolis Analizi</span>
+    <span class="ipucu-notu">👆 Parmağınızı veya farenizi grafiğin üzerinde kaydırarak geçmiş günleri inceleyin</span>
   </div>
 </div>
+
+<script>
+  // Grafik Etkileşim Çekirdeği
+  const container = document.querySelector<HTMLElement>('[data-bist-grafik]');
+  if (container) {
+    const rawData = JSON.parse(container.dataset.noktalar || '[]');
+    const ortalama = Number(container.dataset.ortalama || 107.5);
+    const std = Number(container.dataset.std || 7.5);
+    const arti2 = Number(container.dataset.arti2 || 122.5);
+    const eksi2 = Number(container.dataset.eksi2 || 92.5);
+    const eksi3 = Number(container.dataset.eksi3 || 85);
+
+    const overlay = container.querySelector<SVGRectElement>('#etkilesim-katmani')!;
+    const anaEgri = container.querySelector<SVGPathElement>('#ana-egri')!;
+    const rehberCizgi = container.querySelector<SVGLineElement>('#rehber-cizgi')!;
+    const fokusCemberi = container.querySelector<SVGCircleElement>('#fokus-cemberi')!;
+
+    // Canlı metin alanları
+    const canliTarih = container.querySelector<HTMLElement>('#canli-tarih')!;
+    const canliReel = container.querySelector<HTMLElement>('#canli-reel')!;
+    const canliNominal = container.querySelector<HTMLElement>('#canli-nominal')!;
+    const canliZskor = container.querySelector<HTMLElement>('#canli-zskor')!;
+    const canliTeshis = container.querySelector<HTMLElement>('#canli-teshis')!;
+
+    // Butonlar
+    const filtreButonlari = container.querySelectorAll<HTMLButtonElement>('.filtre-butonu');
+
+    const W = 800;
+    const H = 400;
+    const PAD_TOP = 30;
+    const PAD_BOTTOM = 40;
+    const PAD_LEFT = 45;
+    const PAD_RIGHT = 110;
+
+    let aktifVeri = [...rawData];
+
+    function hesaplaSinirlar(veri: typeof rawData) {
+      const vals = veri.map((p: any) => p.deger);
+      const min = Math.min(...vals, eksi3) - 3;
+      const max = Math.max(...vals, arti2) + 3;
+      return { min, max, aralik: max - min || 1 };
+    }
+
+    let { min: minDeger, aralik: yArallik } = hesaplaSinirlar(aktifVeri);
+
+    const xPos = (i: number, len: number) => PAD_LEFT + (i / Math.max(len - 1, 1)) * (W - PAD_LEFT - PAD_RIGHT);
+    const yPos = (v: number) => PAD_TOP + (1 - (v - minDeger) / yArallik) * (H - PAD_TOP - PAD_BOTTOM);
+
+    function cizEgri(veri: typeof rawData) {
+      const d = veri
+        .map((p: any, i: number) => `${i === 0 ? 'M' : 'L'} ${xPos(i, veri.length).toFixed(1)} ${yPos(p.deger).toFixed(1)}`)
+        .join(' ');
+      anaEgri.setAttribute('d', d);
+    }
+
+    function guncelleBilgi(p: { tarih: string; bist: number; deger: number }, x: number, y: number) {
+      rehberCizgi.setAttribute('x1', String(x));
+      rehberCizgi.setAttribute('x2', String(x));
+      fokusCemberi.setAttribute('cx', String(x));
+      fokusCemberi.setAttribute('cy', String(y));
+
+      canliTarih.textContent = p.tarih;
+      canliReel.textContent = p.deger.toFixed(2);
+      canliNominal.textContent = p.bist.toLocaleString('tr-TR');
+
+      const z = (p.deger - ortalama) / std;
+      canliZskor.textContent = `${z > 0 ? `+${z.toFixed(2)}` : z.toFixed(2)}σ`;
+
+      if (p.deger <= eksi3) {
+        canliTeshis.textContent = 'Aşırı İskonto (-3σ Sınırında)';
+        canliTeshis.className = 'canli-durum-rozet rozet-dusus';
+        fokusCemberi.setAttribute('fill', 'var(--dusus)');
+      } else if (p.deger <= eksi2) {
+        canliTeshis.textContent = 'İskonto Bölgesi (-2σ Altı)';
+        canliTeshis.className = 'canli-durum-rozet rozet-mavi';
+        fokusCemberi.setAttribute('fill', '#2b5c8f');
+      } else if (p.deger >= arti2) {
+        canliTeshis.textContent = 'Pahalı Bölge (+2σ Üstü)';
+        canliTeshis.className = 'canli-durum-rozet rozet-yukselis';
+        fokusCemberi.setAttribute('fill', 'var(--yukselis)');
+      } else {
+        canliTeshis.textContent = 'Normal Denge Bölgesi';
+        canliTeshis.className = 'canli-durum-rozet rozet-notr';
+        fokusCemberi.setAttribute('fill', 'var(--toprak)');
+      }
+    }
+
+    function fareHareketi(e: MouseEvent | Touch) {
+      const rect = overlay.getBoundingClientRect();
+      const svgX = ((e.clientX - rect.left) / rect.width) * (W - PAD_LEFT - PAD_RIGHT);
+      const orantili = Math.max(0, Math.min(1, svgX / (W - PAD_LEFT - PAD_RIGHT)));
+      const idx = Math.round(orantili * (aktifVeri.length - 1));
+      const nokta = aktifVeri[idx];
+      if (!nokta) return;
+
+      const px = xPos(idx, aktifVeri.length);
+      const py = yPos(nokta.deger);
+      guncelleBilgi(nokta, px, py);
+    }
+
+    overlay.addEventListener('mousemove', (e) => fareHareketi(e));
+    overlay.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        fareHareketi(e.touches[0]);
+      }
+    });
+
+    overlay.addEventListener('mouseleave', () => {
+      const son = aktifVeri.at(-1);
+      if (son) {
+        guncelleBilgi(son, xPos(aktifVeri.length - 1, aktifVeri.length), yPos(son.deger));
+      }
+    });
+
+    // Filtre butonları (6 Ay, 1 Yıl, 2 Yıl)
+    filtreButonlari.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filtreButonlari.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+
+        const periyot = btn.dataset.periyot;
+        if (periyot === '6a') {
+          aktifVeri = rawData.slice(-126);
+        } else if (periyot === '1y') {
+          aktifVeri = rawData.slice(-252);
+        } else {
+          aktifVeri = [...rawData];
+        }
+
+        const sinirlar = hesaplaSinirlar(aktifVeri);
+        minDeger = sinirlar.min;
+        yArallik = sinirlar.aralik;
+
+        cizEgri(aktifVeri);
+        const son = aktifVeri.at(-1);
+        if (son) {
+          guncelleBilgi(son, xPos(aktifVeri.length - 1, aktifVeri.length), yPos(son.deger));
+        }
+      });
+    });
+  }
+</script>
 
 <style>
   .grafik-kapsayici {
@@ -156,7 +358,7 @@ const sonY = yPos(sonNokta.deger);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     gap: 12px;
     margin-bottom: 16px;
     border-bottom: 1px solid var(--hair);
@@ -176,41 +378,96 @@ const sonY = yPos(sonNokta.deger);
     margin: 2px 0 0;
   }
 
-  .grafik-etiket-kutusu {
+  .zaman-filtre-alani {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    font-size: 0.8rem;
-    font-variant-numeric: tabular-nums;
+    gap: 6px;
   }
 
-  .etiket-oge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+  .filtre-butonu {
+    background: var(--paper);
+    border: 1px solid var(--hair);
     color: var(--ink-2);
+    padding: 4px 10px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
   }
 
-  .renk-nokta {
+  .filtre-butonu:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+
+  .filtre-butonu.aktif {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* Canlı Değer Bandı */
+  .canli-deger-kutusu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px 16px;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .canli-oge {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .canli-etiket {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .canli-veri {
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+
+  .vurgu-reel {
+    color: var(--toprak-text);
+  }
+
+  .canli-durum-rozet {
     display: inline-block;
-    width: 8px;
-    height: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    width: fit-content;
   }
 
-  .nokta-ort {
-    background: var(--toprak);
+  .rozet-dusus {
+    background: #fae8eb;
+    color: var(--dusus);
   }
 
-  .nokta-arti2 {
-    background: var(--muted);
+  .rozet-mavi {
+    background: #e8f1fa;
+    color: #2b5c8f;
   }
 
-  .nokta-eksi2 {
-    background: #2b5c8f;
+  .rozet-yukselis {
+    background: #eaf3ed;
+    color: var(--yukselis);
   }
 
-  .nokta-eksi3 {
-    background: var(--dusus);
+  .rozet-notr {
+    background: var(--paper-2);
+    color: var(--ink-2);
   }
 
   .svg-sarici {
@@ -223,6 +480,7 @@ const sonY = yPos(sonNokta.deger);
     width: 100%;
     height: auto;
     min-width: 550px;
+    user-select: none;
   }
 
   .eksen-metin {
@@ -266,5 +524,10 @@ const sonY = yPos(sonNokta.deger);
     border-top: 1px solid var(--hair);
     font-size: 0.75rem;
     color: var(--muted);
+  }
+
+  .ipucu-notu {
+    color: var(--toprak-text);
+    font-weight: 600;
   }
 </style>

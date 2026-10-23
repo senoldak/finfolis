@@ -1,0 +1,306 @@
+---
+// Türkiye'nin Elindeki ABD Hazine Tahvilleri Portföyü
+// Kaynak: U.S. Department of the Treasury - Treasury International Capital (TIC) & FRED
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import AbdTahvilleriGrafik from '../../components/AbdTahvilleriGrafik.astro';
+import data from '../../data/abd-tahvilleri.json';
+import type { TahvilAnalizi } from '../../lib/abd-tahvilleri.d.mts';
+import { gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const veri = data as TahvilAnalizi;
+const son = veri.sonNokta;
+const onceki = veri.oncekiNokta;
+
+const baslik = "Türkiye'nin elindeki ABD tahvilleri";
+const altBaslik = 'ABD Hazinesi TIC Verileri · Kısa ve Uzun Vadeli Portföy Dağılımı';
+
+const formatMilyar = (milyon: number) => `$${sayiYaz(milyon / 1000, 2)} milyar`;
+
+const description = `Türkiye'nin elindeki ABD Hazine tahvilleri portföyü ${son.tarih.slice(0, 7)} itibarıyla ${formatMilyar(son.toplamUSD)} (${son.toplamUSD.toLocaleString('tr-TR')} milyon $). Kısa vadeli T-Bill payı %${son.kisaOran}, uzun vadeli tahvil payı %${son.uzunOran}. Tarihsel seyir, TIC verileri ve rezerv analizi.`;
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: "Türkiye'nin ABD tahvilleri", href: '/veri/abd-tahvilleri/' },
+];
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: `${baslik} (TIC Data)`,
+  aciklama: description,
+  sayfaEk: { dateModified: veri.guncelleme },
+  ekler: [
+    {
+      '@type': 'Dataset',
+      name: "Türkiye'nin Tuttuğu ABD Hazine Tahvilleri Portföyü",
+      description:
+        "ABD Hazine Bakanlığı TIC (Treasury International Capital) sistemi üzerinden yayımlanan Türkiye mukimi kurum ve kişilerin elindeki kısa ve uzun vadeli ABD Hazine tahvili tutarları.",
+      url: 'https://finfolis.com/veri/abd-tahvilleri/',
+      isAccessibleForFree: true,
+      creator: {
+        '@type': 'GovernmentOrganization',
+        name: 'U.S. Department of the Treasury',
+        url: 'https://home.treasury.gov/',
+      },
+      dateModified: veri.guncelleme,
+      variableMeasured: [
+        'Toplam ABD Tahvilleri (Milyon USD)',
+        'Kısa Vadeli Hazine Bonoları / T-Bills (Milyon USD)',
+        'Uzun Vadeli Hazine Tahvilleri (Milyon USD)',
+      ],
+    },
+  ],
+});
+
+// Tablo için son 24 ayı tersten (en yeniden eskiye) listeleyelim
+const sonAylar = [...veri.noktalar].slice(-24).reverse();
+---
+
+<Base title={`${baslik}: TIC verileri ve güncel durum`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>{altBaslik}</p>
+    </header>
+
+    <!-- 1. Temel Rakam Kartları -->
+    <dl class="veri-rakamlar">
+      <div>
+        <dt>Toplam ABD Tahvili</dt>
+        <dd class="vurgulu-sayi">{formatMilyar(son.toplamUSD)}</dd>
+        <dd class="veri-degisim">
+          <span class={veri.aylikDegisimUSD >= 0 ? 'pozitif-yazi' : 'negatif-yazi'}>
+            Aylık {veri.aylikDegisimUSD >= 0 ? '+' : ''}{veri.aylikDegisimUSD.toLocaleString('tr-TR')} M $
+            (%{veri.aylikDegisimYuzde >= 0 ? '+' : ''}{veri.aylikDegisimYuzde})
+          </span>
+        </dd>
+      </div>
+
+      <div>
+        <dt>Kısa Vadeli (T-Bills &le; 1Y)</dt>
+        <dd>{formatMilyar(son.kisaUSD)}</dd>
+        <dd class="veri-not">Portföyün %{son.kisaOran}'i</dd>
+      </div>
+
+      <div>
+        <dt>Uzun Vadeli (&gt; 1Y Tahvil)</dt>
+        <dd>{formatMilyar(son.uzunUSD)}</dd>
+        <dd class="veri-not">Portföyün %{son.uzunOran}'i</dd>
+      </div>
+
+      <div>
+        <dt>Tarihsel Zirveye Uzaklık</dt>
+        <dd class="negatif-yazi">%{veri.zirvedenFarkYuzde}</dd>
+        <dd class="veri-not">2015 Zirvesi: {formatMilyar(veri.tarihselZirve.toplamUSD)}</dd>
+      </div>
+    </dl>
+
+    <p class="veri-notu veri-kaynak">
+      <strong>Kaynak:</strong>{' '}
+      <a href="https://ticdata.treasury.gov/" rel="noopener" target="_blank">
+        U.S. Department of the Treasury (TIC System)
+      </a>{' '}
+      &amp; Federal Reserve Bank of St. Louis (FRED: FORLTTREASPOS12807, FORSTTREASPOS12807).
+      Son veri dönemi: {son.tarih.slice(0, 7)} · Güncelleme: {zamanYaz(veri.guncelleme)}.
+    </p>
+
+    <!-- 2. Grafik Bölümü -->
+    <section class="bolum">
+      <div class="bolum-baslik-alani">
+        <h2 class="bolum-baslik">Tarihsel Portföy Gelişimi (2011–2026)</h2>
+        <span class="bolum-altbaslik">Yığılmış Alan Grafiği (Milyon USD)</span>
+      </div>
+
+      <AbdTahvilleriGrafik veri={veri} />
+    </section>
+
+    <!-- 3. Analiz ve Arka Plan -->
+    <section class="bolum analiz-metni">
+      <h2 class="bolum-baslik">Verinin Anlamı ve Rezerv Dinamikleri</h2>
+
+      <div class="metin-kartlari">
+        <div class="metin-kart">
+          <h3>Bu Veri Nedir ve Nereden Hesaplanır?</h3>
+          <p>
+            ABD Hazine Bakanlığı, <strong>Treasury International Capital (TIC)</strong> sistemi aracılığıyla
+            yabancı ülkelerin ellerinde tuttukları Amerikan Hazine tahvillerini aylık olarak raporlar.
+            Veri iki temel bileşenden oluşur:
+          </p>
+          <ul>
+            <li>
+              <strong>Kısa Vadeli (T-Bills):</strong> Vadesi 1 yıl ve daha kısa olan Hazine bonoları.
+            </li>
+            <li>
+              <strong>Uzun Vadeli (Treasury Bonds/Notes):</strong> Vadesi 1 yıldan uzun olan devlet tahvilleri.
+            </li>
+          </ul>
+          <p>
+            Bu istatistik; TCMB rezervlerinin yanı sıra Türkiye'deki bankalar ve kurumsal yatırımcıların
+            ABD takas saklamacılarında (Euroclear, DTC vb.) tuttukları toplam Hazine portföyünü kapsar.
+          </p>
+        </div>
+
+        <div class="metin-kart">
+          <h3>Bahar-Yaz Dönemi Artışı ve TCMB Altın Rezervi</h3>
+          <p>
+            Döviz rezervlerinin toparlanma kaydettiği bahar ve yaz aylarında Türkiye'nin tuttuğu ABD tahvili miktarı
+            <strong>$5,7 milyar</strong> seviyesine ulaşmıştır. Portföyün <strong>%{son.kisaOran}</strong> gibi ezici bir bölümü
+            kısa vadeli Hazine bonolarından (T-Bills) oluşmaktadır.
+          </p>
+          <p>
+            Aynı dönemde TCMB'nin resmi altın rezervleri yaklaşık <strong>517 ton</strong> bandında yatay seyrederken,
+            yeni likidite girişlerinin kısa vadeli Amerikan bonolarına yönelmesinin temel nedenleri:
+          </p>
+          <ul>
+            <li><strong>Yüksek Dolar Getirisi:</strong> Fed faizlerinin sunduğu risksiz getiri avantajı.</li>
+            <li><strong>Acil Likidite ve Esneklik:</strong> Kısa vadeli bonolar anında nakde çevrilebilir veya repo piyasalarında teminat olarak kullanılabilir.</li>
+            <li><strong>Vade Riski Alınmaması:</strong> Küresel faiz belirsizliğinde uzun vadeli tahvillerin fiyat dalgalanmasından kaçınma tercihi.</li>
+          </ul>
+        </div>
+
+        <div class="metin-kart">
+          <h3>2014 Zirvesinden (82 Milyar $) Bugüne Ne Değişti?</h3>
+          <p>
+            Türkiye, 2014-2015 yıllarında <strong>$82,4 milyar</strong> ile ABD Hazinesi'nin en büyük yabancı alacaklıları arasında
+            ilk 20 ülke içerisinde yer alıyordu.
+          </p>
+          <p>
+            2018 Rahip Brunson krizi, CAATSA yaptırım tehditleri ve jeopolitik gerilimler sonrası Türkiye,
+            rezerv kompozisyonunu radikal biçimde değiştirerek ABD tahvili varlıklarını 2022 başında <strong>$1,5 milyar</strong>
+            seviyesine kadar indirdi. Serbest kalan rezervler ağırlıklı olarak fiziki altına ve Eurobond portföyüne aktarıldı.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Son 24 Ayın Veri Tablosu -->
+    <section class="bolum">
+      <h2 class="bolum-baslik">Aylık Veri Dökümü (Son 24 Ay)</h2>
+      <div class="tablo-tasiyici">
+        <table class="veri-tablosu">
+          <thead>
+            <tr>
+              <th>Dönem</th>
+              <th class="sayi-sutun">Toplam ($)</th>
+              <th class="sayi-sutun">Kısa Vadeli ($)</th>
+              <th class="sayi-sutun">Uzun Vadeli ($)</th>
+              <th class="sayi-sutun">Kısa Vade Payı</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sonAylar.map((ay) => (
+              <tr>
+                <td><strong>{ay.tarih.slice(0, 7)}</strong></td>
+                <td class="sayi-sutun vurgulu-hucre">${ay.toplamUSD.toLocaleString('tr-TR')} M</td>
+                <td class="sayi-sutun kisa-renk">${ay.kisaUSD.toLocaleString('tr-TR')} M</td>
+                <td class="sayi-sutun uzun-renk">${ay.uzunUSD.toLocaleString('tr-TR')} M</td>
+                <td class="sayi-sutun">%{ay.kisaOran}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <YasalUyari />
+  </div>
+</Base>
+
+<style>
+  .bolum-baslik-alani {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+  }
+
+  .bolum-altbaslik {
+    font-size: 0.875rem;
+    color: var(--c-metin-hafif, #64748b);
+  }
+
+  .metin-kartlari {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  .metin-kart {
+    background: var(--c-kart, #ffffff);
+    border: 1px solid var(--c-kenar, #e2e8f0);
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+
+  .metin-kart h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.75rem;
+    color: var(--c-baslik, #0f172a);
+  }
+
+  .metin-kart p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--c-metin, #334155);
+    margin-bottom: 0.75rem;
+  }
+
+  .metin-kart ul {
+    margin: 0.5rem 0 0.75rem 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--c-metin, #334155);
+  }
+
+  .tablo-tasiyici {
+    overflow-x: auto;
+    margin-top: 1rem;
+    background: var(--c-kart, #ffffff);
+    border: 1px solid var(--c-kenar, #e2e8f0);
+    border-radius: 8px;
+  }
+
+  .veri-tablosu {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    text-align: left;
+  }
+
+  .veri-tablosu th,
+  .veri-tablosu td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--c-izgara, #f1f5f9);
+  }
+
+  .veri-tablosu th {
+    background: var(--c-zemin, #f8fafc);
+    font-weight: 600;
+    color: var(--c-baslik, #0f172a);
+  }
+
+  .sayi-sutun {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .vurgulu-hucre {
+    font-weight: 600;
+  }
+
+  .kisa-renk {
+    color: #991b1b;
+  }
+
+  .uzun-renk {
+    color: #1d4ed8;
+  }
+</style>

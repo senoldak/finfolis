@@ -1,0 +1,509 @@
+---
+// TCMB Rezervlerinde Swap Payı İnteraktif Grafiği
+// Finfolis tasarım dili: Kâğıt zemin, mürekkep & pişmiş toprak, Bricolage Grotesque, sıfır harici bağımlılık.
+interface Nokta {
+  tarih: string;
+  etiket: string;
+  toplam_rezerv_milyar_usd: number;
+  doviz_rezervi_milyar_usd: number;
+  altin_rezervi_milyar_usd: number;
+  swap_stoku_milyar_usd: number;
+  swap_payi_toplam_yuzde: number;
+  swap_payi_doviz_yuzde: number;
+}
+
+interface Props {
+  seri: Nokta[];
+}
+
+const { seri } = Astro.props;
+
+// SVG Koordinat Boyutları
+const W = 840;
+const H = 420;
+const PAD_TOP = 30;
+const PAD_BOTTOM = 45;
+const PAD_LEFT = 50;
+const PAD_RIGHT = 30;
+
+const innerW = W - PAD_LEFT - PAD_RIGHT;
+const innerH = H - PAD_TOP - PAD_BOTTOM;
+
+// Y ekseni min ve max
+const minY = 0;
+const maxY = 70;
+
+const xPos = (i: number, len: number) => PAD_LEFT + (i / Math.max(len - 1, 1)) * innerW;
+const yPos = (v: number) => PAD_TOP + (1 - (v - minY) / (maxY - minY)) * innerH;
+
+// İlk Yükleme İçin Yol (Path)
+const points = seri.map((p, i) => `${xPos(i, seri.length).toFixed(1)},${yPos(p.swap_payi_toplam_yuzde).toFixed(1)}`).join(' ');
+const cizgiYolu = seri
+  .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i, seri.length).toFixed(1)} ${yPos(p.swap_payi_toplam_yuzde).toFixed(1)}`)
+  .join(' ');
+
+// Dolgu alanı (Area)
+const ilkX = xPos(0, seri.length).toFixed(1);
+const sonX = xPos(seri.length - 1, seri.length).toFixed(1);
+const sifirY = yPos(0).toFixed(1);
+const alanYolu = `${cizgiYolu} L ${sonX} ${sifirY} L ${ilkX} ${sifirY} Z`;
+
+// Y Izgara Seviyeleri (%0, %10, %20, %30, %40, %50, %60, %70)
+const izgaraSeviyeleri = [0, 10, 20, 30, 40, 50, 60, 70];
+
+// X Ekseninde Yıl Ayrımı
+const yillar: { yil: string; x: number }[] = [];
+let oncekiYil = '';
+seri.forEach((p, i) => {
+  const yil = p.tarih.slice(0, 4);
+  if (yil !== oncekiYil) {
+    yillar.push({ yil, x: xPos(i, seri.length) });
+    oncekiYil = yil;
+  }
+});
+
+const sonNokta = seri.at(-1)!;
+const sonNoktaX = xPos(seri.length - 1, seri.length);
+const sonNoktaY = yPos(sonNokta.swap_payi_toplam_yuzde);
+---
+
+<div class="grafik-kapsayici" data-swap-grafik data-seri={JSON.stringify(seri)}>
+  <!-- Üst Başlık ve Filtre Seçiciler -->
+  <div class="grafik-ust-bilgi">
+    <div class="grafik-baslik-alani">
+      <h3 class="grafik-baslik">TCMB Rezervlerinde Swap Payı Seyri</h3>
+      <p class="grafik-altbaslik">Grafik üzerinde imleci gezdirerek detayları görebilir, periyot seçebilirsiniz</p>
+    </div>
+
+    <div class="zaman-filtre-alani" role="group" aria-label="Zaman Aralığı">
+      <button type="button" class="filtre-butonu" data-periyot="1y">1 Yıl</button>
+      <button type="button" class="filtre-butonu" data-periyot="2y">2 Yıl</button>
+      <button type="button" class="filtre-butonu aktif" data-periyot="tumu">Tümü (2021–2026)</button>
+    </div>
+  </div>
+
+  <!-- Dinamik Canlı Bilgi Kartı (Hover & Dokunmatik) -->
+  <div class="canli-deger-kutusu" id="swap-canli-kutu">
+    <div class="canli-oge">
+      <span class="canli-etiket">Seçilen Dönem</span>
+      <strong class="canli-veri" id="canli-tarih">{sonNokta.etiket}</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Swap Payı (Resmi Rezerv)</span>
+      <strong class="canli-veri vurgu-toprak" id="canli-oran">%{sonNokta.swap_payi_toplam_yuzde.toFixed(1)}</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Toplam Resmi Rezerv</span>
+      <strong class="canli-veri" id="canli-toplam">${sonNokta.toplam_rezerv_milyar_usd.toFixed(1)} mlr</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Toplam Swap Stoku</span>
+      <strong class="canli-veri" id="canli-swap">${sonNokta.swap_stoku_milyar_usd.toFixed(1)} mlr</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Döviz Rezervi</span>
+      <strong class="canli-veri" id="canli-doviz">${sonNokta.doviz_rezervi_milyar_usd.toFixed(1)} mlr</strong>
+    </div>
+  </div>
+
+  <!-- İnteraktif SVG -->
+  <div class="svg-sarici">
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      class="swap-svg"
+      role="img"
+      aria-label="TCMB Resmi Rezervlerinde Swap Oranı İnteraktif Grafiği"
+      id="swap-svg"
+    >
+      <defs>
+        <linearGradient id="swap-alan-gradyan" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c2502b" stop-opacity="0.22" />
+          <stop offset="100%" stop-color="#c2502b" stop-opacity="0.01" />
+        </linearGradient>
+      </defs>
+
+      <!-- Yatay Kılavuz Çizgileri -->
+      <g id="katman-izgara">
+        {
+          izgaraSeviyeleri.map((v) => {
+            const y = yPos(v);
+            return (
+              <g class="izgara-grup">
+                <line x1={PAD_LEFT} y1={y} x2={W - PAD_RIGHT} y2={y} stroke="var(--hair, #cfccc2)" stroke-width="1" />
+                <text x={PAD_LEFT - 8} y={y + 4} text-anchor="end" class="eksen-metin">
+                  %{v}
+                </text>
+              </g>
+            );
+          })
+        }
+      </g>
+
+      <!-- Dikey Yıl Ayrım Çizgileri -->
+      <g id="katman-yillar">
+        {
+          yillar.map((y) => (
+            <g class="yil-grup">
+              <line x1={y.x} y1={PAD_TOP} x2={y.x} y2={H - PAD_BOTTOM} stroke="var(--hair, #cfccc2)" stroke-dasharray="2 3" stroke-width="1" />
+              <text x={y.x + 4} y={H - PAD_BOTTOM + 18} class="eksen-metin yil-metin">
+                {y.yil}
+              </text>
+            </g>
+          ))
+        }
+      </g>
+
+      <!-- Dolgu Alanı -->
+      <path id="ana-alan" d={alanYolu} fill="url(#swap-alan-gradyan)" />
+
+      <!-- Ana Çizgi -->
+      <path
+        id="ana-egri"
+        d={cizgiYolu}
+        fill="none"
+        stroke="var(--toprak, #c2502b)"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+      <!-- Vurgu Noktası (Nisan 2024 - Zirve) -->
+      <g id="katman-vurgu-nisan24">
+        <!-- İstemci kodu tarafından dinamik konumlandırılır veya ilk çizimde gösterilir -->
+      </g>
+
+      <!-- İnteraktif Dikey Rehber Çizgisi (Crosshair) -->
+      <line
+        id="rehber-cizgi"
+        x1={sonNoktaX}
+        y1={PAD_TOP}
+        x2={sonNoktaX}
+        y2={H - PAD_BOTTOM}
+        stroke="var(--ink, #1b1b1b)"
+        stroke-width="1"
+        stroke-dasharray="3 3"
+        opacity="0.6"
+      />
+
+      <!-- Hareket Eden Odak Çemberi -->
+      <circle
+        id="fokus-cemberi"
+        cx={sonNoktaX}
+        cy={sonNoktaY}
+        r="5"
+        fill="var(--toprak, #c2502b)"
+        stroke="var(--paper, #f4f3ee)"
+        stroke-width="2.5"
+      />
+
+      <!-- Şeffaf Etkileşim Katmanı -->
+      <rect
+        id="etkilesim-katmani"
+        x={PAD_LEFT}
+        y={PAD_TOP}
+        width={innerW}
+        height={innerH}
+        fill="transparent"
+        style="cursor: crosshair; touch-action: none;"
+      />
+    </svg>
+  </div>
+
+  <div class="grafik-dip-not">
+    <span>● Kaynak: TCMB Uluslararası Rezervler ve Döviz Likiditesi (IMF SDDS Şablonu) &amp; EVDS</span>
+    <span>Hesaplama: (Toplam Swap Açık Pozisyonu / Toplam Resmi Rezervler) × 100</span>
+  </div>
+</div>
+
+<script>
+  const kapsayici = document.querySelector('[data-swap-grafik]') as HTMLElement | null;
+  if (kapsayici) {
+    const tumSeri: Array<{
+      tarih: string;
+      etiket: string;
+      toplam_rezerv_milyar_usd: number;
+      doviz_rezervi_milyar_usd: number;
+      altin_rezervi_milyar_usd: number;
+      swap_stoku_milyar_usd: number;
+      swap_payi_toplam_yuzde: number;
+      swap_payi_doviz_yuzde: number;
+    }> = JSON.parse(kapsayici.dataset.seri || '[]');
+
+    let aktifSeri = [...tumSeri];
+
+    // SVG ve Elemanlar
+    const svg = document.getElementById('swap-svg') as SVGSVGElement | null;
+    const anaEgri = document.getElementById('ana-egri') as SVGPathElement | null;
+    const anaAlan = document.getElementById('ana-alan') as SVGPathElement | null;
+    const rehberCizgi = document.getElementById('rehber-cizgi') as SVGLineElement | null;
+    const fokusCemberi = document.getElementById('fokus-cemberi') as SVGCircleElement | null;
+    const etkilesim = document.getElementById('etkilesim-katmani') as SVGRectElement | null;
+    const katmanYillar = document.getElementById('katman-yillar');
+
+    // Canlı Kartlar
+    const canliTarih = document.getElementById('canli-tarih');
+    const canliOran = document.getElementById('canli-oran');
+    const canliToplam = document.getElementById('canli-toplam');
+    const canliSwap = document.getElementById('canli-swap');
+    const canliDoviz = document.getElementById('canli-doviz');
+
+    // Boyutlar
+    const W = 840;
+    const H = 420;
+    const PAD_TOP = 30;
+    const PAD_BOTTOM = 45;
+    const PAD_LEFT = 50;
+    const PAD_RIGHT = 30;
+    const innerW = W - PAD_LEFT - PAD_RIGHT;
+    const innerH = H - PAD_TOP - PAD_BOTTOM;
+    const minY = 0;
+    const maxY = 70;
+
+    const xPos = (i: number, len: number) => PAD_LEFT + (i / Math.max(len - 1, 1)) * innerW;
+    const yPos = (v: number) => PAD_TOP + (1 - (v - minY) / (maxY - minY)) * innerH;
+
+    function guncelleBilgi(d: typeof tumSeri[0], px: number, py: number) {
+      if (canliTarih) canliTarih.textContent = d.etiket;
+      if (canliOran) canliOran.textContent = `%${d.swap_payi_toplam_yuzde.toFixed(1)}`;
+      if (canliToplam) canliToplam.textContent = `$${d.toplam_rezerv_milyar_usd.toFixed(1)} mlr`;
+      if (canliSwap) canliSwap.textContent = `$${d.swap_stoku_milyar_usd.toFixed(1)} mlr`;
+      if (canliDoviz) canliDoviz.textContent = `$${d.doviz_rezervi_milyar_usd.toFixed(1)} mlr`;
+
+      if (rehberCizgi) {
+        rehberCizgi.setAttribute('x1', px.toFixed(1));
+        rehberCizgi.setAttribute('x2', px.toFixed(1));
+      }
+      if (fokusCemberi) {
+        fokusCemberi.setAttribute('cx', px.toFixed(1));
+        fokusCemberi.setAttribute('cy', py.toFixed(1));
+      }
+    }
+
+    function ciz(veriler: typeof tumSeri) {
+      if (!veriler.length || !anaEgri || !anaAlan) return;
+
+      const cizgi = veriler
+        .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i, veriler.length).toFixed(1)} ${yPos(p.swap_payi_toplam_yuzde).toFixed(1)}`)
+        .join(' ');
+      anaEgri.setAttribute('d', cizgi);
+
+      const ilkX = xPos(0, veriler.length).toFixed(1);
+      const sonX = xPos(veriler.length - 1, veriler.length).toFixed(1);
+      const sifirY = yPos(0).toFixed(1);
+      anaAlan.setAttribute('d', `${cizgi} L ${sonX} ${sifirY} L ${ilkX} ${sifirY} Z`);
+
+      // Yıl etiketlerini güncelle
+      if (katmanYillar) {
+        katmanYillar.innerHTML = '';
+        let oncekiYil = '';
+        veriler.forEach((p, i) => {
+          const yil = p.tarih.slice(0, 4);
+          if (yil !== oncekiYil) {
+            const x = xPos(i, veriler.length);
+            const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+            g.innerHTML = `
+              <line x1="${x}" y1="${PAD_TOP}" x2="${x}" y2="${H - PAD_BOTTOM}" stroke="var(--hair, #cfccc2)" stroke-dasharray="2 3" stroke-width="1" />
+              <text x="${x + 4}" y="${H - PAD_BOTTOM + 18}" class="eksen-metin yil-metin">${yil}</text>
+            `;
+            katmanYillar.appendChild(g);
+            oncekiYil = yil;
+          }
+        });
+      }
+
+      // Son noktaya odaklan
+      const son = veriler.at(-1)!;
+      guncelleBilgi(son, xPos(veriler.length - 1, veriler.length), yPos(son.swap_payi_toplam_yuzde));
+    }
+
+    // İmleç ve Dokunmatik Olayları
+    function fareTakip(clientX: number) {
+      if (!svg || !aktifSeri.length) return;
+      const rect = svg.getBoundingClientRect();
+      const svgX = ((clientX - rect.left) / rect.width) * W;
+
+      // X koordinatına en yakın veri noktasını bul
+      let enYakinIdx = 0;
+      let minMesafe = Infinity;
+
+      aktifSeri.forEach((_, i) => {
+        const px = xPos(i, aktifSeri.length);
+        const mesafe = Math.abs(svgX - px);
+        if (mesafe < minMesafe) {
+          minMesafe = mesafe;
+          enYakinIdx = i;
+        }
+      });
+
+      const nokta = aktifSeri[enYakinIdx];
+      guncelleBilgi(nokta, xPos(enYakinIdx, aktifSeri.length), yPos(nokta.swap_payi_toplam_yuzde));
+    }
+
+    if (etkilesim) {
+      etkilesim.addEventListener('mousemove', (e) => fareTakip(e.clientX));
+      etkilesim.addEventListener('touchmove', (e) => {
+        if (e.touches[0]) fareTakip(e.touches[0].clientX);
+      }, { passive: true });
+
+      etkilesim.addEventListener('mouseleave', () => {
+        const son = aktifSeri.at(-1);
+        if (son) guncelleBilgi(son, xPos(aktifSeri.length - 1, aktifSeri.length), yPos(son.swap_payi_toplam_yuzde));
+      });
+    }
+
+    // Filtre Butonları
+    const butonlar = kapsayici.querySelectorAll('.filtre-butonu');
+    butonlar.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        butonlar.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+
+        const periyot = btn.getAttribute('data-periyot');
+        if (periyot === '1y') {
+          aktifSeri = tumSeri.slice(-12);
+        } else if (periyot === '2y') {
+          aktifSeri = tumSeri.slice(-24);
+        } else {
+          aktifSeri = [...tumSeri];
+        }
+
+        ciz(aktifSeri);
+      });
+    });
+  }
+</script>
+
+<style>
+  .grafik-kapsayici {
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 20px;
+    margin: 24px 0;
+  }
+
+  .grafik-ust-bilgi {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--hair, #cfccc2);
+    padding-bottom: 12px;
+  }
+
+  .grafik-baslik {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--ink, #1b1b1b);
+    font-family: var(--sans, sans-serif);
+  }
+
+  .grafik-altbaslik {
+    font-size: 0.85rem;
+    color: var(--muted, #5d5b55);
+    margin: 2px 0 0;
+  }
+
+  .zaman-filtre-alani {
+    display: flex;
+    gap: 6px;
+  }
+
+  .filtre-butonu {
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    color: var(--ink, #1b1b1b);
+    padding: 5px 12px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .filtre-butonu:hover {
+    border-color: var(--ink, #1b1b1b);
+  }
+
+  .filtre-butonu.aktif {
+    background: var(--ink, #1b1b1b);
+    color: var(--paper, #f4f3ee);
+    border-color: var(--ink, #1b1b1b);
+  }
+
+  /* Canlı Değer Bandı */
+  .canli-deger-kutusu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px 16px;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .canli-oge {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .canli-etiket {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted, #5d5b55);
+    font-weight: 600;
+  }
+
+  .canli-veri {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+    font-family: var(--sans, sans-serif);
+  }
+
+  .vurgu-toprak {
+    color: var(--toprak, #c2502b);
+    font-size: 1.25rem;
+  }
+
+  /* SVG Çizim Alanı */
+  .svg-sarici {
+    width: 100%;
+    overflow-x: auto;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 12px 8px;
+  }
+
+  .swap-svg {
+    width: 100%;
+    height: auto;
+    min-width: 580px;
+    display: block;
+  }
+
+  .eksen-metin {
+    font-size: 11px;
+    fill: var(--muted, #5d5b55);
+    font-family: var(--sans, sans-serif);
+  }
+
+  .yil-metin {
+    font-weight: 600;
+    fill: var(--ink, #1b1b1b);
+  }
+
+  .grafik-dip-not {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 0.75rem;
+    color: var(--muted, #5d5b55);
+  }
+</style>

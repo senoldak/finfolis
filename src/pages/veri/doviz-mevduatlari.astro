@@ -1,0 +1,391 @@
+---
+// Döviz Mevduatları (YP Mevduat): Bankacılık sektöründeki döviz ve altın mevduatları; TCMB EVDS haftalık bülteninden.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import Change from '../../components/Change.astro';
+import { RESMI, gunYaz, milyarUsd, farkUsd, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const mevduat = RESMI.mevduat;
+const satirlar = mevduat?.satirlar ?? [];
+const son = satirlar.at(-1);
+const birHaftaOnce = satirlar.at(-2);
+const ilk = satirlar[0];
+
+// Haftalık değişim
+const farkToplam = son && birHaftaOnce ? son.toplam - birHaftaOnce.toplam : 0;
+const yuzdeDegisim =
+  son && birHaftaOnce && birHaftaOnce.toplam > 0
+    ? Math.round(((son.toplam - birHaftaOnce.toplam) / birHaftaOnce.toplam) * 1000) / 10
+    : 0;
+
+const farkBireysel = son && birHaftaOnce ? son.bireysel - birHaftaOnce.bireysel : 0;
+const farkTuzel = son && birHaftaOnce ? son.tuzel - birHaftaOnce.tuzel : 0;
+const farkAltin = son && birHaftaOnce ? son.altin - birHaftaOnce.altin : 0;
+
+// Pay oranları
+const bireyselPay = son && son.toplam > 0 ? Math.round((son.bireysel / son.toplam) * 1000) / 10 : 0;
+const tuzelPay = son && son.toplam > 0 ? Math.round((son.tuzel / son.toplam) * 1000) / 10 : 0;
+
+// Son 16 haftanın tablosu (tersten, en yeniden eskiye)
+const tablo = satirlar.slice(-16).reverse();
+
+// SVG Grafik Hesaplamaları
+const W = 720;
+const H = 280;
+const PAD_L = 55;
+const PAD_R = 20;
+const PAD_T = 25;
+const PAD_B = 35;
+
+const tumDegerler = satirlar.map((s) => s.toplam);
+const minVal = tumDegerler.length ? Math.floor(Math.min(...tumDegerler) / 5000) * 5000 : 240000;
+const maxVal = tumDegerler.length ? Math.ceil(Math.max(...tumDegerler) / 5000) * 5000 : 280000;
+const aralik = maxVal - minVal || 1;
+
+const xKoord = (idx: number) => PAD_L + (idx / Math.max(satirlar.length - 1, 1)) * (W - PAD_L - PAD_R);
+const yKoord = (val: number) => PAD_T + (1 - (val - minVal) / aralik) * (H - PAD_T - PAD_B);
+
+// SVG Noktaları
+const cizgiToplam = satirlar.map((s, i) => `${i === 0 ? 'M' : 'L'} ${xKoord(i).toFixed(1)} ${yKoord(s.toplam).toFixed(1)}`).join(' ');
+const cizgiBireysel = satirlar.map((s, i) => `${i === 0 ? 'M' : 'L'} ${xKoord(i).toFixed(1)} ${yKoord(s.bireysel).toFixed(1)}`).join(' ');
+const cizgiTuzel = satirlar.map((s, i) => `${i === 0 ? 'M' : 'L'} ${xKoord(i).toFixed(1)} ${yKoord(s.tuzel).toFixed(1)}`).join(' ');
+
+// Zirve ve Dip
+let zirveIdx = 0;
+let dipIdx = 0;
+satirlar.forEach((s, i) => {
+  if (s.toplam > satirlar[zirveIdx].toplam) zirveIdx = i;
+  if (s.toplam < satirlar[dipIdx].toplam) dipIdx = i;
+});
+
+// Y ekseni çizgileri (5 basamak)
+const yBasamaklari = [minVal, minVal + aralik * 0.25, minVal + aralik * 0.5, minVal + aralik * 0.75, maxVal];
+
+// X ekseni etiketleri (4 eşit aralık)
+const xEtiketleri = [0, Math.floor(satirlar.length * 0.33), Math.floor(satirlar.length * 0.66), satirlar.length - 1]
+  .filter((idx, pos, arr) => arr.indexOf(idx) === pos && idx < satirlar.length);
+
+const baslik = 'Döviz mevduatları (YP mevduat toplamı)';
+const description =
+  son && mevduat
+    ? `Bankacılık sektöründeki döviz ve altın mevduatları ${gunYaz(son.tarih)} itibarıyla ${milyarUsd(son.toplam)} (${farkUsd(farkToplam)} haftalık değişim). Bireysel ve tüzel kişi dağılımı, dolarlaşma seyri.`
+    : 'Türkiye bankacılık sektöründe döviz mevduatı toplamı (altın dahil), bireysel ve ticari mevduat dağılımı, haftalık TCMB verileri.';
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Döviz mevduatları', href: '/veri/doviz-mevduatlari/' },
+];
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(mevduat && son && ilk
+    ? {
+        sayfaEk: { dateModified: mevduat.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Türkiye Bankacılık Sektörü Yabancı Para Mevduat Toplamı',
+            description: 'TCMB haftalık para ve banka istatistiklerine göre bankacılık sektöründeki döviz ve altın mevduatları (milyon USD).',
+            url: 'https://finfolis.com/veri/doviz-mevduatlari/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ilk.tarih}/${son.tarih}`,
+            dateModified: mevduat.alinma,
+            variableMeasured: ['Toplam YP Mevduat (Milyon USD)', 'Gerçek Kişiler YP Mevduat', 'Tüzel Kişiler YP Mevduat'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Döviz mevduatları: ${son ? milyarUsd(son.toplam) : 'YP Mevduat'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Bankacılık sektörü yabancı para ve altın hesapları · TCMB EVDS haftalık verisi</p>
+    </header>
+
+    {
+      son && mevduat ? (
+        <>
+          <dl class="veri-rakamlar mevduat-rakamlar">
+            <div class="vurgulu-kutu">
+              <dt>Toplam YP mevduat <small>(Altın dahil)</small></dt>
+              <dd>{milyarUsd(son.toplam)}</dd>
+              <dd class="veri-degisim">
+                <Change value={yuzdeDegisim} /> {farkUsd(farkToplam)} önceki haftaya göre
+              </dd>
+            </div>
+            <div>
+              <dt>Bireysel <small>(Vatandaş)</small></dt>
+              <dd>{milyarUsd(son.bireysel)}</dd>
+              <dd class="veri-degisim">
+                Pay: %{bireyselPay} · {farkUsd(farkBireysel)}
+              </dd>
+            </div>
+            <div>
+              <dt>Şirketler <small>(Tüzel Kişi)</small></dt>
+              <dd>{milyarUsd(son.tuzel)}</dd>
+              <dd class="veri-degisim">
+                Pay: %{tuzelPay} · {farkUsd(farkTuzel)}
+              </dd>
+            </div>
+            <div>
+              <dt>Kıymetli Maden <small>(Altın vb.)</small></dt>
+              <dd>{milyarUsd(son.altin)}</dd>
+              <dd class="veri-degisim">
+                {farkUsd(farkAltin)} önceki haftaya göre
+              </dd>
+            </div>
+          </dl>
+
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={mevduat.kaynak.url} rel="noopener" target="_blank">{mevduat.kaynak.ad}</a> (Tablo 4).
+            TCMB her perşembe 14:30’da önceki haftanın cuma kapanışını açıklar. Veri tarihi: <strong>{gunYaz(son.tarih)}</strong>.
+            Siteye alındığı zaman: {zamanYaz(mevduat.alinma)}.
+          </p>
+
+          <!-- SVG Çizgi Grafik -->
+          <section class="bolum grafik-kapsayici">
+            <div class="grafik-ust-bar">
+              <h2 class="bolum-baslik">Son 1 Yılın Seyri (Milyar USD)</h2>
+              <div class="grafik-lejant-cubuk" aria-hidden="true">
+                <span class="lejant-oge"><span class="lejant-nokta cizgi-toplam-renk"></span> Toplam YP Mevduat</span>
+                <span class="lejant-oge"><span class="lejant-nokta cizgi-bireysel-renk"></span> Bireysel (Vatandaş)</span>
+                <span class="lejant-oge"><span class="lejant-nokta cizgi-tuzel-renk"></span> Şirketler</span>
+              </div>
+            </div>
+
+            <div class="svg-tutucu">
+              <svg viewBox={`0 0 ${W} ${H}`} class="mevduat-svg" role="img" aria-label={`Toplam YP mevduatı son 1 yılda ${milyarUsd(satirlar[0].toplam)} seviyesinden ${milyarUsd(son.toplam)} seviyesine geldi.`}>
+                <!-- Kılavuz Çizgileri ve Y Eksen Değerleri -->
+                {yBasamaklari.map((val) => (
+                  <g class="grid-satir">
+                    <line x1={PAD_L} y1={yKoord(val)} x2={W - PAD_R} y2={yKoord(val)} stroke="var(--hair)" stroke-width="1" stroke-dasharray="3 3" />
+                    <text x={PAD_L - 8} y={yKoord(val) + 4} text-anchor="end" class="eksen-yazi">
+                      ${Math.round(val / 1000)} Mr
+                    </text>
+                  </g>
+                ))}
+
+                <!-- X Eksen Etiketleri -->
+                {xEtiketleri.map((idx) => (
+                  <g class="x-etiket-g">
+                    <line x1={xKoord(idx)} y1={H - PAD_B} x2={xKoord(idx)} y2={H - PAD_B + 5} stroke="var(--ink)" stroke-width="1" />
+                    <text x={xKoord(idx)} y={H - PAD_B + 18} text-anchor={idx === 0 ? 'start' : idx === satirlar.length - 1 ? 'end' : 'middle'} class="eksen-yazi">
+                      {gunYaz(satirlar[idx].tarih).slice(3)}
+                    </text>
+                  </g>
+                ))}
+
+                <!-- Çizgiler: Şirketler, Bireysel, Toplam -->
+                <path d={cizgiTuzel} fill="none" stroke="var(--muted)" stroke-width="1.75" stroke-dasharray="4 2" />
+                <path d={cizgiBireysel} fill="none" stroke="var(--toprak)" stroke-width="2" />
+                <path d={cizgiToplam} fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
+
+                <!-- Zirve Noktası -->
+                <g class="vurgu-noktasi">
+                  <circle cx={xKoord(zirveIdx)} cy={yKoord(satirlar[zirveIdx].toplam)} r="4" fill="var(--ink)" />
+                  <text x={xKoord(zirveIdx)} y={yKoord(satirlar[zirveIdx].toplam) - 8} text-anchor="middle" class="vurgu-yazi">
+                    Zirve: {milyarUsd(satirlar[zirveIdx].toplam)}
+                  </text>
+                </g>
+
+                <!-- Dip Noktası -->
+                <g class="vurgu-noktasi">
+                  <circle cx={xKoord(dipIdx)} cy={yKoord(satirlar[dipIdx].toplam)} r="4" fill="var(--ink)" />
+                  <text x={xKoord(dipIdx)} y={yKoord(satirlar[dipIdx].toplam) + 16} text-anchor="middle" class="vurgu-yazi">
+                    Dip: {milyarUsd(satirlar[dipIdx].toplam)}
+                  </text>
+                </g>
+
+                <!-- Güncel Son Nokta -->
+                <circle cx={xKoord(satirlar.length - 1)} cy={yKoord(son.toplam)} r="5" fill="var(--toprak)" />
+              </svg>
+            </div>
+            <p class="veri-notu">Grafikteki toplam tutar, bankalardaki DTH (Döviz Tevdiat Hesapları) ve kaydi altın hesaplarının ABD Doları karşılığıdır.</p>
+          </section>
+
+          <div class="veri-izgara">
+            <!-- Sol: Son 16 Hafta Tablosu -->
+            <section class="bolum">
+              <h2 class="bolum-baslik">Haftalık Değişim Geçmişi</h2>
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Tarih</th>
+                    <th scope="col" class="sag">Toplam YP</th>
+                    <th scope="col" class="sag">Bireysel</th>
+                    <th scope="col" class="sag">Şirketler</th>
+                    <th scope="col" class="sag">Haftalık Fark</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tablo.map((s, idx) => {
+                    const birOnce = tablo[idx + 1];
+                    const fark = birOnce ? s.toplam - birOnce.toplam : undefined;
+                    return (
+                      <tr>
+                        <td>{gunYaz(s.tarih)}</td>
+                        <td class="sag">{milyarUsd(s.toplam)}</td>
+                        <td class="sag">{milyarUsd(s.bireysel)}</td>
+                        <td class="sag">{milyarUsd(s.tuzel)}</td>
+                        <td class="sag">
+                          {fark !== undefined ? (
+                            <span class={fark > 0 ? 'renk-dusus' : fark < 0 ? 'renk-yukselis' : ''}>
+                              {farkUsd(fark)}
+                            </span>
+                          ) : (
+                            '—'
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </section>
+
+            <!-- Sağ: Açıklama ve Finfolis Notları -->
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu Rakamlar Ne Anlatıyor?</h2>
+              
+              <h3>Dolarlaşma ve YP Mevduatı Nedir?</h3>
+              <p>
+                Bankacılık sektöründeki yabancı para (YP) mevduatı; vatandaşların ve şirketlerin bankalarda tuttukları
+                ABD Doları, Euro ve altın hesaplarının tamamının dolar cinsinden değeridir. Bir ekonomide toplam mevduat
+                içindeki YP payının yüksek olması <strong>"dolarlaşma"</strong> (dolarizasyon) olarak adlandırılır.
+              </p>
+
+              <h3>Parite Etkisi Uyarısı (Rakam Neden Artar?)</h3>
+              <p>
+                Toplam YP mevduatı dolar cinsinden hesaplandığı için; euro değer kazandığında veya uluslararası piyasalarda
+                <strong>altının ons fiyatı yükseldiğinde</strong>, vatandaş hiç döviz almasa dahi bu toplam kendiliğinden artmış
+                görünür. Bu duruma <strong>"parite etkisi"</strong> denir. Bu nedenle ekonomistler net döviz talebini anlamak için
+                parite etkisinden arındırılmış giriş-çıkışları da inceler.
+              </p>
+
+              <h3>Ters Dolarlaşma (Dedolarizasyon) ve TL Tercihi</h3>
+              <p>
+                TL mevduat faizlerinin cazip hale gelmesi veya enflasyon beklentilerinin gerilemesiyle birlikte mudiler
+                dövizden TL mevduata geçtiğinde bu grafik aşağı yönlü hareket eder. Bu süreç <strong>"ters dolarlaşma"</strong>
+                olarak adlandırılır ve finansal istikrar açısından kritik bir göstergedir.
+              </p>
+
+              <h3>Veri Ne Zaman Açıklanır?</h3>
+              <p>
+                TCMB bu istatistiği her <strong>Perşembe günü saat 14:30’da</strong> bir önceki haftanın Cuma kapanış verileriyle
+                birlikte EVDS bülteninde yayımlar. Resmi tatillerde yayımlanma tarihi takip eden ilk iş gününe kayabilir.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Döviz mevduat verisi şu anda yüklenemiyor. Veri alındığında bu sayfada gösterilecektir.</p>
+      )
+    }
+
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/dolar-kuru/">Dolar kuru</a>
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/rezervler/">TCMB Rezervleri</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki döviz ve altın mevduat verileri Türkiye Cumhuriyet Merkez Bankası (TCMB) resmi bültenlerinden alınmıştır ve yatırım tavsiyesi niteliği taşımaz.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .mevduat-rakamlar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin: 24px 0 16px;
+  }
+  .vurgulu-kutu {
+    border-left: 3px solid var(--toprak);
+    padding-left: 12px;
+  }
+  .grafik-kapsayici {
+    margin: 32px 0;
+    padding: 20px;
+    background: var(--paper-2);
+    border: 1px solid var(--hair);
+  }
+  .grafik-ust-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .grafik-lejant-cubuk {
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--ink-2);
+  }
+  .lejant-oge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .lejant-nokta {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+  }
+  .cizgi-toplam-renk {
+    background: var(--ink);
+  }
+  .cizgi-bireysel-renk {
+    background: var(--toprak);
+  }
+  .cizgi-tuzel-renk {
+    background: var(--muted);
+    border: 1px dashed var(--ink-2);
+  }
+  .svg-tutucu {
+    width: 100%;
+    overflow-x: auto;
+  }
+  .mevduat-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 600px;
+  }
+  .eksen-yazi {
+    font-size: 11px;
+    fill: var(--muted);
+    font-family: inherit;
+  }
+  .vurgu-yazi {
+    font-size: 11px;
+    font-weight: 600;
+    fill: var(--ink);
+    font-family: inherit;
+  }
+  .renk-yukselis {
+    color: var(--yukselis);
+  }
+  .renk-dusus {
+    color: var(--dusus);
+  }
+  @media (max-width: 640px) {
+    .grafik-ust-bar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

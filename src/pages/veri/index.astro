@@ -5,6 +5,7 @@ import { KUR_SAYFALARI, RESMI, ayAdi, gunYaz, oranYaz, sayiYaz } from '../../lib
 import bistTufeData from '../../data/bist-tufe.json';
 import reelBistData from '../../data/reel-bist.json';
 import makroSokData from '../../data/makro-soklar.json';
+import abdTahvilleriData from '../../data/abd-tahvilleri.json';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
@@ -33,6 +34,12 @@ const ogeler = [
     ad: 'TCMB net döviz pozisyonu',
     deger: rezerv ? `${rezerv.netDovizPozisyonu > 0 ? '+' : ''}${sayiYaz(rezerv.netDovizPozisyonu, 1)} milyar $` : undefined,
     not: rezerv ? `TCMB, ${gunYaz(rezerv.tarih)}` : undefined,
+  },
+  {
+    href: '/veri/abd-tahvilleri/',
+    ad: "Türkiye'nin elindeki ABD tahvilleri",
+    deger: abdTahvilleriData ? `$${sayiYaz(abdTahvilleriData.sonNokta.toplamUSD / 1000, 2)} milyar` : undefined,
+    not: abdTahvilleriData ? `TIC data · ${abdTahvilleriData.sonNokta.tarih.slice(0, 7)}` : undefined,
   },
   {
     href: '/veri/sektorler/',
