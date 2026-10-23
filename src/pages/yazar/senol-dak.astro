@@ -3,11 +3,11 @@
 import Base from '../../layouts/Base.astro';
 import NewsCard from '../../components/NewsCard.astro';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
-import { YAZAR, yazarUrl } from '../../lib/yazar.mjs';
+import { YAZAR, yazarUrl, kisiYazariMi } from '../../lib/yazar.mjs';
 import { getNews, newsUrl } from '../../lib/news';
 import { ORG_ID, SITE_URL, WEBSITE_ID } from '../../lib/seo';
 
-const haberler = await getNews({ indeksli: true });
+const haberler = (await getNews({ indeksli: true })).filter((h) => kisiYazariMi(h.data));
 const pageUrl = yazarUrl(SITE_URL);
 
 const jsonLd = {

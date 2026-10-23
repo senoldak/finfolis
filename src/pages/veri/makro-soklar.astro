@@ -89,7 +89,7 @@ const g = data.gostergeler;
     </aside>
 
     <!-- İnteraktif Görselleştirme -->
-    <section class="bolum" style="margin-bottom: var(--alan-l);">
+    <section class="bolum bolum-grafigi">
       <div class="bolum-ust">
         <div>
           <span class="ust-etiket">İnteraktif Görselleştirme</span>
@@ -116,7 +116,7 @@ const g = data.gostergeler;
         <table class="cizelge veri-tablo">
           <thead>
             <tr>
-              <th scope="col" style="width: 36px;">#</th>
+              <th scope="col" class="sira-no-sutun">#</th>
               <th scope="col">Dönem</th>
               <th scope="col" class="sag">TGE Düşüşü</th>
               <th scope="col" class="sag">BİST 100 (Aynı Ay)</th>
@@ -172,7 +172,7 @@ const g = data.gostergeler;
         <table class="cizelge veri-tablo">
           <thead>
             <tr>
-              <th scope="col" style="width: 36px;">#</th>
+              <th scope="col" class="sira-no-sutun">#</th>
               <th scope="col">Dönem</th>
               <th scope="col" class="sag">RKGE Düşüşü</th>
               <th scope="col" class="sag">BİST 100 (Aynı Ay)</th>
@@ -228,7 +228,7 @@ const g = data.gostergeler;
         <table class="cizelge veri-tablo">
           <thead>
             <tr>
-              <th scope="col" style="width: 36px;">#</th>
+              <th scope="col" class="sira-no-sutun">#</th>
               <th scope="col">Dönem</th>
               <th scope="col" class="sag">Aylık Değişim</th>
               <th scope="col" class="sag">BİST 100 (Aynı Ay)</th>
@@ -284,7 +284,7 @@ const g = data.gostergeler;
         <table class="cizelge veri-tablo">
           <thead>
             <tr>
-              <th scope="col" style="width: 36px;">#</th>
+              <th scope="col" class="sira-no-sutun">#</th>
               <th scope="col">Dönem</th>
               <th scope="col" class="sag">Reel Kur Değişimi</th>
               <th scope="col" class="sag">BİST 100 (Aynı Ay)</th>
@@ -327,7 +327,7 @@ const g = data.gostergeler;
     </section>
 
     <!-- Öğretici Yöntem ve Açıklama Bölümü -->
-    <div class="veri-izgara" style="margin-top: 32px;">
+    <div class="veri-izgara metodoloji-izgara">
       <section class="bolum">
         <h2 class="bolum-baslik">Nasıl Hesaplandı?</h2>
         <div class="metin-blok">
@@ -346,7 +346,7 @@ const g = data.gostergeler;
       <section class="bolum">
         <h2 class="bolum-baslik">Resmî Kaynaklar</h2>
         <div class="metin-blok">
-          <ul style="list-style: none; padding: 0; line-height: 1.8;">
+          <ul class="metodoloji-liste">
             <li><strong>TCMB EVDS:</strong> TP.TG2.Y01, TP.TG.EN, TP.GY1.N2.MA, TP.RK.T1.Y</li>
             <li><strong>TÜİK:</strong> Tüketici Eğilim Anketi, Sanayi Üretim İstatistikleri</li>
             <li><strong>Borsa İstanbul:</strong> BİST 100 (XU100) Aylık Kapanış Verileri</li>
@@ -360,6 +360,21 @@ const g = data.gostergeler;
 </Base>
 
 <style>
+  .bolum-grafigi {
+    margin-bottom: var(--alan-l);
+  }
+  .sira-no-sutun {
+    width: 36px;
+  }
+  .metodoloji-izgara {
+    margin-top: 32px;
+  }
+  .metodoloji-liste {
+    list-style: none;
+    padding: 0;
+    line-height: 1.8;
+  }
+
   .veri-sayfa {
     max-width: 900px;
     margin: 0 auto;

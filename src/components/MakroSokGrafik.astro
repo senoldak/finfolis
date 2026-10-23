@@ -91,8 +91,18 @@ const gostergeler = veri.gostergeler;
   </div>
 </div>
 
-<script is:inline define:vars={{ veriler: veri }}>
-  (function initMakroGrafik() {
+<script type="application/json" id="makro-sok-veriler" set:html={JSON.stringify(veri)} />
+
+<script>
+function initMakroGrafik() {
+    const dataEl = document.getElementById('makro-sok-veriler');
+    if (!dataEl) return;
+    let veriler;
+    try {
+      veriler = JSON.parse(dataEl.textContent || '{}');
+    } catch (e) {
+      return;
+    }
     const root = document.getElementById('makro-grafik-kapsayici');
     if (!root) return;
 
@@ -235,7 +245,7 @@ const gostergeler = veri.gostergeler;
         const seciliSinif = isSelected ? 'cubuk-aktif' : '';
 
         cubuklarHtml += `
-          <g class="sok-sutun-grup ${seciliSinif}" data-index="${idx}" style="cursor: pointer;">
+          <g class="sok-sutun-grup ${seciliSinif}" data-index="${idx}">
             <!-- Hover için geniş şeffaf arka plan -->
             <rect x="${cx - slotWidth / 2}" y="${PAD_T}" width="${slotWidth}" height="${H - PAD_T - PAD_B}" fill="${isSelected ? 'rgba(194, 80, 43, 0.08)' : 'transparent'}" class="sutun-arka" />
 
@@ -319,10 +329,21 @@ const gostergeler = veri.gostergeler;
     }
 
     ciz();
-  })();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMakroGrafik);
+  } else {
+    initMakroGrafik();
+  }
+  document.addEventListener('astro:page-load', initMakroGrafik);
 </script>
 
 <style>
+  .sok-sutun-grup {
+    cursor: pointer;
+  }
+
   .makro-grafik-kapsayici {
     background: var(--paper, #f4f3ee);
     border: 1px solid var(--hair, #cfccc2);

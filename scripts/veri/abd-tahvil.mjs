@@ -43,7 +43,7 @@ async function evdsMenkulKiymetCek() {
     }
   }
 
-  const baslangic = '01-01-2023';
+  const baslangic = '01-01-2018';
   const bitis = '01-10-2026';
   const url = `https://evds3.tcmb.gov.tr/igmevdsms-dis/series=TP.REZVARPD.K3&startDate=${baslangic}&endDate=${bitis}&type=json`;
 
@@ -228,7 +228,7 @@ async function main() {
 
   // Birleştirme (2023-01'den itibaren)
   const donemler = Array.from(ticAkim.keys()).sort();
-  const baslangicDonem = '2023-01';
+  const baslangicDonem = '2018-01';
   const filtrelenmis = donemler.filter((d) => d >= baslangicDonem);
 
   const seri = [];

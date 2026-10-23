@@ -151,8 +151,8 @@ const jsonLd = {
   noindex={noindex}
 >
   <Fragment slot="head">
-    <meta name="author" content={YAZAR.ad} />
-    <meta property="article:author" content={yazarUrl(SITE_URL)} />
+    <meta name="author" content={kisiYazariMi(haber.data) ? YAZAR.ad : SITE.name} />
+    {kisiYazariMi(haber.data) && <meta property="article:author" content={yazarUrl(SITE_URL)} />}
     <meta property="article:published_time" content={published} />
     <meta property="article:modified_time" content={modified} />
     <meta property="article:section" content={categoryName(category)} />
@@ -171,7 +171,7 @@ const jsonLd = {
           </a>
           {turEtiket && <span class="kunye-tur">{turEtiket}</span>}
           <span>
-            Yazan: <a rel="author" href={YAZAR.yol}>{YAZAR.ad}</a>
+            Yazan: {kisiYazariMi(haber.data) ? <a rel="author" href={YAZAR.yol}>{YAZAR.ad}</a> : <strong>{SITE.name}</strong>}
           </span>
           <time datetime={date.toISOString()}>{formatDate(date, true)}</time>
           {okumaDk >= 2 && <span>{okumaDk} dk okuma</span>}
