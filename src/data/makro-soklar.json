@@ -1,0 +1,509 @@
+{
+  "guncelleme": "2026-10-23T09:37:24.668Z",
+  "gostergeler": {
+    "tge": {
+      "id": "tge",
+      "ad": "Tüketici Güven Endeksi (TGE)",
+      "kisaAd": "Tüketici Güveni",
+      "kaynak": "TÜİK & TCMB",
+      "seriKod": "TP.TG2.Y01 / TP.TG.EN",
+      "aciklama": "Hanehalkının mevcut ve gelecek 12 aylık maddi durum ile genel ekonomik gidişata yönelik beklentilerini ölçer.",
+      "top10": [
+        {
+          "ym": "2023-08",
+          "label": "Ağustos '23",
+          "val": 68.01,
+          "diff": -12.06,
+          "pct": -15.06,
+          "sameRet": 5.3,
+          "nextRet": -9.8,
+          "ret3m": -10.4,
+          "ret6m": 9.7
+        },
+        {
+          "ym": "2006-06",
+          "label": "Haziran '06",
+          "val": 92.2,
+          "diff": -7.9,
+          "pct": -7.89,
+          "sameRet": 1.7,
+          "nextRet": 3.4,
+          "ret3m": 12.5,
+          "ret6m": 14.2
+        },
+        {
+          "ym": "2018-09",
+          "label": "Eylül '18",
+          "val": 81.15,
+          "diff": -7.55,
+          "pct": -8.52,
+          "sameRet": -9.8,
+          "nextRet": 5.8,
+          "ret3m": 15.4,
+          "ret6m": 5.8
+        },
+        {
+          "ym": "2026-10",
+          "label": "Ekim '26",
+          "val": 84.82,
+          "diff": -7.11,
+          "pct": -7.73,
+          "sameRet": -2.5,
+          "nextRet": null,
+          "ret3m": null,
+          "ret6m": null
+        },
+        {
+          "ym": "2019-05",
+          "label": "Mayıs '19",
+          "val": 77.05,
+          "diff": -6.57,
+          "pct": -7.85,
+          "sameRet": 6.5,
+          "nextRet": 5.8,
+          "ret3m": 8.9,
+          "ret6m": 18.6
+        },
+        {
+          "ym": "2008-10",
+          "label": "Ekim '08",
+          "val": 74.2,
+          "diff": -6.5,
+          "pct": -8.05,
+          "sameRet": -7.6,
+          "nextRet": 4.5,
+          "ret3m": -6.6,
+          "ret6m": 36.1
+        },
+        {
+          "ym": "2021-04",
+          "label": "Nisan '21",
+          "val": 80.25,
+          "diff": -6.38,
+          "pct": -7.36,
+          "sameRet": 1.6,
+          "nextRet": -4.5,
+          "ret3m": 3.6,
+          "ret6m": 27.4
+        },
+        {
+          "ym": "2023-06",
+          "label": "Haziran '23",
+          "val": 85.13,
+          "diff": -5.93,
+          "pct": -6.51,
+          "sameRet": 25.3,
+          "nextRet": 9.7,
+          "ret3m": 4.1,
+          "ret6m": 17.7
+        },
+        {
+          "ym": "2008-04",
+          "label": "Nisan '08",
+          "val": 76.2,
+          "diff": -5.8,
+          "pct": -7.07,
+          "sameRet": -8,
+          "nextRet": -12.2,
+          "ret3m": -0.3,
+          "ret6m": -35.7
+        },
+        {
+          "ym": "2021-11",
+          "label": "Kasım '21",
+          "val": 70.85,
+          "diff": -5.61,
+          "pct": -7.34,
+          "sameRet": 2.7,
+          "nextRet": 7.8,
+          "ret3m": 20.2,
+          "ret6m": 29.5
+        }
+      ],
+      "istatistik": {
+        "ayniAyPozitifOrani": 60,
+        "sonrakiAyPozitifOrani": 67,
+        "ortalamaAyniAyGetiri": 1.5,
+        "ortalamaSonrakiAyGetiri": 1.2
+      }
+    },
+    "rkge": {
+      "id": "rkge",
+      "ad": "Reel Kesim Güven Endeksi (RKGE)",
+      "kisaAd": "Reel Kesim",
+      "kaynak": "TCMB",
+      "seriKod": "TP.GY1.N2.MA",
+      "aciklama": "İmalat sanayi yöneticilerinin sipariş, üretim, istihdam ve yatırım beklentilerini ölçen mevsimsellikten arındırılmış gösterge.",
+      "top10": [
+        {
+          "ym": "2020-04",
+          "label": "Nisan '20",
+          "val": 62.3,
+          "diff": -36.3,
+          "pct": -36.82,
+          "sameRet": 4.4,
+          "nextRet": 10.4,
+          "ret3m": 2.2,
+          "ret6m": 21.6
+        },
+        {
+          "ym": "2008-10",
+          "label": "Ekim '08",
+          "val": 74.4,
+          "diff": -15.3,
+          "pct": -17.06,
+          "sameRet": -7.6,
+          "nextRet": 4.5,
+          "ret3m": -6.6,
+          "ret6m": 36.1
+        },
+        {
+          "ym": "2008-11",
+          "label": "Kasım '08",
+          "val": 59.8,
+          "diff": -14.6,
+          "pct": -19.62,
+          "sameRet": 4.5,
+          "nextRet": -3.5,
+          "ret3m": -4.1,
+          "ret6m": 37.5
+        },
+        {
+          "ym": "2007-05",
+          "label": "Mayıs '07",
+          "val": 106.8,
+          "diff": -9.1,
+          "pct": -7.85,
+          "sameRet": 0,
+          "nextRet": 12.2,
+          "ret3m": 14.8,
+          "ret6m": 17.9
+        },
+        {
+          "ym": "2020-03",
+          "label": "Mart '20",
+          "val": 98.6,
+          "diff": -8.1,
+          "pct": -7.59,
+          "sameRet": 12.8,
+          "nextRet": 4.4,
+          "ret3m": 11.5,
+          "ret6m": 10
+        },
+        {
+          "ym": "2008-09",
+          "label": "Eylül '08",
+          "val": 89.7,
+          "diff": -7.3,
+          "pct": -7.53,
+          "sameRet": -22.8,
+          "nextRet": -7.6,
+          "ret3m": -6.8,
+          "ret6m": 13.7
+        },
+        {
+          "ym": "2018-09",
+          "label": "Eylül '18",
+          "val": 90.4,
+          "diff": -5.9,
+          "pct": -6.13,
+          "sameRet": -9.8,
+          "nextRet": 5.8,
+          "ret3m": 15.4,
+          "ret6m": 5.8
+        },
+        {
+          "ym": "2011-10",
+          "label": "Ekim '11",
+          "val": 106.8,
+          "diff": -5.5,
+          "pct": -4.9,
+          "sameRet": -2.8,
+          "nextRet": -6,
+          "ret3m": 11.4,
+          "ret6m": 1.1
+        },
+        {
+          "ym": "2019-05",
+          "label": "Mayıs '19",
+          "val": 94.7,
+          "diff": -5.3,
+          "pct": -5.3,
+          "sameRet": 6.5,
+          "nextRet": 5.8,
+          "ret3m": 8.9,
+          "ret6m": 18.6
+        },
+        {
+          "ym": "2018-08",
+          "label": "Ağustos '18",
+          "val": 96.3,
+          "diff": -5.2,
+          "pct": -5.12,
+          "sameRet": 7.8,
+          "nextRet": -9.8,
+          "ret3m": -8.7,
+          "ret6m": -6.2
+        }
+      ],
+      "istatistik": {
+        "ayniAyPozitifOrani": 50,
+        "sonrakiAyPozitifOrani": 60,
+        "ortalamaAyniAyGetiri": -0.7,
+        "ortalamaSonrakiAyGetiri": 1.6
+      }
+    },
+    "sanayi": {
+      "id": "sanayi",
+      "ad": "Sanayi Üretim Endeksi (SÜE)",
+      "kisaAd": "Sanayi Üretimi",
+      "kaynak": "TÜİK",
+      "seriKod": "TP.TSANAYMT2021.BCD",
+      "aciklama": "Madencilik, imalat ve enerji sektörlerinin reel fiziki üretim çıktısını gösteren mevsim ve takvimden arındırılmış endeks.",
+      "top10": [
+        {
+          "ym": "2020-04",
+          "label": "Nisan '20",
+          "val": 58.57,
+          "diff": -24.29,
+          "pct": -29.31,
+          "sameRet": 4.4,
+          "nextRet": 10.4,
+          "ret3m": 2.2,
+          "ret6m": 21.6
+        },
+        {
+          "ym": "2022-07",
+          "label": "Temmuz '22",
+          "val": 100.05,
+          "diff": -7.7,
+          "pct": -7.15,
+          "sameRet": 22.3,
+          "nextRet": 0.3,
+          "ret3m": 57,
+          "ret6m": 65.2
+        },
+        {
+          "ym": "2009-01",
+          "label": "Ocak '09",
+          "val": 41.91,
+          "diff": -3.04,
+          "pct": -6.76,
+          "sameRet": -7.4,
+          "nextRet": 7.2,
+          "ret3m": 45.7,
+          "ret6m": 93.7
+        },
+        {
+          "ym": "2023-02",
+          "label": "Şubat '23",
+          "val": 99.19,
+          "diff": -7.17,
+          "pct": -6.74,
+          "sameRet": -8.1,
+          "nextRet": -4.1,
+          "ret3m": 19.7,
+          "ret6m": 73.2
+        },
+        {
+          "ym": "2020-03",
+          "label": "Mart '20",
+          "val": 82.86,
+          "diff": -5.41,
+          "pct": -6.13,
+          "sameRet": 12.8,
+          "nextRet": 4.4,
+          "ret3m": 11.5,
+          "ret6m": 10
+        },
+        {
+          "ym": "2016-07",
+          "label": "Temmuz '16",
+          "val": 71.82,
+          "diff": -4.66,
+          "pct": -6.09,
+          "sameRet": 0.7,
+          "nextRet": 0.7,
+          "ret3m": -2.6,
+          "ret6m": 15.2
+        },
+        {
+          "ym": "2011-09",
+          "label": "Eylül '11",
+          "val": 58.22,
+          "diff": -3.27,
+          "pct": -5.32,
+          "sameRet": -6.1,
+          "nextRet": -2.8,
+          "ret3m": 2,
+          "ret6m": 7
+        },
+        {
+          "ym": "2008-10",
+          "label": "Ekim '08",
+          "val": 48.05,
+          "diff": -2.52,
+          "pct": -4.98,
+          "sameRet": -7.6,
+          "nextRet": 4.5,
+          "ret3m": -6.6,
+          "ret6m": 36.1
+        },
+        {
+          "ym": "2014-08",
+          "label": "Ağustos '14",
+          "val": 67.52,
+          "diff": -3.46,
+          "pct": -4.87,
+          "sameRet": -6.7,
+          "nextRet": 7.5,
+          "ret3m": 14.4,
+          "ret6m": 7.9
+        },
+        {
+          "ym": "2024-04",
+          "label": "Nisan '24",
+          "val": 104.24,
+          "diff": -5.3,
+          "pct": -4.84,
+          "sameRet": 3.5,
+          "nextRet": 2.4,
+          "ret3m": -5.5,
+          "ret6m": -7.2
+        }
+      ],
+      "istatistik": {
+        "ayniAyPozitifOrani": 50,
+        "sonrakiAyPozitifOrani": 80,
+        "ortalamaAyniAyGetiri": 0.8,
+        "ortalamaSonrakiAyGetiri": 3.1
+      }
+    },
+    "rek": {
+      "id": "rek",
+      "ad": "Reel Efektif Döviz Kuru (REK)",
+      "kisaAd": "Reel Döviz Kuru",
+      "kaynak": "TCMB",
+      "seriKod": "TP.RK.T1.Y",
+      "aciklama": "Türk lirasının ticaret ortağı ülkelerin para birimlerine göre TÜFE bazlı reel değerini ölçen endeks.",
+      "top10": [
+        {
+          "ym": "2018-08",
+          "label": "Ağustos '18",
+          "val": 93.74,
+          "diff": -15.59,
+          "pct": -14.26,
+          "sameRet": 7.8,
+          "nextRet": -9.8,
+          "ret3m": -8.7,
+          "ret6m": -6.2
+        },
+        {
+          "ym": "2023-06",
+          "label": "Haziran '23",
+          "val": 77.01,
+          "diff": -9.66,
+          "pct": -11.15,
+          "sameRet": 25.3,
+          "nextRet": 9.7,
+          "ret3m": 4.1,
+          "ret6m": 17.7
+        },
+        {
+          "ym": "2021-12",
+          "label": "Aralık '21",
+          "val": 69.99,
+          "diff": -8.26,
+          "pct": -10.56,
+          "sameRet": 7.8,
+          "nextRet": -2.8,
+          "ret3m": 21.3,
+          "ret6m": 29.4
+        },
+        {
+          "ym": "2006-06",
+          "label": "Haziran '06",
+          "val": 138,
+          "diff": -16.03,
+          "pct": -10.41,
+          "sameRet": 1.7,
+          "nextRet": 3.4,
+          "ret3m": 12.5,
+          "ret6m": 14.2
+        },
+        {
+          "ym": "2021-11",
+          "label": "Kasım '21",
+          "val": 78.25,
+          "diff": -8.85,
+          "pct": -10.16,
+          "sameRet": 2.7,
+          "nextRet": 7.8,
+          "ret3m": 20.2,
+          "ret6m": 29.5
+        },
+        {
+          "ym": "2004-05",
+          "label": "Mayıs '04",
+          "val": 138.05,
+          "diff": -14.64,
+          "pct": -9.59,
+          "sameRet": 5.2,
+          "nextRet": 7.9,
+          "ret3m": 22.2,
+          "ret6m": 39
+        },
+        {
+          "ym": "2008-10",
+          "label": "Ekim '08",
+          "val": 157.54,
+          "diff": -16.34,
+          "pct": -9.4,
+          "sameRet": -7.6,
+          "nextRet": 4.5,
+          "ret3m": -6.6,
+          "ret6m": 36.1
+        },
+        {
+          "ym": "2006-05",
+          "label": "Mayıs '06",
+          "val": 154.03,
+          "diff": -11.99,
+          "pct": -7.22,
+          "sameRet": -7,
+          "nextRet": 1.7,
+          "ret3m": 4.2,
+          "ret6m": 10.3
+        },
+        {
+          "ym": "2020-08",
+          "label": "Ağustos '20",
+          "val": 93,
+          "diff": -6.6,
+          "pct": -6.63,
+          "sameRet": 6.2,
+          "nextRet": -2.9,
+          "ret3m": 28.9,
+          "ret6m": 21.5
+        },
+        {
+          "ym": "2008-03",
+          "label": "Mart '08",
+          "val": 163.86,
+          "diff": -11.28,
+          "pct": -6.44,
+          "sameRet": 11.4,
+          "nextRet": -8,
+          "ret3m": -2.9,
+          "ret6m": -36
+        }
+      ],
+      "istatistik": {
+        "ayniAyPozitifOrani": 80,
+        "sonrakiAyPozitifOrani": 60,
+        "ortalamaAyniAyGetiri": 5.4,
+        "ortalamaSonrakiAyGetiri": 1.2
+      }
+    }
+  }
+}

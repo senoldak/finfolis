@@ -1,0 +1,145 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import SektorKarnesi from '../../components/SektorKarnesi.astro';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { SEKTOR_VERISI, sektorler } from '../../lib/sektorler';
+
+const baslik = 'BIST Sektör Endeksleri ve Getiri Karnesi';
+const description =
+  'Borsa İstanbul sektör ve tematik endekslerinin (BIST Banka, Sınai, Teknoloji, Halka Arz vb.) aylık getiri sıralaması, son puanları ve toplam piyasa değerleri.';
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'BIST Sektörleri', href: '/veri/sektorler/' },
+];
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  sayfaEk: { dateModified: SEKTOR_VERISI.guncelleme },
+  ekler: [
+    {
+      '@type': 'Dataset',
+      name: 'Borsa İstanbul Sektör Endeksleri Getiri ve Piyasa Değeri Verisi',
+      description,
+      url: 'https://finfolis.com/veri/sektorler/',
+      isAccessibleForFree: true,
+      creator: { '@type': 'Organization', name: 'Borsa İstanbul', url: 'https://www.borsaistanbul.com/' },
+      dateModified: SEKTOR_VERISI.guncelleme,
+    },
+  ],
+});
+---
+
+<Base title={baslik} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container">
+    <Breadcrumb yol={yol} />
+
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>BIST Sektör Endeksleri</h1>
+      <p>Sektör ve tematik endekslerin performans karnesi ve piyasa değerleri</p>
+    </header>
+
+    <p class="sayfa-giris">
+      Borsa İstanbul'da yalnızca BIST 100 değil; bankacılıktan sanayiye, teknolojiden halka arzlara kadar onlarca farklı sektör
+      ve tematik endeks işlem görür. Bu sayfa, hangi sektörün ne kazandırdığını ve toplam sermaye büyüklüğünü karşılaştırmalı olarak gösterir.
+    </p>
+
+    <!-- Sektör Karnesi Tablosu ve Özetler -->
+    <SektorKarnesi baslikGoster={false} />
+
+    <!-- Öğretici Rehber Bölümü (finfolis felsefesi) -->
+    <section class="aciklama-alani" aria-labelledby="rehber-baslik">
+      <h2 id="rehber-baslik" class="rehber-baslik">Bu Rakamlar Neyi Gösterir ve Nasıl Hesaplanır?</h2>
+
+      <div class="rehber-grid">
+        <article class="rehber-kutu">
+          <h3>1. Sektör Getirisi (%)</h3>
+          <p>
+            Her endeksin aylık getirisi, o ayın son işlem günündeki kapanış puanı ile bir önceki ayın son kapanış puanı arasındaki
+            farkın önceki puana bölünmesiyle hesaplanır:
+          </p>
+          <div class="formül-blok">
+            Getiri (%) = [(Ay Sonu Kapanış − Önceki Ay Kapanış) ÷ Önceki Ay Kapanış] × 100
+          </div>
+        </article>
+
+        <article class="rehber-kutu">
+          <h3>2. Endeks Piyasa Değeri</h3>
+          <p>
+            Bir endeksin piyasa değeri, o endekse dahil tüm şirketlerin <strong>Hisse Fiyatı × Toplam Ödenmiş Sermaye</strong> tutarlarının
+            toplanmasıyla elde edilir. Bu büyüklük sektörün borsadaki ağırlığını gösterir.
+          </p>
+        </article>
+
+        <article class="rehber-kutu">
+          <h3>3. Alt Endeksler Ne İşe Yarar?</h3>
+          <p>
+            Örneğin BIST 100 genel olarak yatay kalırken, <strong>XBANK (Banka)</strong> yükselip <strong>XFINK (Faktoring)</strong>
+            sert düşebilir. Sektör karnesi, paranın borsada hangi sektörlere kaydığını anlamanın en net yoludur.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <YasalUyari />
+  </div>
+</Base>
+
+<style>
+  .aciklama-alani {
+    margin-top: 48px;
+    margin-bottom: 40px;
+    border-top: 2px solid var(--hair, #cfccc2);
+    padding-top: 28px;
+  }
+
+  .rehber-baslik {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+    margin-bottom: 20px;
+  }
+
+  .rehber-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .rehber-kutu {
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 20px;
+  }
+
+  .rehber-kutu h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+    margin-bottom: 8px;
+  }
+
+  .rehber-kutu p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-2, #3d3c38);
+    margin: 0;
+  }
+
+  .formül-blok {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: var(--paper, #f4f3ee);
+    border-left: 3px solid var(--toprak, #c2502b);
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--ink, #1b1b1b);
+  }
+</style>

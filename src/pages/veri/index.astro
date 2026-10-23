@@ -2,13 +2,17 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { KUR_SAYFALARI, RESMI, ayAdi, gunYaz, oranYaz, sayiYaz } from '../../lib/resmi';
+import bistTufeData from '../../data/bist-tufe.json';
+import reelBistData from '../../data/reel-bist.json';
+import makroSokData from '../../data/makro-soklar.json';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
-const { kur, faiz, enflasyon, konut, issizlik } = RESMI;
+const { kur, faiz, enflasyon, konut, issizlik, rezerv, piyasaFaizleri } = RESMI;
 const son = enflasyon?.satirlar.at(-1);
 const konutSon = konut?.satirlar.at(-1);
 const issizlikSon = issizlik?.satirlar.at(-1);
+const piyasaSon = piyasaFaizleri?.satirlar?.at(-1);
 const satir = (kod: string) => kur?.liste.find((k) => k.kod === kod);
 const ogeler = [
   ...KUR_SAYFALARI.map((s) => ({
@@ -18,6 +22,18 @@ const ogeler = [
     not: kur ? `TCMB, ${gunYaz(kur.tarih)}` : undefined,
   })),
   { href: '/veri/doviz-kurlari/', ad: 'Tüm döviz kurları', deger: kur ? `${kur.liste.length} para birimi` : undefined, not: 'TCMB' },
+  {
+    href: '/veri/net-doviz-pozisyonu/',
+    ad: 'TCMB net döviz pozisyonu',
+    deger: rezerv ? `${rezerv.netDovizPozisyonu > 0 ? '+' : ''}${sayiYaz(rezerv.netDovizPozisyonu, 1)} milyar $` : undefined,
+    not: rezerv ? `TCMB, ${gunYaz(rezerv.tarih)}` : undefined,
+  },
+  {
+    href: '/veri/sektorler/',
+    ad: 'BIST sektör endeksleri ve karne',
+    deger: '26 endeks',
+    not: 'Borsa İstanbul · Getiri ve piyasa değeri',
+  },
   {
     href: '/veri/politika-faizi/',
     ad: 'Politika faizi',
@@ -29,6 +45,24 @@ const ogeler = [
     ad: 'Yıllık enflasyon',
     deger: son ? `%${sayiYaz(son.yillik, 2)}` : undefined,
     not: son ? `TÜİK, ${ayAdi(son)}` : undefined,
+  },
+  {
+    href: '/veri/makro-soklar/',
+    ad: 'Makro Şoklar ve Borsa Karnesi',
+    deger: makroSokData ? 'Güven & Üretim Şokları' : undefined,
+    not: makroSokData ? 'TCMB & TÜİK · 2004–2026' : undefined,
+  },
+  {
+    href: '/veri/reel-bist-30/',
+    ad: 'TÜFE’den Temizlenmiş BİST 30',
+    deger: reelBistData ? `${sayiYaz(reelBistData.istatistik.sonNokta.reelEndeks, 1)} puan` : undefined,
+    not: reelBistData ? `Eylül 2014=100 bazlı · ${ayAdi(reelBistData.istatistik.sonNokta)}` : undefined,
+  },
+  {
+    href: '/veri/bist-100-tufe/',
+    ad: 'BİST 100 / TÜFE (Reel Borsa)',
+    deger: bistTufeData ? `${sayiYaz(bistTufeData.guncelDeger, 1)} (${bistTufeData.zSkoru}σ)` : undefined,
+    not: bistTufeData ? `finfolis, ${bistTufeData.guncelleme}` : undefined,
   },
   {
     href: '/veri/konut-fiyat-endeksi/',

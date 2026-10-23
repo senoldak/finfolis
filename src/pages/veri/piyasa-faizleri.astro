@@ -1,0 +1,326 @@
+---
+// TCMB haftalık akım faiz oranları: ihtiyaç, taşıt ve konut kredileri, 1-3 ay vadeli TL mevduat, politika faizi ve 5Y tahvil.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import PiyasaFaizleriGrafik from '../../components/PiyasaFaizleriGrafik.astro';
+import { RESMI, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const piyasaFaizleri = RESMI.piyasaFaizleri;
+const satirlar = piyasaFaizleri?.satirlar ?? [];
+const son = satirlar.at(-1);
+
+const baslik = 'Piyasa faizleri: Kredi, mevduat ve tahvil';
+const description = son
+  ? `TCMB haftalık akım faizleri: İhtiyaç kredisi aylık %${sayiYaz(son.ihtiyac / 12, 2)} (yıllık %${sayiYaz(son.ihtiyac, 2)}), 1-3 ay mevduat aylık %${sayiYaz(son.mevduat / 12, 2)} (yıllık %${sayiYaz(son.mevduat, 2)}), konut aylık %${sayiYaz(son.konut / 12, 2)}. Karşılaştırmalı grafik ve geçmiş veriler.`
+  : 'TCMB haftalık akım verileriyle ihtiyaç, konut, taşıt kredileri ve mevduat faizleri.';
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Piyasa faizleri', href: '/veri/piyasa-faizleri/' },
+];
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: `${baslik} (TCMB EVDS)`,
+  aciklama: description,
+  ...(piyasaFaizleri && son
+    ? {
+        sayfaEk: { dateModified: piyasaFaizleri.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'TCMB Bankalarca Açılan Kredilere ve Mevduatlara Uygulanan Ağırlıklı Ortalama Faiz Oranları (Akım)',
+            description:
+              'Haftalık bazda yeni açılan Türk lirası cinsi ihtiyaç, taşıt ve konut kredileri ile 1-3 ay vadeli mevduat faiz oranları.',
+            url: 'https://finfolis.com/veri/piyasa-faizleri/',
+            isAccessibleForFree: true,
+            creator: {
+              '@type': 'GovernmentOrganization',
+              name: 'Türkiye Cumhuriyet Merkez Bankası',
+              url: 'https://evds3.tcmb.gov.tr/',
+            },
+            temporalCoverage: `${satirlar[0]?.tarih}/${son.tarih}`,
+            dateModified: piyasaFaizleri.alinma,
+            variableMeasured: 'Ağırlıklı Ortalama Faiz Oranı (Yıllık ve Aylık Basit %)',
+          },
+        ],
+      }
+    : {}),
+});
+
+const tabloSatirlari = [...satirlar].reverse();
+---
+
+<Base title={baslik} description={description} noindex={!piyasaFaizleri}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>Piyasa faizleri</h1>
+      <p>Türkiye Cumhuriyet Merkez Bankası · haftalık akım verileriyle kredi ve mevduat oranları</p>
+    </header>
+
+    {
+      piyasaFaizleri && son ? (
+        <>
+          <div class="veri-vurgu-kartlari">
+            <div class="vurgu-kart">
+              <span class="vurgu-etiket">İhtiyaç kredisi</span>
+              <div class="vurgu-deger">
+                <span class="ana-oran">%{sayiYaz(son.ihtiyac / 12, 2)}</span>
+                <span class="oran-periyot">aylık</span>
+              </div>
+              <span class="vurgu-ikincil">Yıllık %{sayiYaz(son.ihtiyac, 2)}</span>
+            </div>
+
+            <div class="vurgu-kart">
+              <span class="vurgu-etiket">1-3 ay mevduat</span>
+              <div class="vurgu-deger">
+                <span class="ana-oran">%{sayiYaz(son.mevduat / 12, 2)}</span>
+                <span class="oran-periyot">aylık</span>
+              </div>
+              <span class="vurgu-ikincil">Yıllık %{sayiYaz(son.mevduat, 2)}</span>
+            </div>
+
+            <div class="vurgu-kart">
+              <span class="vurgu-etiket">Konut kredisi</span>
+              <div class="vurgu-deger">
+                <span class="ana-oran">%{sayiYaz(son.konut / 12, 2)}</span>
+                <span class="oran-periyot">aylık</span>
+              </div>
+              <span class="vurgu-ikincil">Yıllık %{sayiYaz(son.konut, 2)}</span>
+            </div>
+
+            <div class="vurgu-kart">
+              <span class="vurgu-etiket">Taşıt kredisi</span>
+              <div class="vurgu-deger">
+                <span class="ana-oran">%{sayiYaz(son.tasit / 12, 2)}</span>
+                <span class="oran-periyot">aylık</span>
+              </div>
+              <span class="vurgu-ikincil">Yıllık %{sayiYaz(son.tasit, 2)}</span>
+            </div>
+
+            <div class="vurgu-kart">
+              <span class="vurgu-etiket">Politika faizi</span>
+              <div class="vurgu-deger">
+                <span class="ana-oran">%{sayiYaz(son.politika / 12, 2)}</span>
+                <span class="oran-periyot">aylık</span>
+              </div>
+              <span class="vurgu-ikincil">Yıllık %{sayiYaz(son.politika, 2)}</span>
+            </div>
+          </div>
+
+          <p class="veri-notu veri-kaynak">
+            <strong>Son veri tarihi:</strong> {gunYaz(son.tarih)}. <strong>Kaynak:</strong>{' '}
+            <a href={piyasaFaizleri.kaynak.url} rel="noopener" target="_blank">
+              {piyasaFaizleri.kaynak.ad}
+            </a>
+            . Siteye alındığı zaman: {zamanYaz(piyasaFaizleri.alinma)}.
+          </p>
+
+          <!-- İnteraktif Zaman Serisi Grafiği -->
+          <PiyasaFaizleriGrafik satirlar={satirlar} />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Haftalık akım verileri</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Hafta</th>
+                      <th scope="col" class="sag">İhtiyaç</th>
+                      <th scope="col" class="sag">Mevduat (1-3 Ay)</th>
+                      <th scope="col" class="sag">Konut</th>
+                      <th scope="col" class="sag">Taşıt</th>
+                      <th scope="col" class="sag">Politika</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tabloSatirlari.map((s) => (
+                      <tr>
+                        <td>{gunYaz(s.tarih)}</td>
+                        <td class="sag font-tab">
+                          <strong>%{sayiYaz(s.ihtiyac / 12, 2)}</strong>
+                          <span class="tablo-alt-oran">/yıl %{sayiYaz(s.ihtiyac, 1)}</span>
+                        </td>
+                        <td class="sag font-tab">
+                          <strong>%{sayiYaz(s.mevduat / 12, 2)}</strong>
+                          <span class="tablo-alt-oran">/yıl %{sayiYaz(s.mevduat, 1)}</span>
+                        </td>
+                        <td class="sag font-tab">
+                          <strong>%{sayiYaz(s.konut / 12, 2)}</strong>
+                          <span class="tablo-alt-oran">/yıl %{sayiYaz(s.konut, 1)}</span>
+                        </td>
+                        <td class="sag font-tab">
+                          <strong>%{sayiYaz(s.tasit / 12, 2)}</strong>
+                          <span class="tablo-alt-oran">/yıl %{sayiYaz(s.tasit, 1)}</span>
+                        </td>
+                        <td class="sag font-tab">
+                          <strong>%{sayiYaz(s.politika / 12, 2)}</strong>
+                          <span class="tablo-alt-oran">/yıl %{sayiYaz(s.politika, 1)}</span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Tabloda kalın yazılan oranlar aylık basit faizi, altındaki gri değerler ise TCMB’nin yayımladığı yıllık basit
+                oranı ifade eder.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu veriler ne anlatıyor?</h2>
+              
+              <h3>Akım veri nedir?</h3>
+              <p>
+                Bankaların bilançosunda geçmiş yıllardan kalan düşük veya yüksek faizli eski krediler bulunur (stok veri).
+                <strong>Akım veri</strong> ise geçmişe bakmaz; yalnızca geride bıraktığımız hafta içinde bankaların sıfırdan
+                kullandırdığı yeni kredilerin ve açılan yeni mevduatların ağırlıklı ortalamasını gösterir. Yani o an şubeye giden
+                bir vatandaşın ya da şirketin karşılaştığı fiili faiz iklimidir.
+              </p>
+
+              <h3>Neden aylık basit faize dönüştürdük?</h3>
+              <p>
+                Türkiye’de bankacılık pratiğinde krediler tüketiciye daima <em>aylık faiz oranı</em> üzerinden teklif edilir
+                (örneğin "aylık %3,89 ihtiyaç kredisi" veya "aylık %2,79 konut kredisi"). Buna karşılık mevduat ve tahvil
+                faizleri kanunen yıllık basit/bileşik oran olarak konuşulur.
+              </p>
+              <p>
+                Bu durum borçlanma maliyeti ile mevduat getirisini zihinde kıyaslamayı zorlaştırır. Yıllık oranları 12’ye
+                bölerek aylık basit faiz terazisine oturttuğumuzda, kredi ile mevduat arasındaki gerçek maliyet dengesi berraklaşır.
+              </p>
+
+              <h3>Kredi - Mevduat makası (Spread)</h3>
+              <p>
+                Bankalar mevduat toplayarak fon yaratır ve bu fonu kredi olarak satar. İhtiyaç kredisi ile mevduat faizi
+                arasındaki yaklaşık 100-120 baz puanlık (aylık %1 - %1,2) fark bankaların fonlama maliyeti, zorunlu karşılıklar,
+                operasyonel giderler, yasal vergiler (BSMV/KKDF) ve geri ödenmeme risk priminden oluşur.
+              </p>
+
+              <div class="ilgili-hesaplayicilar">
+                <h4>İlgili hesaplayıcılar ve veriler</h4>
+                <ul>
+                  <li><a href="/hesapla/kredi-taksit/">Kredi taksit hesaplama</a></li>
+                  <li><a href="/hesapla/mevduat-getirisi/">Mevduat getirisi ve stopaj hesaplama</a></li>
+                  <li><a href="/veri/politika-faizi/">TCMB politika faizi ve PPK geçmişi</a></li>
+                  <li><a href="/veri/enflasyon/">TÜİK enflasyon göstergeleri</a></li>
+                </ul>
+              </div>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Piyasa faizleri verisi hazırlanıyor. Veriler alındığında bu sayfada gösterilecek.</p>
+      )
+    }
+
+    <YasalUyari>
+      Bu sayfadaki veriler yalnızca bilgilendirme amaçlıdır. TCMB Elektronik Veri Dağıtım Sistemi (EVDS) üzerinden yayımlanan
+      ağırlıklı ortalama akım faiz oranlarına dayanır. Bireysel banka teklifleri müşteri risk profiline ve vadeye göre
+      farklılık gösterebilir.
+    </YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .veri-vurgu-kartlari {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .vurgu-kart {
+    background: #ffffff;
+    border: 1px solid var(--soluk, #e4e1d7);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .vurgu-etiket {
+    font-family: var(--sans, 'Bricolage Grotesque', sans-serif);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted, #5d5b55);
+  }
+
+  .vurgu-deger {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .ana-oran {
+    font-family: var(--sans, 'Bricolage Grotesque', sans-serif);
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .oran-periyot {
+    font-family: var(--sans, 'Bricolage Grotesque', sans-serif);
+    font-size: 0.85rem;
+    color: var(--toprak, #c2502b);
+    font-weight: 600;
+  }
+
+  .vurgu-ikincil {
+    font-family: var(--sans, 'Bricolage Grotesque', sans-serif);
+    font-size: 0.85rem;
+    color: var(--muted, #5d5b55);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tablo-sarma {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .font-tab {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tablo-alt-oran {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--muted, #5d5b55);
+    font-weight: 400;
+    margin-top: 2px;
+  }
+
+  .ilgili-hesaplayicilar {
+    margin-top: 24px;
+    padding: 16px;
+    background: var(--paper, #f4f3ee);
+    border-left: 3px solid var(--toprak, #c2502b);
+  }
+
+  .ilgili-hesaplayicilar h4 {
+    margin: 0 0 8px 0;
+    font-size: 0.95rem;
+  }
+
+  .ilgili-hesaplayicilar ul {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 0.9rem;
+  }
+
+  .ilgili-hesaplayicilar li {
+    margin-bottom: 4px;
+  }
+</style>

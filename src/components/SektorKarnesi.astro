@@ -1,0 +1,489 @@
+---
+import Change from './Change.astro';
+import { sektorler, sayi, piyasaDegeriMetni, piyasaDegeriTam, SEKTOR_VERISI } from '../lib/sektorler';
+
+interface Props {
+  baslikGoster?: boolean;
+}
+
+const { baslikGoster = true } = Astro.props;
+
+// Özet istatistikler
+const siraliAylik = [...sektorler].sort((a, b) => b.aylik - a.aylik);
+const enYukselen = siraliAylik[0];
+const enDusen = siraliAylik[siraliAylik.length - 1];
+const enBuyukPiyasa = [...sektorler]
+  .filter((s) => s.kategori !== 'ana-endeks' && s.piyasaDegeri)
+  .sort((a, b) => (b.piyasaDegeri ?? 0) - (a.piyasaDegeri ?? 0))[0];
+
+const maksMutlakGetiri = Math.max(...sektorler.map((s) => Math.abs(s.aylik)), 40);
+---
+
+<section class="sektor-karnesi-alani" aria-labelledby="sektor-baslik">
+  {
+    baslikGoster && (
+      <header class="sektor-baslik-alani">
+        <div>
+          <span class="etiket">BIST GÖSTERGELERİ</span>
+          <h2 id="sektor-baslik" class="bolum-baslik">
+            Sektör Karnesi ve Piyasa Değerleri
+          </h2>
+          <p class="sektor-alt-metin">
+            Borsa İstanbul'daki sektör ve tematik endekslerin aylık performansları ile toplam piyasa değerleri.
+          </p>
+        </div>
+      </header>
+    )
+  }
+
+  <!-- 3'lü Hızlı Özet Kartları -->
+  <div class="sektor-ozet-kutulari">
+    <div class="ozet-kart">
+      <span class="ozet-etiket">AYIN LİDERİ</span>
+      <strong class="ozet-deger kazanc">{enYukselen.kod}</strong>
+      <span class="ozet-ad">{enYukselen.ad}</span>
+      <span class="ozet-oran pozitif">▲ %{sayi(Math.abs(enYukselen.aylik), 1)}</span>
+    </div>
+    <div class="ozet-kart">
+      <span class="ozet-etiket">EN ÇOK DÜŞEN</span>
+      <strong class="ozet-deger kayip">{enDusen.kod}</strong>
+      <span class="ozet-ad">{enDusen.ad}</span>
+      <span class="ozet-oran negatif">▼ %{sayi(Math.abs(enDusen.aylik), 1)}</span>
+    </div>
+    <div class="ozet-kart">
+      <span class="ozet-etiket">EN BÜYÜK SEKTÖR</span>
+      <strong class="ozet-deger">{enBuyukPiyasa?.kod ?? 'XUMAL'}</strong>
+      <span class="ozet-ad">{enBuyukPiyasa?.ad ?? 'BIST Mali'}</span>
+      <span class="ozet-oran">{piyasaDegeriMetni(enBuyukPiyasa?.piyasaDegeri ?? null)}</span>
+    </div>
+  </div>
+
+  <!-- Filtre Düğmeleri -->
+  <div class="filtre-seridi" role="toolbar" aria-label="Sektör kategorisi filtresi">
+    <button type="button" class="filtre-btn aktif" data-kategori="hepsi">Tümü ({sektorler.length})</button>
+    <button type="button" class="filtre-btn" data-kategori="ana-endeks">Ana Endeksler</button>
+    <button type="button" class="filtre-btn" data-kategori="sektorler">Sektörler</button>
+    <button type="button" class="filtre-btn" data-kategori="tema">Tematik & Pazar</button>
+  </div>
+
+  <div class="cizelge-kaydir">
+    <table class="cizelge sektor-tablosu" data-sektor-tablo>
+      <caption class="sr-only">BIST Sektör ve Tematik Endeks Getirileri ile Piyasa Değerleri</caption>
+      <thead>
+        <tr>
+          <th scope="col" aria-sort="none">
+            <button type="button" class="sirala" data-anahtar="kod">Endeks</button>
+          </th>
+          <th scope="col" aria-sort="none">
+            <button type="button" class="sirala" data-anahtar="ad">Açıklama</button>
+          </th>
+          <th scope="col" class="sayisal" aria-sort="none">
+            <button type="button" class="sirala" data-anahtar="deger">Son Puan</button>
+          </th>
+          <th scope="col" class="sayisal" aria-sort="none">
+            <button type="button" class="sirala" data-anahtar="gunluk">Günlük %</button>
+          </th>
+          <th scope="col" class="sayisal" aria-sort="descending">
+            <button type="button" class="sirala" data-anahtar="aylik">Aylık %</button>
+          </th>
+          <th scope="col" class="sayisal" aria-sort="none">
+            <button type="button" class="sirala" data-anahtar="piyasa">Piyasa Değeri</button>
+          </th>
+          <th scope="col" class="grafik-kolonu">Getiri Dağılımı</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          siraliAylik.map((s) => {
+            const barGenislik = Math.min(100, Math.round((Math.abs(s.aylik) / maksMutlakGetiri) * 100));
+            const pozitif = s.aylik >= 0;
+            return (
+              <tr
+                data-kod={s.kod}
+                data-ad={s.ad}
+                data-kategori={s.kategori}
+                data-deger={s.deger}
+                data-gunluk={s.gunluk}
+                data-aylik={s.aylik}
+                data-piyasa={s.piyasaDegeri ?? 0}
+              >
+                <th scope="row" class="kod-hucre">
+                  <span class="endeks-kodu">{s.kod}</span>
+                </th>
+                <td>
+                  <span class="endeks-aciklama">{s.ad}</span>
+                </td>
+                <td class="sayisal deger-hucre">
+                  {s.deger > 0 ? sayi(s.deger, 2) : '—'}
+                </td>
+                <td class="sayisal">
+                  <Change value={s.gunluk} />
+                </td>
+                <td class={`sayisal aylik-hucre ${pozitif ? 'artis' : 'azalis'}`}>
+                  <span class="aylik-oran">
+                    {pozitif ? '▲' : '▼'} %{sayi(Math.abs(s.aylik), 1)}
+                  </span>
+                </td>
+                <td class="sayisal piyasa-hucre" title={piyasaDegeriTam(s.piyasaDegeri)}>
+                  <span class="piyasa-kisa">{piyasaDegeriMetni(s.piyasaDegeri)}</span>
+                </td>
+                <td class="grafik-hucre">
+                  <div class="mini-bar-sarici" aria-hidden="true">
+                    <div class="merkez-cizgi" />
+                    <div
+                      class={`mini-bar ${pozitif ? 'bar-pozitif' : 'bar-negatif'}`}
+                      style={`width: ${barGenislik}%;`}
+                    />
+                  </div>
+                </td>
+              </tr>
+            );
+          })
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="sektor-dipnot">
+    <p class="veri-notu">
+      Kaynak: {SEKTOR_VERISI.kaynak.ad} · Son güncelleme: {new Date(SEKTOR_VERISI.guncelleme).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}.
+      Piyasa değerleri endeks kapsamındaki şirketlerin sermaye ve son seans fiyatlarına dayalı toplam büyüklüktür.
+    </p>
+  </footer>
+</section>
+
+<script>
+  // Tablo sıralama ve kategori filtreleme
+  const tablo = document.querySelector<HTMLTableElement>('table[data-sektor-tablo]');
+  if (tablo) {
+    const govde = tablo.tBodies[0];
+    const basliklar = tablo.querySelectorAll<HTMLTableCellElement>('thead th');
+
+    // Sıralama dinleyicileri
+    basliklar.forEach((th) => {
+      const dugme = th.querySelector<HTMLButtonElement>('button.sirala');
+      dugme?.addEventListener('click', () => {
+        const anahtar = dugme.dataset.anahtar!;
+        const onceki = th.getAttribute('aria-sort');
+        const yeni =
+          onceki === 'descending'
+            ? 'ascending'
+            : onceki === 'ascending'
+              ? 'descending'
+              : anahtar === 'kod' || anahtar === 'ad'
+                ? 'ascending'
+                : 'descending';
+
+        basliklar.forEach((b) => b.setAttribute('aria-sort', 'none'));
+        th.setAttribute('aria-sort', yeni);
+
+        const satirlar = Array.from(govde.rows);
+        const al = (tr: HTMLTableRowElement) => tr.dataset[anahtar] ?? '';
+
+        satirlar.sort((a, b) => {
+          const va = al(a);
+          const vb = al(b);
+          if (va === '' || vb === '') return va === '' ? (vb === '' ? 0 : 1) : -1;
+          if (anahtar === 'kod' || anahtar === 'ad') {
+            const cmp = va.localeCompare(vb, 'tr');
+            return yeni === 'ascending' ? cmp : -cmp;
+          }
+          const numA = Number(va);
+          const numB = Number(vb);
+          return yeni === 'ascending' ? numA - numB : numB - numA;
+        });
+
+        govde.append(...satirlar);
+      });
+    });
+
+    // Kategori filtreleme
+    const filtreButonlari = document.querySelectorAll<HTMLButtonElement>('.filtre-btn');
+    filtreButonlari.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filtreButonlari.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+
+        const kat = btn.dataset.kategori;
+        const satirlar = Array.from(govde.rows);
+
+        satirlar.forEach((satir) => {
+          const skat = satir.dataset.kategori || '';
+          if (kat === 'hepsi') {
+            satir.style.display = '';
+          } else if (kat === 'ana-endeks') {
+            satir.style.display = skat === 'ana-endeks' || skat === 'ana-sektor' ? '' : 'none';
+          } else if (kat === 'sektorler') {
+            satir.style.display = ['mali', 'sinai', 'hizmet', 'teknoloji'].includes(skat) ? '' : 'none';
+          } else if (kat === 'tema') {
+            satir.style.display = ['tema', 'pazar', 'endeks'].includes(skat) ? '' : 'none';
+          }
+        });
+      });
+    });
+  }
+</script>
+
+<style>
+  .sektor-karnesi-alani {
+    margin-bottom: 48px;
+  }
+
+  .sektor-baslik-alani {
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--hair);
+    padding-bottom: 16px;
+  }
+
+  .etiket {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--toprak-text, #a8431f);
+    margin-bottom: 6px;
+  }
+
+  .sektor-alt-metin {
+    color: var(--muted, #5d5b55);
+    font-size: 0.95rem;
+    margin-top: 4px;
+  }
+
+  /* 3'lü Hızlı Özet Kutuları */
+  .sektor-ozet-kutulari {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .ozet-kart {
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .ozet-etiket {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--muted, #5d5b55);
+  }
+
+  .ozet-deger {
+    font-size: 1.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--ink, #1b1b1b);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ozet-deger.kazanc {
+    color: var(--yukselis, #3f7350);
+  }
+
+  .ozet-deger.kayip {
+    color: var(--dusus, #a3243b);
+  }
+
+  .ozet-ad {
+    font-size: 0.88rem;
+    color: var(--ink-2, #3d3c38);
+  }
+
+  .ozet-oran {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ozet-oran.pozitif {
+    color: var(--yukselis, #3f7350);
+  }
+
+  .ozet-oran.negatif {
+    color: var(--dusus, #a3243b);
+  }
+
+  /* Filtre Seridi */
+  .filtre-seridi {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .filtre-btn {
+    all: unset;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    color: var(--ink-2, #3d3c38);
+    transition: all 0.15s ease;
+  }
+
+  .filtre-btn:hover {
+    background: var(--paper-2, #e9e7df);
+    border-color: var(--ink-2, #3d3c38);
+  }
+
+  .filtre-btn.aktif {
+    background: var(--ink, #1b1b1b);
+    color: #fff;
+    border-color: var(--ink, #1b1b1b);
+  }
+
+  /* Tablo ve Hücreler */
+  .cizelge-kaydir {
+    overflow-x: auto;
+    border-top: 2px solid var(--ink, #1b1b1b);
+  }
+
+  .sektor-tablosu {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--sans);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sektor-tablosu th,
+  .sektor-tablosu td {
+    padding: 10px 8px;
+    border-bottom: 1px solid var(--hair, #cfccc2);
+    vertical-align: middle;
+  }
+
+  .kod-hucre {
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+    white-space: nowrap;
+  }
+
+  .endeks-kodu {
+    font-family: monospace;
+    font-size: 0.95rem;
+    background: var(--paper-2, #e9e7df);
+    padding: 2px 6px;
+  }
+
+  .endeks-aciklama {
+    font-weight: 500;
+    font-size: 0.92rem;
+    color: var(--ink, #1b1b1b);
+  }
+
+  .deger-hucre {
+    font-weight: 700;
+  }
+
+  .sayisal {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .aylik-hucre {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .aylik-hucre.artis {
+    color: var(--yukselis, #3f7350);
+  }
+
+  .aylik-hucre.azalis {
+    color: var(--dusus, #a3243b);
+  }
+
+  .piyasa-hucre {
+    font-size: 0.9rem;
+    color: var(--ink-2, #3d3c38);
+  }
+
+  /* Mini Getiri Dağılım Çubuğu */
+  .grafik-kolonu {
+    width: 120px;
+    padding-left: 12px;
+  }
+
+  .grafik-hucre {
+    width: 120px;
+    padding-left: 12px;
+  }
+
+  .mini-bar-sarici {
+    position: relative;
+    width: 100%;
+    height: 14px;
+    background: var(--paper-2, #e9e7df);
+    overflow: hidden;
+  }
+
+  .merkez-cizgi {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--hair, #cfccc2);
+    z-index: 1;
+  }
+
+  .mini-bar {
+    height: 100%;
+    position: absolute;
+    top: 0;
+  }
+
+  .bar-pozitif {
+    background: var(--yukselis, #3f7350);
+    left: 50%;
+  }
+
+  .bar-negatif {
+    background: var(--dusus, #a3243b);
+    right: 50%;
+  }
+
+  /* Sıralama Düğmeleri */
+  .sirala {
+    all: unset;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    border-bottom: 1px solid transparent;
+  }
+
+  .sirala:hover,
+  .sirala:focus-visible {
+    border-bottom-color: var(--ink);
+  }
+
+  th[aria-sort='ascending'] .sirala::after {
+    content: ' ▲';
+    font-size: 0.7em;
+  }
+
+  th[aria-sort='descending'] .sirala::after {
+    content: ' ▼';
+    font-size: 0.7em;
+  }
+
+  .sektor-dipnot {
+    margin-top: 12px;
+  }
+
+  .veri-notu {
+    font-size: 0.8rem;
+    color: var(--muted, #5d5b55);
+    line-height: 1.5;
+  }
+</style>

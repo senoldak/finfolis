@@ -1,0 +1,330 @@
+---
+// TCMB Net Döviz Pozisyonu (Swaplar ve Hazine Dövizi Hariç)
+// Türkiye Cumhuriyet Merkez Bankası Analitik Bilançosu ve Swap verilerinden hesaplanan çekirdek rezerv göstergesi.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { RESMI, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const rezerv = RESMI.rezerv;
+const baslik = 'TCMB net döviz pozisyonu';
+const altBaslik = 'Swaplar ve Hazine dövizi hariç net rezerv';
+
+const milyar = (n: number) => `${n > 0 ? '+' : ''}${sayiYaz(n, 1)} milyar $`;
+
+const description = rezerv
+  ? `TCMB net döviz pozisyonu (swaplar ve Hazine dövizi hariç) ${gunYaz(rezerv.tarih)} itibarıyla ${milyar(rezerv.netDovizPozisyonu)}. Analitik bilanço kalemleri, geçmiş seyir ve detaylı hesaplama tablosu.`
+  : 'TCMB net döviz pozisyonu, swap ve Hazine hariç rezerv verileri ve geçmiş değişimi.';
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'TCMB net döviz pozisyonu', href: '/veri/net-doviz-pozisyonu/' },
+];
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: `${baslik} (TCMB)`,
+  aciklama: description,
+  ...(rezerv
+    ? {
+        sayfaEk: { dateModified: rezerv.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'TCMB Swaplar ve Hazine Dövizi Hariç Net Döviz Pozisyonu',
+            description:
+              'Türkiye Cumhuriyet Merkez Bankası’nın Analitik Bilançosu ve swap yükümlülüklerinden hesaplanan net döviz pozisyonu.',
+            url: 'https://finfolis.com/veri/net-doviz-pozisyonu/',
+            isAccessibleForFree: true,
+            creator: {
+              '@type': 'GovernmentOrganization',
+              name: 'Türkiye Cumhuriyet Merkez Bankası',
+              url: 'https://www.tcmb.gov.tr/',
+            },
+            temporalCoverage: `${rezerv.gecmis[0]?.tarih}/${rezerv.gecmis.at(-1)?.tarih}`,
+            dateModified: rezerv.alinma,
+            variableMeasured: 'Net Döviz Pozisyonu (Milyar USD)',
+          },
+        ],
+      }
+    : {}),
+});
+
+// SVG Çizim Parametreleri
+const noktalar = rezerv?.gecmis ?? [];
+const svgW = 720;
+const svgH = 260;
+const padL = 40;
+const padR = 20;
+const padT = 20;
+const padB = 30;
+
+const degerler = noktalar.map((p) => p.deger);
+const minVal = Math.min(20, ...(degerler.length ? degerler : [20]));
+const maxVal = Math.max(60, ...(degerler.length ? degerler : [60]));
+const aralikY = maxVal - minVal || 1;
+
+const xCoord = (index: number) =>
+  padL + (index / Math.max(noktalar.length - 1, 1)) * (svgW - padL - padR);
+
+const yCoord = (val: number) =>
+  padT + (1 - (val - minVal) / aralikY) * (svgH - padT - padB);
+
+const pathD = noktalar
+  .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xCoord(i).toFixed(1)} ${yCoord(p.deger).toFixed(1)}`)
+  .join(' ');
+
+// Y Ekseninde 10'ar milyar aralıklı kılavuz çizgileri
+const yCizgileri = [20, 30, 40, 50, 60].filter((v) => v >= minVal && v <= maxVal);
+
+// X Ekseninde belirli aralıklarla tarih etiketleri
+const xEtiketleri = noktalar.filter((_, i) => i === 0 || i === Math.floor(noktalar.length * 0.25) || i === Math.floor(noktalar.length * 0.5) || i === Math.floor(noktalar.length * 0.75) || i === noktalar.length - 1);
+---
+
+<Base title={`${baslik}: TCMB güncel ve geçmiş veriler`} description={description} noindex={!rezerv}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>{altBaslik}</p>
+    </header>
+
+    {
+      rezerv ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Net Döviz Pozisyonu</dt>
+              <dd class="vurgulu-sayi">{milyar(rezerv.netDovizPozisyonu)}</dd>
+              <dd class="veri-degisim">
+                {rezerv.degisimGunluk !== 0 && (
+                  <span>
+                    Günlük {rezerv.degisimGunluk > 0 ? '+' : ''}
+                    {sayiYaz(rezerv.degisimGunluk, 1)} milyar $
+                  </span>
+                )}
+              </dd>
+            </div>
+            <div>
+              <dt>Net Uluslararası Rezerv (Swap dahil)</dt>
+              <dd>{milyar(rezerv.kalemler.netUluslararasiRezervUSD)}</dd>
+              <dd class="veri-tarih">{gunYaz(rezerv.tarih)}</dd>
+            </div>
+            <div>
+              <dt>Brüt Dış Varlıklar</dt>
+              <dd>{sayiYaz(rezerv.kalemler.disVarliklarUSD, 1)} milyar $</dd>
+              <dd class="veri-tarih">{gunYaz(rezerv.tarih)}</dd>
+            </div>
+          </dl>
+
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong>{' '}
+            <a href={rezerv.kaynak.url} rel="noopener" target="_blank">
+              {rezerv.kaynak.ad}
+            </a>
+            . Bilanço verileri o günkü TCMB gösterge dolar kuru ile USD cinsine çevrilmiştir. Siteye alındığı zaman:{' '}
+            {zamanYaz(rezerv.alinma)}.
+          </p>
+
+          <section class="bolum grafik-alani">
+            <h2 class="bolum-baslik">Net Döviz Pozisyonu Seyri (Milyar $)</h2>
+            <div class="grafik-kapsayici">
+              <svg viewBox={`0 0 ${svgW} ${svgH}`} class="rezerv-grafik" role="img" aria-label="TCMB net döviz pozisyonu geçmiş grafiği">
+                <!-- Yatay Kılavuz Çizgileri -->
+                {yCizgileri.map((yVal) => (
+                  <g class="kilavuz-grup">
+                    <line
+                      x1={padL}
+                      y1={yCoord(yVal)}
+                      x2={svgW - padR}
+                      y2={yCoord(yVal)}
+                      stroke="var(--hair, #e5e5e5)"
+                      stroke-dasharray="2 2"
+                    />
+                    <text
+                      x={padL - 8}
+                      y={yCoord(yVal) + 4}
+                      text-anchor="end"
+                      class="grafik-eksen-metin"
+                    >
+                      {yVal}
+                    </text>
+                  </g>
+                ))}
+
+                <!-- Trend Çizgisi -->
+                <path
+                  d={pathD}
+                  fill="none"
+                  stroke="#c2502b"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+
+                <!-- Son Nokta -->
+                {noktalar.length > 0 && (
+                  <circle
+                    cx={xCoord(noktalar.length - 1)}
+                    cy={yCoord(rezerv.netDovizPozisyonu)}
+                    r="4.5"
+                    fill="#c2502b"
+                  />
+                )}
+
+                <!-- X Ekseni Tarihleri -->
+                {xEtiketleri.map((nokta) => {
+                  const idx = noktalar.indexOf(nokta);
+                  return (
+                    <text
+                      x={xCoord(idx)}
+                      y={svgH - 8}
+                      text-anchor="middle"
+                      class="grafik-eksen-metin"
+                    >
+                      {nokta.tarih.slice(5).replace('-', '.')}
+                    </text>
+                  );
+                })}
+              </svg>
+            </div>
+            <p class="veri-notu">
+              * Veriler TCMB iş günü analitik bilançolarına dayanır. Swap ve Hazine mevduatları düşülmüş çekirdek rezerv büyüklüğünü gösterir.
+            </p>
+          </section>
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Rezerv Hesaplama Tablosu</h2>
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Bilanço Kalemi</th>
+                    <th scope="col" class="sag">Tutar (Milyar $)</th>
+                    <th scope="col">Açıklama</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Dış Varlıklar (A.1)</td>
+                    <td class="sag">{sayiYaz(rezerv.kalemler.disVarliklarUSD, 1)}</td>
+                    <td>Merkez Bankası kasasındaki toplam brüt döviz ve altın</td>
+                  </tr>
+                  <tr>
+                    <td>Döviz Yükümlülükleri (P.1)</td>
+                    <td class="sag">-{sayiYaz(rezerv.kalemler.dovizYukumlulukleriUSD, 1)}</td>
+                    <td>Bankalara ve dış dünyaya olan toplam döviz borçları</td>
+                  </tr>
+                  <tr class="ara-toplam">
+                    <td><strong>= Net Uluslararası Rezerv</strong></td>
+                    <td class="sag"><strong>+{sayiYaz(rezerv.kalemler.netUluslararasiRezervUSD, 1)}</strong></td>
+                    <td>IMF tanımlı manşet net rezerv (Swaplar dahil)</td>
+                  </tr>
+                  <tr>
+                    <td>TCMB Toplam Swap Stoku</td>
+                    <td class="sag">-{sayiYaz(rezerv.kalemler.swapStokuUSD, 1)}</td>
+                    <td>Bankalarla ve yabancı MB'lerle yapılan emanet döviz takası</td>
+                  </tr>
+                  <tr>
+                    <td>Hazine / Kamu Döviz Mevduatı</td>
+                    <td class="sag">-{sayiYaz(rezerv.kalemler.hazineDoviziUSD, 1)}</td>
+                    <td>Merkezi yönetimin TCMB nezdinde tuttuğu kendi dövizi</td>
+                  </tr>
+                  <tr class="vurgulu-sonuc">
+                    <td><strong>= Net Döviz Pozisyonu</strong></td>
+                    <td class="sag"><strong>{milyar(rezerv.kalemler.netPozisyonUSD)}</strong></td>
+                    <td><strong>Swaplar ve Hazine hariç çekirdek net rezerv</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu Rakamlar Ne Anlama Geliyor?</h2>
+              <p>
+                Merkez Bankası'nın brüt rezervi kasadaki toplam döviz ve altın miktarını gösterir. Ancak bu paranın önemli bir
+                kısmı bankaların zorunlu karşılıklarından, Hazine'ye ait hesaplardan ve swap (para takası) yoluyla emanet alınan
+                borçlardan oluşur.
+              </p>
+              <p>
+                <strong>Neden Swaplar Düşülür?</strong><br />
+                TCMB yerel bankalarla veya yabancı merkez bankalarıyla swap yaptığında bilançoya döviz girer; fakat vade bitiminde
+                bu döviz geri ödeneceği için gerçek bir rezerv varlığı değil, bir yükümlülüktür.
+              </p>
+              <p>
+                <strong>Neden Hazine Dövizi Düşülür?</strong><br />
+                Hazine'nin Merkez Bankası'nda tuttuğu mevduat doğrudan devlete aittir; Merkez Bankası'nın kendi para politikası
+                veya döviz likiditesi için serbestçe tasarruf edebileceği bir rezerv değildir.
+              </p>
+              <p>
+                Bu iki kalem arındırıldığında geriye kalan <strong>Swap ve Hazine Hariç Net Döviz Pozisyonu</strong>, Merkez
+                Bankası'nın dışarıdan hiçbir borç veya emanet almaksızın sahip olduğu "öz" cephaneyi gösterir. Piyasa
+                ekonomistlerinin rezerv kalitesini ölçerken en çok başvurduğu temel referans bu göstergedir.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">TCMB net döviz pozisyonu verisi şu anda bulunamadı.</p>
+      )
+    }
+
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/doviz-kurlari/">Döviz kurları</a>
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/bist-100-tufe/">BİST 100 / TÜFE</a>
+    </nav>
+    <YasalUyari>
+      Bu sayfadaki veriler bilgi amaçlıdır ve TCMB Analitik Bilançosu verilerine dayanır; yatırım tavsiyesi niteliği taşımaz.
+    </YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .vurgulu-sayi {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--terracotta, #c2502b);
+  }
+
+  .grafik-kapsayici {
+    width: 100%;
+    overflow-x: auto;
+    background: var(--surface, #faf8f5);
+    border: 1px solid var(--hair, #e8e4df);
+    border-radius: 6px;
+    padding: 16px;
+    margin: 16px 0 8px;
+  }
+
+  .rezerv-grafik {
+    width: 100%;
+    height: auto;
+    min-width: 480px;
+    display: block;
+  }
+
+  .grafik-eksen-metin {
+    font-size: 11px;
+    fill: var(--ink-muted, #73706c);
+    font-family: var(--sans, sans-serif);
+  }
+
+  .ara-toplam {
+    background: var(--surface-subtle, rgba(0, 0, 0, 0.02));
+    border-top: 1px solid var(--hair, #e5e5e5);
+    border-bottom: 1px solid var(--hair, #e5e5e5);
+  }
+
+  .vurgulu-sonuc {
+    background: var(--surface-accent, rgba(194, 80, 43, 0.06));
+    border-top: 2px solid var(--terracotta, #c2502b);
+    border-bottom: 2px solid var(--terracotta, #c2502b);
+    font-size: 1.05rem;
+  }
+</style>

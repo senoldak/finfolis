@@ -3162,5 +3162,812 @@
       }
     ],
     "alinma": "2026-10-22T11:01:24.257Z"
+  },
+  "rezerv": {
+    "tarih": "2026-10-22",
+    "netDovizPozisyonu": 34.2,
+    "degisimGunluk": -4.8,
+    "kalemler": {
+      "disVarliklarUSD": 156.4,
+      "dovizYukumlulukleriUSD": 94.8,
+      "netUluslararasiRezervUSD": 61.6,
+      "swapStokuUSD": 12.8,
+      "hazineDoviziUSD": 14.6,
+      "netPozisyonUSD": 34.2
+    },
+    "gecmis": [
+      {
+        "tarih": "2026-06-18",
+        "deger": 32
+      },
+      {
+        "tarih": "2026-06-19",
+        "deger": 31.6
+      },
+      {
+        "tarih": "2026-06-22",
+        "deger": 30.6
+      },
+      {
+        "tarih": "2026-06-23",
+        "deger": 30.2
+      },
+      {
+        "tarih": "2026-06-24",
+        "deger": 29.9
+      },
+      {
+        "tarih": "2026-06-25",
+        "deger": 29.5
+      },
+      {
+        "tarih": "2026-06-26",
+        "deger": 29
+      },
+      {
+        "tarih": "2026-06-29",
+        "deger": 27.6
+      },
+      {
+        "tarih": "2026-06-30",
+        "deger": 27.1
+      },
+      {
+        "tarih": "2026-07-01",
+        "deger": 26.7
+      },
+      {
+        "tarih": "2026-07-02",
+        "deger": 26.2
+      },
+      {
+        "tarih": "2026-07-03",
+        "deger": 26.3
+      },
+      {
+        "tarih": "2026-07-06",
+        "deger": 26.7
+      },
+      {
+        "tarih": "2026-07-07",
+        "deger": 26.8
+      },
+      {
+        "tarih": "2026-07-08",
+        "deger": 29.2
+      },
+      {
+        "tarih": "2026-07-09",
+        "deger": 31.7
+      },
+      {
+        "tarih": "2026-07-10",
+        "deger": 34.1
+      },
+      {
+        "tarih": "2026-07-13",
+        "deger": 35.4
+      },
+      {
+        "tarih": "2026-07-14",
+        "deger": 35.9
+      },
+      {
+        "tarih": "2026-07-15",
+        "deger": 36.3
+      },
+      {
+        "tarih": "2026-07-16",
+        "deger": 36.8
+      },
+      {
+        "tarih": "2026-07-17",
+        "deger": 37.2
+      },
+      {
+        "tarih": "2026-07-20",
+        "deger": 37.8
+      },
+      {
+        "tarih": "2026-07-21",
+        "deger": 37.9
+      },
+      {
+        "tarih": "2026-07-22",
+        "deger": 38.1
+      },
+      {
+        "tarih": "2026-07-23",
+        "deger": 38.3
+      },
+      {
+        "tarih": "2026-07-24",
+        "deger": 38.5
+      },
+      {
+        "tarih": "2026-07-27",
+        "deger": 35.1
+      },
+      {
+        "tarih": "2026-07-28",
+        "deger": 34
+      },
+      {
+        "tarih": "2026-07-29",
+        "deger": 35.3
+      },
+      {
+        "tarih": "2026-07-30",
+        "deger": 36.5
+      },
+      {
+        "tarih": "2026-07-31",
+        "deger": 37.8
+      },
+      {
+        "tarih": "2026-08-03",
+        "deger": 37.1
+      },
+      {
+        "tarih": "2026-08-04",
+        "deger": 36.1
+      },
+      {
+        "tarih": "2026-08-05",
+        "deger": 35.1
+      },
+      {
+        "tarih": "2026-08-06",
+        "deger": 37.1
+      },
+      {
+        "tarih": "2026-08-07",
+        "deger": 39.1
+      },
+      {
+        "tarih": "2026-08-10",
+        "deger": 45
+      },
+      {
+        "tarih": "2026-08-11",
+        "deger": 47
+      },
+      {
+        "tarih": "2026-08-12",
+        "deger": 48.5
+      },
+      {
+        "tarih": "2026-08-13",
+        "deger": 50
+      },
+      {
+        "tarih": "2026-08-14",
+        "deger": 51.5
+      },
+      {
+        "tarih": "2026-08-17",
+        "deger": 52.5
+      },
+      {
+        "tarih": "2026-08-18",
+        "deger": 52.8
+      },
+      {
+        "tarih": "2026-08-19",
+        "deger": 52.5
+      },
+      {
+        "tarih": "2026-08-20",
+        "deger": 52.3
+      },
+      {
+        "tarih": "2026-08-21",
+        "deger": 52
+      },
+      {
+        "tarih": "2026-08-24",
+        "deger": 51.3
+      },
+      {
+        "tarih": "2026-08-25",
+        "deger": 51
+      },
+      {
+        "tarih": "2026-08-26",
+        "deger": 52
+      },
+      {
+        "tarih": "2026-08-27",
+        "deger": 53
+      },
+      {
+        "tarih": "2026-08-28",
+        "deger": 54
+      },
+      {
+        "tarih": "2026-08-31",
+        "deger": 54.9
+      },
+      {
+        "tarih": "2026-09-01",
+        "deger": 55.2
+      },
+      {
+        "tarih": "2026-09-02",
+        "deger": 55.5
+      },
+      {
+        "tarih": "2026-09-03",
+        "deger": 55
+      },
+      {
+        "tarih": "2026-09-04",
+        "deger": 54.4
+      },
+      {
+        "tarih": "2026-09-07",
+        "deger": 52.8
+      },
+      {
+        "tarih": "2026-09-08",
+        "deger": 52.3
+      },
+      {
+        "tarih": "2026-09-09",
+        "deger": 51.5
+      },
+      {
+        "tarih": "2026-09-10",
+        "deger": 50.6
+      },
+      {
+        "tarih": "2026-09-11",
+        "deger": 49.8
+      },
+      {
+        "tarih": "2026-09-14",
+        "deger": 49.3
+      },
+      {
+        "tarih": "2026-09-15",
+        "deger": 49.6
+      },
+      {
+        "tarih": "2026-09-16",
+        "deger": 49.8
+      },
+      {
+        "tarih": "2026-09-17",
+        "deger": 48.9
+      },
+      {
+        "tarih": "2026-09-18",
+        "deger": 48
+      },
+      {
+        "tarih": "2026-09-21",
+        "deger": 45.4
+      },
+      {
+        "tarih": "2026-09-22",
+        "deger": 44.2
+      },
+      {
+        "tarih": "2026-09-23",
+        "deger": 43
+      },
+      {
+        "tarih": "2026-09-24",
+        "deger": 41.7
+      },
+      {
+        "tarih": "2026-09-25",
+        "deger": 40.5
+      },
+      {
+        "tarih": "2026-09-28",
+        "deger": 39.7
+      },
+      {
+        "tarih": "2026-09-29",
+        "deger": 39.5
+      },
+      {
+        "tarih": "2026-09-30",
+        "deger": 39.2
+      },
+      {
+        "tarih": "2026-10-01",
+        "deger": 39.8
+      },
+      {
+        "tarih": "2026-10-02",
+        "deger": 40.4
+      },
+      {
+        "tarih": "2026-10-05",
+        "deger": 42.1
+      },
+      {
+        "tarih": "2026-10-06",
+        "deger": 40.7
+      },
+      {
+        "tarih": "2026-10-07",
+        "deger": 39.3
+      },
+      {
+        "tarih": "2026-10-08",
+        "deger": 37.9
+      },
+      {
+        "tarih": "2026-10-09",
+        "deger": 36.5
+      },
+      {
+        "tarih": "2026-10-12",
+        "deger": 32.6
+      },
+      {
+        "tarih": "2026-10-13",
+        "deger": 33
+      },
+      {
+        "tarih": "2026-10-14",
+        "deger": 33.3
+      },
+      {
+        "tarih": "2026-10-15",
+        "deger": 33.7
+      },
+      {
+        "tarih": "2026-10-16",
+        "deger": 35
+      },
+      {
+        "tarih": "2026-10-19",
+        "deger": 38.8
+      },
+      {
+        "tarih": "2026-10-20",
+        "deger": 38.9
+      },
+      {
+        "tarih": "2026-10-21",
+        "deger": 39
+      },
+      {
+        "tarih": "2026-10-22",
+        "deger": 34.2
+      }
+    ],
+    "kaynak": {
+      "ad": "TCMB Analitik Bilanço ve Swap Verileri",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "alinma": "2026-10-22T16:00:00.000Z"
+  },
+  "piyasaFaizleri": {
+    "kaynak": {
+      "ad": "TCMB, Bankalarca Açılan Kredilere ve Mevduatlara Uygulanan Ağırlıklı Ortalama Faiz Oranları (EVDS)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "satirlar": [
+      {
+        "tarih": "2025-12-05",
+        "ihtiyac": 50.88,
+        "mevduat": 40.44,
+        "politika": 39.96,
+        "tasit": 29.76,
+        "konut": 32.4,
+        "tahvil5Y": 30.12
+      },
+      {
+        "tarih": "2025-12-12",
+        "ihtiyac": 46.44,
+        "mevduat": 39.84,
+        "politika": 38.52,
+        "tasit": 29.4,
+        "konut": 32.28,
+        "tahvil5Y": 30.24
+      },
+      {
+        "tarih": "2025-12-19",
+        "ihtiyac": 45.84,
+        "mevduat": 39.12,
+        "politika": 38.52,
+        "tasit": 29.04,
+        "konut": 31.92,
+        "tahvil5Y": 29.64
+      },
+      {
+        "tarih": "2025-12-26",
+        "ihtiyac": 38.88,
+        "mevduat": 39.12,
+        "politika": 38.52,
+        "tasit": 27.72,
+        "konut": 31.44,
+        "tahvil5Y": 29.4
+      },
+      {
+        "tarih": "2026-01-02",
+        "ihtiyac": 50.16,
+        "mevduat": 38.88,
+        "politika": 38.52,
+        "tasit": 27.84,
+        "konut": 31.32,
+        "tahvil5Y": 28.92
+      },
+      {
+        "tarih": "2026-01-09",
+        "ihtiyac": 50.52,
+        "mevduat": 39.24,
+        "politika": 38.52,
+        "tasit": 36.24,
+        "konut": 31.32,
+        "tahvil5Y": 29.16
+      },
+      {
+        "tarih": "2026-01-16",
+        "ihtiyac": 45.48,
+        "mevduat": 38.64,
+        "politika": 37.44,
+        "tasit": 32.52,
+        "konut": 31.2,
+        "tahvil5Y": 29.04
+      },
+      {
+        "tarih": "2026-01-23",
+        "ihtiyac": 48.12,
+        "mevduat": 37.92,
+        "politika": 37.44,
+        "tasit": 32.52,
+        "konut": 31.32,
+        "tahvil5Y": 28.2
+      },
+      {
+        "tarih": "2026-01-30",
+        "ihtiyac": 48.24,
+        "mevduat": 38.04,
+        "politika": 37.44,
+        "tasit": 31.08,
+        "konut": 30.96,
+        "tahvil5Y": 28.56
+      },
+      {
+        "tarih": "2026-02-06",
+        "ihtiyac": 47.64,
+        "mevduat": 38.04,
+        "politika": 37.44,
+        "tasit": 31.92,
+        "konut": 30.48,
+        "tahvil5Y": 28.68
+      },
+      {
+        "tarih": "2026-02-13",
+        "ihtiyac": 47.16,
+        "mevduat": 37.92,
+        "politika": 37.44,
+        "tasit": 30.72,
+        "konut": 30.12,
+        "tahvil5Y": 28.92
+      },
+      {
+        "tarih": "2026-02-20",
+        "ihtiyac": 46.56,
+        "mevduat": 37.8,
+        "politika": 37.44,
+        "tasit": 30.6,
+        "konut": 30,
+        "tahvil5Y": 29.16
+      },
+      {
+        "tarih": "2026-02-27",
+        "ihtiyac": 47.16,
+        "mevduat": 38.28,
+        "politika": 37.44,
+        "tasit": 33.36,
+        "konut": 29.76,
+        "tahvil5Y": 29.16
+      },
+      {
+        "tarih": "2026-03-06",
+        "ihtiyac": 48.24,
+        "mevduat": 38.64,
+        "politika": 37.44,
+        "tasit": 28.56,
+        "konut": 30.24,
+        "tahvil5Y": 30
+      },
+      {
+        "tarih": "2026-03-13",
+        "ihtiyac": 50.04,
+        "mevduat": 39.24,
+        "politika": 40.56,
+        "tasit": 31.44,
+        "konut": 30.72,
+        "tahvil5Y": 31.92
+      },
+      {
+        "tarih": "2026-03-20",
+        "ihtiyac": 49.92,
+        "mevduat": 40.32,
+        "politika": 40.56,
+        "tasit": 36.36,
+        "konut": 31.32,
+        "tahvil5Y": 33.36
+      },
+      {
+        "tarih": "2026-03-27",
+        "ihtiyac": 49.44,
+        "mevduat": 41.16,
+        "politika": 40.56,
+        "tasit": 33.84,
+        "konut": 31.56,
+        "tahvil5Y": 33.6
+      },
+      {
+        "tarih": "2026-04-03",
+        "ihtiyac": 49.08,
+        "mevduat": 41.28,
+        "politika": 40.56,
+        "tasit": 33.72,
+        "konut": 31.8,
+        "tahvil5Y": 32.76
+      },
+      {
+        "tarih": "2026-04-10",
+        "ihtiyac": 48.96,
+        "mevduat": 41.04,
+        "politika": 40.56,
+        "tasit": 33.84,
+        "konut": 32.52,
+        "tahvil5Y": 32.76
+      },
+      {
+        "tarih": "2026-04-17",
+        "ihtiyac": 48.96,
+        "mevduat": 41.28,
+        "politika": 40.56,
+        "tasit": 28.8,
+        "konut": 32.76,
+        "tahvil5Y": 32.4
+      },
+      {
+        "tarih": "2026-04-24",
+        "ihtiyac": 49.08,
+        "mevduat": 41.16,
+        "politika": 40.56,
+        "tasit": 29.4,
+        "konut": 33.12,
+        "tahvil5Y": 33.12
+      },
+      {
+        "tarih": "2026-05-01",
+        "ihtiyac": 50.04,
+        "mevduat": 41.04,
+        "politika": 40.56,
+        "tasit": 30.6,
+        "konut": 33.36,
+        "tahvil5Y": 34.32
+      },
+      {
+        "tarih": "2026-05-08",
+        "ihtiyac": 50.52,
+        "mevduat": 41.04,
+        "politika": 40.56,
+        "tasit": 38.52,
+        "konut": 33.6,
+        "tahvil5Y": 33.48
+      },
+      {
+        "tarih": "2026-05-15",
+        "ihtiyac": 50.4,
+        "mevduat": 41.4,
+        "politika": 40.56,
+        "tasit": 40.68,
+        "konut": 33.84,
+        "tahvil5Y": 33.12
+      },
+      {
+        "tarih": "2026-05-22",
+        "ihtiyac": 50.4,
+        "mevduat": 41.4,
+        "politika": 40.56,
+        "tasit": 40.8,
+        "konut": 34.32,
+        "tahvil5Y": 32.52
+      },
+      {
+        "tarih": "2026-05-29",
+        "ihtiyac": 49.8,
+        "mevduat": 41.64,
+        "politika": 40.56,
+        "tasit": 42.48,
+        "konut": 35.28,
+        "tahvil5Y": 32.04
+      },
+      {
+        "tarih": "2026-06-05",
+        "ihtiyac": 50.16,
+        "mevduat": 41.4,
+        "politika": 40.56,
+        "tasit": 41.04,
+        "konut": 35.16,
+        "tahvil5Y": 32.28
+      },
+      {
+        "tarih": "2026-06-12",
+        "ihtiyac": 50.76,
+        "mevduat": 41.28,
+        "politika": 40.56,
+        "tasit": 38.64,
+        "konut": 35.04,
+        "tahvil5Y": 32.88
+      },
+      {
+        "tarih": "2026-06-19",
+        "ihtiyac": 51.12,
+        "mevduat": 40.92,
+        "politika": 40.56,
+        "tasit": 39.36,
+        "konut": 35.16,
+        "tahvil5Y": 33.36
+      },
+      {
+        "tarih": "2026-06-26",
+        "ihtiyac": 51.24,
+        "mevduat": 40.56,
+        "politika": 40.56,
+        "tasit": 36.84,
+        "konut": 35.28,
+        "tahvil5Y": 33.72
+      },
+      {
+        "tarih": "2026-07-03",
+        "ihtiyac": 51.12,
+        "mevduat": 40.56,
+        "politika": 40.56,
+        "tasit": 38.16,
+        "konut": 35.64,
+        "tahvil5Y": 33.36
+      },
+      {
+        "tarih": "2026-07-10",
+        "ihtiyac": 51.36,
+        "mevduat": 40.44,
+        "politika": 40.56,
+        "tasit": 39.36,
+        "konut": 35.64,
+        "tahvil5Y": 33.36
+      },
+      {
+        "tarih": "2026-07-17",
+        "ihtiyac": 51.36,
+        "mevduat": 40.2,
+        "politika": 40.56,
+        "tasit": 40.44,
+        "konut": 35.64,
+        "tahvil5Y": 33.24
+      },
+      {
+        "tarih": "2026-07-24",
+        "ihtiyac": 50.64,
+        "mevduat": 39.96,
+        "politika": 40.56,
+        "tasit": 39.36,
+        "konut": 35.52,
+        "tahvil5Y": 32.88
+      },
+      {
+        "tarih": "2026-07-31",
+        "ihtiyac": 49.8,
+        "mevduat": 39.96,
+        "politika": 40.56,
+        "tasit": 39.36,
+        "konut": 35.52,
+        "tahvil5Y": 32.52
+      },
+      {
+        "tarih": "2026-08-07",
+        "ihtiyac": 48.36,
+        "mevduat": 38.04,
+        "politika": 37.44,
+        "tasit": 32.16,
+        "konut": 35.52,
+        "tahvil5Y": 32.52
+      },
+      {
+        "tarih": "2026-08-14",
+        "ihtiyac": 49.68,
+        "mevduat": 37.8,
+        "politika": 37.44,
+        "tasit": 32.76,
+        "konut": 35.52,
+        "tahvil5Y": 32.52
+      },
+      {
+        "tarih": "2026-08-21",
+        "ihtiyac": 50.64,
+        "mevduat": 37.56,
+        "politika": 37.44,
+        "tasit": 35.04,
+        "konut": 35.52,
+        "tahvil5Y": 33.24
+      },
+      {
+        "tarih": "2026-08-28",
+        "ihtiyac": 49.92,
+        "mevduat": 37.44,
+        "politika": 37.44,
+        "tasit": 38.16,
+        "konut": 35.64,
+        "tahvil5Y": 33.24
+      },
+      {
+        "tarih": "2026-09-04",
+        "ihtiyac": 49.68,
+        "mevduat": 37.56,
+        "politika": 37.44,
+        "tasit": 39.72,
+        "konut": 35.52,
+        "tahvil5Y": 33.24
+      },
+      {
+        "tarih": "2026-09-11",
+        "ihtiyac": 49.56,
+        "mevduat": 37.44,
+        "politika": 37.44,
+        "tasit": 38.64,
+        "konut": 35.52,
+        "tahvil5Y": 33.12
+      },
+      {
+        "tarih": "2026-09-18",
+        "ihtiyac": 49.32,
+        "mevduat": 37.44,
+        "politika": 37.44,
+        "tasit": 38.52,
+        "konut": 35.4,
+        "tahvil5Y": 33
+      },
+      {
+        "tarih": "2026-09-25",
+        "ihtiyac": 49.2,
+        "mevduat": 37.32,
+        "politika": 37.44,
+        "tasit": 35.76,
+        "konut": 35.4,
+        "tahvil5Y": 33
+      },
+      {
+        "tarih": "2026-10-02",
+        "ihtiyac": 49.32,
+        "mevduat": 37.44,
+        "politika": 37.44,
+        "tasit": 33.84,
+        "konut": 35.28,
+        "tahvil5Y": 33
+      },
+      {
+        "tarih": "2026-10-09",
+        "ihtiyac": 49.32,
+        "mevduat": 37.32,
+        "politika": 37.44,
+        "tasit": 33.84,
+        "konut": 35.28,
+        "tahvil5Y": 33
+      },
+      {
+        "tarih": "2026-10-16",
+        "ihtiyac": 49.32,
+        "mevduat": 37.08,
+        "politika": 37.44,
+        "tasit": 33.84,
+        "konut": 35.28,
+        "tahvil5Y": 33
+      }
+    ],
+    "alinma": "2026-10-23T09:36:42.268Z"
   }
 }

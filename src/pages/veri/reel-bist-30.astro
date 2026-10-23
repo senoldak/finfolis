@@ -1,0 +1,204 @@
+---
+// TÜFE'den Arındırılmış BİST 30 Endeksi (Reel Getiri)
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ReelBistGrafik from '../../components/ReelBistGrafik.astro';
+import data from '../../data/reel-bist.json';
+import { ayAdi, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const { istatistik, noktalar, donemler, kaynaklar, guncelleme } = data;
+const son = istatistik.sonNokta;
+const baslik = 'TÜFE’den Temizlenmiş BİST 30 Endeksi';
+const description = `Borsa İstanbul BİST 30 endeksinin resmi tüketici enflasyonundan (TÜFE) arındırılmış reel getiri serisi (2014–2026). Eylül 2014=100 bazına göre borsa reel olarak nerede?`;
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Reel BİST 30 Endeksi', href: '/veri/reel-bist-30/' },
+];
+
+const son24Ay = noktalar.slice(-24).reverse();
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  sayfaEk: { dateModified: guncelleme },
+  ekler: [
+    {
+      '@type': 'Dataset',
+      name: 'TÜFE’den Arındırılmış BİST 30 Reel Getiri Endeksi',
+      description: 'Borsa İstanbul BİST 30 endeksi aylık kapanışlarının TÜİK TÜFE katsayısıyla defle edilmiş reel getiri serisi.',
+      url: 'https://finfolis.com/veri/reel-bist-30/',
+      isAccessibleForFree: true,
+      creator: { '@type': 'Organization', name: 'finfolis' },
+      temporalCoverage: `${noktalar[0].tarih}/${son.tarih}`,
+      dateModified: guncelleme,
+      variableMeasured: ['Reel BİST 30 Endeksi', 'BİST 30 Kapanış (TL)', 'TÜFE Kümülatif Çarpanı'],
+    },
+  ],
+});
+---
+
+<Base title={`${baslik} (Reel Getiri)`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Borsa İstanbul · Enflasyondan arındırılmış satın alma gücü seyri (Eylül 2014 = 100)</p>
+    </header>
+
+    <!-- Özet Rakamlar -->
+    <dl class="veri-rakamlar">
+      <div>
+        <dt>Güncel Reel Endeks</dt>
+        <dd>
+          {sayiYaz(son.reelEndeks, 1)}
+          <small>puan</small>
+        </dd>
+        <dd class="veri-degisim">
+          {ayAdi(son)} · Bazdan {istatistik.reelDegisimToplam >= 0 ? `+%${sayiYaz(istatistik.reelDegisimToplam, 1)}` : `-%${sayiYaz(Math.abs(istatistik.reelDegisimToplam), 1)}`}
+        </dd>
+      </div>
+
+      <div>
+        <dt>Nominal Kapanış</dt>
+        <dd>
+          {sayiYaz(son.bistKapanis, 0)}
+          <small>TL</small>
+        </dd>
+        <dd class="veri-degisim">
+          2014'ten bu yana +%{sayiYaz(istatistik.nominalDegisimToplam, 0)}
+        </dd>
+      </div>
+
+      <div>
+        <dt>Kümülatif TÜFE Artışı</dt>
+        <dd>
+          {sayiYaz(son.tufeCarpani, 2)}
+          <small>kat</small>
+        </dd>
+        <dd class="veri-degisim">Eylül 2014'ten bugüne fiyatlar</dd>
+      </div>
+
+      <div>
+        <dt>Tarihsel Zirve (Reel)</dt>
+        <dd>
+          {sayiYaz(istatistik.zirve.reelEndeks, 1)}
+          <small>puan</small>
+        </dd>
+        <dd class="veri-degisim">{istatistik.zirve.tarih} (Enflasyon Rallisi)</dd>
+      </div>
+    </dl>
+
+    <!-- İnteraktif SVG Grafik -->
+    <ReelBistGrafik noktalar={noktalar} donemler={donemler} />
+
+    <p class="veri-notu veri-kaynak">
+      <strong>Kaynaklar:</strong>{' '}
+      {
+        kaynaklar.map((k, i) => (
+          <>
+            {i > 0 && ' · '}
+            <a href={k.url} rel="noopener" target="_blank">{k.ad}</a>
+          </>
+        ))
+      }
+      . Son hesaplama zamanı: {zamanYaz(guncelleme)}.
+    </p>
+
+    <!-- İki Sütunlu Açıklama ve Tablo Alanı -->
+    <div class="veri-izgara">
+      <section class="bolum">
+        <h2 class="bolum-baslik">Son 24 Ayın Reel Değerleri</h2>
+        <div style="overflow-x: auto;">
+          <table class="cizelge veri-tablo">
+            <thead>
+              <tr>
+                <th scope="col">Dönem</th>
+                <th scope="col" class="sag">Nominal BİST 30</th>
+                <th scope="col" class="sag">TÜFE Çarpanı</th>
+                <th scope="col" class="sag">Reel Endeks</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                son24Ay.map((s) => (
+                  <tr>
+                    <td>{ayAdi(s)}</td>
+                    <td class="sag">{sayiYaz(s.bistKapanis, 0)} TL</td>
+                    <td class="sag">{sayiYaz(s.tufeCarpani, 2)}x</td>
+                    <td class="sag">
+                      <strong>{sayiYaz(s.reelEndeks, 1)}</strong>
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="bolum prose veri-aciklama">
+        <h2 class="bolum-baslik">Bu Grafik Bize Ne Anlatıyor?</h2>
+        <p>
+          Nominal borsa endeksleri (ekranda gördüğümüz günlük BİST 30 ve BİST 100 puanları), TL bazında tarihi zirveler kırabilir.
+          Ancak yüksek enflasyon ortamında bir varlığın TL değerinin artması, yatırımcısının <strong>satın alma gücünün</strong> arttığı
+          anlamına gelmez.
+        </p>
+
+        <h3>Reel Endeks Nasıl Hesaplanır?</h3>
+        <p>
+          Grafikte Eylül 2014 tarihi <strong>100 baz puan</strong> kabul edilmiştir. Her ayın BİST 30 kapanışı, TÜİK’in resmi tüketici
+          fiyat endeksi (TÜFE) katsayısına bölünerek enflasyondan temizlenir:
+        </p>
+        <p>
+          <code>Reel Değer = (BİST 30 Kapanışı / Baz BİST) ÷ Kümülatif Enflasyon Çarpanı × 100</code>
+        </p>
+
+        <h3>Grafikteki Dört Ana Piyasa Rejimi:</h3>
+        <ul>
+          <li>
+            <strong>1. Dengeli Dönem (2014 – 2018):</strong> Borsa, enflasyonla genel olarak başa baş veya hafif üzerinde seyretmiş,
+            endeks 85 ile 120 puan arasında dalgalanmıştır.
+          </li>
+          <li>
+            <strong>2. Reel Değer Kaybı ve Ucuzluk Bölgesi (2018 – 2022):</strong> Kur şokları ve yüksek enflasyon döneminde borsa
+            nominal olarak yükselse de enflasyonun çok gerisinde kalmış; reel endeks 60–70 seviyelerine kadar inerek tarihsel olarak
+            en ucuz seviyelerini görmüştür.
+          </li>
+          <li>
+            <strong>3. Enflasyon Koruması ve Ralli (2022 – 2024):</strong> Negatif reel faiz ortamında yatırımcıların enflasyondan
+            kaçış adresi borsa olmuş ve endeks hızla 140–155 puan bandına çıkarak tarihi bir reel ralli yaşamıştır.
+          </li>
+          <li>
+            <strong>4. Konsolidasyon (2024 – 2026):</strong> Sıkı para politikası ve yüksek mevduat faizleriyle birlikte borsa reel
+            olarak dengelenme ve ortalamaya dönüş sürecine girmiştir.
+          </li>
+        </ul>
+
+        <p>
+          <strong>Özet Çıkarım:</strong> Reel endeks 100'ün altındaysa, Eylül 2014'te borsaya yatırılan 100 TL'lik alım gücü enflasyona
+          karşı erimiş; 100'ün üzerindeyse borsa yatırımcısına enflasyonun üzerinde net reel refah artışı sağlamıştır.
+        </p>
+      </section>
+    </div>
+
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/enflasyon/">Yıllık Enflasyon (TÜFE)</a>
+      <a href="/veri/politika-faizi/">Politika Faizi</a>
+      <a href="/veri/konut-fiyat-endeksi/">Konut Fiyat Endeksi</a>
+      <a href="/hesapla/enflasyon/">Enflasyon Hesaplama</a>
+    </nav>
+
+    <YasalUyari>
+      Bu sayfadaki veriler bilgilendirme amaçlıdır. BİST verileri Yahoo Finance'tan, TÜFE oranları TÜİK ve TCMB'den derlenmiştir.
+      Yatırım tavsiyesi değildir.
+    </YasalUyari>
+  </div>
+</Base>

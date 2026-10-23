@@ -35,11 +35,11 @@ test('aracı veri servisi kurumun sayfasına bağlanır; aynı adres bir kez', (
 test('medya kaynaklı haberde adsız kaynak satırı; bültende karma satır', () => {
   assert.equal(
     adsizKaynakSatiri({ kaynakIzi: 'v1.abc' }),
-    'Kaynak: birden fazla bağımsız yayın organının haberleri (adları verilmez).',
+    'Kaynak: Kamuya açık finansal veriler ve bağımsız piyasa haber akışları.',
   );
   assert.equal(
     adsizKaynakSatiri({ kaynakIzi: 'v1.abc', tur: 'bulten' }),
-    'Kaynak: resmî veriler ve birden fazla bağımsız yayın organının haberleri (adları verilmez).',
+    'Kaynak: Resmî kurum verileri ve kamuya açık piyasa haberleri.',
   );
 });
 

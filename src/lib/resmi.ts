@@ -65,12 +65,56 @@ export interface IssizlikBolumu {
   alinma: string;
 }
 
+// TCMB Net Döviz Pozisyonu (Swaplar ve Hazine Dövizi Hariç)
+export interface RezervKalemleri {
+  disVarliklarUSD: number;
+  dovizYukumlulukleriUSD: number;
+  netUluslararasiRezervUSD: number;
+  swapStokuUSD: number;
+  hazineDoviziUSD: number;
+  netPozisyonUSD: number;
+}
+
+export interface RezervNoktasi {
+  tarih: string;
+  deger: number;
+}
+
+export interface RezervBolumu {
+  tarih: string;
+  netDovizPozisyonu: number;
+  degisimGunluk: number;
+  kalemler: RezervKalemleri;
+  gecmis: RezervNoktasi[];
+  kaynak: { ad: string; url: string };
+  alinma: string;
+}
+
+// Piyasa faizleri (TCMB haftalık akım verileri: kredi ve mevduat faizleri)
+export interface PiyasaFaizleriSatiri {
+  tarih: string;
+  ihtiyac: number;
+  mevduat: number;
+  politika: number;
+  tasit: number;
+  konut: number;
+  tahvil5Y?: number | null;
+}
+
+export interface PiyasaFaizleriBolumu {
+  kaynak: { ad: string; url: string };
+  satirlar: PiyasaFaizleriSatiri[];
+  alinma: string;
+}
+
 export const RESMI = data as unknown as {
   kur?: KurBolumu;
   faiz?: FaizBolumu;
   enflasyon?: EnflasyonBolumu;
   konut?: KonutBolumu;
   issizlik?: IssizlikBolumu;
+  rezerv?: RezervBolumu;
+  piyasaFaizleri?: PiyasaFaizleriBolumu;
 };
 
 export const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];

@@ -1,0 +1,1541 @@
+{
+  "guncelleme": "2026-10-23T09:34:26.679Z",
+  "endeks": "BİST 30 (XU030)",
+  "bazTarih": "2014-09",
+  "kaynaklar": [
+    {
+      "ad": "Borsa İstanbul / Yahoo Finance (XU030.IS)",
+      "url": "https://finance.yahoo.com/quote/XU030.IS"
+    },
+    {
+      "ad": "TÜİK / TCMB Tüketici Fiyatları",
+      "url": "https://www.tcmb.gov.tr"
+    }
+  ],
+  "donemler": [
+    {
+      "id": "denge",
+      "ad": "Dengeli Dönem",
+      "aralik": "2014 – 2018",
+      "bant": "85 – 120",
+      "renk": "#e3ebf3",
+      "sinirlar": [
+        "2014-09",
+        "2018-08"
+      ]
+    },
+    {
+      "id": "dip",
+      "ad": "Reel Değer Kaybı (Ucuzluk)",
+      "aralik": "2018 – 2022",
+      "bant": "63 – 90",
+      "renk": "#fcedde",
+      "sinirlar": [
+        "2018-09",
+        "2022-07"
+      ]
+    },
+    {
+      "id": "ralli",
+      "ad": "Enflasyon Rallisi",
+      "aralik": "2022 – 2024",
+      "bant": "100 – 155",
+      "renk": "#ece7f4",
+      "sinirlar": [
+        "2022-08",
+        "2024-05"
+      ]
+    },
+    {
+      "id": "normal",
+      "ad": "Konsolidasyon",
+      "aralik": "2024 – 2026",
+      "bant": "85 – 115",
+      "renk": "#fcf1d8",
+      "sinirlar": [
+        "2024-06",
+        "2026-12"
+      ]
+    }
+  ],
+  "istatistik": {
+    "bazTarih": "2014-09",
+    "bazBist": 989.57,
+    "sonNokta": {
+      "tarih": "2026-09",
+      "yil": 2026,
+      "ay": 9,
+      "bistKapanis": 14010.9,
+      "tufeCarpani": 17.91,
+      "tufeYillik": 29.73,
+      "tufeAylik": 1.84,
+      "reelEndeks": 79
+    },
+    "zirve": {
+      "tarih": "2023-06",
+      "reelEndeks": 143.6,
+      "bistKapanis": 7875.7
+    },
+    "dip": {
+      "tarih": "2020-02",
+      "reelEndeks": 58.7,
+      "bistKapanis": 1067.91
+    },
+    "reelDegisimToplam": -21,
+    "reelDegisim1Yil": -9.6,
+    "reelDegisim5Yil": 11.9,
+    "nominalDegisimToplam": 1315.9
+  },
+  "noktalar": [
+    {
+      "tarih": "2014-09",
+      "yil": 2014,
+      "ay": 9,
+      "bistKapanis": 989.57,
+      "tufeCarpani": 1,
+      "tufeYillik": 8.86,
+      "tufeAylik": 0.14,
+      "reelEndeks": 100
+    },
+    {
+      "tarih": "2014-10",
+      "yil": 2014,
+      "ay": 10,
+      "bistKapanis": 1067.72,
+      "tufeCarpani": 1.02,
+      "tufeYillik": 8.96,
+      "tufeAylik": 1.9,
+      "reelEndeks": 105.9
+    },
+    {
+      "tarih": "2014-11",
+      "yil": 2014,
+      "ay": 11,
+      "bistKapanis": 1061.5,
+      "tufeCarpani": 1.02,
+      "tufeYillik": 9.15,
+      "tufeAylik": 0.18,
+      "reelEndeks": 105.1
+    },
+    {
+      "tarih": "2014-12",
+      "yil": 2014,
+      "ay": 12,
+      "bistKapanis": 1101.74,
+      "tufeCarpani": 1.02,
+      "tufeYillik": 8.17,
+      "tufeAylik": -0.44,
+      "reelEndeks": 109.5
+    },
+    {
+      "tarih": "2015-01",
+      "yil": 2015,
+      "ay": 1,
+      "bistKapanis": 1033.83,
+      "tufeCarpani": 1.03,
+      "tufeYillik": 7.24,
+      "tufeAylik": 1.1,
+      "reelEndeks": 101.7
+    },
+    {
+      "tarih": "2015-02",
+      "yil": 2015,
+      "ay": 2,
+      "bistKapanis": 990.74,
+      "tufeCarpani": 1.03,
+      "tufeYillik": 7.55,
+      "tufeAylik": 0.71,
+      "reelEndeks": 96.7
+    },
+    {
+      "tarih": "2015-03",
+      "yil": 2015,
+      "ay": 3,
+      "bistKapanis": 1023.87,
+      "tufeCarpani": 1.05,
+      "tufeYillik": 7.61,
+      "tufeAylik": 1.19,
+      "reelEndeks": 98.8
+    },
+    {
+      "tarih": "2015-04",
+      "yil": 2015,
+      "ay": 4,
+      "bistKapanis": 1010.03,
+      "tufeCarpani": 1.06,
+      "tufeYillik": 7.91,
+      "tufeAylik": 1.63,
+      "reelEndeks": 95.9
+    },
+    {
+      "tarih": "2015-05",
+      "yil": 2015,
+      "ay": 5,
+      "bistKapanis": 1004.34,
+      "tufeCarpani": 1.07,
+      "tufeYillik": 8.09,
+      "tufeAylik": 0.56,
+      "reelEndeks": 94.8
+    },
+    {
+      "tarih": "2015-06",
+      "yil": 2015,
+      "ay": 6,
+      "bistKapanis": 979.35,
+      "tufeCarpani": 1.06,
+      "tufeYillik": 7.2,
+      "tufeAylik": -0.51,
+      "reelEndeks": 93
+    },
+    {
+      "tarih": "2015-07",
+      "yil": 2015,
+      "ay": 7,
+      "bistKapanis": 923.61,
+      "tufeCarpani": 1.07,
+      "tufeYillik": 6.81,
+      "tufeAylik": 0.09,
+      "reelEndeks": 87.6
+    },
+    {
+      "tarih": "2015-08",
+      "yil": 2015,
+      "ay": 8,
+      "bistKapanis": 912.36,
+      "tufeCarpani": 1.07,
+      "tufeYillik": 7.14,
+      "tufeAylik": 0.4,
+      "reelEndeks": 86.2
+    },
+    {
+      "tarih": "2015-09",
+      "yil": 2015,
+      "ay": 9,
+      "bistKapanis": 982.13,
+      "tufeCarpani": 1.08,
+      "tufeYillik": 7.95,
+      "tufeAylik": 0.89,
+      "reelEndeks": 91.9
+    },
+    {
+      "tarih": "2015-10",
+      "yil": 2015,
+      "ay": 10,
+      "bistKapanis": 921.92,
+      "tufeCarpani": 1.1,
+      "tufeYillik": 7.58,
+      "tufeAylik": 1.55,
+      "reelEndeks": 85
+    },
+    {
+      "tarih": "2015-11",
+      "yil": 2015,
+      "ay": 11,
+      "bistKapanis": 874.28,
+      "tufeCarpani": 1.1,
+      "tufeYillik": 8.1,
+      "tufeAylik": 0.67,
+      "reelEndeks": 80.1
+    },
+    {
+      "tarih": "2015-12",
+      "yil": 2015,
+      "ay": 12,
+      "bistKapanis": 900.41,
+      "tufeCarpani": 1.11,
+      "tufeYillik": 8.81,
+      "tufeAylik": 0.21,
+      "reelEndeks": 82.3
+    },
+    {
+      "tarih": "2016-01",
+      "yil": 2016,
+      "ay": 1,
+      "bistKapanis": 932.45,
+      "tufeCarpani": 1.13,
+      "tufeYillik": 9.58,
+      "tufeAylik": 1.82,
+      "reelEndeks": 83.7
+    },
+    {
+      "tarih": "2016-02",
+      "yil": 2016,
+      "ay": 2,
+      "bistKapanis": 1023.49,
+      "tufeCarpani": 1.13,
+      "tufeYillik": 8.78,
+      "tufeAylik": -0.02,
+      "reelEndeks": 91.9
+    },
+    {
+      "tarih": "2016-03",
+      "yil": 2016,
+      "ay": 3,
+      "bistKapanis": 1047.99,
+      "tufeCarpani": 1.13,
+      "tufeYillik": 7.46,
+      "tufeAylik": -0.04,
+      "reelEndeks": 94.1
+    },
+    {
+      "tarih": "2016-04",
+      "yil": 2016,
+      "ay": 4,
+      "bistKapanis": 955.01,
+      "tufeCarpani": 1.13,
+      "tufeYillik": 6.57,
+      "tufeAylik": 0.78,
+      "reelEndeks": 85.1
+    },
+    {
+      "tarih": "2016-05",
+      "yil": 2016,
+      "ay": 5,
+      "bistKapanis": 945.35,
+      "tufeCarpani": 1.14,
+      "tufeYillik": 6.58,
+      "tufeAylik": 0.58,
+      "reelEndeks": 83.8
+    },
+    {
+      "tarih": "2016-06",
+      "yil": 2016,
+      "ay": 6,
+      "bistKapanis": 924.66,
+      "tufeCarpani": 1.15,
+      "tufeYillik": 7.64,
+      "tufeAylik": 0.47,
+      "reelEndeks": 81.5
+    },
+    {
+      "tarih": "2016-07",
+      "yil": 2016,
+      "ay": 7,
+      "bistKapanis": 931.7,
+      "tufeCarpani": 1.16,
+      "tufeYillik": 8.79,
+      "tufeAylik": 1.16,
+      "reelEndeks": 81.2
+    },
+    {
+      "tarih": "2016-08",
+      "yil": 2016,
+      "ay": 8,
+      "bistKapanis": 936.43,
+      "tufeCarpani": 1.16,
+      "tufeYillik": 8.05,
+      "tufeAylik": -0.29,
+      "reelEndeks": 81.9
+    },
+    {
+      "tarih": "2016-09",
+      "yil": 2016,
+      "ay": 9,
+      "bistKapanis": 960.18,
+      "tufeCarpani": 1.16,
+      "tufeYillik": 7.28,
+      "tufeAylik": 0.18,
+      "reelEndeks": 83.8
+    },
+    {
+      "tarih": "2016-10",
+      "yil": 2016,
+      "ay": 10,
+      "bistKapanis": 904.3,
+      "tufeCarpani": 1.17,
+      "tufeYillik": 7.16,
+      "tufeAylik": 1.44,
+      "reelEndeks": 77.8
+    },
+    {
+      "tarih": "2016-11",
+      "yil": 2016,
+      "ay": 11,
+      "bistKapanis": 954.99,
+      "tufeCarpani": 1.18,
+      "tufeYillik": 7,
+      "tufeAylik": 0.52,
+      "reelEndeks": 81.7
+    },
+    {
+      "tarih": "2016-12",
+      "yil": 2016,
+      "ay": 12,
+      "bistKapanis": 1058.5,
+      "tufeCarpani": 1.2,
+      "tufeYillik": 8.53,
+      "tufeAylik": 1.64,
+      "reelEndeks": 89.1
+    },
+    {
+      "tarih": "2017-01",
+      "yil": 2017,
+      "ay": 1,
+      "bistKapanis": 1074.06,
+      "tufeCarpani": 1.23,
+      "tufeYillik": 9.22,
+      "tufeAylik": 2.46,
+      "reelEndeks": 88.3
+    },
+    {
+      "tarih": "2017-02",
+      "yil": 2017,
+      "ay": 2,
+      "bistKapanis": 1090.14,
+      "tufeCarpani": 1.24,
+      "tufeYillik": 10.13,
+      "tufeAylik": 0.81,
+      "reelEndeks": 88.9
+    },
+    {
+      "tarih": "2017-03",
+      "yil": 2017,
+      "ay": 3,
+      "bistKapanis": 1166.65,
+      "tufeCarpani": 1.25,
+      "tufeYillik": 11.29,
+      "tufeAylik": 1.02,
+      "reelEndeks": 94.1
+    },
+    {
+      "tarih": "2017-04",
+      "yil": 2017,
+      "ay": 4,
+      "bistKapanis": 1197.46,
+      "tufeCarpani": 1.27,
+      "tufeYillik": 11.87,
+      "tufeAylik": 1.31,
+      "reelEndeks": 95.4
+    },
+    {
+      "tarih": "2017-05",
+      "yil": 2017,
+      "ay": 5,
+      "bistKapanis": 1233.08,
+      "tufeCarpani": 1.27,
+      "tufeYillik": 11.72,
+      "tufeAylik": 0.45,
+      "reelEndeks": 97.8
+    },
+    {
+      "tarih": "2017-06",
+      "yil": 2017,
+      "ay": 6,
+      "bistKapanis": 1320.65,
+      "tufeCarpani": 1.27,
+      "tufeYillik": 10.9,
+      "tufeAylik": -0.27,
+      "reelEndeks": 105
+    },
+    {
+      "tarih": "2017-07",
+      "yil": 2017,
+      "ay": 7,
+      "bistKapanis": 1354.27,
+      "tufeCarpani": 1.27,
+      "tufeYillik": 9.79,
+      "tufeAylik": 0.15,
+      "reelEndeks": 107.5
+    },
+    {
+      "tarih": "2017-08",
+      "yil": 2017,
+      "ay": 8,
+      "bistKapanis": 1261.15,
+      "tufeCarpani": 1.28,
+      "tufeYillik": 10.68,
+      "tufeAylik": 0.52,
+      "reelEndeks": 99.6
+    },
+    {
+      "tarih": "2017-09",
+      "yil": 2017,
+      "ay": 9,
+      "bistKapanis": 1350.48,
+      "tufeCarpani": 1.29,
+      "tufeYillik": 11.2,
+      "tufeAylik": 0.65,
+      "reelEndeks": 106
+    },
+    {
+      "tarih": "2017-10",
+      "yil": 2017,
+      "ay": 10,
+      "bistKapanis": 1279.23,
+      "tufeCarpani": 1.31,
+      "tufeYillik": 11.9,
+      "tufeAylik": 2.08,
+      "reelEndeks": 98.3
+    },
+    {
+      "tarih": "2017-11",
+      "yil": 2017,
+      "ay": 11,
+      "bistKapanis": 1421.12,
+      "tufeCarpani": 1.33,
+      "tufeYillik": 12.98,
+      "tufeAylik": 1.49,
+      "reelEndeks": 107.6
+    },
+    {
+      "tarih": "2017-12",
+      "yil": 2017,
+      "ay": 12,
+      "bistKapanis": 1464.81,
+      "tufeCarpani": 1.34,
+      "tufeYillik": 11.92,
+      "tufeAylik": 0.69,
+      "reelEndeks": 110.2
+    },
+    {
+      "tarih": "2018-01",
+      "yil": 2018,
+      "ay": 1,
+      "bistKapanis": 1465.54,
+      "tufeCarpani": 1.36,
+      "tufeYillik": 10.35,
+      "tufeAylik": 1.02,
+      "reelEndeks": 109.1
+    },
+    {
+      "tarih": "2018-02",
+      "yil": 2018,
+      "ay": 2,
+      "bistKapanis": 1401.29,
+      "tufeCarpani": 1.37,
+      "tufeYillik": 10.26,
+      "tufeAylik": 0.73,
+      "reelEndeks": 103.6
+    },
+    {
+      "tarih": "2018-03",
+      "yil": 2018,
+      "ay": 3,
+      "bistKapanis": 1269.28,
+      "tufeCarpani": 1.38,
+      "tufeYillik": 10.23,
+      "tufeAylik": 0.99,
+      "reelEndeks": 92.9
+    },
+    {
+      "tarih": "2018-04",
+      "yil": 2018,
+      "ay": 4,
+      "bistKapanis": 1236.49,
+      "tufeCarpani": 1.41,
+      "tufeYillik": 10.85,
+      "tufeAylik": 1.87,
+      "reelEndeks": 88.8
+    },
+    {
+      "tarih": "2018-05",
+      "yil": 2018,
+      "ay": 5,
+      "bistKapanis": 1181.04,
+      "tufeCarpani": 1.43,
+      "tufeYillik": 12.15,
+      "tufeAylik": 1.62,
+      "reelEndeks": 83.5
+    },
+    {
+      "tarih": "2018-06",
+      "yil": 2018,
+      "ay": 6,
+      "bistKapanis": 1194.51,
+      "tufeCarpani": 1.47,
+      "tufeYillik": 15.39,
+      "tufeAylik": 2.61,
+      "reelEndeks": 82.3
+    },
+    {
+      "tarih": "2018-07",
+      "yil": 2018,
+      "ay": 7,
+      "bistKapanis": 1144.1,
+      "tufeCarpani": 1.47,
+      "tufeYillik": 15.85,
+      "tufeAylik": 0.55,
+      "reelEndeks": 78.4
+    },
+    {
+      "tarih": "2018-08",
+      "yil": 2018,
+      "ay": 8,
+      "bistKapanis": 1239.51,
+      "tufeCarpani": 1.51,
+      "tufeYillik": 17.9,
+      "tufeAylik": 2.3,
+      "reelEndeks": 83
+    },
+    {
+      "tarih": "2018-09",
+      "yil": 2018,
+      "ay": 9,
+      "bistKapanis": 1124.59,
+      "tufeCarpani": 1.6,
+      "tufeYillik": 24.52,
+      "tufeAylik": 6.3,
+      "reelEndeks": 70.9
+    },
+    {
+      "tarih": "2018-10",
+      "yil": 2018,
+      "ay": 10,
+      "bistKapanis": 1193.25,
+      "tufeCarpani": 1.65,
+      "tufeYillik": 25.24,
+      "tufeAylik": 2.67,
+      "reelEndeks": 73.2
+    },
+    {
+      "tarih": "2018-11",
+      "yil": 2018,
+      "ay": 11,
+      "bistKapanis": 1143.43,
+      "tufeCarpani": 1.62,
+      "tufeYillik": 21.62,
+      "tufeAylik": -1.44,
+      "reelEndeks": 71.2
+    },
+    {
+      "tarih": "2018-12",
+      "yil": 2018,
+      "ay": 12,
+      "bistKapanis": 1311.94,
+      "tufeCarpani": 1.62,
+      "tufeYillik": 20.3,
+      "tufeAylik": -0.4,
+      "reelEndeks": 82
+    },
+    {
+      "tarih": "2019-01",
+      "yil": 2019,
+      "ay": 1,
+      "bistKapanis": 1313.28,
+      "tufeCarpani": 1.63,
+      "tufeYillik": 20.35,
+      "tufeAylik": 1.06,
+      "reelEndeks": 81.3
+    },
+    {
+      "tarih": "2019-02",
+      "yil": 2019,
+      "ay": 2,
+      "bistKapanis": 1175.5,
+      "tufeCarpani": 1.64,
+      "tufeYillik": 19.67,
+      "tufeAylik": 0.16,
+      "reelEndeks": 72.6
+    },
+    {
+      "tarih": "2019-03",
+      "yil": 2019,
+      "ay": 3,
+      "bistKapanis": 1190.12,
+      "tufeCarpani": 1.65,
+      "tufeYillik": 19.71,
+      "tufeAylik": 1.03,
+      "reelEndeks": 72.8
+    },
+    {
+      "tarih": "2019-04",
+      "yil": 2019,
+      "ay": 4,
+      "bistKapanis": 1133.4,
+      "tufeCarpani": 1.68,
+      "tufeYillik": 19.5,
+      "tufeAylik": 1.69,
+      "reelEndeks": 68.2
+    },
+    {
+      "tarih": "2019-05",
+      "yil": 2019,
+      "ay": 5,
+      "bistKapanis": 1209.24,
+      "tufeCarpani": 1.7,
+      "tufeYillik": 18.71,
+      "tufeAylik": 0.95,
+      "reelEndeks": 72
+    },
+    {
+      "tarih": "2019-06",
+      "yil": 2019,
+      "ay": 6,
+      "bistKapanis": 1283.66,
+      "tufeCarpani": 1.7,
+      "tufeYillik": 15.72,
+      "tufeAylik": 0.03,
+      "reelEndeks": 76.4
+    },
+    {
+      "tarih": "2019-07",
+      "yil": 2019,
+      "ay": 7,
+      "bistKapanis": 1198.72,
+      "tufeCarpani": 1.72,
+      "tufeYillik": 16.65,
+      "tufeAylik": 1.36,
+      "reelEndeks": 70.4
+    },
+    {
+      "tarih": "2019-08",
+      "yil": 2019,
+      "ay": 8,
+      "bistKapanis": 1305.58,
+      "tufeCarpani": 1.73,
+      "tufeYillik": 15.01,
+      "tufeAylik": 0.86,
+      "reelEndeks": 76
+    },
+    {
+      "tarih": "2019-09",
+      "yil": 2019,
+      "ay": 9,
+      "bistKapanis": 1213.67,
+      "tufeCarpani": 1.75,
+      "tufeYillik": 9.26,
+      "tufeAylik": 0.99,
+      "reelEndeks": 70
+    },
+    {
+      "tarih": "2019-10",
+      "yil": 2019,
+      "ay": 10,
+      "bistKapanis": 1313.03,
+      "tufeCarpani": 1.79,
+      "tufeYillik": 8.55,
+      "tufeAylik": 2,
+      "reelEndeks": 74.2
+    },
+    {
+      "tarih": "2019-11",
+      "yil": 2019,
+      "ay": 11,
+      "bistKapanis": 1388.3,
+      "tufeCarpani": 1.79,
+      "tufeYillik": 10.56,
+      "tufeAylik": 0.38,
+      "reelEndeks": 78.2
+    },
+    {
+      "tarih": "2019-12",
+      "yil": 2019,
+      "ay": 12,
+      "bistKapanis": 1429.42,
+      "tufeCarpani": 1.81,
+      "tufeYillik": 11.84,
+      "tufeAylik": 0.74,
+      "reelEndeks": 79.9
+    },
+    {
+      "tarih": "2020-01",
+      "yil": 2020,
+      "ay": 1,
+      "bistKapanis": 1263.04,
+      "tufeCarpani": 1.83,
+      "tufeYillik": 12.15,
+      "tufeAylik": 1.35,
+      "reelEndeks": 69.7
+    },
+    {
+      "tarih": "2020-02",
+      "yil": 2020,
+      "ay": 2,
+      "bistKapanis": 1067.91,
+      "tufeCarpani": 1.84,
+      "tufeYillik": 12.37,
+      "tufeAylik": 0.35,
+      "reelEndeks": 58.7
+    },
+    {
+      "tarih": "2020-03",
+      "yil": 2020,
+      "ay": 3,
+      "bistKapanis": 1187.61,
+      "tufeCarpani": 1.85,
+      "tufeYillik": 11.86,
+      "tufeAylik": 0.57,
+      "reelEndeks": 64.9
+    },
+    {
+      "tarih": "2020-04",
+      "yil": 2020,
+      "ay": 4,
+      "bistKapanis": 1229.18,
+      "tufeCarpani": 1.86,
+      "tufeYillik": 10.94,
+      "tufeAylik": 0.85,
+      "reelEndeks": 66.6
+    },
+    {
+      "tarih": "2020-05",
+      "yil": 2020,
+      "ay": 5,
+      "bistKapanis": 1347.19,
+      "tufeCarpani": 1.89,
+      "tufeYillik": 11.39,
+      "tufeAylik": 1.36,
+      "reelEndeks": 72
+    },
+    {
+      "tarih": "2020-06",
+      "yil": 2020,
+      "ay": 6,
+      "bistKapanis": 1259.6,
+      "tufeCarpani": 1.91,
+      "tufeYillik": 12.62,
+      "tufeAylik": 1.13,
+      "reelEndeks": 66.6
+    },
+    {
+      "tarih": "2020-07",
+      "yil": 2020,
+      "ay": 7,
+      "bistKapanis": 1211.5,
+      "tufeCarpani": 1.92,
+      "tufeYillik": 11.76,
+      "tufeAylik": 0.58,
+      "reelEndeks": 63.7
+    },
+    {
+      "tarih": "2020-08",
+      "yil": 2020,
+      "ay": 8,
+      "bistKapanis": 1283.7,
+      "tufeCarpani": 1.94,
+      "tufeYillik": 11.77,
+      "tufeAylik": 0.86,
+      "reelEndeks": 66.9
+    },
+    {
+      "tarih": "2020-09",
+      "yil": 2020,
+      "ay": 9,
+      "bistKapanis": 1222,
+      "tufeCarpani": 1.96,
+      "tufeYillik": 11.75,
+      "tufeAylik": 0.97,
+      "reelEndeks": 63.1
+    },
+    {
+      "tarih": "2020-10",
+      "yil": 2020,
+      "ay": 10,
+      "bistKapanis": 1422.4,
+      "tufeCarpani": 2,
+      "tufeYillik": 11.89,
+      "tufeAylik": 2.13,
+      "reelEndeks": 71.9
+    },
+    {
+      "tarih": "2020-11",
+      "yil": 2020,
+      "ay": 11,
+      "bistKapanis": 1636,
+      "tufeCarpani": 2.04,
+      "tufeYillik": 14.03,
+      "tufeAylik": 2.3,
+      "reelEndeks": 80.8
+    },
+    {
+      "tarih": "2020-12",
+      "yil": 2020,
+      "ay": 12,
+      "bistKapanis": 1572.4,
+      "tufeCarpani": 2.07,
+      "tufeYillik": 14.6,
+      "tufeAylik": 1.25,
+      "reelEndeks": 76.7
+    },
+    {
+      "tarih": "2021-01",
+      "yil": 2021,
+      "ay": 1,
+      "bistKapanis": 1556,
+      "tufeCarpani": 2.11,
+      "tufeYillik": 14.97,
+      "tufeAylik": 1.68,
+      "reelEndeks": 74.7
+    },
+    {
+      "tarih": "2021-02",
+      "yil": 2021,
+      "ay": 2,
+      "bistKapanis": 1430.7,
+      "tufeCarpani": 2.12,
+      "tufeYillik": 15.61,
+      "tufeAylik": 0.91,
+      "reelEndeks": 68.1
+    },
+    {
+      "tarih": "2021-03",
+      "yil": 2021,
+      "ay": 3,
+      "bistKapanis": 1456.9,
+      "tufeCarpani": 2.15,
+      "tufeYillik": 16.19,
+      "tufeAylik": 1.08,
+      "reelEndeks": 68.6
+    },
+    {
+      "tarih": "2021-04",
+      "yil": 2021,
+      "ay": 4,
+      "bistKapanis": 1506.9,
+      "tufeCarpani": 2.18,
+      "tufeYillik": 17.14,
+      "tufeAylik": 1.68,
+      "reelEndeks": 69.7
+    },
+    {
+      "tarih": "2021-05",
+      "yil": 2021,
+      "ay": 5,
+      "bistKapanis": 1462.9,
+      "tufeCarpani": 2.2,
+      "tufeYillik": 16.59,
+      "tufeAylik": 0.89,
+      "reelEndeks": 67.1
+    },
+    {
+      "tarih": "2021-06",
+      "yil": 2021,
+      "ay": 6,
+      "bistKapanis": 1500.8,
+      "tufeCarpani": 2.25,
+      "tufeYillik": 17.53,
+      "tufeAylik": 1.94,
+      "reelEndeks": 67.5
+    },
+    {
+      "tarih": "2021-07",
+      "yil": 2021,
+      "ay": 7,
+      "bistKapanis": 1588.3,
+      "tufeCarpani": 2.29,
+      "tufeYillik": 18.95,
+      "tufeAylik": 1.8,
+      "reelEndeks": 70.2
+    },
+    {
+      "tarih": "2021-08",
+      "yil": 2021,
+      "ay": 8,
+      "bistKapanis": 1505.2,
+      "tufeCarpani": 2.31,
+      "tufeYillik": 19.25,
+      "tufeAylik": 1.12,
+      "reelEndeks": 65.8
+    },
+    {
+      "tarih": "2021-09",
+      "yil": 2021,
+      "ay": 9,
+      "bistKapanis": 1635.7,
+      "tufeCarpani": 2.34,
+      "tufeYillik": 19.58,
+      "tufeAylik": 1.25,
+      "reelEndeks": 70.6
+    },
+    {
+      "tarih": "2021-10",
+      "yil": 2021,
+      "ay": 10,
+      "bistKapanis": 1942.8,
+      "tufeCarpani": 2.4,
+      "tufeYillik": 19.89,
+      "tufeAylik": 2.39,
+      "reelEndeks": 81.9
+    },
+    {
+      "tarih": "2021-11",
+      "yil": 2021,
+      "ay": 11,
+      "bistKapanis": 2025,
+      "tufeCarpani": 2.48,
+      "tufeYillik": 21.31,
+      "tufeAylik": 3.51,
+      "reelEndeks": 82.5
+    },
+    {
+      "tarih": "2021-12",
+      "yil": 2021,
+      "ay": 12,
+      "bistKapanis": 2202.6,
+      "tufeCarpani": 2.82,
+      "tufeYillik": 36.08,
+      "tufeAylik": 13.58,
+      "reelEndeks": 79
+    },
+    {
+      "tarih": "2022-01",
+      "yil": 2022,
+      "ay": 1,
+      "bistKapanis": 2186.3,
+      "tufeCarpani": 3.13,
+      "tufeYillik": 48.69,
+      "tufeAylik": 11.1,
+      "reelEndeks": 70.6
+    },
+    {
+      "tarih": "2022-02",
+      "yil": 2022,
+      "ay": 2,
+      "bistKapanis": 2477.2,
+      "tufeCarpani": 3.28,
+      "tufeYillik": 54.44,
+      "tufeAylik": 4.81,
+      "reelEndeks": 76.3
+    },
+    {
+      "tarih": "2022-03",
+      "yil": 2022,
+      "ay": 3,
+      "bistKapanis": 2704.4,
+      "tufeCarpani": 3.46,
+      "tufeYillik": 61.14,
+      "tufeAylik": 5.46,
+      "reelEndeks": 79
+    },
+    {
+      "tarih": "2022-04",
+      "yil": 2022,
+      "ay": 4,
+      "bistKapanis": 2837.6,
+      "tufeCarpani": 3.71,
+      "tufeYillik": 69.97,
+      "tufeAylik": 7.25,
+      "reelEndeks": 77.3
+    },
+    {
+      "tarih": "2022-05",
+      "yil": 2022,
+      "ay": 5,
+      "bistKapanis": 2609.2,
+      "tufeCarpani": 3.82,
+      "tufeYillik": 73.5,
+      "tufeAylik": 2.98,
+      "reelEndeks": 69
+    },
+    {
+      "tarih": "2022-06",
+      "yil": 2022,
+      "ay": 6,
+      "bistKapanis": 2760.5,
+      "tufeCarpani": 4.01,
+      "tufeYillik": 78.62,
+      "tufeAylik": 4.95,
+      "reelEndeks": 69.6
+    },
+    {
+      "tarih": "2022-07",
+      "yil": 2022,
+      "ay": 7,
+      "bistKapanis": 3454.4,
+      "tufeCarpani": 4.11,
+      "tufeYillik": 79.6,
+      "tufeAylik": 2.37,
+      "reelEndeks": 85
+    },
+    {
+      "tarih": "2022-08",
+      "yil": 2022,
+      "ay": 8,
+      "bistKapanis": 3457.6,
+      "tufeCarpani": 4.17,
+      "tufeYillik": 80.21,
+      "tufeAylik": 1.46,
+      "reelEndeks": 83.9
+    },
+    {
+      "tarih": "2022-09",
+      "yil": 2022,
+      "ay": 9,
+      "bistKapanis": 4330.5,
+      "tufeCarpani": 4.29,
+      "tufeYillik": 83.45,
+      "tufeAylik": 3.08,
+      "reelEndeks": 101.9
+    },
+    {
+      "tarih": "2022-10",
+      "yil": 2022,
+      "ay": 10,
+      "bistKapanis": 5364.4,
+      "tufeCarpani": 4.45,
+      "tufeYillik": 85.51,
+      "tufeAylik": 3.54,
+      "reelEndeks": 121.9
+    },
+    {
+      "tarih": "2022-11",
+      "yil": 2022,
+      "ay": 11,
+      "bistKapanis": 5944.8,
+      "tufeCarpani": 4.57,
+      "tufeYillik": 84.39,
+      "tufeAylik": 2.88,
+      "reelEndeks": 131.3
+    },
+    {
+      "tarih": "2022-12",
+      "yil": 2022,
+      "ay": 12,
+      "bistKapanis": 5481.8,
+      "tufeCarpani": 4.63,
+      "tufeYillik": 64.27,
+      "tufeAylik": 1.18,
+      "reelEndeks": 119.7
+    },
+    {
+      "tarih": "2023-01",
+      "yil": 2023,
+      "ay": 1,
+      "bistKapanis": 5763.7,
+      "tufeCarpani": 4.94,
+      "tufeYillik": 57.68,
+      "tufeAylik": 6.65,
+      "reelEndeks": 118
+    },
+    {
+      "tarih": "2023-02",
+      "yil": 2023,
+      "ay": 2,
+      "bistKapanis": 5294.6,
+      "tufeCarpani": 5.09,
+      "tufeYillik": 55.18,
+      "tufeAylik": 3.15,
+      "reelEndeks": 105.1
+    },
+    {
+      "tarih": "2023-03",
+      "yil": 2023,
+      "ay": 3,
+      "bistKapanis": 5058,
+      "tufeCarpani": 5.21,
+      "tufeYillik": 50.51,
+      "tufeAylik": 2.29,
+      "reelEndeks": 98.1
+    },
+    {
+      "tarih": "2023-04",
+      "yil": 2023,
+      "ay": 4,
+      "bistKapanis": 5375.9,
+      "tufeCarpani": 5.33,
+      "tufeYillik": 43.68,
+      "tufeAylik": 2.39,
+      "reelEndeks": 101.9
+    },
+    {
+      "tarih": "2023-05",
+      "yil": 2023,
+      "ay": 5,
+      "bistKapanis": 6396.1,
+      "tufeCarpani": 5.33,
+      "tufeYillik": 39.59,
+      "tufeAylik": 0.04,
+      "reelEndeks": 121.2
+    },
+    {
+      "tarih": "2023-06",
+      "yil": 2023,
+      "ay": 6,
+      "bistKapanis": 7875.7,
+      "tufeCarpani": 5.54,
+      "tufeYillik": 38.21,
+      "tufeAylik": 3.92,
+      "reelEndeks": 143.6
+    },
+    {
+      "tarih": "2023-07",
+      "yil": 2023,
+      "ay": 7,
+      "bistKapanis": 8410.5,
+      "tufeCarpani": 6.07,
+      "tufeYillik": 47.83,
+      "tufeAylik": 9.49,
+      "reelEndeks": 140
+    },
+    {
+      "tarih": "2023-08",
+      "yil": 2023,
+      "ay": 8,
+      "bistKapanis": 8797.4,
+      "tufeCarpani": 6.62,
+      "tufeYillik": 58.94,
+      "tufeAylik": 9.09,
+      "reelEndeks": 134.3
+    },
+    {
+      "tarih": "2023-09",
+      "yil": 2023,
+      "ay": 9,
+      "bistKapanis": 7836.2,
+      "tufeCarpani": 6.94,
+      "tufeYillik": 61.53,
+      "tufeAylik": 4.75,
+      "reelEndeks": 114.2
+    },
+    {
+      "tarih": "2023-10",
+      "yil": 2023,
+      "ay": 10,
+      "bistKapanis": 8540.7,
+      "tufeCarpani": 7.17,
+      "tufeYillik": 61.36,
+      "tufeAylik": 3.43,
+      "reelEndeks": 120.3
+    },
+    {
+      "tarih": "2023-11",
+      "yil": 2023,
+      "ay": 11,
+      "bistKapanis": 8020.8,
+      "tufeCarpani": 7.41,
+      "tufeYillik": 61.98,
+      "tufeAylik": 3.28,
+      "reelEndeks": 109.4
+    },
+    {
+      "tarih": "2023-12",
+      "yil": 2023,
+      "ay": 12,
+      "bistKapanis": 9103.1,
+      "tufeCarpani": 7.63,
+      "tufeYillik": 64.77,
+      "tufeAylik": 2.93,
+      "reelEndeks": 120.6
+    },
+    {
+      "tarih": "2024-01",
+      "yil": 2024,
+      "ay": 1,
+      "bistKapanis": 9701.3,
+      "tufeCarpani": 8.14,
+      "tufeYillik": 64.86,
+      "tufeAylik": 6.7,
+      "reelEndeks": 120.5
+    },
+    {
+      "tarih": "2024-02",
+      "yil": 2024,
+      "ay": 2,
+      "bistKapanis": 9869.8,
+      "tufeCarpani": 8.51,
+      "tufeYillik": 67.07,
+      "tufeAylik": 4.53,
+      "reelEndeks": 117.3
+    },
+    {
+      "tarih": "2024-03",
+      "yil": 2024,
+      "ay": 3,
+      "bistKapanis": 10907.3,
+      "tufeCarpani": 8.77,
+      "tufeYillik": 68.5,
+      "tufeAylik": 3.16,
+      "reelEndeks": 125.6
+    },
+    {
+      "tarih": "2024-04",
+      "yil": 2024,
+      "ay": 4,
+      "bistKapanis": 11409.4,
+      "tufeCarpani": 9.05,
+      "tufeYillik": 69.8,
+      "tufeAylik": 3.18,
+      "reelEndeks": 127.4
+    },
+    {
+      "tarih": "2024-05",
+      "yil": 2024,
+      "ay": 5,
+      "bistKapanis": 11559.7,
+      "tufeCarpani": 9.36,
+      "tufeYillik": 75.45,
+      "tufeAylik": 3.37,
+      "reelEndeks": 124.8
+    },
+    {
+      "tarih": "2024-06",
+      "yil": 2024,
+      "ay": 6,
+      "bistKapanis": 11606.7,
+      "tufeCarpani": 9.51,
+      "tufeYillik": 71.6,
+      "tufeAylik": 1.64,
+      "reelEndeks": 123.3
+    },
+    {
+      "tarih": "2024-07",
+      "yil": 2024,
+      "ay": 7,
+      "bistKapanis": 10842.9,
+      "tufeCarpani": 9.82,
+      "tufeYillik": 61.78,
+      "tufeAylik": 3.23,
+      "reelEndeks": 111.6
+    },
+    {
+      "tarih": "2024-08",
+      "yil": 2024,
+      "ay": 8,
+      "bistKapanis": 10780.4,
+      "tufeCarpani": 10.06,
+      "tufeYillik": 51.97,
+      "tufeAylik": 2.47,
+      "reelEndeks": 108.3
+    },
+    {
+      "tarih": "2024-09",
+      "yil": 2024,
+      "ay": 9,
+      "bistKapanis": 9752,
+      "tufeCarpani": 10.36,
+      "tufeYillik": 49.38,
+      "tufeAylik": 2.97,
+      "reelEndeks": 95.1
+    },
+    {
+      "tarih": "2024-10",
+      "yil": 2024,
+      "ay": 10,
+      "bistKapanis": 10614.1,
+      "tufeCarpani": 10.66,
+      "tufeYillik": 48.58,
+      "tufeAylik": 2.88,
+      "reelEndeks": 100.6
+    },
+    {
+      "tarih": "2024-11",
+      "yil": 2024,
+      "ay": 11,
+      "bistKapanis": 10756.3,
+      "tufeCarpani": 10.9,
+      "tufeYillik": 47.09,
+      "tufeAylik": 2.24,
+      "reelEndeks": 99.7
+    },
+    {
+      "tarih": "2024-12",
+      "yil": 2024,
+      "ay": 12,
+      "bistKapanis": 11122.1,
+      "tufeCarpani": 11.01,
+      "tufeYillik": 44.38,
+      "tufeAylik": 1.03,
+      "reelEndeks": 102.1
+    },
+    {
+      "tarih": "2025-01",
+      "yil": 2025,
+      "ay": 1,
+      "bistKapanis": 10790.1,
+      "tufeCarpani": 11.56,
+      "tufeYillik": 42.12,
+      "tufeAylik": 5.03,
+      "reelEndeks": 94.3
+    },
+    {
+      "tarih": "2025-02",
+      "yil": 2025,
+      "ay": 2,
+      "bistKapanis": 10577.1,
+      "tufeCarpani": 11.83,
+      "tufeYillik": 39.05,
+      "tufeAylik": 2.27,
+      "reelEndeks": 90.4
+    },
+    {
+      "tarih": "2025-03",
+      "yil": 2025,
+      "ay": 3,
+      "bistKapanis": 9900.1,
+      "tufeCarpani": 12.12,
+      "tufeYillik": 38.1,
+      "tufeAylik": 2.46,
+      "reelEndeks": 82.6
+    },
+    {
+      "tarih": "2025-04",
+      "yil": 2025,
+      "ay": 4,
+      "bistKapanis": 9939.8,
+      "tufeCarpani": 12.48,
+      "tufeYillik": 37.86,
+      "tufeAylik": 3,
+      "reelEndeks": 80.5
+    },
+    {
+      "tarih": "2025-05",
+      "yil": 2025,
+      "ay": 5,
+      "bistKapanis": 11160.5,
+      "tufeCarpani": 12.67,
+      "tufeYillik": 35.41,
+      "tufeAylik": 1.53,
+      "reelEndeks": 89
+    },
+    {
+      "tarih": "2025-06",
+      "yil": 2025,
+      "ay": 6,
+      "bistKapanis": 11916.1,
+      "tufeCarpani": 12.85,
+      "tufeYillik": 35.05,
+      "tufeAylik": 1.37,
+      "reelEndeks": 93.7
+    },
+    {
+      "tarih": "2025-07",
+      "yil": 2025,
+      "ay": 7,
+      "bistKapanis": 12423.2,
+      "tufeCarpani": 13.11,
+      "tufeYillik": 33.52,
+      "tufeAylik": 2.06,
+      "reelEndeks": 95.8
+    },
+    {
+      "tarih": "2025-08",
+      "yil": 2025,
+      "ay": 8,
+      "bistKapanis": 12179.7,
+      "tufeCarpani": 13.38,
+      "tufeYillik": 32.95,
+      "tufeAylik": 2.04,
+      "reelEndeks": 92
+    },
+    {
+      "tarih": "2025-09",
+      "yil": 2025,
+      "ay": 9,
+      "bistKapanis": 11940.9,
+      "tufeCarpani": 13.81,
+      "tufeYillik": 33.29,
+      "tufeAylik": 3.23,
+      "reelEndeks": 87.4
+    },
+    {
+      "tarih": "2025-10",
+      "yil": 2025,
+      "ay": 10,
+      "bistKapanis": 11911.7,
+      "tufeCarpani": 14.16,
+      "tufeYillik": 32.87,
+      "tufeAylik": 2.55,
+      "reelEndeks": 85
+    },
+    {
+      "tarih": "2025-11",
+      "yil": 2025,
+      "ay": 11,
+      "bistKapanis": 12223.6,
+      "tufeCarpani": 14.28,
+      "tufeYillik": 31.07,
+      "tufeAylik": 0.87,
+      "reelEndeks": 86.5
+    },
+    {
+      "tarih": "2025-12",
+      "yil": 2025,
+      "ay": 12,
+      "bistKapanis": 15128,
+      "tufeCarpani": 14.41,
+      "tufeYillik": 30.89,
+      "tufeAylik": 0.89,
+      "reelEndeks": 106.1
+    },
+    {
+      "tarih": "2026-01",
+      "yil": 2026,
+      "ay": 1,
+      "bistKapanis": 15483.7,
+      "tufeCarpani": 15.11,
+      "tufeYillik": 30.65,
+      "tufeAylik": 4.84,
+      "reelEndeks": 103.6
+    },
+    {
+      "tarih": "2026-02",
+      "yil": 2026,
+      "ay": 2,
+      "bistKapanis": 14518,
+      "tufeCarpani": 15.56,
+      "tufeYillik": 31.53,
+      "tufeAylik": 2.96,
+      "reelEndeks": 94.3
+    },
+    {
+      "tarih": "2026-03",
+      "yil": 2026,
+      "ay": 3,
+      "bistKapanis": 16601.1,
+      "tufeCarpani": 15.86,
+      "tufeYillik": 30.87,
+      "tufeAylik": 1.94,
+      "reelEndeks": 105.8
+    },
+    {
+      "tarih": "2026-04",
+      "yil": 2026,
+      "ay": 4,
+      "bistKapanis": 15493.7,
+      "tufeCarpani": 16.52,
+      "tufeYillik": 32.37,
+      "tufeAylik": 4.18,
+      "reelEndeks": 94.8
+    },
+    {
+      "tarih": "2026-05",
+      "yil": 2026,
+      "ay": 5,
+      "bistKapanis": 16339.5,
+      "tufeCarpani": 16.8,
+      "tufeYillik": 32.61,
+      "tufeAylik": 1.71,
+      "reelEndeks": 98.3
+    },
+    {
+      "tarih": "2026-06",
+      "yil": 2026,
+      "ay": 6,
+      "bistKapanis": 15248.4,
+      "tufeCarpani": 16.97,
+      "tufeYillik": 32.11,
+      "tufeAylik": 0.99,
+      "reelEndeks": 90.8
+    },
+    {
+      "tarih": "2026-07",
+      "yil": 2026,
+      "ay": 7,
+      "bistKapanis": 16467.8,
+      "tufeCarpani": 17.27,
+      "tufeYillik": 31.75,
+      "tufeAylik": 1.78,
+      "reelEndeks": 96.3
+    },
+    {
+      "tarih": "2026-08",
+      "yil": 2026,
+      "ay": 8,
+      "bistKapanis": 14842,
+      "tufeCarpani": 17.59,
+      "tufeYillik": 31.51,
+      "tufeAylik": 1.84,
+      "reelEndeks": 85.3
+    },
+    {
+      "tarih": "2026-09",
+      "yil": 2026,
+      "ay": 9,
+      "bistKapanis": 14010.9,
+      "tufeCarpani": 17.91,
+      "tufeYillik": 29.73,
+      "tufeAylik": 1.84,
+      "reelEndeks": 79
+    }
+  ]
+}

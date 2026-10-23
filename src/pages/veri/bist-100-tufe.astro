@@ -1,0 +1,232 @@
+---
+// BİST 100 / TÜFE: Borsa İstanbul'un enflasyondan arındırılmış reel değeri ve standart sapma analizi.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BistTufeGrafik from '../../components/BistTufeGrafik.astro';
+import data from '../../data/bist-tufe.json';
+import { gunYaz, sayiYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const veri = data as {
+  guncelleme: string;
+  sonBist: number;
+  guncelDeger: number;
+  ortalama: number;
+  stdSapma: number;
+  arti2Std: number;
+  eksi2Std: number;
+  eksi3Std: number;
+  zSkoru: number;
+  farkYuzde: number;
+  durum: string;
+  durumRenk: string;
+  durumAciklama: string;
+  noktalar: { tarih: string; bist: number; deger: number }[];
+};
+
+const baslik = 'BİST 100 / TÜFE (Reel Borsa Endeksi)';
+const description = `BİST 100'ün TÜİK TÜFE enflasyonuna oranı: Son 2 yıllık ortalama ${sayiYaz(veri.ortalama, 1)}, güncel reel değer ${sayiYaz(veri.guncelDeger, 1)} (Z-skoru: ${veri.zSkoru}σ). Standart sapma bantları ve reel değer analizi.`;
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'BİST 100 / TÜFE', href: '/veri/bist-100-tufe/' },
+];
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  sayfaEk: { dateModified: veri.guncelleme },
+  ekler: [
+    {
+      '@type': 'Dataset',
+      name: 'BİST 100 TÜFE Enflasyonuna Göre Reel Getiri ve Standart Sapma Bantları',
+      description: 'Borsa İstanbul 100 endeksinin TÜİK Tüketici Fiyat Endeksi ile arındırılmış reel değeri, 2 yıllık dönem ortalaması ve standart sapma bantları.',
+      url: 'https://finfolis.com/veri/bist-100-tufe/',
+      isAccessibleForFree: true,
+      creator: { '@type': 'Organization', name: 'finfolis', url: 'https://finfolis.com/' },
+      dateModified: veri.guncelleme,
+      variableMeasured: ['Reel BİST 100', '2 Yıllık Ortalama', 'Standart Sapma Bantları', 'Z-Skoru'],
+    },
+  ],
+});
+
+const sonNoktalar = [...veri.noktalar].slice(-20).reverse();
+---
+
+<Base title={`${baslik} · Reel Getiri Analizi`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Enflasyondan Arındırılmış Borsa Değeri ve Standart Sapma Analizi · Güncelleme: {gunYaz(veri.guncelleme)}</p>
+    </header>
+
+    <dl class="veri-rakamlar">
+      <div>
+        <dt>Güncel Reel Değer</dt>
+        <dd>{sayiYaz(veri.guncelDeger, 2)}</dd>
+        <dd class="veri-degisim">Ortalamaya göre {veri.farkYuzde > 0 ? `+${veri.farkYuzde}%` : `${veri.farkYuzde}%`}</dd>
+      </div>
+      <div>
+        <dt>2 Yıllık Ortalama</dt>
+        <dd>{sayiYaz(veri.ortalama, 1)}</dd>
+        <dd class="veri-degisim">Standart sapma: ±{sayiYaz(veri.stdSapma, 1)}</dd>
+      </div>
+      <div>
+        <dt>Sapma Düzeyi (Z-Skoru)</dt>
+        <dd class={veri.durumRenk === 'dusus' ? 'metin-dusus' : veri.durumRenk === 'yukselis' ? 'metin-yukselis' : ''}>
+          {veri.zSkoru > 0 ? `+${sayiYaz(veri.zSkoru, 2)}σ` : `${sayiYaz(veri.zSkoru, 2)}σ`}
+        </dd>
+        <dd class="veri-degisim">{veri.durum}</dd>
+      </div>
+      <div>
+        <dt>Nominal BİST 100</dt>
+        <dd>{sayiYaz(veri.sonBist, 0)}</dd>
+        <dd class="veri-degisim">Son kapanış</dd>
+      </div>
+    </dl>
+
+    <!-- Durum Vurgu Kutusu -->
+    <aside class="durum-kutusu">
+      <div class="durum-baslik">
+        <span class="abakus-nokta"></span>
+        <strong>Piyasa Teşhisi: {veri.durum}</strong>
+      </div>
+      <p>{veri.durumAciklama}</p>
+    </aside>
+
+    <!-- Grafik Bileşeni -->
+    <BistTufeGrafik veri={veri} />
+
+    <!-- Açıklama ve Öğretici Bölümler (Finfolis İlkeleri) -->
+    <div class="veri-izgara">
+      <section class="bolum">
+        <h2 class="bolum-baslik">Bu Gösterge Ne Anlatır?</h2>
+        <div class="metin-blok">
+          <p>
+            Nominal borsa endeksi rekorlar kırsa bile enflasyonun yüksek olduğu dönemlerde yatırımcının gerçek satın alma gücü eriyebilir.
+            <strong>BİST 100 / TÜFE</strong> rasyosu, borsanın reel getirisini gösterir.
+          </p>
+          <p>
+            Bu grafikte BİST 100 günlük nominal kapanışları, TÜİK'in 2003=100 Tüketici Fiyat Endeksi'ne (TÜFE) bölünür. Böylece fiyat artışlarının
+            borsayı ne kadar desteklediği veya enflasyonun ne kadar gerisinde kalındığı çıplak gözle görülür.
+          </p>
+        </div>
+
+        <h2 class="bolum-baslik" style="margin-top: 32px;">Standart Sapma Bantları Ne Demek?</h2>
+        <div class="metin-blok">
+          <p>
+            İstatistikte normal dağılım kuralına göre verilerin %68,2'si ±1 standart sapma, <strong>%95,4'ü ±2 standart sapma</strong> ve 
+            <strong>%99,7'si ±3 standart sapma</strong> sınırları içinde kalır.
+          </p>
+          <ul>
+            <li><strong>2Y Ort. (107,5):</strong> Son iki yılın ortalama reel değer dengesi.</li>
+            <li><strong>+2 Std Sapma:</strong> Reel olarak borsanın aşırı primlendiği, tarihsel ortalamanın belirgin üzerine çıktığı direnç bölgesi.</li>
+            <li><strong>-2 Std Sapma:</strong> Borsanın enflasyon karşısında belirgin şekilde ucuzladığı iskonto bölgesi.</li>
+            <li><strong>-3 Std Sapma:</strong> İstatistiki olarak %99,7 sınırının aşıldığı; reel anlamda son iki yılın en derin aşırı satım (iskonto) seviyesi. Bu seviyeler finansal matematikte ortalamaya dönüş (mean-reversion) beklentisinin en yoğunlaştığı bölgelerdir.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="bolum">
+        <h2 class="bolum-baslik">Son 20 İşlem Günü</h2>
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col">Tarih</th>
+              <th scope="col" class="sag">Nominal BİST</th>
+              <th scope="col" class="sag">Reel Değer</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sonNoktalar.map((n) => (
+              <tr>
+                <td>{n.tarih}</td>
+                <td class="sag font-tablo">{sayiYaz(n.bist, 0)}</td>
+                <td class="sag font-tablo"><strong>{sayiYaz(n.deger, 2)}</strong></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div class="metin-blok" style="margin-top: 24px;">
+          <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;">Veri Kaynakları ve Güncelleme</h3>
+          <p class="veri-notu">
+            BİST 100 kapanış verisi Borsa İstanbul (Yahoo Finance verisiyle), enflasyon endeksi TÜİK Tüketici Fiyat Endeksi resmi verileriyle oluşturulmuştur. 
+            Her iş günü kapanışından sonra otomatik olarak güncellenir.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <YasalUyari />
+  </div>
+</Base>
+
+<style>
+  .font-tablo {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .metin-dusus {
+    color: var(--dusus);
+  }
+
+  .metin-yukselis {
+    color: var(--yukselis);
+  }
+
+  .durum-kutusu {
+    background: var(--paper-2);
+    border-left: 4px solid var(--toprak);
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+
+  .durum-baslik {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+
+  .abakus-nokta {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--toprak);
+  }
+
+  .durum-kutusu p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .metin-blok p {
+    line-height: 1.6;
+    margin-bottom: 14px;
+    color: var(--ink-2);
+  }
+
+  .metin-blok ul {
+    margin: 12px 0 16px 20px;
+    padding: 0;
+    line-height: 1.6;
+    color: var(--ink-2);
+  }
+
+  .metin-blok li {
+    margin-bottom: 8px;
+  }
+</style>

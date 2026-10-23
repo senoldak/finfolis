@@ -1,0 +1,270 @@
+---
+// BİST 100 / TÜFE Reel Endeks ve Standart Sapma Bantları Grafiği.
+// Finfolis tasarım dili: Kâğıt & mürekkep, Bricolage Grotesque, sıfır harici kütüphane bağımlılığı.
+interface Props {
+  veri: {
+    guncelleme: string;
+    guncelDeger: number;
+    ortalama: number;
+    stdSapma: number;
+    arti2Std: number;
+    eksi2Std: number;
+    eksi3Std: number;
+    zSkoru: number;
+    noktalar: { tarih: string; bist: number; deger: number }[];
+  };
+}
+
+const { veri } = Astro.props;
+const { noktalar, ortalama, arti2Std, eksi2Std, eksi3Std } = veri;
+
+// Görsel boyutlar (SVG koordinatları)
+const W = 800;
+const H = 400;
+const PAD_TOP = 30;
+const PAD_BOTTOM = 40;
+const PAD_LEFT = 45;
+const PAD_RIGHT = 110;
+
+// Y ekseni min ve max sınırları (biraz pay bırakarak)
+const degerler = noktalar.map((p) => p.deger);
+const minDeger = Math.min(...degerler, eksi3Std) - 3;
+const maxDeger = Math.max(...degerler, arti2Std) + 3;
+const yArallik = maxDeger - minDeger || 1;
+
+// Koordinat dönüştürücüler
+const xPos = (i: number) => PAD_LEFT + (i / Math.max(noktalar.length - 1, 1)) * (W - PAD_LEFT - PAD_RIGHT);
+const yPos = (v: number) => PAD_TOP + (1 - (v - minDeger) / yArallik) * (H - PAD_TOP - PAD_BOTTOM);
+
+// Ana eğri çizgisi
+const cizgiYolu = noktalar
+  .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i).toFixed(1)} ${yPos(p.deger).toFixed(1)}`)
+  .join(' ');
+
+// Referans çizgileri Y koordinatları
+const yOrt = yPos(ortalama);
+const yArti2 = yPos(arti2Std);
+const yEksi2 = yPos(eksi2Std);
+const yEksi3 = yPos(eksi3Std);
+
+// X ekseninde gösterilecek yıl etiketleri (2025, 2026 gibi)
+const yillar: { yil: string; x: number }[] = [];
+let oncekiYil = '';
+noktalar.forEach((p, i) => {
+  const yil = p.tarih.slice(0, 4);
+  if (yil !== oncekiYil) {
+    yillar.push({ yil, x: xPos(i) });
+    oncekiYil = yil;
+  }
+});
+
+// Y ekseni ızgara seviyeleri (5'er birimlik adımlar)
+const adim = 5;
+const izgaraDegerleri: number[] = [];
+const taban = Math.ceil(minDeger / adim) * adim;
+for (let v = taban; v <= maxDeger; v += adim) {
+  izgaraDegerleri.push(v);
+}
+
+const sonNokta = noktalar.at(-1)!;
+const sonX = xPos(noktalar.length - 1);
+const sonY = yPos(sonNokta.deger);
+---
+
+<div class="grafik-kapsayici">
+  <div class="grafik-ust-bilgi">
+    <div class="grafik-baslik-alani">
+      <h3 class="grafik-baslik">BİST 100 / TÜFE Reel Değer Seyri</h3>
+      <p class="grafik-altbaslik">2 Yıllık Dönem Ortalaması ve Standart Sapma Bantları</p>
+    </div>
+    <div class="grafik-etiket-kutusu">
+      <span class="etiket-oge"><span class="renk-nokta nokta-ort"></span> 2Y Ort: {ortalama}</span>
+      <span class="etiket-oge"><span class="renk-nokta nokta-arti2"></span> +2σ: {arti2Std}</span>
+      <span class="etiket-oge"><span class="renk-nokta nokta-eksi2"></span> -2σ: {eksi2Std}</span>
+      <span class="etiket-oge"><span class="renk-nokta nokta-eksi3"></span> -3σ: {eksi3Std}</span>
+    </div>
+  </div>
+
+  <div class="svg-sarici">
+    <svg viewBox={`0 0 ${W} ${H}`} class="bist-tufe-svg" role="img" aria-label="BİST 100 TÜFE rasyosu ve standart sapma bantları">
+      <!-- Izgara çizgileri ve Y eksen etiketleri -->
+      {
+        izgaraDegerleri.map((v) => {
+          const y = yPos(v);
+          return (
+            <g class="izgara-grup">
+              <line x1={PAD_LEFT} y1={y} x2={W - PAD_RIGHT} y2={y} stroke="var(--soluk)" stroke-width="1" />
+              <text x={PAD_LEFT - 8} y={y + 4} text-anchor="end" class="eksen-metin">
+                {v}
+              </text>
+            </g>
+          );
+        })
+      }
+
+      <!-- X ekseni yıl etiketleri ve dikey çizgileri -->
+      {
+        yillar.map((y) => (
+          <g class="yil-grup">
+            <line x1={y.x} y1={PAD_TOP} x2={y.x} y2={H - PAD_BOTTOM} stroke="var(--soluk)" stroke-dasharray="3 3" stroke-width="1" />
+            <text x={y.x + 4} y={H - PAD_BOTTOM + 18} class="eksen-metin yil-metin">
+              |{y.yil.slice(2)}
+            </text>
+          </g>
+        ))
+      }
+
+      <!-- +2 Standart Sapma Bandı -->
+      <line x1={PAD_LEFT} y1={yArti2} x2={W - PAD_RIGHT} y2={yArti2} stroke="var(--muted)" stroke-width="1.5" stroke-dasharray="4 3" />
+      <text x={W - PAD_RIGHT + 8} y={yArti2 + 4} class="bant-metin">+2 Std Sapma</text>
+
+      <!-- 2 Yıllık Ortalama (Turuncu/Toprak) -->
+      <line x1={PAD_LEFT} y1={yOrt} x2={W - PAD_RIGHT} y2={yOrt} stroke="var(--toprak)" stroke-width="1.5" stroke-dasharray="4 3" />
+      <text x={W - PAD_RIGHT + 8} y={yOrt + 4} class="bant-metin bant-ort">2Y Ort.</text>
+
+      <!-- -2 Standart Sapma Bandı (Mavi/Lacivert) -->
+      <line x1={PAD_LEFT} y1={yEksi2} x2={W - PAD_RIGHT} y2={yEksi2} stroke="#2b5c8f" stroke-width="1.5" stroke-dasharray="4 3" />
+      <text x={W - PAD_RIGHT + 8} y={yEksi2 + 4} class="bant-metin bant-eksi2">-2 Std Sapma</text>
+
+      <!-- -3 Standart Sapma Bandı (Koyu Kırmızı/Düşüş) -->
+      <line x1={PAD_LEFT} y1={yEksi3} x2={W - PAD_RIGHT} y2={yEksi3} stroke="var(--dusus)" stroke-width="1.5" stroke-dasharray="2 2" />
+      <text x={W - PAD_RIGHT + 8} y={yEksi3 + 4} class="bant-metin bant-eksi3">-3 Std Sapma</text>
+
+      <!-- Ana Eğri (Reel BİST 100) -->
+      <path d={cizgiYolu} fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+      <!-- Son Nokta -->
+      <circle cx={sonX} cy={sonY} r="4.5" fill="var(--dusus)" stroke="var(--paper)" stroke-width="2" />
+    </svg>
+  </div>
+
+  <div class="grafik-alt-bilgi">
+    <span class="kaynak-notu">Kaynak: Yahoo Finance (XU100), TÜİK (TÜFE), Finfolis Analizi</span>
+    <span class="tarih-notu">Son İşlem Günü: {sonNokta.tarih} (Reel Değer: {sonNokta.deger})</span>
+  </div>
+</div>
+
+<style>
+  .grafik-kapsayici {
+    background: var(--paper-2);
+    border: 1px solid var(--hair);
+    padding: 20px;
+    margin: 24px 0;
+  }
+
+  .grafik-ust-bilgi {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--hair);
+    padding-bottom: 12px;
+  }
+
+  .grafik-baslik {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .grafik-altbaslik {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 2px 0 0;
+  }
+
+  .grafik-etiket-kutusu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .etiket-oge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--ink-2);
+  }
+
+  .renk-nokta {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+  }
+
+  .nokta-ort {
+    background: var(--toprak);
+  }
+
+  .nokta-arti2 {
+    background: var(--muted);
+  }
+
+  .nokta-eksi2 {
+    background: #2b5c8f;
+  }
+
+  .nokta-eksi3 {
+    background: var(--dusus);
+  }
+
+  .svg-sarici {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .bist-tufe-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 550px;
+  }
+
+  .eksen-metin {
+    font-family: inherit;
+    font-size: 11px;
+    fill: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .yil-metin {
+    font-weight: 700;
+  }
+
+  .bant-metin {
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    fill: var(--muted);
+  }
+
+  .bant-ort {
+    fill: var(--toprak-text);
+  }
+
+  .bant-eksi2 {
+    fill: #2b5c8f;
+  }
+
+  .bant-eksi3 {
+    fill: var(--dusus);
+  }
+
+  .grafik-alt-bilgi {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px solid var(--hair);
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,521 @@
+---
+// Makro Şoklar ve Borsa: Tüketici Güveni, Reel Kesim, Sanayi Üretimi ve Reel Kur şoklarının BIST 100 karnesi.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import data from '../../data/makro-soklar.json';
+import { gunYaz, sayiYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const baslik = 'Makro Şoklar ve Borsa: Güven ve Üretim Kırılmaları';
+const description = 'Tüketici Güveni (TGE), Reel Kesim (RKGE), Sanayi Üretimi ve Reel Döviz Kuru’ndaki tarihi çöküşlerin ardından BİST 100’ün performansı. 20 yıllık olay analizi ve stres testi.';
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Makro Şoklar ve Borsa', href: '/veri/makro-soklar/' },
+];
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  sayfaEk: { dateModified: data.guncelleme },
+  ekler: [
+    {
+      '@type': 'Dataset',
+      name: 'Tarihsel Makro Şoklar ve Borsa İstanbul Tepkileri (2004–2026)',
+      description: 'TCMB ve TÜİK makroekonomik öncü göstergelerinin en sert aylık düşüş dönemleri ve BİST 100 endeksi getiri analizi.',
+      url: 'https://finfolis.com/veri/makro-soklar/',
+      isAccessibleForFree: true,
+      creator: { '@type': 'Organization', name: 'finfolis', url: 'https://finfolis.com/' },
+      dateModified: data.guncelleme,
+      variableMeasured: ['TGE Şokları', 'RKGE Şokları', 'Sanayi Üretimi Kırılmaları', 'REK Şokları', 'BİST 100 Getirileri'],
+    },
+  ],
+});
+
+const g = data.gostergeler;
+---
+
+<Base title={`${baslik} · finfolis`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Öncü Makroekonomik Kırılmaların 20 Yıllık Borsa Karnesi · Güncelleme: {gunYaz(data.guncelleme)}</p>
+    </header>
+
+    <!-- Özet İstatistik Kartları -->
+    <dl class="veri-rakamlar">
+      <div>
+        <dt>Tüketici Güveni Şoku</dt>
+        <dd class="metin-yukselis">%{g.tge.istatistik.sonrakiAyPozitifOrani}</dd>
+        <dd class="veri-degisim">Şok sonrası T+1 ayda yükselme oranı</dd>
+      </div>
+      <div>
+        <dt>Sanayi Üretimi Çöküşü</dt>
+        <dd class="metin-yukselis">%{g.sanayi.istatistik.sonrakiAyPozitifOrani}</dd>
+        <dd class="veri-degisim">Ortalama T+1 getiri: +%{sayiYaz(g.sanayi.istatistik.ortalamaSonrakiAyGetiri, 1)}</dd>
+      </div>
+      <div>
+        <dt>Reel Kur Şoku (REK)</dt>
+        <dd class="metin-yukselis">%{g.rek.istatistik.ayniAyPozitifOrani}</dd>
+        <dd class="veri-degisim">Aynı ayda ortalama getiri: +%{sayiYaz(g.rek.istatistik.ortalamaAyniAyGetiri, 1)}</dd>
+      </div>
+      <div>
+        <dt>Reel Kesim Güveni (RKGE)</dt>
+        <dd class="metin-yukselis">%{g.rkge.istatistik.sonrakiAyPozitifOrani}</dd>
+        <dd class="veri-degisim">En sert şok: Nisan '20 (-36,3 pt)</dd>
+      </div>
+    </dl>
+
+    <!-- Durum Vurgu Kutusu -->
+    <aside class="durum-kutusu">
+      <div class="durum-baslik">
+        <span class="abakus-nokta"></span>
+        <strong>Piyasa Teşhisi: Makro Şoklar Neden Borsa İçin "Dip" Sinyali Oluyor?</strong>
+      </div>
+      <p>
+        Tarihsel veriler çarpıcı bir gerçeği ortaya koyuyor: Tüketici güveninin çöktüğü veya sanayi üretiminin sert daraldığı dönemler,
+        borsa için kaçış değil çoğu zaman <strong>"orta vadeli dip alım fırsatı"</strong> oluşturmuştur. Sanayi üretiminin tarihteki en sert
+        10 daralmasının <strong>%80'inde</strong> BİST 100 takip eden ayda yükselmiş, reel kur şoklarının ise <strong>%80'inde</strong>
+        borsa aynı ay içinde güçlü nominal ralliye başlamıştır.
+      </p>
+    </aside>
+
+    <!-- 1. BÖLÜM: TÜKETİCİ GÜVENİ (TGE) -->
+    <section class="bolum sok-bolumu">
+      <div class="bolum-ust">
+        <div>
+          <span class="ust-etiket">TCMB & TÜİK · {g.tge.seriKod}</span>
+          <h2 class="bolum-baslik">{g.tge.ad} Şokları</h2>
+          <p class="bolum-aciklama">{g.tge.aciklama}</p>
+        </div>
+      </div>
+
+      <div class="tablo-sarma">
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 36px;">#</th>
+              <th scope="col">Dönem</th>
+              <th scope="col" class="sag">TGE Düşüşü</th>
+              <th scope="col" class="sag" style="width: 170px;">BİST 100 (Aynı Ay)</th>
+              <th scope="col" class="sag">Sonraki Ay (T+1)</th>
+              <th scope="col" class="sag">3 Ay Sonra</th>
+            </tr>
+          </thead>
+          <tbody>
+            {g.tge.top10.map((r, i) => (
+              <tr>
+                <td class="font-soluk">{i + 1}</td>
+                <td><strong>{r.label}</strong></td>
+                <td class="sag font-tablo metin-dusus"><strong>{sayiYaz(r.diff, 2)} pt</strong></td>
+                <td class="sag">
+                  {r.sameRet !== null ? (
+                    <div class="bar-hucre">
+                      <div class="bar-iz">
+                        <div class="bar-orta"></div>
+                        <div
+                          class={r.sameRet >= 0 ? 'bar-dolu bar-pos' : 'bar-dolu bar-neg'}
+                          style={
+                            r.sameRet >= 0
+                              ? `left: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
+                              : `right: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
+                          }
+                        ></div>
+                      </div>
+                      <span class={r.sameRet >= 0 ? 'metin-yukselis font-tablo' : 'metin-dusus font-tablo'}>
+                        {r.sameRet >= 0 ? `▲ %${sayiYaz(r.sameRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.sameRet), 1)}`}
+                      </span>
+                    </div>
+                  ) : '—'}
+                </td>
+                <td class="sag font-tablo">
+                  {r.nextRet !== null ? (
+                    <span class={r.nextRet >= 0 ? 'metin-yukselis' : 'metin-dusus'}>
+                      {r.nextRet >= 0 ? `▲ %${sayiYaz(r.nextRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.nextRet), 1)}`}
+                    </span>
+                  ) : '—'}
+                </td>
+                <td class="sag font-tablo">
+                  {r.ret3m !== null ? (
+                    <span class={r.ret3m >= 0 ? 'metin-yukselis' : 'metin-dusus'}>
+                      {r.ret3m >= 0 ? `▲ %${sayiYaz(r.ret3m, 1)}` : `▼ %${sayiYaz(Math.abs(r.ret3m), 1)}`}
+                    </span>
+                  ) : '—'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 2. BÖLÜM: REEL KESİM GÜVEN ENDEKSİ (RKGE) -->
+    <section class="bolum sok-bolumu">
+      <div class="bolum-ust">
+        <div>
+          <span class="ust-etiket">TCMB · {g.rkge.seriKod}</span>
+          <h2 class="bolum-baslik">{g.rkge.ad} Şokları</h2>
+          <p class="bolum-aciklama">{g.rkge.aciklama}</p>
+        </div>
+      </div>
+
+      <div class="tablo-sarma">
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 36px;">#</th>
+              <th scope="col">Dönem</th>
+              <th scope="col" class="sag">RKGE Düşüşü</th>
+              <th scope="col" class="sag" style="width: 170px;">BİST 100 (Aynı Ay)</th>
+              <th scope="col" class="sag">Sonraki Ay (T+1)</th>
+              <th scope="col" class="sag">3 Ay Sonra</th>
+            </tr>
+          </thead>
+          <tbody>
+            {g.rkge.top10.map((r, i) => (
+              <tr>
+                <td class="font-soluk">{i + 1}</td>
+                <td><strong>{r.label}</strong></td>
+                <td class="sag font-tablo metin-dusus"><strong>{sayiYaz(r.diff, 2)} pt</strong></td>
+                <td class="sag">
+                  {r.sameRet !== null ? (
+                    <div class="bar-hucre">
+                      <div class="bar-iz">
+                        <div class="bar-orta"></div>
+                        <div
+                          class={r.sameRet >= 0 ? 'bar-dolu bar-pos' : 'bar-dolu bar-neg'}
+                          style={
+                            r.sameRet >= 0
+                              ? `left: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
+                              : `right: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
+                          }
+                        ></div>
+                      </div>
+                      <span class={r.sameRet >= 0 ? 'metin-yukselis font-tablo' : 'metin-dusus font-tablo'}>
+                        {r.sameRet >= 0 ? `▲ %${sayiYaz(r.sameRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.sameRet), 1)}`}
+                      </span>
+                    </div>
+                  ) : '—'}
+                </td>
+                <td class="sag font-tablo">
+                  {r.nextRet !== null ? (
+                    <span class={r.nextRet >= 0 ? 'metin-yukselis' : 'metin-dusus'}>
+                      {r.nextRet >= 0 ? `▲ %${sayiYaz(r.nextRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.nextRet), 1)}`}
+                    </span>
+                  ) : '—'}
+                </td>
+                <td class="sag font-tablo">
+                  {r.ret3m !== null ? (
+                    <span class={r.ret3m >= 0 ? 'metin-yukselis' : 'metin-dusus'}>
+                      {r.ret3m >= 0 ? `▲ %${sayiYaz(r.ret3m, 1)}` : `▼ %${sayiYaz(Math.abs(r.ret3m), 1)}`}
+                    </span>
+                  ) : '—'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. BÖLÜM: SANAYİ ÜRETİMİ (SÜE) -->
+    <section class="bolum sok-bolumu">
+      <div class="bolum-ust">
+        <div>
+          <span class="ust-etiket">TÜİK · {g.sanayi.seriKod}</span>
+          <h2 class="bolum-baslik">{g.sanayi.ad} Şokları</h2>
+          <p class="bolum-aciklama">{g.sanayi.aciklama}</p>
+        </div>
+      </div>
+
+      <div class="tablo-sarma">
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 36px;">#</th>
+              <th scope="col">Dönem</th>
+              <th scope="col" class="sag">Aylık Değişim</th>
+              <th scope="col" class="sag" style="width: 170px;">BİST 100 (Aynı Ay)</th>
+              <th scope="col" class="sag">Sonraki Ay (T+1)</th>
+              <th scope="col" class="sag">3 Ay Sonra</th>
+            </tr>
+          </thead>
+          <tbody>
+            {g.sanayi.top10.map((r, i) => (
+              <tr>
+                <td class="font-soluk">{i + 1}</td>
+                <td><strong>{r.label}</strong></td>
+                <td class="sag font-tablo metin-dusus"><strong>%{sayiYaz(r.pct, 2)}</strong></td>
+                <td class="sag">
+                  {r.sameRet !== null ? (
+                    <div class="bar-hucre">
+                      <div class="bar-iz">
+                        <div class="bar-orta"></div>
+                        <div
+                          class={r.sameRet >= 0 ? 'bar-dolu bar-pos' : 'bar-dolu bar-neg'}
+                          style={
+                            r.sameRet >= 0
+                              ? `left: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
+                              : `right: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
+                          }
+                        ></div>
+                      </div>
+                      <span class={r.sameRet >= 0 ? 'metin-yukselis font-tablo' : 'metin-dusus font-tablo'}>
+                        {r.sameRet >= 0 ? `▲ %${sayiYaz(r.sameRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.sameRet), 1)}`}
+                      </span>
+                    </div>
+                  ) : '—'}
+                </td>
+                <td class="sag font-tablo">
+                  {r.nextRet !== null ? (
+                    <span class={r.nextRet >= 0 ? 'metin-yukselis' : 'metin-dusus'}>
+                      {r.nextRet >= 0 ? `▲ %${sayiYaz(r.nextRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.nextRet), 1)}`}
+                    </span>
+                  ) : '—'}
+                </td>
+                <td class="sag font-tablo">
+                  {r.ret3m !== null ? (
+                    <span class={r.ret3m >= 0 ? 'metin-yukselis' : 'metin-dusus'}>
+                      {r.ret3m >= 0 ? `▲ %${sayiYaz(r.ret3m, 1)}` : `▼ %${sayiYaz(Math.abs(r.ret3m), 1)}`}
+                    </span>
+                  ) : '—'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. BÖLÜM: REEL EFEKTİF DÖVİZ KURU (REK) -->
+    <section class="bolum sok-bolumu">
+      <div class="bolum-ust">
+        <div>
+          <span class="ust-etiket">TCMB · {g.rek.seriKod}</span>
+          <h2 class="bolum-baslik">{g.rek.ad} Şokları</h2>
+          <p class="bolum-aciklama">{g.rek.aciklama}</p>
+        </div>
+      </div>
+
+      <div class="tablo-sarma">
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col" style="width: 36px;">#</th>
+              <th scope="col">Dönem</th>
+              <th scope="col" class="sag">Reel Kur Değişimi</th>
+              <th scope="col" class="sag" style="width: 170px;">BİST 100 (Aynı Ay)</th>
+              <th scope="col" class="sag">Sonraki Ay (T+1)</th>
+              <th scope="col" class="sag">3 Ay Sonra</th>
+            </tr>
+          </thead>
+          <tbody>
+            {g.rek.top10.map((r, i) => (
+              <tr>
+                <td class="font-soluk">{i + 1}</td>
+                <td><strong>{r.label}</strong></td>
+                <td class="sag font-tablo metin-dusus"><strong>%{sayiYaz(r.pct, 2)}</strong></td>
+                <td class="sag">
+                  {r.sameRet !== null ? (
+                    <div class="bar-hucre">
+                      <div class="bar-iz">
+                        <div class="bar-orta"></div>
+                        <div
+                          class={r.sameRet >= 0 ? 'bar-dolu bar-pos' : 'bar-dolu bar-neg'}
+                          style={
+                            r.sameRet >= 0
+                              ? `left: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
+                              : `right: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
+                          }
+                        ></div>
+                      </div>
+                      <span class={r.sameRet >= 0 ? 'metin-yukselis font-tablo' : 'metin-dusus font-tablo'}>
+                        {r.sameRet >= 0 ? `▲ %${sayiYaz(r.sameRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.sameRet), 1)}`}
+                      </span>
+                    </div>
+                  ) : '—'}
+                </td>
+                <td class="sag font-tablo">
+                  {r.nextRet !== null ? (
+                    <span class={r.nextRet >= 0 ? 'metin-yukselis' : 'metin-dusus'}>
+                      {r.nextRet >= 0 ? `▲ %${sayiYaz(r.nextRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.nextRet), 1)}`}
+                    </span>
+                  ) : '—'}
+                </td>
+                <td class="sag font-tablo">
+                  {r.ret3m !== null ? (
+                    <span class={r.ret3m >= 0 ? 'metin-yukselis' : 'metin-dusus'}>
+                      {r.ret3m >= 0 ? `▲ %${sayiYaz(r.ret3m, 1)}` : `▼ %${sayiYaz(Math.abs(r.ret3m), 1)}`}
+                    </span>
+                  ) : '—'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Öğretici Yöntem ve Açıklama Bölümü -->
+    <div class="veri-izgara" style="margin-top: 32px;">
+      <section class="bolum">
+        <h2 class="bolum-baslik">Nasıl Hesaplandı?</h2>
+        <div class="metin-blok">
+          <p>
+            Her gösterge için TCMB EVDS ve TÜİK veri tabanlarından 2004–2026 arası tüm aylık seriler çekilmiştir.
+            Aylık serilerde tarihteki en sert 10 negatif kırılma (puan ve yüzde farkı) sıralanmış ve aynı tarihlerdeki
+            Borsa İstanbul (BİST 100) aylık kapanışlarıyla birebir eşleştirilmiştir.
+          </p>
+          <p>
+            Tablolardaki veri çubukları, borsa getirisinin büyüklüğünü ve yönünü Finfolis kimlik renkleriyle
+            (yükseliş yeşili ve düşüş kırmızısı) ölçekli olarak gösterir.
+          </p>
+        </div>
+      </section>
+
+      <section class="bolum">
+        <h2 class="bolum-baslik">Resmî Kaynaklar</h2>
+        <div class="metin-blok">
+          <ul style="list-style: none; padding: 0; line-height: 1.8;">
+            <li><strong>TCMB EVDS:</strong> TP.TG2.Y01, TP.TG.EN, TP.GY1.N2.MA, TP.RK.T1.Y</li>
+            <li><strong>TÜİK:</strong> Tüketici Eğilim Anketi, Sanayi Üretim İstatistikleri</li>
+            <li><strong>Borsa İstanbul:</strong> BİST 100 (XU100) Aylık Kapanış Verileri</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <YasalUyari />
+  </div>
+</Base>
+
+<style>
+  .veri-sayfa {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .sok-bolumu {
+    margin-top: 32px;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 24px;
+  }
+  .bolum-ust {
+    margin-bottom: 20px;
+  }
+  .ust-etiket {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--toprak, #c2502b);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .bolum-baslik {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--ink, #1b1b1b);
+  }
+  .bolum-aciklama {
+    font-size: 0.88rem;
+    color: var(--muted, #5d5b55);
+    line-height: 1.5;
+  }
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+  .bar-hucre {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    min-width: 150px;
+  }
+  .bar-iz {
+    width: 70px;
+    height: 12px;
+    background: var(--paper-2, #e9e7df);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .bar-orta {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--hair, #cfccc2);
+    z-index: 2;
+  }
+  .bar-dolu {
+    position: absolute;
+    top: 0;
+    height: 100%;
+  }
+  .bar-pos {
+    background: var(--yukselis, #3f7350);
+  }
+  .bar-neg {
+    background: var(--dusus, #a3243b);
+  }
+  .metin-yukselis {
+    color: var(--yukselis, #3f7350);
+    font-weight: 600;
+  }
+  .metin-dusus {
+    color: var(--dusus, #a3243b);
+    font-weight: 600;
+  }
+  .font-soluk {
+    color: var(--muted, #5d5b55);
+    font-size: 0.85rem;
+  }
+  .font-tablo {
+    font-variant-numeric: tabular-nums;
+  }
+  .durum-kutusu {
+    background: var(--paper-2, #e9e7df);
+    border-left: 4px solid var(--toprak, #c2502b);
+    padding: 18px 20px;
+    margin: 24px 0 16px;
+  }
+  .durum-baslik {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: var(--ink, #1b1b1b);
+  }
+  .abakus-nokta {
+    width: 8px;
+    height: 8px;
+    background: var(--toprak, #c2502b);
+    display: inline-block;
+  }
+  .durum-kutusu p {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink-2, #3d3c38);
+    margin: 0;
+  }
+  .veri-izgara {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 768px) {
+    .veri-izgara {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

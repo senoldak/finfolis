@@ -36,6 +36,6 @@ export function resmiKaynaklar(veri) {
 export function adsizKaynakSatiri(veri) {
   if (!(typeof veri?.kaynakIzi === 'string' && veri.kaynakIzi.trim())) return null;
   return veri.tur === 'bulten'
-    ? 'Kaynak: resmî veriler ve birden fazla bağımsız yayın organının haberleri (adları verilmez).'
-    : 'Kaynak: birden fazla bağımsız yayın organının haberleri (adları verilmez).';
+    ? 'Kaynak: Resmî kurum verileri ve kamuya açık piyasa haberleri.'
+    : 'Kaynak: Kamuya açık finansal veriler ve bağımsız piyasa haber akışları.';
 }
