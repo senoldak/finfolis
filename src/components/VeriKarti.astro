@@ -1,0 +1,264 @@
+---
+// finfolis Veri Gösterge Kartı: Sayı, mini eğri (SVG sparkline) ve editoryal yönlendirme.
+// DESIGN.md: Kâğıt zemin, mürekkep çizgi, pişmiş toprak kategori vurgusu, sıfır gölge.
+interface Props {
+  href: string;
+  kategori: string;
+  baslik: string;
+  deger: string;
+  birim?: string;
+  degisim?: string;
+  degisimYon?: 'yukselis' | 'dusus' | 'notr';
+  aciklama: string;
+  kaynak?: string;
+  seri?: number[];
+  oneCikan?: boolean;
+}
+
+const {
+  href,
+  kategori,
+  baslik,
+  deger,
+  birim,
+  degisim,
+  degisimYon = 'notr',
+  aciklama,
+  kaynak,
+  seri = [],
+  oneCikan = false,
+} = Astro.props;
+
+// Mini SVG Eğrisi Hesaplama
+const W = 200;
+const H = 44;
+const PAD = 3;
+
+let cizgiYolu = '';
+let sonNoktaX = 0;
+let sonNoktaY = 0;
+
+if (seri.length >= 2) {
+  const min = Math.min(...seri);
+  const max = Math.max(...seri);
+  const aralik = max - min || 1;
+
+  const x = (i: number) => PAD + (i / (seri.length - 1)) * (W - 2 * PAD);
+  const y = (v: number) => PAD + (1 - (v - min) / aralik) * (H - 2 * PAD);
+
+  cizgiYolu = seri
+    .map((v, i) => `${i === 0 ? 'M' : 'L'} ${x(i).toFixed(1)} ${y(v).toFixed(1)}`)
+    .join(' ');
+
+  sonNoktaX = x(seri.length - 1);
+  sonNoktaY = y(seri.at(-1)!);
+}
+---
+
+<a href={href} class={`veri-kart ${oneCikan ? 'one-cikan' : ''}`}>
+  <div class="kart-ust">
+    <span class="kart-kategori">{kategori}</span>
+    {kaynak && <span class="kart-kaynak">{kaynak}</span>}
+  </div>
+
+  <h3 class="kart-baslik">{baslik}</h3>
+
+  <div class="kart-ana-deger">
+    <span class="sayi">{deger}</span>
+    {birim && <small class="birim">{birim}</small>}
+  </div>
+
+  <div class="kart-orta-blok">
+    {
+      degisim && (
+        <span class={`kart-degisim ${degisimYon}`}>
+          {degisim}
+        </span>
+      )
+    }
+    <p class="kart-aciklama">{aciklama}</p>
+  </div>
+
+  {
+    cizgiYolu && (
+      <div class="kart-grafik-alani">
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          class="kart-sparkline"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            d={cizgiYolu}
+            fill="none"
+            stroke="var(--ink-2)"
+            stroke-width="1.75"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            vector-effect="non-scaling-stroke"
+          />
+          <circle
+            cx={sonNoktaX}
+            cy={sonNoktaY}
+            r="3"
+            fill="var(--toprak)"
+          />
+        </svg>
+      </div>
+    )
+  }
+
+  <div class="kart-alt">
+    <span class="kart-link-metin">Veriyi incele</span>
+    <span class="kart-ok" aria-hidden="true">→</span>
+  </div>
+</a>
+
+<style>
+  .veri-kart {
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 20px 22px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+    position: relative;
+  }
+
+  .veri-kart:hover {
+    background: var(--paper-2);
+    border-color: var(--ink);
+  }
+
+  .veri-kart.one-cikan {
+    border-top: 3px solid var(--toprak);
+  }
+
+  .kart-ust {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .kart-kategori {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--toprak-text);
+  }
+
+  .kart-kaynak {
+    font-size: 0.72rem;
+    color: var(--muted);
+  }
+
+  .kart-baslik {
+    margin: 0 0 10px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+
+  .kart-ana-deger {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+
+  .kart-ana-deger .sayi {
+    font-family: var(--sans);
+    font-size: 1.95rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .kart-ana-deger .birim {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .kart-orta-blok {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+
+  .kart-degisim {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .kart-degisim.yukselis {
+    color: var(--yukselis);
+  }
+
+  .kart-degisim.dusus {
+    color: var(--dusus);
+  }
+
+  .kart-degisim.notr {
+    color: var(--ink-2);
+  }
+
+  .kart-aciklama {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--ink-2);
+  }
+
+  .kart-grafik-alani {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--hair);
+  }
+
+  .kart-sparkline {
+    display: block;
+    width: 100%;
+    height: 40px;
+    overflow: visible;
+  }
+
+  .kart-alt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--hair);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--toprak-text);
+  }
+
+  .veri-kart:hover .kart-alt {
+    color: var(--toprak);
+  }
+
+  .kart-ok {
+    font-size: 1rem;
+    transition: transform 0.15s ease;
+  }
+
+  .veri-kart:hover .kart-ok {
+    transform: translateX(4px);
+  }
+</style>
