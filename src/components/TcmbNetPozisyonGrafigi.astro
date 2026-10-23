@@ -211,7 +211,7 @@ const isSonPos = sonDegisim >= 0;
       </g>
 
       <!-- Çizgi Modu Katmanı (Varsayılan Gizli) -->
-      <g id="np-katman-cizgi" style="display: none;">
+      <g id="np-katman-cizgi" class="gizli">
         <path id="np-alan-yolu" fill="var(--paper-2, #e9e7df)" opacity="0.6" />
         <path id="np-cizgi-yolu" fill="none" stroke="var(--toprak, #c2502b)" stroke-width="2.5" />
       </g>
@@ -278,6 +278,7 @@ const isSonPos = sonDegisim >= 0;
       <!-- İnteraktif Crosshair / Odak Göstergeleri -->
       <line
         id="np-rehber-dikey"
+        class="gizli"
         x1={PAD_LEFT}
         y1={PAD_TOP}
         x2={PAD_LEFT}
@@ -285,28 +286,27 @@ const isSonPos = sonDegisim >= 0;
         stroke="var(--ink, #1b1b1b)"
         stroke-width="1.2"
         stroke-dasharray="3 3"
-        style="display: none;"
       />
       <circle
         id="np-odak-noktasi"
+        class="gizli"
         cx="0"
         cy="0"
         r="5"
         fill="var(--toprak, #c2502b)"
         stroke="var(--paper, #f4f3ee)"
         stroke-width="2"
-        style="display: none;"
       />
 
       <!-- Şeffaf Etkileşim İzleme Katmanı -->
       <rect
         id="np-etkilesim-alani"
+        class="etkilesim-izleme-alani"
         x={PAD_LEFT}
         y={PAD_TOP}
         width={innerW}
         height={innerH}
         fill="transparent"
-        style="cursor: crosshair; touch-action: none;"
       />
     </svg>
   </div>
@@ -442,25 +442,25 @@ const isSonPos = sonDegisim >= 0;
         if (aktifMod === 'gun') {
           baslikEl.textContent = 'TCMB net pozisyonu günlük değişimi';
           altbilgiEl.textContent = 'Altın etkisi dışlanmış tahmini döviz alım/satımı · Milyar $';
-          if (aralikKumesi) aralikKumesi.style.display = 'inline-flex';
+          if (aralikKumesi) aralikKumesi.classList.remove('gizli');
         } else if (aktifMod === 'hafta') {
           baslikEl.textContent = 'TCMB net pozisyonu haftalık kümülatif akımı';
           altbilgiEl.textContent = 'Hafta bazında altın arındırılmış net döviz girişi / çıkışı · Milyar $';
-          if (aralikKumesi) aralikKumesi.style.display = 'none';
+          if (aralikKumesi) aralikKumesi.classList.add('gizli');
         } else if (aktifMod === 'ay') {
           baslikEl.textContent = 'TCMB net pozisyonu aylık kümülatif dengesi';
           altbilgiEl.textContent = 'Ay bazında altın etkisi dışlanmış net döviz rezerv değişimi · Milyar $';
-          if (aralikKumesi) aralikKumesi.style.display = 'none';
+          if (aralikKumesi) aralikKumesi.classList.add('gizli');
         } else {
           baslikEl.textContent = 'TCMB net döviz pozisyonu 1 yıllık seyri';
           altbilgiEl.textContent = 'Swap ve Hazine mevduatları hariç çekirdek net rezerv düzeyi · Milyar $';
-          if (aralikKumesi) aralikKumesi.style.display = 'none';
+          if (aralikKumesi) aralikKumesi.classList.add('gizli');
         }
       }
 
       if (aktifMod !== 'cizgi') {
-        if (katmanBarlar) katmanBarlar.style.display = 'block';
-        if (katmanCizgi) katmanCizgi.style.display = 'none';
+        if (katmanBarlar) katmanBarlar.classList.remove('gizli');
+        if (katmanCizgi) katmanCizgi.classList.add('gizli');
 
         const vals = liste.map((d) => d.val);
         const maxAbs = Math.max(5, ...vals.map((v) => Math.ceil(Math.abs(v))));
@@ -520,8 +520,8 @@ const isSonPos = sonDegisim >= 0;
         }
       } else {
         // Çizgi Modu (1Y Seviye)
-        if (katmanBarlar) katmanBarlar.style.display = 'none';
-        if (katmanCizgi) katmanCizgi.style.display = 'block';
+        if (katmanBarlar) katmanBarlar.classList.add('gizli');
+        if (katmanCizgi) katmanCizgi.classList.remove('gizli');
 
         const rezVals = liste.map((d) => d.val);
         const minVal = Math.floor((Math.min(...rezVals, 20) - 2) / 5) * 5;
@@ -677,7 +677,7 @@ const isSonPos = sonDegisim >= 0;
       if (rehberDikey) {
         rehberDikey.setAttribute('x1', cx.toString());
         rehberDikey.setAttribute('x2', cx.toString());
-        rehberDikey.style.display = 'block';
+        rehberDikey.classList.remove('gizli');
       }
 
       if (odakNoktasi) {
@@ -689,9 +689,9 @@ const isSonPos = sonDegisim >= 0;
           const py = PAD_TOP + (1 - (item.val - minVal) / rangeRez) * innerH;
           odakNoktasi.setAttribute('cx', cx.toString());
           odakNoktasi.setAttribute('cy', py.toString());
-          odakNoktasi.style.display = 'block';
+          odakNoktasi.classList.remove('gizli');
         } else {
-          odakNoktasi.style.display = 'none';
+          odakNoktasi.classList.add('gizli');
         }
       }
 
@@ -705,8 +705,8 @@ const isSonPos = sonDegisim >= 0;
     }
 
     function takipBitti() {
-      if (rehberDikey) rehberDikey.style.display = 'none';
-      if (odakNoktasi) odakNoktasi.style.display = 'none';
+      if (rehberDikey) rehberDikey.classList.add('gizli');
+      if (odakNoktasi) odakNoktasi.classList.add('gizli');
       if (katmanBarlar) {
         katmanBarlar.querySelectorAll('.bar-eleman').forEach((b) => b.classList.remove('secili'));
       }
@@ -758,6 +758,15 @@ const isSonPos = sonDegisim >= 0;
 </script>
 
 <style>
+  :global(.gizli) {
+    display: none !important;
+  }
+
+  .etkilesim-izleme-alani {
+    cursor: crosshair;
+    touch-action: none;
+  }
+
   .interaktif-grafik-kapsayici {
     background: var(--paper, #f4f3ee);
     border: 1px solid var(--hair, #cfccc2);

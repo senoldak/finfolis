@@ -1,6 +1,6 @@
 ---
 // Bankacılık Sektörü Döviz ve Altın Mevduatları İnteraktif Zaman Serisi Grafiği
-// Finfolis tasarım dili: Kâğıt & mürekkep, Bricolage Grotesque, sıfır harici kütüphane, tam dokunmatik ve fare etkileşimi.
+// Finfolis tasarım dili: Kâğıt & mürekkep, Bricolage Grotesque, sıfır harici kütüphane, CSP uyumlu (%100 inline stylesiz).
 import { gunYaz, milyarUsd, farkUsd } from '../lib/resmi';
 
 interface Props {
@@ -76,7 +76,7 @@ const sonBireyselPay = son && son.toplam > 0 ? (son.bireysel / son.toplam) * 100
 const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
 ---
 
-<div class="mevduat-interaktif-kapsayici" data-mevduat-grafik data-noktalar={JSON.stringify(satirlar)}>
+<div class="mevduat-interaktif-kapsayici" data-mevduat-grafik data-aktif-seri="hepsi" data-noktalar={JSON.stringify(satirlar)}>
   <!-- Üst Araç Çubuğu: Başlık, Seri ve Periyot Seçiciler -->
   <div class="grafik-ust-bar">
     <div class="grafik-baslik-alani">
@@ -202,7 +202,7 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
         vector-effect="non-scaling-stroke"
       />
 
-      <!-- Zirve ve Dip Statik İşaretleri (Tüm görünümde referans) -->
+      <!-- Zirve ve Dip Statik İşaretleri -->
       <g id="zirve-noktasi" class="vurgu-isareti">
         <circle cx={xPos(zirveIdx, satirlar.length)} cy={yPos(satirlar[zirveIdx].toplam)} r="4" fill="var(--ink)" />
         <text x={xPos(zirveIdx, satirlar.length)} y={yPos(satirlar[zirveIdx].toplam) - 8} text-anchor="middle" class="vurgu-yazi">
@@ -235,15 +235,15 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
       <circle id="odak-bireysel" cx={xPos(sonIdx, satirlar.length)} cy={yPos(son.bireysel)} r="4" fill="var(--toprak)" stroke="#fff" stroke-width="1.5" />
       <circle id="odak-tuzel" cx={xPos(sonIdx, satirlar.length)} cy={yPos(son.tuzel)} r="3.5" fill="var(--muted)" stroke="#fff" stroke-width="1" />
 
-      <!-- Şeffaf Etkileşim Katmanı (Kullanıcı fare / parmak hareketlerini yakalar) -->
+      <!-- Şeffaf Etkileşim Katmanı -->
       <rect
         id="etkilesim-katmani"
+        class="etkilesim-katmani"
         x={PAD_LEFT}
         y={PAD_TOP}
         width={W - PAD_LEFT - PAD_RIGHT}
         height={H - PAD_TOP - PAD_BOTTOM}
         fill="transparent"
-        style="cursor: crosshair; touch-action: none;"
       />
     </svg>
   </div>
@@ -258,7 +258,7 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
 </div>
 
 <script>
-  // Grafik İstemci İnteraktivite Motoru
+  // Grafik İstemci İnteraktivite Motoru - CSP Uyumlu (sıfır inline style)
   const container = document.querySelector<HTMLElement>('[data-mevduat-grafik]');
   if (container) {
     interface MevduatItem {
@@ -334,7 +334,6 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
       } else if (aktifSeri === 'tuzel') {
         vals = veri.map((p) => p.tuzel);
       } else {
-        // hepsi modunda toplamın sınırları esas alınır, sıfır tabanlı veya dinamik
         vals = veri.map((p) => p.toplam);
       }
 
@@ -405,71 +404,28 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
         if (s.toplam < veri[dIdx].toplam) dIdx = i;
       });
 
-      if (aktifSeri === 'hepsi' || aktifSeri === 'toplam') {
-        zirveG.style.display = 'block';
-        dipG.style.display = 'block';
-        const zX = xPos(zIdx, veri.length);
-        const zY = yPos(veri[zIdx].toplam);
-        zirveG.innerHTML = `
-          <circle cx="${zX}" cy="${zY}" r="4" fill="var(--ink)" />
-          <text x="${zX}" y="${zY - 8}" text-anchor="middle" class="vurgu-yazi">Zirve: ${formatMilyar(veri[zIdx].toplam)}</text>
-        `;
-        const dX = xPos(dIdx, veri.length);
-        const dY = yPos(veri[dIdx].toplam);
-        dipG.innerHTML = `
-          <circle cx="${dX}" cy="${dY}" r="4" fill="var(--ink)" />
-          <text x="${dX}" y="${dY + 16}" text-anchor="middle" class="vurgu-yazi">Dip: ${formatMilyar(veri[dIdx].toplam)}</text>
-        `;
-      } else {
-        zirveG.style.display = 'none';
-        dipG.style.display = 'none';
-      }
+      const zX = xPos(zIdx, veri.length);
+      const zY = yPos(veri[zIdx].toplam);
+      zirveG.innerHTML = `
+        <circle cx="${zX}" cy="${zY}" r="4" fill="var(--ink)" />
+        <text x="${zX}" y="${zY - 8}" text-anchor="middle" class="vurgu-yazi">Zirve: ${formatMilyar(veri[zIdx].toplam)}</text>
+      `;
+      const dX = xPos(dIdx, veri.length);
+      const dY = yPos(veri[dIdx].toplam);
+      dipG.innerHTML = `
+        <circle cx="${dX}" cy="${dY}" r="4" fill="var(--ink)" />
+        <text x="${dX}" y="${dY + 16}" text-anchor="middle" class="vurgu-yazi">Dip: ${formatMilyar(veri[dIdx].toplam)}</text>
+      `;
     }
 
     function guncelleGrafik(veri: MevduatItem[]) {
       aktifVeri = veri;
+      container.dataset.aktifSeri = aktifSeri;
       yenileEksenler(aktifVeri);
 
       cizgiToplam.setAttribute('d', cizgiUret(aktifVeri, 'toplam'));
       cizgiBireysel.setAttribute('d', cizgiUret(aktifVeri, 'bireysel'));
       cizgiTuzel.setAttribute('d', cizgiUret(aktifVeri, 'tuzel'));
-
-      // Seri görünürlüklerini ayarla
-      if (aktifSeri === 'toplam') {
-        cizgiToplam.style.opacity = '1';
-        cizgiToplam.setAttribute('stroke-width', '3');
-        cizgiBireysel.style.opacity = '0.15';
-        cizgiTuzel.style.opacity = '0.15';
-        odakToplam.style.display = 'block';
-        odakBireysel.style.display = 'none';
-        odakTuzel.style.display = 'none';
-      } else if (aktifSeri === 'bireysel') {
-        cizgiToplam.style.opacity = '0.15';
-        cizgiBireysel.style.opacity = '1';
-        cizgiBireysel.setAttribute('stroke-width', '3');
-        cizgiTuzel.style.opacity = '0.15';
-        odakToplam.style.display = 'none';
-        odakBireysel.style.display = 'block';
-        odakTuzel.style.display = 'none';
-      } else if (aktifSeri === 'tuzel') {
-        cizgiToplam.style.opacity = '0.15';
-        cizgiBireysel.style.opacity = '0.15';
-        cizgiTuzel.style.opacity = '1';
-        cizgiTuzel.setAttribute('stroke-width', '2.5');
-        odakToplam.style.display = 'none';
-        odakBireysel.style.display = 'none';
-        odakTuzel.style.display = 'block';
-      } else {
-        cizgiToplam.style.opacity = '1';
-        cizgiToplam.setAttribute('stroke-width', '2.5');
-        cizgiBireysel.style.opacity = '1';
-        cizgiBireysel.setAttribute('stroke-width', '2');
-        cizgiTuzel.style.opacity = '1';
-        cizgiTuzel.setAttribute('stroke-width', '1.75');
-        odakToplam.style.display = 'block';
-        odakBireysel.style.display = 'block';
-        odakTuzel.style.display = 'block';
-      }
 
       konumlandirOdak(aktifVeri.length - 1);
       guncelleKart(aktifVeri.length - 1);
@@ -752,6 +708,49 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
     font-weight: 700;
     fill: var(--ink, #1b1b1b);
     font-family: inherit;
+  }
+
+  .etkilesim-katmani {
+    cursor: crosshair;
+    touch-action: none;
+  }
+
+  /* CSP Uyumlu Seri Görünürlük Kuralları (Sıfır inline style) */
+  [data-aktif-seri="toplam"] #cizgi-toplam {
+    opacity: 1;
+    stroke-width: 3;
+  }
+  [data-aktif-seri="toplam"] #cizgi-bireysel,
+  [data-aktif-seri="toplam"] #cizgi-tuzel,
+  [data-aktif-seri="toplam"] #odak-bireysel,
+  [data-aktif-seri="toplam"] #odak-tuzel {
+    opacity: 0.15;
+  }
+
+  [data-aktif-seri="bireysel"] #cizgi-bireysel {
+    opacity: 1;
+    stroke-width: 3;
+  }
+  [data-aktif-seri="bireysel"] #cizgi-toplam,
+  [data-aktif-seri="bireysel"] #cizgi-tuzel,
+  [data-aktif-seri="bireysel"] #odak-toplam,
+  [data-aktif-seri="bireysel"] #odak-tuzel,
+  [data-aktif-seri="bireysel"] #zirve-noktasi,
+  [data-aktif-seri="bireysel"] #dip-noktasi {
+    opacity: 0.15;
+  }
+
+  [data-aktif-seri="tuzel"] #cizgi-tuzel {
+    opacity: 1;
+    stroke-width: 2.5;
+  }
+  [data-aktif-seri="tuzel"] #cizgi-toplam,
+  [data-aktif-seri="tuzel"] #cizgi-bireysel,
+  [data-aktif-seri="tuzel"] #odak-toplam,
+  [data-aktif-seri="tuzel"] #odak-bireysel,
+  [data-aktif-seri="tuzel"] #zirve-noktasi,
+  [data-aktif-seri="tuzel"] #dip-noktasi {
+    opacity: 0.15;
   }
 
   .grafik-alt-lejant {

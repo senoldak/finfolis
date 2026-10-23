@@ -1,177 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
-  <rect width="960" height="540" fill="#ffffff" />
+  <rect width="960" height="540" fill="#f4f3ee" />
 
   <!-- Başlık Grubu -->
-  <text x="75" y="32" fill="#18181b" font-size="18" font-weight="700" font-family="system-ui, sans-serif">
+  <text x="75" y="32" fill="#1b1b1b" font-size="18" font-weight="700" font-family="Bricolage Grotesque, system-ui, sans-serif">
     Türkiye'nin Aylık ABD Hazine Tahvili Net Alım-Satımları
   </text>
-  <text x="75" y="52" fill="#71717a" font-size="12" font-family="system-ui, sans-serif">
+  <text x="75" y="52" fill="#5d5b55" font-size="12" font-family="Bricolage Grotesque, system-ui, sans-serif">
     Kaynak: ABD Hazine Bakanlığı (TIC) &amp; FRED (Series: FORTREASNET12807) · Milyon USD · finfolis
   </text>
 
   <!-- Arka plan vurgusu -->
   
-      <rect x="775.1666666666667" y="209.28571428571428" width="148.83333333333326" height="48.75" fill="#fef3c7" fill-opacity="0.65" rx="6" />
-      <text x="849.5833333333334" y="199.28571428571428" fill="#92400e" font-size="11" font-weight="600" font-family="system-ui, sans-serif" text-anchor="middle">Son 4-5 Ay Alım (~$4 Mr)</text>
+      <rect x="775.1666666666667" y="206.5" width="148.83333333333326" height="51.53571428571428" fill="#ece9df" stroke="#cfccc2" stroke-width="1" rx="4" />
+      <text x="849.5833333333334" y="196.5" fill="#c2502b" font-size="11" font-weight="700" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle">Son 4 Ay Alım (~$4 Mr)</text>
     
 
   <!-- Izgara -->
   
-      <line x1="75" y1="446.07142857142856" x2="920" y2="446.07142857142856" stroke="#e4e4e7" stroke-width="1" stroke-dasharray="3 3" />
-      <text x="63" y="450.07142857142856" fill="#71717a" font-size="12" font-family="system-ui, sans-serif" font-weight="400" text-anchor="end">
+      <line x1="75" y1="446.07142857142856" x2="920" y2="446.07142857142856" stroke="#cfccc2" stroke-width="1" stroke-dasharray="3 3" />
+      <text x="63" y="450.07142857142856" fill="#5d5b55" font-size="12" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="500" text-anchor="end">
         -15.000
       </text>
     
-      <line x1="75" y1="376.42857142857144" x2="920" y2="376.42857142857144" stroke="#e4e4e7" stroke-width="1" stroke-dasharray="3 3" />
-      <text x="63" y="380.42857142857144" fill="#71717a" font-size="12" font-family="system-ui, sans-serif" font-weight="400" text-anchor="end">
+      <line x1="75" y1="376.42857142857144" x2="920" y2="376.42857142857144" stroke="#cfccc2" stroke-width="1" stroke-dasharray="3 3" />
+      <text x="63" y="380.42857142857144" fill="#5d5b55" font-size="12" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="500" text-anchor="end">
         -10.000
       </text>
     
-      <line x1="75" y1="306.7857142857143" x2="920" y2="306.7857142857143" stroke="#e4e4e7" stroke-width="1" stroke-dasharray="3 3" />
-      <text x="63" y="310.7857142857143" fill="#71717a" font-size="12" font-family="system-ui, sans-serif" font-weight="400" text-anchor="end">
+      <line x1="75" y1="306.7857142857143" x2="920" y2="306.7857142857143" stroke="#cfccc2" stroke-width="1" stroke-dasharray="3 3" />
+      <text x="63" y="310.7857142857143" fill="#5d5b55" font-size="12" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="500" text-anchor="end">
         -5.000
       </text>
     
-      <line x1="75" y1="237.14285714285717" x2="920" y2="237.14285714285717" stroke="#18181b" stroke-width="1.5" stroke-dasharray="none" />
-      <text x="63" y="241.14285714285717" fill="#18181b" font-size="12" font-family="system-ui, sans-serif" font-weight="600" text-anchor="end">
+      <line x1="75" y1="237.14285714285717" x2="920" y2="237.14285714285717" stroke="#1b1b1b" stroke-width="1.5" stroke-dasharray="none" />
+      <text x="63" y="241.14285714285717" fill="#1b1b1b" font-size="12" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="700" text-anchor="end">
         0
       </text>
     
-      <line x1="75" y1="167.5" x2="920" y2="167.5" stroke="#e4e4e7" stroke-width="1" stroke-dasharray="3 3" />
-      <text x="63" y="171.5" fill="#71717a" font-size="12" font-family="system-ui, sans-serif" font-weight="400" text-anchor="end">
+      <line x1="75" y1="167.5" x2="920" y2="167.5" stroke="#cfccc2" stroke-width="1" stroke-dasharray="3 3" />
+      <text x="63" y="171.5" fill="#5d5b55" font-size="12" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="500" text-anchor="end">
         +5.000
       </text>
     
-      <line x1="75" y1="97.85714285714283" x2="920" y2="97.85714285714283" stroke="#e4e4e7" stroke-width="1" stroke-dasharray="3 3" />
-      <text x="63" y="101.85714285714283" fill="#71717a" font-size="12" font-family="system-ui, sans-serif" font-weight="400" text-anchor="end">
+      <line x1="75" y1="97.85714285714283" x2="920" y2="97.85714285714283" stroke="#cfccc2" stroke-width="1" stroke-dasharray="3 3" />
+      <text x="63" y="101.85714285714283" fill="#5d5b55" font-size="12" font-family="Bricolage Grotesque, system-ui, sans-serif" font-weight="500" text-anchor="end">
         +10.000
       </text>
     
 
   <!-- Barlar -->
   
-      <rect x="78.9" y="236.7" width="20.3" height="2.0" fill="#2563eb" rx="1" />
+      <rect x="78.9" y="236.7" width="20.3" height="2.0" fill="#3f7350" rx="1" />
     
-      <rect x="107.1" y="236.9" width="20.3" height="2.0" fill="#2563eb" rx="1" />
+      <rect x="107.1" y="236.9" width="20.3" height="2.0" fill="#3f7350" rx="1" />
     
-      <rect x="135.3" y="235.2" width="20.3" height="2.0" fill="#2563eb" rx="1" />
+      <rect x="135.3" y="235.2" width="20.3" height="2.0" fill="#3f7350" rx="1" />
     
-      <rect x="163.4" y="234.8" width="20.3" height="2.4" fill="#2563eb" rx="1" />
+      <rect x="163.4" y="234.8" width="20.3" height="2.4" fill="#3f7350" rx="1" />
     
-      <rect x="191.6" y="200.5" width="20.3" height="36.6" fill="#2563eb" rx="1" />
+      <rect x="191.6" y="200.5" width="20.3" height="36.6" fill="#3f7350" rx="1" />
     
-      <rect x="219.8" y="236.7" width="20.3" height="2.0" fill="#2563eb" rx="1" />
+      <rect x="219.8" y="236.7" width="20.3" height="2.0" fill="#3f7350" rx="1" />
     
-      <rect x="247.9" y="235.4" width="20.3" height="2.0" fill="#2563eb" rx="1" />
+      <rect x="247.9" y="235.4" width="20.3" height="2.0" fill="#3f7350" rx="1" />
     
-      <rect x="276.1" y="157.1" width="20.3" height="80.0" fill="#2563eb" rx="1" />
+      <rect x="276.1" y="157.1" width="20.3" height="80.0" fill="#3f7350" rx="1" />
     
-      <rect x="304.3" y="235.4" width="20.3" height="2.0" fill="#2563eb" rx="1" />
+      <rect x="304.3" y="235.4" width="20.3" height="2.0" fill="#3f7350" rx="1" />
     
-      <rect x="332.4" y="225.7" width="20.3" height="11.4" fill="#2563eb" rx="1" />
+      <rect x="332.4" y="225.7" width="20.3" height="11.4" fill="#3f7350" rx="1" />
     
-      <rect x="360.6" y="162.3" width="20.3" height="74.9" fill="#2563eb" rx="1" />
+      <rect x="360.6" y="162.3" width="20.3" height="74.9" fill="#3f7350" rx="1" />
     
-      <rect x="388.8" y="206.3" width="20.3" height="30.8" fill="#2563eb" rx="1" />
+      <rect x="388.8" y="206.3" width="20.3" height="30.8" fill="#3f7350" rx="1" />
     
-      <rect x="416.9" y="237.1" width="20.3" height="63.7" fill="#c2502b" rx="1" />
+      <rect x="416.9" y="237.1" width="20.3" height="63.7" fill="#a3243b" rx="1" />
     
-      <rect x="445.1" y="237.1" width="20.3" height="123.6" fill="#c2502b" rx="1" />
+      <rect x="445.1" y="237.1" width="20.3" height="123.6" fill="#a3243b" rx="1" />
     
-      <rect x="473.3" y="237.1" width="20.3" height="2.0" fill="#c2502b" rx="1" />
+      <rect x="473.3" y="237.1" width="20.3" height="2.0" fill="#a3243b" rx="1" />
     
-      <rect x="501.4" y="227.7" width="20.3" height="9.5" fill="#2563eb" rx="1" />
+      <rect x="501.4" y="227.7" width="20.3" height="9.5" fill="#3f7350" rx="1" />
     
-      <rect x="529.6" y="205.5" width="20.3" height="31.6" fill="#2563eb" rx="1" />
+      <rect x="529.6" y="205.5" width="20.3" height="31.6" fill="#3f7350" rx="1" />
     
-      <rect x="557.8" y="105.3" width="20.3" height="131.9" fill="#2563eb" rx="1" />
+      <rect x="557.8" y="105.3" width="20.3" height="131.9" fill="#3f7350" rx="1" />
     
-      <rect x="585.9" y="237.1" width="20.3" height="85.6" fill="#c2502b" rx="1" />
+      <rect x="585.9" y="237.1" width="20.3" height="85.6" fill="#a3243b" rx="1" />
     
-      <rect x="614.1" y="218.5" width="20.3" height="18.6" fill="#2563eb" rx="1" />
+      <rect x="614.1" y="218.5" width="20.3" height="18.6" fill="#3f7350" rx="1" />
     
-      <rect x="642.3" y="221.8" width="20.3" height="15.4" fill="#2563eb" rx="1" />
+      <rect x="642.3" y="221.8" width="20.3" height="15.4" fill="#3f7350" rx="1" />
     
-      <rect x="670.4" y="237.1" width="20.3" height="23.9" fill="#c2502b" rx="1" />
+      <rect x="670.4" y="237.1" width="20.3" height="23.9" fill="#a3243b" rx="1" />
     
-      <rect x="698.6" y="196.3" width="20.3" height="40.9" fill="#2563eb" rx="1" />
+      <rect x="698.6" y="196.3" width="20.3" height="40.9" fill="#3f7350" rx="1" />
     
-      <rect x="726.8" y="237.1" width="20.3" height="16.8" fill="#c2502b" rx="1" />
+      <rect x="726.8" y="237.1" width="20.3" height="16.8" fill="#a3243b" rx="1" />
     
-      <rect x="754.9" y="237.1" width="20.3" height="194.7" fill="#c2502b" rx="1" />
+      <rect x="754.9" y="237.1" width="20.3" height="194.7" fill="#a3243b" rx="1" />
     
-      <rect x="783.1" y="225.6" width="20.3" height="11.6" fill="#2563eb" rx="1" />
+      <rect x="783.1" y="225.6" width="20.3" height="11.6" fill="#3f7350" rx="1" />
     
-      <rect x="811.3" y="237.1" width="20.3" height="4.2" fill="#c2502b" rx="1" />
+      <rect x="811.3" y="237.1" width="20.3" height="4.2" fill="#a3243b" rx="1" />
     
-      <rect x="839.4" y="231.2" width="20.3" height="5.9" fill="#2563eb" rx="1" />
+      <rect x="839.4" y="231.2" width="20.3" height="5.9" fill="#3f7350" rx="1" />
     
-      <rect x="867.6" y="213.0" width="20.3" height="24.2" fill="#2563eb" rx="1" />
+      <rect x="867.6" y="213.0" width="20.3" height="24.2" fill="#3f7350" rx="1" />
     
-      <rect x="895.8" y="219.5" width="20.3" height="17.7" fill="#2563eb" rx="1" />
+      <rect x="895.8" y="219.5" width="20.3" height="17.7" fill="#3f7350" rx="1" />
     
 
   <!-- Etiketler -->
   
-        <text x="89.1" y="484" fill="#4b5563" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle" transform="rotate(-30 89.08333333333333 484)">
+        <text x="89.1" y="484" fill="#5d5b55" font-size="11" font-weight="600" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle" transform="rotate(-30 89.08333333333333 484)">
           2024-03
         </text>
       
-        <text x="258.1" y="484" fill="#4b5563" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle" transform="rotate(-30 258.0833333333333 484)">
+        <text x="258.1" y="484" fill="#5d5b55" font-size="11" font-weight="600" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle" transform="rotate(-30 258.0833333333333 484)">
           2024-09
         </text>
       
-        <text x="286.3" y="149.1" fill="#1e3a8a" font-size="12" font-weight="700" font-family="system-ui, sans-serif" text-anchor="middle">
+        <text x="286.3" y="149.1" fill="#3f7350" font-size="12" font-weight="700" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle">
           +5.746
         </text>
       
-        <text x="370.8" y="154.3" fill="#1e3a8a" font-size="12" font-weight="700" font-family="system-ui, sans-serif" text-anchor="middle">
+        <text x="370.8" y="154.3" fill="#3f7350" font-size="12" font-weight="700" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle">
           +5.376
         </text>
       
-        <text x="427.1" y="316.8" fill="#c2502b" font-size="12" font-weight="700" font-family="system-ui, sans-serif" text-anchor="middle">
+        <text x="427.1" y="316.8" fill="#a3243b" font-size="12" font-weight="700" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle">
           -4.570
         </text>
       
-        <text x="427.1" y="484" fill="#4b5563" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle" transform="rotate(-30 427.0833333333333 484)">
+        <text x="427.1" y="484" fill="#5d5b55" font-size="11" font-weight="600" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle" transform="rotate(-30 427.0833333333333 484)">
           2025-03
         </text>
       
-        <text x="455.3" y="376.7" fill="#c2502b" font-size="12" font-weight="700" font-family="system-ui, sans-serif" text-anchor="middle">
+        <text x="455.3" y="376.7" fill="#a3243b" font-size="12" font-weight="700" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle">
           -8.873
         </text>
       
-        <text x="567.9" y="97.3" fill="#1e3a8a" font-size="12" font-weight="700" font-family="system-ui, sans-serif" text-anchor="middle">
+        <text x="567.9" y="97.3" fill="#3f7350" font-size="12" font-weight="700" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle">
           +9.467
         </text>
       
-        <text x="596.1" y="338.7" fill="#c2502b" font-size="12" font-weight="700" font-family="system-ui, sans-serif" text-anchor="middle">
+        <text x="596.1" y="338.7" fill="#a3243b" font-size="12" font-weight="700" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle">
           -6.145
         </text>
       
-        <text x="596.1" y="484" fill="#4b5563" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle" transform="rotate(-30 596.0833333333334 484)">
+        <text x="596.1" y="484" fill="#5d5b55" font-size="11" font-weight="600" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle" transform="rotate(-30 596.0833333333334 484)">
           2025-09
         </text>
       
-        <text x="765.1" y="447.8" fill="#c2502b" font-size="12" font-weight="700" font-family="system-ui, sans-serif" text-anchor="middle">
+        <text x="765.1" y="447.8" fill="#a3243b" font-size="12" font-weight="700" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle">
           -13.977
         </text>
       
-        <text x="765.1" y="484" fill="#4b5563" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle" transform="rotate(-30 765.0833333333334 484)">
+        <text x="765.1" y="484" fill="#5d5b55" font-size="11" font-weight="600" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle" transform="rotate(-30 765.0833333333334 484)">
           2026-03
         </text>
       
-        <text x="905.9" y="484" fill="#4b5563" font-size="11" font-family="system-ui, sans-serif" text-anchor="middle" transform="rotate(-30 905.9166666666667 484)">
+        <text x="905.9" y="484" fill="#5d5b55" font-size="11" font-weight="600" font-family="Bricolage Grotesque, system-ui, sans-serif" text-anchor="middle" transform="rotate(-30 905.9166666666667 484)">
           2026-08
         </text>
       
 
   <!-- Lejant -->
-  <g transform="translate(700, 24)">
-    <rect x="0" y="0" width="12" height="12" fill="#2563eb" rx="2" />
-    <text x="18" y="10" fill="#374151" font-size="11" font-family="system-ui, sans-serif">Net Alım (Pozitif)</text>
-    <rect x="115" y="0" width="12" height="12" fill="#c2502b" rx="2" />
-    <text x="133" y="10" fill="#374151" font-size="11" font-family="system-ui, sans-serif">Net Satış (Negatif)</text>
+  <g transform="translate(660, 24)">
+    <rect x="0" y="0" width="12" height="12" fill="#3f7350" rx="1" />
+    <text x="18" y="10" fill="#1b1b1b" font-size="11" font-weight="600" font-family="Bricolage Grotesque, system-ui, sans-serif">▲ Net Alım (#3f7350)</text>
+    <rect x="135" y="0" width="12" height="12" fill="#a3243b" rx="1" />
+    <text x="153" y="10" fill="#1b1b1b" font-size="11" font-weight="600" font-family="Bricolage Grotesque, system-ui, sans-serif">▼ Net Satış (#a3243b)</text>
   </g>
 </svg>

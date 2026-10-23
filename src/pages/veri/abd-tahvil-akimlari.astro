@@ -73,7 +73,7 @@ const tabloVerisi = [...seri].slice(-24).reverse();
       </div>
       <div>
         <dt>TCMB Portföy Artışı</dt>
-        <dd style="color: #2563eb; font-weight: 700;">+{sayiYaz(son4AyTcmbFarkMilyar || 0, 2)} milyar $</dd>
+        <dd class="tcmb-artis">+{sayiYaz(son4AyTcmbFarkMilyar || 0, 2)} milyar $</dd>
         <dd class="veri-tarih">Dış Varlıklar / Menkul Kıymet</dd>
       </div>
       <div>
@@ -83,7 +83,7 @@ const tabloVerisi = [...seri].slice(-24).reverse();
       </div>
       <div>
         <dt>Son Ay Net Akım ({son.etiket})</dt>
-        <dd style={son.netAkim >= 0 ? 'color: #2563eb;' : 'color: #c2502b;'}>
+        <dd class={son.netAkim >= 0 ? 'pozitif-sayi' : 'negatif-sayi'}>
           {son.netAkim >= 0 ? '+' : ''}{sayiYaz(son.netAkim / 1000, 2)} milyar $
         </dd>
         <dd class="veri-degisim">Aylık net işlem hacmi</dd>
@@ -110,7 +110,7 @@ const tabloVerisi = [...seri].slice(-24).reverse();
     <div class="veri-izgara">
       <section class="bolum prose veri-aciklama">
         <h2 class="bolum-baslik">Bu Rakamlar Nasıl Hesaplanıyor ve TCMB İzi Nasıl Bulunuyor?</h2>
-        
+
         <h3>1. Verinin Kaynağı: ABD Hazine Bakanlığı TIC Sistemi</h3>
         <p>
           ABD Hazine Bakanlığı, <strong>Treasury International Capital (TIC)</strong> sistemi aracılığıyla yabancı ülkelerin ABD menkul kıymetlerindeki aylık işlemlerini (akım) ve tuttukları toplam portföyü (stok) düzenli olarak yayınlar.
@@ -169,12 +169,12 @@ const tabloVerisi = [...seri].slice(-24).reverse();
               return (
                 <tr>
                   <td><strong>{satir.etiket}</strong></td>
-                  <td class="sag" style={netAlim >= 0 ? 'color: #2563eb; font-weight: 600;' : 'color: #c2502b; font-weight: 600;'}>
+                  <td class={`sag ${netAlim >= 0 ? 'pozitif-sayi' : 'negatif-sayi'}`}>
                     {netAlim >= 0 ? '+' : ''}{sayiYaz(netAlim, 0)}
                   </td>
                   <td class="sag">{satir.stok ? sayiYaz(satir.stok, 0) : '—'}</td>
                   <td class="sag">{satir.tcmbStok ? sayiYaz(satir.tcmbStok, 0) : '—'}</td>
-                  <td class="sag" style={tcmbFark !== null ? (tcmbFark >= 0 ? 'color: #2563eb;' : 'color: #c2502b;') : ''}>
+                  <td class={`sag ${tcmbFark !== null ? (tcmbFark >= 0 ? 'pozitif-sayi' : 'negatif-sayi') : ''}`}>
                     {tcmbFark !== null ? (tcmbFark >= 0 ? '+' : '') + sayiYaz(tcmbFark, 0) : '—'}
                   </td>
                 </tr>
@@ -188,3 +188,20 @@ const tabloVerisi = [...seri].slice(-24).reverse();
     <YasalUyari />
   </div>
 </Base>
+
+<style>
+  .tcmb-artis {
+    color: var(--toprak, #c2502b);
+    font-weight: 700;
+  }
+
+  .pozitif-sayi {
+    color: var(--yukselis, #3f7350);
+    font-weight: 700;
+  }
+
+  .negatif-sayi {
+    color: var(--dusus, #a3243b);
+    font-weight: 700;
+  }
+</style>

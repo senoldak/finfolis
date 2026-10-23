@@ -1,6 +1,7 @@
 ---
 // Türkiye'nin Aylık ABD Hazine Tahvili Net Alım-Satımları (TIC) İnteraktif Grafiği
-// finfolis tasarım dili: Kâğıt & mürekkep, sıfır harici JS kütüphanesi bağımlılığı.
+// finfolis kurumsal dili: Kâğıt (#f4f3ee), Mürekkep (#1b1b1b), Pişmiş toprak (#c2502b),
+// Yükseliş (#3f7350), Düşüş (#a3243b), Bricolage Grotesque, sıfır harici JS kütüphanesi, tam CSP uyumlu.
 export interface TahvilAkimNokta {
   donem: string; // '2026-08'
   etiket: string; // 'Ağustos 2026'
@@ -31,9 +32,8 @@ const innerW = W - PAD_LEFT - PAD_RIGHT;
 const innerH = H - PAD_TOP - PAD_BOTTOM;
 
 // İlk SSR Y ekseni sınırları
-const vals = varsayilanSeri.map((d) => d.netAkim);
-const minValSSR = -15000;
-const maxValSSR = 11000;
+const minValSSR = -16000;
+const maxValSSR = 12000;
 const rangeSSR = maxValSSR - minValSSR;
 
 const yToPx = (v: number) => PAD_TOP + (1 - (v - minValSSR) / rangeSSR) * innerH;
@@ -56,10 +56,6 @@ const sonNokta = varsayilanSeri.at(-1) ?? {
   tcmbStok: 0,
   tcmbAylikFark: 0,
 };
-
-// Son 4 ay toplamı (Nisan-Ağustos 2026)
-const son4AyItems = seri.filter((s) => s.donem >= '2026-04' && s.donem <= '2026-08');
-const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
 ---
 
 <div class="interaktif-grafik-kapsayici" data-abd-tahvil-grafik data-seri={JSON.stringify(seri)}>
@@ -99,7 +95,7 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
     <div class="canli-kutu">
       <span class="canli-etiket">TIC Net Tahvil Alım/Satımı</span>
       <span class={`canli-deger ${sonNokta.netAkim >= 0 ? 'pozitif' : 'negatif'}`} id="tic-canli-net">
-        {sonNokta.netAkim >= 0 ? '+' : ''}{sonNokta.netAkim.toLocaleString('tr-TR')} M $
+        {sonNokta.netAkim >= 0 ? '▲ +' : '▼ '}{Math.abs(sonNokta.netAkim).toLocaleString('tr-TR')} M $
       </span>
       <span class="canli-alt" id="tic-canli-milyar">
         {sonNokta.netAkim >= 0 ? '+' : ''}{(sonNokta.netAkim / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} milyar $
@@ -109,7 +105,7 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
     <div class="canli-kutu">
       <span class="canli-etiket">TCMB Menkul Değişimi (Δ)</span>
       <span class="canli-deger ikincil-sayi" id="tic-canli-tcmb-fark">
-        {sonNokta.tcmbAylikFark !== null ? (sonNokta.tcmbAylikFark >= 0 ? `+${sonNokta.tcmbAylikFark.toLocaleString('tr-TR')} M $` : `${sonNokta.tcmbAylikFark.toLocaleString('tr-TR')} M $`) : '—'}
+        {sonNokta.tcmbAylikFark !== null ? (sonNokta.tcmbAylikFark >= 0 ? `▲ +${sonNokta.tcmbAylikFark.toLocaleString('tr-TR')} M $` : `▼ -${Math.abs(sonNokta.tcmbAylikFark).toLocaleString('tr-TR')} M $`) : '—'}
       </span>
       <span class="canli-alt" id="tic-canli-tcmb-stok">
         Stok: {sonNokta.tcmbStok ? `$${(sonNokta.tcmbStok / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Mr` : '—'}
@@ -124,10 +120,10 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
       <span class="canli-alt">Kısa + Uzun Hazine Portföyü</span>
     </div>
 
-    <div class="canli-kutu" style="align-items: flex-start; justify-content: center;">
+    <div class="canli-kutu canli-kutu-durum">
       <span class="canli-etiket">Durum &amp; Analiz</span>
-      <span class="durum-rozet pozitif-rozet" id="tic-canli-rozet">
-        {sonNokta.netAkim >= 0 ? 'Net Tahvil Alımı' : 'Net Tahvil Satışı / İtfa'}
+      <span class="durum-rozet ozel-rozet" id="tic-canli-rozet">
+        ★ TCMB $4 Mr Alım Dönemi
       </span>
     </div>
   </div>
@@ -135,7 +131,7 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
   <!-- SVG Çizim Alanı -->
   <div class="svg-cerceve">
     <svg viewBox={`0 0 ${W} ${H}`} class="tic-svg-grafigi" role="img" aria-label="Türkiye'nin aylık ABD tahvili alım-satımları grafiği">
-      <!-- Vurgu Kutusu Katmanı (Son 4-5 ay açık sarı arka plan) -->
+      <!-- Vurgu Kutusu Katmanı (Son 4-5 ay arka plan kutusu) -->
       <g id="tic-katman-vurgu"></g>
 
       <!-- Izgara Katmanı -->
@@ -144,20 +140,20 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
           const y = yToPx(iv);
           const isZero = iv === 0;
           return (
-            <g>
+            <g class="izgara-cizgi-grup">
               <line
                 x1={PAD_LEFT}
                 y1={y.toFixed(1)}
                 x2={W - PAD_RIGHT}
                 y2={y.toFixed(1)}
-                stroke={isZero ? '#18181b' : '#e4e4e7'}
+                stroke={isZero ? '#1b1b1b' : '#cfccc2'}
                 stroke-width={isZero ? '1.5' : '1'}
                 stroke-dasharray={isZero ? 'none' : '3 3'}
               />
               <text
                 x={PAD_LEFT - 12}
                 y={(y + 4).toFixed(1)}
-                fill={isZero ? '#18181b' : '#71717a'}
+                fill={isZero ? '#1b1b1b' : '#5d5b55'}
                 font-size="11"
                 font-weight={isZero ? '700' : '400'}
                 text-anchor="end"
@@ -177,7 +173,7 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
           const yVal = yToPx(val);
           const barY = val >= 0 ? yVal : sifirY;
           const barH = Math.max(2, Math.abs(yVal - sifirY));
-          const dolgu = val >= 0 ? '#2563eb' : '#c2502b';
+          const dolgu = val >= 0 ? '#3f7350' : '#a3243b';
 
           return (
             <rect
@@ -195,9 +191,9 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
       </g>
 
       <!-- Çizgi / Kümülatif Katmanı -->
-      <g id="tic-katman-cizgi" style="display: none;">
-        <path id="tic-cizgi-yolu" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-        <path id="tic-alan-yolu" fill="#2563eb" fill-opacity="0.08" />
+      <g id="tic-katman-cizgi" class="katman-gizli">
+        <path id="tic-cizgi-yolu" fill="none" stroke="#1b1b1b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path id="tic-alan-yolu" fill="#3f7350" fill-opacity="0.12" />
         <path id="tic-tcmb-cizgi-yolu" fill="none" stroke="#c2502b" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round" />
       </g>
 
@@ -208,26 +204,26 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
       <g id="tic-katman-tarihler"></g>
 
       <!-- İnteraktif Kılavuz Çizgisi ve Odak Noktası -->
-      <line id="tic-rehber-dikey" y1={PAD_TOP} y2={H - PAD_BOTTOM} stroke="#1b1b1b" stroke-width="1.2" stroke-dasharray="3 3" style="display: none; pointer-events: none;" />
-      <circle id="tic-odak-noktasi" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" style="display: none; pointer-events: none;" />
+      <line id="tic-rehber-dikey" y1={PAD_TOP} y2={H - PAD_BOTTOM} stroke="#1b1b1b" stroke-width="1.2" stroke-dasharray="3 3" class="katman-gizli dokunma-yok" />
+      <circle id="tic-odak-noktasi" r="5" fill="#3f7350" stroke="#ffffff" stroke-width="2" class="katman-gizli dokunma-yok" />
 
       <!-- Tooltip Kutusu (SVG içinde gezen balon) -->
-      <g id="tic-tooltip-grup" style="display: none; pointer-events: none;">
-        <rect id="tic-tooltip-bg" fill="#1b1b1b" rx="4" opacity="0.92" />
-        <text id="tic-tooltip-tarih" fill="#e4e4e7" font-size="11" font-weight="600" />
+      <g id="tic-tooltip-grup" class="katman-gizli dokunma-yok">
+        <rect id="tic-tooltip-bg" fill="#1b1b1b" rx="2" opacity="0.94" />
+        <text id="tic-tooltip-tarih" fill="#cfccc2" font-size="11" font-weight="600" />
         <text id="tic-tooltip-deger" fill="#ffffff" font-size="13" font-weight="700" />
-        <text id="tic-tooltip-ek" fill="#93c5fd" font-size="10" />
+        <text id="tic-tooltip-ek" fill="#e9e7df" font-size="10" />
       </g>
 
       <!-- Şeffaf Etkileşim Katmanı -->
       <rect
         id="tic-etkilesim-alani"
+        class="etkilesim-alani"
         x={PAD_LEFT}
         y={PAD_TOP}
         width={innerW}
         height={innerH}
         fill="transparent"
-        style="cursor: crosshair;"
       />
     </svg>
   </div>
@@ -236,13 +232,13 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
   <div class="grafik-alt-bilgiler">
     <div class="grafik-lejant" id="tic-lejant-alani">
       <span class="lejant-oge">
-        <span class="renk-kutu pozitif-kutu"></span> Pozitif: Net Tahvil Alımı (Mavi)
+        <span class="renk-kutu pozitif-kutu"></span> ▲ Net Alım (#3f7350)
       </span>
       <span class="lejant-oge">
-        <span class="renk-kutu negatif-kutu"></span> Negatif: Net Tahvil Satışı / İtfa (Kırmızı)
+        <span class="renk-kutu negatif-kutu"></span> ▼ Net Satış (#a3243b)
       </span>
       <span class="lejant-oge vurgu-lejant">
-        <span class="renk-kutu sari-kutu"></span> Son 4-5 Ay Alım Dönemi (~$4 Mr)
+        <span class="renk-kutu vurgu-kutu"></span> Son 4 Ay Alım Dönemi (~$4 Mr)
       </span>
     </div>
     <div class="grafik-kaynak-notu">
@@ -269,7 +265,6 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
     const tumSeri: NoktaVerisi[] = JSON.parse(kapsayici.dataset.seri || '[]');
     if (tumSeri.length === 0) return;
 
-    // Başlangıç: 2024'ten bugüne (Görseldeki periyot)
     let aktifSeri: NoktaVerisi[] = tumSeri.filter((s) => s.donem >= '2024-03');
     let aktifMod: 'bar' | 'karsilastirma' | 'kumulatif' = 'bar';
 
@@ -324,7 +319,6 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
       let maxY = 12000;
 
       if (aktifMod === 'kumulatif') {
-        // Kümülatif toplam hesapla
         let kum = 0;
         const kumVals = aktifSeri.map((d) => (kum += d.netAkim));
         const minK = Math.min(0, ...kumVals);
@@ -354,8 +348,8 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
           const isZero = v === 0;
           izgaraHtml += `
             <g class="izgara-cizgi-grup">
-              <line x1="${PAD_LEFT}" y1="${py.toFixed(1)}" x2="${W - PAD_RIGHT}" y2="${py.toFixed(1)}" stroke="${isZero ? '#18181b' : '#e4e4e7'}" stroke-width="${isZero ? 1.5 : 1}" stroke-dasharray="${isZero ? 'none' : '3 3'}" />
-              <text x="${PAD_LEFT - 12}" y="${(py + 4).toFixed(1)}" fill="${isZero ? '#18181b' : '#71717a'}" font-size="11" font-weight="${isZero ? 700 : 400}" text-anchor="end">
+              <line x1="${PAD_LEFT}" y1="${py.toFixed(1)}" x2="${W - PAD_RIGHT}" y2="${py.toFixed(1)}" stroke="${isZero ? '#1b1b1b' : '#cfccc2'}" stroke-width="${isZero ? 1.5 : 1}" stroke-dasharray="${isZero ? 'none' : '3 3'}" />
+              <text x="${PAD_LEFT - 12}" y="${(py + 4).toFixed(1)}" fill="${isZero ? '#1b1b1b' : '#5d5b55'}" font-size="11" font-weight="${isZero ? 700 : 400}" text-anchor="end">
                 ${v === 0 ? '0' : (v > 0 ? `+${(v / 1000).toFixed(0)}.000` : `${(v / 1000).toFixed(0)}.000`)}
               </text>
             </g>
@@ -364,7 +358,7 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
         katmanIzgara.innerHTML = izgaraHtml;
       }
 
-      // 3. Vurgu Kutusu (Nisan-Ağustos 2026 dönemi)
+      // 3. Vurgu Kutusu (Nisan-Ağustos 2026 dönemi - Finfolis kâğıt 2 ve pişmiş toprak)
       if (katmanVurgu) {
         const nisanIdx = aktifSeri.findIndex((s) => s.donem === '2026-04');
         const agustosIdx = aktifSeri.findIndex((s) => s.donem === '2026-08');
@@ -377,8 +371,8 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
           const kutuH = yPx(Math.max(minY, -1500)) - kutuY;
 
           katmanVurgu.innerHTML = `
-            <rect x="${basX.toFixed(1)}" y="${kutuY.toFixed(1)}" width="${kutuW.toFixed(1)}" height="${kutuH.toFixed(1)}" fill="#fef3c7" fill-opacity="0.65" rx="4" />
-            <text x="${(basX + kutuW / 2).toFixed(1)}" y="${(kutuY - 8).toFixed(1)}" fill="#92400e" font-size="10.5" font-weight="700" text-anchor="middle">Son 4 Ay Alım (~$4 Mr)</text>
+            <rect x="${basX.toFixed(1)}" y="${kutuY.toFixed(1)}" width="${kutuW.toFixed(1)}" height="${kutuH.toFixed(1)}" fill="#ece9df" stroke="#cfccc2" stroke-width="1" rx="2" />
+            <text x="${(basX + kutuW / 2).toFixed(1)}" y="${(kutuY - 8).toFixed(1)}" fill="#c2502b" font-size="10.5" font-weight="700" text-anchor="middle">Son 4 Ay Alım (~$4 Mr)</text>
           `;
         } else {
           katmanVurgu.innerHTML = '';
@@ -387,8 +381,8 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
 
       // 4. Görünüm Modlarına Göre Çizim
       if (aktifMod === 'bar' || aktifMod === 'karsilastirma') {
-        if (katmanBarlar) katmanBarlar.style.display = 'block';
-        if (katmanCizgi) katmanCizgi.style.display = 'none';
+        if (katmanBarlar) katmanBarlar.classList.remove('katman-gizli');
+        if (katmanCizgi) katmanCizgi.classList.add('katman-gizli');
 
         const slotW = innerW / len;
         let barHtml = '';
@@ -402,16 +396,15 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
             const yVal = yPx(val);
             const barY = val >= 0 ? yVal : zeroY;
             const barH = Math.max(2, Math.abs(yVal - zeroY));
-            const dolgu = val >= 0 ? '#2563eb' : '#c2502b';
+            const dolgu = val >= 0 ? '#3f7350' : '#a3243b';
 
             barHtml += `
               <rect class="tic-bar-eleman" x="${x.toFixed(1)}" y="${barY.toFixed(1)}" width="${barW.toFixed(1)}" height="${barH.toFixed(1)}" fill="${dolgu}" rx="1" data-idx="${i}" />
             `;
 
-            // Belirgin zirve ve dipleri etiketle (len <= 40 iken)
             if (len <= 40 && Math.abs(val) >= 5000) {
               const etiketY = val >= 0 ? barY - 8 : barY + barH + 15;
-              const renk = val >= 0 ? '#1e40af' : '#c2502b';
+              const renk = val >= 0 ? '#3f7350' : '#a3243b';
               etiketHtml += `
                 <text x="${(x + barW / 2).toFixed(1)}" y="${etiketY.toFixed(1)}" fill="${renk}" font-size="11" font-weight="700" text-anchor="middle">
                   ${val > 0 ? '+' : ''}${val.toLocaleString('tr-TR')}
@@ -420,17 +413,16 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
             }
           });
         } else {
-          // 'karsilastirma' modu: TIC vs TCMB ikili bar
+          // 'karsilastirma' modu: TIC (#3f7350/#a3243b) vs TCMB (#1b1b1b)
           const singleBarW = Math.max(4, Math.min(14, slotW * 0.42));
           aktifSeri.forEach((item, i) => {
             const baseX = PAD_LEFT + i * slotW + (slotW - singleBarW * 2 - 2) / 2;
-            // Bar 1: TIC
             const v1 = item.netAkim;
             const y1 = yPx(v1);
             const bar1Y = v1 >= 0 ? y1 : zeroY;
             const bar1H = Math.max(2, Math.abs(y1 - zeroY));
+            const dolgu1 = v1 >= 0 ? '#3f7350' : '#a3243b';
 
-            // Bar 2: TCMB Fark
             const v2 = item.tcmbAylikFark || 0;
             const y2 = yPx(v2);
             const bar2Y = v2 >= 0 ? y2 : zeroY;
@@ -438,8 +430,8 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
 
             barHtml += `
               <g class="tic-cift-bar-grup" data-idx="${i}">
-                <rect class="tic-bar-eleman tic-bar-v1" x="${baseX.toFixed(1)}" y="${bar1Y.toFixed(1)}" width="${singleBarW.toFixed(1)}" height="${bar1H.toFixed(1)}" fill="#2563eb" rx="1" />
-                <rect class="tic-bar-eleman tic-bar-v2" x="${(baseX + singleBarW + 2).toFixed(1)}" y="${bar2Y.toFixed(1)}" width="${singleBarW.toFixed(1)}" height="${bar2H.toFixed(1)}" fill="#d97706" rx="1" />
+                <rect class="tic-bar-eleman tic-bar-v1" x="${baseX.toFixed(1)}" y="${bar1Y.toFixed(1)}" width="${singleBarW.toFixed(1)}" height="${bar1H.toFixed(1)}" fill="${dolgu1}" rx="1" />
+                <rect class="tic-bar-eleman tic-bar-v2" x="${(baseX + singleBarW + 2).toFixed(1)}" y="${bar2Y.toFixed(1)}" width="${singleBarW.toFixed(1)}" height="${bar2H.toFixed(1)}" fill="#1b1b1b" rx="1" />
               </g>
             `;
           });
@@ -448,9 +440,9 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
         if (katmanBarlar) katmanBarlar.innerHTML = barHtml;
         if (katmanEtiketler) katmanEtiketler.innerHTML = etiketHtml;
       } else if (aktifMod === 'kumulatif') {
-        if (katmanBarlar) katmanBarlar.style.display = 'none';
+        if (katmanBarlar) katmanBarlar.classList.add('katman-gizli');
         if (katmanEtiketler) katmanEtiketler.innerHTML = '';
-        if (katmanCizgi) katmanCizgi.style.display = 'block';
+        if (katmanCizgi) katmanCizgi.classList.remove('katman-gizli');
 
         let kum = 0;
         const pts: { x: number; y: number }[] = [];
@@ -480,7 +472,7 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
               : PAD_LEFT + i * (innerW / len) + (innerW / len) / 2;
 
             xHtml += `
-              <text x="${cx.toFixed(1)}" y="${H - PAD_BOTTOM + 22}" fill="#4b5563" font-size="11" font-weight="600" text-anchor="middle" transform="rotate(-28 ${cx.toFixed(1)} ${H - PAD_BOTTOM + 22})">
+              <text x="${cx.toFixed(1)}" y="${H - PAD_BOTTOM + 22}" fill="#5d5b55" font-size="11" font-weight="600" text-anchor="middle" transform="rotate(-28 ${cx.toFixed(1)} ${H - PAD_BOTTOM + 22})">
                 ${item.donem}
               </text>
             `;
@@ -489,27 +481,28 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
         katmanTarihler.innerHTML = xHtml;
       }
 
-      // Lejant güncelle
+      // Lejant güncelle (CSP safe: No inline styles!)
       if (lejantAlani) {
         if (aktifMod === 'karsilastirma') {
           lejantAlani.innerHTML = `
-            <span class="lejant-oge"><span class="renk-kutu" style="background: #2563eb;"></span> TIC Net Tahvil Alım/Satımı</span>
-            <span class="lejant-oge"><span class="renk-kutu" style="background: #d97706;"></span> TCMB Menkul Portföy Aylık Değişimi (Δ)</span>
+            <span class="lejant-oge"><span class="renk-kutu pozitif-kutu"></span> TIC Net Alım (#3f7350)</span>
+            <span class="lejant-oge"><span class="renk-kutu negatif-kutu"></span> TIC Net Satış (#a3243b)</span>
+            <span class="lejant-oge"><span class="renk-kutu tcmb-kutu"></span> TCMB Menkul Aylık Değişimi (#1b1b1b)</span>
           `;
         } else if (aktifMod === 'kumulatif') {
           lejantAlani.innerHTML = `
-            <span class="lejant-oge"><span class="renk-kutu" style="background: #2563eb;"></span> Dönem İçi Kümülatif Net Tahvil Alım/Satım Eğrisi</span>
+            <span class="lejant-oge"><span class="renk-kutu tcmb-kutu"></span> Kümülatif Net Tahvil Eğrisi (Mürekkep)</span>
+            <span class="lejant-oge"><span class="renk-kutu pozitif-kutu"></span> Net Alım Alanı</span>
           `;
         } else {
           lejantAlani.innerHTML = `
-            <span class="lejant-oge"><span class="renk-kutu pozitif-kutu"></span> Pozitif: Net Tahvil Alımı (Mavi)</span>
-            <span class="lejant-oge"><span class="renk-kutu negatif-kutu"></span> Negatif: Net Tahvil Satışı / İtfa (Kırmızı)</span>
-            <span class="lejant-oge vurgu-lejant"><span class="renk-kutu sari-kutu"></span> Son 4-5 Ay Alım Dönemi (~$4 Mr)</span>
+            <span class="lejant-oge"><span class="renk-kutu pozitif-kutu"></span> ▲ Net Alım (#3f7350)</span>
+            <span class="lejant-oge"><span class="renk-kutu negatif-kutu"></span> ▼ Net Satış (#a3243b)</span>
+            <span class="lejant-oge vurgu-lejant"><span class="renk-kutu vurgu-kutu"></span> Son 4 Ay Alım Dönemi (~$4 Mr)</span>
           `;
         }
       }
 
-      // Son noktayı canlı kartlara yükle
       kartGuncelle(aktifSeri.at(-1)!);
     }
 
@@ -521,23 +514,23 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
       if (canliNet) {
         const isPos = d.netAkim >= 0;
         canliNet.className = `canli-deger ${isPos ? 'pozitif' : 'negatif'}`;
-        canliNet.textContent = `${isPos ? '+' : ''}${d.netAkim.toLocaleString('tr-TR')} M $`;
+        canliNet.textContent = `${isPos ? '▲ +' : '▼ '}${Math.abs(d.netAkim).toLocaleString('tr-TR')} M $`;
       }
 
       if (canliMilyar) {
         const isPos = d.netAkim >= 0;
-        const milVal = (d.netAkim / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        canliMilyar.textContent = `${isPos ? '+' : ''}${milVal} milyar $`;
+        const milVal = (Math.abs(d.netAkim) / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        canliMilyar.textContent = `${isPos ? '+' : '-'}${milVal} milyar $`;
       }
 
       if (canliTcmbFark) {
         if (d.tcmbAylikFark !== null) {
           const isPos = d.tcmbAylikFark >= 0;
-          canliTcmbFark.textContent = `${isPos ? '+' : ''}${d.tcmbAylikFark.toLocaleString('tr-TR')} M $`;
-          canliTcmbFark.style.color = isPos ? 'var(--yukselis, #2563eb)' : 'var(--dusus, #c2502b)';
+          canliTcmbFark.className = `canli-deger ikincil-sayi ${isPos ? 'tcmb-pozitif' : 'tcmb-negatif'}`;
+          canliTcmbFark.textContent = `${isPos ? '▲ +' : '▼ '}${Math.abs(d.tcmbAylikFark).toLocaleString('tr-TR')} M $`;
         } else {
+          canliTcmbFark.className = 'canli-deger ikincil-sayi tcmb-notr';
           canliTcmbFark.textContent = '—';
-          canliTcmbFark.style.color = 'inherit';
         }
       }
 
@@ -559,27 +552,24 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
           canliRozet.textContent = '★ TCMB $4 Mr Alım Dönemi';
         } else if (d.netAkim >= 4500) {
           canliRozet.className = 'durum-rozet pozitif-rozet';
-          canliRozet.textContent = 'Rekor Net Alım';
+          canliRozet.textContent = '▲ Rekor Net Alım';
         } else if (d.netAkim <= -5000) {
           canliRozet.className = 'durum-rozet negatif-rozet';
-          canliRozet.textContent = 'Büyük İtfa / Satış';
+          canliRozet.textContent = '▼ Büyük İtfa / Satış';
         } else if (d.netAkim >= 0) {
           canliRozet.className = 'durum-rozet pozitif-rozet';
-          canliRozet.textContent = 'Net Tahvil Alımı';
+          canliRozet.textContent = '▲ Net Tahvil Alımı';
         } else {
           canliRozet.className = 'durum-rozet negatif-rozet';
-          canliRozet.textContent = 'Net Tahvil Satışı';
+          canliRozet.textContent = '▼ Net Tahvil Satışı';
         }
       }
     }
 
-    // Takip / Hover Fonksiyonu
     function takipEt(e: MouseEvent | TouchEvent) {
       if (!etkilesim) return;
       const rect = etkilesim.getBoundingClientRect();
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-      const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
-
       if (clientX < rect.left || clientX > rect.right) return;
 
       const normX = (clientX - rect.left) / rect.width;
@@ -590,7 +580,6 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
 
       kartGuncelle(d);
 
-      // Kılavuz Çizgisi Konumu
       const slotW = innerW / len;
       const cx = aktifMod === 'kumulatif'
         ? PAD_LEFT + (idx / Math.max(len - 1, 1)) * innerW
@@ -599,10 +588,9 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
       if (rehberDikey) {
         rehberDikey.setAttribute('x1', cx.toFixed(1));
         rehberDikey.setAttribute('x2', cx.toFixed(1));
-        rehberDikey.style.display = 'block';
+        rehberDikey.classList.remove('katman-gizli');
       }
 
-      // Bar Vurgulama
       if (katmanBarlar) {
         const barlar = katmanBarlar.querySelectorAll('.tic-bar-eleman');
         barlar.forEach((b) => {
@@ -615,22 +603,20 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
         });
       }
 
-      // Tooltip Balonu Konumlandırma
       if (tooltipGrup && tooltipBg && tooltipTarih && tooltipDeger && tooltipEk) {
         tooltipTarih.textContent = d.etiket;
         const isPos = d.netAkim >= 0;
-        tooltipDeger.textContent = `${isPos ? '+' : ''}${d.netAkim.toLocaleString('tr-TR')} M $ (${(d.netAkim / 1000).toFixed(2)} Mr)`;
-        tooltipDeger.setAttribute('fill', isPos ? '#60a5fa' : '#f87171');
+        tooltipDeger.textContent = `${isPos ? '▲ +' : '▼ '}${Math.abs(d.netAkim).toLocaleString('tr-TR')} M $ (${(d.netAkim / 1000).toFixed(2)} Mr)`;
+        tooltipDeger.setAttribute('fill', isPos ? '#3f7350' : '#a3243b');
         tooltipEk.textContent = d.tcmbAylikFark !== null ? `TCMB Menkul Δ: ${d.tcmbAylikFark >= 0 ? '+' : ''}${d.tcmbAylikFark} M $` : '';
 
-        // Konum hesaplama
         const tipW = 190;
         const tipH = 68;
         let tipX = cx + 12;
         if (tipX + tipW > W - PAD_RIGHT) {
           tipX = cx - tipW - 12;
         }
-        let tipY = PAD_TOP + 10;
+        const tipY = PAD_TOP + 10;
 
         tooltipBg.setAttribute('x', tipX.toString());
         tooltipBg.setAttribute('y', tipY.toString());
@@ -646,14 +632,14 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
         tooltipEk.setAttribute('x', (tipX + 10).toString());
         tooltipEk.setAttribute('y', (tipY + 54).toString());
 
-        tooltipGrup.style.display = 'block';
+        tooltipGrup.classList.remove('katman-gizli');
       }
     }
 
     function takipBitti() {
-      if (rehberDikey) rehberDikey.style.display = 'none';
-      if (odakNoktasi) odakNoktasi.style.display = 'none';
-      if (tooltipGrup) tooltipGrup.style.display = 'none';
+      if (rehberDikey) rehberDikey.classList.add('katman-gizli');
+      if (odakNoktasi) odakNoktasi.classList.add('katman-gizli');
+      if (tooltipGrup) tooltipGrup.classList.add('katman-gizli');
       if (katmanBarlar) {
         katmanBarlar.querySelectorAll('.tic-bar-eleman').forEach((b) => b.classList.remove('secili'));
       }
@@ -668,7 +654,6 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
       etkilesim.addEventListener('touchend', takipBitti);
     }
 
-    // Filtre Butonları: Zaman Aralığı
     const aralikButonlari = kapsayici.querySelectorAll('[data-aralik]');
     aralikButonlari.forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -683,7 +668,6 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
       });
     });
 
-    // Filtre Butonları: Görünüm Modu
     const modButonlari = kapsayici.querySelectorAll('[data-mod]');
     modButonlari.forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -694,11 +678,9 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
       });
     });
 
-    // İlk Çizim
     renderGrafigi();
   }
 
-  // Astro sayfa geçişleri ve DOMContentLoaded
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', baslatAbdTahvilGrafigi);
   } else {
@@ -750,7 +732,7 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
 
   .dugme-kumesi {
     display: inline-flex;
-    background: var(--paper-2, #e9e7df);
+    background: var(--paper-2, #ece9df);
     border: 1px solid var(--hair, #cfccc2);
     border-radius: 0px;
     padding: 2px;
@@ -784,7 +766,7 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 10px;
-    background: var(--paper-2, #e9e7df);
+    background: var(--paper-2, #ece9df);
     border: 1px solid var(--hair, #cfccc2);
     border-radius: 0px;
     padding: 12px 16px;
@@ -794,6 +776,11 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
   .canli-kutu {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+  }
+
+  .canli-kutu-durum {
+    align-items: flex-start;
     justify-content: center;
   }
 
@@ -813,12 +800,18 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
     line-height: 1.2;
   }
 
-  .canli-deger.pozitif {
-    color: #2563eb;
+  .canli-deger.pozitif,
+  .tcmb-pozitif {
+    color: var(--yukselis, #3f7350);
   }
 
-  .canli-deger.negatif {
-    color: #c2502b;
+  .canli-deger.negatif,
+  .tcmb-negatif {
+    color: var(--dusus, #a3243b);
+  }
+
+  .tcmb-notr {
+    color: var(--ink, #1b1b1b);
   }
 
   .canli-deger.ikincil-sayi {
@@ -842,21 +835,21 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
   }
 
   .pozitif-rozet {
-    background: rgba(37, 99, 235, 0.12);
-    color: #1e40af;
-    border: 1px solid rgba(37, 99, 235, 0.3);
+    background: rgba(63, 115, 80, 0.12);
+    color: var(--yukselis, #3f7350);
+    border: 1px solid rgba(63, 115, 80, 0.3);
   }
 
   .negatif-rozet {
-    background: rgba(194, 80, 43, 0.12);
-    color: #c2502b;
-    border: 1px solid rgba(194, 80, 43, 0.3);
+    background: rgba(163, 36, 59, 0.12);
+    color: var(--dusus, #a3243b);
+    border: 1px solid rgba(163, 36, 59, 0.3);
   }
 
   .ozel-rozet {
-    background: #fef3c7;
-    color: #92400e;
-    border: 1px solid #fcd34d;
+    background: rgba(194, 80, 43, 0.12);
+    color: var(--toprak, #c2502b);
+    border: 1px solid var(--toprak, #c2502b);
   }
 
   .svg-cerceve {
@@ -875,14 +868,26 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
     display: block;
   }
 
+  .katman-gizli {
+    display: none !important;
+  }
+
+  .dokunma-yok {
+    pointer-events: none;
+  }
+
+  .etkilesim-alani {
+    cursor: crosshair;
+  }
+
   :global(.tic-bar-eleman) {
-    transition: opacity 0.15s ease, filter 0.15s ease;
+    transition: opacity 0.12s ease, filter 0.12s ease;
   }
 
   :global(.tic-bar-eleman:hover),
   :global(.tic-bar-eleman.secili) {
-    filter: brightness(1.2);
-    stroke: #ffffff;
+    filter: brightness(1.25);
+    stroke: var(--ink, #1b1b1b);
     stroke-width: 1.5;
   }
 
@@ -917,20 +922,24 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
     display: inline-block;
     width: 11px;
     height: 11px;
-    border-radius: 1px;
+    border-radius: 0px;
   }
 
   .pozitif-kutu {
-    background: #2563eb;
+    background: var(--yukselis, #3f7350);
   }
 
   .negatif-kutu {
-    background: #c2502b;
+    background: var(--dusus, #a3243b);
   }
 
-  .sari-kutu {
-    background: #fcd34d;
-    border: 1px solid #d97706;
+  .tcmb-kutu {
+    background: var(--ink, #1b1b1b);
+  }
+
+  .vurgu-kutu {
+    background: var(--paper-2, #ece9df);
+    border: 1px solid var(--toprak, #c2502b);
   }
 
   .grafik-kaynak-notu {
@@ -938,7 +947,7 @@ const son4AyTicNet = son4AyItems.reduce((acc, s) => acc + s.netAkim, 0);
     flex-direction: column;
     gap: 2px;
     font-size: 0.72rem;
-    color: #71717a;
+    color: var(--muted, #5d5b55);
   }
 
   @media (max-width: 640px) {

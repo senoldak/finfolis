@@ -47,7 +47,6 @@ const son = noktalar.at(-1);
 <section
   class="reel-getiri-bolumu"
   id="reel-getiri-kapsayici"
-  data-noktalar={JSON.stringify(noktalar)}
   aria-labelledby="reel-getiri-baslik"
 >
   <div class="reel-getiri-baslik-alani">
@@ -59,11 +58,13 @@ const son = noktalar.at(-1);
       </p>
     </div>
 
-    <!-- Dönem Filtre Butonları -->
+    <!-- Dönem Filtre Butonları (Son Ay, Son 6 Ay, Son 12 Ay, Tümü) -->
     <div class="filtre-ve-kontroller">
       <div class="donem-filtreleri" role="group" aria-label="Zaman aralığı seçimi">
-        <button type="button" class="donem-btn" data-ay="12">Son 12 Ay</button>
-        <button type="button" class="donem-btn aktif" data-ay="21">Son 21 Ay</button>
+        <button type="button" class="donem-btn" data-aralik="son-ay">Son Ay</button>
+        <button type="button" class="donem-btn" data-aralik="6">Son 6 Ay</button>
+        <button type="button" class="donem-btn" data-aralik="12">Son 12 Ay</button>
+        <button type="button" class="donem-btn aktif" data-aralik="21">Tümü (21 Ay)</button>
       </div>
     </div>
   </div>
@@ -127,7 +128,7 @@ const son = noktalar.at(-1);
         })}
       </g>
 
-      <!-- Dinamik Takip Çizgisi ve Noktaları (CSP için inline style yerine SVG visibility kullanılır) -->
+      <!-- Dinamik Takip Çizgisi ve Noktaları -->
       <g id="takip-grubu" class="takip-grubu" visibility="hidden">
         <line id="takip-cizgi" x1="0" y1={PAD_T} x2="0" y2={H - PAD_B} stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="3 3" />
         <circle id="takip-nokta-tcmb" cx="0" cy="0" r="5" fill="#3f7350" stroke="#ffffff" stroke-width="2" />
@@ -152,7 +153,7 @@ const son = noktalar.at(-1);
         </g>
       )}
 
-      <!-- SVG İçi Güvenli Tooltip (CSP dostu: HTML inline style yerine doğrudan SVG transform ile taşınır) -->
+      <!-- SVG İçi Güvenli Tooltip (pointer-events: none ile mouse eventlerini engellemez) -->
       <g id="svg-tooltip-grubu" class="svg-tooltip" visibility="hidden">
         <rect id="tt-bg" class="tt-kutu" x="0" y="0" width="200" height="114" rx="2" />
         <text id="tt-tarih" class="tt-baslik" x="12" y="22">Eylül 2026</text>
@@ -227,278 +228,11 @@ const son = noktalar.at(-1);
       </p>
     </div>
   </aside>
+
+  <!-- CSP Uyumlu Güvenli JSON Veri Deposu ve İstemci Betiği -->
+  <script type="application/json" id="reelVeriJson" set:html={JSON.stringify(noktalar)} />
+  <script is:inline src="/reel-getiri-grafik.js" defer></script>
 </section>
-
-<!-- CSP Uyumlu Harici Paketlenmiş İstemci Kodu (Astro bundle ile /_astro/*.js olarak sunulur, CSP script-src 'self' ile 100% uyumludur) -->
-<script>
-  interface NoktaVeri {
-    yil: number;
-    ay: number;
-    etiket: string;
-    tamEtiket: string;
-    tufe: number;
-    ito: number | null;
-    tcmbFaiz: number;
-    reelFark: number;
-  }
-
-  const kapsayici = document.getElementById('reel-getiri-kapsayici');
-  if (kapsayici) {
-    const rawData: NoktaVeri[] = JSON.parse(kapsayici.getAttribute('data-noktalar') || '[]');
-    const yuzey = document.getElementById('etkilesim-yuzeyi') as SVGRectElement | null;
-    const takipGrubu = document.getElementById('takip-grubu') as SVGGElement | null;
-    const takipCizgi = document.getElementById('takip-cizgi') as SVGLineElement | null;
-    const takipTcmb = document.getElementById('takip-nokta-tcmb') as SVGCircleElement | null;
-    const takipIto = document.getElementById('takip-nokta-ito') as SVGCircleElement | null;
-    const takipTufe = document.getElementById('takip-nokta-tufe') as SVGCircleElement | null;
-    const svgTooltip = document.getElementById('svg-tooltip-grubu') as SVGGElement | null;
-
-    const ttTarih = document.getElementById('tt-tarih');
-    const ttTcmb = document.getElementById('tt-tcmb');
-    const ttIto = document.getElementById('tt-ito');
-    const ttTufe = document.getElementById('tt-tufe');
-    const ttDurum = document.getElementById('tt-durum');
-
-    const simAyAdi = document.getElementById('sim-ay-adi');
-    const simFaizTl = document.getElementById('sim-faiz-tl');
-    const simEnfTl = document.getElementById('sim-enflasyon-tl');
-    const simNetTl = document.getElementById('sim-net-tl');
-    const simNetKutu = document.getElementById('sim-net-kutu');
-
-    const pathTcmb = document.getElementById('seri-tcmb-path') as SVGPathElement | null;
-    const pathIto = document.getElementById('seri-ito-path') as SVGPathElement | null;
-    const pathTufe = document.getElementById('seri-tufe-path') as SVGPathElement | null;
-    const xEksenGrubu = document.getElementById('x-eksen-grubu');
-
-    const sonValTcmb = document.getElementById('son-val-tcmb');
-    const sonValIto = document.getElementById('son-val-ito');
-    const sonValTufe = document.getElementById('son-val-tufe');
-
-    if (yuzey && rawData.length > 0) {
-      let aktifNoktalar = [...rawData];
-      const W = 880;
-      const H = 380;
-      const PAD_L = 50;
-      const PAD_R = 75;
-      const PAD_T = 30;
-      const PAD_B = 45;
-      const minVal = 0;
-      const maxVal = 6;
-
-      const plotW = W - PAD_L - PAD_R;
-      const plotH = H - PAD_T - PAD_B;
-      const valRange = maxVal - minVal;
-
-      const hesaplaX = (i: number, len: number) => PAD_L + (i / Math.max(len - 1, 1)) * plotW;
-      const hesaplaY = (v: number) => PAD_T + (1 - (v - minVal) / valRange) * plotH;
-
-      function ciz(yeniNoktalar: NoktaVeri[]) {
-        aktifNoktalar = yeniNoktalar;
-        const len = aktifNoktalar.length;
-
-        // TCMB path
-        if (pathTcmb) {
-          const tcmbD = aktifNoktalar.map((p, i) => `${i === 0 ? 'M' : 'L'} ${hesaplaX(i, len).toFixed(1)} ${hesaplaY(p.tcmbFaiz).toFixed(1)}`).join(' ');
-          pathTcmb.setAttribute('d', tcmbD);
-        }
-
-        // İTO path
-        if (pathIto) {
-          const itoD = aktifNoktalar
-            .filter((p) => p.ito != null)
-            .map((p, i) => {
-              const idx = aktifNoktalar.indexOf(p);
-              return `${i === 0 ? 'M' : 'L'} ${hesaplaX(idx, len).toFixed(1)} ${hesaplaY(p.ito!).toFixed(1)}`;
-            }).join(' ');
-          pathIto.setAttribute('d', itoD);
-        }
-
-        // TÜFE path
-        if (pathTufe) {
-          const tufeD = aktifNoktalar.map((p, i) => `${i === 0 ? 'M' : 'L'} ${hesaplaX(i, len).toFixed(1)} ${hesaplaY(p.tufe).toFixed(1)}`).join(' ');
-          pathTufe.setAttribute('d', tufeD);
-        }
-
-        // X ekseni
-        if (xEksenGrubu) {
-          xEksenGrubu.innerHTML = '';
-          aktifNoktalar.forEach((p, i) => {
-            const goster = i % 2 === 0 || i === len - 1;
-            if (goster) {
-              const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-              txt.setAttribute('x', String(hesaplaX(i, len)));
-              txt.setAttribute('y', String(H - 15));
-              txt.setAttribute('text-anchor', 'middle');
-              txt.setAttribute('class', 'eksen-yazi');
-              txt.textContent = p.etiket;
-              xEksenGrubu.appendChild(txt);
-            }
-          });
-        }
-
-        // Son değerler
-        const sonNokta = aktifNoktalar[len - 1];
-        if (sonNokta) {
-          const lastX = String(hesaplaX(len - 1, len) + 10);
-          if (sonValTcmb) {
-            sonValTcmb.setAttribute('x', lastX);
-            sonValTcmb.setAttribute('y', String(hesaplaY(sonNokta.tcmbFaiz) + 4));
-            sonValTcmb.textContent = sonNokta.tcmbFaiz.toLocaleString('tr-TR', { minimumFractionDigits: 2 });
-          }
-          if (sonValIto && sonNokta.ito != null) {
-            sonValIto.setAttribute('x', lastX);
-            sonValIto.setAttribute('y', String(hesaplaY(sonNokta.ito) + 4));
-            sonValIto.textContent = sonNokta.ito.toLocaleString('tr-TR', { minimumFractionDigits: 2 });
-          }
-          if (sonValTufe) {
-            sonValTufe.setAttribute('x', lastX);
-            sonValTufe.setAttribute('y', String(hesaplaY(sonNokta.tufe) + 4));
-            sonValTufe.textContent = sonNokta.tufe.toLocaleString('tr-TR', { minimumFractionDigits: 2 });
-          }
-          guncelleSimulasyon(sonNokta);
-        }
-      }
-
-      function guncelleSimulasyon(p: NoktaVeri) {
-        if (!p || !simAyAdi || !simFaizTl || !simEnfTl || !simNetTl || !simNetKutu) return;
-        simAyAdi.textContent = p.tamEtiket;
-        const anapara = 10000;
-        const faizGetirisi = Math.round((anapara * p.tcmbFaiz) / 100);
-        const enfKaybi = Math.round((anapara * p.tufe) / 100);
-        const net = faizGetirisi - enfKaybi;
-
-        simFaizTl.textContent = `+${faizGetirisi.toLocaleString('tr-TR')} TL`;
-        simEnfTl.textContent = `-${enfKaybi.toLocaleString('tr-TR')} TL`;
-        simNetTl.textContent = `${net >= 0 ? '+' : ''}${net.toLocaleString('tr-TR')} TL`;
-
-        if (net >= 0) {
-          simNetKutu.className = 'sim-kutu sim-net sim-net-pozitif';
-        } else {
-          simNetKutu.className = 'sim-kutu sim-net sim-net-negatif';
-        }
-      }
-
-      // Dönem filtre butonları
-      const donemBtnler = kapsayici.querySelectorAll<HTMLButtonElement>('.donem-btn');
-      donemBtnler.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          donemBtnler.forEach((b) => b.classList.remove('aktif'));
-          btn.classList.add('aktif');
-          const aySayisi = Number(btn.getAttribute('data-ay') || 21);
-          ciz(rawData.slice(-aySayisi));
-        });
-      });
-
-      // Seri Aç/Kapa butonları (CSP için SVG visibility kullanılır)
-      const seriBtnler = kapsayici.querySelectorAll<HTMLButtonElement>('.lejant-btn');
-      seriBtnler.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const seri = btn.getAttribute('data-seri');
-          const aktif = btn.classList.toggle('aktif');
-          const gorunurluk = aktif ? 'visible' : 'hidden';
-
-          if (seri === 'tcmb') {
-            if (pathTcmb) pathTcmb.setAttribute('visibility', gorunurluk);
-            if (sonValTcmb) sonValTcmb.setAttribute('visibility', gorunurluk);
-            if (takipTcmb) takipTcmb.setAttribute('visibility', gorunurluk);
-          } else if (seri === 'ito') {
-            if (pathIto) pathIto.setAttribute('visibility', gorunurluk);
-            if (sonValIto) sonValIto.setAttribute('visibility', gorunurluk);
-            if (takipIto) takipIto.setAttribute('visibility', gorunurluk);
-          } else if (seri === 'tufe') {
-            if (pathTufe) pathTufe.setAttribute('visibility', gorunurluk);
-            if (sonValTufe) sonValTufe.setAttribute('visibility', gorunurluk);
-            if (takipTufe) takipTufe.setAttribute('visibility', gorunurluk);
-          }
-        });
-      });
-
-      // Fare / Dokunmatik Takipçi (SVG içindeki koordinatlarla ve SVG transform ile taşınır)
-      function fareTakip(clientX: number) {
-        if (!yuzey || !takipGrubu || !takipCizgi || !takipTcmb || !takipTufe || !svgTooltip) return;
-        const rect = yuzey.getBoundingClientRect();
-        const relX = clientX - rect.left;
-        if (relX < 0 || relX > rect.width) {
-          gizle();
-          return;
-        }
-
-        const len = aktifNoktalar.length;
-        const index = Math.max(0, Math.min(len - 1, Math.round((relX / rect.width) * (len - 1))));
-        const p = aktifNoktalar[index];
-        if (!p) return;
-
-        const curX = hesaplaX(index, len);
-        takipGrubu.setAttribute('visibility', 'visible');
-        takipCizgi.setAttribute('x1', String(curX));
-        takipCizgi.setAttribute('x2', String(curX));
-
-        takipTcmb.setAttribute('cx', String(curX));
-        takipTcmb.setAttribute('cy', String(hesaplaY(p.tcmbFaiz)));
-
-        if (takipIto) {
-          if (p.ito != null) {
-            takipIto.setAttribute('cx', String(curX));
-            takipIto.setAttribute('cy', String(hesaplaY(p.ito)));
-            takipIto.setAttribute('visibility', 'visible');
-          } else {
-            takipIto.setAttribute('visibility', 'hidden');
-          }
-        }
-
-        takipTufe.setAttribute('cx', String(curX));
-        takipTufe.setAttribute('cy', String(hesaplaY(p.tufe)));
-
-        // SVG Tooltip doldur
-        if (ttTarih) ttTarih.textContent = p.tamEtiket;
-        if (ttTcmb) ttTcmb.textContent = `%${p.tcmbFaiz.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}`;
-        if (ttIto) ttIto.textContent = p.ito != null ? `%${p.ito.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}` : 'Veri yok';
-        if (ttTufe) ttTufe.textContent = `%${p.tufe.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}`;
-
-        if (ttDurum) {
-          if (p.reelFark >= 0) {
-            ttDurum.textContent = `+${p.reelFark.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} puan reel getiri`;
-            ttDurum.setAttribute('class', 'tt-durum durum-pozitif');
-          } else {
-            ttDurum.textContent = `${p.reelFark.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} puan negatif reel faiz`;
-            ttDurum.setAttribute('class', 'tt-durum durum-negatif');
-          }
-        }
-
-        // Tooltip konumu (SVG içinde sol/sağ taşma kontrolü)
-        let ttX = curX + 14;
-        if (ttX + 210 > W - PAD_R) {
-          ttX = curX - 214;
-        }
-        const ttY = Math.max(10, Math.min(H - PAD_B - 120, hesaplaY(p.tufe) - 50));
-        svgTooltip.setAttribute('transform', `translate(${ttX.toFixed(1)}, ${ttY.toFixed(1)})`);
-        svgTooltip.setAttribute('visibility', 'visible');
-
-        guncelleSimulasyon(p);
-      }
-
-      function gizle() {
-        if (takipGrubu) takipGrubu.setAttribute('visibility', 'hidden');
-        if (svgTooltip) svgTooltip.setAttribute('visibility', 'hidden');
-        const sonNokta = aktifNoktalar[aktifNoktalar.length - 1];
-        if (sonNokta) guncelleSimulasyon(sonNokta);
-      }
-
-      yuzey.addEventListener('mousemove', (e) => fareTakip(e.clientX));
-      yuzey.addEventListener('mouseleave', gizle);
-
-      yuzey.addEventListener('touchstart', (e) => {
-        if (e.touches.length > 0) fareTakip(e.touches[0].clientX);
-      }, { passive: true });
-
-      yuzey.addEventListener('touchmove', (e) => {
-        if (e.touches.length > 0) fareTakip(e.touches[0].clientX);
-      }, { passive: true });
-
-      yuzey.addEventListener('touchend', gizle);
-    }
-  }
-</script>
 
 <style>
   .reel-getiri-bolumu {
@@ -652,6 +386,15 @@ const son = noktalar.at(-1);
   .etkilesim-katmani {
     cursor: crosshair;
     touch-action: none;
+    pointer-events: all;
+  }
+
+  .takip-grubu {
+    pointer-events: none;
+  }
+
+  .svg-tooltip {
+    pointer-events: none;
   }
 
   /* SVG Tooltip Stilleri (CSP Uyumlu) */
