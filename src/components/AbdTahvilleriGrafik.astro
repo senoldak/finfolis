@@ -1,7 +1,7 @@
 ---
 // Türkiye'nin Elindeki ABD Tahvilleri İnteraktif Yığılmış Alan (Stacked Area) Grafiği.
 // Finfolis tasarım dili: Kâğıt & mürekkep, Bricolage Grotesque, sıfır harici kütüphane bağımlılığı.
-import type { TahvilAnalizi, TahvilNoktasi } from '../lib/abd-tahvilleri.d.mts';
+import type { TahvilAnalizi } from '../lib/abd-tahvilleri.d.mts';
 
 interface Props {
   veri: TahvilAnalizi;
@@ -66,7 +66,7 @@ const sonX = xPos(noktalar.length - 1);
 const sonY = yPos(sonNokta.toplamUSD);
 ---
 
-<div class="abd-tahvilleri-grafik" data-abd-tahvil-grafik data-noktalar={JSON.stringify(noktalar)}>
+<div class="abd-tahvilleri-grafik" data-tarihsel-tahvil-grafik data-noktalar={JSON.stringify(noktalar)}>
   <!-- Filtre Butonları ve Dönem Seçici -->
   <div class="grafik-kontrol-cubugu">
     <div class="grafik-baslik-etiketi">
@@ -82,26 +82,26 @@ const sonY = yPos(sonNokta.toplamUSD);
   </div>
 
   <!-- Dinamik Canlı Bilgi Paneli / Lejant -->
-  <div class="grafik-lejant" id="abd-canli-lejant">
+  <div class="grafik-lejant" id="tarihsel-canli-lejant">
     <div class="lejant-oge">
       <span class="renk-kutu kisa"></span>
       <span class="ad">Kısa Vadeli (T-Bills, &le;1 yıl)</span>
-      <strong class="deger" id="abd-lejant-kisa">${sonNokta.kisaUSD.toLocaleString('tr-TR')} M (%{sonNokta.kisaOran})</strong>
+      <strong class="deger" id="tarihsel-lejant-kisa">${sonNokta.kisaUSD.toLocaleString('tr-TR')} M (%{sonNokta.kisaOran})</strong>
     </div>
     <div class="lejant-oge">
       <span class="renk-kutu uzun"></span>
       <span class="ad">Uzun Vadeli (Tahvil, &gt;1 yıl)</span>
-      <strong class="deger" id="abd-lejant-uzun">${sonNokta.uzunUSD.toLocaleString('tr-TR')} M (%{sonNokta.uzunOran})</strong>
+      <strong class="deger" id="tarihsel-lejant-uzun">${sonNokta.uzunUSD.toLocaleString('tr-TR')} M (%{sonNokta.uzunOran})</strong>
     </div>
     <div class="lejant-oge toplam">
-      <span class="ad" id="abd-lejant-tarih">Toplam ({sonNokta.tarih.slice(0, 7)}):</span>
-      <strong class="deger" id="abd-lejant-toplam">${sonNokta.toplamUSD.toLocaleString('tr-TR')} M (${(sonNokta.toplamUSD / 1000).toFixed(2).replace('.', ',')} Milyar $)</strong>
+      <span class="ad" id="tarihsel-lejant-tarih">Toplam ({sonNokta.tarih.slice(0, 7)}):</span>
+      <strong class="deger" id="tarihsel-lejant-toplam">${sonNokta.toplamUSD.toLocaleString('tr-TR')} M (${(sonNokta.toplamUSD / 1000).toFixed(2).replace('.', ',')} Milyar $)</strong>
     </div>
   </div>
 
   <div class="svg-tasiyici">
     <svg
-      id="abd-tahvil-svg"
+      id="tarihsel-tahvil-svg"
       viewBox={`0 0 ${W} ${H}`}
       preserveAspectRatio="xMidYMid meet"
       class="grafik-svg"
@@ -110,19 +110,19 @@ const sonY = yPos(sonNokta.toplamUSD);
     >
       <defs>
         <!-- Kırmızı/Kiremit Alan Gradyanı -->
-        <linearGradient id="kisaGrad" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id="tarihselKisaGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#c2502b" stop-opacity="0.9" />
           <stop offset="100%" stop-color="#a33d1c" stop-opacity="0.8" />
         </linearGradient>
         <!-- Antrasit / Füme Alan Gradyanı -->
-        <linearGradient id="uzunGrad" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id="tarihselUzunGrad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#5d5b55" stop-opacity="0.9" />
-          <stop offset="100%" stop-color="#1b1b1b" stroke-opacity="0.85" />
+          <stop offset="100%" stop-color="#1b1b1b" stop-opacity="0.85" />
         </linearGradient>
       </defs>
 
       <!-- Y Izgara Grubu -->
-      <g id="abd-izgara-grubu">
+      <g id="tarihsel-izgara-grubu">
         {yIzgaraSeviyeleri.map((seviye) => {
           const y = yPos(seviye);
           return (
@@ -142,19 +142,19 @@ const sonY = yPos(sonNokta.toplamUSD);
       </text>
 
       <!-- Katman 1: Uzun Vadeli Alan (Füme) -->
-      <path id="abd-alan-uzun" d={uzunAlanD} fill="url(#uzunGrad)" class="alan-uzun" />
+      <path id="tarihsel-alan-uzun" d={uzunAlanD} fill="url(#tarihselUzunGrad)" class="alan-uzun" />
 
       <!-- Katman 2: Kısa Vadeli Alan (Kiremit Kırmızı) -->
-      <path id="abd-alan-kisa" d={kisaAlanD} fill="url(#kisaGrad)" class="alan-kisa" />
+      <path id="tarihsel-alan-kisa" d={kisaAlanD} fill="url(#tarihselKisaGrad)" class="alan-kisa" />
 
       <!-- Katman 3: Toplam Kontur Çizgisi -->
-      <path id="abd-cizgi-toplam" d={toplamCizgiD} fill="none" stroke="#1b1b1b" stroke-width="1.2" class="cizgi-toplam" />
+      <path id="tarihsel-cizgi-toplam" d={toplamCizgiD} fill="none" stroke="#1b1b1b" stroke-width="1.2" class="cizgi-toplam" />
 
       <!-- X ekseni taban çizgisi -->
       <line x1={PAD_LEFT} y1={ySifir} x2={W - PAD_RIGHT} y2={ySifir} stroke="var(--c-kenar, #94a3b8)" stroke-width="1" />
 
       <!-- X Ekseni Etiket Grubu -->
-      <g id="abd-x-ekseni">
+      <g id="tarihsel-x-ekseni">
         {xEtiketleri.map((etk) => (
           <g class="x-etiket-grup" transform={`translate(${etk.x}, ${ySifir + 16})`}>
             <line x1="0" y1="-16" x2="0" y2="-12" stroke="var(--c-kenar, #94a3b8)" stroke-width="1" />
@@ -166,7 +166,7 @@ const sonY = yPos(sonNokta.toplamUSD);
       </g>
 
       <!-- Alan İçi Başlık Vurguları -->
-      <g id="abd-alan-metinleri">
+      <g id="tarihsel-alan-metinleri">
         <text x={W * 0.38} y={yPos(40000)} text-anchor="middle" class="alan-etiket kisa-etiket">
           KISA VADELİ
         </text>
@@ -177,7 +177,7 @@ const sonY = yPos(sonNokta.toplamUSD);
 
       <!-- Tarihsel Zirve Rozeti (82.431) -->
       {zirveIndex >= 0 && (
-        <g id="abd-rozet-zirve" class="vurgu-zirve">
+        <g id="tarihsel-rozet-zirve" class="vurgu-zirve">
           <circle cx={zirveX} cy={zirveY} r="4.5" fill="#7f1d1d" stroke="#ffffff" stroke-width="1.5" />
           <text x={zirveX} y={zirveY - 10} text-anchor="middle" class="vurgu-metin">
             {tarihselZirve.toplamUSD.toLocaleString('tr-TR')}
@@ -186,7 +186,7 @@ const sonY = yPos(sonNokta.toplamUSD);
       )}
 
       <!-- Son Nokta Rozeti (5.731) -->
-      <g id="abd-rozet-son" class="vurgu-son">
+      <g id="tarihsel-rozet-son" class="vurgu-son">
         <circle cx={sonX} cy={sonY} r="4.5" fill="#c2502b" stroke="#ffffff" stroke-width="2" />
         <text x={sonX - 5} y={sonY - 10} text-anchor="end" class="vurgu-metin vurgu-son-metin">
           {sonNokta.toplamUSD.toLocaleString('tr-TR')}
@@ -194,38 +194,38 @@ const sonY = yPos(sonNokta.toplamUSD);
       </g>
 
       <!-- İnteraktif Takip Çizgisi ve Odak Noktaları (CSP dostu visibility) -->
-      <g id="abd-takip-grubu" class="takip-grubu" visibility="hidden">
-        <line id="abd-takip-cizgi" x1="0" y1={PAD_TOP} x2="0" y2={ySifir} stroke="#1b1b1b" stroke-width="1.2" stroke-dasharray="3 3" />
+      <g id="tarihsel-takip-grubu" class="takip-grubu" visibility="hidden">
+        <line id="tarihsel-takip-cizgi" x1="0" y1={PAD_TOP} x2="0" y2={ySifir} stroke="#1b1b1b" stroke-width="1.2" stroke-dasharray="3 3" />
         <!-- Toplam portföy noktası -->
-        <circle id="abd-takip-nokta-toplam" cx="0" cy="0" r="5" fill="#c2502b" stroke="#ffffff" stroke-width="2" />
+        <circle id="tarihsel-takip-nokta-toplam" cx="0" cy="0" r="5" fill="#c2502b" stroke="#ffffff" stroke-width="2" />
         <!-- Uzun vadeli sınır noktası -->
-        <circle id="abd-takip-nokta-uzun" cx="0" cy="0" r="4.5" fill="#1b1b1b" stroke="#ffffff" stroke-width="2" />
+        <circle id="tarihsel-takip-nokta-uzun" cx="0" cy="0" r="4.5" fill="#1b1b1b" stroke="#ffffff" stroke-width="2" />
       </g>
 
       <!-- SVG İçi Kayan Tooltip (CSP dostu, transform ile taşınır) -->
-      <g id="abd-svg-tooltip" class="svg-tooltip" visibility="hidden">
-        <rect id="abd-tt-bg" class="tt-kutu" x="0" y="0" width="220" height="114" rx="4" />
-        <text id="abd-tt-tarih" class="tt-baslik" x="12" y="22">Ağustos 2026</text>
+      <g id="tarihsel-svg-tooltip" class="svg-tooltip" visibility="hidden">
+        <rect id="tarihsel-tt-bg" class="tt-kutu" x="0" y="0" width="220" height="114" rx="4" />
+        <text id="tarihsel-tt-tarih" class="tt-baslik" x="12" y="22">Ağustos 2026</text>
         <line x1="12" y1="28" x2="208" y2="28" stroke="var(--soluk, #e2e8f0)" stroke-width="1" />
         <!-- Kısa vadeli T-Bills -->
         <circle cx="18" cy="43" r="3.5" fill="#c2502b" />
         <text class="tt-etiket" x="28" y="46">Kısa Vadeli (T-Bills):</text>
-        <text id="abd-tt-kisa" class="tt-rakam" x="208" y="46" text-anchor="end">$4.109 M</text>
+        <text id="tarihsel-tt-kisa" class="tt-rakam" x="208" y="46" text-anchor="end">$4.109 M</text>
         <!-- Uzun vadeli tahvil -->
         <circle cx="18" cy="63" r="3.5" fill="#1b1b1b" />
         <text class="tt-etiket" x="28" y="66">Uzun Vadeli Tahvil:</text>
-        <text id="abd-tt-uzun" class="tt-rakam" x="208" y="66" text-anchor="end">$1.622 M</text>
+        <text id="tarihsel-tt-uzun" class="tt-rakam" x="208" y="66" text-anchor="end">$1.622 M</text>
         <!-- Toplam portföy -->
         <line x1="12" y1="74" x2="208" y2="74" stroke="var(--soluk, #e2e8f0)" stroke-width="1" stroke-dasharray="2 2" />
         <circle cx="18" cy="88" r="3.5" fill="#2563eb" />
         <text class="tt-etiket tt-kalin" x="28" y="91">Toplam ABD Tahvili:</text>
-        <text id="abd-tt-toplam" class="tt-rakam tt-vurgu" x="208" y="91" text-anchor="end">$5.731 M</text>
-        <text id="abd-tt-oran" class="tt-alt-oran" x="110" y="106" text-anchor="middle">%71,7 Kısa · %28,3 Uzun</text>
+        <text id="tarihsel-tt-toplam" class="tt-rakam tt-vurgu" x="208" y="91" text-anchor="end">$5.731 M</text>
+        <text id="tarihsel-tt-oran" class="tt-alt-oran" x="110" y="106" text-anchor="middle">%71,7 Kısa · %28,3 Uzun</text>
       </g>
 
       <!-- Şeffaf Etkileşim Yüzeyi (Mouse ve Touch Yakalayıcı) -->
       <rect
-        id="abd-etkilesim-yuzeyi"
+        id="tarihsel-etkilesim-yuzeyi"
         class="etkilesim-katmani"
         x={PAD_LEFT}
         y={PAD_TOP}
@@ -247,42 +247,42 @@ const sonY = yPos(sonNokta.toplamUSD);
     uzunOran: number;
   }
 
-  const kapsayici = document.querySelector('[data-abd-tahvil-grafik]') as HTMLElement | null;
+  const kapsayici = document.querySelector('[data-tarihsel-tahvil-grafik]') as HTMLElement | null;
   if (kapsayici) {
     const tumNoktalar: TahvilNokta[] = JSON.parse(kapsayici.dataset.noktalar || '[]');
     let aktifNoktalar = [...tumNoktalar];
 
     // SVG Elemanları
-    const svg = document.getElementById('abd-tahvil-svg') as SVGSVGElement | null;
-    const alanUzun = document.getElementById('abd-alan-uzun') as SVGPathElement | null;
-    const alanKisa = document.getElementById('abd-alan-kisa') as SVGPathElement | null;
-    const cizgiToplam = document.getElementById('abd-cizgi-toplam') as SVGPathElement | null;
-    const izgaraGrubu = document.getElementById('abd-izgara-grubu');
-    const xEkseni = document.getElementById('abd-x-ekseni');
-    const alanMetinleri = document.getElementById('abd-alan-metinleri');
-    const rozetZirve = document.getElementById('abd-rozet-zirve');
-    const rozetSon = document.getElementById('abd-rozet-son');
+    const svg = document.getElementById('tarihsel-tahvil-svg') as SVGSVGElement | null;
+    const alanUzun = document.getElementById('tarihsel-alan-uzun') as SVGPathElement | null;
+    const alanKisa = document.getElementById('tarihsel-alan-kisa') as SVGPathElement | null;
+    const cizgiToplam = document.getElementById('tarihsel-cizgi-toplam') as SVGPathElement | null;
+    const izgaraGrubu = document.getElementById('tarihsel-izgara-grubu');
+    const xEkseni = document.getElementById('tarihsel-x-ekseni');
+    const alanMetinleri = document.getElementById('tarihsel-alan-metinleri');
+    const rozetZirve = document.getElementById('tarihsel-rozet-zirve');
+    const rozetSon = document.getElementById('tarihsel-rozet-son');
 
     // Takip ve Tooltip
-    const takipGrubu = document.getElementById('abd-takip-grubu');
-    const takipCizgi = document.getElementById('abd-takip-cizgi') as SVGLineElement | null;
-    const takipNoktaToplam = document.getElementById('abd-takip-nokta-toplam') as SVGCircleElement | null;
-    const takipNoktaUzun = document.getElementById('abd-takip-nokta-uzun') as SVGCircleElement | null;
+    const takipGrubu = document.getElementById('tarihsel-takip-grubu');
+    const takipCizgi = document.getElementById('tarihsel-takip-cizgi') as SVGLineElement | null;
+    const takipNoktaToplam = document.getElementById('tarihsel-takip-nokta-toplam') as SVGCircleElement | null;
+    const takipNoktaUzun = document.getElementById('tarihsel-takip-nokta-uzun') as SVGCircleElement | null;
 
-    const svgTooltip = document.getElementById('abd-svg-tooltip');
-    const ttTarih = document.getElementById('abd-tt-tarih');
-    const ttKisa = document.getElementById('abd-tt-kisa');
-    const ttUzun = document.getElementById('abd-tt-uzun');
-    const ttToplam = document.getElementById('abd-tt-toplam');
-    const ttOran = document.getElementById('abd-tt-oran');
+    const svgTooltip = document.getElementById('tarihsel-svg-tooltip');
+    const ttTarih = document.getElementById('tarihsel-tt-tarih');
+    const ttKisa = document.getElementById('tarihsel-tt-kisa');
+    const ttUzun = document.getElementById('tarihsel-tt-uzun');
+    const ttToplam = document.getElementById('tarihsel-tt-toplam');
+    const ttOran = document.getElementById('tarihsel-tt-oran');
 
     // Lejant elemanları
-    const lejantKisa = document.getElementById('abd-lejant-kisa');
-    const lejantUzun = document.getElementById('abd-lejant-uzun');
-    const lejantTarih = document.getElementById('abd-lejant-tarih');
-    const lejantToplam = document.getElementById('abd-lejant-toplam');
+    const lejantKisa = document.getElementById('tarihsel-lejant-kisa');
+    const lejantUzun = document.getElementById('tarihsel-lejant-uzun');
+    const lejantTarih = document.getElementById('tarihsel-lejant-tarih');
+    const lejantToplam = document.getElementById('tarihsel-lejant-toplam');
 
-    const etkilesim = document.getElementById('abd-etkilesim-yuzeyi') as SVGRectElement | null;
+    const etkilesim = document.getElementById('tarihsel-etkilesim-yuzeyi') as SVGRectElement | null;
     const filtreButonlari = kapsayici.querySelectorAll('.filtre-butonu');
 
     // Sabit Koordinat Parametreleri
@@ -457,7 +457,6 @@ const sonY = yPos(sonNokta.toplamUSD);
       }
 
       if (alanMetinleri) {
-        // Kısa periyotlarda alan metinlerini gizle veya konumlandır
         if (veriler.length > 60) {
           alanMetinleri.setAttribute('visibility', 'visible');
         } else {
@@ -474,7 +473,6 @@ const sonY = yPos(sonNokta.toplamUSD);
       const rect = svg.getBoundingClientRect();
       const svgX = ((clientX - rect.left) / rect.width) * W;
 
-      // X koordinatına en yakın veri noktasını bul
       let enYakinIdx = 0;
       let minMesafe = Infinity;
 
@@ -686,6 +684,10 @@ const sonY = yPos(sonNokta.toplamUSD);
   }
 
   /* SVG Tooltip Stilleri (CSP Uyumlu) */
+  .svg-tooltip {
+    pointer-events: none;
+  }
+
   .svg-tooltip .tt-kutu {
     fill: #ffffff;
     stroke: var(--c-baslik, #0f172a);
@@ -724,6 +726,10 @@ const sonY = yPos(sonNokta.toplamUSD);
     font-size: 10px;
     font-weight: 600;
     fill: var(--c-metin-hafif, #64748b);
+  }
+
+  .takip-grubu {
+    pointer-events: none;
   }
 
   @media (max-width: 640px) {

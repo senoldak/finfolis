@@ -58,7 +58,7 @@ const sonNokta = varsayilanSeri.at(-1) ?? {
 };
 ---
 
-<div class="interaktif-grafik-kapsayici" data-abd-tahvil-grafik data-seri={JSON.stringify(seri)}>
+<div class="interaktif-grafik-kapsayici" data-abd-tahvil-akim-grafik data-seri={JSON.stringify(seri)}>
   <!-- Üst Bar: Başlık ve Filtre Düğmeleri -->
   <div class="grafik-kontrol-cubugu">
     <div class="grafik-baslik-alani">
@@ -250,7 +250,7 @@ const sonNokta = varsayilanSeri.at(-1) ?? {
 
 <script>
   function baslatAbdTahvilGrafigi() {
-    const kapsayici = document.querySelector('[data-abd-tahvil-grafik]') as HTMLElement | null;
+    const kapsayici = document.querySelector('[data-abd-tahvil-akim-grafik]') as HTMLElement | null;
     if (!kapsayici) return;
 
     interface NoktaVerisi {
