@@ -111,7 +111,11 @@ const sonAylar = [...aylikVerisi].reverse();
 
           <!-- İNTERAKTİF GÜNLÜK DEĞİŞİM VE SEVİYE GRAFİĞİ -->
           <section class="bolum grafik-alani">
-            <TcmbNetPozisyonGrafigi seri={seriVerisi} />
+            <TcmbNetPozisyonGrafigi
+              seri={seriVerisi}
+              haftalikOzet={haftalikVerisi}
+              aylikOzet={aylikVerisi}
+            />
           </section>
 
           <div class="veri-izgara">
@@ -187,6 +191,57 @@ const sonAylar = [...aylikVerisi].reverse();
               </p>
             </section>
           </div>
+
+          <!-- AYLIK KÜMÜLATİF NET POZİSYON DEĞİŞİMİ TABLOSU -->
+          {sonAylar.length > 0 && (
+            <section class="bolum aylik-tablo-alani">
+              <h2 class="bolum-baslik">Aylık Kümülatif Net Rezerv Akımı & Denge (Son 12 Ay)</h2>
+              <p class="veri-notu">
+                Merkez Bankası'nın piyasaya döviz satıp (eksi / kırmızı) veya piyasadan döviz toplayıp (artı / yeşil) toplamadığını gösteren, küresel ons altın dalgalanmalarından arındırılmış aylık akım bilançosu.
+              </p>
+              <div class="tablo-sarmal">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Dönem</th>
+                      <th scope="col" class="sag">Net Akım (Milyar $)</th>
+                      <th scope="col" class="sag">Ham Değişim</th>
+                      <th scope="col" class="orta">Alım / Satış Günü</th>
+                      <th scope="col" class="sag">Kapanış Net Rezervi</th>
+                      <th scope="col" class="sag">Kapanış Kuru</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sonAylar.map((ay) => {
+                      const netAkif = ay.toplam_net_degisim_milyar_usd;
+                      return (
+                        <tr>
+                          <td><strong>{ay.etiket}</strong></td>
+                          <td class={`sag ${netAkif > 0 ? 'pozitif-yazi' : netAkif < 0 ? 'negatif-yazi' : ''}`}>
+                            <strong>{netAkif > 0 ? '+' : ''}{sayiYaz(netAkif, 1)} milyar $</strong>
+                          </td>
+                          <td class="sag soluk-sayi">
+                            {ay.toplam_ham_degisim_milyar_usd > 0 ? '+' : ''}{sayiYaz(ay.toplam_ham_degisim_milyar_usd, 1)} mlr $
+                          </td>
+                          <td class="orta">
+                            <span class="gun-dagilimi">
+                              <span class="alis-rozet">{ay.alis_gunleri} alım</span>
+                              <span class="ayrac">/</span>
+                              <span class="satis-rozet">{ay.satis_gunleri} satış</span>
+                            </span>
+                          </td>
+                          <td class="sag">
+                            {ay.kapanis_net_rezerv > 0 ? '+' : ''}{sayiYaz(ay.kapanis_net_rezerv, 1)} milyar $
+                          </td>
+                          <td class="sag">{sayiYaz(ay.kapanis_usd_kuru, 2)} ₺</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          )}
         </>
       ) : (
         <p class="bos">TCMB net döviz pozisyonu verisi şu anda bulunamadı.</p>
@@ -233,5 +288,46 @@ const sonAylar = [...aylikVerisi].reverse();
     border-top: 2px solid var(--toprak, #c2502b);
     border-bottom: 2px solid var(--toprak, #c2502b);
     font-size: 1.05rem;
+  }
+
+  .aylik-tablo-alani {
+    margin-top: 2.5rem;
+  }
+
+  .tablo-sarmal {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--hair, #cfccc2);
+    background: var(--paper-2, #ece9df);
+  }
+
+  .soluk-sayi {
+    color: var(--soluk-yazi, #6b6960);
+    font-size: 0.9rem;
+  }
+
+  .orta {
+    text-align: center;
+  }
+
+  .gun-dagilimi {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+  }
+
+  .alis-rozet {
+    color: var(--yukselis, #3f7350);
+    font-weight: 600;
+  }
+
+  .satis-rozet {
+    color: var(--dusus, #a3243b);
+    font-weight: 600;
+  }
+
+  .ayrac {
+    color: var(--hair, #cfccc2);
   }
 </style>

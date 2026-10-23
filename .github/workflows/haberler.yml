@@ -109,6 +109,8 @@ jobs:
           node scripts/tcmb-altin-kazanci.mjs
           node scripts/tcmb-swap-orani.mjs || true
           node scripts/tcmb-net-pozisyon-degisimi.mjs || true
+          node scripts/veri/abd-tahvil.mjs || true
+          node scripts/veri/abd-tahvilleri-uret.mjs --yaz || true
 
       # Üretim adımı düşse de (zaman aşımı, motor hatası, beklenmeyen hata) o ana kadar yazılan haberler ve durum dosyası
       # commit edilir (F4); aksi hâlde aynı adaylar sonraki turda Gemini'yi yeniden harcıyordu. İş yine kırmızı biter.

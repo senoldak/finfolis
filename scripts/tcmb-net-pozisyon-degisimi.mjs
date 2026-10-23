@@ -13,8 +13,8 @@ if (!apiKey) {
     const conf = JSON.parse(readFileSync(configPath, 'utf8'));
     apiKey = conf.api_key;
   } catch (e) {
-    console.error('Hata: EVDS API anahtarı bulunamadı (~/.evds-mcp.json veya EVDS_API_KEY)');
-    process.exit(1);
+    console.warn('Uyarı: EVDS API anahtarı bulunamadı (~/.evds-mcp.json veya EVDS_API_KEY). Mevcut veriler korunuyor.');
+    process.exit(0);
   }
 }
 
@@ -336,6 +336,6 @@ async function main() {
 }
 
 main().catch(err => {
-  console.error('Hata oluştu:', err);
-  process.exit(1);
+  console.error('TCMB net pozisyon verisi güncellenirken hata oluştu:', err.message || err);
+  process.exit(process.env.CI ? 0 : 1);
 });
