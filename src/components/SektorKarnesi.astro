@@ -30,13 +30,6 @@ const enBuyukPiyasa = [...sektorler]
             Borsa İstanbul'daki sektör ve tematik endekslerin performansları, lokomotif şirketleri ve piyasa değerleri.
           </p>
         </div>
-
-        <div class="baslik-aksiyonlar">
-          <button type="button" class="aksiyon-btn" id="btn-kart-indir" title="Sosyal medya için karne görseli indir">
-            <span class="btn-ikon" aria-hidden="true">📷</span>
-            <span>Görsel Olarak İndir / Paylaş</span>
-          </button>
-        </div>
       </header>
     )
   }
@@ -63,7 +56,7 @@ const enBuyukPiyasa = [...sektorler]
     </div>
   </div>
 
-  <!-- Kontrol Çubuğu: Dönem Seçici ve Kategori Filtreleri -->
+  <!-- Kontrol Çubuğu: Dönem Seçici, Kategori Filtreleri ve Görsel İndir Butonu -->
   <div class="tablo-kontrolleri">
     <div class="kontrol-grubu">
       <span class="kontrol-etiket">Dönem:</span>
@@ -83,6 +76,13 @@ const enBuyukPiyasa = [...sektorler]
         <button type="button" class="filtre-btn" data-kategori="sektorler">Sektörler</button>
         <button type="button" class="filtre-btn" data-kategori="tema">Tematik & Pazar</button>
       </div>
+    </div>
+
+    <div class="kontrol-grubu aksiyon-grubu">
+      <button type="button" class="aksiyon-btn" id="btn-kart-indir" title="Sosyal medya için karne görseli indir">
+        <span class="btn-ikon" aria-hidden="true">📷</span>
+        <span>Görsel İndir (PNG)</span>
+      </button>
     </div>
   </div>
 
@@ -538,11 +538,6 @@ const enBuyukPiyasa = [...sektorler]
   }
 
   .sektor-baslik-alani {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 16px;
     margin-bottom: 24px;
     border-bottom: 1px solid var(--hair, #cfccc2);
     padding-bottom: 16px;
@@ -571,13 +566,14 @@ const enBuyukPiyasa = [...sektorler]
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: var(--paper-2, #e9e7df);
+    background: var(--paper, #f4f3ee);
     border: 1px solid var(--ink, #1b1b1b);
     color: var(--ink, #1b1b1b);
-    padding: 8px 16px;
-    font-size: 0.85rem;
+    padding: 6px 12px;
+    font-size: 0.82rem;
     font-weight: 700;
     transition: all 0.15s ease;
+    white-space: nowrap;
   }
 
   .aksiyon-btn:hover {
@@ -645,13 +641,13 @@ const enBuyukPiyasa = [...sektorler]
     color: var(--red, #a3243b);
   }
 
-  /* Kontrol Çubuğu (Dönem ve Kategori) */
+  /* Kontrol Çubuğu (Dönem, Kategori ve İndir) */
   .tablo-kontrolleri {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 14px;
     background: var(--paper-2, #e9e7df);
     border: 1px solid var(--hair, #cfccc2);
     padding: 10px 14px;
@@ -702,6 +698,10 @@ const enBuyukPiyasa = [...sektorler]
     background: var(--ink, #1b1b1b);
     color: #fff;
     border-color: var(--ink, #1b1b1b);
+  }
+
+  .aksiyon-grubu {
+    margin-left: auto;
   }
 
   /* Tablo */
@@ -897,5 +897,17 @@ const enBuyukPiyasa = [...sektorler]
     font-size: 0.8rem;
     color: var(--muted, #5d5b55);
     line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .aksiyon-grubu {
+      margin-left: 0;
+      width: 100%;
+    }
+
+    .aksiyon-btn {
+      width: 100%;
+      justify-content: center;
+    }
   }
 </style>
