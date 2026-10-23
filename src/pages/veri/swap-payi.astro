@@ -79,7 +79,7 @@ const tabloVerisi = [...seri].slice(-24).reverse();
       <div>
         <dt>2024 Zirvesi (Nisan 24)</dt>
         <dd>%{sayiYaz(nisan24.swap_payi_toplam_yuzde, 1)}</dd>
-        <dd class="veri-degisim" style="color: #c2502b;">Zirveden hızla geriledi</dd>
+        <dd class="veri-degisim zirve-uyari">Zirveden hızla geriledi</dd>
       </div>
     </dl>
 
@@ -140,7 +140,7 @@ const tabloVerisi = [...seri].slice(-24).reverse();
                 <td><strong>{satir.etiket}</strong></td>
                 <td class="sag">{sayiYaz(satir.toplam_rezerv_milyar_usd, 1)}</td>
                 <td class="sag">{sayiYaz(satir.swap_stoku_milyar_usd, 1)}</td>
-                <td class="sag" style={satir.swap_payi_toplam_yuzde > 40 ? 'color: #c2502b; font-weight: 700;' : 'font-weight: 600;'}>
+                <td class:list={['sag', 'oran-hucre', { 'oran-yuksek': satir.swap_payi_toplam_yuzde > 40 }]}>
                   %{sayiYaz(satir.swap_payi_toplam_yuzde, 1)}
                 </td>
               </tr>
@@ -153,3 +153,18 @@ const tabloVerisi = [...seri].slice(-24).reverse();
     <YasalUyari />
   </div>
 </Base>
+
+<style>
+  .zirve-uyari {
+    color: var(--toprak, #c2502b);
+  }
+
+  .oran-hucre {
+    font-weight: 600;
+  }
+
+  .oran-yuksek {
+    color: var(--toprak, #c2502b);
+    font-weight: 700;
+  }
+</style>

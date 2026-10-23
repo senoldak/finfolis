@@ -87,13 +87,13 @@ const sonAylar = [...veri.noktalar].slice(-24).reverse();
 
       <div>
         <dt>Son 4 Ay Net Alım (TIC)</dt>
-        <dd style="color: #2563eb; font-weight: 700;">+{sayiYaz(abdTahvilAkimData.son4AyTicNetAlimMilyarUsd, 2)} milyar $</dd>
+        <dd class="vurgulu-sayi vurgulu-alim">+{sayiYaz(abdTahvilAkimData.son4AyTicNetAlimMilyarUsd, 2)} milyar $</dd>
         <dd class="veri-not">Nisan–Ağustos dönemi toplamı</dd>
       </div>
 
       <div>
         <dt>TCMB Menkul Portföy Artışı</dt>
-        <dd style="color: #2563eb; font-weight: 700;">+{sayiYaz(abdTahvilAkimData.son4AyTcmbMenkulFarkMilyarUsd || 0, 2)} milyar $</dd>
+        <dd class="vurgulu-sayi vurgulu-alim">+{sayiYaz(abdTahvilAkimData.son4AyTcmbMenkulFarkMilyarUsd || 0, 2)} milyar $</dd>
         <dd class="veri-not">TCMB Dış Varlıklar (%99,6 uyum)</dd>
       </div>
 
@@ -133,7 +133,7 @@ const sonAylar = [...veri.noktalar].slice(-24).reverse();
       <h2 class="bolum-baslik">Verinin Anlamı ve Rezerv Dinamikleri</h2>
 
       <div class="metin-kartlari">
-        <div class="metin-kart" style="border-left: 3px solid #c2502b;">
+        <div class="metin-kart vurgu-kart">
           <h3>Kurumsal Dağılım ve TCMB İzi: $4 Milyarlık Alım Nasıl Hesaplanıyor?</h3>
           <p>
             ABD Hazine Bakanlığı (TIC) verisinde kurumsal dağılım (TCMB, yerel bankalar, fonlar vb.) gizlilik nedeniyle açıklanmaz. Ancak ekonomistler bunu TCMB bilançosuyla çaprazlayarak doğrular:
@@ -320,5 +320,14 @@ const sonAylar = [...veri.noktalar].slice(-24).reverse();
 
   .uzun-renk {
     color: #1d4ed8;
+  }
+
+  .vurgulu-alim {
+    color: #2563eb;
+    font-weight: 700;
+  }
+
+  .vurgu-kart {
+    border-left: 3px solid #c2502b;
   }
 </style>
