@@ -62,7 +62,7 @@ function svgUret(veriler) {
   for (let yVal = 0; yVal <= 80; yVal += 10) {
     const py = yToPx(yVal);
     gridLines += `<line x1="${padL}" y1="${py}" x2="${W - padR}" y2="${py}" stroke="#e5e5e5" stroke-width="1" />
-<text x="${padL - 12}" y="${py + 4}" fill="#666666" font-size="12" font-family="system-ui, -apple-system, sans-serif" text-anchor="end">${yVal}%</text>`;
+<text x="${padL - 12}" y="${py + 4}" fill="#666666" font-size="12" font-family="'Bricolage Grotesque', system-ui, sans-serif" text-anchor="end">${yVal}%</text>`;
   }
 
   // Çizgi Noktaları
@@ -74,7 +74,7 @@ function svgUret(veriler) {
   veriler.forEach((d, i) => {
     if (i % adim === 0 || i === veriler.length - 1) {
       const px = xToPx(i);
-      xLabels += `<text x="${px}" y="${H - padB + 24}" fill="#666666" font-size="12" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle" transform="rotate(-25 ${px} ${H - padB + 24})">${formatTarihTr(d.tarih)}</text>`;
+      xLabels += `<text x="${px}" y="${H - padB + 24}" fill="#666666" font-size="12" font-family="'Bricolage Grotesque', system-ui, sans-serif" text-anchor="middle" transform="rotate(-25 ${px} ${H - padB + 24})">${formatTarihTr(d.tarih)}</text>`;
     }
   });
 
@@ -89,7 +89,7 @@ function svgUret(veriler) {
     const py = yToPx(pt.swap_payi_toplam_yuzde);
     annotations += `
       <circle cx="${px}" cy="${py}" r="5" fill="#c2502b" stroke="#ffffff" stroke-width="2" />
-      <text x="${px + 8}" y="${py - 10}" fill="#c2502b" font-weight="700" font-size="14" font-family="system-ui, -apple-system, sans-serif">${pt.swap_payi_toplam_yuzde}%</text>
+      <text x="${px + 8}" y="${py - 10}" fill="#c2502b" font-weight="700" font-size="14" font-family="'Bricolage Grotesque', system-ui, sans-serif">${pt.swap_payi_toplam_yuzde}%</text>
     `;
   }
 
@@ -98,20 +98,20 @@ function svgUret(veriler) {
     const px = xToPx(sonIdx);
     const py = yToPx(pt.swap_payi_toplam_yuzde);
     annotations += `
-      <circle cx="${px}" cy="${py}" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
-      <text x="${px - 10}" y="${py - 10}" fill="#1e40af" font-weight="700" font-size="14" font-family="system-ui, -apple-system, sans-serif" text-anchor="end">${pt.swap_payi_toplam_yuzde}%</text>
+      <circle cx="${px}" cy="${py}" r="5" fill="#1b1b1b" stroke="#ffffff" stroke-width="2" />
+      <text x="${px - 10}" y="${py - 10}" fill="#1b1b1b" font-weight="700" font-size="14" font-family="'Bricolage Grotesque', system-ui, sans-serif" text-anchor="end">${pt.swap_payi_toplam_yuzde}%</text>
     `;
   }
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%" height="100%">
-  <rect width="${W}" height="${H}" fill="#ffffff" />
+  <rect width="${W}" height="${H}" fill="#f4f3ee" />
   
   <!-- Başlık -->
-  <text x="${W / 2}" y="34" fill="#18181b" font-size="20" font-weight="700" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">
+  <text x="${W / 2}" y="34" fill="#18181b" font-size="20" font-weight="700" font-family="'Bricolage Grotesque', system-ui, sans-serif" text-anchor="middle">
     TCMB Resmi Rezervlerinin Ne Kadarı Swap Kaynaklı? (%)
   </text>
-  <text x="${W / 2}" y="54" fill="#71717a" font-size="12" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">
+  <text x="${W / 2}" y="54" fill="#71717a" font-size="12" font-family="'Bricolage Grotesque', system-ui, sans-serif" text-anchor="middle">
     Kaynak: TCMB Uluslararası Rezervler ve Döviz Likiditesi (IMF SDDS Şablonu) &amp; EVDS · finfolis
   </text>
 
@@ -119,7 +119,7 @@ function svgUret(veriler) {
   ${gridLines}
 
   <!-- Çizgi -->
-  <polyline fill="none" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="${points}" />
+  <polyline fill="none" stroke="#c2502b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="${points}" />
 
   <!-- Vurgu Noktaları -->
   ${annotations}

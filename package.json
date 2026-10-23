@@ -15,7 +15,9 @@
     "test": "node --test \"scripts/**/*.test.mjs\" \"src/lib/**/*.test.mjs\"",
     "veri:swap": "node scripts/tcmb-swap-orani.mjs",
     "veri:net-pozisyon": "node scripts/tcmb-net-pozisyon-degisimi.mjs",
-    "veri:altin-pl": "node scripts/tcmb-altin-kazanci.mjs"
+    "veri:altin-pl": "node scripts/tcmb-altin-kazanci.mjs",
+    "veri:abd-tahvilleri": "node scripts/veri/abd-tahvilleri-uret.mjs --yaz",
+    "veri:abd-tahvil": "node scripts/veri/abd-tahvil.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "0.4.3",
