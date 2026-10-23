@@ -8,7 +8,7 @@ interface Props {
 
 const { baslikGoster = true } = Astro.props;
 
-// Özet istatistikler
+// Varsayılan sıralama: Aylık getiriye göre çoktan aza
 const siraliAylik = [...sektorler].sort((a, b) => b.aylik - a.aylik);
 const enYukselen = siraliAylik[0];
 const enDusen = siraliAylik[siraliAylik.length - 1];
@@ -21,14 +21,21 @@ const enBuyukPiyasa = [...sektorler]
   {
     baslikGoster && (
       <header class="sektor-baslik-alani">
-        <div>
+        <div class="baslik-metin">
           <span class="etiket">BIST GÖSTERGELERİ</span>
           <h2 id="sektor-baslik" class="bolum-baslik">
             Sektör Karnesi ve Piyasa Değerleri
           </h2>
           <p class="sektor-alt-metin">
-            Borsa İstanbul'daki sektör ve tematik endekslerin aylık performansları ile toplam piyasa değerleri.
+            Borsa İstanbul'daki sektör ve tematik endekslerin performansları, lokomotif şirketleri ve piyasa değerleri.
           </p>
+        </div>
+
+        <div class="baslik-aksiyonlar">
+          <button type="button" class="aksiyon-btn" id="btn-kart-indir" title="Sosyal medya için karne görseli indir">
+            <span class="btn-ikon" aria-hidden="true">📷</span>
+            <span>Görsel Olarak İndir / Paylaş</span>
+          </button>
         </div>
       </header>
     )
@@ -36,17 +43,17 @@ const enBuyukPiyasa = [...sektorler]
 
   <!-- 3'lü Hızlı Özet Kartları -->
   <div class="sektor-ozet-kutulari">
-    <div class="ozet-kart">
-      <span class="ozet-etiket">AYIN LİDERİ</span>
-      <strong class="ozet-deger kazanc">{enYukselen.kod}</strong>
-      <span class="ozet-ad">{enYukselen.ad}</span>
-      <span class="ozet-oran pozitif">▲ %{sayi(Math.abs(enYukselen.aylik), 1)}</span>
+    <div class="ozet-kart" id="kart-lider">
+      <span class="ozet-etiket" id="etiket-lider">DÖNEMİN LİDERİ</span>
+      <strong class="ozet-deger kazanc" id="deger-lider-kod">{enYukselen.kod}</strong>
+      <span class="ozet-ad" id="deger-lider-ad">{enYukselen.ad}</span>
+      <span class="ozet-oran pozitif" id="deger-lider-oran">▲ %{sayi(Math.abs(enYukselen.aylik), 1)}</span>
     </div>
-    <div class="ozet-kart">
-      <span class="ozet-etiket">EN ÇOK DÜŞEN</span>
-      <strong class="ozet-deger kayip">{enDusen.kod}</strong>
-      <span class="ozet-ad">{enDusen.ad}</span>
-      <span class="ozet-oran negatif">▼ %{sayi(Math.abs(enDusen.aylik), 1)}</span>
+    <div class="ozet-kart" id="kart-dusen">
+      <span class="ozet-etiket" id="etiket-dusen">EN ÇOK DÜŞEN</span>
+      <strong class="ozet-deger kayip" id="deger-dusen-kod">{enDusen.kod}</strong>
+      <span class="ozet-ad" id="deger-dusen-ad">{enDusen.ad}</span>
+      <span class="ozet-oran negatif" id="deger-dusen-oran">▼ %{sayi(Math.abs(enDusen.aylik), 1)}</span>
     </div>
     <div class="ozet-kart">
       <span class="ozet-etiket">EN BÜYÜK SEKTÖR</span>
@@ -56,14 +63,30 @@ const enBuyukPiyasa = [...sektorler]
     </div>
   </div>
 
-  <!-- Filtre Düğmeleri -->
-  <div class="filtre-seridi" role="toolbar" aria-label="Sektör kategorisi filtresi">
-    <button type="button" class="filtre-btn aktif" data-kategori="hepsi">Tümü ({sektorler.length})</button>
-    <button type="button" class="filtre-btn" data-kategori="ana-endeks">Ana Endeksler</button>
-    <button type="button" class="filtre-btn" data-kategori="sektorler">Sektörler</button>
-    <button type="button" class="filtre-btn" data-kategori="tema">Tematik & Pazar</button>
+  <!-- Kontrol Çubuğu: Dönem Seçici ve Kategori Filtreleri -->
+  <div class="tablo-kontrolleri">
+    <div class="kontrol-grubu">
+      <span class="kontrol-etiket">Dönem:</span>
+      <div class="buton-grubu" role="radiogroup" aria-label="Performans dönemi">
+        <button type="button" class="donem-btn" data-donem="gunluk">Günlük</button>
+        <button type="button" class="donem-btn" data-donem="haftalik">Haftalık</button>
+        <button type="button" class="donem-btn aktif" data-donem="aylik" aria-checked="true">Aylık</button>
+        <button type="button" class="donem-btn" data-donem="ytd">Yılbaşı (YTD)</button>
+      </div>
+    </div>
+
+    <div class="kontrol-grubu">
+      <span class="kontrol-etiket">Kategori:</span>
+      <div class="buton-grubu" role="toolbar" aria-label="Sektör kategorisi">
+        <button type="button" class="filtre-btn aktif" data-kategori="hepsi">Tümü ({sektorler.length})</button>
+        <button type="button" class="filtre-btn" data-kategori="ana-endeks">Ana Endeksler</button>
+        <button type="button" class="filtre-btn" data-kategori="sektorler">Sektörler</button>
+        <button type="button" class="filtre-btn" data-kategori="tema">Tematik & Pazar</button>
+      </div>
+    </div>
   </div>
 
+  <!-- Tablo -->
   <div class="cizelge-kaydir">
     <table class="cizelge sektor-tablosu" data-sektor-tablo>
       <caption class="sr-only">BIST Sektör ve Tematik Endeks Getirileri ile Piyasa Değerleri</caption>
@@ -82,10 +105,13 @@ const enBuyukPiyasa = [...sektorler]
             <button type="button" class="sirala" data-anahtar="gunluk">Günlük %</button>
           </th>
           <th scope="col" class="sayisal" aria-sort="descending">
-            <button type="button" class="sirala" data-anahtar="aylik">Aylık %</button>
+            <button type="button" class="sirala" data-anahtar="getiri" id="th-getiri-baslik">Aylık %</button>
           </th>
           <th scope="col" class="sayisal" aria-sort="none">
             <button type="button" class="sirala" data-anahtar="piyasa">Piyasa Değeri</button>
+          </th>
+          <th scope="col" class="aksiyon-kolonu">
+            <span class="sr-only">Detay</span>
           </th>
         </tr>
       </thead>
@@ -94,36 +120,77 @@ const enBuyukPiyasa = [...sektorler]
           siraliAylik.map((s) => {
             const pozitif = s.aylik >= 0;
             return (
-              <tr
-                data-kod={s.kod}
-                data-ad={s.ad}
-                data-kategori={s.kategori}
-                data-deger={s.deger}
-                data-gunluk={s.gunluk}
-                data-aylik={s.aylik}
-                data-piyasa={s.piyasaDegeri ?? 0}
-              >
-                <th scope="row" class="kod-hucre">
-                  <span class="endeks-kodu">{s.kod}</span>
-                </th>
-                <td>
-                  <span class="endeks-aciklama">{s.ad}</span>
-                </td>
-                <td class="sayisal deger-hucre">
-                  {s.deger > 0 ? sayi(s.deger, 2) : '—'}
-                </td>
-                <td class="sayisal">
-                  <Change value={s.gunluk} />
-                </td>
-                <td class={`sayisal aylik-hucre ${pozitif ? 'artis' : 'azalis'}`}>
-                  <span class="aylik-oran">
-                    {pozitif ? '▲' : '▼'} %{sayi(Math.abs(s.aylik), 1)}
-                  </span>
-                </td>
-                <td class="sayisal piyasa-hucre" title={piyasaDegeriTam(s.piyasaDegeri)}>
-                  <span class="piyasa-kisa">{piyasaDegeriMetni(s.piyasaDegeri)}</span>
-                </td>
-              </tr>
+              <>
+                <tr
+                  class="ana-satir"
+                  data-kod={s.kod}
+                  data-ad={s.ad}
+                  data-kategori={s.kategori}
+                  data-deger={s.deger}
+                  data-gunluk={s.gunluk}
+                  data-haftalik={s.haftalik ?? 0}
+                  data-aylik={s.aylik}
+                  data-ytd={s.ytd ?? 0}
+                  data-getiri={s.aylik}
+                  data-piyasa={s.piyasaDegeri ?? 0}
+                  tabindex="0"
+                  role="button"
+                  aria-expanded="false"
+                  aria-controls={`detay-${s.kod}`}
+                >
+                  <th scope="row" class="kod-hucre">
+                    <span class="endeks-kodu">{s.kod}</span>
+                  </th>
+                  <td>
+                    <span class="endeks-aciklama">{s.ad}</span>
+                  </td>
+                  <td class="sayisal deger-hucre">
+                    {s.deger > 0 ? sayi(s.deger, 2) : '—'}
+                  </td>
+                  <td class="sayisal">
+                    <Change value={s.gunluk} />
+                  </td>
+                  <td class={`sayisal getiri-hucre ${pozitif ? 'artis' : 'azalis'}`}>
+                    <span class="getiri-oran">
+                      {pozitif ? '▲' : '▼'} %{sayi(Math.abs(s.aylik), 1)}
+                    </span>
+                  </td>
+                  <td class="sayisal piyasa-hucre" title={piyasaDegeriTam(s.piyasaDegeri)}>
+                    <span class="piyasa-kisa">{piyasaDegeriMetni(s.piyasaDegeri)}</span>
+                  </td>
+                  <td class="aksiyon-hucre">
+                    <span class="detay-tetikleyici" aria-hidden="true">Detay ▾</span>
+                  </td>
+                </tr>
+                <tr id={`detay-${s.kod}`} class="detay-satiri gizli" aria-hidden="true">
+                  <td colspan="7">
+                    <div class="detay-kutusu">
+                      <div class="detay-bolum">
+                        <span class="detay-baslik">Endeks Kapsamı ve Tanımı</span>
+                        <p class="detay-metin">{s.tanim ?? s.aciklama}</p>
+                      </div>
+
+                      {s.hisseler && s.hisseler.length > 0 && (
+                        <div class="detay-bolum">
+                          <span class="detay-baslik">Öne Çıkan Lokomotif Hisseler</span>
+                          <div class="hisse-rozetleri">
+                            {s.hisseler.map((hisse) => (
+                              <span class="hisse-etiket">{hisse}</span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {s.dinamik && (
+                        <div class="detay-bolum">
+                          <span class="detay-baslik">Piyasa Dinamiği ve Hassasiyet</span>
+                          <p class="detay-metin dinamik-metin">{s.dinamik}</p>
+                        </div>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              </>
             );
           })
         }
@@ -134,19 +201,133 @@ const enBuyukPiyasa = [...sektorler]
   <footer class="sektor-dipnot">
     <p class="veri-notu">
       Kaynak: {SEKTOR_VERISI.kaynak.ad} · Son güncelleme: {new Date(SEKTOR_VERISI.guncelleme).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}.
-      Piyasa değerleri endeks kapsamındaki şirketlerin sermaye ve son seans fiyatlarına dayalı toplam büyüklüktür.
+      Piyasa değerleri endeks kapsamındaki payların toplam piyasa büyüklüğüdür. Detayları görmek için herhangi bir satıra tıklayabilirsiniz.
     </p>
   </footer>
+
+  <!-- Gizli Canvas (Görsel İndirme için) -->
+  <canvas id="sosyal-kart-canvas" width="1200" height="675" style="display: none;"></canvas>
 </section>
 
 <script>
-  // Tablo sıralama ve kategori filtreleme
+  // Sektör Karnesi Etkileşim Motoru
   const tablo = document.querySelector<HTMLTableElement>('table[data-sektor-tablo]');
   if (tablo) {
     const govde = tablo.tBodies[0];
     const basliklar = tablo.querySelectorAll<HTMLTableCellElement>('thead th');
+    let aktifDonem = 'aylik';
 
-    // Sıralama dinleyicileri
+    // 1. DÖNEM SEÇİCİ (Günlük, Haftalık, Aylık, YTD)
+    const donemButonlari = document.querySelectorAll<HTMLButtonElement>('.donem-btn');
+    const getiriBaslik = document.getElementById('th-getiri-baslik');
+
+    function donemiUygula(yeniDonem: string) {
+      aktifDonem = yeniDonem;
+      const etiketler: Record<string, string> = {
+        gunluk: 'Günlük %',
+        haftalik: 'Haftalık %',
+        aylik: 'Aylık %',
+        ytd: 'Yılbaşı (YTD) %',
+      };
+
+      if (getiriBaslik) {
+        getiriBaslik.textContent = etiketler[yeniDonem] || 'Getiri %';
+      }
+
+      // Her satırdaki getiri hücresini ve data-getiri değerini güncelle
+      const anaSatirlar = Array.from(govde.querySelectorAll<HTMLTableRowElement>('tr.ana-satir'));
+      anaSatirlar.forEach((satir) => {
+        const valStr = satir.dataset[yeniDonem] ?? '0';
+        const val = Number(valStr);
+        satir.dataset.getiri = valStr;
+
+        const hucre = satir.querySelector('.getiri-hucre');
+        if (hucre) {
+          hucre.className = `sayisal getiri-hucre ${val >= 0 ? 'artis' : 'azalis'}`;
+          const span = hucre.querySelector('.getiri-oran');
+          if (span) {
+            const isaret = val >= 0 ? '▲' : '▼';
+            const absTr = Math.abs(val).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+            span.textContent = `${isaret} %${absTr}`;
+          }
+        }
+      });
+
+      // 3'lü Hızlı Özet Kartlarını Güncelle
+      const sirali = [...anaSatirlar].sort((a, b) => Number(b.dataset.getiri) - Number(a.dataset.getiri));
+      const lider = sirali[0];
+      const dusen = sirali[sirali.length - 1];
+
+      if (lider && dusen) {
+        const liderVal = Number(lider.dataset.getiri);
+        const dusenVal = Number(dusen.dataset.getiri);
+
+        const dLiderKod = document.getElementById('deger-lider-kod');
+        const dLiderAd = document.getElementById('deger-lider-ad');
+        const dLiderOran = document.getElementById('deger-lider-oran');
+        if (dLiderKod) dLiderKod.textContent = lider.dataset.kod || '';
+        if (dLiderAd) dLiderAd.textContent = lider.dataset.ad || '';
+        if (dLiderOran) {
+          const lTr = Math.abs(liderVal).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+          dLiderOran.textContent = `${liderVal >= 0 ? '▲' : '▼'} %${lTr}`;
+          dLiderOran.className = `ozet-oran ${liderVal >= 0 ? 'pozitif' : 'negatif'}`;
+        }
+
+        const dDusenKod = document.getElementById('deger-dusen-kod');
+        const dDusenAd = document.getElementById('deger-dusen-ad');
+        const dDusenOran = document.getElementById('deger-dusen-oran');
+        if (dDusenKod) dDusenKod.textContent = dusen.dataset.kod || '';
+        if (dDusenAd) dDusenAd.textContent = dusen.dataset.ad || '';
+        if (dDusenOran) {
+          const dTr = Math.abs(dusenVal).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+          dDusenOran.textContent = `${dusenVal >= 0 ? '▲' : '▼'} %${dTr}`;
+          dDusenOran.className = `ozet-oran ${dusenVal >= 0 ? 'pozitif' : 'negatif'}`;
+        }
+      }
+
+      // Seçili sütun getiri ise yeniden sırala
+      const thGetiri = getiriBaslik?.closest('th');
+      if (thGetiri?.getAttribute('aria-sort') !== 'none') {
+        sirala('getiri', thGetiri?.getAttribute('aria-sort') === 'ascending');
+      }
+    }
+
+    donemButonlari.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        donemButonlari.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+        const d = btn.dataset.donem;
+        if (d) donemiUygula(d);
+      });
+    });
+
+    // 2. TABLO SIRALAMA
+    function sirala(anahtar: string, artan: boolean) {
+      const satirlar = Array.from(govde.querySelectorAll<HTMLTableRowElement>('tr.ana-satir'));
+      const ciftler = satirlar.map((s) => ({
+        ana: s,
+        detay: document.getElementById(`detay-${s.dataset.kod}`),
+      }));
+
+      ciftler.sort((a, b) => {
+        const va = a.ana.dataset[anahtar] ?? '';
+        const vb = b.ana.dataset[anahtar] ?? '';
+        if (va === '' || vb === '') return va === '' ? (vb === '' ? 0 : 1) : -1;
+        if (anahtar === 'kod' || anahtar === 'ad') {
+          const cmp = va.localeCompare(vb, 'tr');
+          return artan ? cmp : -cmp;
+        }
+        const numA = Number(va);
+        const numB = Number(vb);
+        return artan ? numA - numB : numB - numA;
+      });
+
+      ciftler.forEach(({ ana, detay }) => {
+        govde.appendChild(ana);
+        if (detay) govde.appendChild(detay);
+      });
+    }
+
     basliklar.forEach((th) => {
       const dugme = th.querySelector<HTMLButtonElement>('button.sirala');
       dugme?.addEventListener('click', () => {
@@ -163,28 +344,11 @@ const enBuyukPiyasa = [...sektorler]
 
         basliklar.forEach((b) => b.setAttribute('aria-sort', 'none'));
         th.setAttribute('aria-sort', yeni);
-
-        const satirlar = Array.from(govde.rows);
-        const al = (tr: HTMLTableRowElement) => tr.dataset[anahtar] ?? '';
-
-        satirlar.sort((a, b) => {
-          const va = al(a);
-          const vb = al(b);
-          if (va === '' || vb === '') return va === '' ? (vb === '' ? 0 : 1) : -1;
-          if (anahtar === 'kod' || anahtar === 'ad') {
-            const cmp = va.localeCompare(vb, 'tr');
-            return yeni === 'ascending' ? cmp : -cmp;
-          }
-          const numA = Number(va);
-          const numB = Number(vb);
-          return yeni === 'ascending' ? numA - numB : numB - numA;
-        });
-
-        govde.append(...satirlar);
+        sirala(anahtar, yeni === 'ascending');
       });
     });
 
-    // Kategori filtreleme
+    // 3. KATEGORİ FİLTRELEME
     const filtreButonlari = document.querySelectorAll<HTMLButtonElement>('.filtre-btn');
     filtreButonlari.forEach((btn) => {
       btn.addEventListener('click', () => {
@@ -192,22 +356,179 @@ const enBuyukPiyasa = [...sektorler]
         btn.classList.add('aktif');
 
         const kat = btn.dataset.kategori;
-        const satirlar = Array.from(govde.rows);
+        const anaSatirlar = Array.from(govde.querySelectorAll<HTMLTableRowElement>('tr.ana-satir'));
 
-        satirlar.forEach((satir) => {
+        anaSatirlar.forEach((satir) => {
           const skat = satir.dataset.kategori || '';
-          if (kat === 'hepsi') {
-            satir.style.display = '';
-          } else if (kat === 'ana-endeks') {
-            satir.style.display = skat === 'ana-endeks' || skat === 'ana-sektor' ? '' : 'none';
-          } else if (kat === 'sektorler') {
-            satir.style.display = ['mali', 'sinai', 'hizmet', 'teknoloji'].includes(skat) ? '' : 'none';
-          } else if (kat === 'tema') {
-            satir.style.display = ['tema', 'pazar', 'endeks'].includes(skat) ? '' : 'none';
-          }
+          const detay = document.getElementById(`detay-${satir.dataset.kod}`);
+          let goster = false;
+
+          if (kat === 'hepsi') goster = true;
+          else if (kat === 'ana-endeks') goster = skat === 'ana-endeks' || skat === 'ana-sektor';
+          else if (kat === 'sektorler') goster = ['mali', 'sinai', 'hizmet', 'teknoloji'].includes(skat);
+          else if (kat === 'tema') goster = ['tema', 'pazar', 'endeks'].includes(skat);
+
+          satir.style.display = goster ? '' : 'none';
+          if (!goster && detay) detay.style.display = 'none';
         });
       });
     });
+
+    // 4. SATIR DETAYI (AKORDEON)
+    govde.addEventListener('click', (e) => {
+      const anaSatir = (e.target as HTMLElement).closest<HTMLTableRowElement>('tr.ana-satir');
+      if (!anaSatir) return;
+
+      const kod = anaSatir.dataset.kod;
+      const detay = document.getElementById(`detay-${kod}`);
+      if (!detay) return;
+
+      const acik = !detay.classList.contains('gizli');
+      if (acik) {
+        detay.classList.add('gizli');
+        detay.setAttribute('aria-hidden', 'true');
+        anaSatir.setAttribute('aria-expanded', 'false');
+        anaSatir.classList.remove('secili-satir');
+      } else {
+        detay.classList.remove('gizli');
+        detay.setAttribute('aria-hidden', 'false');
+        anaSatir.setAttribute('aria-expanded', 'true');
+        anaSatir.classList.add('secili-satir');
+      }
+    });
+
+    // Klavyeyle açma (Enter / Space)
+    govde.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const anaSatir = (e.target as HTMLElement).closest<HTMLTableRowElement>('tr.ana-satir');
+        if (anaSatir) {
+          e.preventDefault();
+          anaSatir.click();
+        }
+      }
+    });
+
+    // 5. GÖRSEL OLARAK PAYLAŞ / PNG İNDİR (Canvas Çizici)
+    const btnKartIndir = document.getElementById('btn-kart-indir');
+    const canvas = document.getElementById('sosyal-kart-canvas') as HTMLCanvasElement;
+
+    if (btnKartIndir && canvas) {
+      btnKartIndir.addEventListener('click', () => {
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        const W = 1200;
+        const H = 675;
+        canvas.width = W;
+        canvas.height = H;
+
+        // Kâğıt zemin
+        ctx.fillStyle = '#f4f3ee';
+        ctx.fillRect(0, 0, W, H);
+
+        // İnce kenar çizgisi
+        ctx.strokeStyle = '#cfccc2';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(20, 20, W - 40, H - 40);
+
+        // Üst kırmızı/toprak marka bandı
+        ctx.fillStyle = '#c2502b';
+        ctx.fillRect(20, 20, W - 40, 10);
+
+        // Başlık alanı
+        ctx.fillStyle = '#a8431f';
+        ctx.font = 'bold 20px "Bricolage Grotesque", system-ui, sans-serif';
+        ctx.fillText('FİNFOLİS · BİST GÖSTERGELERİ', 60, 75);
+
+        ctx.fillStyle = '#1b1b1b';
+        ctx.font = 'bold 38px "Bricolage Grotesque", system-ui, sans-serif';
+        const donemMetni = aktifDonem === 'gunluk' ? 'Günlük' : aktifDonem === 'haftalik' ? 'Haftalık' : aktifDonem === 'ytd' ? 'Yılbaşı (YTD)' : 'Aylık';
+        ctx.fillText(`BIST Sektör Performans Karnesi (${donemMetni})`, 60, 125);
+
+        // Tarih damgası
+        ctx.fillStyle = '#5d5b55';
+        ctx.font = '18px "Bricolage Grotesque", system-ui, sans-serif';
+        const bugunStr = new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+        ctx.fillText(`Kapanış Verileri · ${bugunStr}`, 60, 160);
+
+        // Verileri topla (ilk 5 ve son 5)
+        const satirlar = Array.from(govde.querySelectorAll<HTMLTableRowElement>('tr.ana-satir'));
+        const sirali = satirlar
+          .map((s) => ({
+            kod: s.dataset.kod || '',
+            ad: s.dataset.ad || '',
+            getiri: Number(s.dataset.getiri || 0),
+          }))
+          .sort((a, b) => b.getiri - a.getiri);
+
+        const kazananlar = sirali.slice(0, 5);
+        const kaybedenler = sirali.slice(-5).reverse();
+
+        // Sol Kolon: En Çok Kazandıranlar
+        ctx.fillStyle = '#e9e7df';
+        ctx.fillRect(60, 195, 510, 380);
+        ctx.strokeStyle = '#cfccc2';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(60, 195, 510, 380);
+
+        ctx.fillStyle = '#3f7350';
+        ctx.font = 'bold 22px "Bricolage Grotesque", system-ui, sans-serif';
+        ctx.fillText('▲ EN ÇOK YÜKSELEN SEKTÖRLER', 85, 235);
+
+        kazananlar.forEach((s, idx) => {
+          const y = 280 + idx * 56;
+          ctx.fillStyle = '#1b1b1b';
+          ctx.font = 'bold 20px monospace';
+          ctx.fillText(s.kod.padEnd(6), 85, y);
+
+          ctx.font = '18px "Bricolage Grotesque", system-ui, sans-serif';
+          ctx.fillText(s.ad.slice(0, 22), 170, y);
+
+          ctx.fillStyle = '#3f7350';
+          ctx.font = 'bold 20px "Bricolage Grotesque", monospace';
+          const yuzde = `+ %${Math.abs(s.getiri).toFixed(1)}`;
+          ctx.fillText(yuzde, 470, y);
+        });
+
+        // Sağ Kolon: En Çok Gerileyenler
+        ctx.fillStyle = '#e9e7df';
+        ctx.fillRect(630, 195, 510, 380);
+        ctx.strokeStyle = '#cfccc2';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(630, 195, 510, 380);
+
+        ctx.fillStyle = '#a3243b';
+        ctx.font = 'bold 22px "Bricolage Grotesque", system-ui, sans-serif';
+        ctx.fillText('▼ EN ÇOK GERİLEYEN SEKTÖRLER', 655, 235);
+
+        kaybedenler.forEach((s, idx) => {
+          const y = 280 + idx * 56;
+          ctx.fillStyle = '#1b1b1b';
+          ctx.font = 'bold 20px monospace';
+          ctx.fillText(s.kod.padEnd(6), 655, y);
+
+          ctx.font = '18px "Bricolage Grotesque", system-ui, sans-serif';
+          ctx.fillText(s.ad.slice(0, 22), 740, y);
+
+          ctx.fillStyle = '#a3243b';
+          ctx.font = 'bold 20px "Bricolage Grotesque", monospace';
+          const yuzde = `- %${Math.abs(s.getiri).toFixed(1)}`;
+          ctx.fillText(yuzde, 1040, y);
+        });
+
+        // Alt Bilgi / İmza
+        ctx.fillStyle = '#5d5b55';
+        ctx.font = '16px "Bricolage Grotesque", system-ui, sans-serif';
+        ctx.fillText('finfolis · Karmaşadan uzakta · finfolis.com/veri/sektorler/', 60, 625);
+
+        // İndirmeyi başlat
+        const dataUrl = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.download = `finfolis-bist-sektor-karnesi-${new Date().toISOString().slice(0, 10)}.png`;
+        link.href = dataUrl;
+        link.click();
+      });
+    }
   }
 </script>
 
@@ -217,8 +538,13 @@ const enBuyukPiyasa = [...sektorler]
   }
 
   .sektor-baslik-alani {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
     margin-bottom: 24px;
-    border-bottom: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair, #cfccc2);
     padding-bottom: 16px;
   }
 
@@ -238,12 +564,33 @@ const enBuyukPiyasa = [...sektorler]
     margin-top: 4px;
   }
 
+  /* Aksiyon Düğmesi (Görsel İndir) */
+  .aksiyon-btn {
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--ink, #1b1b1b);
+    color: var(--ink, #1b1b1b);
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: all 0.15s ease;
+  }
+
+  .aksiyon-btn:hover {
+    background: var(--ink, #1b1b1b);
+    color: #fff;
+  }
+
   /* 3'lü Hızlı Özet Kutuları */
   .sektor-ozet-kutulari {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 16px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
 
   .ozet-kart {
@@ -298,38 +645,66 @@ const enBuyukPiyasa = [...sektorler]
     color: var(--red, #a3243b);
   }
 
-  /* Filtre Seridi */
-  .filtre-seridi {
+  /* Kontrol Çubuğu (Dönem ve Kategori) */
+  .tablo-kontrolleri {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 16px;
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 10px 14px;
     margin-bottom: 16px;
   }
 
+  .kontrol-grubu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .kontrol-etiket {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted, #5d5b55);
+  }
+
+  .buton-grubu {
+    display: flex;
+    gap: 4px;
+  }
+
+  .donem-btn,
   .filtre-btn {
     all: unset;
     cursor: pointer;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    padding: 6px 12px;
+    padding: 5px 10px;
     background: var(--paper, #f4f3ee);
     border: 1px solid var(--hair, #cfccc2);
     color: var(--ink-2, #3d3c38);
     transition: all 0.15s ease;
   }
 
+  .donem-btn:hover,
   .filtre-btn:hover {
-    background: var(--paper-2, #e9e7df);
-    border-color: var(--ink-2, #3d3c38);
+    background: #fff;
+    border-color: var(--ink, #1b1b1b);
   }
 
+  .donem-btn.aktif,
   .filtre-btn.aktif {
     background: var(--ink, #1b1b1b);
     color: #fff;
     border-color: var(--ink, #1b1b1b);
   }
 
-  /* Tablo ve Hücreler */
+  /* Tablo */
   .cizelge-kaydir {
     overflow-x: auto;
     border-top: 2px solid var(--ink, #1b1b1b);
@@ -349,11 +724,24 @@ const enBuyukPiyasa = [...sektorler]
     vertical-align: middle;
   }
 
+  .ana-satir {
+    cursor: pointer;
+    transition: background-color 0.12s ease;
+  }
+
+  .ana-satir:hover {
+    background-color: var(--paper-2, #e9e7df);
+  }
+
+  .ana-satir.secili-satir {
+    background-color: var(--paper-2, #e9e7df);
+    border-bottom-color: transparent;
+  }
+
   .kod-hucre {
     font-weight: 700;
-    color: var(--ink, #1b1b1b);
     white-space: nowrap;
-    width: 100px;
+    width: 90px;
   }
 
   .endeks-kodu {
@@ -361,6 +749,7 @@ const enBuyukPiyasa = [...sektorler]
     font-size: 0.95rem;
     background: var(--paper-2, #e9e7df);
     padding: 2px 6px;
+    border: 1px solid var(--hair, #cfccc2);
   }
 
   .endeks-aciklama {
@@ -378,22 +767,101 @@ const enBuyukPiyasa = [...sektorler]
     white-space: nowrap;
   }
 
-  .aylik-hucre {
+  .getiri-hucre {
     font-weight: 700;
     font-size: 0.95rem;
   }
 
-  .aylik-hucre.artis {
+  .getiri-hucre.artis {
     color: var(--green, #3f7350);
   }
 
-  .aylik-hucre.azalis {
+  .getiri-hucre.azalis {
     color: var(--red, #a3243b);
   }
 
   .piyasa-hucre {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 600;
+    color: var(--ink, #1b1b1b);
+  }
+
+  .aksiyon-hucre {
+    width: 65px;
+    text-align: right;
+  }
+
+  .detay-tetikleyici {
+    font-size: 0.75rem;
+    color: var(--muted, #5d5b55);
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 3px 6px;
+    white-space: nowrap;
+  }
+
+  .ana-satir:hover .detay-tetikleyici {
+    color: var(--ink, #1b1b1b);
+    border-color: var(--ink, #1b1b1b);
+  }
+
+  /* Akordeon Detay Satırı */
+  .detay-satiri.gizli {
+    display: none;
+  }
+
+  .detay-satiri td {
+    background-color: var(--paper-2, #e9e7df);
+    padding: 16px 20px 20px;
+    border-bottom: 2px solid var(--ink, #1b1b1b);
+  }
+
+  .detay-kutusu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .detay-bolum {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .detay-baslik {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--toprak-text, #a8431f);
+  }
+
+  .detay-metin {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--ink, #1b1b1b);
+    margin: 0;
+  }
+
+  .dinamik-metin {
+    color: var(--ink-2, #3d3c38);
+    font-style: italic;
+  }
+
+  .hisse-rozetleri {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+  }
+
+  .hisse-etiket {
+    font-family: monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 2px 8px;
     color: var(--ink, #1b1b1b);
   }
 

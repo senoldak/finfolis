@@ -1,5 +1,5 @@
 ---
-// TCMB Net Döviz Pozisyonu & Günlük Değişimi İnteraktif Grafiği
+// TCMB Net Döviz Pozisyonu & Çok Periyotlu (Günlük, Haftalık, Aylık) İnteraktif Grafiği
 // finfolis tasarım dili: Kâğıt zemin (#f4f3ee), mürekkep (#1b1b1b), pişmiş toprak (#c2502b),
 // yükseliş (#3f7350), düşüş (#a3243b), 0px yuvarlak köşe, Bricolage Grotesque, sıfır harici kütüphane.
 
@@ -15,14 +15,43 @@ export interface NetPozisyonNokta {
   degisim_altin_arindirilmis_milyar_usd: number;
 }
 
-interface Props {
-  seri: NetPozisyonNokta[];
+export interface HaftalikOzetNokta {
+  haftaKey: string;
+  etiket: string;
+  tarih_son: string;
+  toplam_net_degisim_milyar_usd: number;
+  toplam_ham_degisim_milyar_usd: number;
+  is_gunu_sayisi: number;
+  alis_gunleri: number;
+  satis_gunleri: number;
+  kapanis_net_rezerv: number;
 }
 
-const { seri = [] } = Astro.props;
+export interface AylikOzetNokta {
+  yil: number;
+  ay: number;
+  ayKey: string;
+  etiket: string;
+  toplam_net_degisim_milyar_usd: number;
+  toplam_ham_degisim_milyar_usd: number;
+  toplam_altin_etkisi_milyar_usd: number;
+  is_gunu_sayisi: number;
+  alis_gunleri: number;
+  satis_gunleri: number;
+  kapanis_net_rezerv: number;
+  kapanis_usd_kuru: number;
+}
 
-// Varsayılan görünüm: Son 20 iş günü
-const varsayilanSeri = seri.slice(-20);
+interface Props {
+  seri: NetPozisyonNokta[];
+  haftalikOzet?: HaftalikOzetNokta[];
+  aylikOzet?: AylikOzetNokta[];
+}
+
+const { seri = [], haftalikOzet = [], aylikOzet = [] } = Astro.props;
+
+// Varsayılan görünüm: Son 22 iş günü (~1 ay)
+const varsayilanSeri = seri.slice(-22);
 
 // SVG Sabit Koordinatları
 const W = 880;
@@ -74,26 +103,35 @@ const sonDegisim = sonNokta.degisim_altin_arindirilmis_milyar_usd;
 const isSonPos = sonDegisim >= 0;
 ---
 
-<div class="interaktif-grafik-kapsayici" data-net-pozisyon-grafik data-seri={JSON.stringify(seri)}>
+<div
+  class="interaktif-grafik-kapsayici"
+  data-net-pozisyon-grafik
+  data-seri={JSON.stringify(seri)}
+  data-haftalik={JSON.stringify(haftalikOzet)}
+  data-aylik={JSON.stringify(aylikOzet)}
+>
   <!-- Üst Bar: Başlık, Mod ve Zaman Filtreleri -->
   <div class="grafik-kontrol-cubugu">
     <div class="grafik-baslik-alani">
-      <h3 class="grafik-ana-baslik">TCMB net pozisyonu günlük değişimi</h3>
-      <p class="grafik-alt-bilgi">Altın etkisi dışlanmış piyasa müdahalesi · Milyar $</p>
+      <h3 class="grafik-ana-baslik" id="np-grafik-baslik">TCMB net pozisyonu günlük değişimi</h3>
+      <p class="grafik-alt-bilgi" id="np-grafik-altbilgi">Altın etkisi dışlanmış tahmini döviz alım/satımı · Milyar $</p>
     </div>
 
     <div class="grafik-filtre-kumeleri">
-      <!-- Görünüm Seçici -->
+      <!-- Görünüm Modu Seçici -->
       <div class="dugme-kumesi" role="group" aria-label="Grafik görünüm modu">
-        <button type="button" class="filtre-btn aktif" data-mod="bar">Günlük Değişim</button>
-        <button type="button" class="filtre-btn" data-mod="cizgi">Net Rezerv Düzeyi</button>
+        <button type="button" class="filtre-btn aktif" data-mod="gun">Günlük</button>
+        <button type="button" class="filtre-btn" data-mod="hafta">Haftalık</button>
+        <button type="button" class="filtre-btn" data-mod="ay">Aylık</button>
+        <button type="button" class="filtre-btn" data-mod="cizgi">1Y Seviye</button>
       </div>
 
-      <!-- Zaman Aralığı -->
-      <div class="dugme-kumesi" role="group" aria-label="Zaman aralığı filtreleri">
-        <button type="button" class="filtre-btn" data-aralik="10">Son 10 Gün</button>
-        <button type="button" class="filtre-btn aktif" data-aralik="20">Son 20 Gün</button>
-        <button type="button" class="filtre-btn" data-aralik="tum">Tümü</button>
+      <!-- Günlük Zaman Aralığı -->
+      <div class="dugme-kumesi" id="np-aralik-kumesi" role="group" aria-label="Zaman aralığı filtreleri">
+        <button type="button" class="filtre-btn" data-aralik="15">15 Gün</button>
+        <button type="button" class="filtre-btn aktif" data-aralik="22">1 Ay</button>
+        <button type="button" class="filtre-btn" data-aralik="65">3 Ay</button>
+        <button type="button" class="filtre-btn" data-aralik="tum">1 Yıl ({seri.length}G)</button>
       </div>
     </div>
   </div>
@@ -101,33 +139,33 @@ const isSonPos = sonDegisim >= 0;
   <!-- Canlı Bilgi Kartı (Fare ve Dokunma ile anlık güncellenir) -->
   <div class="canli-gosterge-paneli" id="np-canli-panel">
     <div class="canli-kutu">
-      <span class="canli-etiket">İş Günü</span>
+      <span class="canli-etiket" id="np-etiket-donem">İş Günü</span>
       <strong class="canli-deger" id="np-canli-tarih">{sonNokta.tarih}</strong>
     </div>
 
     <div class="canli-kutu">
-      <span class="canli-etiket">Altın Dışlanmış Değişim</span>
+      <span class="canli-etiket">Altın Dışlanmış Net Değişim</span>
       <strong class={`canli-deger ${isSonPos ? 'pozitif' : 'negatif'}`} id="np-canli-degisim">
         {isSonPos && sonDegisim > 0 ? '+' : ''}{sonDegisim.toFixed(1).replace('.', ',')} Milyar $
       </strong>
     </div>
 
     <div class="canli-kutu">
-      <span class="canli-etiket">TCMB Piyasa Hareketi</span>
+      <span class="canli-etiket">TCMB Hareketi</span>
       <span class={`hareket-rozet ${isSonPos ? 'pozitif-rozet' : 'negatif-rozet'}`} id="np-canli-hareket">
         {isSonPos ? '▲ Piyasadan Döviz Topladı' : '▼ Piyasaya Döviz Sattı'}
       </span>
     </div>
 
     <div class="canli-kutu">
-      <span class="canli-etiket">Ham Değişim / Altın Etkisi</span>
+      <span class="canli-etiket" id="np-etiket-alt">Ham Değişim / Altın Etkisi</span>
       <strong class="canli-deger ikincil-sayi" id="np-canli-ayrinti">
         {sonNokta.ham_degisim_milyar_usd > 0 ? '+' : ''}{sonNokta.ham_degisim_milyar_usd.toFixed(2).replace('.', ',')} mlr $ / {sonNokta.altin_degerleme_etkisi_milyar_usd > 0 ? '+' : ''}{sonNokta.altin_degerleme_etkisi_milyar_usd.toFixed(2).replace('.', ',')} mlr $
       </strong>
     </div>
 
     <div class="canli-kutu">
-      <span class="canli-etiket">Net Rezerv / Gösterge Kur</span>
+      <span class="canli-etiket">Net Rezerv / USD Kuru</span>
       <strong class="canli-deger ikincil-sayi" id="np-canli-kur">
         {sonNokta.net_rezerv_milyar_usd.toFixed(1).replace('.', ',')} Mlr $ · {sonNokta.usd_kuru.toFixed(4).replace('.', ',')} TL
       </strong>
@@ -221,7 +259,7 @@ const isSonPos = sonDegisim >= 0;
       <g id="np-katman-tarihler">
         {varsayilanSeri.map((d, i) => {
           const cx = PAD_LEFT + i * slotW + slotW / 2;
-          const show = n <= 24 || i % 2 === 0 || i === n - 1;
+          const show = n <= 25 || i % 2 === 0 || i === n - 1;
           if (!show) return null;
           return (
             <text
@@ -277,7 +315,7 @@ const isSonPos = sonDegisim >= 0;
   <div class="grafik-dip-aciklama">
     <div class="grafik-lejant-maddeleri">
       <span class="lejant-oge">
-        <span class="renk-kutu pozitif-kutu"></span> Pozitif: TCMB Piyasadan Döviz Aldı (Rezerv Artışı)
+        <span class="renk-kutu pozitif-kutu"></span> Pozitif: TCMB Piyasadan Döviz Aldı (Rezerv Güçlendi)
       </span>
       <span class="lejant-oge">
         <span class="renk-kutu negatif-kutu"></span> Negatif: TCMB Piyasaya Döviz Sattı (Kur Müdahalesi)
@@ -307,13 +345,32 @@ const isSonPos = sonDegisim >= 0;
       degisim_altin_arindirilmis_milyar_usd: number;
     }
 
-    const tumSeri: NoktaVerisi[] = JSON.parse(kapsayici.dataset.seri || '[]');
-    if (tumSeri.length === 0) return;
+    interface OzetVerisi {
+      etiket: string;
+      toplam_net_degisim_milyar_usd: number;
+      toplam_ham_degisim_milyar_usd: number;
+      toplam_altin_etkisi_milyar_usd?: number;
+      is_gunu_sayisi: number;
+      alis_gunleri: number;
+      satis_gunleri: number;
+      kapanis_net_rezerv: number;
+      kapanis_usd_kuru?: number;
+    }
 
-    let aktifSeri: NoktaVerisi[] = tumSeri.slice(-20);
-    let aktifMod: 'bar' | 'cizgi' = 'bar';
+    const tumGunluk: NoktaVerisi[] = JSON.parse(kapsayici.dataset.seri || '[]');
+    const tumHaftalik: OzetVerisi[] = JSON.parse(kapsayici.dataset.haftalik || '[]');
+    const tumAylik: OzetVerisi[] = JSON.parse(kapsayici.dataset.aylik || '[]');
 
-    // SVG Elemanları
+    if (tumGunluk.length === 0) return;
+
+    let aktifMod: 'gun' | 'hafta' | 'ay' | 'cizgi' = 'gun';
+    let aktifGunlukAralik = 22; // Varsayılan 1 ay
+
+    // SVG ve HTML Elemanları
+    const baslikEl = document.getElementById('np-grafik-baslik');
+    const altbilgiEl = document.getElementById('np-grafik-altbilgi');
+    const aralikKumesi = document.getElementById('np-aralik-kumesi');
+
     const katmanIzgara = document.getElementById('np-katman-izgara');
     const katmanBarlar = document.getElementById('np-katman-barlar');
     const katmanCizgi = document.getElementById('np-katman-cizgi');
@@ -324,7 +381,9 @@ const isSonPos = sonDegisim >= 0;
     const odakNoktasi = document.getElementById('np-odak-noktasi') as SVGCircleElement | null;
     const etkilesim = document.getElementById('np-etkilesim-alani') as SVGRectElement | null;
 
-    // Canlı Kart Elemanları
+    // Canlı Panel Elemanları
+    const etiketDonem = document.getElementById('np-etiket-donem');
+    const etiketAlt = document.getElementById('np-etiket-alt');
     const canliTarih = document.getElementById('np-canli-tarih');
     const canliDegisim = document.getElementById('np-canli-degisim');
     const canliHareket = document.getElementById('np-canli-hareket');
@@ -341,16 +400,69 @@ const isSonPos = sonDegisim >= 0;
     const innerW = W - PAD_LEFT - PAD_RIGHT;
     const innerH = H - PAD_TOP - PAD_BOTTOM;
 
+    function getAktifVeriListesi(): { etiket: string; val: number; raw: any }[] {
+      if (aktifMod === 'gun') {
+        const slice = aktifGunlukAralik === 9999 ? tumGunluk : tumGunluk.slice(-aktifGunlukAralik);
+        return slice.map((d) => ({
+          etiket: d.etiket,
+          val: d.degisim_altin_arindirilmis_milyar_usd,
+          raw: d,
+        }));
+      } else if (aktifMod === 'hafta') {
+        const slice = tumHaftalik.slice(-20); // Son 20 hafta
+        return slice.map((d) => ({
+          etiket: d.etiket.replace(/\s*\(.*\)/, ''),
+          val: d.toplam_net_degisim_milyar_usd,
+          raw: d,
+        }));
+      } else if (aktifMod === 'ay') {
+        const slice = tumAylik.slice(-13); // Son 13 ay
+        return slice.map((d) => ({
+          etiket: d.etiket.slice(0, 3) + ' ' + d.etiket.slice(-2),
+          val: d.toplam_net_degisim_milyar_usd,
+          raw: d,
+        }));
+      } else {
+        // Çizgi Modu (1Y Seviye)
+        return tumGunluk.map((d) => ({
+          etiket: d.etiket,
+          val: d.net_rezerv_milyar_usd,
+          raw: d,
+        }));
+      }
+    }
+
     function renderGostergeler() {
-      const len = aktifSeri.length;
+      const liste = getAktifVeriListesi();
+      const len = liste.length;
       if (len === 0) return;
 
-      if (aktifMod === 'bar') {
+      // Başlık ve Filtre Görünürlüğü
+      if (baslikEl && altbilgiEl) {
+        if (aktifMod === 'gun') {
+          baslikEl.textContent = 'TCMB net pozisyonu günlük değişimi';
+          altbilgiEl.textContent = 'Altın etkisi dışlanmış tahmini döviz alım/satımı · Milyar $';
+          if (aralikKumesi) aralikKumesi.style.display = 'inline-flex';
+        } else if (aktifMod === 'hafta') {
+          baslikEl.textContent = 'TCMB net pozisyonu haftalık kümülatif akımı';
+          altbilgiEl.textContent = 'Hafta bazında altın arındırılmış net döviz girişi / çıkışı · Milyar $';
+          if (aralikKumesi) aralikKumesi.style.display = 'none';
+        } else if (aktifMod === 'ay') {
+          baslikEl.textContent = 'TCMB net pozisyonu aylık kümülatif dengesi';
+          altbilgiEl.textContent = 'Ay bazında altın etkisi dışlanmış net döviz rezerv değişimi · Milyar $';
+          if (aralikKumesi) aralikKumesi.style.display = 'none';
+        } else {
+          baslikEl.textContent = 'TCMB net döviz pozisyonu 1 yıllık seyri';
+          altbilgiEl.textContent = 'Swap ve Hazine mevduatları hariç çekirdek net rezerv düzeyi · Milyar $';
+          if (aralikKumesi) aralikKumesi.style.display = 'none';
+        }
+      }
+
+      if (aktifMod !== 'cizgi') {
         if (katmanBarlar) katmanBarlar.style.display = 'block';
         if (katmanCizgi) katmanCizgi.style.display = 'none';
 
-        // Bar Y Sınırları
-        const vals = aktifSeri.map((d) => d.degisim_altin_arindirilmis_milyar_usd);
+        const vals = liste.map((d) => d.val);
         const maxAbs = Math.max(5, ...vals.map((v) => Math.ceil(Math.abs(v))));
         const barMinY = -maxAbs;
         const barMaxY = maxAbs;
@@ -361,7 +473,7 @@ const isSonPos = sonDegisim >= 0;
 
         // Izgara
         if (katmanIzgara) {
-          const adim = maxAbs > 6 ? 2 : 1;
+          const adim = maxAbs > 15 ? 5 : maxAbs > 7 ? 2 : 1;
           let izgaraHtml = '';
           for (let v = barMinY; v <= barMaxY; v += adim) {
             const py = yPx(v);
@@ -379,11 +491,11 @@ const isSonPos = sonDegisim >= 0;
         // Barlar
         if (katmanBarlar) {
           const slotW = innerW / len;
-          const barW = Math.max(8, Math.min(26, slotW * 0.65));
+          const barW = Math.max(3, Math.min(28, slotW * 0.68));
           let barlarHtml = '';
 
-          aktifSeri.forEach((d, i) => {
-            const val = d.degisim_altin_arindirilmis_milyar_usd;
+          liste.forEach((item, i) => {
+            const val = item.val;
             const cx = PAD_LEFT + i * slotW + slotW / 2;
             const bx = cx - barW / 2;
             const isPos = val >= 0;
@@ -394,21 +506,24 @@ const isSonPos = sonDegisim >= 0;
             const labelY = isPos ? py - 7 : py + 14;
             const valText = (val > 0 ? `+${val.toFixed(1)}` : val.toFixed(1)).replace('.', ',');
 
+            // Yoğun barlarda (örn 65+ gün) değer metinleri gizlenebilir
+            const showText = len <= 35 || Math.abs(val) >= 2.5;
+
             barlarHtml += `
-              <g class="bar-eleman" data-index="${i}" tabindex="0" role="button" aria-label="${d.tarih}: ${valText} milyar $">
+              <g class="bar-eleman" data-index="${i}" tabindex="0" role="button" aria-label="${item.etiket}: ${valText} milyar $">
                 <rect class="bar-dikdortgen" x="${bx.toFixed(1)}" y="${barY.toFixed(1)}" width="${barW.toFixed(1)}" height="${barH.toFixed(1)}" fill="${fill}" />
-                <text x="${cx.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="middle" class="bar-metin ${isPos ? 'pozitif' : 'negatif'}" fill="${fill}">${valText}</text>
+                ${showText ? `<text x="${cx.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="middle" class="bar-metin ${isPos ? 'pozitif' : 'negatif'}" fill="${fill}">${valText}</text>` : ''}
               </g>
             `;
           });
           katmanBarlar.innerHTML = barlarHtml;
         }
       } else {
-        // Çizgi Modu (Kümülatif Net Rezerv Seyri)
+        // Çizgi Modu (1Y Seviye)
         if (katmanBarlar) katmanBarlar.style.display = 'none';
         if (katmanCizgi) katmanCizgi.style.display = 'block';
 
-        const rezVals = aktifSeri.map((d) => d.net_rezerv_milyar_usd);
+        const rezVals = liste.map((d) => d.val);
         const minVal = Math.floor((Math.min(...rezVals, 20) - 2) / 5) * 5;
         const maxVal = Math.ceil((Math.max(...rezVals, 65) + 2) / 5) * 5;
         const rangeRez = maxVal - minVal || 1;
@@ -416,7 +531,6 @@ const isSonPos = sonDegisim >= 0;
         const yRezPx = (v: number) => PAD_TOP + (1 - (v - minVal) / rangeRez) * innerH;
         const xRezPx = (i: number) => PAD_LEFT + (i / Math.max(len - 1, 1)) * innerW;
 
-        // Izgara
         if (katmanIzgara) {
           let izgaraHtml = '';
           for (let v = minVal; v <= maxVal; v += 10) {
@@ -431,9 +545,8 @@ const isSonPos = sonDegisim >= 0;
           katmanIzgara.innerHTML = izgaraHtml;
         }
 
-        // Çizgi ve Dolgu Alanı
-        const pathLine = aktifSeri
-          .map((d, i) => `${i === 0 ? 'M' : 'L'} ${xRezPx(i).toFixed(1)} ${yRezPx(d.net_rezerv_milyar_usd).toFixed(1)}`)
+        const pathLine = liste
+          .map((d, i) => `${i === 0 ? 'M' : 'L'} ${xRezPx(i).toFixed(1)} ${yRezPx(d.val).toFixed(1)}`)
           .join(' ');
 
         const zeroRezY = yRezPx(minVal).toFixed(1);
@@ -443,49 +556,101 @@ const isSonPos = sonDegisim >= 0;
         if (alanYolu) alanYolu.setAttribute('d', pathArea);
       }
 
-      // X Ekseni Tarihleri
+      // X Ekseni Etiketleri
       if (katmanTarihler) {
         let tarihlerHtml = '';
         const slotW = innerW / len;
-        aktifSeri.forEach((d, i) => {
-          const cx = aktifMod === 'bar' ? PAD_LEFT + i * slotW + slotW / 2 : PAD_LEFT + (i / Math.max(len - 1, 1)) * innerW;
-          const show = len <= 22 || i % Math.ceil(len / 12) === 0 || i === len - 1;
+        const adim = Math.max(1, Math.ceil(len / 12));
+
+        liste.forEach((item, i) => {
+          const cx = aktifMod !== 'cizgi' ? PAD_LEFT + i * slotW + slotW / 2 : PAD_LEFT + (i / Math.max(len - 1, 1)) * innerW;
+          const show = len <= 25 || i % adim === 0 || i === len - 1;
           if (show) {
             tarihlerHtml += `
-              <text x="${cx.toFixed(1)}" y="${H - PAD_BOTTOM + 22}" text-anchor="middle" class="tarih-etiket" transform="rotate(-40, ${cx.toFixed(1)}, ${H - PAD_BOTTOM + 22})">${d.etiket}</text>
+              <text x="${cx.toFixed(1)}" y="${H - PAD_BOTTOM + 22}" text-anchor="middle" class="tarih-etiket" transform="rotate(-40, ${cx.toFixed(1)}, ${H - PAD_BOTTOM + 22})">${item.etiket}</text>
             `;
           }
         });
         katmanTarihler.innerHTML = tarihlerHtml;
       }
 
-      // Son noktayı güncelle
-      kartGuncelle(aktifSeri.at(-1)!);
+      // Canlı Kartı Son Elemanla Güncelle
+      kartGuncelle(liste.at(-1)!);
     }
 
-    function kartGuncelle(d: NoktaVerisi) {
-      if (!d) return;
-      const degisim = d.degisim_altin_arindirilmis_milyar_usd;
-      const isPos = degisim >= 0;
+    function kartGuncelle(item: { etiket: string; val: number; raw: any }) {
+      if (!item) return;
 
-      if (canliTarih) canliTarih.textContent = d.tarih;
-      if (canliDegisim) {
-        canliDegisim.textContent = `${isPos && degisim > 0 ? '+' : ''}${degisim.toFixed(1).replace('.', ',')} Milyar $`;
-        canliDegisim.className = `canli-deger ${isPos ? 'pozitif' : 'negatif'}`;
-      }
-      if (canliHareket) {
-        canliHareket.textContent = isPos ? '▲ Piyasadan Döviz Topladı' : '▼ Piyasaya Döviz Sattı';
-        canliHareket.className = `hareket-rozet ${isPos ? 'pozitif-rozet' : 'negatif-rozet'}`;
-      }
-      if (canliAyrinti) {
-        const ham = `${d.ham_degisim_milyar_usd > 0 ? '+' : ''}${d.ham_degisim_milyar_usd.toFixed(2).replace('.', ',')} mlr $`;
-        const altin = `${d.altin_degerleme_etkisi_milyar_usd > 0 ? '+' : ''}${d.altin_degerleme_etkisi_milyar_usd.toFixed(2).replace('.', ',')} mlr $`;
-        canliAyrinti.textContent = `${ham} / ${altin}`;
-      }
-      if (canliKur) {
-        const rez = `${d.net_rezerv_milyar_usd.toFixed(1).replace('.', ',')} Mlr $`;
-        const kur = `${d.usd_kuru.toFixed(4).replace('.', ',')} TL`;
-        canliKur.textContent = `${rez} · ${kur}`;
+      if (aktifMod === 'gun') {
+        const d: NoktaVerisi = item.raw;
+        const degisim = d.degisim_altin_arindirilmis_milyar_usd;
+        const isPos = degisim >= 0;
+
+        if (etiketDonem) etiketDonem.textContent = 'İş Günü';
+        if (etiketAlt) etiketAlt.textContent = 'Ham Değişim / Altın Etkisi';
+        if (canliTarih) canliTarih.textContent = d.tarih;
+        if (canliDegisim) {
+          canliDegisim.textContent = `${isPos && degisim > 0 ? '+' : ''}${degisim.toFixed(1).replace('.', ',')} Milyar $`;
+          canliDegisim.className = `canli-deger ${isPos ? 'pozitif' : 'negatif'}`;
+        }
+        if (canliHareket) {
+          canliHareket.textContent = isPos ? '▲ Piyasadan Döviz Topladı' : '▼ Piyasaya Döviz Sattı';
+          canliHareket.className = `hareket-rozet ${isPos ? 'pozitif-rozet' : 'negatif-rozet'}`;
+        }
+        if (canliAyrinti) {
+          const ham = `${d.ham_degisim_milyar_usd > 0 ? '+' : ''}${d.ham_degisim_milyar_usd.toFixed(2).replace('.', ',')} mlr $`;
+          const altin = `${d.altin_degerleme_etkisi_milyar_usd > 0 ? '+' : ''}${d.altin_degerleme_etkisi_milyar_usd.toFixed(2).replace('.', ',')} mlr $`;
+          canliAyrinti.textContent = `${ham} / ${altin}`;
+        }
+        if (canliKur) {
+          const rez = `${d.net_rezerv_milyar_usd.toFixed(1).replace('.', ',')} Mlr $`;
+          const kur = `${d.usd_kuru.toFixed(4).replace('.', ',')} TL`;
+          canliKur.textContent = `${rez} · ${kur}`;
+        }
+      } else if (aktifMod === 'hafta' || aktifMod === 'ay') {
+        const o: OzetVerisi = item.raw;
+        const degisim = o.toplam_net_degisim_milyar_usd;
+        const isPos = degisim >= 0;
+
+        if (etiketDonem) etiketDonem.textContent = aktifMod === 'hafta' ? 'Hafta' : 'Ay';
+        if (etiketAlt) etiketAlt.textContent = 'Alım / Satış Dağılımı';
+        if (canliTarih) canliTarih.textContent = o.etiket;
+        if (canliDegisim) {
+          canliDegisim.textContent = `${isPos && degisim > 0 ? '+' : ''}${degisim.toFixed(1).replace('.', ',')} Milyar $`;
+          canliDegisim.className = `canli-deger ${isPos ? 'pozitif' : 'negatif'}`;
+        }
+        if (canliHareket) {
+          canliHareket.textContent = isPos ? '▲ Dönem Net Alışla Kapandı' : '▼ Dönem Net Satışla Kapandı';
+          canliHareket.className = `hareket-rozet ${isPos ? 'pozitif-rozet' : 'negatif-rozet'}`;
+        }
+        if (canliAyrinti) {
+          canliAyrinti.textContent = `${o.alis_gunleri} gün alım / ${o.satis_gunleri} gün satış (${o.is_gunu_sayisi} iş günü)`;
+        }
+        if (canliKur) {
+          const rez = `${o.kapanis_net_rezerv.toFixed(1).replace('.', ',')} Mlr $`;
+          const kur = o.kapanis_usd_kuru ? ` · ${o.kapanis_usd_kuru.toFixed(4).replace('.', ',')} TL` : '';
+          canliKur.textContent = `Dönem Sonu: ${rez}${kur}`;
+        }
+      } else {
+        // Çizgi Modu
+        const d: NoktaVerisi = item.raw;
+        if (etiketDonem) etiketDonem.textContent = 'Tarih';
+        if (etiketAlt) etiketAlt.textContent = 'Döviz Alım/Satım & Kur';
+        if (canliTarih) canliTarih.textContent = d.tarih;
+        if (canliDegisim) {
+          canliDegisim.textContent = `${d.net_rezerv_milyar_usd.toFixed(1).replace('.', ',')} Milyar $`;
+          canliDegisim.className = 'canli-deger';
+        }
+        if (canliHareket) {
+          canliHareket.textContent = '● Net Rezerv Seviyesi';
+          canliHareket.className = 'hareket-rozet';
+        }
+        if (canliAyrinti) {
+          canliAyrinti.textContent = `Günlük: ${d.degisim_altin_arindirilmis_milyar_usd > 0 ? '+' : ''}${d.degisim_altin_arindirilmis_milyar_usd.toFixed(1).replace('.', ',')} mlr $ · Kur: ${d.usd_kuru.toFixed(4).replace('.', ',')} TL`;
+        }
+        if (canliKur) {
+          canliKur.textContent = `Altın Ons: $${d.altin_ons_usd.toFixed(1)}`;
+        }
       }
     }
 
@@ -496,16 +661,18 @@ const isSonPos = sonDegisim >= 0;
       const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
       const relX = clientX - rect.left;
       const ratio = Math.max(0, Math.min(1, relX / rect.width));
-      const idx = Math.min(Math.floor(ratio * aktifSeri.length), aktifSeri.length - 1);
-      const d = aktifSeri[idx];
-      if (!d) return;
+      const liste = getAktifVeriListesi();
+      const len = liste.length;
+      if (len === 0) return;
 
-      kartGuncelle(d);
+      const idx = Math.min(Math.floor(ratio * len), len - 1);
+      const item = liste[idx];
+      if (!item) return;
 
-      // Rehber dikey çizgisini konumlandır
-      const len = aktifSeri.length;
+      kartGuncelle(item);
+
       const slotW = innerW / len;
-      const cx = aktifMod === 'bar' ? PAD_LEFT + idx * slotW + slotW / 2 : PAD_LEFT + (idx / Math.max(len - 1, 1)) * innerW;
+      const cx = aktifMod !== 'cizgi' ? PAD_LEFT + idx * slotW + slotW / 2 : PAD_LEFT + (idx / Math.max(len - 1, 1)) * innerW;
 
       if (rehberDikey) {
         rehberDikey.setAttribute('x1', cx.toString());
@@ -515,11 +682,11 @@ const isSonPos = sonDegisim >= 0;
 
       if (odakNoktasi) {
         if (aktifMod === 'cizgi') {
-          const rezVals = aktifSeri.map((v) => v.net_rezerv_milyar_usd);
+          const rezVals = liste.map((v) => v.val);
           const minVal = Math.floor((Math.min(...rezVals, 20) - 2) / 5) * 5;
           const maxVal = Math.ceil((Math.max(...rezVals, 65) + 2) / 5) * 5;
           const rangeRez = maxVal - minVal || 1;
-          const py = PAD_TOP + (1 - (d.net_rezerv_milyar_usd - minVal) / rangeRez) * innerH;
+          const py = PAD_TOP + (1 - (item.val - minVal) / rangeRez) * innerH;
           odakNoktasi.setAttribute('cx', cx.toString());
           odakNoktasi.setAttribute('cy', py.toString());
           odakNoktasi.style.display = 'block';
@@ -528,15 +695,11 @@ const isSonPos = sonDegisim >= 0;
         }
       }
 
-      // Bar vurgulama
-      if (katmanBarlar && aktifMod === 'bar') {
+      if (katmanBarlar && aktifMod !== 'cizgi') {
         const barlar = katmanBarlar.querySelectorAll('.bar-eleman');
         barlar.forEach((b, i) => {
-          if (i === idx) {
-            b.classList.add('secili');
-          } else {
-            b.classList.remove('secili');
-          }
+          if (i === idx) b.classList.add('secili');
+          else b.classList.remove('secili');
         });
       }
     }
@@ -547,7 +710,8 @@ const isSonPos = sonDegisim >= 0;
       if (katmanBarlar) {
         katmanBarlar.querySelectorAll('.bar-eleman').forEach((b) => b.classList.remove('secili'));
       }
-      kartGuncelle(aktifSeri.at(-1)!);
+      const liste = getAktifVeriListesi();
+      kartGuncelle(liste.at(-1)!);
     }
 
     if (etkilesim) {
@@ -558,33 +722,33 @@ const isSonPos = sonDegisim >= 0;
       etkilesim.addEventListener('touchend', takipBitti);
     }
 
-    // Buton Filtreleri: Zaman Aralığı
+    // Mod Seçicileri (Günlük / Haftalık / Aylık / 1Y Seviye)
+    const modButonlari = kapsayici.querySelectorAll('[data-mod]');
+    modButonlari.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        modButonlari.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+        aktifMod = (btn.getAttribute('data-mod') as any) || 'gun';
+        renderGostergeler();
+      });
+    });
+
+    // Zaman Aralığı Seçicileri (15 Gün / 1 Ay / 3 Ay / 1 Yıl)
     const aralikButonlari = kapsayici.querySelectorAll('[data-aralik]');
     aralikButonlari.forEach((btn) => {
       btn.addEventListener('click', () => {
         aralikButonlari.forEach((b) => b.classList.remove('aktif'));
         btn.classList.add('aktif');
         const val = btn.getAttribute('data-aralik');
-        if (val === '10') aktifSeri = tumSeri.slice(-10);
-        else if (val === '20') aktifSeri = tumSeri.slice(-20);
-        else aktifSeri = [...tumSeri];
-        renderGostergeler();
-      });
-    });
-
-    // Buton Filtreleri: Görünüm Modu (Bar / Çizgi)
-    const modButonlari = kapsayici.querySelectorAll('[data-mod]');
-    modButonlari.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        modButonlari.forEach((b) => b.classList.remove('aktif'));
-        btn.classList.add('aktif');
-        aktifMod = (btn.getAttribute('data-mod') as 'bar' | 'cizgi') || 'bar';
+        if (val === '15') aktifGunlukAralik = 15;
+        else if (val === '22') aktifGunlukAralik = 22;
+        else if (val === '65') aktifGunlukAralik = 65;
+        else aktifGunlukAralik = 9999;
         renderGostergeler();
       });
     });
   }
 
-  // Sayfa yüklendiğinde ve Astro sayfa geçişlerinde çalıştır
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', baslatNetPozisyonGrafigi);
   } else {
@@ -718,6 +882,8 @@ const isSonPos = sonDegisim >= 0;
     font-weight: 700;
     padding: 3px 8px;
     border-radius: 0px;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
   }
 
   .pozitif-rozet {

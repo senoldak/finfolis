@@ -57,7 +57,10 @@ const jsonLd = sayfaSemasi({
 
 // Veri Serisi
 const seriVerisi: NetPozisyonNokta[] = (netPozisyonVerisi?.seri ?? []) as NetPozisyonNokta[];
+const haftalikVerisi = netPozisyonVerisi?.haftalik_ozet ?? [];
+const aylikVerisi = netPozisyonVerisi?.aylik_ozet ?? [];
 const sonGunDegisim = seriVerisi.at(-1)?.degisim_altin_arindirilmis_milyar_usd ?? rezerv?.degisimGunluk ?? 0;
+const sonAylar = [...aylikVerisi].reverse();
 ---
 
 <Base title={`${baslik}: TCMB güncel ve geçmiş veriler`} description={description} noindex={!rezerv}>
