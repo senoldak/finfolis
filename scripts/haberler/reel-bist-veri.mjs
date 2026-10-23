@@ -46,7 +46,6 @@ export function yahooAylikKapanislar(veri) {
     if (quote == null || quote <= 0) continue;
     const d = new Date(timestamps[i] * 1000);
     const ym = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
-    // Aynı ay için varsa son bilinen kapanışı kaydet
     map[ym] = quote;
   }
   return map;
@@ -133,7 +132,6 @@ export function reelSeriHesapla(tufeSatirlari, bistKapanislar, bazYm = BAZ_ANAHT
  * Ana çalıştırıcı
  */
 export async function calistir({ yaz = false } = {}) {
-  // 1. Resmi TÜFE verisini oku
   const resmiHam = await readFile(RESMI_DOSYA, 'utf8');
   const resmi = JSON.parse(resmiHam);
   const tufeSatirlari = resmi?.enflasyon?.satirlar;
@@ -141,12 +139,10 @@ export async function calistir({ yaz = false } = {}) {
     throw new Error('src/data/resmi.json içinde enflasyon satırları bulunamadı');
   }
 
-  // 2. Yahoo Finance'tan BİST 30 verisini çek
   const url = `${YAHOO_URL}/XU030.IS?range=15y&interval=1mo`;
   const yahooVeri = await hentJson(url);
   const bistKapanislar = yahooAylikKapanislar(yahooVeri);
 
-  // 3. Reel seriyi hesapla
   const { istatistik, noktalar } = reelSeriHesapla(tufeSatirlari, bistKapanislar, BAZ_ANAHTAR);
 
   const cikti = {
@@ -158,10 +154,10 @@ export async function calistir({ yaz = false } = {}) {
       { ad: 'TÜİK / TCMB Tüketici Fiyatları', url: 'https://www.tcmb.gov.tr' },
     ],
     donemler: [
-      { id: 'denge', ad: 'Dengeli Dönem', aralik: '2014 – 2018', bant: '85 – 120', renk: '#e3ebf3', sinirlar: ['2014-09', '2018-08'] },
-      { id: 'dip', ad: 'Reel Değer Kaybı (Ucuzluk)', aralik: '2018 – 2022', bant: '63 – 90', renk: '#fcedde', sinirlar: ['2018-09', '2022-07'] },
-      { id: 'ralli', ad: 'Enflasyon Rallisi', aralik: '2022 – 2024', bant: '100 – 155', renk: '#ece7f4', sinirlar: ['2022-08', '2024-05'] },
-      { id: 'normal', ad: 'Konsolidasyon', aralik: '2024 – 2026', bant: '85 – 115', renk: '#fcf1d8', sinirlar: ['2024-06', '2026-12'] },
+      { id: 'denge', no: 1, ad: 'Dengeli Aralık', ozet: 'Enflasyonla paralel dalgalanma', aralik: '2014 – 2018', bant: '85 – 120', sinirlar: ['2014-09', '2018-08'] },
+      { id: 'dip', no: 2, ad: 'Reel Değer Kaybı', ozet: 'Tarihsel ucuzluk ve erime', aralik: '2018 – 2022', bant: '63 – 90', sinirlar: ['2018-09', '2022-07'] },
+      { id: 'ralli', no: 3, ad: 'Enflasyon Rallisi', ozet: 'Negatif reel faizden kaçış', aralik: '2022 – 2024', bant: '100 – 155', sinirlar: ['2022-08', '2024-05'] },
+      { id: 'normal', no: 4, ad: 'Konsolidasyon', ozet: 'Sıkılaşma ve ortalamaya dönüş', aralik: '2024 – 2026', bant: '85 – 115', sinirlar: ['2024-06', '2026-12'] },
     ],
     istatistik,
     noktalar,

@@ -1,5 +1,5 @@
 ---
-// TÜFE'den Arındırılmış BİST 30 Endeksi (Reel Getiri)
+// TÜFE'den Arındırılmış BİST 30 Endeksi (Reel Satın Alma Gücü)
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
@@ -12,7 +12,7 @@ import { sayfaSemasi } from '../../lib/seo';
 const { istatistik, noktalar, donemler, kaynaklar, guncelleme } = data;
 const son = istatistik.sonNokta;
 const baslik = 'TÜFE’den Temizlenmiş BİST 30 Endeksi';
-const description = `Borsa İstanbul BİST 30 endeksinin resmi tüketici enflasyonundan (TÜFE) arındırılmış reel getiri serisi (2014–2026). Eylül 2014=100 bazına göre borsa reel olarak nerede?`;
+const description = `Borsa İstanbul BİST 30 endeksinin resmi tüketici enflasyonundan (TÜFE) arındırılmış reel seyri (2014–2026). Eylül 2014=100 bazına göre borsanın alım gücü ve dönem rejimleri.`;
 
 const yol = [
   { ad: 'Anasayfa', href: '/' },
@@ -34,7 +34,7 @@ const jsonLd = sayfaSemasi({
       description: 'Borsa İstanbul BİST 30 endeksi aylık kapanışlarının TÜİK TÜFE katsayısıyla defle edilmiş reel getiri serisi.',
       url: 'https://finfolis.com/veri/reel-bist-30/',
       isAccessibleForFree: true,
-      creator: { '@type': 'Organization', name: 'finfolis' },
+      creator: { '@type': 'Organization', name: 'finfolis', url: 'https://finfolis.com/' },
       temporalCoverage: `${noktalar[0].tarih}/${son.tarih}`,
       dateModified: guncelleme,
       variableMeasured: ['Reel BİST 30 Endeksi', 'BİST 30 Kapanış (TL)', 'TÜFE Kümülatif Çarpanı'],
@@ -53,37 +53,36 @@ const jsonLd = sayfaSemasi({
       <p>Borsa İstanbul · Enflasyondan arındırılmış satın alma gücü seyri (Eylül 2014 = 100)</p>
     </header>
 
-    <!-- Özet Rakamlar -->
+    <!-- Özet Rakamlar (DESIGN.md uyumlu: yön okla, tabular-nums) -->
     <dl class="veri-rakamlar">
       <div>
-        <dt>Güncel Reel Endeks</dt>
+        <dt>Güncel Reel Değer</dt>
         <dd>
           {sayiYaz(son.reelEndeks, 1)}
           <small>puan</small>
         </dd>
         <dd class="veri-degisim">
-          {ayAdi(son)} · Bazdan {istatistik.reelDegisimToplam >= 0 ? `+%${sayiYaz(istatistik.reelDegisimToplam, 1)}` : `-%${sayiYaz(Math.abs(istatistik.reelDegisimToplam), 1)}`}
+          {ayAdi(son)} · {istatistik.reelDegisimToplam >= 0 ? `▲ %${sayiYaz(istatistik.reelDegisimToplam, 1)}` : `▼ %${sayiYaz(Math.abs(istatistik.reelDegisimToplam), 1)}`}
         </dd>
       </div>
 
       <div>
         <dt>Nominal Kapanış</dt>
         <dd>
-          {sayiYaz(son.bistKapanis, 0)}
-          <small>TL</small>
+          ₺{sayiYaz(son.bistKapanis, 0)}
         </dd>
         <dd class="veri-degisim">
-          2014'ten bu yana +%{sayiYaz(istatistik.nominalDegisimToplam, 0)}
+          ▲ %{sayiYaz(istatistik.nominalDegisimToplam, 0)} (Eylül 2014'ten bu yana)
         </dd>
       </div>
 
       <div>
-        <dt>Kümülatif TÜFE Artışı</dt>
+        <dt>Fiyatlar Genel Düzeyi</dt>
         <dd>
           {sayiYaz(son.tufeCarpani, 2)}
           <small>kat</small>
         </dd>
-        <dd class="veri-degisim">Eylül 2014'ten bugüne fiyatlar</dd>
+        <dd class="veri-degisim">Kümülatif resmi TÜFE artışı</dd>
       </div>
 
       <div>
@@ -92,12 +91,17 @@ const jsonLd = sayfaSemasi({
           {sayiYaz(istatistik.zirve.reelEndeks, 1)}
           <small>puan</small>
         </dd>
-        <dd class="veri-degisim">{istatistik.zirve.tarih} (Enflasyon Rallisi)</dd>
+        <dd class="veri-degisim">{istatistik.zirve.tarih} (Haziran 2023)</dd>
       </div>
     </dl>
 
-    <!-- İnteraktif SVG Grafik -->
-    <ReelBistGrafik noktalar={noktalar} donemler={donemler} />
+    <!-- finfolis Kimliğine Özel Grafik Bileşeni -->
+    <ReelBistGrafik
+      noktalar={noktalar}
+      donemler={donemler}
+      zirve={istatistik.zirve}
+      dip={istatistik.dip}
+    />
 
     <p class="veri-notu veri-kaynak">
       <strong>Kaynaklar:</strong>{' '}
@@ -109,19 +113,19 @@ const jsonLd = sayfaSemasi({
           </>
         ))
       }
-      . Son hesaplama zamanı: {zamanYaz(guncelleme)}.
+      . Son güncelleme: {zamanYaz(guncelleme)}.
     </p>
 
     <!-- İki Sütunlu Açıklama ve Tablo Alanı -->
     <div class="veri-izgara">
       <section class="bolum">
-        <h2 class="bolum-baslik">Son 24 Ayın Reel Değerleri</h2>
+        <h2 class="bolum-baslik">Son 24 Ayın Değerleri</h2>
         <div style="overflow-x: auto;">
           <table class="cizelge veri-tablo">
             <thead>
               <tr>
                 <th scope="col">Dönem</th>
-                <th scope="col" class="sag">Nominal BİST 30</th>
+                <th scope="col" class="sag">Nominal Kapanış</th>
                 <th scope="col" class="sag">TÜFE Çarpanı</th>
                 <th scope="col" class="sag">Reel Endeks</th>
               </tr>
@@ -132,7 +136,7 @@ const jsonLd = sayfaSemasi({
                   <tr>
                     <td>{ayAdi(s)}</td>
                     <td class="sag">{sayiYaz(s.bistKapanis, 0)} TL</td>
-                    <td class="sag">{sayiYaz(s.tufeCarpani, 2)}x</td>
+                    <td class="sag">{sayiYaz(s.tufeCarpani, 2)} kat</td>
                     <td class="sag">
                       <strong>{sayiYaz(s.reelEndeks, 1)}</strong>
                     </td>
@@ -147,8 +151,8 @@ const jsonLd = sayfaSemasi({
       <section class="bolum prose veri-aciklama">
         <h2 class="bolum-baslik">Bu Grafik Bize Ne Anlatıyor?</h2>
         <p>
-          Nominal borsa endeksleri (ekranda gördüğümüz günlük BİST 30 ve BİST 100 puanları), TL bazında tarihi zirveler kırabilir.
-          Ancak yüksek enflasyon ortamında bir varlığın TL değerinin artması, yatırımcısının <strong>satın alma gücünün</strong> arttığı
+          Nominal borsa endeksleri (ekranda gördüğümüz günlük BİST 30 puanı), Türk lirası bazında tarihi zirveler kırabilir.
+          Ancak yüksek enflasyon ortamında bir varlığın nominal değerinin artması, yatırımcısının <strong>satın alma gücünün</strong> arttığı
           anlamına gelmez.
         </p>
 
@@ -161,30 +165,33 @@ const jsonLd = sayfaSemasi({
           <code>Reel Değer = (BİST 30 Kapanışı / Baz BİST) ÷ Kümülatif Enflasyon Çarpanı × 100</code>
         </p>
 
-        <h3>Grafikteki Dört Ana Piyasa Rejimi:</h3>
+        <h3>Borsadaki Dört Tarihsel Rejim</h3>
+        <p>
+          Grafiğin 12 yıllık geçmişine bakıldığında borsa dört belirgin rejimden geçmiştir:
+        </p>
         <ul>
           <li>
-            <strong>1. Dengeli Dönem (2014 – 2018):</strong> Borsa, enflasyonla genel olarak başa baş veya hafif üzerinde seyretmiş,
+            <strong>1. Dengeli Aralık (2014 – 2018):</strong> Borsa, resmi enflasyonla genel olarak başa baş seyretmiş,
             endeks 85 ile 120 puan arasında dalgalanmıştır.
           </li>
           <li>
-            <strong>2. Reel Değer Kaybı ve Ucuzluk Bölgesi (2018 – 2022):</strong> Kur şokları ve yüksek enflasyon döneminde borsa
-            nominal olarak yükselse de enflasyonun çok gerisinde kalmış; reel endeks 60–70 seviyelerine kadar inerek tarihsel olarak
-            en ucuz seviyelerini görmüştür.
+            <strong>2. Reel Değer Kaybı (2018 – 2022):</strong> Kur şokları ve hızlanan enflasyon sürecinde borsa
+            nominal olarak yükselse bile enflasyonun gerisinde kalmış; reel endeks 60–70 seviyelerine gerileyerek
+            tarihsel dip bölgelerine inmiştir.
           </li>
           <li>
-            <strong>3. Enflasyon Koruması ve Ralli (2022 – 2024):</strong> Negatif reel faiz ortamında yatırımcıların enflasyondan
-            kaçış adresi borsa olmuş ve endeks hızla 140–155 puan bandına çıkarak tarihi bir reel ralli yaşamıştır.
+            <strong>3. Enflasyon Rallisi (2022 – 2024):</strong> Negatif reel faiz ortamında yatırımcıların tasarruflarını
+            koruma arayışı borsaya yönelmiş; endeks 140–155 puan bandına çıkarak tarihi bir reel getiri zirvesi yapmıştır.
           </li>
           <li>
-            <strong>4. Konsolidasyon (2024 – 2026):</strong> Sıkı para politikası ve yüksek mevduat faizleriyle birlikte borsa reel
-            olarak dengelenme ve ortalamaya dönüş sürecine girmiştir.
+            <strong>4. Konsolidasyon (2024 – 2026):</strong> Sıkı para politikası ve pozitif reel mevduat faizleriyle birlikte
+            borsa reel olarak ortalamasına (100 baz çizgisi çevresine) dönme sürecine girmiştir.
           </li>
         </ul>
 
         <p>
-          <strong>Özet Çıkarım:</strong> Reel endeks 100'ün altındaysa, Eylül 2014'te borsaya yatırılan 100 TL'lik alım gücü enflasyona
-          karşı erimiş; 100'ün üzerindeyse borsa yatırımcısına enflasyonun üzerinde net reel refah artışı sağlamıştır.
+          <strong>Özet Çıkarım:</strong> Reel endeks 100'ün altındaysa, Eylül 2014'te borsaya yatırılan 100 TL'lik satın alma gücü
+          enflasyona karşı erimiş; 100'ün üzerindeyse borsa yatırımcısına enflasyonun üzerinde net reel refah kazandırmıştır.
         </p>
       </section>
     </div>

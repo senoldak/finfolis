@@ -107,6 +107,21 @@ export interface PiyasaFaizleriBolumu {
   alinma: string;
 }
 
+export interface MevduatSatiri {
+  tarih: string;
+  toplam: number;
+  yurtIci: number;
+  bireysel: number;
+  tuzel: number;
+  altin: number;
+}
+
+export interface MevduatBolumu {
+  kaynak: { ad: string; url: string };
+  satirlar: MevduatSatiri[];
+  alinma: string;
+}
+
 export const RESMI = data as unknown as {
   kur?: KurBolumu;
   faiz?: FaizBolumu;
@@ -115,6 +130,7 @@ export const RESMI = data as unknown as {
   issizlik?: IssizlikBolumu;
   rezerv?: RezervBolumu;
   piyasaFaizleri?: PiyasaFaizleriBolumu;
+  mevduat?: MevduatBolumu;
 };
 
 export const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
@@ -170,3 +186,16 @@ export function tufeCarpani(satirlar: TufeSatiri[], bas: number, bit: number) {
     return k > bas && k <= bit ? c * (1 + s.aylik / 100) : c;
   }, 1);
 }
+
+// Milyon USD değerini Milyar USD ($266,1 Mr) olarak yazar
+export const milyarUsd = (milyon: number, ondalik = 1) =>
+  `$${(milyon / 1000).toLocaleString(SITE.locale, { minimumFractionDigits: ondalik, maximumFractionDigits: ondalik })} Mr`;
+
+// Değişim farkını (+$850 Mn veya -$1,2 Mr) yazar
+export const farkUsd = (farkMilyon: number) => {
+  const isaret = farkMilyon > 0 ? '+' : '';
+  if (Math.abs(farkMilyon) >= 1000) {
+    return `${isaret}${(farkMilyon / 1000).toLocaleString(SITE.locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Mr`;
+  }
+  return `${isaret}${Math.round(farkMilyon).toLocaleString(SITE.locale)} Mn`;
+};
