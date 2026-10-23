@@ -41,6 +41,33 @@ const TR_MONTHS = {
   '09': 'Eylül', '10': 'Ekim', '11': 'Kasım', '12': 'Aralık'
 };
 
+const TARIHSEL_OLAYLAR = {
+  '2006-05': 'Gelişmekte olan piyasalar dalgalanması ve kur şoku',
+  '2006-06': '2006 kur şoku sonrası faiz artışları',
+  '2008-04': 'AK Parti kapatma davası süreci ve küresel kredi daralması',
+  '2008-09': 'Lehman Brothers iflası ve Küresel Finans Krizi başlangıcı',
+  '2008-10': 'Küresel Finans Krizi panik dönemi ve piyasa çöküşü',
+  '2008-11': 'Küresel resesyon derinleşmesi ve küresel teşvik paketleri',
+  '2009-01': 'Küresel sanayi üretimi dip seviyesi',
+  '2018-08': 'Rahip Brunson krizi ve tarihi döviz kuru şoku',
+  '2018-09': 'TCMB 625 baz puan faiz artırımı ve kur dengelenmesi',
+  '2019-04': 'İstanbul yerel seçimleri iptal kararı belirsizliği',
+  '2019-05': 'İstanbul seçim tekrarı süreci ve döviz volatilitesi',
+  '2020-04': 'COVID-19 pandemi kapanmaları ve küresel ekonomik durma',
+  '2020-05': 'Pandemi kısıtlamaları ve kademeli normalleşme',
+  '2021-03': 'TCMB Başkanı Naci Ağbal görevden alma şoku',
+  '2021-04': 'Merkez Bankası yönetim değişimi sonrası güven kaybı',
+  '2021-11': 'Politika faizi indirimleri ve enflasyonist kur yükselişi',
+  '2021-12': 'Dolar/TL 18 seviyesi ve KKM (Kur Korumalı Mevduat) ilanı',
+  '2022-04': 'Rusya-Ukrayna savaşı sonrası küresel emtia şoku',
+  '2022-07': 'Küresel resesyon endişeleri ve yurt içi enflasyonist ralli',
+  '2023-06': '2023 genel seçimleri sonrası ortodoks politikaya geçiş',
+  '2023-07': 'Vergi artışları (KDV, ÖTV) ve döviz kuru devalüasyonu',
+  '2023-08': 'TCMB 750 baz puan faiz artırımı ve tüketici güveni çöküşü',
+  '2024-09': 'Sıkı para politikası ve iç talepte belirgin yavaşlama',
+  '2026-10': 'Dezenflasyon süreci ve yüksek reel faiz ortamı'
+};
+
 function formatLabel(ym) {
   const [y, m] = ym.split('-');
   return `${TR_MONTHS[m]} '${y.slice(2)}`;
@@ -49,20 +76,14 @@ function formatLabel(ym) {
 async function run() {
   console.log('1. BIST 100 verisi çekiliyor...');
   const bist = await fetchBist100();
-  const bistDates = Object.keys(bist).sort();
 
   console.log('2. EVDS serileri çekiliyor...');
-  // TGE Archive & Current
   const tgeArc = await fetchEvds('TP.TG.EN', '01-01-2004', '31-12-2012');
   const tgeCur = await fetchEvds('TP.TG2.Y01', '01-01-2012', '01-11-2026');
-  // RKGE MA
   const rkgeItems = await fetchEvds('TP.GY1.N2.MA', '01-01-2005', '01-11-2026');
-  // Sanayi Üretimi MA
   const sanayiItems = await fetchEvds('TP.TSANAYMT2021.BCD', '01-01-2005', '01-11-2026');
-  // Reel Efektif Döviz Kuru
   const rekItems = await fetchEvds('TP.RK.T1.Y', '01-01-2004', '01-11-2026');
 
-  // Parser helper
   function parseSeries(items, keyName) {
     const map = {};
     for (const it of items) {
@@ -76,7 +97,6 @@ async function run() {
     return map;
   }
 
-  // TGE combine
   const tgeMap = parseSeries(tgeArc, 'TP_TG_EN');
   const tgeCurMap = parseSeries(tgeCur, 'TP_TG2_Y01');
   for (const [ym, v] of Object.entries(tgeCurMap)) {
@@ -138,6 +158,7 @@ async function run() {
       rows.push({
         ym,
         label: formatLabel(ym),
+        olay: TARIHSEL_OLAYLAR[ym] || `${formatLabel(ym)} dönemi piyasa dalgalanması`,
         val: Math.round(val * 100) / 100,
         diff: Math.round(diff * 100) / 100,
         pct: Math.round(pct * 100) / 100,
@@ -148,7 +169,6 @@ async function run() {
       });
     }
 
-    // Sort by largest drop
     if (sortMode === 'diff') {
       rows.sort((a, b) => a.diff - b.diff);
     } else {
@@ -164,16 +184,23 @@ async function run() {
     const positiveNextCount = validNext.filter(r => r.nextRet > 0).length;
     const positiveNextRatio = Math.round((positiveNextCount / validNext.length) * 100);
 
+    const valid3m = top10.filter(r => r.ret3m !== null);
+    const positive3mCount = valid3m.filter(r => r.ret3m > 0).length;
+    const positive3mRatio = valid3m.length ? Math.round((positive3mCount / valid3m.length) * 100) : 0;
+
     const avgSame = validSame.length ? Math.round((validSame.reduce((acc, r) => acc + r.sameRet, 0) / validSame.length) * 10) / 10 : 0;
     const avgNext = validNext.length ? Math.round((validNext.reduce((acc, r) => acc + r.nextRet, 0) / validNext.length) * 10) / 10 : 0;
+    const avg3m = valid3m.length ? Math.round((valid3m.reduce((acc, r) => acc + r.ret3m, 0) / valid3m.length) * 10) / 10 : 0;
 
     return {
       top10,
       istatistik: {
         ayniAyPozitifOrani: positiveSameRatio,
         sonrakiAyPozitifOrani: positiveNextRatio,
+        sonraki3AyPozitifOrani: positive3mRatio,
         ortalamaAyniAyGetiri: avgSame,
-        ortalamaSonrakiAyGetiri: avgNext
+        ortalamaSonrakiAyGetiri: avgNext,
+        ortalama3AyGetiri: avg3m
       }
     };
   }
@@ -188,6 +215,7 @@ async function run() {
         kisaAd: 'Tüketici Güveni',
         kaynak: 'TÜİK & TCMB',
         seriKod: 'TP.TG2.Y01 / TP.TG.EN',
+        birim: 'puan',
         aciklama: 'Hanehalkının mevcut ve gelecek 12 aylık maddi durum ile genel ekonomik gidişata yönelik beklentilerini ölçer.',
         ...buildShockTable(tgeMap, 'TGE', 'puan', 'diff')
       },
@@ -197,6 +225,7 @@ async function run() {
         kisaAd: 'Reel Kesim',
         kaynak: 'TCMB',
         seriKod: 'TP.GY1.N2.MA',
+        birim: 'puan',
         aciklama: 'İmalat sanayi yöneticilerinin sipariş, üretim, istihdam ve yatırım beklentilerini ölçen mevsimsellikten arındırılmış gösterge.',
         ...buildShockTable(rkgeMap, 'RKGE', 'puan', 'diff')
       },
@@ -206,6 +235,7 @@ async function run() {
         kisaAd: 'Sanayi Üretimi',
         kaynak: 'TÜİK',
         seriKod: 'TP.TSANAYMT2021.BCD',
+        birim: '%',
         aciklama: 'Madencilik, imalat ve enerji sektörlerinin reel fiziki üretim çıktısını gösteren mevsim ve takvimden arındırılmış endeks.',
         ...buildShockTable(sanayiMap, 'Sanayi', '%', 'pct')
       },
@@ -215,6 +245,7 @@ async function run() {
         kisaAd: 'Reel Döviz Kuru',
         kaynak: 'TCMB',
         seriKod: 'TP.RK.T1.Y',
+        birim: '%',
         aciklama: 'Türk lirasının ticaret ortağı ülkelerin para birimlerine göre TÜFE bazlı reel değerini ölçen endeks.',
         ...buildShockTable(rekMap, 'REK', '%', 'pct')
       }

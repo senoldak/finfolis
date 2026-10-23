@@ -1,0 +1,813 @@
+---
+// Bankacılık Sektörü Döviz ve Altın Mevduatları İnteraktif Zaman Serisi Grafiği
+// Finfolis tasarım dili: Kâğıt & mürekkep, Bricolage Grotesque, sıfır harici kütüphane, tam dokunmatik ve fare etkileşimi.
+import { gunYaz, milyarUsd, farkUsd } from '../lib/resmi';
+
+interface Props {
+  satirlar: {
+    tarih: string;
+    toplam: number;
+    yurtIci: number;
+    bireysel: number;
+    tuzel: number;
+    altin: number;
+  }[];
+}
+
+const { satirlar = [] } = Astro.props;
+
+const W = 800;
+const H = 350;
+const PAD_TOP = 25;
+const PAD_BOTTOM = 45;
+const PAD_LEFT = 55;
+const PAD_RIGHT = 30;
+
+const tumDegerler = satirlar.map((s) => s.toplam);
+const minDeger = tumDegerler.length ? Math.floor(Math.min(...tumDegerler) / 5000) * 5000 : 240000;
+const maxDeger = tumDegerler.length ? Math.ceil(Math.max(...tumDegerler) / 5000) * 5000 : 280000;
+const yAralik = maxDeger - minDeger || 1;
+
+const xPos = (i: number, len: number) =>
+  PAD_LEFT + (i / Math.max(len - 1, 1)) * (W - PAD_LEFT - PAD_RIGHT);
+const yPos = (v: number) =>
+  PAD_TOP + (1 - (v - minDeger) / yAralik) * (H - PAD_TOP - PAD_BOTTOM);
+
+const cizgiToplam = satirlar
+  .map((s, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i, satirlar.length).toFixed(1)} ${yPos(s.toplam).toFixed(1)}`)
+  .join(' ');
+const cizgiBireysel = satirlar
+  .map((s, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i, satirlar.length).toFixed(1)} ${yPos(s.bireysel).toFixed(1)}`)
+  .join(' ');
+const cizgiTuzel = satirlar
+  .map((s, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i, satirlar.length).toFixed(1)} ${yPos(s.tuzel).toFixed(1)}`)
+  .join(' ');
+
+// Y ekseni ızgara değerleri (5 basamak)
+const adim = (maxDeger - minDeger) / 4;
+const izgaraDegerleri = [minDeger, minDeger + adim, minDeger + adim * 2, minDeger + adim * 3, maxDeger];
+
+// X ekseni ay etiketleri
+const ayEtiketleri: { etiket: string; x: number }[] = [];
+let oncekiAy = '';
+satirlar.forEach((s, i) => {
+  const ay = s.tarih.slice(0, 7);
+  if (ay !== oncekiAy) {
+    const d = new Date(s.tarih + 'T12:00:00Z');
+    const ayAdi = d.toLocaleDateString('tr-TR', { month: 'short' });
+    ayEtiketleri.push({ etiket: ayAdi.toUpperCase(), x: xPos(i, satirlar.length) });
+    oncekiAy = ay;
+  }
+});
+
+// Zirve ve Dip indeksleri
+let zirveIdx = 0;
+let dipIdx = 0;
+satirlar.forEach((s, i) => {
+  if (s.toplam > satirlar[zirveIdx].toplam) zirveIdx = i;
+  if (s.toplam < satirlar[dipIdx].toplam) dipIdx = i;
+});
+
+const sonIdx = satirlar.length - 1;
+const son = satirlar[sonIdx];
+const birOnce = sonIdx > 0 ? satirlar[sonIdx - 1] : null;
+const sonFark = birOnce ? son.toplam - birOnce.toplam : 0;
+const sonBireyselPay = son && son.toplam > 0 ? (son.bireysel / son.toplam) * 100 : 0;
+const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
+---
+
+<div class="mevduat-interaktif-kapsayici" data-mevduat-grafik data-noktalar={JSON.stringify(satirlar)}>
+  <!-- Üst Araç Çubuğu: Başlık, Seri ve Periyot Seçiciler -->
+  <div class="grafik-ust-bar">
+    <div class="grafik-baslik-alani">
+      <h3 class="grafik-baslik">Döviz Mevduatları İnteraktif Seyri</h3>
+      <p class="grafik-altbaslik">TCMB EVDS Tablo 4 · Altın mevduatı dahil haftalık kapanışlar</p>
+    </div>
+
+    <div class="kontroller-grubu">
+      <!-- Seri Seçici -->
+      <div class="seri-filtre-alani" role="group" aria-label="Seri filtreleri">
+        <button type="button" class="filtre-btn seri-btn aktif" data-seri="hepsi">Tümü</button>
+        <button type="button" class="filtre-btn seri-btn" data-seri="toplam">Toplam YP</button>
+        <button type="button" class="filtre-btn seri-btn" data-seri="bireysel">Bireysel</button>
+        <button type="button" class="filtre-btn seri-btn" data-seri="tuzel">Şirketler</button>
+      </div>
+
+      <!-- Zaman Filtresi -->
+      <div class="zaman-filtre-alani" role="group" aria-label="Zaman filtreleri">
+        <button type="button" class="filtre-btn periyot-btn" data-periyot="3a">Son 3 Ay</button>
+        <button type="button" class="filtre-btn periyot-btn" data-periyot="6a">Son 6 Ay</button>
+        <button type="button" class="filtre-btn periyot-btn aktif" data-periyot="tum">1 Yıl</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canlı Bilgi Kartı (Fare ve Dokunmatik ile anında güncellenir) -->
+  <div class="canli-bilgi-paneli" id="canli-bilgi-paneli">
+    <div class="canli-oge">
+      <span class="canli-etiket">Tarih</span>
+      <strong class="canli-deger" id="canli-tarih">{son ? gunYaz(son.tarih) : '—'}</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Toplam YP Mevduat</span>
+      <strong class="canli-deger vurgulu-rakam" id="canli-toplam">{son ? milyarUsd(son.toplam) : '—'}</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Haftalık Net Değişim</span>
+      <strong class={`canli-deger ${sonFark > 0 ? 'artis' : sonFark < 0 ? 'azalis' : ''}`} id="canli-fark">
+        {sonFark !== 0 ? farkUsd(sonFark) : '—'}
+      </strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Bireysel (Vatandaş)</span>
+      <strong class="canli-deger" id="canli-bireysel">{son ? `${milyarUsd(son.bireysel)} (%${sonBireyselPay.toFixed(1)})` : '—'}</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Şirketler (Tüzel)</span>
+      <strong class="canli-deger" id="canli-tuzel">{son ? `${milyarUsd(son.tuzel)} (%${sonTuzelPay.toFixed(1)})` : '—'}</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Konum</span>
+      <span class="canli-rozet" id="canli-konum">Güncel</span>
+    </div>
+  </div>
+
+  <!-- İnteraktif SVG Çizim Alanı -->
+  <div class="svg-kapsayici">
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      class="mevduat-svg"
+      role="img"
+      aria-label="Döviz mevduatları interaktif eğrisi"
+      id="mevduat-svg"
+    >
+      <!-- Izgara Çizgileri ve Y Eksen Değerleri -->
+      <g id="izgara-katmani">
+        {izgaraDegerleri.map((val) => (
+          <g class="grid-satir">
+            <line
+              x1={PAD_LEFT}
+              y1={yPos(val)}
+              x2={W - PAD_RIGHT}
+              y2={yPos(val)}
+              stroke="var(--hair, #e8e4df)"
+              stroke-width="1"
+              stroke-dasharray="3 3"
+            />
+            <text x={PAD_LEFT - 8} y={yPos(val) + 4} text-anchor="end" class="eksen-yazi">
+              ${Math.round(val / 1000)} Mr
+            </text>
+          </g>
+        ))}
+      </g>
+
+      <!-- X Eksen Etiketleri -->
+      <g id="x-eksen-katmani">
+        {ayEtiketleri.map((a) => (
+          <g class="x-etiket-g">
+            <line x1={a.x} y1={H - PAD_BOTTOM} x2={a.x} y2={H - PAD_BOTTOM + 5} stroke="var(--hair, #cfccc2)" stroke-width="1" />
+            <text x={a.x} y={H - PAD_BOTTOM + 18} text-anchor="middle" class="eksen-yazi">
+              {a.etiket}
+            </text>
+          </g>
+        ))}
+      </g>
+
+      <!-- Çizgiler: Şirketler, Bireysel, Toplam -->
+      <path
+        id="cizgi-tuzel"
+        d={cizgiTuzel}
+        fill="none"
+        stroke="var(--muted, #5d5b55)"
+        stroke-width="1.75"
+        stroke-dasharray="4 2"
+        vector-effect="non-scaling-stroke"
+      />
+      <path
+        id="cizgi-bireysel"
+        d={cizgiBireysel}
+        fill="none"
+        stroke="var(--toprak, #c2502b)"
+        stroke-width="2"
+        vector-effect="non-scaling-stroke"
+      />
+      <path
+        id="cizgi-toplam"
+        d={cizgiToplam}
+        fill="none"
+        stroke="var(--ink, #1b1b1b)"
+        stroke-width="2.5"
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        vector-effect="non-scaling-stroke"
+      />
+
+      <!-- Zirve ve Dip Statik İşaretleri (Tüm görünümde referans) -->
+      <g id="zirve-noktasi" class="vurgu-isareti">
+        <circle cx={xPos(zirveIdx, satirlar.length)} cy={yPos(satirlar[zirveIdx].toplam)} r="4" fill="var(--ink)" />
+        <text x={xPos(zirveIdx, satirlar.length)} y={yPos(satirlar[zirveIdx].toplam) - 8} text-anchor="middle" class="vurgu-yazi">
+          Zirve: {milyarUsd(satirlar[zirveIdx].toplam)}
+        </text>
+      </g>
+
+      <g id="dip-noktasi" class="vurgu-isareti">
+        <circle cx={xPos(dipIdx, satirlar.length)} cy={yPos(satirlar[dipIdx].toplam)} r="4" fill="var(--ink)" />
+        <text x={xPos(dipIdx, satirlar.length)} y={yPos(satirlar[dipIdx].toplam) + 16} text-anchor="middle" class="vurgu-yazi">
+          Dip: {milyarUsd(satirlar[dipIdx].toplam)}
+        </text>
+      </g>
+
+      <!-- Dikey Kılavuz / Crosshair Çizgisi -->
+      <line
+        id="rehber-dikey"
+        x1={xPos(sonIdx, satirlar.length)}
+        y1={PAD_TOP}
+        x2={xPos(sonIdx, satirlar.length)}
+        y2={H - PAD_BOTTOM}
+        stroke="var(--ink, #1b1b1b)"
+        stroke-width="1.25"
+        stroke-dasharray="2 2"
+        opacity="0.75"
+      />
+
+      <!-- İnteraktif Odak Boncukları -->
+      <circle id="odak-toplam" cx={xPos(sonIdx, satirlar.length)} cy={yPos(son.toplam)} r="5" fill="var(--ink)" stroke="#fff" stroke-width="1.5" />
+      <circle id="odak-bireysel" cx={xPos(sonIdx, satirlar.length)} cy={yPos(son.bireysel)} r="4" fill="var(--toprak)" stroke="#fff" stroke-width="1.5" />
+      <circle id="odak-tuzel" cx={xPos(sonIdx, satirlar.length)} cy={yPos(son.tuzel)} r="3.5" fill="var(--muted)" stroke="#fff" stroke-width="1" />
+
+      <!-- Şeffaf Etkileşim Katmanı (Kullanıcı fare / parmak hareketlerini yakalar) -->
+      <rect
+        id="etkilesim-katmani"
+        x={PAD_LEFT}
+        y={PAD_TOP}
+        width={W - PAD_LEFT - PAD_RIGHT}
+        height={H - PAD_TOP - PAD_BOTTOM}
+        fill="transparent"
+        style="cursor: crosshair; touch-action: none;"
+      />
+    </svg>
+  </div>
+
+  <!-- Lejant -->
+  <div class="grafik-alt-lejant">
+    <span class="lejant-oge"><span class="lejant-nokta cizgi-toplam-renk"></span> Toplam YP Mevduat</span>
+    <span class="lejant-oge"><span class="lejant-nokta cizgi-bireysel-renk"></span> Bireysel (Vatandaş)</span>
+    <span class="lejant-oge"><span class="lejant-nokta cizgi-tuzel-renk"></span> Şirketler (Tüzel)</span>
+    <span class="lejant-not">İmleci grafiğin üzerinde gezdirerek haftalık detayları görebilirsiniz.</span>
+  </div>
+</div>
+
+<script>
+  // Grafik İstemci İnteraktivite Motoru
+  const container = document.querySelector<HTMLElement>('[data-mevduat-grafik]');
+  if (container) {
+    interface MevduatItem {
+      tarih: string;
+      toplam: number;
+      yurtIci: number;
+      bireysel: number;
+      tuzel: number;
+      altin: number;
+    }
+
+    const rawData: MevduatItem[] = JSON.parse(container.dataset.noktalar || '[]');
+
+    const overlay = container.querySelector<SVGRectElement>('#etkilesim-katmani')!;
+    const cizgiToplam = container.querySelector<SVGPathElement>('#cizgi-toplam')!;
+    const cizgiBireysel = container.querySelector<SVGPathElement>('#cizgi-bireysel')!;
+    const cizgiTuzel = container.querySelector<SVGPathElement>('#cizgi-tuzel')!;
+    const rehberDikey = container.querySelector<SVGLineElement>('#rehber-dikey')!;
+    const odakToplam = container.querySelector<SVGCircleElement>('#odak-toplam')!;
+    const odakBireysel = container.querySelector<SVGCircleElement>('#odak-bireysel')!;
+    const odakTuzel = container.querySelector<SVGCircleElement>('#odak-tuzel')!;
+    const svgElem = container.querySelector<SVGSVGElement>('#mevduat-svg')!;
+    const izgaraKatmani = container.querySelector<SVGGElement>('#izgara-katmani')!;
+    const xEksenKatmani = container.querySelector<SVGGElement>('#x-eksen-katmani')!;
+    const zirveG = container.querySelector<SVGGElement>('#zirve-noktasi')!;
+    const dipG = container.querySelector<SVGGElement>('#dip-noktasi')!;
+
+    // Canlı Panel Elemanları
+    const canliTarih = container.querySelector<HTMLElement>('#canli-tarih')!;
+    const canliToplam = container.querySelector<HTMLElement>('#canli-toplam')!;
+    const canliFark = container.querySelector<HTMLElement>('#canli-fark')!;
+    const canliBireysel = container.querySelector<HTMLElement>('#canli-bireysel')!;
+    const canliTuzel = container.querySelector<HTMLElement>('#canli-tuzel')!;
+    const canliKonum = container.querySelector<HTMLElement>('#canli-konum')!;
+
+    // Butonlar
+    const periyotButonlari = container.querySelectorAll<HTMLButtonElement>('.periyot-btn');
+    const seriButonlari = container.querySelectorAll<HTMLButtonElement>('.seri-btn');
+
+    const W = 800;
+    const H = 350;
+    const PAD_TOP = 25;
+    const PAD_BOTTOM = 45;
+    const PAD_LEFT = 55;
+    const PAD_RIGHT = 30;
+
+    let aktifVeri: MevduatItem[] = [...rawData];
+    let aktifSeri: 'hepsi' | 'toplam' | 'bireysel' | 'tuzel' = 'hepsi';
+
+    function formatTarih(g: string) {
+      const d = new Date(g + 'T12:00:00Z');
+      return d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    function formatMilyar(milyon: number) {
+      return `$${(milyon / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Mr`;
+    }
+
+    function formatFark(farkMilyon: number) {
+      const isaret = farkMilyon > 0 ? '+' : '';
+      if (Math.abs(farkMilyon) >= 1000) {
+        return `${isaret}${(farkMilyon / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Mr`;
+      }
+      return `${isaret}${Math.round(farkMilyon).toLocaleString('tr-TR')} Mn`;
+    }
+
+    function hesaplaSinirlar(veri: MevduatItem[]) {
+      let vals: number[] = [];
+      if (aktifSeri === 'toplam') {
+        vals = veri.map((p) => p.toplam);
+      } else if (aktifSeri === 'bireysel') {
+        vals = veri.map((p) => p.bireysel);
+      } else if (aktifSeri === 'tuzel') {
+        vals = veri.map((p) => p.tuzel);
+      } else {
+        // hepsi modunda toplamın sınırları esas alınır, sıfır tabanlı veya dinamik
+        vals = veri.map((p) => p.toplam);
+      }
+
+      const min = Math.floor(Math.min(...vals) / 5000) * 5000;
+      const max = Math.ceil(Math.max(...vals) / 5000) * 5000;
+      return { min, max, aralik: max - min || 1 };
+    }
+
+    let { min: minDeger, aralik: yAralik } = hesaplaSinirlar(aktifVeri);
+
+    const xPos = (i: number, len: number) =>
+      PAD_LEFT + (i / Math.max(len - 1, 1)) * (W - PAD_LEFT - PAD_RIGHT);
+    const yPos = (v: number) =>
+      PAD_TOP + (1 - (v - minDeger) / yAralik) * (H - PAD_TOP - PAD_BOTTOM);
+
+    function cizgiUret(veri: MevduatItem[], alan: 'toplam' | 'bireysel' | 'tuzel') {
+      return veri
+        .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i, veri.length).toFixed(1)} ${yPos(p[alan]).toFixed(1)}`)
+        .join(' ');
+    }
+
+    function yenileEksenler(veri: MevduatItem[]) {
+      const sinirlar = hesaplaSinirlar(veri);
+      minDeger = sinirlar.min;
+      yAralik = sinirlar.aralik;
+
+      // Y Izgara yenile
+      const adim = (sinirlar.max - sinirlar.min) / 4;
+      const basamaklar = [sinirlar.min, sinirlar.min + adim, sinirlar.min + adim * 2, sinirlar.min + adim * 3, sinirlar.max];
+      
+      let izgaraHtml = '';
+      basamaklar.forEach((val) => {
+        const y = yPos(val);
+        izgaraHtml += `
+          <g class="grid-satir">
+            <line x1="${PAD_LEFT}" y1="${y}" x2="${W - PAD_RIGHT}" y2="${y}" stroke="var(--hair, #e8e4df)" stroke-width="1" stroke-dasharray="3 3" />
+            <text x="${PAD_LEFT - 8}" y="${y + 4}" text-anchor="end" class="eksen-yazi">$${Math.round(val / 1000)} Mr</text>
+          </g>
+        `;
+      });
+      izgaraKatmani.innerHTML = izgaraHtml;
+
+      // X Eksen yenile
+      let oncekiAy = '';
+      let xHtml = '';
+      veri.forEach((s, i) => {
+        const ay = s.tarih.slice(0, 7);
+        if (ay !== oncekiAy) {
+          const d = new Date(s.tarih + 'T12:00:00Z');
+          const ayAdi = d.toLocaleDateString('tr-TR', { month: 'short' }).toUpperCase();
+          const x = xPos(i, veri.length);
+          xHtml += `
+            <g class="x-etiket-g">
+              <line x1="${x}" y1="${H - PAD_BOTTOM}" x2="${x}" y2="${H - PAD_BOTTOM + 5}" stroke="var(--hair, #cfccc2)" stroke-width="1" />
+              <text x="${x}" y="${H - PAD_BOTTOM + 18}" text-anchor="middle" class="eksen-yazi">${ayAdi}</text>
+            </g>
+          `;
+          oncekiAy = ay;
+        }
+      });
+      xEksenKatmani.innerHTML = xHtml;
+
+      // Zirve & Dip işaretleri güncelle
+      let zIdx = 0;
+      let dIdx = 0;
+      veri.forEach((s, i) => {
+        if (s.toplam > veri[zIdx].toplam) zIdx = i;
+        if (s.toplam < veri[dIdx].toplam) dIdx = i;
+      });
+
+      if (aktifSeri === 'hepsi' || aktifSeri === 'toplam') {
+        zirveG.style.display = 'block';
+        dipG.style.display = 'block';
+        const zX = xPos(zIdx, veri.length);
+        const zY = yPos(veri[zIdx].toplam);
+        zirveG.innerHTML = `
+          <circle cx="${zX}" cy="${zY}" r="4" fill="var(--ink)" />
+          <text x="${zX}" y="${zY - 8}" text-anchor="middle" class="vurgu-yazi">Zirve: ${formatMilyar(veri[zIdx].toplam)}</text>
+        `;
+        const dX = xPos(dIdx, veri.length);
+        const dY = yPos(veri[dIdx].toplam);
+        dipG.innerHTML = `
+          <circle cx="${dX}" cy="${dY}" r="4" fill="var(--ink)" />
+          <text x="${dX}" y="${dY + 16}" text-anchor="middle" class="vurgu-yazi">Dip: ${formatMilyar(veri[dIdx].toplam)}</text>
+        `;
+      } else {
+        zirveG.style.display = 'none';
+        dipG.style.display = 'none';
+      }
+    }
+
+    function guncelleGrafik(veri: MevduatItem[]) {
+      aktifVeri = veri;
+      yenileEksenler(aktifVeri);
+
+      cizgiToplam.setAttribute('d', cizgiUret(aktifVeri, 'toplam'));
+      cizgiBireysel.setAttribute('d', cizgiUret(aktifVeri, 'bireysel'));
+      cizgiTuzel.setAttribute('d', cizgiUret(aktifVeri, 'tuzel'));
+
+      // Seri görünürlüklerini ayarla
+      if (aktifSeri === 'toplam') {
+        cizgiToplam.style.opacity = '1';
+        cizgiToplam.setAttribute('stroke-width', '3');
+        cizgiBireysel.style.opacity = '0.15';
+        cizgiTuzel.style.opacity = '0.15';
+        odakToplam.style.display = 'block';
+        odakBireysel.style.display = 'none';
+        odakTuzel.style.display = 'none';
+      } else if (aktifSeri === 'bireysel') {
+        cizgiToplam.style.opacity = '0.15';
+        cizgiBireysel.style.opacity = '1';
+        cizgiBireysel.setAttribute('stroke-width', '3');
+        cizgiTuzel.style.opacity = '0.15';
+        odakToplam.style.display = 'none';
+        odakBireysel.style.display = 'block';
+        odakTuzel.style.display = 'none';
+      } else if (aktifSeri === 'tuzel') {
+        cizgiToplam.style.opacity = '0.15';
+        cizgiBireysel.style.opacity = '0.15';
+        cizgiTuzel.style.opacity = '1';
+        cizgiTuzel.setAttribute('stroke-width', '2.5');
+        odakToplam.style.display = 'none';
+        odakBireysel.style.display = 'none';
+        odakTuzel.style.display = 'block';
+      } else {
+        cizgiToplam.style.opacity = '1';
+        cizgiToplam.setAttribute('stroke-width', '2.5');
+        cizgiBireysel.style.opacity = '1';
+        cizgiBireysel.setAttribute('stroke-width', '2');
+        cizgiTuzel.style.opacity = '1';
+        cizgiTuzel.setAttribute('stroke-width', '1.75');
+        odakToplam.style.display = 'block';
+        odakBireysel.style.display = 'block';
+        odakTuzel.style.display = 'block';
+      }
+
+      konumlandirOdak(aktifVeri.length - 1);
+      guncelleKart(aktifVeri.length - 1);
+    }
+
+    function konumlandirOdak(idx: number) {
+      const nokta = aktifVeri[idx];
+      if (!nokta) return;
+
+      const cx = xPos(idx, aktifVeri.length);
+      rehberDikey.setAttribute('x1', cx.toFixed(1));
+      rehberDikey.setAttribute('x2', cx.toFixed(1));
+
+      odakToplam.setAttribute('cx', cx.toFixed(1));
+      odakToplam.setAttribute('cy', yPos(nokta.toplam).toFixed(1));
+
+      odakBireysel.setAttribute('cx', cx.toFixed(1));
+      odakBireysel.setAttribute('cy', yPos(nokta.bireysel).toFixed(1));
+
+      odakTuzel.setAttribute('cx', cx.toFixed(1));
+      odakTuzel.setAttribute('cy', yPos(nokta.tuzel).toFixed(1));
+    }
+
+    function guncelleKart(idx: number) {
+      const nokta = aktifVeri[idx];
+      if (!nokta) return;
+
+      const onceki = idx > 0 ? aktifVeri[idx - 1] : null;
+      const fark = onceki ? nokta.toplam - onceki.toplam : 0;
+      const bireyselPay = nokta.toplam > 0 ? (nokta.bireysel / nokta.toplam) * 100 : 0;
+      const tuzelPay = nokta.toplam > 0 ? (nokta.tuzel / nokta.toplam) * 100 : 0;
+
+      canliTarih.textContent = formatTarih(nokta.tarih);
+      canliToplam.textContent = formatMilyar(nokta.toplam);
+
+      if (onceki) {
+        canliFark.textContent = formatFark(fark);
+        canliFark.className = `canli-deger ${fark > 0 ? 'azalis' : fark < 0 ? 'artis' : ''}`;
+      } else {
+        canliFark.textContent = '—';
+        canliFark.className = 'canli-deger';
+      }
+
+      canliBireysel.textContent = `${formatMilyar(nokta.bireysel)} (%${bireyselPay.toFixed(1)})`;
+      canliTuzel.textContent = `${formatMilyar(nokta.tuzel)} (%${tuzelPay.toFixed(1)})`;
+
+      // Konum Rozeti
+      const maxToplam = Math.max(...aktifVeri.map((p) => p.toplam));
+      const minToplam = Math.min(...aktifVeri.map((p) => p.toplam));
+
+      if (nokta.toplam === maxToplam) {
+        canliKonum.textContent = 'Zirve Seviye';
+        canliKonum.className = 'canli-rozet zirve';
+      } else if (nokta.toplam === minToplam) {
+        canliKonum.textContent = 'Dip Seviye';
+        canliKonum.className = 'canli-rozet dip';
+      } else if (idx === aktifVeri.length - 1) {
+        canliKonum.textContent = 'Son Açıklanan';
+        canliKonum.className = 'canli-rozet';
+      } else {
+        canliKonum.textContent = `${aktifVeri.length - 1 - idx} Hafta Önce`;
+        canliKonum.className = 'canli-rozet';
+      }
+    }
+
+    // İmleç / Dokunma Takibi
+    function koordinattanIndeksBul(evt: PointerEvent) {
+      const rect = svgElem.getBoundingClientRect();
+      const scaleX = W / rect.width;
+      const mouseX = (evt.clientX - rect.left) * scaleX;
+
+      const clampedX = Math.max(PAD_LEFT, Math.min(W - PAD_RIGHT, mouseX));
+      const oran = (clampedX - PAD_LEFT) / (W - PAD_LEFT - PAD_RIGHT);
+      const index = Math.round(oran * (aktifVeri.length - 1));
+      return Math.max(0, Math.min(aktifVeri.length - 1, index));
+    }
+
+    overlay.addEventListener('pointermove', (evt) => {
+      const idx = koordinattanIndeksBul(evt);
+      konumlandirOdak(idx);
+      guncelleKart(idx);
+    });
+
+    overlay.addEventListener('pointerleave', () => {
+      const sonI = aktifVeri.length - 1;
+      konumlandirOdak(sonI);
+      guncelleKart(sonI);
+    });
+
+    // Zaman Aralığı Butonları
+    periyotButonlari.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        periyotButonlari.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+
+        const periyot = btn.dataset.periyot;
+        if (periyot === '3a') {
+          guncelleGrafik(rawData.slice(-13));
+        } else if (periyot === '6a') {
+          guncelleGrafik(rawData.slice(-26));
+        } else {
+          guncelleGrafik(rawData);
+        }
+      });
+    });
+
+    // Seri Seçici Butonları
+    seriButonlari.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        seriButonlari.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+
+        aktifSeri = (btn.dataset.seri as typeof aktifSeri) || 'hepsi';
+        guncelleGrafik(aktifVeri);
+      });
+    });
+
+    // İlk kurulum
+    guncelleKart(aktifVeri.length - 1);
+  }
+</script>
+
+<style>
+  .mevduat-interaktif-kapsayici {
+    background: var(--surface, #faf8f5);
+    border: 1px solid var(--hair, #e8e4df);
+    padding: 20px;
+    margin: 28px 0;
+  }
+
+  .grafik-ust-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--hair, #e8e4df);
+    padding-bottom: 14px;
+  }
+
+  .grafik-baslik {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--ink, #1b1b1b);
+  }
+
+  .grafik-altbaslik {
+    font-size: 0.85rem;
+    color: var(--muted, #5d5b55);
+    margin: 2px 0 0;
+  }
+
+  .kontroller-grubu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .seri-filtre-alani,
+  .zaman-filtre-alani {
+    display: inline-flex;
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 2px;
+  }
+
+  .filtre-btn {
+    border: none;
+    background: transparent;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--muted, #5d5b55);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .filtre-btn:hover {
+    color: var(--ink, #1b1b1b);
+  }
+
+  .filtre-btn.aktif {
+    background: var(--paper, #f4f3ee);
+    color: var(--ink, #1b1b1b);
+    font-weight: 700;
+  }
+
+  .canli-bilgi-paneli {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #e8e4df);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .canli-oge {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .canli-etiket {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted, #5d5b55);
+    margin-bottom: 2px;
+  }
+
+  .canli-deger {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+    font-feature-settings: 'tnum';
+  }
+
+  .canli-deger.vurgulu-rakam {
+    color: var(--toprak, #c2502b);
+  }
+
+  .canli-deger.artis {
+    color: var(--yukselis, #3f7350);
+  }
+
+  .canli-deger.azalis {
+    color: var(--dusus, #a3243b);
+  }
+
+  .canli-rozet {
+    display: inline-block;
+    width: fit-content;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    background: var(--hair, #cfccc2);
+    color: var(--ink, #1b1b1b);
+    margin-top: 2px;
+  }
+
+  .canli-rozet.zirve {
+    background: rgba(163, 36, 59, 0.15);
+    color: var(--dusus, #a3243b);
+  }
+
+  .canli-rozet.dip {
+    background: rgba(63, 115, 80, 0.15);
+    color: var(--yukselis, #3f7350);
+  }
+
+  .svg-kapsayici {
+    width: 100%;
+    overflow-x: auto;
+    position: relative;
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 10px 0;
+  }
+
+  .mevduat-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-width: 650px;
+  }
+
+  .eksen-yazi {
+    font-size: 11px;
+    fill: var(--muted, #5d5b55);
+    font-family: inherit;
+    font-feature-settings: 'tnum';
+  }
+
+  .vurgu-yazi {
+    font-size: 11px;
+    font-weight: 700;
+    fill: var(--ink, #1b1b1b);
+    font-family: inherit;
+  }
+
+  .grafik-alt-lejant {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 14px;
+    font-size: 0.82rem;
+    color: var(--ink-2, #3d3c38);
+  }
+
+  .lejant-oge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .lejant-nokta {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+  }
+
+  .cizgi-toplam-renk {
+    background: var(--ink, #1b1b1b);
+  }
+
+  .cizgi-bireysel-renk {
+    background: var(--toprak, #c2502b);
+  }
+
+  .cizgi-tuzel-renk {
+    background: var(--muted, #5d5b55);
+    border: 1px dashed var(--ink-2, #3d3c38);
+  }
+
+  .lejant-not {
+    margin-left: auto;
+    font-size: 0.78rem;
+    color: var(--muted, #5d5b55);
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .grafik-ust-bar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .kontroller-grubu {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .lejant-not {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,574 @@
+---
+// Makro Şoklar ve Borsa İnteraktif SVG Grafiği
+// Finfolis tasarım dili: Kâğıt & mürekkep, Bricolage Grotesque, tam etkileşimli, sıfır harici kütüphane.
+interface Props {
+  veri: any;
+}
+
+const { veri } = Astro.props;
+const gostergeler = veri.gostergeler;
+---
+
+<div class="makro-grafik-kapsayici" id="makro-grafik-kapsayici">
+  <!-- Üst Başlık ve Kontroller -->
+  <div class="grafik-kontrol-paneli">
+    <!-- Gösterge Seçimi (Tabs) -->
+    <div class="sekme-grubu" role="tablist" aria-label="Gösterge Seçimi">
+      <button type="button" class="sekme-butonu aktif" data-gosterge="tge">Tüketici Güveni (TGE)</button>
+      <button type="button" class="sekme-butonu" data-gosterge="rkge">Reel Kesim (RKGE)</button>
+      <button type="button" class="sekme-butonu" data-gosterge="sanayi">Sanayi Üretimi</button>
+      <button type="button" class="sekme-butonu" data-gosterge="rek">Reel Döviz Kuru</button>
+    </div>
+
+    <!-- Vade Seçimi -->
+    <div class="vade-grubu" aria-label="Borsa Reaksiyon Vadesi">
+      <span class="vade-etiket">Borsa Vadesi:</span>
+      <button type="button" class="vade-butonu" data-vade="sameRet">Aynı Ay</button>
+      <button type="button" class="vade-butonu aktif" data-vade="nextRet">Sonraki Ay (T+1)</button>
+      <button type="button" class="vade-butonu" data-vade="ret3m">3 Ay Sonra</button>
+    </div>
+  </div>
+
+  <!-- Dinamik Canlı Bilgi Kartı -->
+  <div class="canli-bilgi-karti" id="canli-bilgi-karti">
+    <div class="bilgi-sol">
+      <span class="bilgi-rozet" id="kart-donem">Ağustos '23</span>
+      <p class="bilgi-olay" id="kart-olay">2023 Seçim sonrası vergi artışları ve kur devalüasyonu şoku</p>
+    </div>
+    <div class="bilgi-sag">
+      <div class="bilgi-metrik">
+        <span class="metrik-etiket">Şok Derinliği</span>
+        <strong class="metrik-deger metin-dusus" id="kart-sok">-12,06 pt</strong>
+      </div>
+      <div class="bilgi-metrik">
+        <span class="metrik-etiket" id="kart-vade-etiket">BİST 100 (T+1)</span>
+        <strong class="metrik-deger" id="kart-bist">▼ %9,8</strong>
+      </div>
+      <div class="bilgi-metrik gizle-mobil">
+        <span class="metrik-etiket">3 Ay Sonra</span>
+        <strong class="metrik-deger" id="kart-3m">▼ %10,4</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Açıklama & İstatistik Bandı -->
+  <div class="istatistik-seridi" id="istatistik-seridi">
+    <span class="serit-vurgu" id="serit-oran">Tarihi şokların %67'sinde BİST 100 sonraki ay yükseldi</span>
+    <span class="serit-ayrac">·</span>
+    <span class="serit-ortalama" id="serit-ort">Ortalama T+1 Getiri: +%1,2</span>
+  </div>
+
+  <!-- İnteraktif SVG Çizim Alanı -->
+  <div class="svg-sarici">
+    <svg
+      id="sok-svg"
+      viewBox="0 0 840 380"
+      class="sok-svg"
+      role="img"
+      aria-label="Makro şoklar ve Borsa İstanbul tepki grafiği"
+    >
+      <!-- Arka plan kılavuz çizgileri -->
+      <g id="kilavuz-cizgiler"></g>
+
+      <!-- Çubuklar ve Etiketler Grubu -->
+      <g id="cubuklar-grubu"></g>
+    </svg>
+  </div>
+
+  <div class="grafik-lejant">
+    <div class="lejant-oge">
+      <span class="lejant-kutu kutu-sok"></span>
+      <span>Makro Gösterge Düşüşü (Şok)</span>
+    </div>
+    <div class="lejant-oge">
+      <span class="lejant-kutu kutu-pozitif"></span>
+      <span>BİST 100 Yükseliş</span>
+    </div>
+    <div class="lejant-oge">
+      <span class="lejant-kutu kutu-negatif"></span>
+      <span>BİST 100 Düşüş</span>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ veriler: veri }}>
+  (function initMakroGrafik() {
+    const root = document.getElementById('makro-grafik-kapsayici');
+    if (!root) return;
+
+    let seciliGosterge = 'tge';
+    let seciliVade = 'nextRet'; // 'sameRet', 'nextRet', 'ret3m'
+    let seciliIndeks = 0;
+
+    const gostergeData = veriler.gostergeler;
+    const svg = document.getElementById('sok-svg');
+    const kilavuzG = document.getElementById('kilavuz-cizgiler');
+    const cubuklarG = document.getElementById('cubuklar-grubu');
+
+    const kartDonem = document.getElementById('kart-donem');
+    const kartOlay = document.getElementById('kart-olay');
+    const kartSok = document.getElementById('kart-sok');
+    const kartBist = document.getElementById('kart-bist');
+    const kart3m = document.getElementById('kart-3m');
+    const kartVadeEtiket = document.getElementById('kart-vade-etiket');
+    const seritOran = document.getElementById('serit-oran');
+    const seritOrt = document.getElementById('serit-ort');
+
+    // Tab butonları
+    const sekmeButonlari = root.querySelectorAll('.sekme-butonu');
+    sekmeButonlari.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        sekmeButonlari.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+        seciliGosterge = btn.getAttribute('data-gosterge');
+        seciliIndeks = 0;
+        ciz();
+      });
+    });
+
+    // Vade butonları
+    const vadeButonlari = root.querySelectorAll('.vade-butonu');
+    vadeButonlari.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        vadeButonlari.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+        seciliVade = btn.getAttribute('data-vade');
+        ciz();
+      });
+    });
+
+    function sayiFormat(n, ondalik = 1) {
+      if (n === null || n === undefined) return '—';
+      const s = n.toFixed(ondalik).replace('.', ',');
+      return s;
+    }
+
+    function ciz() {
+      const g = gostergeData[seciliGosterge];
+      const items = g.top10;
+      const birim = g.birim || 'puan';
+
+      // İstatistik güncelle
+      let oran = g.istatistik.sonrakiAyPozitifOrani;
+      let ort = g.istatistik.ortalamaSonrakiAyGetiri;
+      let vadeAd = 'Sonraki Ay (T+1)';
+
+      if (seciliVade === 'sameRet') {
+        oran = g.istatistik.ayniAyPozitifOrani;
+        ort = g.istatistik.ortalamaAyniAyGetiri;
+        vadeAd = 'Aynı Ay';
+      } else if (seciliVade === 'ret3m') {
+        oran = g.istatistik.sonraki3AyPozitifOrani;
+        ort = g.istatistik.ortalama3AyGetiri;
+        vadeAd = '3 Ay Sonra';
+      }
+
+      kartVadeEtiket.textContent = `BİST 100 (${vadeAd})`;
+      seritOran.textContent = `Tarihi şokların %${oran}'inde BİST 100 ${vadeAd.toLowerCase()} yükseldi`;
+      seritOrt.textContent = `Ortalama Getiri: ${ort >= 0 ? '+' : ''}%${sayiFormat(ort, 1)}`;
+
+      // SVG Çizim Parametreleri
+      const W = 840;
+      const H = 380;
+      const PAD_L = 50;
+      const PAD_R = 30;
+      const PAD_T = 30;
+      const PAD_B = 60;
+
+      // 0 Çizgisi Yüksekliği (Grafiğin ortası)
+      const Y_SIFIR = 190;
+      const MAX_BAR_H = 130;
+
+      // Ölçek belirleme: Getiri ve Şok max değerleri
+      const maxAbsBist = Math.max(
+        ...items.map((it) => Math.abs(it[seciliVade] ?? 0)),
+        25
+      );
+      const maxAbsSok = Math.max(
+        ...items.map((it) => Math.abs(it.diff ?? it.pct ?? 0)),
+        15
+      );
+
+      // Kılavuz Çizgileri Temizle ve Çiz
+      kilavuzG.innerHTML = `
+        <line x1="${PAD_L}" y1="${Y_SIFIR}" x2="${W - PAD_R}" y2="${Y_SIFIR}" stroke="#1b1b1b" stroke-width="1.5" />
+        <line x1="${PAD_L}" y1="${Y_SIFIR - MAX_BAR_H}" x2="${W - PAD_R}" y2="${Y_SIFIR - MAX_BAR_H}" stroke="#cfccc2" stroke-width="1" stroke-dasharray="3 3" />
+        <line x1="${PAD_L}" y1="${Y_SIFIR + MAX_BAR_H}" x2="${W - PAD_R}" y2="${Y_SIFIR + MAX_BAR_H}" stroke="#cfccc2" stroke-width="1" stroke-dasharray="3 3" />
+        <text x="${PAD_L - 8}" y="${Y_SIFIR + 4}" text-anchor="end" class="eksen-not">%0</text>
+        <text x="${PAD_L - 8}" y="${Y_SIFIR - MAX_BAR_H + 4}" text-anchor="end" class="eksen-not">+${Math.round(maxAbsBist)}%</text>
+        <text x="${PAD_L - 8}" y="${Y_SIFIR + MAX_BAR_H + 4}" text-anchor="end" class="eksen-not">-${Math.round(maxAbsBist)}%</text>
+      `;
+
+      // Çubukları Çiz
+      const slotWidth = (W - PAD_L - PAD_R) / items.length;
+      const barWidth = Math.min(18, slotWidth * 0.35);
+
+      let cubuklarHtml = '';
+
+      items.forEach((it, idx) => {
+        const cx = PAD_L + idx * slotWidth + slotWidth / 2;
+        const sokVal = it.diff ?? it.pct;
+        const bistVal = it[seciliVade];
+
+        // 1. Şok Çubuğu (Daima aşağı / negatif yönde)
+        const sokHeight = (Math.abs(sokVal) / maxAbsSok) * MAX_BAR_H;
+        const sokX = cx - barWidth - 2;
+        const sokY = Y_SIFIR;
+
+        // 2. BİST Çubuğu (Pozitifse yukarı, negatifse aşağı)
+        let bistHeight = 0;
+        let bistY = Y_SIFIR;
+        let bistColor = '#3f7350'; // Yeşil
+
+        if (bistVal !== null && bistVal !== undefined) {
+          bistHeight = (Math.abs(bistVal) / maxAbsBist) * MAX_BAR_H;
+          if (bistVal >= 0) {
+            bistY = Y_SIFIR - bistHeight;
+            bistColor = '#3f7350'; // Yükseliş yeşili
+          } else {
+            bistY = Y_SIFIR;
+            bistColor = '#a3243b'; // Düşüş kırmızısı
+          }
+        }
+
+        const isSelected = idx === seciliIndeks;
+        const seciliSinif = isSelected ? 'cubuk-aktif' : '';
+
+        cubuklarHtml += `
+          <g class="sok-sutun-grup ${seciliSinif}" data-index="${idx}" style="cursor: pointer;">
+            <!-- Hover için geniş şeffaf arka plan -->
+            <rect x="${cx - slotWidth / 2}" y="${PAD_T}" width="${slotWidth}" height="${H - PAD_T - PAD_B}" fill="${isSelected ? 'rgba(194, 80, 43, 0.08)' : 'transparent'}" class="sutun-arka" />
+
+            <!-- Şok Çubuğu -->
+            <rect x="${sokX}" y="${sokY}" width="${barWidth}" height="${sokHeight}" fill="#5d5b55" class="bar-sok" />
+
+            <!-- BİST Çubuğu -->
+            <rect x="${cx + 2}" y="${bistY}" width="${barWidth}" height="${Math.max(bistHeight, 2)}" fill="${bistColor}" class="bar-bist" />
+
+            <!-- X Ekseni Etiketi -->
+            <text x="${cx}" y="${H - PAD_B + 20}" text-anchor="middle" class="tarih-etiket ${isSelected ? 'etiket-aktif' : ''}">
+              ${it.label}
+            </text>
+
+            <!-- BİST Getiri Etiketi -->
+            ${bistVal !== null ? `
+              <text x="${cx + 2 + barWidth / 2}" y="${bistVal >= 0 ? bistY - 6 : bistY + bistHeight + 14}" text-anchor="middle" class="bist-rakam ${bistVal >= 0 ? 'metin-yukselis' : 'metin-dusus'}">
+                ${bistVal >= 0 ? '+' : ''}%${sayiFormat(bistVal, 1)}
+              </text>
+            ` : ''}
+          </g>
+        `;
+      });
+
+      cubuklarG.innerHTML = cubuklarHtml;
+
+      // Event Listener: Hover ve Click
+      const gruplar = cubuklarG.querySelectorAll('.sok-sutun-grup');
+      gruplar.forEach((grp) => {
+        grp.addEventListener('mouseenter', () => {
+          const idx = parseInt(grp.getAttribute('data-index'), 10);
+          seciliIndeks = idx;
+          guncelleKart(items[idx], birim);
+          vurgulaGrup(gruplar, idx);
+        });
+      });
+
+      guncelleKart(items[seciliIndeks], birim);
+    }
+
+    function vurgulaGrup(gruplar, targetIdx) {
+      gruplar.forEach((g, i) => {
+        const arka = g.querySelector('.sutun-arka');
+        const txt = g.querySelector('.tarih-etiket');
+        if (i === targetIdx) {
+          g.classList.add('cubuk-aktif');
+          if (arka) arka.setAttribute('fill', 'rgba(194, 80, 43, 0.08)');
+          if (txt) txt.classList.add('etiket-aktif');
+        } else {
+          g.classList.remove('cubuk-aktif');
+          if (arka) arka.setAttribute('fill', 'transparent');
+          if (txt) txt.classList.remove('etiket-aktif');
+        }
+      });
+    }
+
+    function guncelleKart(item, birim) {
+      if (!item) return;
+      kartDonem.textContent = item.label;
+      kartOlay.textContent = item.olay;
+
+      const sokVal = item.diff ?? item.pct;
+      kartSok.textContent = `${sayiFormat(sokVal, 2)} ${birim === 'puan' ? 'pt' : '%'}`;
+
+      const bistVal = item[seciliVade];
+      if (bistVal !== null && bistVal !== undefined) {
+        kartBist.textContent = `${bistVal >= 0 ? '▲' : '▼'} %${sayiFormat(Math.abs(bistVal), 1)}`;
+        kartBist.className = `metrik-deger ${bistVal >= 0 ? 'metin-yukselis' : 'metin-dusus'}`;
+      } else {
+        kartBist.textContent = '—';
+        kartBist.className = 'metrik-deger';
+      }
+
+      if (item.ret3m !== null && item.ret3m !== undefined) {
+        kart3m.textContent = `${item.ret3m >= 0 ? '▲' : '▼'} %${sayiFormat(Math.abs(item.ret3m), 1)}`;
+        kart3m.className = `metrik-deger ${item.ret3m >= 0 ? 'metin-yukselis' : 'metin-dusus'}`;
+      } else {
+        kart3m.textContent = '—';
+        kart3m.className = 'metrik-deger';
+      }
+    }
+
+    ciz();
+  })();
+</script>
+
+<style>
+  .makro-grafik-kapsayici {
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 24px;
+    margin: 28px 0;
+  }
+
+  .grafik-kontrol-paneli {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--hair, #cfccc2);
+    padding-bottom: 16px;
+  }
+
+  .sekme-grubu,
+  .vade-grubu {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .vade-etiket {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted, #5d5b55);
+    margin-right: 4px;
+  }
+
+  .sekme-butonu,
+  .vade-butonu {
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 6px 14px;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink, #1b1b1b);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .sekme-butonu:hover,
+  .vade-butonu:hover {
+    border-color: var(--ink, #1b1b1b);
+    background: var(--paper, #f4f3ee);
+  }
+
+  .sekme-butonu.aktif,
+  .vade-butonu.aktif {
+    background: var(--ink, #1b1b1b);
+    color: var(--paper, #f4f3ee);
+    border-color: var(--ink, #1b1b1b);
+  }
+
+  /* Canlı Bilgi Kartı */
+  .canli-bilgi-karti {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    background: var(--paper-2, #e9e7df);
+    border-left: 4px solid var(--toprak, #c2502b);
+    padding: 16px 20px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .bilgi-sol {
+    flex: 1;
+    min-width: 240px;
+  }
+
+  .bilgi-rozet {
+    display: inline-block;
+    background: var(--toprak, #c2502b);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    margin-bottom: 6px;
+  }
+
+  .bilgi-olay {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink, #1b1b1b);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .bilgi-sag {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .bilgi-metrik {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+  }
+
+  .metrik-etiket {
+    font-size: 0.75rem;
+    color: var(--muted, #5d5b55);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+
+  .metrik-deger {
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* İstatistik Şeridi */
+  .istatistik-seridi {
+    padding: 10px 0;
+    font-size: 0.88rem;
+    color: var(--ink-2, #3d3c38);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px dashed var(--hair, #cfccc2);
+    margin-bottom: 10px;
+  }
+
+  .serit-vurgu {
+    font-weight: 700;
+    color: var(--toprak-text, #a8431f);
+  }
+
+  .serit-ayrac {
+    color: var(--hair, #cfccc2);
+  }
+
+  /* SVG Çizim */
+  .svg-sarici {
+    width: 100%;
+    overflow-x: auto;
+    margin: 10px 0;
+  }
+
+  .sok-svg {
+    width: 100%;
+    height: auto;
+    min-width: 680px;
+    display: block;
+  }
+
+  :global(.eksen-not) {
+    font-size: 10px;
+    font-family: var(--sans);
+    fill: var(--muted, #5d5b55);
+  }
+
+  :global(.tarih-etiket) {
+    font-size: 11px;
+    font-family: var(--sans);
+    font-weight: 500;
+    fill: var(--muted, #5d5b55);
+    transition: fill 0.15s;
+  }
+
+  :global(.etiket-aktif) {
+    fill: var(--ink, #1b1b1b) !important;
+    font-weight: 700 !important;
+  }
+
+  :global(.bist-rakam) {
+    font-size: 10px;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  :global(.metin-yukselis) {
+    color: var(--yukselis, #3f7350);
+    fill: var(--yukselis, #3f7350);
+  }
+
+  :global(.metin-dusus) {
+    color: var(--dusus, #a3243b);
+    fill: var(--dusus, #a3243b);
+  }
+
+  /* Lejant */
+  .grafik-lejant {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding-top: 14px;
+    border-top: 1px solid var(--hair, #cfccc2);
+    font-size: 0.8rem;
+    color: var(--muted, #5d5b55);
+    flex-wrap: wrap;
+  }
+
+  .lejant-oge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lejant-kutu {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+  }
+
+  .kutu-sok {
+    background: #5d5b55;
+  }
+
+  .kutu-pozitif {
+    background: var(--yukselis, #3f7350);
+  }
+
+  .kutu-negatif {
+    background: var(--dusus, #a3243b);
+  }
+
+  @media (max-width: 768px) {
+    .canli-bilgi-karti {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .bilgi-sag {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    .gizle-mobil {
+      display: none;
+    }
+  }
+</style>

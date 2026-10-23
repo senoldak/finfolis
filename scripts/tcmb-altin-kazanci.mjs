@@ -182,8 +182,14 @@ export function svgUret(plSonuclari) {
   <!-- Izgara Çizgileri -->
   ${gridLines}
 
-  <!-- P/L Eğrisi (Finfolis Toprak / Mavi / Çizgi) -->
-  <polyline fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${points}" />
+  <!-- P/L Eğrisi ve Alanı (finfolis yükseliş rengi #3f7350) -->
+  <defs>
+    <linearGradient id="altin-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3f7350" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#3f7350" stop-opacity="0.02" />
+    </linearGradient>
+  </defs>
+  <polyline fill="none" stroke="#3f7350" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" points="${points}" />
 
   <!-- Vurgu Noktaları -->
   ${annotations}

@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import Change from '../../components/Change.astro';
+import DovizMevduatGrafik from '../../components/DovizMevduatGrafik.astro';
 import { RESMI, gunYaz, milyarUsd, farkUsd, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
@@ -31,42 +32,6 @@ const tuzelPay = son && son.toplam > 0 ? Math.round((son.tuzel / son.toplam) * 1
 
 // Son 16 haftanın tablosu (tersten, en yeniden eskiye)
 const tablo = satirlar.slice(-16).reverse();
-
-// SVG Grafik Hesaplamaları
-const W = 720;
-const H = 280;
-const PAD_L = 55;
-const PAD_R = 20;
-const PAD_T = 25;
-const PAD_B = 35;
-
-const tumDegerler = satirlar.map((s) => s.toplam);
-const minVal = tumDegerler.length ? Math.floor(Math.min(...tumDegerler) / 5000) * 5000 : 240000;
-const maxVal = tumDegerler.length ? Math.ceil(Math.max(...tumDegerler) / 5000) * 5000 : 280000;
-const aralik = maxVal - minVal || 1;
-
-const xKoord = (idx: number) => PAD_L + (idx / Math.max(satirlar.length - 1, 1)) * (W - PAD_L - PAD_R);
-const yKoord = (val: number) => PAD_T + (1 - (val - minVal) / aralik) * (H - PAD_T - PAD_B);
-
-// SVG Noktaları
-const cizgiToplam = satirlar.map((s, i) => `${i === 0 ? 'M' : 'L'} ${xKoord(i).toFixed(1)} ${yKoord(s.toplam).toFixed(1)}`).join(' ');
-const cizgiBireysel = satirlar.map((s, i) => `${i === 0 ? 'M' : 'L'} ${xKoord(i).toFixed(1)} ${yKoord(s.bireysel).toFixed(1)}`).join(' ');
-const cizgiTuzel = satirlar.map((s, i) => `${i === 0 ? 'M' : 'L'} ${xKoord(i).toFixed(1)} ${yKoord(s.tuzel).toFixed(1)}`).join(' ');
-
-// Zirve ve Dip
-let zirveIdx = 0;
-let dipIdx = 0;
-satirlar.forEach((s, i) => {
-  if (s.toplam > satirlar[zirveIdx].toplam) zirveIdx = i;
-  if (s.toplam < satirlar[dipIdx].toplam) dipIdx = i;
-});
-
-// Y ekseni çizgileri (5 basamak)
-const yBasamaklari = [minVal, minVal + aralik * 0.25, minVal + aralik * 0.5, minVal + aralik * 0.75, maxVal];
-
-// X ekseni etiketleri (4 eşit aralık)
-const xEtiketleri = [0, Math.floor(satirlar.length * 0.33), Math.floor(satirlar.length * 0.66), satirlar.length - 1]
-  .filter((idx, pos, arr) => arr.indexOf(idx) === pos && idx < satirlar.length);
 
 const baslik = 'Döviz mevduatları (YP mevduat toplamı)';
 const description =
@@ -154,66 +119,8 @@ const jsonLd = sayfaSemasi({
             Siteye alındığı zaman: {zamanYaz(mevduat.alinma)}.
           </p>
 
-          <!-- SVG Çizgi Grafik -->
-          <section class="bolum grafik-kapsayici">
-            <div class="grafik-ust-bar">
-              <h2 class="bolum-baslik">Son 1 Yılın Seyri (Milyar USD)</h2>
-              <div class="grafik-lejant-cubuk" aria-hidden="true">
-                <span class="lejant-oge"><span class="lejant-nokta cizgi-toplam-renk"></span> Toplam YP Mevduat</span>
-                <span class="lejant-oge"><span class="lejant-nokta cizgi-bireysel-renk"></span> Bireysel (Vatandaş)</span>
-                <span class="lejant-oge"><span class="lejant-nokta cizgi-tuzel-renk"></span> Şirketler</span>
-              </div>
-            </div>
-
-            <div class="svg-tutucu">
-              <svg viewBox={`0 0 ${W} ${H}`} class="mevduat-svg" role="img" aria-label={`Toplam YP mevduatı son 1 yılda ${milyarUsd(satirlar[0].toplam)} seviyesinden ${milyarUsd(son.toplam)} seviyesine geldi.`}>
-                <!-- Kılavuz Çizgileri ve Y Eksen Değerleri -->
-                {yBasamaklari.map((val) => (
-                  <g class="grid-satir">
-                    <line x1={PAD_L} y1={yKoord(val)} x2={W - PAD_R} y2={yKoord(val)} stroke="var(--hair)" stroke-width="1" stroke-dasharray="3 3" />
-                    <text x={PAD_L - 8} y={yKoord(val) + 4} text-anchor="end" class="eksen-yazi">
-                      ${Math.round(val / 1000)} Mr
-                    </text>
-                  </g>
-                ))}
-
-                <!-- X Eksen Etiketleri -->
-                {xEtiketleri.map((idx) => (
-                  <g class="x-etiket-g">
-                    <line x1={xKoord(idx)} y1={H - PAD_B} x2={xKoord(idx)} y2={H - PAD_B + 5} stroke="var(--ink)" stroke-width="1" />
-                    <text x={xKoord(idx)} y={H - PAD_B + 18} text-anchor={idx === 0 ? 'start' : idx === satirlar.length - 1 ? 'end' : 'middle'} class="eksen-yazi">
-                      {gunYaz(satirlar[idx].tarih).slice(3)}
-                    </text>
-                  </g>
-                ))}
-
-                <!-- Çizgiler: Şirketler, Bireysel, Toplam -->
-                <path d={cizgiTuzel} fill="none" stroke="var(--muted)" stroke-width="1.75" stroke-dasharray="4 2" />
-                <path d={cizgiBireysel} fill="none" stroke="var(--toprak)" stroke-width="2" />
-                <path d={cizgiToplam} fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
-
-                <!-- Zirve Noktası -->
-                <g class="vurgu-noktasi">
-                  <circle cx={xKoord(zirveIdx)} cy={yKoord(satirlar[zirveIdx].toplam)} r="4" fill="var(--ink)" />
-                  <text x={xKoord(zirveIdx)} y={yKoord(satirlar[zirveIdx].toplam) - 8} text-anchor="middle" class="vurgu-yazi">
-                    Zirve: {milyarUsd(satirlar[zirveIdx].toplam)}
-                  </text>
-                </g>
-
-                <!-- Dip Noktası -->
-                <g class="vurgu-noktasi">
-                  <circle cx={xKoord(dipIdx)} cy={yKoord(satirlar[dipIdx].toplam)} r="4" fill="var(--ink)" />
-                  <text x={xKoord(dipIdx)} y={yKoord(satirlar[dipIdx].toplam) + 16} text-anchor="middle" class="vurgu-yazi">
-                    Dip: {milyarUsd(satirlar[dipIdx].toplam)}
-                  </text>
-                </g>
-
-                <!-- Güncel Son Nokta -->
-                <circle cx={xKoord(satirlar.length - 1)} cy={yKoord(son.toplam)} r="5" fill="var(--toprak)" />
-              </svg>
-            </div>
-            <p class="veri-notu">Grafikteki toplam tutar, bankalardaki DTH (Döviz Tevdiat Hesapları) ve kaydi altın hesaplarının ABD Doları karşılığıdır.</p>
-          </section>
+          <!-- İnteraktif Zaman Serisi Grafiği -->
+          <DovizMevduatGrafik satirlar={satirlar} />
 
           <div class="veri-izgara">
             <!-- Sol: Son 16 Hafta Tablosu -->
@@ -315,77 +222,10 @@ const jsonLd = sayfaSemasi({
     border-left: 3px solid var(--toprak);
     padding-left: 12px;
   }
-  .grafik-kapsayici {
-    margin: 32px 0;
-    padding: 20px;
-    background: var(--paper-2);
-    border: 1px solid var(--hair);
-  }
-  .grafik-ust-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-  .grafik-lejant-cubuk {
-    display: flex;
-    gap: 16px;
-    font-size: 13px;
-    color: var(--ink-2);
-  }
-  .lejant-oge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .lejant-nokta {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-  }
-  .cizgi-toplam-renk {
-    background: var(--ink);
-  }
-  .cizgi-bireysel-renk {
-    background: var(--toprak);
-  }
-  .cizgi-tuzel-renk {
-    background: var(--muted);
-    border: 1px dashed var(--ink-2);
-  }
-  .svg-tutucu {
-    width: 100%;
-    overflow-x: auto;
-  }
-  .mevduat-svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    min-width: 600px;
-  }
-  .eksen-yazi {
-    font-size: 11px;
-    fill: var(--muted);
-    font-family: inherit;
-  }
-  .vurgu-yazi {
-    font-size: 11px;
-    font-weight: 600;
-    fill: var(--ink);
-    font-family: inherit;
-  }
   .renk-yukselis {
     color: var(--yukselis);
   }
   .renk-dusus {
     color: var(--dusus);
-  }
-  @media (max-width: 640px) {
-    .grafik-ust-bar {
-      flex-direction: column;
-      align-items: flex-start;
-    }
   }
 </style>

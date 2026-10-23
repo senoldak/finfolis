@@ -3,6 +3,7 @@
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import TcmbAltinKazanciGrafik from '../../components/TcmbAltinKazanciGrafik.astro';
 import data from '../../data/tcmb-altin-kazanci.json';
 import { sayiYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -92,23 +93,14 @@ const tabloVerisi = [...seri].slice(-20).reverse();
       ve Küresel Spot Ons Altın (LBMA / XAU-USD).
     </p>
 
-    <!-- Grafik Bölümü -->
+    <!-- İnteraktif Grafik Bölümü -->
     <section class="bolum grafik-alani">
-      <h2 class="bolum-baslik">Altın Dalgalarında TCMB'nin Kâr/Zarar Seyri (Milyar Dolar)</h2>
-      <p class="bolum-aciklama">
-        20 Mart 2025 tarihindeki altın fiyatı (3.043 $/ons) baz alınarak TCMB'nin mülkiyetindeki ~20,75 milyon ons altın portföyünün piyasa değer artışı (Mark-to-Market).
-      </p>
-      <div class="grafik-kapsayici" style="background: #ffffff; padding: 1rem; border-radius: 8px; border: 1px solid var(--hair, #cfccc2);">
-        <img
-          src="/grafikler/tcmb-altin-pl.svg"
-          alt="TCMB Altın Portföyü Kazancı P/L Grafiği"
-          style="width: 100%; height: auto; display: block;"
-          loading="lazy"
-        />
-      </div>
-      <p class="veri-notu">
-        * Tahmini hesaplama: TCMB'nin bankalara ait emanetler hariç kendi net mülkiyetindeki altın rezervi esas alınmıştır. Gerçekleşmemiş (unrealized) değerleme farkıdır.
-      </p>
+      <TcmbAltinKazanciGrafik
+        seri={seri}
+        bazTarih={data.baz_tarih}
+        bazFiyat={data.baz_fiyat_usd}
+        rezervOns={data.rezerv_ons}
+      />
     </section>
 
     <!-- Açıklama ve Tablo -->

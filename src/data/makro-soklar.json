@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-23T09:37:24.668Z",
+  "guncelleme": "2026-10-23T17:37:44.248Z",
   "gostergeler": {
     "tge": {
       "id": "tge",
@@ -7,11 +7,13 @@
       "kisaAd": "Tüketici Güveni",
       "kaynak": "TÜİK & TCMB",
       "seriKod": "TP.TG2.Y01 / TP.TG.EN",
+      "birim": "puan",
       "aciklama": "Hanehalkının mevcut ve gelecek 12 aylık maddi durum ile genel ekonomik gidişata yönelik beklentilerini ölçer.",
       "top10": [
         {
           "ym": "2023-08",
           "label": "Ağustos '23",
+          "olay": "TCMB 750 baz puan faiz artırımı ve tüketici güveni çöküşü",
           "val": 68.01,
           "diff": -12.06,
           "pct": -15.06,
@@ -23,6 +25,7 @@
         {
           "ym": "2006-06",
           "label": "Haziran '06",
+          "olay": "2006 kur şoku sonrası faiz artışları",
           "val": 92.2,
           "diff": -7.9,
           "pct": -7.89,
@@ -34,6 +37,7 @@
         {
           "ym": "2018-09",
           "label": "Eylül '18",
+          "olay": "TCMB 625 baz puan faiz artırımı ve kur dengelenmesi",
           "val": 81.15,
           "diff": -7.55,
           "pct": -8.52,
@@ -45,10 +49,11 @@
         {
           "ym": "2026-10",
           "label": "Ekim '26",
+          "olay": "Dezenflasyon süreci ve yüksek reel faiz ortamı",
           "val": 84.82,
           "diff": -7.11,
           "pct": -7.73,
-          "sameRet": -2.5,
+          "sameRet": -0.9,
           "nextRet": null,
           "ret3m": null,
           "ret6m": null
@@ -56,6 +61,7 @@
         {
           "ym": "2019-05",
           "label": "Mayıs '19",
+          "olay": "İstanbul seçim tekrarı süreci ve döviz volatilitesi",
           "val": 77.05,
           "diff": -6.57,
           "pct": -7.85,
@@ -67,6 +73,7 @@
         {
           "ym": "2008-10",
           "label": "Ekim '08",
+          "olay": "Küresel Finans Krizi panik dönemi ve piyasa çöküşü",
           "val": 74.2,
           "diff": -6.5,
           "pct": -8.05,
@@ -78,6 +85,7 @@
         {
           "ym": "2021-04",
           "label": "Nisan '21",
+          "olay": "Merkez Bankası yönetim değişimi sonrası güven kaybı",
           "val": 80.25,
           "diff": -6.38,
           "pct": -7.36,
@@ -89,6 +97,7 @@
         {
           "ym": "2023-06",
           "label": "Haziran '23",
+          "olay": "2023 genel seçimleri sonrası ortodoks politikaya geçiş",
           "val": 85.13,
           "diff": -5.93,
           "pct": -6.51,
@@ -100,6 +109,7 @@
         {
           "ym": "2008-04",
           "label": "Nisan '08",
+          "olay": "AK Parti kapatma davası süreci ve küresel kredi daralması",
           "val": 76.2,
           "diff": -5.8,
           "pct": -7.07,
@@ -111,6 +121,7 @@
         {
           "ym": "2021-11",
           "label": "Kasım '21",
+          "olay": "Politika faizi indirimleri ve enflasyonist kur yükselişi",
           "val": 70.85,
           "diff": -5.61,
           "pct": -7.34,
@@ -123,8 +134,10 @@
       "istatistik": {
         "ayniAyPozitifOrani": 60,
         "sonrakiAyPozitifOrani": 67,
-        "ortalamaAyniAyGetiri": 1.5,
-        "ortalamaSonrakiAyGetiri": 1.2
+        "sonraki3AyPozitifOrani": 67,
+        "ortalamaAyniAyGetiri": 1.7,
+        "ortalamaSonrakiAyGetiri": 1.2,
+        "ortalama3AyGetiri": 5.3
       }
     },
     "rkge": {
@@ -133,11 +146,13 @@
       "kisaAd": "Reel Kesim",
       "kaynak": "TCMB",
       "seriKod": "TP.GY1.N2.MA",
+      "birim": "puan",
       "aciklama": "İmalat sanayi yöneticilerinin sipariş, üretim, istihdam ve yatırım beklentilerini ölçen mevsimsellikten arındırılmış gösterge.",
       "top10": [
         {
           "ym": "2020-04",
           "label": "Nisan '20",
+          "olay": "COVID-19 pandemi kapanmaları ve küresel ekonomik durma",
           "val": 62.3,
           "diff": -36.3,
           "pct": -36.82,
@@ -149,6 +164,7 @@
         {
           "ym": "2008-10",
           "label": "Ekim '08",
+          "olay": "Küresel Finans Krizi panik dönemi ve piyasa çöküşü",
           "val": 74.4,
           "diff": -15.3,
           "pct": -17.06,
@@ -160,6 +176,7 @@
         {
           "ym": "2008-11",
           "label": "Kasım '08",
+          "olay": "Küresel resesyon derinleşmesi ve küresel teşvik paketleri",
           "val": 59.8,
           "diff": -14.6,
           "pct": -19.62,
@@ -171,6 +188,7 @@
         {
           "ym": "2007-05",
           "label": "Mayıs '07",
+          "olay": "Mayıs '07 dönemi piyasa dalgalanması",
           "val": 106.8,
           "diff": -9.1,
           "pct": -7.85,
@@ -182,6 +200,7 @@
         {
           "ym": "2020-03",
           "label": "Mart '20",
+          "olay": "Mart '20 dönemi piyasa dalgalanması",
           "val": 98.6,
           "diff": -8.1,
           "pct": -7.59,
@@ -193,6 +212,7 @@
         {
           "ym": "2008-09",
           "label": "Eylül '08",
+          "olay": "Lehman Brothers iflası ve Küresel Finans Krizi başlangıcı",
           "val": 89.7,
           "diff": -7.3,
           "pct": -7.53,
@@ -204,6 +224,7 @@
         {
           "ym": "2018-09",
           "label": "Eylül '18",
+          "olay": "TCMB 625 baz puan faiz artırımı ve kur dengelenmesi",
           "val": 90.4,
           "diff": -5.9,
           "pct": -6.13,
@@ -215,6 +236,7 @@
         {
           "ym": "2011-10",
           "label": "Ekim '11",
+          "olay": "Ekim '11 dönemi piyasa dalgalanması",
           "val": 106.8,
           "diff": -5.5,
           "pct": -4.9,
@@ -226,6 +248,7 @@
         {
           "ym": "2019-05",
           "label": "Mayıs '19",
+          "olay": "İstanbul seçim tekrarı süreci ve döviz volatilitesi",
           "val": 94.7,
           "diff": -5.3,
           "pct": -5.3,
@@ -237,6 +260,7 @@
         {
           "ym": "2018-08",
           "label": "Ağustos '18",
+          "olay": "Rahip Brunson krizi ve tarihi döviz kuru şoku",
           "val": 96.3,
           "diff": -5.2,
           "pct": -5.12,
@@ -249,8 +273,10 @@
       "istatistik": {
         "ayniAyPozitifOrani": 50,
         "sonrakiAyPozitifOrani": 60,
+        "sonraki3AyPozitifOrani": 60,
         "ortalamaAyniAyGetiri": -0.7,
-        "ortalamaSonrakiAyGetiri": 1.6
+        "ortalamaSonrakiAyGetiri": 1.6,
+        "ortalama3AyGetiri": 3.8
       }
     },
     "sanayi": {
@@ -259,11 +285,13 @@
       "kisaAd": "Sanayi Üretimi",
       "kaynak": "TÜİK",
       "seriKod": "TP.TSANAYMT2021.BCD",
+      "birim": "%",
       "aciklama": "Madencilik, imalat ve enerji sektörlerinin reel fiziki üretim çıktısını gösteren mevsim ve takvimden arındırılmış endeks.",
       "top10": [
         {
           "ym": "2020-04",
           "label": "Nisan '20",
+          "olay": "COVID-19 pandemi kapanmaları ve küresel ekonomik durma",
           "val": 58.57,
           "diff": -24.29,
           "pct": -29.31,
@@ -275,6 +303,7 @@
         {
           "ym": "2022-07",
           "label": "Temmuz '22",
+          "olay": "Küresel resesyon endişeleri ve yurt içi enflasyonist ralli",
           "val": 100.05,
           "diff": -7.7,
           "pct": -7.15,
@@ -286,6 +315,7 @@
         {
           "ym": "2009-01",
           "label": "Ocak '09",
+          "olay": "Küresel sanayi üretimi dip seviyesi",
           "val": 41.91,
           "diff": -3.04,
           "pct": -6.76,
@@ -297,6 +327,7 @@
         {
           "ym": "2023-02",
           "label": "Şubat '23",
+          "olay": "Şubat '23 dönemi piyasa dalgalanması",
           "val": 99.19,
           "diff": -7.17,
           "pct": -6.74,
@@ -308,6 +339,7 @@
         {
           "ym": "2020-03",
           "label": "Mart '20",
+          "olay": "Mart '20 dönemi piyasa dalgalanması",
           "val": 82.86,
           "diff": -5.41,
           "pct": -6.13,
@@ -319,6 +351,7 @@
         {
           "ym": "2016-07",
           "label": "Temmuz '16",
+          "olay": "Temmuz '16 dönemi piyasa dalgalanması",
           "val": 71.82,
           "diff": -4.66,
           "pct": -6.09,
@@ -330,6 +363,7 @@
         {
           "ym": "2011-09",
           "label": "Eylül '11",
+          "olay": "Eylül '11 dönemi piyasa dalgalanması",
           "val": 58.22,
           "diff": -3.27,
           "pct": -5.32,
@@ -341,6 +375,7 @@
         {
           "ym": "2008-10",
           "label": "Ekim '08",
+          "olay": "Küresel Finans Krizi panik dönemi ve piyasa çöküşü",
           "val": 48.05,
           "diff": -2.52,
           "pct": -4.98,
@@ -352,6 +387,7 @@
         {
           "ym": "2014-08",
           "label": "Ağustos '14",
+          "olay": "Ağustos '14 dönemi piyasa dalgalanması",
           "val": 67.52,
           "diff": -3.46,
           "pct": -4.87,
@@ -363,6 +399,7 @@
         {
           "ym": "2024-04",
           "label": "Nisan '24",
+          "olay": "Nisan '24 dönemi piyasa dalgalanması",
           "val": 104.24,
           "diff": -5.3,
           "pct": -4.84,
@@ -375,8 +412,10 @@
       "istatistik": {
         "ayniAyPozitifOrani": 50,
         "sonrakiAyPozitifOrani": 80,
+        "sonraki3AyPozitifOrani": 70,
         "ortalamaAyniAyGetiri": 0.8,
-        "ortalamaSonrakiAyGetiri": 3.1
+        "ortalamaSonrakiAyGetiri": 3.1,
+        "ortalama3AyGetiri": 13.8
       }
     },
     "rek": {
@@ -385,11 +424,13 @@
       "kisaAd": "Reel Döviz Kuru",
       "kaynak": "TCMB",
       "seriKod": "TP.RK.T1.Y",
+      "birim": "%",
       "aciklama": "Türk lirasının ticaret ortağı ülkelerin para birimlerine göre TÜFE bazlı reel değerini ölçen endeks.",
       "top10": [
         {
           "ym": "2018-08",
           "label": "Ağustos '18",
+          "olay": "Rahip Brunson krizi ve tarihi döviz kuru şoku",
           "val": 93.74,
           "diff": -15.59,
           "pct": -14.26,
@@ -401,6 +442,7 @@
         {
           "ym": "2023-06",
           "label": "Haziran '23",
+          "olay": "2023 genel seçimleri sonrası ortodoks politikaya geçiş",
           "val": 77.01,
           "diff": -9.66,
           "pct": -11.15,
@@ -412,6 +454,7 @@
         {
           "ym": "2021-12",
           "label": "Aralık '21",
+          "olay": "Dolar/TL 18 seviyesi ve KKM (Kur Korumalı Mevduat) ilanı",
           "val": 69.99,
           "diff": -8.26,
           "pct": -10.56,
@@ -423,6 +466,7 @@
         {
           "ym": "2006-06",
           "label": "Haziran '06",
+          "olay": "2006 kur şoku sonrası faiz artışları",
           "val": 138,
           "diff": -16.03,
           "pct": -10.41,
@@ -434,6 +478,7 @@
         {
           "ym": "2021-11",
           "label": "Kasım '21",
+          "olay": "Politika faizi indirimleri ve enflasyonist kur yükselişi",
           "val": 78.25,
           "diff": -8.85,
           "pct": -10.16,
@@ -445,6 +490,7 @@
         {
           "ym": "2004-05",
           "label": "Mayıs '04",
+          "olay": "Mayıs '04 dönemi piyasa dalgalanması",
           "val": 138.05,
           "diff": -14.64,
           "pct": -9.59,
@@ -456,6 +502,7 @@
         {
           "ym": "2008-10",
           "label": "Ekim '08",
+          "olay": "Küresel Finans Krizi panik dönemi ve piyasa çöküşü",
           "val": 157.54,
           "diff": -16.34,
           "pct": -9.4,
@@ -467,6 +514,7 @@
         {
           "ym": "2006-05",
           "label": "Mayıs '06",
+          "olay": "Gelişmekte olan piyasalar dalgalanması ve kur şoku",
           "val": 154.03,
           "diff": -11.99,
           "pct": -7.22,
@@ -478,6 +526,7 @@
         {
           "ym": "2020-08",
           "label": "Ağustos '20",
+          "olay": "Ağustos '20 dönemi piyasa dalgalanması",
           "val": 93,
           "diff": -6.6,
           "pct": -6.63,
@@ -489,6 +538,7 @@
         {
           "ym": "2008-03",
           "label": "Mart '08",
+          "olay": "Mart '08 dönemi piyasa dalgalanması",
           "val": 163.86,
           "diff": -11.28,
           "pct": -6.44,
@@ -501,8 +551,10 @@
       "istatistik": {
         "ayniAyPozitifOrani": 80,
         "sonrakiAyPozitifOrani": 60,
+        "sonraki3AyPozitifOrani": 70,
         "ortalamaAyniAyGetiri": 5.4,
-        "ortalamaSonrakiAyGetiri": 1.2
+        "ortalamaSonrakiAyGetiri": 1.2,
+        "ortalama3AyGetiri": 9.5
       }
     }
   }

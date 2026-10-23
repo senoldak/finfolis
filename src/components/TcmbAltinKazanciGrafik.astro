@@ -1,0 +1,574 @@
+---
+// TCMB Altın Rezervi Değerleme Kazancı (P/L) İnteraktif Grafiği
+// finfolis tasarım dili: Kâğıt zemin (#f4f3ee), mürekkep (#1b1b1b), yükseliş yeşili (#3f7350), Bricolage Grotesque, sıfır harici kütüphane.
+interface Nokta {
+  tarih: string;
+  ons_fiyat_usd: number;
+  baz_fiyat_usd: number;
+  ons_fark_usd: number;
+  kazanc_milyar_usd: number;
+}
+
+interface Props {
+  seri: Nokta[];
+  bazTarih?: string;
+  bazFiyat?: number;
+  rezervOns?: number;
+}
+
+const {
+  seri,
+  bazTarih = '2025-03-20',
+  bazFiyat = 3043.8,
+  rezervOns = 20.75e6
+} = Astro.props;
+
+// SVG Koordinat Boyutları
+const W = 860;
+const H = 430;
+const PAD_TOP = 35;
+const PAD_BOTTOM = 50;
+const PAD_LEFT = 55;
+const PAD_RIGHT = 35;
+
+const innerW = W - PAD_LEFT - PAD_RIGHT;
+const innerH = H - PAD_TOP - PAD_BOTTOM;
+
+// Y ekseni min ve max (0 ile 50 milyar $)
+const minY = 0;
+const maxY = 50;
+
+const xPos = (i: number, len: number) => PAD_LEFT + (i / Math.max(len - 1, 1)) * innerW;
+const yPos = (v: number) => PAD_TOP + (1 - (v - minY) / (maxY - minY)) * innerH;
+
+// Çizgi ve Dolgu Alanı Yolları (Path)
+const cizgiYolu = seri
+  .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i, seri.length).toFixed(1)} ${yPos(p.kazanc_milyar_usd).toFixed(1)}`)
+  .join(' ');
+
+const ilkX = xPos(0, seri.length).toFixed(1);
+const sonX = xPos(seri.length - 1, seri.length).toFixed(1);
+const sifirY = yPos(0).toFixed(1);
+const alanYolu = `${cizgiYolu} L ${sonX} ${sifirY} L ${ilkX} ${sifirY} Z`;
+
+// Y Izgara Seviyeleri (0, 10, 20, 30, 40, 50 Milyar $)
+const izgaraSeviyeleri = [0, 10, 20, 30, 40, 50];
+
+// X Ekseninde Yıl / Çeyrek Ayrımı
+const donemler: { etiket: string; x: number }[] = [];
+let sonEtiket = '';
+const adim = Math.max(1, Math.floor(seri.length / 6));
+seri.forEach((p, i) => {
+  if (i % adim === 0 || i === seri.length - 1) {
+    const [yil, ay, gun] = p.tarih.split('-');
+    const etiket = `${gun}.${ay}.${yil.slice(2)}`;
+    if (etiket !== sonEtiket) {
+      donemler.push({ etiket, x: xPos(i, seri.length) });
+      sonEtiket = etiket;
+    }
+  }
+});
+
+const sonNokta = seri.at(-1)!;
+const sonNoktaX = xPos(seri.length - 1, seri.length);
+const sonNoktaY = yPos(sonNokta.kazanc_milyar_usd);
+
+// Tarihi Zirve Noktası
+const zirveNokta = seri.reduce((max, cur) => cur.kazanc_milyar_usd > max.kazanc_milyar_usd ? cur : max, seri[0]);
+const zirveIdx = seri.indexOf(zirveNokta);
+const zirveX = xPos(zirveIdx, seri.length);
+const zirveY = yPos(zirveNokta.kazanc_milyar_usd);
+---
+
+<div class="grafik-kapsayici" data-altin-grafik data-seri={JSON.stringify(seri)} data-baz-fiyat={bazFiyat} data-rezerv-ons={rezervOns}>
+  <!-- Üst Başlık ve Filtre Seçiciler -->
+  <div class="grafik-ust-bilgi">
+    <div class="grafik-baslik-alani">
+      <h3 class="grafik-baslik">TCMB Altın Portföyü Kümülatif Kazancı (Mark-to-Market P/L)</h3>
+      <p class="grafik-altbaslik">20 Mart 2025 bazlı değerleme farkı · Grafik üzerinde gezdirerek anlık değerleri inceleyin</p>
+    </div>
+
+    <div class="zaman-filtre-alani" role="group" aria-label="Zaman Aralığı">
+      <button type="button" class="filtre-butonu" data-periyot="6a">Son 6 Ay</button>
+      <button type="button" class="filtre-butonu" data-periyot="2026">2026 Yılı</button>
+      <button type="button" class="filtre-butonu aktif" data-periyot="tumu">Tümü (1.5 Yıl)</button>
+    </div>
+  </div>
+
+  <!-- Dinamik Canlı Bilgi Kartı (Hover & Dokunmatik İnceleme) -->
+  <div class="canli-deger-kutusu" id="altin-canli-kutu">
+    <div class="canli-oge">
+      <span class="canli-etiket">Seçilen Tarih</span>
+      <strong class="canli-veri" id="altin-canli-tarih">{sonNokta.tarih}</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">TCMB Değerleme Kazancı</span>
+      <strong class="canli-veri vurgu-kazanc" id="altin-canli-pl">
+        +{sonNokta.kazanc_milyar_usd.toFixed(1)} Milyar $
+      </strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Spot Ons Altın</span>
+      <strong class="canli-veri" id="altin-canli-ons">${sonNokta.ons_fiyat_usd.toLocaleString('tr-TR')}</strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Ons Başı Fark (Baz: $3.044)</span>
+      <strong class="canli-veri vurgu-fark" id="altin-canli-fark">
+        +{sonNokta.ons_fark_usd.toFixed(0)} $
+      </strong>
+    </div>
+    <div class="canli-oge">
+      <span class="canli-etiket">Net Portföy</span>
+      <strong class="canli-veri" id="altin-canli-rezerv">~20,75M ons</strong>
+    </div>
+  </div>
+
+  <!-- İnteraktif SVG Çizim Alanı -->
+  <div class="svg-sarici">
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      class="altin-svg"
+      role="img"
+      aria-label="TCMB Altın Portföyü Kazancı İnteraktif Çizgi Grafiği"
+      id="altin-svg"
+    >
+      <defs>
+        <!-- finfolis Yükseliş Gradyanı (#3f7350 -> saydam) -->
+        <linearGradient id="altin-alan-gradyan" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3f7350" stop-opacity="0.28" />
+          <stop offset="100%" stop-color="#3f7350" stop-opacity="0.02" />
+        </linearGradient>
+      </defs>
+
+      <!-- Yatay Kılavuz Çizgileri -->
+      <g id="altin-katman-izgara">
+        {
+          izgaraSeviyeleri.map((v) => {
+            const y = yPos(v);
+            return (
+              <g class="izgara-grup">
+                <line
+                  x1={PAD_LEFT}
+                  y1={y}
+                  x2={W - PAD_RIGHT}
+                  y2={y}
+                  stroke="var(--hair, #cfccc2)"
+                  stroke-width={v === 0 ? "1.5" : "1"}
+                  stroke-dasharray={v === 0 ? "none" : "3 3"}
+                />
+                <text x={PAD_LEFT - 10} y={y + 4} text-anchor="end" class="eksen-metin">
+                  {v}B $
+                </text>
+              </g>
+            );
+          })
+        }
+      </g>
+
+      <!-- Dikey Dönem Ayrım Çizgileri -->
+      <g id="altin-katman-donemler">
+        {
+          donemler.map((d) => (
+            <g class="donem-grup">
+              <line
+                x1={d.x}
+                y1={PAD_TOP}
+                x2={d.x}
+                y2={H - PAD_BOTTOM}
+                stroke="var(--hair, #cfccc2)"
+                stroke-dasharray="2 3"
+                stroke-width="1"
+              />
+              <text x={d.x} y={H - PAD_BOTTOM + 20} text-anchor="middle" class="eksen-metin">
+                {d.etiket}
+              </text>
+            </g>
+          ))
+        }
+      </g>
+
+      <!-- Dolgu Alanı (Area) -->
+      <path id="altin-ana-alan" d={alanYolu} fill="url(#altin-alan-gradyan)" />
+
+      <!-- Ana P/L Çizgisi (finfolis yükseliş yeşili) -->
+      <path
+        id="altin-ana-egri"
+        d={cizgiYolu}
+        fill="none"
+        stroke="var(--yukselis, #3f7350)"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+      <!-- Tarihi Zirve Rozeti (47B $) -->
+      <g id="altin-zirve-rozet" class="zirve-rozet">
+        <circle cx={zirveX} cy={zirveY} r="5" fill="var(--ink, #1b1b1b)" stroke="var(--paper, #f4f3ee)" stroke-width="2" />
+        <rect x={zirveX - 42} y={zirveY - 30} width="84" height="22" fill="var(--ink, #1b1b1b)" rx="0" />
+        <text x={zirveX} y={zirveY - 15} fill="var(--paper, #f4f3ee)" font-size="11" font-weight="700" text-anchor="middle" font-family="var(--sans, sans-serif)">
+          ZİRVE: +47B $
+        </text>
+      </g>
+
+      <!-- Dikey İnteraktif Kılavuz Çizgisi (Crosshair) -->
+      <line
+        id="altin-rehber-cizgi"
+        x1={sonNoktaX}
+        y1={PAD_TOP}
+        x2={sonNoktaX}
+        y2={H - PAD_BOTTOM}
+        stroke="var(--ink, #1b1b1b)"
+        stroke-width="1"
+        stroke-dasharray="3 3"
+        opacity="0.5"
+      />
+
+      <!-- Hareket Eden Odak Çemberi -->
+      <circle
+        id="altin-fokus-cemberi"
+        cx={sonNoktaX}
+        cy={sonNoktaY}
+        r="6"
+        fill="var(--yukselis, #3f7350)"
+        stroke="var(--paper, #f4f3ee)"
+        stroke-width="2.5"
+      />
+
+      <!-- Şeffaf Etkileşim Katmanı (Mouse/Touch Tracking) -->
+      <rect
+        id="altin-etkilesim-katmani"
+        x={PAD_LEFT}
+        y={PAD_TOP}
+        width={innerW}
+        height={innerH}
+        fill="transparent"
+        style="cursor: crosshair; touch-action: none;"
+      />
+    </svg>
+  </div>
+
+  <!-- Dipnot Bilgisi -->
+  <div class="grafik-dip-not">
+    <span>● Kaynak: TCMB Analitik Bilanço, Uluslararası Rezervler &amp; Spot XAU/USD (LBMA)</span>
+    <span>Hesaplama: (Ons Fiyatı<sub>t</sub> − $3.044) × 20,75M ons (Gerçekleşmemiş MTM P/L)</span>
+  </div>
+</div>
+
+<script>
+  const kapsayici = document.querySelector('[data-altin-grafik]') as HTMLElement | null;
+  if (kapsayici) {
+    const tumSeri: Array<{
+      tarih: string;
+      ons_fiyat_usd: number;
+      baz_fiyat_usd: number;
+      ons_fark_usd: number;
+      kazanc_milyar_usd: number;
+    }> = JSON.parse(kapsayici.dataset.seri || '[]');
+
+    let aktifSeri = [...tumSeri];
+
+    // SVG Elemanları
+    const svg = document.getElementById('altin-svg') as SVGSVGElement | null;
+    const anaEgri = document.getElementById('altin-ana-egri') as SVGPathElement | null;
+    const anaAlan = document.getElementById('altin-ana-alan') as SVGPathElement | null;
+    const rehberCizgi = document.getElementById('altin-rehber-cizgi') as SVGLineElement | null;
+    const fokusCemberi = document.getElementById('altin-fokus-cemberi') as SVGCircleElement | null;
+    const etkilesim = document.getElementById('altin-etkilesim-katmani') as SVGRectElement | null;
+    const zirveRozet = document.getElementById('altin-zirve-rozet') as SVGGElement | null;
+    const katmanDonemler = document.getElementById('altin-katman-donemler');
+
+    // Canlı Kart Elemanları
+    const canliTarih = document.getElementById('altin-canli-tarih');
+    const canliPL = document.getElementById('altin-canli-pl');
+    const canliOns = document.getElementById('altin-canli-ons');
+    const canliFark = document.getElementById('altin-canli-fark');
+
+    // Sabit Koordinat Parametreleri
+    const W = 860;
+    const H = 430;
+    const PAD_TOP = 35;
+    const PAD_BOTTOM = 50;
+    const PAD_LEFT = 55;
+    const PAD_RIGHT = 35;
+    const innerW = W - PAD_LEFT - PAD_RIGHT;
+    const innerH = H - PAD_TOP - PAD_BOTTOM;
+    const minY = 0;
+    const maxY = 50;
+
+    const xPos = (i: number, len: number) => PAD_LEFT + (i / Math.max(len - 1, 1)) * innerW;
+    const yPos = (v: number) => PAD_TOP + (1 - (v - minY) / (maxY - minY)) * innerH;
+
+    function grafigiYenile() {
+      if (!anaEgri || !anaAlan) return;
+      const len = aktifSeri.length;
+      if (len === 0) return;
+
+      const cizgiYolu = aktifSeri
+        .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i, len).toFixed(1)} ${yPos(p.kazanc_milyar_usd).toFixed(1)}`)
+        .join(' ');
+
+      const ilkX = xPos(0, len).toFixed(1);
+      const sonX = xPos(len - 1, len).toFixed(1);
+      const sifirY = yPos(0).toFixed(1);
+      const alanYolu = `${cizgiYolu} L ${sonX} ${sifirY} L ${ilkX} ${sifirY} Z`;
+
+      anaEgri.setAttribute('d', cizgiYolu);
+      anaAlan.setAttribute('d', alanYolu);
+
+      // Zirve Rozetini Güncelle
+      if (zirveRozet) {
+        const zirveItem = aktifSeri.reduce((max, cur) => cur.kazanc_milyar_usd > max.kazanc_milyar_usd ? cur : max, aktifSeri[0]);
+        const zIdx = aktifSeri.indexOf(zirveItem);
+        if (zIdx !== -1) {
+          const zx = xPos(zIdx, len);
+          const zy = yPos(zirveItem.kazanc_milyar_usd);
+          zirveRozet.style.display = 'block';
+          const circ = zirveRozet.querySelector('circle');
+          const rect = zirveRozet.querySelector('rect');
+          const txt = zirveRozet.querySelector('text');
+          if (circ) { circ.setAttribute('cx', zx.toString()); circ.setAttribute('cy', zy.toString()); }
+          if (rect) { rect.setAttribute('x', (zx - 42).toString()); rect.setAttribute('y', (zy - 30).toString()); }
+          if (txt) { txt.setAttribute('x', zx.toString()); txt.setAttribute('y', (zy - 15).toString()); txt.textContent = `ZİRVE: +${Math.round(zirveItem.kazanc_milyar_usd)}B $`; }
+        }
+      }
+
+      // X ekseni dönem etiketlerini yenile
+      if (katmanDonemler) {
+        let svgHtml = '';
+        const step = Math.max(1, Math.floor(len / 6));
+        aktifSeri.forEach((p, i) => {
+          if (i % step === 0 || i === len - 1) {
+            const [yil, ay, gun] = p.tarih.split('-');
+            const etiket = `${gun}.${ay}.${yil.slice(2)}`;
+            const px = xPos(i, len);
+            svgHtml += `
+              <g class="donem-grup">
+                <line x1="${px}" y1="${PAD_TOP}" x2="${px}" y2="${H - PAD_BOTTOM}" stroke="var(--hair, #cfccc2)" stroke-dasharray="2 3" stroke-width="1" />
+                <text x="${px}" y="${H - PAD_BOTTOM + 20}" text-anchor="middle" class="eksen-metin">${etiket}</text>
+              </g>
+            `;
+          }
+        });
+        katmanDonemler.innerHTML = svgHtml;
+      }
+
+      // En son noktaya odaklan
+      noktayiGoster(len - 1);
+    }
+
+    function noktayiGoster(index: number) {
+      if (index < 0 || index >= aktifSeri.length) return;
+      const d = aktifSeri[index];
+      const px = xPos(index, aktifSeri.length);
+      const py = yPos(d.kazanc_milyar_usd);
+
+      if (rehberCizgi) {
+        rehberCizgi.setAttribute('x1', px.toString());
+        rehberCizgi.setAttribute('x2', px.toString());
+        rehberCizgi.setAttribute('opacity', '0.6');
+      }
+
+      if (fokusCemberi) {
+        fokusCemberi.setAttribute('cx', px.toString());
+        fokusCemberi.setAttribute('cy', py.toString());
+        fokusCemberi.setAttribute('opacity', '1');
+      }
+
+      // Canlı Bilgileri Güncelle
+      if (canliTarih) canliTarih.textContent = d.tarih;
+      if (canliPL) {
+        canliPL.textContent = `${d.kazanc_milyar_usd >= 0 ? '+' : ''}${d.kazanc_milyar_usd.toFixed(1)} Milyar $`;
+        canliPL.style.color = d.kazanc_milyar_usd >= 0 ? 'var(--yukselis, #3f7350)' : 'var(--dusus, #a3243b)';
+      }
+      if (canliOns) canliOns.textContent = `$${Math.round(d.ons_fiyat_usd).toLocaleString('tr-TR')}`;
+      if (canliFark) {
+        canliFark.textContent = `${d.ons_fark_usd >= 0 ? '+' : ''}$${Math.round(d.ons_fark_usd).toLocaleString('tr-TR')}`;
+        canliFark.style.color = d.ons_fark_usd >= 0 ? 'var(--yukselis, #3f7350)' : 'var(--dusus, #a3243b)';
+      }
+    }
+
+    // Fare / Dokunmatik Etkileşimi
+    function pozisyondanIndekse(evt: MouseEvent | TouchEvent) {
+      if (!svg) return;
+      const rect = svg.getBoundingClientRect();
+      const clientX = 'touches' in evt ? evt.touches[0].clientX : evt.clientX;
+      const svgX = ((clientX - rect.left) / rect.width) * W;
+
+      const oran = (svgX - PAD_LEFT) / innerW;
+      const index = Math.round(oran * (aktifSeri.length - 1));
+      const sinirliIndex = Math.max(0, Math.min(aktifSeri.length - 1, index));
+      noktayiGoster(sinirliIndex);
+    }
+
+    if (etkilesim) {
+      etkilesim.addEventListener('mousemove', (e) => pozisyondanIndekse(e));
+      etkilesim.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        pozisyondanIndekse(e);
+      }, { passive: false });
+
+      etkilesim.addEventListener('mouseleave', () => {
+        // Fare ayrılınca son güne geri dön
+        noktayiGoster(aktifSeri.length - 1);
+      });
+    }
+
+    // Periyot Butonları
+    const butonlar = kapsayici.querySelectorAll('.filtre-butonu');
+    butonlar.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        butonlar.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+
+        const periyot = btn.getAttribute('data-periyot');
+        if (periyot === '6a') {
+          aktifSeri = tumSeri.slice(-180);
+        } else if (periyot === '2026') {
+          aktifSeri = tumSeri.filter((d) => d.tarih.startsWith('2026'));
+        } else {
+          aktifSeri = [...tumSeri];
+        }
+
+        grafigiYenile();
+      });
+    });
+  }
+</script>
+
+<style>
+  .grafik-kapsayici {
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 20px;
+    margin: 24px 0;
+  }
+
+  .grafik-ust-bilgi {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--hair, #cfccc2);
+    padding-bottom: 12px;
+  }
+
+  .grafik-baslik {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--ink, #1b1b1b);
+    font-family: var(--sans, sans-serif);
+  }
+
+  .grafik-altbaslik {
+    font-size: 0.85rem;
+    color: var(--muted, #5d5b55);
+    margin: 2px 0 0;
+  }
+
+  .zaman-filtre-alani {
+    display: flex;
+    gap: 6px;
+  }
+
+  .filtre-butonu {
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    color: var(--ink, #1b1b1b);
+    padding: 6px 14px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .filtre-butonu:hover {
+    border-color: var(--ink, #1b1b1b);
+  }
+
+  .filtre-butonu.aktif {
+    background: var(--ink, #1b1b1b);
+    color: var(--paper, #f4f3ee);
+    border-color: var(--ink, #1b1b1b);
+  }
+
+  /* Canlı Değer Bandı */
+  .canli-deger-kutusu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px 16px;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .canli-oge {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .canli-etiket {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted, #5d5b55);
+    font-weight: 600;
+  }
+
+  .canli-veri {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+    font-family: var(--sans, sans-serif);
+  }
+
+  .vurgu-kazanc {
+    color: var(--yukselis, #3f7350);
+    font-size: 1.25rem;
+  }
+
+  .vurgu-fark {
+    color: var(--yukselis, #3f7350);
+  }
+
+  /* SVG Çizim Alanı */
+  .svg-sarici {
+    width: 100%;
+    overflow-x: auto;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 12px 8px;
+  }
+
+  .altin-svg {
+    width: 100%;
+    height: auto;
+    min-width: 600px;
+    display: block;
+  }
+
+  .eksen-metin {
+    font-size: 11px;
+    fill: var(--muted, #5d5b55);
+    font-family: var(--sans, sans-serif);
+  }
+
+  .zirve-rozet text {
+    letter-spacing: 0.04em;
+  }
+
+  .grafik-dip-not {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 0.75rem;
+    color: var(--muted, #5d5b55);
+  }
+</style>

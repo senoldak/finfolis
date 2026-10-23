@@ -6,6 +6,7 @@ import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import AbdTahvilleriGrafik from '../../components/AbdTahvilleriGrafik.astro';
 import data from '../../data/abd-tahvilleri.json';
+import abdTahvilAkimData from '../../data/abd-tahvil.json';
 import type { TahvilAnalizi } from '../../lib/abd-tahvilleri.d.mts';
 import { gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -84,21 +85,21 @@ const sonAylar = [...veri.noktalar].slice(-24).reverse();
       </div>
 
       <div>
+        <dt>Son 4 Ay Net Alım (TIC)</dt>
+        <dd style="color: #2563eb; font-weight: 700;">+{sayiYaz(abdTahvilAkimData.son4AyTicNetAlimMilyarUsd, 2)} milyar $</dd>
+        <dd class="veri-not">Nisan–Ağustos dönemi toplamı</dd>
+      </div>
+
+      <div>
+        <dt>TCMB Menkul Portföy Artışı</dt>
+        <dd style="color: #2563eb; font-weight: 700;">+{sayiYaz(abdTahvilAkimData.son4AyTcmbMenkulFarkMilyarUsd || 0, 2)} milyar $</dd>
+        <dd class="veri-not">TCMB Dış Varlıklar (%99,6 uyum)</dd>
+      </div>
+
+      <div>
         <dt>Kısa Vadeli (T-Bills &le; 1Y)</dt>
         <dd>{formatMilyar(son.kisaUSD)}</dd>
         <dd class="veri-not">Portföyün %{son.kisaOran}'i</dd>
-      </div>
-
-      <div>
-        <dt>Uzun Vadeli (&gt; 1Y Tahvil)</dt>
-        <dd>{formatMilyar(son.uzunUSD)}</dd>
-        <dd class="veri-not">Portföyün %{son.uzunOran}'i</dd>
-      </div>
-
-      <div>
-        <dt>Tarihsel Zirveye Uzaklık</dt>
-        <dd class="negatif-yazi">%{veri.zirvedenFarkYuzde}</dd>
-        <dd class="veri-not">2015 Zirvesi: {formatMilyar(veri.tarihselZirve.toplamUSD)}</dd>
       </div>
     </dl>
 
@@ -111,7 +112,27 @@ const sonAylar = [...veri.noktalar].slice(-24).reverse();
       Son veri dönemi: {son.tarih.slice(0, 7)} · Güncelleme: {zamanYaz(veri.guncelleme)}.
     </p>
 
-    <!-- 2. Grafik Bölümü -->
+    <!-- 2. Grafik Bölümü: Aylık Net Alım-Satım Akımları (TIC) -->
+    <section class="bolum">
+      <div class="bolum-baslik-alani">
+        <h2 class="bolum-baslik">Türkiye'nin Aylık ABD Hazine Tahvili Alım-Satımları (Net Akım)</h2>
+        <span class="bolum-altbaslik">Milyon USD · FRED: FORTREASNET12807 (TIC)</span>
+      </div>
+
+      <div class="grafik-kapsayici" style="background: #ffffff; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--hair, #e5e5e5);">
+        <img
+          src="/grafikler/turkiye-abd-tahvil-akimlari.svg"
+          alt="Türkiye'nin aylık ABD tahvili alım-satımları (TIC)"
+          style="width: 100%; height: auto; display: block;"
+          loading="lazy"
+        />
+      </div>
+      <p class="veri-notu">
+        * Mavi barlar aylık net tahvil alımını, kırmızı barlar net satışını gösterir. Nisan–Ağustos dönemindeki <strong>+${sayiYaz(abdTahvilAkimData.son4AyTicNetAlimMilyarUsd, 2)} milyar dolarlık</strong> net alım, TCMB rezervlerindeki menkul kıymet artışıyla neredeyse birebir örtüşmektedir.
+      </p>
+    </section>
+
+    <!-- 3. Portföy Gelişimi (Stok) -->
     <section class="bolum">
       <div class="bolum-baslik-alani">
         <h2 class="bolum-baslik">Tarihsel Portföy Gelişimi (2011–2026)</h2>
@@ -121,11 +142,22 @@ const sonAylar = [...veri.noktalar].slice(-24).reverse();
       <AbdTahvilleriGrafik veri={veri} />
     </section>
 
-    <!-- 3. Analiz ve Arka Plan -->
+    <!-- 4. Analiz ve Arka Plan -->
     <section class="bolum analiz-metni">
       <h2 class="bolum-baslik">Verinin Anlamı ve Rezerv Dinamikleri</h2>
 
       <div class="metin-kartlari">
+        <div class="metin-kart" style="border-left: 3px solid #c2502b;">
+          <h3>Kurumsal Dağılım ve TCMB İzi: $4 Milyarlık Alım Nasıl Hesaplanıyor?</h3>
+          <p>
+            ABD Hazine Bakanlığı (TIC) verisinde kurumsal dağılım (TCMB, yerel bankalar, fonlar vb.) gizlilik nedeniyle açıklanmaz. Ancak ekonomistler bunu TCMB bilançosuyla çaprazlayarak doğrular:
+          </p>
+          <ul>
+            <li><strong>TIC Net Alımı:</strong> Nisan–Ağustos döneminde Türkiye yerleşikleri ABD tahvillerinde toplam <strong>+${sayiYaz(abdTahvilAkimData.son4AyTicNetAlimMilyonUsd, 0)} milyon $</strong> (+${sayiYaz(abdTahvilAkimData.son4AyTicNetAlimMilyarUsd, 2)} milyar $) net alım gerçekleştirdi.</li>
+            <li><strong>TCMB Rezerv Verisi:</strong> TCMB'nin IMF SDDS standartlarındaki <em>Uluslararası Rezervler ve Döviz Likiditesi</em> tablosunda (EVDS: <code>TP.REZVARPD.K3</code>) yer alan menkul kıymetler stoku, aynı 4 aylık dönemde 2.810 milyon dolardan 6.751 milyon dolara çıkarak tam <strong>+${sayiYaz(abdTahvilAkimData.son4AyTcmbMenkulFarkMilyonUsd || 0, 0)} milyon $</strong> (+${sayiYaz(abdTahvilAkimData.son4AyTcmbMenkulFarkMilyarUsd || 0, 2)} milyar $) artış kaydetti.</li>
+            <li><strong>%99,6 Uyum:</strong> İki bağımsız resmi kurum arasındaki bu matematiksel örtüşme, son aylardaki tahvil alımlarının arkasındaki ana aktörün Merkez Bankası olduğunu kanıtlamaktadır.</li>
+          </ul>
+        </div>
         <div class="metin-kart">
           <h3>Bu Veri Nedir ve Nereden Hesaplanır?</h3>
           <p>

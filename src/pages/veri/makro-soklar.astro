@@ -3,6 +3,7 @@
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import MakroSokGrafik from '../../components/MakroSokGrafik.astro';
 import data from '../../data/makro-soklar.json';
 import { gunYaz, sayiYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -87,6 +88,20 @@ const g = data.gostergeler;
       </p>
     </aside>
 
+    <!-- İnteraktif Görselleştirme -->
+    <section class="bolum" style="margin-bottom: var(--alan-l);">
+      <div class="bolum-ust">
+        <div>
+          <span class="ust-etiket">İnteraktif Görselleştirme</span>
+          <h2 class="bolum-baslik">Makro Kırılma ve BİST 100 Karşılaştırma Grafiği</h2>
+          <p class="bolum-aciklama">
+            Aşağıdaki sekmelerden makro göstergeyi ve borsa reaksiyon vadesini seçerek şok dönemlerini, çöküş derinliklerini ve BİST 100’ün yönünü interaktif olarak inceleyebilirsiniz.
+          </p>
+        </div>
+      </div>
+      <MakroSokGrafik veri={data} />
+    </section>
+
     <!-- 1. BÖLÜM: TÜKETİCİ GÜVENİ (TGE) -->
     <section class="bolum sok-bolumu">
       <div class="bolum-ust">
@@ -104,7 +119,7 @@ const g = data.gostergeler;
               <th scope="col" style="width: 36px;">#</th>
               <th scope="col">Dönem</th>
               <th scope="col" class="sag">TGE Düşüşü</th>
-              <th scope="col" class="sag" style="width: 170px;">BİST 100 (Aynı Ay)</th>
+              <th scope="col" class="sag">BİST 100 (Aynı Ay)</th>
               <th scope="col" class="sag">Sonraki Ay (T+1)</th>
               <th scope="col" class="sag">3 Ay Sonra</th>
             </tr>
@@ -115,24 +130,11 @@ const g = data.gostergeler;
                 <td class="font-soluk">{i + 1}</td>
                 <td><strong>{r.label}</strong></td>
                 <td class="sag font-tablo metin-dusus"><strong>{sayiYaz(r.diff, 2)} pt</strong></td>
-                <td class="sag">
+                <td class="sag font-tablo">
                   {r.sameRet !== null ? (
-                    <div class="bar-hucre">
-                      <div class="bar-iz">
-                        <div class="bar-orta"></div>
-                        <div
-                          class={r.sameRet >= 0 ? 'bar-dolu bar-pos' : 'bar-dolu bar-neg'}
-                          style={
-                            r.sameRet >= 0
-                              ? `left: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
-                              : `right: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
-                          }
-                        ></div>
-                      </div>
-                      <span class={r.sameRet >= 0 ? 'metin-yukselis font-tablo' : 'metin-dusus font-tablo'}>
-                        {r.sameRet >= 0 ? `▲ %${sayiYaz(r.sameRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.sameRet), 1)}`}
-                      </span>
-                    </div>
+                    <span class={r.sameRet >= 0 ? 'metin-yukselis' : 'metin-dusus'}>
+                      {r.sameRet >= 0 ? `▲ %${sayiYaz(r.sameRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.sameRet), 1)}`}
+                    </span>
                   ) : '—'}
                 </td>
                 <td class="sag font-tablo">
@@ -173,7 +175,7 @@ const g = data.gostergeler;
               <th scope="col" style="width: 36px;">#</th>
               <th scope="col">Dönem</th>
               <th scope="col" class="sag">RKGE Düşüşü</th>
-              <th scope="col" class="sag" style="width: 170px;">BİST 100 (Aynı Ay)</th>
+              <th scope="col" class="sag">BİST 100 (Aynı Ay)</th>
               <th scope="col" class="sag">Sonraki Ay (T+1)</th>
               <th scope="col" class="sag">3 Ay Sonra</th>
             </tr>
@@ -184,24 +186,11 @@ const g = data.gostergeler;
                 <td class="font-soluk">{i + 1}</td>
                 <td><strong>{r.label}</strong></td>
                 <td class="sag font-tablo metin-dusus"><strong>{sayiYaz(r.diff, 2)} pt</strong></td>
-                <td class="sag">
+                <td class="sag font-tablo">
                   {r.sameRet !== null ? (
-                    <div class="bar-hucre">
-                      <div class="bar-iz">
-                        <div class="bar-orta"></div>
-                        <div
-                          class={r.sameRet >= 0 ? 'bar-dolu bar-pos' : 'bar-dolu bar-neg'}
-                          style={
-                            r.sameRet >= 0
-                              ? `left: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
-                              : `right: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
-                          }
-                        ></div>
-                      </div>
-                      <span class={r.sameRet >= 0 ? 'metin-yukselis font-tablo' : 'metin-dusus font-tablo'}>
-                        {r.sameRet >= 0 ? `▲ %${sayiYaz(r.sameRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.sameRet), 1)}`}
-                      </span>
-                    </div>
+                    <span class={r.sameRet >= 0 ? 'metin-yukselis' : 'metin-dusus'}>
+                      {r.sameRet >= 0 ? `▲ %${sayiYaz(r.sameRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.sameRet), 1)}`}
+                    </span>
                   ) : '—'}
                 </td>
                 <td class="sag font-tablo">
@@ -242,7 +231,7 @@ const g = data.gostergeler;
               <th scope="col" style="width: 36px;">#</th>
               <th scope="col">Dönem</th>
               <th scope="col" class="sag">Aylık Değişim</th>
-              <th scope="col" class="sag" style="width: 170px;">BİST 100 (Aynı Ay)</th>
+              <th scope="col" class="sag">BİST 100 (Aynı Ay)</th>
               <th scope="col" class="sag">Sonraki Ay (T+1)</th>
               <th scope="col" class="sag">3 Ay Sonra</th>
             </tr>
@@ -253,24 +242,11 @@ const g = data.gostergeler;
                 <td class="font-soluk">{i + 1}</td>
                 <td><strong>{r.label}</strong></td>
                 <td class="sag font-tablo metin-dusus"><strong>%{sayiYaz(r.pct, 2)}</strong></td>
-                <td class="sag">
+                <td class="sag font-tablo">
                   {r.sameRet !== null ? (
-                    <div class="bar-hucre">
-                      <div class="bar-iz">
-                        <div class="bar-orta"></div>
-                        <div
-                          class={r.sameRet >= 0 ? 'bar-dolu bar-pos' : 'bar-dolu bar-neg'}
-                          style={
-                            r.sameRet >= 0
-                              ? `left: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
-                              : `right: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
-                          }
-                        ></div>
-                      </div>
-                      <span class={r.sameRet >= 0 ? 'metin-yukselis font-tablo' : 'metin-dusus font-tablo'}>
-                        {r.sameRet >= 0 ? `▲ %${sayiYaz(r.sameRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.sameRet), 1)}`}
-                      </span>
-                    </div>
+                    <span class={r.sameRet >= 0 ? 'metin-yukselis' : 'metin-dusus'}>
+                      {r.sameRet >= 0 ? `▲ %${sayiYaz(r.sameRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.sameRet), 1)}`}
+                    </span>
                   ) : '—'}
                 </td>
                 <td class="sag font-tablo">
@@ -311,7 +287,7 @@ const g = data.gostergeler;
               <th scope="col" style="width: 36px;">#</th>
               <th scope="col">Dönem</th>
               <th scope="col" class="sag">Reel Kur Değişimi</th>
-              <th scope="col" class="sag" style="width: 170px;">BİST 100 (Aynı Ay)</th>
+              <th scope="col" class="sag">BİST 100 (Aynı Ay)</th>
               <th scope="col" class="sag">Sonraki Ay (T+1)</th>
               <th scope="col" class="sag">3 Ay Sonra</th>
             </tr>
@@ -322,24 +298,11 @@ const g = data.gostergeler;
                 <td class="font-soluk">{i + 1}</td>
                 <td><strong>{r.label}</strong></td>
                 <td class="sag font-tablo metin-dusus"><strong>%{sayiYaz(r.pct, 2)}</strong></td>
-                <td class="sag">
+                <td class="sag font-tablo">
                   {r.sameRet !== null ? (
-                    <div class="bar-hucre">
-                      <div class="bar-iz">
-                        <div class="bar-orta"></div>
-                        <div
-                          class={r.sameRet >= 0 ? 'bar-dolu bar-pos' : 'bar-dolu bar-neg'}
-                          style={
-                            r.sameRet >= 0
-                              ? `left: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
-                              : `right: 50%; width: ${Math.min(50, (Math.abs(r.sameRet) / 30) * 50)}%;`
-                          }
-                        ></div>
-                      </div>
-                      <span class={r.sameRet >= 0 ? 'metin-yukselis font-tablo' : 'metin-dusus font-tablo'}>
-                        {r.sameRet >= 0 ? `▲ %${sayiYaz(r.sameRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.sameRet), 1)}`}
-                      </span>
-                    </div>
+                    <span class={r.sameRet >= 0 ? 'metin-yukselis' : 'metin-dusus'}>
+                      {r.sameRet >= 0 ? `▲ %${sayiYaz(r.sameRet, 1)}` : `▼ %${sayiYaz(Math.abs(r.sameRet), 1)}`}
+                    </span>
                   ) : '—'}
                 </td>
                 <td class="sag font-tablo">
@@ -433,41 +396,7 @@ const g = data.gostergeler;
   .tablo-sarma {
     overflow-x: auto;
   }
-  .bar-hucre {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
-    min-width: 150px;
-  }
-  .bar-iz {
-    width: 70px;
-    height: 12px;
-    background: var(--paper-2, #e9e7df);
-    position: relative;
-    flex-shrink: 0;
-  }
-  .bar-orta {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--hair, #cfccc2);
-    z-index: 2;
-  }
-  .bar-dolu {
-    position: absolute;
-    top: 0;
-    height: 100%;
-  }
-  .bar-pos {
-    background: var(--yukselis, #3f7350);
-  }
-  .bar-neg {
-    background: var(--dusus, #a3243b);
-  }
-  .metin-yukselis {
+.metin-yukselis {
     color: var(--yukselis, #3f7350);
     font-weight: 600;
   }

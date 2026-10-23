@@ -26,13 +26,13 @@ const minVal = 0;
 const maxVal = 6;
 const valRange = maxVal - minVal;
 
-const x = (i: number) => PAD_L + (i / Math.max(noktalar.length - 1, 1)) * plotW;
+const x = (i: number, len = noktalar.length) => PAD_L + (i / Math.max(len - 1, 1)) * plotW;
 const y = (v: number) => PAD_T + (1 - (v - minVal) / valRange) * plotH;
 
 // Y ekseni çizgileri: %0, %1, %2, %3, %4, %5, %6
 const yKılavuzlar = [0, 1, 2, 3, 4, 5, 6];
 
-// Çizgi yolları (SVG path d)
+// Başlangıç çizgi yolları (SSR)
 const tufeYol = noktalar.map((p, i) => `${i === 0 ? 'M' : 'L'} ${x(i).toFixed(1)} ${y(p.tufe).toFixed(1)}`).join(' ');
 const itoNoktalari = noktalar.filter((p) => p.ito != null);
 const itoYol = itoNoktalari.map((p, i) => {
@@ -44,38 +44,48 @@ const tcmbYol = noktalar.map((p, i) => `${i === 0 ? 'M' : 'L'} ${x(i).toFixed(1)
 const son = noktalar.at(-1);
 ---
 
-<section class="reel-getiri-bolumu" aria-labelledby="reel-getiri-baslik">
+<section class="reel-getiri-bolumu" id="reel-getiri-kapsayici" aria-labelledby="reel-getiri-baslik">
   <div class="reel-getiri-baslik-alani">
     <div class="baslik-metin">
-      <span class="bolum-rozet">Karşılaştırma</span>
+      <span class="bolum-rozet">İnteraktif Karşılaştırma</span>
       <h2 id="reel-getiri-baslik" class="bolum-baslik">Aylık Reel Getiri & Enflasyon Kıyası</h2>
       <p class="bolum-aciklama">
-        TCMB politika faizinin aylık basit getirisi ile TÜİK (Türkiye geneli) ve İTO (İstanbul) aylık enflasyonlarının son 21 aylık seyri.
+        TCMB politika faizinin aylık basit getirisi ile TÜİK ve İTO aylık enflasyonları. Grafikte bir aya dokunarak detayları inceleyebilirsiniz.
       </p>
     </div>
 
-    <div class="grafik-lejant-kutusu" role="legend" aria-label="Grafik göstergeleri">
-      <div class="lejant-oge lejant-tcmb">
-        <span class="lejant-cizgi"></span>
-        <span class="lejant-ad">TCMB aylık faiz</span>
-        <strong class="lejant-deger">%{son ? sayiYaz(son.tcmbFaiz, 2) : '3,08'}</strong>
-      </div>
-      <div class="lejant-oge lejant-ito">
-        <span class="lejant-cizgi"></span>
-        <span class="lejant-ad">İTO aylık enflasyon</span>
-        <strong class="lejant-deger">%{son?.ito ? sayiYaz(son.ito, 2) : '2,11'}</strong>
-      </div>
-      <div class="lejant-oge lejant-tufe">
-        <span class="lejant-cizgi"></span>
-        <span class="lejant-ad">TÜFE aylık enflasyon</span>
-        <strong class="lejant-deger">%{son ? sayiYaz(son.tufe, 2) : '1,84'}</strong>
+    <!-- Dönem Filtre Butonları -->
+    <div class="filtre-ve-kontroller">
+      <div class="donem-filtreleri" role="group" aria-label="Zaman aralığı seçimi">
+        <button type="button" class="donem-btn" data-ay="12">Son 12 Ay</button>
+        <button type="button" class="donem-btn aktif" data-ay="21">Son 21 Ay</button>
       </div>
     </div>
   </div>
 
-  <div class="grafik-sarma">
-    <svg class="reel-svg" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Aylık enflasyon ve faiz karşılaştırma grafiği">
-      <!-- Arka Plan Grid / Kılavuz Çizgileri -->
+  <!-- İnteraktif Seri Aç/Kapa Lejantı -->
+  <div class="grafik-lejant-kutusu" role="toolbar" aria-label="Göstergeleri aç/kapat">
+    <button type="button" class="lejant-btn aktif" id="btn-tcmb" data-seri="tcmb" title="TCMB serisini gizle/göster">
+      <span class="lejant-cizgi cizgi-tcmb"></span>
+      <span class="lejant-ad">TCMB aylık faiz</span>
+      <strong class="lejant-deger" id="lejant-tcmb-val">%{son ? sayiYaz(son.tcmbFaiz, 2) : '3,08'}</strong>
+    </button>
+    <button type="button" class="lejant-btn aktif" id="btn-ito" data-seri="ito" title="İTO serisini gizle/göster">
+      <span class="lejant-cizgi cizgi-ito"></span>
+      <span class="lejant-ad">İTO perakende</span>
+      <strong class="lejant-deger" id="lejant-ito-val">%{son?.ito ? sayiYaz(son.ito, 2) : '2,11'}</strong>
+    </button>
+    <button type="button" class="lejant-btn aktif" id="btn-tufe" data-seri="tufe" title="TÜFE serisini gizle/göster">
+      <span class="lejant-cizgi cizgi-tufe"></span>
+      <span class="lejant-ad">TÜİK resmi TÜFE</span>
+      <strong class="lejant-deger" id="lejant-tufe-val">%{son ? sayiYaz(son.tufe, 2) : '1,84'}</strong>
+    </button>
+  </div>
+
+  <!-- Grafik Alanı ve Dinamik Takipçi -->
+  <div class="grafik-sarma" id="grafik-alani">
+    <svg class="reel-svg" id="reel-svg-el" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Aylık enflasyon ve faiz karşılaştırma grafiği">
+      <!-- Arka Plan Grid Çizgileri -->
       <g class="grid-cizgileri">
         {yKılavuzlar.map((val) => (
           <g class="grid-satir">
@@ -96,19 +106,13 @@ const son = noktalar.at(-1);
       </g>
 
       <!-- Çizgiler -->
-      <!-- 1. TCMB Aylık Faiz (Yeşil) -->
-      <path d={tcmbYol} fill="none" stroke="#3f7350" stroke-width="2.75" stroke-linejoin="round" stroke-linecap="round" />
+      <path id="seri-tcmb-path" d={tcmbYol} fill="none" stroke="#3f7350" stroke-width="2.75" stroke-linejoin="round" stroke-linecap="round" />
+      <path id="seri-ito-path" d={itoYol} fill="none" stroke="#2d5a7b" stroke-width="2.25" stroke-linejoin="round" stroke-linecap="round" />
+      <path id="seri-tufe-path" d={tufeYol} fill="none" stroke="#a3243b" stroke-width="2.75" stroke-linejoin="round" stroke-linecap="round" />
 
-      <!-- 2. İTO Aylık Enflasyon (Mavi) -->
-      <path d={itoYol} fill="none" stroke="#2d5a7b" stroke-width="2.25" stroke-linejoin="round" stroke-linecap="round" />
-
-      <!-- 3. TÜİK TÜFE Aylık (Kırmızı) -->
-      <path d={tufeYol} fill="none" stroke="#a3243b" stroke-width="2.75" stroke-linejoin="round" stroke-linecap="round" />
-
-      <!-- X Ekseni Etiketleri -->
-      <g class="x-eksen-yazilari">
+      <!-- X Ekseni Etiketleri Grubu -->
+      <g id="x-eksen-grubu" class="x-eksen-yazilari">
         {noktalar.map((p, i) => {
-          // İki ayda bir ve son ay etiketlensin (kalabalık olmaması için)
           const etiketGoster = i % 2 === 0 || i === noktalar.length - 1;
           return etiketGoster ? (
             <text x={x(i)} y={H - 15} text-anchor="middle" class="eksen-yazi">
@@ -118,60 +122,86 @@ const son = noktalar.at(-1);
         })}
       </g>
 
-      <!-- Sağ uçtaki son değer kutucukları -->
+      <!-- Dinamik Takip / Crosshair Çizgisi ve Noktaları -->
+      <g id="takip-grubu" style="display: none;">
+        <line id="takip-cizgi" x1="0" y1={PAD_T} x2="0" y2={H - PAD_B} stroke="var(--ink)" stroke-width="1.2" stroke-dasharray="3 3" />
+        <circle id="takip-nokta-tcmb" cx="0" cy="0" r="5" fill="#3f7350" stroke="#ffffff" stroke-width="2" />
+        <circle id="takip-nokta-ito" cx="0" cy="0" r="4.5" fill="#2d5a7b" stroke="#ffffff" stroke-width="2" />
+        <circle id="takip-nokta-tufe" cx="0" cy="0" r="5" fill="#a3243b" stroke="#ffffff" stroke-width="2" />
+      </g>
+
+      <!-- Sağ uçtaki son değer metinleri -->
       {son && (
-        <g class="son-degerler">
-          <!-- TCMB (Yeşil) -->
-          <text x={x(noktalar.length - 1) + 10} y={y(son.tcmbFaiz) + 4} fill="#3f7350" class="son-deger-yazi">
+        <g id="son-degerler-grubu" class="son-degerler">
+          <text id="son-val-tcmb" x={x(noktalar.length - 1) + 10} y={y(son.tcmbFaiz) + 4} fill="#3f7350" class="son-deger-yazi">
             {sayiYaz(son.tcmbFaiz, 2)}
           </text>
-          <!-- İTO (Mavi) -->
           {son.ito != null && (
-            <text x={x(noktalar.length - 1) + 10} y={y(son.ito) + 4} fill="#2d5a7b" class="son-deger-yazi">
+            <text id="son-val-ito" x={x(noktalar.length - 1) + 10} y={y(son.ito) + 4} fill="#2d5a7b" class="son-deger-yazi">
               {sayiYaz(son.ito, 2)}
             </text>
           )}
-          <!-- TÜFE (Kırmızı) -->
-          <text x={x(noktalar.length - 1) + 10} y={y(son.tufe) + 4} fill="#a3243b" class="son-deger-yazi">
+          <text id="son-val-tufe" x={x(noktalar.length - 1) + 10} y={y(son.tufe) + 4} fill="#a3243b" class="son-deger-yazi">
             {sayiYaz(son.tufe, 2)}
           </text>
         </g>
       )}
 
-      <!-- Noktalar ve Hover Alanları -->
-      {noktalar.map((p, i) => (
-        <g class="nokta-kolon" tabindex="0">
-          <!-- Dikey hover çizgisi -->
-          <line
-            x1={x(i)}
-            y1={PAD_T}
-            x2={x(i)}
-            y2={H - PAD_B}
-            stroke="var(--ink)"
-            stroke-width="1"
-            stroke-dasharray="2 2"
-            class="hover-kilavuz"
-          />
-
-          <!-- Noktalar -->
-          <circle cx={x(i)} cy={y(p.tcmbFaiz)} r="3.5" fill="#3f7350" class="nokta" />
-          {p.ito != null && <circle cx={x(i)} cy={y(p.ito)} r="3" fill="#2d5a7b" class="nokta" />}
-          <circle cx={x(i)} cy={y(p.tufe)} r="3.5" fill="#a3243b" class="nokta" />
-
-          <!-- Tıklama/Hover kapsayıcı görünmez rect -->
-          <rect
-            x={x(i) - (plotW / noktalar.length) / 2}
-            y={PAD_T}
-            width={plotW / noktalar.length}
-            height={plotH}
-            fill="transparent"
-            class="kolon-tetikleyici"
-          >
-            <title>{`${p.tamEtiket}\nTCMB Faiz: %${sayiYaz(p.tcmbFaiz, 2)}\nİTO Enflasyon: ${p.ito != null ? `%${sayiYaz(p.ito, 2)}` : 'Veri yok'}\nTÜİK TÜFE: %${sayiYaz(p.tufe, 2)}\nAylık Reel Fark: ${p.reelFark >= 0 ? '+' : ''}${sayiYaz(p.reelFark, 2)} puan`}</title>
-          </rect>
-        </g>
-      ))}
+      <!-- Şeffaf Etkileşim Yüzeyi (Mouse / Touch Yakalayıcı) -->
+      <rect
+        id="etkilesim-yuzeyi"
+        x={PAD_L}
+        y={PAD_T}
+        width={plotW}
+        height={plotH}
+        fill="transparent"
+        style="cursor: crosshair;"
+      />
     </svg>
+
+    <!-- Kayan Tooltip (Tooltip Kartı) -->
+    <div id="grafik-tooltip" class="grafik-tooltip-kutusu" style="display: none;" role="status">
+      <div class="tooltip-baslik" id="tt-tarih">Eylül 2026</div>
+      <div class="tooltip-satir">
+        <span class="tt-nokta nokta-tcmb"></span>
+        <span class="tt-etiket">TCMB Faiz:</span>
+        <strong id="tt-tcmb" class="tt-deger">%3,08</strong>
+      </div>
+      <div class="tooltip-satir">
+        <span class="tt-nokta nokta-ito"></span>
+        <span class="tt-etiket">İTO Enflasyon:</span>
+        <strong id="tt-ito" class="tt-deger">%2,11</strong>
+      </div>
+      <div class="tooltip-satir">
+        <span class="tt-nokta nokta-tufe"></span>
+        <span class="tt-etiket">TÜİK TÜFE:</span>
+        <strong id="tt-tufe" class="tt-deger">%1,84</strong>
+      </div>
+      <div class="tooltip-durum" id="tt-durum">
+        +1,24 puan reel getiri
+      </div>
+    </div>
+  </div>
+
+  <!-- İnteraktif Alım Gücü Simülasyonu (Canlı Değişen Özet) -->
+  <div class="reel-simulasyon-karti">
+    <div class="simulasyon-baslik">
+      <strong id="sim-ay-adi">{son ? son.tamEtiket : 'Son Ay'}</strong> İtibarıyla 10.000 TL Tasarrufun Aylık Akıbeti:
+    </div>
+    <div class="simulasyon-izgara">
+      <div class="sim-kutu sim-kazanc">
+        <span class="sim-etiket">TCMB Aylık Faiz Getirisi</span>
+        <span class="sim-tutar" id="sim-faiz-tl">+308 TL</span>
+      </div>
+      <div class="sim-kutu sim-kayip">
+        <span class="sim-etiket">TÜFE Enflasyonu Erimişi</span>
+        <span class="sim-tutar" id="sim-enflasyon-tl">-184 TL</span>
+      </div>
+      <div class="sim-kutu sim-net" id="sim-net-kutu">
+        <span class="sim-etiket">Net Aylık Alım Gücü</span>
+        <span class="sim-tutar" id="sim-net-tl">+124 TL</span>
+      </div>
+    </div>
   </div>
 
   <!-- "Bu grafik ne anlatır?" Rehber Kutusu -->
@@ -189,11 +219,248 @@ const son = noktalar.at(-1);
         <strong>Aylık Reel Getiri Dengesi:</strong> Tasarruf sahibinin parasının alım gücünü koruyabilmesi için TL faiz getirisinin (<span class="renk-yesil">yeşil çizgi</span>), çarşı-pazarda hissedilen aylık fiyat artışının (<span class="renk-mavi">mavi çizgi</span>) ve resmi enflasyonun (<span class="renk-kirmizi">kırmızı çizgi</span>) üzerinde kalması gerekir.
       </p>
       <p>
-        Kırmızı ve mavi çizgilerin yeşil çizginin altında kaldığı dönemler, mevduat/TL faizinin aylık enflasyonu yendiğini (pozitif aylık reel faiz sağlandığını) ifade eder. Son açıklanan ay itibarıyla TCMB aylık faiz karşılığı (%{son ? sayiYaz(son.tcmbFaiz, 2) : '3,08'}), hem İTO (%{son?.ito ? sayiYaz(son.ito, 2) : '2,11'}) hem de TÜFE (%{son ? sayiYaz(son.tufe, 2) : '1,84'}) enflasyonunun üzerinde seyretmektedir.
+        Kırmızı ve mavi çizgilerin yeşil çizginin altında kaldığı aylar, mevduat/TL faizinin aylık enflasyonu yendiğini (pozitif aylık reel faiz sağlandığını) ifade eder.
       </p>
     </div>
   </aside>
 </section>
+
+<!-- İnteraktif İstemci Mantığı (CSP Uyumlu Inline Script) -->
+<script is:inline define:vars={{ noktalar, W, H, PAD_L, PAD_R, PAD_T, PAD_B, minVal, maxVal }}>
+  (function () {
+    const kapsayici = document.getElementById('reel-getiri-kapsayici');
+    const svgEl = document.getElementById('reel-svg-el');
+    const yuzey = document.getElementById('etkilesim-yuzeyi');
+    const takipGrubu = document.getElementById('takip-grubu');
+    const takipCizgi = document.getElementById('takip-cizgi');
+    const takipTcmb = document.getElementById('takip-nokta-tcmb');
+    const takipIto = document.getElementById('takip-nokta-ito');
+    const takipTufe = document.getElementById('takip-nokta-tufe');
+    const tooltip = document.getElementById('grafik-tooltip');
+
+    const ttTarih = document.getElementById('tt-tarih');
+    const ttTcmb = document.getElementById('tt-tcmb');
+    const ttIto = document.getElementById('tt-ito');
+    const ttTufe = document.getElementById('tt-tufe');
+    const ttDurum = document.getElementById('tt-durum');
+
+    const simAyAdi = document.getElementById('sim-ay-adi');
+    const simFaizTl = document.getElementById('sim-faiz-tl');
+    const simEnfTl = document.getElementById('sim-enflasyon-tl');
+    const simNetTl = document.getElementById('sim-net-tl');
+    const simNetKutu = document.getElementById('sim-net-kutu');
+
+    const pathTcmb = document.getElementById('seri-tcmb-path');
+    const pathIto = document.getElementById('seri-ito-path');
+    const pathTufe = document.getElementById('seri-tufe-path');
+    const xEksenGrubu = document.getElementById('x-eksen-grubu');
+
+    const sonValTcmb = document.getElementById('son-val-tcmb');
+    const sonValIto = document.getElementById('son-val-ito');
+    const sonValTufe = document.getElementById('son-val-tufe');
+
+    if (!kapsayici || !yuzey || !noktalar || noktalar.length === 0) return;
+
+    let aktifNoktalar = [...noktalar];
+    const plotW = W - PAD_L - PAD_R;
+    const plotH = H - PAD_T - PAD_B;
+    const valRange = maxVal - minVal;
+
+    const hesaplaX = (i, len) => PAD_L + (i / Math.max(len - 1, 1)) * plotW;
+    const hesaplaY = (v) => PAD_T + (1 - (v - minVal) / valRange) * plotH;
+
+    function ciz(yeniNoktalar) {
+      aktifNoktalar = yeniNoktalar;
+      const len = aktifNoktalar.length;
+
+      // TCMB path
+      const tcmbD = aktifNoktalar.map((p, i) => `${i === 0 ? 'M' : 'L'} ${hesaplaX(i, len).toFixed(1)} ${hesaplaY(p.tcmbFaiz).toFixed(1)}`).join(' ');
+      pathTcmb.setAttribute('d', tcmbD);
+
+      // İTO path
+      const itoD = aktifNoktalar
+        .filter(p => p.ito != null)
+        .map((p, i) => {
+          const idx = aktifNoktalar.indexOf(p);
+          return `${i === 0 ? 'M' : 'L'} ${hesaplaX(idx, len).toFixed(1)} ${hesaplaY(p.ito).toFixed(1)}`;
+        }).join(' ');
+      pathIto.setAttribute('d', itoD);
+
+      // TÜFE path
+      const tufeD = aktifNoktalar.map((p, i) => `${i === 0 ? 'M' : 'L'} ${hesaplaX(i, len).toFixed(1)} ${hesaplaY(p.tufe).toFixed(1)}`).join(' ');
+      pathTufe.setAttribute('d', tufeD);
+
+      // X ekseni etiketleri
+      xEksenGrubu.innerHTML = '';
+      aktifNoktalar.forEach((p, i) => {
+        const goster = i % 2 === 0 || i === len - 1;
+        if (goster) {
+          const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          txt.setAttribute('x', hesaplaX(i, len));
+          txt.setAttribute('y', H - 15);
+          txt.setAttribute('text-anchor', 'middle');
+          txt.setAttribute('class', 'eksen-yazi');
+          txt.textContent = p.etiket;
+          xEksenGrubu.appendChild(txt);
+        }
+      });
+
+      // Son değerler
+      const sonNokta = aktifNoktalar[len - 1];
+      if (sonNokta) {
+        const lastX = hesaplaX(len - 1, len) + 10;
+        if (sonValTcmb) {
+          sonValTcmb.setAttribute('x', lastX);
+          sonValTcmb.setAttribute('y', hesaplaY(sonNokta.tcmbFaiz) + 4);
+          sonValTcmb.textContent = sonNokta.tcmbFaiz.toLocaleString('tr-TR', { minimumFractionDigits: 2 });
+        }
+        if (sonValIto && sonNokta.ito != null) {
+          sonValIto.setAttribute('x', lastX);
+          sonValIto.setAttribute('y', hesaplaY(sonNokta.ito) + 4);
+          sonValIto.textContent = sonNokta.ito.toLocaleString('tr-TR', { minimumFractionDigits: 2 });
+        }
+        if (sonValTufe) {
+          sonValTufe.setAttribute('x', lastX);
+          sonValTufe.setAttribute('y', hesaplaY(sonNokta.tufe) + 4);
+          sonValTufe.textContent = sonNokta.tufe.toLocaleString('tr-TR', { minimumFractionDigits: 2 });
+        }
+        guncelleSimulasyon(sonNokta);
+      }
+    }
+
+    function guncelleSimulasyon(p) {
+      if (!p) return;
+      simAyAdi.textContent = p.tamEtiket;
+      const anapara = 10000;
+      const faizGetirisi = Math.round((anapara * p.tcmbFaiz) / 100);
+      const enfKaybi = Math.round((anapara * p.tufe) / 100);
+      const net = faizGetirisi - enfKaybi;
+
+      simFaizTl.textContent = `+${faizGetirisi.toLocaleString('tr-TR')} TL`;
+      simEnfTl.textContent = `-${enfKaybi.toLocaleString('tr-TR')} TL`;
+      simNetTl.textContent = `${net >= 0 ? '+' : ''}${net.toLocaleString('tr-TR')} TL`;
+
+      if (net >= 0) {
+        simNetKutu.className = 'sim-kutu sim-net sim-net-pozitif';
+      } else {
+        simNetKutu.className = 'sim-kutu sim-net sim-net-negatif';
+      }
+    }
+
+    // Dönem filtre butonları
+    const donemBtnler = kapsayici.querySelectorAll('.donem-btn');
+    donemBtnler.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        donemBtnler.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+        const aySayisi = Number(btn.getAttribute('data-ay') || 21);
+        ciz(noktalar.slice(-aySayisi));
+      });
+    });
+
+    // Seri Aç/Kapa butonları
+    const seriBtnler = kapsayici.querySelectorAll('.lejant-btn');
+    seriBtnler.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const seri = btn.getAttribute('data-seri');
+        const aktif = btn.classList.toggle('aktif');
+        if (seri === 'tcmb') {
+          pathTcmb.style.display = aktif ? 'block' : 'none';
+          if (sonValTcmb) sonValTcmb.style.display = aktif ? 'block' : 'none';
+          takipTcmb.style.display = aktif ? 'block' : 'none';
+        } else if (seri === 'ito') {
+          pathIto.style.display = aktif ? 'block' : 'none';
+          if (sonValIto) sonValIto.style.display = aktif ? 'block' : 'none';
+          takipIto.style.display = aktif ? 'block' : 'none';
+        } else if (seri === 'tufe') {
+          pathTufe.style.display = aktif ? 'block' : 'none';
+          if (sonValTufe) sonValTufe.style.display = aktif ? 'block' : 'none';
+          takipTufe.style.display = aktif ? 'block' : 'none';
+        }
+      });
+    });
+
+    // Fare / Dokunmatik Takipçi
+    function fareTakip(clientX) {
+      const rect = yuzey.getBoundingClientRect();
+      const relX = clientX - rect.left;
+      if (relX < 0 || relX > rect.width) {
+        gizle();
+        return;
+      }
+
+      const len = aktifNoktalar.length;
+      const index = Math.max(0, Math.min(len - 1, Math.round((relX / rect.width) * (len - 1))));
+      const p = aktifNoktalar[index];
+      if (!p) return;
+
+      const curX = hesaplaX(index, len);
+      takipGrubu.style.display = 'block';
+      takipCizgi.setAttribute('x1', curX);
+      takipCizgi.setAttribute('x2', curX);
+
+      takipTcmb.setAttribute('cx', curX);
+      takipTcmb.setAttribute('cy', hesaplaY(p.tcmbFaiz));
+
+      if (p.ito != null) {
+        takipIto.setAttribute('cx', curX);
+        takipIto.setAttribute('cy', hesaplaY(p.ito));
+        takipIto.style.display = 'block';
+      } else {
+        takipIto.style.display = 'none';
+      }
+
+      takipTufe.setAttribute('cx', curX);
+      takipTufe.setAttribute('cy', hesaplaY(p.tufe));
+
+      // Tooltip doldur
+      ttTarih.textContent = p.tamEtiket;
+      ttTcmb.textContent = `%${p.tcmbFaiz.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}`;
+      ttIto.textContent = p.ito != null ? `%${p.ito.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}` : 'Veri yok';
+      ttTufe.textContent = `%${p.tufe.toLocaleString('tr-TR', { minimumFractionDigits: 2 })}`;
+
+      if (p.reelFark >= 0) {
+        ttDurum.textContent = `+${p.reelFark.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} puan reel getiri`;
+        ttDurum.className = 'tooltip-durum durum-pozitif';
+      } else {
+        ttDurum.textContent = `${p.reelFark.toLocaleString('tr-TR', { minimumFractionDigits: 2 })} puan negatif reel faiz`;
+        ttDurum.className = 'tooltip-durum durum-negatif';
+      }
+
+      // Tooltip pozisyonu
+      tooltip.style.display = 'block';
+      const wrapperRect = document.getElementById('grafik-alani').getBoundingClientRect();
+      let leftPos = clientX - wrapperRect.left + 14;
+      if (leftPos + 220 > wrapperRect.width) {
+        leftPos = clientX - wrapperRect.left - 234;
+      }
+      tooltip.style.left = `${Math.max(8, leftPos)}px`;
+      tooltip.style.top = '16px';
+
+      guncelleSimulasyon(p);
+    }
+
+    function gizle() {
+      takipGrubu.style.display = 'none';
+      tooltip.style.display = 'none';
+      const sonNokta = aktifNoktalar[aktifNoktalar.length - 1];
+      if (sonNokta) guncelleSimulasyon(sonNokta);
+    }
+
+    yuzey.addEventListener('mousemove', (e) => fareTakip(e.clientX));
+    yuzey.addEventListener('mouseleave', gizle);
+
+    yuzey.addEventListener('touchstart', (e) => {
+      if (e.touches.length > 0) fareTakip(e.touches[0].clientX);
+    }, { passive: true });
+
+    yuzey.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) fareTakip(e.touches[0].clientX);
+    }, { passive: true });
+
+    yuzey.addEventListener('touchend', gizle);
+  })();
+</script>
 
 <style>
   .reel-getiri-bolumu {
@@ -209,9 +476,7 @@ const son = noktalar.at(-1);
     justify-content: space-between;
     align-items: flex-start;
     gap: 20px;
-    margin-bottom: 24px;
-    border-bottom: 1px solid var(--hair);
-    padding-bottom: 20px;
+    margin-bottom: 20px;
   }
 
   .baslik-metin {
@@ -245,45 +510,79 @@ const son = noktalar.at(-1);
     line-height: 1.5;
   }
 
-  .grafik-lejant-kutusu {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  .donem-filtreleri {
+    display: inline-flex;
     background: var(--paper-2);
-    padding: 12px 16px;
     border: 1px solid var(--hair);
-    min-width: 220px;
+    padding: 2px;
   }
 
-  .lejant-oge {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .donem-btn {
+    border: none;
+    background: transparent;
+    padding: 6px 14px;
     font-family: var(--sans);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .donem-btn.aktif {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .grafik-lejant-kutusu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: var(--paper-2);
+    padding: 10px 14px;
+    border: 1px solid var(--hair);
+    margin-bottom: 16px;
+  }
+
+  .lejant-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 6px 12px;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    cursor: pointer;
+    color: var(--ink-2);
+    transition: all 0.15s ease;
+  }
+
+  .lejant-btn:not(.aktif) {
+    opacity: 0.4;
+    text-decoration: line-through;
+    border-style: dashed;
   }
 
   .lejant-cizgi {
-    width: 16px;
+    width: 14px;
     height: 3px;
     border-radius: 1px;
+    flex-shrink: 0;
   }
 
-  .lejant-tcmb .lejant-cizgi { background: #3f7350; }
-  .lejant-ito .lejant-cizgi { background: #2d5a7b; }
-  .lejant-tufe .lejant-cizgi { background: #a3243b; }
-
-  .lejant-ad {
-    color: var(--ink-2);
-    flex-grow: 1;
-  }
+  .cizgi-tcmb { background: #3f7350; }
+  .cizgi-ito { background: #2d5a7b; }
+  .cizgi-tufe { background: #a3243b; }
 
   .lejant-deger {
     font-feature-settings: 'tnum';
     color: var(--ink);
+    font-weight: 700;
   }
 
   .grafik-sarma {
+    position: relative;
     width: 100%;
     overflow-x: auto;
     margin: 16px 0;
@@ -293,7 +592,7 @@ const son = noktalar.at(-1);
   .reel-svg {
     display: block;
     width: 100%;
-    min-width: 640px;
+    min-width: 660px;
     height: auto;
     overflow: visible;
   }
@@ -312,19 +611,131 @@ const son = noktalar.at(-1);
     font-feature-settings: 'tnum';
   }
 
-  .nokta-kolon .hover-kilavuz {
-    opacity: 0;
-    transition: opacity 0.15s ease;
+  .grafik-tooltip-kutusu {
+    position: absolute;
+    pointer-events: none;
+    z-index: 10;
+    width: 215px;
+    background: #ffffff;
+    border: 1px solid var(--ink);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 12px 14px;
+    font-family: var(--sans);
   }
 
-  .nokta-kolon:hover .hover-kilavuz,
-  .nokta-kolon:focus .hover-kilavuz {
-    opacity: 1;
+  .tooltip-baslik {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink);
+    border-bottom: 1px solid var(--hair);
+    padding-bottom: 6px;
+    margin-bottom: 8px;
   }
 
-  .kolon-tetikleyici {
-    cursor: crosshair;
+  .tooltip-satir {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    margin-bottom: 4px;
   }
+
+  .tt-nokta {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .nokta-tcmb { background: #3f7350; }
+  .nokta-ito { background: #2d5a7b; }
+  .nokta-tufe { background: #a3243b; }
+
+  .tt-etiket {
+    color: var(--muted);
+    flex-grow: 1;
+  }
+
+  .tt-deger {
+    color: var(--ink);
+    font-feature-settings: 'tnum';
+  }
+
+  .tooltip-durum {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--hair);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .durum-pozitif {
+    color: #3f7350;
+  }
+
+  .durum-negatif {
+    color: #a3243b;
+  }
+
+  .reel-simulasyon-karti {
+    margin: 20px 0;
+    padding: 16px 20px;
+    background: #ffffff;
+    border: 1px solid var(--hair);
+  }
+
+  .simulasyon-baslik {
+    font-family: var(--sans);
+    font-size: 0.92rem;
+    color: var(--ink-2);
+    margin-bottom: 12px;
+  }
+
+  .simulasyon-izgara {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .sim-kutu {
+    padding: 12px 14px;
+    background: var(--paper);
+    border: 1px solid var(--soluk);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .sim-etiket {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+
+  .sim-tutar {
+    font-family: var(--sans);
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-feature-settings: 'tnum';
+  }
+
+  .sim-kazanc .sim-tutar { color: #3f7350; }
+  .sim-kayip .sim-tutar { color: #a3243b; }
+
+  .sim-net-pozitif {
+    background: #eef6f1;
+    border-color: #3f7350;
+  }
+  .sim-net-pozitif .sim-tutar { color: #3f7350; }
+
+  .sim-net-negatif {
+    background: #fdf0f2;
+    border-color: #a3243b;
+  }
+  .sim-net-negatif .sim-tutar { color: #a3243b; }
 
   .grafik-rehber-kutusu {
     margin-top: 24px;
@@ -372,10 +783,6 @@ const son = noktalar.at(-1);
   @media (max-width: 640px) {
     .reel-getiri-bolumu {
       padding: 16px;
-    }
-
-    .grafik-lejant-kutusu {
-      width: 100%;
     }
   }
 </style>
