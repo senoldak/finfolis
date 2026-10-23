@@ -67,6 +67,7 @@ function veriTarihleri() {
     ['/veri/enflasyon/', t(r.enflasyon)],
     ['/veri/konut-fiyat-endeksi/', t(r.konut)],
     ['/veri/issizlik-orani/', t(r.issizlik)],
+    ['/veri/net-doviz-pozisyonu/', t(r.rezerv)],
   ]);
   const hepsi = [...harita.values()].filter(Boolean);
   harita.set('/veri/', hepsi.length ? new Date(Math.max(...hepsi.map(Number))) : undefined);
@@ -123,7 +124,16 @@ export default defineConfig({
   // Haber gövdesinde ilk geçen finans terimleri /sozluk/ sayfalarına bağlanır (src/lib/sozluk-bagla.mjs).
   markdown: { processor: satteri({ hastPlugins: [sozlukBagla] }) },
   // CSP (public/_headers) satır içi stile izin vermez; tüm CSS ayrı dosya olarak yüklenir.
-  build: { inlineStylesheets: 'never' },
+  build: { concurrency: 1, inlineStylesheets: 'never' },
   // Aynı nedenle betikler de satır içine gömülmez (küçük betikler varsayılan olarak gömülür ve CSP'ye takılır).
-  vite: { build: { assetsInlineLimit: 0 } },
+  vite: {
+    build: { assetsInlineLimit: 0 },
+    plugins: [{
+      name: 'windows-dist-astro-fix',
+      async writeBundle() {
+        const fs = await import('node:fs');
+        fs.mkdirSync(new URL('./dist/_astro/', import.meta.url), { recursive: true });
+      }
+    }]
+  },
 });

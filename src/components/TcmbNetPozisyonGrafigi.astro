@@ -1,0 +1,830 @@
+---
+// TCMB Net Döviz Pozisyonu & Günlük Değişimi İnteraktif Grafiği
+// finfolis tasarım dili: Kâğıt zemin (#f4f3ee), mürekkep (#1b1b1b), pişmiş toprak (#c2502b),
+// yükseliş (#3f7350), düşüş (#a3243b), 0px yuvarlak köşe, Bricolage Grotesque, sıfır harici kütüphane.
+
+export interface NetPozisyonNokta {
+  tarih: string; // '21-10-2026'
+  etiket: string; // '21.10'
+  usd_kuru: number;
+  altin_ons_usd: number;
+  altin_fiyat_farki_usd: number;
+  altin_degerleme_etkisi_milyar_usd: number;
+  net_rezerv_milyar_usd: number;
+  ham_degisim_milyar_usd: number;
+  degisim_altin_arindirilmis_milyar_usd: number;
+}
+
+interface Props {
+  seri: NetPozisyonNokta[];
+}
+
+const { seri = [] } = Astro.props;
+
+// Varsayılan görünüm: Son 20 iş günü
+const varsayilanSeri = seri.slice(-20);
+
+// SVG Sabit Koordinatları
+const W = 880;
+const H = 380;
+const PAD_TOP = 40;
+const PAD_BOTTOM = 55;
+const PAD_LEFT = 50;
+const PAD_RIGHT = 30;
+
+const innerW = W - PAD_LEFT - PAD_RIGHT;
+const innerH = H - PAD_TOP - PAD_BOTTOM;
+
+// Barlar için Y ekseni sınırları
+const vals = varsayilanSeri.map((d) => d.degisim_altin_arindirilmis_milyar_usd);
+const maxAbs = Math.max(5, ...vals.map((v) => Math.ceil(Math.abs(v))));
+const barMinY = -maxAbs;
+const barMaxY = maxAbs;
+const barRangeY = barMaxY - barMinY;
+
+const yToPx = (v: number) => PAD_TOP + (1 - (v - barMinY) / barRangeY) * innerH;
+const zeroY = yToPx(0);
+
+// Izgara çizgileri
+const izgaraAdim = maxAbs > 6 ? 2 : 1;
+const izgaraDegerleri: number[] = [];
+for (let v = barMinY; v <= barMaxY; v += izgaraAdim) {
+  izgaraDegerleri.push(v);
+}
+
+// Barlar
+const n = varsayilanSeri.length;
+const slotW = innerW / Math.max(n, 1);
+const barW = Math.max(8, Math.min(26, slotW * 0.65));
+
+// Son nokta
+const sonNokta = varsayilanSeri.at(-1) ?? {
+  tarih: '—',
+  etiket: '—',
+  usd_kuru: 0,
+  altin_ons_usd: 0,
+  altin_fiyat_farki_usd: 0,
+  altin_degerleme_etkisi_milyar_usd: 0,
+  net_rezerv_milyar_usd: 0,
+  ham_degisim_milyar_usd: 0,
+  degisim_altin_arindirilmis_milyar_usd: 0,
+};
+
+const sonDegisim = sonNokta.degisim_altin_arindirilmis_milyar_usd;
+const isSonPos = sonDegisim >= 0;
+---
+
+<div class="interaktif-grafik-kapsayici" data-net-pozisyon-grafik data-seri={JSON.stringify(seri)}>
+  <!-- Üst Bar: Başlık, Mod ve Zaman Filtreleri -->
+  <div class="grafik-kontrol-cubugu">
+    <div class="grafik-baslik-alani">
+      <h3 class="grafik-ana-baslik">TCMB net pozisyonu günlük değişimi</h3>
+      <p class="grafik-alt-bilgi">Altın etkisi dışlanmış piyasa müdahalesi · Milyar $</p>
+    </div>
+
+    <div class="grafik-filtre-kumeleri">
+      <!-- Görünüm Seçici -->
+      <div class="dugme-kumesi" role="group" aria-label="Grafik görünüm modu">
+        <button type="button" class="filtre-btn aktif" data-mod="bar">Günlük Değişim</button>
+        <button type="button" class="filtre-btn" data-mod="cizgi">Net Rezerv Düzeyi</button>
+      </div>
+
+      <!-- Zaman Aralığı -->
+      <div class="dugme-kumesi" role="group" aria-label="Zaman aralığı filtreleri">
+        <button type="button" class="filtre-btn" data-aralik="10">Son 10 Gün</button>
+        <button type="button" class="filtre-btn aktif" data-aralik="20">Son 20 Gün</button>
+        <button type="button" class="filtre-btn" data-aralik="tum">Tümü</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canlı Bilgi Kartı (Fare ve Dokunma ile anlık güncellenir) -->
+  <div class="canli-gosterge-paneli" id="np-canli-panel">
+    <div class="canli-kutu">
+      <span class="canli-etiket">İş Günü</span>
+      <strong class="canli-deger" id="np-canli-tarih">{sonNokta.tarih}</strong>
+    </div>
+
+    <div class="canli-kutu">
+      <span class="canli-etiket">Altın Dışlanmış Değişim</span>
+      <strong class={`canli-deger ${isSonPos ? 'pozitif' : 'negatif'}`} id="np-canli-degisim">
+        {isSonPos && sonDegisim > 0 ? '+' : ''}{sonDegisim.toFixed(1).replace('.', ',')} Milyar $
+      </strong>
+    </div>
+
+    <div class="canli-kutu">
+      <span class="canli-etiket">TCMB Piyasa Hareketi</span>
+      <span class={`hareket-rozet ${isSonPos ? 'pozitif-rozet' : 'negatif-rozet'}`} id="np-canli-hareket">
+        {isSonPos ? '▲ Piyasadan Döviz Topladı' : '▼ Piyasaya Döviz Sattı'}
+      </span>
+    </div>
+
+    <div class="canli-kutu">
+      <span class="canli-etiket">Ham Değişim / Altın Etkisi</span>
+      <strong class="canli-deger ikincil-sayi" id="np-canli-ayrinti">
+        {sonNokta.ham_degisim_milyar_usd > 0 ? '+' : ''}{sonNokta.ham_degisim_milyar_usd.toFixed(2).replace('.', ',')} mlr $ / {sonNokta.altin_degerleme_etkisi_milyar_usd > 0 ? '+' : ''}{sonNokta.altin_degerleme_etkisi_milyar_usd.toFixed(2).replace('.', ',')} mlr $
+      </strong>
+    </div>
+
+    <div class="canli-kutu">
+      <span class="canli-etiket">Net Rezerv / Gösterge Kur</span>
+      <strong class="canli-deger ikincil-sayi" id="np-canli-kur">
+        {sonNokta.net_rezerv_milyar_usd.toFixed(1).replace('.', ',')} Mlr $ · {sonNokta.usd_kuru.toFixed(4).replace('.', ',')} TL
+      </strong>
+    </div>
+  </div>
+
+  <!-- SVG Çizim Sahnesi -->
+  <div class="svg-cerceve">
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      class="np-svg-grafigi"
+      role="img"
+      aria-label="TCMB net döviz pozisyonu günlük değişimi interaktif çubuk grafiği"
+      id="np-svg"
+    >
+      <!-- Kılavuz Çizgileri Katmanı -->
+      <g id="np-katman-izgara">
+        {izgaraDegerleri.map((val) => {
+          const py = yToPx(val);
+          const isZero = val === 0;
+          return (
+            <g class="izgara-cizgi-grup">
+              <line
+                x1={PAD_LEFT}
+                y1={py}
+                x2={W - PAD_RIGHT}
+                y2={py}
+                stroke={isZero ? 'var(--ink, #1b1b1b)' : 'var(--hair, #cfccc2)'}
+                stroke-width={isZero ? 1.5 : 1}
+                stroke-dasharray={isZero ? 'none' : '2 2'}
+              />
+              <text
+                x={PAD_LEFT - 10}
+                y={py + 4}
+                text-anchor="end"
+                class={`eksen-rakam ${isZero ? 'sifir-eksen' : ''}`}
+              >
+                {val > 0 ? `+${val}` : val}
+              </text>
+            </g>
+          );
+        })}
+      </g>
+
+      <!-- Çizgi Modu Katmanı (Varsayılan Gizli) -->
+      <g id="np-katman-cizgi" style="display: none;">
+        <path id="np-alan-yolu" fill="var(--paper-2, #e9e7df)" opacity="0.6" />
+        <path id="np-cizgi-yolu" fill="none" stroke="var(--toprak, #c2502b)" stroke-width="2.5" />
+      </g>
+
+      <!-- Çubuklar Katmanı -->
+      <g id="np-katman-barlar">
+        {varsayilanSeri.map((d, i) => {
+          const val = d.degisim_altin_arindirilmis_milyar_usd;
+          const cx = PAD_LEFT + i * slotW + slotW / 2;
+          const bx = cx - barW / 2;
+          const isPos = val >= 0;
+          const py = yToPx(val);
+
+          const barY = isPos ? py : zeroY;
+          const barH = Math.max(2, Math.abs(py - zeroY));
+          const fill = isPos ? 'var(--yukselis, #3f7350)' : 'var(--dusus, #a3243b)';
+          const labelY = isPos ? py - 7 : py + 14;
+          const valText = (val > 0 ? `+${val.toFixed(1)}` : val.toFixed(1)).replace('.', ',');
+
+          return (
+            <g class="bar-eleman" data-index={i} tabindex="0" role="button" aria-label={`${d.tarih}: ${valText} milyar $`}>
+              <rect
+                class="bar-dikdortgen"
+                x={bx.toFixed(1)}
+                y={barY.toFixed(1)}
+                width={barW.toFixed(1)}
+                height={barH.toFixed(1)}
+                fill={fill}
+              />
+              <text
+                x={cx.toFixed(1)}
+                y={labelY.toFixed(1)}
+                text-anchor="middle"
+                class={`bar-metin ${isPos ? 'pozitif' : 'negatif'}`}
+                fill={fill}
+              >
+                {valText}
+              </text>
+            </g>
+          );
+        })}
+      </g>
+
+      <!-- X Ekseni Tarihleri Katmanı -->
+      <g id="np-katman-tarihler">
+        {varsayilanSeri.map((d, i) => {
+          const cx = PAD_LEFT + i * slotW + slotW / 2;
+          const show = n <= 24 || i % 2 === 0 || i === n - 1;
+          if (!show) return null;
+          return (
+            <text
+              x={cx.toFixed(1)}
+              y={H - PAD_BOTTOM + 22}
+              text-anchor="middle"
+              class="tarih-etiket"
+              transform={`rotate(-40, ${cx.toFixed(1)}, ${H - PAD_BOTTOM + 22})`}
+            >
+              {d.etiket}
+            </text>
+          );
+        })}
+      </g>
+
+      <!-- İnteraktif Crosshair / Odak Göstergeleri -->
+      <line
+        id="np-rehber-dikey"
+        x1={PAD_LEFT}
+        y1={PAD_TOP}
+        x2={PAD_LEFT}
+        y2={H - PAD_BOTTOM}
+        stroke="var(--ink, #1b1b1b)"
+        stroke-width="1.2"
+        stroke-dasharray="3 3"
+        style="display: none;"
+      />
+      <circle
+        id="np-odak-noktasi"
+        cx="0"
+        cy="0"
+        r="5"
+        fill="var(--toprak, #c2502b)"
+        stroke="var(--paper, #f4f3ee)"
+        stroke-width="2"
+        style="display: none;"
+      />
+
+      <!-- Şeffaf Etkileşim İzleme Katmanı -->
+      <rect
+        id="np-etkilesim-alani"
+        x={PAD_LEFT}
+        y={PAD_TOP}
+        width={innerW}
+        height={innerH}
+        fill="transparent"
+        style="cursor: crosshair; touch-action: none;"
+      />
+    </svg>
+  </div>
+
+  <!-- Lejant ve Dipnot -->
+  <div class="grafik-dip-aciklama">
+    <div class="grafik-lejant-maddeleri">
+      <span class="lejant-oge">
+        <span class="renk-kutu pozitif-kutu"></span> Pozitif: TCMB Piyasadan Döviz Aldı (Rezerv Artışı)
+      </span>
+      <span class="lejant-oge">
+        <span class="renk-kutu negatif-kutu"></span> Negatif: TCMB Piyasaya Döviz Sattı (Kur Müdahalesi)
+      </span>
+    </div>
+    <div class="grafik-kaynak-notu">
+      <span>● Kaynak: TCMB Analitik Bilanço, EVDS &amp; Borsa İstanbul Kıymetli Madenler Piyasası</span>
+      <span>Arındırma Formülü: Ham ΔNet Rezerv − [(Ons Fiyatı<sub>t</sub> − Ons Fiyatı<sub>t-1</sub>) × ~21M ons]</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  function baslatNetPozisyonGrafigi() {
+    const kapsayici = document.querySelector('[data-net-pozisyon-grafik]') as HTMLElement | null;
+    if (!kapsayici) return;
+
+    interface NoktaVerisi {
+      tarih: string;
+      etiket: string;
+      usd_kuru: number;
+      altin_ons_usd: number;
+      altin_fiyat_farki_usd: number;
+      altin_degerleme_etkisi_milyar_usd: number;
+      net_rezerv_milyar_usd: number;
+      ham_degisim_milyar_usd: number;
+      degisim_altin_arindirilmis_milyar_usd: number;
+    }
+
+    const tumSeri: NoktaVerisi[] = JSON.parse(kapsayici.dataset.seri || '[]');
+    if (tumSeri.length === 0) return;
+
+    let aktifSeri: NoktaVerisi[] = tumSeri.slice(-20);
+    let aktifMod: 'bar' | 'cizgi' = 'bar';
+
+    // SVG Elemanları
+    const katmanIzgara = document.getElementById('np-katman-izgara');
+    const katmanBarlar = document.getElementById('np-katman-barlar');
+    const katmanCizgi = document.getElementById('np-katman-cizgi');
+    const katmanTarihler = document.getElementById('np-katman-tarihler');
+    const alanYolu = document.getElementById('np-alan-yolu') as SVGPathElement | null;
+    const cizgiYolu = document.getElementById('np-cizgi-yolu') as SVGPathElement | null;
+    const rehberDikey = document.getElementById('np-rehber-dikey') as SVGLineElement | null;
+    const odakNoktasi = document.getElementById('np-odak-noktasi') as SVGCircleElement | null;
+    const etkilesim = document.getElementById('np-etkilesim-alani') as SVGRectElement | null;
+
+    // Canlı Kart Elemanları
+    const canliTarih = document.getElementById('np-canli-tarih');
+    const canliDegisim = document.getElementById('np-canli-degisim');
+    const canliHareket = document.getElementById('np-canli-hareket');
+    const canliAyrinti = document.getElementById('np-canli-ayrinti');
+    const canliKur = document.getElementById('np-canli-kur');
+
+    // Koordinat Parametreleri
+    const W = 880;
+    const H = 380;
+    const PAD_TOP = 40;
+    const PAD_BOTTOM = 55;
+    const PAD_LEFT = 50;
+    const PAD_RIGHT = 30;
+    const innerW = W - PAD_LEFT - PAD_RIGHT;
+    const innerH = H - PAD_TOP - PAD_BOTTOM;
+
+    function renderGostergeler() {
+      const len = aktifSeri.length;
+      if (len === 0) return;
+
+      if (aktifMod === 'bar') {
+        if (katmanBarlar) katmanBarlar.style.display = 'block';
+        if (katmanCizgi) katmanCizgi.style.display = 'none';
+
+        // Bar Y Sınırları
+        const vals = aktifSeri.map((d) => d.degisim_altin_arindirilmis_milyar_usd);
+        const maxAbs = Math.max(5, ...vals.map((v) => Math.ceil(Math.abs(v))));
+        const barMinY = -maxAbs;
+        const barMaxY = maxAbs;
+        const rangeY = barMaxY - barMinY;
+
+        const yPx = (v: number) => PAD_TOP + (1 - (v - barMinY) / rangeY) * innerH;
+        const zeroY = yPx(0);
+
+        // Izgara
+        if (katmanIzgara) {
+          const adim = maxAbs > 6 ? 2 : 1;
+          let izgaraHtml = '';
+          for (let v = barMinY; v <= barMaxY; v += adim) {
+            const py = yPx(v);
+            const isZero = v === 0;
+            izgaraHtml += `
+              <g class="izgara-cizgi-grup">
+                <line x1="${PAD_LEFT}" y1="${py.toFixed(1)}" x2="${W - PAD_RIGHT}" y2="${py.toFixed(1)}" stroke="${isZero ? 'var(--ink, #1b1b1b)' : 'var(--hair, #cfccc2)'}" stroke-width="${isZero ? 1.5 : 1}" stroke-dasharray="${isZero ? 'none' : '2 2'}" />
+                <text x="${PAD_LEFT - 10}" y="${(py + 4).toFixed(1)}" text-anchor="end" class="eksen-rakam ${isZero ? 'sifir-eksen' : ''}">${v > 0 ? `+${v}` : v}</text>
+              </g>
+            `;
+          }
+          katmanIzgara.innerHTML = izgaraHtml;
+        }
+
+        // Barlar
+        if (katmanBarlar) {
+          const slotW = innerW / len;
+          const barW = Math.max(8, Math.min(26, slotW * 0.65));
+          let barlarHtml = '';
+
+          aktifSeri.forEach((d, i) => {
+            const val = d.degisim_altin_arindirilmis_milyar_usd;
+            const cx = PAD_LEFT + i * slotW + slotW / 2;
+            const bx = cx - barW / 2;
+            const isPos = val >= 0;
+            const py = yPx(val);
+            const barY = isPos ? py : zeroY;
+            const barH = Math.max(2, Math.abs(py - zeroY));
+            const fill = isPos ? 'var(--yukselis, #3f7350)' : 'var(--dusus, #a3243b)';
+            const labelY = isPos ? py - 7 : py + 14;
+            const valText = (val > 0 ? `+${val.toFixed(1)}` : val.toFixed(1)).replace('.', ',');
+
+            barlarHtml += `
+              <g class="bar-eleman" data-index="${i}" tabindex="0" role="button" aria-label="${d.tarih}: ${valText} milyar $">
+                <rect class="bar-dikdortgen" x="${bx.toFixed(1)}" y="${barY.toFixed(1)}" width="${barW.toFixed(1)}" height="${barH.toFixed(1)}" fill="${fill}" />
+                <text x="${cx.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="middle" class="bar-metin ${isPos ? 'pozitif' : 'negatif'}" fill="${fill}">${valText}</text>
+              </g>
+            `;
+          });
+          katmanBarlar.innerHTML = barlarHtml;
+        }
+      } else {
+        // Çizgi Modu (Kümülatif Net Rezerv Seyri)
+        if (katmanBarlar) katmanBarlar.style.display = 'none';
+        if (katmanCizgi) katmanCizgi.style.display = 'block';
+
+        const rezVals = aktifSeri.map((d) => d.net_rezerv_milyar_usd);
+        const minVal = Math.floor((Math.min(...rezVals, 20) - 2) / 5) * 5;
+        const maxVal = Math.ceil((Math.max(...rezVals, 65) + 2) / 5) * 5;
+        const rangeRez = maxVal - minVal || 1;
+
+        const yRezPx = (v: number) => PAD_TOP + (1 - (v - minVal) / rangeRez) * innerH;
+        const xRezPx = (i: number) => PAD_LEFT + (i / Math.max(len - 1, 1)) * innerW;
+
+        // Izgara
+        if (katmanIzgara) {
+          let izgaraHtml = '';
+          for (let v = minVal; v <= maxVal; v += 10) {
+            const py = yRezPx(v);
+            izgaraHtml += `
+              <g class="izgara-cizgi-grup">
+                <line x1="${PAD_LEFT}" y1="${py.toFixed(1)}" x2="${W - PAD_RIGHT}" y2="${py.toFixed(1)}" stroke="var(--hair, #cfccc2)" stroke-dasharray="2 2" stroke-width="1" />
+                <text x="${PAD_LEFT - 10}" y="${(py + 4).toFixed(1)}" text-anchor="end" class="eksen-rakam">${v}</text>
+              </g>
+            `;
+          }
+          katmanIzgara.innerHTML = izgaraHtml;
+        }
+
+        // Çizgi ve Dolgu Alanı
+        const pathLine = aktifSeri
+          .map((d, i) => `${i === 0 ? 'M' : 'L'} ${xRezPx(i).toFixed(1)} ${yRezPx(d.net_rezerv_milyar_usd).toFixed(1)}`)
+          .join(' ');
+
+        const zeroRezY = yRezPx(minVal).toFixed(1);
+        const pathArea = `${pathLine} L ${xRezPx(len - 1).toFixed(1)} ${zeroRezY} L ${xRezPx(0).toFixed(1)} ${zeroRezY} Z`;
+
+        if (cizgiYolu) cizgiYolu.setAttribute('d', pathLine);
+        if (alanYolu) alanYolu.setAttribute('d', pathArea);
+      }
+
+      // X Ekseni Tarihleri
+      if (katmanTarihler) {
+        let tarihlerHtml = '';
+        const slotW = innerW / len;
+        aktifSeri.forEach((d, i) => {
+          const cx = aktifMod === 'bar' ? PAD_LEFT + i * slotW + slotW / 2 : PAD_LEFT + (i / Math.max(len - 1, 1)) * innerW;
+          const show = len <= 22 || i % Math.ceil(len / 12) === 0 || i === len - 1;
+          if (show) {
+            tarihlerHtml += `
+              <text x="${cx.toFixed(1)}" y="${H - PAD_BOTTOM + 22}" text-anchor="middle" class="tarih-etiket" transform="rotate(-40, ${cx.toFixed(1)}, ${H - PAD_BOTTOM + 22})">${d.etiket}</text>
+            `;
+          }
+        });
+        katmanTarihler.innerHTML = tarihlerHtml;
+      }
+
+      // Son noktayı güncelle
+      kartGuncelle(aktifSeri.at(-1)!);
+    }
+
+    function kartGuncelle(d: NoktaVerisi) {
+      if (!d) return;
+      const degisim = d.degisim_altin_arindirilmis_milyar_usd;
+      const isPos = degisim >= 0;
+
+      if (canliTarih) canliTarih.textContent = d.tarih;
+      if (canliDegisim) {
+        canliDegisim.textContent = `${isPos && degisim > 0 ? '+' : ''}${degisim.toFixed(1).replace('.', ',')} Milyar $`;
+        canliDegisim.className = `canli-deger ${isPos ? 'pozitif' : 'negatif'}`;
+      }
+      if (canliHareket) {
+        canliHareket.textContent = isPos ? '▲ Piyasadan Döviz Topladı' : '▼ Piyasaya Döviz Sattı';
+        canliHareket.className = `hareket-rozet ${isPos ? 'pozitif-rozet' : 'negatif-rozet'}`;
+      }
+      if (canliAyrinti) {
+        const ham = `${d.ham_degisim_milyar_usd > 0 ? '+' : ''}${d.ham_degisim_milyar_usd.toFixed(2).replace('.', ',')} mlr $`;
+        const altin = `${d.altin_degerleme_etkisi_milyar_usd > 0 ? '+' : ''}${d.altin_degerleme_etkisi_milyar_usd.toFixed(2).replace('.', ',')} mlr $`;
+        canliAyrinti.textContent = `${ham} / ${altin}`;
+      }
+      if (canliKur) {
+        const rez = `${d.net_rezerv_milyar_usd.toFixed(1).replace('.', ',')} Mlr $`;
+        const kur = `${d.usd_kuru.toFixed(4).replace('.', ',')} TL`;
+        canliKur.textContent = `${rez} · ${kur}`;
+      }
+    }
+
+    // Fare & Dokunma Takibi
+    function takipEt(e: MouseEvent | TouchEvent) {
+      const rect = etkilesim?.getBoundingClientRect();
+      if (!rect) return;
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      const relX = clientX - rect.left;
+      const ratio = Math.max(0, Math.min(1, relX / rect.width));
+      const idx = Math.min(Math.floor(ratio * aktifSeri.length), aktifSeri.length - 1);
+      const d = aktifSeri[idx];
+      if (!d) return;
+
+      kartGuncelle(d);
+
+      // Rehber dikey çizgisini konumlandır
+      const len = aktifSeri.length;
+      const slotW = innerW / len;
+      const cx = aktifMod === 'bar' ? PAD_LEFT + idx * slotW + slotW / 2 : PAD_LEFT + (idx / Math.max(len - 1, 1)) * innerW;
+
+      if (rehberDikey) {
+        rehberDikey.setAttribute('x1', cx.toString());
+        rehberDikey.setAttribute('x2', cx.toString());
+        rehberDikey.style.display = 'block';
+      }
+
+      if (odakNoktasi) {
+        if (aktifMod === 'cizgi') {
+          const rezVals = aktifSeri.map((v) => v.net_rezerv_milyar_usd);
+          const minVal = Math.floor((Math.min(...rezVals, 20) - 2) / 5) * 5;
+          const maxVal = Math.ceil((Math.max(...rezVals, 65) + 2) / 5) * 5;
+          const rangeRez = maxVal - minVal || 1;
+          const py = PAD_TOP + (1 - (d.net_rezerv_milyar_usd - minVal) / rangeRez) * innerH;
+          odakNoktasi.setAttribute('cx', cx.toString());
+          odakNoktasi.setAttribute('cy', py.toString());
+          odakNoktasi.style.display = 'block';
+        } else {
+          odakNoktasi.style.display = 'none';
+        }
+      }
+
+      // Bar vurgulama
+      if (katmanBarlar && aktifMod === 'bar') {
+        const barlar = katmanBarlar.querySelectorAll('.bar-eleman');
+        barlar.forEach((b, i) => {
+          if (i === idx) {
+            b.classList.add('secili');
+          } else {
+            b.classList.remove('secili');
+          }
+        });
+      }
+    }
+
+    function takipBitti() {
+      if (rehberDikey) rehberDikey.style.display = 'none';
+      if (odakNoktasi) odakNoktasi.style.display = 'none';
+      if (katmanBarlar) {
+        katmanBarlar.querySelectorAll('.bar-eleman').forEach((b) => b.classList.remove('secili'));
+      }
+      kartGuncelle(aktifSeri.at(-1)!);
+    }
+
+    if (etkilesim) {
+      etkilesim.addEventListener('mousemove', takipEt);
+      etkilesim.addEventListener('mouseleave', takipBitti);
+      etkilesim.addEventListener('touchstart', takipEt, { passive: true });
+      etkilesim.addEventListener('touchmove', takipEt, { passive: true });
+      etkilesim.addEventListener('touchend', takipBitti);
+    }
+
+    // Buton Filtreleri: Zaman Aralığı
+    const aralikButonlari = kapsayici.querySelectorAll('[data-aralik]');
+    aralikButonlari.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        aralikButonlari.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+        const val = btn.getAttribute('data-aralik');
+        if (val === '10') aktifSeri = tumSeri.slice(-10);
+        else if (val === '20') aktifSeri = tumSeri.slice(-20);
+        else aktifSeri = [...tumSeri];
+        renderGostergeler();
+      });
+    });
+
+    // Buton Filtreleri: Görünüm Modu (Bar / Çizgi)
+    const modButonlari = kapsayici.querySelectorAll('[data-mod]');
+    modButonlari.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        modButonlari.forEach((b) => b.classList.remove('aktif'));
+        btn.classList.add('aktif');
+        aktifMod = (btn.getAttribute('data-mod') as 'bar' | 'cizgi') || 'bar';
+        renderGostergeler();
+      });
+    });
+  }
+
+  // Sayfa yüklendiğinde ve Astro sayfa geçişlerinde çalıştır
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', baslatNetPozisyonGrafigi);
+  } else {
+    baslatNetPozisyonGrafigi();
+  }
+  document.addEventListener('astro:page-load', baslatNetPozisyonGrafigi);
+</script>
+
+<style>
+  .interaktif-grafik-kapsayici {
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    border-radius: 0px;
+    padding: 18px 20px 14px;
+    margin: 18px 0;
+  }
+
+  .grafik-kontrol-cubugu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--hair, #cfccc2);
+    margin-bottom: 14px;
+  }
+
+  .grafik-ana-baslik {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--ink, #1b1b1b);
+    letter-spacing: -0.01em;
+  }
+
+  .grafik-alt-bilgi {
+    font-size: 0.85rem;
+    color: var(--muted, #5d5b55);
+    margin: 2px 0 0;
+  }
+
+  .grafik-filtre-kumeleri {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .dugme-kumesi {
+    display: inline-flex;
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+    border-radius: 0px;
+    padding: 2px;
+  }
+
+  .filtre-btn {
+    background: transparent;
+    border: none;
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--muted, #5d5b55);
+    cursor: pointer;
+    border-radius: 0px;
+    transition: all 0.12s ease;
+  }
+
+  .filtre-btn:hover {
+    color: var(--ink, #1b1b1b);
+  }
+
+  .filtre-btn.aktif {
+    background: var(--paper, #f4f3ee);
+    color: var(--ink, #1b1b1b);
+    font-weight: 700;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .canli-gosterge-paneli {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+    border-radius: 0px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+
+  .canli-kutu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .canli-etiket {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted, #5d5b55);
+    margin-bottom: 3px;
+  }
+
+  .canli-deger {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+    font-family: var(--sans, sans-serif);
+  }
+
+  .canli-deger.pozitif {
+    color: var(--yukselis, #3f7350);
+  }
+
+  .canli-deger.negatif {
+    color: var(--dusus, #a3243b);
+  }
+
+  .canli-deger.ikincil-sayi {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .hareket-rozet {
+    display: inline-block;
+    width: fit-content;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 0px;
+  }
+
+  .pozitif-rozet {
+    background: rgba(63, 115, 80, 0.12);
+    color: var(--yukselis, #3f7350);
+    border: 1px solid rgba(63, 115, 80, 0.3);
+  }
+
+  .negatif-rozet {
+    background: rgba(163, 36, 59, 0.12);
+    color: var(--dusus, #a3243b);
+    border: 1px solid rgba(163, 36, 59, 0.3);
+  }
+
+  .svg-cerceve {
+    width: 100%;
+    overflow-x: auto;
+    background: var(--paper, #f4f3ee);
+    position: relative;
+  }
+
+  .np-svg-grafigi {
+    width: 100%;
+    height: auto;
+    min-width: 580px;
+    display: block;
+  }
+
+  .eksen-rakam {
+    font-size: 11px;
+    fill: var(--muted, #5d5b55);
+    font-family: var(--sans, sans-serif);
+  }
+
+  .eksen-rakam.sifir-eksen {
+    font-weight: 700;
+    fill: var(--ink, #1b1b1b);
+  }
+
+  .bar-metin {
+    font-size: 11px;
+    font-family: var(--sans, sans-serif);
+    font-weight: 700;
+    pointer-events: none;
+  }
+
+  .tarih-etiket {
+    font-size: 10.5px;
+    fill: var(--muted, #5d5b55);
+    font-family: var(--sans, sans-serif);
+  }
+
+  .bar-eleman {
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+
+  .bar-eleman:hover rect,
+  .bar-eleman.secili rect {
+    opacity: 0.82;
+    stroke: var(--ink, #1b1b1b);
+    stroke-width: 1px;
+  }
+
+  .grafik-dip-aciklama {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--hair, #cfccc2);
+    font-size: 0.8rem;
+    color: var(--muted, #5d5b55);
+  }
+
+  .grafik-lejant-maddeleri {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .lejant-oge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  .renk-kutu {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 0px;
+  }
+
+  .pozitif-kutu {
+    background: var(--yukselis, #3f7350);
+  }
+
+  .negatif-kutu {
+    background: var(--dusus, #a3243b);
+  }
+
+  .grafik-kaynak-notu {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+</style>

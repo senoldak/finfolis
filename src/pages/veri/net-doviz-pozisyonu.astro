@@ -4,7 +4,7 @@
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
-import TcmbRezervGrafik from '../../components/TcmbRezervGrafik.astro';
+import TcmbNetPozisyonGrafigi, { type NetPozisyonNokta } from '../../components/TcmbNetPozisyonGrafigi.astro';
 import { RESMI, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
 import netPozisyonVerisi from '../../data/tcmb-net-pozisyon-degisimi.json';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -17,7 +17,7 @@ const altBaslik = 'Swaplar ve Hazine dövizi hariç net rezerv';
 const milyar = (n: number) => `${n > 0 ? '+' : ''}${sayiYaz(n, 1)} milyar $`;
 
 const description = rezerv
-  ? `TCMB net döviz pozisyonu (swaplar ve Hazine dövizi hariç) ${gunYaz(rezerv.tarih)} itibarıyla ${milyar(rezerv.netDovizPozisyonu)}. Altın etkisi dışlanmış günlük değişim grafiği, analitik bilanço kalemleri ve geçmiş seyir tablosu.`
+  ? `TCMB net döviz pozisyonu (swaplar ve Hazine dövizi hariç) ${gunYaz(rezerv.tarih)} itibarıyla ${milyar(rezerv.netDovizPozisyonu)}. Altın etkisi dışlanmış interaktif günlük değişim grafiği, analitik bilanço kalemleri ve detaylı hesaplama tablosu.`
   : 'TCMB net döviz pozisyonu, swap ve Hazine hariç rezerv verileri ve günlük değişim grafiği.';
 
 const yol = [
@@ -55,86 +55,9 @@ const jsonLd = sayfaSemasi({
     : {}),
 });
 
-// Veri Noktaları
-const noktalar = rezerv?.gecmis ?? [];
-
-// 1. Günlük Değişim Çubuk Grafiği (Altın Etkisi Dışlanmış) Parametreleri
-interface GunlukDegisim {
-  tarih: string;
-  tarihKisa: string;
-  deger: number;
-  hamDegisim?: number;
-  altinEtkisi?: number;
-  usdKuru?: number;
-}
-
-let barNoktalar: GunlukDegisim[] = [];
-
-if (netPozisyonVerisi?.seri && Array.isArray(netPozisyonVerisi.seri) && netPozisyonVerisi.seri.length > 0) {
-  barNoktalar = (netPozisyonVerisi.seri as Array<{
-    tarih: string;
-    etiket: string;
-    usd_kuru: number;
-    ham_degisim_milyar_usd: number;
-    altin_degerleme_etkisi_milyar_usd: number;
-    degisim_altin_arindirilmis_milyar_usd: number;
-  }>)
-    .slice(-22)
-    .map((item) => ({
-      tarih: item.tarih,
-      tarihKisa: item.etiket,
-      deger: item.degisim_altin_arindirilmis_milyar_usd,
-      hamDegisim: item.ham_degisim_milyar_usd,
-      altinEtkisi: item.altin_degerleme_etkisi_milyar_usd,
-      usdKuru: item.usd_kuru,
-    }));
-} else {
-  // Yedek hesaplama: resmi.json'daki kümülatif seriden türet
-  const yedek: GunlukDegisim[] = [];
-  for (let i = 1; i < noktalar.length; i++) {
-    const onceki = noktalar[i - 1].deger;
-    const suanki = noktalar[i].deger;
-    const fark = Math.round((suanki - onceki) * 10) / 10;
-    const d = noktalar[i].tarih;
-    const tarihKisa = `${d.slice(8, 10)}.${d.slice(5, 7)}`;
-    yedek.push({
-      tarih: d,
-      tarihKisa,
-      deger: fark,
-    });
-  }
-  barNoktalar = yedek.slice(-20);
-}
-
-const barSvgW = 760;
-const barSvgH = 320;
-const barPadL = 48;
-const barPadR = 25;
-const barPadT = 32;
-const barPadB = 55;
-
-const barDegerler = barNoktalar.map((b) => b.deger);
-const maxAbs = Math.max(5, ...barDegerler.map((v) => Math.ceil(Math.abs(v))));
-const barMaxY = maxAbs;
-const barMinY = -maxAbs;
-const barAralikY = barMaxY - barMinY;
-
-const barYCoord = (val: number) =>
-  barPadT + (1 - (val - barMinY) / barAralikY) * (barSvgH - barPadT - barPadB);
-
-const barYZero = barYCoord(0);
-
-const barColWidth = (barSvgW - barPadL - barPadR) / Math.max(barNoktalar.length, 1);
-const barWidth = Math.max(Math.floor(barColWidth * 0.65), 14);
-
-const barYCizgileri: number[] = [];
-const adim = maxAbs > 6 ? 2 : 1;
-for (let v = barMinY; v <= barMaxY; v += adim) {
-  barYCizgileri.push(v);
-}
-
-// Son günün altın arındırılmış değişimi
-const sonGunDegisim = barNoktalar.at(-1)?.deger ?? rezerv?.degisimGunluk ?? 0;
+// Veri Serisi
+const seriVerisi: NetPozisyonNokta[] = (netPozisyonVerisi?.seri ?? []) as NetPozisyonNokta[];
+const sonGunDegisim = seriVerisi.at(-1)?.degisim_altin_arindirilmis_milyar_usd ?? rezerv?.degisimGunluk ?? 0;
 ---
 
 <Base title={`${baslik}: TCMB güncel ve geçmiş veriler`} description={description} noindex={!rezerv}>
@@ -183,98 +106,10 @@ const sonGunDegisim = barNoktalar.at(-1)?.deger ?? rezerv?.degisimGunluk ?? 0;
             {zamanYaz(rezerv.alinma)}.
           </p>
 
-          <!-- 1. BÖLÜM: GÜNLÜK DEĞİŞİM ÇUBUK GRAFİĞİ -->
+          <!-- İNTERAKTİF GÜNLÜK DEĞİŞİM VE SEVİYE GRAFİĞİ -->
           <section class="bolum grafik-alani">
-            <div class="grafik-baslik-kutusu">
-              <h2 class="bolum-baslik">TCMB net pozisyonu günlük değişimi</h2>
-              <span class="grafik-altbaslik">(Altın etkisi dışlanmış, milyar $)</span>
-            </div>
-
-            <div class="grafik-kapsayici">
-              <svg viewBox={`0 0 ${barSvgW} ${barSvgH}`} class="rezerv-grafik" role="img" aria-label="TCMB net pozisyonu günlük değişimi çubuk grafiği">
-                <!-- Yatay Kılavuz Çizgileri -->
-                {barYCizgileri.map((yVal) => (
-                  <g class="kilavuz-grup">
-                    <line
-                      x1={barPadL}
-                      y1={barYCoord(yVal)}
-                      x2={barSvgW - barPadR}
-                      y2={barYCoord(yVal)}
-                      stroke={yVal === 0 ? 'var(--ink, #1b1b1b)' : 'var(--hair, #cfccc2)'}
-                      stroke-width={yVal === 0 ? '1.5' : '1'}
-                      stroke-dasharray={yVal === 0 ? 'none' : '2 2'}
-                    />
-                    <text
-                      x={barPadL - 8}
-                      y={barYCoord(yVal) + 4}
-                      text-anchor="end"
-                      class={`grafik-eksen-metin ${yVal === 0 ? 'eksen-sifir' : ''}`}
-                    >
-                      {yVal > 0 ? `+${yVal}` : yVal}
-                    </text>
-                  </g>
-                ))}
-
-                <!-- Çubuklar ve Değerler -->
-                {barNoktalar.map((b, i) => {
-                  const xCenter = barPadL + (i + 0.5) * barColWidth;
-                  const xLeft = xCenter - barWidth / 2;
-                  const isPositive = b.deger >= 0;
-                  const yVal = barYCoord(b.deger);
-                  const yTop = isPositive ? yVal : barYZero;
-                  const height = Math.max(Math.abs(yVal - barYZero), 2);
-                  const barColor = isPositive ? 'var(--yukselis, #3f7350)' : 'var(--dusus, #a3243b)';
-                  const labelY = isPositive ? yVal - 7 : yVal + 14;
-                  const labelColor = isPositive ? 'var(--yukselis, #3f7350)' : 'var(--dusus, #a3243b)';
-                  const labelText = `${isPositive && b.deger > 0 ? '+' : ''}${sayiYaz(b.deger, 1)}`;
-
-                  return (
-                    <g class="bar-grup" tabindex="0">
-                      <title>{`${b.tarih}: ${labelText} milyar $ (Altın arındırılmış net değişim)`}</title>
-                      <!-- Çubuk -->
-                      <rect
-                        x={xLeft}
-                        y={yTop}
-                        width={barWidth}
-                        height={height}
-                        fill={barColor}
-                      />
-                      <!-- Değer Etiketi -->
-                      <text
-                        x={xCenter}
-                        y={labelY}
-                        text-anchor="middle"
-                        class={`bar-deger-metin ${isPositive ? 'pozitif' : 'negatif'}`}
-                        fill={labelColor}
-                      >
-                        {labelText}
-                      </text>
-                      <!-- Tarih Etiketi (Eğik) -->
-                      <text
-                        x={xCenter}
-                        y={barSvgH - 12}
-                        text-anchor="middle"
-                        class="grafik-tarih-metin"
-                        transform={`rotate(-40, ${xCenter}, ${barSvgH - 12})`}
-                      >
-                        {b.tarihKisa}
-                      </text>
-                    </g>
-                  );
-                })}
-              </svg>
-            </div>
-            <p class="veri-notu">
-              * Çubuklar, TCMB Analitik Bilançosu döviz varlık ve yükümlülüklerinden hesaplanan net pozisyonun günlük farkını gösterir. Küresel ons altın dalgalanmalarının yarattığı muhasebesel değerleme etkisi dışlanmıştır; pozitif barlar TCMB'nin piyasadan döviz çektiğini, negatif barlar ise piyasaya döviz verdiğini ifade eder.
-            </p>
+            <TcmbNetPozisyonGrafigi seri={seriVerisi} />
           </section>
-
-          <!-- 2. BÖLÜM: İNTERAKTİF KÜMÜLATİF SEYİR GRAFİĞİ -->
-          <TcmbRezervGrafik
-            noktalar={noktalar}
-            guncelDeger={rezerv.netDovizPozisyonu}
-            guncelTarih={rezerv.tarih}
-          />
 
           <div class="veri-izgara">
             <section class="bolum">
@@ -382,68 +217,6 @@ const sonGunDegisim = barNoktalar.at(-1)?.deger ?? rezerv?.degisimGunluk ?? 0;
   .negatif-yazi {
     color: var(--dusus, #a3243b);
     font-weight: 700;
-  }
-
-  .grafik-baslik-kutusu {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-
-  .grafik-altbaslik {
-    font-size: 0.95rem;
-    color: var(--muted, #5d5b55);
-    font-weight: 500;
-  }
-
-  .grafik-kapsayici {
-    width: 100%;
-    overflow-x: auto;
-    background: var(--paper, #f4f3ee);
-    border: 1px solid var(--hair, #cfccc2);
-    border-radius: 0px;
-    padding: 16px;
-    margin: 16px 0 8px;
-  }
-
-  .rezerv-grafik {
-    width: 100%;
-    height: auto;
-    min-width: 520px;
-    display: block;
-  }
-
-  .grafik-eksen-metin {
-    font-size: 11px;
-    fill: var(--muted, #5d5b55);
-    font-family: var(--sans, sans-serif);
-  }
-
-  .eksen-sifir {
-    font-weight: 700;
-    fill: var(--ink, #1b1b1b);
-  }
-
-  .bar-deger-metin {
-    font-size: 11px;
-    font-family: var(--sans, sans-serif);
-    font-weight: 700;
-  }
-
-  .bar-deger-metin.negatif {
-    font-weight: 800;
-  }
-
-  .grafik-tarih-metin {
-    font-size: 10px;
-    fill: var(--muted, #5d5b55);
-    font-family: var(--sans, sans-serif);
-  }
-
-  .bar-grup:hover rect {
-    opacity: 0.82;
   }
 
   .ara-toplam {
