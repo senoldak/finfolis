@@ -206,7 +206,7 @@ const enBuyukPiyasa = [...sektorler]
   </footer>
 
   <!-- Gizli Canvas (Görsel İndirme için) -->
-  <canvas id="sosyal-kart-canvas" width="1200" height="675" style="display: none;"></canvas>
+  <canvas id="sosyal-kart-canvas" width="1200" height="675" class="gizli" aria-hidden="true"></canvas>
 </section>
 
 <script>
@@ -368,8 +368,12 @@ const enBuyukPiyasa = [...sektorler]
           else if (kat === 'sektorler') goster = ['mali', 'sinai', 'hizmet', 'teknoloji'].includes(skat);
           else if (kat === 'tema') goster = ['tema', 'pazar', 'endeks'].includes(skat);
 
-          satir.style.display = goster ? '' : 'none';
-          if (!goster && detay) detay.style.display = 'none';
+          if (goster) {
+            satir.classList.remove('gizli');
+          } else {
+            satir.classList.add('gizli');
+            if (detay) detay.classList.add('gizli');
+          }
         });
       });
     });
@@ -805,9 +809,9 @@ const enBuyukPiyasa = [...sektorler]
     border-color: var(--ink, #1b1b1b);
   }
 
-  /* Akordeon Detay Satırı */
-  .detay-satiri.gizli {
-    display: none;
+  /* Gizleme Sınıfı (CSP uyumlu, inline stylesız) */
+  .gizli {
+    display: none !important;
   }
 
   .detay-satiri td {
