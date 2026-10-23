@@ -132,6 +132,11 @@ export function reelSeriHesapla(tufeSatirlari, bistKapanislar, bazYm = BAZ_ANAHT
  * Ana çalıştırıcı
  */
 export async function calistir({ yaz = false } = {}) {
+  let eski;
+  try {
+    eski = JSON.parse(await readFile(DOSYA, 'utf8'));
+  } catch {}
+
   const resmiHam = await readFile(RESMI_DOSYA, 'utf8');
   const resmi = JSON.parse(resmiHam);
   const tufeSatirlari = resmi?.enflasyon?.satirlar;
@@ -145,8 +150,13 @@ export async function calistir({ yaz = false } = {}) {
 
   const { istatistik, noktalar } = reelSeriHesapla(tufeSatirlari, bistKapanislar, BAZ_ANAHTAR);
 
+  const veriDegisti =
+    !eski ||
+    JSON.stringify(eski.noktalar) !== JSON.stringify(noktalar) ||
+    JSON.stringify(eski.istatistik) !== JSON.stringify(istatistik);
+
   const cikti = {
-    guncelleme: new Date().toISOString(),
+    guncelleme: veriDegisti || !eski?.guncelleme ? new Date().toISOString() : eski.guncelleme,
     endeks: 'BİST 30 (XU030)',
     bazTarih: BAZ_ANAHTAR,
     kaynaklar: [
@@ -164,8 +174,12 @@ export async function calistir({ yaz = false } = {}) {
   };
 
   if (yaz) {
-    await writeFile(DOSYA, JSON.stringify(cikti, null, 2) + '\n', 'utf8');
-    console.log(`Reel BİST verisi başarıyla yazıldı: ${DOSYA} (${noktalar.length} ay)`);
+    if (!veriDegisti) {
+      console.log('Reel BİST verisi değişmedi.');
+    } else {
+      await writeFile(DOSYA, JSON.stringify(cikti, null, 2) + '\n', 'utf8');
+      console.log(`Reel BİST verisi başarıyla yazıldı: ${DOSYA} (${noktalar.length} ay)`);
+    }
   }
 
   return cikti;
