@@ -157,7 +157,7 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
               stroke-width="1"
               stroke-dasharray="3 3"
             />
-            <text x={PAD_LEFT - 10} y={yPos(val) + 4} text-anchor="end" class="eksen-yazi">
+            <text x={PAD_LEFT - 10} y={yPos(val) + 4} text-anchor="end" font-size="11" fill="var(--muted, #5d5b55)" class="eksen-yazi">
               ${Math.round(val / 1000)} Mr
             </text>
           </g>
@@ -169,7 +169,7 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
         {ayEtiketleri.map((a) => (
           <g class="x-etiket-g">
             <line x1={a.x} y1={H - PAD_BOTTOM} x2={a.x} y2={H - PAD_BOTTOM + 5} stroke="var(--hair, #cfccc2)" stroke-width="1" />
-            <text x={a.x} y={H - PAD_BOTTOM + 18} text-anchor="middle" class="eksen-yazi">
+            <text x={a.x} y={H - PAD_BOTTOM + 18} text-anchor="middle" font-size="11" fill="var(--muted, #5d5b55)" class="eksen-yazi">
               {a.etiket}
             </text>
           </g>
@@ -212,6 +212,9 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
           x={xPos(zirveIdx, satirlar.length)}
           y={yPos(satirlar[zirveIdx].toplam) - 9}
           text-anchor={zirveIdx < 3 ? 'start' : zirveIdx > satirlar.length - 4 ? 'end' : 'middle'}
+          font-size="11"
+          font-weight="700"
+          fill="var(--ink, #1b1b1b)"
           class="vurgu-yazi"
         >
           Zirve: {milyarUsd(satirlar[zirveIdx].toplam)}
@@ -224,6 +227,9 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
           x={xPos(dipIdx, satirlar.length)}
           y={yPos(satirlar[dipIdx].toplam) - 9}
           text-anchor={dipIdx < 3 ? 'start' : dipIdx > satirlar.length - 4 ? 'end' : 'middle'}
+          font-size="11"
+          font-weight="700"
+          fill="var(--ink, #1b1b1b)"
           class="vurgu-yazi"
         >
           Dip: {milyarUsd(satirlar[dipIdx].toplam)}
@@ -386,7 +392,7 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
         izgaraHtml += `
           <g class="grid-satir">
             <line x1="${PAD_LEFT}" y1="${y}" x2="${W - PAD_RIGHT}" y2="${y}" stroke="var(--hair, #e8e4df)" stroke-width="1" stroke-dasharray="3 3" />
-            <text x="${PAD_LEFT - 10}" y="${y + 4}" text-anchor="end" class="eksen-yazi">$${Math.round(val / 1000)} Mr</text>
+            <text x="${PAD_LEFT - 10}" y="${y + 4}" text-anchor="end" font-size="11" fill="var(--muted, #5d5b55)" class="eksen-yazi">$${Math.round(val / 1000)} Mr</text>
           </g>
         `;
       });
@@ -404,7 +410,7 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
           xHtml += `
             <g class="x-etiket-g">
               <line x1="${x}" y1="${H - PAD_BOTTOM}" x2="${x}" y2="${H - PAD_BOTTOM + 5}" stroke="var(--hair, #cfccc2)" stroke-width="1" />
-              <text x="${x}" y="${H - PAD_BOTTOM + 18}" text-anchor="middle" class="eksen-yazi">${ayAdi}</text>
+              <text x="${x}" y="${H - PAD_BOTTOM + 18}" text-anchor="middle" font-size="11" fill="var(--muted, #5d5b55)" class="eksen-yazi">${ayAdi}</text>
             </g>
           `;
           oncekiAy = ay;
@@ -425,14 +431,14 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
       const zAnchor = zIdx < 3 ? 'start' : zIdx > veri.length - 4 ? 'end' : 'middle';
       zirveG.innerHTML = `
         <circle cx="${zX}" cy="${zY}" r="4" fill="var(--ink)" />
-        <text x="${zX}" y="${zY - 9}" text-anchor="${zAnchor}" class="vurgu-yazi">Zirve: ${formatMilyar(veri[zIdx].toplam)}</text>
+        <text x="${zX}" y="${zY - 9}" text-anchor="${zAnchor}" font-size="11" font-weight="700" fill="var(--ink, #1b1b1b)" class="vurgu-yazi">Zirve: ${formatMilyar(veri[zIdx].toplam)}</text>
       `;
       const dX = xPos(dIdx, veri.length);
       const dY = yPos(veri[dIdx].toplam);
       const dAnchor = dIdx < 3 ? 'start' : dIdx > veri.length - 4 ? 'end' : 'middle';
       dipG.innerHTML = `
         <circle cx="${dX}" cy="${dY}" r="4" fill="var(--ink)" />
-        <text x="${dX}" y="${dY - 9}" text-anchor="${dAnchor}" class="vurgu-yazi">Dip: ${formatMilyar(veri[dIdx].toplam)}</text>
+        <text x="${dX}" y="${dY - 9}" text-anchor="${dAnchor}" font-size="11" font-weight="700" fill="var(--ink, #1b1b1b)" class="vurgu-yazi">Dip: ${formatMilyar(veri[dIdx].toplam)}</text>
       `;
     }
 
@@ -714,16 +720,18 @@ const sonTuzelPay = son && son.toplam > 0 ? (son.tuzel / son.toplam) * 100 : 0;
     min-width: 650px;
   }
 
+  :global([data-mevduat-grafik] .eksen-yazi),
   .eksen-yazi {
-    font-size: 11px;
+    font-size: 11px !important;
     fill: var(--muted, #5d5b55);
     font-family: inherit;
     font-feature-settings: 'tnum';
     user-select: none;
   }
 
+  :global([data-mevduat-grafik] .vurgu-yazi),
   .vurgu-yazi {
-    font-size: 11px;
+    font-size: 11px !important;
     font-weight: 700;
     fill: var(--ink, #1b1b1b);
     font-family: inherit;
