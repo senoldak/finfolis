@@ -80,7 +80,7 @@ jobs:
         continue-on-error: true
         timeout-minutes: 5
         env:
-          # Konut fiyat endeksi ve işsizlik (TCMB EVDS). Yoksa bu iki bölüm atlanır, son bilinen değer kalır.
+          # Konut fiyat endeksi, işsizlik ve piyasa faizleri (TCMB EVDS). Yoksa bu bölümler atlanır, son bilinen değer kalır.
           EVDS_API_KEY: ${{ secrets.EVDS_API_KEY }}
         run: node scripts/haberler/resmi-veri.mjs --yaz
 
