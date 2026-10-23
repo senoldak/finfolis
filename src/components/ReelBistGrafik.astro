@@ -1,7 +1,6 @@
 ---
 // TÜFE'den Arındırılmış BİST 30 İnteraktif Eğrisi (finfolis Kimlik v2).
-// Pure SVG + Vanilla JS: Dinamik zaman aralığı (1Y, 3Y, 5Y, Tümü), Nominal vs Reel ikili karşılaştırma,
-// tıklanabilir rejim odaklanması ve alım gücü simülatörü. Harici kütüphane içermez.
+// Pure SVG + External JS: CSP 'self' uyumlu (sıfır inline style ve sıfır inline script).
 interface Nokta {
   tarih: string;
   yil: number;
@@ -70,9 +69,9 @@ const son = noktalar.at(-1);
         <span class="lejant-ad">Reel BİST 30:</span>
         <strong class="lejant-deger" id="lejantReelDeger">{son?.reelEndeks.toFixed(1)} puan</strong>
       </div>
-      <div class="lejant-oge" id="lejantNominal" style="display: none;">
+      <div class="lejant-oge gizli" id="lejantNominal">
         <span class="cizgi-ornek nominal"></span>
-        <span class="lejant-ad">Nominal BİST (100 Bazlı):</span>
+        <span class="lejant-ad">Nominal BİST:</span>
         <strong class="lejant-deger" id="lejantNominalDeger">-</strong>
       </div>
       <div class="lejant-oge">
@@ -99,28 +98,41 @@ const son = noktalar.at(-1);
       aria-label="TÜFE'den arındırılmış interaktif BİST 30 grafiği"
       preserveAspectRatio="xMidYMid meet"
     >
-      <!-- Dönem / Rejim Vurgu Alanı (Tıklanınca aydınlanır) -->
-      <rect id="rejimVurguKutusu" x="0" y="25" width="0" height="360" fill="var(--paper-2)" opacity="0" />
-
       <!-- Dinamik Izgara ve Eksenler -->
       <g id="izgaraGrubu"></g>
-      <line id="tabanCizgisi" x1="50" y1="385" x2="855" y2="385" stroke="var(--hair)" stroke-width="1" />
-      <line id="bazCizgisi" x1="50" y1="0" x2="855" y2="0" stroke="var(--toprak)" stroke-width="1.5" stroke-dasharray="4 3" />
+      <line id="tabanCizgisi" x1="50" y1="385" x2="855" y2="385" class="svg-taban-cizgi" />
+      <line id="bazCizgisi" x1="50" y1="0" x2="855" y2="0" class="svg-baz-cizgi" />
       <text id="bazCizgisiMetin" x="850" y="0" text-anchor="end" class="svg-baz-yazi">100 BAZ EŞİĞİ</text>
       <g id="xEtiketGrubu"></g>
 
       <!-- Eğriler -->
-      <path id="nominalYol" fill="none" stroke="var(--muted)" stroke-width="1.75" stroke-dasharray="3 3" opacity="0.8" style="display: none;" />
-      <path id="reelYol" fill="none" stroke="var(--ink)" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+      <path id="nominalYol" fill="none" class="svg-nominal-yol" display="none" />
+      <path id="reelYol" fill="none" class="svg-reel-yol" />
 
       <!-- Zirve ve Dip Pinleri -->
       <g id="ekstremGrubu"></g>
 
       <!-- İmleç Takip Çizgisi ve Noktaları -->
-      <g id="imlecGrubu" style="display: none;">
-        <line id="imlecCizgi" x1="0" y1="25" x2="0" y2="385" stroke="var(--ink-2)" stroke-width="1" stroke-dasharray="2 2" />
-        <circle id="imlecReelNokta" cx="0" cy="0" r="5" fill="var(--paper)" stroke="var(--toprak)" stroke-width="2.5" />
-        <circle id="imlecNominalNokta" cx="0" cy="0" r="4" fill="var(--paper)" stroke="var(--muted)" stroke-width="2" style="display: none;" />
+      <g id="imlecGrubu" display="none">
+        <line id="imlecCizgi" x1="0" y1="25" x2="0" y2="385" class="svg-imlec-cizgi" />
+        <circle id="imlecReelNokta" cx="0" cy="0" r="5" class="svg-imlec-reel" />
+        <circle id="imlecNominalNokta" cx="0" cy="0" r="4" class="svg-imlec-nominal" display="none" />
+      </g>
+
+      <!-- CSP Uyumlu Pure SVG Tooltip (Sıfır HTML inline-style) -->
+      <g id="canliTooltip" display="none" class="svg-canli-tooltip">
+        <rect id="ttBg" x="0" y="0" width="186" height="94" class="svg-tt-bg" />
+        <line x1="8" y1="23" x2="178" y2="23" class="svg-tt-ayrac" />
+        <text id="ttTarih" x="10" y="16" class="svg-tt-tarih">Eylül 2023</text>
+        <text x="10" y="39" class="svg-tt-etiket">Reel Endeks:</text>
+        <text id="ttReel" x="176" y="39" text-anchor="end" class="svg-tt-deger ana">114.2 puan</text>
+        <text x="10" y="55" class="svg-tt-etiket">Nominal BİST:</text>
+        <text id="ttNominal" x="176" y="55" text-anchor="end" class="svg-tt-deger">7.836 TL</text>
+        <text x="10" y="70" class="svg-tt-etiket">TÜFE Artışı:</text>
+        <text id="ttTufe" x="176" y="70" text-anchor="end" class="svg-tt-deger">6.94 kat</text>
+        <line x1="8" y1="76" x2="178" y2="76" class="svg-tt-ayrac kesik" />
+        <text x="10" y="87" class="svg-tt-etiket">10.000 TL:</text>
+        <text id="ttSim" x="176" y="87" text-anchor="end" class="svg-tt-deger vurgu">₺11.420</text>
       </g>
 
       <!-- Görünmez Etkileşim Yüzeyi -->
@@ -131,39 +143,16 @@ const son = noktalar.at(-1);
         width="805"
         height="360"
         fill="transparent"
-        style="cursor: crosshair;"
+        class="svg-etkilesim-alani"
       />
     </svg>
-
-    <!-- İnteraktif Tooltip (HUD) -->
-    <div id="canliTooltip" class="canli-tooltip" style="display: none;">
-      <div class="tt-baslik" id="ttTarih">Eylül 2023</div>
-      <div class="tt-govde">
-        <div class="tt-satir ana">
-          <span class="tt-etiket">Reel Endeks:</span>
-          <strong class="tt-deger" id="ttReel">114.2 puan</strong>
-        </div>
-        <div class="tt-satir">
-          <span class="tt-etiket">Nominal BİST:</span>
-          <span class="tt-deger" id="ttNominal">7.836 TL</span>
-        </div>
-        <div class="tt-satir">
-          <span class="tt-etiket">TÜFE Artışı:</span>
-          <span class="tt-deger" id="ttTufe">6.94 kat</span>
-        </div>
-        <div class="tt-satir sim">
-          <span class="tt-etiket">10.000 TL Değeri:</span>
-          <strong class="tt-deger vurgu" id="ttSim">₺11.420</strong>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- Tıklanabilir Rejim Kartları (Dönem Odaklanması) -->
   <div class="rejim-bolumu-baslik">
     <span class="rejim-baslik-etiket">TARİHSEL PİYASA REJİMLERİ</span>
     <span class="rejim-ipucu">Grafikte o döneme odaklanmak için tıklayın</span>
-    <button type="button" class="rejim-sifirla-btn" id="btnRejimSifirla" style="display: none;">Odaklanmayı Kaldır ✕</button>
+    <button type="button" class="rejim-sifirla-btn gizli" id="btnRejimSifirla">Odaklanmayı Kaldır ✕</button>
   </div>
 
   <div class="rejimler-izgara">
@@ -173,8 +162,6 @@ const son = noktalar.at(-1);
           type="button"
           class="rejim-karti-btn"
           data-rejim-id={d.id}
-          data-sinir-bas={d.sinirlar[0]}
-          data-sinir-bit={d.sinirlar[1]}
         >
           <div class="rejim-ust">
             <span class="rejim-no">{d.no}</span>
@@ -190,399 +177,17 @@ const son = noktalar.at(-1);
       ))
     }
   </div>
+
+  <!-- CSP Uyumlu Veri ve Harici Betik -->
+  <script type="application/json" id="reelBistVeriJson" set:html={JSON.stringify({ noktalar, donemler, zirve, dip })} />
+  <script is:inline src="/reel-bist-grafik.js" defer></script>
 </div>
 
-<!-- CSP Uyumlu Veri ve Etkileşim Scripti -->
-<script is:inline define:vars={{ noktalar, donemler, zirve, dip }}>
-  (function () {
-    const kapsayici = document.getElementById('reelGrafikKapsayici');
-    const svg = document.getElementById('reelSvg');
-    const etkilesim = document.getElementById('etkilesimYuzeyi');
-    const izgaraGrubu = document.getElementById('izgaraGrubu');
-    const xEtiketGrubu = document.getElementById('xEtiketGrubu');
-    const reelYol = document.getElementById('reelYol');
-    const nominalYol = document.getElementById('nominalYol');
-    const bazCizgisi = document.getElementById('bazCizgisi');
-    const bazCizgisiMetin = document.getElementById('bazCizgisiMetin');
-    const ekstremGrubu = document.getElementById('ekstremGrubu');
-    const imlecGrubu = document.getElementById('imlecGrubu');
-    const imlecCizgi = document.getElementById('imlecCizgi');
-    const imlecReelNokta = document.getElementById('imlecReelNokta');
-    const imlecNominalNokta = document.getElementById('imlecNominalNokta');
-    const rejimVurguKutusu = document.getElementById('rejimVurguKutusu');
-    const btnRejimSifirla = document.getElementById('btnRejimSifirla');
-
-    const lejantNominal = document.getElementById('lejantNominal');
-    const lejantReelDeger = document.getElementById('lejantReelDeger');
-    const lejantNominalDeger = document.getElementById('lejantNominalDeger');
-    const simDeger = document.getElementById('simDeger');
-    const simNot = document.getElementById('simNot');
-
-    const tooltip = document.getElementById('canliTooltip');
-    const ttTarih = document.getElementById('ttTarih');
-    const ttReel = document.getElementById('ttReel');
-    const ttNominal = document.getElementById('ttNominal');
-    const ttTufe = document.getElementById('ttTufe');
-    const ttSim = document.getElementById('ttSim');
-
-    if (!kapsayici || !svg || !etkilesim || !noktalar || noktalar.length === 0) return;
-
-    const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
-    const W = 880;
-    const H = 430;
-    const PAD = { top: 25, right: 35, bottom: 45, left: 50 };
-    const plotW = W - PAD.left - PAD.right;
-    const plotH = H - PAD.top - PAD.bottom;
-
-    // Nominal 100 bazlı seriyi hesapla
-    const bazBist = noktalar[0].bistKapanis;
-    const zenginNoktalar = noktalar.map((p) => ({
-      ...p,
-      nominalEndeks: (p.bistKapanis / bazBist) * 100,
-    }));
-
-    // Durum Değişkenleri
-    let aktifAralik = 'tum'; // '12', '36', '60', 'tum'
-    let aktifMod = 'reel'; // 'reel', 'kiyas'
-    let aktifRejim = null; // null veya rejim id
-    let gorunenNoktalar = [...zenginNoktalar];
-
-    function filtrele() {
-      if (aktifRejim) {
-        const d = donemler.find((r) => r.id === aktifRejim);
-        if (d) {
-          gorunenNoktalar = zenginNoktalar.filter((p) => p.tarih >= d.sinirlar[0] && p.tarih <= d.sinirlar[1]);
-        }
-      } else if (aktifAralik === 'tum') {
-        gorunenNoktalar = [...zenginNoktalar];
-      } else {
-        const aySayisi = parseInt(aktifAralik, 10);
-        gorunenNoktalar = zenginNoktalar.slice(-aySayisi);
-      }
-      if (gorunenNoktalar.length < 2) gorunenNoktalar = [...zenginNoktalar];
-      ciz();
-    }
-
-    function ciz() {
-      const len = gorunenNoktalar.length;
-
-      // Y ölçeği hesaplama
-      let minVal, maxVal;
-      if (aktifMod === 'kiyas') {
-        const tumDegerler = gorunenNoktalar.flatMap((p) => [p.reelEndeks, p.nominalEndeks]);
-        minVal = Math.min(...tumDegerler);
-        maxVal = Math.max(...tumDegerler);
-      } else {
-        const reelDegerler = gorunenNoktalar.map((p) => p.reelEndeks);
-        minVal = Math.min(...reelDegerler);
-        maxVal = Math.max(...reelDegerler);
-      }
-
-      // Estetik boşluk payı
-      const marjin = (maxVal - minVal) * 0.12 || 10;
-      const yMin = Math.max(0, Math.floor((minVal - marjin) / 10) * 10);
-      const yMax = Math.ceil((maxVal + marjin) / 10) * 10;
-      const yRange = yMax - yMin || 1;
-
-      const xPos = (i) => PAD.left + (i / (len - 1)) * plotW;
-      const yPos = (v) => PAD.top + (1 - (v - yMin) / yRange) * plotH;
-
-      // 1. Izgara ve Y Eksen Çizgileri
-      izgaraGrubu.innerHTML = '';
-      const adimSayisi = 5;
-      const adim = Math.max(10, Math.round((yMax - yMin) / adimSayisi / 10) * 10);
-      for (let v = yMin; v <= yMax; v += adim) {
-        const y = yPos(v);
-        if (y < PAD.top || y > H - PAD.bottom) continue;
-
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        line.setAttribute('x1', PAD.left);
-        line.setAttribute('y1', y);
-        line.setAttribute('x2', W - PAD.right);
-        line.setAttribute('y2', y);
-        line.setAttribute('stroke', 'var(--hair, #cfccc2)');
-        line.setAttribute('stroke-width', '1');
-        izgaraGrubu.appendChild(line);
-
-        const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        txt.setAttribute('x', PAD.left - 8);
-        txt.setAttribute('y', y + 4);
-        txt.setAttribute('text-anchor', 'end');
-        txt.setAttribute('class', 'svg-eksen-yazi');
-        txt.textContent = v;
-        izgaraGrubu.appendChild(txt);
-      }
-
-      // 100 Baz Çizgisi Konumu
-      if (100 >= yMin && 100 <= yMax) {
-        const y100 = yPos(100);
-        bazCizgisi.style.display = 'block';
-        bazCizgisi.setAttribute('y1', y100);
-        bazCizgisi.setAttribute('y2', y100);
-        bazCizgisiMetin.style.display = 'block';
-        bazCizgisiMetin.setAttribute('y', y100 - 6);
-      } else {
-        bazCizgisi.style.display = 'none';
-        bazCizgisiMetin.style.display = 'none';
-      }
-
-      // 2. X Eksen Etiketleri
-      xEtiketGrubu.innerHTML = '';
-      const adimX = Math.max(1, Math.floor(len / 6));
-      for (let i = 0; i < len; i += adimX) {
-        const p = gorunenNoktalar[i];
-        const x = xPos(i);
-
-        const tick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        tick.setAttribute('x1', x);
-        tick.setAttribute('y1', H - PAD.bottom);
-        tick.setAttribute('x2', x);
-        tick.setAttribute('y2', H - PAD.bottom + 5);
-        tick.setAttribute('stroke', 'var(--hair, #cfccc2)');
-        xEtiketGrubu.appendChild(tick);
-
-        const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        txt.setAttribute('x', x);
-        txt.setAttribute('y', H - PAD.bottom + 18);
-        txt.setAttribute('text-anchor', 'middle');
-        txt.setAttribute('class', 'svg-eksen-yazi');
-        txt.textContent = `${AYLAR[p.ay - 1].slice(0, 3)} ${String(p.yil).slice(2)}`;
-        xEtiketGrubu.appendChild(txt);
-      }
-
-      // 3. Eğrileri Çiz
-      const reelD = gorunenNoktalar
-        .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i).toFixed(1)} ${yPos(p.reelEndeks).toFixed(1)}`)
-        .join(' ');
-      reelYol.setAttribute('d', reelD);
-
-      if (aktifMod === 'kiyas') {
-        const nomD = gorunenNoktalar
-          .map((p, i) => `${i === 0 ? 'M' : 'L'} ${xPos(i).toFixed(1)} ${yPos(p.nominalEndeks).toFixed(1)}`)
-          .join(' ');
-        nominalYol.setAttribute('d', nomD);
-        nominalYol.style.display = 'block';
-        lejantNominal.style.display = 'inline-flex';
-        imlecNominalNokta.style.display = 'block';
-      } else {
-        nominalYol.style.display = 'none';
-        lejantNominal.style.display = 'none';
-        imlecNominalNokta.style.display = 'none';
-      }
-
-      // 4. Ekstrem Pinleri (Yalnızca tam veya geniş aralıkta gösterilir)
-      ekstremGrubu.innerHTML = '';
-      if (!aktifRejim && gorunenNoktalar.length > 20) {
-        const zP = gorunenNoktalar.find((p) => p.tarih === zirve?.tarih);
-        if (zP) {
-          const zI = gorunenNoktalar.indexOf(zP);
-          ekstremNoktaEkle(xPos(zI), yPos(zP.reelEndeks), `Zirve: ${zP.reelEndeks}`, 'ust');
-        }
-        const dP = gorunenNoktalar.find((p) => p.tarih === dip?.tarih);
-        if (dP) {
-          const dI = gorunenNoktalar.indexOf(dP);
-          ekstremNoktaEkle(xPos(dI), yPos(dP.reelEndeks), `Dip: ${dP.reelEndeks}`, 'alt');
-        }
-      }
-
-      // Son noktanın değerlerini güncelle
-      const sonP = gorunenNoktalar.at(-1);
-      if (sonP) {
-        lejantReelDeger.textContent = `${sonP.reelEndeks.toFixed(1)} puan`;
-        lejantNominalDeger.textContent = `${sonP.nominalEndeks.toFixed(0)} puan (₺${sonP.bistKapanis.toLocaleString('tr-TR')})`;
-        guncelleSimulasyon(sonP);
-      }
-    }
-
-    function ekstremNoktaEkle(x, y, metin, yon) {
-      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      c.setAttribute('cx', x);
-      c.setAttribute('cy', y);
-      c.setAttribute('r', '3.5');
-      c.setAttribute('fill', 'var(--paper, #f4f3ee)');
-      c.setAttribute('stroke', 'var(--ink, #1b1b1b)');
-      c.setAttribute('stroke-width', '1.5');
-      g.appendChild(c);
-
-      const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      t.setAttribute('x', x);
-      t.setAttribute('y', yon === 'ust' ? y - 10 : y + 16);
-      t.setAttribute('text-anchor', 'middle');
-      t.setAttribute('class', 'svg-pin-yazi');
-      t.textContent = metin;
-      g.appendChild(t);
-
-      ekstremGrubu.appendChild(g);
-    }
-
-    function guncelleSimulasyon(p) {
-      // 10.000 TL Eylül 2014'teki reel değerle bugünkü karşılığı
-      const guncelAlimGucu = Math.round(10000 * (p.reelEndeks / 100));
-      simDeger.textContent = `₺${guncelAlimGucu.toLocaleString('tr-TR')}`;
-      simNot.textContent = `(${AYLAR[p.ay - 1]} ${p.yil} noktasında 10.000 TL'nin reel alım gücü)`;
-    }
-
-    // İmleç ve Etkileşim
-    function etkilesimGuncelle(clientX, clientY) {
-      const rect = etkilesim.getBoundingClientRect();
-      const relX = clientX - rect.left;
-      if (relX < 0 || relX > rect.width) {
-        gizle();
-        return;
-      }
-
-      const len = gorunenNoktalar.length;
-      const oran = relX / rect.width;
-      const idx = Math.max(0, Math.min(len - 1, Math.round(oran * (len - 1))));
-      const p = gorunenNoktalar[idx];
-      if (!p) return;
-
-      const x = PAD.left + (idx / (len - 1)) * plotW;
-
-      // Y koordinatını o anki eğriden al
-      let minVal, maxVal;
-      if (aktifMod === 'kiyas') {
-        const tum = gorunenNoktalar.flatMap((pt) => [pt.reelEndeks, pt.nominalEndeks]);
-        minVal = Math.min(...tum);
-        maxVal = Math.max(...tum);
-      } else {
-        const reelD = gorunenNoktalar.map((pt) => pt.reelEndeks);
-        minVal = Math.min(...reelD);
-        maxVal = Math.max(...reelD);
-      }
-      const marjin = (maxVal - minVal) * 0.12 || 10;
-      const yMin = Math.max(0, Math.floor((minVal - marjin) / 10) * 10);
-      const yMax = Math.ceil((maxVal + marjin) / 10) * 10;
-      const yRange = yMax - yMin || 1;
-      const yReel = PAD.top + (1 - (p.reelEndeks - yMin) / yRange) * plotH;
-      const yNom = PAD.top + (1 - (p.nominalEndeks - yMin) / yRange) * plotH;
-
-      imlecGrubu.style.display = 'block';
-      imlecCizgi.setAttribute('x1', x);
-      imlecCizgi.setAttribute('x2', x);
-      imlecReelNokta.setAttribute('cx', x);
-      imlecReelNokta.setAttribute('cy', yReel);
-
-      if (aktifMod === 'kiyas') {
-        imlecNominalNokta.setAttribute('cx', x);
-        imlecNominalNokta.setAttribute('cy', yNom);
-      }
-
-      // HUD Tooltip Doldur
-      ttTarih.textContent = `${AYLAR[p.ay - 1]} ${p.yil}`;
-      ttReel.textContent = `${p.reelEndeks.toFixed(1)} puan`;
-      ttNominal.textContent = `₺${p.bistKapanis.toLocaleString('tr-TR')}`;
-      ttTufe.textContent = `${p.tufeCarpani.toFixed(2)} kat`;
-
-      const simTl = Math.round(10000 * (p.reelEndeks / 100));
-      ttSim.textContent = `₺${simTl.toLocaleString('tr-TR')}`;
-
-      tooltip.style.display = 'block';
-      const cizimRect = svg.getBoundingClientRect();
-      const ekranX = clientX - cizimRect.left;
-      const ttW = tooltip.offsetWidth || 195;
-
-      let sol = ekranX + 16;
-      if (sol + ttW > cizimRect.width - 10) {
-        sol = ekranX - ttW - 16;
-      }
-      tooltip.style.left = Math.max(6, sol) + 'px';
-      tooltip.style.top = Math.max(6, clientY - cizimRect.top - 20) + 'px';
-
-      // Canlı lejant değerlerini de eşzamanlı güncelle
-      lejantReelDeger.textContent = `${p.reelEndeks.toFixed(1)} puan`;
-      lejantNominalDeger.textContent = `${p.nominalEndeks.toFixed(0)} puan (₺${p.bistKapanis.toLocaleString('tr-TR')})`;
-      guncelleSimulasyon(p);
-    }
-
-    function gizle() {
-      imlecGrubu.style.display = 'none';
-      tooltip.style.display = 'none';
-      const sonP = gorunenNoktalar.at(-1);
-      if (sonP) {
-        lejantReelDeger.textContent = `${sonP.reelEndeks.toFixed(1)} puan`;
-        lejantNominalDeger.textContent = `${sonP.nominalEndeks.toFixed(0)} puan (₺${sonP.bistKapanis.toLocaleString('tr-TR')})`;
-        guncelleSimulasyon(sonP);
-      }
-    }
-
-    etkilesim.addEventListener('mousemove', (e) => etkilesimGuncelle(e.clientX, e.clientY));
-    etkilesim.addEventListener('mouseleave', gizle);
-
-    // Mobil Dokunmatik Desteği
-    etkilesim.addEventListener('touchstart', (e) => {
-      if (e.touches && e.touches[0]) {
-        etkilesimGuncelle(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: true });
-
-    etkilesim.addEventListener('touchmove', (e) => {
-      if (e.touches && e.touches[0]) {
-        etkilesimGuncelle(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: true });
-
-    etkilesim.addEventListener('touchend', () => {
-      setTimeout(gizle, 2500); // Mobilde 2.5 sn okunabilmesi için bekle
-    });
-
-    // Zaman Aralığı Butonları
-    kapsayici.querySelectorAll('[data-aralik]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        kapsayici.querySelectorAll('[data-aralik]').forEach((b) => b.classList.remove('aktif'));
-        btn.classList.add('aktif');
-        aktifAralik = btn.getAttribute('data-aralik');
-        aktifRejim = null;
-        rejimVurguKutusu.setAttribute('opacity', '0');
-        btnRejimSifirla.style.display = 'none';
-        kapsayici.querySelectorAll('.rejim-karti-btn').forEach((b) => b.classList.remove('secili'));
-        filtrele();
-      });
-    });
-
-    // Gösterim Modu Butonları (Reel vs Kıyas)
-    kapsayici.querySelectorAll('[data-mod]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        kapsayici.querySelectorAll('[data-mod]').forEach((b) => b.classList.remove('aktif'));
-        btn.classList.add('aktif');
-        aktifMod = btn.getAttribute('data-mod');
-        ciz();
-      });
-    });
-
-    // Rejim Kartları Tıklama Etkileşimi
-    kapsayici.querySelectorAll('.rejim-karti-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-rejim-id');
-        if (aktifRejim === id) {
-          // Zaten seçiliyse sıfırla
-          aktifRejim = null;
-          btn.classList.remove('secili');
-          btnRejimSifirla.style.display = 'none';
-        } else {
-          kapsayici.querySelectorAll('.rejim-karti-btn').forEach((b) => b.classList.remove('secili'));
-          btn.classList.add('secili');
-          aktifRejim = id;
-          btnRejimSifirla.style.display = 'inline-block';
-        }
-        filtrele();
-      });
-    });
-
-    btnRejimSifirla.addEventListener('click', () => {
-      aktifRejim = null;
-      btnRejimSifirla.style.display = 'none';
-      kapsayici.querySelectorAll('.rejim-karti-btn').forEach((b) => b.classList.remove('secili'));
-      filtrele();
-    });
-
-    // İlk çizim
-    filtrele();
-  })();
-</script>
-
 <style>
+  .gizli {
+    display: none !important;
+  }
+
   .reel-interaktif-kapsayici {
     background: var(--paper);
     border: 1px solid var(--hair);
@@ -753,10 +358,26 @@ const son = noktalar.at(-1);
     overflow: visible;
   }
 
+  .svg-kilavuz-cizgi {
+    stroke: var(--hair, #cfccc2);
+    stroke-width: 1;
+  }
+
+  .svg-taban-cizgi {
+    stroke: var(--hair, #cfccc2);
+    stroke-width: 1;
+  }
+
+  .svg-baz-cizgi {
+    stroke: var(--toprak, #c2502b);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 3;
+  }
+
   .svg-eksen-yazi {
     font-family: var(--sans);
     font-size: 11px;
-    fill: var(--muted);
+    fill: var(--muted, #5d5b55);
     font-variant-numeric: tabular-nums;
   }
 
@@ -764,73 +385,107 @@ const son = noktalar.at(-1);
     font-family: var(--sans);
     font-size: 10px;
     font-weight: 700;
-    fill: var(--toprak-text);
+    fill: var(--toprak-text, #a8431f);
     letter-spacing: 0.05em;
+  }
+
+  .svg-pin-daire {
+    fill: var(--paper, #f4f3ee);
+    stroke: var(--ink, #1b1b1b);
+    stroke-width: 1.5;
   }
 
   .svg-pin-yazi {
     font-family: var(--sans);
     font-size: 10px;
     font-weight: 600;
-    fill: var(--ink-2);
-  }
-
-  /* HUD Tooltip */
-  .canli-tooltip {
-    position: absolute;
-    pointer-events: none;
-    background: var(--paper-2);
-    border: 1px solid var(--ink);
-    padding: 8px 12px;
-    font-family: var(--sans);
-    z-index: 20;
-    min-width: 185px;
-  }
-
-  .tt-baslik {
-    font-weight: 700;
-    font-size: 0.82rem;
-    color: var(--toprak-text);
-    border-bottom: 1px solid var(--hair);
-    padding-bottom: 3px;
-    margin-bottom: 6px;
-  }
-
-  .tt-govde {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-
-  .tt-satir {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.76rem;
-    line-height: 1.35;
-  }
-
-  .tt-satir.ana {
-    font-size: 0.82rem;
-  }
-
-  .tt-satir.sim {
-    margin-top: 4px;
-    padding-top: 4px;
-    border-top: 1px dashed var(--hair);
-  }
-
-  .tt-etiket {
-    color: var(--muted);
-  }
-
-  .tt-deger {
-    font-weight: 600;
+    fill: var(--ink-2, #3d3c38);
     font-variant-numeric: tabular-nums;
   }
 
-  .tt-deger.vurgu {
-    color: var(--toprak-text);
+  .svg-nominal-yol {
+    stroke: var(--muted, #5d5b55);
+    stroke-width: 1.75;
+    stroke-dasharray: 3 3;
+    opacity: 0.8;
+  }
+
+  .svg-reel-yol {
+    stroke: var(--ink, #1b1b1b);
+    stroke-width: 2.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .svg-imlec-cizgi {
+    stroke: var(--ink-2, #3d3c38);
+    stroke-width: 1;
+    stroke-dasharray: 2 2;
+  }
+
+  .svg-imlec-reel {
+    fill: var(--paper, #f4f3ee);
+    stroke: var(--toprak, #c2502b);
+    stroke-width: 2.5;
+  }
+
+  .svg-imlec-nominal {
+    fill: var(--paper, #f4f3ee);
+    stroke: var(--muted, #5d5b55);
+    stroke-width: 2;
+  }
+
+  .svg-etkilesim-alani {
+    cursor: crosshair;
+  }
+
+  /* SVG Tooltip Stilleri (CSP Safe: HTML Değil, SVG İçi) */
+  .svg-tt-bg {
+    fill: #e9e7df;
+    stroke: #1b1b1b;
+    stroke-width: 1;
+  }
+
+  .svg-tt-ayrac {
+    stroke: #cfccc2;
+    stroke-width: 1;
+  }
+
+  .svg-tt-ayrac.kesik {
+    stroke-dasharray: 2 2;
+  }
+
+  .svg-tt-tarih {
+    font-family: var(--sans);
+    font-size: 11px;
     font-weight: 700;
+    fill: #a8431f;
+  }
+
+  .svg-tt-etiket {
+    font-family: var(--sans);
+    font-size: 10px;
+    fill: #5d5b55;
+  }
+
+  .svg-tt-deger {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 600;
+    fill: #1b1b1b;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .svg-tt-deger.ana {
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .svg-tt-deger.vurgu {
+    font-size: 11px;
+    font-weight: 700;
+    fill: #a8431f;
   }
 
   /* Rejim Butonları Paneli */

@@ -120,7 +120,7 @@ const jsonLd = sayfaSemasi({
     <div class="veri-izgara">
       <section class="bolum">
         <h2 class="bolum-baslik">Son 24 Ayın Değerleri</h2>
-        <div style="overflow-x: auto;">
+        <div class="tablo-sarici">
           <table class="cizelge veri-tablo">
             <thead>
               <tr>
@@ -209,3 +209,10 @@ const jsonLd = sayfaSemasi({
     </YasalUyari>
   </div>
 </Base>
+
+<style>
+  .tablo-sarici {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+</style>
