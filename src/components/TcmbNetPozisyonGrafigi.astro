@@ -146,7 +146,7 @@ const isSonPos = sonDegisim >= 0;
     <div class="canli-kutu">
       <span class="canli-etiket">Altın Dışlanmış Net Değişim</span>
       <strong class={`canli-deger ${isSonPos ? 'pozitif' : 'negatif'}`} id="np-canli-degisim">
-        {isSonPos && sonDegisim > 0 ? '+' : ''}{sonDegisim.toFixed(1).replace('.', ',')} Milyar $
+        {isSonPos ? '▲ +' : '▼ '}{Math.abs(sonDegisim).toFixed(1).replace('.', ',')} Milyar $
       </strong>
     </div>
 
@@ -213,7 +213,7 @@ const isSonPos = sonDegisim >= 0;
       <!-- Çizgi Modu Katmanı (Varsayılan Gizli) -->
       <g id="np-katman-cizgi" class="gizli">
         <path id="np-alan-yolu" fill="var(--paper-2, #e9e7df)" opacity="0.6" />
-        <path id="np-cizgi-yolu" fill="none" stroke="var(--toprak, #c2502b)" stroke-width="2.5" />
+        <path id="np-cizgi-yolu" fill="none" stroke="var(--ink, #1b1b1b)" stroke-width="2" />
       </g>
 
       <!-- Çubuklar Katmanı -->
@@ -293,7 +293,7 @@ const isSonPos = sonDegisim >= 0;
         cx="0"
         cy="0"
         r="5"
-        fill="var(--toprak, #c2502b)"
+        fill="var(--ink, #1b1b1b)"
         stroke="var(--paper, #f4f3ee)"
         stroke-width="2"
       />
@@ -590,7 +590,7 @@ const isSonPos = sonDegisim >= 0;
         if (etiketAlt) etiketAlt.textContent = 'Ham Değişim / Altın Etkisi';
         if (canliTarih) canliTarih.textContent = d.tarih;
         if (canliDegisim) {
-          canliDegisim.textContent = `${isPos && degisim > 0 ? '+' : ''}${degisim.toFixed(1).replace('.', ',')} Milyar $`;
+          canliDegisim.textContent = `${isPos ? '▲ +' : '▼ '}${Math.abs(degisim).toFixed(1).replace('.', ',')} Milyar $`;
           canliDegisim.className = `canli-deger ${isPos ? 'pozitif' : 'negatif'}`;
         }
         if (canliHareket) {
@@ -616,7 +616,7 @@ const isSonPos = sonDegisim >= 0;
         if (etiketAlt) etiketAlt.textContent = 'Alım / Satış Dağılımı';
         if (canliTarih) canliTarih.textContent = o.etiket;
         if (canliDegisim) {
-          canliDegisim.textContent = `${isPos && degisim > 0 ? '+' : ''}${degisim.toFixed(1).replace('.', ',')} Milyar $`;
+          canliDegisim.textContent = `${isPos ? '▲ +' : '▼ '}${Math.abs(degisim).toFixed(1).replace('.', ',')} Milyar $`;
           canliDegisim.className = `canli-deger ${isPos ? 'pozitif' : 'negatif'}`;
         }
         if (canliHareket) {
