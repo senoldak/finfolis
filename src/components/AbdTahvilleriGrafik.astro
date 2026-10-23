@@ -94,13 +94,13 @@ const sonY = yPos(sonNokta.toplamUSD);
       <defs>
         <!-- Kırmızı/Kiremit Alan Gradyanı -->
         <linearGradient id="kisaGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#b91c1c" stop-opacity="0.9" />
-          <stop offset="100%" stop-color="#991b1b" stop-opacity="0.8" />
+          <stop offset="0%" stop-color="#c2502b" stop-opacity="0.9" />
+          <stop offset="100%" stop-color="#a33d1c" stop-opacity="0.8" />
         </linearGradient>
         <!-- Mavi Alan Gradyanı -->
         <linearGradient id="uzunGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.9" />
-          <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.85" />
+          <stop offset="0%" stop-color="#5d5b55" stop-opacity="0.9" />
+          <stop offset="100%" stop-color="#1b1b1b" stop-opacity="0.85" />
         </linearGradient>
       </defs>
 
@@ -129,7 +129,7 @@ const sonY = yPos(sonNokta.toplamUSD);
       <path d={kisaAlanD} fill="url(#kisaGrad)" class="alan-kisa" />
 
       <!-- Katman 3: Toplam Kontur Çizgisi -->
-      <path d={toplamCizgiD} fill="none" stroke="#7f1d1d" stroke-width="1.2" class="cizgi-toplam" />
+      <path d={toplamCizgiD} fill="none" stroke="#1b1b1b" stroke-width="1.2" class="cizgi-toplam" />
 
       <!-- X ekseni taban çizgisi -->
       <line x1={PAD_LEFT} y1={ySifir} x2={W - PAD_RIGHT} y2={ySifir} stroke="var(--c-kenar, #94a3b8)" stroke-width="1" />
@@ -215,11 +215,11 @@ const sonY = yPos(sonNokta.toplamUSD);
   }
 
   .renk-kutu.kisa {
-    background-color: #b91c1c;
+    background-color: var(--toprak, #c2502b);
   }
 
   .renk-kutu.uzun {
-    background-color: #3b82f6;
+    background-color: var(--ink, #1b1b1b);
   }
 
   .svg-tasiyici {
@@ -263,7 +263,7 @@ const sonY = yPos(sonNokta.toplamUSD);
   }
 
   .vurgu-son-metin {
-    fill: #991b1b;
+    fill: var(--toprak, #c2502b);
   }
 
   @media (max-width: 640px) {

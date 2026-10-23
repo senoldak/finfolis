@@ -315,19 +315,22 @@ const sonAylar = [...veri.noktalar].slice(-24).reverse();
   }
 
   .kisa-renk {
-    color: #991b1b;
+    color: var(--toprak, #c2502b);
+    font-weight: 600;
   }
 
   .uzun-renk {
-    color: #1d4ed8;
+    color: var(--ink, #1b1b1b);
+    font-weight: 600;
   }
 
   .vurgulu-alim {
-    color: #2563eb;
+    color: var(--yukselis, #3f7350);
     font-weight: 700;
   }
 
   .vurgu-kart {
-    border-left: 3px solid #c2502b;
+    border-left: 3px solid var(--toprak, #c2502b);
+    background: var(--paper-2, #ece9df);
   }
 </style>
