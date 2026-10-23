@@ -4,6 +4,7 @@ import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import abdTahvilData from '../../data/abd-tahvil.json';
+import AbdTahvilAkimGrafigi from '../../components/AbdTahvilAkimGrafigi.astro';
 import { sayiYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
@@ -100,23 +101,9 @@ const tabloVerisi = [...seri].slice(-24).reverse();
       </a>. Veriler T+45 gün gecikmeyle açıklanmaktadır.
     </p>
 
-    <!-- Grafik Bölümü -->
+    <!-- İnteraktif Grafik Bölümü -->
     <section class="bolum grafik-alani">
-      <h2 class="bolum-baslik">Türkiye'nin Aylık ABD Tahvili Alım-Satımları (Milyon USD)</h2>
-      <p class="bolum-aciklama">
-        2024 yılı başından bugüne Türkiye yerleşikleri tarafından gerçekleştirilen net ABD Hazine tahvili (Treasury Notes &amp; Bonds) alım ve satımları.
-      </p>
-      <div class="grafik-kapsayici" style="background: #ffffff; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--hair, #e5e5e5);">
-        <img
-          src="/grafikler/turkiye-abd-tahvil-akimlari.svg"
-          alt="Türkiye'nin aylık ABD tahvili alım-satımları (TIC)"
-          style="width: 100%; height: auto; display: block;"
-          loading="lazy"
-        />
-      </div>
-      <p class="veri-notu">
-        * Mavi barlar net tahvil alımını, pişmiş toprak (kırmızı) barlar net tahvil satışını veya itfasını temsil eder. Sarı kutuyla vurgulanan son 4-5 aylık periyotta Türkiye net alıcı konumuna geçmiştir.
-      </p>
+      <AbdTahvilAkimGrafigi seri={seri} />
     </section>
 
     <!-- Analiz ve Açıklama Bölümü -->

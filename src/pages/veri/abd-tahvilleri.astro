@@ -113,24 +113,9 @@ const sonAylar = [...veri.noktalar].slice(-24).reverse();
       Son veri dönemi: {son.tarih.slice(0, 7)} · Güncelleme: {zamanYaz(veri.guncelleme)}.
     </p>
 
-    <!-- 2. Grafik Bölümü: Aylık Net Alım-Satım Akımları (TIC) -->
+    <!-- 2. Grafik Bölümü: Aylık Net Alım-Satım Akımları (İnteraktif) -->
     <section class="bolum">
-      <div class="bolum-baslik-alani">
-        <h2 class="bolum-baslik">Türkiye'nin Aylık ABD Hazine Tahvili Alım-Satımları (Net Akım)</h2>
-        <span class="bolum-altbaslik">Milyon USD · FRED: FORTREASNET12807 (TIC)</span>
-      </div>
-
-      <div class="grafik-kapsayici" style="background: #ffffff; padding: 1.25rem; border-radius: 8px; border: 1px solid var(--hair, #e5e5e5);">
-        <img
-          src="/grafikler/turkiye-abd-tahvil-akimlari.svg"
-          alt="Türkiye'nin aylık ABD tahvili alım-satımları (TIC)"
-          style="width: 100%; height: auto; display: block;"
-          loading="lazy"
-        />
-      </div>
-      <p class="veri-notu">
-        * Mavi barlar aylık net tahvil alımını, kırmızı barlar net satışını gösterir. Nisan–Ağustos dönemindeki <strong>+${sayiYaz(abdTahvilAkimData.son4AyTicNetAlimMilyarUsd, 2)} milyar dolarlık</strong> net alım, TCMB rezervlerindeki menkul kıymet artışıyla neredeyse birebir örtüşmektedir.
-      </p>
+      <AbdTahvilAkimGrafigi seri={abdTahvilAkimData.seri} />
     </section>
 
     <!-- 3. Portföy Gelişimi (Stok) -->

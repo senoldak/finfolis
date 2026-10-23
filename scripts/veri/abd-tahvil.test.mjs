@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const jsonPath = resolve(__dirname, '../../src/data/abd-tahvil.json');
 const svgPath = resolve(__dirname, '../../public/grafikler/turkiye-abd-tahvil-akimlari.svg');
+const componentPath = resolve(__dirname, '../../src/components/AbdTahvilAkimGrafigi.astro');
 
 test('abd-tahvil.json var ve geçerli şemada', () => {
   assert.ok(existsSync(jsonPath), 'abd-tahvil.json dosyası mevcut olmalı');
@@ -31,4 +32,15 @@ test('turkiye-abd-tahvil-akimlari.svg var ve geçerli SVG', () => {
   assert.ok(svg.includes('</svg>'), 'SVG kapanış etiketi olmalı');
   assert.ok(svg.includes("Türkiye'nin Aylık ABD Hazine Tahvili Net Alım-Satımları"), 'Başlık içermeli');
   assert.ok(svg.includes('FORTREASNET12807'), 'FRED seri kodunu içermeli');
+});
+
+test('AbdTahvilAkimGrafigi.astro bileşeni var ve interaktif özelliklere sahip', () => {
+  assert.ok(existsSync(componentPath), 'AbdTahvilAkimGrafigi.astro mevcut olmalı');
+  const code = readFileSync(componentPath, 'utf8');
+  assert.ok(code.includes('data-abd-tahvil-grafik'), 'veri niteliği içermeli');
+  assert.ok(code.includes('data-aralik'), 'zaman aralığı filtre butonları olmalı');
+  assert.ok(code.includes('data-mod'), 'görünüm modu butonları olmalı');
+  assert.ok(code.includes('canli-gosterge-paneli'), 'canlı KPI inceleme paneli olmalı');
+  assert.ok(code.includes('tic-tooltip-grup'), 'SVG tooltip balonu olmalı');
+  assert.ok(code.includes('tic-rehber-dikey'), 'dikey kılavuz çizgisi olmalı');
 });

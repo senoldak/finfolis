@@ -6,9 +6,14 @@ export interface Sektor {
   ad: string;
   kategori: 'mali' | 'sinai' | 'hizmet' | 'teknoloji' | 'ana-sektor' | 'ana-endeks' | 'tema' | 'pazar' | string;
   aciklama: string;
+  tanim?: string;
+  hisseler?: string[];
+  dinamik?: string;
   deger: number;
   gunluk: number;
+  haftalik: number;
   aylik: number;
+  ytd: number;
   piyasaDegeri: number | null;
   oncekiKapanis: number | null;
   zaman: string;
@@ -47,7 +52,7 @@ export function piyasaDegeriMetni(tl: number | null): string {
   return `${sayi(tl, 0)} TL`;
 }
 
-// Tabloda tam rakam göstermek için (12.363.039.828.161 TL)
+// Tabloda tam rakam göstermek için (12.363.039.828.161 ₺)
 export function piyasaDegeriTam(tl: number | null): string {
   if (tl == null || tl <= 0) return '—';
   return `${sayi(tl, 0)} ₺`;

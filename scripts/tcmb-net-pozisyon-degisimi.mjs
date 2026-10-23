@@ -36,8 +36,9 @@ function formatTarihKisa(tarihStr) {
   return `${g}.${a}`;
 }
 
+const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+
 // Finfolis Tasarım Sistemine (DESIGN.md) Uygun SVG Üretici
-// Renkler: kâğıt (#f4f3ee), mürekkep (#1b1b1b), yükseliş (#3f7350), düşüş (#a3243b), gri (#5d5b55), çizgi (#cfccc2)
 function svgUret(veriler) {
   const W = 960;
   const H = 480;
@@ -49,8 +50,10 @@ function svgUret(veriler) {
   const innerW = W - padL - padR;
   const innerH = H - padT - padB;
 
-  // Y ekseni min ve max belirleme
-  const vals = veriler.map(d => d.degisim_altin_arindirilmis_milyar_usd);
+  // Son 25 iş gününü çizelim (okunabilirlik için)
+  const sonVeriler = veriler.slice(-25);
+
+  const vals = sonVeriler.map(d => d.degisim_altin_arindirilmis_milyar_usd);
   const minVal = Math.min(...vals, -5);
   const maxVal = Math.max(...vals, 5);
   const bound = Math.max(Math.ceil(Math.abs(minVal)), Math.ceil(Math.abs(maxVal)));
@@ -60,13 +63,13 @@ function svgUret(veriler) {
   const yToPx = (val) => padT + innerH - ((val - yMin) / (yMax - yMin)) * innerH;
   const zeroY = yToPx(0);
 
-  // Izgara çizgileri (-6, -4, -2, 0, 2, 4, 6 vb.)
+  // Izgara çizgileri
   let gridLines = '';
   const adimY = bound > 6 ? 2 : 1;
   for (let val = yMin; val <= yMax; val += adimY) {
     const py = yToPx(val);
     const isZero = val === 0;
-    const stroke = isZero ? '#1b1b1b' : '#e4e1d7';
+    const stroke = isZero ? '#1b1b1b' : '#cfccc2';
     const strokeWidth = isZero ? 1.5 : 1;
     gridLines += `
       <line x1="${padL}" y1="${py}" x2="${W - padR}" y2="${py}" stroke="${stroke}" stroke-width="${strokeWidth}" />
@@ -75,14 +78,14 @@ function svgUret(veriler) {
   }
 
   // Barlar ve Etiketler
-  const n = veriler.length;
+  const n = sonVeriler.length;
   const slotW = innerW / n;
   const barW = Math.max(8, Math.min(26, slotW * 0.65));
 
   let bars = '';
   let xLabels = '';
 
-  veriler.forEach((d, i) => {
+  sonVeriler.forEach((d, i) => {
     const val = d.degisim_altin_arindirilmis_milyar_usd;
     const cx = padL + i * slotW + slotW / 2;
     const bx = cx - barW / 2;
@@ -91,9 +94,8 @@ function svgUret(veriler) {
 
     const barY = isPos ? py : zeroY;
     const barH = Math.max(2, Math.abs(py - zeroY));
-    const fill = isPos ? '#3f7350' : '#a3243b'; // Finfolis: yukselis (#3f7350), dusus (#a3243b)
+    const fill = isPos ? '#3f7350' : '#a3243b';
 
-    // Değer Etiketi
     const labelY = isPos ? py - 8 : py + 14;
     const valText = (val > 0 ? `+${val.toFixed(1)}` : val.toFixed(1)).replace('.', ',');
 
@@ -102,8 +104,7 @@ function svgUret(veriler) {
       <text x="${cx.toFixed(1)}" y="${labelY.toFixed(1)}" fill="${fill}" font-size="11" font-weight="700" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">${valText}</text>
     `;
 
-    // Tarih Etiketi (her barda veya yoğunsa 2 barda bir)
-    const showLabel = n <= 22 || i % 2 === 0 || i === n - 1;
+    const showLabel = n <= 25 || i % 2 === 0 || i === n - 1;
     if (showLabel) {
       xLabels += `
         <text x="${cx.toFixed(1)}" y="${H - padB + 24}" fill="#5d5b55" font-size="11" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle" transform="rotate(-35 ${cx.toFixed(1)} ${H - padB + 24})">${formatTarihKisa(d.tarih)}</text>
@@ -113,38 +114,30 @@ function svgUret(veriler) {
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="100%" height="100%">
-  <!-- Zemin: Finfolis kâğıt rengi -->
   <rect width="${W}" height="${H}" fill="#f4f3ee" />
-  
-  <!-- Üst Pişmiş Toprak Marka Bandı -->
   <rect x="0" y="0" width="${W}" height="5" fill="#c2502b" />
-
-  <!-- Başlık ve Alt Başlık -->
   <text x="${padL}" y="36" fill="#1b1b1b" font-size="18" font-weight="700" font-family="system-ui, -apple-system, sans-serif">
     TCMB Net Döviz Pozisyonu Günlük Değişimi
   </text>
   <text x="${padL}" y="56" fill="#5d5b55" font-size="12" font-family="system-ui, -apple-system, sans-serif">
     Altın etkisi dışlanmış tahmini döviz alım/satımı · milyar $ · Kaynak: TCMB Analitik Bilanço &amp; EVDS · finfolis
   </text>
-
-  <!-- Izgara -->
   ${gridLines}
-
-  <!-- Barlar -->
   ${bars}
-
-  <!-- X Eksen Etiketleri -->
   ${xLabels}
 </svg>`;
 }
 
 async function main() {
-  console.log('--- TCMB Net Pozisyon Günlük Değişimi Hesaplanıyor ---');
+  console.log('--- TCMB Net Pozisyon Günlük, Haftalık ve Aylık Verileri Hesaplanıyor ---');
 
-  // Son ~45 günlük işgünü verilerini çekelim
+  // Tarih aralığı: Son 365 gün (1 Yıl)
+  const gunArg = process.argv.find(arg => arg.startsWith('--gun='));
+  const istenenGun = gunArg ? parseInt(gunArg.split('=')[1]) : 365;
+
   const bugun = new Date();
   const gecmis = new Date();
-  gecmis.setDate(bugun.getDate() - 45);
+  gecmis.setDate(bugun.getDate() - istenenGun);
 
   const formatEvdsTarih = (d) => {
     const gun = String(d.getDate()).padStart(2, '0');
@@ -156,7 +149,7 @@ async function main() {
   const baslangic = formatEvdsTarih(gecmis);
   const bitis = formatEvdsTarih(bugun);
 
-  console.log(`Tarih aralığı: ${baslangic} -> ${bitis}`);
+  console.log(`Tarih aralığı: ${baslangic} -> ${bitis} (~${istenenGun} gün)`);
 
   const seriler = [
     'TP.AB.A02',                       // A.1 Dış Varlıklar (Bin TL)
@@ -173,9 +166,8 @@ async function main() {
     throw new Error('Yeterli veri bulunamadı.');
   }
 
-  // TCMB'nin yaklaşık net altın rezervi (milyon troy ons)
-  // 1 ton = 32,150.7 troy ons. TCMB altın varlıkları yaklaşık 21.0 - 21.5 milyon ons civarındadır.
-  const TAHMINI_ALTIN_ONS_STOKU = 21.0; // Milyon ons
+  // TCMB net altın rezervi (~21.0M troy ons)
+  const TAHMINI_ALTIN_ONS_STOKU = 21.0;
 
   const sonuclar = [];
 
@@ -183,7 +175,6 @@ async function main() {
     const prev = items[i - 1];
     const curr = items[i];
 
-    // Eksik veri kontrolü
     if (!curr.TP_AB_A02 || !curr.TP_AB_A10 || !curr.TP_DK_USD_A_YTL) continue;
     if (!prev.TP_AB_A02 || !prev.TP_AB_A10 || !prev.TP_DK_USD_A_YTL) continue;
 
@@ -204,7 +195,6 @@ async function main() {
     const altinFiyatFarki = (currAltinOns > 0 && prevAltinOns > 0) ? (currAltinOns - prevAltinOns) : 0;
 
     // Altın Değerleme Etkisi (Milyar USD)
-    // Değerleme Farkı = (Ons Fiyat Farkı * Altın Ons Miktarı)
     const altinDegerlemeEtkisiMilyarUSD = (altinFiyatFarki * TAHMINI_ALTIN_ONS_STOKU * 1e6) / 1e9;
 
     // Altın Etkisi Dışlanmış Net Değişim (Milyar USD)
@@ -223,25 +213,111 @@ async function main() {
     });
   }
 
+  // --- 2. AY VE HAFTA BAZINDA KÜMÜLATİF TOPLAMLAR (ÖZETLER) ---
+
+  // Aylık Kümülatif Net Pozisyon Değişimi
+  const aylarMap = new Map();
+  sonuclar.forEach(item => {
+    const [g, a, y] = item.tarih.split('-');
+    const ayKey = `${y}-${a}`;
+    if (!aylarMap.has(ayKey)) {
+      const ayIndex = parseInt(a, 10) - 1;
+      aylarMap.set(ayKey, {
+        yil: parseInt(y, 10),
+        ay: parseInt(a, 10),
+        ayKey,
+        etiket: `${AYLAR[ayIndex]} ${y}`,
+        toplam_net_degisim_milyar_usd: 0,
+        toplam_ham_degisim_milyar_usd: 0,
+        toplam_altin_etkisi_milyar_usd: 0,
+        is_gunu_sayisi: 0,
+        alis_gunleri: 0,
+        satis_gunleri: 0,
+        kapanis_net_rezerv: item.net_rezerv_milyar_usd,
+        kapanis_usd_kuru: item.usd_kuru
+      });
+    }
+    const grup = aylarMap.get(ayKey);
+    const net = item.degisim_altin_arindirilmis_milyar_usd;
+    grup.toplam_net_degisim_milyar_usd = Number((grup.toplam_net_degisim_milyar_usd + net).toFixed(1));
+    grup.toplam_ham_degisim_milyar_usd = Number((grup.toplam_ham_degisim_milyar_usd + item.ham_degisim_milyar_usd).toFixed(2));
+    grup.toplam_altin_etkisi_milyar_usd = Number((grup.toplam_altin_etkisi_milyar_usd + item.altin_degerleme_etkisi_milyar_usd).toFixed(2));
+    grup.is_gunu_sayisi += 1;
+    if (net > 0) grup.alis_gunleri += 1;
+    else if (net < 0) grup.satis_gunleri += 1;
+    grup.kapanis_net_rezerv = item.net_rezerv_milyar_usd;
+    grup.kapanis_usd_kuru = item.usd_kuru;
+  });
+
+  const aylikOzet = Array.from(aylarMap.values());
+
+  // Haftalık Kümülatif Net Pozisyon Değişimi (Son 15 Hafta)
+  const haftalarMap = new Map();
+  sonuclar.forEach(item => {
+    const [g, a, y] = item.tarih.split('-');
+    const d = new Date(`${y}-${a}-${g}T12:00:00Z`);
+    // ISO Hafta numarası
+    const target = new Date(d.valueOf());
+    const dayNr = (d.getUTCDay() + 6) % 7;
+    target.setUTCDate(target.getUTCDate() - dayNr + 3);
+    const firstThursday = target.valueOf();
+    target.setUTCMonth(0, 1);
+    if (target.getUTCDay() !== 4) {
+      target.setUTCMonth(0, 1 + ((4 - target.getUTCDay()) + 7) % 7);
+    }
+    const weekNr = 1 + Math.ceil((firstThursday - target.valueOf()) / 604800000);
+    const haftaKey = `${y}-W${String(weekNr).padStart(2, '0')}`;
+
+    if (!haftalarMap.has(haftaKey)) {
+      haftalarMap.set(haftaKey, {
+        haftaKey,
+        etiket: `${weekNr}. Hafta (${y})`,
+        tarih_son: item.tarih,
+        toplam_net_degisim_milyar_usd: 0,
+        toplam_ham_degisim_milyar_usd: 0,
+        is_gunu_sayisi: 0,
+        alis_gunleri: 0,
+        satis_gunleri: 0,
+        kapanis_net_rezerv: item.net_rezerv_milyar_usd
+      });
+    }
+    const hGrup = haftalarMap.get(haftaKey);
+    const net = item.degisim_altin_arindirilmis_milyar_usd;
+    hGrup.toplam_net_degisim_milyar_usd = Number((hGrup.toplam_net_degisim_milyar_usd + net).toFixed(1));
+    hGrup.toplam_ham_degisim_milyar_usd = Number((hGrup.toplam_ham_degisim_milyar_usd + item.ham_degisim_milyar_usd).toFixed(2));
+    hGrup.is_gunu_sayisi += 1;
+    if (net > 0) hGrup.alis_gunleri += 1;
+    else if (net < 0) hGrup.satis_gunleri += 1;
+    hGrup.tarih_son = item.tarih;
+    hGrup.kapanis_net_rezerv = item.net_rezerv_milyar_usd;
+  });
+
+  const haftalikOzet = Array.from(haftalarMap.values());
+
   // Dosya Yolları
   const dataDir = resolve(__dirname, '../public/data');
   const grafDir = resolve(__dirname, '../public/grafikler');
   mkdirSync(dataDir, { recursive: true });
   mkdirSync(grafDir, { recursive: true });
 
-  // JSON Kaydet
-  const jsonIcerik = JSON.stringify({
+  const cıktıVerisi = {
     guncellenme: new Date().toISOString(),
-    kaynak: 'TCMB Analitik Bilanço & BİST Kıymetli Madenler Piyasası & EVDS',
+    kaynak: 'TCMB Analitik Bilanço, EVDS & BİST Kıymetli Madenler Piyasası',
     birim: 'milyar USD',
     kayit_sayisi: sonuclar.length,
-    seri: sonuclar
-  }, null, 2);
+    seri: sonuclar,
+    haftalik_ozet: haftalikOzet,
+    aylik_ozet: aylikOzet
+  };
+
+  const jsonIcerik = JSON.stringify(cıktıVerisi, null, 2);
+
+  // JSON Kaydet
   const jsonYolu = resolve(dataDir, 'tcmb-net-pozisyon-degisimi.json');
   writeFileSync(jsonYolu, jsonIcerik);
   const srcDataYolu = resolve(__dirname, '../src/data/tcmb-net-pozisyon-degisimi.json');
   writeFileSync(srcDataYolu, jsonIcerik);
-  console.log(`JSON yazıldı: ${jsonYolu} ve ${srcDataYolu}`);
+  console.log(`JSON yazıldı (${sonuclar.length} iş günü, ${haftalikOzet.length} hafta, ${aylikOzet.length} ay)`);
 
   // SVG Kaydet
   const svgYolu = resolve(grafDir, 'tcmb-net-pozisyon-degisimi.svg');
@@ -249,15 +325,13 @@ async function main() {
   writeFileSync(svgYolu, svg);
   console.log(`SVG çizildi: ${svgYolu}`);
 
-  // Son 7 günün özet tablosunu yazdır
-  console.log('\n--- Son 7 İş Günü Net Döviz Pozisyon Değişimi ---');
-  console.table(sonuclar.slice(-7).map(x => ({
-    Tarih: x.etiket,
-    'USD Kuru': x.usd_kuru,
-    'Ons ($)': x.altin_ons_usd,
-    'Ham Değişim ($Mlr)': x.ham_degisim_milyar_usd,
-    'Altın Etkisi ($Mlr)': x.altin_degerleme_etkisi_milyar_usd,
-    'Net Değişim (Altınsız)': `${x.degisim_altin_arindirilmis_milyar_usd > 0 ? '+' : ''}${x.degisim_altin_arindirilmis_milyar_usd} Mr $`
+  console.log('\n--- Son 5 Aylık Net Pozisyon Değişimi Özeti ---');
+  console.table(aylikOzet.slice(-5).map(x => ({
+    Dönem: x.etiket,
+    'İş Günü': x.is_gunu_sayisi,
+    'Net Akım ($Mlr)': `${x.toplam_net_degisim_milyar_usd > 0 ? '+' : ''}${x.toplam_net_degisim_milyar_usd} Mr $`,
+    'Alım / Satış Günü': `${x.alis_gunleri} alım / ${x.satis_gunleri} satış`,
+    'Kapanış Rezervi': `${x.kapanis_net_rezerv} Mr $`
   })));
 }
 
