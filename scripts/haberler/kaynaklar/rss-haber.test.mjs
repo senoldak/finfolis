@@ -172,4 +172,7 @@ test('döviz beslemesi: kur/altın dışı konular ekonomi kategorisine düşer'
   assert.equal(haberKategorisi('doviz', 'Yen slides past 155 per dollar', ''), 'doviz');
   assert.equal(haberKategorisi('doviz', 'Euro steadies', ''), 'doviz');
   assert.equal(haberKategorisi('piyasalar', 'Japan exports jump', ''), 'piyasalar');
+  // Özet geçerken kuru anıyorsa kategori değişmez (Kanada perakende satışları, özette Kanada doları paritesi).
+  assert.equal(haberKategorisi('doviz', 'Canada August retail sales rise 1.2%', 'The Canadian dollar fell to 1.40 per US dollar.'), 'ekonomi');
+  assert.equal(haberKategorisi('doviz', 'Loonie falls to one-month low', ''), 'doviz');
 });
