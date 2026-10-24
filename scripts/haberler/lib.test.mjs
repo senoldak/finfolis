@@ -156,7 +156,9 @@ test('gemini: çıkış tavanı gönderilir; tavana çarpan bozuk yanıt bozuk=t
   const eskiKey = process.env.GEMINI_API_KEY;
   process.env.GEMINI_API_KEY = 'test';
   let govde;
+  let cagri = 0;
   globalThis.fetch = async (_url, { body }) => {
+    cagri++;
     govde = JSON.parse(body);
     return new Response(
       JSON.stringify({
@@ -172,6 +174,34 @@ test('gemini: çıkış tavanı gönderilir; tavana çarpan bozuk yanıt bozuk=t
       (e) => e.bozuk === true && /çıkış tavanına çarptı/.test(e.message),
     );
     assert.equal(govde.generationConfig.maxOutputTokens, 16384);
+    assert.equal(cagri, 2, 'tavana çarpınca tek yeniden deneme, sonra düşer');
+  } finally {
+    globalThis.fetch = eskiFetch;
+    if (eskiKey === undefined) delete process.env.GEMINI_API_KEY;
+    else process.env.GEMINI_API_KEY = eskiKey;
+  }
+});
+
+test('gemini: tavana çarpan ilk yanıttan sonra yeniden deneme başarılı olursa sonuç döner', async () => {
+  const { gemini } = await import('./lib.mjs');
+  const eskiFetch = globalThis.fetch;
+  const eskiKey = process.env.GEMINI_API_KEY;
+  process.env.GEMINI_API_KEY = 'test';
+  let cagri = 0;
+  globalThis.fetch = async () => {
+    cagri++;
+    const kesik = cagri === 1;
+    return new Response(
+      JSON.stringify({
+        candidates: [{ finishReason: kesik ? 'MAX_TOKENS' : 'STOP', content: { parts: [{ text: kesik ? '{"baslik": "yarım' : '{"baslik": "tam"}' }] } }],
+        usageMetadata: { promptTokenCount: 1, candidatesTokenCount: 1 },
+      }),
+      { status: 200 },
+    );
+  };
+  try {
+    assert.deepEqual(await gemini({ istem: 'x', sema: { type: 'object' } }), { baslik: 'tam' });
+    assert.equal(cagri, 2);
   } finally {
     globalThis.fetch = eskiFetch;
     if (eskiKey === undefined) delete process.env.GEMINI_API_KEY;

@@ -42,7 +42,7 @@ const GEMINI_ARALIK_MS = Number(process.env.GEMINI_ARALIK_MS || 4500);
 const GEMINI_BEKLEMELER_SN = [15, 30, 60, 90, 120];
 // Çıkış tavanı (ücretsiz plan denetimi A2, 21 Ekim): tavansız çağrıda model bazen 170–270 KB bozuk JSON üretip
 // 125–145 sn ve 1 günlük istek yaktı. En uzun meşru yanıt (kontrol masası) ~8,5K token; 16K hem onu sığdırır
-// hem kaçak yanıtı beşte birine keser. Tavana çarpan yanıt "bozuk" sayılır ve aynı aday yeniden denenmez.
+// hem kaçak yanıtı beşte birine keser. Tavana çarpan yanıt bir kez yeniden denenir; yine çarparsa "bozuk" sayılır ve aynı aday yeniden denenmez.
 const GEMINI_MAKS_CIKIS = Number(process.env.GEMINI_MAKS_CIKIS || 16384);
 let geminiKesik = false;
 let sonGeminiCagri = 0;
@@ -70,6 +70,7 @@ export async function gemini({ sistem, istem, sema, dusunme: seviye = 'low', den
 
   // Düşünme seviyesi düşük tutulur; desteklemeyen modelde kapatılır.
   let dusunme = { thinkingLevel: seviye };
+  let kesikYenidenDenendi = false; // MAX_TOKENS için aynı istekte tek yeniden deneme
   for (let deneme = 1; deneme <= enFazla; deneme++) {
     // 429 disiplini (Gemini kota planı): günlük kotası dolan model bu süreçte bir daha denenmez.
     const acik = modeller.filter((m) => !gunlukDolu.has(m));
@@ -134,6 +135,13 @@ export async function gemini({ sistem, istem, sema, dusunme: seviye = 'low', den
     } catch (e) {
       // Bozuk ya da tavana çarpıp kesilmiş yanıt: tek deneme, haberin yeniden yazılması için bir tur daha harcanmaz.
       const kesik = data.candidates?.[0]?.finishReason === 'MAX_TOKENS';
+      // Kaçak (sonsuz uzayan) yanıt rastgele olur: aynı istek bir kez daha denenir; yine kesilirse bugünkü gibi düşer.
+      if (kesik && !kesikYenidenDenendi) {
+        kesikYenidenDenendi = true;
+        console.warn(`  Gemini (${model}) çıkış tavanına çarptı; aynı istek bir kez daha deneniyor`);
+        deneme--;
+        continue;
+      }
       const hata = new Error(`Gemini bozuk yanıt (${model}${kesik ? ', çıkış tavanına çarptı' : ''}): ${e.message.slice(0, 120)}`);
       hata.bozuk = true;
       throw hata;
