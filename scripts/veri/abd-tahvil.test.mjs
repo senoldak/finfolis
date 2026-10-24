@@ -37,7 +37,7 @@ test('turkiye-abd-tahvil-akimlari.svg var ve geçerli SVG', () => {
 test('AbdTahvilAkimGrafigi.astro bileşeni var ve interaktif özelliklere sahip', () => {
   assert.ok(existsSync(componentPath), 'AbdTahvilAkimGrafigi.astro mevcut olmalı');
   const code = readFileSync(componentPath, 'utf8');
-  assert.ok(code.includes('data-abd-tahvil-grafik'), 'veri niteliği içermeli');
+  assert.ok(code.includes('data-abd-tahvil-akim-grafik'), 'veri niteliği içermeli');
   assert.ok(code.includes('data-aralik'), 'zaman aralığı filtre butonları olmalı');
   assert.ok(code.includes('data-mod'), 'görünüm modu butonları olmalı');
   assert.ok(code.includes('canli-gosterge-paneli'), 'canlı KPI inceleme paneli olmalı');
