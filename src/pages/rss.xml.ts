@@ -3,6 +3,7 @@ import type { APIContext } from 'astro';
 import { getImage } from 'astro:assets';
 import { SITE, YAZAR, categoryName } from '../lib/site';
 import { getNews, newsUrl } from '../lib/news';
+import { kisiYazariMi } from '../lib/yazar.mjs';
 import { KAPAK_DONUSUM } from '../lib/gorsel.mjs';
 
 const xml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
@@ -22,7 +23,7 @@ export async function GET(context: APIContext) {
         pubDate: h.data.date,
         link: newsUrl(h),
         categories: [categoryName(h.data.category)],
-        customData: `<dc:creator>${xml(YAZAR.ad)}</dc:creator>${media ?? ''}`,
+        customData: `<dc:creator>${xml(kisiYazariMi(h.data) ? YAZAR.ad : SITE.name)}</dc:creator>${media ?? ''}`,
       };
     }),
   );

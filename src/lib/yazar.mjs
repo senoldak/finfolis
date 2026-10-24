@@ -1,18 +1,21 @@
-// Analiz ve köşe yazılarının görünen yazarı. Rutin haber ve bültenlerde site adı kullanılır.
+import { aciklayiciMi } from './yazi-turu.mjs';
+
+// Analiz, açıklayıcı/referans ve köşe yazılarının görünen yazarı. Rutin haber ve bültenlerde site adı kullanılır.
 export const YAZAR = {
   ad: 'Şenol Dak',
   unvan: 'Yayın yönetmeni ve editör',
   slug: 'senol-dak',
   yol: '/yazar/senol-dak/',
-  aciklama: "Şenol Dak, finfolis'in yayın yönetmeni ve editörüdür. Sitedeki analiz ve köşe yazıları bu imza altında yayımlanır.",
+  aciklama: "Şenol Dak, finfolis'in yayın yönetmeni ve editörüdür. Sitedeki analiz, açıklayıcı ve köşe yazıları bu imza altında yayımlanır.",
 };
 
-// Analiz ya da köşe yazısı/sahip yazısı mı? Yalnız bu yazılarda Şenol Dak imzası kullanılır;
+// Analiz, açıklayıcı/referans (Forklart karşılığı) ya da köşe yazısı/sahip yazısı mı? Yalnız bu yazılarda Şenol Dak imzası kullanılır;
 // diğer tüm haber ve bültenlerde yayıncı tüzel kişilik (site adı) görünür.
 export function kisiYazariMi(veri) {
   if (!veri) return false;
   return (
     veri.yaziTuru === 'analiz' ||
+    aciklayiciMi(veri) ||
     veri.yaziTuru === 'kose' ||
     veri.yaziTuru === 'kose-yazisi' ||
     veri.tur === 'kose-yazisi' ||

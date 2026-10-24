@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getNews, newsUrl } from '../lib/news';
-import { YAZAR } from '../lib/yazar.mjs';
+import { YAZAR, kisiYazariMi } from '../lib/yazar.mjs';
+import { SITE } from '../lib/site';
 
 export const prerender = true;
 
@@ -15,7 +16,7 @@ export const GET: APIRoute = async () => {
     metin += `## ${h.data.title}\n`;
     metin += `- URL: https://finfolis.com${newsUrl(h)}\n`;
     metin += `- Tarih: ${h.data.date.toISOString()}\n`;
-    metin += `- Yazar: ${YAZAR.ad}
+    metin += `- Yazar: ${kisiYazariMi(h.data) ? YAZAR.ad : SITE.name}
 `;
     metin += `- Kategori: ${h.data.category}\n`;
     if (h.data.description) metin += `- Özet: ${h.data.description}\n`;

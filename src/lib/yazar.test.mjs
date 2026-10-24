@@ -17,3 +17,15 @@ test('yazarSemasi: Person düğümü, yayıncıya bağlı', () => {
   assert.equal(s.url, 'https://finfolis.com/yazar/senol-dak/');
   assert.deepEqual(s.worksFor, { '@id': 'https://finfolis.com/#organization' });
 });
+
+test('kisiYazariMi: analiz, açıklayıcı/referans ve köşe Şenol Dak; haber ve bülten site adı', async () => {
+  const { kisiYazariMi } = await import('./yazar.mjs');
+  assert.equal(kisiYazariMi({ yaziTuru: 'analiz' }), true);
+  assert.equal(kisiYazariMi({ yaziTuru: 'aciklayici' }), true);
+  assert.equal(kisiYazariMi({ yaziTuru: 'referans' }), true);
+  assert.equal(kisiYazariMi({ yaziTuru: 'kose' }), true);
+  assert.equal(kisiYazariMi({ yaziTuru: 'haber', uretim: 'bot' }), false);
+  assert.equal(kisiYazariMi({ uretim: 'bot', author: 'Şenol Dak' }), false);
+  assert.equal(kisiYazariMi({}), false);
+  assert.equal(kisiYazariMi(null), false);
+});
