@@ -147,3 +147,17 @@ test('şirket+olay kuralı: 48 saati geçen, başka şirket ya da başka türdek
   // Başlığı "Stocks"/"Shares" ile başlayan iki farklı şirketin bilançosu şirket anahtarı sayılmaz.
   assert.equal(tekrarBul(olay('m', aday('Stocks slide after Nike earnings', 'Nike shares fell.')), [kayit('x', [aday('Stocks rise after Tesla earnings', 'Tesla shares rose.')], 5)], simdi), null);
 });
+
+// 24.10.2026: farklı Hint şirketlerinin bilançoları ("Indian Hotels", "International Gemological Institute") başlığın
+// ilk kelimesi ("indian", "international") ortak anahtar olduğundan şirket+olay ile eleniyordu.
+test('şirket+olay: milliyet ve genel sıfatla başlayan farklı şirketlerin bilançosu tekrar sayılmaz', () => {
+  const eski = [aday('Indian Hotels Q2 profit rises 12% on strong demand', 'The company reported second-quarter results.')];
+  const yeni = olay('m', aday('Indian Oil Q2 results: profit falls as margins narrow', 'The refiner reported second-quarter earnings.'));
+  assert.equal(tekrarBul(yeni, [kayit('hotels', eski, 5)], simdi), null);
+  const eski2 = [aday('International Gemological Institute shares rise after Q2 results', 'IGI reported quarterly earnings.')];
+  const yeni2 = olay('m', aday('International Paper Q3 earnings miss estimates as volumes slide', 'The packager reported quarterly results.'));
+  assert.equal(tekrarBul(yeni2, [kayit('igi', eski2, 5)], simdi), null);
+  // Gerçek aynı şirket hâlâ yakalanır.
+  const ayni = olay('m', aday('Indian Hotels shares fall after Q2 results', 'Indian Hotels reported quarterly earnings.'));
+  assert.equal(tekrarBul(ayni, [kayit('hotels', eski, 5)], simdi)?.slug, 'hotels');
+});

@@ -115,10 +115,23 @@ const GENEL_ILK = new Set(
   `stocks, stock, shares, share, markets, market, wall, futures, oil, gold, bitcoin, crypto, tech, bank, banks, why, how, what,
   here, these, top, big, hisse, hisseleri, borsa, piyasalar, piyasa, altın, petrol, dolar, bitcoin'in`.split(',').map((x) => x.trim()),
 );
+// Milliyet ve genel sıfatlar şirket ayırt etmez: "Indian Hotels", "International Paper" farklı şirketlerdir ama ilk
+// kelimeleri ("indian", "international") aynı anahtarı üretir. Hem başlığın ilk kelimesi hem ad adaylarının ilk kelimesi süzülür.
+const GENEL_SIFAT = new Set(
+  `international, national, global, general, united, universal, indian, american, british, chinese, japanese, european,
+  asian, african, korean, german, french, canadian, australian, russian, turkish, saudi, first, second, new, old, great,
+  big, small, public, private, federal, central, royal, pacific, atlantic, western, eastern, northern, southern, uluslararası,
+  ulusal, küresel, genel, birleşik, hint, amerikan, çinli, japon, avrupa, alman, fransız`.split(',').map((x) => x.trim()),
+);
+const genelMi = (k) => DURAK.has(k) || GENEL_AD.has(k) || GENEL_SIFAT.has(k);
 function sirketler(ilk, baslik) {
   const out = new Set();
-  for (const a of adlar(baslik)) out.add(a.split(' ')[0]);
-  if (ilk.length >= 3 && !DURAK.has(ilk) && !GENEL_AD.has(ilk) && !GENEL_ILK.has(ilk)) out.add(ilk);
+  for (const a of adlar(baslik)) {
+    // Ad genel bir sıfatla başlıyorsa ("indian hotels") ayırt edici ilk kelime aranır ("hotels"); bulunamazsa anahtar yok.
+    const k = a.split(' ').find((w, i, ws) => (i === 0 ? !genelMi(w) : !genelMi(w) && !GENEL_ILK.has(w) && genelMi(ws[0])) && w.length >= 3);
+    if (k) out.add(k);
+  }
+  if (ilk.length >= 3 && !genelMi(ilk) && !GENEL_ILK.has(ilk)) out.add(ilk);
   return out;
 }
 
