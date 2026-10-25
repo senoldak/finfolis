@@ -1,5 +1,5 @@
 ---
-// Yazar sayfası: analiz, açıklayıcı ve köşe yazılarının görünen yazarı (haber ve bültenlerde site adı görünür). Biyografi uydurulmaz; ad, unvan, nötr tek cümle ve son yazılar.
+// Yazar sayfası: analiz, açıklayıcı ve köşe yazılarının görünen yazarı (haber ve bültenlerde site adı görünür). Künye sahibinin onayladığı metindir (YAZAR.kunye); biyografi uydurulmaz.
 import Base from '../../layouts/Base.astro';
 import NewsCard from '../../components/NewsCard.astro';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -53,7 +53,7 @@ const jsonLd = {
         <p class="makale-spot">{YAZAR.unvan}</p>
       </header>
       <div class="prose">
-        <p>{YAZAR.aciklama}</p>
+        {YAZAR.kunye.map((p) => <p>{p}</p>)}
         <p>İletişim: <a href="mailto:contact@finfolis.com">contact@finfolis.com</a></p>
         <p>Yapay zekâ kullanımı hakkında ayrıntı için <a href="/yapay-zeka-kullanimi/">Yapay zekâ kullanımı</a> sayfasına bakın.</p>
         <h2>Son yazılar</h2>

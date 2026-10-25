@@ -1,12 +1,19 @@
 import { aciklayiciMi } from './yazi-turu.mjs';
 
+// Künye (sahibinin onayladığı metin; dört sitede aynı kişi, aynı dört yayın).
+const KUNYE = [
+  'Türkçe ve yapay zekâ öğretmeniyim; yazılım sektöründe üretken yapay zekâ sistemleri üzerinde çalışıyorum. 10 Ağustos 2022’de kifobu’nun ilk bültenini yayımladım ve o günden beri gazetecilik yapıyorum.',
+  'kifobu, finfolis, JEN DUME ve tidsrøst aracılığıyla girişimlerden ve kitle fonlamasından finans piyasalarına, yapay zekâdan bilime, Norveç’ten dünya gündemine uzanan konuları ele alıyorum. Farklı alanlarda çalışsam da merakım aynı: Bilginin ötesine geçmek, bağlantıları görmek ve olup bitenin neden önemli olduğunu anlamak.',
+];
+
 // Analiz, açıklayıcı/referans ve köşe yazılarının görünen yazarı. Rutin haber ve bültenlerde site adı kullanılır.
 export const YAZAR = {
   ad: 'Şenol Dak',
-  unvan: 'Yayın yönetmeni ve editör',
+  unvan: 'Yayıncı ve editör',
   slug: 'senol-dak',
   yol: '/yazar/senol-dak/',
-  aciklama: "Şenol Dak, finfolis'in yayın yönetmeni ve editörüdür. Sitedeki analiz, açıklayıcı ve köşe yazıları bu imza altında yayımlanır.",
+  aciklama: KUNYE[0],
+  kunye: KUNYE,
 };
 
 // Analiz, açıklayıcı/referans (Forklart karşılığı) ya da köşe yazısı/sahip yazısı mı? Yalnız bu yazılarda Şenol Dak imzası kullanılır;
