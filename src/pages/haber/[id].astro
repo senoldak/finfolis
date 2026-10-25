@@ -21,7 +21,7 @@ import { okumaSuresi, turEtiketi } from '../../lib/yazi-bilgisi.mjs';
 import { duzeltmeNotu } from '../../lib/duzeltme.mjs';
 import { resmiKaynaklar, adsizKaynakSatiri } from '../../lib/resmi-kaynak.mjs';
 import { YAZAR, yazarSemasi, yazarUrl, kisiYazariMi } from '../../lib/yazar.mjs';
-import { yapayZekaNotu } from '../../lib/yapay-zeka-notu.mjs';
+import { yapayZekaNotu, NASIL_BASLIK, YZ_SAYFASI } from '../../lib/yapay-zeka-notu.mjs';
 import { analizMi } from '../../lib/yazi-turu.mjs';
 import { ilgiliSec } from '../../lib/ilgili.mjs';
 import { yazininKonulari, konuUrl } from '../../lib/konu-sayfalari';
@@ -250,9 +250,28 @@ const jsonLd = {
 
       {adsizKaynak && <p class="resmi-kaynak">{adsizKaynak}</p>}
 
-      <p class="uretim-notu">
-        {yzNotu.metin} <a href={yzNotu.baglanti}>{yzNotu.baglantiMetni}</a>
-      </p>
+      {
+        yzNotu.satirlar ? (
+          <section class="uretim-notu nasil-hazirlandi" aria-labelledby="nasil-hazirlandi">
+            <h2 id="nasil-hazirlandi" class="nasil-baslik">{NASIL_BASLIK}</h2>
+            <dl>
+              {yzNotu.satirlar.map((s) => (
+                <div>
+                  <dt>{s.etiket}</dt>
+                  <dd>{s.metin}</dd>
+                </div>
+              ))}
+            </dl>
+            <p class="nasil-baglantilar">
+              <a href={yzNotu.baglanti}>{yzNotu.baglantiMetni}</a> · <a href={YZ_SAYFASI.adres}>{YZ_SAYFASI.metin}</a>
+            </p>
+          </section>
+        ) : (
+          <p class="uretim-notu">
+            {yzNotu.metin} <a href={yzNotu.baglanti}>{yzNotu.baglantiMetni}</a>
+          </p>
+        )
+      }
 
       <YasalUyari />
 

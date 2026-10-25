@@ -46,8 +46,8 @@ const virgul = (liste: { ad: string; n: number }[]) => liste.map((r) => `${r.ad}
               <ul>
                 <li>Yapay zekâ ile otomatik yazılan haber: {r.bot}</li>
                 <li>
-                  Yayıncının adıyla yayımlanan yazı: {r.yayinci} (yazım ve dil düzeltmesinde yapay zekâ araçları
-                  kullanıldı)
+                  Yayıncının adıyla yayımlanan yazı: {r.yayinci} (yazar kendisi yazdı; yapay zekâ araçları
+                  yalnız imla ve dil düzeltmesinde kullanıldı)
                 </li>
                 {r.zincir > 0 && <li>Yapay zekâ araçlarıyla yazılıp editör onayıyla yayımlanan yazı: {r.zincir}</li>}
                 <li>

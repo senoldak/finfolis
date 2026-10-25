@@ -64,6 +64,7 @@ test('ceyrekSayimlari: bot, yayıncı, düzeltme, kaldırma, şikâyet', () => {
     haber('b', '2026-11-05T10:00:00Z', { uretim: 'bot' }),
     haber('c', '2026-11-06T10:00:00Z', { author: 'Şenol Dak', uretim: 'editor' }),
     haber('z', '2026-11-07T10:00:00Z', { uretim: 'yazi-isleri', author: 'Şenol Dak' }),
+    haber('y', '2026-11-08T10:00:00Z', { uretim: 'yazi-isleri' }),
     haber('d', '2026-09-01T10:00:00Z'),
     haber('e', '2026-10-10T10:00:00Z', { duzeltme: '12.10.2026: Rakam düzeltildi.' }),
   ];
@@ -79,8 +80,8 @@ test('ceyrekSayimlari: bot, yayıncı, düzeltme, kaldırma, şikâyet', () => {
   ];
   const s = ceyrekSayimlari({ haberler, kaldirilan, sikayetler, bas: '2026-10-01', son: '2026-12-31' });
   assert.equal(s.bot, 3); // a, b, e
-  assert.equal(s.yayinci, 1); // c (zincir yazısı z sayılmaz)
-  assert.equal(s.zincir, 1); // z ayrı satır
+  assert.equal(s.yayinci, 2); // c ve z (sahibin imzalı yazısı zincirden gelse de yayıncı yazısı)
+  assert.equal(s.zincir, 1); // y: sahibin olmayan zincir yazısı ayrı satır
   assert.equal(s.kaldirilan, 1);
   assert.deepEqual(s.sikayet, { toplam: 3, yerinde: 1, kismen: 1, yerindeDegil: 1 });
   assert.equal(s.duzeltme, 1);

@@ -1024,6 +1024,45 @@ main {
   margin-top: 12px;
 }
 
+/* Sahibin yazısı: "Bu yazı nasıl hazırlandı" satırları; aynı sakin dil, ince çizgiyle ayrılır. */
+.nasil-hazirlandi {
+  padding-top: 12px;
+  border-top: 1px solid var(--ink-2);
+}
+
+.nasil-baslik {
+  margin: 0 0 10px;
+  font: 700 0.92rem/1.4 var(--sans);
+  color: var(--ink);
+}
+
+.nasil-hazirlandi dl {
+  margin: 0;
+}
+
+.nasil-hazirlandi dl > div {
+  margin: 0 0 8px;
+}
+
+.nasil-hazirlandi dt {
+  display: inline;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.nasil-hazirlandi dt::after {
+  content: ': ';
+}
+
+.nasil-hazirlandi dd {
+  display: inline;
+  margin: 0;
+}
+
+.nasil-baglantilar {
+  margin: 12px 0 0;
+}
+
 .uretim-notu + .tavsiye-degil {
   margin-top: 16px;
 }
