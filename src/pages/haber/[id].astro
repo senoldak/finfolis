@@ -22,6 +22,7 @@ import { duzeltmeNotu } from '../../lib/duzeltme.mjs';
 import { resmiKaynaklar, adsizKaynakSatiri } from '../../lib/resmi-kaynak.mjs';
 import { YAZAR, yazarSemasi, yazarUrl, kisiYazariMi } from '../../lib/yazar.mjs';
 import { yapayZekaNotu, NASIL_BASLIK, YZ_SAYFASI } from '../../lib/yapay-zeka-notu.mjs';
+import { satirParcalari } from '../../lib/kunye.mjs';
 import { analizMi } from '../../lib/yazi-turu.mjs';
 import { ilgiliSec } from '../../lib/ilgili.mjs';
 import { yazininKonulari, konuUrl } from '../../lib/konu-sayfalari';
@@ -258,7 +259,7 @@ const jsonLd = {
               {yzNotu.satirlar.map((s) => (
                 <div>
                   <dt>{s.etiket}</dt>
-                  <dd>{s.metin}</dd>
+                  <dd>{satirParcalari(s.metin, s.baglanti).map((x) => (x.adres ? <a href={x.adres}>{x.metin}</a> : x.metin))}</dd>
                 </div>
               ))}
             </dl>

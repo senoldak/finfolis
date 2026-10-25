@@ -9,7 +9,7 @@ const KUNYE = [
 // Analiz, açıklayıcı/referans ve köşe yazılarının görünen yazarı. Rutin haber ve bültenlerde site adı kullanılır.
 export const YAZAR = {
   ad: 'Şenol Dak',
-  unvan: 'Yayıncı ve editör',
+  unvan: 'Gazeteci',
   slug: 'senol-dak',
   yol: '/yazar/senol-dak/',
   aciklama: KUNYE[0],

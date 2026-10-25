@@ -6,6 +6,7 @@ import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { YAZAR, yazarUrl, kisiYazariMi } from '../../lib/yazar.mjs';
 import { getNews, newsUrl } from '../../lib/news';
 import { ORG_ID, SITE_URL, WEBSITE_ID } from '../../lib/seo';
+import { kunyeParcalari } from '../../lib/kunye.mjs';
 
 const haberler = (await getNews({ indeksli: true })).filter((h) => kisiYazariMi(h.data));
 const pageUrl = yazarUrl(SITE_URL);
@@ -29,6 +30,7 @@ const jsonLd = {
         description: YAZAR.aciklama,
         url: pageUrl,
         email: 'contact@finfolis.com',
+        image: `${SITE_URL}/yazar-foto/senol-dak.jpg`,
         worksFor: { '@id': ORG_ID },
       },
       hasPart: haberler.slice(0, 50).map((h) => ({ '@type': 'NewsArticle', url: new URL(newsUrl(h), SITE_URL).href, headline: h.data.title })),
@@ -49,11 +51,12 @@ const jsonLd = {
   <div class="container">
     <article class="makale">
       <header class="makale-bas">
+        <img class="yazar-foto" src="/yazar-foto/senol-dak.jpg" width="96" height="96" alt="Şenol Dak" />
         <h1>{YAZAR.ad}</h1>
         <p class="makale-spot">{YAZAR.unvan}</p>
       </header>
       <div class="prose">
-        {YAZAR.kunye.map((p) => <p>{p}</p>)}
+        {YAZAR.kunye.map((p) => <p>{kunyeParcalari(p).map((x) => (x.adres ? <a href={x.adres}>{x.metin}</a> : x.metin))}</p>)}
         <p>İletişim: <a href="mailto:contact@finfolis.com">contact@finfolis.com</a></p>
         <p>Yapay zekâ kullanımı hakkında ayrıntı için <a href="/yapay-zeka-kullanimi/">Yapay zekâ kullanımı</a> sayfasına bakın.</p>
         <h2>Son yazılar</h2>

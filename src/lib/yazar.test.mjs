@@ -4,7 +4,7 @@ import { YAZAR, yazarSemasi, yazarUrl } from './yazar.mjs';
 
 test('yazar sabiti: ad, unvan ve sayfa yolu', () => {
   assert.equal(YAZAR.ad, 'Şenol Dak');
-  assert.equal(YAZAR.unvan, 'Yayıncı ve editör');
+  assert.equal(YAZAR.unvan, 'Gazeteci');
   assert.equal(YAZAR.kunye.length, 2);
   assert.equal(YAZAR.aciklama, YAZAR.kunye[0]);
   assert.equal(YAZAR.yol, '/yazar/senol-dak/');
@@ -15,7 +15,7 @@ test('yazarSemasi: Person düğümü, yayıncıya bağlı', () => {
   const s = yazarSemasi('https://finfolis.com', 'https://finfolis.com/#organization');
   assert.equal(s['@type'], 'Person');
   assert.equal(s.name, 'Şenol Dak');
-  assert.equal(s.jobTitle, 'Yayıncı ve editör');
+  assert.equal(s.jobTitle, 'Gazeteci');
   assert.equal(s.url, 'https://finfolis.com/yazar/senol-dak/');
   assert.deepEqual(s.worksFor, { '@id': 'https://finfolis.com/#organization' });
 });

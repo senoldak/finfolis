@@ -8,6 +8,7 @@ export const BAGLANTI_METNI: string;
 export interface NasilSatiri {
   etiket: string;
   metin: string;
+  baglanti?: { parca: string; adres: string };
 }
 export const NASIL_BASLIK: string;
 export const NASIL_SATIRLAR: NasilSatiri[];

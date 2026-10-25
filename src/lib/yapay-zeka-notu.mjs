@@ -32,7 +32,11 @@ export const NASIL_SATIRLAR = [
   },
 ];
 export const YONTEM_SATIRI = { etiket: 'Yöntem', metin: 'Hesaplamalar “Nasıl hesapladık” bölümünde açıklanır.' };
-export const ILKE_SATIRI = { etiket: 'İlkeler', metin: 'Yazı, yayın ilkelerimize göre hazırlandı.' };
+export const ILKE_SATIRI = {
+  etiket: 'İlkeler',
+  metin: 'Yazı, yayın ilkelerimize göre hazırlandı.',
+  baglanti: { parca: 'yayın ilkelerimize', adres: '/yayin-ilkeleri/' },
+};
 export const YZ_SAYFASI = { metin: 'Yapay zekâyı nasıl kullanıyoruz →', adres: '/yapay-zeka-kullanimi/' };
 
 // Yazar Şenol Dak olan ya da yazı türü analiz/açıklayıcı/referans olan yazı sahibin yazısıdır.
