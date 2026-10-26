@@ -3164,22 +3164,18 @@
     "alinma": "2026-10-22T11:01:24.257Z"
   },
   "rezerv": {
-    "tarih": "2026-10-22",
-    "netDovizPozisyonu": 34.94,
-    "degisimGunluk": -1.59,
+    "tarih": "2026-10-23",
+    "netDovizPozisyonu": 30.95,
+    "degisimGunluk": -3.99,
     "kalemler": {
-      "disVarliklarUSD": 168.79,
-      "dovizYukumlulukleriUSD": 127.02,
-      "netUluslararasiRezervUSD": 41.77,
+      "disVarliklarUSD": 164.44,
+      "dovizYukumlulukleriUSD": 126.72,
+      "netUluslararasiRezervUSD": 37.73,
       "swapStokuUSD": 0,
-      "hazineDoviziUSD": 6.83,
-      "netPozisyonUSD": 34.94
+      "hazineDoviziUSD": 6.77,
+      "netPozisyonUSD": 30.95
     },
     "gecmis": [
-      {
-        "tarih": "2026-06-18",
-        "deger": 42.56
-      },
       {
         "tarih": "2026-06-19",
         "deger": 42.13
@@ -3535,13 +3531,17 @@
       {
         "tarih": "2026-10-22",
         "deger": 34.94
+      },
+      {
+        "tarih": "2026-10-23",
+        "deger": 30.95
       }
     ],
     "kaynak": {
       "ad": "TCMB Analitik Bilanço (EVDS)",
       "url": "https://evds3.tcmb.gov.tr/"
     },
-    "alinma": "2026-10-24T19:43:20.273Z"
+    "alinma": "2026-10-26T11:56:32.313Z"
   },
   "piyasaFaizleri": {
     "kaynak": {
