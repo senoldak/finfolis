@@ -5,4 +5,4 @@ export interface IlgiliOge {
   varliklar: string[];
   aday: boolean;
 }
-export function ilgiliSec(yazi: IlgiliOge, tumu: IlgiliOge[], adet?: number): string[];
+export function ilgiliSec(yazi: IlgiliOge, tumu: IlgiliOge[], adet?: number, anlam?: (a: IlgiliOge, b: IlgiliOge) => number | null): string[];

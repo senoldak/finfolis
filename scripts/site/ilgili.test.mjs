@@ -32,3 +32,22 @@ test('varlık yoksa aynı kategorinin en yenileri', () => {
   const tumu = [yazi, oge('b', 'borsa', 3), oge('c', 'doviz', 9), oge('d', 'borsa', 7), oge('e', 'borsa', 5), oge('f', 'borsa', 1)];
   assert.deepEqual(ilgiliSec(yazi, tumu), ['d', 'e', 'b']);
 });
+
+// Gemini Faz 2 (27 Ekim): anlam benzerliği. Sahte anlam: kimlik çiftine göre benzerlik.
+const anlamIle = (tablo) => (a, b) => tablo[`${a.id}|${b.id}`] ?? null;
+const kurB = () => {
+  const yazi = oge('a', 'ekonomi', 10);
+  return { yazi, tumu: [yazi, oge('b', 'ekonomi', 9), oge('c', 'doviz', 5), oge('d', 'ekonomi', 8), oge('blt', 'bulten', 7, [], false)] };
+};
+
+test('anlam yoksa bugünkü sıra birebir', () => {
+  const { yazi, tumu } = kurB();
+  assert.deepEqual(ilgiliSec(yazi, tumu, 3, () => null), ilgiliSec(yazi, tumu, 3));
+});
+
+test('anlamca yakın yazı öne gelir; aday olmayan (bülten) yine çıkmaz; düşük benzerlik etkisiz', () => {
+  const { yazi, tumu } = kurB();
+  assert.equal(ilgiliSec(yazi, tumu, 3, anlamIle({ 'a|c': 0.9 }))[0], 'c');
+  assert.ok(!ilgiliSec(yazi, tumu, 4, anlamIle({ 'a|blt': 0.95 })).includes('blt'));
+  assert.deepEqual(ilgiliSec(yazi, tumu, 3, anlamIle({ 'a|c': 0.5 })), ilgiliSec(yazi, tumu, 3));
+});
