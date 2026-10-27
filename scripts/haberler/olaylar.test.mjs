@@ -267,3 +267,77 @@ test('önbellek: gruplama başarısızsa (null) kayıt yazılmaz', async () => {
   await olaylariGrupla([aday('a')], [], { gemini: async () => null, onbellek });
   assert.deepEqual(onbellek.kayitlar, {});
 });
+
+// Gemini Faz 2 (27 Ekim): gömme ölçümü ve ön eleme. Vektör: başlığın "Başlık X" harfinden (X = konu).
+import { coz, kodla } from './gomme.mjs';
+const KONU = { a: [1, 0, 0], b: [1, 0.1, 0], c: [0, 1, 0], d: [0, 0, 1] };
+const gommeSahte = async (metinler) => metinler.map((m) => {
+  const k = m.match(/^(?:Başlık |H )(\w)/)?.[1]?.[0];
+  return KONU[k] ? coz(kodla(KONU[k])) : null;
+});
+const gomme = (kip, ek = {}) => ({ kip, alt: 0.5, vektorle: gommeSahte, log: () => {}, ...ek });
+
+test('gömme gölge: çağrı bugünkü gibi; grup içi ve hafıza eşleşmeleri ölçülür, metin yok', async () => {
+  const satirlar = [];
+  const istemler = [];
+  const hafiza = [{ id: 'h1', ozet: 'H c eski olay', zaman: '2026-10-10T00:00:00Z' }];
+  const g = async ({ istem }) => (istemler.push(istem), { gruplar: [[0, 1]], eslesen: [{ aday: 2, hafiza: 'h1' }] });
+  await olaylariGrupla([aday('a'), aday('b'), aday('c')], hafiza, { gemini: g, gomme: gomme('golge', { log: (s) => satirlar.push(s) }) });
+  assert.equal(istemler.length, 1);
+  const j = satirlar.filter((s) => s.startsWith('gömme-ölçüm ')).map((s) => JSON.parse(s.slice(12)));
+  assert.deepEqual(j.filter((x) => x.karar === 'ayni').map((x) => x.tur).sort(), ['grup', 'hafiza']);
+  for (const s of satirlar) assert.doesNotMatch(s, /Başlık|özet|eski olay/);
+});
+
+test('gömme açık: hafıza = sözcükle eşleşen (korunur) ∪ anlamca yakın', async () => {
+  const hafiza = [
+    { id: 'kelime', ozet: 'özet ortak kelimeler burada özet ortak', zaman: '2026-10-10T00:00:00Z' },
+    { id: 'anlam', ozet: 'H a farklı sözcükler', zaman: '2026-10-10T00:00:00Z' },
+    { id: 'ilgisiz', ozet: 'H d başka', zaman: '2026-10-10T00:00:00Z' },
+  ];
+  const adaylar = [aday('a', { ozet: 'özet ortak kelimeler' })];
+  let istem = '';
+  await olaylariGrupla(adaylar, hafiza, { gemini: async (x) => ((istem = x.istem), { gruplar: [[0]] }), gomme: gomme('acik') });
+  assert.match(istem, /\[kelime\]/);
+  assert.match(istem, /\[anlam\]/);
+  assert.doesNotMatch(istem, /\[ilgisiz\]/);
+});
+
+test('gömme açık: 41 aday iki pakete bölünür, bileşen bölünmez, indeksler doğru birleşir', async () => {
+  // 0..20 'a' konusu (tek bileşen, 21 aday), 21..40 'c' ve 'd' karışık (tekler + bir c bileşeni)
+  const adaylar = Array.from({ length: 41 }, (_, i) => aday(`${i < 21 ? 'a' : i % 2 ? 'c' : 'd'}${i}`));
+  const paketler = [];
+  const g = async ({ istem }) => {
+    const satir = istem.split('HAFIZA')[0].match(/^\d+\. .*$/gm);
+    paketler.push(satir.map((s) => s.replace(/^\d+\. Başlık (\S+).*/, '$1')));
+    // her pakette ilk iki adayı grupla, ilkine puan ver
+    return { gruplar: [[0, 1]], puanlar: [{ aday: 0, onem: 90 }] };
+  };
+  const { yeni } = await olaylariGrupla(adaylar, [], { gemini: g, gomme: gomme('acik') });
+  assert.equal(paketler.length, 2);
+  const aPaketi = paketler.find((p) => p.includes('a0'));
+  for (let i = 0; i < 21; i++) assert.ok(aPaketi.includes(`a${i}`)); // bileşen tek pakette
+  assert.ok(paketler.every((p) => p.length <= 40));
+  assert.equal(new Set(paketler.flat()).size, 41);
+  // her paketin ilk iki adayı birleşti: 41 - 2 = 39 olay
+  assert.equal(yeni.length, 39);
+  const birlesik = yeni.filter((o) => o.adaylar.length === 2).map((o) => o.adaylar.map((a) => a.id).sort().join('+'));
+  assert.equal(birlesik.length, 2);
+  for (const p of paketler) assert.ok(birlesik.includes([p[0], p[1]].sort().join('+')));
+});
+
+test('gömme açık: paketlerden biri düşerse gruplama hatası', async () => {
+  const adaylar = Array.from({ length: 41 }, (_, i) => aday(`${i < 21 ? 'a' : 'd'}${i}`));
+  let n = 0;
+  const r = await olaylariGrupla(adaylar, [], { gemini: async () => (++n > 2 ? null : n === 1 ? { gruplar: [] } : null), gomme: gomme('acik') });
+  assert.equal(r.grupHatasi, true);
+});
+
+test('gömme yoksa (vektorle null) istem bugünküyle birebir', async () => {
+  const hafiza = [{ id: 'h1', ozet: 'özet a kelime kelime', zaman: '2026-10-10T00:00:00Z' }];
+  const istemler = [];
+  const g = async ({ istem }) => (istemler.push(istem), { gruplar: [[0]] });
+  await olaylariGrupla([aday('a', { ozet: 'özet a kelime kelime' })], hafiza, { gemini: g });
+  await olaylariGrupla([aday('a', { ozet: 'özet a kelime kelime' })], hafiza, { gemini: g, gomme: gomme('acik', { vektorle: async () => null }) });
+  assert.equal(istemler[0], istemler[1]);
+});

@@ -3,6 +3,7 @@
 // Böylece genel RSS adayları (kaynak önemi 40/100) da büyük bir gelişmeyse kısa habere terfi edebilir.
 import { createHash } from 'node:crypto';
 import { gemini as varsayilanGemini } from './lib.mjs';
+import { benzerlik, bilesenler, olcumSatiri } from './gomme.mjs';
 import { RESMI_BESLEMELER } from './kaynaklar/resmi-beslemeler.mjs';
 
 // Bir hafta: yayımlanmış her haber ve bülten maddesi bu süre boyunca yeniden yazılmaz (geç düşen kopyalar dahil).
@@ -135,23 +136,8 @@ function onbellekHazirla(onbellek, surum, simdi) {
   return onbellek.kayitlar;
 }
 
-export async function olaylariGrupla(adaylar, hafiza = [], { gemini = varsayilanGemini, onbellek, surumEki = '', simdi = new Date() } = {}) {
-  if (!adaylar.length) return { yeni: [], bilinen: [] };
-  const kayitlar = onbellek ? onbellekHazirla(onbellek, gruplamaSurumu(surumEki), simdi) : null;
-  if (kayitlar && adaylar.every((a) => kayitlar[a.id])) {
-    const anahtarlar = [];
-    const gruplar = new Map();
-    adaylar.forEach((a, i) => {
-      const k = kayitlar[a.id];
-      if (!gruplar.has(k.grup)) {
-        gruplar.set(k.grup, []);
-        anahtarlar.push(k.grup);
-      }
-      gruplar.get(k.grup).push({ ...a, onem: Math.max(a.onem ?? 0, Number.isInteger(k.puan) ? k.puan : 0) });
-    });
-    return { yeni: anahtarlar.map((g) => olayYap(gruplar.get(g))), bilinen: [], onbellekten: true };
-  }
-  const ilgili = ilgiliHafiza(adaylar, hafiza);
+// Gruplama çağrısı (istem + bir kez yeniden deneme). Döner: Gemini yanıtı ya da null.
+async function gruplamaSor(adaylar, ilgili, gemini) {
   const istem = `ADAYLAR:
 ${adaylar.map((a, i) => `${i}. ${a.baslik} — ${String(a.ozet ?? a.kaynakMetni ?? '').slice(0, ADAY_OZET)}`).join('\n')}
 
@@ -170,7 +156,122 @@ ${ilgili.length ? ilgili.map((h) => `[${h.id}] ${String(h.ozet ?? '').slice(0, H
       r = null;
     }
   }
+  return r;
+}
 
+// Gemini Faz 2 (27 Ekim 2026): gömme ön elemesi. Gömme "aynı olay" demez; yalnız büyük aday listesini anlamca bağlı
+// bileşenlere göre küçük paketlere böler (bir bileşen bölünmez) ve hafızaya anlamca yakın kayıtları ekler. Sözcükle
+// eşleşen hafıza kayıtları (ilgiliHafiza) aynen kalır: kaçırma riski artmasın.
+export const PAKET_AZAMI = 40;
+const gommeMetni = (a) => `${a.baslik}\n${String(a.ozet ?? a.kaynakMetni ?? '').slice(0, 300)}`;
+
+async function gommeHazirla(adaylar, hafiza, gomme) {
+  const metinler = [...adaylar.map(gommeMetni), ...hafiza.map((h) => String(h.ozet ?? ''))];
+  let v = null;
+  try {
+    v = await gomme.vektorle(metinler, { onbellek: gomme.onbellek, amac: 'olaylar/gomme' });
+  } catch {
+    v = null;
+  }
+  return v ? { a: v.slice(0, adaylar.length), h: v.slice(adaylar.length) } : null;
+}
+
+// Paketin hafızası: önce bugünkü sözcük eşleşmeleri (sırası korunur), sonra bir adaya ≥ alt benzeyen kayıtlar.
+export function hafizaBirlesimi(paket, adaylar, hafiza, v, alt, azami = HAFIZA_AZAMI) {
+  const kelime = ilgiliHafiza(paket.map((i) => adaylar[i]), hafiza, azami);
+  const var_ = new Set(kelime.map((h) => h.id));
+  const anlam = [];
+  hafiza.forEach((h, j) => {
+    if (var_.has(h.id) || !v.h[j]) return;
+    const enYakin = Math.max(...paket.map((i) => (v.a[i] ? benzerlik(v.a[i], v.h[j]) : -1)));
+    if (enYakin >= alt) anlam.push({ h, enYakin });
+  });
+  anlam.sort((x, y) => y.enYakin - x.enYakin);
+  return [...kelime, ...anlam.map((x) => x.h)].slice(0, azami);
+}
+
+// Bileşenleri sırayla paketlere doldurur; PAKET_AZAMI'yı aşan bileşen kendi paketinde kalır.
+export function paketle(bilesen, azami = PAKET_AZAMI) {
+  const paketler = [];
+  let p = [];
+  for (const b of bilesen) {
+    if (p.length && p.length + b.length > azami) {
+      paketler.push(p);
+      p = [];
+    }
+    p.push(...b);
+  }
+  if (p.length) paketler.push(p);
+  return paketler.map((x) => x.sort((m, n) => m - n));
+}
+
+// Her paket ayrı çağrı; yanıtlar genel aday numaralarına çevrilip birleşir. Bir paket düşerse null (gruplama hatası).
+async function paketliSor(adaylar, hafiza, v, alt, gemini) {
+  const r = { gruplar: [], eslesen: [], puanlar: [] };
+  for (const paket of paketle(bilesenler(v.a, alt))) {
+    const p = await gruplamaSor(paket.map((i) => adaylar[i]), hafizaBirlesimi(paket, adaylar, hafiza, v, alt), gemini);
+    if (!p) return null;
+    const genel = (j) => (Number.isInteger(j) ? paket[j] : undefined);
+    for (const g of Array.isArray(p.gruplar) ? p.gruplar : []) if (Array.isArray(g)) r.gruplar.push(g.map(genel).filter((i) => i !== undefined));
+    for (const e of Array.isArray(p.eslesen) ? p.eslesen : []) r.eslesen.push({ ...e, aday: genel(e?.aday) });
+    for (const x of Array.isArray(p.puanlar) ? p.puanlar : []) r.puanlar.push({ ...x, aday: genel(x?.aday) });
+  }
+  return r;
+}
+
+// Ölçüm (golge): grup içi ve hafıza eşleşmeleri "aynı", farklı gruplardan en çok 20 rastgele çift "farklı".
+function olcumYaz(r, adaylar, hafiza, v, log) {
+  const yaz = (x, y, tur, karar, id) => {
+    if (x && y) log(olcumSatiri({ tur, karar, b: benzerlik(x, y), id }));
+  };
+  const gruplar = (Array.isArray(r.gruplar) ? r.gruplar : []).map((g) => (Array.isArray(g) ? g.filter((i) => Number.isInteger(i) && adaylar[i]) : []));
+  for (const g of gruplar) for (const i of g.slice(1)) yaz(v.a[g[0]], v.a[i], 'grup', 'ayni', adaylar[g[0]].id);
+  const hIdx = new Map(hafiza.map((h, j) => [h.id, j]));
+  for (const e of Array.isArray(r.eslesen) ? r.eslesen : []) {
+    if (Number.isInteger(e?.aday) && adaylar[e.aday] && hIdx.has(e.hafiza)) yaz(v.a[e.aday], v.h[hIdx.get(e.hafiza)], 'hafiza', 'ayni', adaylar[e.aday].id);
+  }
+  const grubu = new Map();
+  gruplar.forEach((g, k) => g.forEach((i) => grubu.set(i, k)));
+  const farkli = [];
+  for (let i = 0; i < adaylar.length; i++) {
+    for (let j = i + 1; j < adaylar.length; j++) if (!(grubu.has(i) && grubu.get(i) === grubu.get(j))) farkli.push([i, j]);
+  }
+  for (let k = farkli.length - 1; k > 0; k--) {
+    const m = Math.floor(Math.random() * (k + 1));
+    [farkli[k], farkli[m]] = [farkli[m], farkli[k]];
+  }
+  for (const [i, j] of farkli.slice(0, 20)) yaz(v.a[i], v.a[j], 'aday', 'farkli', adaylar[i].id);
+}
+
+// gomme: { kip, alt, vektorle, onbellek, log } (Gemini Faz 2); yoksa bugünkü yol.
+export async function olaylariGrupla(adaylar, hafiza = [], { gemini = varsayilanGemini, onbellek, surumEki = '', simdi = new Date(), gomme = null } = {}) {
+  if (!adaylar.length) return { yeni: [], bilinen: [] };
+  // Ön eleme açıkken eşik değişince önbellek boşalsın.
+  const surum = gomme?.kip === 'acik' ? `${surumEki}/gomme${gomme.alt}` : surumEki;
+  const kayitlar = onbellek ? onbellekHazirla(onbellek, gruplamaSurumu(surum), simdi) : null;
+  if (kayitlar && adaylar.every((a) => kayitlar[a.id])) {
+    const anahtarlar = [];
+    const gruplar = new Map();
+    adaylar.forEach((a, i) => {
+      const k = kayitlar[a.id];
+      if (!gruplar.has(k.grup)) {
+        gruplar.set(k.grup, []);
+        anahtarlar.push(k.grup);
+      }
+      gruplar.get(k.grup).push({ ...a, onem: Math.max(a.onem ?? 0, Number.isInteger(k.puan) ? k.puan : 0) });
+    });
+    return { yeni: anahtarlar.map((g) => olayYap(gruplar.get(g))), bilinen: [], onbellekten: true };
+  }
+  // Gemini Faz 2: gömme ölçümü (golge) ya da ön eleme (acik). Gömme yoksa bugünkü tek çağrı.
+  const v = gomme && gomme.kip !== 'kapali' ? await gommeHazirla(adaylar, hafiza, gomme) : null;
+  let r;
+  if (v && gomme.kip === 'acik' && adaylar.length > PAKET_AZAMI) {
+    r = await paketliSor(adaylar, hafiza, v, gomme.alt, gemini);
+  } else {
+    const ilgili = v && gomme.kip === 'acik' ? hafizaBirlesimi(adaylar.map((_, i) => i), adaylar, hafiza, v, gomme.alt) : ilgiliHafiza(adaylar, hafiza);
+    r = await gruplamaSor(adaylar, ilgili, gemini);
+  }
+  if (v && gomme.kip === 'golge' && r) olcumYaz(r, adaylar, hafiza, v, gomme.log ?? console.log);
   const hafizaIdleri = new Set(hafiza.map((h) => h.id));
   const bilinenIdx = new Set();
   for (const e of Array.isArray(r?.eslesen) ? r.eslesen : []) {

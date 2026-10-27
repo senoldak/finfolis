@@ -28,7 +28,12 @@ import { haberGrafigi } from './grafik-kapak.mjs';
 import { kelimeSay } from '../../src/lib/uzunluk.mjs';
 import { adresiSil, kaynakIzi, gizliMedyaAdlari } from './gizli.mjs';
 import { geminiPayiBitti } from './butce.mjs';
+import { gommeAyari } from './vektorler.mjs';
+import { fileURLToPath } from 'node:url';
 import { olayTokenTahmini, derlemeTokenTahmini, tokenTavaniAsildi } from './token-tavani.mjs';
+
+// Gemini Faz 2: gömme önbelleği (tur sonunda hent-haberler.mjs gommeTurSonu kaydeder; aynı dosya).
+const GOMME_ONBELLEGI = fileURLToPath(new URL('./gomme-onbellek.json', import.meta.url));
 
 const FORSTE_GANG = 2; // bir kaynak ilk çalıştığında yalnızca en yeni 2 aday
 const KAYNAK_LIMIT = 15; // sonraki çalıştırmalarda kaynak başına en fazla aday
@@ -224,6 +229,7 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
     kaynaklar: [],
     ipucu: { hent: async () => [], onemArtir: (a) => a },
     olaylar: olaylarModulu,
+    gommeAyari,
     gemini: undefined,
     yaz: undefined,
     derlemeYaz: undefined,
@@ -383,7 +389,7 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
     // Şablon yazılan adaylar (eşik olayları) Gemini'siz yazılır: gruplama çağrısına girmez, her biri kendi olayıdır.
     // Mükerrer denetimi yine çalışır: tekrarlariAyikla (72 saat) ve olayYaz içindeki mukerrerBul, ikisi de Gemini'siz.
     const sablonAdaylari = gelen.filter((a) => a.sablonYazi);
-    const { yeni: grupYeni, bilinen, grupHatasi } = await B.olaylar.olaylariGrupla(gelen.filter((a) => !a.sablonYazi), durum.olaylar, { gemini: B.gemini, onbellek: durum.olayOnbellek, surumEki: `esik${TERFI_ESIGI}/${RSS_TERFI_ESIGI}`, simdi });
+    const { yeni: grupYeni, bilinen, grupHatasi } = await B.olaylar.olaylariGrupla(gelen.filter((a) => !a.sablonYazi), durum.olaylar, { gemini: B.gemini, onbellek: durum.olayOnbellek, surumEki: `esik${TERFI_ESIGI}/${RSS_TERFI_ESIGI}`, simdi, gomme: B.gommeAyari({ onbellekDosyasi: GOMME_ONBELLEGI }) });
     if (grupHatasi) {
       // Gruplama yoksa mükerrer yayın riski: terfi ve bülten atlanır, adaylar görülmedi kalır.
       hatalar.push('olay gruplama başarısız; terfi ve bülten sonraki çalıştırmaya kaldı');
