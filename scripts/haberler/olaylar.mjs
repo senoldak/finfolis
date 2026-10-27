@@ -263,15 +263,18 @@ export async function olaylariGrupla(adaylar, hafiza = [], { gemini = varsayilan
     return { yeni: anahtarlar.map((g) => olayYap(gruplar.get(g))), bilinen: [], onbellekten: true };
   }
   // Gemini Faz 2: gömme ölçümü (golge) ya da ön eleme (acik). Gömme yoksa bugünkü tek çağrı.
-  const v = gomme && gomme.kip !== 'kapali' ? await gommeHazirla(adaylar, hafiza, gomme) : null;
+  // Ölçümde yalnız istemdeki hafıza kayıtları vektörlenir (günlük gömme kotası; eşleşmeler zaten bunlardan).
+  const gHafiza = gomme?.kip === 'golge' ? ilgiliHafiza(adaylar, hafiza) : hafiza;
+  const v = gomme && gomme.kip !== 'kapali' ? await gommeHazirla(adaylar, gHafiza, gomme) : null;
   let r;
-  if (v && gomme.kip === 'acik' && adaylar.length > PAKET_AZAMI) {
+  // Vektörü olmayan aday hangi bileşene ait bilinmez: paketlenirse eşinden ayrılabilir, o zaman tek çağrı.
+  if (v && gomme.kip === 'acik' && adaylar.length > PAKET_AZAMI && v.a.every(Boolean)) {
     r = await paketliSor(adaylar, hafiza, v, gomme.alt, gemini);
   } else {
     const ilgili = v && gomme.kip === 'acik' ? hafizaBirlesimi(adaylar.map((_, i) => i), adaylar, hafiza, v, gomme.alt) : ilgiliHafiza(adaylar, hafiza);
     r = await gruplamaSor(adaylar, ilgili, gemini);
   }
-  if (v && gomme.kip === 'golge' && r) olcumYaz(r, adaylar, hafiza, v, gomme.log ?? console.log);
+  if (v && gomme.kip === 'golge' && r) olcumYaz(r, adaylar, gHafiza, v, gomme.log ?? console.log);
   const hafizaIdleri = new Set(hafiza.map((h) => h.id));
   const bilinenIdx = new Set();
   for (const e of Array.isArray(r?.eslesen) ? r.eslesen : []) {

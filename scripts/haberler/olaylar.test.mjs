@@ -280,7 +280,7 @@ const gomme = (kip, ek = {}) => ({ kip, alt: 0.5, vektorle: gommeSahte, log: () 
 test('gömme gölge: çağrı bugünkü gibi; grup içi ve hafıza eşleşmeleri ölçülür, metin yok', async () => {
   const satirlar = [];
   const istemler = [];
-  const hafiza = [{ id: 'h1', ozet: 'H c eski olay', zaman: '2026-10-10T00:00:00Z' }];
+  const hafiza = [{ id: 'h1', ozet: 'H c Başlık özet eski olay', zaman: '2026-10-10T00:00:00Z' }];
   const g = async ({ istem }) => (istemler.push(istem), { gruplar: [[0, 1]], eslesen: [{ aday: 2, hafiza: 'h1' }] });
   await olaylariGrupla([aday('a'), aday('b'), aday('c')], hafiza, { gemini: g, gomme: gomme('golge', { log: (s) => satirlar.push(s) }) });
   assert.equal(istemler.length, 1);
@@ -340,4 +340,23 @@ test('gömme yoksa (vektorle null) istem bugünküyle birebir', async () => {
   await olaylariGrupla([aday('a', { ozet: 'özet a kelime kelime' })], hafiza, { gemini: g });
   await olaylariGrupla([aday('a', { ozet: 'özet a kelime kelime' })], hafiza, { gemini: g, gomme: gomme('acik', { vektorle: async () => null }) });
   assert.equal(istemler[0], istemler[1]);
+});
+
+test('gömme açık: vektörü olmayan aday varsa paketlenmez, tek çağrı (eşinden ayrılmasın)', async () => {
+  const adaylar = Array.from({ length: 41 }, (_, i) => aday(`${i < 21 ? 'a' : 'd'}${i}`));
+  adaylar[5].baslik = 'X vektörsüz';
+  let n = 0;
+  await olaylariGrupla(adaylar, [], { gemini: async () => (n++, { gruplar: [] }), gomme: gomme('acik') });
+  assert.equal(n, 1);
+});
+
+test('gömme gölge: hafızadan yalnız istemdeki (sözcükle eşleşen) kayıtlar vektörlenir', async () => {
+  const hafiza = [
+    { id: 'k', ozet: 'özet ortak kelimeler burada', zaman: '2026-10-10T00:00:00Z' },
+    ...Array.from({ length: 50 }, (_, i) => ({ id: `x${i}`, ozet: `H d ilgisiz ${i}`, zaman: '2026-10-10T00:00:00Z' })),
+  ];
+  let gonderilen = 0;
+  const vektorle = async (m) => ((gonderilen = m.length), gommeSahte(m));
+  await olaylariGrupla([aday('a', { ozet: 'özet ortak kelimeler' })], hafiza, { gemini: async () => ({ gruplar: [[0]] }), gomme: gomme('golge', { vektorle }) });
+  assert.equal(gonderilen, 2);
 });
