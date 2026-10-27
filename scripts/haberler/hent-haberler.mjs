@@ -7,6 +7,7 @@
 import path from 'node:path';
 import { readFile, writeFile, appendFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import { gommeTurSonu } from './vektorler.mjs';
 import { guncelle } from './piyasa-verisi.mjs';
 import * as ipucuModulu from './ipucu.mjs';
 import * as olaylarModulu from './olaylar.mjs';
@@ -241,6 +242,8 @@ export async function turBaslat({ kuru = false, env = process.env, acil = acilDu
   const durumYaz = (d) => writeFile(durumDosyasi, JSON.stringify({ ...d, olaylar: hafizaKapat(d.olaylar), yayinlar: yayinKapat(d.yayinlar), havuz: havuzKapat(d.havuz ?? []) }, null, 2) + '\n');
   const s = await calis(kuru ? { kuru } : { kuru, araKayit: durumYaz });
   if (!kuru) {
+    // Gemini Faz 2: yayımlanan haberlerin vektör dosyası (GOMME_VEKTOR=1) ve gömme önbelleği; hata turu düşürmez.
+    await gommeTurSonu({ kok: ROT, icerik: 'src/content/haberler', onbellekDosyasi: path.join(HER, 'gomme-onbellek.json'), env });
     await durumYaz(s.durum);
     const adet = s.adet + (s.bultenYazildi ? 1 : 0);
     log(`Bitti: ${s.adet} yeni haber${s.bultenYazildi ? ', 1 bülten' : ''}.`);
