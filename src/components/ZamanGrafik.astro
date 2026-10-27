@@ -1,0 +1,629 @@
+---
+// Veri sayfaları için ortak zaman serisi çizgi grafiği: tek eksen, en çok dört seri, isteğe bağlı grup seçici (bölge,
+// sektör), dönem düğmeleri, seri aç/kapat, imleç ve bilgi kutusu. Değerler sayfanın verdiği resmi rakamlardır; burada
+// yalnız çizilir. Renkler dataviz doğrulayıcısından geçti (kâğıt zeminde, renk körlüğü dahil).
+// Zaman: siklik 'ay' ise t = yıl × 12 + (ay − 1), 'ceyrek' ise t = yıl × 4 + (çeyrek − 1), 'hafta' ise t = 1970'ten
+// beri gün (UTC).
+export interface SeriTanim {
+  id: string;
+  ad: string;
+  renk?: 'murekkep' | 'toprak' | 'mavi' | 'yesil';
+  kesik?: boolean;
+  // Açılışta kapalı; okur lejanttan açar (ölçeği bozan oynak seriler için).
+  gizli?: boolean;
+}
+
+export interface Grup {
+  id: string;
+  ad: string;
+  seriler: SeriTanim[];
+}
+
+interface Props {
+  baslik: string;
+  ipucu?: string;
+  kaynak: string;
+  siklik: 'ay' | 'ceyrek' | 'hafta';
+  birim: 'yuzde' | 'endeks' | 'milyarUsd' | 'milyarTl' | 'puan' | 'yil';
+  ondalik?: number;
+  // Her nokta [t, ...değerler]; değerler `seriIdleri` sırasında, yoksa null.
+  seriIdleri: string[];
+  noktalar: (number | null)[][];
+  gruplar: Grup[];
+  grupEtiketi?: string;
+  referans?: { deger: number; ad: string };
+  sifirdan?: boolean;
+  // Kısa seride (birkaç haftalık kur gibi) dönem düğmeleri gösterilmez.
+  araliksiz?: boolean;
+}
+
+const {
+  baslik,
+  ipucu,
+  kaynak,
+  siklik,
+  birim,
+  ondalik = 1,
+  seriIdleri,
+  noktalar,
+  gruplar,
+  grupEtiketi,
+  referans,
+  sifirdan = false,
+  araliksiz = false,
+} = Astro.props;
+const araliklar =
+  siklik === 'ay'
+    ? [
+        { id: '24', ad: '2 yıl' },
+        { id: '60', ad: '5 yıl' },
+        { id: 'tum', ad: 'Tümü' },
+      ]
+    : siklik === 'ceyrek'
+      ? [
+          { id: '8', ad: '2 yıl' },
+          { id: '20', ad: '5 yıl' },
+          { id: 'tum', ad: 'Tümü' },
+        ]
+      : [
+        { id: '365', ad: '1 yıl' },
+        { id: '1095', ad: '3 yıl' },
+        { id: 'tum', ad: 'Tümü' },
+      ];
+const veri = { siklik, birim, ondalik, seriIdleri, noktalar, gruplar, referans: referans ?? null, sifirdan };
+const kimlik = `zg-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-')}`;
+---
+
+<section class="zg-kart" data-zaman-grafik aria-labelledby={kimlik}>
+  <div class="kart-bas">
+    <div>
+      <h2 id={kimlik} class="kart-baslik">{baslik}</h2>
+      {ipucu && <p class="kart-ipucu">{ipucu}</p>}
+    </div>
+    <div class="filtreler">
+      {
+        gruplar.length > 1 && (
+          <div class="filtre-kumesi grup-kumesi" role="group" aria-label={grupEtiketi ?? 'Seçim'}>
+            {gruplar.map((g, i) => (
+              <button type="button" class:list={['filtre-btn', { aktif: i === 0 }]} data-grup={g.id} aria-pressed={String(i === 0)}>
+                {g.ad}
+              </button>
+            ))}
+          </div>
+        )
+      }
+      {
+        !araliksiz && (
+          <div class="filtre-kumesi" role="group" aria-label="Zaman aralığı">
+            {araliklar.map((a) => (
+              <button type="button" class:list={['filtre-btn', { aktif: a.id === 'tum' }]} data-aralik={a.id} aria-pressed={String(a.id === 'tum')}>
+                {a.ad}
+              </button>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="lejant" role="group" aria-label="Seriler" data-lejant></div>
+
+  <div class="cizim" data-cizim>
+    <svg viewBox="0 0 880 420" role="img" aria-label={`${baslik} çizgi grafiği`} data-svg></svg>
+    <div class="ipucu" data-ipucu hidden></div>
+  </div>
+  <p class="kart-alt">{kaynak}</p>
+
+  <script type="application/json" data-zg-veri set:html={JSON.stringify(veri)} />
+</section>
+
+<script>
+  const AYLAR = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
+  const AYLAR_UZUN = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+  const RENK = { murekkep: '#1b1b1b', toprak: '#c2502b', mavi: '#1f63a8', yesil: '#00897b' } as const;
+  const SIRA = ['murekkep', 'toprak', 'mavi', 'yesil'] as const;
+  const SVG = 'http://www.w3.org/2000/svg';
+  const W = 880;
+  // Dar ekranda (CSS'teki 600 px eşiği) grafik daha uzun çizilir ve yazılar büyüdüğü için etiketler daha aralıklı dizilir.
+  const darEkran = () => window.matchMedia('(max-width: 600px)').matches;
+  let H = 420;
+  const P = { ust: 20, alt: 36, sol: 56, sag: 70 };
+
+  type Renk = keyof typeof RENK;
+  interface Seri {
+    id: string;
+    ad: string;
+    renk?: Renk;
+    kesik?: boolean;
+    gizli?: boolean;
+  }
+  interface Veri {
+    siklik: 'ay' | 'ceyrek' | 'hafta';
+    birim: 'yuzde' | 'endeks' | 'milyarUsd' | 'milyarTl' | 'puan' | 'yil';
+    ondalik: number;
+    seriIdleri: string[];
+    noktalar: (number | null)[][];
+    gruplar: { id: string; ad: string; seriler: Seri[] }[];
+    referans: { deger: number; ad: string } | null;
+    sifirdan: boolean;
+  }
+
+  const sayi = (n: number, o: number) =>
+    `${n < 0 ? '−' : ''}${Math.abs(n).toLocaleString('tr-TR', { minimumFractionDigits: o, maximumFractionDigits: o })}`;
+  const yuzde = (n: number, o: number) => `${n < 0 ? '−' : ''}%${sayi(Math.abs(n), o)}`;
+
+  for (const kok of document.querySelectorAll<HTMLElement>('[data-zaman-grafik]')) {
+    const v = JSON.parse(kok.querySelector('[data-zg-veri]')!.textContent || '{}') as Veri;
+    const svg = kok.querySelector<SVGSVGElement>('[data-svg]')!;
+    const ipucu = kok.querySelector<HTMLElement>('[data-ipucu]')!;
+    const lejant = kok.querySelector<HTMLElement>('[data-lejant]')!;
+    const sutun = new Map(v.seriIdleri.map((id, i) => [id, i + 1]));
+    const tumT = v.noktalar.map((n) => n[0] as number);
+    const degerYaz = (n: number) => {
+      if (v.birim === 'yuzde') return yuzde(n, v.ondalik);
+      if (v.birim === 'milyarUsd') return `${sayi(n, v.ondalik)} milyar $`;
+      if (v.birim === 'milyarTl') return `${sayi(n, v.ondalik)} milyar TL`;
+      if (v.birim === 'puan') return `${sayi(n, v.ondalik)} puan`;
+      if (v.birim === 'yil') return `${sayi(n, v.ondalik)} yıl`;
+      return sayi(n, v.ondalik);
+    };
+    // Eksen ondalığı ızgara adımını tam gösterecek kadar: 0,1 adımda bir, 2,5 adımda bir ondalık.
+    let eksenOndalik = 0;
+    const eksenYaz = (n: number) => (v.birim === 'yuzde' ? yuzde(n, eksenOndalik) : sayi(n, eksenOndalik));
+    const zamanYaz = (t: number) => {
+      if (v.siklik === 'ay') return `${AYLAR_UZUN[t % 12]} ${Math.floor(t / 12)}`;
+      if (v.siklik === 'ceyrek') return `${(t % 4) + 1}. çeyrek ${Math.floor(t / 4)}`;
+      const d = new Date(t * 86400000);
+      return `${d.getUTCDate()} ${AYLAR_UZUN[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+    };
+    const yilOf = (t: number) =>
+      v.siklik === 'ay' ? Math.floor(t / 12) : v.siklik === 'ceyrek' ? Math.floor(t / 4) : new Date(t * 86400000).getUTCFullYear();
+
+    let grup = v.gruplar[0];
+    let aralik: number | 'tum' = 'tum';
+    const kapali = new Set<string>(grup.seriler.filter((s) => s.gizli).map((s) => s.id));
+
+    const renkOf = (s: Seri, i: number): Renk => s.renk ?? SIRA[i % SIRA.length];
+
+    function lejantKur() {
+      lejant.replaceChildren();
+      grup.seriler.forEach((s, i) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = `lejant-dugme${kapali.has(s.id) ? '' : ' aktif'}`;
+        b.setAttribute('aria-pressed', String(!kapali.has(s.id)));
+        const r = document.createElement('span');
+        r.className = `renk renk-${renkOf(s, i)}${s.kesik ? ' kesik' : ''}`;
+        r.setAttribute('aria-hidden', 'true');
+        b.append(r, s.ad);
+        b.addEventListener('click', () => {
+          const acik = grup.seriler.filter((x) => !kapali.has(x.id));
+          if (!kapali.has(s.id) && acik.length === 1) return;
+          if (kapali.has(s.id)) kapali.delete(s.id);
+          else kapali.add(s.id);
+          lejantKur();
+          ciz();
+        });
+        lejant.append(b);
+      });
+    }
+
+    const el = (ad: string, oz: Record<string, string | number>, ebeveyn: Element = svg) => {
+      const e = document.createElementNS(SVG, ad);
+      for (const [k, d] of Object.entries(oz)) e.setAttribute(k, String(d));
+      ebeveyn.appendChild(e);
+      return e;
+    };
+
+    function ciz() {
+      H = darEkran() ? 640 : 420;
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      const gorunur = grup.seriler.map((s, i) => ({ ...s, r: renkOf(s, i) })).filter((s) => !kapali.has(s.id));
+      const deger = (n: (number | null)[], id: string) => n[sutun.get(id)!] ?? null;
+      const doluT = v.noktalar.filter((n) => gorunur.some((s) => deger(n, s.id) != null)).map((n) => n[0] as number);
+      const bit = Math.max(...doluT);
+      const ilk = Math.min(...doluT);
+      const bas = aralik === 'tum' ? ilk : Math.max(ilk, bit - (v.siklik === 'hafta' ? aralik : aralik - 1));
+      const pencere = v.noktalar.filter((n) => (n[0] as number) >= bas && (n[0] as number) <= bit);
+      const degerler = gorunur.flatMap((s) => pencere.map((n) => deger(n, s.id)).filter((d): d is number => d != null));
+      if (v.referans) degerler.push(v.referans.deger);
+      let alt = Math.min(...degerler);
+      let ust = Math.max(...degerler);
+      if (v.sifirdan) alt = Math.min(0, alt);
+      const ham = (ust - alt) / 5 || 1;
+      const kuvvet = 10 ** Math.floor(Math.log10(ham));
+      const adim = [1, 2, 2.5, 5, 10].map((c) => c * kuvvet).find((a) => a >= ham)!;
+      alt = Math.floor(alt / adim) * adim;
+      ust = Math.ceil(ust / adim) * adim;
+      if (ust === alt) ust = alt + adim;
+      eksenOndalik = 0;
+      while (eksenOndalik < 4 && Math.abs(Math.round(adim * 10 ** eksenOndalik) - adim * 10 ** eksenOndalik) > 1e-6) eksenOndalik++;
+      const x = (t: number) => P.sol + ((t - bas) / Math.max(bit - bas, 1)) * (W - P.sol - P.sag);
+      const y = (d: number) => P.ust + (1 - (d - alt) / (ust - alt)) * (H - P.ust - P.alt);
+
+      svg.replaceChildren();
+      for (let d = alt; d <= ust + adim / 2; d += adim) {
+        el('line', { x1: P.sol, x2: W - P.sag, y1: y(d), y2: y(d), class: Math.abs(d) < adim / 1000 ? 'taban' : 'izgara' });
+        el('text', { x: P.sol - 8, y: y(d) + 4, 'text-anchor': 'end', class: 'eksen' }).textContent = eksenYaz(d);
+      }
+      if (v.referans) {
+        el('line', { x1: P.sol, x2: W - P.sag, y1: y(v.referans.deger), y2: y(v.referans.deger), class: 'referans' });
+        el('text', { x: P.sol + 6, y: y(v.referans.deger) - 6, class: 'referans-etiket' }).textContent = v.referans.ad;
+      }
+      const yillar = [...new Set(pencere.map((n) => yilOf(n[0] as number)))];
+      const yilAdimi = Math.ceil(yillar.length / 9);
+      for (const yil of yillar) {
+        if (yil % yilAdimi !== 0) continue;
+        const t = v.siklik === 'ay' ? yil * 12 : v.siklik === 'ceyrek' ? yil * 4 : Date.UTC(yil, 0, 1) / 86400000;
+        if (t < bas || t > bit) continue;
+        el('text', { x: x(t), y: H - P.alt + 20, 'text-anchor': 'middle', class: 'eksen' }).textContent = String(yil);
+      }
+
+      const sonlar: { s: (typeof gorunur)[number]; t: number; d: number }[] = [];
+      for (const s of gorunur) {
+        let yol = '';
+        let onceki = false;
+        let son: { t: number; d: number } | null = null;
+        for (const n of pencere) {
+          const d = deger(n, s.id);
+          if (d == null) {
+            onceki = false;
+            continue;
+          }
+          yol += `${onceki ? 'L' : 'M'}${x(n[0] as number).toFixed(1)} ${y(d).toFixed(1)}`;
+          onceki = true;
+          son = { t: n[0] as number, d };
+        }
+        if (!yol || !son) continue;
+        el('path', {
+          d: yol,
+          fill: 'none',
+          stroke: RENK[s.r],
+          'stroke-width': s.r === 'murekkep' ? 2.5 : 2,
+          'stroke-linejoin': 'round',
+          'stroke-linecap': 'round',
+          ...(s.kesik ? { 'stroke-dasharray': '6 4' } : {}),
+        });
+        sonlar.push({ s, ...son });
+      }
+      const etiket = sonlar.map((e) => ({ ...e, ey: y(e.d) })).sort((a, b) => a.ey - b.ey);
+      for (let i = 1; i < etiket.length; i++) etiket[i].ey = Math.max(etiket[i].ey, etiket[i - 1].ey + (darEkran() ? 28 : 14));
+      for (const e of etiket) {
+        el('circle', { cx: x(e.t), cy: y(e.d), r: 3.5, fill: RENK[e.s.r], stroke: '#fff', 'stroke-width': 2 });
+        el('text', { x: x(e.t) + 8, y: e.ey + 4, class: 'son-etiket' }).textContent = v.birim === 'yuzde' ? yuzde(e.d, 1) : sayi(e.d, v.ondalik);
+      }
+
+      const imlec = el('g', { visibility: 'hidden' });
+      const cizgi = el('line', { y1: P.ust, y2: H - P.alt, class: 'imlec-cizgi' }, imlec);
+      const halkalar = gorunur.map((s) => el('circle', { r: 4.5, fill: RENK[s.r], stroke: '#fff', 'stroke-width': 2 }, imlec));
+      const yuzey = el('rect', { x: P.sol, y: P.ust, width: W - P.sol - P.sag, height: H - P.ust - P.alt, fill: 'transparent', class: 'yuzey' });
+      const pencereT = pencere.map((n) => n[0] as number);
+
+      const goster = (istemciX: number) => {
+        const r = svg.getBoundingClientRect();
+        const hedef = bas + (((istemciX - r.left) / r.width) * W - P.sol) / (W - P.sol - P.sag) * (bit - bas);
+        let i = 0;
+        for (let j = 1; j < pencereT.length; j++) if (Math.abs(pencereT[j] - hedef) < Math.abs(pencereT[i] - hedef)) i = j;
+        const n = pencere[i];
+        if (!n) return;
+        const t = n[0] as number;
+        imlec.setAttribute('visibility', 'visible');
+        cizgi.setAttribute('x1', String(x(t)));
+        cizgi.setAttribute('x2', String(x(t)));
+        let html = `<div class="ip-tarih">${zamanYaz(t)}</div>`;
+        gorunur.forEach((s, k) => {
+          const d = deger(n, s.id);
+          halkalar[k].setAttribute('visibility', d == null ? 'hidden' : 'visible');
+          if (d == null) return;
+          halkalar[k].setAttribute('cx', String(x(t)));
+          halkalar[k].setAttribute('cy', String(y(d)));
+          html += `<div class="ip-satir"><span class="ip-nokta renk-${s.r}"></span><span class="ip-ad">${s.ad}</span><strong>${degerYaz(d)}</strong></div>`;
+        });
+        ipucu.innerHTML = html;
+        ipucu.hidden = false;
+        const kutu = kok.querySelector<HTMLElement>('[data-cizim]')!.getBoundingClientRect();
+        const px = (x(t) / W) * r.width + (r.left - kutu.left);
+        const sag = px > kutu.width / 2;
+        ipucu.style.left = sag ? '' : `${px + 14}px`;
+        ipucu.style.right = sag ? `${kutu.width - px + 14}px` : '';
+      };
+      yuzey.addEventListener('pointermove', (e) => goster((e as PointerEvent).clientX));
+      yuzey.addEventListener('pointerdown', (e) => goster((e as PointerEvent).clientX));
+      yuzey.addEventListener('pointerleave', () => {
+        imlec.setAttribute('visibility', 'hidden');
+        ipucu.hidden = true;
+      });
+    }
+
+    const sec = (grupBtn: NodeListOf<HTMLButtonElement>, btn: HTMLButtonElement) =>
+      grupBtn.forEach((b) => {
+        b.classList.toggle('aktif', b === btn);
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+    const grupBtn = kok.querySelectorAll<HTMLButtonElement>('[data-grup]');
+    grupBtn.forEach((b) =>
+      b.addEventListener('click', () => {
+        sec(grupBtn, b);
+        grup = v.gruplar.find((g) => g.id === b.dataset.grup)!;
+        kapali.clear();
+        for (const s of grup.seriler) if (s.gizli) kapali.add(s.id);
+        lejantKur();
+        ciz();
+      }),
+    );
+    const aralikBtn = kok.querySelectorAll<HTMLButtonElement>('[data-aralik]');
+    aralikBtn.forEach((b) =>
+      b.addEventListener('click', () => {
+        sec(aralikBtn, b);
+        aralik = b.dataset.aralik === 'tum' ? 'tum' : Number(b.dataset.aralik);
+        ciz();
+      }),
+    );
+    if (tumT.length) {
+      lejantKur();
+      ciz();
+      let dar = darEkran();
+      window.addEventListener('resize', () => {
+        if (darEkran() !== dar) {
+          dar = darEkran();
+          ciz();
+        }
+      });
+    }
+  }
+</script>
+
+<style>
+  .zg-kart {
+    margin: 28px 0;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid var(--hair);
+  }
+
+  .kart-bas {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .kart-baslik {
+    font-family: var(--sans);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .kart-ipucu,
+  .kart-alt {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 4px 0 0;
+  }
+
+  .filtreler {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .filtre-kumesi {
+    display: inline-flex;
+    flex-wrap: wrap;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 2px;
+  }
+
+  .filtre-btn {
+    border: none;
+    background: transparent;
+    padding: 8px 12px;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .filtre-btn.aktif {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .lejant {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-bottom: 8px;
+  }
+
+  .lejant :global(.lejant-dugme) {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background: transparent;
+    padding: 6px 0;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .lejant :global(.lejant-dugme:not(.aktif)) {
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+
+  .lejant :global(.lejant-dugme:not(.aktif) .renk) {
+    opacity: 0.3;
+  }
+
+  .lejant :global(.renk) {
+    width: 22px;
+    height: 3px;
+    display: inline-block;
+  }
+
+  .zg-kart :global(.renk-murekkep) {
+    background: #1b1b1b;
+  }
+
+  .zg-kart :global(.renk-toprak) {
+    background: #c2502b;
+  }
+
+  .zg-kart :global(.renk-mavi) {
+    background: #1f63a8;
+  }
+
+  .zg-kart :global(.renk-yesil) {
+    background: #00897b;
+  }
+
+  .lejant :global(.renk-murekkep.kesik) {
+    background: repeating-linear-gradient(90deg, #1b1b1b 0 6px, transparent 6px 10px);
+  }
+
+  .lejant :global(.renk-toprak.kesik) {
+    background: repeating-linear-gradient(90deg, #c2502b 0 6px, transparent 6px 10px);
+  }
+
+  .lejant :global(.renk-mavi.kesik) {
+    background: repeating-linear-gradient(90deg, #1f63a8 0 6px, transparent 6px 10px);
+  }
+
+  .lejant :global(.renk-yesil.kesik) {
+    background: repeating-linear-gradient(90deg, #00897b 0 6px, transparent 6px 10px);
+  }
+
+  .cizim {
+    position: relative;
+  }
+
+  .cizim svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    touch-action: pan-y;
+  }
+
+  .cizim :global(.izgara) {
+    stroke: var(--paper-2);
+    stroke-width: 1;
+  }
+
+  .cizim :global(.taban) {
+    stroke: var(--hair);
+    stroke-width: 1;
+  }
+
+  .cizim :global(.referans) {
+    stroke: var(--muted);
+    stroke-width: 1;
+    stroke-dasharray: 2 3;
+  }
+
+  .cizim :global(.referans-etiket) {
+    font-family: var(--sans);
+    font-size: 11px;
+    fill: var(--muted);
+  }
+
+  .cizim :global(.eksen) {
+    font-family: var(--sans);
+    font-size: 12px;
+    fill: var(--muted);
+  }
+
+  .cizim :global(.son-etiket) {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 700;
+    fill: var(--ink);
+  }
+
+  .cizim :global(.imlec-cizgi) {
+    stroke: var(--ink);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+  }
+
+  .cizim :global(.yuzey) {
+    cursor: crosshair;
+  }
+
+  .ipucu {
+    position: absolute;
+    top: 8px;
+    pointer-events: none;
+    background: #fff;
+    border: 1px solid var(--ink);
+    padding: 10px 12px;
+    min-width: 200px;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    box-shadow: 3px 3px 0 rgba(27, 27, 27, 0.12);
+  }
+
+  .ipucu :global(.ip-tarih) {
+    font-weight: 700;
+    color: var(--toprak-text);
+    border-bottom: 1px solid var(--hair);
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+  }
+
+  .ipucu :global(.ip-satir) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 3px;
+  }
+
+  .ipucu :global(.ip-ad) {
+    flex: 1;
+    color: var(--muted);
+  }
+
+  .ipucu :global(.ip-satir strong) {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ipucu :global(.ip-nokta) {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 600px) {
+    .zg-kart {
+      padding: 16px;
+    }
+
+    /* SVG telefonda yaklaşık üçte bire küçülür; yazılar SVG biriminde büyütülür ki 9-10 piksel okunsun. */
+    .cizim svg {
+      overflow: visible;
+    }
+
+    .cizim :global(.eksen),
+    .cizim :global(.son-etiket) {
+      font-size: 26px;
+    }
+
+    .cizim :global(.referans-etiket) {
+      font-size: 22px;
+    }
+
+    .ipucu {
+      min-width: 0;
+      max-width: 70%;
+    }
+  }
+</style>

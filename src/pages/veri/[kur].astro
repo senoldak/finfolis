@@ -5,7 +5,8 @@ import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import Change from '../../components/Change.astro';
-import { KUR_SAYFALARI, RESMI, eskiMi, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { KUR_SAYFALARI, RESMI, eskiMi, gunAnahtari, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
@@ -23,6 +24,7 @@ const k = kur?.liste.find((x) => x.kod === sayfa.kod);
 const gecmis = (kur?.gecmis ?? [])
   .map((g) => ({ tarih: g.tarih, v: g[sayfa.kod] as { alis: number; satis: number } | null }))
   .filter((g): g is { tarih: string; v: { alis: number; satis: number } } => Boolean(g.v));
+const grafikNoktalari = [...gecmis].reverse().map((g) => [gunAnahtari(g.tarih), g.v.satis, g.v.alis]);
 // Bir önceki iş gününe göre değişim: iki resmi satış kurunun farkı.
 const degisim =
   gecmis.length > 1 && gecmis[0].tarih === kur?.tarih
@@ -113,6 +115,28 @@ const digerleri = KUR_SAYFALARI.filter((s) => s.slug !== sayfa.slug);
             <strong>Kaynak:</strong> <a href={kur.kaynak.url} rel="noopener">{kur.kaynak.ad}</a>, {gunYaz(kur.tarih)} tarihli bülten ({kur.bultenNo}). Siteye alındığı zaman: {zamanYaz(kur.alinma)}.
             {eskiMi(kur.tarih, 4) && <> Bu değer güncel olmayabilir; kaynağa son kez bu tarihte ulaşıldı.</>}
           </p>
+
+          <ZamanGrafik
+            baslik={`${sayfa.ad} kurunun seyri`}
+            ipucu={`TL, son ${gecmis.length} iş günü · Döviz satış ve alış kuru`}
+            kaynak="Kaynak: TCMB gösterge niteliğindeki döviz kurları."
+            siklik="hafta"
+            birim="endeks"
+            ondalik={4}
+            seriIdleri={['satis', 'alis']}
+            noktalar={grafikNoktalari}
+            gruplar={[
+              {
+                id: 'hepsi',
+                ad: 'Hepsi',
+                seriler: [
+                  { id: 'satis', ad: 'Döviz satış', renk: 'toprak' },
+                  { id: 'alis', ad: 'Döviz alış', renk: 'mavi', kesik: true },
+                ],
+              },
+            ]}
+            araliksiz
+          />
 
           <div class="veri-izgara">
             <section class="bolum">

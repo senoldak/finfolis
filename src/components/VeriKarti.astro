@@ -12,6 +12,9 @@ interface Props {
   aciklama: string;
   kaynak?: string;
   seri?: number[];
+  // Küçük grafikte noktanın üzerine gelince yazılacak metin; yoksa değer seriBicim'e göre yazılır.
+  seriMetinleri?: string[];
+  seriBicim?: 'yuzde' | 'puan' | 'milyarUsd' | 'milyarTl' | 'yil' | 'kur' | 'endeks';
   oneCikan?: boolean;
 }
 
@@ -26,8 +29,23 @@ const {
   aciklama,
   kaynak,
   seri = [],
+  seriMetinleri,
+  seriBicim = 'endeks',
   oneCikan = false,
 } = Astro.props;
+
+// Küçük grafikteki değer etiketi.
+const sayi = (v: number, o: number) =>
+  `${v < 0 ? '−' : ''}${Math.abs(v).toLocaleString('tr-TR', { minimumFractionDigits: o, maximumFractionDigits: o })}`;
+const bicimle = (v: number) => {
+  if (seriBicim === 'yuzde') return `${v < 0 ? '−' : ''}%${sayi(Math.abs(v), 1)}`;
+  if (seriBicim === 'puan') return `${sayi(v, 1)} puan`;
+  if (seriBicim === 'milyarUsd') return `${sayi(v, 1)} milyar $`;
+  if (seriBicim === 'milyarTl') return `${sayi(v, 1)} milyar TL`;
+  if (seriBicim === 'yil') return `${sayi(v, 1)} yıl`;
+  if (seriBicim === 'kur') return `${sayi(v, 4)} TL`;
+  return sayi(v, Math.abs(v) >= 100 ? 1 : 2);
+};
 
 // Mini SVG Eğrisi Hesaplama
 const W = 200;
@@ -37,6 +55,7 @@ const PAD = 3;
 let cizgiYolu = '';
 let sonNoktaX = 0;
 let sonNoktaY = 0;
+let noktalar: [number, number, string][] = [];
 
 if (seri.length >= 2) {
   const min = Math.min(...seri);
@@ -52,6 +71,11 @@ if (seri.length >= 2) {
 
   sonNoktaX = x(seri.length - 1);
   sonNoktaY = y(seri.at(-1)!);
+  noktalar = seri.map((v, i) => [
+    Number(x(i).toFixed(1)),
+    Number(y(v).toFixed(1)),
+    seriMetinleri?.[i] ?? bicimle(v),
+  ]);
 }
 ---
 
@@ -81,7 +105,7 @@ if (seri.length >= 2) {
 
   {
     cizgiYolu && (
-      <div class="kart-grafik-alani">
+      <div class="kart-grafik-alani" data-sparkline={JSON.stringify(noktalar)}>
         <svg
           viewBox={`0 0 ${W} ${H}`}
           class="kart-sparkline"
@@ -103,7 +127,10 @@ if (seri.length >= 2) {
             r="3"
             fill="var(--toprak)"
           />
+          <line class="sp-imlec" x1="0" x2="0" y1="0" y2={H} visibility="hidden" vector-effect="non-scaling-stroke" />
+          <circle class="sp-nokta" r="3.5" cx="0" cy="0" visibility="hidden" />
         </svg>
+        <span class="sp-ipucu" hidden></span>
       </div>
     )
   }
@@ -113,6 +140,50 @@ if (seri.length >= 2) {
     <span class="kart-ok" aria-hidden="true">→</span>
   </div>
 </a>
+
+<script>
+  // Küçük grafik: imlecin altındaki noktanın değerini gösterir. Ekran koordinatı SVG koordinatına çevrilir (grafik
+  // orantılı ölçeklendiği için kenarlarda boşluk kalabilir).
+  for (const alan of document.querySelectorAll<HTMLElement>('[data-sparkline]')) {
+    const noktalar = JSON.parse(alan.dataset.sparkline || '[]') as [number, number, string][];
+    const svg = alan.querySelector('svg');
+    const imlec = alan.querySelector<SVGLineElement>('.sp-imlec');
+    const nokta = alan.querySelector<SVGCircleElement>('.sp-nokta');
+    const ipucu = alan.querySelector<HTMLElement>('.sp-ipucu');
+    if (!svg || !imlec || !nokta || !ipucu || noktalar.length < 2) continue;
+    const goster = (istemciX: number) => {
+      const ctm = svg.getScreenCTM();
+      if (!ctm) return;
+      const p = new DOMPoint(istemciX, 0).matrixTransform(ctm.inverse());
+      let i = 0;
+      for (let j = 1; j < noktalar.length; j++) if (Math.abs(noktalar[j][0] - p.x) < Math.abs(noktalar[i][0] - p.x)) i = j;
+      const [nx, ny, metin] = noktalar[i];
+      imlec.setAttribute('x1', String(nx));
+      imlec.setAttribute('x2', String(nx));
+      nokta.setAttribute('cx', String(nx));
+      nokta.setAttribute('cy', String(ny));
+      imlec.setAttribute('visibility', 'visible');
+      nokta.setAttribute('visibility', 'visible');
+      ipucu.textContent = metin;
+      ipucu.hidden = false;
+      const ekran = new DOMPoint(nx, 0).matrixTransform(ctm);
+      const kutu = alan.getBoundingClientRect();
+      const px = ekran.x - kutu.left;
+      const sag = px > kutu.width / 2;
+      ipucu.style.left = sag ? '' : `${px + 8}px`;
+      ipucu.style.right = sag ? `${kutu.width - px + 8}px` : '';
+    };
+    const gizle = () => {
+      imlec.setAttribute('visibility', 'hidden');
+      nokta.setAttribute('visibility', 'hidden');
+      ipucu.hidden = true;
+    };
+    alan.addEventListener('pointermove', (e) => goster(e.clientX));
+    alan.addEventListener('pointerleave', gizle);
+    alan.addEventListener('touchmove', (e) => e.touches[0] && goster(e.touches[0].clientX), { passive: true });
+    alan.addEventListener('touchend', gizle);
+  }
+</script>
 
 <style>
   .veri-kart {
@@ -224,9 +295,37 @@ if (seri.length >= 2) {
   }
 
   .kart-grafik-alani {
+    position: relative;
     margin-top: auto;
     padding-top: 12px;
     border-top: 1px solid var(--hair);
+    cursor: crosshair;
+  }
+
+  .kart-grafik-alani :global(.sp-imlec) {
+    stroke: var(--ink);
+    stroke-width: 1;
+    stroke-dasharray: 2 2;
+  }
+
+  .kart-grafik-alani :global(.sp-nokta) {
+    fill: var(--ink);
+    stroke: #fff;
+    stroke-width: 1.5;
+  }
+
+  .sp-ipucu {
+    position: absolute;
+    top: -14px;
+    padding: 2px 6px;
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    pointer-events: none;
   }
 
   .kart-sparkline {

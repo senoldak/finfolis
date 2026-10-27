@@ -122,6 +122,84 @@ export interface MevduatBolumu {
   alinma: string;
 }
 
+// Enflasyon beklentisi (TCMB Piyasa Katılımcıları Anketi; EVDS): anket ayında verilen 12 ve 24 ay sonrası yıllık TÜFE
+// beklentisi (%). Sitenin tahmini değil, anket sonucudur.
+export interface BeklentiBolumu {
+  kaynak: { ad: string; url: string };
+  satirlar: { yil: number; ay: number; ay12: number; ay24: number }[];
+  alinma: string;
+}
+
+// Ek EVDS bölümleri (scripts/haberler/evds-ek.mjs). Yıllık değişimler EVDS formülüyle gelir.
+type Kaynak = { ad: string; url: string };
+type SeriAdi = { alan: string; ad: string };
+
+// Yeni Kiracı Kira Endeksi (TCMB, 2023=100) ve aynı bölgenin konut fiyat endeksi yıllık değişimi.
+export interface KiraBolumu {
+  kaynak: Kaynak;
+  bolgeler: { kod: string; ad: string }[];
+  satirlar: { yil: number; ay: number; bolgeler: Record<string, { endeks: number; yillik: number; konutYillik: number }> }[];
+  bolgeTablosu: { yil: number; ay: number; bolgeler: { kod: string; ad: string; yillik: number }[] };
+  alinma: string;
+}
+
+// Banka ve kredi kartı harcama tutarı (TCMB, haftalık, bin TL) ve bir önceki yılın aynı haftasına göre değişim.
+export interface KartBolumu {
+  kaynak: Kaynak;
+  birim: string;
+  sektorler: { kod: string; ad: string }[];
+  satirlar: { tarih: string; sektorler: Record<string, { tutar: number; yillik: number | null }> }[];
+  alinma: string;
+}
+
+// Aylık, birkaç alanlı seri bölümü (tüketici güveni, reel efektif kur, kapasite kullanımı).
+export interface AylikSeriBolumu<A extends string> {
+  kaynak: Kaynak;
+  seriler: SeriAdi[];
+  satirlar: ({ yil: number; ay: number } & Record<A, number>)[];
+  alinma: string;
+}
+
+// TCMB rezervleri (haftalık, milyon ABD doları).
+export interface BrutRezervBolumu {
+  kaynak: Kaynak;
+  birim: string;
+  seriler: SeriAdi[];
+  satirlar: { tarih: string; toplam: number; altin: number; doviz: number }[];
+  alinma: string;
+}
+
+// Haftalık dolar ve euro satış kuru (TCMB, haftanın son değeri).
+export interface KurHaftalikBolumu {
+  kaynak: Kaynak;
+  satirlar: { tarih: string; usd: number; eur: number }[];
+  alinma: string;
+}
+
+// Kredi ve mevduat faizleri (TCMB, haftalık akım, yıllık %), 2018'den.
+export interface MakasBolumu {
+  kaynak: Kaynak;
+  seriler: SeriAdi[];
+  satirlar: { tarih: string; ihtiyac: number; tasit: number; konut: number; mevduat: number }[];
+  alinma: string;
+}
+
+// Değerlemesi yapılan konutların ortanca m² satış fiyatı ve m² kirası (TCMB, üç aylık, TL/m²).
+export interface BirimFiyatBolumu {
+  kaynak: Kaynak;
+  birim: string;
+  satirlar: { yil: number; ceyrek: number; iller: Record<string, { fiyat: number; kira: number }> }[];
+  ilTablosu: { yil: number; ceyrek: number; iller: { ad: string; fiyat: number; kira: number }[] };
+  alinma: string;
+}
+
+// Mevsim etkisinden arındırılmış TÜFE'nin aylık yüzde değişimi (TÜİK, EVDS).
+export interface TufeArindirilmisBolumu {
+  kaynak: Kaynak;
+  satirlar: { yil: number; ay: number; aylik: number }[];
+  alinma: string;
+}
+
 export const RESMI = data as unknown as {
   kur?: KurBolumu;
   faiz?: FaizBolumu;
@@ -131,7 +209,21 @@ export const RESMI = data as unknown as {
   rezerv?: RezervBolumu;
   piyasaFaizleri?: PiyasaFaizleriBolumu;
   mevduat?: MevduatBolumu;
+  beklenti?: BeklentiBolumu;
+  kira?: KiraBolumu;
+  kart?: KartBolumu;
+  guven?: AylikSeriBolumu<'endeks' | 'haneGecmis' | 'haneBeklenti' | 'ekonomiBeklenti'>;
+  rek?: AylikSeriBolumu<'genel' | 'gelismekte' | 'gelismis'>;
+  brutRezerv?: BrutRezervBolumu;
+  kapasite?: AylikSeriBolumu<'arindirilmis' | 'ham' | 'tuketim' | 'ara' | 'yatirim'>;
+  kurHaftalik?: KurHaftalikBolumu;
+  makas?: MakasBolumu;
+  birimFiyat?: BirimFiyatBolumu;
+  tufeArindirilmis?: TufeArindirilmisBolumu;
 };
+
+// Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).
+export const gunAnahtari = (tarih: string) => Date.UTC(Number(tarih.slice(0, 4)), Number(tarih.slice(5, 7)) - 1, Number(tarih.slice(8, 10))) / 86400000;
 
 export const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
 
@@ -160,6 +252,9 @@ export function zamanYaz(iso: string) {
 
 export const sayiYaz = (n: number, ondalik = 4) =>
   n.toLocaleString(SITE.locale, { minimumFractionDigits: ondalik, maximumFractionDigits: ondalik });
+
+// Yüzde, eksi işareti yüzde işaretinin önünde (−%9,9, %12,5).
+export const yuzdeYaz = (n: number, ondalik = 1) => `${n < 0 ? '−' : ''}%${sayiYaz(Math.abs(n), ondalik)}`;
 
 // Faiz oranı ve puan farkı: gereksiz sıfır yazılmaz (%37, %39,5, %47,25).
 export const oranYaz = (n: number) => n.toLocaleString(SITE.locale, { maximumFractionDigits: 2 });

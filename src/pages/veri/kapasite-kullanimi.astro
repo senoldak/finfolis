@@ -1,0 +1,187 @@
+---
+// İmalat sanayi kapasite kullanım oranı (TCMB, %): mevsimsellikten arındırılmış ve ham; mal gruplarına göre.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const kko = RESMI.kapasite;
+const satirlar = kko?.satirlar ?? [];
+const son = satirlar.at(-1);
+const ilk = satirlar[0];
+const birAyOnce = satirlar.at(-2);
+const birYilOnce = son && satirlar.find((s) => s.yil === son.yil - 1 && s.ay === son.ay);
+const ALANLAR = ['arindirilmis', 'ham', 'tuketim', 'ara', 'yatirim'] as const;
+const adOf = (alan: string) => kko?.seriler.find((s) => s.alan === alan)?.ad ?? alan;
+const noktalar = satirlar.map((s) => [ayAnahtari(s), ...ALANLAR.map((a) => s[a])]);
+const gruplar = [
+  {
+    id: 'genel',
+    ad: 'İmalat sanayi',
+    seriler: [
+      { id: 'arindirilmis', ad: adOf('arindirilmis'), renk: 'murekkep' as const },
+      { id: 'ham', ad: adOf('ham'), renk: 'toprak' as const, kesik: true },
+    ],
+  },
+  {
+    id: 'mal',
+    ad: 'Mal grupları',
+    seriler: [
+      { id: 'tuketim', ad: adOf('tuketim'), renk: 'toprak' as const },
+      { id: 'ara', ad: adOf('ara'), renk: 'mavi' as const },
+      { id: 'yatirim', ad: adOf('yatirim'), renk: 'yesil' as const },
+    ],
+  },
+];
+const tablo = satirlar.slice(-24).reverse();
+const yuzde = (n: number) => `%${sayiYaz(n, 1)}`;
+
+const baslik = 'Kapasite kullanım oranı';
+const description = son
+  ? `TCMB verisine göre imalat sanayi kapasite kullanım oranı ${ayAdi(son)} itibarıyla mevsimsellikten arındırılmış ${yuzde(son.arindirilmis)}. Mal gruplarına göre 2007’den bu yana aylık seri.`
+  : 'İmalat sanayi kapasite kullanım oranı: TCMB verisi, aylık.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/kapasite-kullanimi/' },
+];
+const ayIso = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(kko && son && ilk
+    ? {
+        sayfaEk: { dateModified: kko.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'İmalat sanayi kapasite kullanım oranı',
+            description: 'TCMB İktisadi Yönelim Anketi kapsamında derlenen imalat sanayi kapasite kullanım oranı; genel ve mal gruplarına göre, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/kapasite-kullanimi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ayIso(ilk)}/${ayIso(son)}`,
+            dateModified: kko.alinma,
+            variableMeasured: kko.seriler.map((s) => `${s.ad} (%)`),
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Kapasite kullanım oranı: ${son ? ayAdi(son) : 'TCMB verisi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>İmalat sanayi · TCMB İktisadi Yönelim Anketi</p>
+    </header>
+    {
+      kko && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Kapasite kullanımı</dt>
+              <dd>{yuzde(son.arindirilmis)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}, arındırılmış</dd>
+            </div>
+            {birAyOnce && (
+              <div>
+                <dt>Bir ay önce</dt>
+                <dd>{yuzde(birAyOnce.arindirilmis)}</dd>
+                <dd class="veri-degisim">{ayAdi(birAyOnce)}</dd>
+              </div>
+            )}
+            {birYilOnce && (
+              <div>
+                <dt>Bir yıl önce</dt>
+                <dd>{yuzde(birYilOnce.arindirilmis)}</dd>
+                <dd class="veri-degisim">{ayAdi(birYilOnce)}</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={kko.kaynak.url} rel="noopener">{kko.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
+            {zamanYaz(kko.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Kapasite kullanım oranı"
+            ipucu="Yüzde, aylık · Genel oran ile mal grupları arasında geçin"
+            kaynak="Kaynak: TCMB imalat sanayi kapasite kullanım oranı (EVDS)."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={[...ALANLAR]}
+            noktalar={noktalar}
+            gruplar={gruplar}
+            grupEtiketi="Görünüm"
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 24 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Arındırılmış</th>
+                      <th scope="col" class="sag">Tüketim</th>
+                      <th scope="col" class="sag">Ara malı</th>
+                      <th scope="col" class="sag">Yatırım</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{yuzde(s.arindirilmis)}</td>
+                        <td class="sag">{yuzde(s.tuketim)}</td>
+                        <td class="sag">{yuzde(s.ara)}</td>
+                        <td class="sag">{yuzde(s.yatirim)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Mal grupları mevsimsellikten arındırılmamış orandır.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Kapasite kullanım oranı, imalat sanayindeki işyerlerinin üretim kapasitelerinin ne kadarını kullandığını
+                gösterir. TCMB bu oranı her ay İktisadi Yönelim Anketi kapsamında işyerlerinden derler.
+              </p>
+              <p>
+                Mevsimsellikten arındırılmış oran, her yıl aynı aylarda tekrarlanan dalgalanmaları çıkarır; art arda gelen
+                ayları karşılaştırmak için bu seri kullanılır. Mal grupları ürünlerin nihai kullanım amacına göre ayrılır:
+                tüketim malları, ara mallar ve yatırım malları.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Kapasite kullanım verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/issizlik-orani/">İşsizlik oranı</a>
+      <a href="/veri/tuketici-guveni/">Tüketici güveni</a>
+      <a href="/veri/sektorler/">Sektörler</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

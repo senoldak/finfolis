@@ -1,0 +1,181 @@
+---
+// Kredi-mevduat makası (finfolis hesaplaması): ihtiyaç, konut ve taşıt kredisi faizi ile 3 aya kadar vadeli TL mevduat
+// faizi arasındaki fark, puan. TCMB haftalık akım faizleri, 2018'den.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, gunAnahtari, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const makas = RESMI.makas;
+const satirlar = makas?.satirlar ?? [];
+const son = satirlar.at(-1);
+const birYilOnce = son && [...satirlar].reverse().find((s) => s.tarih <= `${Number(son.tarih.slice(0, 4)) - 1}${son.tarih.slice(4)}`);
+const KREDILER = [
+  { alan: 'ihtiyac', ad: 'İhtiyaç' },
+  { alan: 'konut', ad: 'Konut' },
+  { alan: 'tasit', ad: 'Taşıt' },
+] as const;
+const RENKLER = ['toprak', 'mavi', 'yesil'] as const;
+const farkNoktalar = satirlar.map((s) => [gunAnahtari(s.tarih), ...KREDILER.map((k) => s[k.alan] - s.mevduat)]);
+const farkGruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: KREDILER.map((k, i) => ({ id: k.alan, ad: `${k.ad} kredisi − mevduat`, renk: RENKLER[i] })),
+  },
+];
+const faizNoktalar = satirlar.map((s) => [gunAnahtari(s.tarih), s.mevduat, ...KREDILER.map((k) => s[k.alan])]);
+const faizGruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'mevduat', ad: 'TL mevduat (3 aya kadar)', renk: 'murekkep' as const },
+      ...KREDILER.map((k, i) => ({ id: `f_${k.alan}`, ad: `${k.ad} kredisi`, renk: RENKLER[i] })),
+    ],
+  },
+];
+const tablo = satirlar.slice(-12).reverse();
+const puan = (n: number) => `${n < 0 ? '−' : ''}${sayiYaz(Math.abs(n), 1)} puan`;
+const yuzde = (n: number) => `%${sayiYaz(n, 2)}`;
+
+const baslik = 'Kredi-mevduat makası';
+const description = son
+  ? `TCMB verisine göre ${gunYaz(son.tarih)} haftasında ihtiyaç kredisi faizi ${yuzde(son.ihtiyac)}, 3 aya kadar TL mevduat faizi ${yuzde(son.mevduat)}; aradaki fark ${puan(son.ihtiyac - son.mevduat)}. Konut ve taşıt kredisiyle 2018’den bu yana makas.`
+  : 'Kredi ve mevduat faizi arasındaki fark: TCMB haftalık akım faizlerinden finfolis hesaplaması.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/kredi-mevduat-makasi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(makas && son ? { sayfaEk: { dateModified: makas.alinma } } : {}),
+});
+---
+
+<Base title={`Kredi-mevduat makası: ${son ? gunYaz(son.tarih) : 'TCMB verisi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Kredi faizi ile mevduat faizi arasındaki fark · TCMB verisinden finfolis hesaplaması</p>
+    </header>
+    {
+      makas && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>İhtiyaç kredisi − mevduat</dt>
+              <dd>{puan(son.ihtiyac - son.mevduat)}</dd>
+              <dd class="veri-degisim">{gunYaz(son.tarih)} haftası</dd>
+            </div>
+            <div>
+              <dt>Konut kredisi − mevduat</dt>
+              <dd>{puan(son.konut - son.mevduat)}</dd>
+              <dd class="veri-degisim">{gunYaz(son.tarih)} haftası</dd>
+            </div>
+            {birYilOnce && (
+              <div>
+                <dt>Bir yıl önce, ihtiyaç</dt>
+                <dd>{puan(birYilOnce.ihtiyac - birYilOnce.mevduat)}</dd>
+                <dd class="veri-degisim">{gunYaz(birYilOnce.tarih)} haftası</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={makas.kaynak.url} rel="noopener">{makas.kaynak.ad}</a>. Makas finfolis
+            hesaplamasıdır. Siteye alındığı zaman: {zamanYaz(makas.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Kredi faizi ile mevduat faizi arasındaki fark"
+            ipucu="Puan, haftalık · Serileri açıp kapatmak için adlarına dokunun"
+            kaynak="Kaynak: TCMB ağırlıklı ortalama kredi ve mevduat faizleri, akım (EVDS). Hesaplama: finfolis."
+            siklik="hafta"
+            birim="puan"
+            seriIdleri={KREDILER.map((k) => k.alan)}
+            noktalar={farkNoktalar}
+            gruplar={farkGruplar}
+            sifirdan
+          />
+
+          <ZamanGrafik
+            baslik="Kredi ve mevduat faizleri"
+            ipucu="Yıllık %, haftalık"
+            kaynak="Kaynak: TCMB ağırlıklı ortalama kredi ve mevduat faizleri, akım (EVDS)."
+            siklik="hafta"
+            birim="yuzde"
+            seriIdleri={['mevduat', ...KREDILER.map((k) => `f_${k.alan}`)]}
+            noktalar={faizNoktalar}
+            gruplar={faizGruplar}
+            sifirdan
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 hafta</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Hafta</th>
+                      <th scope="col" class="sag">Mevduat</th>
+                      <th scope="col" class="sag">İhtiyaç</th>
+                      <th scope="col" class="sag">Konut</th>
+                      <th scope="col" class="sag">İhtiyaç − mevduat</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{gunYaz(s.tarih)}</td>
+                        <td class="sag">{yuzde(s.mevduat)}</td>
+                        <td class="sag">{yuzde(s.ihtiyac)}</td>
+                        <td class="sag">{yuzde(s.konut)}</td>
+                        <td class="sag">{puan(s.ihtiyac - s.mevduat)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar nasıl hesaplanıyor?</h2>
+              <p>
+                TCMB her hafta, bankaların o hafta yeni açtığı TL kredilere ve mevduatlara uyguladığı ağırlıklı ortalama
+                faizi yayımlar. Makas, kredi faizinden 3 aya kadar vadeli TL mevduat faizinin çıkarılmasıdır ve puan olarak
+                gösterilir. Faizler yıllık orandır.
+              </p>
+              <p>
+                Makas genişlediğinde bankaların kredi faizi mevduata ödediği faizden daha hızlı artmış ya da daha yavaş
+                düşmüştür. Ortalama faizdir; bir kişinin bankadan alacağı teklif vadeye ve risk profiline göre farklı olur.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Faiz verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/piyasa-faizleri/">Piyasa faizleri</a>
+      <a href="/veri/reel-faiz/">Reel faiz</a>
+      <a href="/hesapla/kredi-taksit/">Kredi taksit hesaplama</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki makas TCMB verisinden finfolis’in hesapladığı bir göstergedir. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

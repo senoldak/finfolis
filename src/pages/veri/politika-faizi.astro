@@ -4,9 +4,11 @@
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
 import { RESMI, gunYaz, oranYaz as oran, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
+import { ayinFaizi } from '../../lib/turetilmis.mjs';
 
 const faiz = RESMI.faiz;
 const oranYaz = (n: number) => `%${oran(n)}`;
@@ -14,6 +16,16 @@ const oranYaz = (n: number) => `%${oran(n)}`;
 const satirlar = (faiz?.gecmis ?? [])
   .map((s, i, d) => ({ ...s, fark: i > 0 ? Math.round((s.oran - d[i - 1].oran) * 100) / 100 : undefined }))
   .reverse();
+// Grafik: her ayın son günü geçerli oran, ilk karardan bu aya kadar.
+const gecmis = faiz?.gecmis ?? [];
+const ilkAy = gecmis[0] ? Number(gecmis[0].tarih.slice(0, 4)) * 12 + Number(gecmis[0].tarih.slice(5, 7)) - 1 : 0;
+const buAy = new Date().getUTCFullYear() * 12 + new Date().getUTCMonth();
+const grafikNoktalari = gecmis.length
+  ? Array.from({ length: buAy - ilkAy + 1 }, (_, i) => {
+      const t = ilkAy + i;
+      return [t, ayinFaizi(gecmis, Math.floor(t / 12), (t % 12) + 1) as number | null];
+    })
+  : [];
 const baslik = 'Politika faizi';
 const description = faiz
   ? `TCMB politika faizi ${oranYaz(faiz.oran)}. Bir hafta vadeli repo ihale faiz oranının TCMB'nin yayımladığı tüm değişiklikleri, ${satirlar.at(-1)?.tarih.slice(0, 4)}'dan bugüne.`
@@ -85,6 +97,18 @@ const jsonLd = sayfaSemasi({
             )}. Siteye alındığı zaman: {zamanYaz(faiz.alinma)}.
           </p>
 
+          <ZamanGrafik
+            baslik="Politika faizinin seyri"
+            ipucu="Yüzde, ay sonu geçerli oran"
+            kaynak="Kaynak: TCMB, bir hafta vadeli repo ihale faiz oranı."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['faiz']}
+            noktalar={grafikNoktalari}
+            gruplar={[{ id: 'hepsi', ad: 'Hepsi', seriler: [{ id: 'faiz', ad: 'Politika faizi', renk: 'toprak' }] }]}
+            sifirdan
+          />
+
           <div class="veri-izgara">
             <section class="bolum">
               <h2 class="bolum-baslik">Faiz değişiklikleri</h2>
@@ -127,7 +151,7 @@ const jsonLd = sayfaSemasi({
                 yansır.
               </p>
               <p>
-                <a href="/veri/piyasa-faizleri/">Piyasa faizleri (kredi ve mevduat akımı)</a> · <a href="/veri/enflasyon/">Enflasyon verileri</a> · <a href="/hesapla/mevduat-getirisi/">Mevduat getirisi hesaplama</a>
+                <a href="/veri/piyasa-faizleri/">Piyasa faizleri (kredi ve mevduat akımı)</a> · <a href="/veri/reel-faiz/">Reel faiz</a> · <a href="/veri/enflasyon/">Enflasyon verileri</a> · <a href="/hesapla/mevduat-getirisi/">Mevduat getirisi hesaplama</a>
               </p>
             </section>
           </div>

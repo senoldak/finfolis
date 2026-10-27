@@ -1,0 +1,169 @@
+---
+// Tüketici güven endeksi ve üç alt endeks (TÜİK verisi, TCMB EVDS'den). 100 iyimser ile kötümser arasındaki eşiktir.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const guven = RESMI.guven;
+const satirlar = guven?.satirlar ?? [];
+const son = satirlar.at(-1);
+const ilk = satirlar[0];
+const birAyOnce = satirlar.at(-2);
+const birYilOnce = son && satirlar.find((s) => s.yil === son.yil - 1 && s.ay === son.ay);
+const ALANLAR = ['endeks', 'haneGecmis', 'haneBeklenti', 'ekonomiBeklenti'] as const;
+const RENKLER = ['murekkep', 'toprak', 'mavi', 'yesil'] as const;
+const adOf = (alan: string) => guven?.seriler.find((s) => s.alan === alan)?.ad ?? alan;
+const noktalar = satirlar.map((s) => [ayAnahtari(s), ...ALANLAR.map((a) => s[a])]);
+const gruplar = [{ id: 'hepsi', ad: 'Hepsi', seriler: ALANLAR.map((a, i) => ({ id: a, ad: adOf(a), renk: RENKLER[i] })) }];
+const tablo = satirlar.slice(-24).reverse();
+const endeks = (n: number) => sayiYaz(n, 1);
+
+const baslik = 'Tüketici güveni';
+const description = son
+  ? `TÜİK verisine göre tüketici güven endeksi ${ayAdi(son)} itibarıyla ${endeks(son.endeks)}. Endeks 100’ün altındaysa tüketici güveni kötümser, üstündeyse iyimserdir. Alt endekslerle aylık seri.`
+  : 'Tüketici güven endeksi ve alt endeksleri: TÜİK verisi, aylık.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/tuketici-guveni/' },
+];
+const ayIso = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(guven && son && ilk
+    ? {
+        sayfaEk: { dateModified: guven.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Tüketici güven endeksi ve alt endeksleri',
+            description: 'TÜİK ve TCMB işbirliğiyle yapılan tüketici eğilim anketinden tüketici güven endeksi ve alt endeksleri, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/tuketici-guveni/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye İstatistik Kurumu', url: 'https://www.tuik.gov.tr/' },
+            temporalCoverage: `${ayIso(ilk)}/${ayIso(son)}`,
+            dateModified: guven.alinma,
+            variableMeasured: guven.seriler.map((s) => s.ad),
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Tüketici güveni: ${son ? ayAdi(son) : 'TÜİK verisi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Tüketici güven endeksi ve alt endeksleri · TÜİK verisi</p>
+    </header>
+    {
+      guven && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Tüketici güven endeksi</dt>
+              <dd>{endeks(son.endeks)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}</dd>
+            </div>
+            {birAyOnce && (
+              <div>
+                <dt>Bir ay önce</dt>
+                <dd>{endeks(birAyOnce.endeks)}</dd>
+                <dd class="veri-degisim">{ayAdi(birAyOnce)}</dd>
+              </div>
+            )}
+            {birYilOnce && (
+              <div>
+                <dt>Bir yıl önce</dt>
+                <dd>{endeks(birYilOnce.endeks)}</dd>
+                <dd class="veri-degisim">{ayAdi(birYilOnce)}</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={guven.kaynak.url} rel="noopener">{guven.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
+            {zamanYaz(guven.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Tüketici güveni ve alt endeksler"
+            ipucu="Endeks, aylık · Serileri açıp kapatmak için adlarına dokunun"
+            kaynak="Kaynak: TÜİK tüketici eğilim anketi (TCMB EVDS)."
+            siklik="ay"
+            birim="endeks"
+            seriIdleri={[...ALANLAR]}
+            noktalar={noktalar}
+            gruplar={gruplar}
+            referans={{ deger: 100, ad: '100: iyimser ile kötümser arasındaki eşik' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 24 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Güven endeksi</th>
+                      <th scope="col" class="sag">Hane, son 12 ay</th>
+                      <th scope="col" class="sag">Hane, beklenti</th>
+                      <th scope="col" class="sag">Ekonomi, beklenti</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{endeks(s.endeks)}</td>
+                        <td class="sag">{endeks(s.haneGecmis)}</td>
+                        <td class="sag">{endeks(s.haneBeklenti)}</td>
+                        <td class="sag">{endeks(s.ekonomiBeklenti)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Tüketici güven endeksini TÜİK, TCMB ile birlikte yaptığı aylık tüketici eğilim anketinden hesaplar. Ankette
+                hanelere maddi durumları, genel ekonomi, harcama ve tasarruf eğilimleri sorulur.
+              </p>
+              <p>
+                Endeks 0 ile 200 arasında değer alır. 100’ün üstü tüketici güveninde iyimserliği, altı kötümserliği gösterir.
+                Her soru için olumlu ve olumsuz yanıtların farkına 100 eklenerek bir alt endeks hesaplanır; grafikteki üç alt
+                endeks bunlardan bazılarıdır ve aynı 100 eşiğiyle okunur.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Tüketici güveni verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/kartli-harcamalar/">Kartlı harcamalar</a>
+      <a href="/veri/enflasyon-beklentisi/">Enflasyon beklentisi</a>
+      <a href="/veri/issizlik-orani/">İşsizlik oranı</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TÜİK’in açıkladığı resmi rakamlardır.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

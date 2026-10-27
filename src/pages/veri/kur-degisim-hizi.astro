@@ -1,0 +1,187 @@
+---
+// Kur değişim hızı (finfolis hesaplaması): TCMB haftalık dolar ve euro satış kurunun 4 ve 13 haftalık değişiminin
+// yıllıklandırılmış hızı, yıllık enflasyonla birlikte. Geçmiş değişimi gösterir; kur hakkında tahmin değildir.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, gunAnahtari, gunYaz, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { kurHizi } from '../../lib/turetilmis.mjs';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const { kurHaftalik, enflasyon } = RESMI;
+const satirlar = kurHaftalik?.satirlar ?? [];
+const tufeSatirlari = enflasyon?.satirlar ?? [];
+const tufe = new Map(tufeSatirlari.map((s) => [ayAnahtari(s), s.yillik]));
+const ayOf = (tarih: string) => ({ yil: Number(tarih.slice(0, 4)), ay: Number(tarih.slice(5, 7)) });
+const PARALAR = [
+  { kod: 'usd', ad: 'Dolar' },
+  { kod: 'eur', ad: 'Euro' },
+] as const;
+// Her para için 4 ve 13 haftalık hız; grafik 13 haftalık hızın başladığı haftadan, son üç yıl.
+const hiz = Object.fromEntries(
+  PARALAR.map((p) => [p.kod, { h4: new Map(kurHizi(satirlar, p.kod, 4).map((x) => [x.tarih, x.hiz])), h13: new Map(kurHizi(satirlar, p.kod, 13).map((x) => [x.tarih, x.hiz])) }]),
+) as Record<'usd' | 'eur', { h4: Map<string, number>; h13: Map<string, number> }>;
+const grafikSatirlari = satirlar.filter((s) => hiz.usd.h13.has(s.tarih)).slice(-157);
+const seriIdleri = [...PARALAR.flatMap((p) => [`${p.kod}4`, `${p.kod}13`]), 'tufe'];
+const noktalar = grafikSatirlari.map((s) => [
+  gunAnahtari(s.tarih),
+  ...PARALAR.flatMap((p) => [hiz[p.kod].h4.get(s.tarih) ?? null, hiz[p.kod].h13.get(s.tarih) ?? null]),
+  tufe.get(ayAnahtari(ayOf(s.tarih))) ?? null,
+]);
+const gruplar = PARALAR.map((p) => ({
+  id: p.kod,
+  ad: p.ad,
+  seriler: [
+    { id: `${p.kod}4`, ad: '4 haftalık hız', renk: 'toprak' as const },
+    { id: `${p.kod}13`, ad: '13 haftalık hız', renk: 'mavi' as const, kesik: true },
+    { id: 'tufe', ad: 'Yıllık enflasyon', renk: 'murekkep' as const },
+  ],
+}));
+const son = satirlar.at(-1);
+const tablo = satirlar.slice(-12).reverse();
+const yuzde = (n: number | null | undefined) => (n == null ? '—' : yuzdeYaz(n));
+const kur = (n: number) => sayiYaz(n, 4);
+const sonTufe = tufeSatirlari.at(-1);
+
+const baslik = 'Kur değişim hızı';
+const description = son
+  ? `${gunYaz(son.tarih)} haftasında doların son 4 haftalık değişimi yıllığa çevrildiğinde ${yuzde(hiz.usd.h4.get(son.tarih))}, son 13 haftalık değişimi ${yuzde(hiz.usd.h13.get(son.tarih))}. TCMB kurundan finfolis hesaplaması, yıllık enflasyonla karşılaştırmalı.`
+  : 'Dolar ve euro kurunun 4 ve 13 haftalık değişiminin yıllıklandırılmış hızı: TCMB kurundan finfolis hesaplaması.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/kur-degisim-hizi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(kurHaftalik && son ? { sayfaEk: { dateModified: kurHaftalik.alinma } } : {}),
+});
+---
+
+<Base title={`Kur değişim hızı: ${son ? gunYaz(son.tarih) : 'TCMB kuru'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Dolar ve euro · TCMB kurundan finfolis hesaplaması</p>
+    </header>
+    {
+      kurHaftalik && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Dolar, 4 haftalık hız</dt>
+              <dd>{yuzde(hiz.usd.h4.get(son.tarih))}</dd>
+              <dd class="veri-degisim">Yıllıklandırılmış, {gunYaz(son.tarih)}</dd>
+            </div>
+            <div>
+              <dt>Dolar, 13 haftalık hız</dt>
+              <dd>{yuzde(hiz.usd.h13.get(son.tarih))}</dd>
+              <dd class="veri-degisim">Yıllıklandırılmış</dd>
+            </div>
+            <div>
+              <dt>Euro, 4 haftalık hız</dt>
+              <dd>{yuzde(hiz.eur.h4.get(son.tarih))}</dd>
+              <dd class="veri-degisim">Yıllıklandırılmış</dd>
+            </div>
+            {sonTufe && (
+              <div>
+                <dt>Yıllık enflasyon</dt>
+                <dd>{yuzde(sonTufe.yillik)}</dd>
+                <dd class="veri-degisim">{ayAdi(sonTufe)}, TÜİK</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={kurHaftalik.kaynak.url} rel="noopener">{kurHaftalik.kaynak.ad}</a>; enflasyon TÜİK
+            verisi. Hız finfolis hesaplamasıdır. Siteye alındığı zaman: {zamanYaz(kurHaftalik.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Kurun yıllıklandırılmış değişim hızı"
+            ipucu="Her haftanın satış kuru 4 ve 13 hafta önceki kurla karşılaştırılıp yıllığa çevrildi · Dolar ya da euro seçin"
+            kaynak="Kaynak: TCMB gösterge niteliğindeki döviz satış kurları (EVDS); enflasyon TÜİK. Hesaplama: finfolis."
+            siklik="hafta"
+            birim="yuzde"
+            seriIdleri={seriIdleri}
+            noktalar={noktalar}
+            gruplar={gruplar}
+            grupEtiketi="Para birimi"
+            sifirdan
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 hafta</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Hafta</th>
+                      <th scope="col" class="sag">Dolar</th>
+                      <th scope="col" class="sag">4 haftalık</th>
+                      <th scope="col" class="sag">13 haftalık</th>
+                      <th scope="col" class="sag">Euro</th>
+                      <th scope="col" class="sag">4 haftalık</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{gunYaz(s.tarih)}</td>
+                        <td class="sag">{kur(s.usd)}</td>
+                        <td class="sag">{yuzde(hiz.usd.h4.get(s.tarih))}</td>
+                        <td class="sag">{yuzde(hiz.usd.h13.get(s.tarih))}</td>
+                        <td class="sag">{kur(s.eur)}</td>
+                        <td class="sag">{yuzde(hiz.eur.h4.get(s.tarih))}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Kur, TCMB’nin haftanın son iş günü için açıkladığı döviz satış kurudur. Hızlar yıllıklandırılmıştır.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar nasıl hesaplanıyor?</h2>
+              <p>
+                Her haftanın kuru, 4 hafta önceki kurla karşılaştırılır ve aradaki değişim, aynı hız bir yıl sürseydi ne
+                olacağını gösterecek biçimde yıllığa çevrilir: 4 haftalık değişim yılda 13 kez bileşik olarak uygulanır. 13
+                haftalık hız aynı hesabı üç aylık dönemle yapar ve kısa dalgalanmalardan daha az etkilenir.
+              </p>
+              <p>
+                Grafikte TÜİK’in yıllık enflasyonu da var. Kurun yıllıklandırılmış hızı enflasyonun altındaysa, o dönemde
+                döviz Türkiye’deki genel fiyatlardan yavaş pahalanmış demektir.
+              </p>
+              <p>
+                Bu rakamlar geçmiş haftalardaki değişimin hızıdır. Kurun bundan sonra nasıl hareket edeceği hakkında bilgi
+                vermez.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Haftalık kur verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/dolar-kuru/">Dolar kuru</a>
+      <a href="/veri/reel-efektif-kur/">Reel efektif kur</a>
+      <a href="/veri/enflasyon-hizi/">Enflasyon hızı</a>
+    </nav>
+    <YasalUyari>
+      Bu sayfadaki hızlar TCMB kurundan finfolis’in hesapladığı, geçmişe ait değerlerdir. Yatırım tavsiyesi değildir.
+    </YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

@@ -610,6 +610,17 @@ const son = noktalar.at(-1);
     }
   }
 
+  @media (max-width: 600px) {
+    /* Telefonda SVG ekrana sığdırılınca yazılar 3-4 piksele iniyordu: grafik en az 640 px çizilir, kutusunda yatay kaydırılır. */
+    .svg-cizim-alani {
+      overflow-x: auto;
+    }
+
+    .reel-canli-svg {
+      min-width: 640px;
+    }
+  }
+
   @media (max-width: 540px) {
     .rejimler-izgara {
       grid-template-columns: 1fr;

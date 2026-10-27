@@ -350,4 +350,15 @@ const SERILER = [
   .tooltip-ozet strong {
     color: var(--toprak, #c2502b);
   }
+
+  @media (max-width: 600px) {
+    /* Telefonda SVG ekrana sığdırılınca yazılar 3-4 piksele iniyordu: grafik en az 640 px çizilir, kutusunda yatay kaydırılır. */
+    .grafik-cizim-alani {
+      overflow-x: auto;
+    }
+
+    .faiz-canli-svg {
+      min-width: 640px;
+    }
+  }
 </style>

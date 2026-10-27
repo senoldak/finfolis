@@ -1,0 +1,169 @@
+---
+// TÜFE bazlı reel efektif döviz kuru (TCMB, 2025=100): genel, gelişmekte olan ve gelişmiş ülkelere göre.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const rek = RESMI.rek;
+const satirlar = rek?.satirlar ?? [];
+const son = satirlar.at(-1);
+const ilk = satirlar[0];
+const birAyOnce = satirlar.at(-2);
+const birYilOnce = son && satirlar.find((s) => s.yil === son.yil - 1 && s.ay === son.ay);
+const ALANLAR = ['genel', 'gelismekte', 'gelismis'] as const;
+const RENKLER = ['murekkep', 'toprak', 'mavi'] as const;
+const adOf = (alan: string) => rek?.seriler.find((s) => s.alan === alan)?.ad ?? alan;
+const noktalar = satirlar.map((s) => [ayAnahtari(s), ...ALANLAR.map((a) => s[a])]);
+const gruplar = [{ id: 'hepsi', ad: 'Hepsi', seriler: ALANLAR.map((a, i) => ({ id: a, ad: adOf(a), renk: RENKLER[i] })) }];
+const tablo = satirlar.slice(-24).reverse();
+const endeks = (n: number) => sayiYaz(n, 2);
+
+const baslik = 'Reel efektif döviz kuru';
+const description = son
+  ? `TCMB’nin TÜFE bazlı reel efektif döviz kuru ${ayAdi(son)} itibarıyla ${endeks(son.genel)} (2025=100). Endeksin artması Türk lirasının reel olarak değer kazandığını gösterir. 2003’ten bu yana aylık seri.`
+  : 'TCMB’nin TÜFE bazlı reel efektif döviz kuru endeksi (2025=100), aylık.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/reel-efektif-kur/' },
+];
+const ayIso = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(rek && son && ilk
+    ? {
+        sayfaEk: { dateModified: rek.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'TÜFE bazlı reel efektif döviz kuru (2025=100)',
+            description: 'TCMB’nin TÜFE bazlı reel efektif döviz kuru endeksleri: genel, gelişmekte olan ve gelişmiş ülkelere göre, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/reel-efektif-kur/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ayIso(ilk)}/${ayIso(son)}`,
+            dateModified: rek.alinma,
+            variableMeasured: rek.seriler.map((s) => s.ad),
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Reel efektif kur: ${son ? ayAdi(son) : 'TCMB verisi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>TÜFE bazlı, 2025=100 · TCMB verisi</p>
+    </header>
+    {
+      rek && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Reel efektif kur</dt>
+              <dd>{endeks(son.genel)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}</dd>
+            </div>
+            {birAyOnce && (
+              <div>
+                <dt>Bir ay önce</dt>
+                <dd>{endeks(birAyOnce.genel)}</dd>
+                <dd class="veri-degisim">{ayAdi(birAyOnce)}</dd>
+              </div>
+            )}
+            {birYilOnce && (
+              <div>
+                <dt>Bir yıl önce</dt>
+                <dd>{endeks(birYilOnce.genel)}</dd>
+                <dd class="veri-degisim">{ayAdi(birYilOnce)}</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={rek.kaynak.url} rel="noopener">{rek.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
+            {zamanYaz(rek.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Reel efektif kur endeksleri"
+            ipucu="2025=100, aylık · Yükselme Türk lirasının reel değer kazancıdır"
+            kaynak="Kaynak: TCMB reel efektif döviz kuru endeksleri (EVDS)."
+            siklik="ay"
+            birim="endeks"
+            seriIdleri={[...ALANLAR]}
+            noktalar={noktalar}
+            gruplar={gruplar}
+            referans={{ deger: 100, ad: '100: 2025 düzeyi' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 24 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Genel</th>
+                      <th scope="col" class="sag">Gelişmekte olan ülkeler</th>
+                      <th scope="col" class="sag">Gelişmiş ülkeler</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{endeks(s.genel)}</td>
+                        <td class="sag">{endeks(s.gelismekte)}</td>
+                        <td class="sag">{endeks(s.gelismis)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Nominal efektif döviz kuru, Türk lirasının Türkiye’nin dış ticaretinde önemli payı olan ülkelerin paralarından
+                oluşan bir sepete göre ağırlıklı ortalama değeridir. Ağırlıklar ikili ticaret akımlarından belirlenir. Reel
+                efektif kur, bu değerden ülkeler arasındaki fiyat farklarının etkisi çıkarılarak elde edilir. Bu sayfadaki
+                endeksler fiyat farkını TÜFE ile ölçer.
+              </p>
+              <p>
+                TCMB’nin tanımına göre endeksin artması Türk lirasının reel olarak değer kazandığını, yani Türk mallarının
+                yabancı mallar cinsinden fiyatının yükseldiğini gösterir. Düşüş bunun tersidir. Endeksin temel yılı 2025’tir;
+                100, 2025 ortalamasıdır.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Reel efektif kur verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/doviz-kurlari/">Döviz kurları</a>
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/tcmb-rezervleri/">TCMB rezervleri</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi endekslerdir. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

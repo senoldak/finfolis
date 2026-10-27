@@ -1,0 +1,168 @@
+---
+// Enflasyon hızı (finfolis hesaplaması): mevsim etkisinden arındırılmış TÜFE'nin aylık değişiminin yıllıklandırılmışı ve
+// son üç ayın birlikte yıllıklandırılmışı, yıllık enflasyonla birlikte. TÜİK verisi (TCMB tablosu ve EVDS).
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { enflasyonHizi } from '../../lib/turetilmis.mjs';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const { enflasyon, tufeArindirilmis } = RESMI;
+const tumSatirlar: {
+  yil: number;
+  ay: number;
+  yillik: number;
+  aylik: number;
+  maAylik: number | null;
+  aylikHiz: number | null;
+  ucAylikHiz: number | null;
+}[] = enflasyonHizi(enflasyon?.satirlar ?? [], tufeArindirilmis?.satirlar ?? []);
+// Arındırılmış seri ham seriden birkaç hafta geç gelebilir; grafik ve kutular hızın hesaplanabildiği son aya kadar.
+const sonHiz = tumSatirlar.findLastIndex((s) => s.ucAylikHiz != null);
+const satirlar = tumSatirlar.slice(tumSatirlar.findIndex((s) => s.aylikHiz != null), sonHiz + 1);
+const son = satirlar.at(-1);
+const noktalar = satirlar.map((s) => [ayAnahtari(s), s.yillik, s.ucAylikHiz, s.aylikHiz]);
+const gruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'yillik', ad: 'Yıllık enflasyon', renk: 'murekkep' as const },
+      { id: 'uc', ad: 'Son 3 ay, arındırılmış, yıllıklandırılmış', renk: 'toprak' as const },
+      { id: 'aylik', ad: 'Aylık, arındırılmış, yıllıklandırılmış', renk: 'mavi' as const, kesik: true, gizli: true },
+    ],
+  },
+];
+const tablo = satirlar.slice(-24).reverse();
+const yuzde = (n: number | null, o = 1) => (n == null ? '—' : yuzdeYaz(n, o));
+
+const baslik = 'Enflasyon hızı';
+const description = son
+  ? `${ayAdi(son)} itibarıyla yıllık enflasyon ${yuzde(son.yillik, 2)}. Mevsim etkisinden arındırılmış son üç ayın fiyat artışı yıllığa çevrildiğinde ${yuzde(son.ucAylikHiz)}, yalnız son ayınki ${yuzde(son.aylikHiz)}. TÜİK verisinden finfolis hesaplaması.`
+  : 'Aylık ve üç aylık enflasyonun yıllıklandırılmış hızı: TÜİK verisinden finfolis hesaplaması.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/enflasyon-hizi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(enflasyon && son ? { sayfaEk: { dateModified: enflasyon.alinma } } : {}),
+});
+---
+
+<Base title={`Enflasyon hızı: ${son ? ayAdi(son) : 'TÜİK verisi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Aylık ve üç aylık fiyat artışının yıllık karşılığı · TÜİK verisinden finfolis hesaplaması</p>
+    </header>
+    {
+      enflasyon && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Yıllık enflasyon</dt>
+              <dd>{yuzde(son.yillik, 2)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}, TÜİK</dd>
+            </div>
+            <div>
+              <dt>Son 3 ay, yıllıklandırılmış</dt>
+              <dd>{yuzde(son.ucAylikHiz)}</dd>
+              <dd class="veri-degisim">Arındırılmış, finfolis hesaplaması</dd>
+            </div>
+            <div>
+              <dt>Son ay, yıllıklandırılmış</dt>
+              <dd>{yuzde(son.aylikHiz)}</dd>
+              <dd class="veri-degisim">Arındırılmış aylık artış {yuzde(son.maAylik, 2)}</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={enflasyon.kaynak.url} rel="noopener">{enflasyon.kaynak.ad}</a>{tufeArindirilmis && <>; <a href={tufeArindirilmis.kaynak.url} rel="noopener">{tufeArindirilmis.kaynak.ad}</a></>}.
+            Hız finfolis hesaplamasıdır. Siteye alındığı zaman: {zamanYaz(enflasyon.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Enflasyonun hızı"
+            ipucu="Yüzde, aylık · Aylık hız çok oynak olduğu için kapalı açılır; adına dokunarak açabilirsiniz"
+            kaynak="Kaynak: TÜİK tüketici fiyat endeksi ve mevsim etkisinden arındırılmış TÜFE (TCMB). Hesaplama: finfolis."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['yillik', 'uc', 'aylik']}
+            noktalar={noktalar}
+            gruplar={gruplar}
+            sifirdan
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 24 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Aylık</th>
+                      <th scope="col" class="sag">Aylık, arındırılmış</th>
+                      <th scope="col" class="sag">Aylık, yıllıklandırılmış</th>
+                      <th scope="col" class="sag">3 ay, yıllıklandırılmış</th>
+                      <th scope="col" class="sag">Yıllık</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{yuzde(s.aylik, 2)}</td>
+                        <td class="sag">{yuzde(s.maAylik, 2)}</td>
+                        <td class="sag">{yuzde(s.aylikHiz)}</td>
+                        <td class="sag">{yuzde(s.ucAylikHiz)}</td>
+                        <td class="sag">{yuzde(s.yillik, 2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar nasıl hesaplanıyor?</h2>
+              <p>
+                Yıllık enflasyon son 12 ayın fiyat artışıdır ve yönünü geç değiştirir. Hızı görmek için son ayın ya da son
+                üç ayın artışı yıllığa çevrilir: aylık artış yılda 12 kez, üç aylık artış yılda 4 kez bileşik olarak
+                uygulanır. Örneğin aylık %2’lik artış yıllığa çevrildiğinde yaklaşık %26,8 eder.
+              </p>
+              <p>
+                Hız hesabında TÜİK’in mevsim etkisinden arındırılmış TÜFE’si kullanılır. Bu seride her yıl aynı aylarda
+                tekrarlanan fiyat hareketleri çıkarılmıştır, bu yüzden art arda gelen aylar birbiriyle karşılaştırılabilir.
+                Tablodaki ilk sütun TÜİK’in açıkladığı arındırılmamış aylık artıştır.
+              </p>
+              <p>Arındırılmış seri de aydan aya oynayabilir; eğilim için üç aylık hız daha güvenilirdir.</p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Enflasyon verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/enflasyon-beklentisi/">Enflasyon beklentisi</a>
+      <a href="/veri/reel-faiz/">Reel faiz</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki hızlar TÜİK verisinden finfolis’in hesapladığı göstergelerdir; resmi enflasyon yıllık TÜFE’dir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

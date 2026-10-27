@@ -1,0 +1,170 @@
+---
+// TCMB rezervleri (haftalık, milyon ABD doları): toplam, altın ve döviz. Net döviz pozisyonu ayrı sayfada.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, gunAnahtari, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const rezerv = RESMI.brutRezerv;
+const satirlar = rezerv?.satirlar ?? [];
+const son = satirlar.at(-1);
+const ilk = satirlar[0];
+const birHaftaOnce = satirlar.at(-2);
+const ALANLAR = ['toplam', 'altin', 'doviz'] as const;
+const RENKLER = ['murekkep', 'toprak', 'mavi'] as const;
+const adOf = (alan: string) => rezerv?.seriler.find((s) => s.alan === alan)?.ad ?? alan;
+const noktalar = satirlar.map((s) => [gunAnahtari(s.tarih), ...ALANLAR.map((a) => s[a] / 1000)]);
+const gruplar = [{ id: 'hepsi', ad: 'Hepsi', seriler: ALANLAR.map((a, i) => ({ id: a, ad: adOf(a), renk: RENKLER[i] })) }];
+const tablo = satirlar.slice(-12).reverse();
+const milyar = (milyon: number) => `${sayiYaz(milyon / 1000, 1)} milyar $`;
+const fark = son && birHaftaOnce ? son.toplam - birHaftaOnce.toplam : null;
+const farkYaz = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${milyar(Math.abs(n))}`;
+
+const baslik = 'TCMB rezervleri';
+const description = son
+  ? `TCMB rezervleri ${gunYaz(son.tarih)} itibarıyla ${milyar(son.toplam)}: altın ${milyar(son.altin)}, döviz ${milyar(son.doviz)}. Son beş yılın haftalık serisi.`
+  : 'TCMB rezervleri, altın ve döviz: haftalık seri.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/tcmb-rezervleri/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(rezerv && son && ilk
+    ? {
+        sayfaEk: { dateModified: rezerv.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Merkez Bankası rezervleri (haftalık)',
+            description: 'TCMB’nin haftalık rezervleri: toplam, altın ve döviz, milyon ABD doları, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/tcmb-rezervleri/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ilk.tarih}/${son.tarih}`,
+            dateModified: rezerv.alinma,
+            variableMeasured: ['Toplam rezerv (milyon ABD doları)', 'Altın (milyon ABD doları)', 'Döviz (milyon ABD doları)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`TCMB rezervleri: ${son ? gunYaz(son.tarih) : 'haftalık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Altın ve döviz · TCMB, haftalık</p>
+    </header>
+    {
+      rezerv && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Toplam rezerv</dt>
+              <dd>{milyar(son.toplam)}</dd>
+              <dd class="veri-degisim">{gunYaz(son.tarih)}</dd>
+            </div>
+            <div>
+              <dt>Altın</dt>
+              <dd>{milyar(son.altin)}</dd>
+              <dd class="veri-degisim">{gunYaz(son.tarih)}</dd>
+            </div>
+            <div>
+              <dt>Döviz</dt>
+              <dd>{milyar(son.doviz)}</dd>
+              <dd class="veri-degisim">{gunYaz(son.tarih)}</dd>
+            </div>
+            {fark != null && birHaftaOnce && (
+              <div>
+                <dt>Bir haftada değişim</dt>
+                <dd>{farkYaz(fark)}</dd>
+                <dd class="veri-degisim">{gunYaz(birHaftaOnce.tarih)} haftasına göre</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={rezerv.kaynak.url} rel="noopener">{rezerv.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
+            {zamanYaz(rezerv.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Rezervler: toplam, altın ve döviz"
+            ipucu="Milyar ABD doları, haftalık · Serileri açıp kapatmak için adlarına dokunun"
+            kaynak="Kaynak: TCMB, Merkez Bankası rezervleri (EVDS)."
+            siklik="hafta"
+            birim="milyarUsd"
+            seriIdleri={[...ALANLAR]}
+            noktalar={noktalar}
+            gruplar={gruplar}
+            sifirdan
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 hafta</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Hafta</th>
+                      <th scope="col" class="sag">Toplam</th>
+                      <th scope="col" class="sag">Altın</th>
+                      <th scope="col" class="sag">Döviz</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{gunYaz(s.tarih)}</td>
+                        <td class="sag">{milyar(s.toplam)}</td>
+                        <td class="sag">{milyar(s.altin)}</td>
+                        <td class="sag">{milyar(s.doviz)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                TCMB, elindeki altın ve döviz rezervlerini her hafta ABD doları cinsinden yayımlar. Toplam, altın ile dövizin
+                toplamıdır. Altın rezervi dolar cinsinden ölçüldüğü için altın fiyatı değiştiğinde, TCMB altın almasa da
+                satmasa da değişir.
+              </p>
+              <p>
+                Bu rakamlardan TCMB’nin döviz yükümlülükleri düşülmez. Yükümlülükler düşüldükten sonra kalan pozisyon
+                net döviz pozisyonu sayfasında, swapların rezervdeki payı swap payı sayfasında yer alıyor.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Rezerv verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/net-doviz-pozisyonu/">Net döviz pozisyonu</a>
+      <a href="/veri/swap-payi/">Swap payı</a>
+      <a href="/veri/altin-kazanci/">Altın kazancı</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

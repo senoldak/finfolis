@@ -11,6 +11,10 @@
 //  - TCMB EVDS (ücretsiz anahtar, EVDS_API_KEY; doğrulandı 22.10.2026): konut fiyat endeksi (TCMB) ve mevsimsellikten
 //      arındırılmış işsizlik oranı (TÜİK). Yıllık değişim EVDS'nin kendi formülüyle (formulas=3) alınır, burada hesaplanmaz.
 //      Anahtar yoksa bu iki bölüm atlanır, son bilinen değer kalır.
+//    Piyasa Katılımcıları Anketi (TCMB, EVDS; doğrulandı 27.10.2026): 12 ve 24 ay sonrası yıllık TÜFE beklentisi. Anket
+//      sonucudur, sitenin tahmini değildir; kur ve faiz beklentileri bilerek alınmaz.
+//    Kira, kartlı harcama, tüketici güveni, reel efektif kur, TCMB rezervleri, kapasite kullanımı, haftalık kur, kredi ve
+//      mevduat faizleri, konut birim fiyat ve kiraları, arındırılmış TÜFE: evds-ek.mjs.
 //
 // Altın (gram) için resmi, ücretsiz bir günlük kaynak bulunamadı. BIST 100 EVDS'de var ama Borsa İstanbul verisinin
 // yeniden yayımı lisansa bağlı; bu yüzden ikisi de burada yoktur.
@@ -26,6 +30,7 @@ import { tcmbSonKarar, tufeSatirlari, TUFE_URL } from './piyasa-verisi.mjs';
 import { rezerviAl } from './tcmb-rezerv.mjs';
 import { piyasaFaizleriniAl } from './tcmb-piyasa-faizleri.mjs';
 import { mevduatiAl } from './tcmb-mevduat.mjs';
+import { kiraAl, kartAl, guvenAl, rekAl, kapasiteAl, brutRezervAl, kurHaftalikAl, makasAl, birimFiyatAl, tufeArindirilmisAl } from './evds-ek.mjs';
 
 const DOSYA = fileURLToPath(new URL('../../src/data/resmi.json', import.meta.url));
 export const KUR_URL = 'https://www.tcmb.gov.tr/kurlar/today.xml';
@@ -47,6 +52,8 @@ export const KONUT_BOLGELERI = [
 ];
 export const ISSIZLIK_SERISI = 'TP.TIG08';
 const EVDS_AY = 36;
+export const BEKLENTI_SERILERI = { ay12: 'TP.PKAUO.S01.E.U', ay24: 'TP.PKAUO.S01.F.U' };
+const BEKLENTI_AY = 120;
 
 const sayi = (s) => {
   const n = Number(String(s ?? '').trim());
@@ -173,9 +180,9 @@ async function enflasyonuAl() {
 
 // EVDS seri isteği: [{ yil, ay, <alan>: sayı | null }] eskiden yeniye. Alan adı seri kodunun noktası alt çizgi olmuş
 // hâlidir, formüllü seride sonuna '-<formül>' eklenir (TP_KFE_TR-3).
-export async function evdsAylik(seriler, formuller, simdi, anahtar) {
+export async function evdsAylik(seriler, formuller, simdi, anahtar, ay = EVDS_AY) {
   const g = (d) => `01-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${d.getUTCFullYear()}`;
-  const bas = new Date(Date.UTC(simdi.getUTCFullYear(), simdi.getUTCMonth() - EVDS_AY, 1));
+  const bas = new Date(Date.UTC(simdi.getUTCFullYear(), simdi.getUTCMonth() - ay, 1));
   const url = `${EVDS_URL}/series=${seriler.join('-')}&startDate=${g(bas)}&endDate=${g(simdi)}&type=json&formulas=${formuller.join('-')}`;
   const veri = JSON.parse(await hentMetin(url, { headers: { key: anahtar } }));
   if (!Array.isArray(veri?.items)) throw new Error('EVDS yanıtı ayrıştırılamadı');
@@ -237,6 +244,17 @@ async function issizligiAl(simdi, anahtar) {
   };
 }
 
+async function beklentiyiAl(simdi, anahtar) {
+  const alan = Object.fromEntries(Object.entries(BEKLENTI_SERILERI).map(([k, sr]) => [k, sr.replaceAll('.', '_')]));
+  const ham = await evdsAylik(Object.values(BEKLENTI_SERILERI), [0, 0], simdi, anahtar, BEKLENTI_AY);
+  const satirlar = kesintisiz(ham, (h) => h[alan.ay12] != null && h[alan.ay24] != null, 'Enflasyon beklentisi');
+  if (satirlar.length < 24) throw new Error('Enflasyon beklentisi serisi yetersiz');
+  return {
+    kaynak: { ad: 'TCMB, Piyasa Katılımcıları Anketi (EVDS)', url: 'https://evds3.tcmb.gov.tr/' },
+    satirlar: satirlar.map((h) => ({ yil: h.yil, ay: h.ay, ay12: h[alan.ay12], ay24: h[alan.ay24] })),
+  };
+}
+
 // Bölümün verisi değiştiyse yeni hâli ve alınma zamanı; değişmediyse eskisi aynen (alınma zamanı dahil).
 function birlestir(eski, yeni, iso) {
   if (!yeni) return eski;
@@ -257,18 +275,70 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
   };
   const evds = (ad, f) =>
     evdsAnahtari ? dene(ad, () => f(simdi, evdsAnahtari)) : (console.error(`[resmi] EVDS_API_KEY yok, ${ad} atlandı`), null);
-  const [kur, faiz, enflasyon, konut, issizlik, rezerv, piyasaFaizleri, mevduat] = await Promise.all([
-    dene('kurlar', () => kurlariAl(eski?.kur, simdi, gun)),
-    dene('faiz', () => faiziAl(simdi)),
-    dene('enflasyon', () => enflasyonuAl()),
-    evds('konut', konutuAl),
-    evds('issizlik', issizligiAl),
-    evds('rezerv', (s, key) => rezerviAl(s, key, eski?.rezerv)),
-    evds('piyasaFaizleri', (s, key) => piyasaFaizleriniAl(s, key, eski?.faiz?.gecmis, eski?.piyasaFaizleri)),
-    evds('mevduat', (s, key) => mevduatiAl(s, key, eski?.mevduat)),
-  ]);
+  const [
+    kur,
+    faiz,
+    enflasyon,
+    konut,
+    issizlik,
+    rezerv,
+    piyasaFaizleri,
+    mevduat,
+    beklenti,
+    kira,
+    kart,
+    guven,
+    rek,
+    brutRezerv,
+    kapasite,
+    kurHaftalik,
+    makas,
+    birimFiyat,
+    tufeArindirilmis,
+  ] =
+    await Promise.all([
+      dene('kurlar', () => kurlariAl(eski?.kur, simdi, gun)),
+      dene('faiz', () => faiziAl(simdi)),
+      dene('enflasyon', () => enflasyonuAl()),
+      evds('konut', konutuAl),
+      evds('issizlik', issizligiAl),
+      evds('rezerv', (s, key) => rezerviAl(s, key, eski?.rezerv)),
+      evds('piyasaFaizleri', (s, key) => piyasaFaizleriniAl(s, key, eski?.faiz?.gecmis, eski?.piyasaFaizleri)),
+      evds('mevduat', (s, key) => mevduatiAl(s, key, eski?.mevduat)),
+      evds('beklenti', beklentiyiAl),
+      evds('kira', kiraAl),
+      evds('kart', kartAl),
+      evds('guven', guvenAl),
+      evds('rek', rekAl),
+      evds('brutRezerv', brutRezervAl),
+      evds('kapasite', kapasiteAl),
+      evds('kurHaftalik', kurHaftalikAl),
+      evds('makas', makasAl),
+      evds('birimFiyat', birimFiyatAl),
+      evds('tufeArindirilmis', tufeArindirilmisAl),
+    ]);
   const sonuc = {};
-  for (const [ad, yeni] of Object.entries({ kur, faiz, enflasyon, konut, issizlik, rezerv, piyasaFaizleri, mevduat })) {
+  for (const [ad, yeni] of Object.entries({
+    kur,
+    faiz,
+    enflasyon,
+    konut,
+    issizlik,
+    rezerv,
+    piyasaFaizleri,
+    mevduat,
+    beklenti,
+    kira,
+    kart,
+    guven,
+    rek,
+    brutRezerv,
+    kapasite,
+    kurHaftalik,
+    makas,
+    birimFiyat,
+    tufeArindirilmis,
+  })) {
     const b = birlestir(eski?.[ad], yeni, iso);
     if (b) sonuc[ad] = b;
   }

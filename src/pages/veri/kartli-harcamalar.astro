@@ -1,0 +1,218 @@
+---
+// Banka ve kredi kartı harcamaları (TCMB, haftalık, bin TL): sektör seçmeli yıllık değişim, enflasyonla birlikte, ve
+// haftalık tutar. Yıllık değişim EVDS'nin hesapladığı, bir önceki yılın aynı haftasına göre değişimdir.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, gunAnahtari, gunYaz, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const { kart, enflasyon } = RESMI;
+const satirlar = kart?.satirlar ?? [];
+const sektorler = kart?.sektorler ?? [];
+const son = satirlar.at(-1);
+const ilk = satirlar[0];
+const tufeSatirlari = enflasyon?.satirlar ?? [];
+const tufe = new Map(tufeSatirlari.map((s) => [ayAnahtari(s), s.yillik]));
+const ayOf = (tarih: string) => ({ yil: Number(tarih.slice(0, 4)), ay: Number(tarih.slice(5, 7)) });
+// Düğmelerde kısa ad; tabloda TCMB'nin sektör adı.
+const KISA: Record<string, string> = {
+  KT1: 'Toplam',
+  KT16: 'Market, AVM',
+  KT5: 'Gıda',
+  KT24: 'Yemek',
+  KT4: 'Akaryakıt',
+  KT9: 'Giyim',
+  KT8: 'Elektronik',
+  KT19: 'Sağlık, kozmetik',
+  KT12: 'Konaklama',
+  KT10: 'Havayolu',
+  KT50: 'İnternet',
+};
+const milyar = (binTl: number) => binTl / 1e6;
+const yillikIdleri = [...sektorler.map((s) => `y_${s.kod}`), 'tufe'];
+const yillikNoktalar = satirlar.map((r) => [
+  gunAnahtari(r.tarih),
+  ...sektorler.map((s) => r.sektorler[s.kod].yillik),
+  tufe.get(ayAnahtari(ayOf(r.tarih))) ?? null,
+]);
+const yillikGruplar = sektorler.map((s) => ({
+  id: s.kod,
+  ad: KISA[s.kod] ?? s.ad,
+  seriler: [
+    { id: `y_${s.kod}`, ad: `${s.ad}, yıllık değişim`, renk: 'toprak' as const },
+    { id: 'tufe', ad: 'Yıllık enflasyon', renk: 'murekkep' as const },
+  ],
+}));
+const tutarIdleri = sektorler.map((s) => `t_${s.kod}`);
+const tutarNoktalar = satirlar.map((r) => [gunAnahtari(r.tarih), ...sektorler.map((s) => milyar(r.sektorler[s.kod].tutar))]);
+const tutarGruplar = sektorler.map((s) => ({
+  id: s.kod,
+  ad: KISA[s.kod] ?? s.ad,
+  seriler: [{ id: `t_${s.kod}`, ad: `${s.ad}, haftalık harcama`, renk: 'murekkep' as const }],
+}));
+const yuzde = (n: number) => yuzdeYaz(n);
+const milyarTl = (binTl: number) => `${sayiYaz(milyar(binTl), 1)} milyar TL`;
+const sonTufe = tufeSatirlari.at(-1);
+
+const baslik = 'Kartlı harcamalar';
+const description = son
+  ? `TCMB verisine göre ${gunYaz(son.tarih)} ile biten haftada banka ve kredi kartıyla ${milyarTl(son.sektorler.KT1.tutar)} harcandı; bir yıl öncesinin aynı haftasına göre değişim ${yuzde(son.sektorler.KT1.yillik ?? 0)}. Sektörlere göre haftalık kart harcamaları.`
+  : 'TCMB haftalık banka ve kredi kartı harcama tutarları, sektörlere göre.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/kartli-harcamalar/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(kart && son && ilk
+    ? {
+        sayfaEk: { dateModified: kart.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Banka kartı ve kredi kartı harcama tutarı (haftalık, sektörlere göre)',
+            description: 'Türkiye’deki bankaların POS cihazlarından yerli ve yabancı kartlarla yapılan harcamalar, sektörlere göre, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/kartli-harcamalar/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ilk.tarih}/${son.tarih}`,
+            dateModified: kart.alinma,
+            variableMeasured: ['Haftalık harcama tutarı (bin TL)', 'Bir önceki yılın aynı haftasına göre değişim (%)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Kartlı harcamalar: ${son ? gunYaz(son.tarih) : 'TCMB verisi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Banka ve kredi kartı harcamaları · TCMB, haftalık, sektörlere göre</p>
+    </header>
+    {
+      kart && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Haftalık toplam harcama</dt>
+              <dd>{milyarTl(son.sektorler.KT1.tutar)}</dd>
+              <dd class="veri-degisim">{gunYaz(son.tarih)} ile biten hafta</dd>
+            </div>
+            {son.sektorler.KT1.yillik != null && (
+              <div>
+                <dt>Bir yıl öncesine göre</dt>
+                <dd>{yuzde(son.sektorler.KT1.yillik)}</dd>
+                <dd class="veri-degisim">Aynı hafta, nominal</dd>
+              </div>
+            )}
+            {sonTufe && (
+              <div>
+                <dt>Yıllık enflasyon</dt>
+                <dd>{yuzde(sonTufe.yillik)}</dd>
+                <dd class="veri-degisim">{ayAdi(sonTufe)}, TÜİK</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={kart.kaynak.url} rel="noopener">{kart.kaynak.ad}</a>; enflasyon TÜİK verisi. Siteye
+            alındığı zaman: {zamanYaz(kart.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Harcama artışı ve enflasyon"
+            ipucu="Bir önceki yılın aynı haftasına göre değişim · Sektör seçin"
+            kaynak="Kaynak: TCMB banka kartı ve kredi kartı harcama tutarı (EVDS); enflasyon TÜİK."
+            siklik="hafta"
+            birim="yuzde"
+            seriIdleri={yillikIdleri}
+            noktalar={yillikNoktalar}
+            gruplar={yillikGruplar}
+            grupEtiketi="Sektör"
+            sifirdan
+          />
+
+          <ZamanGrafik
+            baslik="Haftalık harcama tutarı"
+            ipucu="Milyar TL, nominal · Sektör seçin"
+            kaynak="Kaynak: TCMB banka kartı ve kredi kartı harcama tutarı (EVDS)."
+            siklik="hafta"
+            birim="milyarTl"
+            seriIdleri={tutarIdleri}
+            noktalar={tutarNoktalar}
+            gruplar={tutarGruplar}
+            grupEtiketi="Sektör"
+            sifirdan
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Sektörler, {gunYaz(son.tarih)} ile biten hafta</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sektör</th>
+                      <th scope="col" class="sag">Harcama</th>
+                      <th scope="col" class="sag">Yıllık</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sektorler.map((s) => (
+                      <tr>
+                        <td>{s.ad}</td>
+                        <td class="sag">{milyarTl(son.sektorler[s.kod].tutar)}</td>
+                        <td class="sag">{son.sektorler[s.kod].yillik != null ? yuzde(son.sektorler[s.kod].yillik!) : '—'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Tabloda TCMB’nin sektörlerinden bir kısmı var; toplam bütün sektörleri kapsar. İnternet üzerinden
+                alışveriş, TCMB’nin bilgi için ayrıca verdiği bir kalemdir ve toplama eklenmez.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                TCMB her hafta, Türkiye’deki bankaların POS cihazlarından yerli ve yabancı banka kartları ve kredi kartlarıyla
+                yapılan harcamaları sektörlere göre yayımlar. Sanal POS’lar da dahildir. Kartla nakit avans ve nakit
+                çekim bu rakamlara girmez.
+              </p>
+              <p>
+                Rakamlar nominaldir, yani fiyat artışından arındırılmamıştır. Bu yüzden grafikte yıllık enflasyon da var.
+                Bir sektörün harcama artışı enflasyonun üstündeyse o sektörde harcama fiyatlardan hızlı artmıştır. Haftalık
+                rakamlar bir haftadan ötekine sert dalgalanabilir; eğilimi görmek için birkaç haftaya birlikte bakmak gerekir.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Kart harcama verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/tuketici-guveni/">Tüketici güveni</a>
+      <a href="/veri/piyasa-faizleri/">Piyasa faizleri</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi istatistiklerdir. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

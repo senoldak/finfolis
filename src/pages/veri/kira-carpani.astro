@@ -1,0 +1,168 @@
+---
+// Kira çarpanı (finfolis hesaplaması): değerlemesi yapılan konutların ortanca m² satış fiyatının yıllık m² kirasına oranı.
+// TCMB üç aylık birim fiyat ve birim kira serileri; birim kira aylık kira olarak alınır. Yatırım önerisi değildir.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { kiraCarpani } from '../../lib/turetilmis.mjs';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const bf = RESMI.birimFiyat;
+const satirlar = bf?.satirlar ?? [];
+const son = satirlar.at(-1);
+const ILLER = ['Türkiye', 'İstanbul', 'Ankara', 'İzmir'] as const;
+const RENKLER = ['murekkep', 'toprak', 'mavi', 'yesil'] as const;
+const carpan = (v: { fiyat: number; kira: number }) => kiraCarpani(v.fiyat, v.kira) as number;
+const noktalar = satirlar.map((s) => [s.yil * 4 + s.ceyrek - 1, ...ILLER.map((il) => carpan(s.iller[il]))]);
+const gruplar = [{ id: 'hepsi', ad: 'Hepsi', seriler: ILLER.map((il, i) => ({ id: il, ad: il, renk: RENKLER[i] })) }];
+const ilTablosu = (bf?.ilTablosu.iller ?? [])
+  .filter((i) => i.ad !== 'Türkiye')
+  .map((i) => ({ ...i, carpan: carpan(i) }))
+  .sort((a, b) => b.carpan - a.carpan);
+const enYuksek = ilTablosu[0];
+const enDusuk = ilTablosu.at(-1);
+const ceyrekAdi = (s: { yil: number; ceyrek: number }) => `${s.ceyrek}. çeyrek ${s.yil}`;
+const yil = (n: number) => `${sayiYaz(n, 1)} yıl`;
+const tl = (n: number) => `${sayiYaz(n, 0)} TL`;
+
+const baslik = 'Kira çarpanı';
+const description = son
+  ? `TCMB verisiyle ${ceyrekAdi(son)} itibarıyla Türkiye’de ortanca m² konut fiyatı ${yil(carpan(son.iller.Türkiye))}lık kiraya eşit; İstanbul’da ${yil(carpan(son.iller.İstanbul))}. İl il m² fiyat, m² kira ve kira çarpanı.`
+  : 'Konut fiyatının kaç yıllık kiraya eşit olduğu: TCMB birim fiyat ve birim kira verisinden finfolis hesaplaması.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/kira-carpani/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(bf && son ? { sayfaEk: { dateModified: bf.alinma } } : {}),
+});
+---
+
+<Base title={`Kira çarpanı: ${son ? ceyrekAdi(son) : 'TCMB verisi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Konut fiyatı kaç yıllık kiraya eşit · TCMB verisinden finfolis hesaplaması</p>
+    </header>
+    {
+      bf && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Türkiye</dt>
+              <dd>{yil(carpan(son.iller.Türkiye))}</dd>
+              <dd class="veri-degisim">{ceyrekAdi(son)}</dd>
+            </div>
+            <div>
+              <dt>İstanbul</dt>
+              <dd>{yil(carpan(son.iller.İstanbul))}</dd>
+              <dd class="veri-degisim">{ceyrekAdi(son)}</dd>
+            </div>
+            {enYuksek && (
+              <div>
+                <dt>En yüksek il</dt>
+                <dd>{yil(enYuksek.carpan)}</dd>
+                <dd class="veri-degisim">{enYuksek.ad}</dd>
+              </div>
+            )}
+            {enDusuk && (
+              <div>
+                <dt>En düşük il</dt>
+                <dd>{yil(enDusuk.carpan)}</dd>
+                <dd class="veri-degisim">{enDusuk.ad}</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={bf.kaynak.url} rel="noopener">{bf.kaynak.ad}</a>. Kira çarpanı finfolis
+            hesaplamasıdır. Siteye alındığı zaman: {zamanYaz(bf.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Kira çarpanı"
+            ipucu="Yıl, üç aylık · m² fiyatın yıllık m² kiraya oranı"
+            kaynak="Kaynak: TCMB, değerlemesi yapılan konutların birim fiyatları ve birim kiraları (EVDS). Hesaplama: finfolis."
+            siklik="ceyrek"
+            birim="yil"
+            seriIdleri={[...ILLER]}
+            noktalar={noktalar}
+            gruplar={gruplar}
+            sifirdan
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">İllere göre, {ceyrekAdi(bf.ilTablosu)}</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">İl</th>
+                      <th scope="col" class="sag">m² fiyat</th>
+                      <th scope="col" class="sag">m² kira</th>
+                      <th scope="col" class="sag">Çarpan</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ilTablosu.map((i) => (
+                      <tr>
+                        <td>{i.ad}</td>
+                        <td class="sag">{tl(i.fiyat)}</td>
+                        <td class="sag">{tl(i.kira)}</td>
+                        <td class="sag">{yil(i.carpan)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">TCMB yalnız yeterli veri olan illeri yayımlar; tabloda {ilTablosu.length} il var.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar nasıl hesaplanıyor?</h2>
+              <p>
+                TCMB, konut kredisi başvurularında hazırlanan değerleme raporlarından her il için ortanca m² satış fiyatını
+                ve ortanca m² kirayı üç ayda bir yayımlar. Birim fiyat konut değerinin, birim kira kira değerinin konutun
+                brüt alanına bölünmesiyle bulunur.
+              </p>
+              <p>
+                Kira çarpanı, m² fiyatın bir yıllık m² kiraya bölünmesidir. Hesapta TCMB’nin birim kirası aylık kira
+                olarak alınır ve 12 ile çarpılır. Sonuç, bir konutun fiyatının kaç yıllık kirasına eşit olduğunu gösterir.
+              </p>
+              <p>
+                İki ortanca ayrı konut gruplarından hesaplandığı için çarpan tek tek evler için değil, ilin genel düzeyi
+                için bir göstergedir. Vergi, aidat, bakım ve boş kalan aylar hesaba girmez.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Birim fiyat verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/kira-endeksi/">Kira endeksi</a>
+      <a href="/veri/konut-fiyat-endeksi/">Konut fiyat endeksi</a>
+      <a href="/veri/reel-faiz/">Reel faiz</a>
+    </nav>
+    <YasalUyari>
+      Bu sayfadaki çarpan TCMB verisinden finfolis’in hesapladığı genel bir göstergedir. Konut alım ya da satımı için öneri
+      değildir.
+    </YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

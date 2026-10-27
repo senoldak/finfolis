@@ -1,0 +1,181 @@
+---
+// Yeni Kiracı Kira Endeksi (TCMB, 2023=100): Türkiye ve üç büyük il; konut fiyatı ve enflasyonla birlikte yıllık değişim.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const { kira, enflasyon } = RESMI;
+const satirlar = kira?.satirlar ?? [];
+const son = satirlar.at(-1);
+const ilk = satirlar[0];
+const tufe = new Map((enflasyon?.satirlar ?? []).map((s) => [ayAnahtari(s), s.yillik]));
+const bolgeler = kira?.bolgeler ?? [];
+const seriIdleri = [...bolgeler.flatMap((b) => [`kira_${b.kod}`, `konut_${b.kod}`]), 'tufe'];
+const noktalar = satirlar.map((s) => [
+  ayAnahtari(s),
+  ...bolgeler.flatMap((b) => [s.bolgeler[b.kod].yillik, s.bolgeler[b.kod].konutYillik]),
+  tufe.get(ayAnahtari(s)) ?? null,
+]);
+const gruplar = bolgeler.map((b) => ({
+  id: b.kod,
+  ad: b.ad,
+  seriler: [
+    { id: `kira_${b.kod}`, ad: 'Yeni kiracı kirası', renk: 'toprak' as const },
+    { id: `konut_${b.kod}`, ad: 'Konut fiyatı', renk: 'mavi' as const, kesik: true },
+    { id: 'tufe', ad: 'Enflasyon (Türkiye)', renk: 'murekkep' as const },
+  ],
+}));
+const tablo = [...(kira?.bolgeTablosu.bolgeler ?? [])].sort((a, b) => b.yillik - a.yillik);
+const yuzde = (n: number) => `%${sayiYaz(n, 1)}`;
+const sonTufe = son ? tufe.get(ayAnahtari(son)) : undefined;
+
+const baslik = 'Kira endeksi';
+const description =
+  son
+    ? `TCMB Yeni Kiracı Kira Endeksi’ne göre yeni kiracıların ödediği kira ${ayAdi(son)} itibarıyla bir yılda ${yuzde(son.bolgeler.TR.yillik)} arttı; İstanbul’da ${yuzde(son.bolgeler.TR10.yillik)}. Bölgelere göre kira artışı, konut fiyatı ve enflasyonla karşılaştırma.`
+    : 'TCMB Yeni Kiracı Kira Endeksi: Türkiye, İstanbul, Ankara ve İzmir’de yeni kiracı kirasının yıllık değişimi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/kira-endeksi/' },
+];
+const ayIso = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(kira && son && ilk
+    ? {
+        sayfaEk: { dateModified: kira.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Yeni Kiracı Kira Endeksi (2023=100)',
+            description: 'TCMB’nin Yeni Kiracı Kira Endeksi ve yıllık değişimi; Türkiye, İstanbul, Ankara, İzmir ve İBBS bölgeleri, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/kira-endeksi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ayIso(ilk)}/${ayIso(son)}`,
+            dateModified: kira.alinma,
+            variableMeasured: ['Yeni Kiracı Kira Endeksi (2023=100)', 'Yıllık değişim (%)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Kira endeksi: ${son ? ayAdi(son) : 'TCMB verisi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>TCMB Yeni Kiracı Kira Endeksi · Konut fiyatı ve enflasyonla birlikte</p>
+    </header>
+    {
+      kira && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Türkiye, yıllık kira artışı</dt>
+              <dd>{yuzde(son.bolgeler.TR.yillik)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}</dd>
+            </div>
+            <div>
+              <dt>İstanbul</dt>
+              <dd>{yuzde(son.bolgeler.TR10.yillik)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}</dd>
+            </div>
+            <div>
+              <dt>Konut fiyatı, yıllık</dt>
+              <dd>{yuzde(son.bolgeler.TR.konutYillik)}</dd>
+              <dd class="veri-degisim">Türkiye, {ayAdi(son)}</dd>
+            </div>
+            {sonTufe != null && (
+              <div>
+                <dt>Yıllık enflasyon</dt>
+                <dd>{yuzde(sonTufe)}</dd>
+                <dd class="veri-degisim">{ayAdi(son)}, TÜİK</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={kira.kaynak.url} rel="noopener">{kira.kaynak.ad}</a>; enflasyon TÜİK verisi. Siteye
+            alındığı zaman: {zamanYaz(kira.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Kira, konut fiyatı ve enflasyon"
+            ipucu="Yıllık değişim, aylık · Bölge seçin, serileri açıp kapatmak için adlarına dokunun"
+            kaynak="Kaynak: TCMB Yeni Kiracı Kira Endeksi ve Konut Fiyat Endeksi; enflasyon TÜİK (TCMB EVDS)."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={seriIdleri}
+            noktalar={noktalar}
+            gruplar={gruplar}
+            grupEtiketi="Bölge"
+            sifirdan
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Bölgelere göre yıllık kira artışı, {ayAdi(kira.bolgeTablosu)}</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Bölge</th>
+                      <th scope="col" class="sag">Yıllık</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((b) => (
+                      <tr>
+                        <td>{b.ad}</td>
+                        <td class="sag">{yuzde(b.yillik)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Bölgeler İstatistiki Bölge Birimleri Sınıflaması’na (İBBS) göredir; adları TCMB serilerindeki illerden.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Yeni Kiracı Kira Endeksi’ni TCMB her ay, Konut Fiyat Endeksi’yle aynı bültende yayımlar. Endeks yeni kiraya
+                verilen konutların kirasını izler ve 2023 yılı 100 kabul edilerek hesaplanır.
+              </p>
+              <p>
+                Yıllık değişim, kiranın bir önceki yılın aynı ayına göre ne kadar arttığını gösterir. Grafikte aynı bölgenin
+                konut fiyatı yıllık değişimi ve Türkiye geneli yıllık enflasyon da yer alıyor. Kira çizgisi enflasyonun
+                üstündeyse kira o dönemde genel fiyatlardan hızlı artmış demektir.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Kira endeksi verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/konut-fiyat-endeksi/">Konut fiyat endeksi</a>
+      <a href="/veri/kira-carpani/">Kira çarpanı</a>
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/enflasyon-beklentisi/">Enflasyon beklentisi</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi endekslerdir. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

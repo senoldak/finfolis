@@ -1,0 +1,529 @@
+---
+// Enflasyon beklentisi ile gerçekleşen yıllık TÜFE aynı grafikte. İki görünüm: beklenti anket ayında ya da ait olduğu ayda
+// (12 ay beklentisi 12 ay, 24 ay beklentisi 24 ay ileri kaydırılır). Hedef görünüm yalnız gerçekleşmiş aylarla sınırlıdır;
+// grafik geleceğe çizgi uzatmaz. Değerler TCMB/TÜİK'in yayımladığı rakamlardır, burada hesaplanan tek şey kaydırma ve farktır.
+import type { BeklentiBolumu, TufeSatiri } from '../lib/resmi';
+import { ayAnahtari } from '../lib/resmi';
+
+interface Props {
+  beklenti: BeklentiBolumu['satirlar'];
+  tufe: TufeSatiri[];
+}
+
+const { beklenti, tufe } = Astro.props;
+const ilk = ayAnahtari(beklenti[0]);
+const veri = {
+  tufe: tufe.filter((s) => ayAnahtari(s) >= ilk).map((s) => [ayAnahtari(s), s.yillik]),
+  beklenti: beklenti.map((s) => [ayAnahtari(s), s.ay12, s.ay24]),
+};
+---
+
+<section class="beklenti-kart" data-beklenti-grafik aria-labelledby="beklenti-grafik-baslik">
+  <div class="kart-bas">
+    <div>
+      <h2 id="beklenti-grafik-baslik" class="kart-baslik">Beklenti ve gerçekleşen enflasyon</h2>
+      <p class="kart-ipucu">Yıllık %, aylık · Serileri açıp kapatmak için adlarına dokunun</p>
+    </div>
+    <div class="filtreler">
+      <div class="filtre-kumesi" role="group" aria-label="Görünüm">
+        <button type="button" class="filtre-btn aktif" data-gorunum="anket" aria-pressed="true">Anket ayına göre</button>
+        <button type="button" class="filtre-btn" data-gorunum="hedef" aria-pressed="false">Hedef aya göre</button>
+      </div>
+      <div class="filtre-kumesi" role="group" aria-label="Zaman aralığı">
+        <button type="button" class="filtre-btn" data-aralik="24" aria-pressed="false">2 yıl</button>
+        <button type="button" class="filtre-btn" data-aralik="60" aria-pressed="false">5 yıl</button>
+        <button type="button" class="filtre-btn aktif" data-aralik="tum" aria-pressed="true">Tümü</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="gorunum-notu" data-gorunum-notu>
+    Turuncu ve mavi çizgiler, anketin yapıldığı aydaki beklentiyi gösterir. Siyah çizgi o ay açıklanan yıllık enflasyondur.
+  </p>
+
+  <div class="lejant" role="group" aria-label="Seriler">
+    <button type="button" class="lejant-dugme aktif" data-seri="tufe" aria-pressed="true">
+      <span class="renk renk-tufe" aria-hidden="true"></span>Gerçekleşen yıllık TÜFE
+    </button>
+    <button type="button" class="lejant-dugme aktif" data-seri="ay12" aria-pressed="true">
+      <span class="renk renk-ay12" aria-hidden="true"></span>12 ay sonrası beklenti
+    </button>
+    <button type="button" class="lejant-dugme aktif" data-seri="ay24" aria-pressed="true">
+      <span class="renk renk-ay24" aria-hidden="true"></span>24 ay sonrası beklenti
+    </button>
+  </div>
+
+  <div class="cizim" data-cizim>
+    <svg viewBox="0 0 880 420" role="img" aria-label="Enflasyon beklentisi ve gerçekleşen yıllık enflasyon çizgi grafiği" data-svg>
+    </svg>
+    <div class="ipucu" data-ipucu hidden></div>
+  </div>
+  <p class="kart-alt">Kaynak: TCMB Piyasa Katılımcıları Anketi; TÜİK tüketici fiyat endeksi (TCMB EVDS ve TCMB enflasyon tablosu).</p>
+
+  <script type="application/json" data-beklenti-veri set:html={JSON.stringify(veri)} />
+</section>
+
+<script>
+  const AYLAR = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
+  const AYLAR_UZUN = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+  const SVG = 'http://www.w3.org/2000/svg';
+  const W = 880;
+  // Dar ekranda (CSS'teki 600 px eşiği) grafik daha uzun çizilir ve yazılar büyüdüğü için etiketler daha aralıklı dizilir.
+  const darEkran = () => window.matchMedia('(max-width: 600px)').matches;
+  let H = 420;
+  const P = { ust: 20, alt: 36, sol: 44, sag: 64 };
+  const SERI = {
+    tufe: { ad: 'Gerçekleşen', renk: '#1b1b1b', kalinlik: 2.5, kesik: '' },
+    ay12: { ad: '12 ay beklenti', renk: '#c2502b', kalinlik: 2, kesik: '' },
+    ay24: { ad: '24 ay beklenti', renk: '#1f63a8', kalinlik: 2, kesik: '6 4' },
+  } as const;
+  type SeriId = keyof typeof SERI;
+
+  const ayYaz = (k: number, uzun = false) => `${(uzun ? AYLAR_UZUN : AYLAR)[k % 12]} ${Math.floor(k / 12)}`;
+  const yuzde = (n: number) => `%${n.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  const puan = (n: number) =>
+    `${Math.abs(n).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} puan`;
+
+  for (const kok of document.querySelectorAll<HTMLElement>('[data-beklenti-grafik]')) {
+    const ham = JSON.parse(kok.querySelector('[data-beklenti-veri]')!.textContent || '{}') as {
+      tufe: [number, number][];
+      beklenti: [number, number, number][];
+    };
+    const svg = kok.querySelector<SVGSVGElement>('[data-svg]')!;
+    const ipucu = kok.querySelector<HTMLElement>('[data-ipucu]')!;
+    const not = kok.querySelector<HTMLElement>('[data-gorunum-notu]')!;
+    const tufe = new Map(ham.tufe);
+    const anket = {
+      ay12: new Map(ham.beklenti.map(([k, a12]) => [k, a12])),
+      ay24: new Map(ham.beklenti.map(([k, , a24]) => [k, a24])),
+    };
+    const sonTufe = Math.max(...tufe.keys());
+    const sonAnket = Math.max(...anket.ay12.keys());
+    let gorunum: 'anket' | 'hedef' = 'anket';
+    let aralik: number | 'tum' = 'tum';
+    const acik: Record<SeriId, boolean> = { tufe: true, ay12: true, ay24: true };
+
+    // Görünüme göre her serinin ay -> değer haritası. Hedef görünümde beklenti, ait olduğu aya taşınır.
+    const seriler = (): Record<SeriId, Map<number, number>> =>
+      gorunum === 'anket'
+        ? { tufe, ay12: anket.ay12, ay24: anket.ay24 }
+        : {
+            tufe,
+            ay12: new Map([...anket.ay12].map(([k, v]) => [k + 12, v])),
+            ay24: new Map([...anket.ay24].map(([k, v]) => [k + 24, v])),
+          };
+
+    const el = (ad: string, oz: Record<string, string | number>, ebeveyn: Element = svg) => {
+      const e = document.createElementNS(SVG, ad);
+      for (const [k, v] of Object.entries(oz)) e.setAttribute(k, String(v));
+      ebeveyn.appendChild(e);
+      return e;
+    };
+
+    function ciz() {
+      H = darEkran() ? 640 : 420;
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      const s = seriler();
+      // Hedef görünümde yalnız gerçekleşmiş aylar; anket görünümünde son anket ya da son TÜFE ayına kadar.
+      const bit = gorunum === 'hedef' ? sonTufe : Math.max(sonAnket, sonTufe);
+      const ilkVeri = Math.min(...[...s.ay12.keys()].filter((k) => k <= bit));
+      const bas = aralik === 'tum' ? ilkVeri : Math.max(ilkVeri, bit - aralik + 1);
+      const aylar = Array.from({ length: bit - bas + 1 }, (_, i) => bas + i);
+      const gorunur = (Object.keys(SERI) as SeriId[]).filter((id) => acik[id]);
+      const degerler = gorunur.flatMap((id) => aylar.map((k) => s[id].get(k)).filter((v): v is number => v != null));
+      const ust = Math.max(10, ...degerler);
+      const adim = ust > 60 ? 20 : ust > 30 ? 10 : 5;
+      const yMax = Math.ceil(ust / adim) * adim;
+      const x = (k: number) => P.sol + ((k - bas) / Math.max(bit - bas, 1)) * (W - P.sol - P.sag);
+      const y = (v: number) => P.ust + (1 - v / yMax) * (H - P.ust - P.alt);
+
+      svg.replaceChildren();
+      for (let v = 0; v <= yMax; v += adim) {
+        el('line', { x1: P.sol, x2: W - P.sag, y1: y(v), y2: y(v), class: v === 0 ? 'taban' : 'izgara' });
+        el('text', { x: P.sol - 8, y: y(v) + 4, 'text-anchor': 'end', class: 'eksen' }).textContent = `%${v}`;
+      }
+      const yilAdimi = aylar.length > 72 ? 2 : 1;
+      for (const k of aylar) {
+        const yil = Math.floor(k / 12);
+        if (k % 12 === 0 && yil % yilAdimi === 0) {
+          el('text', { x: x(k), y: H - P.alt + 20, 'text-anchor': 'middle', class: 'eksen' }).textContent = String(yil);
+        }
+      }
+
+      const sonlar: { id: SeriId; k: number; v: number }[] = [];
+      for (const id of gorunur) {
+        let d = '';
+        let onceki = false;
+        for (const k of aylar) {
+          const v = s[id].get(k);
+          if (v == null) {
+            onceki = false;
+            continue;
+          }
+          d += `${onceki ? 'L' : 'M'}${x(k).toFixed(1)} ${y(v).toFixed(1)}`;
+          onceki = true;
+        }
+        if (!d) continue;
+        el('path', {
+          d,
+          fill: 'none',
+          stroke: SERI[id].renk,
+          'stroke-width': SERI[id].kalinlik,
+          'stroke-linejoin': 'round',
+          'stroke-linecap': 'round',
+          ...(SERI[id].kesik ? { 'stroke-dasharray': SERI[id].kesik } : {}),
+        });
+        const son = aylar.filter((k) => s[id].has(k)).at(-1);
+        if (son != null) sonlar.push({ id, k: son, v: s[id].get(son)! });
+      }
+      // Doğrudan etiketler: çizgi sonunda, üst üste binmesin diye en az 14 birim aralıkla.
+      const etiketY = sonlar.map((e) => ({ ...e, ey: y(e.v) })).sort((a, b) => a.ey - b.ey);
+      for (let i = 1; i < etiketY.length; i++) etiketY[i].ey = Math.max(etiketY[i].ey, etiketY[i - 1].ey + (darEkran() ? 28 : 14));
+      for (const e of etiketY) {
+        el('circle', { cx: x(e.k), cy: y(e.v), r: 3.5, fill: SERI[e.id].renk, stroke: '#fff', 'stroke-width': 2 });
+        el('text', { x: x(e.k) + 8, y: e.ey + 4, class: 'son-etiket' }).textContent =
+          `%${e.v.toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}`;
+      }
+
+      const imlec = el('g', { class: 'imlec', visibility: 'hidden' });
+      const cizgi = el('line', { y1: P.ust, y2: H - P.alt, class: 'imlec-cizgi' }, imlec);
+      const noktalar = gorunur.map((id) =>
+        el('circle', { r: 4.5, fill: SERI[id].renk, stroke: '#fff', 'stroke-width': 2 }, imlec),
+      );
+      const yuzey = el('rect', { x: P.sol, y: P.ust, width: W - P.sol - P.sag, height: H - P.ust - P.alt, fill: 'transparent', class: 'yuzey' });
+
+      const goster = (istemciX: number) => {
+        const r = svg.getBoundingClientRect();
+        const svgX = ((istemciX - r.left) / r.width) * W;
+        const k = Math.round(bas + ((svgX - P.sol) / (W - P.sol - P.sag)) * (bit - bas));
+        if (k < bas || k > bit) return;
+        imlec.setAttribute('visibility', 'visible');
+        cizgi.setAttribute('x1', String(x(k)));
+        cizgi.setAttribute('x2', String(x(k)));
+        gorunur.forEach((id, i) => {
+          const v = s[id].get(k);
+          noktalar[i].setAttribute('visibility', v == null ? 'hidden' : 'visible');
+          if (v != null) {
+            noktalar[i].setAttribute('cx', String(x(k)));
+            noktalar[i].setAttribute('cy', String(y(v)));
+          }
+        });
+        const satir = (id: SeriId, ek = '') => {
+          const v = s[id].get(k);
+          return v == null
+            ? ''
+            : `<div class="ip-satir"><span class="ip-nokta renk-${id}"></span><span class="ip-ad">${SERI[id].ad}${ek}</span><strong>${yuzde(v)}</strong></div>`;
+        };
+        let html = `<div class="ip-tarih">${ayYaz(k, true)}</div>`;
+        if (gorunum === 'anket') {
+          html += gorunur.map((id) => satir(id, id === 'ay12' ? ` (${ayYaz(k + 12)} için)` : id === 'ay24' ? ` (${ayYaz(k + 24)} için)` : '')).join('');
+        } else {
+          html += gorunur.map((id) => satir(id, id === 'ay12' ? ` (${ayYaz(k - 12)} anketi)` : id === 'ay24' ? ` (${ayYaz(k - 24)} anketi)` : '')).join('');
+          const g = tufe.get(k);
+          const b = s.ay12.get(k);
+          if (g != null && b != null && acik.tufe && acik.ay12) {
+            html +=
+              g === b
+                ? '<div class="ip-fark">Gerçekleşen, 12 ay önceki beklentiyle aynı</div>'
+                : `<div class="ip-fark">Gerçekleşen, 12 ay önceki beklentiden <strong>${puan(g - b)}</strong> ${g > b ? 'yüksek' : 'düşük'}</div>`;
+          }
+        }
+        ipucu.innerHTML = html;
+        ipucu.hidden = false;
+        const kutu = kok.querySelector<HTMLElement>('[data-cizim]')!.getBoundingClientRect();
+        const px = (x(k) / W) * r.width + (r.left - kutu.left);
+        const sag = px > kutu.width / 2;
+        ipucu.style.left = sag ? '' : `${px + 14}px`;
+        ipucu.style.right = sag ? `${kutu.width - px + 14}px` : '';
+      };
+      yuzey.addEventListener('pointermove', (e) => goster((e as PointerEvent).clientX));
+      yuzey.addEventListener('pointerdown', (e) => goster((e as PointerEvent).clientX));
+      yuzey.addEventListener('pointerleave', () => {
+        imlec.setAttribute('visibility', 'hidden');
+        ipucu.hidden = true;
+      });
+    }
+
+    const sec = (grup: NodeListOf<HTMLButtonElement>, btn: HTMLButtonElement) => {
+      grup.forEach((b) => {
+        b.classList.toggle('aktif', b === btn);
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+    };
+    const gorunumBtn = kok.querySelectorAll<HTMLButtonElement>('[data-gorunum]');
+    gorunumBtn.forEach((b) =>
+      b.addEventListener('click', () => {
+        sec(gorunumBtn, b);
+        gorunum = b.dataset.gorunum as 'anket' | 'hedef';
+        not.textContent =
+          gorunum === 'anket'
+            ? 'Turuncu ve mavi çizgiler, anketin yapıldığı aydaki beklentiyi gösterir. Siyah çizgi o ay açıklanan yıllık enflasyondur.'
+            : 'Beklentiler ait oldukları aya kaydırıldı. Bir aydaki turuncu çizgi 12 ay önce, mavi kesikli çizgi 24 ay önce o ay için beklenen enflasyondur. Yalnız açıklanmış aylar gösterilir.';
+        ciz();
+      }),
+    );
+    const aralikBtn = kok.querySelectorAll<HTMLButtonElement>('[data-aralik]');
+    aralikBtn.forEach((b) =>
+      b.addEventListener('click', () => {
+        sec(aralikBtn, b);
+        aralik = b.dataset.aralik === 'tum' ? 'tum' : Number(b.dataset.aralik);
+        ciz();
+      }),
+    );
+    kok.querySelectorAll<HTMLButtonElement>('[data-seri]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const id = b.dataset.seri as SeriId;
+        if (acik[id] && Object.values(acik).filter(Boolean).length === 1) return;
+        acik[id] = !acik[id];
+        b.classList.toggle('aktif', acik[id]);
+        b.setAttribute('aria-pressed', String(acik[id]));
+        ciz();
+      }),
+    );
+    ciz();
+    let dar = darEkran();
+    window.addEventListener('resize', () => {
+      if (darEkran() !== dar) {
+        dar = darEkran();
+        ciz();
+      }
+    });
+  }
+</script>
+
+<style>
+  .beklenti-kart {
+    margin: 28px 0;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid var(--hair);
+  }
+
+  .kart-bas {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .kart-baslik {
+    font-family: var(--sans);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .kart-ipucu,
+  .kart-alt,
+  .gorunum-notu {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 4px 0 0;
+  }
+
+  .gorunum-notu {
+    margin: 16px 0 12px;
+    color: var(--ink-2);
+  }
+
+  .filtreler {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .filtre-kumesi {
+    display: inline-flex;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 2px;
+  }
+
+  .filtre-btn {
+    border: none;
+    background: transparent;
+    padding: 8px 12px;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .filtre-btn.aktif {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .lejant {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-bottom: 8px;
+  }
+
+  .lejant-dugme {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background: transparent;
+    padding: 6px 0;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  .lejant-dugme:not(.aktif) {
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+
+  .lejant-dugme:not(.aktif) .renk {
+    opacity: 0.3;
+  }
+
+  .renk {
+    width: 22px;
+    height: 3px;
+    display: inline-block;
+  }
+
+  .lejant .renk-ay24 {
+    background: repeating-linear-gradient(90deg, #1f63a8 0 6px, transparent 6px 10px);
+  }
+
+  .cizim {
+    position: relative;
+  }
+
+  .cizim svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    touch-action: pan-y;
+  }
+
+  .cizim :global(.izgara) {
+    stroke: var(--paper-2);
+    stroke-width: 1;
+  }
+
+  .cizim :global(.taban) {
+    stroke: var(--hair);
+    stroke-width: 1;
+  }
+
+  .cizim :global(.eksen) {
+    font-family: var(--sans);
+    font-size: 12px;
+    fill: var(--muted);
+  }
+
+  .cizim :global(.son-etiket) {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 700;
+    fill: var(--ink);
+  }
+
+  .cizim :global(.imlec-cizgi) {
+    stroke: var(--ink);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+  }
+
+  .cizim :global(.yuzey) {
+    cursor: crosshair;
+  }
+
+  .ipucu {
+    position: absolute;
+    top: 8px;
+    pointer-events: none;
+    background: #fff;
+    border: 1px solid var(--ink);
+    padding: 10px 12px;
+    min-width: 220px;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    box-shadow: 3px 3px 0 rgba(27, 27, 27, 0.12);
+  }
+
+  .ipucu :global(.ip-tarih) {
+    font-weight: 700;
+    color: var(--toprak-text);
+    border-bottom: 1px solid var(--hair);
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+  }
+
+  .ipucu :global(.ip-satir) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 3px;
+  }
+
+  .ipucu :global(.ip-ad) {
+    flex: 1;
+    color: var(--muted);
+  }
+
+  .ipucu :global(.ip-satir strong) {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ipucu :global(.ip-nokta) {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+  }
+
+  .ipucu :global(.ip-fark) {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--hair);
+  }
+
+  .beklenti-kart :global(.renk-tufe) {
+    background: #1b1b1b;
+  }
+
+  .beklenti-kart :global(.renk-ay12) {
+    background: #c2502b;
+  }
+
+  .beklenti-kart :global(.renk-ay24) {
+    background: #1f63a8;
+  }
+
+  @media (max-width: 600px) {
+    .beklenti-kart {
+      padding: 16px;
+    }
+
+    /* SVG telefonda yaklaşık üçte bire küçülür; yazılar SVG biriminde büyütülür ki 9-10 piksel okunsun. */
+    .cizim svg {
+      overflow: visible;
+    }
+
+    .cizim :global(.eksen),
+    .cizim :global(.son-etiket) {
+      font-size: 26px;
+    }
+
+    .cizim :global(.referans-etiket) {
+      font-size: 22px;
+    }
+
+    .ipucu {
+      min-width: 0;
+      max-width: 70%;
+    }
+  }
+</style>

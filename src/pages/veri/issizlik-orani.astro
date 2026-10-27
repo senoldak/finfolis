@@ -3,7 +3,8 @@
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
-import { RESMI, ayAdi, sayiYaz, zamanYaz } from '../../lib/resmi';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
@@ -13,6 +14,7 @@ const ilk = iss?.satirlar[0];
 const birAyOnce = iss?.satirlar.at(-2);
 const birYilOnce = son && iss?.satirlar.find((s) => s.yil === son.yil - 1 && s.ay === son.ay);
 const tablo = (iss?.satirlar ?? []).slice(-24).reverse();
+const grafikNoktalari = (iss?.satirlar ?? []).map((s) => [ayAnahtari(s), s.oran]);
 const yuzde = (n: number) => `%${sayiYaz(n, 1)}`;
 const baslik = 'İşsizlik oranı';
 const description =
@@ -85,6 +87,18 @@ const jsonLd = sayfaSemasi({
             <strong>Kaynak:</strong> <a href={iss.kaynak.url} rel="noopener">{iss.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
             {zamanYaz(iss.alinma)}.
           </p>
+
+          <ZamanGrafik
+            baslik="İşsizlik oranı"
+            ipucu="Yüzde, aylık, mevsimsellikten arındırılmış"
+            kaynak="Kaynak: TÜİK, TCMB EVDS üzerinden."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['oran']}
+            noktalar={grafikNoktalari}
+            gruplar={[{ id: 'hepsi', ad: 'Hepsi', seriler: [{ id: 'oran', ad: 'İşsizlik oranı', renk: 'toprak' }] }]}
+            araliksiz
+          />
 
           <div class="veri-izgara">
             <section class="bolum">

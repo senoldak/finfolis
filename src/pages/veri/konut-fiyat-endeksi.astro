@@ -3,7 +3,8 @@
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
-import { RESMI, ayAdi, sayiYaz, zamanYaz } from '../../lib/resmi';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
@@ -13,6 +14,12 @@ const ilk = kfe?.satirlar[0];
 const tablo = (kfe?.satirlar ?? []).slice().reverse();
 const iller = (kfe?.bolgeler ?? []).filter((b) => b.kod !== 'TR');
 const yuzde = (n: number) => `%${sayiYaz(n, 1)}`;
+const RENKLER = ['murekkep', 'toprak', 'mavi', 'yesil'] as const;
+const grafikBolgeleri = kfe?.bolgeler ?? [];
+const grafikNoktalari = (kfe?.satirlar ?? []).map((s) => [ayAnahtari(s), ...grafikBolgeleri.map((b) => s.bolgeler[b.kod]?.yillik ?? null)]);
+const grafikGruplari = [
+  { id: 'hepsi', ad: 'Hepsi', seriler: grafikBolgeleri.map((b, i) => ({ id: b.kod, ad: b.ad, renk: RENKLER[i % RENKLER.length] })) },
+];
 const baslik = 'Konut fiyat endeksi';
 const description =
   son && kfe
@@ -78,6 +85,19 @@ const jsonLd = sayfaSemasi({
             kendi hesabıdır. Siteye alındığı zaman: {zamanYaz(kfe.alinma)}.
           </p>
 
+          <ZamanGrafik
+            baslik="Konut fiyatlarının yıllık değişimi"
+            ipucu="Yüzde, aylık · Serileri açıp kapatmak için adlarına dokunun"
+            kaynak="Kaynak: TCMB Konut Fiyat Endeksi (EVDS); yıllık değişim TCMB hesabı."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={grafikBolgeleri.map((b) => b.kod)}
+            noktalar={grafikNoktalari}
+            gruplar={grafikGruplari}
+            araliksiz
+            sifirdan
+          />
+
           <div class="veri-izgara">
             <section class="bolum">
               <h2 class="bolum-baslik">Son 24 ay, yıllık değişim</h2>
@@ -131,6 +151,7 @@ const jsonLd = sayfaSemasi({
       )
     }
     <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/kira-endeksi/">Kira endeksi</a>
       <a href="/veri/enflasyon/">Enflasyon</a>
       <a href="/veri/politika-faizi/">Politika faizi</a>
       <a href="/hesapla/kredi-taksit/">Kredi taksit hesaplama</a>

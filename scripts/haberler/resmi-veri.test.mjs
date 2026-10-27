@@ -118,6 +118,14 @@ function evdsYanit(url) {
     });
     return JSON.stringify({ totalCount: items.length, items });
   }
+  if (u.includes('TP.PKAUO')) {
+    const items = aylar([2024, 11], 25).map((a, i) => ({
+      Tarih: `${a.yil}-${a.ay}`,
+      TP_PKAUO_S01_E_U: i < 24 ? (30 - i / 4).toFixed(8) : null,
+      TP_PKAUO_S01_F_U: i < 24 ? (22 - i / 5).toFixed(8) : null,
+    }));
+    return JSON.stringify({ totalCount: items.length, items });
+  }
   if (u.includes('TP.TIG08')) {
     const items = aylar([2024, 8], 26).map((a, i) => ({ Tarih: `${a.yil}-${a.ay}`, TP_TIG08: i < 25 ? (8 + i / 10).toFixed(8) : null }));
     return JSON.stringify({ totalCount: items.length, items });
@@ -149,6 +157,16 @@ test('guncelle: anahtar varsa konut ve işsizlik EVDS’den gelir, boş son ay a
   assert.equal(v.issizlik.satirlar.length, 25);
   assert.deepEqual(v.issizlik.satirlar.at(-1), { yil: 2026, ay: 8, oran: 10.4 });
   assert.equal(v.issizlik.alinma, SIMDI.toISOString());
+});
+
+test('guncelle: enflasyon beklentisi 12 ve 24 ay serisinden gelir, boş son ay atılır', async () => {
+  sahteFetch();
+  const yedek = globalThis.fetch;
+  globalThis.fetch = async (url, op) => (String(url).includes('igmevdsms-dis') ? yanit(evdsYanit(url)) : yedek(url, op));
+  const v = await guncelle(undefined, SIMDI, { gun: 1, evdsAnahtari: 'x' });
+  assert.equal(v.beklenti.satirlar.length, 24);
+  assert.deepEqual(v.beklenti.satirlar[0], { yil: 2024, ay: 11, ay12: 30, ay24: 22 });
+  assert.deepEqual(v.beklenti.satirlar.at(-1), { yil: 2026, ay: 10, ay12: 24.25, ay24: 17.4 });
 });
 
 test('guncelle: anahtar yoksa EVDS bölümleri atlanır, eskisi kalır', async () => {

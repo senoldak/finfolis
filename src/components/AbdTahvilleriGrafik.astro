@@ -21,7 +21,7 @@ const PAD_RIGHT = 35;
 const cizimW = W - PAD_LEFT - PAD_RIGHT;
 const cizimH = H - PAD_TOP - PAD_BOTTOM;
 
-// Y ekseni ölçeği (0 ile 90.000 Milyon USD arası)
+// Y ekseni ölçeği (0 ile 90.000 milyon USD arası; eksende milyar yazılır)
 const maxY = 90000;
 const minY = 0;
 
@@ -86,16 +86,16 @@ const sonY = yPos(sonNokta.toplamUSD);
     <div class="lejant-oge">
       <span class="renk-kutu kisa"></span>
       <span class="ad">Kısa Vadeli (T-Bills, &le;1 yıl)</span>
-      <strong class="deger" id="tarihsel-lejant-kisa">${sonNokta.kisaUSD.toLocaleString('tr-TR')} M (%{sonNokta.kisaOran})</strong>
+      <strong class="deger" id="tarihsel-lejant-kisa">${(sonNokta.kisaUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr (%{sonNokta.kisaOran})</strong>
     </div>
     <div class="lejant-oge">
       <span class="renk-kutu uzun"></span>
       <span class="ad">Uzun Vadeli (Tahvil, &gt;1 yıl)</span>
-      <strong class="deger" id="tarihsel-lejant-uzun">${sonNokta.uzunUSD.toLocaleString('tr-TR')} M (%{sonNokta.uzunOran})</strong>
+      <strong class="deger" id="tarihsel-lejant-uzun">${(sonNokta.uzunUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr (%{sonNokta.uzunOran})</strong>
     </div>
     <div class="lejant-oge toplam">
       <span class="ad" id="tarihsel-lejant-tarih">Toplam ({sonNokta.tarih.slice(0, 7)}):</span>
-      <strong class="deger" id="tarihsel-lejant-toplam">${sonNokta.toplamUSD.toLocaleString('tr-TR')} M (${(sonNokta.toplamUSD / 1000).toFixed(2).replace('.', ',')} Milyar $)</strong>
+      <strong class="deger" id="tarihsel-lejant-toplam">${(sonNokta.toplamUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr</strong>
     </div>
   </div>
 
@@ -129,7 +129,7 @@ const sonY = yPos(sonNokta.toplamUSD);
             <g class="izgara-seviye">
               <line x1={PAD_LEFT} y1={y} x2={W - PAD_RIGHT} y2={y} stroke="var(--c-izgara, #e2e8f0)" stroke-dasharray="3,3" stroke-width="1" />
               <text x={PAD_LEFT - 8} y={y + 4} text-anchor="end" class="eksen-metin">
-                {seviye.toLocaleString('tr-TR')}
+                {(seviye / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
               </text>
             </g>
           );
@@ -138,7 +138,7 @@ const sonY = yPos(sonNokta.toplamUSD);
 
       <!-- Y Birim Etiketi -->
       <text x={PAD_LEFT} y={PAD_TOP - 15} class="birim-metin">
-        milyon USD, TIC data
+        milyar $, TIC verisi
       </text>
 
       <!-- Katman 1: Uzun Vadeli Alan (Füme) -->
@@ -180,7 +180,7 @@ const sonY = yPos(sonNokta.toplamUSD);
         <g id="tarihsel-rozet-zirve" class="vurgu-zirve">
           <circle cx={zirveX} cy={zirveY} r="4.5" fill="#7f1d1d" stroke="#ffffff" stroke-width="1.5" />
           <text x={zirveX} y={zirveY - 10} text-anchor="middle" class="vurgu-metin">
-            {tarihselZirve.toplamUSD.toLocaleString('tr-TR')}
+            ${(tarihselZirve.toplamUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Mr
           </text>
         </g>
       )}
@@ -189,7 +189,7 @@ const sonY = yPos(sonNokta.toplamUSD);
       <g id="tarihsel-rozet-son" class="vurgu-son">
         <circle cx={sonX} cy={sonY} r="4.5" fill="#c2502b" stroke="#ffffff" stroke-width="2" />
         <text x={sonX - 5} y={sonY - 10} text-anchor="end" class="vurgu-metin vurgu-son-metin">
-          {sonNokta.toplamUSD.toLocaleString('tr-TR')}
+          ${(sonNokta.toplamUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Mr
         </text>
       </g>
 
@@ -210,16 +210,16 @@ const sonY = yPos(sonNokta.toplamUSD);
         <!-- Kısa vadeli T-Bills -->
         <circle cx="18" cy="43" r="3.5" fill="#c2502b" />
         <text class="tt-etiket" x="28" y="46">Kısa Vadeli (T-Bills):</text>
-        <text id="tarihsel-tt-kisa" class="tt-rakam" x="208" y="46" text-anchor="end">$4.109 M</text>
+        <text id="tarihsel-tt-kisa" class="tt-rakam" x="208" y="46" text-anchor="end">${(sonNokta.kisaUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr</text>
         <!-- Uzun vadeli tahvil -->
         <circle cx="18" cy="63" r="3.5" fill="#1b1b1b" />
         <text class="tt-etiket" x="28" y="66">Uzun Vadeli Tahvil:</text>
-        <text id="tarihsel-tt-uzun" class="tt-rakam" x="208" y="66" text-anchor="end">$1.622 M</text>
+        <text id="tarihsel-tt-uzun" class="tt-rakam" x="208" y="66" text-anchor="end">${(sonNokta.uzunUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr</text>
         <!-- Toplam portföy -->
         <line x1="12" y1="74" x2="208" y2="74" stroke="var(--soluk, #e2e8f0)" stroke-width="1" stroke-dasharray="2 2" />
         <circle cx="18" cy="88" r="3.5" fill="#2563eb" />
         <text class="tt-etiket tt-kalin" x="28" y="91">Toplam ABD Tahvili:</text>
-        <text id="tarihsel-tt-toplam" class="tt-rakam tt-vurgu" x="208" y="91" text-anchor="end">$5.731 M</text>
+        <text id="tarihsel-tt-toplam" class="tt-rakam tt-vurgu" x="208" y="91" text-anchor="end">${(sonNokta.toplamUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr</text>
         <text id="tarihsel-tt-oran" class="tt-alt-oran" x="110" y="106" text-anchor="middle">%71,7 Kısa · %28,3 Uzun</text>
       </g>
 
@@ -310,12 +310,11 @@ const sonY = yPos(sonNokta.toplamUSD);
 
     function guncelleCanli(p: TahvilNokta, px: number, pyToplam: number, pyUzun: number) {
       // Lejant metinleri
-      if (lejantKisa) lejantKisa.textContent = `$${p.kisaUSD.toLocaleString('tr-TR')} M (%${p.kisaOran})`;
-      if (lejantUzun) lejantUzun.textContent = `$${p.uzunUSD.toLocaleString('tr-TR')} M (%${p.uzunOran})`;
+      if (lejantKisa) lejantKisa.textContent = `$${(p.kisaUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr (%${p.kisaOran})`;
+      if (lejantUzun) lejantUzun.textContent = `$${(p.uzunUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr (%${p.uzunOran})`;
       if (lejantTarih) lejantTarih.textContent = `Toplam (${p.tarih.slice(0, 7)}):`;
       if (lejantToplam) {
-        const mlr = (p.toplamUSD / 1000).toFixed(2).replace('.', ',');
-        lejantToplam.textContent = `$${p.toplamUSD.toLocaleString('tr-TR')} M (${mlr} Milyar $)`;
+        lejantToplam.textContent = `$${(p.toplamUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr`;
       }
 
       // Takip Çizgisi ve Noktaları
@@ -335,9 +334,9 @@ const sonY = yPos(sonNokta.toplamUSD);
 
       // Tooltip Metinleri
       if (ttTarih) ttTarih.textContent = tarihMetni(p.tarih);
-      if (ttKisa) ttKisa.textContent = `$${p.kisaUSD.toLocaleString('tr-TR')} M (%${p.kisaOran})`;
-      if (ttUzun) ttUzun.textContent = `$${p.uzunUSD.toLocaleString('tr-TR')} M (%${p.uzunOran})`;
-      if (ttToplam) ttToplam.textContent = `$${p.toplamUSD.toLocaleString('tr-TR')} M`;
+      if (ttKisa) ttKisa.textContent = `$${(p.kisaUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr (%${p.kisaOran})`;
+      if (ttUzun) ttUzun.textContent = `$${(p.uzunUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr (%${p.uzunOran})`;
+      if (ttToplam) ttToplam.textContent = `$${(p.toplamUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr`;
       if (ttOran) ttOran.textContent = `%${p.kisaOran} Kısa · %${p.uzunOran} Uzun Vadeli`;
 
       // Tooltip Konumu (Sağ sınır kontrolü)
@@ -360,12 +359,11 @@ const sonY = yPos(sonNokta.toplamUSD);
 
       const son = aktifNoktalar.at(-1);
       if (!son) return;
-      if (lejantKisa) lejantKisa.textContent = `$${son.kisaUSD.toLocaleString('tr-TR')} M (%${son.kisaOran})`;
-      if (lejantUzun) lejantUzun.textContent = `$${son.uzunUSD.toLocaleString('tr-TR')} M (%${son.uzunOran})`;
+      if (lejantKisa) lejantKisa.textContent = `$${(son.kisaUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr (%${son.kisaOran})`;
+      if (lejantUzun) lejantUzun.textContent = `$${(son.uzunUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr (%${son.uzunOran})`;
       if (lejantTarih) lejantTarih.textContent = `Toplam (${son.tarih.slice(0, 7)}):`;
       if (lejantToplam) {
-        const mlr = (son.toplamUSD / 1000).toFixed(2).replace('.', ',');
-        lejantToplam.textContent = `$${son.toplamUSD.toLocaleString('tr-TR')} M (${mlr} Milyar $)`;
+        lejantToplam.textContent = `$${(son.toplamUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} Mr`;
       }
     }
 
@@ -386,7 +384,7 @@ const sonY = yPos(sonNokta.toplamUSD);
           g.setAttribute('class', 'izgara-seviye');
           g.innerHTML = `
             <line x1="${PAD_LEFT}" y1="${y}" x2="${W - PAD_RIGHT}" y2="${y}" stroke="var(--c-izgara, #e2e8f0)" stroke-dasharray="3,3" stroke-width="1" />
-            <text x="${PAD_LEFT - 8}" y="${y + 4}" text-anchor="end" class="eksen-metin">${seviye.toLocaleString('tr-TR')}</text>
+            <text x="${PAD_LEFT - 8}" y="${y + 4}" text-anchor="end" class="eksen-metin">${(seviye / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}</text>
           `;
           izgaraGrubu.appendChild(g);
         });
@@ -438,7 +436,7 @@ const sonY = yPos(sonNokta.toplamUSD);
           const zY = yPos(zirveVar.toplamUSD, maxY);
           rozetZirve.innerHTML = `
             <circle cx="${zX}" cy="${zY}" r="4.5" fill="#7f1d1d" stroke="#ffffff" stroke-width="1.5" />
-            <text x="${zX}" y="${zY - 10}" text-anchor="middle" class="vurgu-metin">${zirveVar.toplamUSD.toLocaleString('tr-TR')}</text>
+            <text x="${zX}" y="${zY - 10}" text-anchor="middle" class="vurgu-metin">$${(zirveVar.toplamUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Mr</text>
           `;
           rozetZirve.setAttribute('visibility', 'visible');
         } else {
@@ -452,7 +450,7 @@ const sonY = yPos(sonNokta.toplamUSD);
         const sY = yPos(sonP.toplamUSD, maxY);
         rozetSon.innerHTML = `
           <circle cx="${sX}" cy="${sY}" r="4.5" fill="#c2502b" stroke="#ffffff" stroke-width="2" />
-          <text x="${sX - 5}" y="${sY - 10}" text-anchor="end" class="vurgu-metin vurgu-son-metin">${sonP.toplamUSD.toLocaleString('tr-TR')}</text>
+          <text x="${sX - 5}" y="${sY - 10}" text-anchor="end" class="vurgu-metin vurgu-son-metin">$${(sonP.toplamUSD / 1000).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} Mr</text>
         `;
       }
 

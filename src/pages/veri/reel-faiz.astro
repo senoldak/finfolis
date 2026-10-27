@@ -1,0 +1,183 @@
+---
+// Reel faiz (finfolis hesaplaması): TCMB politika faizinin 12 ay enflasyon beklentisine (ileriye dönük) ve gerçekleşen
+// yıllık enflasyona (geriye dönük) göre reel karşılığı, Fisher denklemiyle. Aylık; ayın son günü geçerli faiz.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { ayinFaizi, reelFaiz } from '../../lib/turetilmis.mjs';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const { faiz, beklenti, enflasyon } = RESMI;
+const tufe = new Map((enflasyon?.satirlar ?? []).map((s) => [ayAnahtari(s), s.yillik]));
+const satirlar = (beklenti?.satirlar ?? [])
+  .map((b) => {
+    const politika = ayinFaizi(faiz?.gecmis ?? [], b.yil, b.ay);
+    const gercek = tufe.get(ayAnahtari(b)) ?? null;
+    return {
+      yil: b.yil,
+      ay: b.ay,
+      politika,
+      beklenti: b.ay12,
+      gercek,
+      ileri: politika == null ? null : reelFaiz(politika, b.ay12),
+      geri: politika == null || gercek == null ? null : reelFaiz(politika, gercek),
+    };
+  })
+  .filter((s) => s.politika != null);
+const son = satirlar.at(-1);
+const sonGeri = [...satirlar].reverse().find((s) => s.geri != null);
+const noktalar = satirlar.map((s) => [ayAnahtari(s), s.politika, s.ileri, s.geri]);
+const gruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'politika', ad: 'Politika faizi', renk: 'murekkep' as const },
+      { id: 'ileri', ad: 'Reel faiz, beklentiye göre', renk: 'toprak' as const },
+      { id: 'geri', ad: 'Reel faiz, gerçekleşene göre', renk: 'mavi' as const, kesik: true },
+    ],
+  },
+];
+const tablo = satirlar.slice(-24).reverse();
+const yuzde = (n: number | null) => (n == null ? '—' : yuzdeYaz(n));
+
+const baslik = 'Reel faiz';
+const description = son
+  ? `${ayAdi(son)} itibarıyla TCMB politika faizi ${yuzde(son.politika)}, 12 ay enflasyon beklentisi ${yuzde(son.beklenti)}; beklentiye göre reel faiz ${yuzde(son.ileri)}. Politika faizinin reel karşılığı, finfolis hesaplaması.`
+  : 'TCMB politika faizinin enflasyon beklentisine ve gerçekleşen enflasyona göre reel karşılığı.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/reel-faiz/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(beklenti && son ? { sayfaEk: { dateModified: beklenti.alinma } } : {}),
+});
+---
+
+<Base title={`Reel faiz: ${son ? ayAdi(son) : 'politika faizi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>TCMB politika faizinin enflasyona göre reel karşılığı · finfolis hesaplaması</p>
+    </header>
+    {
+      son && faiz && beklenti ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Politika faizi</dt>
+              <dd>{yuzde(son.politika)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)} sonu</dd>
+            </div>
+            <div>
+              <dt>Reel faiz, beklentiye göre</dt>
+              <dd>{yuzde(son.ileri)}</dd>
+              <dd class="veri-degisim">12 ay beklentisi {yuzde(son.beklenti)}</dd>
+            </div>
+            {sonGeri && (
+              <div>
+                <dt>Reel faiz, gerçekleşene göre</dt>
+                <dd>{yuzde(sonGeri.geri)}</dd>
+                <dd class="veri-degisim">
+                  {ayAdi(sonGeri)}, yıllık enflasyon {yuzde(sonGeri.gercek)}
+                </dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={faiz.kaynak.url} rel="noopener">{faiz.kaynak.ad}</a>;{' '}
+            <a href={beklenti.kaynak.url} rel="noopener">{beklenti.kaynak.ad}</a>; enflasyon TÜİK verisi. Reel faiz finfolis
+            hesaplamasıdır. Siteye alındığı zaman: {zamanYaz(beklenti.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Politika faizi ve reel karşılığı"
+            ipucu="Yüzde, aylık · Sıfırın altı negatif reel faizdir"
+            kaynak="Kaynak: TCMB politika faizi ve Piyasa Katılımcıları Anketi; enflasyon TÜİK. Hesaplama: finfolis."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['politika', 'ileri', 'geri']}
+            noktalar={noktalar}
+            gruplar={gruplar}
+            sifirdan
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 24 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Politika faizi</th>
+                      <th scope="col" class="sag">12 ay beklenti</th>
+                      <th scope="col" class="sag">Reel, beklentiye göre</th>
+                      <th scope="col" class="sag">Yıllık enflasyon</th>
+                      <th scope="col" class="sag">Reel, gerçekleşene göre</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{yuzde(s.politika)}</td>
+                        <td class="sag">{yuzde(s.beklenti)}</td>
+                        <td class="sag">{yuzde(s.ileri)}</td>
+                        <td class="sag">{yuzde(s.gercek)}</td>
+                        <td class="sag">{yuzde(s.geri)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Politika faizi, ayın son günü geçerli olan bir hafta vadeli repo ihale faizidir.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar nasıl hesaplanıyor?</h2>
+              <p>
+                Reel faiz, faizin enflasyondan arındırılmış hâlidir. Hesapta Fisher denklemi kullanılır: reel faiz,
+                (1 + politika faizi) bölü (1 + enflasyon) eksi 1’dir. Faizden enflasyonu doğrudan çıkarmaya yakın sonuç
+                verir, ama oranlar yüksekken daha doğrudur.
+              </p>
+              <p>
+                <strong>Beklentiye göre</strong> reel faizde enflasyon olarak TCMB Piyasa Katılımcıları Anketi’ndeki 12 ay
+                sonrası yıllık enflasyon beklentisi kullanılır. <strong>Gerçekleşene göre</strong> reel faizde o ay TÜİK’in
+                açıkladığı yıllık enflasyon kullanılır; bu, geçmiş 12 ayın enflasyonudur.
+              </p>
+              <p>
+                Sıfırın üstündeki değer, politika faizinin enflasyonun üzerinde olduğunu gösterir. Mevduat ve kredi
+                faizleri politika faizinden farklıdır.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Reel faiz için gereken veri şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+      <a href="/veri/enflasyon-beklentisi/">Enflasyon beklentisi</a>
+      <a href="/veri/kredi-mevduat-makasi/">Kredi-mevduat makası</a>
+      <a href="/sozluk/reel-faiz/">Reel faiz nedir?</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki reel faiz, resmi verilerden finfolis’in hesapladığı bir göstergedir. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

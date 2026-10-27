@@ -1,0 +1,190 @@
+---
+// Enflasyon beklentisi: TCMB Piyasa Katılımcıları Anketi'nde 12 ve 24 ay sonrası yıllık TÜFE beklentisi (EVDS) ile
+// gerçekleşen yıllık TÜFE (TÜİK). Anket sonucudur, sitenin tahmini değildir. Kur ve faiz beklentileri bilerek yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import BeklentiGrafik from '../../components/BeklentiGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const { beklenti, enflasyon } = RESMI;
+const satirlar = beklenti?.satirlar ?? [];
+const tufe = enflasyon?.satirlar ?? [];
+const son = satirlar.at(-1);
+const ilk = satirlar[0];
+const tufeHarita = new Map(tufe.map((s) => [ayAnahtari(s), s.yillik]));
+const sonTufe = tufe.at(-1);
+// Son açıklanan enflasyon ayı için 12 ay önce yapılan anketteki beklenti.
+const yilOnceAnket = sonTufe && satirlar.find((s) => ayAnahtari(s) === ayAnahtari(sonTufe) - 12);
+const tablo = satirlar.slice(-24).reverse();
+const yuzde = (n: number) => `%${sayiYaz(n, 2)}`;
+const fark = sonTufe && yilOnceAnket ? sonTufe.yillik - yilOnceAnket.ay12 : null;
+
+const baslik = 'Enflasyon beklentisi';
+const description =
+  son && sonTufe
+    ? `TCMB Piyasa Katılımcıları Anketi’ne göre ${ayAdi(son)} itibarıyla 12 ay sonrası yıllık enflasyon beklentisi ${yuzde(son.ay12)}, 24 ay sonrası ${yuzde(son.ay24)}. Gerçekleşen yıllık enflasyon ${ayAdi(sonTufe)} itibarıyla ${yuzde(sonTufe.yillik)}.`
+    : 'TCMB Piyasa Katılımcıları Anketi’nde 12 ve 24 ay sonrası yıllık enflasyon beklentisi ve gerçekleşen enflasyon.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/enflasyon-beklentisi/' },
+];
+const ayIso = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(beklenti && son && ilk
+    ? {
+        sayfaEk: { dateModified: beklenti.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Piyasa Katılımcıları Anketi: 12 ve 24 ay sonrası yıllık TÜFE beklentisi',
+            description:
+              'TCMB Piyasa Katılımcıları Anketi’nde finansal ve reel sektördeki karar alıcı ve uzmanların 12 ve 24 ay sonrası yıllık tüketici enflasyonu beklentisinin uygun ortalaması, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/enflasyon-beklentisi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ayIso(ilk)}/${ayIso(son)}`,
+            dateModified: beklenti.alinma,
+            variableMeasured: ['12 ay sonrası yıllık TÜFE beklentisi (%)', '24 ay sonrası yıllık TÜFE beklentisi (%)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Enflasyon beklentisi: ${son ? ayAdi(son) : 'TCMB anketi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>TCMB Piyasa Katılımcıları Anketi · Gerçekleşen enflasyonla birlikte</p>
+    </header>
+    {
+      beklenti && son && sonTufe ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>12 ay sonrası beklenti</dt>
+              <dd>{yuzde(son.ay12)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)} anketi</dd>
+            </div>
+            <div>
+              <dt>24 ay sonrası beklenti</dt>
+              <dd>{yuzde(son.ay24)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)} anketi</dd>
+            </div>
+            <div>
+              <dt>Gerçekleşen yıllık enflasyon</dt>
+              <dd>{yuzde(sonTufe.yillik)}</dd>
+              <dd class="veri-degisim">{ayAdi(sonTufe)}, TÜİK</dd>
+            </div>
+            {yilOnceAnket && (
+              <div>
+                <dt>Bir yıl önce beklenen</dt>
+                <dd>{yuzde(yilOnceAnket.ay12)}</dd>
+                <dd class="veri-degisim">{ayAdi(yilOnceAnket)} anketi, {ayAdi(sonTufe)} için</dd>
+              </div>
+            )}
+          </dl>
+          {fark != null && yilOnceAnket && (
+            <p class="veri-notu">
+              {fark === 0
+                ? `${ayAdi(sonTufe)} enflasyonu, ${ayAdi(yilOnceAnket)} anketindeki beklentiyle aynı gerçekleşti.`
+                : `${ayAdi(sonTufe)} enflasyonu, ${ayAdi(yilOnceAnket)} anketindeki beklentiden ${sayiYaz(Math.abs(fark), 1)} puan ${fark > 0 ? 'yüksek' : 'düşük'} gerçekleşti.`}
+            </p>
+          )}
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={beklenti.kaynak.url} rel="noopener">{beklenti.kaynak.ad}</a>;{' '}
+            {enflasyon && <a href={enflasyon.kaynak.url} rel="noopener">{enflasyon.kaynak.ad}</a>}. Siteye alındığı zaman:{' '}
+            {zamanYaz(beklenti.alinma)}.
+          </p>
+
+          <BeklentiGrafik beklenti={satirlar} tufe={tufe} />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 24 anket</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Anket ayı</th>
+                      <th scope="col" class="sag">12 ay sonrası</th>
+                      <th scope="col" class="sag">24 ay sonrası</th>
+                      <th scope="col" class="sag">O ay gerçekleşen</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => {
+                      const g = tufeHarita.get(ayAnahtari(s));
+                      return (
+                        <tr>
+                          <td>{ayAdi(s)}</td>
+                          <td class="sag">{yuzde(s.ay12)}</td>
+                          <td class="sag">{yuzde(s.ay24)}</td>
+                          <td class="sag">{g != null ? yuzde(g) : '—'}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">“O ay gerçekleşen”, anket ayı için TÜİK’in açıkladığı yıllık enflasyondur; henüz açıklanmadıysa boş kalır.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Piyasa Katılımcıları Anketi’ni TCMB her ay yapar. Finans ve reel sektördeki karar alıcılara ve uzmanlara
+                enflasyon, döviz kuru, büyüme ve faiz konusundaki beklentileri sorulur. Anket 2001’den beri uygulanıyor.
+              </p>
+              <p>
+                <strong>12 ay sonrası beklenti</strong>, katılımcıların bugünden bir yıl sonraki yıllık enflasyon için
+                verdiği rakamdır. Ekim 2026 anketindeki 12 ay beklentisi, Ekim 2027’de açıklanacak yıllık enflasyonla
+                ilgilidir. 24 ay beklentisi aynı soruyu iki yıl sonrası için sorar.
+              </p>
+              <p>
+                TCMB yanıtların tamamını yayımlamaz, bir “uygun ortalama” verir. Bu ortalama aykırı yanıtlar ayıklanarak
+                hesaplanır ve yanıtların dağılımına göre aritmetik ortalama, medyan ya da mod olabilir. Bu sayfadaki
+                rakamlar o uygun ortalamadır.
+              </p>
+              <p>
+                Grafikteki <strong>Hedef aya göre</strong> görünümü her beklentiyi ait olduğu aya taşır. Böylece bir ay
+                için bir yıl önce ne beklendiği ile o ay gerçekte ne olduğu aynı yerde görülür. Bu karşılaştırma yalnız
+                açıklanmış aylar için yapılır.
+              </p>
+              <p>
+                Rakamlar ankete katılanların beklentisidir, TCMB ya da finfolis tahmini sayılmamalıdır.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Enflasyon beklentisi verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+      <a href="/hesapla/enflasyon/">Enflasyon hesaplayıcı</a>
+    </nav>
+    <YasalUyari>
+      Bu sayfadaki veriler bilgi amaçlıdır. Beklentiler TCMB anketine katılanların yanıtlarıdır; TCMB yalnız veri
+      sağlayıcıdır. Yatırım tavsiyesi değildir.
+    </YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>
