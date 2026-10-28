@@ -121,19 +121,19 @@ def divvunspell(ws):
 
 
 def divvun_dilbilgisi(metinler, azami_sn=900):
-    # Her paragraf ayrı süreç (CLI'nin toplu girişi belgelenmemiş); süre sınırına gelince durur.
+    # Her yazı ayrı süreç (paket her çağrıda yüklenir); süre sınırına gelince durur.
     drb = ARAC / 'divvun/grammar-nob.drb'
     out, toplam, ilk_hata = [], 0.0, None
     for y, m in metinler:
         if toplam > azami_sn:
             break
-        for par in [p for p in m.split('\n') if len(p.split()) >= 3]:
-            r, sn = calistir([str(ARAC / 'divvun/divvun-runtime'), 'run', str(drb), par])
-            toplam += sn
-            if r.returncode:
-                ilk_hata = ilk_hata or (r.stderr[-1500:] or r.stdout[-1500:])
-                continue
-            out.append({'yol': y, 'paragraf': par, 'cikti': r.stdout})
+        par = ' '.join(p for p in m.split('\n') if len(p.split()) >= 3)
+        r, sn = calistir([str(ARAC / 'divvun/divvun-runtime'), 'run', '--skip-check', '-p', str(drb), par])
+        toplam += sn
+        if r.returncode:
+            ilk_hata = ilk_hata or (r.stderr[-1500:] or r.stdout[-1500:])
+            continue
+        out.append({'yol': y, 'paragraf': par, 'cikti': r.stdout})
     (CIKTI / 'divvun-dilbilgisi.jsonl').write_text('\n'.join(json.dumps(o, ensure_ascii=False) for o in out), encoding='utf8')
     return out, toplam, ilk_hata
 
