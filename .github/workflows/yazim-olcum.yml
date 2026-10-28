@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 50
     env:
-      ARAC: ${{ runner.temp }}/arac
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -45,8 +44,8 @@ jobs:
       - name: Kur (Zemberek 0.17.1)
         continue-on-error: true
         run: |
-          mkdir -p "$ARAC/zemberek/pom"
-          cat > "$ARAC/zemberek/pom/pom.xml" <<'EOF'
+          mkdir -p "$RUNNER_TEMP/arac/zemberek/pom"
+          cat > "$RUNNER_TEMP/arac/zemberek/pom/pom.xml" <<'EOF'
           <project xmlns="http://maven.apache.org/POM/4.0.0">
             <modelVersion>4.0.0</modelVersion>
             <groupId>olcum</groupId><artifactId>olcum</artifactId><version>1</version>
@@ -54,24 +53,24 @@ jobs:
             <dependencies><dependency><groupId>zemberek-nlp</groupId><artifactId>zemberek-normalization</artifactId><version>0.17.1</version></dependency></dependencies>
           </project>
           EOF
-          mvn -q -f "$ARAC/zemberek/pom/pom.xml" dependency:copy-dependencies -DoutputDirectory="$ARAC/zemberek/lib"
-          ls "$ARAC/zemberek/lib"
-          javac -encoding UTF-8 -cp "$ARAC/zemberek/lib/*" -d "$ARAC/zemberek" scripts/yazim-olcum/ZemberekKontrol.java
+          mvn -q -f "$RUNNER_TEMP/arac/zemberek/pom/pom.xml" dependency:copy-dependencies -DoutputDirectory="$RUNNER_TEMP/arac/zemberek/lib"
+          ls "$RUNNER_TEMP/arac/zemberek/lib"
+          javac -encoding UTF-8 -cp "$RUNNER_TEMP/arac/zemberek/lib/*" -d "$RUNNER_TEMP/arac/zemberek" scripts/yazim-olcum/ZemberekKontrol.java
 
       - name: Kur (Hunspell nb_NO)
         continue-on-error: true
         run: |
           sudo apt-get install -y -qq hunspell >/dev/null
-          mkdir -p "$ARAC/hunspell"
+          mkdir -p "$RUNNER_TEMP/arac/hunspell"
           for f in nb_NO.dic nb_NO.aff; do
-            curl -fsSL --retry 3 -o "$ARAC/hunspell/$f" "https://raw.githubusercontent.com/LibreOffice/dictionaries/master/no/$f"
+            curl -fsSL --retry 3 -o "$RUNNER_TEMP/arac/hunspell/$f" "https://raw.githubusercontent.com/LibreOffice/dictionaries/master/no/$f"
           done
           hunspell -v | head -1
 
       - name: Kur (Divvun)
         continue-on-error: true
         run: |
-          mkdir -p "$ARAC/divvun/indir" && cd "$ARAC/divvun/indir"
+          mkdir -p "$RUNNER_TEMP/arac/divvun/indir" && cd "$RUNNER_TEMP/arac/divvun/indir"
           gh release download 'divvunspell/v1.0.0-beta.13' -R divvun/divvunspell -p '*x86_64-unknown-linux-gnu*.tgz'
           gh release download 'speller-nob/dev-latest' -R giellalt/lang-nob -p '*mobile.pkt.tar.zst' -p '*noarch-all.pkt.tar.zst'
           gh release download 'grammar-nob/dev-latest' -R giellalt/lang-nob -p '*.drb'
@@ -88,12 +87,12 @@ jobs:
           find . -name '*.so*' -exec cp {} .. \;
           chmod +x ../divvunspell ../divvun-runtime
           ../divvunspell --version || true
-          LD_LIBRARY_PATH="$ARAC/divvun" ../divvun-runtime --help | head -20 || true
+          LD_LIBRARY_PATH="$RUNNER_TEMP/arac/divvun" ../divvun-runtime --help | head -20 || true
 
       - name: Ölç
         run: |
-          export LD_LIBRARY_PATH="$ARAC/divvun"
-          "$RUNNER_TEMP/venv/bin/python" scripts/yazim-olcum/olc.py "$ARAC" "$RUNNER_TEMP/yazim-cikti" | tee -a "$GITHUB_STEP_SUMMARY"
+          export LD_LIBRARY_PATH="$RUNNER_TEMP/arac/divvun"
+          "$RUNNER_TEMP/venv/bin/python" scripts/yazim-olcum/olc.py "$RUNNER_TEMP/arac" "$RUNNER_TEMP/yazim-cikti" | tee -a "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: always()
