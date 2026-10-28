@@ -70,6 +70,9 @@ jobs:
           GOMME_ANAHTARI: ${{ secrets.KAYNAK_ANAHTARI }}
           # Gölge denetim (20 Ekim): turda en çok bu kadar denetim kararı Gemma'ya da sorulur, yalnız loga yazılır (golge.mjs).
           GEMINI_GOLGE: ${{ vars.GEMINI_GOLGE }}
+          # PDF gölgesi (28 Ekim): 1 ise merkez bankası PDF adresleri kuyruğa yazılır, yayından sonra Docling ölçer.
+          PDF_GOLGE: ${{ vars.PDF_GOLGE }}
+          PDF_GOLGE_DOSYASI: ${{ runner.temp }}/pdf-golge.jsonl
           MAKS_HABER: ${{ vars.MAKS_HABER }}
           # Ortak motor modu (private mecmua'dan salt-okur çekilir): vars.MOTOR_TUR=1 iken aday turu motorla sürülür.
           MOTOR_TUR: ${{ vars.MOTOR_TUR }}
@@ -190,6 +193,62 @@ jobs:
         run: |
           echo "::error::Gemini anahtarı/modeli reddedildi (400/401/403/404). GEMINI_API_KEY ve GEMINI_MODEL değerlerini kontrol edin; haberler harcanmadı."
           exit 1
+
+      # PDF gölgesi (28 Ekim, scripts/haberler/pdf-golge.py): bot merkez bankası PDF'lerini bugünkü gibi yalnız başlıkla
+      # okur; burada yeni PDF'ler Docling ile metne çevrilip ölçülür (yalnız log ve iş eseri). vars.PDF_GOLGE=1 açar.
+      # Yayından sonra çalışır, yayını geciktirmez. Ölçülen adresler küçük bir önbellekte tutulur, yeniden işlenmez.
+      - name: PDF gölgesi kuyruğu
+        id: pdfkuyruk
+        if: ${{ !cancelled() && vars.PDF_GOLGE == '1' }}
+        run: |
+          if [ -s "$RUNNER_TEMP/pdf-golge.jsonl" ]; then echo "var=1" >> "$GITHUB_OUTPUT"; else echo "Bu turda PDF yok."; fi
+
+      - name: PDF gölgesi ölçülenler
+        if: ${{ steps.pdfkuyruk.outputs.var == '1' }}
+        continue-on-error: true
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/pdf-golge
+          key: pdf-golge-yapilan-${{ github.run_id }}
+          restore-keys: pdf-golge-yapilan-
+
+      - name: PDF gölgesi yeni mi
+        id: pdfyeni
+        if: ${{ steps.pdfkuyruk.outputs.var == '1' }}
+        continue-on-error: true
+        env:
+          PDF_GOLGE_SAY: '1'
+        run: python3 scripts/haberler/pdf-golge.py "$RUNNER_TEMP/pdf-golge.jsonl" ~/pdf-golge/yapilan.txt "$RUNNER_TEMP/pdf-cikti"
+
+      - name: Docling önbelleği
+        if: ${{ steps.pdfyeni.outputs.yeni == '1' }}
+        continue-on-error: true
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/huggingface
+          key: docling-2.143.1-cpu-v1
+
+      - name: PDF gölgesi (Docling)
+        if: ${{ steps.pdfyeni.outputs.yeni == '1' }}
+        continue-on-error: true
+        timeout-minutes: 20
+        run: |
+          python3 -m venv "$RUNNER_TEMP/pdf-venv"
+          P="$RUNNER_TEMP/pdf-venv/bin/pip"
+          "$P" install --quiet --disable-pip-version-check --index-url https://download.pytorch.org/whl/cpu 'torch>=2.6,<3' torchvision
+          "$P" install --quiet --disable-pip-version-check 'docling==2.143.1'
+          "$RUNNER_TEMP/pdf-venv/bin/python" scripts/haberler/pdf-golge.py "$RUNNER_TEMP/pdf-golge.jsonl" ~/pdf-golge/yapilan.txt "$RUNNER_TEMP/pdf-cikti"
+
+      - name: PDF gölgesi çıktıları
+        if: ${{ steps.pdfyeni.outputs.yeni == '1' }}
+        continue-on-error: true
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: pdf-golge
+          path: ${{ runner.temp }}/pdf-cikti/*.md
+          retention-days: 14
 
       # Katman 0 (Gemini kota planı): bu işin Gemini kullanımını model ve amaç başına mecmua-saat'e bildirir. İşi düşürmez.
       - name: Gemini kullanımını saate bildir

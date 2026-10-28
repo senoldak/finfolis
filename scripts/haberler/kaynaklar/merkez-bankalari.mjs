@@ -2,6 +2,7 @@
 // Faiz kararı onem 100, diğer para politikası duyuruları onem 60 (0–100 ölçeği); geri kalanı atılır.
 // Kapak: Fed, ECB ve TCMB'de politika faizinin son beş yıllık grafiği (grafik-kapak.mjs); alınamazsa faiz rakamı ya da
 // konu kartı. BoJ için resmî, anahtarsız günlük seri yok: rakam/konu kartı.
+import { appendFileSync } from 'node:fs';
 import { hentMetin } from '../lib.mjs';
 import { tcmbSonKarar } from '../piyasa-verisi.mjs';
 import { kaynakKapagi, rakamKapagi } from '../../kapak/kapak.mjs';
@@ -76,10 +77,27 @@ export function pencere(metin, index) {
 // Fed tutanak bülteni yalnızca "tutanak yayımlandı" der; asıl metin linklenen sayfadadır.
 const FED_TUTANAK = /href="([^"]*\/monetarypolicy\/fomcminutes\d{8}\.htm)"/i;
 
+// PDF gölgesi (28 Ekim 2026): PDF_GOLGE=1 iken bot PDF'i yine ayrıştırmaz, yalnız adresini PDF_GOLGE_DOSYASI'na
+// (runner'ın geçici dosyası) yazar. Yayından sonra pdf-golge.py Docling ile metne çevirip yalnız ölçer (iş akışı).
+const pdfGorulen = new Set();
+export function pdfGolgeKaydet(kurum, url, env = process.env) {
+  if (env.PDF_GOLGE !== '1' || !env.PDF_GOLGE_DOSYASI || pdfGorulen.has(url)) return false;
+  pdfGorulen.add(url);
+  try {
+    appendFileSync(env.PDF_GOLGE_DOSYASI, `${JSON.stringify({ kurum, url })}\n`);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 // Tam sayfa metni (script/style atılmış) ve varsa takip edilen asıl belgenin URL'si;
 // kesme çağıranda pencere() ile yapılır.
-async function govdeMetni(url, baslik) {
-  if (/\.pdf($|\?)/i.test(url)) return { metin: baslik }; // PDF metni ayrıştırılmaz
+async function govdeMetni(url, baslik, kurum) {
+  if (/\.pdf($|\?)/i.test(url)) {
+    pdfGolgeKaydet(kurum, url);
+    return { metin: baslik }; // PDF metni ayrıştırılmaz (gölge yalnız ölçer)
+  }
   let html;
   try {
     html = await hentMetin(url);
@@ -107,7 +125,7 @@ async function rssKaynagi(k, simdi, grafik) {
       if (simdi - o.tarih > AZAMI_GUN * GUN_MS) continue;
       const tur = siniflandir(k.kurum, o);
       if (!tur) continue;
-      const { metin: tam, belge } = await govdeMetni(o.url, o.baslik);
+      const { metin: tam, belge } = await govdeMetni(o.url, o.baslik, k.kurum);
       const faiz = tur === 'karar' ? faizCoz(k.kurum, tam) : null;
       const kaynakMetni = pencere(tam, faiz?.index);
       adaylar.push({
