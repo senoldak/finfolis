@@ -121,14 +121,34 @@ def divvunspell(ws):
 
 
 def divvun_dilbilgisi(metinler, azami_sn=900):
-    # Her yazı ayrı süreç (paket her çağrıda yüklenir); süre sınırına gelince durur.
+    # Önce hangi giriş biçiminin metni hatta ulaştırdığını bilinen hatalı bir cümleyle bulur (argüman, stdin, adlı hat),
+    # sonra her yazıyı o biçimle işler (paket her çağrıda yüklenir); süre sınırına gelince durur.
     drb = ARAC / 'divvun/grammar-nob.drb'
+    rt = str(ARAC / 'divvun/divvun-runtime')
+    ls, _ = calistir([rt, 'list', str(drb)])
+    hatlar = re.findall(r'^\s*[-*•]?\s*([\w-]+)', ls.stdout, re.M)
+    tani = {'list': (ls.stdout + ls.stderr)[-3000:], 'denemeler': []}
+    deneme = 'Han kjøpte et stor hus og en ny data maskin i går.'
+    bicimler = [('arguman', [], True), ('stdin', [], False)] + [(f'hat:{h}', ['-P', h], True) for h in hatlar[:6]]
+    secilen = None
+    for ad, ek, arguman in bicimler:
+        r, _ = calistir([rt, 'run', '--skip-check', '-p', str(drb), *ek, *([deneme] if arguman else [])],
+                        None if arguman else deneme)
+        tani['denemeler'].append({'bicim': ad, 'kod': r.returncode, 'cikti': (r.stdout + r.stderr)[-1500:]})
+        if r.returncode == 0 and '"text": ""' not in r.stdout and r.stdout.strip():
+            secilen = (ek, arguman)
+            break
+    (CIKTI / 'divvun-tani.json').write_text(json.dumps(tani, ensure_ascii=False, indent=1), encoding='utf8')
+    if not secilen:
+        return [], 0.0, 'hiçbir giriş biçimi metni hatta ulaştırmadı (divvun-tani.json)'
+    ek, arguman = secilen
     out, toplam, ilk_hata = [], 0.0, None
     for y, m in metinler:
         if toplam > azami_sn:
             break
         par = ' '.join(p for p in m.split('\n') if len(p.split()) >= 3)
-        r, sn = calistir([str(ARAC / 'divvun/divvun-runtime'), 'run', '--skip-check', '-p', str(drb), par])
+        r, sn = calistir([rt, 'run', '--skip-check', '-p', str(drb), *ek, *([par] if arguman else [])],
+                         None if arguman else par)
         toplam += sn
         if r.returncode:
             ilk_hata = ilk_hata or (r.stderr[-1500:] or r.stdout[-1500:])
@@ -176,8 +196,18 @@ nb = yazilar(KOK / '_tidsrost/src/content/haberler', 200)
 TR, _ = olc('tr', tr, [('zemberek', zemberek), ('akana', akana_)])
 NB, nb_metin = olc('nb', nb, [('hunspell', hunspell), ('divvunspell', divvunspell)])
 gb, gb_sn, gb_hata = divvun_dilbilgisi(nb_metin)
+gb_hatalar = []
+for o in gb:
+    try:
+        for e in json.loads(o['cikti']).get('errors', []):
+            gb_hatalar.append({'yazi': o['yol'], 'hata': e})
+    except (ValueError, AttributeError):
+        pass
+tur = collections.Counter(str(h['hata'][3] if isinstance(h['hata'], list) and len(h['hata']) > 3 else h['hata'])[:60]
+                          for h in gb_hatalar)
 NB['divvun_dilbilgisi'] = {'paragraf_ciktisi': len(gb), 'yazi': len({o['yol'] for o in gb}), 'sure_sn': round(gb_sn, 1),
-                           'ilk_hata': gb_hata}
+                           'ilk_hata': gb_hata, 'bulgu': len(gb_hatalar), 'turler': dict(tur.most_common(40)),
+                           'ornek30': random.sample(gb_hatalar, min(ORNEK, len(gb_hatalar)))}
 
 # Kesişimler: iki aracın ortak ve yalnız kendi işaretledikleri
 for S, a, b in ((TR, 'zemberek', 'akana'), (NB, 'hunspell', 'divvunspell')):
@@ -206,6 +236,6 @@ for dil, S in (('Türkçe', TR), ('Norveççe', NB)):
         s.append('Kesişim: ' + ', '.join(f'{x} {v}' for x, v in k.items() if isinstance(v, int)))
     s.append('')
 d = NB['divvun_dilbilgisi']
-s.append(f"Divvun dilbilgisi: {d['yazi']} yazıda {d['paragraf_ciktisi']} paragraf işlendi, {d['sure_sn']} sn" + (f"; ilk hata: `{d['ilk_hata'][:300]}`" if d['ilk_hata'] else ''))
+s.append(f"Divvun dilbilgisi: {d['yazi']} yazı işlendi, {d['sure_sn']} sn, {d['bulgu']} bulgu, türler {d['turler']}" + (f"; ilk hata: `{d['ilk_hata'][:300]}`" if d['ilk_hata'] else ''))
 (CIKTI / 'ozet.md').write_text('\n'.join(s), encoding='utf8')
 print('\n'.join(s))
