@@ -1,0 +1,150 @@
+---
+// Veri güncelliği: /veri/ sayfalarındaki her veri setinin son gözlemi ve yayın gecikmesi eşiğine göre durumu.
+// Hesap src/lib/veri-guncellik.mjs'te; sayfa derlendiği an "bugün" sayılır (site günde birkaç kez derlenir).
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import resmi from '../../data/resmi.json';
+import abdTahvilleri from '../../data/abd-tahvilleri.json';
+import abdTahvil from '../../data/abd-tahvil.json';
+import bistTufe from '../../data/bist-tufe.json';
+import reelBist from '../../data/reel-bist.json';
+import altin from '../../data/tcmb-altin-kazanci.json';
+import swap from '../../data/tcmb-swap-orani.json';
+import netPozisyon from '../../data/tcmb-net-pozisyon-degisimi.json';
+import dunyaFaizleri from '../../data/dunya-faizleri.json';
+import { guncellikListesi, ESIKLER, SIKLIK_ADI } from '../../lib/veri-guncellik.mjs';
+import { gunYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const liste = guncellikListesi({
+  resmi,
+  dosyalar: {
+    'abd-tahvilleri': abdTahvilleri,
+    'abd-tahvil': abdTahvil,
+    'bist-tufe': bistTufe,
+    'reel-bist': reelBist,
+    'tcmb-altin-kazanci': altin,
+    'tcmb-swap-orani': swap,
+    'tcmb-net-pozisyon-degisimi': netPozisyon,
+    'dunya-faizleri': dunyaFaizleri,
+  },
+});
+const DURUM_ADI: Record<string, string> = { guncel: 'Güncel', gecikmis: 'Gecikmiş', durmus: 'Durmuş', bilinmiyor: 'Bilinmiyor' };
+const sayac = (d: string) => liste.filter((x) => x.durum === d).length;
+const isoGun = (d: Date | null) => (d ? d.toISOString().slice(0, 10) : null);
+const derleme = new Date().toISOString();
+
+const baslik = 'Veri güncelliği';
+const description = `finfolis veri sayfalarındaki ${liste.length} veri setinin son gözlem tarihi ve yayın takvimine göre güncel olup olmadığı.`;
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/guncellik/' },
+];
+const jsonLd = sayfaSemasi({ yol, ad: baslik, aciklama: description, sayfaEk: { dateModified: derleme } });
+---
+
+<Base title={`${baslik}: veri setlerinin son gözlemleri`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Veri sayfalarındaki her serinin son gözlemi ve yayın takvimine göre durumu</p>
+    </header>
+
+    <dl class="veri-rakamlar">
+      <div><dt>Güncel</dt><dd>{sayac('guncel')}</dd></div>
+      <div><dt>Gecikmiş</dt><dd>{sayac('gecikmis')}</dd></div>
+      <div><dt>Durmuş</dt><dd>{sayac('durmus')}</dd></div>
+    </dl>
+    <p class="veri-notu">Sayfanın hesaplandığı zaman: {zamanYaz(derleme)}.</p>
+
+    <section class="bolum">
+      <h2 class="bolum-baslik">Veri setleri</h2>
+      <div class="tablo-kaydir">
+        <table class="cizelge veri-tablo guncellik-tablo">
+          <thead>
+            <tr>
+              <th scope="col">Veri</th>
+              <th scope="col">Sıklık</th>
+              <th scope="col">Son gözlem dönemi</th>
+              <th scope="col" class="sag">Yaş (gün)</th>
+              <th scope="col" class="sag">Eşik (gün)</th>
+              <th scope="col">Durum</th>
+            </tr>
+          </thead>
+          <tbody>
+            {liste.map((x) => (
+              <tr>
+                <td><a href={x.sayfa}>{x.ad}</a></td>
+                <td>{x.siklik ? SIKLIK_ADI[x.siklik as keyof typeof SIKLIK_ADI] : '–'}</td>
+                <td>{x.son ? gunYaz(isoGun(x.son) as string) : '–'}</td>
+                <td class="sag">{x.yas ?? '–'}</td>
+                <td class="sag" title={x.gerekce ?? undefined}>{x.esik ?? '–'}{x.ozelEsik || x.gerekce ? '*' : ''}</td>
+                <td><span class={`durum durum-${x.durum}`}>{DURUM_ADI[x.durum]}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="veri-notu">
+        * Bu veri setinin eşiği, yayın takvimi farklı olduğu için ayrı belirlenmiştir: {liste
+          .filter((x) => x.gerekce)
+          .map((x) => `${x.ad}: ${x.gerekce}`)
+          .join(' ')}
+      </p>
+    </section>
+
+    <section class="bolum prose veri-aciklama">
+      <h2 class="bolum-baslik">Güncellik nasıl hesaplanıyor?</h2>
+      <p>
+        Yaş, serinin son gözleminin ait olduğu dönemin bitişinden bugüne geçen gün sayısıdır. Eylül ayı verisinin dönem
+        sonu 30 Eylül, haftalık bir verinin dönem sonu o haftanın tarihidir.
+      </p>
+      <p>
+        Eşik, verinin sıklığına göre yayın gecikmesi payıdır: günlük veride {ESIKLER.gunluk}, haftalıkta {ESIKLER.haftalik},
+        aylıkta {ESIKLER.aylik}, çeyreklikte {ESIKLER.ceyreklik} gün. Aylık TÜİK ve TCMB verilerinin çoğu dönem sonundan
+        yaklaşık 40 gün sonra açıklanır; bir sonraki açıklamadan hemen önce son verinin yaşı 70 güne yaklaşır. Yaşı eşiği
+        aşan seri “gecikmiş”, eşiğin üç katını aşan seri “durmuş” sayılır.
+      </p>
+      <p>
+        Gecikme, kaynağın veriyi henüz yayımlamamasından ya da finfolis'in veriyi alamamasından kaynaklanabilir. Her veri
+        sayfasında verinin siteye alındığı zaman ayrıca yazılıdır. Yaklaşan açıklamaların tarihleri <a href="/veri/takvim/">veri yayın takviminde</a>.
+      </p>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .tablo-kaydir {
+    overflow-x: auto;
+  }
+  .guncellik-tablo td:first-child {
+    min-width: 14rem;
+  }
+  .durum {
+    display: inline-block;
+    padding: 0.05rem 0.45rem;
+    border-radius: 2px;
+    font-size: 0.85em;
+    white-space: nowrap;
+  }
+  .durum-guncel {
+    color: var(--green-text);
+    border: 1px solid var(--green);
+  }
+  .durum-gecikmis {
+    color: var(--ochre-text);
+    border: 1px solid var(--ochre);
+  }
+  .durum-durmus {
+    color: var(--red-text);
+    border: 1px solid var(--red);
+  }
+  .durum-bilinmiyor {
+    color: var(--muted);
+    border: 1px solid var(--hair);
+  }
+</style>

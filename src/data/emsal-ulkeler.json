@@ -1,0 +1,916 @@
+{
+  "alinma": "2026-10-28T22:38:09.665Z",
+  "referansTarih": "2026-10-23",
+  "kaynaklar": [
+    {
+      "ad": "OECD Veri Gezgini, sdmx.oecd.org",
+      "url": "https://data-explorer.oecd.org/"
+    },
+    {
+      "ad": "BIS, merkez bankası politika faizleri (WS_CBPOL)",
+      "url": "https://data.bis.org/topics/CBPOL"
+    }
+  ],
+  "gostergeler": [
+    {
+      "anahtar": "gsyhCeyrek",
+      "ad": "GSYH çeyreklik değişim (%)",
+      "kaynak": "OECD, Key Short-Term Economic Indicators",
+      "uc": "OECD.SDD.STES,DSD_KEI@DF_KEI",
+      "olcu": "B1GQ_Q, çeyreklik (G1), mevsim ve takvim etkisinden arındırılmış"
+    },
+    {
+      "anahtar": "gsyhYillik",
+      "ad": "GSYH yıllık değişim (%)",
+      "kaynak": "OECD, Key Short-Term Economic Indicators",
+      "uc": "OECD.SDD.STES,DSD_KEI@DF_KEI",
+      "olcu": "B1GQ_Q, bir önceki yılın aynı dönemine göre (GY)"
+    },
+    {
+      "anahtar": "tufe",
+      "ad": "TÜFE yıllık (%)",
+      "kaynak": "OECD, Consumer price indices",
+      "uc": "OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL ve OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL",
+      "olcu": "CPI, tüm kalemler (_T), yıllık değişim (GY)"
+    },
+    {
+      "anahtar": "cekirdek",
+      "ad": "Çekirdek TÜFE yıllık (%)",
+      "kaynak": "OECD, Consumer price indices",
+      "uc": "OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL ve OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL",
+      "olcu": "CPI, gıda ve enerji hariç (_TXCP01_NRG), yıllık değişim (GY)"
+    },
+    {
+      "anahtar": "issizlik",
+      "ad": "İşsizlik (%)",
+      "kaynak": "OECD, Key Short-Term Economic Indicators",
+      "uc": "OECD.SDD.STES,DSD_KEI@DF_KEI",
+      "olcu": "UNEMP, işgücüne oran; aylık varsa aylık, yoksa çeyreklik"
+    },
+    {
+      "anahtar": "faiz",
+      "ad": "Politika faizi (%)",
+      "kaynak": "BIS, merkez bankası politika faizleri",
+      "uc": "WS_CBPOL (stats.bis.org)",
+      "olcu": "günlük, son gözlem"
+    },
+    {
+      "anahtar": "tahvil",
+      "ad": "10 yıllık tahvil getirisi (%)",
+      "kaynak": "OECD, Key Short-Term Economic Indicators",
+      "uc": "OECD.SDD.STES,DSD_KEI@DF_KEI",
+      "olcu": "IRLT, uzun vadeli devlet tahvili getirisi, aylık"
+    },
+    {
+      "anahtar": "reel",
+      "ad": "Reel faiz (puan)",
+      "kaynak": "Hesaplama",
+      "uc": "politika faizi (BIS) − TÜFE (OECD)",
+      "olcu": "aynı satırdaki iki değerin farkı"
+    }
+  ],
+  "baslikDonemleri": {
+    "gsyhCeyrek": "2026-Q2",
+    "gsyhYillik": "2026-Q2",
+    "tufe": "2026-09",
+    "cekirdek": "2026-09",
+    "issizlik": "2026-08",
+    "faiz": "2026-10",
+    "tahvil": "2026-09",
+    "reel": "2026-09"
+  },
+  "satirlar": [
+    {
+      "kod": "TUR",
+      "ad": "Türkiye",
+      "grup": "tr",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 1.12
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 2.56
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 29.73
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 28.83
+      },
+      "issizlik": {
+        "donem": "2026-08",
+        "deger": 7.8
+      },
+      "faiz": {
+        "deger": 36,
+        "tarih": "2026-10-23",
+        "aralik": null
+      },
+      "tahvil": null,
+      "reel": {
+        "deger": 6.27,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "USA",
+      "ad": "ABD",
+      "grup": "gelismis",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 0.55
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 2.19
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 3.74
+      },
+      "cekirdek": {
+        "donem": "2026-08",
+        "deger": 2.45
+      },
+      "issizlik": {
+        "donem": "2026-09",
+        "deger": 4.2
+      },
+      "faiz": {
+        "deger": 3.875,
+        "tarih": "2026-10-20",
+        "aralik": {
+          "alt": 3.75,
+          "ust": 4
+        }
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 4.99
+      },
+      "reel": {
+        "deger": 0.13,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "XM",
+      "ad": "Euro Bölgesi",
+      "grup": "gelismis",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 0.64
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 1.2
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 3.8
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 2.5
+      },
+      "issizlik": {
+        "donem": "2026-08",
+        "deger": 6.4
+      },
+      "faiz": {
+        "deger": 2.5,
+        "tarih": "2026-10-20",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 4.03
+      },
+      "reel": {
+        "deger": -1.3,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "JPN",
+      "ad": "Japonya",
+      "grup": "gelismis",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 0.36
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 0.73
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 2.1
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 2.2
+      },
+      "issizlik": {
+        "donem": "2026-08",
+        "deger": 2.5
+      },
+      "faiz": {
+        "deger": 1.25,
+        "tarih": "2026-10-20",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 3.05
+      },
+      "reel": {
+        "deger": -0.85,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "GBR",
+      "ad": "Birleşik Krallık",
+      "grup": "gelismis",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 0.53
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 1.37
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 3.6
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 3.1
+      },
+      "issizlik": {
+        "donem": "2026-07",
+        "deger": 4.7
+      },
+      "faiz": {
+        "deger": 3.75,
+        "tarih": "2026-10-19",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 5.24
+      },
+      "reel": {
+        "deger": 0.15,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "CHE",
+      "ad": "İsviçre",
+      "grup": "gelismis",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 1.88
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 2.63
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 0.99
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 0.6
+      },
+      "issizlik": {
+        "donem": "2026-Q2",
+        "deger": 5.03
+      },
+      "faiz": {
+        "deger": 0,
+        "tarih": "2026-10-20",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 0.59
+      },
+      "reel": {
+        "deger": -0.99,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "CAN",
+      "ad": "Kanada",
+      "grup": "gelismis",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 0.82
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 1.13
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 3.09
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 1.77
+      },
+      "issizlik": {
+        "donem": "2026-09",
+        "deger": 6.5
+      },
+      "faiz": {
+        "deger": 2.25,
+        "tarih": "2026-10-19",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 3.88
+      },
+      "reel": {
+        "deger": -0.84,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "AUS",
+      "ad": "Avustralya",
+      "grup": "gelismis",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 0.42
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 2.14
+      },
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 3.97
+      },
+      "cekirdek": {
+        "donem": "2026-08",
+        "deger": 3.53
+      },
+      "issizlik": {
+        "donem": "2026-09",
+        "deger": 4.72
+      },
+      "faiz": {
+        "deger": 4.6,
+        "tarih": "2026-10-15",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 5.28
+      },
+      "reel": {
+        "deger": 0.63,
+        "tufeDonem": "2026-08"
+      }
+    },
+    {
+      "kod": "NZL",
+      "ad": "Yeni Zelanda",
+      "grup": "gelismis",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 0.36
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 3.01
+      },
+      "tufe": null,
+      "cekirdek": null,
+      "issizlik": {
+        "donem": "2026-Q2",
+        "deger": 5.6
+      },
+      "faiz": {
+        "deger": 2.75,
+        "tarih": "2026-10-16",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 4.94
+      },
+      "reel": null
+    },
+    {
+      "kod": "NOR",
+      "ad": "Norveç",
+      "grup": "gelismis",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 0.67
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 1.6
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 3.38
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 3.17
+      },
+      "issizlik": {
+        "donem": "2026-08",
+        "deger": 4.5
+      },
+      "faiz": {
+        "deger": 4.5,
+        "tarih": "2026-10-13",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-10",
+        "deger": 4.47
+      },
+      "reel": {
+        "deger": 1.12,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "SWE",
+      "ad": "İsveç",
+      "grup": "gelismis",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 1.56
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 3.21
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 1.15
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 1.37
+      },
+      "issizlik": {
+        "donem": "2026-08",
+        "deger": 8.9
+      },
+      "faiz": {
+        "deger": 1.75,
+        "tarih": "2026-10-20",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 3.19
+      },
+      "reel": {
+        "deger": 0.6,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "CZE",
+      "ad": "Çekya",
+      "grup": "gelismis",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 0.28
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 1.79
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 2.5
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 3.49
+      },
+      "issizlik": {
+        "donem": "2026-08",
+        "deger": 3.2
+      },
+      "faiz": {
+        "deger": 3.75,
+        "tarih": "2026-10-19",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 5.24
+      },
+      "reel": {
+        "deger": 1.25,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "KOR",
+      "ad": "Güney Kore",
+      "grup": "gelismis",
+      "gsyhCeyrek": {
+        "donem": "2026-Q3",
+        "deger": 0.97
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q3",
+        "deger": 3.36
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 2.88
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 2.8
+      },
+      "issizlik": {
+        "donem": "2026-09",
+        "deger": 2.6
+      },
+      "faiz": {
+        "deger": 3,
+        "tarih": "2026-10-08",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 4.45
+      },
+      "reel": {
+        "deger": 0.12,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "BRA",
+      "ad": "Brezilya",
+      "grup": "gelismekte",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 0.48
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 1.92
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 4.58
+      },
+      "cekirdek": null,
+      "issizlik": null,
+      "faiz": {
+        "deger": 13.75,
+        "tarih": "2026-10-20",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 9.14
+      },
+      "reel": {
+        "deger": 9.17,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "MEX",
+      "ad": "Meksika",
+      "grup": "gelismekte",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 1.42
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 1.93
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 3.45
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 3.95
+      },
+      "issizlik": {
+        "donem": "2026-09",
+        "deger": 2.63
+      },
+      "faiz": {
+        "deger": 6.5,
+        "tarih": "2026-10-20",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 9.35
+      },
+      "reel": {
+        "deger": 3.05,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "CHL",
+      "ad": "Şili",
+      "grup": "gelismekte",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": -0.02
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": -0.33
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 4.08
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 3.16
+      },
+      "issizlik": {
+        "donem": "2026-07",
+        "deger": 9.36
+      },
+      "faiz": {
+        "deger": 4.5,
+        "tarih": "2026-10-20",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 6.01
+      },
+      "reel": {
+        "deger": 0.42,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "COL",
+      "ad": "Kolombiya",
+      "grup": "gelismekte",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 1.29
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 3.37
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 6.29
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 6.48
+      },
+      "issizlik": {
+        "donem": "2026-08",
+        "deger": 9.51
+      },
+      "faiz": {
+        "deger": 12.25,
+        "tarih": "2026-10-16",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 12.73
+      },
+      "reel": {
+        "deger": 5.96,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "POL",
+      "ad": "Polonya",
+      "grup": "gelismekte",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 1.1
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 4
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 4.1
+      },
+      "cekirdek": {
+        "donem": "2025-12",
+        "deger": 2.7
+      },
+      "issizlik": {
+        "donem": "2026-08",
+        "deger": 3.4
+      },
+      "faiz": {
+        "deger": 3.75,
+        "tarih": "2026-10-20",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 6.23
+      },
+      "reel": {
+        "deger": -0.35,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "HUN",
+      "ad": "Macaristan",
+      "grup": "gelismekte",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 0.6
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 1.7
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 1.54
+      },
+      "cekirdek": {
+        "donem": "2026-09",
+        "deger": 3.32
+      },
+      "issizlik": {
+        "donem": "2026-08",
+        "deger": 4.7
+      },
+      "faiz": {
+        "deger": 5.5,
+        "tarih": "2026-10-14",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 5.69
+      },
+      "reel": {
+        "deger": 3.96,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "ZAF",
+      "ad": "Güney Afrika",
+      "grup": "gelismekte",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": -0.24
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 0.85
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 4.35
+      },
+      "cekirdek": null,
+      "issizlik": null,
+      "faiz": {
+        "deger": 7.25,
+        "tarih": "2026-10-19",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 8.95
+      },
+      "reel": {
+        "deger": 2.9,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "IND",
+      "ad": "Hindistan",
+      "grup": "gelismekte",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 1.79
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 8.1
+      },
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 4.96
+      },
+      "cekirdek": null,
+      "issizlik": null,
+      "faiz": {
+        "deger": 5.5,
+        "tarih": "2026-10-19",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-09",
+        "deger": 7.06
+      },
+      "reel": {
+        "deger": 0.54,
+        "tufeDonem": "2026-08"
+      }
+    },
+    {
+      "kod": "IDN",
+      "ad": "Endonezya",
+      "grup": "gelismekte",
+      "gsyhCeyrek": {
+        "donem": "2026-Q2",
+        "deger": 1.28
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q2",
+        "deger": 5.3
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 3.28
+      },
+      "cekirdek": null,
+      "issizlik": null,
+      "faiz": {
+        "deger": 5.75,
+        "tarih": "2026-10-19",
+        "aralik": null
+      },
+      "tahvil": null,
+      "reel": {
+        "deger": 2.47,
+        "tufeDonem": "2026-09"
+      }
+    },
+    {
+      "kod": "CHN",
+      "ad": "Çin",
+      "grup": "gelismekte",
+      "gsyhCeyrek": {
+        "donem": "2026-Q3",
+        "deger": 1.2
+      },
+      "gsyhYillik": {
+        "donem": "2026-Q3",
+        "deger": 4.5
+      },
+      "tufe": {
+        "donem": "2026-09",
+        "deger": 0.9
+      },
+      "cekirdek": null,
+      "issizlik": null,
+      "faiz": {
+        "deger": 3,
+        "tarih": "2026-10-19",
+        "aralik": null
+      },
+      "tahvil": {
+        "donem": "2026-08",
+        "deger": 1.69
+      },
+      "reel": {
+        "deger": 2.1,
+        "tufeDonem": "2026-09"
+      }
+    }
+  ]
+}

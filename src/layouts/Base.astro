@@ -6,6 +6,7 @@ import { analizMi } from '../lib/yazi-turu.mjs';
 import { jsonLdMetni } from '../lib/json-ld.mjs';
 import Pictograms from '../components/Pictograms.astro';
 import Logo from '../components/Logo.astro';
+import VeriAtif from '../components/VeriAtif.astro';
 import { kisalt, siteJsonLd } from '../lib/seo';
 import '../styles/global.css';
 
@@ -52,6 +53,8 @@ const ogHeight = imageHeight ?? 630;
 const ogAlt = imageAlt ?? title ?? SITE.name;
 const xHandle = SITE.social.x ? `@${SITE.social.x.replace(/\/+$/, '').split('/').pop()}` : undefined;
 const current = Astro.url.pathname;
+// Veri sayfalarına (ana sayfa hariç) atıf düğmesi.
+const veriSayfasi = current.startsWith('/veri/') && current !== '/veri/';
 const today = new Date().toLocaleDateString(SITE.locale, {
   weekday: 'long',
   day: 'numeric',
@@ -164,6 +167,7 @@ const today = new Date().toLocaleDateString(SITE.locale, {
 
     <main id="icerik">
       <slot />
+      {veriSayfasi && <VeriAtif />}
     </main>
 
     <footer class="site-footer">

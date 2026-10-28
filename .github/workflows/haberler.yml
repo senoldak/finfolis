@@ -115,15 +115,23 @@ jobs:
       - name: TCMB ve makro göstergeleri güncelle
         if: ${{ !cancelled() && steps.hent.outputs.durdu != '1' }}
         continue-on-error: true
-        timeout-minutes: 5
+        timeout-minutes: 10
         env:
           EVDS_API_KEY: ${{ secrets.EVDS_API_KEY }}
+          # Yalnız PPK metin tonu (scripts/veri/ppk-ton.mjs): yeni PPK metni yoksa Gemini çağrısı yapılmaz.
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_KULLANIM_DOSYASI: ${{ runner.temp }}/gemini-kullanim.json
         run: |
           node scripts/tcmb-altin-kazanci.mjs
           node scripts/tcmb-swap-orani.mjs || true
           node scripts/tcmb-net-pozisyon-degisimi.mjs || true
           node scripts/veri/abd-tahvil.mjs || true
           node scripts/veri/abd-tahvilleri-uret.mjs --yaz || true
+          node scripts/veri/dunya-faizleri.mjs --yaz || true
+          node scripts/veri/emsal-ulkeler.mjs --yaz || true
+          node scripts/veri/veri-takvimi.mjs --yaz || true
+          node scripts/veri/ppk-metinler.mjs --yaz || true
+          node scripts/veri/ppk-ton.mjs --yaz || true
 
       # Üretim adımı düşse de (zaman aşımı, motor hatası, beklenmeyen hata) o ana kadar yazılan haberler ve durum dosyası
       # commit edilir (F4); aksi hâlde aynı adaylar sonraki turda Gemini'yi yeniden harcıyordu. İş yine kırmızı biter.

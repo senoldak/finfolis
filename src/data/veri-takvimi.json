@@ -1,0 +1,3192 @@
+{
+  "alinma": "2026-10-28T22:30:23.859Z",
+  "kaynaklar": [
+    {
+      "ad": "TÜİK ulusal veri yayımlama takvimi (Resmi İstatistik Portalı)",
+      "url": "https://www.resmiistatistik.gov.tr/"
+    },
+    {
+      "ad": "TCMB veri yayımlama takvimi",
+      "url": "https://appg.tcmb.gov.tr/igmvytsfe-dis/tr"
+    },
+    {
+      "ad": "TCMB Para Politikası Kurulu toplantıları ve rapor takvimi",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Takvim"
+    }
+  ],
+  "olaylar": [
+    {
+      "tarih": "2026-09-29",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ekonomik Güven Endeksi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ekonomik-Güven-Endeksi-Eylül-2026-58124&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-09-29",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Muhtemel Eğitim Süresi",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Muhtemel-Eğitim-Süresi-2025-58307&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-09-30",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Dış Ticaret İstatistikleri",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Dış-Ticaret-İstatistikleri-Ağustos-2026-58239&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-09-30",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hizmet Üretici Fiyat Endeksi",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hizmet-Üretici-Fiyat-Endeksi-Ağustos-2026-58098&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-09-30",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "İşgücü İstatistikleri",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İşgücü-İstatistikleri-Ağustos-2026-57987&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-09-30",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Aylık Para ve Banka İstatistikleri",
+      "donem": "Ağustos 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Aylik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-01",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Devlet Hesapları",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Devlet-Hesapları-2025-58117&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-01",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "39. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-01",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "39. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-01",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "39. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-01",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "39. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-01",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "38. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-01",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "38. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-01",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "39. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-01",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "39. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-01",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "39. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-01",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "39. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-02",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Banka Kredileri Eğilim Anketi",
+      "donem": "Temmuz - Eylül 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Banka+Kredileri+Egilim+Anketi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-02",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Yapay Zeka İstatistikleri",
+      "donem": "2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yapay-Zeka-İstatistikleri-2026-62066&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Bankalarca İşletme Kredilerine Fiilen Uygulanan Azami Faiz Oranları (Aylık)",
+      "donem": "Ağustos 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_kt210aisl",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Bankalarca Mevduatlara Fiilen Uygulanan Azami Faiz Oranları (Stok Veri %) (Aylık)",
+      "donem": "Ağustos 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_mt210as",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Finansman Şirketleri Kredi Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Ağustos 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_fs101a",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Kamu Bankalarınca Mevduatlara Fiilen Uygulanan Azami Faiz Oranları (Stok Veri %) (Aylık)",
+      "donem": "Ağustos 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_mt210ak",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Ağustos 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_kt210a",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Ağustos 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_kt210aks",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Ağustos 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_mt210ags",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-05",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Tüketici Fiyat Endeksi (TÜFE)",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tüketici-Fiyat-Endeksi-Eylül-2026-58298&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-05",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Yurt İçi Üretici Fiyat Endeksi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yurt-İçi-Üretici-Fiyat-Endeksi-Eylül-2026-58034&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-06",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Reel Efektif Döviz Kuru",
+      "donem": "Eylül 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Doviz+Kurlari/Reel+Efektif+Doviz+Kuruu/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Finansal Yatırım Araçlarının Reel Getiri Oranları",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Finansal-Yatırım-Araçlarının-Reel-Getiri-Oranları-Eylül-2026-58224&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Kurumsal Sektör Hesapları",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Kurumsal-Sektör-Hesapları-2025-58286&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "40. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "40. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "40. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Aylık)",
+      "donem": "Eylül 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "40. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "39. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "39. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "40. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "40. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "40. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-08",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "40. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-09",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hanehalkı Nihai Enerji Tüketim İstatistikleri",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hanehalkı-Nihai-Enerji-Tüketim-İstatistikleri-2025-58230&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-09",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "İnşaat Maliyet Endeksi",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İnşaat-Maliyet-Endeksi-Ağustos-2026-58205&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-09",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Sanayi Üretim Endeksi",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Sanayi-Üretim-Endeksi-Ağustos-2026-58196&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-12",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ciro Endeksleri",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ciro-Endeksleri-Ağustos-2026-58279&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-12",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ticaret Satış Hacim Endeksi",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ticaret-Satış-Hacim-Endeksi-Ağustos-2026-58266&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-13",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Ödemeler Dengesi İstatistikleri",
+      "donem": "Ağustos 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Odemeler+Dengesi+Istatistikleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-13",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Dış Ticaret Endeksleri",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Dış-Ticaret-Endeksleri-Ağustos-2026-58257&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-13",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Kümes Hayvancılığı Üretimi",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Kümes-Hayvancılığı-Üretimi-Ağustos-2026-58058&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-13",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Süt ve Süt Ürünleri Üretimi",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Süt-ve-Süt-Ürünleri-Üretimi-Ağustos-2026-58073&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-14",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Tarım Ürünleri Üretici Fiyat Endeksi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tarım-Ürünleri-Üretici-Fiyat-Endeksi-Eylül-2026-57972&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hizmet Üretim Endeksi",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hizmet-Üretim-Endeksi-Ağustos-2026-58331&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "İnşaat Üretim Endeksi",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İnşaat-Üretim-Endeksi-Ağustos-2026-58316&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Motorlu Kara Taşıtları",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Motorlu-Kara-Taşıtları-Eylül-2026-58046&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ücretli Çalışan İstatistikleri",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ücretli-Çalışan-İstatistikleri-Ağustos-2026-57956&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "41. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "41. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "41. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "41. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "40. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "40. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "41. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "41. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "41. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-15",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "41. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-16",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Konut Fiyat Endeksi",
+      "donem": "Eylül 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Reel+Sektor+Istatistikleri/Konut+Fiyat+Endeksi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-16",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Piyasa Katılımcıları Anketi",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Piyasa+Katilimcilari+Anketi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-16",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hanehalkı Tüketim Harcaması (Bölgesel)",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hanehalkı-Tüketim-Harcaması-(Bölgesel)-2025-53958&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-16",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Konut ve İş Yeri Satış İstatistikleri",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Konut-ve-İş-Yeri-Satış-İstatistikleri-Eylül-2026-58347&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-19",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Kısa Vadeli Dış Borç İstatistikleri",
+      "donem": "Ağustos 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Kisa+Vadeli+Dis+Borc+Istatistiklerii/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-19",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Tarımsal Girdi Fiyat Endeksi",
+      "donem": "Ağustos 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tarımsal-Girdi-Fiyat-Endeksi-Ağustos-2026-58085&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-20",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Yatırım Pozisyonu (Aylık)",
+      "donem": "Ağustos 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Yatirim+Pozisyonu/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-20",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Yurt Dışı Üretici Fiyat Endeksi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yurt-Dışı-Üretici-Fiyat-Endeksi-Eylül-2026-58116&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-21",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "İktisadi Yönelim İstatistikleri ve Reel Kesim Güven Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Iktisadi+Yonelim+Istatistikleri+ve+Reel+Kesim+Guven+Endeksi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-21",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "İmalat Sanayi Kapasite Kullanım Oranı",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Reel+Sektor+Istatistikleri/Imalat+Sanayi+Kapasite+Kullanim+Orani/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-21",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Finansal Hesaplar",
+      "donem": "2. Çeyrek 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Finansal+Hesaplar/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hanehalkı Yurt İçi Turizm",
+      "donem": "II. Çeyrek: Nisan-Haziran 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hanehalkı-Yurt-İçi-Turizm-II.-Çeyrek:-Nisan-Haziran-2026-58025&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Tüketici Güven Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tüketici-Güven-Endeksi-Ekim-2026-58178&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "42. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Finansal Kesim Dışındaki Firmaların Döviz Varlık ve Yükümlülükleri",
+      "donem": "Ağustos 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Finansal+Kesim+Disindaki+Firmalarin+Doviz+Varlik+ve+Yukumlulukleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "42. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "42. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "42. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "41. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "41. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "42. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "42. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "42. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "42. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-22",
+      "saat": null,
+      "kurum": "TCMB",
+      "baslik": "PPK toplantı kararı",
+      "donem": null,
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Takvim",
+      "kaynak": "tcmb-takvim"
+    },
+    {
+      "tarih": "2026-10-23",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Finansal Hizmetler İstatistikleri ve Finansal Hizmetler Güven Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Finansal+Hizmetler+Istatistikleri+ve+Finansal+Hizmetler+Guven+Endeksi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-23",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Hanehalkı Beklenti Anketi",
+      "donem": "Ekim 2026",
+      "url": null,
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-23",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Sektörel Enflasyon Beklentileri",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Sektorel+Enflasyon+Beklentileri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-23",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Bitkisel Üretim 2.Tahmini",
+      "donem": "2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Bitkisel-Üretim-2.Tahmini-2026-58008&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-23",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Yükseköğretim Beyin Göçü İstatistikleri",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yükseköğretim-Beyin-Göçü-İstatistikleri-2025-58026&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-26",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hizmet, Perakende Ticaret ve İnşaat Güven Endeksleri",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hizmet,-Perakende-Ticaret-ve-İnşaat-Güven-Endeksleri-Ekim-2026-58159&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-27",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Yerel ve Konsolide Bankacılık İstatistikleri (Uluslararası Ödemeler Bankası-BIS İstatistikleri)",
+      "donem": "2. Çeyrek 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Yerel+ve+Konsolide+Bankacilik+Istatistikleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-27",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "İşgücü İstatistikleri",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İşgücü-İstatistikleri-Eylül-2026-57988&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-28",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Dış Ticaret İstatistikleri",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Dış-Ticaret-İstatistikleri-Eylül-2026-58240&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-28",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hizmet Üretici Fiyat Endeksi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hizmet-Üretici-Fiyat-Endeksi-Eylül-2026-58103&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-28",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Sanayi Sektörü Nihai Enerji Tüketim İstatistikleri",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Sanayi-Sektörü-Nihai-Enerji-Tüketim-İstatistikleri-2025-58216&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-30",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Araştırma-Geliştirme Faaliyetleri Araştırması",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Araştırma-Geliştirme-Faaliyetleri-Araştırması-2025-58011&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-30",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ekonomik Güven Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ekonomik-Güven-Endeksi-Ekim-2026-58125&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-30",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Turizm İstatistikleri",
+      "donem": "III. Çeyrek: Temmuz-Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Turizm-İstatistikleri-III.-Çeyrek:-Temmuz-Eylül-2026-58144&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-10-30",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Aylık Para ve Banka İstatistikleri",
+      "donem": "Eylül 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Aylik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-30",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka Dışı Finansal Kuruluşlar İstatistikleri",
+      "donem": "2. Çeyrek 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+Disi+Finansal+Kuruluslar+Istatistikleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-10-30",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "43. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-10-30",
+      "saat": null,
+      "kurum": "TCMB",
+      "baslik": "PPK toplantı özeti",
+      "donem": null,
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Takvim",
+      "kaynak": "tcmb-takvim"
+    },
+    {
+      "tarih": "2026-11-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "43. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "43. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "43. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-02",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "42. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-02",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "42. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-02",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "43. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-02",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "43. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-02",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "43. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-02",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "43. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-03",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Tüketici Fiyat Endeksi (TÜFE)",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tüketici-Fiyat-Endeksi-Ekim-2026-58291&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-03",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Yurt İçi Üretici Fiyat Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yurt-İçi-Üretici-Fiyat-Endeksi-Ekim-2026-58035&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-04",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Bankalarca İşletme Kredilerine Fiilen Uygulanan Azami Faiz Oranları (Aylık)",
+      "donem": "Eylül 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_kt210aisl",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-04",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Bankalarca Mevduatlara Fiilen Uygulanan Azami Faiz Oranları (Stok Veri %) (Aylık)",
+      "donem": "Eylül 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_mt210as",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-04",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Finansman Şirketleri Kredi Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Eylül 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_fs101a",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-04",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Kamu Bankalarınca Mevduatlara Fiilen Uygulanan Azami Faiz Oranları (Stok Veri %) (Aylık)",
+      "donem": "Eylül 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_mt210ak",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-04",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Eylül 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_kt210a",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-04",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Eylül 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_kt210aks",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-04",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Eylül 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_mt210ags",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-04",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Reel Efektif Döviz Kuru",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Doviz+Kurlari/Reel+Efektif+Doviz+Kuruu/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-05",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "44. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-05",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "44. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-05",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "44. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-05",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "44. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-05",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "44. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-05",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "44. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-05",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "44. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-05",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "44. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-06",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hizmet-Ticaret Sektörü Nihai Enerji Tüketim İstatistikleri",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hizmet-Ticaret-Sektörü-Nihai-Enerji-Tüketim-İstatistikleri-2025-58215&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-09",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Finansal Yatırım Araçlarının Reel Getiri Oranları",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Finansal-Yatırım-Araçlarının-Reel-Getiri-Oranları-Ekim-2026-58225&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-09",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "43. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-09",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "43. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-10",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "İnşaat Maliyet Endeksi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İnşaat-Maliyet-Endeksi-Eylül-2026-58206&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-10",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Sanayi Üretim Endeksi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Sanayi-Üretim-Endeksi-Eylül-2026-58189&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-11",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ciro Endeksleri",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ciro-Endeksleri-Eylül-2026-58280&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-11",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ticaret Satış Hacim Endeksi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ticaret-Satış-Hacim-Endeksi-Eylül-2026-58267&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Dış Ticaret Endeksleri",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Dış-Ticaret-Endeksleri-Eylül-2026-58247&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Kümes Hayvancılığı Üretimi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Kümes-Hayvancılığı-Üretimi-Eylül-2026-58059&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Süt ve Süt Ürünleri Üretimi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Süt-ve-Süt-Ürünleri-Üretimi-Eylül-2026-58078&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "45. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "45. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "45. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Aylık)",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "45. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "44. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "44. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "45. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "45. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "45. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "45. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-12",
+      "saat": null,
+      "kurum": "TCMB",
+      "baslik": "Enflasyon Raporu",
+      "donem": null,
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Takvim",
+      "kaynak": "tcmb-takvim"
+    },
+    {
+      "tarih": "2026-11-13",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Ödemeler Dengesi İstatistikleri",
+      "donem": "Eylül 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Odemeler+Dengesi+Istatistikleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-13",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Piyasa Katılımcıları Anketi",
+      "donem": "Kasım 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Piyasa+Katilimcilari+Anketi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-13",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hizmet Üretim Endeksi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hizmet-Üretim-Endeksi-Eylül-2026-58337&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-13",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "İnşaat Üretim Endeksi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İnşaat-Üretim-Endeksi-Eylül-2026-58323&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-16",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Ticari Gayrimenkul Fiyat Endeksi",
+      "donem": "3. Çeyrek 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Reel+Sektor+Istatistikleri/TGFE/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-16",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Motorlu Kara Taşıtları",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Motorlu-Kara-Taşıtları-Ekim-2026-58049&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-16",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ücretli Çalışan İstatistikleri",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ücretli-Çalışan-İstatistikleri-Eylül-2026-57962&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-17",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Konut Fiyat Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Reel+Sektor+Istatistikleri/Konut+Fiyat+Endeksi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-17",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Konut ve İş Yeri Satış İstatistikleri",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Konut-ve-İş-Yeri-Satış-İstatistikleri-Ekim-2026-58348&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-17",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Tarım Ürünleri Üretici Fiyat Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tarım-Ürünleri-Üretici-Fiyat-Endeksi-Ekim-2026-57973&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-18",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Dönemsel İşgücü İstatistikleri",
+      "donem": "III. Çeyrek: Temmuz-Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Dönemsel-İşgücü-İstatistikleri-III.-Çeyrek:-Temmuz-Eylül-2026-57994&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-19",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Kısa Vadeli Dış Borç İstatistikleri",
+      "donem": "Eylül 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Kisa+Vadeli+Dis+Borc+Istatistiklerii/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-19",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "46. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-19",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "46. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-19",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "46. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-19",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "46. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-19",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "45. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-19",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "45. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-19",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "46. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-19",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "46. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-19",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "46. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-19",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "46. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-20",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "İktisadi Yönelim İstatistikleri ve Reel Kesim Güven Endeksi",
+      "donem": "Kasım 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Iktisadi+Yonelim+Istatistikleri+ve+Reel+Kesim+Guven+Endeksi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-20",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "İmalat Sanayi Kapasite Kullanım Oranı",
+      "donem": "Kasım 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Reel+Sektor+Istatistikleri/Imalat+Sanayi+Kapasite+Kullanim+Orani/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-20",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Türkiye Dış Borç İstatistikleri",
+      "donem": "3. Çeyrek 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Dis+Borc/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-20",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Yatırım Pozisyonu (Aylık)",
+      "donem": "Eylül 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Yatirim+Pozisyonu/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-20",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Yatırım Pozisyonu (Üç Aylık)",
+      "donem": "3. Çeyrek 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Yatirim+Pozisyonu/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-20",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Yatırım Eğilimi İstatistikleri",
+      "donem": "Güz 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Yatirim+Egilimi+Istatistikleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-20",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Yurt Dışı Portföy Yatırım İstatistikleri",
+      "donem": "3. Çeyrek 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Yatirim+Pozisyonu/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-20",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Çocuklarda Bilişim Teknolojileri Kullanım Araştırması",
+      "donem": "2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Çocuklarda-Bilişim-Teknolojileri-Kullanım-Araştırması-2026-58136&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-20",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Tarımsal Girdi Fiyat Endeksi",
+      "donem": "Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tarımsal-Girdi-Fiyat-Endeksi-Eylül-2026-58086&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-20",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Tüketici Güven Endeksi",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tüketici-Güven-Endeksi-Kasım-2026-58179&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-20",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Yurt Dışı Üretici Fiyat Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yurt-Dışı-Üretici-Fiyat-Endeksi-Ekim-2026-58111&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-23",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Finansal Hizmetler İstatistikleri ve Finansal Hizmetler Güven Endeksi",
+      "donem": "Kasım 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Finansal+Hizmetler+Istatistikleri+ve+Finansal+Hizmetler+Guven+Endeksi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-23",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Hanehalkı Beklenti Anketi",
+      "donem": "Kasım 2026",
+      "url": null,
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-23",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Sektörel Enflasyon Beklentileri",
+      "donem": "Kasım 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Sektorel+Enflasyon+Beklentileri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-23",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "İşgücü Girdi Endeksleri",
+      "donem": "III. Çeyrek: Temmuz-Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İşgücü-Girdi-Endeksleri-III.-Çeyrek:-Temmuz-Eylül-2026-57963&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-23",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Taşıt-kilometre İstatistikleri",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Taşıt-kilometre-İstatistikleri-2025-58135&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-24",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hizmet, Perakende Ticaret ve İnşaat Güven Endeksleri",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hizmet,-Perakende-Ticaret-ve-İnşaat-Güven-Endeksleri-Kasım-2026-58160&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-24",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Yapı İzin İstatistikleri",
+      "donem": "III. Çeyrek: Temmuz-Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yapı-İzin-İstatistikleri-III.-Çeyrek:-Temmuz-Eylül-2026-58301&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-24",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Finansal Kesim Dışındaki Firmaların Döviz Varlık ve Yükümlülükleri",
+      "donem": "Eylül 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Finansal+Kesim+Disindaki+Firmalarin+Doviz+Varlik+ve+Yukumlulukleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-11-26",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "47. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-26",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "47. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-26",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "47. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-26",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "47. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-26",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "46. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-26",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "46. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-26",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "47. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-26",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "47. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-26",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "47. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-26",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "47. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-11-27",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ekonomik Güven Endeksi",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ekonomik-Güven-Endeksi-Kasım-2026-58126&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-27",
+      "saat": null,
+      "kurum": "TCMB",
+      "baslik": "Finansal İstikrar Raporu",
+      "donem": null,
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Takvim",
+      "kaynak": "tcmb-takvim"
+    },
+    {
+      "tarih": "2026-11-30",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Dış Ticaret İstatistikleri",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Dış-Ticaret-İstatistikleri-Ekim-2026-58241&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-30",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hizmet Üretici Fiyat Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hizmet-Üretici-Fiyat-Endeksi-Ekim-2026-58099&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-30",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "İşgücü İstatistikleri",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İşgücü-İstatistikleri-Ekim-2026-57989&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-11-30",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Aylık Para ve Banka İstatistikleri",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Aylik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-01",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Dönemsel Gayrisafi Yurt İçi Hasıla",
+      "donem": "III. Çeyrek: Temmuz-Eylül 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Dönemsel-Gayrisafi-Yurt-İçi-Hasıla-III.-Çeyrek:-Temmuz-Eylül-2026-58214&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-01",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Kültür Ekonomisi",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Kültür-Ekonomisi-2025-58004&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Bankalarca İşletme Kredilerine Fiilen Uygulanan Azami Faiz Oranları (Aylık)",
+      "donem": "Ekim 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_kt210aisl",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Bankalarca Mevduatlara Fiilen Uygulanan Azami Faiz Oranları (Stok Veri %) (Aylık)",
+      "donem": "Ekim 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_mt210as",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Finansman Şirketleri Kredi Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Ekim 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_fs101a",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Kamu Bankalarınca Mevduatlara Fiilen Uygulanan Azami Faiz Oranları (Stok Veri %) (Aylık)",
+      "donem": "Ekim 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_mt210ak",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Ekim 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_kt210a",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Ekim 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_kt210aks",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-02",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Ekim 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_mt210ags",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-03",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Tüketici Fiyat Endeksi (TÜFE)",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tüketici-Fiyat-Endeksi-Kasım-2026-58299&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-03",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Yurt İçi Üretici Fiyat Endeksi",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yurt-İçi-Üretici-Fiyat-Endeksi-Kasım-2026-58036&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-03",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "48. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-03",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "48. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-03",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "48. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-03",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "48. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-03",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "47. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-03",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "47. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-03",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "48. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-03",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "48. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-03",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "48. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-03",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "48. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-04",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Reel Efektif Döviz Kuru",
+      "donem": "Kasım 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Doviz+Kurlari/Reel+Efektif+Doviz+Kuruu/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-07",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Eğitim Harcamaları İstatistikleri",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Eğitim-Harcamaları-İstatistikleri-2025-58306&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-08",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Finansal Yatırım Araçlarının Reel Getiri Oranları",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Finansal-Yatırım-Araçlarının-Reel-Getiri-Oranları-Kasım-2026-58226&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-08",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Sağlık Harcamaları İstatistikleri",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Sağlık-Harcamaları-İstatistikleri-2025-58148&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-09",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "İl Bazında Gayrisafi Yurt İçi Hasıla",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İl-Bazında-Gayrisafi-Yurt-İçi-Hasıla-2025-58162&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-09",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "İnşaat Maliyet Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İnşaat-Maliyet-Endeksi-Ekim-2026-58207&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Dış Ticaret Endeksleri",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Dış-Ticaret-Endeksleri-Ekim-2026-58248&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Sanayi Üretim Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Sanayi-Üretim-Endeksi-Ekim-2026-58190&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "49. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "49. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "49. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Aylık)",
+      "donem": "Kasım 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "49. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "48. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "48. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "49. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "49. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "49. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "49. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-10",
+      "saat": null,
+      "kurum": "TCMB",
+      "baslik": "PPK toplantı kararı",
+      "donem": null,
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Takvim",
+      "kaynak": "tcmb-takvim"
+    },
+    {
+      "tarih": "2026-12-11",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Ödemeler Dengesi İstatistikleri",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Odemeler+Dengesi+Istatistikleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-11",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Piyasa Katılımcıları Anketi",
+      "donem": "Aralık 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Piyasa+Katilimcilari+Anketi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-11",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ciro Endeksleri",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ciro-Endeksleri-Ekim-2026-58281&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-11",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ticaret Satış Hacim Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ticaret-Satış-Hacim-Endeksi-Ekim-2026-58268&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-14",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Kümes Hayvancılığı Üretimi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Kümes-Hayvancılığı-Üretimi-Ekim-2026-58060&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-14",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Süt ve Süt Ürünleri Üretimi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Süt-ve-Süt-Ürünleri-Üretimi-Ekim-2026-58074&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-15",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hizmet Üretim Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hizmet-Üretim-Endeksi-Ekim-2026-58332&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-15",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "İnşaat Üretim Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İnşaat-Üretim-Endeksi-Ekim-2026-58317&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-15",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Motorlu Kara Taşıtları",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Motorlu-Kara-Taşıtları-Kasım-2026-58047&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-15",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ücretli Çalışan İstatistikleri",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ücretli-Çalışan-İstatistikleri-Ekim-2026-57957&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-16",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Konut Fiyat Endeksi",
+      "donem": "Kasım 2025",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Reel+Sektor+Istatistikleri/Konut+Fiyat+Endeksi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-16",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Girişimcilik ve İş Demografisi",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Girişimcilik-ve-İş-Demografisi-2025-58028&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-16",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Tarım Ürünleri Üretici Fiyat Endeksi",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tarım-Ürünleri-Üretici-Fiyat-Endeksi-Kasım-2026-57974&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Kısa Vadeli Dış Borç İstatistikleri",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Kisa+Vadeli+Dis+Borc+Istatistiklerii/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Çevre Koruma Harcama İstatistikleri",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Çevre-Koruma-Harcama-İstatistikleri-2025-58134&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Konut ve İş Yeri Satış İstatistikleri",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Konut-ve-İş-Yeri-Satış-İstatistikleri-Kasım-2026-58349&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "50. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "50. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "50. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "50. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "49. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "49. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "50. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "50. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "50. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "50. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-17",
+      "saat": null,
+      "kurum": "TCMB",
+      "baslik": "PPK toplantı özeti",
+      "donem": null,
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Takvim",
+      "kaynak": "tcmb-takvim"
+    },
+    {
+      "tarih": "2026-12-18",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Yatırım Pozisyonu (Aylık)",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Yatirim+Pozisyonu/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-18",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Sosyal Koruma İstatistikleri",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Sosyal-Koruma-İstatistikleri-2025-58003&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-21",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "İktisadi Yönelim İstatistikleri ve Reel Kesim Güven Endeksi",
+      "donem": "Aralık 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Iktisadi+Yonelim+Istatistikleri+ve+Reel+Kesim+Guven+Endeksi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-21",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "İmalat Sanayi Kapasite Kullanım Oranı",
+      "donem": "Aralık 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Reel+Sektor+Istatistikleri/Imalat+Sanayi+Kapasite+Kullanim+Orani/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-21",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Tüketici Güven Endeksi",
+      "donem": "Aralık 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tüketici-Güven-Endeksi-Aralık-2026-58182&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-21",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Yurt Dışı Üretici Fiyat Endeksi",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yurt-Dışı-Üretici-Fiyat-Endeksi-Kasım-2026-58112&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-22",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Finansal Hizmetler İstatistikleri ve Finansal Hizmetler Güven Endeksi",
+      "donem": "Aralık 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Finansal+Hizmetler+Istatistikleri+ve+Finansal+Hizmetler+Guven+Endeksi/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-22",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Gelir Dağılımı İstatistikleri",
+      "donem": "2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Gelir-Dağılımı-İstatistikleri-2026-58147&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-22",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Tarımsal Girdi Fiyat Endeksi",
+      "donem": "Ekim 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tarımsal-Girdi-Fiyat-Endeksi-Ekim-2026-58087&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-22",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Finansal Kesim Dışındaki Firmaların Döviz Varlık ve Yükümlülükleri",
+      "donem": "Ekim 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Finansal+Kesim+Disindaki+Firmalarin+Doviz+Varlik+ve+Yukumlulukleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-23",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Hanehalkı Beklenti Anketi",
+      "donem": "Aralık 2026",
+      "url": null,
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-23",
+      "saat": "10:00",
+      "kurum": "TCMB",
+      "baslik": "Sektörel Enflasyon Beklentileri",
+      "donem": "Aralık 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Sektorel+Enflasyon+Beklentileri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-23",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hizmet, Perakende Ticaret ve İnşaat Güven Endeksleri",
+      "donem": "Aralık 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hizmet,-Perakende-Ticaret-ve-İnşaat-Güven-Endeksleri-Aralık-2026-58161&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-24",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Küçük ve Orta Büyüklükteki Girişim İstatistikleri",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Küçük-ve-Orta-Büyüklükteki-Girişim-İstatistikleri-2025-58014&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-24",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Yıllık Sanayi ve Hizmet İstatistikleri Yatırım Harcamaları",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yıllık-Sanayi-ve-Hizmet-İstatistikleri-Yatırım-Harcamaları-2025-58309&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-24",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "51. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-24",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "51. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-24",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "51. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-24",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "51. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-24",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "50. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-24",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "50. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-24",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "51. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-24",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "51. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-24",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "51. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-24",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "51. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-25",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Bitkisel Üretim İstatistikleri",
+      "donem": "2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Bitkisel-Üretim-İstatistikleri-2026-58007&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-28",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Ekonomik Güven Endeksi",
+      "donem": "Aralık 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Ekonomik-Güven-Endeksi-Aralık-2026-58127&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-29",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Turizm Uydu Hesabı",
+      "donem": "2025",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Turizm-Uydu-Hesabı-2025-58310&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-29",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Yoksulluk ve Yaşam Koşulları İstatistikleri",
+      "donem": "2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yoksulluk-ve-Yaşam-Koşulları-İstatistikleri-2026-58146&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-30",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Hizmet Üretici Fiyat Endeksi",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hizmet-Üretici-Fiyat-Endeksi-Kasım-2026-58097&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-30",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "İşgücü İstatistikleri",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İşgücü-İstatistikleri-Kasım-2026-57990&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "10:00",
+      "kurum": "TÜİK",
+      "baslik": "Dış Ticaret İstatistikleri",
+      "donem": "Kasım 2026",
+      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Dış-Ticaret-İstatistikleri-Kasım-2026-58245&dil=1",
+      "kaynak": "tuik"
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Aylık Para ve Banka İstatistikleri",
+      "donem": "Kasım 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Aylik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
+      "donem": "52. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Bankalarca İşletme Kredilerine Fiilen Uygulanan Azami Faiz Oranları (Aylık)",
+      "donem": "Kasım 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_kt210aisl",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Bankalarca Mevduatlara Fiilen Uygulanan Azami Faiz Oranları (Stok Veri %) (Aylık)",
+      "donem": "Kasım 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_mt210as",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Finansman Şirketleri Kredi Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Kasım 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_fs101a",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Haftalık Para ve Banka İstatistikleri",
+      "donem": "52. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Kamu Bankalarınca Mevduatlara Fiilen Uygulanan Azami Faiz Oranları (Stok Veri %) (Aylık)",
+      "donem": "Kasım 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_mt210ak",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Kasım 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_kt210a",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Kasım 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_kt210aks",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Menkul Kıymet İstatistikleri",
+      "donem": "52. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
+      "donem": "Kasım 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_mt210ags",
+      "kaynak": "tcmb-api"
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "14:30",
+      "kurum": "TCMB",
+      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
+      "donem": "52. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
+      "donem": "51. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "15:30",
+      "kurum": "TCMB",
+      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
+      "donem": "51. Hafta 2026",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "52. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "52. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "52. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2026-12-31",
+      "saat": "17:00",
+      "kurum": "TCMB",
+      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
+      "donem": "52. Hafta 2026",
+      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
+      "kaynak": "tcmb-api",
+      "haftalik": true
+    },
+    {
+      "tarih": "2027-01-21",
+      "saat": null,
+      "kurum": "TCMB",
+      "baslik": "PPK toplantı kararı",
+      "donem": null,
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Takvim",
+      "kaynak": "tcmb-takvim"
+    },
+    {
+      "tarih": "2027-01-28",
+      "saat": null,
+      "kurum": "TCMB",
+      "baslik": "PPK toplantı özeti",
+      "donem": null,
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Takvim",
+      "kaynak": "tcmb-takvim"
+    },
+    {
+      "tarih": "2027-02-11",
+      "saat": null,
+      "kurum": "TCMB",
+      "baslik": "Enflasyon Raporu",
+      "donem": null,
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Takvim",
+      "kaynak": "tcmb-takvim"
+    }
+  ]
+}

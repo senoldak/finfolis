@@ -1,0 +1,428 @@
+---
+// PPK karar metni farkı: TCMB'nin her "Faiz Oranlarına İlişkin Basın Duyurusu" metni bir öncekiyle cümle cümle karşılaştırılır.
+// Metinler src/data/ppk-metinler.json'dan gelir (scripts/veri/ppk-metinler.mjs, yalnız tcmb.gov.tr). Karşılaştırma kurallı koddur
+// (src/lib/ppk-fark.mjs); yapay zekâ ve yorum yoktur. Bütün farklar derleme anında üretilir.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { gunYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { cumleFarki } from '../../lib/ppk-fark.mjs';
+import { faizKarari } from '../../lib/ppk-metin.mjs';
+import ppk from '../../data/ppk-metinler.json';
+
+const belgeler: any[] = (ppk as any).belgeler ?? [];
+const kararlar = belgeler.filter((b) => b.tur === 'karar').sort((a, b) => a.tarih.localeCompare(b.tarih));
+const ozetler = belgeler.filter((b) => b.tur === 'ozet').sort((a, b) => a.tarih.localeCompare(b.tarih));
+const hazir = kararlar.length >= 2;
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const oranYaz = (n: number) => `%${String(n).replace('.', ',')}`;
+
+const ETIKET: Record<string, string> = { eklendi: 'Eklendi', silindi: 'Silindi', degisti: 'Değişti' };
+
+// Bir cümle satırı: aynı kalan soluk, eklenen ve silinen etiketli; değişende sözcük farkı.
+function satirHtml(s: any) {
+  if (s.tur === 'ayni') return `<li class="ppk-satir ppk-ayni"><p>${esc(s.yeni)}</p></li>`;
+  const etiket = `<span class="ppk-etiket">${ETIKET[s.tur]}</span>`;
+  let govde: string;
+  if (s.tur === 'eklendi') govde = `<ins>${esc(s.yeni)}</ins>`;
+  else if (s.tur === 'silindi') govde = `<del>${esc(s.eski)}</del>`;
+  else
+    govde = s.sozcukler
+      .map((p: any) => (p.tur === 'eklendi' ? `<ins>${esc(p.metin)}</ins>` : p.tur === 'silindi' ? `<del>${esc(p.metin)}</del>` : esc(p.metin)))
+      .join(' ');
+  return `<li class="ppk-satir ppk-${s.tur}">${etiket}<p>${govde}</p></li>`;
+}
+const listeHtml = (satirlar: any[]) => `<ol class="ppk-liste">${satirlar.map(satirHtml).join('')}</ol>`;
+// Değişiklik: eklenen, silinen ve değişen her cümle bir değişikliktir. Yeni taraf: yeni metinde aynı olmayan birim sayısı.
+const toplam = (o: any) => o.eklenen + o.silinen + o.degisen;
+const yeniTarafi = (o: any) => o.eklenen + o.degisen;
+
+// Her karar bir öncekiyle karşılaştırılır (en eskinin öncesi yok).
+const kararFarklari = kararlar.map((k, i) => {
+  const onceki = i > 0 ? kararlar[i - 1] : null;
+  const fark = onceki ? cumleFarki(onceki.cumleler, k.cumleler) : null;
+  return { karar: k, onceki, fark, faiz: faizKarari(k.cumleler) };
+});
+const son = kararFarklari.at(-1);
+const arsiv = [...kararFarklari].reverse();
+
+function faizMetni(f: any) {
+  if (!f) return '–';
+  return f.karar === 'sabit' ? `${oranYaz(f.yeni)} (sabit)` : `${oranYaz(f.onceki)} → ${oranYaz(f.yeni)}`;
+}
+
+// Toplantı özeti: son iki özet. Özet, karardan beş iş günü sonra yayımlanır.
+const sonOzet = ozetler.at(-1);
+const oncekiOzet = ozetler.at(-2);
+let ozetBolumu: null | { paragrafFarki: any; cumleFarki: any; ilkler: any[]; toplantiSayisi: number } = null;
+if (sonOzet && oncekiOzet) {
+  const pf = cumleFarki(oncekiOzet.paragraflar, sonOzet.paragraflar);
+  const cf = cumleFarki(oncekiOzet.cumleler, sonOzet.cumleler);
+  ozetBolumu = {
+    paragrafFarki: pf,
+    cumleFarki: cf,
+    ilkler: cf.satirlar.filter((s: any) => s.tur !== 'ayni').slice(0, 6),
+    toplantiSayisi: ozetler.length,
+  };
+}
+const bekleyenOzet = son && sonOzet && son.karar.tarih > (sonOzet.toplantiTarihi ?? sonOzet.tarih) ? son.karar.tarih : null;
+
+const baslik = 'PPK karar metni farkı';
+const description = hazir
+  ? `TCMB Para Politikası Kurulu kararlarının metni, bir öncekiyle cümle cümle karşılaştırılır: eklenen, silinen ve değişen cümleler. ${gunYaz(kararlar[0].tarih)} – ${gunYaz(son!.karar.tarih)} arası ${kararlar.length} karar.`
+  : 'TCMB Para Politikası Kurulu karar metinlerinin cümle düzeyinde karşılaştırması.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/ppk-karar-metni/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: `${baslik} (TCMB)`,
+  aciklama: description,
+  ...(hazir
+    ? {
+        sayfaEk: { dateModified: (ppk as any).alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'TCMB PPK karar metinlerinin cümle düzeyinde karşılaştırması',
+            description: 'TCMB Para Politikası Kurulu’nun faiz kararlarına ilişkin basın duyuru metinleri ve her metnin bir öncekine göre eklenen, silinen ve değişen cümleleri.',
+            url: 'https://finfolis.com/veri/ppk-karar-metni/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${kararlar[0].tarih}/${son!.karar.tarih}`,
+            dateModified: (ppk as any).alinma,
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`${baslik}: TCMB kararları cümle cümle karşılaştırma`} description={description} noindex={!hazir}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa ppk-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Türkiye Cumhuriyet Merkez Bankası · Para Politikası Kurulu karar metinleri</p>
+    </header>
+    {
+      hazir && son ? (
+        <>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={(ppk as any).kaynak.url} rel="noopener">TCMB basın duyuruları</a>:{' '}
+            <a href={son.karar.url} rel="noopener">{gunYaz(son.karar.tarih)} tarihli karar metni</a>. Siteye alındığı zaman: {zamanYaz((ppk as any).alinma)}.
+          </p>
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Son karar: {gunYaz(son.karar.tarih)}</h2>
+            <p class="veri-notu ppk-aciklama">
+              {gunYaz(son.karar.tarih)} tarihli karar metni, {gunYaz(son.onceki?.tarih)} tarihli metinle karşılaştırıldı.
+              <ins class="ppk-ornek">Eklenen</ins>, <del class="ppk-ornek">silinen</del> ve değişen sözcükler işaretlidir; aynı kalan cümleler soluk gösterilir.
+            </p>
+            <dl class="veri-rakamlar">
+              <div>
+                <dt>Politika faizi kararı</dt>
+                <dd>{faizMetni(son.faiz)}</dd>
+              </div>
+              <div>
+                <dt>Değişiklik (cümle)</dt>
+                <dd>{toplam(son.fark.ozet)}</dd>
+              </div>
+              <div>
+                <dt>Aynı kalan cümle</dt>
+                <dd>{son.fark.ozet.ayni}</dd>
+              </div>
+            </dl>
+            <div class="ppk-fark" set:html={listeHtml(son.fark.satirlar)} />
+            <p class="veri-notu ppk-sayim">
+              Eklenen {son.fark.ozet.eklenen} · silinen {son.fark.ozet.silinen} · değişen {son.fark.ozet.degisen} · aynı {son.fark.ozet.ayni} cümle.
+            </p>
+          </section>
+
+          {
+            ozetBolumu && sonOzet && oncekiOzet && (
+              <section class="bolum">
+                <h2 class="bolum-baslik">Son toplantı özeti</h2>
+                <p class="veri-notu ppk-aciklama">
+                  {gunYaz(sonOzet.toplantiTarihi ?? sonOzet.tarih)} toplantısının özeti ({gunYaz(sonOzet.tarih)} tarihli duyuru), {gunYaz(oncekiOzet.toplantiTarihi ?? oncekiOzet.tarih)} toplantısının özetiyle karşılaştırıldı.
+                </p>
+                <dl class="veri-rakamlar">
+                  <div>
+                    <dt>Değişen paragraf</dt>
+                    <dd>
+                      {yeniTarafi(ozetBolumu.paragrafFarki.ozet)}
+                      <span class="ppk-pay"> / {sonOzet.paragraflar.length}</span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Değişen cümle</dt>
+                    <dd>
+                      {yeniTarafi(ozetBolumu.cumleFarki.ozet)}
+                      <span class="ppk-pay"> / {sonOzet.cumleler.length}</span>
+                    </dd>
+                  </div>
+                </dl>
+                <p class="veri-notu ppk-aciklama ppk-bosluk">
+                  Özet metinleri her toplantıda güncel verilerle yeniden yazıldığı için çoğu paragraf değişir. Aşağıda metnin sırasıyla ilk {ozetBolumu.ilkler.length} değişiklik var; tamamı için
+                  <a href={sonOzet.url} rel="noopener">TCMB’nin özet metnine</a> bakılabilir.
+                </p>
+                <div class="ppk-fark" set:html={listeHtml(ozetBolumu.ilkler)} />
+                {bekleyenOzet && (
+                  <p class="veri-notu ppk-bosluk">
+                    {gunYaz(bekleyenOzet)} tarihli kararın toplantı özeti TCMB tarafından yayımlandığında bu bölüme eklenecek.
+                  </p>
+                )}
+              </section>
+            )
+          }
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Karar arşivi</h2>
+            <p class="veri-notu ppk-aciklama">
+              Haziran 2023’ten bugüne her karar bir öncekiyle karşılaştırıldı. Bir satıra dokununca o kararın farkı açılır.
+            </p>
+            <div class="ppk-arsiv">
+              <div class="ppk-arsiv-bas" aria-hidden="true">
+                <span>Tarih</span>
+                <span>Politika faizi</span>
+                <span class="sag">Değişiklik</span>
+              </div>
+              {arsiv.map((a) => (
+                a.fark ? (
+                  <details id={`karar-${a.karar.tarih}`} class="ppk-ayrinti">
+                    <summary>
+                      <span class="ppk-tarih">{gunYaz(a.karar.tarih)}</span>
+                      <span class={`ppk-faiz ppk-faiz-${a.faiz?.karar ?? 'yok'}`}>{faizMetni(a.faiz)}</span>
+                      <span class="ppk-sayi sag">{toplam(a.fark.ozet)}</span>
+                    </summary>
+                    <div class="ppk-ic">
+                      <p class="veri-notu ppk-aciklama">
+                        {gunYaz(a.onceki.tarih)} tarihli metne göre: eklenen {a.fark.ozet.eklenen} · silinen {a.fark.ozet.silinen} · değişen {a.fark.ozet.degisen} · aynı kalan {a.fark.ozet.ayni} cümle.
+                        <a href={a.karar.url} rel="noopener">TCMB duyurusu</a>
+                      </p>
+                      <div class="ppk-fark" set:html={listeHtml(a.fark.satirlar.filter((s: any) => s.tur !== 'ayni'))} />
+                    </div>
+                  </details>
+                ) : (
+                  <div class="ppk-ayrinti ppk-ilk">
+                    <div class="ppk-ozet-satir">
+                      <span class="ppk-tarih">{gunYaz(a.karar.tarih)}</span>
+                      <span class={`ppk-faiz ppk-faiz-${a.faiz?.karar ?? 'yok'}`}>{faizMetni(a.faiz)}</span>
+                      <span class="ppk-sayi sag">–</span>
+                    </div>
+                  </div>
+                )
+              ))}
+            </div>
+            <p class="veri-notu">
+              Değişiklik sütunu, eklenen, silinen ve değişen cümlelerin toplamıdır. Arşivdeki ilk karar, karşılaştırılacak önceki metin bu sayfada olmadığı için farksız gösterilir. Faiz oranı, karar cümlesinden okunur ve politika faizi olan bir hafta vadeli repo ihale faiz oranıdır.
+            </p>
+          </section>
+
+          <section class="bolum prose veri-aciklama">
+            <h2 class="bolum-baslik">Bu sayfa nasıl hazırlanıyor</h2>
+            <p>
+              Karar metinleri ve toplantı özetleri TCMB’nin <a href="https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Basin" rel="noopener">basın duyuruları</a> sayfasından alınır;
+              başlıkları “Faiz Oranlarına İlişkin Basın Duyurusu” ve “Para Politikası Kurulu Toplantı Özeti” olan duyurular toplanır. Metin, TCMB sayfasındaki halinden çıkarılır; sayfada başka bir kaynak kullanılmaz.
+            </p>
+            <p>
+              Karşılaştırma kurallı bir programla yapılır. Metinler cümlelere bölünür, iki metindeki cümleler sıra korunarak eşleştirilir. Birebir aynı olan cümleler “aynı kalan”,
+              yalnız yeni metinde olanlar “eklenen”, yalnız eski metinde olanlar “silinen” sayılır. Sözcüklerinin yarıdan fazlası ortak olan cümleler aynı cümlenin değişmiş hali sayılır ve
+              sözcük sözcük gösterilir. Programa yapay zekâ karışmaz, sayfaya yorum eklenmez.
+            </p>
+            <p>
+              Bu sayfa metinlerin neyi anlattığını yorumlamaz; yalnız iki metin arasında ne değiştiğini gösterir. Toplantı özetleri karardan birkaç gün sonra yayımlandığı için en son kararın özeti sonradan eklenir.
+            </p>
+            <p>
+              <a href="/veri/politika-faizi/">Politika faizi</a> · <a href="/veri/reel-faiz/">Reel faiz</a> · <a href="/veri/enflasyon/">Enflasyon verileri</a>
+            </p>
+          </section>
+        </>
+      ) : (
+        <p class="bos">PPK karar metni verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <YasalUyari>Bu sayfadaki metinler TCMB’nin yayımladığı resmi duyurulardır; karşılaştırma bilgi amaçlıdır.</YasalUyari>
+  </div>
+</Base>
+
+<script>
+  // Adreste #karar-YYYY-AA-GG varsa o kararın farkını açar.
+  const ac = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id.startsWith('karar-')) return;
+    const el = document.getElementById(id);
+    if (el instanceof HTMLDetailsElement) {
+      el.open = true;
+      el.scrollIntoView();
+    }
+  };
+  ac();
+  addEventListener('hashchange', ac);
+</script>
+
+<style is:global>
+  .ppk-sayfa .ppk-aciklama {
+    margin: 14px 0 0;
+  }
+  .ppk-sayfa .ppk-bosluk {
+    margin-bottom: 14px;
+  }
+  .ppk-sayfa .ppk-pay {
+    color: var(--muted);
+    font-size: 0.6em;
+    font-weight: 400;
+  }
+  .ppk-sayfa .ppk-sayim {
+    margin-top: 14px;
+  }
+
+  /* Fark listesi: ins/del işaretli cümleler. Renk tek başına işaret değil: altı çizili ve üstü çizili ayrıca etiketlidir. */
+  .ppk-sayfa .ppk-liste {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 0;
+  }
+  .ppk-sayfa .ppk-satir {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 10px 0 10px 12px;
+    border-bottom: 1px solid var(--hair);
+    border-left: 3px solid transparent;
+  }
+  .ppk-sayfa .ppk-satir p {
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+    font-family: var(--sans);
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+  .ppk-sayfa .ppk-ayni p {
+    color: var(--muted);
+  }
+  .ppk-sayfa .ppk-eklendi {
+    border-left-color: var(--green);
+  }
+  .ppk-sayfa .ppk-silindi {
+    border-left-color: var(--red);
+  }
+  .ppk-sayfa .ppk-degisti {
+    border-left-color: var(--ink-2);
+  }
+  .ppk-sayfa .ppk-etiket {
+    flex: none;
+    width: 4.6em;
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+  }
+  .ppk-sayfa ins {
+    color: var(--green-text);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    background: color-mix(in srgb, var(--green) 12%, transparent);
+  }
+  .ppk-sayfa del {
+    color: var(--red-text);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    background: color-mix(in srgb, var(--red) 9%, transparent);
+  }
+
+  /* Arşiv */
+  .ppk-sayfa .ppk-arsiv {
+    margin-top: 18px;
+    border-top: 1px solid var(--hair);
+  }
+  .ppk-sayfa .ppk-arsiv-bas,
+  .ppk-sayfa .ppk-ayrinti summary,
+  .ppk-sayfa .ppk-ozet-satir {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 12px;
+    align-items: baseline;
+    padding: 12px 4px;
+    font-family: var(--sans);
+  }
+  .ppk-sayfa .ppk-arsiv-bas {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--hair);
+  }
+  .ppk-sayfa .ppk-ayrinti {
+    border-bottom: 1px solid var(--hair);
+  }
+  .ppk-sayfa .ppk-ayrinti summary {
+    cursor: pointer;
+    list-style: none;
+    min-height: 44px;
+  }
+  .ppk-sayfa .ppk-ayrinti summary::-webkit-details-marker {
+    display: none;
+  }
+  .ppk-sayfa .ppk-ayrinti summary:hover {
+    background: var(--paper-2);
+  }
+  .ppk-sayfa .ppk-ayrinti summary:focus-visible {
+    outline: 2px solid var(--toprak-text);
+    outline-offset: -2px;
+  }
+  .ppk-sayfa .ppk-tarih::before {
+    content: '▸';
+    display: inline-block;
+    width: 1.1em;
+    color: var(--muted);
+    transition: transform 0.15s;
+  }
+  .ppk-sayfa .ppk-ayrinti[open] .ppk-tarih::before {
+    transform: rotate(90deg);
+  }
+  .ppk-sayfa .ppk-ilk .ppk-tarih::before {
+    content: '';
+  }
+  .ppk-sayfa .ppk-faiz {
+    font-variant-numeric: tabular-nums;
+  }
+  .ppk-sayfa .sag {
+    text-align: right;
+  }
+  .ppk-sayfa .ppk-sayi {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+  }
+  .ppk-sayfa .ppk-ic {
+    padding: 0 4px 18px;
+  }
+
+  @media (max-width: 640px) {
+    .ppk-sayfa .ppk-arsiv-bas,
+    .ppk-sayfa .ppk-ayrinti summary,
+    .ppk-sayfa .ppk-ozet-satir {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr) auto;
+      gap: 8px;
+      font-size: 0.92rem;
+    }
+    .ppk-sayfa .ppk-satir {
+      flex-direction: column;
+      gap: 4px;
+    }
+    .ppk-sayfa .ppk-etiket {
+      width: auto;
+    }
+  }
+</style>

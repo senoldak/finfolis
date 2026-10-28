@@ -1,0 +1,71 @@
+---
+// Veri sayfalarının altındaki "Atıf kopyala" düğmesi. Base.astro /veri/ altındaki her sayfaya ekler.
+// Atıf metni tarayıcıda kurulur: sayfa başlığı h1'den, erişim tarihi okurun bugünü. Verinin asıl kaynağı (TCMB, TÜİK…)
+// sayfadaki "Kaynak" satırındadır; atıf onu da hatırlatır.
+import { SITE } from '../lib/site';
+
+const url = new URL(Astro.url.pathname, Astro.site).href;
+---
+
+<div class="container veri-atif" data-url={url} data-site={SITE.name}>
+  <button type="button" class="veri-atif-dugme">Atıf kopyala</button>
+  <span class="veri-atif-durum" role="status" aria-live="polite"></span>
+  <p class="veri-atif-metin" hidden></p>
+</div>
+
+<script>
+  for (const kutu of document.querySelectorAll<HTMLElement>('.veri-atif')) {
+    const dugme = kutu.querySelector('button')!;
+    const durum = kutu.querySelector<HTMLElement>('.veri-atif-durum')!;
+    const yedek = kutu.querySelector<HTMLElement>('.veri-atif-metin')!;
+    dugme.addEventListener('click', async () => {
+      const baslik = document.querySelector('main h1')?.textContent?.trim() ?? document.title;
+      const bugun = new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+      const yil = new Date().getFullYear();
+      const metin = `${kutu.dataset.site} (${yil}). ${baslik}. ${kutu.dataset.url} (Erişim: ${bugun}). Lisans: CC BY-NC 4.0. Verinin asıl kaynağı sayfada belirtilmiştir.`;
+      try {
+        await navigator.clipboard.writeText(metin);
+        durum.textContent = 'Kopyalandı.';
+      } catch {
+        // Pano izni yoksa metni göster, okur kendisi seçsin.
+        yedek.textContent = metin;
+        yedek.hidden = false;
+        durum.textContent = '';
+      }
+    });
+  }
+</script>
+
+<style>
+  .veri-atif {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+    margin-block: 1.5rem 2.5rem;
+    font-family: var(--sans);
+    font-size: 0.9rem;
+  }
+  .veri-atif-dugme {
+    font: inherit;
+    padding: 0.35rem 0.8rem;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--hair);
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .veri-atif-dugme:hover,
+  .veri-atif-dugme:focus-visible {
+    border-color: var(--toprak);
+  }
+  .veri-atif-durum {
+    color: var(--muted);
+  }
+  .veri-atif-metin {
+    flex-basis: 100%;
+    margin: 0;
+    color: var(--ink-2);
+    user-select: all;
+  }
+</style>

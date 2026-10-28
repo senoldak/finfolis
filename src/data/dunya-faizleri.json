@@ -1,0 +1,934 @@
+{
+  "alinma": "2026-10-28T22:37:41.945Z",
+  "referansTarih": "2026-10-23",
+  "tufeCogunluk": "2026-08",
+  "kaynaklar": [
+    {
+      "ad": "BIS, merkez bankası politika faizleri (WS_CBPOL)",
+      "url": "https://data.bis.org/topics/CBPOL"
+    },
+    {
+      "ad": "BIS, uzun dönemli tüketici fiyatları (WS_LONG_CPI)",
+      "url": "https://data.bis.org/topics/CPI"
+    }
+  ],
+  "satirlar": [
+    {
+      "kod": "TUR",
+      "ad": "Türkiye",
+      "banka": "TCMB",
+      "faiz": 36,
+      "aralik": null,
+      "tarih": "2026-10-23",
+      "sonHareket": {
+        "yon": "indirim",
+        "bp": 100,
+        "tarih": "2026-10-23"
+      },
+      "degisim12Ay": -450,
+      "faz": "Gevşeme",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 31.51
+      },
+      "reel": 4.49
+    },
+    {
+      "kod": "USA",
+      "ad": "ABD",
+      "banka": "Fed",
+      "faiz": 3.875,
+      "aralik": {
+        "alt": 3.75,
+        "ust": 4
+      },
+      "tarih": "2026-10-20",
+      "sonHareket": {
+        "yon": "artırım",
+        "bp": 25,
+        "tarih": "2026-09-17"
+      },
+      "degisim12Ay": -25,
+      "faz": "Sıkılaştırma",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 3.4
+      },
+      "reel": 0.48
+    },
+    {
+      "kod": "XM",
+      "ad": "Euro Bölgesi",
+      "banka": "ECB",
+      "faiz": 2.5,
+      "aralik": null,
+      "tarih": "2026-10-20",
+      "sonHareket": {
+        "yon": "artırım",
+        "bp": 25,
+        "tarih": "2026-09-16"
+      },
+      "degisim12Ay": 50,
+      "faz": "Sıkılaştırma",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 3.25
+      },
+      "reel": -0.75
+    },
+    {
+      "kod": "JPN",
+      "ad": "Japonya",
+      "banka": "Japonya Merkez Bankası",
+      "faiz": 1.25,
+      "aralik": null,
+      "tarih": "2026-10-20",
+      "sonHareket": {
+        "yon": "artırım",
+        "bp": 25,
+        "tarih": "2026-09-24"
+      },
+      "degisim12Ay": 75,
+      "faz": "Sıkılaştırma",
+      "tufe": {
+        "donem": "2026-07",
+        "deger": 1.9
+      },
+      "reel": -0.65
+    },
+    {
+      "kod": "GBR",
+      "ad": "Birleşik Krallık",
+      "banka": "İngiltere Merkez Bankası",
+      "faiz": 3.75,
+      "aralik": null,
+      "tarih": "2026-10-19",
+      "sonHareket": {
+        "yon": "indirim",
+        "bp": 25,
+        "tarih": "2025-12-18"
+      },
+      "degisim12Ay": -25,
+      "faz": "Beklemede",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 3.09
+      },
+      "reel": 0.66
+    },
+    {
+      "kod": "CHE",
+      "ad": "İsviçre",
+      "banka": "İsviçre Ulusal Bankası",
+      "faiz": 0,
+      "aralik": null,
+      "tarih": "2026-10-20",
+      "sonHareket": {
+        "yon": "indirim",
+        "bp": 25,
+        "tarih": "2025-06-20"
+      },
+      "degisim12Ay": 0,
+      "faz": "Beklemede",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 0.81
+      },
+      "reel": -0.81
+    },
+    {
+      "kod": "CAN",
+      "ad": "Kanada",
+      "banka": "Kanada Merkez Bankası",
+      "faiz": 2.25,
+      "aralik": null,
+      "tarih": "2026-10-19",
+      "sonHareket": {
+        "yon": "indirim",
+        "bp": 25,
+        "tarih": "2025-10-30"
+      },
+      "degisim12Ay": -25,
+      "faz": "Beklemede",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 3.03
+      },
+      "reel": -0.78
+    },
+    {
+      "kod": "AUS",
+      "ad": "Avustralya",
+      "banka": "Avustralya Merkez Bankası",
+      "faiz": 4.6,
+      "aralik": null,
+      "tarih": "2026-10-15",
+      "sonHareket": {
+        "yon": "artırım",
+        "bp": 25,
+        "tarih": "2026-09-30"
+      },
+      "degisim12Ay": 100,
+      "faz": "Sıkılaştırma",
+      "tufe": {
+        "donem": "2026-06",
+        "deger": 3.94
+      },
+      "reel": 0.66
+    },
+    {
+      "kod": "NZL",
+      "ad": "Yeni Zelanda",
+      "banka": "Yeni Zelanda Merkez Bankası",
+      "faiz": 2.75,
+      "aralik": null,
+      "tarih": "2026-10-16",
+      "sonHareket": {
+        "yon": "artırım",
+        "bp": 25,
+        "tarih": "2026-09-03"
+      },
+      "degisim12Ay": 25,
+      "faz": "Sıkılaştırma",
+      "tufe": {
+        "donem": "2026-06",
+        "deger": 4.06
+      },
+      "reel": -1.31
+    },
+    {
+      "kod": "NOR",
+      "ad": "Norveç",
+      "banka": "Norveç Merkez Bankası",
+      "faiz": 4.5,
+      "aralik": null,
+      "tarih": "2026-10-13",
+      "sonHareket": {
+        "yon": "artırım",
+        "bp": 25,
+        "tarih": "2026-09-25"
+      },
+      "degisim12Ay": 50,
+      "faz": "Sıkılaştırma",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 3.29
+      },
+      "reel": 1.21
+    },
+    {
+      "kod": "SWE",
+      "ad": "İsveç",
+      "banka": "İsveç Merkez Bankası",
+      "faiz": 1.75,
+      "aralik": null,
+      "tarih": "2026-10-20",
+      "sonHareket": {
+        "yon": "indirim",
+        "bp": 25,
+        "tarih": "2025-10-01"
+      },
+      "degisim12Ay": 0,
+      "faz": "Beklemede",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 0.31
+      },
+      "reel": 1.44
+    },
+    {
+      "kod": "CZE",
+      "ad": "Çekya",
+      "banka": "Çek Ulusal Bankası",
+      "faiz": 3.75,
+      "aralik": null,
+      "tarih": "2026-10-19",
+      "sonHareket": {
+        "yon": "artırım",
+        "bp": 25,
+        "tarih": "2026-06-19"
+      },
+      "degisim12Ay": 25,
+      "faz": "Sıkılaştırma",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 1.89
+      },
+      "reel": 1.86
+    },
+    {
+      "kod": "KOR",
+      "ad": "Güney Kore",
+      "banka": "Kore Merkez Bankası",
+      "faiz": 3,
+      "aralik": null,
+      "tarih": "2026-10-08",
+      "sonHareket": {
+        "yon": "artırım",
+        "bp": 25,
+        "tarih": "2026-08-27"
+      },
+      "degisim12Ay": 50,
+      "faz": "Sıkılaştırma",
+      "tufe": {
+        "donem": "2026-07",
+        "deger": 2.79
+      },
+      "reel": 0.21
+    },
+    {
+      "kod": "BRA",
+      "ad": "Brezilya",
+      "banka": "Brezilya Merkez Bankası",
+      "faiz": 13.75,
+      "aralik": null,
+      "tarih": "2026-10-20",
+      "sonHareket": {
+        "yon": "indirim",
+        "bp": 25,
+        "tarih": "2026-09-17"
+      },
+      "degisim12Ay": -125,
+      "faz": "Gevşeme",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 4.22
+      },
+      "reel": 9.53
+    },
+    {
+      "kod": "MEX",
+      "ad": "Meksika",
+      "banka": "Meksika Merkez Bankası",
+      "faiz": 6.5,
+      "aralik": null,
+      "tarih": "2026-10-20",
+      "sonHareket": {
+        "yon": "indirim",
+        "bp": 25,
+        "tarih": "2026-05-08"
+      },
+      "degisim12Ay": -100,
+      "faz": "Gevşeme",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 3.26
+      },
+      "reel": 3.24
+    },
+    {
+      "kod": "CHL",
+      "ad": "Şili",
+      "banka": "Şili Merkez Bankası",
+      "faiz": 4.5,
+      "aralik": null,
+      "tarih": "2026-10-20",
+      "sonHareket": {
+        "yon": "indirim",
+        "bp": 25,
+        "tarih": "2025-12-17"
+      },
+      "degisim12Ay": -25,
+      "faz": "Beklemede",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 4.13
+      },
+      "reel": 0.37
+    },
+    {
+      "kod": "COL",
+      "ad": "Kolombiya",
+      "banka": "Kolombiya Merkez Bankası",
+      "faiz": 12.25,
+      "aralik": null,
+      "tarih": "2026-10-16",
+      "sonHareket": {
+        "yon": "artırım",
+        "bp": 25,
+        "tarih": "2026-10-01"
+      },
+      "degisim12Ay": 300,
+      "faz": "Sıkılaştırma",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 6.24
+      },
+      "reel": 6.01
+    },
+    {
+      "kod": "POL",
+      "ad": "Polonya",
+      "banka": "Polonya Ulusal Bankası",
+      "faiz": 3.75,
+      "aralik": null,
+      "tarih": "2026-10-20",
+      "sonHareket": {
+        "yon": "indirim",
+        "bp": 25,
+        "tarih": "2026-03-05"
+      },
+      "degisim12Ay": -75,
+      "faz": "Beklemede",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 3.26
+      },
+      "reel": 0.49
+    },
+    {
+      "kod": "HUN",
+      "ad": "Macaristan",
+      "banka": "Macaristan Merkez Bankası",
+      "faiz": 5.5,
+      "aralik": null,
+      "tarih": "2026-10-14",
+      "sonHareket": {
+        "yon": "indirim",
+        "bp": 25,
+        "tarih": "2026-08-26"
+      },
+      "degisim12Ay": -100,
+      "faz": "Gevşeme",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 1.29
+      },
+      "reel": 4.21
+    },
+    {
+      "kod": "ZAF",
+      "ad": "Güney Afrika",
+      "banka": "Güney Afrika Merkez Bankası",
+      "faiz": 7.25,
+      "aralik": null,
+      "tarih": "2026-10-19",
+      "sonHareket": {
+        "yon": "artırım",
+        "bp": 25,
+        "tarih": "2026-09-25"
+      },
+      "degisim12Ay": 25,
+      "faz": "Sıkılaştırma",
+      "tufe": {
+        "donem": "2026-07",
+        "deger": 4.26
+      },
+      "reel": 2.99
+    },
+    {
+      "kod": "IND",
+      "ad": "Hindistan",
+      "banka": "Hindistan Merkez Bankası",
+      "faiz": 5.5,
+      "aralik": null,
+      "tarih": "2026-10-19",
+      "sonHareket": {
+        "yon": "artırım",
+        "bp": 25,
+        "tarih": "2026-10-07"
+      },
+      "degisim12Ay": 0,
+      "faz": "Sıkılaştırma",
+      "tufe": {
+        "donem": "2026-07",
+        "deger": 4.44
+      },
+      "reel": 1.06
+    },
+    {
+      "kod": "IDN",
+      "ad": "Endonezya",
+      "banka": "Endonezya Merkez Bankası",
+      "faiz": 5.75,
+      "aralik": null,
+      "tarih": "2026-10-19",
+      "sonHareket": {
+        "yon": "artırım",
+        "bp": 25,
+        "tarih": "2026-06-18"
+      },
+      "degisim12Ay": 100,
+      "faz": "Sıkılaştırma",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 3.19
+      },
+      "reel": 2.56
+    },
+    {
+      "kod": "CHN",
+      "ad": "Çin",
+      "banka": "Çin Halk Bankası",
+      "faiz": 3,
+      "aralik": null,
+      "tarih": "2026-10-19",
+      "sonHareket": {
+        "yon": "indirim",
+        "bp": 10,
+        "tarih": "2025-05-20"
+      },
+      "degisim12Ay": 0,
+      "faz": "Beklemede",
+      "tufe": {
+        "donem": "2026-08",
+        "deger": 0.8
+      },
+      "reel": 2.2
+    }
+  ],
+  "grafik": {
+    "seriIdleri": [
+      "TUR",
+      "USA",
+      "XM",
+      "BRA",
+      "MEX",
+      "ZAF",
+      "GBR",
+      "JPN"
+    ],
+    "gruplar": [
+      {
+        "id": "secili",
+        "ad": "Seçili bankalar",
+        "kodlar": [
+          "TUR",
+          "USA",
+          "XM",
+          "BRA"
+        ]
+      },
+      {
+        "id": "gelismekte",
+        "ad": "Gelişmekte olanlar",
+        "kodlar": [
+          "TUR",
+          "BRA",
+          "MEX",
+          "ZAF"
+        ]
+      },
+      {
+        "id": "gelismis",
+        "ad": "Gelişmişler",
+        "kodlar": [
+          "USA",
+          "XM",
+          "GBR",
+          "JPN"
+        ]
+      }
+    ],
+    "noktalar": [
+      [
+        24286,
+        40,
+        5.375,
+        4.5,
+        12.25,
+        11.25,
+        8.25,
+        5.25,
+        -0.1
+      ],
+      [
+        24287,
+        42.5,
+        5.375,
+        4.5,
+        11.75,
+        11.25,
+        8.25,
+        5.25,
+        -0.1
+      ],
+      [
+        24288,
+        45,
+        5.375,
+        4.5,
+        11.75,
+        11.25,
+        8.25,
+        5.25,
+        -0.1
+      ],
+      [
+        24289,
+        45,
+        5.375,
+        4.5,
+        11.25,
+        11.25,
+        8.25,
+        5.25,
+        -0.1
+      ],
+      [
+        24290,
+        50,
+        5.375,
+        4.5,
+        10.75,
+        11,
+        8.25,
+        5.25,
+        0.05
+      ],
+      [
+        24291,
+        50,
+        5.375,
+        4.5,
+        10.75,
+        11,
+        8.25,
+        5.25,
+        0.05
+      ],
+      [
+        24292,
+        50,
+        5.375,
+        4.5,
+        10.5,
+        11,
+        8.25,
+        5.25,
+        0.05
+      ],
+      [
+        24293,
+        50,
+        5.375,
+        4.25,
+        10.5,
+        11,
+        8.25,
+        5.25,
+        0.05
+      ],
+      [
+        24294,
+        50,
+        5.375,
+        4.25,
+        10.5,
+        11,
+        8.25,
+        5.25,
+        0.05
+      ],
+      [
+        24295,
+        50,
+        5.375,
+        4.25,
+        10.5,
+        10.75,
+        8.25,
+        5,
+        0.25
+      ],
+      [
+        24296,
+        50,
+        4.875,
+        3.5,
+        10.75,
+        10.5,
+        8,
+        5,
+        0.25
+      ],
+      [
+        24297,
+        50,
+        4.875,
+        3.25,
+        10.75,
+        10.5,
+        8,
+        5,
+        0.25
+      ],
+      [
+        24298,
+        50,
+        4.625,
+        3.25,
+        11.25,
+        10.25,
+        7.75,
+        4.75,
+        0.25
+      ],
+      [
+        24299,
+        47.5,
+        4.375,
+        3,
+        12.25,
+        10,
+        7.75,
+        4.75,
+        0.25
+      ],
+      [
+        24300,
+        45,
+        4.375,
+        3,
+        13.25,
+        10,
+        7.5,
+        4.75,
+        0.5
+      ],
+      [
+        24301,
+        45,
+        4.375,
+        2.75,
+        13.25,
+        9.5,
+        7.5,
+        4.5,
+        0.5
+      ],
+      [
+        24302,
+        42.5,
+        4.375,
+        2.5,
+        14.25,
+        9,
+        7.5,
+        4.5,
+        0.5
+      ],
+      [
+        24303,
+        46,
+        4.375,
+        2.25,
+        14.25,
+        9,
+        7.5,
+        4.5,
+        0.5
+      ],
+      [
+        24304,
+        46,
+        4.375,
+        2.25,
+        14.75,
+        8.5,
+        7.25,
+        4.25,
+        0.5
+      ],
+      [
+        24305,
+        46,
+        4.375,
+        2,
+        15,
+        8,
+        7.25,
+        4.25,
+        0.5
+      ],
+      [
+        24306,
+        43,
+        4.375,
+        2,
+        15,
+        8,
+        7.25,
+        4.25,
+        0.5
+      ],
+      [
+        24307,
+        43,
+        4.375,
+        2,
+        15,
+        7.75,
+        7,
+        4,
+        0.5
+      ],
+      [
+        24308,
+        40.5,
+        4.125,
+        2,
+        15,
+        7.5,
+        7,
+        4,
+        0.5
+      ],
+      [
+        24309,
+        39.5,
+        3.875,
+        2,
+        15,
+        7.5,
+        7,
+        4,
+        0.5
+      ],
+      [
+        24310,
+        39.5,
+        3.875,
+        2,
+        15,
+        7.25,
+        6.75,
+        4,
+        0.5
+      ],
+      [
+        24311,
+        38,
+        3.625,
+        2,
+        15,
+        7,
+        6.75,
+        3.75,
+        0.75
+      ],
+      [
+        24312,
+        37,
+        3.625,
+        2,
+        15,
+        7,
+        6.75,
+        3.75,
+        0.75
+      ],
+      [
+        24313,
+        37,
+        3.625,
+        2,
+        15,
+        7,
+        6.75,
+        3.75,
+        0.75
+      ],
+      [
+        24314,
+        37,
+        3.625,
+        2,
+        14.75,
+        6.75,
+        6.75,
+        3.75,
+        0.75
+      ],
+      [
+        24315,
+        37,
+        3.625,
+        2,
+        14.5,
+        6.75,
+        6.75,
+        3.75,
+        0.75
+      ],
+      [
+        24316,
+        37,
+        3.625,
+        2,
+        14.5,
+        6.5,
+        7,
+        3.75,
+        0.75
+      ],
+      [
+        24317,
+        37,
+        3.625,
+        2.25,
+        14.25,
+        6.5,
+        7,
+        3.75,
+        1
+      ],
+      [
+        24318,
+        37,
+        3.625,
+        2.25,
+        14.25,
+        6.5,
+        7,
+        3.75,
+        1
+      ],
+      [
+        24319,
+        37,
+        3.625,
+        2.25,
+        14,
+        6.5,
+        7,
+        3.75,
+        1
+      ],
+      [
+        24320,
+        37,
+        3.875,
+        2.5,
+        13.75,
+        6.5,
+        7.25,
+        3.75,
+        1.25
+      ],
+      [
+        24321,
+        36,
+        3.875,
+        2.5,
+        13.75,
+        6.5,
+        7.25,
+        3.75,
+        1.25
+      ]
+    ]
+  },
+  "tcmbKarsilastirma": {
+    "oran": 36,
+    "gecerlilik": "2026-10-23",
+    "kaynak": {
+      "ad": "TCMB, bir hafta vadeli repo ihale faiz oranı",
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Temel+Faaliyetler/Para+Politikasi/Merkez+Bankasi+Faiz+Oranlari/1+Hafta+Repo"
+    },
+    "bisOran": 37,
+    "bisTarih": "2026-10-16",
+    "uzatildi": true,
+    "farkli": false
+  }
+}

@@ -1,0 +1,292 @@
+---
+// Emsal ülkeler: Türkiye'nin temel göstergelerini 22 ekonomiyle yan yana koyan tablo.
+// Veri OECD SDMX (GSYH, TÜFE, çekirdek TÜFE, işsizlik, 10 yıllık tahvil) ve BIS (politika faizi) kaynaklarından gelir;
+// src/data/emsal-ulkeler.json scripts/veri/emsal-ulkeler.mjs ile üretilir. Veri olmayan hücre "–" kalır; tahmin ve elle rakam yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { gunYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { donemEtiket } from '../../lib/emsal-ulkeler.mjs';
+import veri from '../../data/emsal-ulkeler.json';
+import faizVeri from '../../data/dunya-faizleri.json';
+
+const sayi = (n: number, en = 1, min = en) => `${n < 0 && Math.round(Math.abs(n) * 10 ** en) > 0 ? '−' : ''}${Math.abs(n).toLocaleString('tr-TR', { minimumFractionDigits: min, maximumFractionDigits: en })}`;
+const isaretli = (n: number, en = 1, min = en) => (n > 0 ? `+${sayi(n, en, min)}` : sayi(n, en, min));
+const medyan = (d: number[]) => {
+  if (!d.length) return null;
+  const s = [...d].sort((a, b) => a - b);
+  const o = Math.floor(s.length / 2);
+  return s.length % 2 ? s[o] : (s[o - 1] + s[o]) / 2;
+};
+
+type Gozlem = { deger: number; donem?: string; tarih?: string } | null;
+const bd = veri.baslikDonemleri as Record<string, string | null>;
+const bas = (k: string) => (bd[k] ? donemEtiket(bd[k]!) : '');
+// Hücre: değer ve (başlıktaki dönemden farklıysa) kendi dönemi.
+const hucre = (g: Gozlem, anahtar: string, en = 1, isaret = false) => {
+  if (!g) return null;
+  const d = g.donem ?? g.tarih?.slice(0, 7);
+  const min = anahtar === 'faiz' ? 2 : en;
+  return { metin: isaret ? isaretli(g.deger, en, min) : sayi(g.deger, en, min), donem: d && d !== bd[anahtar] ? donemEtiket(d) : null };
+};
+
+const satirlar = veri.satirlar;
+const tr = satirlar.find((s) => s.grup === 'tr')!;
+const diger = satirlar.filter((s) => s.grup !== 'tr');
+const gruplar = [
+  { ad: 'Gelişmekte olan ekonomiler', satirlar: satirlar.filter((s) => s.grup === 'gelismekte') },
+  { ad: 'Gelişmiş ekonomiler', satirlar: satirlar.filter((s) => s.grup === 'gelismis') },
+];
+const SUTUNLAR = [
+  { k: 'gsyhCeyrek', ad: 'GSYH, çeyreklik (%)', en: 1, isaret: false },
+  { k: 'gsyhYillik', ad: 'GSYH, yıllık (%)', en: 1, isaret: false },
+  { k: 'tufe', ad: 'TÜFE, yıllık (%)', en: 1, isaret: false },
+  { k: 'cekirdek', ad: 'Çekirdek TÜFE, yıllık (%)', en: 1, isaret: false },
+  { k: 'issizlik', ad: 'İşsizlik (%)', en: 1, isaret: false },
+  { k: 'faiz', ad: 'Politika faizi (%)', en: 3, isaret: false },
+  { k: 'tahvil', ad: '10 yıllık tahvil (%)', en: 2, isaret: false },
+  { k: 'reel', ad: 'Reel faiz (puan)', en: 1, isaret: true },
+] as const;
+// Reel faiz gözleminin dönemi TÜFE dönemidir.
+const gozlem = (s: any, k: string): Gozlem => (k === 'reel' ? (s.reel ? { deger: s.reel.deger, donem: s.reel.tufeDonem } : null) : s[k]);
+const medyanlar = Object.fromEntries(SUTUNLAR.map(({ k }) => [k, medyan(diger.map((s) => gozlem(s, k)?.deger).filter((d): d is number => d != null))]));
+const trEksik = SUTUNLAR.filter(({ k }) => !gozlem(tr, k)).map(({ ad }) => ad.replace(/ \(.*\)$/, ''));
+
+const tcmb = faizVeri.tcmbKarsilastirma;
+const bisGeride = !!tcmb && tcmb.farkli && tcmb.gecerlilik > tcmb.bisTarih;
+const tcmbUzatildi = !!tcmb?.uzatildi;
+
+const baslik = 'Emsal ülkeler';
+const trTufe = tr.tufe;
+const description = `Türkiye ile 22 ekonominin büyüme, enflasyon, işsizlik, politika faizi, tahvil getirisi ve reel faizi tek tabloda. Kaynak OECD ve BIS${trTufe ? `; Türkiye TÜFE %${sayi(trTufe.deger)} (${donemEtiket(trTufe.donem)})` : ''}.`;
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/emsal-ulkeler/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  sayfaEk: { dateModified: veri.alinma },
+  ekler: [
+    {
+      '@type': 'Dataset',
+      name: 'Türkiye ve emsal ülkelerin temel makro göstergeleri',
+      description: 'OECD ve BIS verilerinden derlenen GSYH büyümesi, TÜFE, çekirdek TÜFE, işsizlik, politika faizi, 10 yıllık tahvil getirisi ve reel faiz; Türkiye ve 22 ekonomi.',
+      url: 'https://finfolis.com/veri/emsal-ulkeler/',
+      isAccessibleForFree: true,
+      creator: [
+        { '@type': 'Organization', name: 'Organisation for Economic Co-operation and Development', url: 'https://www.oecd.org/' },
+        { '@type': 'Organization', name: 'Bank for International Settlements', url: 'https://www.bis.org/' },
+      ],
+      dateModified: veri.alinma,
+      variableMeasured: ['GSYH büyümesi (%)', 'TÜFE yıllık değişim (%)', 'Çekirdek TÜFE yıllık değişim (%)', 'İşsizlik oranı (%)', 'Politika faizi (%)', '10 yıllık devlet tahvili getirisi (%)'],
+    },
+  ],
+});
+---
+
+<Base title={`${baslik}: Türkiye ve 22 ekonomi karşılaştırması`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Türkiye ile 22 ekonominin göstergeleri · OECD ve BIS verisi</p>
+    </header>
+
+    <dl class="veri-rakamlar">
+      {
+        (['tufe', 'faiz', 'reel'] as const).map((k) => {
+          const g = gozlem(tr, k);
+          const h = hucre(g, k, k === 'faiz' ? 3 : 1, k === 'reel');
+          const m = medyanlar[k];
+          const ad = { tufe: 'Türkiye TÜFE, yıllık', faiz: 'Türkiye politika faizi', reel: 'Türkiye reel faiz' }[k];
+          return (
+            <div>
+              <dt>{ad}</dt>
+              <dd>
+                {g && h ? (k === 'reel' ? `${h.metin} puan` : `%${k === 'faiz' ? sayi(g.deger, 3, 0) : h.metin}`) : '–'}
+                {g && (g.donem ?? g.tarih) && <small> {donemEtiket((g.donem ?? g.tarih)!)}</small>}
+              </dd>
+              {m != null && <dd class="veri-degisim">Diğer 22 ekonominin medyanı: {k === 'reel' ? `${isaretli(m)} puan` : `%${sayi(m, k === 'faiz' ? 2 : 1)}`}</dd>}
+            </div>
+          );
+        })
+      }
+    </dl>
+    <p class="veri-notu veri-kaynak">
+      <strong>Kaynak:</strong>
+      {veri.kaynaklar.map((k, i) => (
+        <>
+          <a href={k.url} rel="noopener">{k.ad}</a>{i < veri.kaynaklar.length - 1 ? '; ' : ''}
+        </>
+      ))}. Siteye alındığı zaman: {zamanYaz(veri.alinma)}.
+    </p>
+    {
+      tcmbUzatildi && tcmb && (
+        <p class="veri-notu ep-not">
+          BIS’in Türkiye serisi {gunYaz(tcmb.bisTarih)} tarihinde bitiyor. Sonraki TCMB kararları, TCMB’nin bir hafta vadeli repo
+          ihale faiz oranı tablosundan eklenmiştir (<a href="/veri/politika-faizi/">politika faizi</a>).
+        </p>
+      )
+    }
+    {
+      bisGeride && tcmb && (
+        <p class="veri-notu ep-not">
+          Türkiye’nin politika faizi BIS serisinde %{sayi(tcmb.bisOran, 2, 0)} ({gunYaz(tcmb.bisTarih)}). finfolis’in TCMB verisinde oran %{sayi(tcmb.oran, 2, 0)}
+          ({gunYaz(tcmb.gecerlilik)} itibarıyla). BIS serisi geriden geldiği için tablo BIS değerini gösterir; reel faiz de bu değerle hesaplanır.
+          Güncel oran için <a href="/veri/politika-faizi/">politika faizi sayfasına</a> bakılabilir.
+        </p>
+      )
+    }
+
+    <div class="tablo-kaydir">
+      <table class="cizelge veri-tablo veri-tablo-genis ep-tablo">
+        <caption class="ep-baslik">Türkiye ve emsal ülkelerin göstergeleri</caption>
+        <thead>
+          <tr>
+            <th scope="col">Ülke</th>
+            {
+              SUTUNLAR.map((s) => (
+                <th scope="col" class="sag">
+                  {s.ad}
+                  {bas(s.k) && <small class="ep-alt">{bas(s.k)}</small>}
+                </th>
+              ))
+            }
+          </tr>
+        </thead>
+        {
+          [{ ad: null, satirlar: [tr] }, ...gruplar].map((g) => (
+            <tbody>
+              {g.ad && (
+                <tr class="ep-grup">
+                  <th scope="rowgroup" colspan={SUTUNLAR.length + 1}>{g.ad}</th>
+                </tr>
+              )}
+              {g.satirlar.map((s) => (
+                <tr class:list={{ 'ep-tr': s.grup === 'tr' }}>
+                  <th scope="row">{s.ad}</th>
+                  {SUTUNLAR.map((c) => {
+                    const h = hucre(gozlem(s, c.k), c.k, c.en, c.isaret);
+                    return (
+                      <td class="sag">
+                        {h ? h.metin : '–'}
+                        {h?.donem && <small class="ep-alt">{h.donem}</small>}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          ))
+        }
+      </table>
+    </div>
+    <p class="veri-notu">
+      Başlıktaki dönem, ülkelerin çoğunluğunun son dönemidir; farklı dönemli hücrede dönem değerin altında yazılır. “–”: veri kaynakta yok ya da
+      12 aydan eski.{trEksik.length > 0 && ` Türkiye için bu kaynakta bulunmayan gösterge: ${trEksik.join(', ')}.`} Gelişmiş ve gelişmekte olan ayrımı IMF Dünya
+      Ekonomik Görünümü sınıflamasını izler.
+    </p>
+
+    <div class="veri-izgara">
+      <section class="bolum prose veri-aciklama">
+        <h2 class="bolum-baslik">Göstergeler nereden alınıyor?</h2>
+        <ul>
+          {
+            veri.gostergeler.map((g) => (
+              <li>
+                <strong>{g.ad}.</strong> {g.kaynak}: <code>{g.uc}</code>; {g.olcu}.
+              </li>
+            ))
+          }
+        </ul>
+        <p>
+          OECD verisi <code>sdmx.oecd.org</code> üzerindeki SDMX arayüzünden, BIS verisi <code>stats.bis.org</code> üzerinden alınır. TÜFE için OECD’nin iki fiyat
+          veri akışı birleştirilir ve her ülkenin en yeni gözlemi kullanılır. Euro Bölgesi’nde ulusal tanımlı TÜFE yoksa uyumlaştırılmış TÜFE (HICP) esas alınır.
+        </p>
+        <h2 class="bolum-baslik">Reel faiz nasıl hesaplanıyor?</h2>
+        <p>
+          Reel faiz, politika faizinden aynı satırdaki OECD yıllık TÜFE değişimini çıkararak bulunur. ABD için BIS hedef aralığın orta noktasını verir ve
+          hesapta orta nokta kullanılır. Gerçekleşmiş enflasyon kullanıldığı için beklenen enflasyon hesaba girmez. <a href="/veri/dunya-politika-faizleri/">Dünya politika faizleri</a>
+          sayfası TÜFE’yi BIS’in WS_LONG_CPI serisinden aldığından, TÜFE ayı farklı olan ülkelerde iki sayfadaki reel faiz değeri birbirinden ayrılabilir.
+        </p>
+        <p>
+          <a href="/veri/dunya-politika-faizleri/">Dünya politika faizleri</a> · <a href="/veri/reel-faiz/">Reel faiz</a> · <a href="/veri/enflasyon/">Enflasyon verileri</a> · <a href="/veri/issizlik/">İşsizlik</a>
+        </p>
+      </section>
+    </div>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve OECD ile BIS’in yayımladığı resmi rakamlardır.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .ep-baslik {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .ep-tablo {
+    min-width: 900px;
+  }
+
+  .ep-tablo th,
+  .ep-tablo td {
+    vertical-align: top;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ep-tablo tbody th[scope='row'] {
+    position: sticky;
+    left: 0;
+    background: var(--paper, #fff);
+    min-width: 120px;
+  }
+
+  .ep-tablo th,
+  .ep-tablo td,
+  .ep-tablo .sag {
+    padding-right: 16px;
+  }
+
+  .ep-tablo th:last-child,
+  .ep-tablo td:last-child {
+    padding-right: 0;
+  }
+
+  .ep-alt {
+    white-space: nowrap;
+    display: block;
+    font-weight: 400;
+    font-size: 0.78em;
+    color: var(--muted);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .ep-tr th,
+  .ep-tr td {
+    background: var(--paper-2, #f4f0e8);
+  }
+
+  .ep-grup th {
+    padding-top: 18px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: left;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .ep-not {
+    margin-top: 10px;
+    max-width: 80ch;
+  }
+</style>

@@ -1,0 +1,290 @@
+---
+// Dünya politika faizleri: 23 ekonominin merkez bankası politika faizi, son hareket, faz ve reel faiz.
+// Veri BIS WS_CBPOL (günlük politika faizi) ve WS_LONG_CPI (aylık TÜFE) serilerinden gelir; src/data/dunya-faizleri.json
+// scripts/veri/dunya-faizleri.mjs ile üretilir. Elle yazılmış değer yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { gunYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { donemEtiket } from '../../lib/emsal-ulkeler.mjs';
+import veri from '../../data/dunya-faizleri.json';
+
+const AY_KISA = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
+const kisaTarih = (t: string) => `${Number(t.slice(8, 10))} ${AY_KISA[Number(t.slice(5, 7)) - 1]} ${t.slice(0, 4)}`;
+const sayi = (n: number, en = 2) => `${n < 0 && Math.round(Math.abs(n) * 10 ** en) > 0 ? '−' : ''}${Math.abs(n).toLocaleString('tr-TR', { maximumFractionDigits: en })}`;
+const isaretli = (n: number, en = 1) => (n > 0 ? `+${sayi(n, en)}` : sayi(n, en));
+const yuzde = (n: number, en = 3) => `%${sayi(n, en)}`;
+
+const satirlar = veri.satirlar;
+const tr = satirlar.find((s) => s.kod === 'TUR')!;
+const say = (f: string) => satirlar.filter((s) => s.faz === f).length;
+const tcmb = veri.tcmbKarsilastirma;
+const bisGeride = !!tcmb && tcmb.farkli && tcmb.gecerlilik > tcmb.bisTarih;
+const tcmbUzatildi = !!tcmb?.uzatildi;
+const tufeAy = veri.tufeCogunluk ? donemEtiket(veri.tufeCogunluk) : '';
+
+const grafik = veri.grafik;
+const GRAFIK_AD: Record<string, string> = { TUR: 'TCMB', USA: 'Fed', XM: 'ECB', BRA: 'Brezilya', MEX: 'Meksika', ZAF: 'Güney Afrika', GBR: 'İngiltere', JPN: 'Japonya' };
+const RENKLER = ['toprak', 'mavi', 'yesil', 'murekkep'] as const;
+const gruplar = grafik.gruplar.map((g) => ({
+  id: g.id,
+  ad: g.ad,
+  seriler: g.kodlar.map((k, i) => ({ id: k, ad: GRAFIK_AD[k] ?? k, renk: RENKLER[i % RENKLER.length] })),
+}));
+
+const baslik = 'Dünya politika faizleri';
+const description = `23 ekonominin merkez bankası politika faizi tek tabloda: faiz, son hareket, 12 aylık değişim, faz ve reel faiz. Türkiye %${sayi(tr.faiz)}. Kaynak BIS.`;
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/dunya-politika-faizleri/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  sayfaEk: { dateModified: veri.alinma },
+  ekler: [
+    {
+      '@type': 'Dataset',
+      name: 'Merkez bankası politika faizleri, 23 ekonomi',
+      description: 'Uluslararası Ödemeler Bankası’nın (BIS) günlük merkez bankası politika faizi serisinden alınan son değerler; son hareket, 12 aylık değişim ve yıllık TÜFE’ye göre reel faiz.',
+      url: 'https://finfolis.com/veri/dunya-politika-faizleri/',
+      isAccessibleForFree: true,
+      creator: { '@type': 'Organization', name: 'Bank for International Settlements', url: 'https://www.bis.org/' },
+      dateModified: veri.alinma,
+      variableMeasured: 'Merkez bankası politika faizi (%)',
+    },
+  ],
+});
+---
+
+<Base title={`${baslik}: 23 merkez bankası, faz ve reel faiz`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>23 ekonominin merkez bankası politika faizi · BIS verisi</p>
+    </header>
+
+    <dl class="veri-rakamlar">
+      <div>
+        <dt>Türkiye (TCMB)</dt>
+        <dd>{yuzde(tr.faiz)}</dd>
+        <dd class="veri-degisim">{kisaTarih(tr.tarih)}</dd>
+      </div>
+      <div>
+        <dt>Sıkılaştırma fazında</dt>
+        <dd>{say('Sıkılaştırma')} <small>banka</small></dd>
+      </div>
+      <div>
+        <dt>Gevşeme fazında</dt>
+        <dd>{say('Gevşeme')} <small>banka</small></dd>
+      </div>
+      <div>
+        <dt>Beklemede</dt>
+        <dd>{say('Beklemede')} <small>banka</small></dd>
+      </div>
+    </dl>
+    <p class="veri-notu veri-kaynak">
+      <strong>Kaynak:</strong>
+      {veri.kaynaklar.map((k, i) => (
+        <>
+          <a href={k.url} rel="noopener">{k.ad}</a>{i < veri.kaynaklar.length - 1 ? '; ' : ''}
+        </>
+      ))}. Siteye alındığı zaman: {zamanYaz(veri.alinma)}.
+    </p>
+    {
+      tcmbUzatildi && tcmb && (
+        <p class="veri-notu dp-not">
+          BIS’in Türkiye serisi {gunYaz(tcmb.bisTarih)} tarihinde bitiyor. Sonraki TCMB kararları, TCMB’nin bir hafta vadeli repo
+          ihale faiz oranı tablosundan eklenmiştir (<a href="/veri/politika-faizi/">politika faizi</a>).
+        </p>
+      )
+    }
+    {
+      bisGeride && tcmb && (
+        <p class="veri-notu dp-not">
+          BIS serisinde Türkiye’nin son değeri {yuzde(tcmb.bisOran)} ({gunYaz(tcmb.bisTarih)}). finfolis’in TCMB verisinde politika faizi
+          {' '}{yuzde(tcmb.oran)} ({gunYaz(tcmb.gecerlilik)} itibarıyla). BIS serisi geriden geliyor; tablo BIS’in verdiği değeri ve tarihini gösterir.
+          TCMB’nin güncel oranı için <a href="/veri/politika-faizi/">politika faizi sayfasına</a> bakılabilir.
+        </p>
+      )
+    }
+
+    <div class="tablo-kaydir">
+      <table class="cizelge veri-tablo veri-tablo-genis dp-tablo">
+        <caption class="dp-baslik">Merkez bankası politika faizleri</caption>
+        <thead>
+          <tr>
+            <th scope="col">Merkez bankası</th>
+            <th scope="col" class="sag">Faiz (%)</th>
+            <th scope="col">Son hareket</th>
+            <th scope="col" class="sag">12 ay (bp)</th>
+            <th scope="col">Faz</th>
+            <th scope="col" class="sag">Reel faiz (puan){tufeAy && <small class="dp-alt">TÜFE: {tufeAy}</small>}</th>
+            <th scope="col" class="sag">Veri tarihi</th>
+          </tr>
+        </thead>
+        <tbody>
+          {satirlar.map((s) => (
+            <tr class:list={{ 'dp-tr': s.kod === 'TUR' }}>
+              <th scope="row">{s.banka}<small class="dp-alt">{s.ad}</small></th>
+              <td class="sag">
+                {s.aralik ? (
+                  <>
+                    {sayi(s.aralik.alt)}–{sayi(s.aralik.ust)}
+                    <small class="dp-alt">orta nokta {sayi(s.faiz, 3)}</small>
+                  </>
+                ) : (
+                  sayi(s.faiz, 3)
+                )}
+              </td>
+              <td>
+                {s.sonHareket ? (
+                  <>
+                    {s.sonHareket.yon === 'artırım' ? '+' : '−'}{s.sonHareket.bp} bp
+                    <small class="dp-alt">{s.sonHareket.yon}, {kisaTarih(s.sonHareket.tarih)}</small>
+                  </>
+                ) : (
+                  '–'
+                )}
+              </td>
+              <td class="sag">{s.degisim12Ay == null ? '–' : s.degisim12Ay === 0 ? '0' : isaretli(s.degisim12Ay, 0)}</td>
+              <td>{s.faz}</td>
+              <td class="sag">
+                {s.reel == null ? (
+                  '–'
+                ) : (
+                  <>
+                    {isaretli(s.reel, 1)}
+                    {s.tufe && s.tufe.donem !== veri.tufeCogunluk && <small class="dp-alt">TÜFE {donemEtiket(s.tufe.donem)}</small>}
+                  </>
+                )}
+              </td>
+              <td class="sag dp-tarih">{kisaTarih(s.tarih)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="veri-notu">
+      Faiz sütunu BIS’in günlük serisindeki son gözlemdir; Fed için BIS hedef aralığın orta noktasını verir, tabloda aralık (orta nokta ± 0,125 puan)
+      gösterilir, reel faiz orta noktayla hesaplanır. 12 ay: son gözlem ile 12 ay öncesinin farkı, baz puan (1 baz puan = %0,01). Veri tarihi,
+      her bankanın BIS’teki son gözlem gününü gösterir; tarihi eski kalan bir bankanın değeri daha yeni bir karar içermeyebilir.
+    </p>
+
+    <ZamanGrafik
+      baslik="Politika faizlerinin seyri"
+      ipucu="Yüzde, ay sonu değeri, son 3 yıl"
+      kaynak="Kaynak: BIS, merkez bankası politika faizleri (WS_CBPOL). Her ayın son gözlemi."
+      siklik="ay"
+      birim="yuzde"
+      ondalik={2}
+      grupEtiketi="Banka grubu"
+      seriIdleri={grafik.seriIdleri}
+      noktalar={grafik.noktalar}
+      gruplar={gruplar}
+    />
+
+    <div class="veri-izgara">
+      <section class="bolum prose veri-aciklama">
+        <h2 class="bolum-baslik">Nasıl hesaplanıyor?</h2>
+        <p>
+          <strong>Faiz.</strong> BIS’in her ülke için yayımladığı günlük politika faizi serisinin son gözlemidir. BIS, merkez bankasının duyurduğu politika
+          faizini esas alır; araç ülkeden ülkeye değişir (bir hafta vadeli repo, hedef aralık, gecelik oran gibi). Ayrıntılar BIS’in belge sayfasındadır.
+        </p>
+        <p>
+          <strong>Son hareket.</strong> Serinin 2018’den bu yana taranmasıyla bulunan, faizin en son değiştiği gündür. Yön (artırım ya da indirim) ve baz puan
+          karşılaştırılan iki gözlem arasındaki farktır.
+        </p>
+        <p>
+          <strong>Faz.</strong> Serideki en yeni tarihten geriye 6 ay içinde bir artırım varsa Sıkılaştırma, bir indirim varsa Gevşeme denir. Bu pencerede
+          hem artırım hem indirim varsa en son hareketin yönü belirler. 6 ayda hiç hareket yoksa banka Beklemede sayılır. Faz, geçmiş hareketlerin
+          sınıflamasıdır; bankanın gelecekteki kararı hakkında bir şey söylemez.
+        </p>
+        <p>
+          <strong>Reel faiz.</strong> Politika faizi eksi son yıllık TÜFE değişimidir (BIS WS_LONG_CPI, aylık, bir önceki yılın aynı ayına göre). TÜFE’nin
+          ayı bankaya göre değişebilir; çoğunluğun ayından ({tufeAy}) farklı olan hücrede ay ayrıca yazılır. Hesapta gerçekleşmiş enflasyon kullanılır,
+          beklenen enflasyon kullanılmaz. TÜFE’si 12 aydan eski olan banka için reel faiz hesaplanmaz.
+        </p>
+        <p>
+          <a href="/veri/emsal-ulkeler/">Türkiye ile emsal ülkeler</a> · <a href="/veri/politika-faizi/">TCMB politika faizi</a> · <a href="/veri/reel-faiz/">Reel faiz</a> · <a href="/veri/enflasyon/">Enflasyon verileri</a>
+        </p>
+      </section>
+    </div>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve BIS’in yayımladığı resmi rakamlardır.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .dp-baslik {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .dp-tablo {
+    min-width: 760px;
+  }
+
+  .dp-tablo tbody th {
+    position: sticky;
+    left: 0;
+    background: var(--paper, #fff);
+    min-width: 150px;
+  }
+
+  .dp-tablo td,
+  .dp-tablo th {
+    vertical-align: top;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .dp-tablo th,
+  .dp-tablo td,
+  .dp-tablo .sag {
+    padding-right: 16px;
+  }
+
+  .dp-tablo th:last-child,
+  .dp-tablo td:last-child {
+    padding-right: 0;
+  }
+
+  .dp-alt {
+    white-space: nowrap;
+    display: block;
+    font-weight: 400;
+    font-size: 0.78em;
+    color: var(--muted);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .dp-tr th,
+  .dp-tr td {
+    background: var(--paper-2, #f4f0e8);
+  }
+
+  .dp-tarih {
+    white-space: nowrap;
+  }
+
+  .dp-not {
+    margin-top: 10px;
+    max-width: 80ch;
+  }
+
+  @media (max-width: 600px) {
+    .dp-tablo {
+      min-width: 700px;
+    }
+  }
+</style>

@@ -1,0 +1,289 @@
+---
+// Veri yayın takvimi: önümüzdeki 8 haftada açıklanacak TÜİK bültenleri ve TCMB yayınları, son 7 günde açıklananlar.
+// Tarihler yalnızca resmi takvimlerden gelir (scripts/veri/veri-takvimi.mjs, src/data/veri-takvimi.json); elle yazılmış tarih yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { AYLAR, bugunIstanbul, gunAdi, gunEkle, haftalaraGrupla, sonGunlerdeAciklananlar } from '../../lib/veri-takvimi.mjs';
+import type { TakvimOlayi } from '../../lib/veri-takvimi.mjs';
+import takvimVerisi from '../../data/veri-takvimi.json';
+
+const HAFTA = 8;
+const olaylar = ((takvimVerisi as { olaylar?: TakvimOlayi[] }).olaylar ?? []) as TakvimOlayi[];
+const kaynaklar = (takvimVerisi as { kaynaklar?: { ad: string; url: string }[] }).kaynaklar ?? [];
+const alinma = (takvimVerisi as { alinma?: string }).alinma;
+
+// "Bugün" derleme anında, Europe/Istanbul gününe göre hesaplanır.
+const bugun = bugunIstanbul();
+const duzenli = olaylar.filter((o) => !o.haftalik);
+const haftalikOlaylar = olaylar.filter((o) => o.haftalik);
+const haftalar = haftalaraGrupla(duzenli, bugun, HAFTA);
+const haftalikHaftalar = haftalaraGrupla(haftalikOlaylar, bugun, HAFTA);
+const sonYedi = sonGunlerdeAciklananlar(olaylar, bugun, 7);
+const toplam = haftalar.reduce((s, h) => s + h.gunler.reduce((t, g) => t + g.olaylar.length, 0), 0);
+
+const gunMetni = (t: string) => `${Number(t.slice(8))} ${AYLAR[Number(t.slice(5, 7)) - 1]}`;
+const aralikMetni = (bas: string, bit: string) => {
+  const ayni = bas.slice(0, 7) === bit.slice(0, 7);
+  return ayni ? `${Number(bas.slice(8))}–${gunMetni(bit)}` : `${gunMetni(bas)} – ${gunMetni(bit)}`;
+};
+const haftaEtiketi = (bas: string, bit: string) => {
+  const bu = bugun >= bas && bugun <= bit;
+  const gelecek = gunEkle(bugun, 7) >= bas && gunEkle(bugun, 7) <= bit;
+  return bu ? 'Bu hafta' : gelecek ? 'Gelecek hafta' : aralikMetni(bas, bit);
+};
+const kurumSinifi = (k: string) => (k === 'TCMB' ? 'tk-kurum tk-tcmb' : 'tk-kurum tk-tuik');
+
+const baslik = 'Veri yayın takvimi';
+const description = `TÜİK haber bültenleri ve TCMB yayınlarının önümüzdeki ${HAFTA} haftadaki tarihleri; enflasyon, işsizlik, sanayi üretimi, dış ticaret, büyüme, PPK toplantıları ve raporlar. Son 7 günde açıklananlar da listelenir.`;
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Veri yayın takvimi', href: '/veri/takvim/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: `${baslik} (TÜİK ve TCMB)`,
+  aciklama: description,
+  ...(alinma ? { sayfaEk: { dateModified: alinma } } : {}),
+});
+---
+
+<Base title={`${baslik}: TÜİK ve TCMB, önümüzdeki ${HAFTA} hafta`} description={description} noindex={toplam === 0}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa tk">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>TÜİK haber bültenleri ve TCMB yayınları · önümüzdeki {HAFTA} hafta</p>
+    </header>
+
+    {
+      toplam > 0 ? (
+        <>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong>{' '}
+            {kaynaklar.map((k, i) => (
+              <>
+                {i > 0 && (i === kaynaklar.length - 1 ? ' ve ' : ', ')}
+                <a href={k.url} rel="noopener">{k.ad}</a>
+              </>
+            ))}
+            . Saatler Türkiye saatidir; kaynakta saat yoksa gösterilmez. Kurumlar tarihleri değiştirebilir.
+            {alinma && <> Siteye alındığı zaman: {zamanYaz(alinma)}.</>}
+          </p>
+
+          {haftalar.map((h, i) => {
+            const haftalik = haftalikHaftalar[i]?.gunler ?? [];
+            const haftalikSayi = haftalik.reduce((s, g) => s + g.olaylar.length, 0);
+            return (
+              <section class="bolum tk-hafta">
+                <h2 class="bolum-baslik">
+                  {haftaEtiketi(h.bas, h.bit)}
+                  <span class="tk-aralik">{aralikMetni(h.bas, h.bit)}</span>
+                </h2>
+                {h.gunler.length === 0 && haftalikSayi === 0 && <p class="bos">Bu haftada takvimde yayın görünmüyor.</p>}
+                {h.gunler.map((g) => (
+                  <div class={`tk-gun${g.tarih === bugun ? ' tk-bugun' : ''}`}>
+                    <div class="tk-tarih">
+                      <span class="tk-gun-adi">{gunAdi(g.tarih)}</span>
+                      <span class="tk-gun-no">{gunMetni(g.tarih)}</span>
+                      {g.tarih === bugun && <span class="tk-bugun-etiket">Bugün</span>}
+                    </div>
+                    <ul class="tk-liste">
+                      {g.olaylar.map((o) => (
+                        <li>
+                          <span class="tk-saat">{o.saat ?? ''}</span>
+                          <span class={kurumSinifi(o.kurum)}>{o.kurum}</span>
+                          <span class="tk-ad">
+                            {o.url ? <a href={o.url} rel="noopener">{o.baslik}</a> : o.baslik}
+                            {o.donem && <span class="tk-donem"> · {o.donem}</span>}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+                {haftalikSayi > 0 && (
+                  <details class="tk-haftalik">
+                    <summary>Haftalık TCMB istatistikleri ({haftalikSayi})</summary>
+                    {haftalik.map((g) => (
+                      <div class={`tk-gun${g.tarih === bugun ? ' tk-bugun' : ''}`}>
+                        <div class="tk-tarih">
+                          <span class="tk-gun-adi">{gunAdi(g.tarih)}</span>
+                          <span class="tk-gun-no">{gunMetni(g.tarih)}</span>
+                        </div>
+                        <ul class="tk-liste">
+                          {g.olaylar.map((o) => (
+                            <li>
+                              <span class="tk-saat">{o.saat ?? ''}</span>
+                              <span class={kurumSinifi(o.kurum)}>{o.kurum}</span>
+                              <span class="tk-ad">
+                                {o.url ? <a href={o.url} rel="noopener">{o.baslik}</a> : o.baslik}
+                                {o.donem && <span class="tk-donem"> · {o.donem}</span>}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </details>
+                )}
+              </section>
+            );
+          })}
+
+          <section class="bolum tk-hafta">
+            <h2 class="bolum-baslik">Son 7 günde açıklananlar</h2>
+            {sonYedi.length === 0 ? (
+              <p class="bos">Son 7 günde takvimde yayın görünmüyor.</p>
+            ) : (
+              <ul class="tk-liste tk-son">
+                {sonYedi.map((o) => (
+                  <li>
+                    <span class="tk-saat">{gunAdi(o.tarih).slice(0, 3)} {gunMetni(o.tarih)}{o.saat ? ` ${o.saat}` : ''}</span>
+                    <span class={kurumSinifi(o.kurum)}>{o.kurum}</span>
+                    <span class="tk-ad">
+                      {o.url ? <a href={o.url} rel="noopener">{o.baslik}</a> : o.baslik}
+                      {o.donem && <span class="tk-donem"> · {o.donem}</span>}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <p class="veri-notu">Liste, takvimde yer alan ve tarihi geçen yayınlardır; haftalık TCMB istatistikleri dahil değildir.</p>
+          </section>
+
+          <p class="veri-notu">
+            Güncel veriler için: <a href="/veri/enflasyon/">Enflasyon</a> · <a href="/veri/politika-faizi/">Politika faizi</a> ·
+            <a href="/veri/enflasyon-beklentisi/">Enflasyon beklentisi</a> · <a href="/veri/tuketici-guveni/">Tüketici güveni</a> ·
+            <a href="/veri/kapasite-kullanimi/">Kapasite kullanımı</a>
+          </p>
+        </>
+      ) : (
+        <p class="bos">Yayın takvimi şu anda yok. Takvim alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <YasalUyari>Bu sayfadaki tarihler TÜİK ve TCMB’nin yayımladığı resmi takvimlerden alınır ve bilgi amaçlıdır.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tk-aralik {
+    margin-left: 0.6em;
+    font-size: 0.8em;
+    font-weight: 400;
+    color: var(--muted);
+  }
+  .tk-hafta {
+    margin-top: 1.75rem;
+  }
+  .tk-gun {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: 0.25rem 1rem;
+    padding: 0.7rem 0.6rem;
+    border-top: 1px solid var(--hair);
+  }
+  .tk-bugun {
+    background: var(--soluk);
+    border-top-color: var(--toprak);
+    box-shadow: inset 3px 0 0 var(--toprak);
+  }
+  .tk-tarih {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .tk-gun-adi {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .tk-gun-no {
+    font-weight: 600;
+  }
+  .tk-bugun-etiket {
+    align-self: flex-start;
+    margin-top: 0.15rem;
+    padding: 0 0.4em;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--paper);
+    background: var(--toprak-text);
+  }
+  .tk-liste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .tk-liste li {
+    display: grid;
+    grid-template-columns: 3.2rem 3.3rem 1fr;
+    gap: 0.6rem;
+    align-items: baseline;
+  }
+  .tk-son li {
+    grid-template-columns: 8.8rem 3.3rem 1fr;
+  }
+  .tk-saat {
+    font-variant-numeric: tabular-nums;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .tk-kurum {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .tk-tcmb {
+    color: var(--toprak-text);
+  }
+  .tk-tuik {
+    color: var(--ink);
+  }
+  .tk-donem {
+    color: var(--muted);
+    font-size: 0.9em;
+  }
+  .tk-haftalik {
+    margin-top: 0.75rem;
+    border-top: 1px solid var(--hair);
+  }
+  .tk-haftalik > summary {
+    cursor: pointer;
+    padding: 0.7rem 0.6rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  @media (max-width: 640px) {
+    .tk-gun {
+      grid-template-columns: 1fr;
+      padding-inline: 0.5rem;
+    }
+    .tk-tarih {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+    .tk-bugun-etiket {
+      margin-top: 0;
+    }
+    .tk-liste li,
+    .tk-son li {
+      grid-template-columns: 3rem 3.1rem 1fr;
+    }
+    .tk-son li {
+      grid-template-columns: 1fr;
+      gap: 0.1rem;
+    }
+    .tk-son .tk-kurum {
+      display: inline;
+    }
+  }
+</style>

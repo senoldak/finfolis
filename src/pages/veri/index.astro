@@ -13,10 +13,12 @@ import swapData from '../../data/tcmb-swap-orani.json';
 import abdTahvilleriData from '../../data/abd-tahvilleri.json';
 import abdTahvilData from '../../data/abd-tahvil.json';
 import makroData from '../../data/makro-soklar.json';
+import dunyaFaizData from '../../data/dunya-faizleri.json';
 import sektorData from '../../data/sektorler.json';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
+const dunyaFaz = (f: string) => dunyaFaizData.satirlar.filter((x: { faz: string }) => x.faz === f).length;
 const { kur, faiz, enflasyon, konut, issizlik, rezerv, piyasaFaizleri, mevduat, beklenti, kira, kart, guven, rek, brutRezerv, kapasite } = RESMI;
 const kiraSon = kira?.satirlar.at(-1);
 const kartSon = kart?.satirlar.at(-1);
@@ -941,6 +943,39 @@ const araclar = [
             <li>
               <a href="/veri/butce-dengesi/" class="fihrist-baslik-link">Genel Bütçe Dengesi</a>
               <span class="fihrist-ozet">12 aylık bütçe dengesi, faiz dışı denge ve faiz harcaması</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Para politikası ve dünya -->
+        <div class="fihrist-kutu">
+          <div class="fihrist-kutu-baslik">
+            <h3>Para Politikası &amp; Dünya</h3>
+          </div>
+          <ul class="fihrist-liste">
+            <li>
+              <a href="/veri/dunya-politika-faizleri/" class="fihrist-baslik-link">Dünya Politika Faizleri</a>
+              <span class="fihrist-ozet">{dunyaFaizData.satirlar.length} merkez bankasının faizi, son hareketi, fazı ve reel faizi ({dunyaFaz('Sıkılaştırma')} sıkılaştırmada, {dunyaFaz('Gevşeme')} gevşemede)</span>
+            </li>
+            <li>
+              <a href="/veri/emsal-ulkeler/" class="fihrist-baslik-link">Emsal Ülkeler</a>
+              <span class="fihrist-ozet">Türkiye ile 22 ekonominin büyüme, enflasyon, işsizlik, faiz ve reel faizi yan yana</span>
+            </li>
+            <li>
+              <a href="/veri/ppk-karar-metni/" class="fihrist-baslik-link">PPK Karar Metni Farkı</a>
+              <span class="fihrist-ozet">Her faiz kararı metni bir öncekiyle cümle cümle: eklenen, silinen ve değişen cümleler</span>
+            </li>
+            <li>
+              <a href="/veri/ppk-tonu/" class="fihrist-baslik-link">PPK Metin Tonu</a>
+              <span class="fihrist-ozet">PPK metinlerinin yapay zekâyla okunan yönü, −3 güvercin ile +3 şahin arası</span>
+            </li>
+            <li>
+              <a href="/veri/takvim/" class="fihrist-baslik-link">Veri Yayın Takvimi</a>
+              <span class="fihrist-ozet">TÜİK bültenleri ve TCMB yayınlarının önümüzdeki 8 haftadaki tarihleri</span>
+            </li>
+            <li>
+              <a href="/veri/guncellik/" class="fihrist-baslik-link">Veri Güncelliği</a>
+              <span class="fihrist-ozet">Bu sayfalardaki her serinin son gözlemi ve yayın takvimine göre durumu</span>
             </li>
           </ul>
         </div>
