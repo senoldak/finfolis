@@ -1,0 +1,36 @@
+# Tek seferlik deneme (28 Ekim 2026): finfolis'in resmi PDF kaynaklarında MarkItDown ile Docling karşılaştırması
+# (scripts/deneme/pdf-karsilastir.py). Yalnız elle başlar, repoya yazmaz; çıktılar iş eserinde. Karar verilince silinir.
+name: PDF karşılaştırma (deneme)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  karsilastir:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Kur
+        run: |
+          python3 -m venv "$RUNNER_TEMP/venv"
+          P="$RUNNER_TEMP/venv/bin/pip"
+          "$P" install --quiet --disable-pip-version-check --index-url https://download.pytorch.org/whl/cpu 'torch>=2.6,<3' torchvision
+          "$P" install --quiet --disable-pip-version-check 'markitdown[pdf]==0.1.9' docling pypdf
+          "$RUNNER_TEMP/venv/bin/pip" list 2>/dev/null | grep -iE "^(markitdown|docling|pypdf|torch) "
+
+      - name: Karşılaştır
+        run: '"$RUNNER_TEMP/venv/bin/python" scripts/deneme/pdf-karsilastir.py "$RUNNER_TEMP/pdf-cikti"'
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: pdf-cikti
+          path: ${{ runner.temp }}/pdf-cikti/*.md
+          retention-days: 7
