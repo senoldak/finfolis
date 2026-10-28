@@ -1,0 +1,87 @@
+# Haftalık yazım taraması: dört sitenin son 7 gündeki yazılarında denetleyicinin tanımadığı, arşivde seyrek geçen küçük
+# harfli sözcükleri bulur (site-ortak/yazim/yazim-uyari.py kuralları; TR akana, NB divvunspell) ve Redaksjon'da hata/doğru
+# düğmeleriyle sahibine sorar. Kararlar mecmua-saat'te durur; "doğru" denen sözcük bir daha sorulmaz. Betikler private
+# mecmua'da (yazi-isleri/yazim/, site-ortak/yazim/); bu iş repoya hiçbir şey yazmaz. Haftalık iş olduğu için zamanlama saat Worker'ında değil, burada (pazartesi 05:20 UTC).
+name: Yazım taraması
+
+on:
+  schedule:
+    - cron: '20 5 * * 1'
+  workflow_dispatch:
+    inputs:
+      gun:
+        description: Kaç günlük yazı taransın
+        default: '7'
+      gonder:
+        description: Redaksjon'a gönderilsin mi
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: yazim-tarama
+  cancel-in-progress: false
+
+jobs:
+  tara:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: siteler/finfolis
+          sparse-checkout: src/content
+          persist-credentials: false
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: senoldak/kifobu
+          path: siteler/kifobu
+          sparse-checkout: src/content
+          persist-credentials: false
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: senoldak/tidsrost
+          path: siteler/tidsrost
+          sparse-checkout: src/content
+          persist-credentials: false
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: senoldak/jendume
+          path: siteler/jendume
+          sparse-checkout: src/content
+          persist-credentials: false
+
+      # Tarama betikleri private mecmua'dadır: yalnız iki klasör, salt-okur deploy anahtarıyla.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: senoldak/mecmua
+          ssh-key: '${{ secrets.MECMUA_OKUMA }}'
+          path: .mecmua
+          sparse-checkout: |
+            yazi-isleri/yazim
+            site-ortak/yazim
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+
+      - name: Araçları kur
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash .mecmua/yazi-isleri/yazim/kur.sh "$RUNNER_TEMP/arac"
+
+      - name: Tara
+        env:
+          MOTOR_URL: ${{ vars.MOTOR_URL }}
+          MOTOR_ANAHTARI: ${{ secrets.MOTOR_ANAHTARI }}
+          GUN: ${{ inputs.gun || '7' }}
+          GONDER: ${{ github.event_name == 'schedule' || inputs.gonder }}
+        run: |
+          node .mecmua/yazi-isleri/yazim/tarama.mjs --kok siteler --uyari .mecmua/site-ortak/yazim/yazim-uyari.py --arac "$RUNNER_TEMP/arac" --cikti "$RUNNER_TEMP/yazim" \
+            --gun "$GUN" $([ "$GONDER" = "true" ] && echo --gonder) | tee -a "$GITHUB_STEP_SUMMARY"
