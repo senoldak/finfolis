@@ -9,6 +9,7 @@ import merkezBankalari from './kaynaklar/merkez-bankalari.mjs';
 import sec from './kaynaklar/sec.mjs';
 import kurHareketi from './kaynaklar/kur-hareketi.mjs';
 import esikOlaylari from './kaynaklar/esik-olaylari.mjs';
+import yabanciPortfoy from './kaynaklar/yabanci-portfoy.mjs';
 import { rssHaberKaynagi } from './kaynaklar/rss-haber.mjs';
 import { BESLEMELER, DERLEYICILER } from './kaynaklar/beslemeler.mjs';
 import { derleyiciKaynagi } from './kaynaklar/derleyici.mjs';
@@ -120,7 +121,7 @@ function basarisiz(durum, a, iso, hatalar, neden, log) {
 }
 
 // Çalıştırmada kullanılan kaynaklar (kaynak modülleri ve şifreli listeden gelen beslemeler); adayiKur kaynağın var olup olmadığına bunlara bakar.
-export const varsayilanKaynaklar = () => [merkezBankalari, sec, kurHareketi, esikOlaylari, ...BESLEMELER.map(rssHaberKaynagi), ...DERLEYICILER.map(derleyiciKaynagi)];
+export const varsayilanKaynaklar = () => [merkezBankalari, sec, kurHareketi, esikOlaylari, yabanciPortfoy, ...BESLEMELER.map(rssHaberKaynagi), ...DERLEYICILER.map(derleyiciKaynagi)];
 
 // Motor yükü şifreli 16 KB'a sığmalı: uzun alanlar hem karakter hem UTF-8 bayt sınırıyla kırpılır (yük JSON'u ~11 KB altında).
 const kes = (m, enCok, enCokBayt) => {

@@ -1,0 +1,216 @@
+---
+// Dış ticaret: TÜİK genel ticaret sistemi verisi (TCMB EVDS üzerinden), aylık, bin ABD doları. Denge (ihracat − ithalat)
+// ve 12 aylık birikimli toplamlar finfolis hesaplamasıdır.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { kayanToplam } from '../../lib/turetilmis.mjs';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const ticaret = RESMI.disTicaret;
+// Denge alanı eklenmiş satırlar (bin $).
+const satirlar = (ticaret?.satirlar ?? []).map((s) => ({ ...s, denge: s.ihracat - s.ithalat }));
+const son = satirlar.at(-1);
+
+const isaret = (n: number) => (n > 0 ? '+' : n < 0 ? '−' : '');
+// Bin $ -> milyar $.
+const milyar = (bin: number, o = 1) => `${sayiYaz(Math.abs(bin) / 1e6, o)} milyar $`;
+const milyarIsaretli = (bin: number, o = 1) => `${isaret(bin)}${milyar(bin, o)}`;
+
+const ALANLAR = ['ihracat', 'ithalat', 'denge', 'yatirim', 'ara', 'tuketim'] as const;
+type Alan = (typeof ALANLAR)[number];
+const kayan = Object.fromEntries(ALANLAR.map((a) => [a, kayanToplam(satirlar, a, 12)])) as Record<Alan, (number | null)[]>;
+const t = (s: { yil: number; ay: number }) => s.yil * 12 + s.ay - 1;
+const noktalar = (alanlar: readonly Alan[]) =>
+  satirlar
+    .map((s, i) => [t(s), ...alanlar.map((a) => (kayan[a][i] == null ? null : kayan[a][i]! / 1e6))])
+    .filter((n) => n.slice(1).some((v) => v != null));
+const k12Ihracat = satirlar.length >= 12 ? (kayan.ihracat.at(-1) as number) : null;
+
+const gruplarDenge = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'ihracat', ad: 'İhracat', renk: 'yesil' as const },
+      { id: 'ithalat', ad: 'İthalat', renk: 'toprak' as const },
+      { id: 'denge', ad: 'Denge', renk: 'murekkep' as const, kesik: true },
+    ],
+  },
+];
+const gruplarMal = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'ara', ad: 'Ara malları', renk: 'mavi' as const },
+      { id: 'yatirim', ad: 'Yatırım malları', renk: 'toprak' as const },
+      { id: 'tuketim', ad: 'Tüketim malları', renk: 'yesil' as const },
+    ],
+  },
+];
+
+const tablo = satirlar.slice(-12).reverse();
+
+const baslik = 'Dış ticaret';
+const description = son
+  ? `${ayAdi(son)} ayında ihracat ${milyar(son.ihracat)}, ithalat ${milyar(son.ithalat)}; dış ticaret dengesi ${milyarIsaretli(son.denge)}.${k12Ihracat != null ? ` Son 12 ayda ihracat ${milyar(k12Ihracat)}.` : ''} TÜİK verisi.`
+  : 'İhracat, ithalat ve dış ticaret dengesi: TÜİK genel ticaret sistemi verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/dis-ticaret/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(ticaret && son
+    ? {
+        sayfaEk: { dateModified: ticaret.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Türkiye dış ticareti: ihracat ve ithalat (aylık)',
+            description:
+              'İhracat, ithalat ve ithalatın ara, yatırım ve tüketim malı kırılımı, genel ticaret sistemine göre aylık, bin ABD doları, TÜİK verisi, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/dis-ticaret/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye İstatistik Kurumu', url: 'https://www.tuik.gov.tr/' },
+            temporalCoverage: `${satirlar[0].yil}-${String(satirlar[0].ay).padStart(2, '0')}/${son.yil}-${String(son.ay).padStart(2, '0')}`,
+            dateModified: ticaret.alinma,
+            variableMeasured: ['İhracat (bin ABD doları)', 'İthalat (bin ABD doları)', 'Ara malı ithalatı (bin ABD doları)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Dış ticaret: ${son ? ayAdi(son) : 'TÜİK verisi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>İhracat, ithalat ve dış ticaret dengesi · TÜİK, aylık</p>
+    </header>
+    {
+      ticaret && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>İhracat, son ay</dt>
+              <dd>{milyar(son.ihracat)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}</dd>
+            </div>
+            <div>
+              <dt>İthalat, son ay</dt>
+              <dd>{milyar(son.ithalat)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}</dd>
+            </div>
+            <div>
+              <dt>Dış ticaret dengesi, son ay</dt>
+              <dd>{milyarIsaretli(son.denge)}</dd>
+              <dd class="veri-degisim">İhracat − ithalat</dd>
+            </div>
+            {k12Ihracat != null && (
+              <div>
+                <dt>12 aylık ihracat</dt>
+                <dd>{milyar(k12Ihracat)}</dd>
+                <dd class="veri-degisim">Son 12 ayın toplamı</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={ticaret.kaynak.url} rel="noopener">{ticaret.kaynak.ad}</a>. Dış ticaret dengesi ve 12 aylık toplamlar finfolis hesaplamasıdır. Siteye alındığı zaman: {zamanYaz(ticaret.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="12 aylık ihracat, ithalat ve denge"
+            ipucu="Milyar ABD doları, her ay için önceki 12 ayın toplamı · Denge ihracat eksi ithalattır"
+            kaynak="Kaynak: TÜİK, genel ticaret sistemi (TCMB EVDS). Denge ve 12 aylık toplam: finfolis hesaplaması."
+            siklik="ay"
+            birim="milyarUsd"
+            seriIdleri={['ihracat', 'ithalat', 'denge']}
+            noktalar={noktalar(['ihracat', 'ithalat', 'denge'])}
+            gruplar={gruplarDenge}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">İhracat</th>
+                      <th scope="col" class="sag">İthalat</th>
+                      <th scope="col" class="sag">Denge</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{milyar(s.ihracat, 2)}</td>
+                        <td class="sag">{milyar(s.ithalat, 2)}</td>
+                        <td class="sag">{milyarIsaretli(s.denge, 2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Denge: ihracat eksi ithalat, finfolis hesaplaması. Eksi değer dış ticaret açığıdır.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Rakamlar TÜİK’in genel ticaret sistemine göre derlediği ihracat ve ithalattır. Dış ticaret dengesi, ihracat
+                ile ithalat arasındaki farktır; ithalat ihracattan büyükse denge eksi çıkar.
+              </p>
+              <p>
+                İthalat mal gruplarına BEC sınıflamasıyla ayrılır. Ara malları üretimde kullanılan girdileri, yatırım malları
+                makine ve teçhizatı, tüketim malları ise doğrudan nihai tüketime yönelik ürünleri kapsar. Üç grubun toplamı
+                ithalatın tamamına eşit değildir.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="İthalatın mal grupları"
+            ipucu="Milyar ABD doları, her ay için önceki 12 ayın toplamı · BEC sınıflaması"
+            kaynak="Kaynak: TÜİK, genel ticaret sistemi (TCMB EVDS). 12 aylık toplam: finfolis hesaplaması."
+            siklik="ay"
+            birim="milyarUsd"
+            seriIdleri={['ara', 'yatirim', 'tuketim']}
+            noktalar={noktalar(['ara', 'yatirim', 'tuketim'])}
+            gruplar={gruplarMal}
+            sifirdan
+          />
+        </>
+      ) : (
+        <p class="bos">Dış ticaret verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/cari-denge/">Cari denge</a>
+      <a href="/veri/sanayi-uretimi/">Sanayi üretimi</a>
+      <a href="/veri/kapasite-kullanimi/">Kapasite kullanımı</a>
+      <a href="/veri/reel-efektif-kur/">Reel efektif kur</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TÜİK’in yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

@@ -335,3 +335,186 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
   );
   return { kaynak: { ad: 'TÜİK verisi, mevsim etkisinden arındırılmış TÜFE (TCMB EVDS)', url: EVDS_SAYFA }, satirlar };
 }
+
+// --- Dış denge, borç, kredi, sanayi ve bütçe bölümleri (doğrulandı 28.10.2026) ---
+//  - portfoyHaftalik: yurt dışı yerleşiklerin menkul kıymet portföyü (TCMB, haftalık, milyon $): fiyat ve kur
+//      etkisinden arındırılmış net değişim (hisse, DİBS, özel sektör borçlanma senedi, genel toplam), hisse ve DİBS stoku.
+//  - portfoyAylik: ödemeler dengesi, yurt dışı yerleşiklerin hisse senedi ve genel hükümet yurt içi borç senedi
+//      net alımı (TCMB, aylık, milyon $), 2006'dan.
+//  - cari: cari işlemler dengesi; altın, enerji ve ikisi hariç denge; net altın ve enerji; seyahat geliri (milyon $).
+//  - disBorc: kalan vadeye göre ve orijinal vadeye göre kısa vadeli dış borç, resmi rezerv varlıklar (aylık, milyon $);
+//      brüt ve net dış borç stoku (üç aylık, milyon $).
+//  - disTicaret: genel ticaret sistemine göre ihracat ve ithalat, ithalatın yatırım/ara/tüketim malı kırılımı (TÜİK, bin $).
+//  - sanayi: sanayi üretim endeksi (TÜİK, 2021=100): mevsim ve takvim etkisinden arındırılmış endeks ve aylık değişim,
+//      takvim etkisinden arındırılmış yıllık değişim, imalat endeksi.
+//  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
+//  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
+//      kredileri banka türlerine göre (toplamı sayfada alınır).
+
+export const PORTFOY_HAFTALIK_SERILERI = [
+  { kod: 'TP.MKNETHAR.M7', alan: 'hisse', ad: 'Hisse senedi' },
+  { kod: 'TP.MKNETHAR.M8', alan: 'dibs', ad: 'Devlet iç borçlanma senedi (DİBS)' },
+  { kod: 'TP.MKNETHAR.M12', alan: 'ost', ad: 'Özel sektör borçlanma senedi' },
+  { kod: 'TP.MKNETHAR.M20', alan: 'toplam', ad: 'Genel toplam' },
+  { kod: 'TP.MKNETHAR.M1', alan: 'hisseStok', ad: 'Hisse senedi stoku' },
+  { kod: 'TP.MKNETHAR.M2', alan: 'dibsStok', ad: 'DİBS stoku' },
+];
+export const PORTFOY_AYLIK_SERILERI = [
+  { kod: 'TP.ODEAYRSUNUM6.Q120', alan: 'hisse', ad: 'Hisse senedi' },
+  { kod: 'TP.ODEAYRSUNUM6.Q129', alan: 'dibs', ad: 'Genel hükümet borç senedi, yurt içi' },
+];
+export const CARI_SERILERI = [
+  { kod: 'TP.ODANA6.Q01', alan: 'cari', ad: 'Cari işlemler dengesi' },
+  { kod: 'TP.HARICCARIACIK.K8', alan: 'altinHaric', ad: 'Altın hariç' },
+  { kod: 'TP.HARICCARIACIK.K9', alan: 'enerjiHaric', ad: 'Enerji hariç' },
+  { kod: 'TP.HARICCARIACIK.K10', alan: 'cekirdek', ad: 'Altın ve enerji hariç' },
+  { kod: 'TP.HARICCARIACIK.K4', alan: 'altin', ad: 'Parasal olmayan altın, net' },
+  { kod: 'TP.HARICCARIACIK.K7', alan: 'enerji', ad: 'Enerji, net' },
+  { kod: 'TP.ODEAYRSUNUM6.Q42', alan: 'seyahat', ad: 'Seyahat geliri' },
+];
+export const DIS_BORC_SERILERI = [
+  { kod: 'TP.KALANVADE.K20', alan: 'kalanVade', ad: 'Kısa vadeli dış borç, kalan vadeye göre' },
+  { kod: 'TP.KVDB19', alan: 'orijinalVade', ad: 'Kısa vadeli dış borç stoku' },
+  { kod: 'TP.AB.B4', alan: 'rezerv', ad: 'Resmi rezerv varlıklar' },
+];
+export const DIS_BORC_CEYREK_SERILERI = [
+  { kod: 'TP.BRUTDBORCLU.G1', alan: 'brut', ad: 'Brüt dış borç stoku' },
+  { kod: 'TP.NETDISBORC.G1', alan: 'net', ad: 'Net dış borç stoku' },
+];
+export const DIS_TICARET_SERILERI = [
+  { kod: 'TP.IHRACATBEC.9999', alan: 'ihracat', ad: 'İhracat' },
+  { kod: 'TP.ITHALATBEC.9999', alan: 'ithalat', ad: 'İthalat' },
+  { kod: 'TP.ITHALATBEC.1', alan: 'yatirim', ad: 'Yatırım (sermaye) malları' },
+  { kod: 'TP.ITHALATBEC.2', alan: 'ara', ad: 'Ara mallar (hammadde)' },
+  { kod: 'TP.ITHALATBEC.3', alan: 'tuketim', ad: 'Tüketim malları' },
+];
+export const BUTCE_SERILERI = [
+  { kod: 'TP.KB.GEN01', alan: 'gelir', ad: 'Genel bütçe gelirleri' },
+  { kod: 'TP.KB.GEN12', alan: 'harcama', ad: 'Genel bütçe harcamaları' },
+  { kod: 'TP.KB.GEN17', alan: 'faiz', ad: 'Faiz harcamaları' },
+  { kod: 'TP.KB.GEN34', alan: 'faizDisi', ad: 'Faiz dışı denge' },
+  { kod: 'TP.KB.GEN35', alan: 'denge', ad: 'Bütçe dengesi' },
+];
+// Mevduat, kalkınma-yatırım ve katılım bankaları: hanehalkı ve mali olmayan şirketler.
+export const KREDI_SERILERI = [
+  { kod: 'TP.KREHACBS.A1', alan: 'toplam', ad: 'Toplam yurt içi kredi' },
+  { kod: 'TP.KREHACBS.A9', alan: 'haneMevduat', ad: 'Hanehalkı, mevduat bankaları' },
+  { kod: 'TP.KREHACBS.A18', alan: 'haneKalkinma', ad: 'Hanehalkı, kalkınma ve yatırım bankaları' },
+  { kod: 'TP.KREHACBS.A27', alan: 'haneKatilim', ad: 'Hanehalkı, katılım bankaları' },
+  { kod: 'TP.KREHACBS.A8', alan: 'sirketMevduat', ad: 'Şirketler, mevduat bankaları' },
+  { kod: 'TP.KREHACBS.A17', alan: 'sirketKalkinma', ad: 'Şirketler, kalkınma ve yatırım bankaları' },
+  { kod: 'TP.KREHACBS.A26', alan: 'sirketKatilim', ad: 'Şirketler, katılım bankaları' },
+];
+
+// Haftalık seri listesi için ortak çekme: [{ tarih, <alan>: değer }], bütün alanları dolu satırlar.
+async function haftalikSeriler(tanim, bas, simdi, anahtar, ad, enAz) {
+  const ham = await evdsCek(tanim.map((t) => t.kod), tanim.map(() => 0), bas, simdi, anahtar);
+  const satirlar = ham
+    .filter((h) => h.tarih && tanim.every((t) => h[alanAdi(t.kod, 0)] != null))
+    .map((h) => ({ tarih: h.tarih, ...Object.fromEntries(tanim.map((t) => [t.alan, h[alanAdi(t.kod, 0)]])) }));
+  if (satirlar.length < enAz) throw new Error(`${ad} yetersiz`);
+  return satirlar;
+}
+
+// Aynı seriden birden çok formül (düzey, aylık, yıllık) isteyen aylık bölümler: tanım { kod, formul, alan }.
+async function aylikFormullu(tanim, bas, simdi, anahtar, ad, enAz) {
+  const ham = await evdsCek(tanim.map((t) => t.kod), tanim.map((t) => t.formul), bas, simdi, anahtar);
+  const satirlar = dolular(
+    ham.map((h) => ({ yil: h.yil, ay: h.ay, ...Object.fromEntries(tanim.map((t) => [t.alan, h[alanAdi(t.kod, t.formul)]])) })),
+    (s) => tanim.every((t) => s[t.alan] != null),
+    ad,
+  );
+  if (satirlar.length < enAz) throw new Error(`${ad} yetersiz`);
+  return satirlar;
+}
+
+export async function portfoyHaftalikAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TCMB, yurt dışı yerleşiklerin menkul kıymet portföyü (EVDS, haftalık)', url: EVDS_SAYFA },
+    birim: 'milyon ABD doları',
+    seriler: tanimlar(PORTFOY_HAFTALIK_SERILERI),
+    satirlar: await haftalikSeriler(PORTFOY_HAFTALIK_SERILERI, new Date(Date.UTC(2020, 8, 1)), simdi, anahtar, 'Haftalık portföy', 200),
+  };
+}
+
+export async function portfoyAylikAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TCMB, ödemeler dengesi ayrıntılı sunum, portföy yatırımları (EVDS)', url: EVDS_SAYFA },
+    birim: 'milyon ABD doları',
+    seriler: tanimlar(PORTFOY_AYLIK_SERILERI),
+    satirlar: await aylikSeriler(PORTFOY_AYLIK_SERILERI, new Date(Date.UTC(2006, 0, 1)), simdi, anahtar, 'Aylık portföy', 120),
+  };
+}
+
+export async function cariAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TCMB, ödemeler dengesi istatistikleri (EVDS)', url: EVDS_SAYFA },
+    birim: 'milyon ABD doları',
+    seriler: tanimlar(CARI_SERILERI),
+    satirlar: await aylikSeriler(CARI_SERILERI, new Date(Date.UTC(1996, 0, 1)), simdi, anahtar, 'Cari denge', 240),
+  };
+}
+
+export async function disBorcAl(simdi, anahtar) {
+  const satirlar = await aylikSeriler(DIS_BORC_SERILERI, new Date(Date.UTC(2011, 6, 1)), simdi, anahtar, 'Kısa vadeli dış borç', 120);
+  const kodlar = DIS_BORC_CEYREK_SERILERI.map((t) => t.kod);
+  const ham = await evdsCek(kodlar, kodlar.map(() => 0), new Date(Date.UTC(2005, 9, 1)), simdi, anahtar);
+  const ceyrekler = ham
+    .filter((h) => h.ceyrek && DIS_BORC_CEYREK_SERILERI.every((t) => h[alanAdi(t.kod, 0)] != null))
+    .map((h) => ({ yil: h.yil, ceyrek: h.ceyrek, ...Object.fromEntries(DIS_BORC_CEYREK_SERILERI.map((t) => [t.alan, h[alanAdi(t.kod, 0)]])) }));
+  if (ceyrekler.length < 40) throw new Error('Dış borç stoku yetersiz');
+  return {
+    kaynak: { ad: 'TCMB, kısa vadeli dış borç, uluslararası rezervler ve dış borç istatistikleri (EVDS)', url: EVDS_SAYFA },
+    birim: 'milyon ABD doları',
+    seriler: tanimlar(DIS_BORC_SERILERI),
+    ceyrekSeriler: tanimlar(DIS_BORC_CEYREK_SERILERI),
+    satirlar,
+    ceyrekler,
+  };
+}
+
+export async function disTicaretAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TÜİK verisi, genel ticaret sistemine göre dış ticaret, BEC sınıflaması (TCMB EVDS)', url: EVDS_SAYFA },
+    birim: 'bin ABD doları',
+    seriler: tanimlar(DIS_TICARET_SERILERI),
+    satirlar: await aylikSeriler(DIS_TICARET_SERILERI, new Date(Date.UTC(2013, 0, 1)), simdi, anahtar, 'Dış ticaret', 120),
+  };
+}
+
+export const SANAYI_SERILERI = [
+  { kod: 'TP.TSANAYMT2021.BCD', formul: 0, alan: 'endeks', ad: 'Toplam sanayi, mevsim ve takvim etkisinden arındırılmış' },
+  { kod: 'TP.TSANAYMT2021.BCD', formul: 1, alan: 'aylik', ad: 'Aylık değişim, arındırılmış' },
+  { kod: 'TP.TSANAYTKVM2021.BCD', formul: 3, alan: 'yillik', ad: 'Yıllık değişim, takvim etkisinden arındırılmış' },
+  { kod: 'TP.TSANAYMT2021.C', formul: 0, alan: 'imalat', ad: 'İmalat, mevsim ve takvim etkisinden arındırılmış' },
+];
+
+export async function sanayiAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(SANAYI_SERILERI),
+    satirlar: await aylikFormullu(SANAYI_SERILERI, new Date(Date.UTC(2010, 0, 1)), simdi, anahtar, 'Sanayi üretimi', 120),
+  };
+}
+
+export async function butceAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'Hazine ve Maliye Bakanlığı verisi, genel bütçe (TCMB EVDS)', url: EVDS_SAYFA },
+    birim: 'bin TL',
+    seriler: tanimlar(BUTCE_SERILERI),
+    satirlar: await aylikSeriler(BUTCE_SERILERI, new Date(Date.UTC(2006, 0, 1)), simdi, anahtar, 'Bütçe', 120),
+  };
+}
+
+export async function krediAl(simdi, anahtar) {
+  const tanim = [
+    ...KREDI_SERILERI.map((t) => ({ ...t, formul: 0 })),
+    { kod: 'TP.KREHACBS.A1', formul: 3, alan: 'toplamYillik', ad: 'Toplam yurt içi kredi, yıllık değişim' },
+  ];
+  return {
+    kaynak: { ad: 'TCMB, para ve banka istatistikleri, bankacılık sektörü kredi hacmi (EVDS)', url: EVDS_SAYFA },
+    birim: 'bin TL',
+    seriler: tanimlar(tanim),
+    satirlar: await aylikFormullu(tanim, new Date(Date.UTC(2008, 9, 1)), simdi, anahtar, 'Kredi hacmi', 120),
+  };
+}

@@ -1,0 +1,193 @@
+---
+// Sanayi üretimi: TÜİK sanayi üretim endeksi (2021=100), mevsim ve takvim etkisinden arındırılmış toplam sanayi ve imalat.
+// Aylık ve yıllık değişim EVDS'nin hesabıdır; sayfada ek hesaplama yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const sanayi = RESMI.sanayi;
+const satirlar = sanayi?.satirlar ?? [];
+const son = satirlar.at(-1);
+
+const yd = (n: number) => `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`;
+const endeksYaz = (n: number) => sayiYaz(n, 1);
+
+const gruplar1 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'endeks', ad: 'Toplam sanayi', renk: 'murekkep' as const },
+      { id: 'imalat', ad: 'İmalat', renk: 'toprak' as const, kesik: true },
+    ],
+  },
+];
+const noktalar1 = satirlar.map((s) => [ayAnahtari(s), s.endeks, s.imalat]);
+const gruplar2 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [{ id: 'yillik', ad: 'Yıllık değişim', renk: 'mavi' as const }],
+  },
+];
+const noktalar2 = satirlar.map((s) => [ayAnahtari(s), s.yillik]);
+const tablo = satirlar.slice(-12).reverse();
+
+const baslik = 'Sanayi üretimi';
+const description = son
+  ? `${ayAdi(son)} itibarıyla sanayi üretimi bir önceki aya göre ${yd(son.aylik)}, bir yıl öncesine göre ${yd(son.yillik)} değişti; endeks ${endeksYaz(son.endeks)} (2021=100). TÜİK verisi.`
+  : 'Sanayi üretim endeksi: aylık ve yıllık değişim, TÜİK verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/sanayi-uretimi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(sanayi && son
+    ? {
+        sayfaEk: { dateModified: sanayi.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Sanayi üretim endeksi (2021=100)',
+            description:
+              'Toplam sanayi ve imalat sanayi üretim endeksi (mevsim ve takvim etkisinden arındırılmış) ile aylık ve yıllık değişim oranları, TÜİK verisi, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/sanayi-uretimi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye İstatistik Kurumu', url: 'https://www.tuik.gov.tr/' },
+            temporalCoverage: `${satirlar[0].yil}-${String(satirlar[0].ay).padStart(2, '0')}/${son.yil}-${String(son.ay).padStart(2, '0')}`,
+            dateModified: sanayi.alinma,
+            variableMeasured: ['Sanayi üretim endeksi (2021=100)', 'Aylık değişim (yüzde)', 'Yıllık değişim (yüzde)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Sanayi üretimi: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Sanayi üretim endeksi · TÜİK, aylık</p>
+    </header>
+    {
+      sanayi && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Aylık değişim</dt>
+              <dd>{yd(son.aylik)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}, bir önceki aya göre</dd>
+            </div>
+            <div>
+              <dt>Yıllık değişim</dt>
+              <dd>{yd(son.yillik)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}, bir yıl öncesine göre</dd>
+            </div>
+            <div>
+              <dt>Endeks düzeyi</dt>
+              <dd>{endeksYaz(son.endeks)}</dd>
+              <dd class="veri-degisim">2021 ortalaması = 100</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={sanayi.kaynak.url} rel="noopener">{sanayi.kaynak.ad}</a>. Siteye alındığı zaman:
+            {zamanYaz(sanayi.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Sanayi üretim endeksi"
+            ipucu="2021 ortalaması = 100, mevsim ve takvim etkisinden arındırılmış, aylık"
+            kaynak="Kaynak: TÜİK, sanayi üretim endeksi (TCMB EVDS)."
+            siklik="ay"
+            birim="endeks"
+            seriIdleri={['endeks', 'imalat']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            referans={{ deger: 100, ad: '100: 2021 ortalaması' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Endeks</th>
+                      <th scope="col" class="sag">Aylık değişim</th>
+                      <th scope="col" class="sag">Yıllık değişim</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{endeksYaz(s.endeks)}</td>
+                        <td class="sag">{yd(s.aylik)}</td>
+                        <td class="sag">{yd(s.yillik)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Endeks 2021 ortalaması 100 alınarak hesaplanır.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Sanayi üretim endeksi, madencilik, imalat ile elektrik ve gaz sektörlerinin üretim hacmini tek bir sayıda
+                toplar. Endeks 2021 ortalamasına göre hesaplanır; 100’ün üstü, üretimin 2021 ortalamasından yüksek olduğunu
+                gösterir.
+              </p>
+              <p>
+                Sayfadaki endeks mevsim ve takvim etkisinden arındırılmıştır. Arındırma, tatillerin, iş günü sayısının ve
+                mevsimlik dalgalanmaların etkisini ayıklar; böylece ardışık aylar birbiriyle karşılaştırılabilir. Aylık
+                değişim arındırılmış seriden, yıllık değişim ise takvim etkisinden arındırılmış seriden hesaplanır. Her iki
+                oran da EVDS’nin yayımladığı rakamlardır.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Yıllık değişim"
+            ipucu="Yüzde, bir yıl öncesinin aynı ayına göre, takvim etkisinden arındırılmış · Sıfırın altı, üretimin bir yıl öncesinden düşük olduğunu gösterir"
+            kaynak="Kaynak: TÜİK, sanayi üretim endeksi (TCMB EVDS)."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['yillik']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+        </>
+      ) : (
+        <p class="bos">Sanayi üretimi verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/kapasite-kullanimi/">Kapasite kullanımı</a>
+      <a href="/veri/dis-ticaret/">Dış ticaret</a>
+      <a href="/veri/issizlik-orani/">İşsizlik oranı</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TÜİK’in yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

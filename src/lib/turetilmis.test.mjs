@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { yilliklandir, kurHizi, enflasyonHizi, reelFaiz, ayinFaizi, kiraCarpani } from './turetilmis.mjs';
+import { yilliklandir, kurHizi, enflasyonHizi, reelFaiz, ayinFaizi, kiraCarpani, kayanToplam, kumulatif } from './turetilmis.mjs';
 
 const yakin = (a, b, hata = 1e-9) => assert.ok(Math.abs(a - b) < hata, `${a} ≈ ${b}`);
 
@@ -56,4 +56,14 @@ test('ayinFaizi: ayın son günü geçerli oran; ay ortasındaki karar o ayı be
 
 test('kiraCarpani: 60.000 TL/m² fiyat, 250 TL/m² aylık kira 20 yıl', () => {
   assert.equal(kiraCarpani(60000, 250), 20);
+});
+
+test('kayanToplam: son n dönem, ilk n − 1 satır null', () => {
+  const s = [1, 2, 3, 4].map((v) => ({ v }));
+  assert.deepEqual(kayanToplam(s, 'v', 3), [null, null, 6, 9]);
+  assert.deepEqual(kayanToplam(s, 'v', 1), [1, 2, 3, 4]);
+});
+
+test('kumulatif: baştan birikimli toplam', () => {
+  assert.deepEqual(kumulatif([1, -2, 5].map((v) => ({ v })), 'v'), [1, -1, 4]);
 });

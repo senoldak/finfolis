@@ -1,0 +1,315 @@
+---
+// Yabancıların portföy akımları: TCMB haftalık menkul kıymet istatistikleri (net değişim ve stok) ile ödemeler dengesindeki
+// aylık hisse ve DİBS net alımı. İki seri ayrı yayımlanır ve kapsamları farklıdır; birbirine eklenmez. Kayan toplam ve
+// birikimli toplam finfolis hesaplamasıdır.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, gunAnahtari, gunYaz, ayAdi, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { kayanToplam, kumulatif } from '../../lib/turetilmis.mjs';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const haftalik = RESMI.portfoyHaftalik;
+const aylik = RESMI.portfoyAylik;
+const hs = haftalik?.satirlar ?? [];
+const as = aylik?.satirlar ?? [];
+const son = hs.at(-1);
+const sonAy = as.at(-1);
+
+const isaret = (n: number) => (n > 0 ? '+' : n < 0 ? '−' : '');
+const milyon = (n: number) => `${isaret(n)}${sayiYaz(Math.abs(n), 1)} milyon $`;
+const milyar = (n: number, o = 2) => `${isaret(n)}${sayiYaz(Math.abs(n) / 1000, o)} milyar $`;
+const stok = (n: number) => `${sayiYaz(n / 1000, 1)} milyar $`;
+
+// Bu yılın haftaları (haftanın bittiği cuma bu yıldaysa).
+const buYil = son ? Number(son.tarih.slice(0, 4)) : 0;
+const yilHaftalari = hs.filter((s) => s.tarih.startsWith(String(buYil)));
+const yilToplam = (alan: 'hisse' | 'dibs' | 'ost') => yilHaftalari.reduce((t, s) => t + s[alan], 0);
+
+// 52 haftalık kayan toplam, milyar $.
+const AKIM = ['hisse', 'dibs', 'ost'] as const;
+const kayan = Object.fromEntries(AKIM.map((a) => [a, kayanToplam(hs, a, 52)]));
+const kayanNoktalar = hs
+  .map((s, i) => [gunAnahtari(s.tarih), ...AKIM.map((a) => (kayan[a][i] == null ? null : kayan[a][i]! / 1000))])
+  .filter((n) => n.slice(1).some((v) => v != null));
+const kayanGruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'hisse', ad: 'Hisse senedi', renk: 'yesil' as const },
+      { id: 'dibs', ad: 'DİBS', renk: 'mavi' as const },
+      { id: 'ost', ad: 'Özel sektör borçlanma senedi', renk: 'toprak' as const, kesik: true },
+    ],
+  },
+];
+
+// Stok (piyasa değeri), milyar $.
+const stokNoktalar = hs.map((s) => [gunAnahtari(s.tarih), s.hisseStok / 1000, s.dibsStok / 1000]);
+const stokGruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'hisseStok', ad: 'Hisse senedi', renk: 'yesil' as const },
+      { id: 'dibsStok', ad: 'DİBS', renk: 'mavi' as const },
+    ],
+  },
+];
+
+// Ödemeler dengesi: 2006'dan birikimli net alım, milyar $.
+const kumHisse = kumulatif(as, 'hisse');
+const kumDibs = kumulatif(as, 'dibs');
+const ayNoktalar = as.map((s, i) => [s.yil * 12 + s.ay - 1, kumHisse[i] / 1000, kumDibs[i] / 1000]);
+const ayGruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'hisse', ad: 'Hisse senedi', renk: 'yesil' as const },
+      { id: 'dibs', ad: 'Genel hükümet borç senedi (yurt içi)', renk: 'mavi' as const },
+    ],
+  },
+];
+
+// Yıllık net alım tablosu (ödemeler dengesi), en yeni yıl üstte.
+const yillar = [...new Set(as.map((s) => s.yil))].reverse();
+const yillik = yillar.map((yil) => {
+  const ay = as.filter((s) => s.yil === yil);
+  return {
+    yil,
+    aySayisi: ay.length,
+    sonAy: ay.at(-1)!,
+    hisse: ay.reduce((t, s) => t + s.hisse, 0),
+    dibs: ay.reduce((t, s) => t + s.dibs, 0),
+  };
+});
+const tablo = hs.slice(-12).reverse();
+
+const baslik = 'Yabancıların portföy akımları';
+const description = son
+  ? `Yurt dışı yerleşikler ${gunYaz(son.tarih)} haftasında hisse senedinde ${milyon(son.hisse)}, DİBS'te ${milyon(son.dibs)} net işlem yaptı. ${buYil} başından beri hisse senedinde ${milyar(yilToplam('hisse'))}. TCMB haftalık ve ödemeler dengesi verisi.`
+  : 'Yabancıların hisse senedi ve DİBS alım-satımı: TCMB haftalık ve aylık verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/yabanci-portfoy-akimlari/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(haftalik && son
+    ? {
+        sayfaEk: { dateModified: haftalik.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Yurt dışı yerleşiklerin menkul kıymet portföyü (haftalık)',
+            description:
+              'Yurt dışı yerleşiklerin hisse senedi, DİBS ve özel sektör borçlanma senedi portföyündeki fiyat ve kur etkisinden arındırılmış haftalık net değişim ile stok, milyon ABD doları, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/yabanci-portfoy-akimlari/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${hs[0].tarih}/${son.tarih}`,
+            dateModified: haftalik.alinma,
+            variableMeasured: ['Hisse senedi net değişim (milyon ABD doları)', 'DİBS net değişim (milyon ABD doları)', 'Hisse senedi stoku (milyon ABD doları)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Yabancıların portföy akımları: ${son ? gunYaz(son.tarih) : 'haftalık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Hisse senedi ve DİBS alım-satımı · TCMB, haftalık ve aylık</p>
+    </header>
+    {
+      haftalik && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Hisse senedi, son hafta</dt>
+              <dd>{milyon(son.hisse)}</dd>
+              <dd class="veri-degisim">{gunYaz(son.tarih)} haftası</dd>
+            </div>
+            <div>
+              <dt>DİBS, son hafta</dt>
+              <dd>{milyon(son.dibs)}</dd>
+              <dd class="veri-degisim">{gunYaz(son.tarih)} haftası</dd>
+            </div>
+            <div>
+              <dt>Hisse senedi, {buYil} başından</dt>
+              <dd>{milyar(yilToplam('hisse'))}</dd>
+              <dd class="veri-degisim">{yilHaftalari.length} haftanın toplamı</dd>
+            </div>
+            <div>
+              <dt>Yabancıların elindeki hisse</dt>
+              <dd>{stok(son.hisseStok)}</dd>
+              <dd class="veri-degisim">Piyasa değeri, {gunYaz(son.tarih)}</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={haftalik.kaynak.url} rel="noopener">{haftalik.kaynak.ad}</a>
+            {aylik && (
+              <>
+                {' '}ve <a href={aylik.kaynak.url} rel="noopener">{aylik.kaynak.ad}</a>
+              </>
+            )}
+            . Siteye alındığı zaman: {zamanYaz(haftalik.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Son 52 haftanın net alım-satımı"
+            ipucu="Milyar ABD doları, her hafta için önceki 52 haftanın toplamı · Sıfırın üstü net alım, altı net satış"
+            kaynak="Kaynak: TCMB, menkul kıymet istatistikleri (EVDS). 52 haftalık toplam: finfolis hesaplaması."
+            siklik="hafta"
+            birim="milyarUsd"
+            ondalik={2}
+            seriIdleri={[...AKIM]}
+            noktalar={kayanNoktalar}
+            gruplar={kayanGruplar}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 hafta</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Hafta</th>
+                      <th scope="col" class="sag">Hisse</th>
+                      <th scope="col" class="sag">DİBS</th>
+                      <th scope="col" class="sag">Özel sektör</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{gunYaz(s.tarih)}</td>
+                        <td class="sag">{milyon(s.hisse)}</td>
+                        <td class="sag">{milyon(s.dibs)}</td>
+                        <td class="sag">{milyon(s.ost)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Fiyat ve kur etkisinden arındırılmış net değişim. Artı net alım, eksi net satış.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                TCMB her perşembe, yurt dışında yerleşik yatırımcıların Türkiye’deki hisse senedi ve borçlanma senedi
+                portföyünü bir önceki cuma itibarıyla yayımlar. Net değişim, hisse fiyatlarının ve kurun etkisi
+                ayıklanarak hesaplanır; yani yatırımcıların o hafta gerçekten aldığı ve sattığı tutarı gösterir.
+              </p>
+              <p>
+                Stok ise yabancıların elindeki menkul kıymetlerin dolar cinsinden piyasa değeridir. Hisse fiyatları ya da
+                kur değiştiğinde, yabancılar işlem yapmasa da stok değişir.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Yabancıların elindeki stok"
+            ipucu="Milyar ABD doları, piyasa değeri, haftalık · Serileri açıp kapatmak için adlarına dokunun"
+            kaynak="Kaynak: TCMB, menkul kıymet istatistikleri (EVDS)."
+            siklik="hafta"
+            birim="milyarUsd"
+            seriIdleri={['hisseStok', 'dibsStok']}
+            noktalar={stokNoktalar}
+            gruplar={stokGruplar}
+            sifirdan
+          />
+
+          {aylik && sonAy && (
+            <>
+              <ZamanGrafik
+                baslik="2006’dan bu yana birikimli net alım"
+                ipucu={`Milyar ABD doları, ödemeler dengesi, Ocak 2006 – ${ayAdi(sonAy)} · Sıfırın altı, dönem boyunca net satış`}
+                kaynak="Kaynak: TCMB, ödemeler dengesi ayrıntılı sunum (EVDS). Birikimli toplam: finfolis hesaplaması."
+                siklik="ay"
+                birim="milyarUsd"
+                seriIdleri={['hisse', 'dibs']}
+                noktalar={ayNoktalar}
+                gruplar={ayGruplar}
+                referans={{ deger: 0, ad: 'Sıfır' }}
+              />
+
+              <div class="veri-izgara">
+                <section class="bolum">
+                  <h2 class="bolum-baslik">Yıllık net alım (ödemeler dengesi)</h2>
+                  <div class="tablo-sarma">
+                    <table class="cizelge veri-tablo">
+                      <thead>
+                        <tr>
+                          <th scope="col">Yıl</th>
+                          <th scope="col" class="sag">Hisse</th>
+                          <th scope="col" class="sag">Borç senedi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {yillik.map((y) => (
+                          <tr>
+                            <td>
+                              {y.yil}
+                              {y.aySayisi < 12 && <span class="kucuk"> (Ocak–{ayAdi(y.sonAy).split(' ')[0]})</span>}
+                            </td>
+                            <td class="sag">{milyar(y.hisse)}</td>
+                            <td class="sag">{milyar(y.dibs)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+
+                <section class="bolum prose veri-aciklama">
+                  <h2 class="bolum-baslik">İki seri neden ayrı?</h2>
+                  <p>
+                    Ödemeler dengesindeki portföy yatırımları aylık yayımlanır ve yaklaşık iki ay gecikmeyle gelir. Kapsamı
+                    haftalık seriden farklıdır: hisse senedi kalemi yatırım fonu paylarını içermez, borç senedi kalemi genel
+                    hükümetin yurt içinde ihraç ettiği senetleri kapsar. Haftalık seri 2020 Eylül’ünden başlar.
+                  </p>
+                  <p>
+                    Bu yüzden iki seri birbirine eklenmez ve tutarları birebir aynı çıkmaz. Uzun dönem için aylık seri,
+                    son haftalar için haftalık seri kullanılır.
+                  </p>
+                </section>
+              </div>
+            </>
+          )}
+        </>
+      ) : (
+        <p class="bos">Portföy verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/cari-denge/">Cari denge</a>
+      <a href="/veri/tcmb-rezervleri/">TCMB rezervleri</a>
+      <a href="/veri/abd-tahvil-akimlari/">ABD tahvili işlemleri</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+  .kucuk {
+    font-size: 0.85em;
+    color: var(--murekkep-soluk, inherit);
+  }
+</style>

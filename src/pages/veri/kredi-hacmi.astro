@@ -1,0 +1,242 @@
+---
+// Kredi hacmi: TCMB bankacılık sektörü yurt içi kredi hacmi (bin TL). Hanehalkı ve şirket toplamları, bunların yıllık
+// değişimi ve reel yıllık değişim finfolis hesaplamasıdır; toplam kredinin yıllık değişimi EVDS'den gelir.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { reelDegisim } from '../../lib/turetilmis.mjs';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const { kredi, enflasyon } = RESMI;
+const tufe = new Map((enflasyon?.satirlar ?? []).map((s) => [ayAnahtari(s), s.yillik]));
+const ham = kredi?.satirlar ?? [];
+const toplamlar = new Map(
+  ham.map((s) => [
+    ayAnahtari(s),
+    { hane: s.haneMevduat + s.haneKalkinma + s.haneKatilim, sirket: s.sirketMevduat + s.sirketKalkinma + s.sirketKatilim },
+  ]),
+);
+const degisim = (simdi: number, once: number | undefined) => (once == null || once === 0 ? null : (simdi / once - 1) * 100);
+const satirlar = ham.map((s) => {
+  const k = ayAnahtari(s);
+  const t = toplamlar.get(k)!;
+  const eski = toplamlar.get(k - 12);
+  const gercek = tufe.get(k) ?? null;
+  return {
+    yil: s.yil,
+    ay: s.ay,
+    toplam: s.toplam,
+    nominal: s.toplamYillik,
+    reel: gercek == null ? null : reelDegisim(s.toplamYillik, gercek),
+    hane: t.hane,
+    sirket: t.sirket,
+    haneYillik: degisim(t.hane, eski?.hane),
+    sirketYillik: degisim(t.sirket, eski?.sirket),
+    enflasyon: gercek,
+  };
+});
+const son = satirlar.at(-1);
+
+const milyar = (binTl: number, o = 1) => `${sayiYaz(binTl / 1e6, o)} milyar TL`;
+const yd = (n: number | null) => (n == null ? '—' : `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`);
+
+const noktalar1 = satirlar.map((s) => [ayAnahtari(s), s.nominal, s.reel, s.haneYillik, s.sirketYillik]);
+const gruplar1 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'nominal', ad: 'Toplam kredi, nominal', renk: 'murekkep' as const },
+      { id: 'reel', ad: 'Toplam kredi, reel', renk: 'toprak' as const },
+      { id: 'haneYillik', ad: 'Hanehalkı, nominal', renk: 'mavi' as const, kesik: true, gizli: true },
+      { id: 'sirketYillik', ad: 'Şirketler, nominal', renk: 'yesil' as const, kesik: true, gizli: true },
+    ],
+  },
+];
+const noktalar2 = satirlar.map((s) => [ayAnahtari(s), s.hane / 1e6, s.sirket / 1e6]);
+const gruplar2 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'hane', ad: 'Hanehalkı', renk: 'mavi' as const },
+      { id: 'sirket', ad: 'Mali olmayan şirketler', renk: 'yesil' as const },
+    ],
+  },
+];
+const tablo = satirlar.slice(-12).reverse();
+
+const baslik = 'Kredi hacmi';
+const haneOrani = son ? (son.hane / son.toplam) * 100 : 0;
+const description = son
+  ? `${ayAdi(son)} sonunda bankacılık sektörünün yurt içi kredi hacmi ${milyar(son.toplam)}; yıllık değişim ${yd(son.nominal)}${son.reel != null ? `, enflasyondan arındırılmış ${yd(son.reel)}` : ''}. TCMB verisi, reel hesap finfolis’e ait.`
+  : 'Bankacılık sektörünün yurt içi kredi hacmi: TCMB verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/kredi-hacmi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(kredi && son
+    ? {
+        sayfaEk: { dateModified: kredi.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Bankacılık sektörü yurt içi kredi hacmi',
+            description:
+              'Bankacılık sektörünün yurt içi kredi hacmi (bin TL), hanehalkı ve mali olmayan şirketlere kullandırılan krediler ve toplam kredinin yıllık değişimi, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/kredi-hacmi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${satirlar[0].yil}-${String(satirlar[0].ay).padStart(2, '0')}/${son.yil}-${String(son.ay).padStart(2, '0')}`,
+            dateModified: kredi.alinma,
+            variableMeasured: ['Toplam yurt içi kredi (bin TL)', 'Hanehalkı kredisi (bin TL)', 'Şirket kredisi (bin TL)', 'Yıllık değişim (yüzde)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Kredi hacmi: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Bankacılık sektörü yurt içi kredileri · TCMB, aylık</p>
+    </header>
+    {
+      kredi && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Toplam kredi</dt>
+              <dd>{milyar(son.toplam)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)} sonu</dd>
+            </div>
+            <div>
+              <dt>Yıllık değişim, nominal</dt>
+              <dd>{yd(son.nominal)}</dd>
+              <dd class="veri-degisim">Bir yıl öncesine göre</dd>
+            </div>
+            {son.reel != null && (
+              <div>
+                <dt>Yıllık değişim, reel</dt>
+                <dd>{yd(son.reel)}</dd>
+                <dd class="veri-degisim">Yıllık enflasyon {yuzdeYaz(son.enflasyon!)} ile arındırılmış</dd>
+              </div>
+            )}
+            <div>
+              <dt>Hanehalkı payı</dt>
+              <dd>{yuzdeYaz(haneOrani)}</dd>
+              <dd class="veri-degisim">Hanehalkı kredisi {milyar(son.hane)}</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={kredi.kaynak.url} rel="noopener">{kredi.kaynak.ad}</a>; enflasyon TÜİK verisi. Reel
+            değişim ile hanehalkı ve şirket toplamları finfolis hesaplamasıdır. Siteye alındığı zaman: {zamanYaz(kredi.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Kredi hacminin yıllık değişimi"
+            ipucu="Yüzde, bir yıl öncesine göre · Hanehalkı ve şirket serilerini açmak için adlarına dokunun"
+            kaynak="Kaynak: TCMB, bankacılık sektörü kredi hacmi (EVDS); enflasyon TÜİK. Reel değişim ve hanehalkı/şirket oranları: finfolis hesaplaması."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['nominal', 'reel', 'haneYillik', 'sirketYillik']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Toplam kredi</th>
+                      <th scope="col" class="sag">Yıllık, nominal</th>
+                      <th scope="col" class="sag">Yıllık, reel</th>
+                      <th scope="col" class="sag">Hanehalkı</th>
+                      <th scope="col" class="sag">Şirketler</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{milyar(s.toplam)}</td>
+                        <td class="sag">{yd(s.nominal)}</td>
+                        <td class="sag">{yd(s.reel)}</td>
+                        <td class="sag">{milyar(s.hane)}</td>
+                        <td class="sag">{milyar(s.sirket)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Reel değişim, nominal değişimin aynı ayın yıllık TÜFE’siyle Fisher denklemi üzerinden arındırılmasıdır.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Kredi hacmi, bankacılık sektörünün yurt içinde kullandırdığı kredilerin ay sonundaki stokudur. Nominal yıllık
+                değişim, bu stokun bir yıl öncesine göre TL cinsinden ne kadar arttığını gösterir; fiyatlardaki artış da bu
+                rakamın içindedir.
+              </p>
+              <p>
+                Reel değişim, nominal değişimin aynı ayın yıllık enflasyonuyla arındırılmış hâlidir. Nominal artış enflasyonun
+                altındaysa reel değişim negatif çıkar. Toplam kredinin yıllık değişimi EVDS’den, reel değişim ise finfolis
+                hesaplamasından gelir.
+              </p>
+              <p>
+                Hanehalkı ve mali olmayan şirket tutarları, mevduat, kalkınma ve yatırım ile katılım bankalarının ilgili
+                kalemlerinin toplamıdır. Hanehalkı payı, hanehalkına kullandırılan kredilerin toplam yurt içi kredi hacmine
+                oranıdır. Toplamda bu iki grubun dışında kalan kredi kalemleri de vardır.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Hanehalkı ve şirket kredisi"
+            ipucu="Milyar TL, ay sonu stoku · Tutarlar enflasyondan arındırılmamıştır"
+            kaynak="Kaynak: TCMB, bankacılık sektörü kredi hacmi (EVDS). Banka türlerinin toplamı: finfolis hesaplaması."
+            siklik="ay"
+            birim="milyarTl"
+            seriIdleri={['hane', 'sirket']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+            sifirdan
+          />
+        </>
+      ) : (
+        <p class="bos">Kredi hacmi verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/kredi-mevduat-makasi/">Kredi-mevduat makası</a>
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/kartli-harcamalar/">Kartlı harcamalar</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır; reel değişim finfolis hesaplamasıdır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

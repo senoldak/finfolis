@@ -1,0 +1,239 @@
+---
+// Cari işlemler dengesi: TCMB ödemeler dengesi (aylık, milyon ABD doları). Değerler resmidir; 12 aylık birikimli toplamlar
+// finfolis hesaplamasıdır. Altın ve enerji hariç denge TCMB'nin yayımladığı bir seridir.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { kayanToplam } from '../../lib/turetilmis.mjs';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const cari = RESMI.cari;
+const satirlar = cari?.satirlar ?? [];
+const son = satirlar.at(-1);
+
+const isaret = (n: number) => (n > 0 ? '+' : n < 0 ? '−' : '');
+const aylikTutar = (n: number) => `${isaret(n)}${sayiYaz(Math.abs(n) / 1000, 2)} milyar $`;
+const milyar = (n: number, o = 1) => `${isaret(n)}${sayiYaz(Math.abs(n) / 1000, o)} milyar $`;
+
+// 12 aylık birikimli toplamlar, milyon $.
+const ALANLAR = ['cari', 'altinHaric', 'enerjiHaric', 'cekirdek', 'altin', 'enerji', 'seyahat'] as const;
+type Alan = (typeof ALANLAR)[number];
+const kayan = Object.fromEntries(ALANLAR.map((a) => [a, kayanToplam(satirlar, a, 12)])) as Record<Alan, (number | null)[]>;
+const t = (s: { yil: number; ay: number }) => s.yil * 12 + s.ay - 1;
+const noktalar = (alanlar: readonly Alan[]) =>
+  satirlar
+    .map((s, i) => [t(s), ...alanlar.map((a) => (kayan[a][i] == null ? null : kayan[a][i]! / 1000))])
+    .filter((n) => n.slice(1).some((v) => v != null));
+const sonKayan = (a: Alan) => (satirlar.length >= 12 ? (kayan[a].at(-1) as number) : null);
+
+const k12Cari = sonKayan('cari');
+const k12Cekirdek = sonKayan('cekirdek');
+const k12Seyahat = sonKayan('seyahat');
+
+const gruplarDenge = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'cari', ad: 'Cari denge', renk: 'murekkep' as const },
+      { id: 'altinHaric', ad: 'Altın hariç', renk: 'toprak' as const },
+      { id: 'enerjiHaric', ad: 'Enerji hariç', renk: 'mavi' as const, kesik: true },
+      { id: 'cekirdek', ad: 'Altın ve enerji hariç', renk: 'yesil' as const },
+    ],
+  },
+];
+const gruplarKalem = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'enerji', ad: 'Net enerji', renk: 'toprak' as const },
+      { id: 'altin', ad: 'Net altın', renk: 'mavi' as const },
+    ],
+  },
+];
+const gruplarSeyahat = [{ id: 'hepsi', ad: 'Hepsi', seriler: [{ id: 'seyahat', ad: 'Seyahat geliri', renk: 'yesil' as const }] }];
+
+const tablo = satirlar.slice(-12).reverse();
+
+const baslik = 'Cari denge';
+const description =
+  son && k12Cari != null
+    ? `${ayAdi(son)} ayında cari işlemler dengesi ${aylikTutar(son.cari)} oldu; son 12 ayın toplamı ${milyar(k12Cari)}. Altın ve enerji hariç 12 aylık denge ${milyar(k12Cekirdek ?? 0)}. TCMB ödemeler dengesi verisi.`
+    : 'Cari işlemler dengesi, altın ve enerji hariç denge, seyahat geliri: TCMB ödemeler dengesi verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/cari-denge/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(cari && son
+    ? {
+        sayfaEk: { dateModified: cari.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Türkiye cari işlemler dengesi (aylık)',
+            description:
+              'Cari işlemler dengesi, altın ve enerji hariç denge, net altın, net enerji ve seyahat geliri, aylık, milyon ABD doları, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/cari-denge/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${satirlar[0].yil}-${String(satirlar[0].ay).padStart(2, '0')}/${son.yil}-${String(son.ay).padStart(2, '0')}`,
+            dateModified: cari.alinma,
+            variableMeasured: ['Cari işlemler dengesi (milyon ABD doları)', 'Altın ve enerji hariç cari denge (milyon ABD doları)', 'Seyahat geliri (milyon ABD doları)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Cari denge: ${son ? ayAdi(son) : 'TCMB verisi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Cari işlemler dengesi, altın ve enerji hariç denge, seyahat geliri · TCMB, aylık</p>
+    </header>
+    {
+      cari && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Cari denge, son ay</dt>
+              <dd>{aylikTutar(son.cari)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}</dd>
+            </div>
+            {k12Cari != null && (
+              <div>
+                <dt>12 aylık cari denge</dt>
+                <dd>{milyar(k12Cari)}</dd>
+                <dd class="veri-degisim">Son 12 ayın toplamı</dd>
+              </div>
+            )}
+            {k12Cekirdek != null && (
+              <div>
+                <dt>12 aylık, altın ve enerji hariç</dt>
+                <dd>{milyar(k12Cekirdek)}</dd>
+                <dd class="veri-degisim">Son 12 ayın toplamı</dd>
+              </div>
+            )}
+            {k12Seyahat != null && (
+              <div>
+                <dt>12 aylık seyahat geliri</dt>
+                <dd>{milyar(k12Seyahat)}</dd>
+                <dd class="veri-degisim">Son 12 ayın toplamı</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={cari.kaynak.url} rel="noopener">{cari.kaynak.ad}</a>. 12 aylık toplamlar finfolis hesaplamasıdır. Siteye alındığı zaman: {zamanYaz(cari.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="12 aylık birikimli cari denge"
+            ipucu="Milyar ABD doları, her ay için önceki 12 ayın toplamı · Sıfırın altı açık, üstü fazla"
+            kaynak="Kaynak: TCMB, ödemeler dengesi (EVDS). 12 aylık toplam: finfolis hesaplaması."
+            siklik="ay"
+            birim="milyarUsd"
+            seriIdleri={['cari', 'altinHaric', 'enerjiHaric', 'cekirdek']}
+            noktalar={noktalar(['cari', 'altinHaric', 'enerjiHaric', 'cekirdek'])}
+            gruplar={gruplarDenge}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Cari denge</th>
+                      <th scope="col" class="sag">Altın ve enerji hariç</th>
+                      <th scope="col" class="sag">Net enerji</th>
+                      <th scope="col" class="sag">Net altın</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{aylikTutar(s.cari)}</td>
+                        <td class="sag">{aylikTutar(s.cekirdek)}</td>
+                        <td class="sag">{aylikTutar(s.enerji)}</td>
+                        <td class="sag">{aylikTutar(s.altin)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Eksi işareti açık, artı fazla demektir. Enerji ve altın net işlem tutarlarıdır.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Cari işlemler dengesi, ülkenin bir dönemde yurt dışından elde ettiği gelirle yurt dışına yaptığı ödemelerin
+                farkıdır. Mal ve hizmet ticaretini, yurt dışı yatırım gelirlerini ve karşılıksız transferleri kapsar. Eksi
+                değer cari açık, artı değer cari fazla anlamına gelir.
+              </p>
+              <p>
+                Altın ve enerji ayrıca gösterilir; çünkü bu iki kalem fiyat ve talep dalgalanmalarıyla aylık dengeyi hızla
+                değiştirir. Altın ve enerji hariç denge, bu kalemlerin dışında kalan dengeyi gösterir.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Net enerji ve net altın"
+            ipucu="Milyar ABD doları, her ay için önceki 12 ayın toplamı · Eksi değer net ödemeyi gösterir"
+            kaynak="Kaynak: TCMB, ödemeler dengesi (EVDS). 12 aylık toplam: finfolis hesaplaması."
+            siklik="ay"
+            birim="milyarUsd"
+            seriIdleri={['enerji', 'altin']}
+            noktalar={noktalar(['enerji', 'altin'])}
+            gruplar={gruplarKalem}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <ZamanGrafik
+            baslik="Seyahat geliri"
+            ipucu="Milyar ABD doları, her ay için önceki 12 ayın toplamı · Turizm gelirleri"
+            kaynak="Kaynak: TCMB, ödemeler dengesi (EVDS). 12 aylık toplam: finfolis hesaplaması."
+            siklik="ay"
+            birim="milyarUsd"
+            seriIdleri={['seyahat']}
+            noktalar={noktalar(['seyahat'])}
+            gruplar={gruplarSeyahat}
+            sifirdan
+          />
+        </>
+      ) : (
+        <p class="bos">Cari denge verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/dis-ticaret/">Dış ticaret</a>
+      <a href="/veri/dis-borc/">Dış borç</a>
+      <a href="/veri/yabanci-portfoy-akimlari/">Yabancıların portföy akımları</a>
+      <a href="/veri/tcmb-rezervleri/">TCMB rezervleri</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

@@ -1,0 +1,219 @@
+---
+// Dış borç: TCMB kısa vadeli dış borç ve resmi rezerv (aylık) ile brüt/net dış borç stoku (üç aylık), milyon ABD doları.
+// Rezervin kalan vadeli kısa vadeli borcu karşılama oranı finfolis hesaplamasıdır.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const borc = RESMI.disBorc;
+const aylar = borc?.satirlar ?? [];
+const ceyrekler = borc?.ceyrekler ?? [];
+const sonAy = aylar.at(-1);
+const sonCeyrek = ceyrekler.at(-1);
+
+const milyar = (n: number, o = 1) => `${sayiYaz(n / 1000, o)} milyar $`;
+const ceyrekAdi = (s: { yil: number; ceyrek: number }) => `${s.yil} ${s.ceyrek}. çeyrek`;
+const oran = (s: { rezerv: number; kalanVade: number }) => (s.rezerv / s.kalanVade) * 100;
+
+const t = (s: { yil: number; ay: number }) => s.yil * 12 + s.ay - 1;
+const stokNoktalar = aylar.map((s) => [t(s), s.kalanVade / 1000, s.orijinalVade / 1000, s.rezerv / 1000]);
+const oranNoktalar = aylar.map((s) => [t(s), oran(s)]);
+const ceyrekNoktalar = ceyrekler.map((s) => [s.yil * 4 + s.ceyrek - 1, s.brut / 1000, s.net / 1000]);
+
+const gruplarStok = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'kalanVade', ad: 'Kısa vadeli borç (kalan vade)', renk: 'toprak' as const },
+      { id: 'orijinalVade', ad: 'Kısa vadeli borç (orijinal vade)', renk: 'mavi' as const, kesik: true },
+      { id: 'rezerv', ad: 'Resmi rezerv varlıklar', renk: 'yesil' as const },
+    ],
+  },
+];
+const gruplarOran = [{ id: 'hepsi', ad: 'Hepsi', seriler: [{ id: 'oran', ad: 'Karşılama oranı', renk: 'murekkep' as const }] }];
+const gruplarCeyrek = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'brut', ad: 'Brüt dış borç', renk: 'toprak' as const },
+      { id: 'net', ad: 'Net dış borç', renk: 'mavi' as const },
+    ],
+  },
+];
+
+const tablo = ceyrekler.slice(-8).reverse();
+
+const baslik = 'Dış borç';
+const description =
+  sonCeyrek && sonAy
+    ? `Brüt dış borç stoku ${ceyrekAdi(sonCeyrek)} sonunda ${milyar(sonCeyrek.brut)}, net dış borç ${milyar(sonCeyrek.net)}. ${ayAdi(sonAy)} itibarıyla kalan vadeye göre kısa vadeli dış borç ${milyar(sonAy.kalanVade)}, resmi rezerv ${milyar(sonAy.rezerv)}. TCMB verisi.`
+    : 'Brüt ve net dış borç stoku, kısa vadeli dış borç ve resmi rezerv: TCMB verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/dis-borc/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(borc && sonAy && sonCeyrek
+    ? {
+        sayfaEk: { dateModified: borc.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Türkiye dış borç stoku ve kısa vadeli dış borç',
+            description:
+              'Brüt ve net dış borç stoku (üç aylık), kalan vadeye göre kısa vadeli dış borç ve resmi rezerv varlıklar (aylık), milyon ABD doları, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/dis-borc/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${aylar[0].yil}-${String(aylar[0].ay).padStart(2, '0')}/${sonAy.yil}-${String(sonAy.ay).padStart(2, '0')}`,
+            dateModified: borc.alinma,
+            variableMeasured: ['Brüt dış borç stoku (milyon ABD doları)', 'Net dış borç stoku (milyon ABD doları)', 'Kalan vadeye göre kısa vadeli dış borç (milyon ABD doları)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Dış borç: ${sonCeyrek ? ceyrekAdi(sonCeyrek) : 'TCMB verisi'}`} description={description} noindex={!(sonAy && sonCeyrek)}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Brüt ve net dış borç, kısa vadeli dış borç, resmi rezerv · TCMB</p>
+    </header>
+    {
+      borc && sonAy && sonCeyrek ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Brüt dış borç stoku</dt>
+              <dd>{milyar(sonCeyrek.brut)}</dd>
+              <dd class="veri-degisim">{ceyrekAdi(sonCeyrek)}</dd>
+            </div>
+            <div>
+              <dt>Kısa vadeli dış borç, kalan vadeye göre</dt>
+              <dd>{milyar(sonAy.kalanVade)}</dd>
+              <dd class="veri-degisim">{ayAdi(sonAy)}</dd>
+            </div>
+            <div>
+              <dt>Resmi rezerv varlıklar</dt>
+              <dd>{milyar(sonAy.rezerv)}</dd>
+              <dd class="veri-degisim">{ayAdi(sonAy)}</dd>
+            </div>
+            <div>
+              <dt>Rezervin kısa vadeli borcu karşılama oranı</dt>
+              <dd>{yuzdeYaz(oran(sonAy))}</dd>
+              <dd class="veri-degisim">Rezerv ÷ kalan vadeli kısa vadeli borç, {ayAdi(sonAy)}</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={borc.kaynak.url} rel="noopener">{borc.kaynak.ad}</a>. Karşılama oranı finfolis hesaplamasıdır. Siteye alındığı zaman: {zamanYaz(borc.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Kısa vadeli dış borç ve resmi rezerv"
+            ipucu="Milyar ABD doları, aylık · Serileri açıp kapatmak için adlarına dokunun"
+            kaynak="Kaynak: TCMB, kısa vadeli dış borç ve uluslararası rezervler (EVDS)."
+            siklik="ay"
+            birim="milyarUsd"
+            seriIdleri={['kalanVade', 'orijinalVade', 'rezerv']}
+            noktalar={stokNoktalar}
+            gruplar={gruplarStok}
+            sifirdan
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Kalan vadeye göre kısa vadeli dış borç, önümüzdeki 12 ay içinde vadesi dolacak dış borcu gösterir. Başlangıçta
+                uzun vadeli olup vadesine bir yıldan az kalmış borçların bu döneme düşen kısmı da buna dahildir. Orijinal
+                vadeye göre seri ise yalnız baştan bir yıl veya daha kısa vadeyle alınmış borçları sayar.
+              </p>
+              <p>
+                Karşılama oranı, resmi rezerv varlıkların kalan vadeye göre kısa vadeli borca bölünmesiyle bulunur. %100,
+                rezervin bu borca eşit olduğu anlamına gelir. Oran brüt rezervle hesaplanır; TCMB’nin döviz yükümlülükleri
+                düşülmez. Bu yükümlülükler için <a href="/veri/net-doviz-pozisyonu/">net döviz pozisyonu</a> sayfasına bakılabilir.
+              </p>
+            </section>
+
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 8 çeyrek</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Dönem</th>
+                      <th scope="col" class="sag">Brüt dış borç</th>
+                      <th scope="col" class="sag">Net dış borç</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ceyrekAdi(s)}</td>
+                        <td class="sag">{milyar(s.brut)}</td>
+                        <td class="sag">{milyar(s.net)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Dönem sonu stoku.</p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Rezervin kısa vadeli borcu karşılama oranı"
+            ipucu="Yüzde, aylık · %100 rezervin kalan vadeli kısa vadeli borca eşit olduğu düzeydir"
+            kaynak="Kaynak: TCMB (EVDS). Oran: finfolis hesaplaması, resmi rezerv ÷ kalan vadeye göre kısa vadeli dış borç."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['oran']}
+            noktalar={oranNoktalar}
+            gruplar={gruplarOran}
+            referans={{ deger: 100, ad: '%100: rezerv borca eşit' }}
+          />
+
+          <ZamanGrafik
+            baslik="Brüt ve net dış borç stoku"
+            ipucu="Milyar ABD doları, üç aylık, dönem sonu"
+            kaynak="Kaynak: TCMB, dış borç istatistikleri (EVDS)."
+            siklik="ceyrek"
+            birim="milyarUsd"
+            seriIdleri={['brut', 'net']}
+            noktalar={ceyrekNoktalar}
+            gruplar={gruplarCeyrek}
+            sifirdan
+          />
+        </>
+      ) : (
+        <p class="bos">Dış borç verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/tcmb-rezervleri/">TCMB rezervleri</a>
+      <a href="/veri/net-doviz-pozisyonu/">Net döviz pozisyonu</a>
+      <a href="/veri/cari-denge/">Cari denge</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

@@ -200,6 +200,26 @@ export interface TufeArindirilmisBolumu {
   alinma: string;
 }
 
+// Haftalık, birkaç alanlı seri bölümü (yabancıların menkul kıymet portföyü).
+export interface HaftalikSeriBolumu<A extends string> {
+  kaynak: Kaynak;
+  birim: string;
+  seriler: SeriAdi[];
+  satirlar: ({ tarih: string } & Record<A, number>)[];
+  alinma: string;
+}
+
+// Birimli aylık seri bölümü (ödemeler dengesi, dış ticaret, bütçe, kredi).
+export interface BirimliAylikBolumu<A extends string> extends AylikSeriBolumu<A> {
+  birim: string;
+}
+
+// Kısa vadeli dış borç ve rezerv (aylık) ile brüt/net dış borç stoku (üç aylık), milyon ABD doları.
+export interface DisBorcBolumu extends BirimliAylikBolumu<'kalanVade' | 'orijinalVade' | 'rezerv'> {
+  ceyrekSeriler: SeriAdi[];
+  ceyrekler: { yil: number; ceyrek: number; brut: number; net: number }[];
+}
+
 export const RESMI = data as unknown as {
   kur?: KurBolumu;
   faiz?: FaizBolumu;
@@ -220,6 +240,23 @@ export const RESMI = data as unknown as {
   makas?: MakasBolumu;
   birimFiyat?: BirimFiyatBolumu;
   tufeArindirilmis?: TufeArindirilmisBolumu;
+  portfoyHaftalik?: HaftalikSeriBolumu<'hisse' | 'dibs' | 'ost' | 'toplam' | 'hisseStok' | 'dibsStok'>;
+  portfoyAylik?: BirimliAylikBolumu<'hisse' | 'dibs'>;
+  cari?: BirimliAylikBolumu<'cari' | 'altinHaric' | 'enerjiHaric' | 'cekirdek' | 'altin' | 'enerji' | 'seyahat'>;
+  disBorc?: DisBorcBolumu;
+  disTicaret?: BirimliAylikBolumu<'ihracat' | 'ithalat' | 'yatirim' | 'ara' | 'tuketim'>;
+  sanayi?: AylikSeriBolumu<'endeks' | 'aylik' | 'yillik' | 'imalat'>;
+  butce?: BirimliAylikBolumu<'gelir' | 'harcama' | 'faiz' | 'faizDisi' | 'denge'>;
+  kredi?: BirimliAylikBolumu<
+    | 'toplam'
+    | 'haneMevduat'
+    | 'haneKalkinma'
+    | 'haneKatilim'
+    | 'sirketMevduat'
+    | 'sirketKalkinma'
+    | 'sirketKatilim'
+    | 'toplamYillik'
+  >;
 };
 
 // Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).

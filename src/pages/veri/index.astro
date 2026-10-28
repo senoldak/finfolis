@@ -5,7 +5,7 @@ import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import VeriKarti from '../../components/VeriKarti.astro';
 import { RESMI, ayAdi, gunYaz, oranYaz, sayiYaz } from '../../lib/resmi';
-import { ayinFaizi, enflasyonHizi, kiraCarpani, kurHizi, reelFaiz } from '../../lib/turetilmis.mjs';
+import { ayinFaizi, enflasyonHizi, kayanToplam, kiraCarpani, kurHizi, reelFaiz } from '../../lib/turetilmis.mjs';
 import bistTufeData from '../../data/bist-tufe.json';
 import reelBistData from '../../data/reel-bist.json';
 import altinData from '../../data/tcmb-altin-kazanci.json';
@@ -24,6 +24,14 @@ const guvenSon = guven?.satirlar.at(-1);
 const rekSon = rek?.satirlar.at(-1);
 const brutRezervSon = brutRezerv?.satirlar.at(-1);
 const kapasiteSon = kapasite?.satirlar.at(-1);
+// Yabancı portföy ve cari denge kartları (finfolis hesaplaması: yılbaşından toplam, 12 aylık birikimli).
+const portfoySatir = RESMI.portfoyHaftalik?.satirlar ?? [];
+const portfoySon = portfoySatir.at(-1);
+const portfoyYil = portfoySon ? portfoySatir.filter((s) => s.tarih.startsWith(portfoySon.tarih.slice(0, 4))).reduce((t, s) => t + s.hisse, 0) : 0;
+const portfoySeri = (kayanToplam(portfoySatir, 'hisse', 52) as (number | null)[]).slice(-104).filter((v): v is number => v != null).map((v) => v / 1000);
+const cariSatir = RESMI.cari?.satirlar ?? [];
+const cariSon = cariSatir.at(-1);
+const cari12 = kayanToplam(cariSatir, 'cari', 12) as (number | null)[];
 // Hesaplanmış göstergeler (finfolis): kartlarda son değer ve kısa seri.
 const { kurHaftalik, makas, birimFiyat } = RESMI;
 const usdHiz = kurHizi(kurHaftalik?.satirlar ?? [], 'usd', 4);
@@ -362,6 +370,40 @@ const araclar = [
               kaynak={`TCMB · ${ayAdi(beklentiSon)}`}
               seri={beklentiSeri}
               seriBicim="yuzde"
+            />
+          )
+        }
+
+        {
+          portfoySon && (
+            <VeriKarti
+              href="/veri/yabanci-portfoy-akimlari/"
+              kategori="Dış Denge"
+              baslik="Yabancıların Portföy Akımları"
+              deger={`${portfoyYil >= 0 ? '+' : '−'}${sayiYaz(Math.abs(portfoyYil) / 1000, 2)} mlr $`}
+              birim="hisse, yılbaşından"
+              degisim={`Son hafta: ${portfoySon.hisse >= 0 ? '+' : '−'}${sayiYaz(Math.abs(portfoySon.hisse), 1)} mn $`}
+              aciklama={`Yurt dışı yerleşiklerin hisse ve DİBS net alım-satımı (${gunYaz(portfoySon.tarih)} haftası)`}
+              kaynak={`TCMB · ${gunYaz(portfoySon.tarih)}`}
+              seri={portfoySeri}
+              seriBicim="milyarUsd"
+            />
+          )
+        }
+
+        {
+          cariSon && (
+            <VeriKarti
+              href="/veri/cari-denge/"
+              kategori="Dış Denge"
+              baslik="Cari Denge"
+              deger={`${cari12.at(-1)! >= 0 ? '+' : '−'}${sayiYaz(Math.abs(cari12.at(-1)!) / 1000, 1)} mlr $`}
+              birim="12 aylık"
+              degisim={`${ayAdi(cariSon)}: ${cariSon.cari >= 0 ? '+' : '−'}${sayiYaz(Math.abs(cariSon.cari) / 1000, 2)} mlr $`}
+              aciklama="Ödemeler dengesi cari işlemler hesabı, 12 aylık birikimli; altın ve enerji hariç kırılımlar"
+              kaynak={`TCMB · ${ayAdi(cariSon)}`}
+              seri={cari12.slice(-36).map((v) => v! / 1000)}
+              seriBicim="milyarUsd"
             />
           )
         }
@@ -862,6 +904,43 @@ const araclar = [
             <li>
               <a href="/veri/issizlik-orani/" class="fihrist-baslik-link">İşsizlik Oranı</a>
               <span class="fihrist-ozet">TÜİK mevsimsellikten arındırılmış aylık işgücü oranı ({issizlikSon ? `%${sayiYaz(issizlikSon.oran, 1)}` : '–'})</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Dış denge, kredi ve kamu maliyesi -->
+        <div class="fihrist-kutu">
+          <div class="fihrist-kutu-baslik">
+            <h3>Dış Denge, Kredi &amp; Bütçe</h3>
+          </div>
+          <ul class="fihrist-liste">
+            <li>
+              <a href="/veri/yabanci-portfoy-akimlari/" class="fihrist-baslik-link">Yabancıların Portföy Akımları</a>
+              <span class="fihrist-ozet">Hisse ve DİBS net alım-satımı, haftalık ve aylık</span>
+            </li>
+            <li>
+              <a href="/veri/cari-denge/" class="fihrist-baslik-link">Cari Denge</a>
+              <span class="fihrist-ozet">12 aylık cari denge; altın, enerji ve seyahat geliri</span>
+            </li>
+            <li>
+              <a href="/veri/dis-ticaret/" class="fihrist-baslik-link">Dış Ticaret</a>
+              <span class="fihrist-ozet">İhracat, ithalat ve ithalatın mal grupları</span>
+            </li>
+            <li>
+              <a href="/veri/dis-borc/" class="fihrist-baslik-link">Dış Borç</a>
+              <span class="fihrist-ozet">Kısa vadeli dış borç, rezervle karşılama oranı, brüt ve net borç stoku</span>
+            </li>
+            <li>
+              <a href="/veri/sanayi-uretimi/" class="fihrist-baslik-link">Sanayi Üretimi</a>
+              <span class="fihrist-ozet">TÜİK sanayi üretim endeksi, aylık ve yıllık değişim</span>
+            </li>
+            <li>
+              <a href="/veri/kredi-hacmi/" class="fihrist-baslik-link">Kredi Hacmi</a>
+              <span class="fihrist-ozet">Bankacılık kredileri, nominal ve reel yıllık büyüme</span>
+            </li>
+            <li>
+              <a href="/veri/butce-dengesi/" class="fihrist-baslik-link">Genel Bütçe Dengesi</a>
+              <span class="fihrist-ozet">12 aylık bütçe dengesi, faiz dışı denge ve faiz harcaması</span>
             </li>
           </ul>
         </div>

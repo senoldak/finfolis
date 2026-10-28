@@ -14,7 +14,8 @@
 //    Piyasa Katılımcıları Anketi (TCMB, EVDS; doğrulandı 27.10.2026): 12 ve 24 ay sonrası yıllık TÜFE beklentisi. Anket
 //      sonucudur, sitenin tahmini değildir; kur ve faiz beklentileri bilerek alınmaz.
 //    Kira, kartlı harcama, tüketici güveni, reel efektif kur, TCMB rezervleri, kapasite kullanımı, haftalık kur, kredi ve
-//      mevduat faizleri, konut birim fiyat ve kiraları, arındırılmış TÜFE: evds-ek.mjs.
+//      mevduat faizleri, konut birim fiyat ve kiraları, arındırılmış TÜFE; yabancıların portföy akımları, cari denge,
+//      dış borç, dış ticaret, sanayi üretimi, genel bütçe ve kredi hacmi: evds-ek.mjs.
 //
 // Altın (gram) için resmi, ücretsiz bir günlük kaynak bulunamadı. BIST 100 EVDS'de var ama Borsa İstanbul verisinin
 // yeniden yayımı lisansa bağlı; bu yüzden ikisi de burada yoktur.
@@ -30,7 +31,26 @@ import { tcmbSonKarar, tufeSatirlari, TUFE_URL } from './piyasa-verisi.mjs';
 import { rezerviAl } from './tcmb-rezerv.mjs';
 import { piyasaFaizleriniAl } from './tcmb-piyasa-faizleri.mjs';
 import { mevduatiAl } from './tcmb-mevduat.mjs';
-import { kiraAl, kartAl, guvenAl, rekAl, kapasiteAl, brutRezervAl, kurHaftalikAl, makasAl, birimFiyatAl, tufeArindirilmisAl } from './evds-ek.mjs';
+import {
+  kiraAl,
+  kartAl,
+  guvenAl,
+  rekAl,
+  kapasiteAl,
+  brutRezervAl,
+  kurHaftalikAl,
+  makasAl,
+  birimFiyatAl,
+  tufeArindirilmisAl,
+  portfoyHaftalikAl,
+  portfoyAylikAl,
+  cariAl,
+  disBorcAl,
+  disTicaretAl,
+  sanayiAl,
+  butceAl,
+  krediAl,
+} from './evds-ek.mjs';
 
 const DOSYA = fileURLToPath(new URL('../../src/data/resmi.json', import.meta.url));
 export const KUR_URL = 'https://www.tcmb.gov.tr/kurlar/today.xml';
@@ -295,6 +315,14 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
     makas,
     birimFiyat,
     tufeArindirilmis,
+    portfoyHaftalik,
+    portfoyAylik,
+    cari,
+    disBorc,
+    disTicaret,
+    sanayi,
+    butce,
+    kredi,
   ] =
     await Promise.all([
       dene('kurlar', () => kurlariAl(eski?.kur, simdi, gun)),
@@ -316,6 +344,14 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
       evds('makas', makasAl),
       evds('birimFiyat', birimFiyatAl),
       evds('tufeArindirilmis', tufeArindirilmisAl),
+      evds('portfoyHaftalik', portfoyHaftalikAl),
+      evds('portfoyAylik', portfoyAylikAl),
+      evds('cari', cariAl),
+      evds('disBorc', disBorcAl),
+      evds('disTicaret', disTicaretAl),
+      evds('sanayi', sanayiAl),
+      evds('butce', butceAl),
+      evds('kredi', krediAl),
     ]);
   const sonuc = {};
   for (const [ad, yeni] of Object.entries({
@@ -338,6 +374,14 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
     makas,
     birimFiyat,
     tufeArindirilmis,
+    portfoyHaftalik,
+    portfoyAylik,
+    cari,
+    disBorc,
+    disTicaret,
+    sanayi,
+    butce,
+    kredi,
   })) {
     const b = birlestir(eski?.[ad], yeni, iso);
     if (b) sonuc[ad] = b;

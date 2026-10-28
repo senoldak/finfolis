@@ -1,0 +1,220 @@
+---
+// Genel bütçe dengesi: Hazine ve Maliye Bakanlığı genel bütçe gelir, harcama, faiz harcaması ve denge rakamları (bin TL).
+// 12 aylık birikimli toplamlar finfolis hesaplamasıdır. Tutarlar enflasyondan arındırılmamıştır.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { kayanToplam } from '../../lib/turetilmis.mjs';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const butce = RESMI.butce;
+const satirlar = butce?.satirlar ?? [];
+const son = satirlar.at(-1);
+
+const kDenge = kayanToplam(satirlar, 'denge', 12);
+const kFaizDisi = kayanToplam(satirlar, 'faizDisi', 12);
+const kFaiz = kayanToplam(satirlar, 'faiz', 12);
+const sonK = {
+  denge: kDenge.at(-1) as number | null,
+  faizDisi: kFaizDisi.at(-1) as number | null,
+  faiz: kFaiz.at(-1) as number | null,
+};
+
+// bin TL -> milyar TL; eksi için U+2212, işaretli biçimde artı da yazılır.
+const mt = (binTl: number, isaretli = false, o = 1) => {
+  const metin = sayiYaz(Math.abs(binTl) / 1e6, o);
+  const isaret = binTl < 0 ? '−' : isaretli && binTl > 0 ? '+' : '';
+  return `${isaret}${metin} milyar TL`;
+};
+
+const noktalar1 = satirlar
+  .map((s, i) => [ayAnahtari(s), kDenge[i] == null ? null : kDenge[i]! / 1e6, kFaizDisi[i] == null ? null : kFaizDisi[i]! / 1e6])
+  .filter((n) => n[1] != null);
+const gruplar1 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'denge', ad: 'Bütçe dengesi', renk: 'murekkep' as const },
+      { id: 'faizDisi', ad: 'Faiz dışı denge', renk: 'toprak' as const, kesik: true },
+    ],
+  },
+];
+const noktalar2 = satirlar.map((s, i) => [ayAnahtari(s), kFaiz[i] == null ? null : kFaiz[i]! / 1e6]).filter((n) => n[1] != null);
+const gruplar2 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [{ id: 'faiz', ad: 'Faiz harcamaları', renk: 'mavi' as const }],
+  },
+];
+const tablo = satirlar.slice(-12).reverse();
+
+const baslik = 'Bütçe dengesi';
+const description =
+  son && sonK.denge != null
+    ? `Genel bütçe dengesi ${ayAdi(son)} ayında ${mt(son.denge, true)}; son 12 aylık birikimli denge ${mt(sonK.denge, true)}, faiz harcamaları ${mt(sonK.faiz!)}. Hazine ve Maliye Bakanlığı verisi.`
+    : 'Genel bütçe dengesi, gelir, harcama ve faiz harcamaları: Hazine ve Maliye Bakanlığı verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/butce-dengesi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(butce && son
+    ? {
+        sayfaEk: { dateModified: butce.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Genel bütçe dengesi',
+            description:
+              'Genel bütçe gelirleri, harcamaları, faiz harcamaları, faiz dışı denge ve bütçe dengesi (bin TL), Hazine ve Maliye Bakanlığı verisi, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/butce-dengesi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Hazine ve Maliye Bakanlığı', url: 'https://www.hmb.gov.tr/' },
+            temporalCoverage: `${satirlar[0].yil}-${String(satirlar[0].ay).padStart(2, '0')}/${son.yil}-${String(son.ay).padStart(2, '0')}`,
+            dateModified: butce.alinma,
+            variableMeasured: ['Bütçe dengesi (bin TL)', 'Faiz dışı denge (bin TL)', 'Faiz harcamaları (bin TL)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Genel bütçe dengesi: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son || sonK.denge == null}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Genel bütçe dengesi · Hazine ve Maliye Bakanlığı, aylık</p>
+    </header>
+    {
+      butce && son && sonK.denge != null ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Bütçe dengesi, son ay</dt>
+              <dd>{mt(son.denge, true)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}</dd>
+            </div>
+            <div>
+              <dt>12 aylık birikimli denge</dt>
+              <dd>{mt(sonK.denge, true)}</dd>
+              <dd class="veri-degisim">Son 12 ayın toplamı</dd>
+            </div>
+            <div>
+              <dt>12 aylık faiz dışı denge</dt>
+              <dd>{mt(sonK.faizDisi!, true)}</dd>
+              <dd class="veri-degisim">Son 12 ayın toplamı</dd>
+            </div>
+            <div>
+              <dt>12 aylık faiz harcaması</dt>
+              <dd>{mt(sonK.faiz!)}</dd>
+              <dd class="veri-degisim">Son 12 ayın toplamı</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={butce.kaynak.url} rel="noopener">{butce.kaynak.ad}</a>. 12 aylık birikimli toplamlar
+            finfolis hesaplamasıdır. Siteye alındığı zaman: {zamanYaz(butce.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="12 aylık birikimli bütçe dengesi"
+            ipucu="Milyar TL, her ay için önceki 12 ayın toplamı · Sıfırın altı bütçe açığıdır · Tutarlar enflasyondan arındırılmamıştır"
+            kaynak="Kaynak: Hazine ve Maliye Bakanlığı, genel bütçe (TCMB EVDS). 12 aylık toplam: finfolis hesaplaması."
+            siklik="ay"
+            birim="milyarTl"
+            seriIdleri={['denge', 'faizDisi']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Gelir</th>
+                      <th scope="col" class="sag">Harcama</th>
+                      <th scope="col" class="sag">Faiz</th>
+                      <th scope="col" class="sag">Denge</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{mt(s.gelir)}</td>
+                        <td class="sag">{mt(s.harcama)}</td>
+                        <td class="sag">{mt(s.faiz)}</td>
+                        <td class="sag">{mt(s.denge, true)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Faiz, genel bütçedeki faiz harcamalarıdır. Eksi denge açığı, artı denge fazlayı gösterir.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Bütçe dengesi, genel bütçe gelirlerinden harcamalarının çıkarılmasıyla bulunur. Sıfırın altı bütçe açığı,
+                üstü bütçe fazlasıdır. Faiz dışı denge ise faiz harcamaları ayrıldıktan sonraki dengedir; yani borç
+                faizinin etkisini dışarıda bırakır.
+              </p>
+              <p>
+                Aylık rakamlar mevsimsel olarak dalgalanır; vergi tahsilatının yoğun olduğu aylarda gelir artar. Bu yüzden
+                grafik her ay için önceki 12 ayın toplamını gösterir.
+              </p>
+              <p>
+                Sayfadaki TL tutarlar enflasyondan arındırılmamıştır, yani her dönemin kendi fiyatlarıyla verilir. Farklı
+                yılların tutarları doğrudan karşılaştırıldığında fiyat artışının etkisi de bu rakamların içindedir. Sayfa
+                genel bütçeyi kapsar; merkezi yönetim bütçesi başka bir ölçüdür.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="12 aylık faiz harcamaları"
+            ipucu="Milyar TL, her ay için önceki 12 ayın toplamı · Tutarlar enflasyondan arındırılmamıştır"
+            kaynak="Kaynak: Hazine ve Maliye Bakanlığı, genel bütçe (TCMB EVDS). 12 aylık toplam: finfolis hesaplaması."
+            siklik="ay"
+            birim="milyarTl"
+            seriIdleri={['faiz']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+            sifirdan
+          />
+        </>
+      ) : (
+        <p class="bos">Bütçe verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+      <a href="/veri/piyasa-faizleri/">Piyasa faizleri</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve Hazine ve Maliye Bakanlığı’nın yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

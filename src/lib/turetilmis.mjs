@@ -51,3 +51,22 @@ export function ayinFaizi(gecmis, yil, ay) {
 
 // Kira çarpanı: m² satış fiyatının yıllık m² kirasına oranı (aylık kira × 12). Kaç yıllık kiranın fiyata eşit olduğu.
 export const kiraCarpani = (fiyat, aylikKira) => fiyat / (aylikKira * 12);
+
+// Son n dönemin toplamı (12 aylık birikimli cari denge, 52 haftalık portföy akımı gibi). İlk n − 1 satırda null.
+export function kayanToplam(satirlar, alan, n) {
+  let t = 0;
+  return satirlar.map((s, i) => {
+    t += s[alan];
+    if (i >= n) t -= satirlar[i - n][alan];
+    return i >= n - 1 ? t : null;
+  });
+}
+
+// Baştan birikimli toplam: her satırda o satıra kadar olan değerlerin toplamı.
+export function kumulatif(satirlar, alan) {
+  let t = 0;
+  return satirlar.map((s) => (t += s[alan]));
+}
+
+// Nominal yıllık değişimi aynı ayın yıllık TÜFE'siyle reele çevirir (Fisher ile aynı dönüşüm).
+export const reelDegisim = reelFaiz;
