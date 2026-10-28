@@ -1,0 +1,521 @@
+---
+// FOMC açıklama metni farkı: Fed'in her "FOMC statement" metni bir öncekiyle cümle cümle karşılaştırılır.
+// Metinler src/data/fomc-metinler.json'dan gelir (scripts/veri/fomc-metinler.mjs, yalnız federalreserve.gov). Metin İngilizce kalır, sayfa dili Türkçedir.
+// Karşılaştırma kurallı koddur (src/lib/ppk-fark.mjs, dile bağlı değil); yapay zekâ, çeviri ve yorum yoktur. Bütün farklar derleme anında üretilir.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { gunYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { cumleFarki } from '../../lib/ppk-fark.mjs';
+import { fedKarari, oyOzeti } from '../../lib/fomc-metin.mjs';
+import fomc from '../../data/fomc-metinler.json';
+
+const belgeler: any[] = (fomc as any).belgeler ?? [];
+const kararlar = belgeler.filter((b) => b.tur === 'karar').sort((a, b) => a.tarih.localeCompare(b.tarih));
+const tutanaklar = belgeler.filter((b) => b.tur === 'tutanak').sort((a, b) => a.tarih.localeCompare(b.tarih));
+const hazir = kararlar.length >= 2;
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const sayiYaz = (n: number) => String(n).replace('.', ',');
+const aralikYaz = (f: any) => `%${sayiYaz(f.alt)}–${sayiYaz(f.ust)}`;
+
+const ETIKET: Record<string, string> = { eklendi: 'Eklendi', silindi: 'Silindi', degisti: 'Değişti' };
+
+// Bir cümle satırı: aynı kalan soluk, eklenen ve silinen etiketli; değişende sözcük farkı.
+function satirHtml(s: any) {
+  if (s.tur === 'ayni') return `<li class="fomc-satir fomc-ayni"><p>${esc(s.yeni)}</p></li>`;
+  const etiket = `<span class="fomc-etiket">${ETIKET[s.tur]}</span>`;
+  let govde: string;
+  if (s.tur === 'eklendi') govde = `<ins>${esc(s.yeni)}</ins>`;
+  else if (s.tur === 'silindi') govde = `<del>${esc(s.eski)}</del>`;
+  else
+    govde = s.sozcukler
+      .map((p: any) => (p.tur === 'eklendi' ? `<ins>${esc(p.metin)}</ins>` : p.tur === 'silindi' ? `<del>${esc(p.metin)}</del>` : esc(p.metin)))
+      .join(' ');
+  return `<li class="fomc-satir fomc-${s.tur}">${etiket}<p>${govde}</p></li>`;
+}
+const listeHtml = (satirlar: any[]) => `<ol class="fomc-liste" lang="en">${satirlar.map(satirHtml).join('')}</ol>`;
+// Değişiklik: eklenen, silinen ve değişen her cümle bir değişikliktir. Yeni taraf: yeni metinde aynı olmayan birim sayısı.
+const toplam = (o: any) => o.eklenen + o.silinen + o.degisen;
+const yeniTarafi = (o: any) => o.eklenen + o.degisen;
+
+// Her açıklama bir öncekiyle karşılaştırılır (en eskinin öncesi yok).
+const kararFarklari = kararlar.map((k, i) => {
+  const onceki = i > 0 ? kararlar[i - 1] : null;
+  const fark = onceki ? cumleFarki(onceki.cumleler, k.cumleler) : null;
+  return { karar: k, onceki, fark, faiz: fedKarari(k.cumleler), oy: oyOzeti(k.oyCumlesi) };
+});
+// Faiz kararı: değişen kararlarda "önceki → yeni", sabit kararlarda "aralık (sabit)".
+kararFarklari.forEach((a, i) => {
+  (a as any).oncekiFaiz = i > 0 ? kararFarklari[i - 1].faiz : null;
+});
+const son = kararFarklari.at(-1);
+const arsiv = [...kararFarklari].reverse();
+
+function faizMetni(a: any) {
+  const f = a.faiz;
+  if (!f) return '–';
+  if (f.yon === 'sabit') return `${aralikYaz(f)} (sabit)`;
+  return a.oncekiFaiz ? `${aralikYaz(a.oncekiFaiz)} → ${aralikYaz(f)}` : aralikYaz(f);
+}
+const oyEtiketi = (oy: any) => (oy.lehte !== null ? `${oy.lehte} – ${oy.karsi}` : oy.muhalefet ? 'Karşı oy var' : 'Karşı oy yok');
+
+// Tutanak: son iki tutanak. Tutanak, toplantıdan yaklaşık üç hafta sonra yayımlanır.
+const sonTutanak = tutanaklar.at(-1);
+const oncekiTutanak = tutanaklar.at(-2);
+let tutanakBolumu: null | { paragrafFarki: any; cumleFarki: any; ilkler: any[] } = null;
+if (sonTutanak && oncekiTutanak) {
+  const pf = cumleFarki(oncekiTutanak.paragraflar, sonTutanak.paragraflar);
+  const cf = cumleFarki(oncekiTutanak.cumleler, sonTutanak.cumleler);
+  tutanakBolumu = { paragrafFarki: pf, cumleFarki: cf, ilkler: cf.satirlar.filter((s: any) => s.tur !== 'ayni').slice(0, 6) };
+}
+const bekleyenTutanak = son && sonTutanak && son.karar.tarih > sonTutanak.toplantiTarihi ? son.karar.tarih : null;
+
+const baslik = 'FOMC açıklama metni farkı';
+const description = hazir
+  ? `Fed’in Federal Açık Piyasa Komitesi (FOMC) faiz kararı açıklamaları, bir öncekiyle cümle cümle karşılaştırılır: eklenen, silinen ve değişen cümleler. ${gunYaz(kararlar[0].tarih)} – ${gunYaz(son!.karar.tarih)} arası ${kararlar.length} açıklama.`
+  : 'Fed FOMC faiz kararı açıklamalarının cümle düzeyinde karşılaştırması.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/fomc-aciklama-metni/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: `${baslik} (Fed)`,
+  aciklama: description,
+  ...(hazir
+    ? {
+        sayfaEk: { dateModified: (fomc as any).alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Fed FOMC açıklama metinlerinin cümle düzeyinde karşılaştırması',
+            description: 'Federal Açık Piyasa Komitesi’nin faiz kararı açıklama metinleri ve her metnin bir öncekine göre eklenen, silinen ve değişen cümleleri.',
+            url: 'https://finfolis.com/veri/fomc-aciklama-metni/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Federal Reserve System', url: 'https://www.federalreserve.gov/' },
+            temporalCoverage: `${kararlar[0].tarih}/${son!.karar.tarih}`,
+            dateModified: (fomc as any).alinma,
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`${baslik}: Fed kararları cümle cümle karşılaştırma`} description={description} noindex={!hazir}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa fomc-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Federal Reserve · Federal Açık Piyasa Komitesi (FOMC) açıklama metinleri</p>
+    </header>
+    {
+      hazir && son ? (
+        <>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={(fomc as any).kaynak.url} rel="noopener">Federal Reserve FOMC toplantı takvimi</a>:{' '}
+            <a href={son.karar.url} rel="noopener">{gunYaz(son.karar.tarih)} tarihli açıklama</a>. Metinler İngilizce, yayımlandığı gibidir. Siteye alındığı zaman: {zamanYaz((fomc as any).alinma)}.
+          </p>
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Son açıklama: {gunYaz(son.karar.tarih)}</h2>
+            <p class="veri-notu fomc-aciklama">
+              {gunYaz(son.karar.tarih)} tarihli açıklama, {gunYaz(son.onceki!.tarih)} tarihli metinle karşılaştırıldı.
+              <ins class="fomc-ornek">Eklenen</ins>, <del class="fomc-ornek">silinen</del> ve değişen sözcükler işaretlidir; aynı kalan cümleler soluk gösterilir.
+            </p>
+            <dl class="veri-rakamlar">
+              <div>
+                <dt>Fed faiz aralığı</dt>
+                <dd>{faizMetni(son)}</dd>
+              </div>
+              <div>
+                <dt>Oylama</dt>
+                <dd>{oyEtiketi(son.oy)}</dd>
+              </div>
+              <div>
+                <dt>Değişiklik (cümle)</dt>
+                <dd>{toplam(son.fark!.ozet)}</dd>
+              </div>
+              <div>
+                <dt>Aynı kalan cümle</dt>
+                <dd>{son.fark!.ozet.ayni}</dd>
+              </div>
+            </dl>
+            {son.karar.oyCumlesi && (
+              <figure class={`fomc-oy${son.oy.muhalefet ? ' fomc-oy-karsi' : ''}`}>
+                <figcaption>{son.oy.muhalefet ? 'Karşı oy var' : 'Oylama'} · Fed açıklamasından</figcaption>
+                <blockquote lang="en">{son.karar.oyCumlesi}</blockquote>
+              </figure>
+            )}
+            <div class="fomc-fark" set:html={listeHtml(son.fark!.satirlar)} />
+            <p class="veri-notu fomc-sayim">
+              Eklenen {son.fark!.ozet.eklenen} · silinen {son.fark!.ozet.silinen} · değişen {son.fark!.ozet.degisen} · aynı {son.fark!.ozet.ayni} cümle. Oylama bilgisi ve altbilgi, karşılaştırmaya katılmaz.
+            </p>
+          </section>
+
+          {
+            tutanakBolumu && sonTutanak && oncekiTutanak && (
+              <section class="bolum">
+                <h2 class="bolum-baslik">Son tutanak</h2>
+                <p class="veri-notu fomc-aciklama">
+                  {sonTutanak.toplantiAraligi} toplantısının tutanağı ({gunYaz(sonTutanak.tarih)} tarihli yayın), {oncekiTutanak.toplantiAraligi} toplantısının tutanağıyla karşılaştırıldı. Katılımcı listesi ve dipnotlar alınmaz.
+                </p>
+                <dl class="veri-rakamlar">
+                  <div>
+                    <dt>Değişen paragraf</dt>
+                    <dd>
+                      {yeniTarafi(tutanakBolumu.paragrafFarki.ozet)}
+                      <span class="fomc-pay"> / {sonTutanak.paragraflar.length}</span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Değişen cümle</dt>
+                    <dd>
+                      {yeniTarafi(tutanakBolumu.cumleFarki.ozet)}
+                      <span class="fomc-pay"> / {sonTutanak.cumleler.length}</span>
+                    </dd>
+                  </div>
+                </dl>
+                <p class="veri-notu fomc-aciklama fomc-bosluk">
+                  Tutanaklar her toplantıda güncel verilerle yeniden yazıldığı için çoğu paragraf değişir. Aşağıda metnin sırasıyla ilk {tutanakBolumu.ilkler.length} değişiklik var; tamamı için
+                  <a href={sonTutanak.url} rel="noopener">Fed’in tutanak metnine</a> bakılabilir.
+                </p>
+                <div class="fomc-fark" set:html={listeHtml(tutanakBolumu.ilkler)} />
+                {bekleyenTutanak && (
+                  <p class="veri-notu fomc-bosluk">
+                    {gunYaz(bekleyenTutanak)} tarihli açıklamanın toplantı tutanağı Fed tarafından yayımlandığında bu bölüme eklenecek.
+                  </p>
+                )}
+                <details class="fomc-tutanaklar">
+                  <summary>Tüm tutanaklar ({tutanaklar.length})</summary>
+                  <ul>
+                    {[...tutanaklar].reverse().map((t) => (
+                      <li>
+                        <a href={t.url} rel="noopener">{t.toplantiAraligi}</a> <span class="veri-notu">· {gunYaz(t.tarih)} tarihinde yayımlandı</span>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </section>
+            )
+          }
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Açıklama arşivi</h2>
+            <p class="veri-notu fomc-aciklama">
+              {gunYaz(kararlar[0].tarih)} tarihinden bugüne her açıklama bir öncekiyle karşılaştırıldı. Bir satıra dokununca o açıklamanın farkı açılır. Karşı oy bulunan toplantılar işaretlidir.
+            </p>
+            <div class="fomc-arsiv">
+              <div class="fomc-arsiv-bas" aria-hidden="true">
+                <span>Tarih</span>
+                <span>Fed faiz aralığı</span>
+                <span class="sag">Değişiklik</span>
+              </div>
+              {arsiv.map((a) => (
+                a.fark ? (
+                  <details id={`karar-${a.karar.tarih}`} class="fomc-ayrinti">
+                    <summary>
+                      <span class="fomc-tarih">
+                        {gunYaz(a.karar.tarih)}
+                        {a.oy.muhalefet && <span class="fomc-karsi-isaret" title="Karşı oy var"> · karşı oy</span>}
+                      </span>
+                      <span class={`fomc-faiz fomc-faiz-${a.faiz?.yon ?? 'yok'}`}>{faizMetni(a)}</span>
+                      <span class="fomc-sayi sag">{toplam(a.fark.ozet)}</span>
+                    </summary>
+                    <div class="fomc-ic">
+                      <p class="veri-notu fomc-aciklama">
+                        {gunYaz(a.onceki!.tarih)} tarihli metne göre: eklenen {a.fark.ozet.eklenen} · silinen {a.fark.ozet.silinen} · değişen {a.fark.ozet.degisen} · aynı kalan {a.fark.ozet.ayni} cümle.
+                        <a href={a.karar.url} rel="noopener">Fed açıklaması</a>
+                      </p>
+                      {a.karar.oyCumlesi && (
+                        <figure class={`fomc-oy${a.oy.muhalefet ? ' fomc-oy-karsi' : ''}`}>
+                          <figcaption>{a.oy.muhalefet ? 'Karşı oy var' : 'Oylama'}</figcaption>
+                          <blockquote lang="en">{a.karar.oyCumlesi}</blockquote>
+                        </figure>
+                      )}
+                      <div class="fomc-fark" set:html={listeHtml(a.fark.satirlar.filter((s: any) => s.tur !== 'ayni'))} />
+                    </div>
+                  </details>
+                ) : (
+                  <div class="fomc-ayrinti fomc-ilk">
+                    <div class="fomc-ozet-satir">
+                      <span class="fomc-tarih">{gunYaz(a.karar.tarih)}</span>
+                      <span class={`fomc-faiz fomc-faiz-${a.faiz?.yon ?? 'yok'}`}>{faizMetni(a)}</span>
+                      <span class="fomc-sayi sag">–</span>
+                    </div>
+                  </div>
+                )
+              ))}
+            </div>
+            <p class="veri-notu">
+              Değişiklik sütunu, eklenen, silinen ve değişen cümlelerin toplamıdır. Arşivdeki ilk açıklama, karşılaştırılacak önceki metin bu sayfada olmadığı için farksız gösterilir. Faiz aralığı, açıklamadaki karar cümlesinden okunur ve federal fon faizi hedef aralığıdır; değişen kararlarda önceki açıklamanın aralığı soldadır.
+            </p>
+          </section>
+
+          <section class="bolum prose veri-aciklama">
+            <h2 class="bolum-baslik">Bu sayfa nasıl hazırlanıyor</h2>
+            <p>
+              Açıklama ve tutanak metinleri Federal Reserve’in <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" rel="noopener">FOMC toplantı takvimi</a> sayfasındaki bağlantılardan alınır;
+              yalnız federalreserve.gov kullanılır. Metin Fed sayfasındaki halinden çıkarılır, İngilizce kalır ve çevrilmez. Açıklamadaki oy listesi ile muhalefet cümlesi sayfada ayrıca gösterilir, karşılaştırmaya girmez;
+              basın iletişim satırı gibi altbilgiler atılır.
+            </p>
+            <p>
+              Karşılaştırma kurallı bir programla yapılır. Metinler cümlelere bölünür, iki metindeki cümleler sıra korunarak eşleştirilir. Birebir aynı olan cümleler “aynı kalan”,
+              yalnız yeni metinde olanlar “eklenen”, yalnız eski metinde olanlar “silinen” sayılır. Sözcüklerinin yarıdan fazlası ortak olan cümleler aynı cümlenin değişmiş hali sayılır ve
+              sözcük sözcük gösterilir. Programa yapay zekâ karışmaz, sayfaya yorum eklenmez.
+            </p>
+            <p>
+              Bu sayfa metinlerin neyi anlattığını yorumlamaz; yalnız iki metin arasında ne değiştiğini gösterir. Tutanaklar toplantıdan yaklaşık üç hafta sonra yayımlandığı için en son açıklamanın tutanağı sonradan eklenir.
+            </p>
+            <p>
+              <a href="/veri/fomc-tonu/">FOMC metin tonu</a> · <a href="/veri/fed-projeksiyonlari/">Fed faiz projeksiyonları</a> · <a href="/veri/ppk-karar-metni/">PPK karar metni farkı</a> · <a href="/veri/dunya-politika-faizleri/">Dünya politika faizleri</a> · <a href="/veri/abd-tahvilleri/">ABD tahvilleri</a>
+            </p>
+          </section>
+        </>
+      ) : (
+        <p class="bos">FOMC açıklama metni verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <YasalUyari>Bu sayfadaki metinler Federal Reserve’in yayımladığı resmi açıklamalardır; karşılaştırma bilgi amaçlıdır.</YasalUyari>
+  </div>
+</Base>
+
+<script>
+  // Adreste #karar-YYYY-AA-GG varsa o açıklamanın farkını açar.
+  const ac = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id.startsWith('karar-')) return;
+    const el = document.getElementById(id);
+    if (el instanceof HTMLDetailsElement) {
+      el.open = true;
+      el.scrollIntoView();
+    }
+  };
+  ac();
+  addEventListener('hashchange', ac);
+</script>
+
+<style is:global>
+  .fomc-sayfa .fomc-aciklama {
+    margin: 14px 0 0;
+  }
+  .fomc-sayfa .fomc-bosluk {
+    margin-bottom: 14px;
+  }
+  .fomc-sayfa .fomc-pay {
+    color: var(--muted);
+    font-size: 0.6em;
+    font-weight: 400;
+  }
+  .fomc-sayfa .fomc-sayim {
+    margin-top: 14px;
+  }
+
+  /* Oy cümlesi: karşı oy varsa kırmızı sol çizgi ve etiket; renk tek başına işaret değil, etiket de var. */
+  .fomc-sayfa .fomc-oy {
+    margin: 18px 0 0;
+    padding: 12px 14px;
+    border-left: 3px solid var(--hair);
+    background: var(--paper-2);
+    font-family: var(--sans);
+  }
+  .fomc-sayfa .fomc-oy figcaption {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .fomc-sayfa .fomc-oy blockquote {
+    margin: 6px 0 0;
+    padding: 0;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+  .fomc-sayfa .fomc-oy-karsi {
+    border-left-color: var(--red);
+  }
+  .fomc-sayfa .fomc-oy-karsi figcaption {
+    color: var(--red-text);
+  }
+  .fomc-sayfa .fomc-oy-karsi blockquote {
+    font-weight: 600;
+  }
+  .fomc-sayfa .fomc-karsi-isaret {
+    color: var(--red-text);
+    font-size: 0.82em;
+    font-weight: 600;
+  }
+
+  /* Fark listesi: ins/del işaretli cümleler. Renk tek başına işaret değil: altı çizili ve üstü çizili ayrıca etiketlidir. */
+  .fomc-sayfa .fomc-liste {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 0;
+  }
+  .fomc-sayfa .fomc-satir {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 10px 0 10px 12px;
+    border-bottom: 1px solid var(--hair);
+    border-left: 3px solid transparent;
+  }
+  .fomc-sayfa .fomc-satir p {
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+    font-family: var(--sans);
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+  .fomc-sayfa .fomc-ayni p {
+    color: var(--muted);
+  }
+  .fomc-sayfa .fomc-eklendi {
+    border-left-color: var(--green);
+  }
+  .fomc-sayfa .fomc-silindi {
+    border-left-color: var(--red);
+  }
+  .fomc-sayfa .fomc-degisti {
+    border-left-color: var(--ink-2);
+  }
+  .fomc-sayfa .fomc-etiket {
+    flex: none;
+    width: 4.6em;
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+  }
+  .fomc-sayfa ins {
+    color: var(--green-text);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    background: color-mix(in srgb, var(--green) 12%, transparent);
+  }
+  .fomc-sayfa del {
+    color: var(--red-text);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    background: color-mix(in srgb, var(--red) 9%, transparent);
+  }
+
+  /* Tutanak listesi */
+  .fomc-sayfa .fomc-tutanaklar {
+    margin-top: 16px;
+    font-family: var(--sans);
+  }
+  .fomc-sayfa .fomc-tutanaklar summary {
+    cursor: pointer;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+  }
+  .fomc-sayfa .fomc-tutanaklar summary:focus-visible {
+    outline: 2px solid var(--toprak-text);
+    outline-offset: 2px;
+  }
+  .fomc-sayfa .fomc-tutanaklar ul {
+    margin: 0;
+    padding: 0 0 0 1.1em;
+  }
+  .fomc-sayfa .fomc-tutanaklar li {
+    padding: 6px 0;
+  }
+
+  /* Arşiv */
+  .fomc-sayfa .fomc-arsiv {
+    margin-top: 18px;
+    border-top: 1px solid var(--hair);
+  }
+  .fomc-sayfa .fomc-arsiv-bas,
+  .fomc-sayfa .fomc-ayrinti summary,
+  .fomc-sayfa .fomc-ozet-satir {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 12px;
+    align-items: baseline;
+    padding: 12px 4px;
+    font-family: var(--sans);
+  }
+  .fomc-sayfa .fomc-arsiv-bas {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--hair);
+  }
+  .fomc-sayfa .fomc-ayrinti {
+    border-bottom: 1px solid var(--hair);
+  }
+  .fomc-sayfa .fomc-ayrinti summary {
+    cursor: pointer;
+    list-style: none;
+    min-height: 44px;
+  }
+  .fomc-sayfa .fomc-ayrinti summary::-webkit-details-marker {
+    display: none;
+  }
+  .fomc-sayfa .fomc-ayrinti summary:hover {
+    background: var(--paper-2);
+  }
+  .fomc-sayfa .fomc-ayrinti summary:focus-visible {
+    outline: 2px solid var(--toprak-text);
+    outline-offset: -2px;
+  }
+  .fomc-sayfa .fomc-tarih::before {
+    content: '▸';
+    display: inline-block;
+    width: 1.1em;
+    color: var(--muted);
+    transition: transform 0.15s;
+  }
+  .fomc-sayfa .fomc-ayrinti[open] .fomc-tarih::before {
+    transform: rotate(90deg);
+  }
+  .fomc-sayfa .fomc-ilk .fomc-tarih::before {
+    content: '';
+  }
+  .fomc-sayfa .fomc-faiz {
+    font-variant-numeric: tabular-nums;
+  }
+  .fomc-sayfa .sag {
+    text-align: right;
+  }
+  .fomc-sayfa .fomc-sayi {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+  }
+  .fomc-sayfa .fomc-ic {
+    padding: 0 4px 18px;
+  }
+
+  @media (max-width: 640px) {
+    .fomc-sayfa .fomc-arsiv-bas,
+    .fomc-sayfa .fomc-ayrinti summary,
+    .fomc-sayfa .fomc-ozet-satir {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr) auto;
+      gap: 8px;
+      font-size: 0.92rem;
+    }
+    .fomc-sayfa .fomc-satir {
+      flex-direction: column;
+      gap: 4px;
+    }
+    .fomc-sayfa .fomc-etiket {
+      width: auto;
+    }
+  }
+</style>

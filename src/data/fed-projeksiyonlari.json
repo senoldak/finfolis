@@ -1,0 +1,6893 @@
+{
+  "alinma": "2026-10-28T23:06:01.319Z",
+  "kaynaklar": [
+    {
+      "ad": "Federal Reserve, FOMC Ekonomik Projeksiyonlar Özeti",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+    },
+    {
+      "ad": "FRED (St. Louis Fed), federal fon hedef aralığı: DFEDTARU ve DFEDTARL",
+      "url": "https://fred.stlouisfed.org/series/DFEDTARU"
+    }
+  ],
+  "sepler": [
+    {
+      "tarih": "2023-03-22",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20230322.htm",
+      "yillar": [
+        2023,
+        2024,
+        2025,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            0.4,
+            1.2,
+            1.9,
+            1.8
+          ],
+          "onceki": [
+            0.5,
+            1.6,
+            1.8,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              0,
+              0.8
+            ],
+            [
+              1,
+              1.5
+            ],
+            [
+              1.7,
+              2.1
+            ],
+            [
+              1.7,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              -0.2,
+              1.3
+            ],
+            [
+              0.3,
+              2
+            ],
+            [
+              1.5,
+              2.2
+            ],
+            [
+              1.6,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4.5,
+            4.6,
+            4.6,
+            4
+          ],
+          "onceki": [
+            4.6,
+            4.6,
+            4.5,
+            4
+          ],
+          "ortaEgilim": [
+            [
+              4,
+              4.7
+            ],
+            [
+              4.3,
+              4.9
+            ],
+            [
+              4.3,
+              4.8
+            ],
+            [
+              3.8,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              3.9,
+              4.8
+            ],
+            [
+              4,
+              5.2
+            ],
+            [
+              3.8,
+              4.9
+            ],
+            [
+              3.5,
+              4.7
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            3.3,
+            2.5,
+            2.1,
+            2
+          ],
+          "onceki": [
+            3.1,
+            2.5,
+            2.1,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              3,
+              3.8
+            ],
+            [
+              2.2,
+              2.8
+            ],
+            [
+              2,
+              2.2
+            ],
+            2
+          ],
+          "aralik": [
+            [
+              2.8,
+              4.1
+            ],
+            [
+              2,
+              3.5
+            ],
+            [
+              2,
+              3
+            ],
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            3.6,
+            2.6,
+            2.1,
+            null
+          ],
+          "onceki": [
+            3.5,
+            2.5,
+            2.1,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              3.5,
+              3.9
+            ],
+            [
+              2.3,
+              2.8
+            ],
+            [
+              2,
+              2.2
+            ],
+            null
+          ],
+          "aralik": [
+            [
+              3.5,
+              4.1
+            ],
+            [
+              2.1,
+              3.1
+            ],
+            [
+              2,
+              3
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            5.1,
+            4.3,
+            3.1,
+            2.5
+          ],
+          "onceki": [
+            5.1,
+            4.1,
+            3.1,
+            2.5
+          ],
+          "ortaEgilim": [
+            [
+              5.1,
+              5.6
+            ],
+            [
+              3.9,
+              5.1
+            ],
+            [
+              2.9,
+              3.9
+            ],
+            [
+              2.4,
+              2.6
+            ]
+          ],
+          "aralik": [
+            [
+              4.9,
+              5.9
+            ],
+            [
+              3.4,
+              5.6
+            ],
+            [
+              2.4,
+              5.6
+            ],
+            [
+              2.3,
+              3.6
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              4.9,
+              5.6
+            ],
+            [
+              3.1,
+              5.6
+            ],
+            [
+              2.4,
+              5.6
+            ],
+            [
+              2.3,
+              3.3
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2023,
+          2024,
+          2025,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 5.875,
+            "sayilar": [
+              1,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 5.625,
+            "sayilar": [
+              3,
+              1,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 5.375,
+            "sayilar": [
+              3,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 5.125,
+            "sayilar": [
+              10,
+              2,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.875,
+            "sayilar": [
+              1,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.625,
+            "sayilar": [
+              null,
+              3,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.375,
+            "sayilar": [
+              null,
+              2,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              null,
+              5,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              null,
+              2,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              null,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              null,
+              1,
+              2,
+              null
+            ]
+          },
+          {
+            "oran": 3.25,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              null,
+              4,
+              null
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              null,
+              4,
+              null
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              null,
+              null,
+              2,
+              1
+            ]
+          },
+          {
+            "oran": 2.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              8
+            ]
+          },
+          {
+            "oran": 2.375,
+            "sayilar": [
+              null,
+              null,
+              1,
+              2
+            ]
+          },
+          {
+            "oran": 2.25,
+            "sayilar": [
+              null,
+              null,
+              null,
+              3
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        18,
+        18,
+        18,
+        17
+      ]
+    },
+    {
+      "tarih": "2023-06-14",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20230614.htm",
+      "yillar": [
+        2023,
+        2024,
+        2025,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            1,
+            1.1,
+            1.8,
+            1.8
+          ],
+          "onceki": [
+            0.4,
+            1.2,
+            1.9,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              0.7,
+              1.2
+            ],
+            [
+              0.9,
+              1.5
+            ],
+            [
+              1.6,
+              2
+            ],
+            [
+              1.7,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              0.5,
+              2
+            ],
+            [
+              0.5,
+              2.2
+            ],
+            [
+              1.5,
+              2.2
+            ],
+            [
+              1.6,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4.1,
+            4.5,
+            4.5,
+            4
+          ],
+          "onceki": [
+            4.5,
+            4.6,
+            4.6,
+            4
+          ],
+          "ortaEgilim": [
+            [
+              4,
+              4.3
+            ],
+            [
+              4.3,
+              4.6
+            ],
+            [
+              4.3,
+              4.6
+            ],
+            [
+              3.8,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              3.9,
+              4.5
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              3.8,
+              4.9
+            ],
+            [
+              3.5,
+              4.4
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            3.2,
+            2.5,
+            2.1,
+            2
+          ],
+          "onceki": [
+            3.3,
+            2.5,
+            2.1,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              3,
+              3.5
+            ],
+            [
+              2.3,
+              2.8
+            ],
+            [
+              2,
+              2.4
+            ],
+            2
+          ],
+          "aralik": [
+            [
+              2.9,
+              4.1
+            ],
+            [
+              2.1,
+              3.5
+            ],
+            [
+              2,
+              3
+            ],
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            3.9,
+            2.6,
+            2.2,
+            null
+          ],
+          "onceki": [
+            3.6,
+            2.6,
+            2.1,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              3.7,
+              4.2
+            ],
+            [
+              2.5,
+              3.1
+            ],
+            [
+              2,
+              2.4
+            ],
+            null
+          ],
+          "aralik": [
+            [
+              3.6,
+              4.5
+            ],
+            [
+              2.2,
+              3.6
+            ],
+            [
+              2,
+              3
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            5.6,
+            4.6,
+            3.4,
+            2.5
+          ],
+          "onceki": [
+            5.1,
+            4.3,
+            3.1,
+            2.5
+          ],
+          "ortaEgilim": [
+            [
+              5.4,
+              5.6
+            ],
+            [
+              4.4,
+              5.1
+            ],
+            [
+              2.9,
+              4.1
+            ],
+            [
+              2.5,
+              2.8
+            ]
+          ],
+          "aralik": [
+            [
+              5.1,
+              6.1
+            ],
+            [
+              3.6,
+              5.9
+            ],
+            [
+              2.4,
+              5.6
+            ],
+            [
+              2.4,
+              3.6
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              4.9,
+              5.9
+            ],
+            [
+              3.4,
+              5.6
+            ],
+            [
+              2.4,
+              5.6
+            ],
+            [
+              2.3,
+              3.6
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2023,
+          2024,
+          2025,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 6.125,
+            "sayilar": [
+              1,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 5.875,
+            "sayilar": [
+              2,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 5.625,
+            "sayilar": [
+              9,
+              2,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 5.375,
+            "sayilar": [
+              4,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 5.125,
+            "sayilar": [
+              2,
+              3,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.875,
+            "sayilar": [
+              null,
+              2,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 4.625,
+            "sayilar": [
+              null,
+              2,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 4.375,
+            "sayilar": [
+              null,
+              6,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              null,
+              1,
+              2,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              null,
+              null,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              null,
+              1,
+              2,
+              1
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              null,
+              null,
+              3,
+              null
+            ]
+          },
+          {
+            "oran": 3.25,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              null,
+              3,
+              null
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              null,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 2.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              2
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              null,
+              null,
+              2,
+              2
+            ]
+          },
+          {
+            "oran": 2.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              7
+            ]
+          },
+          {
+            "oran": 2.375,
+            "sayilar": [
+              null,
+              null,
+              1,
+              3
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        18,
+        18,
+        18,
+        17
+      ]
+    },
+    {
+      "tarih": "2023-09-20",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20230920.htm",
+      "yillar": [
+        2023,
+        2024,
+        2025,
+        2026,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            2.1,
+            1.5,
+            1.8,
+            1.8,
+            1.8
+          ],
+          "onceki": [
+            1,
+            1.1,
+            1.8,
+            null,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              1.9,
+              2.2
+            ],
+            [
+              1.2,
+              1.8
+            ],
+            [
+              1.6,
+              2
+            ],
+            [
+              1.7,
+              2
+            ],
+            [
+              1.7,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              1.8,
+              2.6
+            ],
+            [
+              0.4,
+              2.5
+            ],
+            [
+              1.4,
+              2.5
+            ],
+            [
+              1.6,
+              2.5
+            ],
+            [
+              1.6,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            3.8,
+            4.1,
+            4.1,
+            4,
+            4
+          ],
+          "onceki": [
+            4.1,
+            4.5,
+            4.5,
+            null,
+            4
+          ],
+          "ortaEgilim": [
+            [
+              3.7,
+              3.9
+            ],
+            [
+              3.9,
+              4.4
+            ],
+            [
+              3.9,
+              4.3
+            ],
+            [
+              3.8,
+              4.3
+            ],
+            [
+              3.8,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              3.7,
+              4
+            ],
+            [
+              3.7,
+              4.5
+            ],
+            [
+              3.7,
+              4.7
+            ],
+            [
+              3.7,
+              4.5
+            ],
+            [
+              3.5,
+              4.3
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            3.3,
+            2.5,
+            2.2,
+            2,
+            2
+          ],
+          "onceki": [
+            3.2,
+            2.5,
+            2.1,
+            null,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              3.2,
+              3.4
+            ],
+            [
+              2.3,
+              2.7
+            ],
+            [
+              2,
+              2.3
+            ],
+            [
+              2,
+              2.2
+            ],
+            2
+          ],
+          "aralik": [
+            [
+              3.1,
+              3.8
+            ],
+            [
+              2.1,
+              3.5
+            ],
+            [
+              2,
+              2.9
+            ],
+            [
+              2,
+              2.7
+            ],
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            3.7,
+            2.6,
+            2.3,
+            2,
+            null
+          ],
+          "onceki": [
+            3.9,
+            2.6,
+            2.2,
+            null,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              3.6,
+              3.9
+            ],
+            [
+              2.5,
+              2.8
+            ],
+            [
+              2,
+              2.4
+            ],
+            [
+              2,
+              2.3
+            ],
+            null
+          ],
+          "aralik": [
+            [
+              3.5,
+              4.2
+            ],
+            [
+              2.3,
+              3.6
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              2.9
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            5.6,
+            5.1,
+            3.9,
+            2.9,
+            2.5
+          ],
+          "onceki": [
+            5.6,
+            4.6,
+            3.4,
+            null,
+            2.5
+          ],
+          "ortaEgilim": [
+            [
+              5.4,
+              5.6
+            ],
+            [
+              4.6,
+              5.4
+            ],
+            [
+              3.4,
+              4.9
+            ],
+            [
+              2.5,
+              4.1
+            ],
+            [
+              2.5,
+              3.3
+            ]
+          ],
+          "aralik": [
+            [
+              5.4,
+              5.6
+            ],
+            [
+              4.4,
+              6.1
+            ],
+            [
+              2.6,
+              5.6
+            ],
+            [
+              2.4,
+              4.9
+            ],
+            [
+              2.4,
+              3.8
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              5.1,
+              6.1
+            ],
+            [
+              3.6,
+              5.9
+            ],
+            [
+              2.4,
+              5.6
+            ],
+            null,
+            [
+              2.4,
+              3.6
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2023,
+          2024,
+          2025,
+          2026,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 6.125,
+            "sayilar": [
+              null,
+              1,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 5.625,
+            "sayilar": [
+              12,
+              1,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 5.375,
+            "sayilar": [
+              7,
+              4,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 5.125,
+            "sayilar": [
+              null,
+              4,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.875,
+            "sayilar": [
+              null,
+              4,
+              1,
+              2,
+              null
+            ]
+          },
+          {
+            "oran": 4.625,
+            "sayilar": [
+              null,
+              3,
+              1,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 4.375,
+            "sayilar": [
+              null,
+              2,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              null,
+              null,
+              3,
+              2,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              null,
+              null,
+              2,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              2
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              null,
+              null,
+              3,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              null,
+              null,
+              3,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.25,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              null,
+              1,
+              2,
+              null
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              null,
+              1,
+              2,
+              null
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              null,
+              null,
+              1,
+              5,
+              2
+            ]
+          },
+          {
+            "oran": 2.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1,
+              8
+            ]
+          },
+          {
+            "oran": 2.375,
+            "sayilar": [
+              null,
+              null,
+              null,
+              3,
+              3
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        19,
+        19,
+        19,
+        19,
+        18
+      ]
+    },
+    {
+      "tarih": "2023-12-13",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20231213.htm",
+      "yillar": [
+        2023,
+        2024,
+        2025,
+        2026,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            2.6,
+            1.4,
+            1.8,
+            1.9,
+            1.8
+          ],
+          "onceki": [
+            2.1,
+            1.5,
+            1.8,
+            1.8,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              2.5,
+              2.7
+            ],
+            [
+              1.2,
+              1.7
+            ],
+            [
+              1.5,
+              2
+            ],
+            [
+              1.8,
+              2
+            ],
+            [
+              1.7,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              2.5,
+              2.7
+            ],
+            [
+              0.8,
+              2.5
+            ],
+            [
+              1.4,
+              2.5
+            ],
+            [
+              1.6,
+              2.5
+            ],
+            [
+              1.6,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            3.8,
+            4.1,
+            4.1,
+            4.1,
+            4.1
+          ],
+          "onceki": [
+            3.8,
+            4.1,
+            4.1,
+            4,
+            4
+          ],
+          "ortaEgilim": [
+            3.8,
+            [
+              4,
+              4.2
+            ],
+            [
+              4,
+              4.2
+            ],
+            [
+              3.9,
+              4.3
+            ],
+            [
+              3.8,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              3.7,
+              4
+            ],
+            [
+              3.9,
+              4.5
+            ],
+            [
+              3.8,
+              4.7
+            ],
+            [
+              3.8,
+              4.7
+            ],
+            [
+              3.5,
+              4.3
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            2.8,
+            2.4,
+            2.1,
+            2,
+            2
+          ],
+          "onceki": [
+            3.3,
+            2.5,
+            2.2,
+            2,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              2.7,
+              2.9
+            ],
+            [
+              2.2,
+              2.5
+            ],
+            [
+              2,
+              2.2
+            ],
+            2,
+            2
+          ],
+          "aralik": [
+            [
+              2.7,
+              3.2
+            ],
+            [
+              2.1,
+              2.7
+            ],
+            [
+              2,
+              2.5
+            ],
+            [
+              2,
+              2.3
+            ],
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            3.2,
+            2.4,
+            2.2,
+            2,
+            null
+          ],
+          "onceki": [
+            3.7,
+            2.6,
+            2.3,
+            2,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              3.2,
+              3.3
+            ],
+            [
+              2.4,
+              2.7
+            ],
+            [
+              2,
+              2.2
+            ],
+            [
+              2,
+              2.1
+            ],
+            null
+          ],
+          "aralik": [
+            [
+              3.2,
+              3.7
+            ],
+            [
+              2.3,
+              3
+            ],
+            [
+              2,
+              2.6
+            ],
+            [
+              2,
+              2.3
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            5.4,
+            4.6,
+            3.6,
+            2.9,
+            2.5
+          ],
+          "onceki": [
+            5.6,
+            5.1,
+            3.9,
+            2.9,
+            2.5
+          ],
+          "ortaEgilim": [
+            5.4,
+            [
+              4.4,
+              4.9
+            ],
+            [
+              3.1,
+              3.9
+            ],
+            [
+              2.5,
+              3.1
+            ],
+            [
+              2.5,
+              3
+            ]
+          ],
+          "aralik": [
+            5.4,
+            [
+              3.9,
+              5.4
+            ],
+            [
+              2.4,
+              5.4
+            ],
+            [
+              2.4,
+              4.9
+            ],
+            [
+              2.4,
+              3.8
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              5.4,
+              5.6
+            ],
+            [
+              4.4,
+              6.1
+            ],
+            [
+              2.6,
+              5.6
+            ],
+            [
+              2.4,
+              4.9
+            ],
+            [
+              2.4,
+              3.8
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2023,
+          2024,
+          2025,
+          2026,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 5.375,
+            "sayilar": [
+              19,
+              2,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 5.125,
+            "sayilar": [
+              null,
+              1,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.875,
+            "sayilar": [
+              null,
+              5,
+              null,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 4.625,
+            "sayilar": [
+              null,
+              6,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.375,
+            "sayilar": [
+              null,
+              4,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              null,
+              null,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              null,
+              1,
+              4,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              null,
+              null,
+              3,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              2
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              null,
+              null,
+              5,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              null,
+              2,
+              4,
+              null
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              null,
+              1,
+              4,
+              1
+            ]
+          },
+          {
+            "oran": 2.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              null,
+              null,
+              null,
+              4,
+              1
+            ]
+          },
+          {
+            "oran": 2.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1,
+              8
+            ]
+          },
+          {
+            "oran": 2.375,
+            "sayilar": [
+              null,
+              null,
+              1,
+              3,
+              3
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        19,
+        19,
+        19,
+        19,
+        18
+      ]
+    },
+    {
+      "tarih": "2024-03-20",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20240320.htm",
+      "yillar": [
+        2024,
+        2025,
+        2026,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            2.1,
+            2,
+            2,
+            1.8
+          ],
+          "onceki": [
+            1.4,
+            1.8,
+            1.9,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              2,
+              2.4
+            ],
+            [
+              1.9,
+              2.3
+            ],
+            [
+              1.8,
+              2.1
+            ],
+            [
+              1.7,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              1.3,
+              2.7
+            ],
+            [
+              1.7,
+              2.5
+            ],
+            [
+              1.7,
+              2.5
+            ],
+            [
+              1.6,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4,
+            4.1,
+            4,
+            4.1
+          ],
+          "onceki": [
+            4.1,
+            4.1,
+            4.1,
+            4.1
+          ],
+          "ortaEgilim": [
+            [
+              3.9,
+              4.1
+            ],
+            [
+              3.9,
+              4.2
+            ],
+            [
+              3.9,
+              4.3
+            ],
+            [
+              3.8,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              3.8,
+              4.5
+            ],
+            [
+              3.7,
+              4.3
+            ],
+            [
+              3.7,
+              4.3
+            ],
+            [
+              3.5,
+              4.3
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            2.4,
+            2.2,
+            2,
+            2
+          ],
+          "onceki": [
+            2.4,
+            2.1,
+            2,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              2.3,
+              2.7
+            ],
+            [
+              2.1,
+              2.2
+            ],
+            [
+              2,
+              2.1
+            ],
+            2
+          ],
+          "aralik": [
+            [
+              2.2,
+              2.9
+            ],
+            [
+              2,
+              2.5
+            ],
+            [
+              2,
+              2.3
+            ],
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            2.6,
+            2.2,
+            2,
+            null
+          ],
+          "onceki": [
+            2.4,
+            2.2,
+            2,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              2.5,
+              2.8
+            ],
+            [
+              2.1,
+              2.3
+            ],
+            [
+              2,
+              2.1
+            ],
+            null
+          ],
+          "aralik": [
+            [
+              2.4,
+              3
+            ],
+            [
+              2,
+              2.6
+            ],
+            [
+              2,
+              2.3
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            4.6,
+            3.9,
+            3.1,
+            2.6
+          ],
+          "onceki": [
+            4.6,
+            3.6,
+            2.9,
+            2.5
+          ],
+          "ortaEgilim": [
+            [
+              4.6,
+              5.1
+            ],
+            [
+              3.4,
+              4.1
+            ],
+            [
+              2.6,
+              3.4
+            ],
+            [
+              2.5,
+              3.1
+            ]
+          ],
+          "aralik": [
+            [
+              4.4,
+              5.4
+            ],
+            [
+              2.6,
+              5.4
+            ],
+            [
+              2.4,
+              4.9
+            ],
+            [
+              2.4,
+              3.8
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              3.9,
+              5.4
+            ],
+            [
+              2.4,
+              5.4
+            ],
+            [
+              2.4,
+              4.9
+            ],
+            [
+              2.4,
+              3.8
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2024,
+          2025,
+          2026,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 5.375,
+            "sayilar": [
+              2,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 5.125,
+            "sayilar": [
+              2,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.875,
+            "sayilar": [
+              5,
+              null,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 4.625,
+            "sayilar": [
+              9,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.375,
+            "sayilar": [
+              1,
+              2,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              null,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              null,
+              6,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              null,
+              5,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              2
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              null,
+              1,
+              2,
+              null
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              2,
+              6,
+              1
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              3
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              null,
+              5,
+              null
+            ]
+          },
+          {
+            "oran": 2.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              null,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "oran": 2.5,
+            "sayilar": [
+              null,
+              null,
+              1,
+              8
+            ]
+          },
+          {
+            "oran": 2.375,
+            "sayilar": [
+              null,
+              null,
+              2,
+              1
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        19,
+        19,
+        19,
+        18
+      ]
+    },
+    {
+      "tarih": "2024-06-12",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20240612.htm",
+      "yillar": [
+        2024,
+        2025,
+        2026,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            2.1,
+            2,
+            2,
+            1.8
+          ],
+          "onceki": [
+            2.1,
+            2,
+            2,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              1.9,
+              2.3
+            ],
+            [
+              1.8,
+              2.2
+            ],
+            [
+              1.8,
+              2.1
+            ],
+            [
+              1.7,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              1.4,
+              2.7
+            ],
+            [
+              1.5,
+              2.5
+            ],
+            [
+              1.7,
+              2.5
+            ],
+            [
+              1.6,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4,
+            4.2,
+            4.1,
+            4.2
+          ],
+          "onceki": [
+            4,
+            4.1,
+            4,
+            4.1
+          ],
+          "ortaEgilim": [
+            [
+              4,
+              4.1
+            ],
+            [
+              3.9,
+              4.2
+            ],
+            [
+              3.9,
+              4.3
+            ],
+            [
+              3.9,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              3.8,
+              4.4
+            ],
+            [
+              3.8,
+              4.3
+            ],
+            [
+              3.8,
+              4.3
+            ],
+            [
+              3.5,
+              4.5
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            2.6,
+            2.3,
+            2,
+            2
+          ],
+          "onceki": [
+            2.4,
+            2.2,
+            2,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              2.5,
+              2.9
+            ],
+            [
+              2.2,
+              2.4
+            ],
+            [
+              2,
+              2.1
+            ],
+            2
+          ],
+          "aralik": [
+            [
+              2.5,
+              3
+            ],
+            [
+              2.2,
+              2.5
+            ],
+            [
+              2,
+              2.3
+            ],
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            2.8,
+            2.3,
+            2,
+            null
+          ],
+          "onceki": [
+            2.6,
+            2.2,
+            2,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              2.8,
+              3
+            ],
+            [
+              2.3,
+              2.4
+            ],
+            [
+              2,
+              2.1
+            ],
+            null
+          ],
+          "aralik": [
+            [
+              2.7,
+              3.2
+            ],
+            [
+              2.2,
+              2.6
+            ],
+            [
+              2,
+              2.3
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            5.1,
+            4.1,
+            3.1,
+            2.8
+          ],
+          "onceki": [
+            4.6,
+            3.9,
+            3.1,
+            2.6
+          ],
+          "ortaEgilim": [
+            [
+              4.9,
+              5.4
+            ],
+            [
+              3.9,
+              4.4
+            ],
+            [
+              2.9,
+              3.6
+            ],
+            [
+              2.5,
+              3.5
+            ]
+          ],
+          "aralik": [
+            [
+              4.9,
+              5.4
+            ],
+            [
+              2.9,
+              5.4
+            ],
+            [
+              2.4,
+              4.9
+            ],
+            [
+              2.4,
+              3.8
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              4.4,
+              5.4
+            ],
+            [
+              2.6,
+              5.4
+            ],
+            [
+              2.4,
+              4.9
+            ],
+            [
+              2.4,
+              3.8
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2024,
+          2025,
+          2026,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 5.375,
+            "sayilar": [
+              4,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 5.125,
+            "sayilar": [
+              7,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.875,
+            "sayilar": [
+              8,
+              1,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 4.375,
+            "sayilar": [
+              null,
+              4,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              null,
+              9,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              null,
+              2,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              null,
+              1,
+              3,
+              1
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              2
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              null,
+              null,
+              3,
+              null
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              null,
+              7,
+              1
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              4
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              1,
+              2,
+              null
+            ]
+          },
+          {
+            "oran": 2.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              3
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              null,
+              null,
+              1,
+              1
+            ]
+          },
+          {
+            "oran": 2.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              5
+            ]
+          },
+          {
+            "oran": 2.375,
+            "sayilar": [
+              null,
+              null,
+              1,
+              1
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        19,
+        19,
+        19,
+        19
+      ]
+    },
+    {
+      "tarih": "2024-09-18",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20240918.htm",
+      "yillar": [
+        2024,
+        2025,
+        2026,
+        2027,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            2,
+            2,
+            2,
+            2,
+            1.8
+          ],
+          "onceki": [
+            2.1,
+            2,
+            2,
+            null,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              1.9,
+              2.1
+            ],
+            [
+              1.8,
+              2.2
+            ],
+            [
+              1.9,
+              2.3
+            ],
+            [
+              1.8,
+              2.1
+            ],
+            [
+              1.7,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              1.8,
+              2.6
+            ],
+            [
+              1.3,
+              2.5
+            ],
+            [
+              1.7,
+              2.5
+            ],
+            [
+              1.7,
+              2.5
+            ],
+            [
+              1.7,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4.4,
+            4.4,
+            4.3,
+            4.2,
+            4.2
+          ],
+          "onceki": [
+            4,
+            4.2,
+            4.1,
+            null,
+            4.2
+          ],
+          "ortaEgilim": [
+            [
+              4.3,
+              4.4
+            ],
+            [
+              4.2,
+              4.5
+            ],
+            [
+              4,
+              4.4
+            ],
+            [
+              4,
+              4.4
+            ],
+            [
+              3.9,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              4.2,
+              4.5
+            ],
+            [
+              4.2,
+              4.7
+            ],
+            [
+              3.9,
+              4.5
+            ],
+            [
+              3.8,
+              4.5
+            ],
+            [
+              3.5,
+              4.5
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            2.3,
+            2.1,
+            2,
+            2,
+            2
+          ],
+          "onceki": [
+            2.6,
+            2.3,
+            2,
+            null,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              2.2,
+              2.4
+            ],
+            [
+              2.1,
+              2.2
+            ],
+            2,
+            2,
+            2
+          ],
+          "aralik": [
+            [
+              2.1,
+              2.7
+            ],
+            [
+              2.1,
+              2.4
+            ],
+            [
+              2,
+              2.2
+            ],
+            [
+              2,
+              2.1
+            ],
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            2.6,
+            2.2,
+            2,
+            2,
+            null
+          ],
+          "onceki": [
+            2.8,
+            2.3,
+            2,
+            null,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              2.6,
+              2.7
+            ],
+            [
+              2.1,
+              2.3
+            ],
+            2,
+            2,
+            null
+          ],
+          "aralik": [
+            [
+              2.4,
+              2.9
+            ],
+            [
+              2.1,
+              2.5
+            ],
+            [
+              2,
+              2.2
+            ],
+            [
+              2,
+              2.2
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            4.4,
+            3.4,
+            2.9,
+            2.9,
+            2.9
+          ],
+          "onceki": [
+            5.1,
+            4.1,
+            3.1,
+            null,
+            2.8
+          ],
+          "ortaEgilim": [
+            [
+              4.4,
+              4.6
+            ],
+            [
+              3.1,
+              3.6
+            ],
+            [
+              2.6,
+              3.6
+            ],
+            [
+              2.6,
+              3.6
+            ],
+            [
+              2.5,
+              3.5
+            ]
+          ],
+          "aralik": [
+            [
+              4.1,
+              4.9
+            ],
+            [
+              2.9,
+              4.1
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.4,
+              3.8
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              4.9,
+              5.4
+            ],
+            [
+              2.9,
+              5.4
+            ],
+            [
+              2.4,
+              4.9
+            ],
+            null,
+            [
+              2.4,
+              3.8
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2024,
+          2025,
+          2026,
+          2027,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 4.875,
+            "sayilar": [
+              2,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.625,
+            "sayilar": [
+              7,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.375,
+            "sayilar": [
+              9,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              1,
+              1,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              null,
+              1,
+              1,
+              1,
+              null
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              null,
+              3,
+              3,
+              3,
+              1
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              2
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              null,
+              6,
+              3,
+              3,
+              2
+            ]
+          },
+          {
+            "oran": 3.25,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              6,
+              2,
+              2,
+              null
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              2
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              2,
+              6,
+              5,
+              2
+            ]
+          },
+          {
+            "oran": 2.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              3
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              null,
+              null,
+              3,
+              3,
+              1
+            ]
+          },
+          {
+            "oran": 2.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              3
+            ]
+          },
+          {
+            "oran": 2.375,
+            "sayilar": [
+              null,
+              null,
+              1,
+              2,
+              1
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        19,
+        19,
+        19,
+        19,
+        19
+      ]
+    },
+    {
+      "tarih": "2024-12-18",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20241218.htm",
+      "yillar": [
+        2024,
+        2025,
+        2026,
+        2027,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            2.5,
+            2.1,
+            2,
+            1.9,
+            1.8
+          ],
+          "onceki": [
+            2,
+            2,
+            2,
+            2,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              2.4,
+              2.5
+            ],
+            [
+              1.8,
+              2.2
+            ],
+            [
+              1.9,
+              2.1
+            ],
+            [
+              1.8,
+              2
+            ],
+            [
+              1.7,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              2.3,
+              2.7
+            ],
+            [
+              1.6,
+              2.5
+            ],
+            [
+              1.4,
+              2.5
+            ],
+            [
+              1.5,
+              2.5
+            ],
+            [
+              1.7,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4.2,
+            4.3,
+            4.3,
+            4.3,
+            4.2
+          ],
+          "onceki": [
+            4.4,
+            4.4,
+            4.3,
+            4.2,
+            4.2
+          ],
+          "ortaEgilim": [
+            4.2,
+            [
+              4.2,
+              4.5
+            ],
+            [
+              4.1,
+              4.4
+            ],
+            [
+              4,
+              4.4
+            ],
+            [
+              3.9,
+              4.3
+            ]
+          ],
+          "aralik": [
+            4.2,
+            [
+              4.2,
+              4.5
+            ],
+            [
+              3.9,
+              4.6
+            ],
+            [
+              3.8,
+              4.5
+            ],
+            [
+              3.5,
+              4.5
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            2.4,
+            2.5,
+            2.1,
+            2,
+            2
+          ],
+          "onceki": [
+            2.3,
+            2.1,
+            2,
+            2,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              2.4,
+              2.5
+            ],
+            [
+              2.3,
+              2.6
+            ],
+            [
+              2,
+              2.2
+            ],
+            2,
+            2
+          ],
+          "aralik": [
+            [
+              2.4,
+              2.7
+            ],
+            [
+              2.1,
+              2.9
+            ],
+            [
+              2,
+              2.6
+            ],
+            [
+              2,
+              2.4
+            ],
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            2.8,
+            2.5,
+            2.2,
+            2,
+            null
+          ],
+          "onceki": [
+            2.6,
+            2.2,
+            2,
+            2,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              2.8,
+              2.9
+            ],
+            [
+              2.5,
+              2.7
+            ],
+            [
+              2,
+              2.3
+            ],
+            2,
+            null
+          ],
+          "aralik": [
+            [
+              2.8,
+              2.9
+            ],
+            [
+              2.1,
+              3.2
+            ],
+            [
+              2,
+              2.7
+            ],
+            [
+              2,
+              2.6
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            4.4,
+            3.9,
+            3.4,
+            3.1,
+            3
+          ],
+          "onceki": [
+            4.4,
+            3.4,
+            2.9,
+            2.9,
+            2.9
+          ],
+          "ortaEgilim": [
+            [
+              4.4,
+              4.6
+            ],
+            [
+              3.6,
+              4.1
+            ],
+            [
+              3.1,
+              3.6
+            ],
+            [
+              2.9,
+              3.6
+            ],
+            [
+              2.8,
+              3.6
+            ]
+          ],
+          "aralik": [
+            [
+              4.4,
+              4.6
+            ],
+            [
+              3.1,
+              4.4
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.4,
+              3.9
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              4.1,
+              4.9
+            ],
+            [
+              2.9,
+              4.1
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.4,
+              3.8
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2024,
+          2025,
+          2026,
+          2027,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 4.625,
+            "sayilar": [
+              4,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.375,
+            "sayilar": [
+              15,
+              1,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              null,
+              3,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              null,
+              10,
+              3,
+              2,
+              1
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              null,
+              3,
+              4,
+              4,
+              2
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              2
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              null,
+              1,
+              5,
+              1,
+              1
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              1,
+              4,
+              7,
+              1
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              3
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              null,
+              1,
+              2,
+              4
+            ]
+          },
+          {
+            "oran": 2.75,
+            "sayilar": [
+              null,
+              null,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1,
+              1
+            ]
+          },
+          {
+            "oran": 2.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 2.375,
+            "sayilar": [
+              null,
+              null,
+              1,
+              1,
+              1
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        19,
+        19,
+        19,
+        19,
+        19
+      ]
+    },
+    {
+      "tarih": "2025-03-19",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20250319.htm",
+      "yillar": [
+        2025,
+        2026,
+        2027,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            1.7,
+            1.8,
+            1.8,
+            1.8
+          ],
+          "onceki": [
+            2.1,
+            2,
+            1.9,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              1.5,
+              1.9
+            ],
+            [
+              1.6,
+              1.9
+            ],
+            [
+              1.6,
+              2
+            ],
+            [
+              1.7,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              1,
+              2.4
+            ],
+            [
+              0.6,
+              2.5
+            ],
+            [
+              0.6,
+              2.5
+            ],
+            [
+              1.5,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4.4,
+            4.3,
+            4.3,
+            4.2
+          ],
+          "onceki": [
+            4.3,
+            4.3,
+            4.3,
+            4.2
+          ],
+          "ortaEgilim": [
+            [
+              4.3,
+              4.4
+            ],
+            [
+              4.2,
+              4.5
+            ],
+            [
+              4.1,
+              4.4
+            ],
+            [
+              3.9,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              4.1,
+              4.6
+            ],
+            [
+              4.1,
+              4.7
+            ],
+            [
+              3.9,
+              4.7
+            ],
+            [
+              3.5,
+              4.5
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            2.7,
+            2.2,
+            2,
+            2
+          ],
+          "onceki": [
+            2.5,
+            2.1,
+            2,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              2.6,
+              2.9
+            ],
+            [
+              2.1,
+              2.3
+            ],
+            [
+              2,
+              2.1
+            ],
+            2
+          ],
+          "aralik": [
+            [
+              2.5,
+              3.4
+            ],
+            [
+              2,
+              3.1
+            ],
+            [
+              1.9,
+              2.8
+            ],
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            2.8,
+            2.2,
+            2,
+            null
+          ],
+          "onceki": [
+            2.5,
+            2.2,
+            2,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              2.7,
+              3
+            ],
+            [
+              2.1,
+              2.4
+            ],
+            [
+              2,
+              2.1
+            ],
+            null
+          ],
+          "aralik": [
+            [
+              2.5,
+              3.5
+            ],
+            [
+              2.1,
+              3.2
+            ],
+            [
+              2,
+              2.9
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            3.9,
+            3.4,
+            3.1,
+            3
+          ],
+          "onceki": [
+            3.9,
+            3.4,
+            3.1,
+            3
+          ],
+          "ortaEgilim": [
+            [
+              3.9,
+              4.4
+            ],
+            [
+              3.1,
+              3.9
+            ],
+            [
+              2.9,
+              3.6
+            ],
+            [
+              2.6,
+              3.6
+            ]
+          ],
+          "aralik": [
+            [
+              3.6,
+              4.4
+            ],
+            [
+              2.9,
+              4.1
+            ],
+            [
+              2.6,
+              3.9
+            ],
+            [
+              2.5,
+              3.9
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              3.1,
+              4.4
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.4,
+              3.9
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2025,
+          2026,
+          2027,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 4.375,
+            "sayilar": [
+              4,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              4,
+              3,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              9,
+              1,
+              2,
+              1
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              2,
+              2,
+              4,
+              2
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              2
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              null,
+              9,
+              2,
+              1
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              1,
+              6,
+              1
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              3
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              3,
+              3,
+              4
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              null,
+              null,
+              2,
+              2
+            ]
+          },
+          {
+            "oran": 2.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              2
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        19,
+        19,
+        19,
+        19
+      ]
+    },
+    {
+      "tarih": "2025-06-18",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20250618.htm",
+      "yillar": [
+        2025,
+        2026,
+        2027,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            1.4,
+            1.6,
+            1.8,
+            1.8
+          ],
+          "onceki": [
+            1.7,
+            1.8,
+            1.8,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              1.2,
+              1.5
+            ],
+            [
+              1.5,
+              1.8
+            ],
+            [
+              1.7,
+              2
+            ],
+            [
+              1.7,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              1.1,
+              2.1
+            ],
+            [
+              0.6,
+              2.5
+            ],
+            [
+              0.6,
+              2.5
+            ],
+            [
+              1.5,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4.5,
+            4.5,
+            4.4,
+            4.2
+          ],
+          "onceki": [
+            4.4,
+            4.3,
+            4.3,
+            4.2
+          ],
+          "ortaEgilim": [
+            [
+              4.4,
+              4.5
+            ],
+            [
+              4.3,
+              4.6
+            ],
+            [
+              4.2,
+              4.6
+            ],
+            [
+              4,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              4.3,
+              4.6
+            ],
+            [
+              4.3,
+              4.7
+            ],
+            [
+              4,
+              4.7
+            ],
+            [
+              3.5,
+              4.5
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            3,
+            2.4,
+            2.1,
+            2
+          ],
+          "onceki": [
+            2.7,
+            2.2,
+            2,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              2.8,
+              3.2
+            ],
+            [
+              2.3,
+              2.6
+            ],
+            [
+              2,
+              2.2
+            ],
+            2
+          ],
+          "aralik": [
+            [
+              2.5,
+              3.3
+            ],
+            [
+              2.1,
+              3.1
+            ],
+            [
+              2,
+              2.8
+            ],
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            3.1,
+            2.4,
+            2.1,
+            null
+          ],
+          "onceki": [
+            2.8,
+            2.2,
+            2,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              2.9,
+              3.4
+            ],
+            [
+              2.3,
+              2.7
+            ],
+            [
+              2,
+              2.2
+            ],
+            null
+          ],
+          "aralik": [
+            [
+              2.5,
+              3.5
+            ],
+            [
+              2.1,
+              3.2
+            ],
+            [
+              2,
+              2.9
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            3.9,
+            3.6,
+            3.4,
+            3
+          ],
+          "onceki": [
+            3.9,
+            3.4,
+            3.1,
+            3
+          ],
+          "ortaEgilim": [
+            [
+              3.9,
+              4.4
+            ],
+            [
+              3.1,
+              3.9
+            ],
+            [
+              2.9,
+              3.6
+            ],
+            [
+              2.6,
+              3.6
+            ]
+          ],
+          "aralik": [
+            [
+              3.6,
+              4.4
+            ],
+            [
+              2.6,
+              4.1
+            ],
+            [
+              2.6,
+              3.9
+            ],
+            [
+              2.5,
+              3.9
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              3.6,
+              4.4
+            ],
+            [
+              2.9,
+              4.1
+            ],
+            [
+              2.6,
+              3.9
+            ],
+            [
+              2.5,
+              3.9
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2025,
+          2026,
+          2027,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 4.375,
+            "sayilar": [
+              7,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              2,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              8,
+              5,
+              2,
+              1
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              2,
+              4,
+              3,
+              2
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              2
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              null,
+              5,
+              6,
+              1
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              2,
+              3,
+              1
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              3
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              1,
+              3,
+              4
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              null,
+              1,
+              2,
+              2
+            ]
+          },
+          {
+            "oran": 2.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              2
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        19,
+        19,
+        19,
+        19
+      ]
+    },
+    {
+      "tarih": "2025-09-17",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20250917.htm",
+      "yillar": [
+        2025,
+        2026,
+        2027,
+        2028,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            1.6,
+            1.8,
+            1.9,
+            1.8,
+            1.8
+          ],
+          "onceki": [
+            1.4,
+            1.6,
+            1.8,
+            null,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              1.4,
+              1.7
+            ],
+            [
+              1.7,
+              2.1
+            ],
+            [
+              1.8,
+              2
+            ],
+            [
+              1.7,
+              2
+            ],
+            [
+              1.7,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              1.3,
+              2
+            ],
+            [
+              1.5,
+              2.6
+            ],
+            [
+              1.7,
+              2.7
+            ],
+            [
+              1.6,
+              2.6
+            ],
+            [
+              1.7,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4.5,
+            4.4,
+            4.3,
+            4.2,
+            4.2
+          ],
+          "onceki": [
+            4.5,
+            4.5,
+            4.4,
+            null,
+            4.2
+          ],
+          "ortaEgilim": [
+            [
+              4.4,
+              4.5
+            ],
+            [
+              4.4,
+              4.5
+            ],
+            [
+              4.2,
+              4.4
+            ],
+            [
+              4,
+              4.3
+            ],
+            [
+              4,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              4.2,
+              4.6
+            ],
+            [
+              4,
+              4.6
+            ],
+            [
+              4,
+              4.5
+            ],
+            [
+              4,
+              4.5
+            ],
+            [
+              3.8,
+              4.5
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            3,
+            2.6,
+            2.1,
+            2,
+            2
+          ],
+          "onceki": [
+            3,
+            2.4,
+            2.1,
+            null,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              2.9,
+              3
+            ],
+            [
+              2.4,
+              2.7
+            ],
+            [
+              2,
+              2.2
+            ],
+            2,
+            2
+          ],
+          "aralik": [
+            [
+              2.5,
+              3.2
+            ],
+            [
+              2.2,
+              2.8
+            ],
+            [
+              2,
+              2.4
+            ],
+            2,
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            3.1,
+            2.6,
+            2.1,
+            2,
+            null
+          ],
+          "onceki": [
+            3.1,
+            2.4,
+            2.1,
+            null,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              3,
+              3.2
+            ],
+            [
+              2.5,
+              2.7
+            ],
+            [
+              2,
+              2.2
+            ],
+            2,
+            null
+          ],
+          "aralik": [
+            [
+              2.7,
+              3.4
+            ],
+            [
+              2.2,
+              2.9
+            ],
+            [
+              2,
+              2.4
+            ],
+            [
+              2,
+              2.2
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            3.6,
+            3.4,
+            3.1,
+            3.1,
+            3
+          ],
+          "onceki": [
+            3.9,
+            3.6,
+            3.4,
+            null,
+            3
+          ],
+          "ortaEgilim": [
+            [
+              3.6,
+              4.1
+            ],
+            [
+              2.9,
+              3.6
+            ],
+            [
+              2.9,
+              3.6
+            ],
+            [
+              2.8,
+              3.6
+            ],
+            [
+              2.8,
+              3.5
+            ]
+          ],
+          "aralik": [
+            [
+              2.9,
+              4.4
+            ],
+            [
+              2.6,
+              3.9
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.6,
+              3.9
+            ],
+            [
+              2.6,
+              3.9
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              3.6,
+              4.4
+            ],
+            [
+              2.6,
+              4.1
+            ],
+            [
+              2.6,
+              3.9
+            ],
+            null,
+            [
+              2.5,
+              3.9
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2025,
+          2026,
+          2027,
+          2028,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 4.375,
+            "sayilar": [
+              1,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              6,
+              null,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              2,
+              2,
+              2,
+              2,
+              1
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              9,
+              6,
+              2,
+              2,
+              1
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              null,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          {
+            "oran": 3.25,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              4,
+              7,
+              5,
+              2
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              4
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              1,
+              3,
+              3,
+              4,
+              1
+            ]
+          },
+          {
+            "oran": 2.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1,
+              2
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              null,
+              2,
+              2,
+              3,
+              3
+            ]
+          },
+          {
+            "oran": 2.375,
+            "sayilar": [
+              null,
+              null,
+              1,
+              null,
+              null
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        19,
+        19,
+        19,
+        19,
+        19
+      ]
+    },
+    {
+      "tarih": "2025-12-10",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20251210.htm",
+      "yillar": [
+        2025,
+        2026,
+        2027,
+        2028,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            1.7,
+            2.3,
+            2,
+            1.9,
+            1.8
+          ],
+          "onceki": [
+            1.6,
+            1.8,
+            1.9,
+            1.8,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              1.6,
+              1.8
+            ],
+            [
+              2.1,
+              2.5
+            ],
+            [
+              1.9,
+              2.3
+            ],
+            [
+              1.8,
+              2.1
+            ],
+            [
+              1.8,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              1.5,
+              2
+            ],
+            [
+              2,
+              2.6
+            ],
+            [
+              1.8,
+              2.6
+            ],
+            [
+              1.7,
+              2.6
+            ],
+            [
+              1.7,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4.5,
+            4.4,
+            4.2,
+            4.2,
+            4.2
+          ],
+          "onceki": [
+            4.5,
+            4.4,
+            4.3,
+            4.2,
+            4.2
+          ],
+          "ortaEgilim": [
+            [
+              4.5,
+              4.6
+            ],
+            [
+              4.3,
+              4.4
+            ],
+            [
+              4.2,
+              4.3
+            ],
+            [
+              4,
+              4.3
+            ],
+            [
+              4,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              4.4,
+              4.6
+            ],
+            [
+              4.2,
+              4.6
+            ],
+            [
+              4,
+              4.5
+            ],
+            [
+              4,
+              4.5
+            ],
+            [
+              3.8,
+              4.5
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            2.9,
+            2.4,
+            2.1,
+            2,
+            2
+          ],
+          "onceki": [
+            3,
+            2.6,
+            2.1,
+            2,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              2.8,
+              2.9
+            ],
+            [
+              2.3,
+              2.5
+            ],
+            [
+              2,
+              2.2
+            ],
+            2,
+            2
+          ],
+          "aralik": [
+            [
+              2.7,
+              2.9
+            ],
+            [
+              2.2,
+              2.7
+            ],
+            [
+              2,
+              2.3
+            ],
+            2,
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            3,
+            2.5,
+            2.1,
+            2,
+            null
+          ],
+          "onceki": [
+            3.1,
+            2.6,
+            2.1,
+            2,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              2.9,
+              3
+            ],
+            [
+              2.4,
+              2.6
+            ],
+            [
+              2,
+              2.2
+            ],
+            2,
+            null
+          ],
+          "aralik": [
+            [
+              2.7,
+              3.1
+            ],
+            [
+              2.2,
+              2.7
+            ],
+            [
+              2,
+              2.5
+            ],
+            2,
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            3.6,
+            3.4,
+            3.1,
+            3.1,
+            3
+          ],
+          "onceki": [
+            3.6,
+            3.4,
+            3.1,
+            3.1,
+            3
+          ],
+          "ortaEgilim": [
+            [
+              3.6,
+              3.9
+            ],
+            [
+              2.9,
+              3.6
+            ],
+            [
+              2.9,
+              3.6
+            ],
+            [
+              2.8,
+              3.6
+            ],
+            [
+              2.8,
+              3.5
+            ]
+          ],
+          "aralik": [
+            [
+              3.4,
+              3.9
+            ],
+            [
+              2.1,
+              3.9
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.6,
+              3.9
+            ],
+            [
+              2.6,
+              3.9
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              2.9,
+              4.4
+            ],
+            [
+              2.6,
+              3.9
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.6,
+              3.9
+            ],
+            [
+              2.6,
+              3.9
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2025,
+          2026,
+          2027,
+          2028,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 3.875,
+            "sayilar": [
+              6,
+              3,
+              2,
+              2,
+              1
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              12,
+              4,
+              2,
+              2,
+              1
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              1,
+              4,
+              3,
+              2,
+              2
+            ]
+          },
+          {
+            "oran": 3.25,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              4,
+              6,
+              6,
+              2
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              5
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              2,
+              3,
+              3,
+              1
+            ]
+          },
+          {
+            "oran": 2.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1,
+              1
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              null,
+              1,
+              2,
+              3,
+              3
+            ]
+          },
+          {
+            "oran": 2.375,
+            "sayilar": [
+              null,
+              null,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 2.125,
+            "sayilar": [
+              null,
+              1,
+              null,
+              null,
+              null
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        19,
+        19,
+        19,
+        19,
+        19
+      ]
+    },
+    {
+      "tarih": "2026-03-18",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260318.htm",
+      "yillar": [
+        2026,
+        2027,
+        2028,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            2.4,
+            2.3,
+            2.1,
+            2
+          ],
+          "onceki": [
+            2.3,
+            2,
+            1.9,
+            1.8
+          ],
+          "ortaEgilim": [
+            [
+              2.2,
+              2.5
+            ],
+            [
+              2,
+              2.4
+            ],
+            [
+              2,
+              2.3
+            ],
+            [
+              1.8,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              2.1,
+              2.7
+            ],
+            [
+              2,
+              2.7
+            ],
+            [
+              1.8,
+              2.7
+            ],
+            [
+              1.7,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4.4,
+            4.3,
+            4.2,
+            4.2
+          ],
+          "onceki": [
+            4.4,
+            4.2,
+            4.2,
+            4.2
+          ],
+          "ortaEgilim": [
+            [
+              4.3,
+              4.5
+            ],
+            [
+              4.2,
+              4.4
+            ],
+            [
+              4,
+              4.4
+            ],
+            [
+              4,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              4.3,
+              4.6
+            ],
+            [
+              4,
+              4.5
+            ],
+            [
+              4,
+              4.5
+            ],
+            [
+              3.8,
+              4.5
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            2.7,
+            2.2,
+            2,
+            2
+          ],
+          "onceki": [
+            2.4,
+            2.1,
+            2,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              2.6,
+              3.1
+            ],
+            [
+              2,
+              2.3
+            ],
+            2,
+            2
+          ],
+          "aralik": [
+            [
+              2.3,
+              3.3
+            ],
+            [
+              1.8,
+              2.4
+            ],
+            [
+              1.9,
+              2.2
+            ],
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            2.7,
+            2.2,
+            2,
+            null
+          ],
+          "onceki": [
+            2.5,
+            2.1,
+            2,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              2.5,
+              2.8
+            ],
+            [
+              2,
+              2.4
+            ],
+            2,
+            null
+          ],
+          "aralik": [
+            [
+              2.2,
+              3
+            ],
+            [
+              2,
+              2.5
+            ],
+            [
+              2,
+              2.2
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            3.4,
+            3.1,
+            3.1,
+            3.1
+          ],
+          "onceki": [
+            3.4,
+            3.1,
+            3.1,
+            3
+          ],
+          "ortaEgilim": [
+            [
+              3.1,
+              3.6
+            ],
+            [
+              2.9,
+              3.6
+            ],
+            [
+              2.9,
+              3.6
+            ],
+            [
+              2.9,
+              3.5
+            ]
+          ],
+          "aralik": [
+            [
+              2.6,
+              3.6
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.6,
+              3.9
+            ],
+            [
+              2.6,
+              3.9
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              2.1,
+              3.9
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.6,
+              3.9
+            ],
+            [
+              2.6,
+              3.9
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2026,
+          2027,
+          2028,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 3.875,
+            "sayilar": [
+              null,
+              1,
+              1,
+              1
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              7,
+              3,
+              3,
+              1
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              7,
+              4,
+              3,
+              2
+            ]
+          },
+          {
+            "oran": 3.25,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              2,
+              6,
+              7,
+              3
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              5
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              2,
+              3,
+              3,
+              2
+            ]
+          },
+          {
+            "oran": 2.625,
+            "sayilar": [
+              1,
+              1,
+              2,
+              2
+            ]
+          },
+          {
+            "oran": 2.375,
+            "sayilar": [
+              null,
+              1,
+              null,
+              null
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        19,
+        19,
+        19,
+        19
+      ]
+    },
+    {
+      "tarih": "2026-06-17",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260617.htm",
+      "yillar": [
+        2026,
+        2027,
+        2028,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            2.2,
+            2.3,
+            2.2,
+            2
+          ],
+          "onceki": [
+            2.4,
+            2.3,
+            2.1,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              2,
+              2.3
+            ],
+            [
+              2,
+              2.4
+            ],
+            [
+              2,
+              2.3
+            ],
+            [
+              1.8,
+              2
+            ]
+          ],
+          "aralik": [
+            [
+              1.8,
+              2.6
+            ],
+            [
+              1.9,
+              2.9
+            ],
+            [
+              1.8,
+              2.6
+            ],
+            [
+              1.7,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4.3,
+            4.3,
+            4.2,
+            4.2
+          ],
+          "onceki": [
+            4.4,
+            4.3,
+            4.2,
+            4.2
+          ],
+          "ortaEgilim": [
+            [
+              4.3,
+              4.4
+            ],
+            [
+              4.2,
+              4.5
+            ],
+            [
+              4.1,
+              4.3
+            ],
+            [
+              4,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              4.3,
+              4.6
+            ],
+            [
+              4,
+              4.6
+            ],
+            [
+              4,
+              4.4
+            ],
+            [
+              3.8,
+              4.5
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            3.6,
+            2.3,
+            2,
+            2
+          ],
+          "onceki": [
+            2.7,
+            2.2,
+            2,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              3.5,
+              3.7
+            ],
+            [
+              2.2,
+              2.5
+            ],
+            [
+              2,
+              2.1
+            ],
+            2
+          ],
+          "aralik": [
+            [
+              2.7,
+              4.1
+            ],
+            [
+              1.9,
+              2.8
+            ],
+            [
+              2,
+              2.3
+            ],
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            3.3,
+            2.5,
+            2.1,
+            null
+          ],
+          "onceki": [
+            2.7,
+            2.2,
+            2,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              3.2,
+              3.5
+            ],
+            [
+              2.3,
+              2.6
+            ],
+            [
+              2,
+              2.2
+            ],
+            null
+          ],
+          "aralik": [
+            [
+              2.6,
+              3.5
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              2.4
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            3.8,
+            3.6,
+            3.4,
+            3.1
+          ],
+          "onceki": [
+            3.4,
+            3.1,
+            3.1,
+            3.1
+          ],
+          "ortaEgilim": [
+            [
+              3.6,
+              4.1
+            ],
+            [
+              3.1,
+              3.9
+            ],
+            [
+              3.1,
+              3.6
+            ],
+            [
+              3,
+              3.5
+            ]
+          ],
+          "aralik": [
+            [
+              3.4,
+              4.4
+            ],
+            [
+              2.9,
+              4.4
+            ],
+            [
+              2.9,
+              3.9
+            ],
+            [
+              2.9,
+              3.9
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              2.6,
+              3.6
+            ],
+            [
+              2.4,
+              3.9
+            ],
+            [
+              2.6,
+              3.9
+            ],
+            [
+              2.6,
+              3.9
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2026,
+          2027,
+          2028,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 4.375,
+            "sayilar": [
+              1,
+              1,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              5,
+              2,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              3,
+              5,
+              3,
+              1
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              8,
+              2,
+              5,
+              1
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              1,
+              3,
+              2,
+              2
+            ]
+          },
+          {
+            "oran": 3.25,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              4,
+              6,
+              2
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              7
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              1,
+              1,
+              2
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        18,
+        18,
+        17,
+        18
+      ]
+    },
+    {
+      "tarih": "2026-09-16",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm",
+      "yillar": [
+        2026,
+        2027,
+        2028,
+        2029,
+        "uzun"
+      ],
+      "degiskenler": {
+        "gsyh": {
+          "medyan": [
+            2.3,
+            2.4,
+            2.2,
+            2.1,
+            2
+          ],
+          "onceki": [
+            2.2,
+            2.3,
+            2.2,
+            null,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              2.2,
+              2.4
+            ],
+            [
+              2.2,
+              2.6
+            ],
+            [
+              2.1,
+              2.3
+            ],
+            [
+              2,
+              2.2
+            ],
+            [
+              2,
+              2.2
+            ]
+          ],
+          "aralik": [
+            [
+              2.1,
+              2.6
+            ],
+            [
+              2,
+              2.9
+            ],
+            [
+              1.8,
+              2.6
+            ],
+            [
+              1.8,
+              2.4
+            ],
+            [
+              1.7,
+              2.5
+            ]
+          ]
+        },
+        "issizlik": {
+          "medyan": [
+            4.1,
+            4.1,
+            4.1,
+            4.1,
+            4.2
+          ],
+          "onceki": [
+            4.3,
+            4.3,
+            4.2,
+            null,
+            4.2
+          ],
+          "ortaEgilim": [
+            [
+              4.1,
+              4.2
+            ],
+            [
+              4,
+              4.2
+            ],
+            [
+              4,
+              4.2
+            ],
+            [
+              4,
+              4.3
+            ],
+            [
+              4,
+              4.3
+            ]
+          ],
+          "aralik": [
+            [
+              4,
+              4.3
+            ],
+            [
+              4,
+              4.5
+            ],
+            [
+              3.9,
+              4.4
+            ],
+            [
+              3.8,
+              4.4
+            ],
+            [
+              3.8,
+              4.4
+            ]
+          ]
+        },
+        "pce": {
+          "medyan": [
+            3.7,
+            2.3,
+            2.1,
+            2,
+            2
+          ],
+          "onceki": [
+            3.6,
+            2.3,
+            2,
+            null,
+            2
+          ],
+          "ortaEgilim": [
+            [
+              3.5,
+              3.7
+            ],
+            [
+              2.2,
+              2.5
+            ],
+            [
+              2,
+              2.2
+            ],
+            2,
+            2
+          ],
+          "aralik": [
+            [
+              2.9,
+              3.8
+            ],
+            [
+              2,
+              2.6
+            ],
+            [
+              2,
+              2.2
+            ],
+            2,
+            2
+          ]
+        },
+        "cekirdekPce": {
+          "medyan": [
+            3.4,
+            2.5,
+            2.2,
+            2,
+            null
+          ],
+          "onceki": [
+            3.3,
+            2.5,
+            2.1,
+            null,
+            null
+          ],
+          "ortaEgilim": [
+            [
+              3.3,
+              3.4
+            ],
+            [
+              2.3,
+              2.6
+            ],
+            [
+              2,
+              2.2
+            ],
+            2,
+            null
+          ],
+          "aralik": [
+            [
+              2.8,
+              3.5
+            ],
+            [
+              2.1,
+              2.7
+            ],
+            [
+              2,
+              2.3
+            ],
+            [
+              2,
+              2.1
+            ],
+            null
+          ]
+        },
+        "faiz": {
+          "medyan": [
+            4.1,
+            4.1,
+            3.9,
+            3.6,
+            3.2
+          ],
+          "onceki": [
+            3.8,
+            3.6,
+            3.4,
+            null,
+            3.1
+          ],
+          "ortaEgilim": [
+            [
+              4.1,
+              4.4
+            ],
+            [
+              3.6,
+              4.4
+            ],
+            [
+              3.1,
+              4.1
+            ],
+            [
+              3.1,
+              3.6
+            ],
+            [
+              3,
+              3.6
+            ]
+          ],
+          "aralik": [
+            [
+              3.9,
+              4.4
+            ],
+            [
+              3.1,
+              4.4
+            ],
+            [
+              3.1,
+              4.1
+            ],
+            [
+              2.9,
+              3.9
+            ],
+            [
+              2.9,
+              3.9
+            ]
+          ],
+          "oncekiAralik": [
+            [
+              3.4,
+              4.4
+            ],
+            [
+              2.9,
+              4.4
+            ],
+            [
+              2.9,
+              3.9
+            ],
+            null,
+            [
+              2.9,
+              3.9
+            ]
+          ]
+        }
+      },
+      "nokta": {
+        "yillar": [
+          2026,
+          2027,
+          2028,
+          2029,
+          "uzun"
+        ],
+        "satirlar": [
+          {
+            "oran": 4.375,
+            "sayilar": [
+              4,
+              8,
+              null,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 4.125,
+            "sayilar": [
+              12,
+              6,
+              4,
+              null,
+              null
+            ]
+          },
+          {
+            "oran": 3.875,
+            "sayilar": [
+              2,
+              null,
+              5,
+              3,
+              2
+            ]
+          },
+          {
+            "oran": 3.75,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              1
+            ]
+          },
+          {
+            "oran": 3.625,
+            "sayilar": [
+              null,
+              3,
+              3,
+              7,
+              2
+            ]
+          },
+          {
+            "oran": 3.5,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              2
+            ]
+          },
+          {
+            "oran": 3.375,
+            "sayilar": [
+              null,
+              null,
+              1,
+              2,
+              1
+            ]
+          },
+          {
+            "oran": 3.25,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              2
+            ]
+          },
+          {
+            "oran": 3.125,
+            "sayilar": [
+              null,
+              1,
+              4,
+              4,
+              1
+            ]
+          },
+          {
+            "oran": 3,
+            "sayilar": [
+              null,
+              null,
+              null,
+              null,
+              6
+            ]
+          },
+          {
+            "oran": 2.875,
+            "sayilar": [
+              null,
+              null,
+              null,
+              1,
+              1
+            ]
+          }
+        ]
+      },
+      "katilimci": [
+        18,
+        18,
+        17,
+        17,
+        18
+      ]
+    }
+  ],
+  "gerceklesen": {
+    "sonGozlem": {
+      "tarih": "2026-10-28",
+      "ust": 4,
+      "alt": 3.75,
+      "orta": 3.875
+    },
+    "yilSonu": {
+      "2022": {
+        "tarih": "2022-12-31",
+        "ust": 4.5,
+        "alt": 4.25,
+        "orta": 4.375,
+        "tamam": true
+      },
+      "2023": {
+        "tarih": "2023-12-31",
+        "ust": 5.5,
+        "alt": 5.25,
+        "orta": 5.375,
+        "tamam": true
+      },
+      "2024": {
+        "tarih": "2024-12-31",
+        "ust": 4.5,
+        "alt": 4.25,
+        "orta": 4.375,
+        "tamam": true
+      },
+      "2025": {
+        "tarih": "2025-12-31",
+        "ust": 3.75,
+        "alt": 3.5,
+        "orta": 3.625,
+        "tamam": true
+      },
+      "2026": {
+        "tarih": "2026-10-28",
+        "ust": 4,
+        "alt": 3.75,
+        "orta": 3.875,
+        "tamam": false
+      }
+    },
+    "ceyrekSonu": [
+      {
+        "yil": 2022,
+        "ceyrek": 4,
+        "tarih": "2022-12-31",
+        "orta": 4.375
+      },
+      {
+        "yil": 2023,
+        "ceyrek": 1,
+        "tarih": "2023-03-31",
+        "orta": 4.875
+      },
+      {
+        "yil": 2023,
+        "ceyrek": 2,
+        "tarih": "2023-06-30",
+        "orta": 5.125
+      },
+      {
+        "yil": 2023,
+        "ceyrek": 3,
+        "tarih": "2023-09-30",
+        "orta": 5.375
+      },
+      {
+        "yil": 2023,
+        "ceyrek": 4,
+        "tarih": "2023-12-31",
+        "orta": 5.375
+      },
+      {
+        "yil": 2024,
+        "ceyrek": 1,
+        "tarih": "2024-03-31",
+        "orta": 5.375
+      },
+      {
+        "yil": 2024,
+        "ceyrek": 2,
+        "tarih": "2024-06-30",
+        "orta": 5.375
+      },
+      {
+        "yil": 2024,
+        "ceyrek": 3,
+        "tarih": "2024-09-30",
+        "orta": 4.875
+      },
+      {
+        "yil": 2024,
+        "ceyrek": 4,
+        "tarih": "2024-12-31",
+        "orta": 4.375
+      },
+      {
+        "yil": 2025,
+        "ceyrek": 1,
+        "tarih": "2025-03-31",
+        "orta": 4.375
+      },
+      {
+        "yil": 2025,
+        "ceyrek": 2,
+        "tarih": "2025-06-30",
+        "orta": 4.375
+      },
+      {
+        "yil": 2025,
+        "ceyrek": 3,
+        "tarih": "2025-09-30",
+        "orta": 4.125
+      },
+      {
+        "yil": 2025,
+        "ceyrek": 4,
+        "tarih": "2025-12-31",
+        "orta": 3.625
+      },
+      {
+        "yil": 2026,
+        "ceyrek": 1,
+        "tarih": "2026-03-31",
+        "orta": 3.625
+      },
+      {
+        "yil": 2026,
+        "ceyrek": 2,
+        "tarih": "2026-06-30",
+        "orta": 3.625
+      },
+      {
+        "yil": 2026,
+        "ceyrek": 3,
+        "tarih": "2026-09-30",
+        "orta": 3.875
+      }
+    ]
+  }
+}

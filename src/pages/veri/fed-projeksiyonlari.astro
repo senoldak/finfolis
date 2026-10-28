@@ -1,0 +1,341 @@
+---
+// Fed faiz projeksiyonları: FOMC Ekonomik Projeksiyonlar Özeti (SEP). Medyanlar, nokta grafiği, diğer değişkenler ve
+// geçmiş projeksiyonların gerçekleşenle karşılaştırması. Veri federalreserve.gov (SEP tabloları) ve FRED (gerçekleşen
+// hedef aralık) kaynaklıdır; src/data/fed-projeksiyonlari.json scripts/veri/fed-projeksiyonlari.mjs ile üretilir.
+// Elle yazılmış değer yoktur; kaynakta olmayan hücre "–" görünür.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import NoktaGrafik from '../../components/NoktaGrafik.astro';
+import { gunYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { gecmisKarsilastirma, sepDonemi } from '../../lib/fed-projeksiyonlari.mjs';
+import veri from '../../data/fed-projeksiyonlari.json';
+
+const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+const sepAdi = (t: string) => `${AYLAR[Number(t.slice(5, 7)) - 1]} ${t.slice(0, 4)}`;
+const sayi = (n: number, min = 0, max = 3) =>
+  `${n < 0 && Math.round(Math.abs(n) * 10 ** max) > 0 ? '−' : ''}${Math.abs(n).toLocaleString('tr-TR', { minimumFractionDigits: min, maximumFractionDigits: max })}`;
+const bir = (n: number | null | undefined) => (n == null ? '–' : sayi(n, 1, 1));
+const yuzde = (n: number, min = 0, max = 3) => `%${sayi(n, min, max)}`;
+const isaretli = (n: number, max = 1) => (n > 0 ? `+${sayi(n, max === 1 ? 1 : 0, max)}` : sayi(n, max === 1 ? 1 : 0, max));
+const yilAd = (y: number | string) => (y === 'uzun' ? 'Uzun dönem' : String(y));
+// İki yayımlanmış medyan arasındaki fark (puan, 0,1 hassasiyetinde).
+const fark = (a: number | null | undefined, b: number | null | undefined) =>
+  a == null || b == null ? null : Math.round((a - b) * 10) / 10;
+
+const sepler = veri.sepler;
+const son = sepler[sepler.length - 1];
+const onceki = sepler.length > 1 ? sepler[sepler.length - 2] : null;
+const { yil: sonYil } = sepDonemi(son.tarih);
+const sutunBuYil = son.yillar.indexOf(sonYil);
+const faiz = son.degiskenler.faiz;
+const uzunSutun = son.yillar.indexOf('uzun');
+const gerc = veri.gerceklesen;
+
+const DEGISKENLER = [
+  { id: 'gsyh', ad: 'Reel GSYH büyümesi' },
+  { id: 'issizlik', ad: 'İşsizlik oranı' },
+  { id: 'pce', ad: 'PCE enflasyonu' },
+  { id: 'cekirdekPce', ad: 'Çekirdek PCE enflasyonu' },
+] as const;
+
+// Faiz medyanı tablosu: son SEP, önceki SEP ve değişim.
+const faizDegisim = son.yillar.map((_, i) => fark(faiz.medyan[i], faiz.onceki?.[i]));
+
+// Geçmiş SEP'lerin "bu yıl sonu" medyanı ve gerçekleşen yıl sonu orta noktası.
+const karsilastirma = gecmisKarsilastirma(sepler as any, gerc as any).reverse();
+
+// Zaman grafiği: çeyrek sonunda gerçekleşen orta nokta ve o çeyrekteki SEP'in "bu yıl sonu" medyanı.
+const sepNokta = new Map<number, number | null>();
+for (const k of karsilastirma) sepNokta.set(k.yil * 4 + k.ceyrek - 1, k.medyan);
+const gercekNokta = new Map<number, number>();
+for (const c of gerc?.ceyrekSonu ?? []) gercekNokta.set(c.yil * 4 + c.ceyrek - 1, c.orta);
+const ilkT = Math.min(...sepNokta.keys());
+const sonT = Math.max(...sepNokta.keys(), ...gercekNokta.keys());
+const grafikNoktalari = Array.from({ length: sonT - ilkT + 1 }, (_, i) => {
+  const t = ilkT + i;
+  return [t, gercekNokta.get(t) ?? null, sepNokta.get(t) ?? null] as (number | null)[];
+});
+
+const noktaSepleri = sepler.map((s) => ({
+  id: s.tarih,
+  etiket: sepAdi(s.tarih),
+  yillar: s.yillar as (number | 'uzun')[],
+  satirlar: s.nokta.satirlar,
+  medyan: s.degiskenler.faiz.medyan as (number | null)[],
+}));
+
+const baslik = 'Fed faiz projeksiyonları';
+const buYilMedyan = faiz.medyan[sutunBuYil];
+const buYilOnceki = faiz.onceki?.[sutunBuYil];
+const buYilFark = fark(buYilMedyan, buYilOnceki);
+const description = `Fed’in ${sepAdi(son.tarih)} Ekonomik Projeksiyonlar Özeti: ${sonYil} sonu federal fon oranı medyanı ${yuzde(buYilMedyan, 1, 1)}, nokta grafiği, büyüme, işsizlik ve enflasyon medyanları, geçmiş projeksiyonların gerçekleşenle karşılaştırması.`;
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/fed-projeksiyonlari/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: `${baslik} (FOMC Ekonomik Projeksiyonlar Özeti)`,
+  aciklama: description,
+  sayfaEk: { dateModified: veri.alinma },
+  ekler: [
+    {
+      '@type': 'Dataset',
+      name: 'Fed FOMC Ekonomik Projeksiyonlar Özeti: federal fon oranı, büyüme, işsizlik ve enflasyon projeksiyonları',
+      description:
+        'Federal Reserve’in her çeyrek yayımladığı Ekonomik Projeksiyonlar Özeti’nde federal fon oranı, reel GSYH, işsizlik, PCE ve çekirdek PCE enflasyonu için katılımcı medyanları ve nokta grafiği dağılımı.',
+      url: 'https://finfolis.com/veri/fed-projeksiyonlari/',
+      isAccessibleForFree: true,
+      creator: { '@type': 'GovernmentOrganization', name: 'Federal Reserve System', url: 'https://www.federalreserve.gov/' },
+      temporalCoverage: `${sepler[0].tarih}/${son.tarih}`,
+      dateModified: veri.alinma,
+      variableMeasured: ['Federal fon oranı medyanı (%)', 'Reel GSYH büyümesi medyanı (%)', 'İşsizlik oranı medyanı (%)', 'PCE enflasyonu medyanı (%)', 'Çekirdek PCE enflasyonu medyanı (%)'],
+    },
+  ],
+});
+---
+
+<Base title={`${baslik}: nokta grafiği ve medyanlar`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Federal Reserve · FOMC Ekonomik Projeksiyonlar Özeti (SEP)</p>
+    </header>
+
+    <dl class="veri-rakamlar">
+      <div>
+        <dt>Son SEP</dt>
+        <dd class="veri-tarih">
+          <a href={son.url} rel="noopener">{gunYaz(son.tarih)}</a>
+        </dd>
+      </div>
+      <div>
+        <dt>{sonYil} sonu faiz medyanı</dt>
+        <dd>
+          {yuzde(buYilMedyan, 1, 1)}
+          {buYilFark != null && onceki && <small>önceki SEP ({sepAdi(onceki.tarih)}): {yuzde(buYilOnceki as number, 1, 1)}</small>}
+        </dd>
+      </div>
+      {
+        uzunSutun >= 0 && faiz.medyan[uzunSutun] != null && (
+          <div>
+            <dt>Uzun dönem medyanı</dt>
+            <dd>{yuzde(faiz.medyan[uzunSutun] as number, 1, 1)}</dd>
+          </div>
+        )
+      }
+      {
+        gerc && (
+          <div>
+            <dt>Gerçekleşen hedef aralık</dt>
+            <dd>
+              {yuzde(gerc.sonGozlem.alt, 2, 2)}–{sayi(gerc.sonGozlem.ust, 2, 2)}
+              <small>{gunYaz(gerc.sonGozlem.tarih)}</small>
+            </dd>
+          </div>
+        )
+      }
+    </dl>
+    <p class="veri-notu veri-kaynak">
+      <strong>Kaynak:</strong> <a href={veri.kaynaklar[0].url} rel="noopener">{veri.kaynaklar[0].ad}</a> (federalreserve.gov); gerçekleşen
+      oran için <a href={veri.kaynaklar[1].url} rel="noopener">FRED, federal fon hedef aralığı</a>. Siteye alındığı zaman: {zamanYaz(veri.alinma)}.
+    </p>
+
+    <div class="veri-izgara">
+      <section class="bolum">
+        <h2 class="bolum-baslik">Federal fon oranı medyanı</h2>
+        <div class="tablo-kaydir">
+          <table class="cizelge veri-tablo">
+            <thead>
+              <tr>
+                <th scope="col">Projeksiyon (%)</th>
+                {son.yillar.map((y) => <th scope="col" class="sag">{yilAd(y)}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">{sepAdi(son.tarih)}</th>
+                {faiz.medyan.map((m) => <td class="sag"><strong>{bir(m)}</strong></td>)}
+              </tr>
+              {
+                onceki && (
+                  <tr>
+                    <th scope="row">{sepAdi(onceki.tarih)} (önceki)</th>
+                    {faiz.onceki?.map((m) => <td class="sag">{bir(m)}</td>)}
+                  </tr>
+                )
+              }
+              <tr>
+                <th scope="row">Değişim (puan)</th>
+                {faizDegisim.map((d) => <td class="sag">{d == null ? '–' : isaretli(d)}</td>)}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="veri-notu">
+          Medyan, katılımcıların projeksiyonları küçükten büyüğe dizildiğinde ortadaki değerdir; katılımcı sayısı çiftse ortadaki ikisinin
+          ortalamasıdır. SEP tablosu medyanları onda bire yuvarlar. Oranlar federal fon hedef aralığının orta noktasıdır. Uzun dönem
+          sütunu, ekonomi yeni bir şokla karşılaşmazsa faizin zamanla yaklaşacağı düzeyi gösterir.
+        </p>
+      </section>
+    </div>
+
+    <NoktaGrafik
+      baslik="Nokta grafiği"
+      ipucu="Her nokta bir katılımcının o yıl sonu için uygun gördüğü federal fon oranıdır"
+      kaynak="Kaynak: Federal Reserve, SEP Şekil 2 (katılımcı dağılımı) ve Tablo 1 (medyan)."
+      sepler={noktaSepleri}
+    />
+
+    <section class="bolum">
+      <h2 class="bolum-baslik">Diğer değişkenlerin medyanları</h2>
+      <div class="tablo-kaydir">
+        <table class="cizelge veri-tablo veri-tablo-genis">
+          <thead>
+            <tr>
+              <th scope="col">{sepAdi(son.tarih)} SEP (%)</th>
+              {son.yillar.map((y) => <th scope="col" class="sag">{yilAd(y)}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {
+              DEGISKENLER.map((d) => {
+                const v = son.degiskenler[d.id];
+                return (
+                  <tr>
+                    <th scope="row">{d.ad}</th>
+                    {v.medyan.map((m, i) => {
+                      const o = v.onceki?.[i];
+                      const f = fark(m, o);
+                      return (
+                        <td class="sag">
+                          <strong>{bir(m)}</strong>
+                          {onceki && m != null && o != null && (
+                            <small class="onceki">
+                              önceki {bir(o)}
+                              {f != null && f !== 0 ? ` (${isaretli(f)})` : ''}
+                            </small>
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="veri-notu">
+        Reel GSYH büyümesi ve iki enflasyon göstergesi, önceki yılın dördüncü çeyreğinden o yılın dördüncü çeyreğine yüzde değişimdir.
+        İşsizlik oranı, o yılın dördüncü çeyreğindeki ortalamadır. Küçük gri yazı, {onceki ? sepAdi(onceki.tarih) : 'bir önceki'} SEP’indeki
+        medyanı ve aradaki farkı (puan) gösterir. Çekirdek PCE için uzun dönem projeksiyonu toplanmaz. PCE tüm harcama kalemlerinin fiyatlarını, çekirdek PCE
+        gıda ve enerji dışındakileri izler.
+      </p>
+    </section>
+
+    <section class="bolum">
+      <h2 class="bolum-baslik">Projeksiyonlar gerçekleşenle nasıl örtüştü?</h2>
+      <p class="veri-notu">
+        Her SEP’in “bu yıl sonu” faiz medyanı ile o yılın son günündeki gerçekleşen federal fon hedef aralığının orta noktası.
+        {sonYil} için yıl henüz bitmediğinden gerçekleşen sütunu en son gözlemi gösterir.
+      </p>
+      <div class="tablo-kaydir">
+        <table class="cizelge veri-tablo veri-tablo-genis">
+          <thead>
+            <tr>
+              <th scope="col">SEP</th>
+              <th scope="col" class="sag">Yıl sonu</th>
+              <th scope="col" class="sag">Medyan (%)</th>
+              <th scope="col" class="sag">Gerçekleşen (%)</th>
+              <th scope="col" class="sag">Fark (puan)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              karsilastirma.map((k) => (
+                <tr>
+                  <th scope="row">{sepAdi(k.tarih)}</th>
+                  <td class="sag">{k.yil}</td>
+                  <td class="sag">{k.medyan == null ? '–' : sayi(k.medyan, 1, 1)}</td>
+                  <td class="sag">
+                    {k.gercek == null ? '–' : sayi(k.gercek, 0, 3)}
+                    {k.gercek != null && !k.tamam && k.gercekTarih && <small class="onceki">{gunYaz(k.gercekTarih)}</small>}
+                  </td>
+                  <td class="sag">{k.fark == null ? '–' : `${k.fark > 0 ? '+' : ''}${sayi(k.fark, 0, 3)}`}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="veri-notu">
+        Fark, gerçekleşen orta nokta ile SEP’te yayımlanan (onda bire yuvarlanmış) medyan arasındaki puan farkıdır; pozitif değer faizin
+        projeksiyondan yüksek kaldığını gösterir.
+      </p>
+
+      <ZamanGrafik
+        baslik="Projeksiyon ve gerçekleşen faiz"
+        ipucu="Yüzde. Koyu çizgi: çeyrek sonunda gerçekleşen orta nokta. Kesikli çizgi: o çeyrekteki SEP’te bu yıl sonu için medyan."
+        kaynak="Kaynak: Federal Reserve (SEP Tablo 1), FRED (DFEDTARU, DFEDTARL)."
+        siklik="ceyrek"
+        birim="yuzde"
+        ondalik={3}
+        seriIdleri={['gercek', 'sep']}
+        noktalar={grafikNoktalari}
+        gruplar={[
+          {
+            id: 'hepsi',
+            ad: 'Hepsi',
+            seriler: [
+              { id: 'gercek', ad: 'Gerçekleşen (çeyrek sonu)', renk: 'murekkep' },
+              { id: 'sep', ad: 'SEP: bu yıl sonu medyanı', renk: 'toprak', kesik: true },
+            ],
+          },
+        ]}
+      />
+    </section>
+
+    <section class="bolum prose veri-aciklama">
+      <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+      <p>
+        Ekonomik Projeksiyonlar Özeti (SEP, Summary of Economic Projections), Fed’in para politikası kurulu FOMC’un Mart, Haziran, Eylül ve
+        Aralık toplantılarında yılda dört kez yayımladığı tablodur. Toplantıya katılan Fed yönetim kurulu üyeleri ile bölge Fed bankası
+        başkanları, her biri kendi ekonomik görünüm varsayımı altında, uygun saydığı para politikası yolunu yazar: yıl sonlarında federal
+        fon oranının nerede olacağı, ekonominin ne kadar büyüyeceği, işsizliğin ve enflasyonun hangi düzeyde seyredeceği.
+      </p>
+      <p>
+        Projeksiyonlar bir karar ya da taahhüt değildir. Faiz kararını FOMC her toplantıda o günkü verilere bakarak oylamayla verir; SEP’teki
+        rakamlar kurulun ortak bir yol haritası değil, katılımcıların bireysel tahminlerinin özetidir. Nokta grafiğindeki her nokta tek bir
+        katılımcıya aittir ve katılımcı adı yayımlanmaz. Görünüm yeni veriyle değiştiği için bir önceki SEP ile son SEP arasındaki fark ve
+        geçmiş projeksiyonların gerçekleşenden sapması, bu tahminlerin ne kadar belirsiz olduğunu gösterir.
+      </p>
+      <p>
+        Medyan, katılımcıların ortadaki görüşünü verir; en düşük ve en yüksek tahmin arasındaki yayılım ise kurul içindeki görüş
+        ayrılığının büyüklüğünü gösterir. Bu yüzden medyanın yanında nokta grafiğinin dağılımı da önemlidir. Karar metinlerinin dili için
+        <a href="/veri/fomc-tonu/">FOMC metin tonu</a> sayfasına bakılabilir.
+      </p>
+      <p>
+        <a href="/veri/politika-faizi/">TCMB politika faizi</a> · <a href="/veri/dunya-politika-faizleri/">Dünya politika faizleri</a> · <a href="/veri/abd-tahvilleri/">Türkiye’nin ABD tahvilleri</a> · <a href="/veri/enflasyon/">Enflasyon verileri</a>
+      </p>
+    </section>
+
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır; Fed katılımcılarının yayımladığı projeksiyonlar ve gerçekleşen resmi oranlardır, bir tahmin ya da öneri değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .onceki {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 400;
+  }
+</style>

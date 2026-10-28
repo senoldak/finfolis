@@ -118,7 +118,7 @@ jobs:
         timeout-minutes: 10
         env:
           EVDS_API_KEY: ${{ secrets.EVDS_API_KEY }}
-          # Yalnız PPK metin tonu (scripts/veri/ppk-ton.mjs): yeni PPK metni yoksa Gemini çağrısı yapılmaz.
+          # Yalnız PPK ve FOMC metin tonu (scripts/veri/ppk-ton.mjs, fomc-ton.mjs): yeni metin yoksa Gemini çağrısı yapılmaz.
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_KULLANIM_DOSYASI: ${{ runner.temp }}/gemini-kullanim.json
         run: |
@@ -132,6 +132,9 @@ jobs:
           node scripts/veri/veri-takvimi.mjs --yaz || true
           node scripts/veri/ppk-metinler.mjs --yaz || true
           node scripts/veri/ppk-ton.mjs --yaz || true
+          node scripts/veri/fomc-metinler.mjs --yaz || true
+          node scripts/veri/fed-projeksiyonlari.mjs --yaz || true
+          node scripts/veri/fomc-ton.mjs --yaz || true
 
       # Üretim adımı düşse de (zaman aşımı, motor hatası, beklenmeyen hata) o ana kadar yazılan haberler ve durum dosyası
       # commit edilir (F4); aksi hâlde aynı adaylar sonraki turda Gemini'yi yeniden harcıyordu. İş yine kırmızı biter.

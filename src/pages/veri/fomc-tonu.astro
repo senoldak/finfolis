@@ -1,0 +1,206 @@
+---
+// FOMC metin tonu: Fed'in FOMC basın açıklamaları ve toplantı tutanakları yapay zekâyla okunur; PPK metin tonu
+// sayfasıyla aynı iki puan (−3 güvercin … +3 şahin). Metinler src/data/fomc-metinler.json (federalreserve.gov), puanlar
+// src/data/fomc-ton.json (scripts/veri/fomc-ton.mjs). İstem src/lib/fomc-ton.mjs, hesap src/lib/ppk-ton.mjs.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import metinVerisi from '../../data/fomc-metinler.json';
+import tonVerisi from '../../data/fomc-ton.json';
+import { belgeListesi, donguler, tonAdi } from '../../lib/ppk-ton.mjs';
+import { gunYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+type Puan = { ileriYon: number; durus: number; gerekce: string; alintilar: string[]; okundu: string };
+type Belge = { id: string; tur: string; tarih: string; baslik: string; url: string };
+const belgeler = belgeListesi(metinVerisi).belgeler as Belge[];
+const puanlar = ((tonVerisi as { puanlar?: Record<string, Puan> }).puanlar ?? {}) as Record<string, Puan>;
+const dongu = donguler(belgeler, puanlar, { ikinci: 'tutanak' }).filter((d) => d.ileriYon != null);
+const son = dongu.at(-1);
+const onceki = dongu.at(-2);
+const ivme = son && onceki ? Math.round(((son.ileriYon as number) - (onceki.ileriYon as number)) * 100) / 100 : null;
+const okunan = belgeler
+  .filter((b) => puanlar[b.id])
+  .sort((a, b) => b.tarih.localeCompare(a.tarih));
+const bekleyen = belgeler.filter((b) => (b.tur === 'karar' || b.tur === 'tutanak') && !puanlar[b.id]).length;
+const isaret = (n: number | null | undefined) =>
+  n == null ? '–' : `${n > 0 ? '+' : n < 0 ? '−' : ''}${Math.abs(n).toLocaleString('tr-TR', { maximumFractionDigits: 2 })}`;
+const TUR: Record<string, string> = { karar: 'FOMC açıklaması', tutanak: 'Toplantı tutanağı' };
+const gun = (iso: string) => Math.floor(Date.parse(`${iso}T00:00:00Z`) / 86_400_000);
+const grafikNoktalari = dongu.map((d) => [gun(d.toplanti), d.ileriYon, d.durus]);
+const guncelleme = (tonVerisi as { guncelleme?: string }).guncelleme ?? null;
+
+const baslik = 'FOMC metin tonu';
+const description = son
+  ? `Fed FOMC metinlerinin yapay zekâyla okunan tonu. ${gunYaz(son.toplanti)} toplantısının döngüsünde ileri yön ${isaret(son.ileriYon)} (${tonAdi(son.ileriYon)}), mevcut duruş ${isaret(son.durus)}.`
+  : 'Fed FOMC basın açıklamaları ve toplantı tutanaklarının yapay zekâyla okunan tonu.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/fomc-tonu/' },
+];
+const jsonLd = sayfaSemasi({ yol, ad: baslik, aciklama: description, ...(guncelleme ? { sayfaEk: { dateModified: guncelleme } } : {}) });
+---
+
+<Base title={`${baslik}: Fed metinleri şahin mi güvercin mi?`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>ABD Merkez Bankası FOMC metinlerinin yapay zekâyla okunan yönü · −3 güvercin, +3 şahin</p>
+    </header>
+    {
+      son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>İleri yön ({gunYaz(son.toplanti)} döngüsü)</dt>
+              <dd>
+                {isaret(son.ileriYon)} <span class="ton-adi">{tonAdi(son.ileriYon)}</span>
+              </dd>
+            </div>
+            <div>
+              <dt>Mevcut duruş</dt>
+              <dd>{isaret(son.durus)}</dd>
+            </div>
+            <div>
+              <dt>Önceki döngüye göre</dt>
+              <dd>{ivme == null ? '–' : isaret(ivme)}</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> metinler <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" rel="noopener">Fed (federalreserve.gov)</a>; puanlar finfolis'in
+            yapay zekâ okumasıdır, Fed'in değildir.{guncelleme && <> Son okuma: {zamanYaz(guncelleme)}.</>}
+            {bekleyen > 0 && <> Henüz okunmamış {bekleyen} metin sonraki güncellemelerde eklenecek.</>}
+          </p>
+
+          <ZamanGrafik
+            baslik="FOMC toplantılarına göre ton"
+            ipucu="Puan; her nokta bir FOMC toplantısının açıklaması ve tutanağı"
+            kaynak="Metinler: Fed. Puanlar: finfolis, yapay zekâ okuması."
+            siklik="hafta"
+            birim="puan"
+            seriIdleri={['ileri', 'durus']}
+            noktalar={grafikNoktalari}
+            gruplar={[
+              {
+                id: 'hepsi',
+                ad: 'Hepsi',
+                seriler: [
+                  { id: 'ileri', ad: 'İleri yön', renk: 'toprak' },
+                  { id: 'durus', ad: 'Mevcut duruş', renk: 'murekkep', kesik: true },
+                ],
+              },
+            ]}
+            referans={{ deger: 0, ad: 'Dengeli' }}
+          />
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Okunan metinler</h2>
+            <p class="veri-notu">Satır açıldığında okumanın gerekçesi ve metinden birebir (İngilizce) alıntılar görünür.</p>
+            <div class="tablo-kaydir">
+              <table class="cizelge veri-tablo ton-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Tarih</th>
+                    <th scope="col">Metin</th>
+                    <th scope="col" class="sag">İleri yön</th>
+                    <th scope="col" class="sag">Duruş</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {okunan.map((b) => {
+                    const p = puanlar[b.id];
+                    return (
+                      <tr>
+                        <td class="tarih-hucre">{gunYaz(b.tarih)}</td>
+                        <td>
+                          <details>
+                            <summary>
+                              {TUR[b.tur] ?? b.tur}
+                            </summary>
+                            <p>{p.gerekce}</p>
+                            <ul class="alintilar">
+                              {p.alintilar.map((a) => (
+                                <li>“{a}”</li>
+                              ))}
+                            </ul>
+                            <p>
+                              <a href={b.url} rel="noopener">
+                                {b.baslik}
+                              </a>
+                            </p>
+                          </details>
+                        </td>
+                        <td class="sag">{isaret(p.ileriYon)}</td>
+                        <td class="sag">{isaret(p.durus)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </>
+      ) : (
+        <p class="bos">Puanlanmış metin henüz yok. Okumalar tamamlandıkça bu sayfada gösterilecek.</p>
+      )
+    }
+
+    <section class="bolum prose veri-aciklama">
+      <h2 class="bolum-baslik">Bu puanlar nasıl hazırlanıyor?</h2>
+      <p>
+        Fed'in yayımladığı FOMC basın açıklamaları ve toplantı tutanakları, Google'ın Gemini yapay zekâ modeline okutulur.
+        Tutanakların yalnız katılımcıların görüşlerini ve komitenin kararını anlatan bölümleri okunur. Metinler İngilizcedir;
+        gerekçeler Türkçe, alıntılar özgün İngilizce metinden birebir.
+        Model yalnız metne bakar ve iki puan verir. <strong>İleri yön</strong>, metnin para politikasının sonraki adımları
+        için verdiği işarettir: −3 belirgin gevşeme (güvercin), 0 dengeli, +3 belirgin sıkılaştırma (şahin).
+        <strong>Mevcut duruş</strong>, metnin bugünkü politikayı ne kadar sıkı tanımladığıdır.
+      </p>
+      <p>
+        Model her puan için kısa bir gerekçe ve metinden birebir alıntı vermek zorundadır. Alıntılar program tarafından Fed
+        metninde aranır; metinde birebir geçmeyen alıntı atılır, geçerli alıntısı kalmayan okuma kullanılmaz. Bir toplantının
+        tonu, açıklama ile o toplantının tutanağının eşit ağırlıklı ortalamasıdır; tutanak toplantıdan üç hafta sonra yayımlanır.
+      </p>
+      <p>
+        Puanlar bir yorumdur, ölçüm değildir. Aynı metni başka bir model ya da insan farklı puanlayabilir. Puanlar faiz
+        kararı tahmini değildir, Fed'in kendi değerlendirmesi değildir ve yatırım kararına dayanak olarak kullanılmamalıdır.
+        Puanlar yayımlandıktan sonra elle değiştirilmez.
+      </p>
+      <p>
+        <a href="/veri/fomc-aciklama-metni/">FOMC açıklamasında neler değişti?</a> · <a href="/veri/fed-projeksiyonlari/">Fed faiz projeksiyonları</a> · <a href="/veri/ppk-tonu/">PPK metin tonu</a> · <a href="/yapay-zeka-kullanimi/">Yapay zekâ kullanımı</a>
+      </p>
+    </section>
+    <YasalUyari>Bu sayfadaki puanlar yapay zekânın metin okumasıdır; Fed'in açıklaması ya da yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .ton-adi {
+    font-size: 0.55em;
+    font-weight: 400;
+    color: var(--muted);
+    margin-left: 0.3em;
+  }
+  .tablo-kaydir {
+    overflow-x: auto;
+  }
+  .tarih-hucre {
+    white-space: nowrap;
+  }
+  .ton-tablo summary {
+    cursor: pointer;
+  }
+  .ton-tablo details p {
+    margin: 0.5rem 0;
+  }
+  .alintilar {
+    margin: 0.4rem 0;
+    padding-left: 1.1rem;
+    color: var(--ink-2);
+    font-style: italic;
+  }
+</style>

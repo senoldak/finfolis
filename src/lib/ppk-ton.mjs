@@ -95,14 +95,14 @@ export function yanitDogrula(yanit, belge) {
 const ort = (xs) => (xs.length ? Math.round((xs.reduce((a, b) => a + b, 0) / xs.length) * 100) / 100 : null);
 
 // PPK döngüleri: her karar bir döngü başlatır; özet, tarihi kendisinden önceki son karara ait döngüye girer.
-// Döngü tonu karar ve özetin eşit ağırlıklı ortalamasıdır (hangisi puanlandıysa).
-export function donguler(belgeler, puanlar) {
+// Döngü tonu karar ve özetin eşit ağırlıklı ortalamasıdır (hangisi puanlandıysa). ikinci: özetin türü (Fed için tutanak).
+export function donguler(belgeler, puanlar, { ikinci = 'ozet' } = {}) {
   const sirali = [...belgeler].sort((a, b) => a.tarih.localeCompare(b.tarih));
   const sonuc = [];
   for (const b of sirali) {
     const p = puanlar[b.id];
     if (b.tur === 'karar') sonuc.push({ toplanti: b.tarih, kararId: b.id, karar: p ?? null, ozet: null, ozetId: null });
-    else if (b.tur === 'ozet' && sonuc.length) {
+    else if (b.tur === ikinci && sonuc.length) {
       const d = sonuc.at(-1);
       if (!d.ozetId) {
         d.ozetId = b.id;

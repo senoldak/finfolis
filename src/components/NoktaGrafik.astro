@@ -1,0 +1,469 @@
+---
+// Fed nokta grafiği (dot plot): her yıl için katılımcıların federal fon oranı tercihlerinin dağılımı. Her nokta bir
+// katılımcıdır; yatay eksen yıl, dikey eksen hedef aralığın orta noktası. Turuncu elmas, SEP Tablo 1'deki yayımlanmış
+// medyandır. Değerler sayfanın verdiği resmi rakamlardır; burada yalnız çizilir. Aynı veri <details> içindeki tabloda da var.
+export interface NoktaSatiri {
+  oran: number;
+  sayilar: (number | null)[];
+}
+
+export interface NoktaSep {
+  id: string;
+  etiket: string;
+  yillar: (number | 'uzun')[];
+  satirlar: NoktaSatiri[];
+  medyan: (number | null)[];
+}
+
+interface Props {
+  baslik: string;
+  ipucu?: string;
+  kaynak: string;
+  sepler: NoktaSep[];
+}
+
+const { baslik, ipucu, kaynak, sepler } = Astro.props;
+const sirali = [...sepler].reverse(); // seçicide en yeni üstte
+const ilk = sirali[0];
+const kimlik = `ng-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-')}`;
+const yilAd = (y: number | 'uzun') => (y === 'uzun' ? 'Uzun dönem' : String(y));
+const oranYaz = (n: number) => n.toLocaleString('tr-TR', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+---
+
+<section class="ng-kart" data-nokta-grafik aria-labelledby={kimlik}>
+  <div class="kart-bas">
+    <div>
+      <h2 id={kimlik} class="kart-baslik">{baslik}</h2>
+      {ipucu && <p class="kart-ipucu">{ipucu}</p>}
+    </div>
+    <label class="secici">
+      <span>Toplantı</span>
+      <select data-sep-sec>
+        {sirali.map((s) => <option value={s.id}>{s.etiket}</option>)}
+      </select>
+    </label>
+  </div>
+
+  <div class="lejant-satiri" aria-hidden="true">
+    <span><i class="nokta-ornek"></i> Bir katılımcı</span>
+    <span><i class="elmas-ornek"></i> Medyan (SEP tablosundaki değer)</span>
+  </div>
+
+  <div class="cizim" data-cizim>
+    <svg viewBox="0 0 600 420" role="img" aria-label={`${baslik}: nokta grafiği`} data-svg></svg>
+    <div class="ipucu" data-ipucu hidden></div>
+  </div>
+
+  <details class="ng-tablo">
+    <summary>Grafiğin verisini tablo olarak göster</summary>
+    <div class="tablo-kaydir">
+      <table class="cizelge veri-tablo" data-tablo>
+        <caption class="ng-tablo-baslik" data-tablo-baslik>{ilk.etiket}: federal fon oranını bu orta noktada gören katılımcı sayısı</caption>
+        <thead>
+          <tr>
+            <th scope="col">Orta nokta (%)</th>
+            {ilk.yillar.map((y) => <th scope="col" class="sag">{yilAd(y)}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {
+            ilk.satirlar.map((s) => (
+              <tr>
+                <th scope="row">{oranYaz(s.oran)}</th>
+                {s.sayilar.map((n) => <td class="sag">{n ?? '–'}</td>)}
+              </tr>
+            ))
+          }
+          <tr class="ng-medyan-satiri">
+            <th scope="row">Medyan (SEP Tablo 1)</th>
+            {ilk.medyan.map((m) => <td class="sag">{m == null ? '–' : m.toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>)}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <p class="kart-alt">{kaynak}</p>
+  <script type="application/json" data-ng-veri set:html={JSON.stringify(sirali)} />
+</section>
+
+<script>
+  const SVG = 'http://www.w3.org/2000/svg';
+  const W = 600;
+  const P = { ust: 16, alt: 44, sol: 70, sag: 14 };
+
+  interface Satir {
+    oran: number;
+    sayilar: (number | null)[];
+  }
+  interface Sep {
+    id: string;
+    etiket: string;
+    yillar: (number | 'uzun')[];
+    satirlar: Satir[];
+    medyan: (number | null)[];
+  }
+
+  const sayiYaz = (n: number, o: number) => n.toLocaleString('tr-TR', { minimumFractionDigits: o, maximumFractionDigits: o });
+  const yilAd = (y: number | 'uzun') => (y === 'uzun' ? 'Uzun dönem' : String(y));
+
+  for (const kok of document.querySelectorAll<HTMLElement>('[data-nokta-grafik]')) {
+    const sepler = JSON.parse(kok.querySelector('[data-ng-veri]')!.textContent || '[]') as Sep[];
+    const svg = kok.querySelector<SVGSVGElement>('[data-svg]')!;
+    const ipucu = kok.querySelector<HTMLElement>('[data-ipucu]')!;
+    const cizim = kok.querySelector<HTMLElement>('[data-cizim]')!;
+    const sec = kok.querySelector<HTMLSelectElement>('[data-sep-sec]')!;
+    const tablo = kok.querySelector<HTMLTableElement>('[data-tablo]')!;
+    const tabloBaslik = kok.querySelector<HTMLElement>('[data-tablo-baslik]')!;
+
+    const el = (ad: string, oz: Record<string, string | number>, ebeveyn: Element = svg) => {
+      const e = document.createElementNS(SVG, ad);
+      for (const [k, d] of Object.entries(oz)) e.setAttribute(k, String(d));
+      ebeveyn.appendChild(e);
+      return e;
+    };
+
+    function ciz(s: Sep) {
+      // Eksen: dolu satırların en yükseğinden en düşüğüne, her 0,125 puan bir satır.
+      const oranlar = s.satirlar.map((r) => r.oran);
+      const ust = Math.max(...oranlar, ...s.medyan.filter((m): m is number => m != null));
+      const alt = Math.min(...oranlar, ...s.medyan.filter((m): m is number => m != null));
+      const ustSatir = Math.ceil(ust / 0.125 + 1e-9);
+      const altSatir = Math.floor(alt / 0.125 + 1e-9);
+      const satirSayisi = ustSatir - altSatir + 1;
+      const satirY = satirSayisi > 18 ? 20 : 26;
+      const H = P.ust + P.alt + satirSayisi * satirY;
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      svg.replaceChildren();
+      const kolonSayisi = s.yillar.length;
+      const kolonG = (W - P.sol - P.sag) / kolonSayisi;
+      const yMerkez = (oran: number) => P.ust + (ustSatir - oran / 0.125) * satirY + satirY / 2;
+      const xMerkez = (i: number) => P.sol + kolonG * i + kolonG / 2;
+
+      // Izgara ve eksen etiketleri.
+      const etiketAdimi = satirY >= 22 ? 1 : 2;
+      for (let k = ustSatir; k >= altSatir; k--) {
+        const oran = k * 0.125;
+        const y = yMerkez(oran);
+        el('line', { x1: P.sol, x2: W - P.sag, y1: y, y2: y, class: 'izgara' });
+        if ((ustSatir - k) % etiketAdimi === 0) {
+          el('text', { x: P.sol - 8, y: y + 5, 'text-anchor': 'end', class: 'eksen' }).textContent = sayiYaz(oran, 3);
+        }
+      }
+      // Yıl etiketleri ve kolon ayırıcıları.
+      s.yillar.forEach((y, i) => {
+        if (i > 0) el('line', { x1: P.sol + kolonG * i, x2: P.sol + kolonG * i, y1: P.ust, y2: H - P.alt, class: 'ayirac' });
+        el('text', { x: xMerkez(i), y: H - P.alt + 26, 'text-anchor': 'middle', class: 'eksen yil' }).textContent = yilAd(y);
+      });
+
+      // Medyan çizgisi ve elmaslar (Tablo 1'deki yayımlanmış değerler).
+      const medNokta = s.medyan.map((m, i) => (m == null ? null : ([xMerkez(i), yMerkez(m)] as [number, number])));
+      const parca = medNokta.filter((p): p is [number, number] => p != null);
+      if (parca.length > 1) el('polyline', { points: parca.map((p) => p.join(',')).join(' '), class: 'medyan-cizgi' });
+
+      // Noktalar: hücre başına bir grup; çok katılımcı varsa iki satıra dizilir.
+      s.satirlar.forEach((r) => {
+        r.sayilar.forEach((n, i) => {
+          if (!n) return;
+          const y0 = yMerkez(r.oran);
+          const x0 = xMerkez(i);
+          const metin = `${yilAd(s.yillar[i])}, %${sayiYaz(r.oran, 3)}: ${n} katılımcı`;
+          const g = el('g', { class: 'hucre', tabindex: 0, role: 'img', 'aria-label': metin, 'data-metin': metin, 'data-x': x0, 'data-y': y0 });
+          el('rect', { x: x0 - kolonG / 2 + 2, y: y0 - satirY / 2, width: kolonG - 4, height: satirY, class: 'yuzey' }, g);
+          const satir = n > 7 ? 2 : 1;
+          const per = Math.ceil(n / satir);
+          const aralik = Math.min(15, (kolonG - 16) / per);
+          const yaricap = Math.min(6.5, aralik / 2 - 0.8);
+          for (let k = 0; k < n; k++) {
+            const sr = Math.floor(k / per);
+            const bu = sr === satir - 1 ? n - per * (satir - 1) : per;
+            const sira = k - sr * per;
+            const dx = (sira - (bu - 1) / 2) * aralik;
+            const dy = satir === 1 ? 0 : (sr - 0.5) * (yaricap * 2 + 1);
+            el('circle', { cx: x0 + dx, cy: y0 + dy, r: yaricap, class: 'nokta' }, g);
+          }
+        });
+      });
+      s.medyan.forEach((m, i) => {
+        if (m == null) return;
+        const x0 = xMerkez(i);
+        const y0 = yMerkez(m);
+        const metin = `${yilAd(s.yillar[i])}, medyan: %${sayiYaz(m, 1)}`;
+        const g = el('g', { class: 'hucre', tabindex: 0, role: 'img', 'aria-label': metin, 'data-metin': metin, 'data-x': x0, 'data-y': y0 });
+        const d = 8;
+        el('polygon', { points: `${x0},${y0 - d} ${x0 + d},${y0} ${x0},${y0 + d} ${x0 - d},${y0}`, class: 'elmas' }, g);
+      });
+    }
+
+    function tabloYaz(s: Sep) {
+      tabloBaslik.textContent = `${s.etiket}: federal fon oranını bu orta noktada gören katılımcı sayısı`;
+      const bas = ['<tr><th scope="col">Orta nokta (%)</th>', ...s.yillar.map((y) => `<th scope="col" class="sag">${yilAd(y)}</th>`), '</tr>'].join('');
+      const govde = s.satirlar
+        .map((r) => `<tr><th scope="row">${sayiYaz(r.oran, 3)}</th>${r.sayilar.map((n) => `<td class="sag">${n ?? '–'}</td>`).join('')}</tr>`)
+        .join('');
+      const med = `<tr class="ng-medyan-satiri"><th scope="row">Medyan (SEP Tablo 1)</th>${s.medyan.map((m) => `<td class="sag">${m == null ? '–' : sayiYaz(m, 1)}</td>`).join('')}</tr>`;
+      tablo.querySelector('thead')!.innerHTML = bas;
+      tablo.querySelector('tbody')!.innerHTML = govde + med;
+    }
+
+    function goster(g: Element) {
+      const metin = g.getAttribute('data-metin') ?? '';
+      const kutu = cizim.getBoundingClientRect();
+      const svgKutu = svg.getBoundingClientRect();
+      const olcek = svgKutu.width / svg.viewBox.baseVal.width;
+      const px = svgKutu.left - kutu.left + Number(g.getAttribute('data-x')) * olcek;
+      const py = svgKutu.top - kutu.top + Number(g.getAttribute('data-y')) * olcek;
+      ipucu.textContent = metin;
+      ipucu.hidden = false;
+      const sag = px > kutu.width * 0.6;
+      ipucu.style.left = sag ? '' : `${px + 14}px`;
+      ipucu.style.right = sag ? `${kutu.width - px + 14}px` : '';
+      ipucu.style.top = `${Math.max(0, py - 18)}px`;
+    }
+    const gizle = () => (ipucu.hidden = true);
+
+    svg.addEventListener('pointerover', (e) => {
+      const g = (e.target as Element).closest('.hucre');
+      if (g) goster(g);
+    });
+    svg.addEventListener('pointerleave', gizle);
+    svg.addEventListener('focusin', (e) => {
+      const g = (e.target as Element).closest('.hucre');
+      if (g) goster(g);
+    });
+    svg.addEventListener('focusout', gizle);
+    svg.addEventListener('click', (e) => {
+      const g = (e.target as Element).closest('.hucre');
+      if (g) goster(g);
+      else gizle();
+    });
+
+    function sepSec(id: string) {
+      const s = sepler.find((x) => x.id === id) ?? sepler[0];
+      gizle();
+      ciz(s);
+      tabloYaz(s);
+    }
+    sec.addEventListener('change', () => sepSec(sec.value));
+    sepSec(sec.value || sepler[0].id);
+    // Dar ekranda yazılar CSS'te büyür; satır yüksekliği aynı kalır, yeniden çizime gerek yok.
+  }
+</script>
+
+<style>
+  .ng-kart {
+    margin: 28px 0;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid var(--hair);
+  }
+
+  .kart-bas {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .kart-baslik {
+    font-family: var(--sans);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .kart-ipucu,
+  .kart-alt {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 4px 0 0;
+  }
+
+  .secici {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .secici select {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 8px 10px;
+    min-width: 11rem;
+  }
+
+  .lejant-satiri {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    margin-bottom: 8px;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .lejant-satiri span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nokta-ornek {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--ink);
+    display: inline-block;
+  }
+
+  .elmas-ornek {
+    width: 11px;
+    height: 11px;
+    background: var(--toprak);
+    transform: rotate(45deg);
+    display: inline-block;
+  }
+
+  .cizim {
+    position: relative;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .cizim svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    touch-action: pan-y;
+  }
+
+  .cizim :global(.izgara) {
+    stroke: var(--paper-2);
+    stroke-width: 1;
+  }
+
+  .cizim :global(.ayirac) {
+    stroke: var(--hair);
+    stroke-width: 1;
+  }
+
+  .cizim :global(.eksen) {
+    font-family: var(--sans);
+    font-size: 14px;
+    fill: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cizim :global(.eksen.yil) {
+    font-size: 16px;
+    font-weight: 700;
+    fill: var(--ink);
+  }
+
+  .cizim :global(.nokta) {
+    fill: var(--ink);
+  }
+
+  .cizim :global(.medyan-cizgi) {
+    fill: none;
+    stroke: var(--toprak);
+    stroke-width: 2;
+    stroke-dasharray: 5 4;
+  }
+
+  .cizim :global(.elmas) {
+    fill: var(--toprak);
+    stroke: #fff;
+    stroke-width: 2;
+  }
+
+  .cizim :global(.yuzey) {
+    fill: transparent;
+  }
+
+  .cizim :global(.hucre) {
+    cursor: pointer;
+    outline: none;
+  }
+
+  .cizim :global(.hucre:hover .yuzey),
+  .cizim :global(.hucre:focus .yuzey) {
+    fill: rgba(194, 80, 43, 0.12);
+  }
+
+  .cizim :global(.hucre:focus-visible .yuzey) {
+    stroke: var(--toprak);
+    stroke-width: 2;
+  }
+
+  .ipucu {
+    position: absolute;
+    pointer-events: none;
+    background: #fff;
+    border: 1px solid var(--ink);
+    padding: 8px 12px;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 3px 3px 0 rgba(27, 27, 27, 0.12);
+    z-index: 2;
+  }
+
+  .ng-tablo {
+    margin-top: 16px;
+    font-family: var(--sans);
+  }
+
+  .ng-tablo summary {
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 8px 0;
+  }
+
+  .ng-tablo-baslik {
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding-bottom: 8px;
+  }
+
+  .ng-tablo :global(.ng-medyan-satiri th),
+  .ng-tablo :global(.ng-medyan-satiri td) {
+    border-top: 2px solid var(--ink);
+    font-weight: 700;
+  }
+
+  @media (max-width: 600px) {
+    .ng-kart {
+      padding: 16px;
+    }
+
+    /* SVG telefonda yaklaşık yarıya iner; yazılar SVG biriminde büyütülür ki 9-10 piksel okunsun. */
+    .cizim :global(.eksen) {
+      font-size: 19px;
+    }
+
+    .cizim :global(.eksen.yil) {
+      font-size: 20px;
+    }
+
+    .ipucu {
+      white-space: normal;
+      max-width: 70%;
+    }
+  }
+</style>

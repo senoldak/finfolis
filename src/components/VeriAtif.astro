@@ -1,5 +1,6 @@
 ---
-// Veri sayfalarının altındaki "Atıf kopyala" düğmesi. Base.astro /veri/ altındaki her sayfaya ekler.
+// Veri sayfalarının altındaki "Atıf kopyala" ve "Tabloyu CSV indir" düğmeleri. Base.astro /veri/ altındaki her sayfaya ekler.
+// CSV düğmesi yalnız sayfada veri tablosu varsa görünür; sayfadaki ilk büyük tabloyu indirir (src/lib/tablo-csv.mjs).
 // Atıf metni tarayıcıda kurulur: sayfa başlığı h1'den, erişim tarihi okurun bugünü. Verinin asıl kaynağı (TCMB, TÜİK…)
 // sayfadaki "Kaynak" satırındadır; atıf onu da hatırlatır.
 import { SITE } from '../lib/site';
@@ -8,14 +9,33 @@ const url = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <div class="container veri-atif" data-url={url} data-site={SITE.name}>
-  <button type="button" class="veri-atif-dugme">Atıf kopyala</button>
+  <button type="button" class="veri-atif-dugme" data-is="atif">Atıf kopyala</button>
+  <button type="button" class="veri-atif-dugme" data-is="csv" hidden>Tabloyu CSV indir</button>
   <span class="veri-atif-durum" role="status" aria-live="polite"></span>
   <p class="veri-atif-metin" hidden></p>
 </div>
 
 <script>
+  import { satirlardanCsv, tablodanSatirlar } from '../lib/tablo-csv.mjs';
+
+  // En çok satırı olan veri tablosu (sayfada birden fazla tablo olabilir).
+  const tablolar = [...document.querySelectorAll<HTMLTableElement>('main table')].filter((t) => t.querySelectorAll('tbody tr').length > 1);
+  const tablo = tablolar.sort((a, b) => b.rows.length - a.rows.length)[0];
+
   for (const kutu of document.querySelectorAll<HTMLElement>('.veri-atif')) {
-    const dugme = kutu.querySelector('button')!;
+    const csvDugme = kutu.querySelector<HTMLButtonElement>('[data-is="csv"]')!;
+    if (tablo) {
+      csvDugme.hidden = false;
+      csvDugme.addEventListener('click', () => {
+        const blob = new Blob([satirlardanCsv(tablodanSatirlar(tablo))], { type: 'text/csv;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `finfolis-${location.pathname.split('/').filter(Boolean).at(-1) ?? 'veri'}.csv`;
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      });
+    }
+    const dugme = kutu.querySelector<HTMLButtonElement>('[data-is="atif"]')!;
     const durum = kutu.querySelector<HTMLElement>('.veri-atif-durum')!;
     const yedek = kutu.querySelector<HTMLElement>('.veri-atif-metin')!;
     dugme.addEventListener('click', async () => {
