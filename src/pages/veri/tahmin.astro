@@ -70,37 +70,6 @@ const cariNoktalar = [
   ...(cari.simdi ? [[ayT(cari.simdi.ay), null, cari.simdi.tahmin / 1000, cari.simdi.a80[0] / 1000, cari.simdi.a80[1] / 1000]] : []),
 ];
 
-// Yıllık enflasyon yolu.
-const yol = T.yol;
-const yolGruplar = [
-  {
-    id: 'hepsi',
-    ad: 'Hepsi',
-    seriler: [
-      { id: 'gercek', ad: 'Gerçekleşen yıllık TÜFE', renk: 'murekkep' as const },
-      { id: 'beklenti', ad: '12 ay önceki PKA beklentisi', renk: 'mavi' as const, kesik: true },
-    ],
-  },
-];
-const yolNoktalar = yol.seri.filter((s: any) => s.gercek != null).map((s: any) => [ayT(s.ay), s.gercek, s.beklenti]);
-const ppkAylik = (1 + yol.pka.ay12 / 100) ** (1 / 12) * 100 - 100;
-
-// Taylor bandı.
-const taylor = T.taylor;
-const taylorGruplar = [
-  {
-    id: 'hepsi',
-    ad: 'Hepsi',
-    seriler: [
-      { id: 'faiz', ad: 'Politika faizi', renk: 'murekkep' as const },
-      { id: 'alt', ad: 'Kural bandının alt ucu', renk: 'mavi' as const, kesik: true },
-      { id: 'ust', ad: 'Kural bandının üst ucu', renk: 'yesil' as const, kesik: true },
-    ],
-  },
-];
-const taylorNoktalar = taylor.seri.map((s: any) => [ayT(s.ay), s.faiz, s.alt, s.ust]);
-const varyantlar = [...taylor.son.varyantlar].sort((a: any, b: any) => a.faiz - b.faiz);
-
 const ppk = M.ppk;
 const ekkModeller = ['tufe', 'cari', 'sanayi'];
 const baslik = 'Tahminler ve karneleri';
@@ -112,7 +81,12 @@ const yol2 = [
   { ad: baslik, href: '/veri/tahmin/' },
 ];
 const jsonLd = sayfaSemasi({ yol: yol2, ad: baslik, aciklama: description, sayfaEk: { dateModified: T.guncelleme } });
+const yayinda = ekkModeller.filter((ad) => M[ad].gecti && M[ad].simdi);
+const ppkYayinda = ppk.gecti && ppk.simdi;
+const durumYaz = (ad: string) =>
+  M[ad].gecti ? (ad === 'ppk' ? (ppk.simdi ? 'Yayında' : 'Yayında, toplantı yok') : M[ad].simdi ? 'Yayında' : 'Yayında, yeni ay yok') : 'Taban daha iyi';
 ---
+
 
 <Base title="Tahminler ve karneleri" description={description}>
   <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
@@ -127,8 +101,85 @@ const jsonLd = sayfaSemasi({ yol: yol2, ad: baslik, aciklama: description, sayfa
       <p>
         Bu sayfadaki dört model, resmi verinin açıklanmasından önce o veriyi tahmin eder. Her model, aynı işi gören basit
         bir yöntemle (taban) yarışır. Geçmişte hiç görmediği aylarda tabanından daha az hata yapmayan model rakam
-        vermez; sayfada yalnız karnesi kalır. Kur, borsa, altın ve tahvil faizi tahmini yapılmaz.
+        vermez; sayfada yalnız karnesi kalır. Kur, borsa, altın ve tahvil faizi tahmini yapılmaz. Enflasyonun önümüzdeki aylardaki yolunu
+        <a href="/veri/enflasyon-yolu/">enflasyon yolu hesap makinesi</a>, kuralın verdiği faiz aralığını
+        <a href="/veri/taylor-kurali/">Taylor kuralı bandı</a> sayfası gösterir.
       </p>
+    </section>
+
+    <section class="bolum" aria-labelledby="guncel-baslik">
+      <h2 id="guncel-baslik" class="bolum-baslik">Güncel tahminler</h2>
+      {yayinda.length === 0 && !ppkYayinda && (
+        <p class="tahmin-durum">Şu an kapıdan geçen ve tahmin edilecek ayı olan model yok.</p>
+      )}
+      {yayinda.map((ad) => {
+        const m = M[ad];
+        const c = canli(ad);
+        return (
+          <div class="tahmin-kart">
+            <h3 class="tahmin-alt-baslik">{MODEL_AD[ad]}</h3>
+            <dl class="veri-rakamlar">
+              <div>
+                <dt>{ayYaz(m.simdi.ay)} tahmini</dt>
+                <dd>{ad === 'cari' ? milyar(m.simdi.tahmin) : yuzdeYaz(m.simdi.tahmin, 2)}</dd>
+                <dd class="veri-degisim">Model tahmini, {m.surum}</dd>
+              </div>
+              <div>
+                <dt>%80 aralık</dt>
+                <dd class="tahmin-aralik">
+                  {ad === 'cari' ? `${milyar(m.simdi.a80[0])} / ${milyar(m.simdi.a80[1])}` : `${yuzdeYaz(m.simdi.a80[0], 2)} / ${yuzdeYaz(m.simdi.a80[1], 2)}`}
+                </dd>
+                <dd class="veri-degisim">%95 aralık: {ad === 'cari' ? `${milyar(m.simdi.a95[0])} / ${milyar(m.simdi.a95[1])}` : `${yuzdeYaz(m.simdi.a95[0], 2)} / ${yuzdeYaz(m.simdi.a95[1], 2)}`}</dd>
+              </div>
+            </dl>
+            <p class="veri-notu">
+              Örneklem dışı hata {hataYaz(ad, m.karne.tum.model)}, en iyi tabanınki {hataYaz(ad, m.karne.tum.bazlar[m.karne.enIyiBaz])} ({BAZ_AD[m.karne.enIyiBaz]}).
+              {c.n > 0 && ` Canlı karne: yayımlanan ${c.n} tahminin hatası ${hataYaz(ad, c.rmse)}.`}{' '}
+              <a href={`#${ad}`}>Karne ve yöntem</a>
+            </p>
+            {ad === 'cari' && (
+              <ZamanGrafik
+                baslik="Cari denge: tahmin ve gerçekleşen"
+                ipucu="Milyar dolar, aylık · Son 24 ayın tahmini, o aydan önceki verilerle kurulan modelden"
+                kaynak="Kaynak: TCMB ödemeler dengesi ve TÜİK dış ticaret verisi (EVDS); tahmin finfolis modeli."
+                siklik="ay"
+                birim="milyarUsd"
+                ondalik={2}
+                seriIdleri={['gercek', 'tahmin', 'alt', 'ust']}
+                noktalar={cariNoktalar}
+                gruplar={cariGruplar}
+                referans={{ deger: 0, ad: 'Sıfır' }}
+                araliksiz
+              />
+            )}
+          </div>
+        );
+      })}
+      {ppkYayinda && (
+        <div class="tahmin-kart">
+          <h3 class="tahmin-alt-baslik">PPK karar yönü, {gunYaz(ppk.simdi.tarih)} toplantısı</h3>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>İndirim</dt>
+              <dd>{yuzdeYaz(100 * ppk.simdi.olasilik[0], 0)}</dd>
+              <dd class="veri-degisim">{gunYaz(ppk.simdi.tarih)} toplantısı</dd>
+            </div>
+            <div>
+              <dt>Sabit</dt>
+              <dd>{yuzdeYaz(100 * ppk.simdi.olasilik[1], 0)}</dd>
+              <dd class="veri-degisim">Model olasılığı, tavsiye değildir</dd>
+            </div>
+            <div>
+              <dt>Artırım</dt>
+              <dd>{yuzdeYaz(100 * ppk.simdi.olasilik[2], 0)}</dd>
+              <dd class="veri-degisim">Adım büyüklüğü tahmin edilmez</dd>
+            </div>
+          </dl>
+          <p class="tahmin-uyari">
+            <strong>Az gözlem uyarısı:</strong> Model {ppk.karne.n} kararla sınandı; olasılıkların güvenilirliği sınırlıdır.
+          </p>
+        </div>
+      )}
     </section>
 
     <section class="bolum" aria-labelledby="karne-ozet">
@@ -151,7 +202,7 @@ const jsonLd = sayfaSemasi({ yol: yol2, ad: baslik, aciklama: description, sayfa
               return (
                 <tr>
                   <td><a href={`#${ad}`}>{MODEL_AD[ad]}</a></td>
-                  <td>{M[ad].gecti ? 'Yayında' : 'Rakam vermiyor'}</td>
+                  <td>{durumYaz(ad)}</td>
                   <td class="sag">{hataYaz(ad, k.tum.model)}</td>
                   <td class="sag">{hataYaz(ad, k.tum.bazlar[b])}<br /><small>{BAZ_AD[b]}</small></td>
                   <td class="sag">{hataYaz(ad, k.son.model)} / {hataYaz(ad, k.son.bazlar[b])}</td>
@@ -160,7 +211,7 @@ const jsonLd = sayfaSemasi({ yol: yol2, ad: baslik, aciklama: description, sayfa
             })}
             <tr>
               <td><a href="#ppk">{MODEL_AD.ppk}</a></td>
-              <td>{ppk.gecti ? 'Yayında' : 'Rakam vermiyor'}</td>
+              <td>{durumYaz('ppk')}</td>
               <td class="sag">Brier {sayiYaz(ppk.karne.brierModel, 3)}</td>
               <td class="sag">Brier {sayiYaz(ppk.karne.brierBaz, 3)}<br /><small>Son kararın yönüne göre sıklık</small></td>
               <td class="sag">–</td>
@@ -179,33 +230,21 @@ const jsonLd = sayfaSemasi({ yol: yol2, ad: baslik, aciklama: description, sayfa
       </p>
     </section>
 
+    <section class="bolum tahmin-model" aria-labelledby="ayrinti-baslik">
+      <h2 id="ayrinti-baslik" class="bolum-baslik">Modeller: karne ve yöntem</h2>
     {
       ekkModeller.map((ad) => {
         const m = M[ad];
         const k = m.karne;
         const c = canli(ad);
         return (
-          <section class="bolum tahmin-model" id={ad} aria-labelledby={`${ad}-baslik`}>
-            <h2 id={`${ad}-baslik`} class="bolum-baslik">
-              {MODEL_AD[ad]} {ad === 'sanayi' ? 'anlık tahmini (yıllık değişim)' : 'anlık tahmini'}
-            </h2>
-            {m.gecti && m.simdi ? (
-              <dl class="veri-rakamlar">
-                <div>
-                  <dt>{ayYaz(m.simdi.ay)} tahmini</dt>
-                  <dd>{ad === 'cari' ? milyar(m.simdi.tahmin) : yuzdeYaz(m.simdi.tahmin, 2)}</dd>
-                  <dd class="veri-degisim">Model tahmini, {m.surum}</dd>
-                </div>
-                <div>
-                  <dt>%80 aralık</dt>
-                  <dd class="tahmin-aralik">
-                    {ad === 'cari' ? `${milyar(m.simdi.a80[0])} / ${milyar(m.simdi.a80[1])}` : `${yuzdeYaz(m.simdi.a80[0], 2)} / ${yuzdeYaz(m.simdi.a80[1], 2)}`}
-                  </dd>
-                  <dd class="veri-degisim">%95 aralık: {ad === 'cari' ? `${milyar(m.simdi.a95[0])} / ${milyar(m.simdi.a95[1])}` : `${yuzdeYaz(m.simdi.a95[0], 2)} / ${yuzdeYaz(m.simdi.a95[1], 2)}`}</dd>
-                </div>
-              </dl>
-            ) : m.gecti ? (
-              <p class="tahmin-durum">Model yayında. Şu an tahmin edilecek ay yok: son açıklanan ayın sonraki ayı için girdi verisi henüz gelmedi.</p>
+          <details class="tahmin-ayrinti" id={ad}>
+            <summary>
+              <span>{MODEL_AD[ad]} {ad === 'sanayi' ? 'anlık tahmini (yıllık değişim)' : 'anlık tahmini'}</span>
+              <span class="tahmin-rozet">{durumYaz(ad)}</span>
+            </summary>
+            {m.gecti ? (
+              <p class="tahmin-durum">Model kapıdan geçti; güncel tahmini sayfanın üstünde.</p>
             ) : (
               <p class="tahmin-durum">
                 <strong>Taban model daha iyi.</strong> Model sınamada kapıdan geçemediği için rakam vermiyor. En güçlü
@@ -251,22 +290,6 @@ const jsonLd = sayfaSemasi({ yol: yol2, ad: baslik, aciklama: description, sayfa
                 ` Canlı karne: yayımlanan ${c.n} tahminin hatası ${hataYaz(ad, c.rmse)}. Gerçekleşenin %80 aralıkta kaldığı tahminlerin payı ${oran(c.kapsama80)}.`}
             </p>
 
-            {ad === 'cari' && m.gecti && (
-              <ZamanGrafik
-                baslik="Cari denge: tahmin ve gerçekleşen"
-                ipucu="Milyar dolar, aylık · Son 24 ayın tahmini, o aydan önceki verilerle kurulan modelden"
-                kaynak="Kaynak: TCMB ödemeler dengesi ve TÜİK dış ticaret verisi (EVDS); tahmin finfolis modeli."
-                siklik="ay"
-                birim="milyarUsd"
-                ondalik={2}
-                seriIdleri={['gercek', 'tahmin', 'alt', 'ust']}
-                noktalar={cariNoktalar}
-                gruplar={cariGruplar}
-                referans={{ deger: 0, ad: 'Sıfır' }}
-                araliksiz
-              />
-            )}
-
             <div class="prose veri-aciklama tahmin-yontem">
               <h3>Yöntem</h3>
               {ad === 'tufe' && (
@@ -300,32 +323,18 @@ const jsonLd = sayfaSemasi({ yol: yol2, ad: baslik, aciklama: description, sayfa
                 </p>
               )}
             </div>
-          </section>
+          </details>
         );
       })
     }
-
-    <section class="bolum tahmin-model" id="ppk" aria-labelledby="ppk-baslik">
-      <h2 id="ppk-baslik" class="bolum-baslik">PPK karar yönü olasılığı</h2>
+    <details class="tahmin-ayrinti" id="ppk">
+      <summary>
+        <span>PPK karar yönü olasılığı</span>
+        <span class="tahmin-rozet">{durumYaz('ppk')}</span>
+      </summary>
       {
-        ppk.gecti && ppk.simdi ? (
-          <dl class="veri-rakamlar">
-            <div>
-              <dt>İndirim</dt>
-              <dd>{yuzdeYaz(100 * ppk.simdi.olasilik[0], 0)}</dd>
-              <dd class="veri-degisim">{gunYaz(ppk.simdi.tarih)} toplantısı</dd>
-            </div>
-            <div>
-              <dt>Sabit</dt>
-              <dd>{yuzdeYaz(100 * ppk.simdi.olasilik[1], 0)}</dd>
-              <dd class="veri-degisim">Model olasılığı, tavsiye değildir</dd>
-            </div>
-            <div>
-              <dt>Artırım</dt>
-              <dd>{yuzdeYaz(100 * ppk.simdi.olasilik[2], 0)}</dd>
-              <dd class="veri-degisim">Adım büyüklüğü tahmin edilmez</dd>
-            </div>
-          </dl>
+        ppk.gecti ? (
+          <p class="tahmin-durum">Model kapıdan geçti; olasılıklar sayfanın üstünde.</p>
         ) : (
           <p class="tahmin-durum">
             <strong>Taban model daha iyi.</strong> Model, son kararın yönüne dayanan tabanı anlamlı bir farkla
@@ -400,139 +409,7 @@ const jsonLd = sayfaSemasi({ yol: yol2, ad: baslik, aciklama: description, sayfa
           örtüştüğünü gösterir. Olasılıklar karar gününden önce sosyal medyada ya da Telegram’da ayrıca duyurulmaz.
         </p>
       </div>
-    </section>
-
-    <section class="bolum tahmin-model" id="yol" aria-labelledby="yol-baslik">
-      <h2 id="yol-baslik" class="bolum-baslik">Yıllık enflasyon yolu hesap makinesi</h2>
-      <p>
-        Hesap makinesi baz etkisini hesaplar, tahmin vermez. Yıllık enflasyon son 12 ayın aylık değişimlerinden oluşur; her yeni ay
-        eklendiğinde bir yıl önceki ay hesaptan çıkar (baz etkisi). Önümüzdeki ayların aylık enflasyonu için bir varsayım
-        yazıldığında, tablo yıllık enflasyonun izleyeceği yolu hesaplar. Son açıklanan veri: {ayYaz(yol.sonAy)}, yıllık
-        {' '}{yuzdeYaz(yol.sonYillik, 2)}.
-      </p>
-      <form class="yol-form" data-yol-form>
-        <label>
-          Aylık enflasyon varsayımı (%)
-          <input type="number" step="0.1" min="-5" max="20" value={sayiYaz(ppkAylik, 2).replace(',', '.')} data-yol-oran inputmode="decimal" />
-        </label>
-        <label class="yol-secim">
-          <input type="checkbox" checked data-yol-pka />
-          İlk üç ay için PKA’nın aylık beklentilerini kullan
-        </label>
-      </form>
-      <p class="veri-notu">
-        Açılış değeri {sayiYaz(ppkAylik, 2)}: PKA’nın {ayYaz(yol.pka.ay)} anketindeki 12 ay sonrası beklentisine
-        ({yuzdeYaz(yol.pka.ay12, 2)}) denk gelen sabit aylık oran. PKA’nın aylık beklentileri: {ayYaz(yol.pka.ay)}{' '}
-        {yuzdeYaz(yol.pka.cari, 2)}, sonraki ay {yuzdeYaz(yol.pka.bir, 2)}, ondan sonraki ay {yuzdeYaz(yol.pka.iki, 2)}.
-      </p>
-      <div class="tablo-sarma">
-        <table class="cizelge veri-tablo" data-yol-tablo>
-          <thead>
-            <tr>
-              <th scope="col">Ay</th>
-              <th scope="col" class="sag">Varsayılan aylık</th>
-              <th scope="col" class="sag">Hesaptan çıkan ay</th>
-              <th scope="col" class="sag">Yıllık enflasyon</th>
-            </tr>
-          </thead>
-          <tbody data-yol-govde></tbody>
-        </table>
-      </div>
-      <noscript><p class="veri-notu">Hesap makinesi tarayıcıda JavaScript ile çalışır.</p></noscript>
-
-      <h3 class="tahmin-alt-baslik">PKA beklentisi ve geçmiş hatası</h3>
-      <p>
-        PKA katılımcılarının {ayYaz(yol.pkaAralik.ay)} itibarıyla 12 ay sonrası için yıllık enflasyon beklentisi{' '}
-        {yuzdeYaz(yol.pkaAralik.beklenti, 2)}. Geçmiş hatalara göre %80 aralık {yuzdeYaz(yol.pkaAralik.a80[0], 1)} –{' '}
-        {yuzdeYaz(yol.pkaAralik.a80[1], 1)}. Bu beklenti anket sonucudur, finfolis’in tahmini değildir.
-      </p>
-      <p class="veri-notu">
-        {yol.pkaKarne.hataSayisi} beklentinin hatası (12 ay sonra gerçekleşen eksi beklenti) ortalamada{' '}
-        {isaretli(yol.pkaKarne.ortalamaHata, 1)} puan, kök ortalama kare hatası {puan(yol.pkaKarne.rmse, 1)}. Aralık,
-        hataların mutlak değerinin %80 ve %95 yüzdeliklerinden kurulur; merkez PKA beklentisinde kalır, ortalama sapma
-        düzeltmesi yapılmaz. 2021–2023’teki büyük hatalar aralığı genişletir. %95 aralığın alt ucu sıfırın altına
-        düştüğü ({yuzdeYaz(yol.pkaAralik.a95[0], 1)} – {yuzdeYaz(yol.pkaAralik.a95[1], 1)}) için anlamlı bir aralık
-        sayılmaz. Hatalar aynı yöne yığıldığı için aralıklar geçmişte söz verdiklerinden az kapsadı. Ölçülen{' '}
-        {yol.pkaKarne.olcuSayisi} ayda (başlangıç: {ayYaz(yol.pkaKarne.ilk)}) gerçekleşen enflasyon %80 aralığın içinde{' '}
-        {oran(yol.pkaKarne.kapsama80)}, %95 aralığın içinde {oran(yol.pkaKarne.kapsama95)} oranında kaldı.
-      </p>
-      <ZamanGrafik
-        baslik="PKA beklentisi ve gerçekleşen enflasyon"
-        ipucu="Yüzde · Her ayda, 12 ay önce anketin o ay için beklediği yıllık TÜFE ile gerçekleşen yıllık TÜFE"
-        kaynak="Kaynak: TCMB Piyasa Katılımcıları Anketi (EVDS), TÜİK verisi."
-        siklik="ay"
-        birim="yuzde"
-        seriIdleri={['gercek', 'beklenti']}
-        noktalar={yolNoktalar}
-        gruplar={yolGruplar}
-      />
-      <script type="application/json" data-yol-veri set:html={JSON.stringify({ gecmis: yol.aylikGecmis, pka: yol.pka })} />
-    </section>
-
-    <section class="bolum tahmin-model" id="taylor" aria-labelledby="taylor-baslik">
-      <h2 id="taylor-baslik" class="bolum-baslik">Taylor kuralı bandı</h2>
-      <p>
-        Taylor kuralı, politika faizini enflasyona ve enflasyonun hedeften uzaklığına bağlayan basit bir formüldür. Bant,
-        kuralın bugünkü verilerle hangi faizi verdiğini gösterir; TCMB’nin kararlarını değerlendirmek için kurulmadı.
-        Varsayımlar tartışmalı olduğu için tek rakam yerine, aşağıdaki varsayımların bütün birleşimlerinden çıkan en düşük
-        ve en yüksek faiz verilir.
-      </p>
-      <dl class="veri-rakamlar">
-        <div>
-          <dt>Kural bandı</dt>
-          <dd>{yuzdeYaz(taylor.son.alt, 1)} – {yuzdeYaz(taylor.son.ust, 1)}</dd>
-          <dd class="veri-degisim">{ayYaz(taylor.son.ay)}, {varyantlar.length} varyant</dd>
-        </div>
-        <div>
-          <dt>Politika faizi</dt>
-          <dd>%{oranYaz(taylor.son.faiz)}</dd>
-          <dd class="veri-degisim">{ayYaz(taylor.son.ay)} sonu, TCMB</dd>
-        </div>
-      </dl>
-      <div class="prose veri-aciklama tahmin-yontem">
-        <h3>Varsayımlar</h3>
-        <ul>
-          <li>Formül: faiz = r* + π + a × (π − π*). Çıktı açığı terimi yok; Türkiye için aylık resmi çıktı açığı serisi yayımlanmıyor.</li>
-          <li>r* (nötr reel faiz): %{taylor.varsayimlar.rYildiz.join(', %')}. Türkiye için resmi bir r* tahmini yok; değerler varsayımdır.</li>
-          <li>a (enflasyon sapmasına tepki): {taylor.varsayimlar.a.map((v: number) => sayiYaz(v, 1)).join(' ve ')}. Taylor’ın özgün formülünde 0,5.</li>
-          <li>π (enflasyon): ya gerçekleşen yıllık TÜFE ya da PKA’nın 12 ay sonrası beklentisi.</li>
-          <li>π* (hedef): %{taylor.varsayimlar.hedef}, TCMB’nin enflasyon hedefi.</li>
-          <li>Grafiğin başlangıcı: {ayYaz(taylor.varsayimlar.baslangic)}. Öncesinde TCMB faiz koridoru uyguluyordu; bir hafta vadeli repo faizi fonlamanın maliyetini tek başına göstermiyordu.</li>
-        </ul>
-      </div>
-      <ZamanGrafik
-        baslik="Politika faizi ve Taylor kuralı bandı"
-        ipucu="Yüzde, ay sonu · Bant, varsayımların bütün birleşimlerinde kuralın verdiği en düşük ve en yüksek faiz"
-        kaynak="Kaynak: TCMB (politika faizi, PKA), TÜİK verisi; bant finfolis hesaplaması."
-        siklik="ay"
-        birim="yuzde"
-        seriIdleri={['faiz', 'alt', 'ust']}
-        noktalar={taylorNoktalar}
-        gruplar={taylorGruplar}
-      />
-      <div class="tablo-sarma">
-        <table class="cizelge veri-tablo">
-          <thead>
-            <tr>
-              <th scope="col">Enflasyon ölçüsü</th>
-              <th scope="col" class="sag">r*</th>
-              <th scope="col" class="sag">a</th>
-              <th scope="col" class="sag">Kuralın faizi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {varyantlar.map((v: any) => (
-              <tr>
-                <td>{v.kaynak === 'tufe' ? 'Yıllık TÜFE' : 'PKA 12 ay beklentisi'}</td>
-                <td class="sag">%{v.r}</td>
-                <td class="sag">{sayiYaz(v.a, 1)}</td>
-                <td class="sag">{yuzdeYaz(v.faiz, 1)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p class="veri-notu">{ayYaz(taylor.son.ay)} verisiyle, her varsayım birleşimi için formülün sonucu.</p>
+    </details>
     </section>
 
     <section class="bolum" id="arsiv" aria-labelledby="arsiv-baslik">
@@ -582,52 +459,12 @@ const jsonLd = sayfaSemasi({ yol: yol2, ad: baslik, aciklama: description, sayfa
       <a href="/veri/enflasyon-beklentisi/">Enflasyon beklentisi</a>
       <a href="/veri/cari-denge/">Cari denge</a>
       <a href="/veri/ppk-tonu/">PPK metin tonu</a>
+      <a href="/veri/enflasyon-yolu/">Enflasyon yolu</a>
+      <a href="/veri/taylor-kurali/">Taylor kuralı bandı</a>
     </nav>
     <YasalUyari>Bu sayfadaki rakamlar finfolis modellerinin tahminidir, tavsiye değildir. Kur, borsa, altın ya da tahvil faizi tahmini içermez.</YasalUyari>
   </div>
 </Base>
-
-<script>
-  const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
-  const veriEl = document.querySelector('[data-yol-veri]');
-  const govde = document.querySelector('[data-yol-govde]');
-  const oranEl = document.querySelector<HTMLInputElement>('[data-yol-oran]');
-  const pkaEl = document.querySelector<HTMLInputElement>('[data-yol-pka]');
-  if (veriEl && govde && oranEl && pkaEl) {
-    const { gecmis, pka } = JSON.parse(veriEl.textContent || '{}') as {
-      gecmis: { ay: string; aylik: number }[];
-      pka: { ay: string; cari: number; bir: number; iki: number };
-    };
-    const t = (a: string) => Number(a.slice(0, 4)) * 12 + Number(a.slice(5, 7)) - 1;
-    const ad = (k: number) => `${AYLAR[k % 12]} ${Math.floor(k / 12)}`;
-    const sayi = (n: number, o: number) => n.toLocaleString('tr-TR', { minimumFractionDigits: o, maximumFractionDigits: o });
-    const yuzde = (n: number, o = 2) => `${n < 0 ? '−' : ''}%${sayi(Math.abs(n), o)}`;
-    const ciz = () => {
-      const v = Number(String(oranEl.value).replace(',', '.'));
-      if (!Number.isFinite(v)) return;
-      const son = t(gecmis[gecmis.length - 1].ay);
-      const pkaT = t(pka.ay);
-      const dizi = gecmis.map((g) => ({ k: t(g.ay), aylik: g.aylik }));
-      const satirlar: string[] = [];
-      for (let i = 1; i <= 12; i++) {
-        const k = son + i;
-        const fark = k - pkaT;
-        const aylik = pkaEl.checked && fark >= 0 && fark <= 2 ? [pka.cari, pka.bir, pka.iki][fark] : v;
-        const cikan = dizi.find((d) => d.k === k - 12);
-        dizi.push({ k, aylik });
-        const son12 = dizi.slice(-12);
-        const yillik = 100 * (son12.reduce((c, d) => c * (1 + d.aylik / 100), 1) - 1);
-        satirlar.push(
-          `<tr><td>${ad(k)}</td><td class="sag">${yuzde(aylik)}</td><td class="sag">${cikan ? `${ad(cikan.k)}: ${yuzde(cikan.aylik)}` : '–'}</td><td class="sag"><strong>${yuzde(yillik, 1)}</strong></td></tr>`,
-        );
-      }
-      govde.innerHTML = satirlar.join('');
-    };
-    oranEl.addEventListener('input', ciz);
-    pkaEl.addEventListener('change', ciz);
-    ciz();
-  }
-</script>
 
 <style>
   .tablo-sarma {
@@ -635,6 +472,9 @@ const jsonLd = sayfaSemasi({ yol: yol2, ad: baslik, aciklama: description, sayfa
   }
   .tahmin-model {
     margin-top: 2.5rem;
+  }
+  .tahmin-kart + .tahmin-kart {
+    margin-top: 2rem;
   }
   .tahmin-durum,
   .tahmin-uyari {
@@ -651,33 +491,39 @@ const jsonLd = sayfaSemasi({ yol: yol2, ad: baslik, aciklama: description, sayfa
     font-size: 1.05rem;
     margin: 1.5rem 0 0.5rem;
   }
-  .yol-form {
+  .tahmin-ayrinti {
+    border-top: 1px solid var(--soluk, #e4e1d7);
+  }
+  .tahmin-ayrinti:last-of-type {
+    border-bottom: 1px solid var(--soluk, #e4e1d7);
+  }
+  .tahmin-ayrinti > summary {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem 1.5rem;
-    align-items: end;
-    margin: 1rem 0 0.5rem;
-  }
-  .yol-form label {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    padding: 0.9rem 0;
     font-weight: 600;
+    cursor: pointer;
   }
-  .yol-form .yol-secim {
-    flex-direction: row;
-    align-items: center;
+  .tahmin-ayrinti > :last-child {
+    margin-bottom: 1.25rem;
+  }
+  .tahmin-rozet {
     font-weight: 400;
-  }
-  .yol-form input[type='number'] {
-    width: 8rem;
-    padding: 0.4rem 0.5rem;
-    font: inherit;
-    border: 1px solid currentColor;
-    border-radius: 4px;
-    background: transparent;
+    color: var(--gri, #5d5b55);
   }
   td small {
     color: var(--gri, #5d5b55);
   }
 </style>
+
+<script>
+  // Karne tablosundaki ve tahmin kartlarındaki bağlantılar kapalı ayrıntı kutusunu açar.
+  const ac = () => {
+    const hedef = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (hedef instanceof HTMLDetailsElement) hedef.open = true;
+  };
+  window.addEventListener('hashchange', ac);
+  ac();
+</script>

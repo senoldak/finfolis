@@ -1,0 +1,133 @@
+---
+// Taylor kuralı bandı: bir ölçü, tahmin değil. Varyantlar ve seri scripts/veri/tahmin.mjs'ten (src/data/tahmin.json,
+// taylor bölümü); formül ve varsayımlar src/lib/tahmin/modeller.mjs TAYLOR.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { AYLAR, sayiYaz, yuzdeYaz, oranYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import tahmin from '../../data/tahmin.json';
+
+const T = tahmin as any;
+const ayYaz = (a: string) => `${AYLAR[Number(a.slice(5, 7)) - 1]} ${a.slice(0, 4)}`;
+const ayT = (a: string) => Number(a.slice(0, 4)) * 12 + Number(a.slice(5, 7)) - 1;
+
+// Taylor bandı.
+const taylor = T.taylor;
+const taylorGruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'faiz', ad: 'Politika faizi', renk: 'murekkep' as const },
+      { id: 'alt', ad: 'Kural bandının alt ucu', renk: 'mavi' as const, kesik: true },
+      { id: 'ust', ad: 'Kural bandının üst ucu', renk: 'yesil' as const, kesik: true },
+    ],
+  },
+];
+const taylorNoktalar = taylor.seri.map((s: any) => [ayT(s.ay), s.faiz, s.alt, s.ust]);
+const varyantlar = [...taylor.son.varyantlar].sort((a: any, b: any) => a.faiz - b.faiz);
+
+const baslik = 'Taylor kuralı bandı';
+const description = `Taylor kuralının ${ayYaz(taylor.son.ay)} verisiyle verdiği faiz bandı: ${yuzdeYaz(taylor.son.alt, 1)} ile ${yuzdeYaz(taylor.son.ust, 1)} arası; politika faizi %${oranYaz(taylor.son.faiz)}. Varsayımlar açık, finfolis hesaplaması.`;
+const yolu = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/taylor-kurali/' },
+];
+const jsonLd = sayfaSemasi({ yol: yolu, ad: baslik, aciklama: description, sayfaEk: { dateModified: T.guncelleme } });
+---
+
+<Base title={baslik} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yolu} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Kural ne derdi · finfolis hesaplaması, TCMB ve TÜİK verisi</p>
+    </header>
+    <section class="bolum">
+      <p>
+        Taylor kuralı, politika faizini enflasyona ve enflasyonun hedeften uzaklığına bağlayan basit bir formüldür. Bant,
+        kuralın bugünkü verilerle hangi faizi verdiğini gösterir; TCMB’nin kararlarını değerlendirmek için kurulmadı.
+        Varsayımlar tartışmalı olduğu için tek rakam yerine, aşağıdaki varsayımların bütün birleşimlerinden çıkan en düşük
+        ve en yüksek faiz verilir.
+      </p>
+      <dl class="veri-rakamlar">
+        <div>
+          <dt>Kural bandı</dt>
+          <dd>{yuzdeYaz(taylor.son.alt, 1)} – {yuzdeYaz(taylor.son.ust, 1)}</dd>
+          <dd class="veri-degisim">{ayYaz(taylor.son.ay)}, {varyantlar.length} varyant</dd>
+        </div>
+        <div>
+          <dt>Politika faizi</dt>
+          <dd>%{oranYaz(taylor.son.faiz)}</dd>
+          <dd class="veri-degisim">{ayYaz(taylor.son.ay)} sonu, TCMB</dd>
+        </div>
+      </dl>
+      <div class="prose veri-aciklama tahmin-yontem">
+        <h3>Varsayımlar</h3>
+        <ul>
+          <li>Formül: faiz = r* + π + a × (π − π*). Çıktı açığı terimi yok; Türkiye için aylık resmi çıktı açığı serisi yayımlanmıyor.</li>
+          <li>r* (nötr reel faiz): %{taylor.varsayimlar.rYildiz.join(', %')}. Türkiye için resmi bir r* tahmini yok; değerler varsayımdır.</li>
+          <li>a (enflasyon sapmasına tepki): {taylor.varsayimlar.a.map((v: number) => sayiYaz(v, 1)).join(' ve ')}. Taylor’ın özgün formülünde 0,5.</li>
+          <li>π (enflasyon): ya gerçekleşen yıllık TÜFE ya da PKA’nın 12 ay sonrası beklentisi.</li>
+          <li>π* (hedef): %{taylor.varsayimlar.hedef}, TCMB’nin enflasyon hedefi.</li>
+          <li>Grafiğin başlangıcı: {ayYaz(taylor.varsayimlar.baslangic)}. Öncesinde TCMB faiz koridoru uyguluyordu; bir hafta vadeli repo faizi fonlamanın maliyetini tek başına göstermiyordu.</li>
+        </ul>
+      </div>
+      <ZamanGrafik
+        baslik="Politika faizi ve Taylor kuralı bandı"
+        ipucu="Yüzde, ay sonu · Bant, varsayımların bütün birleşimlerinde kuralın verdiği en düşük ve en yüksek faiz"
+        kaynak="Kaynak: TCMB (politika faizi, PKA), TÜİK verisi; bant finfolis hesaplaması."
+        siklik="ay"
+        birim="yuzde"
+        seriIdleri={['faiz', 'alt', 'ust']}
+        noktalar={taylorNoktalar}
+        gruplar={taylorGruplar}
+      />
+      <div class="tablo-sarma">
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col">Enflasyon ölçüsü</th>
+              <th scope="col" class="sag">r*</th>
+              <th scope="col" class="sag">a</th>
+              <th scope="col" class="sag">Kuralın faizi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {varyantlar.map((v: any) => (
+              <tr>
+                <td>{v.kaynak === 'tufe' ? 'Yıllık TÜFE' : 'PKA 12 ay beklentisi'}</td>
+                <td class="sag">%{v.r}</td>
+                <td class="sag">{sayiYaz(v.a, 1)}</td>
+                <td class="sag">{yuzdeYaz(v.faiz, 1)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="veri-notu">{ayYaz(taylor.son.ay)} verisiyle, her varsayım birleşimi için formülün sonucu.</p>
+    </section>
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+      <a href="/veri/reel-faiz/">Reel faiz</a>
+      <a href="/veri/enflasyon-yolu/">Enflasyon yolu</a>
+      <a href="/veri/tahmin/">Tahminler ve karneleri</a>
+    </nav>
+    <YasalUyari>Taylor kuralı bandı varsayımlara bağlı bir hesaplamadır; faiz tahmini ya da tavsiye değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+  .tahmin-yontem h3 {
+    font-size: 1.05rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+</style>

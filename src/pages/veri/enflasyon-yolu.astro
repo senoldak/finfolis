@@ -1,0 +1,209 @@
+---
+// Yıllık enflasyon yolu hesap makinesi: tahmin değil, baz etkisi aritmetiği. Açılış değerleri ve PKA beklentisinin geçmiş
+// hatası scripts/veri/tahmin.mjs'ten (src/data/tahmin.json, yol bölümü).
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { AYLAR, sayiYaz, yuzdeYaz, oranYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import tahmin from '../../data/tahmin.json';
+
+const T = tahmin as any;
+const ayYaz = (a: string) => `${AYLAR[Number(a.slice(5, 7)) - 1]} ${a.slice(0, 4)}`;
+const ayT = (a: string) => Number(a.slice(0, 4)) * 12 + Number(a.slice(5, 7)) - 1;
+const puan = (n: number, o = 2) => `${sayiYaz(n, o)} puan`;
+const isaretli = (n: number, o = 2) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${sayiYaz(Math.abs(n), o)}`;
+const oran = (n: number | null) => (n == null ? '–' : yuzdeYaz(100 * n, 0));
+
+// Yıllık enflasyon yolu.
+const yol = T.yol;
+const yolGruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'gercek', ad: 'Gerçekleşen yıllık TÜFE', renk: 'murekkep' as const },
+      { id: 'beklenti', ad: '12 ay önceki PKA beklentisi', renk: 'mavi' as const, kesik: true },
+    ],
+  },
+];
+const yolNoktalar = yol.seri.filter((s: any) => s.gercek != null).map((s: any) => [ayT(s.ay), s.gercek, s.beklenti]);
+const ppkAylik = (1 + yol.pka.ay12 / 100) ** (1 / 12) * 100 - 100;
+
+const baslik = 'Yıllık enflasyon yolu hesap makinesi';
+const description = `Aylık enflasyon varsayımına göre yıllık enflasyonun önümüzdeki 12 aydaki yolu, baz etkisiyle. Son veri ${ayYaz(yol.sonAy)}: yıllık ${yuzdeYaz(yol.sonYillik, 2)}. PKA beklentisi ve geçmiş hatasıyla.`;
+const yolu = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Enflasyon yolu', href: '/veri/enflasyon-yolu/' },
+];
+const jsonLd = sayfaSemasi({ yol: yolu, ad: baslik, aciklama: description, sayfaEk: { dateModified: T.guncelleme } });
+---
+
+<Base title={baslik} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yolu} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Baz etkisi hesabı · TÜİK verisi ve TCMB Piyasa Katılımcıları Anketi</p>
+    </header>
+    <section class="bolum">
+      <p>
+        Hesap makinesi baz etkisini hesaplar, tahmin vermez. Yıllık enflasyon son 12 ayın aylık değişimlerinden oluşur; her yeni ay
+        eklendiğinde bir yıl önceki ay hesaptan çıkar (baz etkisi). Önümüzdeki ayların aylık enflasyonu için bir varsayım
+        yazıldığında, tablo yıllık enflasyonun izleyeceği yolu hesaplar. Son açıklanan veri: {ayYaz(yol.sonAy)}, yıllık
+        {' '}{yuzdeYaz(yol.sonYillik, 2)}.
+      </p>
+      <form class="yol-form" data-yol-form>
+        <label>
+          Aylık enflasyon varsayımı (%)
+          <input type="number" step="0.1" min="-5" max="20" value={sayiYaz(ppkAylik, 2).replace(',', '.')} data-yol-oran inputmode="decimal" />
+        </label>
+        <label class="yol-secim">
+          <input type="checkbox" checked data-yol-pka />
+          İlk üç ay için PKA’nın aylık beklentilerini kullan
+        </label>
+      </form>
+      <p class="veri-notu">
+        Açılış değeri {sayiYaz(ppkAylik, 2)}: PKA’nın {ayYaz(yol.pka.ay)} anketindeki 12 ay sonrası beklentisine
+        ({yuzdeYaz(yol.pka.ay12, 2)}) denk gelen sabit aylık oran. PKA’nın aylık beklentileri: {ayYaz(yol.pka.ay)}{' '}
+        {yuzdeYaz(yol.pka.cari, 2)}, sonraki ay {yuzdeYaz(yol.pka.bir, 2)}, ondan sonraki ay {yuzdeYaz(yol.pka.iki, 2)}.
+      </p>
+      <div class="tablo-sarma">
+        <table class="cizelge veri-tablo" data-yol-tablo>
+          <thead>
+            <tr>
+              <th scope="col">Ay</th>
+              <th scope="col" class="sag">Varsayılan aylık</th>
+              <th scope="col" class="sag">Hesaptan çıkan ay</th>
+              <th scope="col" class="sag">Yıllık enflasyon</th>
+            </tr>
+          </thead>
+          <tbody data-yol-govde></tbody>
+        </table>
+      </div>
+      <noscript><p class="veri-notu">Hesap makinesi tarayıcıda JavaScript ile çalışır.</p></noscript>
+
+    </section>
+
+    <section class="bolum tahmin-model">
+      <h2 class="bolum-baslik">PKA beklentisi ve geçmiş hatası</h2>
+      <p>
+        PKA katılımcılarının {ayYaz(yol.pkaAralik.ay)} itibarıyla 12 ay sonrası için yıllık enflasyon beklentisi{' '}
+        {yuzdeYaz(yol.pkaAralik.beklenti, 2)}. Geçmiş hatalara göre %80 aralık {yuzdeYaz(yol.pkaAralik.a80[0], 1)} –{' '}
+        {yuzdeYaz(yol.pkaAralik.a80[1], 1)}. Bu beklenti anket sonucudur, finfolis’in tahmini değildir.
+      </p>
+      <p class="veri-notu">
+        {yol.pkaKarne.hataSayisi} beklentinin hatası (12 ay sonra gerçekleşen eksi beklenti) ortalamada{' '}
+        {isaretli(yol.pkaKarne.ortalamaHata, 1)} puan, kök ortalama kare hatası {puan(yol.pkaKarne.rmse, 1)}. Aralık,
+        hataların mutlak değerinin %80 ve %95 yüzdeliklerinden kurulur; merkez PKA beklentisinde kalır, ortalama sapma
+        düzeltmesi yapılmaz. 2021–2023’teki büyük hatalar aralığı genişletir. %95 aralığın alt ucu sıfırın altına
+        düştüğü ({yuzdeYaz(yol.pkaAralik.a95[0], 1)} – {yuzdeYaz(yol.pkaAralik.a95[1], 1)}) için anlamlı bir aralık
+        sayılmaz. Hatalar aynı yöne yığıldığı için aralıklar geçmişte söz verdiklerinden az kapsadı. Ölçülen{' '}
+        {yol.pkaKarne.olcuSayisi} ayda (başlangıç: {ayYaz(yol.pkaKarne.ilk)}) gerçekleşen enflasyon %80 aralığın içinde{' '}
+        {oran(yol.pkaKarne.kapsama80)}, %95 aralığın içinde {oran(yol.pkaKarne.kapsama95)} oranında kaldı.
+      </p>
+      <ZamanGrafik
+        baslik="PKA beklentisi ve gerçekleşen enflasyon"
+        ipucu="Yüzde · Her ayda, 12 ay önce anketin o ay için beklediği yıllık TÜFE ile gerçekleşen yıllık TÜFE"
+        kaynak="Kaynak: TCMB Piyasa Katılımcıları Anketi (EVDS), TÜİK verisi."
+        siklik="ay"
+        birim="yuzde"
+        seriIdleri={['gercek', 'beklenti']}
+        noktalar={yolNoktalar}
+        gruplar={yolGruplar}
+      />
+      <script type="application/json" data-yol-veri set:html={JSON.stringify({ gecmis: yol.aylikGecmis, pka: yol.pka })} />
+    </section>
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/enflasyon-beklentisi/">Enflasyon beklentisi</a>
+      <a href="/veri/tahmin/">Tahminler ve karneleri</a>
+      <a href="/veri/taylor-kurali/">Taylor kuralı bandı</a>
+    </nav>
+    <YasalUyari>Hesap makinesi girilen varsayımın aritmetik sonucunu gösterir; tahmin ya da tavsiye değildir. PKA beklentisi TCMB anketinin sonucudur.</YasalUyari>
+  </div>
+</Base>
+
+<script>
+  const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+  const veriEl = document.querySelector('[data-yol-veri]');
+  const govde = document.querySelector('[data-yol-govde]');
+  const oranEl = document.querySelector<HTMLInputElement>('[data-yol-oran]');
+  const pkaEl = document.querySelector<HTMLInputElement>('[data-yol-pka]');
+  if (veriEl && govde && oranEl && pkaEl) {
+    const { gecmis, pka } = JSON.parse(veriEl.textContent || '{}') as {
+      gecmis: { ay: string; aylik: number }[];
+      pka: { ay: string; cari: number; bir: number; iki: number };
+    };
+    const t = (a: string) => Number(a.slice(0, 4)) * 12 + Number(a.slice(5, 7)) - 1;
+    const ad = (k: number) => `${AYLAR[k % 12]} ${Math.floor(k / 12)}`;
+    const sayi = (n: number, o: number) => n.toLocaleString('tr-TR', { minimumFractionDigits: o, maximumFractionDigits: o });
+    const yuzde = (n: number, o = 2) => `${n < 0 ? '−' : ''}%${sayi(Math.abs(n), o)}`;
+    const ciz = () => {
+      const v = Number(String(oranEl.value).replace(',', '.'));
+      if (!Number.isFinite(v)) return;
+      const son = t(gecmis[gecmis.length - 1].ay);
+      const pkaT = t(pka.ay);
+      const dizi = gecmis.map((g) => ({ k: t(g.ay), aylik: g.aylik }));
+      const satirlar: string[] = [];
+      for (let i = 1; i <= 12; i++) {
+        const k = son + i;
+        const fark = k - pkaT;
+        const aylik = pkaEl.checked && fark >= 0 && fark <= 2 ? [pka.cari, pka.bir, pka.iki][fark] : v;
+        const cikan = dizi.find((d) => d.k === k - 12);
+        dizi.push({ k, aylik });
+        const son12 = dizi.slice(-12);
+        const yillik = 100 * (son12.reduce((c, d) => c * (1 + d.aylik / 100), 1) - 1);
+        satirlar.push(
+          `<tr><td>${ad(k)}</td><td class="sag">${yuzde(aylik)}</td><td class="sag">${cikan ? `${ad(cikan.k)}: ${yuzde(cikan.aylik)}` : '–'}</td><td class="sag"><strong>${yuzde(yillik, 1)}</strong></td></tr>`,
+        );
+      }
+      govde.innerHTML = satirlar.join('');
+    };
+    oranEl.addEventListener('input', ciz);
+    pkaEl.addEventListener('change', ciz);
+    ciz();
+  }
+</script>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+  .tahmin-model {
+    margin-top: 2.5rem;
+  }
+  .yol-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    align-items: end;
+    margin: 1rem 0 0.5rem;
+  }
+  .yol-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-weight: 600;
+  }
+  .yol-form .yol-secim {
+    flex-direction: row;
+    align-items: center;
+    font-weight: 400;
+  }
+  .yol-form input[type='number'] {
+    width: 8rem;
+    padding: 0.4rem 0.5rem;
+    font: inherit;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    background: transparent;
+  }
+  td small {
+    color: var(--gri, #5d5b55);
+  }
+</style>
