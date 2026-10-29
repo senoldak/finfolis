@@ -409,6 +409,9 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      2006'dan; doğrulandı 29.10.2026). Dış borç sayfasında gösterilir.
 //  - butceAyrinti: merkezi yönetim bütçesinde başlıca vergi gelirleri ve ana gider kalemleri (HMB, aylık, bin TL, 2014'ten;
 //      doğrulandı 29.10.2026). Bütçe dengesi sayfasında gösterilir.
+//  - bis: BIS göstergeleri (EVDS, üç aylık; doğrulandı 29.10.2026): finans dışı özel sektöre kredinin GSYH'ye oranı, borç
+//      servis oranı ve merkez bankası varlıklarının GSYH'ye oranı; ülkelerin son değeri (seri listesinden) ve Türkiye'nin
+//      2000'den seyri (kredi açığı dahil). Emsal ülkeler sayfasında gösterilir.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -1551,6 +1554,51 @@ export async function butceAyrintiAl(simdi, anahtar) {
     birim: 'bin TL',
     seriler: tanimlar(BUTCE_AYRINTI_SERILERI),
     satirlar: await aylikFormullu(BUTCE_AYRINTI_SERILERI, new Date(Date.UTC(2014, 0, 1)), simdi, anahtar, 'Bütçe ayrıntısı', 120),
+  };
+}
+
+// BIS (EVDS'den): üç grup, ülke adı seri adından. Kredi/GSYH grubunda yalnız "…1" (güncel oran) serileri alınır.
+const BIS_GRUPLARI = [
+  { kod: 'bie_biskredigsyih', alan: 'kredi', ulke: (ad) => ad.split(' _ ')[0], uygun: (k) => /1$/.test(k) },
+  { kod: 'bie_bisborcoran', alan: 'dsr', ulke: (ad) => ad.replace(/\s*\(.*$/, ''), uygun: () => true },
+  { kod: 'bie_bistopvgdp', alan: 'mb', ulke: (ad) => ad.replace(/\s*\(.*$/, ''), uygun: () => true },
+];
+export const BIS_TURKIYE_SERILERI = [
+  { kod: 'TP.BISKREDIGSYIH.QTR1', formul: 0, alan: 'kredi', ad: 'Finans dışı özel sektöre kredi / GSYH (%)' },
+  { kod: 'TP.BISKREDIGSYIH.QTR3', formul: 0, alan: 'krediAcigi', ad: 'Kredi/GSYH açığı, BIS (yüzde puanı)' },
+  { kod: 'TP.BISBORCORAN.QTR', formul: 0, alan: 'dsr', ad: 'Borç servis oranı, finans dışı özel sektör (%)' },
+  { kod: 'TP.BISTOPVGDP.TUR', formul: 0, alan: 'mb', ad: 'Merkez bankası toplam varlıkları / GSYH (%)' },
+];
+
+// Ülke tablosu: son üç yılın çeyrekleri istenir, her serinin dolu son değeri ve çeyreği alınır; en az iki göstergesi olan
+// ülke tabloya girer.
+export async function bisAl(simdi, anahtar) {
+  const bas = new Date(Date.UTC(simdi.getUTCFullYear() - 3, 0, 1));
+  const ulkeler = new Map();
+  for (const g of BIS_GRUPLARI) {
+    const yanit = await fetch(`${EVDS}/serieList/type=json&code=${g.kod}`, { headers: { key: anahtar } });
+    if (!yanit.ok) throw new Error(`EVDS seri listesi ${yanit.status}`);
+    const seriler = (await yanit.json()).filter((s) => s.START_DATE && g.uygun(s.SERIE_CODE)).map((s) => ({ kod: s.SERIE_CODE, ulke: g.ulke(String(s.SERIE_NAME)).trim() }));
+    for (let i = 0; i < seriler.length; i += KONUT_IL_PARCA) {
+      const parca = seriler.slice(i, i + KONUT_IL_PARCA);
+      const ham = (await evdsCek(parca.map((p) => p.kod), parca.map(() => 0), bas, simdi, anahtar)).filter((h) => h.ceyrek);
+      for (const p of parca) {
+        const alan = alanAdi(p.kod, 0);
+        const son = ham.filter((h) => h[alan] != null).at(-1);
+        if (!son) continue;
+        const u = ulkeler.get(p.ulke) ?? { ad: p.ulke };
+        u[g.alan] = { deger: son[alan], yil: son.yil, ceyrek: son.ceyrek };
+        ulkeler.set(p.ulke, u);
+      }
+    }
+  }
+  const tablo = [...ulkeler.values()].filter((u) => ['kredi', 'dsr', 'mb'].filter((a) => u[a]).length >= 2);
+  if (tablo.length < 20 || !tablo.some((u) => u.ad === 'Türkiye')) throw new Error('BIS ülke tablosu eksik');
+  return {
+    kaynak: { ad: 'Uluslararası Ödemeler Bankası (BIS) verisi, kredi/GSYH, borç servis oranı ve merkez bankası varlıkları (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(BIS_TURKIYE_SERILERI),
+    ceyrekler: await ceyrekFormullu(BIS_TURKIYE_SERILERI, new Date(Date.UTC(2000, 0, 1)), simdi, anahtar, 'BIS Türkiye', 60),
+    ulkeler: tablo,
   };
 }
 

@@ -404,6 +404,16 @@ export interface DisTicaretAyrintiBolumu {
   alinma: string;
 }
 
+// BIS göstergeleri (üç aylık, %): Türkiye seyri ve ülkelerin son değeri.
+export type BisDeger = { deger: number; yil: number; ceyrek: number };
+export interface BisBolumu {
+  kaynak: Kaynak;
+  seriler: SeriAdi[];
+  ceyrekler: ({ yil: number; ceyrek: number } & Record<'kredi' | 'krediAcigi' | 'dsr' | 'mb', number>)[];
+  ulkeler: { ad: string; kredi?: BisDeger; dsr?: BisDeger; mb?: BisDeger }[];
+  alinma: string;
+}
+
 // Para arzı (TCMB, haftalık cuma stoku, bin TL); yıllık değişim %.
 export interface ParaArziBolumu {
   kaynak: Kaynak;
@@ -490,6 +500,7 @@ export const RESMI = data as unknown as {
   otomotiv?: OtomotivBolumu;
   disTicaretAyrinti?: DisTicaretAyrintiBolumu;
   borcCevirme?: AylikSeriBolumu<'banka' | 'diger' | 'bankaTahvil' | 'digerTahvil'>;
+  bis?: BisBolumu;
   butceAyrinti?: BirimliAylikBolumu<'vergi' | 'gelirVergisi' | 'kurumlar' | 'kdvDahil' | 'kdvIthal' | 'otv' | 'bsmv' | 'damga' | 'harc' | 'gider' | 'personel' | 'sgk' | 'malHizmet' | 'cariTransfer' | 'sermaye' | 'faiz'>;
   banknot?: AylikSeriBolumu<`${'k200' | 'k100' | 'k50' | 'k20' | 'k10' | 'k5' | 'diger' | 'toplam'}${'Adet' | 'Tutar'}`>;
   cek?: AylikSeriBolumu<'ibrazAdet' | 'ibrazTutar' | 'karsiliksizAdet' | 'karsiliksizTutar'>;

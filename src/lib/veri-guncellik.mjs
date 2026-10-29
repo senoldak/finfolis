@@ -105,6 +105,7 @@ const RESMI_SAYFA = {
   disTicaretAyrinti: '/veri/dis-ticaret/',
   borcCevirme: '/veri/dis-borc/',
   butceAyrinti: '/veri/butce-dengesi/',
+  bis: '/veri/emsal-ulkeler/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

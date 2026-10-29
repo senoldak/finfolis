@@ -2,10 +2,12 @@
 // Emsal ülkeler: Türkiye'nin temel göstergelerini 22 ekonomiyle yan yana koyan tablo.
 // Veri OECD SDMX (GSYH, TÜFE, çekirdek TÜFE, işsizlik, 10 yıllık tahvil) ve BIS (politika faizi) kaynaklarından gelir;
 // src/data/emsal-ulkeler.json scripts/veri/emsal-ulkeler.mjs ile üretilir. Veri olmayan hücre "–" kalır; tahmin ve elle rakam yoktur.
+// Altta BIS'in kredi/GSYH, borç servis oranı ve merkez bankası varlıkları göstergeleri (TCMB EVDS'den, RESMI.bis).
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
-import { gunYaz, zamanYaz } from '../../lib/resmi';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 import { donemEtiket } from '../../lib/emsal-ulkeler.mjs';
@@ -87,6 +89,29 @@ const jsonLd = sayfaSemasi({
     },
   ],
 });
+// BIS göstergeleri (EVDS): ülkelerin son değeri ve Türkiye'nin seyri; sayfada hesap yoktur.
+const bis = RESMI.bis;
+const bisUlkeler = bis ? [...bis.ulkeler].sort((a, b) => (b.kredi?.deger ?? -1) - (a.kredi?.deger ?? -1)) : [];
+const bisDeger = (d?: { deger: number; yil: number; ceyrek: number }) => (d ? sayiYaz(d.deger, 1) : '–');
+const bisGruplari = [
+  {
+    id: 'kredi',
+    ad: 'Kredi',
+    seriler: [
+      { id: 'kredi', ad: 'Özel sektöre kredi / GSYH', renk: 'murekkep' as const },
+      { id: 'krediAcigi', ad: 'Kredi/GSYH açığı', renk: 'toprak' as const, kesik: true },
+    ],
+  },
+  {
+    id: 'diger',
+    ad: 'Borç servisi ve merkez bankası',
+    seriler: [
+      { id: 'dsr', ad: 'Borç servis oranı', renk: 'murekkep' as const },
+      { id: 'mb', ad: 'Merkez bankası varlıkları / GSYH', renk: 'toprak' as const },
+    ],
+  },
+];
+const bisNoktalari = (bis?.ceyrekler ?? []).map((s) => [s.yil * 4 + s.ceyrek - 1, s.kredi, s.krediAcigi, s.dsr, s.mb]);
 ---
 
 <Base title={`${baslik}: Türkiye ve 22 ekonomi karşılaştırması`} description={description}>
@@ -193,6 +218,53 @@ const jsonLd = sayfaSemasi({
       Ekonomik Görünümü sınıflamasını izler.
     </p>
 
+    {bis && bisUlkeler.length > 0 && (
+      <section class="bolum" id="bis">
+        <h2 class="bolum-baslik">Kredi, borç servisi ve merkez bankası bilançosu (BIS)</h2>
+        <ZamanGrafik
+          baslik="Türkiye: BIS göstergeleri"
+          ipucu="Yüzde, üç aylık · Kredi/GSYH açığı, oranın BIS’in hesapladığı uzun dönem eğiliminden farkıdır (yüzde puanı) · Grup düğmesiyle geçilir"
+          kaynak="Kaynak: Uluslararası Ödemeler Bankası (BIS), TCMB EVDS üzerinden."
+          siklik="ceyrek"
+          birim="yuzde"
+          seriIdleri={['kredi', 'krediAcigi', 'dsr', 'mb']}
+          noktalar={bisNoktalari}
+          gruplar={bisGruplari}
+          grupEtiketi="Seri grubu"
+          referans={{ deger: 0, ad: 'Sıfır' }}
+        />
+        <div class="tablo-sarma bis-sarma">
+          <table class="cizelge veri-tablo">
+            <thead>
+              <tr>
+                <th scope="col">Ülke</th>
+                <th scope="col" class="sag">Kredi / GSYH</th>
+                <th scope="col" class="sag">Borç servis oranı</th>
+                <th scope="col" class="sag">MB varlıkları / GSYH</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bisUlkeler.map((u) => (
+                <tr class:list={{ tr: u.ad === 'Türkiye' }}>
+                  <td>{u.ad}</td>
+                  <td class="sag">{bisDeger(u.kredi)}</td>
+                  <td class="sag">{bisDeger(u.dsr)}</td>
+                  <td class="sag">{bisDeger(u.mb)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="veri-notu">
+          Yüzde; her ülkenin yayımlanan son çeyreği (çoğunda {bisUlkeler.find((u) => u.ad === 'Türkiye')?.kredi?.yil}
+          {' '}{bisUlkeler.find((u) => u.ad === 'Türkiye')?.kredi?.ceyrek}. çeyrek). Kredi, finans dışı özel sektörün (hanehalkı ve şirketler) bütün
+          kaynaklardan kullandığı kredidir; borç servis oranı bu kesimin faiz ve anapara ödemelerinin gelirine oranıdır. Sıralama
+          kredi/GSYH oranına göredir; göstergesi olmayan hücre "–" kalır. Kaynak: {bis.kaynak.ad}. Siteye alındığı zaman:{' '}
+          {zamanYaz(bis.alinma)}.
+        </p>
+      </section>
+    )}
+
     <div class="veri-izgara">
       <section class="bolum prose veri-aciklama">
         <h2 class="bolum-baslik">Göstergeler nereden alınıyor?</h2>
@@ -225,6 +297,14 @@ const jsonLd = sayfaSemasi({
 </Base>
 
 <style>
+  .bis-sarma {
+    max-height: 30rem;
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+  .bis-sarma .tr td {
+    font-weight: 600;
+  }
   .ep-baslik {
     position: absolute;
     width: 1px;

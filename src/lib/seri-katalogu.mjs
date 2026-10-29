@@ -60,6 +60,7 @@ const SAYFA = {
   disTicaretAyrinti: '/veri/dis-ticaret/#endeksler',
   borcCevirme: '/veri/dis-borc/#cevirme',
   butceAyrinti: '/veri/butce-dengesi/#ayrinti',
+  bis: '/veri/emsal-ulkeler/#bis',
   portfoy: '/veri/yabanci-portfoy-akimlari/',
   cari: '/veri/cari-denge/',
   disBorc: '/veri/dis-borc/',
@@ -503,6 +504,12 @@ export const TANIMLAR = [
     ['sermaye', 'sermaye', 'Bütçe, sermaye giderleri', BTL],
     ['faiz', 'faiz', 'Merkezi yönetim, faiz giderleri', BTL],
   ]),
+  t('bis', 'Bankacılık', SAYFA.bis, [
+    ['kredi', 'kredi', 'Türkiye, finans dışı özel sektöre kredi / GSYH (BIS)', YZ],
+    ['krediAcigi', 'kredi-acigi', 'Türkiye, kredi/GSYH açığı (BIS)', PUAN],
+    ['dsr', 'dsr', 'Türkiye, borç servis oranı (BIS)', YZ],
+    ['mb', 'mb', 'Türkiye, merkez bankası varlıkları / GSYH (BIS)', YZ],
+  ], { satirlar: 'ceyrekler' }),
   t('makas', 'Faiz', SAYFA.makas, [
     ['ihtiyac', 'ihtiyac', 'İhtiyaç kredisi faizi', YZ],
     ['tasit', 'tasit', 'Taşıt kredisi faizi', YZ],

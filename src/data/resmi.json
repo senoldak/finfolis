@@ -165957,5 +165957,1504 @@
       }
     ],
     "alinma": "2026-10-29T19:03:16.930Z"
+  },
+  "bis": {
+    "kaynak": {
+      "ad": "Uluslararası Ödemeler Bankası (BIS) verisi, kredi/GSYH, borç servis oranı ve merkez bankası varlıkları (TCMB EVDS)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "seriler": [
+      {
+        "alan": "kredi",
+        "ad": "Finans dışı özel sektöre kredi / GSYH (%)"
+      },
+      {
+        "alan": "krediAcigi",
+        "ad": "Kredi/GSYH açığı, BIS (yüzde puanı)"
+      },
+      {
+        "alan": "dsr",
+        "ad": "Borç servis oranı, finans dışı özel sektör (%)"
+      },
+      {
+        "alan": "mb",
+        "ad": "Merkez bankası toplam varlıkları / GSYH (%)"
+      }
+    ],
+    "ceyrekler": [
+      {
+        "yil": 2002,
+        "ceyrek": 1,
+        "kredi": 23.95363583,
+        "krediAcigi": -3.1676,
+        "dsr": 14.5,
+        "mb": 24.38322972
+      },
+      {
+        "yil": 2002,
+        "ceyrek": 2,
+        "kredi": 23.03814056,
+        "krediAcigi": -4.025,
+        "dsr": 11.5,
+        "mb": 24.56301436
+      },
+      {
+        "yil": 2002,
+        "ceyrek": 3,
+        "kredi": 22.63874799,
+        "krediAcigi": -4.3396,
+        "dsr": 10.6,
+        "mb": 24.12456892
+      },
+      {
+        "yil": 2002,
+        "ceyrek": 4,
+        "kredi": 21.83187078,
+        "krediAcigi": -5.0102,
+        "dsr": 9.8,
+        "mb": 22.40160248
+      },
+      {
+        "yil": 2003,
+        "ceyrek": 1,
+        "kredi": 22.1420512,
+        "krediAcigi": -4.586,
+        "dsr": 10,
+        "mb": 21.81353191
+      },
+      {
+        "yil": 2003,
+        "ceyrek": 2,
+        "kredi": 19.07691956,
+        "krediAcigi": -7.3461,
+        "dsr": 8.9,
+        "mb": 18.04901979
+      },
+      {
+        "yil": 2003,
+        "ceyrek": 3,
+        "kredi": 19.2033609,
+        "krediAcigi": -6.9326,
+        "dsr": 7.7,
+        "mb": 18.18852659
+      },
+      {
+        "yil": 2003,
+        "ceyrek": 4,
+        "kredi": 19.94826368,
+        "krediAcigi": -5.9557,
+        "dsr": 6.7,
+        "mb": 17.37806761
+      },
+      {
+        "yil": 2004,
+        "ceyrek": 1,
+        "kredi": 20.67501599,
+        "krediAcigi": -5.0484,
+        "dsr": 6.2,
+        "mb": 15.59377751
+      },
+      {
+        "yil": 2004,
+        "ceyrek": 2,
+        "kredi": 23.43210488,
+        "krediAcigi": -2.2833,
+        "dsr": 6.5,
+        "mb": 15.69210126
+      },
+      {
+        "yil": 2004,
+        "ceyrek": 3,
+        "kredi": 23.13338748,
+        "krediAcigi": -2.5536,
+        "dsr": 6.6,
+        "mb": 15.83846518
+      },
+      {
+        "yil": 2004,
+        "ceyrek": 4,
+        "kredi": 22.04332833,
+        "krediAcigi": -3.5482,
+        "dsr": 6,
+        "mb": 13.50420477
+      },
+      {
+        "yil": 2005,
+        "ceyrek": 1,
+        "kredi": 22.31659413,
+        "krediAcigi": -3.1969,
+        "dsr": 5.6,
+        "mb": 13.50166746
+      },
+      {
+        "yil": 2005,
+        "ceyrek": 2,
+        "kredi": 23.34558601,
+        "krediAcigi": -2.1515,
+        "dsr": 5.2,
+        "mb": 13.05526091
+      },
+      {
+        "yil": 2005,
+        "ceyrek": 3,
+        "kredi": 24.01577166,
+        "krediAcigi": -1.5027,
+        "dsr": 5,
+        "mb": 13.40688931
+      },
+      {
+        "yil": 2005,
+        "ceyrek": 4,
+        "kredi": 29.00869426,
+        "krediAcigi": 3.1786,
+        "dsr": 5.8,
+        "mb": 13.92819246
+      },
+      {
+        "yil": 2006,
+        "ceyrek": 1,
+        "kredi": 31.1448391,
+        "krediAcigi": 4.8922,
+        "dsr": 6.1,
+        "mb": 14.74970645
+      },
+      {
+        "yil": 2006,
+        "ceyrek": 2,
+        "kredi": 35.61081049,
+        "krediAcigi": 8.6937,
+        "dsr": 6.6,
+        "mb": 15.72858282
+      },
+      {
+        "yil": 2006,
+        "ceyrek": 3,
+        "kredi": 35.24293658,
+        "krediAcigi": 7.7097,
+        "dsr": 8.2,
+        "mb": 14.30919144
+      },
+      {
+        "yil": 2006,
+        "ceyrek": 4,
+        "kredi": 35.69006904,
+        "krediAcigi": 7.54,
+        "dsr": 8.2,
+        "mb": 14.66302578
+      },
+      {
+        "yil": 2007,
+        "ceyrek": 1,
+        "kredi": 35.04219257,
+        "krediAcigi": 6.3378,
+        "dsr": 7.8,
+        "mb": 14.28848522
+      },
+      {
+        "yil": 2007,
+        "ceyrek": 2,
+        "kredi": 36.64274269,
+        "krediAcigi": 7.3155,
+        "dsr": 7.9,
+        "mb": 13.46774937
+      },
+      {
+        "yil": 2007,
+        "ceyrek": 3,
+        "kredi": 38.32841537,
+        "krediAcigi": 8.3076,
+        "dsr": 8,
+        "mb": 12.92308643
+      },
+      {
+        "yil": 2007,
+        "ceyrek": 4,
+        "kredi": 40.38732014,
+        "krediAcigi": 9.5839,
+        "dsr": 8,
+        "mb": 12.51090773
+      },
+      {
+        "yil": 2008,
+        "ceyrek": 1,
+        "kredi": 44.10950182,
+        "krediAcigi": 12.3434,
+        "dsr": 8.6,
+        "mb": 13.0565874
+      },
+      {
+        "yil": 2008,
+        "ceyrek": 2,
+        "kredi": 45.08231484,
+        "krediAcigi": 12.3358,
+        "dsr": 9.1,
+        "mb": 14.00604415
+      },
+      {
+        "yil": 2008,
+        "ceyrek": 3,
+        "kredi": 45.97894117,
+        "krediAcigi": 12.2394,
+        "dsr": 9.7,
+        "mb": 14.89974326
+      },
+      {
+        "yil": 2008,
+        "ceyrek": 4,
+        "kredi": 47.03526147,
+        "krediAcigi": 12.2819,
+        "dsr": 11,
+        "mb": 16.59479351
+      },
+      {
+        "yil": 2009,
+        "ceyrek": 1,
+        "kredi": 46.9651175,
+        "krediAcigi": 11.2413,
+        "dsr": 10.3,
+        "mb": 17.17666923
+      },
+      {
+        "yil": 2009,
+        "ceyrek": 2,
+        "kredi": 46.56006204,
+        "krediAcigi": 9.9269,
+        "dsr": 8.5,
+        "mb": 17.30802506
+      },
+      {
+        "yil": 2009,
+        "ceyrek": 3,
+        "kredi": 47.74508043,
+        "krediAcigi": 10.1729,
+        "dsr": 8,
+        "mb": 18.95861538
+      },
+      {
+        "yil": 2009,
+        "ceyrek": 4,
+        "kredi": 48.6511735,
+        "krediAcigi": 10.1273,
+        "dsr": 7.1,
+        "mb": 19.01552897
+      },
+      {
+        "yil": 2010,
+        "ceyrek": 1,
+        "kredi": 49.66958444,
+        "krediAcigi": 10.1755,
+        "dsr": 7,
+        "mb": 16.29397901
+      },
+      {
+        "yil": 2010,
+        "ceyrek": 2,
+        "kredi": 52.38453911,
+        "krediAcigi": 11.8086,
+        "dsr": 7.3,
+        "mb": 15.88618535
+      },
+      {
+        "yil": 2010,
+        "ceyrek": 3,
+        "kredi": 52.51907079,
+        "krediAcigi": 10.8967,
+        "dsr": 7.1,
+        "mb": 15.25119509
+      },
+      {
+        "yil": 2010,
+        "ceyrek": 4,
+        "kredi": 55.46693963,
+        "krediAcigi": 12.6768,
+        "dsr": 7.2,
+        "mb": 14.444617
+      },
+      {
+        "yil": 2011,
+        "ceyrek": 1,
+        "kredi": 57.17344347,
+        "krediAcigi": 13.1671,
+        "dsr": 7.4,
+        "mb": 16.53300602
+      },
+      {
+        "yil": 2011,
+        "ceyrek": 2,
+        "kredi": 60.63490722,
+        "krediAcigi": 15.2688,
+        "dsr": 8.3,
+        "mb": 22.73229722
+      },
+      {
+        "yil": 2011,
+        "ceyrek": 3,
+        "kredi": 61.53021524,
+        "krediAcigi": 14.8074,
+        "dsr": 9.6,
+        "mb": 24.08720159
+      },
+      {
+        "yil": 2011,
+        "ceyrek": 4,
+        "kredi": 60.72187728,
+        "krediAcigi": 12.74,
+        "dsr": 10.2,
+        "mb": 18.67129113
+      },
+      {
+        "yil": 2012,
+        "ceyrek": 1,
+        "kredi": 60.10747697,
+        "krediAcigi": 10.9508,
+        "dsr": 10.7,
+        "mb": 18.72218676
+      },
+      {
+        "yil": 2012,
+        "ceyrek": 2,
+        "kredi": 61.32873858,
+        "krediAcigi": 10.9783,
+        "dsr": 10.4,
+        "mb": 16.79597757
+      },
+      {
+        "yil": 2012,
+        "ceyrek": 3,
+        "kredi": 61.16804019,
+        "krediAcigi": 9.6821,
+        "dsr": 10.4,
+        "mb": 17.68933281
+      },
+      {
+        "yil": 2012,
+        "ceyrek": 4,
+        "kredi": 62.23313717,
+        "krediAcigi": 9.601,
+        "dsr": 9.5,
+        "mb": 17.52859385
+      },
+      {
+        "yil": 2013,
+        "ceyrek": 1,
+        "kredi": 63.18619441,
+        "krediAcigi": 9.4041,
+        "dsr": 9.1,
+        "mb": 16.69958513
+      },
+      {
+        "yil": 2013,
+        "ceyrek": 2,
+        "kredi": 67.59728404,
+        "krediAcigi": 12.4719,
+        "dsr": 9,
+        "mb": 17.2637996
+      },
+      {
+        "yil": 2013,
+        "ceyrek": 3,
+        "kredi": 69.86407284,
+        "krediAcigi": 13.3259,
+        "dsr": 9.9,
+        "mb": 18.77343182
+      },
+      {
+        "yil": 2013,
+        "ceyrek": 4,
+        "kredi": 71.13573794,
+        "krediAcigi": 13.1723,
+        "dsr": 10.2,
+        "mb": 18.96535736
+      },
+      {
+        "yil": 2014,
+        "ceyrek": 1,
+        "kredi": 70.6247141,
+        "krediAcigi": 11.3223,
+        "dsr": 11.9,
+        "mb": 19.29131637
+      },
+      {
+        "yil": 2014,
+        "ceyrek": 2,
+        "kredi": 71.35944059,
+        "krediAcigi": 10.7341,
+        "dsr": 12,
+        "mb": 18.44574935
+      },
+      {
+        "yil": 2014,
+        "ceyrek": 3,
+        "kredi": 73.18559404,
+        "krediAcigi": 11.1934,
+        "dsr": 11.2,
+        "mb": 19.21303144
+      },
+      {
+        "yil": 2014,
+        "ceyrek": 4,
+        "kredi": 74.2715949,
+        "krediAcigi": 10.9109,
+        "dsr": 11.4,
+        "mb": 18.29836035
+      },
+      {
+        "yil": 2015,
+        "ceyrek": 1,
+        "kredi": 76.91689353,
+        "krediAcigi": 12.1011,
+        "dsr": 12,
+        "mb": 19.57317739
+      },
+      {
+        "yil": 2015,
+        "ceyrek": 2,
+        "kredi": 79.29268666,
+        "krediAcigi": 12.9529,
+        "dsr": 12.7,
+        "mb": 20.04736331
+      },
+      {
+        "yil": 2015,
+        "ceyrek": 3,
+        "kredi": 81.82116458,
+        "krediAcigi": 13.8826,
+        "dsr": 13.9,
+        "mb": 21.85590878
+      },
+      {
+        "yil": 2015,
+        "ceyrek": 4,
+        "kredi": 79.3465624,
+        "krediAcigi": 10.0111,
+        "dsr": 14.2,
+        "mb": 19.46225144
+      },
+      {
+        "yil": 2016,
+        "ceyrek": 1,
+        "kredi": 78.28551535,
+        "krediAcigi": 7.6725,
+        "dsr": 14.2,
+        "mb": 19.55521579
+      },
+      {
+        "yil": 2016,
+        "ceyrek": 2,
+        "kredi": 79.03110507,
+        "krediAcigi": 7.1578,
+        "dsr": 14.2,
+        "mb": 20.18133367
+      },
+      {
+        "yil": 2016,
+        "ceyrek": 3,
+        "kredi": 80.19316684,
+        "krediAcigi": 7.0541,
+        "dsr": 13.9,
+        "mb": 20.20452126
+      },
+      {
+        "yil": 2016,
+        "ceyrek": 4,
+        "kredi": 84.44905778,
+        "krediAcigi": 9.8697,
+        "dsr": 14.2,
+        "mb": 20.1928948
+      },
+      {
+        "yil": 2017,
+        "ceyrek": 1,
+        "kredi": 84.51158784,
+        "krediAcigi": 8.5521,
+        "dsr": 14.4,
+        "mb": 20.5688533
+      },
+      {
+        "yil": 2017,
+        "ceyrek": 2,
+        "kredi": 84.33397342,
+        "krediAcigi": 7.0666,
+        "dsr": 14.9,
+        "mb": 20.62519404
+      },
+      {
+        "yil": 2017,
+        "ceyrek": 3,
+        "kredi": 82.83793093,
+        "krediAcigi": 4.4053,
+        "dsr": 15.2,
+        "mb": 20.14967471
+      },
+      {
+        "yil": 2017,
+        "ceyrek": 4,
+        "kredi": 83.566136,
+        "krediAcigi": 3.9854,
+        "dsr": 15.5,
+        "mb": 20.27958867
+      },
+      {
+        "yil": 2018,
+        "ceyrek": 1,
+        "kredi": 83.60182261,
+        "krediAcigi": 2.9277,
+        "dsr": 16.3,
+        "mb": 20.41199935
+      },
+      {
+        "yil": 2018,
+        "ceyrek": 2,
+        "kredi": 85.88483899,
+        "krediAcigi": 4.0477,
+        "dsr": 17.7,
+        "mb": 20.11510838
+      },
+      {
+        "yil": 2018,
+        "ceyrek": 3,
+        "kredi": 92.60640421,
+        "krediAcigi": 9.2959,
+        "dsr": 26.8,
+        "mb": 21.86717654
+      },
+      {
+        "yil": 2018,
+        "ceyrek": 4,
+        "kredi": 81.54009486,
+        "krediAcigi": -2.5719,
+        "dsr": 26.4,
+        "mb": 18.99960655
+      },
+      {
+        "yil": 2019,
+        "ceyrek": 1,
+        "kredi": 82.29051766,
+        "krediAcigi": -2.6161,
+        "dsr": 21.1,
+        "mb": 19.21816978
+      },
+      {
+        "yil": 2019,
+        "ceyrek": 2,
+        "kredi": 80.55666152,
+        "krediAcigi": -5.0023,
+        "dsr": 21.9,
+        "mb": 18.93070811
+      },
+      {
+        "yil": 2019,
+        "ceyrek": 3,
+        "kredi": 77.75578715,
+        "krediAcigi": -8.2587,
+        "dsr": 17.4,
+        "mb": 17.79785946
+      },
+      {
+        "yil": 2019,
+        "ceyrek": 4,
+        "kredi": 78.11432572,
+        "krediAcigi": -8.3378,
+        "dsr": 13.4,
+        "mb": 17.89656023
+      },
+      {
+        "yil": 2020,
+        "ceyrek": 1,
+        "kredi": 80.55220521,
+        "krediAcigi": -6.4341,
+        "dsr": 12.2,
+        "mb": 19.6501345
+      },
+      {
+        "yil": 2020,
+        "ceyrek": 2,
+        "kredi": 88.62243607,
+        "krediAcigi": 0.6994,
+        "dsr": 12.2,
+        "mb": 22.23323834
+      },
+      {
+        "yil": 2020,
+        "ceyrek": 3,
+        "kredi": 91.76273886,
+        "krediAcigi": 2.7813,
+        "dsr": 14.1,
+        "mb": 23.45816092
+      },
+      {
+        "yil": 2020,
+        "ceyrek": 4,
+        "kredi": 86.60719298,
+        "krediAcigi": -3.0969,
+        "dsr": 16.8,
+        "mb": 24.31553332
+      },
+      {
+        "yil": 2021,
+        "ceyrek": 1,
+        "kredi": 86.1373248,
+        "krediAcigi": -4.2193,
+        "dsr": 18.9,
+        "mb": 24.80763442
+      },
+      {
+        "yil": 2021,
+        "ceyrek": 2,
+        "kredi": 81.11998538,
+        "krediAcigi": -9.5724,
+        "dsr": 18.7,
+        "mb": 23.59764674
+      },
+      {
+        "yil": 2021,
+        "ceyrek": 3,
+        "kredi": 77.1137893,
+        "krediAcigi": -13.6621,
+        "dsr": 17.5,
+        "mb": 26.01257261
+      },
+      {
+        "yil": 2021,
+        "ceyrek": 4,
+        "kredi": 85.48483025,
+        "krediAcigi": -5.807,
+        "dsr": 18.8,
+        "mb": 33.81028833
+      },
+      {
+        "yil": 2022,
+        "ceyrek": 1,
+        "kredi": 82.0223269,
+        "krediAcigi": -9.5587,
+        "dsr": 20.2,
+        "mb": 28.45229781
+      },
+      {
+        "yil": 2022,
+        "ceyrek": 2,
+        "kredi": 75.88974219,
+        "krediAcigi": -15.6145,
+        "dsr": 19.1,
+        "mb": 29.13468206
+      },
+      {
+        "yil": 2022,
+        "ceyrek": 3,
+        "kredi": 68.69062094,
+        "krediAcigi": -22.3229,
+        "dsr": 18.7,
+        "mb": 25.16794529
+      },
+      {
+        "yil": 2022,
+        "ceyrek": 4,
+        "kredi": 63.8352882,
+        "krediAcigi": -26.4143,
+        "dsr": 13.6,
+        "mb": 23.54772725
+      },
+      {
+        "yil": 2023,
+        "ceyrek": 1,
+        "kredi": 60.98696846,
+        "krediAcigi": -28.344,
+        "dsr": 12.1,
+        "mb": 21.28161521
+      },
+      {
+        "yil": 2023,
+        "ceyrek": 2,
+        "kredi": 64.4145485,
+        "krediAcigi": -24.192,
+        "dsr": 13.9,
+        "mb": 25.03687721
+      },
+      {
+        "yil": 2023,
+        "ceyrek": 3,
+        "kredi": 59.43151424,
+        "krediAcigi": -28.1803,
+        "dsr": 21.9,
+        "mb": 26.34133341
+      },
+      {
+        "yil": 2023,
+        "ceyrek": 4,
+        "kredi": 56.60477265,
+        "krediAcigi": -29.8688,
+        "dsr": 29.8,
+        "mb": 25.81555222
+      },
+      {
+        "yil": 2024,
+        "ceyrek": 1,
+        "kredi": 53.37470584,
+        "krediAcigi": -31.8001,
+        "dsr": 31,
+        "mb": 22.93085364
+      },
+      {
+        "yil": 2024,
+        "ceyrek": 2,
+        "kredi": 49.62247244,
+        "krediAcigi": -34.0704,
+        "dsr": 34,
+        "mb": 21.8399457
+      },
+      {
+        "yil": 2024,
+        "ceyrek": 3,
+        "kredi": 48.5187831,
+        "krediAcigi": -33.6604,
+        "dsr": 31,
+        "mb": 20.1420933
+      },
+      {
+        "yil": 2024,
+        "ceyrek": 4,
+        "kredi": 46.7990798,
+        "krediAcigi": -33.8034,
+        "dsr": 28.7,
+        "mb": 19.35882289
+      },
+      {
+        "yil": 2025,
+        "ceyrek": 1,
+        "kredi": 48.01674224,
+        "krediAcigi": -31.11,
+        "dsr": 28.7,
+        "mb": 19.4453324
+      },
+      {
+        "yil": 2025,
+        "ceyrek": 2,
+        "kredi": 48.86368317,
+        "krediAcigi": -28.8665,
+        "dsr": 31.5,
+        "mb": 18.5394715
+      },
+      {
+        "yil": 2025,
+        "ceyrek": 3,
+        "kredi": 48.81501662,
+        "krediAcigi": -27.548,
+        "dsr": 28.8,
+        "mb": 20.90938537
+      },
+      {
+        "yil": 2025,
+        "ceyrek": 4,
+        "kredi": 49.14278081,
+        "krediAcigi": -25.9034,
+        "dsr": 27,
+        "mb": 19.79503881
+      },
+      {
+        "yil": 2026,
+        "ceyrek": 1,
+        "kredi": 49.08237856,
+        "krediAcigi": -24.6759,
+        "dsr": 25.8,
+        "mb": 18.60863227
+      }
+    ],
+    "ulkeler": [
+      {
+        "ad": "Arjantin",
+        "kredi": {
+          "deger": 26.61588268,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 22.06190979,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Avusturya",
+        "kredi": {
+          "deger": 126.52746872,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 50.13766596,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Avustralya",
+        "kredi": {
+          "deger": 175.79283326,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 20.3,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 12.93661414,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Belçika",
+        "kredi": {
+          "deger": 173.38024121,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 16.6,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 53.58298338,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Brezilya",
+        "kredi": {
+          "deger": 92.52899524,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 29.8,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 38.11327779,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Kanada",
+        "kredi": {
+          "deger": 218.80977615,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 25.5,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 6.99000257,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "İsviçre",
+        "kredi": {
+          "deger": 257.25087159,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 20,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 102.48287862,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Şili",
+        "kredi": {
+          "deger": 130.32777714,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 15.0594158,
+          "yil": 2026,
+          "ceyrek": 2
+        }
+      },
+      {
+        "ad": "Çin",
+        "kredi": {
+          "deger": 204.11207778,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 19.1,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 34.36897993,
+          "yil": 2026,
+          "ceyrek": 2
+        }
+      },
+      {
+        "ad": "Çek Cumhuriyeti",
+        "kredi": {
+          "deger": 86.25125481,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 9,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Almanya",
+        "kredi": {
+          "deger": 134.83526218,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 12.2,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 49.93808708,
+          "yil": 2026,
+          "ceyrek": 2
+        }
+      },
+      {
+        "ad": "Danimarka",
+        "kredi": {
+          "deger": 219.13017101,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 23.1,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 23.34061181,
+          "yil": 2026,
+          "ceyrek": 2
+        }
+      },
+      {
+        "ad": "İspanya",
+        "kredi": {
+          "deger": 119.41015293,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 11.7,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 48.28568221,
+          "yil": 2026,
+          "ceyrek": 2
+        }
+      },
+      {
+        "ad": "Finlandiya",
+        "kredi": {
+          "deger": 173.39516359,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 17.8,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 42.48448269,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Fransa",
+        "kredi": {
+          "deger": 214.32920535,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 19.9,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 47.9791392,
+          "yil": 2026,
+          "ceyrek": 2
+        }
+      },
+      {
+        "ad": "İngiltere",
+        "kredi": {
+          "deger": 128.4363444,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 12.9,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Yunanistan",
+        "kredi": {
+          "deger": 96.70441059,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 86.91882305,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Hong Kong Çin ÖİB",
+        "kredi": {
+          "deger": 338.48460781,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 34.3,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Macaristan",
+        "kredi": {
+          "deger": 89.5032078,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 11.5,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 33.18725584,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Endonezya",
+        "kredi": {
+          "deger": 39.80366499,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 4.2,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 19.11935202,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "İrlanda",
+        "kredi": {
+          "deger": 129.26052187,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 27.18193474,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "İsrail",
+        "kredi": {
+          "deger": 116.46634809,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 37.56636984,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Hindistan",
+        "kredi": {
+          "deger": 105.11723124,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 12.5,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 26.09246581,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "İtalya",
+        "kredi": {
+          "deger": 94.2488382,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 9.2,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 48.60388701,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Japonya",
+        "kredi": {
+          "deger": 173.7271519,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 15.5,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 94.35426158,
+          "yil": 2026,
+          "ceyrek": 2
+        }
+      },
+      {
+        "ad": "Lüksemburg",
+        "kredi": {
+          "deger": 454.09729109,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 259.46876728,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Meksika",
+        "kredi": {
+          "deger": 38.57717237,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 5.3,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 14.67385953,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Malezya",
+        "kredi": {
+          "deger": 158.94807849,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 15.5,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 30.11836897,
+          "yil": 2026,
+          "ceyrek": 2
+        }
+      },
+      {
+        "ad": "Hollanda",
+        "kredi": {
+          "deger": 263.42988413,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 26.1,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 30.57700487,
+          "yil": 2026,
+          "ceyrek": 2
+        }
+      },
+      {
+        "ad": "Norveç",
+        "kredi": {
+          "deger": 224.17076721,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 28.3,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 16.83390207,
+          "yil": 2025,
+          "ceyrek": 4
+        }
+      },
+      {
+        "ad": "Yeni Zelanda",
+        "kredi": {
+          "deger": 160.48825303,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 17.65118193,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Polonya",
+        "kredi": {
+          "deger": 57.05743348,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 6.3,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 30.48211941,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Portekiz",
+        "kredi": {
+          "deger": 128.56960943,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 12.2,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 69.09029976,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Rusya",
+        "kredi": {
+          "deger": 104.6886912,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 20.4,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Suudi Arabistan",
+        "kredi": {
+          "deger": 78.16759593,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 40.55167189,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "İsveç",
+        "kredi": {
+          "deger": 167.8219917,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 23.3,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 13.72551496,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Singapur",
+        "kredi": {
+          "deger": 236.14816217,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 95.09132445,
+          "yil": 2026,
+          "ceyrek": 2
+        }
+      },
+      {
+        "ad": "Tayland",
+        "kredi": {
+          "deger": 155.87395186,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 13.4,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 55.29108989,
+          "yil": 2026,
+          "ceyrek": 2
+        }
+      },
+      {
+        "ad": "Türkiye",
+        "kredi": {
+          "deger": 49.08237856,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 25.8,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 18.60863227,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Amerika Birleşik Devletleri",
+        "kredi": {
+          "deger": 139.67804446,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 13.8,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 21.23780756,
+          "yil": 2026,
+          "ceyrek": 2
+        }
+      },
+      {
+        "ad": "Euro Bölgesi",
+        "kredi": {
+          "deger": 153.49485626,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 39.00261249,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Güney Afrika",
+        "kredi": {
+          "deger": 67.24364864,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "dsr": {
+          "deger": 8.3,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 17.72750983,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      },
+      {
+        "ad": "Güney Kore",
+        "dsr": {
+          "deger": 19.3,
+          "yil": 2026,
+          "ceyrek": 1
+        },
+        "mb": {
+          "deger": 21.29551185,
+          "yil": 2026,
+          "ceyrek": 1
+        }
+      }
+    ],
+    "alinma": "2026-10-29T19:08:21.155Z"
   }
 }

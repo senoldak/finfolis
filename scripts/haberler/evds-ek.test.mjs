@@ -32,6 +32,7 @@ import {
   disTicaretAyrintiAl,
   borcCevirmeAl,
   butceAyrintiAl,
+  bisAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -810,6 +811,30 @@ test('butceAyrintiAl: 16 vergi ve gider serisi, 2014’ten, bin TL', async () =>
   assert.equal(alanlar(istekler[0]).length, 16);
   assert.equal(b.birim, 'bin TL');
   assert.equal(Object.keys(b.satirlar[0]).length, 18);
+});
+
+test('bisAl: ülke adları seri adlarından birleşir, kredi grubunda yalnız güncel oran; Türkiye seyri', async () => {
+  const ulke = Array.from({ length: 22 }, (_, i) => `Ülke${i}`).concat(['Türkiye']);
+  const listeler = {
+    bie_biskredigsyih: ulke.flatMap((u, i) => [1, 2, 3].map((n) => ({ SERIE_CODE: `TP.BISKREDIGSYIH.Q${i}${n}`, SERIE_NAME: `${u} _ Kredi/GSYİH _ x`, START_DATE: '01-01-2000' }))),
+    bie_bisborcoran: ulke.map((u, i) => ({ SERIE_CODE: `TP.BISBORCORAN.Q${i}`, SERIE_NAME: `${u}(XX)  Finans Dışı Özel Sektör (BIS)`, START_DATE: '01-01-2000' })),
+    bie_bistopvgdp: ulke.map((u, i) => ({ SERIE_CODE: `TP.BISTOPVGDP.U${i}`, SERIE_NAME: `${u} (XXX) Merkez Bankası Toplam Varlıkları / GSYİH`, START_DATE: '01-01-2000' })),
+  };
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    const u = decodeURIComponent(String(url));
+    istekler.push(u);
+    const liste = u.match(/code=(bie_\w+)/);
+    if (u.includes('serieList')) return yanit(listeler[liste[1]]);
+    const items = [];
+    for (let y = 2000; y <= 2026; y++) for (let q = 1; q <= 4 && !(y === 2026 && q > 1); q++) items.push({ Tarih: `${y}-Q${q}`, ...Object.fromEntries(alanlar(url).map((x) => [x, '40'])) });
+    return yanit({ items });
+  };
+  const b = await bisAl(SIMDI, 'x');
+  assert.equal(b.ulkeler.length, 23);
+  assert.deepEqual(b.ulkeler.find((x) => x.ad === 'Türkiye').dsr, { deger: 40, yil: 2026, ceyrek: 1 });
+  assert.ok(!istekler.some((x) => /BISKREDIGSYIH\.Q\d+[23](-|&)/.test(x)));
+  assert.deepEqual([b.ceyrekler.at(-1).yil, b.ceyrekler.at(-1).ceyrek], [2026, 1]);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {
