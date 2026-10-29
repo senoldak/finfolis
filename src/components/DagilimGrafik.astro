@@ -1,0 +1,433 @@
+---
+// Geçmiş değişimlerin dağılımı (histogram): her çubuk bir yüzde aralığındaki değişimlerin payı. Dikey çizgiler %10/%90
+// (düz) ve %2,5/%97,5 (kesik) dilimleri. Grup (seri) ve dönem seçici, imleç ve bilgi kutusu ZamanGrafik'le aynı
+// görünümde. Değerler sayfanın verdiği hesaplanmış rakamlardır; burada yalnız çizilir. İlk ve son çubuk uç değerleri de
+// kapsar ("ve altı", "ve üstü").
+export interface DagilimDonem {
+  id: string;
+  ad: string;
+  n: number;
+  kutular: { alt: number; genislik: number; paylar: number[] };
+  dilimler: { p2_5: number; p10: number; p50: number; p90: number; p97_5: number };
+}
+
+export interface DagilimGrup {
+  id: string;
+  ad: string;
+  donemler: DagilimDonem[];
+}
+
+interface Props {
+  baslik: string;
+  ipucu?: string;
+  kaynak: string;
+  gruplar: DagilimGrup[];
+  grupEtiketi?: string;
+}
+
+const { baslik, ipucu, kaynak, gruplar, grupEtiketi } = Astro.props;
+const donemler = gruplar[0]?.donemler.map((d) => ({ id: d.id, ad: d.ad })) ?? [];
+const kimlik = `dg-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-')}`;
+---
+
+<section class="dg-kart" data-dagilim-grafik aria-labelledby={kimlik}>
+  <div class="kart-bas">
+    <div>
+      <h2 id={kimlik} class="kart-baslik">{baslik}</h2>
+      {ipucu && <p class="kart-ipucu">{ipucu}</p>}
+    </div>
+    <div class="filtreler">
+      {
+        gruplar.length > 1 && (
+          <div class="filtre-kumesi" role="group" aria-label={grupEtiketi ?? 'Seçim'}>
+            {gruplar.map((g, i) => (
+              <button type="button" class:list={['filtre-btn', { aktif: i === 0 }]} data-grup={g.id} aria-pressed={String(i === 0)}>
+                {g.ad}
+              </button>
+            ))}
+          </div>
+        )
+      }
+      {
+        donemler.length > 1 && (
+          <div class="filtre-kumesi" role="group" aria-label="Dönem">
+            {donemler.map((d, i) => (
+              <button type="button" class:list={['filtre-btn', { aktif: i === 0 }]} data-donem={d.id} aria-pressed={String(i === 0)}>
+                {d.ad}
+              </button>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="lejant" aria-hidden="true">
+    <span><span class="renk renk-cubuk"></span>Değişimlerin payı</span>
+    <span><span class="renk renk-dilim"></span>%10 ve %90 dilimi</span>
+    <span><span class="renk renk-dilim kesik"></span>%2,5 ve %97,5 dilimi</span>
+  </div>
+
+  <div class="cizim" data-cizim>
+    <svg viewBox="0 0 880 380" role="img" aria-label={`${baslik} histogramı`} data-svg></svg>
+    <div class="ipucu" data-ipucu hidden></div>
+  </div>
+  <p class="kart-alt">{kaynak}</p>
+
+  <script type="application/json" data-dg-veri set:html={JSON.stringify(gruplar)} />
+</section>
+
+<script>
+  const SVG = 'http://www.w3.org/2000/svg';
+  const W = 880;
+  const P = { ust: 24, alt: 40, sol: 56, sag: 24 };
+  const darEkran = () => window.matchMedia('(max-width: 600px)').matches;
+
+  interface Donem {
+    id: string;
+    ad: string;
+    n: number;
+    kutular: { alt: number; genislik: number; paylar: number[] };
+    dilimler: { p2_5: number; p10: number; p50: number; p90: number; p97_5: number };
+  }
+  interface Grup {
+    id: string;
+    ad: string;
+    donemler: Donem[];
+  }
+
+  const sayi = (n: number, o: number) =>
+    `${n < 0 ? '−' : ''}${Math.abs(n).toLocaleString('tr-TR', { minimumFractionDigits: o, maximumFractionDigits: o })}`;
+  const yuzde = (n: number, o: number) => `${n < 0 ? '−' : ''}%${sayi(Math.abs(n), o)}`;
+  const ondalikOf = (g: number) => (Number.isInteger(g) ? 0 : Number.isInteger(g * 2) ? 1 : 2);
+
+  for (const kok of document.querySelectorAll<HTMLElement>('[data-dagilim-grafik]')) {
+    const gruplar = JSON.parse(kok.querySelector('[data-dg-veri]')!.textContent || '[]') as Grup[];
+    const svg = kok.querySelector<SVGSVGElement>('[data-svg]')!;
+    const ipucu = kok.querySelector<HTMLElement>('[data-ipucu]')!;
+    let grup = gruplar[0];
+    let donemId = grup?.donemler[0]?.id;
+
+    const el = (ad: string, oz: Record<string, string | number>, ebeveyn: Element = svg) => {
+      const e = document.createElementNS(SVG, ad);
+      for (const [k, d] of Object.entries(oz)) e.setAttribute(k, String(d));
+      ebeveyn.appendChild(e);
+      return e;
+    };
+
+    function ciz() {
+      const d = grup.donemler.find((x) => x.id === donemId) ?? grup.donemler[0];
+      const H = darEkran() ? 600 : 380;
+      // Dar ekranda yazılar büyük; yatay eksen etiketleri dikey eksenin %0'ına binmesin diye alt boşluk açılır.
+      P.alt = darEkran() ? 72 : 40;
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      const { alt, genislik, paylar } = d.kutular;
+      const k = paylar.length;
+      const ust = alt + k * genislik;
+      const o = ondalikOf(genislik);
+      const x = (v: number) => P.sol + ((v - alt) / (ust - alt)) * (W - P.sol - P.sag);
+      const enCok = Math.max(...paylar);
+      const hamAdim = enCok / 4 || 1;
+      const kuvvet = 10 ** Math.floor(Math.log10(hamAdim));
+      const adim = [1, 2, 2.5, 5, 10].map((c) => c * kuvvet).find((a) => a >= hamAdim)!;
+      const tavan = Math.ceil(enCok / adim) * adim;
+      const yo = Number.isInteger(adim) ? 0 : 1;
+      const y = (v: number) => P.ust + (1 - v / tavan) * (H - P.ust - P.alt);
+
+      svg.replaceChildren();
+      for (let v = 0; v <= tavan + adim / 2; v += adim) {
+        el('line', { x1: P.sol, x2: W - P.sag, y1: y(v), y2: y(v), class: v === 0 ? 'taban' : 'izgara' });
+        el('text', { x: P.sol - 8, y: y(v) + 4, 'text-anchor': 'end', class: 'eksen' }).textContent = `%${sayi(v, yo)}`;
+      }
+      // Yatay eksen etiketleri: en çok 8 etiket, kutu sınırlarında.
+      const etiketAdimi = Math.max(1, Math.ceil(k / (darEkran() ? 5 : 8)));
+      for (let i = 0; i <= k; i += etiketAdimi) {
+        const v = alt + i * genislik;
+        el('text', { x: x(v), y: H - P.alt + (darEkran() ? 44 : 22), 'text-anchor': 'middle', class: 'eksen' }).textContent = yuzde(v, o);
+      }
+      if (alt < 0 && ust > 0) el('line', { x1: x(0), x2: x(0), y1: P.ust, y2: H - P.alt, class: 'sifir' });
+
+      const cubuklar = paylar.map((p, i) =>
+        el('rect', {
+          x: x(alt + i * genislik) + 1,
+          y: y(p),
+          width: Math.max(1, x(alt + (i + 1) * genislik) - x(alt + i * genislik) - 2),
+          height: Math.max(0, y(0) - y(p)),
+          class: 'cubuk',
+        }),
+      );
+      const dilimCiz = (v: number, kesik: boolean) =>
+        el('line', { x1: x(v), x2: x(v), y1: P.ust - 6, y2: H - P.alt, class: kesik ? 'dilim kesik' : 'dilim' });
+      dilimCiz(d.dilimler.p2_5, true);
+      dilimCiz(d.dilimler.p97_5, true);
+      dilimCiz(d.dilimler.p10, false);
+      dilimCiz(d.dilimler.p90, false);
+
+      const yuzey = el('rect', { x: P.sol, y: P.ust, width: W - P.sol - P.sag, height: H - P.ust - P.alt, fill: 'transparent', class: 'yuzey' });
+      const goster = (istemciX: number) => {
+        const r = svg.getBoundingClientRect();
+        const v = alt + ((((istemciX - r.left) / r.width) * W - P.sol) / (W - P.sol - P.sag)) * (ust - alt);
+        const i = Math.min(k - 1, Math.max(0, Math.floor((v - alt) / genislik)));
+        cubuklar.forEach((c, j) => c.classList.toggle('secili', j === i));
+        const a = alt + i * genislik;
+        const b = a + genislik;
+        const aralik = i === 0 ? `${yuzde(b, o)} ve altı` : i === k - 1 ? `${yuzde(a, o)} ve üstü` : `${yuzde(a, o)} ile ${yuzde(b, o)} arası`;
+        ipucu.innerHTML = `<div class="ip-tarih">${aralik}</div><div class="ip-satir"><span class="ip-ad">Değişimlerin payı</span><strong>%${sayi(paylar[i], 1)}</strong></div><div class="ip-satir"><span class="ip-ad">Gözlem</span><strong>${Math.round((paylar[i] / 100) * d.n).toLocaleString('tr-TR')}</strong></div>`;
+        ipucu.hidden = false;
+        const kutu = kok.querySelector<HTMLElement>('[data-cizim]')!.getBoundingClientRect();
+        const px = (x(a + genislik / 2) / W) * r.width + (r.left - kutu.left);
+        const sag = px > kutu.width / 2;
+        ipucu.style.left = sag ? '' : `${px + 14}px`;
+        ipucu.style.right = sag ? `${kutu.width - px + 14}px` : '';
+      };
+      yuzey.addEventListener('pointermove', (e) => goster((e as PointerEvent).clientX));
+      yuzey.addEventListener('pointerdown', (e) => goster((e as PointerEvent).clientX));
+      yuzey.addEventListener('pointerleave', () => {
+        cubuklar.forEach((c) => c.classList.remove('secili'));
+        ipucu.hidden = true;
+      });
+    }
+
+    const sec = (dugmeler: NodeListOf<HTMLButtonElement>, btn: HTMLButtonElement) =>
+      dugmeler.forEach((b) => {
+        b.classList.toggle('aktif', b === btn);
+        b.setAttribute('aria-pressed', String(b === btn));
+      });
+    const grupBtn = kok.querySelectorAll<HTMLButtonElement>('[data-grup]');
+    grupBtn.forEach((b) =>
+      b.addEventListener('click', () => {
+        sec(grupBtn, b);
+        grup = gruplar.find((g) => g.id === b.dataset.grup)!;
+        ciz();
+      }),
+    );
+    const donemBtn = kok.querySelectorAll<HTMLButtonElement>('[data-donem]');
+    donemBtn.forEach((b) =>
+      b.addEventListener('click', () => {
+        sec(donemBtn, b);
+        donemId = b.dataset.donem!;
+        ciz();
+      }),
+    );
+    if (grup) {
+      ciz();
+      let dar = darEkran();
+      window.addEventListener('resize', () => {
+        if (darEkran() !== dar) {
+          dar = darEkran();
+          ciz();
+        }
+      });
+    }
+  }
+</script>
+
+<style>
+  .dg-kart {
+    margin: 28px 0;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid var(--hair);
+  }
+
+  .kart-bas {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .kart-baslik {
+    font-family: var(--sans);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .kart-ipucu,
+  .kart-alt {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 4px 0 0;
+  }
+
+  .filtreler {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .filtre-kumesi {
+    display: inline-flex;
+    flex-wrap: wrap;
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    padding: 2px;
+  }
+
+  .filtre-btn {
+    border: none;
+    background: transparent;
+    padding: 8px 12px;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .filtre-btn.aktif {
+    background: var(--ink);
+    color: #fff;
+  }
+
+  .lejant {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-bottom: 8px;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .lejant > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .renk {
+    width: 22px;
+    height: 3px;
+    display: inline-block;
+  }
+
+  .renk-cubuk {
+    height: 10px;
+    background: #1f63a8;
+    opacity: 0.75;
+  }
+
+  .renk-dilim {
+    background: #c2502b;
+  }
+
+  .renk-dilim.kesik {
+    background: repeating-linear-gradient(90deg, #c2502b 0 6px, transparent 6px 10px);
+  }
+
+  .cizim {
+    position: relative;
+  }
+
+  .cizim svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    touch-action: pan-y;
+  }
+
+  .cizim :global(.izgara) {
+    stroke: var(--paper-2);
+    stroke-width: 1;
+  }
+
+  .cizim :global(.taban) {
+    stroke: var(--hair);
+    stroke-width: 1;
+  }
+
+  .cizim :global(.sifir) {
+    stroke: var(--ink);
+    stroke-width: 1;
+  }
+
+  .cizim :global(.cubuk) {
+    fill: #1f63a8;
+    opacity: 0.75;
+  }
+
+  .cizim :global(.cubuk.secili) {
+    opacity: 1;
+    fill: #1b1b1b;
+  }
+
+  .cizim :global(.dilim) {
+    stroke: #c2502b;
+    stroke-width: 2;
+  }
+
+  .cizim :global(.dilim.kesik) {
+    stroke-dasharray: 6 4;
+  }
+
+  .cizim :global(.eksen) {
+    font-family: var(--sans);
+    font-size: 12px;
+    fill: var(--muted);
+  }
+
+  .cizim :global(.yuzey) {
+    cursor: crosshair;
+  }
+
+  .ipucu {
+    position: absolute;
+    top: 8px;
+    pointer-events: none;
+    background: #fff;
+    border: 1px solid var(--ink);
+    padding: 10px 12px;
+    min-width: 200px;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    box-shadow: 3px 3px 0 rgba(27, 27, 27, 0.12);
+  }
+
+  .ipucu :global(.ip-tarih) {
+    font-weight: 700;
+    color: var(--toprak-text);
+    border-bottom: 1px solid var(--hair);
+    padding-bottom: 4px;
+    margin-bottom: 6px;
+  }
+
+  .ipucu :global(.ip-satir) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 3px;
+  }
+
+  .ipucu :global(.ip-ad) {
+    flex: 1;
+    color: var(--muted);
+  }
+
+  .ipucu :global(.ip-satir strong) {
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 600px) {
+    .dg-kart {
+      padding: 16px;
+    }
+
+    .cizim svg {
+      overflow: visible;
+    }
+
+    .cizim :global(.eksen) {
+      font-size: 26px;
+    }
+
+    .ipucu {
+      min-width: 0;
+      max-width: 70%;
+    }
+  }
+</style>

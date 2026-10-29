@@ -1,0 +1,426 @@
+---
+// Kur oynaklığı (finfolis hesaplaması, scripts/veri/kur-oynakligi.mjs): gerçekleşmiş oynaklık, 21 iş günlük değişimlerin
+// dağılımı, ay ve haftanın günü etkisi. Yalnız geçmiş istatistik; ileriye dönük bant, kur düzeyi, yön ya da beklenti
+// yoktur (sahibi kararı, 29.10.2026). Dilimler bugünün kuruna uygulanmaz, TL düzeyi gösterilmez.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import DagilimGrafik from '../../components/DagilimGrafik.astro';
+import veri from '../../data/kur-oynakligi.json';
+import { AYLAR, gunYaz, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+interface EtkiSatiri {
+  grup: number;
+  n: number;
+  ortalama: number;
+  medyan: number;
+  artisPayi: number;
+  p: number;
+  pDuzeltilmis: number;
+  anlamli: boolean;
+  yon: 'yuksek' | 'dusuk';
+}
+interface Etki {
+  satirlar: EtkiSatiri[];
+  kruskalWallis: { h: number; sd: number; p: number; anlamli: boolean };
+}
+const seriler = (veri.seriler ?? []) as unknown as {
+  id: string;
+  ad: string;
+  kaynak: string;
+  ilk: string;
+  son: string;
+  gozlem: number;
+  oynaklik: { son30: number; son90: number; uzun: number; son30Sira: number; enYuksek30: { v: number; tarih: string } };
+  grafik: [number, number, number | null][];
+  dagilim: Record<'tum' | 'son5', { n: number; bas: string; bit: string; dilimler: { p2_5: number; p10: number; p50: number; p90: number; p97_5: number }; enDusuk: number; enYuksek: number; artisPayi: number; kutular: { alt: number; genislik: number; paylar: number[] } }>;
+  ay: Etki & { ilk: string; son: string };
+  gun: Etki;
+}[];
+const bul = (id: string) => seriler.find((s) => s.id === id);
+const usd = bul('usdtry');
+const GUNLER = ['', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma'];
+// Yuvarlanınca sıfır olan değer eksi işaretsiz yazılır (−%0,0 değil %0,0).
+const yuzde = (n: number | null | undefined, o = 1) => (n == null ? '—' : yuzdeYaz(Math.round(n * 10 ** o) === 0 ? 0 : n, o));
+const pYaz = (p: number) => (p < 0.0001 ? '<0,0001' : sayiYaz(p, p < 0.01 ? 4 : 2));
+const ayAdiDonem = (d: string) => `${AYLAR[Number(d.slice(5, 7)) - 1]} ${d.slice(0, 4)}`;
+// Yıldan ayrılma eki, son okunan sayıya göre: 2005’ten, 2006’dan.
+const EK = ['den', 'den', 'den', 'ten', 'ten', 'ten', 'dan', 'den', 'den', 'dan'];
+const ONLAR = ['den', 'dan', 'den', 'dan', 'tan', 'den', 'tan', 'ten', 'den', 'dan'];
+const yildan = (t: string) => {
+  const y = Number(t.slice(0, 4));
+  return `${y}’${y % 10 ? EK[y % 10] : ONLAR[Math.floor(y / 10) % 10]}`;
+};
+
+// Oynaklık grafiği: haftalık noktalar, her seri bir grup; uzun dönem oynaklığı sabit kesik çizgi.
+const seriIdleri = seriler.flatMap((s) => [`${s.id}30`, `${s.id}90`, `${s.id}U`]);
+const tumT = [...new Set(seriler.flatMap((s) => s.grafik.map((n) => n[0])))].sort((a, b) => a - b);
+const grafikMap = seriler.map((s) => new Map(s.grafik.map((n) => [n[0], n])));
+const noktalar = tumT.map((t) => [
+  t,
+  ...seriler.flatMap((s, i) => {
+    const n = grafikMap[i].get(t);
+    return n ? [n[1], n[2], s.oynaklik.uzun] : [null, null, null];
+  }),
+]);
+const gruplar = seriler.map((s) => ({
+  id: s.id,
+  ad: s.ad,
+  seriler: [
+    { id: `${s.id}30`, ad: '30 iş günü', renk: 'toprak' as const },
+    { id: `${s.id}90`, ad: '90 iş günü', renk: 'mavi' as const },
+    { id: `${s.id}U`, ad: `${yildan(s.ilk)} bu yana`, renk: 'murekkep' as const, kesik: true },
+  ],
+}));
+const dagilimGruplari = seriler.map((s) => ({
+  id: s.id,
+  ad: s.ad,
+  donemler: [
+    { id: 'tum', ad: `${yildan(s.ilk)} bu yana`, ...s.dagilim.tum },
+    { id: 'son5', ad: 'Son 5 yıl', ...s.dagilim.son5 },
+  ],
+}));
+const anlamlilar = (e: Etki, ad: (g: number) => string) =>
+  e.satirlar.filter((r) => r.anlamli).map((r) => `${ad(r.grup)} (${r.yon === 'yuksek' ? 'diğerlerinden yüksek' : 'diğerlerinden düşük'})`);
+const ayAd = (g: number) => AYLAR[g - 1];
+const gunAd = (g: number) => GUNLER[g];
+// TL kurlarında pazartesi (hafta sonunu kapsayan değişim) anlamlı ve yüksek çıktıysa açıklama notu gösterilir.
+const pazartesiOnde = seriler.some((s) => s.id.endsWith('try') && s.gun.satirlar.some((r) => r.grup === 1 && r.anlamli && r.yon === 'yuksek'));
+const ayAnlamliSayisi = seriler.reduce((t, s) => t + s.ay.satirlar.filter((r) => r.anlamli).length, 0);
+
+const baslik = 'Kur oynaklığı';
+const description = usd
+  ? `Dolar/TL’nin son 30 iş günlük gerçekleşmiş oynaklığı ${gunYaz(usd.son)} itibarıyla yıllık ${yuzde(usd.oynaklik.son30)} oldu; ${yildan(usd.ilk)} bu yanaki oynaklık ${yuzde(usd.oynaklik.uzun)}. Euro/TL, geniş dolar endeksi ve euro/dolar için de oynaklık, 21 iş günlük değişimlerin dağılımı, ay ve gün etkisi: geçmiş istatistik.`
+  : 'Dolar/TL, euro/TL, geniş dolar endeksi ve euro/dolar için gerçekleşmiş oynaklık, geçmiş değişimlerin dağılımı ve ay etkisi: geçmiş istatistik.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/kur-oynakligi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(veri.alinma ? { sayfaEk: { dateModified: veri.alinma } } : {}),
+});
+---
+
+<Base title="Kur oynaklığı: dolar/TL, euro/TL ve dolar endeksi" description={description} noindex={!usd}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Dolar/TL, euro/TL, geniş dolar endeksi ve euro/dolar · geçmiş istatistik, finfolis hesaplaması</p>
+    </header>
+    {
+      usd ? (
+        <>
+          <p class="veri-notu gecmis-notu">
+            <strong>Bu sayfadaki rakamlar geçmiş istatistiktir, tahmin ve tavsiye değildir.</strong> Hiçbiri kurların
+            bundan sonraki seyri hakkında bilgi vermez; dağılım dilimleri bugünün kuruna uygulanmamalıdır.
+          </p>
+          <dl class="veri-rakamlar">
+            {seriler.map((s) => (
+              <div>
+                <dt>{s.ad}, 30 günlük oynaklık</dt>
+                <dd>{yuzde(s.oynaklik.son30)}</dd>
+                <dd class="veri-degisim">
+                  Yıllık, {gunYaz(s.son)}; {yildan(s.ilk)} bu yana {yuzde(s.oynaklik.uzun)}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> dolar/TL ve euro/TL <a href="https://evds3.tcmb.gov.tr/" rel="noopener">TCMB EVDS</a> gösterge
+            niteliğindeki döviz satış kuru; geniş dolar endeksi Fed
+            (<a href="https://fred.stlouisfed.org/series/DTWEXBGS" rel="noopener">FRED DTWEXBGS</a>); euro/dolar
+            <a href="https://data.ecb.europa.eu/data/datasets/EXR" rel="noopener">ECB referans kuru</a>. Oynaklık, dağılım ve
+            testler finfolis hesaplamasıdır. Siteye alındığı zaman: {zamanYaz(veri.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Gerçekleşmiş oynaklık"
+            ipucu="Son 30 ve 90 iş gününün günlük değişimlerinin standart sapması, yıllığa çevrilmiş · Kesik çizgi bütün dönemin oynaklığı"
+            kaynak="Kaynak: TCMB (EVDS), Fed (FRED DTWEXBGS), ECB. Hesaplama: finfolis. Haftanın son iş günü gösterildi."
+            siklik="hafta"
+            birim="yuzde"
+            seriIdleri={seriIdleri}
+            noktalar={noktalar}
+            gruplar={gruplar}
+            grupEtiketi="Seri"
+            sifirdan
+          />
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Oynaklık özeti</h2>
+            <div class="tablo-sarma">
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Seri</th>
+                    <th scope="col" class="sag">30 gün</th>
+                    <th scope="col" class="sag">90 gün</th>
+                    <th scope="col" class="sag">Bütün dönem</th>
+                    <th scope="col" class="sag">30 günlüğün geçmişteki sırası</th>
+                    <th scope="col" class="sag">En yüksek 30 gün</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {seriler.map((s) => (
+                    <tr>
+                      <th scope="row">{s.ad}</th>
+                      <td class="sag">{yuzde(s.oynaklik.son30)}</td>
+                      <td class="sag">{yuzde(s.oynaklik.son90)}</td>
+                      <td class="sag">{yuzde(s.oynaklik.uzun)}</td>
+                      <td class="sag">{yuzde(s.oynaklik.son30Sira, 0)}</td>
+                      <td class="sag">
+                        {yuzde(s.oynaklik.enYuksek30.v)} <small>({gunYaz(s.oynaklik.enYuksek30.tarih)})</small>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="veri-notu">
+              Oynaklıklar yıllık yüzdedir. “Geçmişteki sıra”, son 30 günlük oynaklığın bütün geçmiş 30 günlük oynaklıkların yüzde
+              kaçından yüksek olduğunu gösterir. Bütün dönem: dolar/TL, euro/TL ve euro/dolar 2005, geniş dolar endeksi 2006
+              başından.
+            </p>
+          </section>
+
+          <DagilimGrafik
+            baslik="21 iş günlük değişimlerin dağılımı"
+            ipucu="Geçmişteki her 21 iş günlük dönemin yüzde değişimi; çubuk o aralıktaki dönemlerin payı · Seri ve dönem seçin"
+            kaynak="Kaynak: TCMB (EVDS), Fed (FRED DTWEXBGS), ECB. Hesaplama: finfolis. Dönemler örtüşür: her iş günü bir dönemin sonudur."
+            gruplar={dagilimGruplari}
+            grupEtiketi="Seri"
+          />
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Geçmiş 21 iş günlük değişimlerin dilimleri</h2>
+            <div class="tablo-sarma">
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Seri, dönem</th>
+                    <th scope="col" class="sag">%2,5</th>
+                    <th scope="col" class="sag">%10</th>
+                    <th scope="col" class="sag">Ortanca</th>
+                    <th scope="col" class="sag">%90</th>
+                    <th scope="col" class="sag">%97,5</th>
+                    <th scope="col" class="sag">Artış payı</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {seriler.flatMap((s) =>
+                    (['tum', 'son5'] as const).map((d) => {
+                      const x = s.dagilim[d];
+                      return (
+                        <tr>
+                          <th scope="row">
+                            {s.ad}, {d === 'tum' ? `${yildan(x.bas)} bu yana` : `son 5 yıl`}
+                          </th>
+                          <td class="sag">{yuzde(x.dilimler.p2_5)}</td>
+                          <td class="sag">{yuzde(x.dilimler.p10)}</td>
+                          <td class="sag">{yuzde(x.dilimler.p50)}</td>
+                          <td class="sag">{yuzde(x.dilimler.p90)}</td>
+                          <td class="sag">{yuzde(x.dilimler.p97_5)}</td>
+                          <td class="sag">{yuzde(x.artisPayi, 0)}</td>
+                        </tr>
+                      );
+                    }),
+                  )}
+                </tbody>
+              </table>
+            </div>
+            <p class="veri-notu">
+              Örnek okuma: %10 dilimi, geçmişteki 21 iş günlük dönemlerin %10’unda değişimin bu değerin altında kaldığını gösterir.
+              Artış payı, değişimin sıfırın üstünde olduğu dönemlerin oranıdır. Son 5 yıl {usd && gunYaz(usd.dagilim.son5.bas)}
+              ile {usd && gunYaz(usd.dagilim.son5.bit)} arasında biten dönemleri kapsar. Dilimler geçmişi özetler, bundan sonraki
+              21 günün aralığı değildir.
+            </p>
+          </section>
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Ay ve haftanın günü etkisi</h2>
+            <div class="tablo-sarma">
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Seri</th>
+                    <th scope="col">Ay etkisi</th>
+                    <th scope="col">Haftanın günü etkisi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {seriler.map((s) => {
+                    const ay = anlamlilar(s.ay, ayAd);
+                    const gun = anlamlilar(s.gun, gunAd);
+                    return (
+                      <tr>
+                        <th scope="row">{s.ad}</th>
+                        <td>{ay.length ? `Anlamlı: ${ay.join(', ')}` : 'Anlamlı değil'}</td>
+                        <td>{gun.length ? `Anlamlı: ${gun.join(', ')}` : 'Anlamlı değil'}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            <p class="veri-notu">
+              Her ay (gün), geri kalan aylarla (günlerle) Mann-Whitney U testiyle karşılaştırıldı; p değerleri çoklu karşılaştırma
+              için Holm yöntemiyle düzeltildi, eşik %5. {ayAnlamliSayisi === 0 && 'Dört seride de hiçbir ay anlamlı çıkmadı. '}
+              Pazartesi değişimi cumadan pazartesiye, yani hafta sonunu da içeren üç takvim gününü kapsar
+              {pazartesiOnde ? '; TL kurlarında pazartesinin öne çıkmasının bir bölümü bu farktan gelir.' : '.'}
+            </p>
+
+            {seriler.map((s) => (
+              <details class="etki-ayrinti">
+                <summary>{s.ad}: ay ve gün tablosu</summary>
+                <div class="tablo-sarma">
+                  <table class="cizelge veri-tablo">
+                    <caption>
+                      Aylık değişim, {ayAdiDonem(s.ay.ilk)} ile {ayAdiDonem(s.ay.son)} arası. Bütün aylar için Kruskal-Wallis: p ={' '}
+                      {pYaz(s.ay.kruskalWallis.p)}, {s.ay.kruskalWallis.anlamli ? 'anlamlı' : 'anlamlı değil'}.
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Ay</th>
+                        <th scope="col" class="sag">Yıl</th>
+                        <th scope="col" class="sag">Ortalama</th>
+                        <th scope="col" class="sag">Ortanca</th>
+                        <th scope="col" class="sag">Artış payı</th>
+                        <th scope="col" class="sag">Düzeltilmiş p</th>
+                        <th scope="col">Sonuç</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {s.ay.satirlar.map((r) => (
+                        <tr>
+                          <th scope="row">{ayAd(r.grup)}</th>
+                          <td class="sag">{r.n}</td>
+                          <td class="sag">{yuzde(r.ortalama, 2)}</td>
+                          <td class="sag">{yuzde(r.medyan, 2)}</td>
+                          <td class="sag">{yuzde(r.artisPayi, 0)}</td>
+                          <td class="sag">{pYaz(r.pDuzeltilmis)}</td>
+                          <td>{r.anlamli ? 'Anlamlı' : 'Anlamlı değil'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tablo-sarma">
+                  <table class="cizelge veri-tablo">
+                    <caption>
+                      Günlük değişim, {gunYaz(s.ilk)} ile {gunYaz(s.son)} arası. Bütün günler için Kruskal-Wallis: p ={' '}
+                      {pYaz(s.gun.kruskalWallis.p)}, {s.gun.kruskalWallis.anlamli ? 'anlamlı' : 'anlamlı değil'}.
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Gün</th>
+                        <th scope="col" class="sag">Gözlem</th>
+                        <th scope="col" class="sag">Ortalama</th>
+                        <th scope="col" class="sag">Ortanca</th>
+                        <th scope="col" class="sag">Artış payı</th>
+                        <th scope="col" class="sag">Düzeltilmiş p</th>
+                        <th scope="col">Sonuç</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {s.gun.satirlar.map((r) => (
+                        <tr>
+                          <th scope="row">{gunAd(r.grup)}</th>
+                          <td class="sag">{r.n.toLocaleString('tr-TR')}</td>
+                          <td class="sag">{yuzde(r.ortalama, 3)}</td>
+                          <td class="sag">{yuzde(r.medyan, 3)}</td>
+                          <td class="sag">{yuzde(r.artisPayi, 0)}</td>
+                          <td class="sag">{pYaz(r.pDuzeltilmis)}</td>
+                          <td>{r.anlamli ? (r.yon === 'yuksek' ? 'Anlamlı, diğerlerinden yüksek' : 'Anlamlı, diğerlerinden düşük') : 'Anlamlı değil'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </details>
+            ))}
+          </section>
+
+          <section class="bolum prose veri-aciklama">
+            <h2 class="bolum-baslik">Bu rakamlar nasıl hesaplanıyor?</h2>
+            <p>
+              Gerçekleşmiş oynaklık, son 30 ya da 90 iş gününün günlük logaritmik değişimlerinin standart sapmasıdır; bir yılda
+              252 iş günü varsayılarak yıllığa çevrilir. Oynaklık kurun yönünü değil, günden güne ne kadar dalgalandığını ölçer.
+              Kur her gün aynı oranda yükselseydi oynaklık sıfır çıkardı. Dolar/TL’nin 2024’ten bu yana düşük oynaklık göstermesi
+              bu yüzdendir: kur yükseldi, ama günlük değişimler birbirine yakın kaldı.
+            </p>
+            <p>
+              21 iş günü yaklaşık bir takvim ayına karşılık gelir. Dağılımda her iş günü, 21 iş günü öncesine göre değişimi olan
+              bir dönemin sonu sayıldı; dönemler bu yüzden birbirleriyle örtüşür ve gözlem sayısı bağımsız dönem sayısından
+              fazladır. Grafikte ilk ve son çubuk, %0,5 ve %99,5 dilimlerinin dışında kalan uç değerleri de içerir.
+            </p>
+            <p>
+              Ay etkisinde değişim, ayın son iş günündeki kurdan bir sonraki ayın son iş gününe kadar hesaplandı; içinde
+              bulunulan ay tamamlanmadığı için dışarıda kaldı. Her ay yalnız 20-22 gözleme dayandığından test, küçük bir ay
+              etkisini ayırt edemeyecek kadar zayıftır. “Anlamlı değil” sonucu, etkinin olmadığını değil, verinin bir etkiyi
+              göstermediğini anlatır. Testler, kurlardaki rejim değişikliklerini ve ardışık günler arasındaki bağımlılığı hesaba
+              katmaz.
+            </p>
+            <p>
+              TCMB kuru her iş günü saat 15.30’da belirlenir ve EVDS’ye ertesi iş gününün tarihiyle girer. Haftanın günü
+              tablosunda TL kurları için kurun belirlendiği gün esas alındı. Geniş dolar endeksi Fed’in New York öğle kurlarından,
+              euro/dolar ECB’nin saat 14.15 referans kurundan hesaplanır ve kendi tarihleriyle kullanıldı. Euro/dolarda yükseliş
+              euronun, geniş dolar endeksinde yükseliş doların değer kazancıdır.
+            </p>
+          </section>
+        </>
+      ) : (
+        <p class="bos">Kur oynaklığı verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/kur-degisim-hizi/">Kur değişim hızı</a>
+      <a href="/veri/reel-efektif-kur/">Reel efektif kur</a>
+      <a href="/veri/dolar-kuru/">Dolar kuru</a>
+    </nav>
+    <YasalUyari>
+      Bu sayfadaki oynaklık, dağılım ve test sonuçları resmi kurlardan finfolis’in hesapladığı, geçmişe ait istatistiklerdir.
+      Kurların gelecekteki seyri hakkında tahmin değildir, yatırım tavsiyesi değildir.
+    </YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+
+  .gecmis-notu {
+    border-left: 3px solid var(--ink);
+    padding-left: 12px;
+  }
+
+  .etki-ayrinti {
+    margin: 16px 0;
+    border-top: 1px solid var(--hair);
+    padding-top: 12px;
+  }
+
+  .etki-ayrinti summary {
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 700;
+  }
+
+  .etki-ayrinti caption {
+    caption-side: top;
+    text-align: left;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 12px 0 6px;
+  }
+</style>

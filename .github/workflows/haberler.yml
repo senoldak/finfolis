@@ -156,6 +156,8 @@ jobs:
           # Taze meyve-sebze kalemi: İzmir hal bülteninin eksik günleri (ayda ~15 istek) + TÜİK alt sınıfları (EVDS).
           node scripts/veri/hal-veri.mjs --yaz || true
           node scripts/veri/tahmin.mjs --yaz || true
+          # Kur oynaklığı: günlük kurlar (EVDS, FRED, ECB; son 60 gün) ve geçmiş istatistik, saniyeler, Gemini yok.
+          node scripts/veri/kur-oynakligi.mjs --yaz || true
 
       # Üretim adımı düşse de (zaman aşımı, motor hatası, beklenmeyen hata) o ana kadar yazılan haberler ve durum dosyası
       # commit edilir (F4); aksi hâlde aynı adaylar sonraki turda Gemini'yi yeniden harcıyordu. İş yine kırmızı biter.
