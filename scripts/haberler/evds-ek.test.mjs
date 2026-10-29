@@ -28,6 +28,8 @@ import {
   reelGuvenAl,
   ticariGayrimenkulAl,
   krediEgilimAl,
+  otomotivAl,
+  disTicaretAyrintiAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -750,6 +752,39 @@ test('krediEgilimAl: üç aylık 12 net yüzde serisi, 2005 sonundan', async () 
   assert.ok(istekler[0].includes('startDate=01-10-2005'));
   assert.deepEqual([b.ceyrekler[0].yil, b.ceyrekler[0].ceyrek, b.ceyrekler.length], [2005, 4, 84]);
   assert.equal(b.ceyrekler[0].isStandart, -7.5);
+});
+
+test('otomotivAl: boş çekici ayı null kalır, seri kesilmez', async () => {
+  globalThis.fetch = async (url) =>
+    yanit({ items: aylar([2005, 1], 261).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(alanlar(url).map((x) => [x, x === 'TP_UR_S09' && m.yil === 2021 && m.ay === 5 ? null : '100'])) })) });
+  const o = await otomotivAl(SIMDI, 'x');
+  assert.equal(o.satirlar.length, 261);
+  assert.equal(o.satirlar.find((s) => s.yil === 2021 && s.ay === 5).cekici, null);
+  assert.equal(o.satirlar[0].binek, 100);
+});
+
+test('disTicaretAyrintiAl: endeksler ve sektör tablosu (son 12 / önceki 12 ay), yayımlanmayan sektör atlanır', async () => {
+  const liste = [
+    { SERIE_CODE: 'TP.IHRISICREV4.TT', SERIE_NAME: 'Toplam', START_DATE: '01-01-2013' },
+    { SERIE_CODE: 'TP.IHRISICREV4.C', SERIE_NAME: '3.İmalat', START_DATE: '01-01-2013' },
+    { SERIE_CODE: 'TP.IHRISICREV4.33', SERIE_NAME: '3.24.Kurulum', START_DATE: null },
+    ...Array.from({ length: 24 }, (_, i) => ({ SERIE_CODE: `TP.IHRISICREV4.${10 + i}`, SERIE_NAME: `3.${i + 1}.Sektör${i}`, START_DATE: '01-01-2013' })),
+  ];
+  globalThis.fetch = async (url) => {
+    const u = decodeURIComponent(String(url));
+    if (u.includes('serieList')) return yanit(liste);
+    const a = alanlar(url);
+    if (u.includes('TP.DT.')) return yanit({ items: aylar([2013, 1], 164).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(a.map((x) => [x, '120'])) })) });
+    return yanit({ items: aylar([2023, 10], 36).map((m, i) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(a.map((x) => [x, i >= 12 ? '10' : '5'])) })) });
+  };
+  const d = await disTicaretAyrintiAl(SIMDI, 'x');
+  assert.equal(d.endeksler.at(-1).ihrBirim, 120);
+  const t = d.sektorTablosu;
+  assert.deepEqual([t.bit.yil, t.bit.ay, t.bas.yil, t.bas.ay], [2026, 9, 2025, 10]);
+  assert.equal(t.sektorler.length, 26);
+  assert.ok(!t.sektorler.some((s) => s.ad === 'Kurulum'));
+  assert.deepEqual(t.sektorler.find((s) => s.tur === 'toplam'), { ad: 'Toplam', tur: 'toplam', son12: 120, once12: 120 });
+  assert.equal(t.sektorler.find((s) => s.ad === 'İmalat').tur, 'bolum');
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

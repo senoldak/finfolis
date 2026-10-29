@@ -1,11 +1,12 @@
 ---
 // Dış ticaret: TÜİK genel ticaret sistemi verisi (TCMB EVDS üzerinden), aylık, bin ABD doları. Denge (ihracat − ithalat)
-// ve 12 aylık birikimli toplamlar finfolis hesaplamasıdır.
+// ve 12 aylık birikimli toplamlar finfolis hesaplamasıdır. Altta TÜİK birim değer ve miktar endeksleri (dış ticaret haddi
+// = ihracat birim değer / ithalat birim değer × 100, sayfada) ve ISIC'e göre ihracatın son 12 ay toplamları.
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import ZamanGrafik from '../../components/ZamanGrafik.astro';
-import { RESMI, ayAdi, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
 import { kayanToplam } from '../../lib/turetilmis.mjs';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
@@ -88,6 +89,37 @@ const jsonLd = sayfaSemasi({
       }
     : {}),
 });
+// Dış ticaret endeksleri ve sektörlere göre ihracat (TÜİK, EVDS). Sayfa hesapları: dış ticaret haddi, 12 aylık toplamların
+// değişimi ve payları.
+const ayrinti = RESMI.disTicaretAyrinti;
+const endeksler = ayrinti?.endeksler ?? [];
+const sonEndeks = endeksler.at(-1);
+const had = (s: { ihrBirim: number; ithBirim: number }) => (s.ihrBirim / s.ithBirim) * 100;
+const endeksGruplari = [
+  { id: 'had', ad: 'Dış ticaret haddi', seriler: [{ id: 'had', ad: 'Dış ticaret haddi', renk: 'murekkep' as const }] },
+  {
+    id: 'birim',
+    ad: 'Birim değer',
+    seriler: [
+      { id: 'ihrBirim', ad: 'İhracat birim değer', renk: 'murekkep' as const },
+      { id: 'ithBirim', ad: 'İthalat birim değer', renk: 'toprak' as const },
+    ],
+  },
+  {
+    id: 'miktar',
+    ad: 'Miktar',
+    seriler: [
+      { id: 'ihrMiktar', ad: 'İhracat miktar', renk: 'murekkep' as const },
+      { id: 'ithMiktar', ad: 'İthalat miktar', renk: 'toprak' as const },
+    ],
+  },
+];
+const endeksNoktalari = endeksler.map((s) => [ayAnahtari(s), had(s), s.ihrBirim, s.ithBirim, s.ihrMiktar, s.ithMiktar]);
+const sektor = ayrinti?.sektorTablosu;
+const sektorToplam = sektor?.sektorler.find((s) => s.tur === 'toplam');
+const imalatSektorleri = sektor ? sektor.sektorler.filter((s) => s.tur === 'imalat').sort((a, b) => b.son12 - a.son12) : [];
+const anaBolumler = sektor ? sektor.sektorler.filter((s) => s.tur === 'bolum').sort((a, b) => b.son12 - a.son12) : [];
+const ydSektor = (s: { son12: number; once12: number }) => (s.once12 > 0 ? `${s.son12 >= s.once12 ? '+' : ''}${yuzdeYaz((s.son12 / s.once12 - 1) * 100)}` : '–');
 ---
 
 <Base title={`Dış ticaret: ${son ? ayAdi(son) : 'TÜİK verisi'}`} description={description} noindex={!son}>
@@ -194,6 +226,73 @@ const jsonLd = sayfaSemasi({
             gruplar={gruplarMal}
             sifirdan
           />
+          {ayrinti && sonEndeks && (
+            <section class="bolum" id="endeksler">
+              <h2 class="bolum-baslik">Fiyat, miktar ve dış ticaret haddi</h2>
+              <dl class="veri-rakamlar">
+                <div>
+                  <dt>Dış ticaret haddi</dt>
+                  <dd>{sayiYaz(had(sonEndeks), 1)}</dd>
+                  <dd class="veri-degisim">{ayAdi(sonEndeks)}</dd>
+                </div>
+                <div>
+                  <dt>İhracat miktar endeksi</dt>
+                  <dd>{sayiYaz(sonEndeks.ihrMiktar, 1)}</dd>
+                  <dd class="veri-degisim">İthalat {sayiYaz(sonEndeks.ithMiktar, 1)}</dd>
+                </div>
+              </dl>
+              <ZamanGrafik
+                baslik="Dış ticaret endeksleri"
+                ipucu="Endeks · Dış ticaret haddi, ihracat birim değer endeksinin ithalat birim değer endeksine oranının 100 katıdır, sayfada hesaplanır"
+                kaynak="Kaynak: TÜİK, dış ticaret endeksleri (TCMB EVDS)."
+                siklik="ay"
+                birim="endeks"
+                ondalik={1}
+                seriIdleri={['had', 'ihrBirim', 'ithBirim', 'ihrMiktar', 'ithMiktar']}
+                noktalar={endeksNoktalari}
+                gruplar={endeksGruplari}
+                grupEtiketi="Seri grubu"
+              />
+              <p class="veri-notu">
+                Birim değer endeksi ihraç ve ithal edilen malların dolar cinsinden ortalama fiyatındaki, miktar endeksi
+                hacmindeki değişimi gösterir. Dış ticaret haddinin yükselmesi, ihracat fiyatlarının ithalat fiyatlarına göre
+                arttığı anlamına gelir.
+              </p>
+            </section>
+          )}
+
+          {sektor && sektorToplam && (
+            <section class="bolum">
+              <h2 class="bolum-baslik">Sektörlere göre ihracat, son 12 ay ({ayAdi(sektor.bas)} – {ayAdi(sektor.bit)})</h2>
+              <div class="tablo-sarma sektor-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sektör</th>
+                      <th scope="col" class="sag">Milyar $</th>
+                      <th scope="col" class="sag">Pay</th>
+                      <th scope="col" class="sag">Önceki 12 aya göre</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[...anaBolumler.map((x) => ({ ...x, alt: false })), ...imalatSektorleri.map((x) => ({ ...x, alt: true }))].map((x) => (
+                      <tr class:list={{ alt: x.alt }}>
+                        <td>{x.ad}</td>
+                        <td class="sag">{sayiYaz(x.son12 / 1e6, 1)}</td>
+                        <td class="sag">{yuzdeYaz((x.son12 / sektorToplam.son12) * 100)}</td>
+                        <td class="sag">{ydSektor(x)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                ISIC Rev.4 sınıflamasına göre. Önce ana bölümler, ardından girintili olarak imalatın alt sektörleri gelir;
+                ikisi aynı ihracatın farklı kırılımıdır, birbirine eklenmez. Toplam {sayiYaz(sektorToplam.son12 / 1e6, 1)} milyar $.
+                Toplamlar, paylar ve değişimler sayfada hesaplanır. Siteye alındığı zaman: {zamanYaz(ayrinti!.alinma)}.
+              </p>
+            </section>
+          )}
         </>
       ) : (
         <p class="bos">Dış ticaret verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
@@ -210,6 +309,13 @@ const jsonLd = sayfaSemasi({
 </Base>
 
 <style>
+  .sektor-sarma {
+    max-height: 30rem;
+    overflow-y: auto;
+  }
+  .alt td:first-child {
+    padding-left: 1.25rem;
+  }
   .tablo-sarma {
     overflow-x: auto;
   }

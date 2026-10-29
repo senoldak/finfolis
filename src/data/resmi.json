@@ -156124,5 +156124,4731 @@
       }
     ],
     "alinma": "2026-10-29T18:36:19.296Z"
+  },
+  "otomotiv": {
+    "kaynak": {
+      "ad": "Otomotiv Sanayii Derneği verisi, motorlu taşıt üretimi (TCMB EVDS)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "birim": "adet",
+    "seriler": [
+      {
+        "alan": "binek",
+        "ad": "Binek otomobil"
+      },
+      {
+        "alan": "kamyonet",
+        "ad": "Kamyonet"
+      },
+      {
+        "alan": "kamyon",
+        "ad": "Kamyon"
+      },
+      {
+        "alan": "cekici",
+        "ad": "Çekici"
+      },
+      {
+        "alan": "otobus",
+        "ad": "Otobüs"
+      },
+      {
+        "alan": "midibus",
+        "ad": "Midibüs"
+      },
+      {
+        "alan": "minibus",
+        "ad": "Minibüs"
+      },
+      {
+        "alan": "traktor",
+        "ad": "Traktör"
+      }
+    ],
+    "satirlar": [
+      {
+        "yil": 2005,
+        "ay": 1,
+        "binek": 27235,
+        "kamyonet": 22480,
+        "kamyon": 2086,
+        "cekici": 0,
+        "otobus": 260,
+        "midibus": 290,
+        "minibus": 1722,
+        "traktor": 2135
+      },
+      {
+        "yil": 2005,
+        "ay": 2,
+        "binek": 33627,
+        "kamyonet": 27462,
+        "kamyon": 2832,
+        "cekici": 0,
+        "otobus": 340,
+        "midibus": 423,
+        "minibus": 2275,
+        "traktor": 2735
+      },
+      {
+        "yil": 2005,
+        "ay": 3,
+        "binek": 42188,
+        "kamyonet": 29614,
+        "kamyon": 3180,
+        "cekici": 0,
+        "otobus": 486,
+        "midibus": 488,
+        "minibus": 2624,
+        "traktor": 3156
+      },
+      {
+        "yil": 2005,
+        "ay": 4,
+        "binek": 39624,
+        "kamyonet": 29475,
+        "kamyon": 3620,
+        "cekici": null,
+        "otobus": 551,
+        "midibus": 542,
+        "minibus": 2502,
+        "traktor": 2823
+      },
+      {
+        "yil": 2005,
+        "ay": 5,
+        "binek": 44512,
+        "kamyonet": 32435,
+        "kamyon": 3315,
+        "cekici": 0,
+        "otobus": 528,
+        "midibus": 550,
+        "minibus": 2064,
+        "traktor": 2886
+      },
+      {
+        "yil": 2005,
+        "ay": 6,
+        "binek": 45150,
+        "kamyonet": 31943,
+        "kamyon": 3239,
+        "cekici": 0,
+        "otobus": 438,
+        "midibus": 536,
+        "minibus": 2400,
+        "traktor": 3544
+      },
+      {
+        "yil": 2005,
+        "ay": 7,
+        "binek": 38164,
+        "kamyonet": 25688,
+        "kamyon": 2141,
+        "cekici": 0,
+        "otobus": 444,
+        "midibus": 470,
+        "minibus": 1950,
+        "traktor": 2887
+      },
+      {
+        "yil": 2005,
+        "ay": 8,
+        "binek": 22864,
+        "kamyonet": 23431,
+        "kamyon": 3515,
+        "cekici": 0,
+        "otobus": 412,
+        "midibus": 999,
+        "minibus": 2064,
+        "traktor": 2945
+      },
+      {
+        "yil": 2005,
+        "ay": 9,
+        "binek": 46396,
+        "kamyonet": 32153,
+        "kamyon": 3467,
+        "cekici": 0,
+        "otobus": 454,
+        "midibus": 786,
+        "minibus": 2464,
+        "traktor": 3408
+      },
+      {
+        "yil": 2005,
+        "ay": 10,
+        "binek": 42293,
+        "kamyonet": 31557,
+        "kamyon": 3200,
+        "cekici": 0,
+        "otobus": 466,
+        "midibus": 629,
+        "minibus": 2124,
+        "traktor": 3037
+      },
+      {
+        "yil": 2005,
+        "ay": 11,
+        "binek": 33855,
+        "kamyonet": 30136,
+        "kamyon": 2936,
+        "cekici": 0,
+        "otobus": 456,
+        "midibus": 738,
+        "minibus": 1802,
+        "traktor": 2612
+      },
+      {
+        "yil": 2005,
+        "ay": 12,
+        "binek": 37755,
+        "kamyonet": 33511,
+        "kamyon": 3696,
+        "cekici": 0,
+        "otobus": 571,
+        "midibus": 658,
+        "minibus": 2171,
+        "traktor": 2739
+      },
+      {
+        "yil": 2006,
+        "ay": 1,
+        "binek": 29354,
+        "kamyonet": 23829,
+        "kamyon": 2294,
+        "cekici": 0,
+        "otobus": 263,
+        "midibus": 324,
+        "minibus": 1474,
+        "traktor": 2302
+      },
+      {
+        "yil": 2006,
+        "ay": 2,
+        "binek": 38457,
+        "kamyonet": 31093,
+        "kamyon": 2894,
+        "cekici": 0,
+        "otobus": 422,
+        "midibus": 641,
+        "minibus": 1538,
+        "traktor": 3297
+      },
+      {
+        "yil": 2006,
+        "ay": 3,
+        "binek": 51833,
+        "kamyonet": 34542,
+        "kamyon": 3645,
+        "cekici": 0,
+        "otobus": 581,
+        "midibus": 743,
+        "minibus": 1508,
+        "traktor": 3810
+      },
+      {
+        "yil": 2006,
+        "ay": 4,
+        "binek": 48387,
+        "kamyonet": 28539,
+        "kamyon": 3791,
+        "cekici": 0,
+        "otobus": 626,
+        "midibus": 751,
+        "minibus": 877,
+        "traktor": 3428
+      },
+      {
+        "yil": 2006,
+        "ay": 5,
+        "binek": 53465,
+        "kamyonet": 34786,
+        "kamyon": 3900,
+        "cekici": 0,
+        "otobus": 655,
+        "midibus": 682,
+        "minibus": 1118,
+        "traktor": 4207
+      },
+      {
+        "yil": 2006,
+        "ay": 6,
+        "binek": 55298,
+        "kamyonet": 36067,
+        "kamyon": 3792,
+        "cekici": 0,
+        "otobus": 628,
+        "midibus": 863,
+        "minibus": 1998,
+        "traktor": 3620
+      },
+      {
+        "yil": 2006,
+        "ay": 7,
+        "binek": 52337,
+        "kamyonet": 34008,
+        "kamyon": 3175,
+        "cekici": 0,
+        "otobus": 446,
+        "midibus": 674,
+        "minibus": 1442,
+        "traktor": 2640
+      },
+      {
+        "yil": 2006,
+        "ay": 8,
+        "binek": 18315,
+        "kamyonet": 17427,
+        "kamyon": 2684,
+        "cekici": 0,
+        "otobus": 437,
+        "midibus": 801,
+        "minibus": 1531,
+        "traktor": 2326
+      },
+      {
+        "yil": 2006,
+        "ay": 9,
+        "binek": 53465,
+        "kamyonet": 32628,
+        "kamyon": 3025,
+        "cekici": 0,
+        "otobus": 506,
+        "midibus": 802,
+        "minibus": 2400,
+        "traktor": 3493
+      },
+      {
+        "yil": 2006,
+        "ay": 10,
+        "binek": 45542,
+        "kamyonet": 29078,
+        "kamyon": 2463,
+        "cekici": 0,
+        "otobus": 435,
+        "midibus": 493,
+        "minibus": 2128,
+        "traktor": 2837
+      },
+      {
+        "yil": 2006,
+        "ay": 11,
+        "binek": 53710,
+        "kamyonet": 34547,
+        "kamyon": 2873,
+        "cekici": 0,
+        "otobus": 485,
+        "midibus": 894,
+        "minibus": 2319,
+        "traktor": 3293
+      },
+      {
+        "yil": 2006,
+        "ay": 12,
+        "binek": 45519,
+        "kamyonet": 33318,
+        "kamyon": 2490,
+        "cekici": 0,
+        "otobus": 535,
+        "midibus": 595,
+        "minibus": 2395,
+        "traktor": 2829
+      },
+      {
+        "yil": 2007,
+        "ay": 1,
+        "binek": 40533,
+        "kamyonet": 27698,
+        "kamyon": 2392,
+        "cekici": 0,
+        "otobus": 409,
+        "midibus": 335,
+        "minibus": 1185,
+        "traktor": 2899
+      },
+      {
+        "yil": 2007,
+        "ay": 2,
+        "binek": 45415,
+        "kamyonet": 30316,
+        "kamyon": 2417,
+        "cekici": 0,
+        "otobus": 537,
+        "midibus": 528,
+        "minibus": 1491,
+        "traktor": 2887
+      },
+      {
+        "yil": 2007,
+        "ay": 3,
+        "binek": 53909,
+        "kamyonet": 33662,
+        "kamyon": 2899,
+        "cekici": 0,
+        "otobus": 655,
+        "midibus": 549,
+        "minibus": 1852,
+        "traktor": 3002
+      },
+      {
+        "yil": 2007,
+        "ay": 4,
+        "binek": 53228,
+        "kamyonet": 30391,
+        "kamyon": 2946,
+        "cekici": 0,
+        "otobus": 564,
+        "midibus": 395,
+        "minibus": 1775,
+        "traktor": 2770
+      },
+      {
+        "yil": 2007,
+        "ay": 5,
+        "binek": 62129,
+        "kamyonet": 33522,
+        "kamyon": 2936,
+        "cekici": 0,
+        "otobus": 624,
+        "midibus": 502,
+        "minibus": 1936,
+        "traktor": 3038
+      },
+      {
+        "yil": 2007,
+        "ay": 6,
+        "binek": 59902,
+        "kamyonet": 34077,
+        "kamyon": 3075,
+        "cekici": 0,
+        "otobus": 600,
+        "midibus": 634,
+        "minibus": 1937,
+        "traktor": 2716
+      },
+      {
+        "yil": 2007,
+        "ay": 7,
+        "binek": 56273,
+        "kamyonet": 30557,
+        "kamyon": 2488,
+        "cekici": 0,
+        "otobus": 605,
+        "midibus": 502,
+        "minibus": 1582,
+        "traktor": 2622
+      },
+      {
+        "yil": 2007,
+        "ay": 8,
+        "binek": 23614,
+        "kamyonet": 19925,
+        "kamyon": 2746,
+        "cekici": 0,
+        "otobus": 568,
+        "midibus": 1101,
+        "minibus": 1509,
+        "traktor": 2163
+      },
+      {
+        "yil": 2007,
+        "ay": 9,
+        "binek": 55818,
+        "kamyonet": 35956,
+        "kamyon": 3187,
+        "cekici": 0,
+        "otobus": 576,
+        "midibus": 1254,
+        "minibus": 1636,
+        "traktor": 2934
+      },
+      {
+        "yil": 2007,
+        "ay": 10,
+        "binek": 59463,
+        "kamyonet": 35141,
+        "kamyon": 3176,
+        "cekici": 0,
+        "otobus": 521,
+        "midibus": 971,
+        "minibus": 1736,
+        "traktor": 2785
+      },
+      {
+        "yil": 2007,
+        "ay": 11,
+        "binek": 68608,
+        "kamyonet": 41854,
+        "kamyon": 3486,
+        "cekici": 0,
+        "otobus": 604,
+        "midibus": 1099,
+        "minibus": 2556,
+        "traktor": 3202
+      },
+      {
+        "yil": 2007,
+        "ay": 12,
+        "binek": 55991,
+        "kamyonet": 38638,
+        "kamyon": 2796,
+        "cekici": 0,
+        "otobus": 682,
+        "midibus": 1435,
+        "minibus": 2804,
+        "traktor": 2520
+      },
+      {
+        "yil": 2008,
+        "ay": 1,
+        "binek": 61507,
+        "kamyonet": 46631,
+        "kamyon": 2405,
+        "cekici": 0,
+        "otobus": 556,
+        "midibus": 871,
+        "minibus": 1280,
+        "traktor": 2219
+      },
+      {
+        "yil": 2008,
+        "ay": 2,
+        "binek": 60868,
+        "kamyonet": 45928,
+        "kamyon": 3065,
+        "cekici": 0,
+        "otobus": 579,
+        "midibus": 1068,
+        "minibus": 1584,
+        "traktor": 2356
+      },
+      {
+        "yil": 2008,
+        "ay": 3,
+        "binek": 64973,
+        "kamyonet": 52696,
+        "kamyon": 3258,
+        "cekici": 0,
+        "otobus": 713,
+        "midibus": 948,
+        "minibus": 1972,
+        "traktor": 2854
+      },
+      {
+        "yil": 2008,
+        "ay": 4,
+        "binek": 65610,
+        "kamyonet": 48092,
+        "kamyon": 3358,
+        "cekici": 0,
+        "otobus": 621,
+        "midibus": 970,
+        "minibus": 2341,
+        "traktor": 2610
+      },
+      {
+        "yil": 2008,
+        "ay": 5,
+        "binek": 63931,
+        "kamyonet": 52552,
+        "kamyon": 3274,
+        "cekici": 0,
+        "otobus": 812,
+        "midibus": 1055,
+        "minibus": 2276,
+        "traktor": 2677
+      },
+      {
+        "yil": 2008,
+        "ay": 6,
+        "binek": 63118,
+        "kamyonet": 46774,
+        "kamyon": 3148,
+        "cekici": 0,
+        "otobus": 666,
+        "midibus": 1125,
+        "minibus": 2501,
+        "traktor": 2597
+      },
+      {
+        "yil": 2008,
+        "ay": 7,
+        "binek": 67891,
+        "kamyonet": 41374,
+        "kamyon": 2857,
+        "cekici": 0,
+        "otobus": 610,
+        "midibus": 769,
+        "minibus": 1690,
+        "traktor": 2976
+      },
+      {
+        "yil": 2008,
+        "ay": 8,
+        "binek": 21342,
+        "kamyonet": 15965,
+        "kamyon": 3423,
+        "cekici": 0,
+        "otobus": 530,
+        "midibus": 730,
+        "minibus": 1285,
+        "traktor": 783
+      },
+      {
+        "yil": 2008,
+        "ay": 9,
+        "binek": 55089,
+        "kamyonet": 36122,
+        "kamyon": 3388,
+        "cekici": 0,
+        "otobus": 558,
+        "midibus": 826,
+        "minibus": 1670,
+        "traktor": 2048
+      },
+      {
+        "yil": 2008,
+        "ay": 10,
+        "binek": 45057,
+        "kamyonet": 28366,
+        "kamyon": 3308,
+        "cekici": 0,
+        "otobus": 615,
+        "midibus": 858,
+        "minibus": 2099,
+        "traktor": 1161
+      },
+      {
+        "yil": 2008,
+        "ay": 11,
+        "binek": 31681,
+        "kamyonet": 21656,
+        "kamyon": 2880,
+        "cekici": 0,
+        "otobus": 687,
+        "midibus": 637,
+        "minibus": 1539,
+        "traktor": 1690
+      },
+      {
+        "yil": 2008,
+        "ay": 12,
+        "binek": 20500,
+        "kamyonet": 13278,
+        "kamyon": 2436,
+        "cekici": 0,
+        "otobus": 615,
+        "midibus": 767,
+        "minibus": 886,
+        "traktor": 836
+      },
+      {
+        "yil": 2009,
+        "ay": 1,
+        "binek": 23838,
+        "kamyonet": 13519,
+        "kamyon": 239,
+        "cekici": 0,
+        "otobus": 554,
+        "midibus": 156,
+        "minibus": 469,
+        "traktor": 988
+      },
+      {
+        "yil": 2009,
+        "ay": 2,
+        "binek": 30192,
+        "kamyonet": 13160,
+        "kamyon": 383,
+        "cekici": 0,
+        "otobus": 491,
+        "midibus": 53,
+        "minibus": 621,
+        "traktor": 1322
+      },
+      {
+        "yil": 2009,
+        "ay": 3,
+        "binek": 37125,
+        "kamyonet": 19944,
+        "kamyon": 401,
+        "cekici": 0,
+        "otobus": 525,
+        "midibus": 225,
+        "minibus": 672,
+        "traktor": 955
+      },
+      {
+        "yil": 2009,
+        "ay": 4,
+        "binek": 48566,
+        "kamyonet": 25081,
+        "kamyon": 350,
+        "cekici": 0,
+        "otobus": 485,
+        "midibus": 90,
+        "minibus": 974,
+        "traktor": 963
+      },
+      {
+        "yil": 2009,
+        "ay": 5,
+        "binek": 52631,
+        "kamyonet": 32227,
+        "kamyon": 345,
+        "cekici": 0,
+        "otobus": 464,
+        "midibus": 95,
+        "minibus": 1362,
+        "traktor": 1041
+      },
+      {
+        "yil": 2009,
+        "ay": 6,
+        "binek": 53577,
+        "kamyonet": 32145,
+        "kamyon": 566,
+        "cekici": 0,
+        "otobus": 436,
+        "midibus": 189,
+        "minibus": 1506,
+        "traktor": 1435
+      },
+      {
+        "yil": 2009,
+        "ay": 7,
+        "binek": 54873,
+        "kamyonet": 29417,
+        "kamyon": 617,
+        "cekici": 0,
+        "otobus": 611,
+        "midibus": 304,
+        "minibus": 733,
+        "traktor": 1610
+      },
+      {
+        "yil": 2009,
+        "ay": 8,
+        "binek": 23805,
+        "kamyonet": 23407,
+        "kamyon": 895,
+        "cekici": 0,
+        "otobus": 598,
+        "midibus": 275,
+        "minibus": 535,
+        "traktor": 843
+      },
+      {
+        "yil": 2009,
+        "ay": 9,
+        "binek": 50320,
+        "kamyonet": 32963,
+        "kamyon": 1221,
+        "cekici": 0,
+        "otobus": 423,
+        "midibus": 125,
+        "minibus": 1219,
+        "traktor": 1111
+      },
+      {
+        "yil": 2009,
+        "ay": 10,
+        "binek": 45452,
+        "kamyonet": 34633,
+        "kamyon": 1102,
+        "cekici": 0,
+        "otobus": 437,
+        "midibus": 366,
+        "minibus": 1155,
+        "traktor": 1511
+      },
+      {
+        "yil": 2009,
+        "ay": 11,
+        "binek": 41635,
+        "kamyonet": 32228,
+        "kamyon": 997,
+        "cekici": 0,
+        "otobus": 430,
+        "midibus": 249,
+        "minibus": 1154,
+        "traktor": 1463
+      },
+      {
+        "yil": 2009,
+        "ay": 12,
+        "binek": 48917,
+        "kamyonet": 41320,
+        "kamyon": 1130,
+        "cekici": 0,
+        "otobus": 477,
+        "midibus": 497,
+        "minibus": 1429,
+        "traktor": 1619
+      },
+      {
+        "yil": 2010,
+        "ay": 1,
+        "binek": 46810,
+        "kamyonet": 27990,
+        "kamyon": 630,
+        "cekici": 0,
+        "otobus": 262,
+        "midibus": 49,
+        "minibus": 824,
+        "traktor": 1793
+      },
+      {
+        "yil": 2010,
+        "ay": 2,
+        "binek": 46365,
+        "kamyonet": 33895,
+        "kamyon": 772,
+        "cekici": 0,
+        "otobus": 416,
+        "midibus": 120,
+        "minibus": 953,
+        "traktor": 1943
+      },
+      {
+        "yil": 2010,
+        "ay": 3,
+        "binek": 55755,
+        "kamyonet": 39546,
+        "kamyon": 1396,
+        "cekici": 0,
+        "otobus": 441,
+        "midibus": 236,
+        "minibus": 1163,
+        "traktor": 2416
+      },
+      {
+        "yil": 2010,
+        "ay": 4,
+        "binek": 51459,
+        "kamyonet": 35118,
+        "kamyon": 1453,
+        "cekici": 0,
+        "otobus": 491,
+        "midibus": 282,
+        "minibus": 1014,
+        "traktor": 2441
+      },
+      {
+        "yil": 2010,
+        "ay": 5,
+        "binek": 57433,
+        "kamyonet": 37093,
+        "kamyon": 1812,
+        "cekici": 0,
+        "otobus": 441,
+        "midibus": 254,
+        "minibus": 1159,
+        "traktor": 2793
+      },
+      {
+        "yil": 2010,
+        "ay": 6,
+        "binek": 54660,
+        "kamyonet": 42097,
+        "kamyon": 2218,
+        "cekici": 0,
+        "otobus": 458,
+        "midibus": 201,
+        "minibus": 1760,
+        "traktor": 2813
+      },
+      {
+        "yil": 2010,
+        "ay": 7,
+        "binek": 47516,
+        "kamyonet": 29213,
+        "kamyon": 1860,
+        "cekici": 0,
+        "otobus": 403,
+        "midibus": 200,
+        "minibus": 1337,
+        "traktor": 3266
+      },
+      {
+        "yil": 2010,
+        "ay": 8,
+        "binek": 29192,
+        "kamyonet": 26984,
+        "kamyon": 2097,
+        "cekici": 0,
+        "otobus": 467,
+        "midibus": 218,
+        "minibus": 1340,
+        "traktor": 1029
+      },
+      {
+        "yil": 2010,
+        "ay": 9,
+        "binek": 54046,
+        "kamyonet": 37726,
+        "kamyon": 2347,
+        "cekici": 0,
+        "otobus": 470,
+        "midibus": 256,
+        "minibus": 1608,
+        "traktor": 2808
+      },
+      {
+        "yil": 2010,
+        "ay": 10,
+        "binek": 58059,
+        "kamyonet": 45076,
+        "kamyon": 2956,
+        "cekici": 0,
+        "otobus": 421,
+        "midibus": 242,
+        "minibus": 2070,
+        "traktor": 3271
+      },
+      {
+        "yil": 2010,
+        "ay": 11,
+        "binek": 45453,
+        "kamyonet": 38816,
+        "kamyon": 2890,
+        "cekici": 0,
+        "otobus": 417,
+        "midibus": 227,
+        "minibus": 1832,
+        "traktor": 2972
+      },
+      {
+        "yil": 2010,
+        "ay": 12,
+        "binek": 56646,
+        "kamyonet": 48854,
+        "kamyon": 3420,
+        "cekici": 0,
+        "otobus": 581,
+        "midibus": 373,
+        "minibus": 1918,
+        "traktor": 2880
+      },
+      {
+        "yil": 2011,
+        "ay": 1,
+        "binek": 51461,
+        "kamyonet": 35921,
+        "kamyon": 1986,
+        "cekici": 0,
+        "otobus": 337,
+        "midibus": 238,
+        "minibus": 1505,
+        "traktor": 2784
+      },
+      {
+        "yil": 2011,
+        "ay": 2,
+        "binek": 54462,
+        "kamyonet": 40025,
+        "kamyon": 2908,
+        "cekici": 0,
+        "otobus": 448,
+        "midibus": 290,
+        "minibus": 1458,
+        "traktor": 3181
+      },
+      {
+        "yil": 2011,
+        "ay": 3,
+        "binek": 62873,
+        "kamyonet": 44411,
+        "kamyon": 3585,
+        "cekici": 0,
+        "otobus": 632,
+        "midibus": 321,
+        "minibus": 1551,
+        "traktor": 3567
+      },
+      {
+        "yil": 2011,
+        "ay": 4,
+        "binek": 54096,
+        "kamyonet": 43630,
+        "kamyon": 3697,
+        "cekici": 0,
+        "otobus": 631,
+        "midibus": 283,
+        "minibus": 1673,
+        "traktor": 4583
+      },
+      {
+        "yil": 2011,
+        "ay": 5,
+        "binek": 54197,
+        "kamyonet": 43570,
+        "kamyon": 3423,
+        "cekici": 0,
+        "otobus": 691,
+        "midibus": 277,
+        "minibus": 1926,
+        "traktor": 4490
+      },
+      {
+        "yil": 2011,
+        "ay": 6,
+        "binek": 58694,
+        "kamyonet": 44569,
+        "kamyon": 3177,
+        "cekici": 0,
+        "otobus": 652,
+        "midibus": 216,
+        "minibus": 1880,
+        "traktor": 4657
+      },
+      {
+        "yil": 2011,
+        "ay": 7,
+        "binek": 57395,
+        "kamyonet": 45107,
+        "kamyon": 2889,
+        "cekici": 0,
+        "otobus": 526,
+        "midibus": 323,
+        "minibus": 2015,
+        "traktor": 4313
+      },
+      {
+        "yil": 2011,
+        "ay": 8,
+        "binek": 26132,
+        "kamyonet": 19363,
+        "kamyon": 2715,
+        "cekici": 0,
+        "otobus": 822,
+        "midibus": 299,
+        "minibus": 1187,
+        "traktor": 2035
+      },
+      {
+        "yil": 2011,
+        "ay": 9,
+        "binek": 57427,
+        "kamyonet": 39703,
+        "kamyon": 3445,
+        "cekici": 0,
+        "otobus": 473,
+        "midibus": 295,
+        "minibus": 1937,
+        "traktor": 3918
+      },
+      {
+        "yil": 2011,
+        "ay": 10,
+        "binek": 60172,
+        "kamyonet": 37770,
+        "kamyon": 3114,
+        "cekici": 0,
+        "otobus": 581,
+        "midibus": 315,
+        "minibus": 1994,
+        "traktor": 4137
+      },
+      {
+        "yil": 2011,
+        "ay": 11,
+        "binek": 51759,
+        "kamyonet": 39238,
+        "kamyon": 2816,
+        "cekici": 0,
+        "otobus": 563,
+        "midibus": 257,
+        "minibus": 2352,
+        "traktor": 4085
+      },
+      {
+        "yil": 2011,
+        "ay": 12,
+        "binek": 51066,
+        "kamyonet": 45803,
+        "kamyon": 3641,
+        "cekici": 0,
+        "otobus": 551,
+        "midibus": 395,
+        "minibus": 2997,
+        "traktor": 3756
+      },
+      {
+        "yil": 2012,
+        "ay": 1,
+        "binek": 45703,
+        "kamyonet": 34122,
+        "kamyon": 2003,
+        "cekici": 0,
+        "otobus": 390,
+        "midibus": 200,
+        "minibus": 1948,
+        "traktor": 3767
+      },
+      {
+        "yil": 2012,
+        "ay": 2,
+        "binek": 53515,
+        "kamyonet": 35643,
+        "kamyon": 2532,
+        "cekici": 0,
+        "otobus": 522,
+        "midibus": 284,
+        "minibus": 2054,
+        "traktor": 4431
+      },
+      {
+        "yil": 2012,
+        "ay": 3,
+        "binek": 55261,
+        "kamyonet": 40656,
+        "kamyon": 2856,
+        "cekici": 0,
+        "otobus": 619,
+        "midibus": 334,
+        "minibus": 2598,
+        "traktor": 4774
+      },
+      {
+        "yil": 2012,
+        "ay": 4,
+        "binek": 48800,
+        "kamyonet": 33819,
+        "kamyon": 2604,
+        "cekici": 0,
+        "otobus": 641,
+        "midibus": 270,
+        "minibus": 2126,
+        "traktor": 4434
+      },
+      {
+        "yil": 2012,
+        "ay": 5,
+        "binek": 55662,
+        "kamyonet": 37943,
+        "kamyon": 3129,
+        "cekici": 0,
+        "otobus": 628,
+        "midibus": 413,
+        "minibus": 2091,
+        "traktor": 4483
+      },
+      {
+        "yil": 2012,
+        "ay": 6,
+        "binek": 49982,
+        "kamyonet": 38702,
+        "kamyon": 3040,
+        "cekici": 0,
+        "otobus": 535,
+        "midibus": 367,
+        "minibus": 2728,
+        "traktor": 4654
+      },
+      {
+        "yil": 2012,
+        "ay": 7,
+        "binek": 43819,
+        "kamyonet": 42217,
+        "kamyon": 2802,
+        "cekici": 0,
+        "otobus": 598,
+        "midibus": 408,
+        "minibus": 2982,
+        "traktor": 4358
+      },
+      {
+        "yil": 2012,
+        "ay": 8,
+        "binek": 21157,
+        "kamyonet": 12110,
+        "kamyon": 2067,
+        "cekici": 0,
+        "otobus": 493,
+        "midibus": 236,
+        "minibus": 748,
+        "traktor": 693
+      },
+      {
+        "yil": 2012,
+        "ay": 9,
+        "binek": 54295,
+        "kamyonet": 38868,
+        "kamyon": 2601,
+        "cekici": 0,
+        "otobus": 515,
+        "midibus": 462,
+        "minibus": 2875,
+        "traktor": 3101
+      },
+      {
+        "yil": 2012,
+        "ay": 10,
+        "binek": 51226,
+        "kamyonet": 33973,
+        "kamyon": 2105,
+        "cekici": 0,
+        "otobus": 478,
+        "midibus": 434,
+        "minibus": 2460,
+        "traktor": 2691
+      },
+      {
+        "yil": 2012,
+        "ay": 11,
+        "binek": 53168,
+        "kamyonet": 41472,
+        "kamyon": 2076,
+        "cekici": 0,
+        "otobus": 511,
+        "midibus": 493,
+        "minibus": 3665,
+        "traktor": 3265
+      },
+      {
+        "yil": 2012,
+        "ay": 12,
+        "binek": 44708,
+        "kamyonet": 37108,
+        "kamyon": 1314,
+        "cekici": 0,
+        "otobus": 497,
+        "midibus": 257,
+        "minibus": 3060,
+        "traktor": 1604
+      },
+      {
+        "yil": 2013,
+        "ay": 1,
+        "binek": 40071,
+        "kamyonet": 37203,
+        "kamyon": 2070,
+        "cekici": 0,
+        "otobus": 785,
+        "midibus": 401,
+        "minibus": 3278,
+        "traktor": 3010
+      },
+      {
+        "yil": 2013,
+        "ay": 2,
+        "binek": 48821,
+        "kamyonet": 38023,
+        "kamyon": 2450,
+        "cekici": 0,
+        "otobus": 674,
+        "midibus": 427,
+        "minibus": 3124,
+        "traktor": 3030
+      },
+      {
+        "yil": 2013,
+        "ay": 3,
+        "binek": 53534,
+        "kamyonet": 39136,
+        "kamyon": 2520,
+        "cekici": 0,
+        "otobus": 877,
+        "midibus": 461,
+        "minibus": 3291,
+        "traktor": 3316
+      },
+      {
+        "yil": 2013,
+        "ay": 4,
+        "binek": 51211,
+        "kamyonet": 35671,
+        "kamyon": 2472,
+        "cekici": 0,
+        "otobus": 688,
+        "midibus": 415,
+        "minibus": 2851,
+        "traktor": 3526
+      },
+      {
+        "yil": 2013,
+        "ay": 5,
+        "binek": 54157,
+        "kamyonet": 36020,
+        "kamyon": 2631,
+        "cekici": 0,
+        "otobus": 793,
+        "midibus": 453,
+        "minibus": 2864,
+        "traktor": 3393
+      },
+      {
+        "yil": 2013,
+        "ay": 6,
+        "binek": 55989,
+        "kamyonet": 38104,
+        "kamyon": 2843,
+        "cekici": 0,
+        "otobus": 879,
+        "midibus": 442,
+        "minibus": 3718,
+        "traktor": 4001
+      },
+      {
+        "yil": 2013,
+        "ay": 7,
+        "binek": 65411,
+        "kamyonet": 39002,
+        "kamyon": 2621,
+        "cekici": 0,
+        "otobus": 787,
+        "midibus": 414,
+        "minibus": 3757,
+        "traktor": 3756
+      },
+      {
+        "yil": 2013,
+        "ay": 8,
+        "binek": 30137,
+        "kamyonet": 13026,
+        "kamyon": 2045,
+        "cekici": 0,
+        "otobus": 500,
+        "midibus": 244,
+        "minibus": 1336,
+        "traktor": 1903
+      },
+      {
+        "yil": 2013,
+        "ay": 9,
+        "binek": 65199,
+        "kamyonet": 38111,
+        "kamyon": 2800,
+        "cekici": 0,
+        "otobus": 734,
+        "midibus": 550,
+        "minibus": 4122,
+        "traktor": 4391
+      },
+      {
+        "yil": 2013,
+        "ay": 10,
+        "binek": 51984,
+        "kamyonet": 30094,
+        "kamyon": 2314,
+        "cekici": 0,
+        "otobus": 538,
+        "midibus": 448,
+        "minibus": 3201,
+        "traktor": 3125
+      },
+      {
+        "yil": 2013,
+        "ay": 11,
+        "binek": 66155,
+        "kamyonet": 39484,
+        "kamyon": 2508,
+        "cekici": 0,
+        "otobus": 574,
+        "midibus": 579,
+        "minibus": 4346,
+        "traktor": 4185
+      },
+      {
+        "yil": 2013,
+        "ay": 12,
+        "binek": 50935,
+        "kamyonet": 26682,
+        "kamyon": 2808,
+        "cekici": 0,
+        "otobus": 516,
+        "midibus": 363,
+        "minibus": 1862,
+        "traktor": 2873
+      },
+      {
+        "yil": 2014,
+        "ay": 1,
+        "binek": 52006,
+        "kamyonet": 18388,
+        "kamyon": 2027,
+        "cekici": 0,
+        "otobus": 485,
+        "midibus": 599,
+        "minibus": 1537,
+        "traktor": 3402
+      },
+      {
+        "yil": 2014,
+        "ay": 2,
+        "binek": 53250,
+        "kamyonet": 24832,
+        "kamyon": 2180,
+        "cekici": 0,
+        "otobus": 588,
+        "midibus": 536,
+        "minibus": 1754,
+        "traktor": 3694
+      },
+      {
+        "yil": 2014,
+        "ay": 3,
+        "binek": 61203,
+        "kamyonet": 29849,
+        "kamyon": 2308,
+        "cekici": 0,
+        "otobus": 654,
+        "midibus": 532,
+        "minibus": 2762,
+        "traktor": 4456
+      },
+      {
+        "yil": 2014,
+        "ay": 4,
+        "binek": 63761,
+        "kamyonet": 28684,
+        "kamyon": 2446,
+        "cekici": 0,
+        "otobus": 542,
+        "midibus": 543,
+        "minibus": 3015,
+        "traktor": 4548
+      },
+      {
+        "yil": 2014,
+        "ay": 5,
+        "binek": 63658,
+        "kamyonet": 31019,
+        "kamyon": 2611,
+        "cekici": 0,
+        "otobus": 561,
+        "midibus": 454,
+        "minibus": 3192,
+        "traktor": 4150
+      },
+      {
+        "yil": 2014,
+        "ay": 6,
+        "binek": 67013,
+        "kamyonet": 34087,
+        "kamyon": 2965,
+        "cekici": 0,
+        "otobus": 534,
+        "midibus": 496,
+        "minibus": 3006,
+        "traktor": 4426
+      },
+      {
+        "yil": 2014,
+        "ay": 7,
+        "binek": 61151,
+        "kamyonet": 30554,
+        "kamyon": 2468,
+        "cekici": 0,
+        "otobus": 548,
+        "midibus": 268,
+        "minibus": 3157,
+        "traktor": 4003
+      },
+      {
+        "yil": 2014,
+        "ay": 8,
+        "binek": 37330,
+        "kamyonet": 14698,
+        "kamyon": 2183,
+        "cekici": 0,
+        "otobus": 534,
+        "midibus": 472,
+        "minibus": 2061,
+        "traktor": 2932
+      },
+      {
+        "yil": 2014,
+        "ay": 9,
+        "binek": 72120,
+        "kamyonet": 36265,
+        "kamyon": 3504,
+        "cekici": 0,
+        "otobus": 446,
+        "midibus": 290,
+        "minibus": 3656,
+        "traktor": 5038
+      },
+      {
+        "yil": 2014,
+        "ay": 10,
+        "binek": 62001,
+        "kamyonet": 32052,
+        "kamyon": 2764,
+        "cekici": 0,
+        "otobus": 435,
+        "midibus": 394,
+        "minibus": 3331,
+        "traktor": 4103
+      },
+      {
+        "yil": 2014,
+        "ay": 11,
+        "binek": 69466,
+        "kamyonet": 35921,
+        "kamyon": 2995,
+        "cekici": 0,
+        "otobus": 582,
+        "midibus": 272,
+        "minibus": 3857,
+        "traktor": 4324
+      },
+      {
+        "yil": 2014,
+        "ay": 12,
+        "binek": 70480,
+        "kamyonet": 41540,
+        "kamyon": 3480,
+        "cekici": 0,
+        "otobus": 533,
+        "midibus": 468,
+        "minibus": 4092,
+        "traktor": 3327
+      },
+      {
+        "yil": 2015,
+        "ay": 1,
+        "binek": 60414,
+        "kamyonet": 34292,
+        "kamyon": 2775,
+        "cekici": 0,
+        "otobus": 635,
+        "midibus": 504,
+        "minibus": 3954,
+        "traktor": 3604
+      },
+      {
+        "yil": 2015,
+        "ay": 2,
+        "binek": 65238,
+        "kamyonet": 35062,
+        "kamyon": 2549,
+        "cekici": 0,
+        "otobus": 602,
+        "midibus": 503,
+        "minibus": 5058,
+        "traktor": 4367
+      },
+      {
+        "yil": 2015,
+        "ay": 3,
+        "binek": 72781,
+        "kamyonet": 38605,
+        "kamyon": 3092,
+        "cekici": 0,
+        "otobus": 753,
+        "midibus": 587,
+        "minibus": 7301,
+        "traktor": 4641
+      },
+      {
+        "yil": 2015,
+        "ay": 4,
+        "binek": 67277,
+        "kamyonet": 40537,
+        "kamyon": 3522,
+        "cekici": 0,
+        "otobus": 706,
+        "midibus": 530,
+        "minibus": 7816,
+        "traktor": 4119
+      },
+      {
+        "yil": 2015,
+        "ay": 5,
+        "binek": 52339,
+        "kamyonet": 26601,
+        "kamyon": 3004,
+        "cekici": 0,
+        "otobus": 757,
+        "midibus": 515,
+        "minibus": 4832,
+        "traktor": 3228
+      },
+      {
+        "yil": 2015,
+        "ay": 6,
+        "binek": 73928,
+        "kamyonet": 42114,
+        "kamyon": 3369,
+        "cekici": 0,
+        "otobus": 790,
+        "midibus": 600,
+        "minibus": 3650,
+        "traktor": 4356
+      },
+      {
+        "yil": 2015,
+        "ay": 7,
+        "binek": 62465,
+        "kamyonet": 42541,
+        "kamyon": 2339,
+        "cekici": 0,
+        "otobus": 598,
+        "midibus": 392,
+        "minibus": 4393,
+        "traktor": 5197
+      },
+      {
+        "yil": 2015,
+        "ay": 8,
+        "binek": 45210,
+        "kamyonet": 24807,
+        "kamyon": 2725,
+        "cekici": 0,
+        "otobus": 635,
+        "midibus": 591,
+        "minibus": 3009,
+        "traktor": 4739
+      },
+      {
+        "yil": 2015,
+        "ay": 9,
+        "binek": 66572,
+        "kamyonet": 44438,
+        "kamyon": 2848,
+        "cekici": 0,
+        "otobus": 644,
+        "midibus": 649,
+        "minibus": 1383,
+        "traktor": 4589
+      },
+      {
+        "yil": 2015,
+        "ay": 10,
+        "binek": 77243,
+        "kamyonet": 49317,
+        "kamyon": 2895,
+        "cekici": 0,
+        "otobus": 894,
+        "midibus": 648,
+        "minibus": 1980,
+        "traktor": 4711
+      },
+      {
+        "yil": 2015,
+        "ay": 11,
+        "binek": 72872,
+        "kamyonet": 47443,
+        "kamyon": 2707,
+        "cekici": 0,
+        "otobus": 854,
+        "midibus": 671,
+        "minibus": 1689,
+        "traktor": 4276
+      },
+      {
+        "yil": 2015,
+        "ay": 12,
+        "binek": 74688,
+        "kamyonet": 43176,
+        "kamyon": 4013,
+        "cekici": 0,
+        "otobus": 921,
+        "midibus": 941,
+        "minibus": 2013,
+        "traktor": 3411
+      },
+      {
+        "yil": 2016,
+        "ay": 1,
+        "binek": 58205,
+        "kamyonet": 36937,
+        "kamyon": 449,
+        "cekici": 0,
+        "otobus": 589,
+        "midibus": 74,
+        "minibus": 1390,
+        "traktor": 4027
+      },
+      {
+        "yil": 2016,
+        "ay": 2,
+        "binek": 72740,
+        "kamyonet": 44637,
+        "kamyon": 976,
+        "cekici": 0,
+        "otobus": 711,
+        "midibus": 239,
+        "minibus": 1388,
+        "traktor": 4680
+      },
+      {
+        "yil": 2016,
+        "ay": 3,
+        "binek": 77051,
+        "kamyonet": 46515,
+        "kamyon": 1726,
+        "cekici": 0,
+        "otobus": 788,
+        "midibus": 311,
+        "minibus": 1400,
+        "traktor": 5318
+      },
+      {
+        "yil": 2016,
+        "ay": 4,
+        "binek": 74625,
+        "kamyonet": 44069,
+        "kamyon": 1774,
+        "cekici": 0,
+        "otobus": 726,
+        "midibus": 320,
+        "minibus": 1691,
+        "traktor": 5219
+      },
+      {
+        "yil": 2016,
+        "ay": 5,
+        "binek": 76570,
+        "kamyonet": 39021,
+        "kamyon": 1981,
+        "cekici": 0,
+        "otobus": 797,
+        "midibus": 363,
+        "minibus": 6610,
+        "traktor": 5402
+      },
+      {
+        "yil": 2016,
+        "ay": 6,
+        "binek": 82175,
+        "kamyonet": 39608,
+        "kamyon": 2032,
+        "cekici": 0,
+        "otobus": 814,
+        "midibus": 329,
+        "minibus": 6310,
+        "traktor": 5333
+      },
+      {
+        "yil": 2016,
+        "ay": 7,
+        "binek": 69030,
+        "kamyonet": 34555,
+        "kamyon": 1525,
+        "cekici": 0,
+        "otobus": 540,
+        "midibus": 226,
+        "minibus": 4975,
+        "traktor": 4041
+      },
+      {
+        "yil": 2016,
+        "ay": 8,
+        "binek": 52296,
+        "kamyonet": 20977,
+        "kamyon": 1141,
+        "cekici": 0,
+        "otobus": 627,
+        "midibus": 440,
+        "minibus": 2606,
+        "traktor": 1581
+      },
+      {
+        "yil": 2016,
+        "ay": 9,
+        "binek": 78439,
+        "kamyonet": 33318,
+        "kamyon": 1711,
+        "cekici": 0,
+        "otobus": 620,
+        "midibus": 262,
+        "minibus": 3991,
+        "traktor": 3543
+      },
+      {
+        "yil": 2016,
+        "ay": 10,
+        "binek": 98008,
+        "kamyonet": 40466,
+        "kamyon": 1350,
+        "cekici": 0,
+        "otobus": 698,
+        "midibus": 294,
+        "minibus": 5050,
+        "traktor": 3083
+      },
+      {
+        "yil": 2016,
+        "ay": 11,
+        "binek": 104737,
+        "kamyonet": 38732,
+        "kamyon": 1525,
+        "cekici": 0,
+        "otobus": 679,
+        "midibus": 238,
+        "minibus": 4770,
+        "traktor": 4319
+      },
+      {
+        "yil": 2016,
+        "ay": 12,
+        "binek": 106963,
+        "kamyonet": 43003,
+        "kamyon": 1179,
+        "cekici": 0,
+        "otobus": 495,
+        "midibus": 236,
+        "minibus": 4239,
+        "traktor": 3480
+      },
+      {
+        "yil": 2017,
+        "ay": 1,
+        "binek": 93683,
+        "kamyonet": 28948,
+        "kamyon": 924,
+        "cekici": 0,
+        "otobus": 783,
+        "midibus": 201,
+        "minibus": 3582,
+        "traktor": 3620
+      },
+      {
+        "yil": 2017,
+        "ay": 2,
+        "binek": 97129,
+        "kamyonet": 34823,
+        "kamyon": 1678,
+        "cekici": 0,
+        "otobus": 700,
+        "midibus": 248,
+        "minibus": 3791,
+        "traktor": 3868
+      },
+      {
+        "yil": 2017,
+        "ay": 3,
+        "binek": 109443,
+        "kamyonet": 40214,
+        "kamyon": 2122,
+        "cekici": 0,
+        "otobus": 818,
+        "midibus": 367,
+        "minibus": 4765,
+        "traktor": 4806
+      },
+      {
+        "yil": 2017,
+        "ay": 4,
+        "binek": 101839,
+        "kamyonet": 39911,
+        "kamyon": 1614,
+        "cekici": 0,
+        "otobus": 771,
+        "midibus": 235,
+        "minibus": 4650,
+        "traktor": 4062
+      },
+      {
+        "yil": 2017,
+        "ay": 5,
+        "binek": 104653,
+        "kamyonet": 42058,
+        "kamyon": 1822,
+        "cekici": 0,
+        "otobus": 799,
+        "midibus": 219,
+        "minibus": 5207,
+        "traktor": 4216
+      },
+      {
+        "yil": 2017,
+        "ay": 6,
+        "binek": 94839,
+        "kamyonet": 38198,
+        "kamyon": 2005,
+        "cekici": 0,
+        "otobus": 720,
+        "midibus": 185,
+        "minibus": 5214,
+        "traktor": 4523
+      },
+      {
+        "yil": 2017,
+        "ay": 7,
+        "binek": 97985,
+        "kamyonet": 43087,
+        "kamyon": 1539,
+        "cekici": 0,
+        "otobus": 698,
+        "midibus": 221,
+        "minibus": 5444,
+        "traktor": 4876
+      },
+      {
+        "yil": 2017,
+        "ay": 8,
+        "binek": 50453,
+        "kamyonet": 16668,
+        "kamyon": 1068,
+        "cekici": 0,
+        "otobus": 580,
+        "midibus": 317,
+        "minibus": 2377,
+        "traktor": 3853
+      },
+      {
+        "yil": 2017,
+        "ay": 9,
+        "binek": 88952,
+        "kamyonet": 37458,
+        "kamyon": 2555,
+        "cekici": 0,
+        "otobus": 559,
+        "midibus": 386,
+        "minibus": 4337,
+        "traktor": 4910
+      },
+      {
+        "yil": 2017,
+        "ay": 10,
+        "binek": 102404,
+        "kamyonet": 44596,
+        "kamyon": 2460,
+        "cekici": 0,
+        "otobus": 594,
+        "midibus": 393,
+        "minibus": 5856,
+        "traktor": 5182
+      },
+      {
+        "yil": 2017,
+        "ay": 11,
+        "binek": 106487,
+        "kamyonet": 47732,
+        "kamyon": 3011,
+        "cekici": 0,
+        "otobus": 589,
+        "midibus": 497,
+        "minibus": 5144,
+        "traktor": 5280
+      },
+      {
+        "yil": 2017,
+        "ay": 12,
+        "binek": 72993,
+        "kamyonet": 48696,
+        "kamyon": 2701,
+        "cekici": 0,
+        "otobus": 557,
+        "midibus": 463,
+        "minibus": 4669,
+        "traktor": 4645
+      },
+      {
+        "yil": 2018,
+        "ay": 1,
+        "binek": 85368,
+        "kamyonet": 32222,
+        "kamyon": 2139,
+        "cekici": 0,
+        "otobus": 619,
+        "midibus": 296,
+        "minibus": 3703,
+        "traktor": 4564
+      },
+      {
+        "yil": 2018,
+        "ay": 2,
+        "binek": 94113,
+        "kamyonet": 39738,
+        "kamyon": 2553,
+        "cekici": 0,
+        "otobus": 657,
+        "midibus": 349,
+        "minibus": 3962,
+        "traktor": 4508
+      },
+      {
+        "yil": 2018,
+        "ay": 3,
+        "binek": 105687,
+        "kamyonet": 45190,
+        "kamyon": 2572,
+        "cekici": 0,
+        "otobus": 833,
+        "midibus": 351,
+        "minibus": 4831,
+        "traktor": 5122
+      },
+      {
+        "yil": 2018,
+        "ay": 4,
+        "binek": 90789,
+        "kamyonet": 38848,
+        "kamyon": 2502,
+        "cekici": 0,
+        "otobus": 754,
+        "midibus": 315,
+        "minibus": 5296,
+        "traktor": 4188
+      },
+      {
+        "yil": 2018,
+        "ay": 5,
+        "binek": 95677,
+        "kamyonet": 43690,
+        "kamyon": 2577,
+        "cekici": 0,
+        "otobus": 834,
+        "midibus": 467,
+        "minibus": 5059,
+        "traktor": 4229
+      },
+      {
+        "yil": 2018,
+        "ay": 6,
+        "binek": 85635,
+        "kamyonet": 37064,
+        "kamyon": 2540,
+        "cekici": 0,
+        "otobus": 668,
+        "midibus": 228,
+        "minibus": 5059,
+        "traktor": 3238
+      },
+      {
+        "yil": 2018,
+        "ay": 7,
+        "binek": 96511,
+        "kamyonet": 38482,
+        "kamyon": 2468,
+        "cekici": 0,
+        "otobus": 696,
+        "midibus": 337,
+        "minibus": 5235,
+        "traktor": 3419
+      },
+      {
+        "yil": 2018,
+        "ay": 8,
+        "binek": 29289,
+        "kamyonet": 14325,
+        "kamyon": 1364,
+        "cekici": 0,
+        "otobus": 509,
+        "midibus": 136,
+        "minibus": 1552,
+        "traktor": 1563
+      },
+      {
+        "yil": 2018,
+        "ay": 9,
+        "binek": 86395,
+        "kamyonet": 38197,
+        "kamyon": 2144,
+        "cekici": 0,
+        "otobus": 631,
+        "midibus": 249,
+        "minibus": 5315,
+        "traktor": 1845
+      },
+      {
+        "yil": 2018,
+        "ay": 10,
+        "binek": 89151,
+        "kamyonet": 33698,
+        "kamyon": 1793,
+        "cekici": 0,
+        "otobus": 747,
+        "midibus": 218,
+        "minibus": 5624,
+        "traktor": 1768
+      },
+      {
+        "yil": 2018,
+        "ay": 11,
+        "binek": 85666,
+        "kamyonet": 35072,
+        "kamyon": 1400,
+        "cekici": 0,
+        "otobus": 816,
+        "midibus": 197,
+        "minibus": 5724,
+        "traktor": 1802
+      },
+      {
+        "yil": 2018,
+        "ay": 12,
+        "binek": 82157,
+        "kamyonet": 32835,
+        "kamyon": 1477,
+        "cekici": 0,
+        "otobus": 777,
+        "midibus": 173,
+        "minibus": 5574,
+        "traktor": 1440
+      },
+      {
+        "yil": 2019,
+        "ay": 1,
+        "binek": 71397,
+        "kamyonet": 31118,
+        "kamyon": 1394,
+        "cekici": 0,
+        "otobus": 762,
+        "midibus": 138,
+        "minibus": 5062,
+        "traktor": 1061
+      },
+      {
+        "yil": 2019,
+        "ay": 2,
+        "binek": 80077,
+        "kamyonet": 31525,
+        "kamyon": 1690,
+        "cekici": 0,
+        "otobus": 677,
+        "midibus": 135,
+        "minibus": 5369,
+        "traktor": 1635
+      },
+      {
+        "yil": 2019,
+        "ay": 3,
+        "binek": 87348,
+        "kamyonet": 36491,
+        "kamyon": 1827,
+        "cekici": 0,
+        "otobus": 812,
+        "midibus": 206,
+        "minibus": 5505,
+        "traktor": 2048
+      },
+      {
+        "yil": 2019,
+        "ay": 4,
+        "binek": 83459,
+        "kamyonet": 37200,
+        "kamyon": 1169,
+        "cekici": 0,
+        "otobus": 886,
+        "midibus": 174,
+        "minibus": 5025,
+        "traktor": 2192
+      },
+      {
+        "yil": 2019,
+        "ay": 5,
+        "binek": 96345,
+        "kamyonet": 33727,
+        "kamyon": 1411,
+        "cekici": 0,
+        "otobus": 902,
+        "midibus": 252,
+        "minibus": 3880,
+        "traktor": 2046
+      },
+      {
+        "yil": 2019,
+        "ay": 6,
+        "binek": 74074,
+        "kamyonet": 29074,
+        "kamyon": 1695,
+        "cekici": 0,
+        "otobus": 700,
+        "midibus": 174,
+        "minibus": 3399,
+        "traktor": 1588
+      },
+      {
+        "yil": 2019,
+        "ay": 7,
+        "binek": 86235,
+        "kamyonet": 37533,
+        "kamyon": 2347,
+        "cekici": 0,
+        "otobus": 881,
+        "midibus": 252,
+        "minibus": 6635,
+        "traktor": 2042
+      },
+      {
+        "yil": 2019,
+        "ay": 8,
+        "binek": 31287,
+        "kamyonet": 15989,
+        "kamyon": 1756,
+        "cekici": 0,
+        "otobus": 464,
+        "midibus": 169,
+        "minibus": 2577,
+        "traktor": 1198
+      },
+      {
+        "yil": 2019,
+        "ay": 9,
+        "binek": 90359,
+        "kamyonet": 36540,
+        "kamyon": 1894,
+        "cekici": 0,
+        "otobus": 691,
+        "midibus": 221,
+        "minibus": 6531,
+        "traktor": 2668
+      },
+      {
+        "yil": 2019,
+        "ay": 10,
+        "binek": 93575,
+        "kamyonet": 30152,
+        "kamyon": 1123,
+        "cekici": 0,
+        "otobus": 989,
+        "midibus": 291,
+        "minibus": 6025,
+        "traktor": 2656
+      },
+      {
+        "yil": 2019,
+        "ay": 11,
+        "binek": 93495,
+        "kamyonet": 34371,
+        "kamyon": 1341,
+        "cekici": 0,
+        "otobus": 869,
+        "midibus": 253,
+        "minibus": 5622,
+        "traktor": 2768
+      },
+      {
+        "yil": 2019,
+        "ay": 12,
+        "binek": 94991,
+        "kamyonet": 32526,
+        "kamyon": 1356,
+        "cekici": 0,
+        "otobus": 579,
+        "midibus": 285,
+        "minibus": 6038,
+        "traktor": 1997
+      },
+      {
+        "yil": 2020,
+        "ay": 1,
+        "binek": 75396,
+        "kamyonet": 28197,
+        "kamyon": 572,
+        "cekici": 0,
+        "otobus": 665,
+        "midibus": 68,
+        "minibus": 4885,
+        "traktor": 2515
+      },
+      {
+        "yil": 2020,
+        "ay": 2,
+        "binek": 87589,
+        "kamyonet": 32255,
+        "kamyon": 1748,
+        "cekici": 0,
+        "otobus": 770,
+        "midibus": 198,
+        "minibus": 5322,
+        "traktor": 2750
+      },
+      {
+        "yil": 2020,
+        "ay": 3,
+        "binek": 72093,
+        "kamyonet": 24370,
+        "kamyon": 2176,
+        "cekici": 0,
+        "otobus": 776,
+        "midibus": 245,
+        "minibus": 3690,
+        "traktor": 2188
+      },
+      {
+        "yil": 2020,
+        "ay": 4,
+        "binek": 9661,
+        "kamyonet": 951,
+        "kamyon": 278,
+        "cekici": 0,
+        "otobus": 177,
+        "midibus": 97,
+        "minibus": 0,
+        "traktor": 997
+      },
+      {
+        "yil": 2020,
+        "ay": 5,
+        "binek": 43264,
+        "kamyonet": 14768,
+        "kamyon": 1137,
+        "cekici": 0,
+        "otobus": 522,
+        "midibus": 126,
+        "minibus": 3328,
+        "traktor": 1900
+      },
+      {
+        "yil": 2020,
+        "ay": 6,
+        "binek": 74264,
+        "kamyonet": 22160,
+        "kamyon": 1649,
+        "cekici": 0,
+        "otobus": 904,
+        "midibus": 184,
+        "minibus": 4012,
+        "traktor": 3172
+      },
+      {
+        "yil": 2020,
+        "ay": 7,
+        "binek": 77706,
+        "kamyonet": 31749,
+        "kamyon": 2156,
+        "cekici": 0,
+        "otobus": 738,
+        "midibus": 224,
+        "minibus": 5457,
+        "traktor": 3313
+      },
+      {
+        "yil": 2020,
+        "ay": 8,
+        "binek": 45211,
+        "kamyonet": 24252,
+        "kamyon": 2113,
+        "cekici": 0,
+        "otobus": 459,
+        "midibus": 143,
+        "minibus": 3163,
+        "traktor": 2968
+      },
+      {
+        "yil": 2020,
+        "ay": 9,
+        "binek": 90447,
+        "kamyonet": 42481,
+        "kamyon": 2646,
+        "cekici": 0,
+        "otobus": 818,
+        "midibus": 218,
+        "minibus": 5519,
+        "traktor": 4133
+      },
+      {
+        "yil": 2020,
+        "ay": 10,
+        "binek": 95915,
+        "kamyonet": 45758,
+        "kamyon": 2798,
+        "cekici": 0,
+        "otobus": 712,
+        "midibus": 157,
+        "minibus": 5406,
+        "traktor": 4575
+      },
+      {
+        "yil": 2020,
+        "ay": 11,
+        "binek": 91067,
+        "kamyonet": 43360,
+        "kamyon": 2963,
+        "cekici": 0,
+        "otobus": 726,
+        "midibus": 124,
+        "minibus": 5024,
+        "traktor": 4609
+      },
+      {
+        "yil": 2020,
+        "ay": 12,
+        "binek": 92300,
+        "kamyonet": 47881,
+        "kamyon": 2890,
+        "cekici": 0,
+        "otobus": 626,
+        "midibus": 259,
+        "minibus": 5658,
+        "traktor": 4983
+      },
+      {
+        "yil": 2021,
+        "ay": 1,
+        "binek": 68777,
+        "kamyonet": 30611,
+        "kamyon": 2372,
+        "cekici": 0,
+        "otobus": 254,
+        "midibus": 69,
+        "minibus": 4093,
+        "traktor": 4414
+      },
+      {
+        "yil": 2021,
+        "ay": 2,
+        "binek": 68105,
+        "kamyonet": 39864,
+        "kamyon": 3114,
+        "cekici": 0,
+        "otobus": 280,
+        "midibus": 157,
+        "minibus": 4568,
+        "traktor": 4900
+      },
+      {
+        "yil": 2021,
+        "ay": 3,
+        "binek": 74995,
+        "kamyonet": 38290,
+        "kamyon": 3712,
+        "cekici": 0,
+        "otobus": 453,
+        "midibus": 120,
+        "minibus": 5857,
+        "traktor": 5761
+      },
+      {
+        "yil": 2021,
+        "ay": 4,
+        "binek": 76334,
+        "kamyonet": 23324,
+        "kamyon": 3431,
+        "cekici": 0,
+        "otobus": 542,
+        "midibus": 162,
+        "minibus": 1703,
+        "traktor": 4597
+      },
+      {
+        "yil": 2021,
+        "ay": 5,
+        "binek": 66976,
+        "kamyonet": 12718,
+        "kamyon": 2529,
+        "cekici": null,
+        "otobus": 472,
+        "midibus": 139,
+        "minibus": 26,
+        "traktor": 4400
+      },
+      {
+        "yil": 2021,
+        "ay": 6,
+        "binek": 62441,
+        "kamyonet": 37661,
+        "kamyon": 2871,
+        "cekici": 0,
+        "otobus": 612,
+        "midibus": 221,
+        "minibus": 3413,
+        "traktor": 5676
+      },
+      {
+        "yil": 2021,
+        "ay": 7,
+        "binek": 33529,
+        "kamyonet": 25508,
+        "kamyon": 2080,
+        "cekici": 0,
+        "otobus": 505,
+        "midibus": 137,
+        "minibus": 3659,
+        "traktor": 3502
+      },
+      {
+        "yil": 2021,
+        "ay": 8,
+        "binek": 59539,
+        "kamyonet": 38719,
+        "kamyon": 2343,
+        "cekici": 0,
+        "otobus": 450,
+        "midibus": 264,
+        "minibus": 5433,
+        "traktor": 3041
+      },
+      {
+        "yil": 2021,
+        "ay": 9,
+        "binek": 59335,
+        "kamyonet": 39591,
+        "kamyon": 2244,
+        "cekici": 0,
+        "otobus": 345,
+        "midibus": 285,
+        "minibus": 5229,
+        "traktor": 4919
+      },
+      {
+        "yil": 2021,
+        "ay": 10,
+        "binek": 64637,
+        "kamyonet": 34289,
+        "kamyon": 4190,
+        "cekici": 0,
+        "otobus": 527,
+        "midibus": 220,
+        "minibus": 4215,
+        "traktor": 4610
+      },
+      {
+        "yil": 2021,
+        "ay": 11,
+        "binek": 70974,
+        "kamyonet": 34093,
+        "kamyon": 5640,
+        "cekici": 0,
+        "otobus": 562,
+        "midibus": 132,
+        "minibus": 3677,
+        "traktor": 5056
+      },
+      {
+        "yil": 2021,
+        "ay": 12,
+        "binek": 76570,
+        "kamyonet": 45281,
+        "kamyon": 3939,
+        "cekici": 0,
+        "otobus": 515,
+        "midibus": 247,
+        "minibus": 5005,
+        "traktor": 4627
+      },
+      {
+        "yil": 2022,
+        "ay": 1,
+        "binek": 47778,
+        "kamyonet": 35038,
+        "kamyon": 2625,
+        "cekici": 0,
+        "otobus": 243,
+        "midibus": 138,
+        "minibus": 4698,
+        "traktor": 3594
+      },
+      {
+        "yil": 2022,
+        "ay": 2,
+        "binek": 61544,
+        "kamyonet": 36296,
+        "kamyon": 2924,
+        "cekici": 0,
+        "otobus": 363,
+        "midibus": 210,
+        "minibus": 4307,
+        "traktor": 4314
+      },
+      {
+        "yil": 2022,
+        "ay": 3,
+        "binek": 57041,
+        "kamyonet": 38008,
+        "kamyon": 5946,
+        "cekici": 0,
+        "otobus": 712,
+        "midibus": 268,
+        "minibus": 4600,
+        "traktor": 4768
+      },
+      {
+        "yil": 2022,
+        "ay": 4,
+        "binek": 62837,
+        "kamyonet": 35697,
+        "kamyon": 3797,
+        "cekici": 0,
+        "otobus": 483,
+        "midibus": 234,
+        "minibus": 4119,
+        "traktor": 4038
+      },
+      {
+        "yil": 2022,
+        "ay": 5,
+        "binek": 67162,
+        "kamyonet": 30073,
+        "kamyon": 2858,
+        "cekici": 0,
+        "otobus": 613,
+        "midibus": 295,
+        "minibus": 2983,
+        "traktor": 3486
+      },
+      {
+        "yil": 2022,
+        "ay": 6,
+        "binek": 86585,
+        "kamyonet": 38866,
+        "kamyon": 4163,
+        "cekici": 0,
+        "otobus": 884,
+        "midibus": 332,
+        "minibus": 4594,
+        "traktor": 4480
+      },
+      {
+        "yil": 2022,
+        "ay": 7,
+        "binek": 50795,
+        "kamyonet": 32966,
+        "kamyon": 2518,
+        "cekici": 0,
+        "otobus": 584,
+        "midibus": 169,
+        "minibus": 4179,
+        "traktor": 2630
+      },
+      {
+        "yil": 2022,
+        "ay": 8,
+        "binek": 62560,
+        "kamyonet": 22822,
+        "kamyon": 3012,
+        "cekici": 0,
+        "otobus": 863,
+        "midibus": 295,
+        "minibus": 3073,
+        "traktor": 2812
+      },
+      {
+        "yil": 2022,
+        "ay": 9,
+        "binek": 74704,
+        "kamyonet": 44741,
+        "kamyon": 4561,
+        "cekici": 0,
+        "otobus": 715,
+        "midibus": 328,
+        "minibus": 3823,
+        "traktor": 4786
+      },
+      {
+        "yil": 2022,
+        "ay": 10,
+        "binek": 62363,
+        "kamyonet": 43256,
+        "kamyon": 4851,
+        "cekici": 0,
+        "otobus": 784,
+        "midibus": 279,
+        "minibus": 3302,
+        "traktor": 4810
+      },
+      {
+        "yil": 2022,
+        "ay": 11,
+        "binek": 83999,
+        "kamyonet": 39905,
+        "kamyon": 4756,
+        "cekici": 0,
+        "otobus": 883,
+        "midibus": 345,
+        "minibus": 3581,
+        "traktor": 5221
+      },
+      {
+        "yil": 2022,
+        "ay": 12,
+        "binek": 93521,
+        "kamyonet": 38920,
+        "kamyon": 4564,
+        "cekici": 0,
+        "otobus": 1215,
+        "midibus": 442,
+        "minibus": 3652,
+        "traktor": 4602
+      },
+      {
+        "yil": 2023,
+        "ay": 1,
+        "binek": 70723,
+        "kamyonet": 32089,
+        "kamyon": 3987,
+        "cekici": 0,
+        "otobus": 445,
+        "midibus": 256,
+        "minibus": 4337,
+        "traktor": 4893
+      },
+      {
+        "yil": 2023,
+        "ay": 2,
+        "binek": 63751,
+        "kamyonet": 38378,
+        "kamyon": 3994,
+        "cekici": 0,
+        "otobus": 649,
+        "midibus": 303,
+        "minibus": 4884,
+        "traktor": 5042
+      },
+      {
+        "yil": 2023,
+        "ay": 3,
+        "binek": 87577,
+        "kamyonet": 43312,
+        "kamyon": 4946,
+        "cekici": 0,
+        "otobus": 918,
+        "midibus": 502,
+        "minibus": 5544,
+        "traktor": 5972
+      },
+      {
+        "yil": 2023,
+        "ay": 4,
+        "binek": 73637,
+        "kamyonet": 29361,
+        "kamyon": 3987,
+        "cekici": 0,
+        "otobus": 910,
+        "midibus": 367,
+        "minibus": 4471,
+        "traktor": 4690
+      },
+      {
+        "yil": 2023,
+        "ay": 5,
+        "binek": 90739,
+        "kamyonet": 34653,
+        "kamyon": 5157,
+        "cekici": 0,
+        "otobus": 957,
+        "midibus": 422,
+        "minibus": 5084,
+        "traktor": 5143
+      },
+      {
+        "yil": 2023,
+        "ay": 6,
+        "binek": 75974,
+        "kamyonet": 32829,
+        "kamyon": 4392,
+        "cekici": 0,
+        "otobus": 824,
+        "midibus": 387,
+        "minibus": 4492,
+        "traktor": 4311
+      },
+      {
+        "yil": 2023,
+        "ay": 7,
+        "binek": 88214,
+        "kamyonet": 36708,
+        "kamyon": 4236,
+        "cekici": 0,
+        "otobus": 884,
+        "midibus": 409,
+        "minibus": 4909,
+        "traktor": 5015
+      },
+      {
+        "yil": 2023,
+        "ay": 8,
+        "binek": 49300,
+        "kamyonet": 15254,
+        "kamyon": 3765,
+        "cekici": 0,
+        "otobus": 945,
+        "midibus": 446,
+        "minibus": 3310,
+        "traktor": 3222
+      },
+      {
+        "yil": 2023,
+        "ay": 9,
+        "binek": 87902,
+        "kamyonet": 31857,
+        "kamyon": 4900,
+        "cekici": 0,
+        "otobus": 1012,
+        "midibus": 461,
+        "minibus": 4413,
+        "traktor": 5177
+      },
+      {
+        "yil": 2023,
+        "ay": 10,
+        "binek": 91511,
+        "kamyonet": 35151,
+        "kamyon": 4868,
+        "cekici": 0,
+        "otobus": 1107,
+        "midibus": 429,
+        "minibus": 3111,
+        "traktor": 4944
+      },
+      {
+        "yil": 2023,
+        "ay": 11,
+        "binek": 96922,
+        "kamyonet": 33286,
+        "kamyon": 4414,
+        "cekici": 0,
+        "otobus": 1012,
+        "midibus": 393,
+        "minibus": 2708,
+        "traktor": 4816
+      },
+      {
+        "yil": 2023,
+        "ay": 12,
+        "binek": 76416,
+        "kamyonet": 34093,
+        "kamyon": 3674,
+        "cekici": 0,
+        "otobus": 1198,
+        "midibus": 289,
+        "minibus": 3644,
+        "traktor": 4345
+      },
+      {
+        "yil": 2024,
+        "ay": 1,
+        "binek": 67059,
+        "kamyonet": 33507,
+        "kamyon": 3660,
+        "cekici": 0,
+        "otobus": 909,
+        "midibus": 418,
+        "minibus": 2930,
+        "traktor": 4254
+      },
+      {
+        "yil": 2024,
+        "ay": 2,
+        "binek": 83955,
+        "kamyonet": 38689,
+        "kamyon": 5588,
+        "cekici": 0,
+        "otobus": 1123,
+        "midibus": 484,
+        "minibus": 3557,
+        "traktor": 4771
+      },
+      {
+        "yil": 2024,
+        "ay": 3,
+        "binek": 87260,
+        "kamyonet": 40140,
+        "kamyon": 3672,
+        "cekici": 0,
+        "otobus": 1127,
+        "midibus": 531,
+        "minibus": 3881,
+        "traktor": 4830
+      },
+      {
+        "yil": 2024,
+        "ay": 4,
+        "binek": 61835,
+        "kamyonet": 28630,
+        "kamyon": 2561,
+        "cekici": 0,
+        "otobus": 748,
+        "midibus": 361,
+        "minibus": 3742,
+        "traktor": 3669
+      },
+      {
+        "yil": 2024,
+        "ay": 5,
+        "binek": 91823,
+        "kamyonet": 30125,
+        "kamyon": 3256,
+        "cekici": 0,
+        "otobus": 999,
+        "midibus": 496,
+        "minibus": 5257,
+        "traktor": 5020
+      },
+      {
+        "yil": 2024,
+        "ay": 6,
+        "binek": 68811,
+        "kamyonet": 23094,
+        "kamyon": 2635,
+        "cekici": 0,
+        "otobus": 641,
+        "midibus": 428,
+        "minibus": 4553,
+        "traktor": 3948
+      },
+      {
+        "yil": 2024,
+        "ay": 7,
+        "binek": 81434,
+        "kamyonet": 25603,
+        "kamyon": 2818,
+        "cekici": 0,
+        "otobus": 535,
+        "midibus": 330,
+        "minibus": 5849,
+        "traktor": 3576
+      },
+      {
+        "yil": 2024,
+        "ay": 8,
+        "binek": 29398,
+        "kamyonet": 16917,
+        "kamyon": 1919,
+        "cekici": 0,
+        "otobus": 562,
+        "midibus": 227,
+        "minibus": 4479,
+        "traktor": 2072
+      },
+      {
+        "yil": 2024,
+        "ay": 9,
+        "binek": 85573,
+        "kamyonet": 26802,
+        "kamyon": 3070,
+        "cekici": 0,
+        "otobus": 681,
+        "midibus": 327,
+        "minibus": 6992,
+        "traktor": 3769
+      },
+      {
+        "yil": 2024,
+        "ay": 10,
+        "binek": 85155,
+        "kamyonet": 25205,
+        "kamyon": 2840,
+        "cekici": 0,
+        "otobus": 800,
+        "midibus": 429,
+        "minibus": 7541,
+        "traktor": 3702
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "binek": 80058,
+        "kamyonet": 26276,
+        "kamyon": 2619,
+        "cekici": 0,
+        "otobus": 859,
+        "midibus": 432,
+        "minibus": 7133,
+        "traktor": 3445
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "binek": 82152,
+        "kamyonet": 30108,
+        "kamyon": 2651,
+        "cekici": 0,
+        "otobus": 924,
+        "midibus": 483,
+        "minibus": 7268,
+        "traktor": 2582
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "binek": 67043,
+        "kamyonet": 28363,
+        "kamyon": 1305,
+        "cekici": 0,
+        "otobus": 780,
+        "midibus": 334,
+        "minibus": 6819,
+        "traktor": 2624
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "binek": 74461,
+        "kamyonet": 29720,
+        "kamyon": 2360,
+        "cekici": 0,
+        "otobus": 872,
+        "midibus": 388,
+        "minibus": 7581,
+        "traktor": 2733
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "binek": 79423,
+        "kamyonet": 31268,
+        "kamyon": 3408,
+        "cekici": 0,
+        "otobus": 984,
+        "midibus": 439,
+        "minibus": 8581,
+        "traktor": 2822
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "binek": 74450,
+        "kamyonet": 32523,
+        "kamyon": 2759,
+        "cekici": 0,
+        "otobus": 933,
+        "midibus": 358,
+        "minibus": 9156,
+        "traktor": 2743
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "binek": 79806,
+        "kamyonet": 38863,
+        "kamyon": 3468,
+        "cekici": 0,
+        "otobus": 1163,
+        "midibus": 416,
+        "minibus": 10584,
+        "traktor": 2821
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "binek": 63918,
+        "kamyonet": 30142,
+        "kamyon": 3344,
+        "cekici": 0,
+        "otobus": 1016,
+        "midibus": 395,
+        "minibus": 9112,
+        "traktor": 2144
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "binek": 82346,
+        "kamyonet": 32218,
+        "kamyon": 3002,
+        "cekici": 0,
+        "otobus": 1055,
+        "midibus": 393,
+        "minibus": 9408,
+        "traktor": 2651
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "binek": 43032,
+        "kamyonet": 21307,
+        "kamyon": 1944,
+        "cekici": 0,
+        "otobus": 915,
+        "midibus": 354,
+        "minibus": 5744,
+        "traktor": 1305
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "binek": 72991,
+        "kamyonet": 36743,
+        "kamyon": 3184,
+        "cekici": 0,
+        "otobus": 1126,
+        "midibus": 436,
+        "minibus": 8842,
+        "traktor": 1880
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "binek": 79851,
+        "kamyonet": 36658,
+        "kamyon": 3278,
+        "cekici": 0,
+        "otobus": 1193,
+        "midibus": 470,
+        "minibus": 10400,
+        "traktor": 1867
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "binek": 78955,
+        "kamyonet": 37715,
+        "kamyon": 3341,
+        "cekici": 0,
+        "otobus": 1275,
+        "midibus": 366,
+        "minibus": 9954,
+        "traktor": 1498
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "binek": 76262,
+        "kamyonet": 35254,
+        "kamyon": 2813,
+        "cekici": 0,
+        "otobus": 1113,
+        "midibus": 451,
+        "minibus": 8540,
+        "traktor": 1369
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "binek": 55504,
+        "kamyonet": 32335,
+        "kamyon": 2187,
+        "cekici": 0,
+        "otobus": 993,
+        "midibus": 381,
+        "minibus": 7847,
+        "traktor": 1617
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "binek": 65319,
+        "kamyonet": 37751,
+        "kamyon": 3089,
+        "cekici": 0,
+        "otobus": 1008,
+        "midibus": 514,
+        "minibus": 8356,
+        "traktor": 1802
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "binek": 60541,
+        "kamyonet": 35621,
+        "kamyon": 3172,
+        "cekici": 0,
+        "otobus": 1145,
+        "midibus": 516,
+        "minibus": 5577,
+        "traktor": 1741
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "binek": 68912,
+        "kamyonet": 44042,
+        "kamyon": 3360,
+        "cekici": 0,
+        "otobus": 1099,
+        "midibus": 482,
+        "minibus": 8651,
+        "traktor": 1938
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "binek": 51091,
+        "kamyonet": 29214,
+        "kamyon": 2390,
+        "cekici": 0,
+        "otobus": 845,
+        "midibus": 332,
+        "minibus": 6418,
+        "traktor": 1299
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "binek": 67113,
+        "kamyonet": 41354,
+        "kamyon": 3653,
+        "cekici": 0,
+        "otobus": 1165,
+        "midibus": 546,
+        "minibus": 10848,
+        "traktor": 1817
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "binek": 56187,
+        "kamyonet": 36713,
+        "kamyon": 2071,
+        "cekici": 0,
+        "otobus": 1085,
+        "midibus": 399,
+        "minibus": 7362,
+        "traktor": 1908
+      },
+      {
+        "yil": 2026,
+        "ay": 8,
+        "binek": 33503,
+        "kamyonet": 30269,
+        "kamyon": 2929,
+        "cekici": 0,
+        "otobus": 853,
+        "midibus": 314,
+        "minibus": 6500,
+        "traktor": 1155
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "binek": 70197,
+        "kamyonet": 45566,
+        "kamyon": 3640,
+        "cekici": 0,
+        "otobus": 1104,
+        "midibus": 411,
+        "minibus": 8653,
+        "traktor": 2148
+      }
+    ],
+    "alinma": "2026-10-29T18:53:25.431Z"
+  },
+  "disTicaretAyrinti": {
+    "kaynak": {
+      "ad": "TÜİK verisi, dış ticaret birim değer ve miktar endeksleri; ISIC Rev.4’e göre ihracat (TCMB EVDS)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "seriler": [
+      {
+        "alan": "ihrBirim",
+        "ad": "İhracat birim değer endeksi"
+      },
+      {
+        "alan": "ithBirim",
+        "ad": "İthalat birim değer endeksi"
+      },
+      {
+        "alan": "ihrMiktar",
+        "ad": "İhracat miktar endeksi"
+      },
+      {
+        "alan": "ithMiktar",
+        "ad": "İthalat miktar endeksi"
+      }
+    ],
+    "endeksler": [
+      {
+        "yil": 2013,
+        "ay": 1,
+        "ihrBirim": 117.0103078,
+        "ithBirim": 125.26608562,
+        "ihrMiktar": 83.29900888,
+        "ithMiktar": 87.73558909
+      },
+      {
+        "yil": 2013,
+        "ay": 2,
+        "ihrBirim": 117.5235453,
+        "ithBirim": 127.55174014,
+        "ihrMiktar": 88.96670555,
+        "ithMiktar": 89.60394015
+      },
+      {
+        "yil": 2013,
+        "ay": 3,
+        "ihrBirim": 115.30102242,
+        "ithBirim": 124.94854419,
+        "ihrMiktar": 96.96222498,
+        "ithMiktar": 95.86370631
+      },
+      {
+        "yil": 2013,
+        "ay": 4,
+        "ihrBirim": 114.26811227,
+        "ithBirim": 125.63895157,
+        "ihrMiktar": 93.55207971,
+        "ithMiktar": 105.9135075
+      },
+      {
+        "yil": 2013,
+        "ay": 5,
+        "ihrBirim": 114.08139248,
+        "ithBirim": 123.65370222,
+        "ihrMiktar": 98.52302247,
+        "ithMiktar": 108.29743194
+      },
+      {
+        "yil": 2013,
+        "ay": 6,
+        "ihrBirim": 114.83854407,
+        "ithBirim": 122.45179674,
+        "ihrMiktar": 90.34239543,
+        "ithMiktar": 99.5224927
+      },
+      {
+        "yil": 2013,
+        "ay": 7,
+        "ihrBirim": 113.15194503,
+        "ithBirim": 120.42246329,
+        "ihrMiktar": 96.96744495,
+        "ithMiktar": 111.87044125
+      },
+      {
+        "yil": 2013,
+        "ay": 8,
+        "ihrBirim": 113.8370445,
+        "ithBirim": 121.5147922,
+        "ihrMiktar": 82.80319458,
+        "ithMiktar": 88.31710156
+      },
+      {
+        "yil": 2013,
+        "ay": 9,
+        "ihrBirim": 113.17300185,
+        "ithBirim": 122.02302904,
+        "ihrMiktar": 97.0879799,
+        "ithMiktar": 98.18655119
+      },
+      {
+        "yil": 2013,
+        "ay": 10,
+        "ihrBirim": 113.25490971,
+        "ithBirim": 124.02911912,
+        "ihrMiktar": 90.15292458,
+        "ithMiktar": 92.59309317
+      },
+      {
+        "yil": 2013,
+        "ay": 11,
+        "ihrBirim": 113.06051722,
+        "ithBirim": 123.17181687,
+        "ihrMiktar": 106.15079498,
+        "ithMiktar": 99.95419323
+      },
+      {
+        "yil": 2013,
+        "ay": 12,
+        "ihrBirim": 114.82859351,
+        "ithBirim": 124.28589417,
+        "ihrMiktar": 96.31743531,
+        "ithMiktar": 106.6390305
+      },
+      {
+        "yil": 2014,
+        "ay": 1,
+        "ihrBirim": 115.35889692,
+        "ithBirim": 122.3237843,
+        "ihrMiktar": 89.95348829,
+        "ithMiktar": 92.48548196
+      },
+      {
+        "yil": 2014,
+        "ay": 2,
+        "ihrBirim": 114.8645945,
+        "ithBirim": 122.26897877,
+        "ihrMiktar": 94.85029132,
+        "ithMiktar": 86.50727166
+      },
+      {
+        "yil": 2014,
+        "ay": 3,
+        "ihrBirim": 114.13539897,
+        "ithBirim": 123.72756667,
+        "ihrMiktar": 107.46076496,
+        "ithMiktar": 96.63786293
+      },
+      {
+        "yil": 2014,
+        "ay": 4,
+        "ihrBirim": 114.24003935,
+        "ithBirim": 124.11743072,
+        "ihrMiktar": 98.85997579,
+        "ithMiktar": 96.97226707
+      },
+      {
+        "yil": 2014,
+        "ay": 5,
+        "ihrBirim": 114.33582836,
+        "ithBirim": 122.52633441,
+        "ihrMiktar": 100.5202777,
+        "ithMiktar": 98.48118693
+      },
+      {
+        "yil": 2014,
+        "ay": 6,
+        "ihrBirim": 115.37459613,
+        "ithBirim": 122.17112592,
+        "ihrMiktar": 93.37775918,
+        "ithMiktar": 99.10715303
+      },
+      {
+        "yil": 2014,
+        "ay": 7,
+        "ihrBirim": 116.61299534,
+        "ithBirim": 122.68779866,
+        "ihrMiktar": 95.68538207,
+        "ithMiktar": 95.09763987
+      },
+      {
+        "yil": 2014,
+        "ay": 8,
+        "ihrBirim": 113.78596812,
+        "ithBirim": 120.87485202,
+        "ihrMiktar": 84.4841799,
+        "ithMiktar": 94.25935443
+      },
+      {
+        "yil": 2014,
+        "ay": 9,
+        "ihrBirim": 111.04748406,
+        "ithBirim": 119.72921618,
+        "ihrMiktar": 102.89732537,
+        "ithMiktar": 100.70487671
+      },
+      {
+        "yil": 2014,
+        "ay": 10,
+        "ihrBirim": 110.58119316,
+        "ithBirim": 117.42730606,
+        "ihrMiktar": 97.55650378,
+        "ithMiktar": 95.91998554
+      },
+      {
+        "yil": 2014,
+        "ay": 11,
+        "ihrBirim": 109.62601058,
+        "ithBirim": 116.02070587,
+        "ihrMiktar": 99.9245377,
+        "ithMiktar": 105.10133838
+      },
+      {
+        "yil": 2014,
+        "ay": 12,
+        "ihrBirim": 108.82370267,
+        "ithBirim": 113.04756937,
+        "ihrMiktar": 103.83954516,
+        "ithMiktar": 110.08788239
+      },
+      {
+        "yil": 2015,
+        "ay": 1,
+        "ihrBirim": 105.96186996,
+        "ithBirim": 107.16471171,
+        "ihrMiktar": 96.72726029,
+        "ithMiktar": 89.31162221
+      },
+      {
+        "yil": 2015,
+        "ay": 2,
+        "ihrBirim": 104.48959363,
+        "ithBirim": 105.08817897,
+        "ihrMiktar": 97.60609383,
+        "ithMiktar": 94.9570881
+      },
+      {
+        "yil": 2015,
+        "ay": 3,
+        "ihrBirim": 100.69759128,
+        "ithBirim": 102.55259548,
+        "ihrMiktar": 104.19537997,
+        "ithMiktar": 106.8670524
+      },
+      {
+        "yil": 2015,
+        "ay": 4,
+        "ihrBirim": 100.31141785,
+        "ithBirim": 101.18913452,
+        "ihrMiktar": 110.43286557,
+        "ithMiktar": 104.04177269
+      },
+      {
+        "yil": 2015,
+        "ay": 5,
+        "ihrBirim": 102.49937053,
+        "ithBirim": 102.89799756,
+        "ihrMiktar": 89.9090636,
+        "ithMiktar": 99.91055439
+      },
+      {
+        "yil": 2015,
+        "ay": 6,
+        "ihrBirim": 102.1046568,
+        "ithBirim": 103.02223402,
+        "ihrMiktar": 98.01705889,
+        "ithMiktar": 102.05296351
+      },
+      {
+        "yil": 2015,
+        "ay": 7,
+        "ihrBirim": 101.20376868,
+        "ithBirim": 99.88781713,
+        "ihrMiktar": 92.14183748,
+        "ithMiktar": 106.6149183
+      },
+      {
+        "yil": 2015,
+        "ay": 8,
+        "ihrBirim": 98.99498114,
+        "ithBirim": 98.39581197,
+        "ihrMiktar": 92.40352778,
+        "ithMiktar": 93.65311508
+      },
+      {
+        "yil": 2015,
+        "ay": 9,
+        "ihrBirim": 97.84924599,
+        "ithBirim": 96.48334659,
+        "ihrMiktar": 97.8908593,
+        "ithMiktar": 92.55270269
+      },
+      {
+        "yil": 2015,
+        "ay": 10,
+        "ihrBirim": 96.63961048,
+        "ithBirim": 96.43853933,
+        "ihrMiktar": 113.68625795,
+        "ithMiktar": 101.08967748
+      },
+      {
+        "yil": 2015,
+        "ay": 11,
+        "ihrBirim": 94.11502946,
+        "ithBirim": 94.6627935,
+        "ihrMiktar": 103.85618626,
+        "ithMiktar": 96.37382388
+      },
+      {
+        "yil": 2015,
+        "ay": 12,
+        "ihrBirim": 95.1328642,
+        "ithBirim": 92.21683922,
+        "ihrMiktar": 103.13360911,
+        "ithMiktar": 112.57470928
+      },
+      {
+        "yil": 2016,
+        "ay": 1,
+        "ihrBirim": 94.02087908,
+        "ithBirim": 87.45946939,
+        "ihrMiktar": 84.16686192,
+        "ithMiktar": 87.58312048
+      },
+      {
+        "yil": 2016,
+        "ay": 2,
+        "ihrBirim": 94.62408649,
+        "ithBirim": 88.66633333,
+        "ihrMiktar": 108.68419921,
+        "ithMiktar": 102.08344537
+      },
+      {
+        "yil": 2016,
+        "ay": 3,
+        "ihrBirim": 94.52029601,
+        "ithBirim": 89.5160039,
+        "ihrMiktar": 112.54412404,
+        "ithMiktar": 114.54365436
+      },
+      {
+        "yil": 2016,
+        "ay": 4,
+        "ihrBirim": 95.60287603,
+        "ithBirim": 90.81362251,
+        "ihrMiktar": 104.19737882,
+        "ithMiktar": 101.42256828
+      },
+      {
+        "yil": 2016,
+        "ay": 5,
+        "ihrBirim": 96.04294006,
+        "ithBirim": 92.51360125,
+        "ihrMiktar": 104.57674998,
+        "ithMiktar": 107.38269998
+      },
+      {
+        "yil": 2016,
+        "ay": 6,
+        "ihrBirim": 96.83212103,
+        "ithBirim": 93.0594288,
+        "ihrMiktar": 110.52738723,
+        "ithMiktar": 119.92493341
+      },
+      {
+        "yil": 2016,
+        "ay": 7,
+        "ihrBirim": 96.92484662,
+        "ithBirim": 91.98806786,
+        "ihrMiktar": 84.34891675,
+        "ithMiktar": 92.38645432
+      },
+      {
+        "yil": 2016,
+        "ay": 8,
+        "ihrBirim": 95.95860961,
+        "ithBirim": 92.37718772,
+        "ihrMiktar": 102.22604847,
+        "ithMiktar": 102.52274262
+      },
+      {
+        "yil": 2016,
+        "ay": 9,
+        "ihrBirim": 95.86908659,
+        "ithBirim": 92.59693474,
+        "ihrMiktar": 94.31839474,
+        "ithMiktar": 94.90819476
+      },
+      {
+        "yil": 2016,
+        "ay": 10,
+        "ihrBirim": 94.76102426,
+        "ithBirim": 94.42817706,
+        "ihrMiktar": 113.1619357,
+        "ithMiktar": 101.27449694
+      },
+      {
+        "yil": 2016,
+        "ay": 11,
+        "ihrBirim": 93.77632678,
+        "ithBirim": 92.57342278,
+        "ihrMiktar": 113.38644014,
+        "ithMiktar": 103.29835909
+      },
+      {
+        "yil": 2016,
+        "ay": 12,
+        "ihrBirim": 94.0326684,
+        "ithBirim": 92.48685887,
+        "ihrMiktar": 113.72771737,
+        "ithMiktar": 112.73050471
+      },
+      {
+        "yil": 2017,
+        "ay": 1,
+        "ihrBirim": 94.24190738,
+        "ithBirim": 94.14389668,
+        "ihrMiktar": 98.99943137,
+        "ithMiktar": 96.0120915
+      },
+      {
+        "yil": 2017,
+        "ay": 2,
+        "ihrBirim": 93.96622492,
+        "ithBirim": 95.17095534,
+        "ihrMiktar": 106.94365476,
+        "ithMiktar": 96.01237261
+      },
+      {
+        "yil": 2017,
+        "ay": 3,
+        "ihrBirim": 93.45191633,
+        "ithBirim": 95.79697552,
+        "ihrMiktar": 128.21604414,
+        "ithMiktar": 114.01481416
+      },
+      {
+        "yil": 2017,
+        "ay": 4,
+        "ihrBirim": 93.97865337,
+        "ithBirim": 95.89521869,
+        "ihrMiktar": 113.49920447,
+        "ithMiktar": 104.64392108
+      },
+      {
+        "yil": 2017,
+        "ay": 5,
+        "ihrBirim": 95.39756666,
+        "ithBirim": 96.96622475,
+        "ihrMiktar": 118.42071244,
+        "ithMiktar": 123.64260901
+      },
+      {
+        "yil": 2017,
+        "ay": 6,
+        "ihrBirim": 97.33370833,
+        "ithBirim": 96.51657627,
+        "ihrMiktar": 111.64107295,
+        "ithMiktar": 113.903366
+      },
+      {
+        "yil": 2017,
+        "ay": 7,
+        "ihrBirim": 97.68795908,
+        "ithBirim": 97.04819623,
+        "ihrMiktar": 107.22931001,
+        "ithMiktar": 126.68561686
+      },
+      {
+        "yil": 2017,
+        "ay": 8,
+        "ihrBirim": 98.74720649,
+        "ithBirim": 99.01820118,
+        "ihrMiktar": 112.00746945,
+        "ithMiktar": 110.47444432
+      },
+      {
+        "yil": 2017,
+        "ay": 9,
+        "ihrBirim": 99.80234694,
+        "ithBirim": 100.22242999,
+        "ihrMiktar": 98.68274239,
+        "ithMiktar": 116.54286112
+      },
+      {
+        "yil": 2017,
+        "ay": 10,
+        "ihrBirim": 98.58747928,
+        "ithBirim": 101.46120706,
+        "ihrMiktar": 118.29066586,
+        "ithMiktar": 119.88544742
+      },
+      {
+        "yil": 2017,
+        "ay": 11,
+        "ihrBirim": 99.13684361,
+        "ithBirim": 103.49379519,
+        "ihrMiktar": 119.53091304,
+        "ithMiktar": 113.90166758
+      },
+      {
+        "yil": 2017,
+        "ay": 12,
+        "ihrBirim": 100.77752691,
+        "ithBirim": 103.79887083,
+        "ihrMiktar": 115.62669932,
+        "ithMiktar": 126.35528299
+      },
+      {
+        "yil": 2018,
+        "ay": 1,
+        "ihrBirim": 102.4298314,
+        "ithBirim": 105.21361302,
+        "ihrMiktar": 101.49397054,
+        "ithMiktar": 118.40647487
+      },
+      {
+        "yil": 2018,
+        "ay": 2,
+        "ihrBirim": 103.67637789,
+        "ithBirim": 104.60020041,
+        "ihrMiktar": 106.00053503,
+        "ithMiktar": 106.74918326
+      },
+      {
+        "yil": 2018,
+        "ay": 3,
+        "ihrBirim": 102.60479856,
+        "ithBirim": 104.52977292,
+        "ihrMiktar": 126.55919773,
+        "ithMiktar": 119.63816923
+      },
+      {
+        "yil": 2018,
+        "ay": 4,
+        "ihrBirim": 102.88112338,
+        "ithBirim": 106.27431523,
+        "ihrMiktar": 112.25617888,
+        "ithMiktar": 112.07781984
+      },
+      {
+        "yil": 2018,
+        "ay": 5,
+        "ihrBirim": 100.54434776,
+        "ithBirim": 105.44745281,
+        "ihrMiktar": 119.89130611,
+        "ithMiktar": 123.54297825
+      },
+      {
+        "yil": 2018,
+        "ay": 6,
+        "ihrBirim": 101.10295901,
+        "ithBirim": 105.19084033,
+        "ihrMiktar": 107.36187457,
+        "ithMiktar": 104.36365582
+      },
+      {
+        "yil": 2018,
+        "ay": 7,
+        "ihrBirim": 99.52608982,
+        "ithBirim": 104.15732745,
+        "ihrMiktar": 117.96123352,
+        "ithMiktar": 113.03160185
+      },
+      {
+        "yil": 2018,
+        "ay": 8,
+        "ihrBirim": 97.67771646,
+        "ithBirim": 104.24325241,
+        "ihrMiktar": 105.18401317,
+        "ithMiktar": 83.88694269
+      },
+      {
+        "yil": 2018,
+        "ay": 9,
+        "ihrBirim": 97.11573479,
+        "ithBirim": 103.82430906,
+        "ihrMiktar": 124.78461685,
+        "ithMiktar": 91.60794244
+      },
+      {
+        "yil": 2018,
+        "ay": 10,
+        "ihrBirim": 96.05097183,
+        "ithBirim": 106.03099057,
+        "ihrMiktar": 137.28321688,
+        "ithMiktar": 86.90058566
+      },
+      {
+        "yil": 2018,
+        "ay": 11,
+        "ihrBirim": 95.86643167,
+        "ithBirim": 105.32571064,
+        "ihrMiktar": 135.85806112,
+        "ithMiktar": 86.91032854
+      },
+      {
+        "yil": 2018,
+        "ay": 12,
+        "ihrBirim": 95.81943769,
+        "ithBirim": 103.73738618,
+        "ihrMiktar": 121.48206028,
+        "ithMiktar": 90.67390896
+      },
+      {
+        "yil": 2019,
+        "ay": 1,
+        "ihrBirim": 96.63832527,
+        "ithBirim": 103.20243718,
+        "ihrMiktar": 114.11267726,
+        "ithMiktar": 87.98802434
+      },
+      {
+        "yil": 2019,
+        "ay": 2,
+        "ihrBirim": 96.01888476,
+        "ithBirim": 102.5292689,
+        "ihrMiktar": 118.55896069,
+        "ithMiktar": 87.97197232
+      },
+      {
+        "yil": 2019,
+        "ay": 3,
+        "ihrBirim": 95.80248632,
+        "ithBirim": 103.80216875,
+        "ihrMiktar": 135.52550374,
+        "ithMiktar": 98.76628405
+      },
+      {
+        "yil": 2019,
+        "ay": 4,
+        "ihrBirim": 95.27878735,
+        "ithBirim": 103.27867447,
+        "ihrMiktar": 127.96830871,
+        "ithMiktar": 98.25910634
+      },
+      {
+        "yil": 2019,
+        "ay": 5,
+        "ihrBirim": 95.41277897,
+        "ithBirim": 101.32232048,
+        "ihrMiktar": 140.40438241,
+        "ithMiktar": 102.80175735
+      },
+      {
+        "yil": 2019,
+        "ay": 6,
+        "ihrBirim": 96.76055072,
+        "ithBirim": 100.70474233,
+        "ihrMiktar": 95.56764418,
+        "ithMiktar": 84.03207473
+      },
+      {
+        "yil": 2019,
+        "ay": 7,
+        "ihrBirim": 95.66125833,
+        "ithBirim": 100.66912503,
+        "ihrMiktar": 132.37015614,
+        "ithMiktar": 107.30122265
+      },
+      {
+        "yil": 2019,
+        "ay": 8,
+        "ihrBirim": 94.52203081,
+        "ithBirim": 99.02962645,
+        "ihrMiktar": 111.18562269,
+        "ithMiktar": 88.28539682
+      },
+      {
+        "yil": 2019,
+        "ay": 9,
+        "ihrBirim": 94.08781161,
+        "ithBirim": 98.36336797,
+        "ihrMiktar": 129.02183653,
+        "ithMiktar": 96.74695302
+      },
+      {
+        "yil": 2019,
+        "ay": 10,
+        "ihrBirim": 94.0256558,
+        "ithBirim": 98.34073276,
+        "ihrMiktar": 138.71985963,
+        "ithMiktar": 103.82857314
+      },
+      {
+        "yil": 2019,
+        "ay": 11,
+        "ihrBirim": 94.40508943,
+        "ithBirim": 98.21558997,
+        "ihrMiktar": 136.74681899,
+        "ithMiktar": 104.25783539
+      },
+      {
+        "yil": 2019,
+        "ay": 12,
+        "ihrBirim": 95.21120774,
+        "ithBirim": 97.95509104,
+        "ihrMiktar": 128.44395725,
+        "ithMiktar": 115.01034489
+      },
+      {
+        "yil": 2020,
+        "ay": 1,
+        "ihrBirim": 95.77742299,
+        "ithBirim": 98.20797512,
+        "ihrMiktar": 121.8790877,
+        "ithMiktar": 109.85138333
+      },
+      {
+        "yil": 2020,
+        "ay": 2,
+        "ihrBirim": 93.90267603,
+        "ithBirim": 95.7177711,
+        "ihrMiktar": 123.50962928,
+        "ithMiktar": 103.48628923
+      },
+      {
+        "yil": 2020,
+        "ay": 3,
+        "ihrBirim": 92.88352008,
+        "ithBirim": 96.16383878,
+        "ihrMiktar": 114.13667531,
+        "ithMiktar": 109.88355187
+      },
+      {
+        "yil": 2020,
+        "ay": 4,
+        "ihrBirim": 92.29037175,
+        "ithBirim": 89.10016083,
+        "ihrMiktar": 77.26352414,
+        "ithMiktar": 85.44334582
+      },
+      {
+        "yil": 2020,
+        "ay": 5,
+        "ihrBirim": 90.52317691,
+        "ithBirim": 86.54610561,
+        "ihrMiktar": 87.33543757,
+        "ithMiktar": 86.89585204
+      },
+      {
+        "yil": 2020,
+        "ay": 6,
+        "ihrBirim": 92.95025442,
+        "ithBirim": 90.85973838,
+        "ihrMiktar": 114.9794033,
+        "ithMiktar": 100.83554258
+      },
+      {
+        "yil": 2020,
+        "ay": 7,
+        "ihrBirim": 93.95233302,
+        "ithBirim": 90.28096232,
+        "ihrMiktar": 125.87582121,
+        "ithMiktar": 110.18117742
+      },
+      {
+        "yil": 2020,
+        "ay": 8,
+        "ihrBirim": 95.11756709,
+        "ithBirim": 94.73303066,
+        "ihrMiktar": 104.04051674,
+        "ithMiktar": 111.14240013
+      },
+      {
+        "yil": 2020,
+        "ay": 9,
+        "ihrBirim": 94.10568155,
+        "ithBirim": 96.53833563,
+        "ihrMiktar": 134.93518879,
+        "ithMiktar": 121.23147688
+      },
+      {
+        "yil": 2020,
+        "ay": 10,
+        "ihrBirim": 93.95426308,
+        "ithBirim": 95.5896064,
+        "ihrMiktar": 146.42077177,
+        "ithMiktar": 115.78614885
+      },
+      {
+        "yil": 2020,
+        "ay": 11,
+        "ihrBirim": 94.52211943,
+        "ithBirim": 98.26956972,
+        "ihrMiktar": 135.32696949,
+        "ithMiktar": 120.77202229
+      },
+      {
+        "yil": 2020,
+        "ay": 12,
+        "ihrBirim": 97.79202974,
+        "ithBirim": 100.1476593,
+        "ihrMiktar": 145.07713571,
+        "ithMiktar": 125.53778522
+      },
+      {
+        "yil": 2021,
+        "ay": 1,
+        "ihrBirim": 99.42893842,
+        "ithBirim": 101.99635369,
+        "ihrMiktar": 119.93620395,
+        "ithMiktar": 99.49497979
+      },
+      {
+        "yil": 2021,
+        "ay": 2,
+        "ihrBirim": 100.35734836,
+        "ithBirim": 105.52873776,
+        "ihrMiktar": 126.33899639,
+        "ithMiktar": 102.73528072
+      },
+      {
+        "yil": 2021,
+        "ay": 3,
+        "ihrBirim": 99.94895884,
+        "ithBirim": 109.88378383,
+        "ihrMiktar": 150.74528022,
+        "ithMiktar": 120.75908165
+      },
+      {
+        "yil": 2021,
+        "ay": 4,
+        "ihrBirim": 100.76341453,
+        "ithBirim": 110.4314122,
+        "ihrMiktar": 147.95019238,
+        "ithMiktar": 111.08094663
+      },
+      {
+        "yil": 2021,
+        "ay": 5,
+        "ihrBirim": 102.40403076,
+        "ithBirim": 111.76552525,
+        "ihrMiktar": 127.82130178,
+        "ithMiktar": 103.66051041
+      },
+      {
+        "yil": 2021,
+        "ay": 6,
+        "ihrBirim": 103.3525786,
+        "ithBirim": 112.88854369,
+        "ihrMiktar": 151.8093922,
+        "ithMiktar": 112.5148912
+      },
+      {
+        "yil": 2021,
+        "ay": 7,
+        "ihrBirim": 107.69506442,
+        "ithBirim": 117.57815059,
+        "ihrMiktar": 120.72939421,
+        "ithMiktar": 98.83165582
+      },
+      {
+        "yil": 2021,
+        "ay": 8,
+        "ihrBirim": 104.54299254,
+        "ithBirim": 120.43775559,
+        "ihrMiktar": 143.39230928,
+        "ithMiktar": 108.05340625
+      },
+      {
+        "yil": 2021,
+        "ay": 9,
+        "ihrBirim": 105.24058815,
+        "ithBirim": 119.09427294,
+        "ihrMiktar": 156.46313755,
+        "ithMiktar": 109.99845775
+      },
+      {
+        "yil": 2021,
+        "ay": 10,
+        "ihrBirim": 105.18350371,
+        "ithBirim": 132.86813774,
+        "ihrMiktar": 156.51812309,
+        "ithMiktar": 93.95703396
+      },
+      {
+        "yil": 2021,
+        "ay": 11,
+        "ihrBirim": 103.71463426,
+        "ithBirim": 127.05459266,
+        "ihrMiktar": 164.50309832,
+        "ithMiktar": 118.94131948
+      },
+      {
+        "yil": 2021,
+        "ay": 12,
+        "ihrBirim": 104.20845764,
+        "ithBirim": 125.88769321,
+        "ihrMiktar": 169.59677791,
+        "ithMiktar": 129.70004982
+      },
+      {
+        "yil": 2022,
+        "ay": 1,
+        "ihrBirim": 109.64946888,
+        "ithBirim": 143.44753197,
+        "ihrMiktar": 127.23949855,
+        "ithMiktar": 109.03725348
+      },
+      {
+        "yil": 2022,
+        "ay": 2,
+        "ihrBirim": 111.03996801,
+        "ithBirim": 148.99115525,
+        "ihrMiktar": 142.47154981,
+        "ithMiktar": 105.13416135
+      },
+      {
+        "yil": 2022,
+        "ay": 3,
+        "ihrBirim": 111.82302331,
+        "ithBirim": 147.94511992,
+        "ihrMiktar": 160.70108105,
+        "ithMiktar": 117.2385318
+      },
+      {
+        "yil": 2022,
+        "ay": 4,
+        "ihrBirim": 115.46920894,
+        "ithBirim": 157.90121384,
+        "ihrMiktar": 160.59552135,
+        "ithMiktar": 104.87281606
+      },
+      {
+        "yil": 2022,
+        "ay": 5,
+        "ihrBirim": 115.33859058,
+        "ithBirim": 150.88280084,
+        "ihrMiktar": 130.46252291,
+        "ithMiktar": 110.15981114
+      },
+      {
+        "yil": 2022,
+        "ay": 6,
+        "ihrBirim": 116.81798115,
+        "ithBirim": 152.61256561,
+        "ihrMiktar": 158.93640146,
+        "ithMiktar": 116.29733653
+      },
+      {
+        "yil": 2022,
+        "ay": 7,
+        "ihrBirim": 115.96956367,
+        "ithBirim": 150.41367819,
+        "ihrMiktar": 127.04094467,
+        "ithMiktar": 109.1968561
+      },
+      {
+        "yil": 2022,
+        "ay": 8,
+        "ihrBirim": 112.47898218,
+        "ithBirim": 151.60599253,
+        "ihrMiktar": 150.34285488,
+        "ithMiktar": 120.53878582
+      },
+      {
+        "yil": 2022,
+        "ay": 9,
+        "ihrBirim": 110.0371964,
+        "ithBirim": 152.11697665,
+        "ihrMiktar": 163.22417062,
+        "ithMiktar": 118.9253406
+      },
+      {
+        "yil": 2022,
+        "ay": 10,
+        "ihrBirim": 109.43496619,
+        "ithBirim": 145.52672085,
+        "ihrMiktar": 154.7736541,
+        "ithMiktar": 112.72431793
+      },
+      {
+        "yil": 2022,
+        "ay": 11,
+        "ihrBirim": 110.94291267,
+        "ithBirim": 139.69779658,
+        "ihrMiktar": 156.72344447,
+        "ithMiktar": 123.26937801
+      },
+      {
+        "yil": 2022,
+        "ay": 12,
+        "ihrBirim": 112.75674602,
+        "ithBirim": 136.8068432,
+        "ihrMiktar": 161.49149939,
+        "ithMiktar": 133.90187769
+      },
+      {
+        "yil": 2023,
+        "ay": 1,
+        "ihrBirim": 115.66386694,
+        "ithBirim": 143.30462624,
+        "ihrMiktar": 132.70046708,
+        "ithMiktar": 131.71494727
+      },
+      {
+        "yil": 2023,
+        "ay": 2,
+        "ihrBirim": 116.43086395,
+        "ithBirim": 136.61778819,
+        "ihrMiktar": 126.69148709,
+        "ithMiktar": 126.18655496
+      },
+      {
+        "yil": 2023,
+        "ay": 3,
+        "ihrBirim": 114.82524539,
+        "ithBirim": 132.4612872,
+        "ihrMiktar": 162.99358435,
+        "ithMiktar": 135.39601901
+      },
+      {
+        "yil": 2023,
+        "ay": 4,
+        "ihrBirim": 115.25203384,
+        "ithBirim": 130.98433317,
+        "ihrMiktar": 132.72659781,
+        "ithMiktar": 120.01913441
+      },
+      {
+        "yil": 2023,
+        "ay": 5,
+        "ihrBirim": 114.09988479,
+        "ithBirim": 130.69828557,
+        "ihrMiktar": 150.60381639,
+        "ithMiktar": 146.62943958
+      },
+      {
+        "yil": 2023,
+        "ay": 6,
+        "ihrBirim": 115.04795612,
+        "ithBirim": 127.58902629,
+        "ihrMiktar": 143.84405472,
+        "ithMiktar": 114.74492736
+      },
+      {
+        "yil": 2023,
+        "ay": 7,
+        "ihrBirim": 113.89250412,
+        "ithBirim": 126.51387238,
+        "ihrMiktar": 137.97842777,
+        "ithMiktar": 143.39344674
+      },
+      {
+        "yil": 2023,
+        "ay": 8,
+        "ihrBirim": 111.92889902,
+        "ithBirim": 127.60655492,
+        "ihrMiktar": 152.98948547,
+        "ithMiktar": 133.19526171
+      },
+      {
+        "yil": 2023,
+        "ay": 9,
+        "ihrBirim": 110.82714995,
+        "ithBirim": 126.4182399,
+        "ihrMiktar": 160.64316327,
+        "ithMiktar": 122.18971758
+      },
+      {
+        "yil": 2023,
+        "ay": 10,
+        "ihrBirim": 109.81380674,
+        "ithBirim": 127.57616508,
+        "ihrMiktar": 164.89956066,
+        "ithMiktar": 129.40154723
+      },
+      {
+        "yil": 2023,
+        "ay": 11,
+        "ihrBirim": 111.39714914,
+        "ithBirim": 128.71635207,
+        "ihrMiktar": 163.69134612,
+        "ithMiktar": 126.19409402
+      },
+      {
+        "yil": 2023,
+        "ay": 12,
+        "ihrBirim": 109.88606868,
+        "ithBirim": 129.6553649,
+        "ihrMiktar": 166.00189041,
+        "ithMiktar": 125.79582366
+      },
+      {
+        "yil": 2024,
+        "ay": 1,
+        "ihrBirim": 113.46601811,
+        "ithBirim": 130.56533794,
+        "ihrMiktar": 140.10430992,
+        "ithMiktar": 112.6634018
+      },
+      {
+        "yil": 2024,
+        "ay": 2,
+        "ihrBirim": 112.1281316,
+        "ithBirim": 128.51480895,
+        "ihrMiktar": 149.50741236,
+        "ithMiktar": 121.77552032
+      },
+      {
+        "yil": 2024,
+        "ay": 3,
+        "ihrBirim": 114.04102505,
+        "ithBirim": 130.56762027,
+        "ihrMiktar": 157.85598472,
+        "ithMiktar": 128.86453711
+      },
+      {
+        "yil": 2024,
+        "ay": 4,
+        "ihrBirim": 113.97652827,
+        "ithBirim": 131.76545974,
+        "ihrMiktar": 134.5377757,
+        "ithMiktar": 124.42003559
+      },
+      {
+        "yil": 2024,
+        "ay": 5,
+        "ihrBirim": 114.79033017,
+        "ithBirim": 133.14322974,
+        "ihrMiktar": 167.39873181,
+        "ithMiktar": 129.30874764
+      },
+      {
+        "yil": 2024,
+        "ay": 6,
+        "ihrBirim": 115.86474231,
+        "ithBirim": 130.13727838,
+        "ihrMiktar": 130.43614592,
+        "ithMiktar": 107.50236441
+      },
+      {
+        "yil": 2024,
+        "ay": 7,
+        "ihrBirim": 115.91712654,
+        "ithBirim": 131.1635212,
+        "ihrMiktar": 154.111661,
+        "ithMiktar": 127.55520699
+      },
+      {
+        "yil": 2024,
+        "ay": 8,
+        "ihrBirim": 116.87063532,
+        "ithBirim": 132.05095069,
+        "ihrMiktar": 149.63425172,
+        "ithMiktar": 114.88298158
+      },
+      {
+        "yil": 2024,
+        "ay": 9,
+        "ihrBirim": 114.69296385,
+        "ithBirim": 133.73180258,
+        "ihrMiktar": 152.14841124,
+        "ithMiktar": 113.90605096
+      },
+      {
+        "yil": 2024,
+        "ay": 10,
+        "ihrBirim": 114.90019379,
+        "ithBirim": 133.22814265,
+        "ihrMiktar": 162.38743211,
+        "ithMiktar": 124.01304194
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "ihrBirim": 113.47299695,
+        "ithBirim": 133.74455164,
+        "ihrMiktar": 155.78494041,
+        "ithMiktar": 124.93524565
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "ihrBirim": 111.89506594,
+        "ithBirim": 131.33421392,
+        "ihrMiktar": 166.4494653,
+        "ithMiktar": 137.81098276
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "ihrBirim": 114.50685195,
+        "ithBirim": 127.81331084,
+        "ihrMiktar": 146.87581012,
+        "ithMiktar": 126.01225587
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "ihrBirim": 115.18576237,
+        "ithBirim": 133.29620949,
+        "ihrMiktar": 143.02993854,
+        "ithMiktar": 120.20884958
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "ihrBirim": 116.25934037,
+        "ithBirim": 132.69318491,
+        "ihrMiktar": 160.01312685,
+        "ithMiktar": 129.54397117
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "ihrBirim": 118.07418341,
+        "ithBirim": 133.83306335,
+        "ihrMiktar": 139.87349497,
+        "ithMiktar": 138.05768283
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "ihrBirim": 119.20422251,
+        "ithBirim": 133.13480929,
+        "ihrMiktar": 165.4630793,
+        "ithMiktar": 132.73417237
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "ihrBirim": 120.11995461,
+        "ithBirim": 133.0503537,
+        "ihrMiktar": 135.43568189,
+        "ithMiktar": 121.11469932
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "ihrBirim": 125.71652321,
+        "ithBirim": 131.97251954,
+        "ihrMiktar": 157.48672239,
+        "ithMiktar": 133.57057847
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "ihrBirim": 125.36017081,
+        "ithBirim": 132.93372219,
+        "ihrMiktar": 137.59026554,
+        "ithMiktar": 109.80586802
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "ihrBirim": 126.06079604,
+        "ithBirim": 136.0396355,
+        "ihrMiktar": 141.9913775,
+        "ithMiktar": 121.69475889
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "ihrBirim": 126.19908329,
+        "ithBirim": 138.51257393,
+        "ihrMiktar": 150.83923972,
+        "ithMiktar": 127.79602386
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "ihrBirim": 126.89724275,
+        "ithBirim": 136.90604128,
+        "ihrMiktar": 140.98570523,
+        "ithMiktar": 125.21513335
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "ihrBirim": 126.14715027,
+        "ithBirim": 137.7498299,
+        "ihrMiktar": 165.96928163,
+        "ithMiktar": 145.72313006
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "ihrBirim": 129.39730301,
+        "ithBirim": 135.84975781,
+        "ihrMiktar": 124.67614152,
+        "ithMiktar": 118.65496595
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "ihrBirim": 129.77777615,
+        "ithBirim": 139.97214178,
+        "ihrMiktar": 128.9080947,
+        "ithMiktar": 120.71949061
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "ihrBirim": 130.53621653,
+        "ithBirim": 141.06323834,
+        "ihrMiktar": 133.3367193,
+        "ithMiktar": 131.8905354
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "ihrBirim": 134.21834215,
+        "ithBirim": 148.8930103,
+        "ihrMiktar": 150.45931331,
+        "ithMiktar": 127.93128429
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "ihrBirim": 136.16329768,
+        "ithBirim": 152.00330838,
+        "ihrMiktar": 131.10682526,
+        "ithMiktar": 103.73848573
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "ihrBirim": 135.27040226,
+        "ithBirim": 150.18497298,
+        "ihrMiktar": 146.39138542,
+        "ithMiktar": 131.97795632
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "ihrBirim": 135.97088932,
+        "ithBirim": 148.92154827,
+        "ihrMiktar": 149.77429324,
+        "ithMiktar": 124.35010828
+      },
+      {
+        "yil": 2026,
+        "ay": 8,
+        "ihrBirim": 136.06455742,
+        "ithBirim": 151.11800516,
+        "ihrMiktar": 137.07617911,
+        "ithMiktar": 106.70781849
+      }
+    ],
+    "sektorTablosu": {
+      "bas": {
+        "yil": 2025,
+        "ay": 10
+      },
+      "bit": {
+        "yil": 2026,
+        "ay": 9
+      },
+      "birim": "bin ABD doları",
+      "sektorler": [
+        {
+          "ad": "Toplam",
+          "tur": "toplam",
+          "son12": 283706194.147,
+          "once12": 269596627.428
+        },
+        {
+          "ad": "Tarım Ormancılık ve Balıkçılık",
+          "tur": "bolum",
+          "son12": 10500763.196000002,
+          "once12": 9324903.213000001
+        },
+        {
+          "ad": "Madencilik ve Taş Ocakçılığı",
+          "tur": "bolum",
+          "son12": 5151975.691000001,
+          "once12": 4498433.272
+        },
+        {
+          "ad": "İmalat",
+          "tur": "bolum",
+          "son12": 265957144.61900002,
+          "once12": 254117931.566
+        },
+        {
+          "ad": "Gıda Ürünlerinin İmalatı",
+          "tur": "imalat",
+          "son12": 22747594.369999997,
+          "once12": 22452136.881999996
+        },
+        {
+          "ad": "İçeceklerin İmalatı",
+          "tur": "imalat",
+          "son12": 528585.964,
+          "once12": 517600.18100000004
+        },
+        {
+          "ad": "Tütün Ürünleri İmalatı",
+          "tur": "imalat",
+          "son12": 783812.8339999999,
+          "once12": 779680.545
+        },
+        {
+          "ad": "Tekstil Ürünlerinin İmalatı",
+          "tur": "imalat",
+          "son12": 12804183.638999997,
+          "once12": 12916450.417999998
+        },
+        {
+          "ad": "Giyim Eşyalarının İmalatı",
+          "tur": "imalat",
+          "son12": 16480548.370000003,
+          "once12": 16929695.911000002
+        },
+        {
+          "ad": "Deri ve İlgili Ürünlerin İmalatı",
+          "tur": "imalat",
+          "son12": 1465621.028,
+          "once12": 1606520.2410000002
+        },
+        {
+          "ad": "Ağaç Ağaç Ürünleri ve Mantar Ürünleri İmalatı (Mobilya Hariç) Saz Saman ve Benzeri Malzemelerden Örülerek Eşya İma.",
+          "tur": "imalat",
+          "son12": 1809220.8990000002,
+          "once12": 1829019.4250000003
+        },
+        {
+          "ad": "Kağıt ve Kağıt Ürünlerinin İmalatı",
+          "tur": "imalat",
+          "son12": 3664483.1610000003,
+          "once12": 3594712.1729999995
+        },
+        {
+          "ad": "Kayıtlı Medyanın Basılması ve Çoğaltılması",
+          "tur": "imalat",
+          "son12": 24006.392,
+          "once12": 26246.422000000002
+        },
+        {
+          "ad": "Kok Kömürü ve Rafine Edilmiş Petrol Ürünleri İmalatı",
+          "tur": "imalat",
+          "son12": 13008949.215,
+          "once12": 14031244.006000003
+        },
+        {
+          "ad": "Kimyasalların ve Kimyasal Ürünlerin İmalatı",
+          "tur": "imalat",
+          "son12": 20289208.820000004,
+          "once12": 18264270.001
+        },
+        {
+          "ad": "Temel Eczacılık Ürünlerinin ve Eczacılığa Ait Malzemelerin İmalatı",
+          "tur": "imalat",
+          "son12": 2542308.824,
+          "once12": 2435101.98
+        },
+        {
+          "ad": "Kauçuk ve Plastik Ürünlerin İmalatı",
+          "tur": "imalat",
+          "son12": 11978828.184,
+          "once12": 11531323.579999996
+        },
+        {
+          "ad": "Diğer Metalik Olmayan Mineral Ürünlerin İmalatı",
+          "tur": "imalat",
+          "son12": 6697174.289,
+          "once12": 6548709.631999999
+        },
+        {
+          "ad": "Ana Metal Sanayii",
+          "tur": "imalat",
+          "son12": 27073996.624,
+          "once12": 23052123.956000004
+        },
+        {
+          "ad": "Makine ve Teçhizat Hariç Fabrikasyon Metal Ürünleri İmalatı",
+          "tur": "imalat",
+          "son12": 17841178.522000004,
+          "once12": 16208252.762999998
+        },
+        {
+          "ad": "Bilgisayarların Elektronik ve Optik Ürünlerin İmalatı",
+          "tur": "imalat",
+          "son12": 4046762.8069999996,
+          "once12": 3331015.874
+        },
+        {
+          "ad": "Elektrikli Teçhizat İmalatı",
+          "tur": "imalat",
+          "son12": 20327268.873999998,
+          "once12": 18708293.454
+        },
+        {
+          "ad": "Başka Yerde Sınıflandırılmamış Makine ve Teçhizat İmalatı",
+          "tur": "imalat",
+          "son12": 19117576.144,
+          "once12": 18185289.683000002
+        },
+        {
+          "ad": "Motorlu Kara Taşıtı Treyler (Römork) ve Yarı Treyler (Yarı Römork) İmalatı",
+          "tur": "imalat",
+          "son12": 39867537.444,
+          "once12": 37838429.44799999
+        },
+        {
+          "ad": "Diğer Ulaşım Araçlarının İmalatı",
+          "tur": "imalat",
+          "son12": 9032245.769,
+          "once12": 7277400.458999999
+        },
+        {
+          "ad": "Mobilya İmalatı",
+          "tur": "imalat",
+          "son12": 3955064.1500000004,
+          "once12": 4114648.806
+        },
+        {
+          "ad": "Diğer İmalatlar",
+          "tur": "imalat",
+          "son12": 9870988.296,
+          "once12": 11939766.726
+        },
+        {
+          "ad": "Elektrik Gaz Buhar ve Havalandırma Sistemi Üretim ve Dağıtımı",
+          "tur": "bolum",
+          "son12": 292420.22199999995,
+          "once12": 437731.1680000001
+        },
+        {
+          "ad": "Su Temini Kanalizasyon Atık Yönetimi ve İyileştirme Faaliyetleri",
+          "tur": "bolum",
+          "son12": 1568205.801,
+          "once12": 999605.1699999999
+        },
+        {
+          "ad": "Ulaştırma ve Depolama",
+          "tur": "bolum",
+          "son12": 6.5,
+          "once12": 47.714000000000006
+        },
+        {
+          "ad": "Bilgi ve İletişim",
+          "tur": "bolum",
+          "son12": 224697.70299999998,
+          "once12": 203551.002
+        },
+        {
+          "ad": "Mesleki Bilimsel ve Teknik Faaliyetler",
+          "tur": "bolum",
+          "son12": 144.522,
+          "once12": 213.69500000000002
+        },
+        {
+          "ad": "Kültür Sanat Eğlence Dinlence ve Spor",
+          "tur": "bolum",
+          "son12": 10835.893,
+          "once12": 14204.627999999999
+        }
+      ]
+    },
+    "alinma": "2026-10-29T18:57:29.075Z"
   }
 }

@@ -400,6 +400,11 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //  - krediEgilim: Banka Kredileri Eğilim Anketi (TCMB, üç aylık, 2005 sonundan): işletme ve bireysel kredilerde kredi
 //      standartları ve kredi talebi, net yüzde. TCMB metaverisine göre (doğrulandı 29.10.2026) net oran standartlarda
 //      gevşeten eksi sıkılaştıran bankaların payı, talepte artış eksi azalış bildirenlerin payıdır: artı gevşeme/artış.
+//  - otomotiv: araç türlerine göre motorlu taşıt üretimi (Otomotiv Sanayii Derneği verisi, EVDS, aylık adet, 2005'ten;
+//      doğrulandı 29.10.2026). Sanayi üretimi sayfasında gösterilir.
+//  - disTicaretAyrinti: dış ticaret sayfasının ayrıntısı (TÜİK verisi, EVDS; doğrulandı 29.10.2026): ihracat ve ithalat
+//      birim değer ve miktar endeksleri (aylık, 2013'ten) ile ISIC Rev.4'e göre ihracatın son 24 ayı (bin ABD doları;
+//      sektör listesi EVDS seri listesinden).
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -1407,6 +1412,95 @@ export async function krediEgilimAl(simdi, anahtar) {
     kaynak: { ad: 'TCMB, Banka Kredileri Eğilim Anketi (TCMB EVDS)', url: EVDS_SAYFA },
     seriler: tanimlar(KREDI_EGILIM_SERILERI),
     ceyrekler: await ceyrekFormullu(KREDI_EGILIM_SERILERI, new Date(Date.UTC(2005, 9, 1)), simdi, anahtar, 'Kredi eğilim anketi', 60),
+  };
+}
+
+// Motorlu taşıt üretimi (adet, aylık). Toplam EVDS'de yoktur; sayfada traktör hariç yedi tür toplanır.
+export const OTOMOTIV_SERILERI = [
+  ['S08', 'binek', 'Binek otomobil'],
+  ['S11', 'kamyonet', 'Kamyonet'],
+  ['S10', 'kamyon', 'Kamyon'],
+  ['S09', 'cekici', 'Çekici'],
+  ['S14', 'otobus', 'Otobüs'],
+  ['S12', 'midibus', 'Midibüs'],
+  ['S13', 'minibus', 'Minibüs'],
+  ['S31', 'traktor', 'Traktör'],
+].map(([k, alan, ad]) => ({ kod: `TP.UR.${k}`, formul: 0, alan, ad }));
+
+// Çekici Nisan 2005 ve Mayıs 2021'de yayımlanmadı: o aylar null kalır (aylikFormullu boşlukta bölümü düşürürdü). Binek
+// otomobili dolu her ay alınır.
+export async function otomotivAl(simdi, anahtar) {
+  const ham = await evdsCek(OTOMOTIV_SERILERI.map((t) => t.kod), OTOMOTIV_SERILERI.map(() => 0), new Date(Date.UTC(2005, 0, 1)), simdi, anahtar);
+  const satirlar = ham
+    .filter((h) => h.ay && h[alanAdi('TP.UR.S08', 0)] != null)
+    .map((h) => ({ yil: h.yil, ay: h.ay, ...Object.fromEntries(OTOMOTIV_SERILERI.map((t) => [t.alan, h[alanAdi(t.kod, 0)] ?? null])) }));
+  for (let i = 1; i < satirlar.length; i++) {
+    if (satirlar[i].yil * 12 + satirlar[i].ay !== satirlar[i - 1].yil * 12 + satirlar[i - 1].ay + 1) throw new Error('Otomotiv üretimi serisinde boşluk');
+  }
+  if (satirlar.length < 200) throw new Error('Otomotiv üretimi yetersiz');
+  return {
+    kaynak: { ad: 'Otomotiv Sanayii Derneği verisi, motorlu taşıt üretimi (TCMB EVDS)', url: EVDS_SAYFA },
+    birim: 'adet',
+    seriler: tanimlar(OTOMOTIV_SERILERI),
+    satirlar,
+  };
+}
+
+// Dış ticaret endeksleri (TÜİK): birim değer (fiyat) ve miktar; dış ticaret haddi sayfada birim değerlerin oranıdır.
+export const DIS_TICARET_ENDEKS_SERILERI = [
+  { kod: 'TP.DT.IH.FIY.D01.2010', formul: 0, alan: 'ihrBirim', ad: 'İhracat birim değer endeksi' },
+  { kod: 'TP.DT.IT.FIY.D01.2010', formul: 0, alan: 'ithBirim', ad: 'İthalat birim değer endeksi' },
+  { kod: 'TP.DT.IH.MIK.D01.2010', formul: 0, alan: 'ihrMiktar', ad: 'İhracat miktar endeksi' },
+  { kod: 'TP.DT.IT.MIK.D01.2010', formul: 0, alan: 'ithMiktar', ad: 'İthalat miktar endeksi' },
+];
+
+// ISIC Rev.4 ihracat sektörleri EVDS seri listesinden: toplam (TT), ana bölümler (tek harf) ve imalatın iki haneli alt
+// sektörleri (10–33); yayımlanmayan (başlangıcı boş) seriler atlanır. Adlardaki "3.1." gibi numaralar kaldırılır.
+async function ihracatSektorleri(anahtar) {
+  const yanit = await fetch(`${EVDS}/serieList/type=json&code=bie_ihrisicrev4`, { headers: { key: anahtar } });
+  if (!yanit.ok) throw new Error(`EVDS seri listesi ${yanit.status}`);
+  return (await yanit.json())
+    .filter((s) => s.START_DATE && /^TP\.IHRISICREV4\.(TT|[A-Z]|1\d|2\d|3[0-3])$/.test(s.SERIE_CODE))
+    .map((s) => {
+      const kod = s.SERIE_CODE.split('.').at(-1);
+      return { kod: s.SERIE_CODE, tur: kod === 'TT' ? 'toplam' : /^[A-Z]$/.test(kod) ? 'bolum' : 'imalat', ad: String(s.SERIE_NAME).replace(/^[\d.]+\s*/, '').trim() };
+    });
+}
+
+// Sektör tablosu: son 24 ay istenir, son 12 ay ve önceki 12 ay toplamı (bin $) sayfaya gider; 24 ayı tam olmayan sektör
+// atlanır.
+export async function disTicaretAyrintiAl(simdi, anahtar) {
+  const endeksler = await aylikFormullu(DIS_TICARET_ENDEKS_SERILERI, new Date(Date.UTC(2013, 0, 1)), simdi, anahtar, 'Dış ticaret endeksleri', 120);
+  const sektorler = await ihracatSektorleri(anahtar);
+  if (sektorler.length < 25) throw new Error('İhracat sektör listesi eksik');
+  const bas = new Date(Date.UTC(simdi.getUTCFullYear() - 3, simdi.getUTCMonth(), 1));
+  const ham = [];
+  for (let i = 0; i < sektorler.length; i += KONUT_IL_PARCA) {
+    const parca = sektorler.slice(i, i + KONUT_IL_PARCA);
+    ham.push(...(await evdsCek(parca.map((p) => p.kod), parca.map(() => 0), bas, simdi, anahtar)));
+  }
+  const toplamAlan = alanAdi('TP.IHRISICREV4.TT', 0);
+  const aylar = [...new Map(ham.filter((h) => h.ay && h[toplamAlan] != null).map((h) => [h.yil * 12 + h.ay, h])).keys()].sort((a, b) => a - b);
+  if (aylar.length < 24) throw new Error('İhracat sektör serisi yetersiz');
+  const son24 = aylar.slice(-24);
+  const deger = (kod, k) => {
+    const alan = alanAdi(kod, 0);
+    return ham.find((h) => h.yil * 12 + h.ay === k && h[alan] != null)?.[alan] ?? null;
+  };
+  const tablo = sektorler
+    .map((s) => {
+      const d = son24.map((k) => deger(s.kod, k));
+      return d.every((x) => x != null)
+        ? { ad: s.ad, tur: s.tur, son12: d.slice(12).reduce((a, x) => a + x, 0), once12: d.slice(0, 12).reduce((a, x) => a + x, 0) }
+        : null;
+    })
+    .filter(Boolean);
+  const ay = (k) => ({ yil: Math.floor((k - 1) / 12), ay: k - Math.floor((k - 1) / 12) * 12 });
+  return {
+    kaynak: { ad: 'TÜİK verisi, dış ticaret birim değer ve miktar endeksleri; ISIC Rev.4’e göre ihracat (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(DIS_TICARET_ENDEKS_SERILERI),
+    endeksler,
+    sektorTablosu: { bas: ay(son24[12]), bit: ay(son24.at(-1)), birim: 'bin ABD doları', sektorler: tablo },
   };
 }
 

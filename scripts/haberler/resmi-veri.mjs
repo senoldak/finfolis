@@ -22,7 +22,8 @@
 //      analitik bilançosu, faiz ayrıntısı, bankaların döviz işlem hacmi ve
 //      elektrik tüketimi (TEİAŞ), karşılıksız çek (Takasbank), banknotlar ve ödeme
 //      sistemleri (FAST, bireysel EFT, EFT-EMKT), turizm, uluslararası yatırım pozisyonu, reel kesim
-//      güveni, ticari gayrimenkul ve kredi eğilim anketi: evds-ek.mjs.
+//      güveni, ticari gayrimenkul, kredi eğilim anketi, otomotiv üretimi (OSD) ve dış ticaret
+//      endeksleri ile sektörlere göre ihracat: evds-ek.mjs.
 //
 // Altın (gram) için resmi, ücretsiz bir günlük kaynak bulunamadı. BIST 100 EVDS'de var ama Borsa İstanbul verisinin
 // yeniden yayımı lisansa bağlı; bu yüzden ikisi de burada yoktur.
@@ -77,6 +78,8 @@ import {
   reelGuvenAl,
   ticariGayrimenkulAl,
   krediEgilimAl,
+  otomotivAl,
+  disTicaretAyrintiAl,
 } from './evds-ek.mjs';
 
 const DOSYA = fileURLToPath(new URL('../../src/data/resmi.json', import.meta.url));
@@ -370,6 +373,8 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
     reelGuven,
     ticariGayrimenkul,
     krediEgilim,
+    otomotiv,
+    disTicaretAyrinti,
   ] =
     await Promise.all([
       dene('kurlar', () => kurlariAl(eski?.kur, simdi, gun)),
@@ -419,6 +424,8 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
       evds('reelGuven', reelGuvenAl),
       evds('ticariGayrimenkul', ticariGayrimenkulAl),
       evds('krediEgilim', krediEgilimAl),
+      evds('otomotiv', otomotivAl),
+      evds('disTicaretAyrinti', disTicaretAyrintiAl),
     ]);
   const sonuc = {};
   for (const [ad, yeni] of Object.entries({
@@ -469,6 +476,8 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
     reelGuven,
     ticariGayrimenkul,
     krediEgilim,
+    otomotiv,
+    disTicaretAyrinti,
   })) {
     const b = birlestir(eski?.[ad], yeni, iso);
     if (b) sonuc[ad] = b;

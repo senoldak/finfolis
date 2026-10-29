@@ -386,6 +386,24 @@ export interface KrediEgilimBolumu {
   alinma: string;
 }
 
+// Otomotiv üretimi (OSD, adet, aylık); çekici iki ayda null.
+export interface OtomotivBolumu {
+  kaynak: Kaynak;
+  birim: string;
+  seriler: SeriAdi[];
+  satirlar: ({ yil: number; ay: number } & Record<'binek' | 'kamyonet' | 'kamyon' | 'cekici' | 'otobus' | 'midibus' | 'minibus' | 'traktor', number | null>)[];
+  alinma: string;
+}
+
+// Dış ticaret endeksleri (TÜİK, aylık) ve ISIC Rev.4'e göre ihracatta son 12 ay / önceki 12 ay (bin $).
+export interface DisTicaretAyrintiBolumu {
+  kaynak: Kaynak;
+  seriler: SeriAdi[];
+  endeksler: ({ yil: number; ay: number } & Record<'ihrBirim' | 'ithBirim' | 'ihrMiktar' | 'ithMiktar', number>)[];
+  sektorTablosu: { bas: { yil: number; ay: number }; bit: { yil: number; ay: number }; birim: string; sektorler: { ad: string; tur: 'toplam' | 'bolum' | 'imalat'; son12: number; once12: number }[] };
+  alinma: string;
+}
+
 // Para arzı (TCMB, haftalık cuma stoku, bin TL); yıllık değişim %.
 export interface ParaArziBolumu {
   kaynak: Kaynak;
@@ -469,6 +487,8 @@ export const RESMI = data as unknown as {
   reelGuven?: ReelGuvenBolumu;
   ticariGayrimenkul?: TicariGayrimenkulBolumu;
   krediEgilim?: KrediEgilimBolumu;
+  otomotiv?: OtomotivBolumu;
+  disTicaretAyrinti?: DisTicaretAyrintiBolumu;
   banknot?: AylikSeriBolumu<`${'k200' | 'k100' | 'k50' | 'k20' | 'k10' | 'k5' | 'diger' | 'toplam'}${'Adet' | 'Tutar'}`>;
   cek?: AylikSeriBolumu<'ibrazAdet' | 'ibrazTutar' | 'karsiliksizAdet' | 'karsiliksizTutar'>;
 };

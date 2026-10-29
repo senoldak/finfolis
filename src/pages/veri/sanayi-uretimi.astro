@@ -1,6 +1,6 @@
 ---
 // Sanayi üretimi: TÜİK sanayi üretim endeksi (2021=100), mevsim ve takvim etkisinden arındırılmış toplam sanayi ve imalat.
-// Aylık ve yıllık değişim EVDS'nin hesabıdır; sayfada ek hesaplama yoktur.
+// Aylık ve yıllık değişim EVDS'nin hesabıdır. Altta otomotiv üretimi (OSD): yalnız toplam ve 12 aylık toplam sayfada alınır.
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
@@ -70,6 +70,48 @@ const jsonLd = sayfaSemasi({
       }
     : {}),
 });
+// Otomotiv üretimi (Otomotiv Sanayii Derneği, EVDS, adet). Sayfa hesapları: traktör hariç yedi türün toplamı ve son 12 ayın
+// toplamının bir önceki 12 aya göre değişimi; çekicinin yayımlanmadığı aylarda toplam hesaplanmaz.
+const otomotiv = RESMI.otomotiv;
+const oto = otomotiv?.satirlar ?? [];
+const TASIT = ['binek', 'kamyonet', 'kamyon', 'cekici', 'otobus', 'midibus', 'minibus'] as const;
+const otoToplam = (s: (typeof oto)[number]) => (TASIT.every((a) => s[a] != null) ? TASIT.reduce((x, a) => x + (s[a] as number), 0) : null);
+const sonOto = oto.at(-1);
+const toplam12 = (bit: number) => {
+  const p = oto.slice(Math.max(0, bit - 11), bit + 1).map(otoToplam);
+  return p.length === 12 && p.every((x) => x != null) ? p.reduce((x, y) => x + y!, 0) : null;
+};
+const oto12 = toplam12(oto.length - 1);
+const otoOnce12 = toplam12(oto.length - 13);
+const otoGruplari = [
+  {
+    id: 'toplam',
+    ad: 'Toplam ve binek',
+    seriler: [
+      { id: 'toplam', ad: 'Motorlu taşıt (traktör hariç)', renk: 'murekkep' as const },
+      { id: 'binek', ad: 'Binek otomobil', renk: 'toprak' as const },
+    ],
+  },
+  {
+    id: 'ticari',
+    ad: 'Ticari araçlar',
+    seriler: [
+      { id: 'kamyonet', ad: 'Kamyonet', renk: 'murekkep' as const },
+      { id: 'kamyon', ad: 'Kamyon ve çekici', renk: 'toprak' as const },
+      { id: 'otobus', ad: 'Otobüs, midibüs, minibüs', renk: 'mavi' as const },
+      { id: 'traktor', ad: 'Traktör', renk: 'yesil' as const },
+    ],
+  },
+];
+const otoNoktalari = oto.map((s) => [
+  ayAnahtari(s),
+  otoToplam(s) != null ? otoToplam(s)! / 1000 : null,
+  s.binek != null ? s.binek / 1000 : null,
+  s.kamyonet != null ? s.kamyonet / 1000 : null,
+  s.kamyon != null && s.cekici != null ? (s.kamyon + s.cekici) / 1000 : null,
+  s.otobus != null && s.midibus != null && s.minibus != null ? (s.otobus + s.midibus + s.minibus) / 1000 : null,
+  s.traktor != null ? s.traktor / 1000 : null,
+]);
 ---
 
 <Base title={`Sanayi üretimi: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son}>
@@ -172,6 +214,47 @@ const jsonLd = sayfaSemasi({
             gruplar={gruplar2}
             referans={{ deger: 0, ad: 'Sıfır' }}
           />
+          {otomotiv && sonOto && (
+            <section class="bolum" id="otomotiv">
+              <h2 class="bolum-baslik">Otomotiv üretimi</h2>
+              <dl class="veri-rakamlar">
+                <div>
+                  <dt>Motorlu taşıt, {ayAdi(sonOto)}</dt>
+                  <dd>{otoToplam(sonOto) != null ? sayiYaz(otoToplam(sonOto)!, 0) : '–'}</dd>
+                  <dd class="veri-degisim">Traktör hariç, adet</dd>
+                </div>
+                <div>
+                  <dt>Binek otomobil</dt>
+                  <dd>{sonOto.binek != null ? sayiYaz(sonOto.binek, 0) : '–'}</dd>
+                  <dd class="veri-degisim">{ayAdi(sonOto)}, adet</dd>
+                </div>
+                {oto12 != null && (
+                  <div>
+                    <dt>Son 12 ay</dt>
+                    <dd>{sayiYaz(oto12, 0)}</dd>
+                    <dd class="veri-degisim">{otoOnce12 ? `Önceki 12 aya göre ${yd((oto12 / otoOnce12 - 1) * 100)}` : 'Motorlu taşıt'}</dd>
+                  </div>
+                )}
+              </dl>
+              <ZamanGrafik
+                baslik="Aylık motorlu taşıt üretimi"
+                ipucu="Bin adet · Toplam traktör hariç yedi türün sayfada alınan toplamıdır · Grup düğmesiyle araç türlerine geçilir"
+                kaynak="Kaynak: Otomotiv Sanayii Derneği (TCMB EVDS); toplamlar sayfada hesaplanır."
+                siklik="ay"
+                birim="endeks"
+                ondalik={1}
+                seriIdleri={['toplam', 'binek', 'kamyonet', 'kamyon', 'otobus', 'traktor']}
+                noktalar={otoNoktalari}
+                gruplar={otoGruplari}
+                grupEtiketi="Seri grubu"
+              />
+              <p class="veri-notu">
+                Otomotiv üretimi sanayi üretim endeksinin parçası değildir; Otomotiv Sanayii Derneği üyelerinin üretim adedidir.
+                Çekici üretimi Nisan 2005 ve Mayıs 2021’de yayımlanmadığı için o aylarda toplam gösterilmez. Siteye alındığı
+                zaman: {zamanYaz(otomotiv.alinma)}.
+              </p>
+            </section>
+          )}
         </>
       ) : (
         <p class="bos">Sanayi üretimi verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
