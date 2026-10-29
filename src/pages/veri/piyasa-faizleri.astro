@@ -1,5 +1,5 @@
 ---
-// TCMB haftalık akım faiz oranları: ihtiyaç, taşıt ve konut kredileri, 1-3 ay vadeli TL mevduat, politika faizi ve 5Y tahvil.
+// TCMB haftalık akım faiz oranları: ihtiyaç, taşıt ve konut kredileri, 1-3 ay vadeli TL mevduat ve politika faizi.
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
@@ -13,7 +13,7 @@ const piyasaFaizleri = RESMI.piyasaFaizleri;
 const satirlar = piyasaFaizleri?.satirlar ?? [];
 const son = satirlar.at(-1);
 
-const baslik = 'Piyasa faizleri: Kredi, mevduat ve tahvil';
+const baslik = 'Piyasa faizleri: Kredi ve mevduat';
 const description = son
   ? `TCMB haftalık akım faizleri: İhtiyaç kredisi aylık %${sayiYaz(son.ihtiyac / 12, 2)} (yıllık %${sayiYaz(son.ihtiyac, 2)}), 1-3 ay mevduat aylık %${sayiYaz(son.mevduat / 12, 2)} (yıllık %${sayiYaz(son.mevduat, 2)}), konut aylık %${sayiYaz(son.konut / 12, 2)}. Karşılaştırmalı grafik ve geçmiş veriler.`
   : 'TCMB haftalık akım verileriyle ihtiyaç, konut, taşıt kredileri ve mevduat faizleri.';

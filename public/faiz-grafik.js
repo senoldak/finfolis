@@ -35,7 +35,6 @@
       { id: 'politika', ad: 'TCMB politika faizi', renk: '#c2502b', kalinlik: 2, basamak: true },
       { id: 'tasit', ad: 'Taşıt kredisi', renk: '#2d6a4f', kalinlik: 2 },
       { id: 'konut', ad: 'Konut kredisi', renk: '#d96b27', kalinlik: 2 },
-      { id: 'tahvil5Y', ad: '5 yıllık tahvil', renk: '#635380', kalinlik: 1.75 },
     ];
 
     // Durum Değişkenleri

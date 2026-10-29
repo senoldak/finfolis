@@ -518,7 +518,6 @@ export const TANIMLAR = [
   ], { siklik: 'hafta' }),
   t('piyasaFaizleri', 'Faiz', SAYFA.piyasaFaizleri, [
     ['politika', 'politika', 'Politika faizi (haftalık, piyasa faizleri tablosu)', YZ],
-    ['tahvil5Y', 'tahvil5y', '5 yıllık devlet tahvili faizi', YZ],
   ], { siklik: 'hafta' }),
   t('mevduat', 'Bankacılık', SAYFA.mevduat, [
     ['toplam', 'toplam', 'Döviz ve altın mevduatı, toplam', MUSD],

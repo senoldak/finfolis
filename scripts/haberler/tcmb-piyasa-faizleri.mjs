@@ -81,10 +81,6 @@ export async function piyasaFaizleriniAl(simdi, anahtar, repoGecmisi = [], eski 
 
       satir.politika = yuvarla(politikaFaiziBul(tarih, repoGecmisi), 2);
 
-      // Eski veride 5Y tahvil varsa veya varsayılan getiri eğrisi:
-      const eskiSatir = eski?.satirlar?.find((s) => s.tarih === tarih);
-      satir.tahvil5Y = eskiSatir?.tahvil5Y ?? yuvarla(satir.mevduat * 0.9, 2);
-
       return satir;
     })
     .filter(Boolean)

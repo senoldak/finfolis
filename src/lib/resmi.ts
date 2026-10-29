@@ -98,7 +98,6 @@ export interface PiyasaFaizleriSatiri {
   politika: number;
   tasit: number;
   konut: number;
-  tahvil5Y?: number | null;
 }
 
 export interface PiyasaFaizleriBolumu {
