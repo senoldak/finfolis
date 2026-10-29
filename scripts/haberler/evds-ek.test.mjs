@@ -17,6 +17,8 @@ import {
   paraArziAl,
   kkmAl,
   tcmbBilancoAl,
+  faizAyrintiAl,
+  dovizHacmiAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -534,6 +536,48 @@ test('tcmbBilancoAl: haftanın son değeri ve son iş günü', async () => {
   assert.equal(b.son.tarih, '2026-10-26');
   assert.equal(b.son.rezervPara, 6);
   assert.equal(Object.keys(b.son).length, 15);
+});
+
+test('faizAyrintiAl: haftalık akım faizler 2012’den, finansman şirketleri aylık', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    const u = decodeURIComponent(String(url));
+    istekler.push(u);
+    const a = alanlar(url);
+    if (u.includes('FKF')) return yanit({ items: aylar([2013, 12], 153).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(a.map((x) => [x, '50'])) })) });
+    const items = [];
+    for (let t = Date.UTC(2012, 6, 6); t <= Date.UTC(2026, 9, 16); t += 7 * 864e5) items.push({ Tarih: gunTarihi(new Date(t)), ...Object.fromEntries(a.map((x) => [x, '40'])) });
+    return yanit({ items });
+  };
+  const f = await faizAyrintiAl(SIMDI, 'x');
+  assert.equal(alanlar(istekler[0]).length, 17);
+  assert.ok(istekler[0].includes('startDate=01-07-2012'));
+  assert.equal(f.satirlar[0].tarih, '2012-07-06');
+  assert.equal(Object.keys(f.satirlar[0]).length, 18);
+  assert.deepEqual(f.finansman.at(-1), { yil: 2026, ay: 8, ticari: 50, tuketici: 50 });
+});
+
+test('dovizHacmiAl: haftalık günlük ortalama; son iş gününden sonra biten yarım hafta atılır', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    const u = decodeURIComponent(String(url));
+    istekler.push(u);
+    const a = alanlar(url);
+    const items = [];
+    if (u.includes('frequency=3')) {
+      for (let t = Date.UTC(2010, 0, 1); t <= Date.UTC(2026, 9, 23); t += 7 * 864e5) items.push({ Tarih: gunTarihi(new Date(t)), ...Object.fromEntries(a.map((x) => [x, '100'])) });
+    } else {
+      items.push({ Tarih: '20-10-2026', ...Object.fromEntries(a.map((x) => [x, '90'])) }, { Tarih: '21-10-2026', ...Object.fromEntries(a.map((x) => [x, '95'])) });
+    }
+    return yanit({ items });
+  };
+  const d = await dovizHacmiAl(SIMDI, 'x');
+  assert.ok(istekler.some((u) => u.includes('aggregationTypes=avg-avg-avg-avg-avg-avg')));
+  assert.ok(!istekler.some((u) => u.includes('TLUZVADDOV')));
+  assert.equal(d.son.tarih, '2026-10-21');
+  assert.equal(d.son.spot, 95);
+  assert.equal(d.satirlar.at(-1).tarih, '2026-10-16');
+  assert.equal(d.birim, 'milyon ABD doları');
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

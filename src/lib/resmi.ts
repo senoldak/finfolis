@@ -305,6 +305,27 @@ export interface TcmbBilancoBolumu {
   alinma: string;
 }
 
+// Faiz ayrıntısı (TCMB akım faizleri, %, haftalık) ve finansman şirketlerinin stok faizi (%, aylık).
+export interface FaizAyrintiBolumu {
+  kaynak: Kaynak;
+  seriler: SeriAdi[];
+  finansmanSeriler: SeriAdi[];
+  satirlar: ({ tarih: string } & Record<'tl1a' | 'tl3a' | 'tl6a' | 'tl1y' | 'tlUzun' | 'tlToplam' | 'tlTasarruf' | 'tlTicari' | 'usd' | 'eur' | 'tuketici' | 'tuketiciKmh' | 'ihtiyacKmh' | 'ticari' | 'ticariKmhHaric' | 'ticariUsd' | 'ticariEur', number>)[];
+  finansman: ({ yil: number; ay: number } & Record<'ticari' | 'tuketici', number>)[];
+  alinma: string;
+}
+
+// Bankaların döviz işlem hacmi (milyon ABD doları): satırlar haftalık günlük ortalama, son ayrıca son iş günü.
+export type DovizHacmiSatiri = { tarih: string } & Record<'spot' | 'swap' | 'vadeli' | 'yurtDisiSwap' | 'musteriSpot' | 'efektif', number>;
+export interface DovizHacmiBolumu {
+  kaynak: Kaynak;
+  birim: string;
+  seriler: SeriAdi[];
+  satirlar: DovizHacmiSatiri[];
+  son: DovizHacmiSatiri;
+  alinma: string;
+}
+
 // Para arzı (TCMB, haftalık cuma stoku, bin TL); yıllık değişim %.
 export interface ParaArziBolumu {
   kaynak: Kaynak;
@@ -379,6 +400,8 @@ export const RESMI = data as unknown as {
   paraArzi?: ParaArziBolumu;
   kkm?: AylikSeriBolumu<'dd' | 'ddGercek' | 'ddTuzel' | 'tl'>;
   tcmbBilanco?: TcmbBilancoBolumu;
+  faizAyrinti?: FaizAyrintiBolumu;
+  dovizHacmi?: DovizHacmiBolumu;
 };
 
 // Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).

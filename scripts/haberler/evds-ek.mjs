@@ -371,6 +371,12 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      ABD doları; gerçek ve tüzel kişiler) ve TL KKM (milyar TL). Birimler farklıdır, toplanmaz.
 //  - tcmbBilanco: TCMB analitik bilançosunun ana kalemleri (TCMB, iş günü, bin TL; haftanın son iş günü 2013'ten, son iş
 //      günü ayrıca; doğrulandı 29.10.2026). Döviz tarafının ayrıntısı net döviz pozisyonu sayfasındadır.
+//  - faizAyrinti: bankaların akım faizleri, piyasa-faizleri sayfasının ayrıntısı (TCMB, haftalık, Temmuz 2012'den;
+//      doğrulandı 29.10.2026): TL mevduat vadeye göre, tasarruf ve ticari TL mevduat, dolar ve euro mevduat; tüketici ve
+//      ticari kredi (TL, KMH dahil/hariç, dolar, euro); finansman şirketlerinin stok faizi (aylık, 2013 sonundan).
+//  - dovizHacmi: bankaların TL karşılığı döviz işlem hacimleri (TCMB, iş günü, milyon ABD doları; haftalık günlük ortalama
+//      2010'dan, son iş günü ayrıca; doğrulandı 29.10.2026). TL uzlaşmalı vadeli döviz satım serileri (bie_tluzvdov)
+//      alınmaz: toplam pozisyon yayımlanan iki bileşenin toplamı değil, farkın kaynağı açıklanmıyor.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -973,6 +979,83 @@ export async function tcmbBilancoAl(simdi, anahtar) {
     kaynak: { ad: 'TCMB analitik bilançosu (TCMB EVDS)', url: EVDS_SAYFA },
     birim: 'bin TL',
     seriler: tanimlar(TCMB_BILANCO_SERILERI),
+    satirlar,
+    son,
+  };
+}
+
+// Akım faizler (%, yıllık, haftalık ağırlıklı ortalama). Tasarruf/ticari ayrımı ve KMH dahil/hariç seriler Temmuz 2012'de
+// başlar; satırlar oradan.
+export const FAIZ_AYRINTI_SERILERI = [
+  { kod: 'TP.TRY.MT01', alan: 'tl1a', ad: 'TL mevduat, 1 aya kadar' },
+  { kod: 'TP.TRY.MT02', alan: 'tl3a', ad: 'TL mevduat, 3 aya kadar' },
+  { kod: 'TP.TRY.MT03', alan: 'tl6a', ad: 'TL mevduat, 6 aya kadar' },
+  { kod: 'TP.TRY.MT04', alan: 'tl1y', ad: 'TL mevduat, 1 yıla kadar' },
+  { kod: 'TP.TRY.MT05', alan: 'tlUzun', ad: 'TL mevduat, 1 yıl ve daha uzun' },
+  { kod: 'TP.TRY.MT06', alan: 'tlToplam', ad: 'TL mevduat, toplam' },
+  { kod: 'TP.TRYTAS.MT06', alan: 'tlTasarruf', ad: 'TL tasarruf mevduatı, toplam' },
+  { kod: 'TP.TRYTIC.MT06', alan: 'tlTicari', ad: 'TL ticari mevduat, toplam' },
+  { kod: 'TP.USD.MT06', alan: 'usd', ad: 'ABD doları mevduat, toplam' },
+  { kod: 'TP.EUR.MT06', alan: 'eur', ad: 'Euro mevduat, toplam' },
+  { kod: 'TP.KTFTUK', alan: 'tuketici', ad: 'Tüketici kredisi (ihtiyaç, taşıt, konut)' },
+  { kod: 'TP.KTFTUK01', alan: 'tuketiciKmh', ad: 'Tüketici kredisi, KMH dahil' },
+  { kod: 'TP.KTF101', alan: 'ihtiyacKmh', ad: 'İhtiyaç kredisi, KMH dahil' },
+  { kod: 'TP.KTF17', alan: 'ticari', ad: 'Ticari kredi (TL)' },
+  { kod: 'TP.KTF18', alan: 'ticariKmhHaric', ad: 'Ticari kredi (TL), tüzel kişi KMH ve kurumsal kredi kartları hariç' },
+  { kod: 'TP.KTF17.USD', alan: 'ticariUsd', ad: 'Ticari kredi (ABD doları)' },
+  { kod: 'TP.KTF17.EUR', alan: 'ticariEur', ad: 'Ticari kredi (euro)' },
+];
+// Finansman şirketlerinin stok faizi (%, aylık, Aralık 2013'ten).
+export const FINANSMAN_FAIZ_SERILERI = [
+  { kod: 'TP.FKF.TRY.1', formul: 0, alan: 'ticari', ad: 'Finansman şirketleri, ticari kredi (TL, stok)' },
+  { kod: 'TP.FKF.TRY.15', formul: 0, alan: 'tuketici', ad: 'Finansman şirketleri, tüketici kredisi (TL, stok)' },
+];
+
+export async function faizAyrintiAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TCMB faiz istatistikleri: bankaların akım mevduat ve kredi faizleri, finansman şirketleri stok faizleri (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(FAIZ_AYRINTI_SERILERI),
+    finansmanSeriler: tanimlar(FINANSMAN_FAIZ_SERILERI),
+    satirlar: await haftalikSeriler(FAIZ_AYRINTI_SERILERI, new Date(Date.UTC(2012, 6, 1)), simdi, anahtar, 'Faiz ayrıntısı', 600),
+    finansman: await aylikFormullu(FINANSMAN_FAIZ_SERILERI, new Date(Date.UTC(2013, 11, 1)), simdi, anahtar, 'Finansman şirketi faizleri', 100),
+  };
+}
+
+// Bankaların döviz işlem hacmi (milyon ABD doları, günlük akım). Toplamlar bütün taraflar içindir; yurt dışı swap yurt dışı
+// banka, kuruluş ve müşterilerle yapılan swap, yurt içi müşteri spot bankaların yurt içi müşterilerle spot işlemleridir.
+export const DOVIZ_HACMI_SERILERI = [
+  { kod: 'TP.TLDOV05.SPT', alan: 'spot', ad: 'Toplam spot işlem hacmi' },
+  { kod: 'TP.TLDOV05.SWP', alan: 'swap', ad: 'Toplam swap işlem hacmi' },
+  { kod: 'TP.TLDOV05.FWD', alan: 'vadeli', ad: 'Toplam vadeli işlem hacmi' },
+  { kod: 'TP.TLDOV04.SWP', alan: 'yurtDisiSwap', ad: 'Yurt dışı banka, kuruluş ve müşterilerle swap' },
+  { kod: 'TP.TLDOV02.SPT', alan: 'musteriSpot', ad: 'Yurt içi müşterilerle spot' },
+  { kod: 'TP.TLDOV06.EFK', alan: 'efektif', ad: 'Efektif (banknot) işlem hacmi' },
+];
+
+const hacimSatiri = (h) => ({ tarih: h.tarih, ...Object.fromEntries(DOVIZ_HACMI_SERILERI.map((t) => [t.alan, h[alanAdi(t.kod, 0)]])) });
+const hacimDolu = (s) => DOVIZ_HACMI_SERILERI.every((t) => s[t.alan] != null);
+
+// Haftalık: EVDS'nin haftalık ortalaması (iş günü başına hacim); yayımlanan son iş gününden sonra biten hafta yarımdır, atılır.
+export async function dovizHacmiAl(simdi, anahtar) {
+  const kodlar = DOVIZ_HACMI_SERILERI.map((t) => t.kod);
+  const sifirlar = kodlar.map(() => 0);
+  const son = (await evdsCek(kodlar, sifirlar, new Date(simdi.getTime() - 20 * 864e5), simdi, anahtar))
+    .filter((h) => h.tarih)
+    .map(hacimSatiri)
+    .filter(hacimDolu)
+    .at(-1);
+  if (!son) throw new Error('Döviz hacmi günlük değer yok');
+  const satirlar = (
+    await evdsCek(kodlar, sifirlar, new Date(Date.UTC(2010, 0, 1)), simdi, anahtar, `&frequency=3&aggregationTypes=${kodlar.map(() => 'avg').join('-')}`)
+  )
+    .filter((h) => h.tarih && h.tarih <= son.tarih)
+    .map(hacimSatiri)
+    .filter(hacimDolu);
+  if (satirlar.length < 600) throw new Error('Döviz hacmi haftalık serisi yetersiz');
+  return {
+    kaynak: { ad: 'TCMB, bankaların Türk lirası karşılığı döviz işlem hacimleri (TCMB EVDS)', url: EVDS_SAYFA },
+    birim: 'milyon ABD doları',
+    seriler: tanimlar(DOVIZ_HACMI_SERILERI),
     satirlar,
     son,
   };

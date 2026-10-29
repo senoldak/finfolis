@@ -1,0 +1,218 @@
+---
+// Döviz piyasası: bankaların Türk lirası karşılığı döviz işlem hacimleri (spot, swap, vadeli, efektif; milyon ABD doları),
+// TCMB EVDS'den. Grafik ve tablo haftalık günlük ortalama (EVDS hesaplar), üstteki rakamlar son iş günü. Sayfa hesapları
+// yalnız milyar dolara çevirme ve yurt dışı tarafların swap hacmi içindeki payıdır. TL uzlaşmalı vadeli döviz satım
+// serileri bilerek yoktur (toplam, yayımlanan bileşenlerin toplamı değil).
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, gunAnahtari, gunYaz, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const dovizHacmi = RESMI.dovizHacmi;
+const satirlar = dovizHacmi?.satirlar ?? [];
+const son = dovizHacmi?.son;
+
+const milyar = (n: number) => n / 1000;
+const milyarYaz = (n: number) => `${sayiYaz(milyar(n), 1)} milyar $`;
+// Sayfa hesabı: yurt dışı tarafların toplam swap hacmi içindeki payı, yüzde.
+const disPay = (s: { swap: number; yurtDisiSwap: number }) => (s.swap > 0 ? (s.yurtDisiSwap / s.swap) * 100 : null);
+
+const gruplar = [
+  {
+    id: 'tur',
+    ad: 'Spot, swap, vadeli',
+    seriler: [
+      { id: 'spot', ad: 'Spot', renk: 'murekkep' as const },
+      { id: 'swap', ad: 'Swap', renk: 'toprak' as const },
+      { id: 'vadeli', ad: 'Vadeli', renk: 'mavi' as const },
+    ],
+  },
+  {
+    id: 'taraf',
+    ad: 'Müşteri ve yurt dışı',
+    seriler: [
+      { id: 'musteriSpot', ad: 'Yurt içi müşterilerle spot', renk: 'murekkep' as const },
+      { id: 'yurtDisiSwap', ad: 'Yurt dışı taraflarla swap', renk: 'toprak' as const },
+    ],
+  },
+];
+const noktalar = satirlar.map((s) => [gunAnahtari(s.tarih), milyar(s.spot), milyar(s.swap), milyar(s.vadeli), milyar(s.musteriSpot), milyar(s.yurtDisiSwap)]);
+const payGruplari = [
+  { id: 'pay', ad: 'Pay', seriler: [{ id: 'pay', ad: 'Yurt dışı tarafların swap payı', renk: 'murekkep' as const }] },
+];
+const payNoktalari = satirlar.map((s) => [gunAnahtari(s.tarih), disPay(s)]);
+
+const tablo = satirlar.slice(-12).reverse();
+
+const baslik = 'Döviz piyasası';
+const description = son
+  ? `${gunYaz(son.tarih)} günü bankaların döviz işlem hacmi: spot ${milyarYaz(son.spot)}, swap ${milyarYaz(son.swap)}, vadeli ${milyarYaz(son.vadeli)}. TCMB verisi.`
+  : 'Bankaların Türk lirası karşılığı spot, swap, vadeli ve efektif döviz işlem hacimleri, TCMB verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/doviz-piyasasi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(dovizHacmi && son && satirlar.length
+    ? {
+        sayfaEk: { dateModified: dovizHacmi.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Bankaların Türk lirası karşılığı döviz işlem hacimleri',
+            description:
+              'Bankaların Türk lirası karşılığı spot, swap, vadeli ve efektif döviz işlem hacimleri; yurt içi müşterilerle spot ve yurt dışı taraflarla swap; milyon ABD doları, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/doviz-piyasasi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${satirlar[0].tarih}/${son.tarih}`,
+            dateModified: dovizHacmi.alinma,
+            variableMeasured: [
+              'Spot döviz işlem hacmi (milyon ABD doları)',
+              'Swap işlem hacmi (milyon ABD doları)',
+              'Vadeli döviz işlem hacmi (milyon ABD doları)',
+              'Efektif işlem hacmi (milyon ABD doları)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Döviz piyasası: ${son ? gunYaz(son.tarih) : 'işlem hacmi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Bankaların Türk lirası karşılığı döviz işlem hacmi · TCMB, iş günü</p>
+    </header>
+    {
+      dovizHacmi && son && satirlar.length ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Spot</dt>
+              <dd>{milyarYaz(son.spot)}</dd>
+              <dd class="veri-degisim">{gunYaz(son.tarih)}, günlük hacim</dd>
+            </div>
+            <div>
+              <dt>Swap</dt>
+              <dd>{milyarYaz(son.swap)}</dd>
+              <dd class="veri-degisim">{disPay(son) != null ? `Yurt dışı taraf payı ${yuzdeYaz(disPay(son)!)}` : ''}</dd>
+            </div>
+            <div>
+              <dt>Vadeli</dt>
+              <dd>{milyarYaz(son.vadeli)}</dd>
+              <dd class="veri-degisim">Günlük hacim</dd>
+            </div>
+            <div>
+              <dt>Efektif</dt>
+              <dd>{sayiYaz(son.efektif, 1)} milyon $</dd>
+              <dd class="veri-degisim">Banknot alım satımı</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={dovizHacmi.kaynak.url} rel="noopener">{dovizHacmi.kaynak.ad}</a>. Üstteki
+            rakamlar {gunYaz(son.tarih)} günündür; grafik ve tablo haftanın günlük ortalamasıdır. Siteye alındığı zaman:{' '}
+            {zamanYaz(dovizHacmi.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Günlük işlem hacmi"
+            ipucu="Milyar ABD doları, haftanın iş günü ortalaması · Grup düğmesiyle işlem türü ve taraf arasında geçilir"
+            kaynak="Kaynak: TCMB, bankaların döviz işlem hacimleri (TCMB EVDS)."
+            siklik="hafta"
+            birim="milyarUsd"
+            ondalik={1}
+            seriIdleri={['spot', 'swap', 'vadeli', 'musteriSpot', 'yurtDisiSwap']}
+            noktalar={noktalar}
+            gruplar={gruplar}
+            grupEtiketi="Seri grubu"
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 hafta</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Hafta</th>
+                      <th scope="col" class="sag">Spot</th>
+                      <th scope="col" class="sag">Swap</th>
+                      <th scope="col" class="sag">Vadeli</th>
+                      <th scope="col" class="sag">Yurt dışı swap payı</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{gunYaz(s.tarih)}</td>
+                        <td class="sag">{sayiYaz(milyar(s.spot), 1)}</td>
+                        <td class="sag">{sayiYaz(milyar(s.swap), 1)}</td>
+                        <td class="sag">{sayiYaz(milyar(s.vadeli), 1)}</td>
+                        <td class="sag">{disPay(s) != null ? yuzdeYaz(disPay(s)!) : '–'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Milyar ABD doları, cuma günü biten haftanın iş günü ortalaması. Yayımlanan son günden sonra biten yarım hafta
+                gösterilmez. Pay sayfada hesaplanır.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Spot işlem iki iş günü içinde teslim edilen döviz alım satımıdır. Vadeli işlemde kur bugün belirlenir, teslim
+                ileri bir tarihte yapılır. Swap, bugün yapılan bir döviz alım satımının ileri bir tarihte tersine çevrilmesidir;
+                bir tür döviz karşılığı borçlanma ya da borç vermedir.
+              </p>
+              <p>
+                Rakamlar bankaların bütün taraflarla yaptığı Türk lirası karşılığı işlemlerin toplamıdır: birbirleriyle, yurt
+                içi müşterileriyle, yurt dışındaki kendi merkez ve şubeleriyle, yurt dışındaki öteki bankalar, kuruluşlar ve
+                müşterilerle. Efektif, banknot alım satımıdır.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Yurt dışı tarafların swap payı"
+            ipucu="Yüzde, yurt dışı banka, kuruluş ve müşterilerle yapılan swapın toplam swap hacmi içindeki payı"
+            kaynak="Kaynak: TCMB (TCMB EVDS); pay sayfada hesaplanır."
+            siklik="hafta"
+            birim="yuzde"
+            seriIdleri={['pay']}
+            noktalar={payNoktalari}
+            gruplar={payGruplari}
+          />
+        </>
+      ) : (
+        <p class="bos">Döviz piyasası verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/doviz-kurlari/">Döviz kurları</a>
+      <a href="/veri/swap-payi/">TCMB swap payı</a>
+      <a href="/veri/para-piyasasi/">Para piyasası</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

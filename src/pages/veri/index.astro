@@ -83,6 +83,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/piyasa-faizleri/': 'mevduat faizi kredi faizi konut kredisi taşıt',
   '/veri/kur-korumali-mevduat/': 'kkm kur korumalı mevduat döviz dönüşümlü tl kkm',
   '/veri/tcmb-bilancosu/': 'merkez bankası bilançosu analitik bilanço rezerv para emisyon zorunlu karşılık serbest mevduat açık piyasa',
+  '/veri/doviz-piyasasi/': 'döviz işlem hacmi spot swap vadeli forward efektif bankalararası döviz piyasası',
   '/veri/para-arzi/': 'm1 m2 m3 para arzı parasal büyüklükler dolaşımdaki para vadeli vadesiz mevduat likidite',
   '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
@@ -313,6 +314,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/doviz-kurlari/')}>
               <a href="/veri/doviz-kurlari/" class="fihrist-baslik-link">Tüm döviz kurları ({kurSayisi} para birimi)</a>
               <span class="fihrist-ozet">TCMB bültenindeki tüm kurların alış, satış ve efektif tablosu</span>
+            </li>
+            <li data-ek={aramaEki('/veri/doviz-piyasasi/')}>
+              <a href="/veri/doviz-piyasasi/" class="fihrist-baslik-link">Döviz Piyasası</a>
+              <span class="fihrist-ozet">Bankaların spot, swap, vadeli ve efektif döviz işlem hacmi, 2010’dan</span>
             </li>
             <li data-ek={aramaEki('/veri/kur-degisim-hizi/')}>
               <a href="/veri/kur-degisim-hizi/" class="fihrist-baslik-link">Kur Değişim Hızı</a>

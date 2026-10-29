@@ -4,7 +4,8 @@ import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import PiyasaFaizleriGrafik from '../../components/PiyasaFaizleriGrafik.astro';
-import { RESMI, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, gunAnahtari, gunYaz, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
@@ -53,6 +54,99 @@ const jsonLd = sayfaSemasi({
 });
 
 const tabloSatirlari = [...satirlar].reverse();
+
+// Ayrıntı: vadeye ve türe göre akım faizler (haftalık, 2012'den) ve finansman şirketlerinin stok faizi (aylık). EVDS'nin
+// verdiği gibidir, sayfada hesap yoktur.
+const faizAyrinti = RESMI.faizAyrinti;
+const ayrinti = faizAyrinti?.satirlar ?? [];
+const sonAyrinti = ayrinti.at(-1);
+const finansman = faizAyrinti?.finansman ?? [];
+const sonFinansman = finansman.at(-1);
+const AYRINTI_ALANLARI = [
+  'tl1a', 'tl3a', 'tl6a', 'tlUzun', 'tlTasarruf', 'tlTicari', 'tlToplam', 'usd', 'eur',
+  'tuketici', 'tuketiciKmh', 'ticari', 'ticariKmhHaric', 'ticariUsd', 'ticariEur',
+] as const;
+const ayrintiNoktalari = ayrinti.map((s) => [gunAnahtari(s.tarih), ...AYRINTI_ALANLARI.map((a) => s[a])]);
+const mevduatGruplari = [
+  {
+    id: 'vade',
+    ad: 'TL, vadeye göre',
+    seriler: [
+      { id: 'tl1a', ad: '1 aya kadar', renk: 'toprak' as const },
+      { id: 'tl3a', ad: '3 aya kadar', renk: 'murekkep' as const },
+      { id: 'tl6a', ad: '6 aya kadar', renk: 'mavi' as const },
+      { id: 'tlUzun', ad: '1 yıl ve üstü', renk: 'yesil' as const },
+    ],
+  },
+  {
+    id: 'tur',
+    ad: 'Tasarruf ve ticari',
+    seriler: [
+      { id: 'tlTasarruf', ad: 'Tasarruf mevduatı', renk: 'murekkep' as const },
+      { id: 'tlTicari', ad: 'Ticari mevduat', renk: 'toprak' as const },
+      { id: 'tlToplam', ad: 'Toplam', renk: 'mavi' as const, kesik: true },
+    ],
+  },
+  {
+    id: 'doviz',
+    ad: 'Dolar ve euro',
+    seriler: [
+      { id: 'usd', ad: 'ABD doları mevduat', renk: 'murekkep' as const },
+      { id: 'eur', ad: 'Euro mevduat', renk: 'toprak' as const },
+    ],
+  },
+];
+const krediGruplari = [
+  {
+    id: 'tl',
+    ad: 'Tüketici ve ticari (TL)',
+    seriler: [
+      { id: 'tuketici', ad: 'Tüketici', renk: 'murekkep' as const },
+      { id: 'tuketiciKmh', ad: 'Tüketici, KMH dahil', renk: 'murekkep' as const, kesik: true },
+      { id: 'ticari', ad: 'Ticari', renk: 'toprak' as const },
+      { id: 'ticariKmhHaric', ad: 'Ticari, KMH ve kart hariç', renk: 'toprak' as const, kesik: true },
+    ],
+  },
+  {
+    id: 'doviz',
+    ad: 'Ticari (döviz)',
+    seriler: [
+      { id: 'ticariUsd', ad: 'ABD doları', renk: 'murekkep' as const },
+      { id: 'ticariEur', ad: 'Euro', renk: 'toprak' as const },
+    ],
+  },
+];
+const finansmanGruplari = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'tuketici', ad: 'Tüketici kredisi', renk: 'murekkep' as const },
+      { id: 'ticari', ad: 'Ticari kredi', renk: 'toprak' as const },
+    ],
+  },
+];
+const finansmanNoktalari = finansman.map((s) => [ayAnahtari(s), s.tuketici, s.ticari]);
+const ayrintiTablo = sonAyrinti
+  ? [
+      { ad: 'TL mevduat, 1 aya kadar', d: sonAyrinti.tl1a },
+      { ad: 'TL mevduat, 3 aya kadar', d: sonAyrinti.tl3a },
+      { ad: 'TL mevduat, 6 aya kadar', d: sonAyrinti.tl6a },
+      { ad: 'TL mevduat, 1 yıla kadar', d: sonAyrinti.tl1y },
+      { ad: 'TL mevduat, 1 yıl ve daha uzun', d: sonAyrinti.tlUzun },
+      { ad: 'TL tasarruf mevduatı', d: sonAyrinti.tlTasarruf },
+      { ad: 'TL ticari mevduat', d: sonAyrinti.tlTicari },
+      { ad: 'ABD doları mevduat', d: sonAyrinti.usd },
+      { ad: 'Euro mevduat', d: sonAyrinti.eur },
+      { ad: 'Tüketici kredisi (ihtiyaç, taşıt, konut)', d: sonAyrinti.tuketici },
+      { ad: 'Tüketici kredisi, KMH dahil', d: sonAyrinti.tuketiciKmh },
+      { ad: 'İhtiyaç kredisi, KMH dahil', d: sonAyrinti.ihtiyacKmh },
+      { ad: 'Ticari kredi (TL)', d: sonAyrinti.ticari },
+      { ad: 'Ticari kredi (TL), KMH ve kurumsal kart hariç', d: sonAyrinti.ticariKmhHaric },
+      { ad: 'Ticari kredi (ABD doları)', d: sonAyrinti.ticariUsd },
+      { ad: 'Ticari kredi (euro)', d: sonAyrinti.ticariEur },
+    ]
+  : [];
 ---
 
 <Base title={baslik} description={description} noindex={!piyasaFaizleri}>
@@ -217,6 +311,81 @@ const tabloSatirlari = [...satirlar].reverse();
               </div>
             </section>
           </div>
+
+          {faizAyrinti && sonAyrinti && (
+            <>
+              <h2 class="bolum-baslik ayrinti-baslik" id="ayrinti">Vadeye ve türe göre faizler</h2>
+              <ZamanGrafik
+                baslik="Mevduat faizleri"
+                ipucu="Yıllık %, haftalık akım · Grup düğmesiyle vade, mevduat türü ve döviz arasında geçilir"
+                kaynak="Kaynak: TCMB, faiz istatistikleri (TCMB EVDS)."
+                siklik="hafta"
+                birim="yuzde"
+                seriIdleri={[...AYRINTI_ALANLARI]}
+                noktalar={ayrintiNoktalari}
+                gruplar={mevduatGruplari}
+                grupEtiketi="Seri grubu"
+              />
+              <ZamanGrafik
+                baslik="Kredi faizleri"
+                ipucu="Yıllık %, haftalık akım · KMH: kredili mevduat hesabı · Kesikli çizgiler KMH dahil ya da hariç tanımdır"
+                kaynak="Kaynak: TCMB, faiz istatistikleri (TCMB EVDS)."
+                siklik="hafta"
+                birim="yuzde"
+                seriIdleri={[...AYRINTI_ALANLARI]}
+                noktalar={ayrintiNoktalari}
+                gruplar={krediGruplari}
+                grupEtiketi="Seri grubu"
+              />
+              <div class="veri-izgara">
+                <section class="bolum">
+                  <h2 class="bolum-baslik">Bütün kalemler, {gunYaz(sonAyrinti.tarih)} haftası</h2>
+                  <div class="tablo-sarma">
+                    <table class="cizelge veri-tablo">
+                      <thead>
+                        <tr>
+                          <th scope="col">Kalem</th>
+                          <th scope="col" class="sag">Yıllık faiz</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {ayrintiTablo.map((k) => (
+                          <tr>
+                            <td>{k.ad}</td>
+                            <td class="sag">{yuzdeYaz(k.d)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <p class="veri-notu">
+                    Haftalık akım: o hafta açılan yeni mevduat ve kullandırılan yeni kredilerin ağırlıklı ortalaması. Kaynak:{' '}
+                    <a href={faizAyrinti.kaynak.url} rel="noopener">{faizAyrinti.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
+                    {zamanYaz(faizAyrinti.alinma)}.
+                  </p>
+                </section>
+                {sonFinansman && (
+                  <section class="bolum">
+                    <ZamanGrafik
+                      baslik="Finansman şirketlerinin kredi faizleri"
+                      ipucu="Yıllık %, aylık stok · Bankaların değil, finansman şirketlerinin kredileri"
+                      kaynak="Kaynak: TCMB, faiz istatistikleri (TCMB EVDS)."
+                      siklik="ay"
+                      birim="yuzde"
+                      seriIdleri={['tuketici', 'ticari']}
+                      noktalar={finansmanNoktalari}
+                      gruplar={finansmanGruplari}
+                    />
+                    <p class="veri-notu">
+                      {ayAdi(sonFinansman)}: tüketici kredisi {yuzdeYaz(sonFinansman.tuketici)}, ticari kredi{' '}
+                      {yuzdeYaz(sonFinansman.ticari)}. Stok faiz, şirketlerin bilançosundaki bütün kredilerin ortalamasıdır;
+                      yalnız yeni kredileri gösteren akım faizle doğrudan karşılaştırılmaz.
+                    </p>
+                  </section>
+                )}
+              </div>
+            </>
+          )}
         </>
       ) : (
         <p class="bos">Piyasa faizleri verisi hazırlanıyor. Veriler alındığında bu sayfada gösterilecek.</p>
@@ -284,6 +453,10 @@ const tabloSatirlari = [...satirlar].reverse();
     font-size: 0.85rem;
     color: var(--muted, #5d5b55);
     font-variant-numeric: tabular-nums;
+  }
+
+  .ayrinti-baslik {
+    margin-top: 2.5rem;
   }
 
   .tablo-sarma {
