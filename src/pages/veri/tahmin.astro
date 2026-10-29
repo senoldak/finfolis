@@ -132,9 +132,10 @@ const durumYaz = (ad: string) =>
         // Üç kutu: bu sayfanın model tahminleri, enflasyon yolu ve Taylor bandı sayfaları.
         const yolV = T.yol;
         const tay = T.taylor;
-        const modelSayisi = ['tufe', 'cari', 'sanayi', 'ppk'].length;
-        const yayinSayisi = ['tufe', 'cari', 'sanayi', 'ppk'].filter((ad) => M[ad].gecti).length;
-        const ilk = ['cari', 'tufe', 'sanayi'].find((ad) => M[ad].gecti && M[ad].simdi);
+        const tumModeller = ['tufe', 'cari', 'sanayi', 'ppk', ...halAdlari];
+        const modelSayisi = tumModeller.length;
+        const yayinSayisi = tumModeller.filter((ad) => M[ad].gecti).length;
+        const ilk = ['cari', 'tufe', 'sanayi', ...halAdlari].find((ad) => M[ad].gecti && M[ad].simdi);
         const yillikSeri = (RESMI.enflasyon?.satirlar ?? []).slice(-24).map((s: any) => s.yillik);
         return (
           <div class="tahmin-kartlar">
