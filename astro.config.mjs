@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { readdirSync, readFileSync } from 'node:fs';
-import { indekslenir } from './src/lib/uzunluk.mjs';
+import { aramayaAcik } from './src/lib/arama-gorunurluk.mjs';
 import { ARSIV_ESIGI } from './src/lib/arsiv.mjs';
 import { istanbulGunu } from './src/lib/seffaflik.mjs';
 import { onyuzMaddesiYayinda } from './src/lib/yayinda.mjs';
@@ -32,10 +32,12 @@ function tarihler() {
     if (alan('draft') === 'true' || !onyuzMaddesiYayinda(md)) continue;
     const d = new Date(alan('date') ?? '');
     if (Number.isNaN(d.valueOf())) continue;
-    // Kısa yazı (noindex) haritaya girmez; kural haber sayfasıyla ortak (src/lib/uzunluk.mjs).
+    // Arama motorlarına kapalı yazı (kısa ya da akış çevirisi) haritaya girmez; kural haber sayfasıyla ortak
+    // (src/lib/arama-gorunurluk.mjs).
     // Haberin lastmod'u: elle güncellendiyse (updated) o tarih, yoksa yayın tarihi.
     const g = new Date(alan('updated') ?? '');
-    if (indekslenir(md)) haber.set(ad, Number.isNaN(g.valueOf()) || g < d ? d : g);
+    const acik = aramayaAcik({ govde: md, tur: alan('tur'), icerikTuru: alan('icerikTuru'), author: alan('author'), uretim: alan('uretim') });
+    if (acik) haber.set(ad, Number.isNaN(g.valueOf()) || g < d ? d : g);
     else kisa.add(ad);
     const k = alan('category');
     if (k && alan('tur') !== 'bulten' && (!kategori.get(k) || kategori.get(k) < d)) kategori.set(k, d);

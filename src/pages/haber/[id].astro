@@ -17,6 +17,7 @@ import { KAPAK_DONUSUM } from '../../lib/gorsel.mjs';
 import { ICERIK_LISANSI_URL, ORG_ID, PUBLISHER_LOGO, SITE_URL, WEBSITE_ID, kisalt, sameAs } from '../../lib/seo';
 import { matchEntities } from '../../lib/entities';
 import { indekslenir } from '../../lib/uzunluk.mjs';
+import { aramayaAcik } from '../../lib/arama-gorunurluk.mjs';
 import { okumaSuresi, turEtiketi } from '../../lib/yazi-bilgisi.mjs';
 import { duzeltmeNotu } from '../../lib/duzeltme.mjs';
 import { resmiKaynaklar, adsizKaynakSatiri } from '../../lib/resmi-kaynak.mjs';
@@ -64,8 +65,9 @@ const duzeltme = duzeltmeNotu(haber.data, 'tr');
 // Resmî kaynaklı haberde kurumun bağlantısı; medya kaynaklı habere kaynak adı ya da bağlantısı yazılmaz.
 const resmi = resmiKaynaklar(haber.data);
 const adsizKaynak = adsizKaynakSatiri(haber.data);
-// Kısa yazılar (src/lib/uzunluk.mjs) arama motoruna kapalı, bağlantıları izlenir; site haritaları da aynı kuralı kullanır.
-const noindex = !indekslenir(haber.body);
+// Kısa yazılar ve akış çevirileri (src/lib/arama-gorunurluk.mjs) arama motoruna kapalı, bağlantıları izlenir;
+// site haritaları da aynı kuralı kullanır.
+const noindex = !aramayaAcik({ govde: haber.body, tur: haber.data.tur, icerikTuru: haber.data.icerikTuru, author: haber.data.author, uretim: haber.data.uretim });
 // Kapak her yaşta derlenir (dosya bütçesi: src/lib/gorsel.mjs).
 const cover = haber.data.cover;
 const { Content, headings } = await render(haber);
