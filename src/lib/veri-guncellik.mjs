@@ -95,6 +95,7 @@ const RESMI_SAYFA = {
   elektrik: '/veri/elektrik-tuketimi/',
   cek: '/veri/karsiliksiz-cek/',
   banknot: '/veri/banknotlar/',
+  odeme: '/veri/odeme-sistemleri/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

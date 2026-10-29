@@ -336,6 +336,16 @@ export interface ElektrikBolumu {
   alinma: string;
 }
 
+// Ödeme sistemleri (TCMB): aylık adet ve TL tutar; FAST Aralık 2020'den, öncesi null. fastAmac son tam ayın amaç dağılımı.
+export interface OdemeBolumu {
+  kaynak: Kaynak;
+  birim: string;
+  seriler: SeriAdi[];
+  satirlar: ({ yil: number; ay: number; fastAdet: number | null; fastTutar: number | null } & Record<'eftAdet' | 'eftTutar' | 'buyukAdet' | 'buyukTutar', number>)[];
+  fastAmac: { yil: number; ay: number; amaclar: { ad: string; adet: number; tutar: number }[] };
+  alinma: string;
+}
+
 // Para arzı (TCMB, haftalık cuma stoku, bin TL); yıllık değişim %.
 export interface ParaArziBolumu {
   kaynak: Kaynak;
@@ -413,6 +423,7 @@ export const RESMI = data as unknown as {
   faizAyrinti?: FaizAyrintiBolumu;
   dovizHacmi?: DovizHacmiBolumu;
   elektrik?: ElektrikBolumu;
+  odeme?: OdemeBolumu;
   banknot?: AylikSeriBolumu<`${'k200' | 'k100' | 'k50' | 'k20' | 'k10' | 'k5' | 'diger' | 'toplam'}${'Adet' | 'Tutar'}`>;
   cek?: AylikSeriBolumu<'ibrazAdet' | 'ibrazTutar' | 'karsiliksizAdet' | 'karsiliksizTutar'>;
 };

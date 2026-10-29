@@ -139589,5 +139589,1687 @@
       }
     ],
     "alinma": "2026-10-29T18:00:47.712Z"
+  },
+  "odeme": {
+    "kaynak": {
+      "ad": "TCMB ödeme sistemleri istatistikleri: FAST, perakende ödeme sistemi ve EFT-EMKT (TCMB EVDS)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "birim": "TL",
+    "seriler": [
+      {
+        "alan": "fastAdet",
+        "ad": "FAST, ödeme adedi"
+      },
+      {
+        "alan": "fastTutar",
+        "ad": "FAST, ödeme tutarı (TL)"
+      },
+      {
+        "alan": "eftAdet",
+        "ad": "Perakende ödeme sistemi (bireysel EFT), ödeme adedi"
+      },
+      {
+        "alan": "eftTutar",
+        "ad": "Perakende ödeme sistemi (bireysel EFT), ödeme tutarı (TL)"
+      },
+      {
+        "alan": "buyukAdet",
+        "ad": "EFT-EMKT, ödeme adedi"
+      },
+      {
+        "alan": "buyukTutar",
+        "ad": "EFT-EMKT, ödeme tutarı (TL)"
+      }
+    ],
+    "satirlar": [
+      {
+        "yil": 2014,
+        "ay": 1,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 20678347,
+        "eftTutar": 730679666409.64,
+        "buyukAdet": 252970,
+        "buyukTutar": 3241837933433.59
+      },
+      {
+        "yil": 2014,
+        "ay": 2,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 20073784,
+        "eftTutar": 645873252715.8201,
+        "buyukAdet": 206872,
+        "buyukTutar": 2674327159335.64
+      },
+      {
+        "yil": 2014,
+        "ay": 3,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 21200052,
+        "eftTutar": 699899539938.02,
+        "buyukAdet": 211470,
+        "buyukTutar": 2798361844334.63
+      },
+      {
+        "yil": 2014,
+        "ay": 4,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 21949495,
+        "eftTutar": 710389418093.26,
+        "buyukAdet": 215744,
+        "buyukTutar": 2841995054243.32
+      },
+      {
+        "yil": 2014,
+        "ay": 5,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 21866220,
+        "eftTutar": 696353234120.21,
+        "buyukAdet": 213459,
+        "buyukTutar": 2814050557375.31
+      },
+      {
+        "yil": 2014,
+        "ay": 6,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 21990272,
+        "eftTutar": 726484246857.15,
+        "buyukAdet": 233109,
+        "buyukTutar": 3074702244706.19
+      },
+      {
+        "yil": 2014,
+        "ay": 7,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 22644137,
+        "eftTutar": 700911621499.15,
+        "buyukAdet": 207079,
+        "buyukTutar": 2729590581055.47
+      },
+      {
+        "yil": 2014,
+        "ay": 8,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 20555693,
+        "eftTutar": 736146969066.18,
+        "buyukAdet": 243994,
+        "buyukTutar": 2865982462992.24
+      },
+      {
+        "yil": 2014,
+        "ay": 9,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 23227688,
+        "eftTutar": 781705853101.49,
+        "buyukAdet": 261443,
+        "buyukTutar": 2852843247949.48
+      },
+      {
+        "yil": 2014,
+        "ay": 10,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 22842493,
+        "eftTutar": 735726971780,
+        "buyukAdet": 250506,
+        "buyukTutar": 2966187520666.04
+      },
+      {
+        "yil": 2014,
+        "ay": 11,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 22357911,
+        "eftTutar": 716733454932.97,
+        "buyukAdet": 213722,
+        "buyukTutar": 2805856504901.05
+      },
+      {
+        "yil": 2014,
+        "ay": 12,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 27256853,
+        "eftTutar": 900253912727.05,
+        "buyukAdet": 242457,
+        "buyukTutar": 2834451688632.87
+      },
+      {
+        "yil": 2015,
+        "ay": 1,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 23042766,
+        "eftTutar": 787282109128.88,
+        "buyukAdet": 247796,
+        "buyukTutar": 3037854642347.9697
+      },
+      {
+        "yil": 2015,
+        "ay": 2,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 23535534,
+        "eftTutar": 747088815793.78,
+        "buyukAdet": 237309,
+        "buyukTutar": 2963115564426.27
+      },
+      {
+        "yil": 2015,
+        "ay": 3,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 25988691,
+        "eftTutar": 850914139486.46,
+        "buyukAdet": 275530,
+        "buyukTutar": 3595903889723.1
+      },
+      {
+        "yil": 2015,
+        "ay": 4,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 26334323,
+        "eftTutar": 847954916308.6799,
+        "buyukAdet": 245229,
+        "buyukTutar": 3218274615256.97
+      },
+      {
+        "yil": 2015,
+        "ay": 5,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 24898947,
+        "eftTutar": 786200791934.37,
+        "buyukAdet": 222034,
+        "buyukTutar": 2887116685213.0303
+      },
+      {
+        "yil": 2015,
+        "ay": 6,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 27087490,
+        "eftTutar": 876358701294.35,
+        "buyukAdet": 249551,
+        "buyukTutar": 3213108050035.49
+      },
+      {
+        "yil": 2015,
+        "ay": 7,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 26769257,
+        "eftTutar": 827321590267.36,
+        "buyukAdet": 230491,
+        "buyukTutar": 3135066643004.86
+      },
+      {
+        "yil": 2015,
+        "ay": 8,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 25345648,
+        "eftTutar": 812161939639.63,
+        "buyukAdet": 218052,
+        "buyukTutar": 2933227102647.53
+      },
+      {
+        "yil": 2015,
+        "ay": 9,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 25346229,
+        "eftTutar": 803924838497.98,
+        "buyukAdet": 210889,
+        "buyukTutar": 2580409287796.62
+      },
+      {
+        "yil": 2015,
+        "ay": 10,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 26946633,
+        "eftTutar": 840111750330.66,
+        "buyukAdet": 218442,
+        "buyukTutar": 2673443535448
+      },
+      {
+        "yil": 2015,
+        "ay": 11,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 28219002,
+        "eftTutar": 826313848359.28,
+        "buyukAdet": 222536,
+        "buyukTutar": 2560708847153.67
+      },
+      {
+        "yil": 2015,
+        "ay": 12,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 31728729,
+        "eftTutar": 983488477273.23,
+        "buyukAdet": 216937,
+        "buyukTutar": 2916910048456.97
+      },
+      {
+        "yil": 2016,
+        "ay": 1,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 26706304,
+        "eftTutar": 811180834448.13,
+        "buyukAdet": 203468,
+        "buyukTutar": 2753607128128.17
+      },
+      {
+        "yil": 2016,
+        "ay": 2,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 29307166,
+        "eftTutar": 860806511345.48,
+        "buyukAdet": 203687,
+        "buyukTutar": 2866463931011.07
+      },
+      {
+        "yil": 2016,
+        "ay": 3,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 31718274,
+        "eftTutar": 937111944042.61,
+        "buyukAdet": 216773,
+        "buyukTutar": 3270528605668.53
+      },
+      {
+        "yil": 2016,
+        "ay": 4,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 30178827,
+        "eftTutar": 888055633263.93,
+        "buyukAdet": 182813,
+        "buyukTutar": 3035689972185.81
+      },
+      {
+        "yil": 2016,
+        "ay": 5,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 32055232,
+        "eftTutar": 930490536812.8201,
+        "buyukAdet": 206230,
+        "buyukTutar": 3202679989718.17
+      },
+      {
+        "yil": 2016,
+        "ay": 6,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 33236113,
+        "eftTutar": 989208043705.8099,
+        "buyukAdet": 199128,
+        "buyukTutar": 3370760050911.05
+      },
+      {
+        "yil": 2016,
+        "ay": 7,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 26890699,
+        "eftTutar": 840570351726.56,
+        "buyukAdet": 186614,
+        "buyukTutar": 2831323525784.47
+      },
+      {
+        "yil": 2016,
+        "ay": 8,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 31617278,
+        "eftTutar": 960346392137.41,
+        "buyukAdet": 185702,
+        "buyukTutar": 3291943407557.18
+      },
+      {
+        "yil": 2016,
+        "ay": 9,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 29235678,
+        "eftTutar": 892677834898.56,
+        "buyukAdet": 173931,
+        "buyukTutar": 2980286394817.13
+      },
+      {
+        "yil": 2016,
+        "ay": 10,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 32134345,
+        "eftTutar": 956361632701.09,
+        "buyukAdet": 205275,
+        "buyukTutar": 3475093169829.4697
+      },
+      {
+        "yil": 2016,
+        "ay": 11,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 34386172,
+        "eftTutar": 1050197281555.96,
+        "buyukAdet": 224529,
+        "buyukTutar": 3826066615892.65
+      },
+      {
+        "yil": 2016,
+        "ay": 12,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 37332655,
+        "eftTutar": 1179616669210.96,
+        "buyukAdet": 202047,
+        "buyukTutar": 3856656328671.45
+      },
+      {
+        "yil": 2017,
+        "ay": 1,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 34183927,
+        "eftTutar": 1094251448177.18,
+        "buyukAdet": 205319,
+        "buyukTutar": 4588174589593.08
+      },
+      {
+        "yil": 2017,
+        "ay": 2,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 34290901,
+        "eftTutar": 949859568932.26,
+        "buyukAdet": 189372,
+        "buyukTutar": 4137639286391.04
+      },
+      {
+        "yil": 2017,
+        "ay": 3,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 39029432,
+        "eftTutar": 1129320506629.98,
+        "buyukAdet": 220861,
+        "buyukTutar": 5283414464544.2705
+      },
+      {
+        "yil": 2017,
+        "ay": 4,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 35498337,
+        "eftTutar": 1071340825182.7,
+        "buyukAdet": 194588,
+        "buyukTutar": 4757985092312.92
+      },
+      {
+        "yil": 2017,
+        "ay": 5,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 40436144,
+        "eftTutar": 1135707312505.3,
+        "buyukAdet": 211029,
+        "buyukTutar": 5321701865318.88
+      },
+      {
+        "yil": 2017,
+        "ay": 6,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 39154877,
+        "eftTutar": 1125948679110.35,
+        "buyukAdet": 201145,
+        "buyukTutar": 5239665133410.83
+      },
+      {
+        "yil": 2017,
+        "ay": 7,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 37659494,
+        "eftTutar": 1098035247400.08,
+        "buyukAdet": 205274,
+        "buyukTutar": 5228217240655.99
+      },
+      {
+        "yil": 2017,
+        "ay": 8,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 40857821,
+        "eftTutar": 1165766527444.15,
+        "buyukAdet": 205769,
+        "buyukTutar": 5292784226195.87
+      },
+      {
+        "yil": 2017,
+        "ay": 9,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 36305665,
+        "eftTutar": 1081636642833.53,
+        "buyukAdet": 197192,
+        "buyukTutar": 5070406710286.18
+      },
+      {
+        "yil": 2017,
+        "ay": 10,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 43353157,
+        "eftTutar": 1235604756277.16,
+        "buyukAdet": 230262,
+        "buyukTutar": 5882512249753.98
+      },
+      {
+        "yil": 2017,
+        "ay": 11,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 43579613,
+        "eftTutar": 1260509032379.37,
+        "buyukAdet": 230159,
+        "buyukTutar": 6107270256243.11
+      },
+      {
+        "yil": 2017,
+        "ay": 12,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 45931683,
+        "eftTutar": 1365086260837.75,
+        "buyukAdet": 198770,
+        "buyukTutar": 5819495302689.58
+      },
+      {
+        "yil": 2018,
+        "ay": 1,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 44527098,
+        "eftTutar": 1328505620069.82,
+        "buyukAdet": 244730,
+        "buyukTutar": 6280085048303.59
+      },
+      {
+        "yil": 2018,
+        "ay": 2,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 43365442,
+        "eftTutar": 1200139994451.32,
+        "buyukAdet": 191561,
+        "buyukTutar": 5722638256859.15
+      },
+      {
+        "yil": 2018,
+        "ay": 3,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 47468915,
+        "eftTutar": 1355753844453.53,
+        "buyukAdet": 215062,
+        "buyukTutar": 6371824017565.22
+      },
+      {
+        "yil": 2018,
+        "ay": 4,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 46349227,
+        "eftTutar": 1323824899101.28,
+        "buyukAdet": 210014,
+        "buyukTutar": 6099703771677.9
+      },
+      {
+        "yil": 2018,
+        "ay": 5,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 50334619,
+        "eftTutar": 1519324392942.59,
+        "buyukAdet": 256211,
+        "buyukTutar": 6939350126582.6
+      },
+      {
+        "yil": 2018,
+        "ay": 6,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 46190545,
+        "eftTutar": 1431925799874.57,
+        "buyukAdet": 211572,
+        "buyukTutar": 6318535962639.77
+      },
+      {
+        "yil": 2018,
+        "ay": 7,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 50494980,
+        "eftTutar": 1460896424655.94,
+        "buyukAdet": 219411,
+        "buyukTutar": 6288486750856.41
+      },
+      {
+        "yil": 2018,
+        "ay": 8,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 45747244,
+        "eftTutar": 1430445681231.62,
+        "buyukAdet": 214755,
+        "buyukTutar": 6027919385705.95
+      },
+      {
+        "yil": 2018,
+        "ay": 9,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 47607507,
+        "eftTutar": 1441691544556.8699,
+        "buyukAdet": 184614,
+        "buyukTutar": 5513497722514.38
+      },
+      {
+        "yil": 2018,
+        "ay": 10,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 54380696,
+        "eftTutar": 1523424219786.33,
+        "buyukAdet": 212308,
+        "buyukTutar": 6019014630896.04
+      },
+      {
+        "yil": 2018,
+        "ay": 11,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 53789904,
+        "eftTutar": 1494453958225.42,
+        "buyukAdet": 189322,
+        "buyukTutar": 4997671437871.4
+      },
+      {
+        "yil": 2018,
+        "ay": 12,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 55042235,
+        "eftTutar": 1462139324420.73,
+        "buyukAdet": 170341,
+        "buyukTutar": 4114902646685.16
+      },
+      {
+        "yil": 2019,
+        "ay": 1,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 52660753,
+        "eftTutar": 1349113608759.79,
+        "buyukAdet": 194678,
+        "buyukTutar": 4687679593455.78
+      },
+      {
+        "yil": 2019,
+        "ay": 2,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 52604147,
+        "eftTutar": 1216249509762.97,
+        "buyukAdet": 181148,
+        "buyukTutar": 4246228100860.94
+      },
+      {
+        "yil": 2019,
+        "ay": 3,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 56431460,
+        "eftTutar": 1357238941442.15,
+        "buyukAdet": 221940,
+        "buyukTutar": 5477077626699.76
+      },
+      {
+        "yil": 2019,
+        "ay": 4,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 58253838,
+        "eftTutar": 1295187656107.44,
+        "buyukAdet": 218191,
+        "buyukTutar": 5567840356241.62
+      },
+      {
+        "yil": 2019,
+        "ay": 5,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 64705412,
+        "eftTutar": 1600028940529.55,
+        "buyukAdet": 237196,
+        "buyukTutar": 6358989837711.16
+      },
+      {
+        "yil": 2019,
+        "ay": 6,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 46713255,
+        "eftTutar": 1349703086655.94,
+        "buyukAdet": 208532,
+        "buyukTutar": 5531693398877.95
+      },
+      {
+        "yil": 2019,
+        "ay": 7,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 61503162,
+        "eftTutar": 1733668203966.45,
+        "buyukAdet": 262954,
+        "buyukTutar": 6905861683111.8
+      },
+      {
+        "yil": 2019,
+        "ay": 8,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 53680930,
+        "eftTutar": 1573901878022.43,
+        "buyukAdet": 234761,
+        "buyukTutar": 5558896613062.48
+      },
+      {
+        "yil": 2019,
+        "ay": 9,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 62001924,
+        "eftTutar": 1722338555358.95,
+        "buyukAdet": 250355,
+        "buyukTutar": 6287053830615.81
+      },
+      {
+        "yil": 2019,
+        "ay": 10,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 65174323,
+        "eftTutar": 1741637988667.02,
+        "buyukAdet": 264289,
+        "buyukTutar": 7423449510608.7
+      },
+      {
+        "yil": 2019,
+        "ay": 11,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 64143695,
+        "eftTutar": 1704515546441.1401,
+        "buyukAdet": 217024,
+        "buyukTutar": 6284778386530.99
+      },
+      {
+        "yil": 2019,
+        "ay": 12,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 71369522,
+        "eftTutar": 1969532355983.99,
+        "buyukAdet": 228023,
+        "buyukTutar": 6763495361240.08
+      },
+      {
+        "yil": 2020,
+        "ay": 1,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 66896652,
+        "eftTutar": 1915539871519.48,
+        "buyukAdet": 213183,
+        "buyukTutar": 6505082169437.1
+      },
+      {
+        "yil": 2020,
+        "ay": 2,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 64788123,
+        "eftTutar": 1907056569692.19,
+        "buyukAdet": 201893,
+        "buyukTutar": 6667864771322.34
+      },
+      {
+        "yil": 2020,
+        "ay": 3,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 71958773,
+        "eftTutar": 1991119821911.98,
+        "buyukAdet": 270710,
+        "buyukTutar": 8138370177423.91
+      },
+      {
+        "yil": 2020,
+        "ay": 4,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 75522559,
+        "eftTutar": 1952120941641.15,
+        "buyukAdet": 201476,
+        "buyukTutar": 7405278181107.25
+      },
+      {
+        "yil": 2020,
+        "ay": 5,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 77258986,
+        "eftTutar": 1750440992894.07,
+        "buyukAdet": 187194,
+        "buyukTutar": 6637266721295.7
+      },
+      {
+        "yil": 2020,
+        "ay": 6,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 86667080,
+        "eftTutar": 2068653187795.9,
+        "buyukAdet": 189667,
+        "buyukTutar": 7673428204187.36
+      },
+      {
+        "yil": 2020,
+        "ay": 7,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 91318490,
+        "eftTutar": 2259293254285.37,
+        "buyukAdet": 206201,
+        "buyukTutar": 7866490275992.59
+      },
+      {
+        "yil": 2020,
+        "ay": 8,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 80238245,
+        "eftTutar": 2174382053089.64,
+        "buyukAdet": 224191,
+        "buyukTutar": 7441564011653.27
+      },
+      {
+        "yil": 2020,
+        "ay": 9,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 91040943,
+        "eftTutar": 2316597735277.77,
+        "buyukAdet": 219113,
+        "buyukTutar": 6920779611859.17
+      },
+      {
+        "yil": 2020,
+        "ay": 10,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 92609917,
+        "eftTutar": 2209460032991.74,
+        "buyukAdet": 220203,
+        "buyukTutar": 6628434202795.1
+      },
+      {
+        "yil": 2020,
+        "ay": 11,
+        "fastAdet": null,
+        "fastTutar": null,
+        "eftAdet": 97611392,
+        "eftTutar": 2467981993297.17,
+        "buyukAdet": 256678,
+        "buyukTutar": 7903193202923.28
+      },
+      {
+        "yil": 2020,
+        "ay": 12,
+        "fastAdet": 13874,
+        "fastTutar": 404567490.55,
+        "eftAdet": 109724215,
+        "eftTutar": 2711707010379.82,
+        "buyukAdet": 250838,
+        "buyukTutar": 7930749170796.65
+      },
+      {
+        "yil": 2021,
+        "ay": 1,
+        "fastAdet": 11042106,
+        "fastTutar": 3985273616.54,
+        "eftAdet": 88647677,
+        "eftTutar": 2304511682886.45,
+        "buyukAdet": 230380,
+        "buyukTutar": 6767617959037.09
+      },
+      {
+        "yil": 2021,
+        "ay": 2,
+        "fastAdet": 31342492,
+        "fastTutar": 20328508239.69,
+        "eftAdet": 76440656,
+        "eftTutar": 2338722522157.21,
+        "buyukAdet": 234562,
+        "buyukTutar": 6826829786320.63
+      },
+      {
+        "yil": 2021,
+        "ay": 3,
+        "fastAdet": 41187150,
+        "fastTutar": 24953360435.63,
+        "eftAdet": 88821064,
+        "eftTutar": 2873339875841.45,
+        "buyukAdet": 322319,
+        "buyukTutar": 8690662278810.69
+      },
+      {
+        "yil": 2021,
+        "ay": 4,
+        "fastAdet": 47328322,
+        "fastTutar": 31474902819.14,
+        "eftAdet": 86139171,
+        "eftTutar": 2725329054253.55,
+        "buyukAdet": 264350,
+        "buyukTutar": 7762063916960.97
+      },
+      {
+        "yil": 2021,
+        "ay": 5,
+        "fastAdet": 53337070,
+        "fastTutar": 42007563503.68,
+        "eftAdet": 77301991,
+        "eftTutar": 2453889738032.9897,
+        "buyukAdet": 219283,
+        "buyukTutar": 6656880371032.83
+      },
+      {
+        "yil": 2021,
+        "ay": 6,
+        "fastAdet": 52927200,
+        "fastTutar": 30531551708.91,
+        "eftAdet": 85908649,
+        "eftTutar": 2901919854898.78,
+        "buyukAdet": 255204,
+        "buyukTutar": 8321460705325.0205
+      },
+      {
+        "yil": 2021,
+        "ay": 7,
+        "fastAdet": 57920345,
+        "fastTutar": 53810365988.159996,
+        "eftAdet": 74943764,
+        "eftTutar": 2616153088885.75,
+        "buyukAdet": 214034,
+        "buyukTutar": 6419187023563.74
+      },
+      {
+        "yil": 2021,
+        "ay": 8,
+        "fastAdet": 69178290,
+        "fastTutar": 59263752631.24,
+        "eftAdet": 74554733,
+        "eftTutar": 3040069621374.91,
+        "buyukAdet": 241067,
+        "buyukTutar": 8187209594946.52
+      },
+      {
+        "yil": 2021,
+        "ay": 9,
+        "fastAdet": 75734021,
+        "fastTutar": 66557938500.97,
+        "eftAdet": 77883748,
+        "eftTutar": 3245685151233.04,
+        "buyukAdet": 264970,
+        "buyukTutar": 9122421620359.25
+      },
+      {
+        "yil": 2021,
+        "ay": 10,
+        "fastAdet": 85041869,
+        "fastTutar": 73332830615.64,
+        "eftAdet": 74584429,
+        "eftTutar": 3216463038585.35,
+        "buyukAdet": 249251,
+        "buyukTutar": 8904134431717.65
+      },
+      {
+        "yil": 2021,
+        "ay": 11,
+        "fastAdet": 93761124,
+        "fastTutar": 85659337847.12,
+        "eftAdet": 87181815,
+        "eftTutar": 4133606055311.49,
+        "buyukAdet": 289801,
+        "buyukTutar": 11038947109663.58
+      },
+      {
+        "yil": 2021,
+        "ay": 12,
+        "fastAdet": 102704218,
+        "fastTutar": 110358082752.72,
+        "eftAdet": 91796831,
+        "eftTutar": 5058373422290.09,
+        "buyukAdet": 328417,
+        "buyukTutar": 13760264557800
+      },
+      {
+        "yil": 2022,
+        "ay": 1,
+        "fastAdet": 97656430,
+        "fastTutar": 84049392414.6,
+        "eftAdet": 75318326,
+        "eftTutar": 4300214394096.12,
+        "buyukAdet": 246259,
+        "buyukTutar": 10681405307218.92
+      },
+      {
+        "yil": 2022,
+        "ay": 2,
+        "fastAdet": 99980327,
+        "fastTutar": 109407987399.87,
+        "eftAdet": 75841123,
+        "eftTutar": 4258600016076.01,
+        "buyukAdet": 259238,
+        "buyukTutar": 10433944507596.18
+      },
+      {
+        "yil": 2022,
+        "ay": 3,
+        "fastAdet": 125019386,
+        "fastTutar": 179197185791.01,
+        "eftAdet": 78060999,
+        "eftTutar": 5387885541724.48,
+        "buyukAdet": 332662,
+        "buyukTutar": 11675682862274.91
+      },
+      {
+        "yil": 2022,
+        "ay": 4,
+        "fastAdet": 138575113,
+        "fastTutar": 220698581817.94,
+        "eftAdet": 79236434,
+        "eftTutar": 5397721136747.62,
+        "buyukAdet": 317003,
+        "buyukTutar": 10836092627046.95
+      },
+      {
+        "yil": 2022,
+        "ay": 5,
+        "fastAdet": 137394975,
+        "fastTutar": 211786472913.67,
+        "eftAdet": 67198307,
+        "eftTutar": 5399955551597.21,
+        "buyukAdet": 323812,
+        "buyukTutar": 11547225884813.92
+      },
+      {
+        "yil": 2022,
+        "ay": 6,
+        "fastAdet": 150437220,
+        "fastTutar": 224721645500.52,
+        "eftAdet": 73953474,
+        "eftTutar": 6090695788662.39,
+        "buyukAdet": 356085,
+        "buyukTutar": 15560346418260.15
+      },
+      {
+        "yil": 2022,
+        "ay": 7,
+        "fastAdet": 154445159,
+        "fastTutar": 284291034596.34,
+        "eftAdet": 61894781,
+        "eftTutar": 5612775614724.21,
+        "buyukAdet": 335088,
+        "buyukTutar": 12136570427976.36
+      },
+      {
+        "yil": 2022,
+        "ay": 8,
+        "fastAdet": 168450148,
+        "fastTutar": 263983335601.86,
+        "eftAdet": 74023672,
+        "eftTutar": 7042467132221.83,
+        "buyukAdet": 474179,
+        "buyukTutar": 14077249859509.24
+      },
+      {
+        "yil": 2022,
+        "ay": 9,
+        "fastAdet": 178376712,
+        "fastTutar": 274967074795.39,
+        "eftAdet": 77223716,
+        "eftTutar": 7596479511181.39,
+        "buyukAdet": 769236,
+        "buyukTutar": 14650300735120.47
+      },
+      {
+        "yil": 2022,
+        "ay": 10,
+        "fastAdet": 189028735,
+        "fastTutar": 297752718304.89,
+        "eftAdet": 74522544,
+        "eftTutar": 7454953053206.13,
+        "buyukAdet": 384367,
+        "buyukTutar": 13323458570416.78
+      },
+      {
+        "yil": 2022,
+        "ay": 11,
+        "fastAdet": 193486052,
+        "fastTutar": 299728160297.07,
+        "eftAdet": 78620052,
+        "eftTutar": 8632811263123.84,
+        "buyukAdet": 293166,
+        "buyukTutar": 13890883955406.75
+      },
+      {
+        "yil": 2022,
+        "ay": 12,
+        "fastAdet": 210332642,
+        "fastTutar": 329591993332.25,
+        "eftAdet": 83067168,
+        "eftTutar": 9772543262565.08,
+        "buyukAdet": 264195,
+        "buyukTutar": 15463666381442.41
+      },
+      {
+        "yil": 2023,
+        "ay": 1,
+        "fastAdet": 207370828,
+        "fastTutar": 315069331011.43,
+        "eftAdet": 78134956,
+        "eftTutar": 9928968647572.32,
+        "buyukAdet": 257457,
+        "buyukTutar": 16157750852171.621
+      },
+      {
+        "yil": 2023,
+        "ay": 2,
+        "fastAdet": 200278258,
+        "fastTutar": 468622216508.05,
+        "eftAdet": 60217042,
+        "eftTutar": 8698080165718.78,
+        "buyukAdet": 244350,
+        "buyukTutar": 14788135663464.17
+      },
+      {
+        "yil": 2023,
+        "ay": 3,
+        "fastAdet": 238586105,
+        "fastTutar": 686849295246.76,
+        "eftAdet": 63335960,
+        "eftTutar": 10840988583867.73,
+        "buyukAdet": 275913,
+        "buyukTutar": 17701800103732.9
+      },
+      {
+        "yil": 2023,
+        "ay": 4,
+        "fastAdet": 249647015,
+        "fastTutar": 749625031243.38,
+        "eftAdet": 56513739,
+        "eftTutar": 9985749899240.44,
+        "buyukAdet": 240520,
+        "buyukTutar": 16823336304445.43
+      },
+      {
+        "yil": 2023,
+        "ay": 5,
+        "fastAdet": 259618445,
+        "fastTutar": 850518982422.78,
+        "eftAdet": 62811208,
+        "eftTutar": 11295447617174.63,
+        "buyukAdet": 267764,
+        "buyukTutar": 19562633510809.4
+      },
+      {
+        "yil": 2023,
+        "ay": 6,
+        "fastAdet": 266224065,
+        "fastTutar": 931655958626.11,
+        "eftAdet": 57969568,
+        "eftTutar": 10421640862419.73,
+        "buyukAdet": 245302,
+        "buyukTutar": 17583578890666.22
+      },
+      {
+        "yil": 2023,
+        "ay": 7,
+        "fastAdet": 272901183,
+        "fastTutar": 926663233070.21,
+        "eftAdet": 62758172,
+        "eftTutar": 12837663167817.72,
+        "buyukAdet": 273090,
+        "buyukTutar": 24150454835219.16
+      },
+      {
+        "yil": 2023,
+        "ay": 8,
+        "fastAdet": 297720790,
+        "fastTutar": 973202853534.05,
+        "eftAdet": 65191639,
+        "eftTutar": 15648282952449.33,
+        "buyukAdet": 290850,
+        "buyukTutar": 29575967530408.2
+      },
+      {
+        "yil": 2023,
+        "ay": 9,
+        "fastAdet": 302249716,
+        "fastTutar": 972671460045.1799,
+        "eftAdet": 65860570,
+        "eftTutar": 16590724611463.28,
+        "buyukAdet": 271011,
+        "buyukTutar": 31201235888708.16
+      },
+      {
+        "yil": 2023,
+        "ay": 10,
+        "fastAdet": 319573908,
+        "fastTutar": 1017764836810.17,
+        "eftAdet": 68800449,
+        "eftTutar": 19505185593969.16,
+        "buyukAdet": 286933,
+        "buyukTutar": 33114031453918.12
+      },
+      {
+        "yil": 2023,
+        "ay": 11,
+        "fastAdet": 323239067,
+        "fastTutar": 1027064877464.33,
+        "eftAdet": 66586241,
+        "eftTutar": 19653810795395.08,
+        "buyukAdet": 286146,
+        "buyukTutar": 33755239174328.01
+      },
+      {
+        "yil": 2023,
+        "ay": 12,
+        "fastAdet": 348792748,
+        "fastTutar": 1354183346152.56,
+        "eftAdet": 68115789,
+        "eftTutar": 20497430629477.4,
+        "buyukAdet": 292441,
+        "buyukTutar": 31694467152339.57
+      },
+      {
+        "yil": 2024,
+        "ay": 1,
+        "fastAdet": 347199166,
+        "fastTutar": 1690490283057.26,
+        "eftAdet": 57623311,
+        "eftTutar": 21518311352524.33,
+        "buyukAdet": 274176,
+        "buyukTutar": 33682248098470
+      },
+      {
+        "yil": 2024,
+        "ay": 2,
+        "fastAdet": 357124176,
+        "fastTutar": 1812073697582.1099,
+        "eftAdet": 55216659,
+        "eftTutar": 19305830438534.37,
+        "buyukAdet": 206945,
+        "buyukTutar": 29890522412471.31
+      },
+      {
+        "yil": 2024,
+        "ay": 3,
+        "fastAdet": 380029944,
+        "fastTutar": 2143798475953.98,
+        "eftAdet": 55936243,
+        "eftTutar": 19682016111430.38,
+        "buyukAdet": 210036,
+        "buyukTutar": 31691763427470.2
+      },
+      {
+        "yil": 2024,
+        "ay": 4,
+        "fastAdet": 382754422,
+        "fastTutar": 2548106698887.41,
+        "eftAdet": 46695604,
+        "eftTutar": 17731754893566.9,
+        "buyukAdet": 211500,
+        "buyukTutar": 28417301294105.36
+      },
+      {
+        "yil": 2024,
+        "ay": 5,
+        "fastAdet": 387029917,
+        "fastTutar": 2600816141670.04,
+        "eftAdet": 50748812,
+        "eftTutar": 22035046616232.2,
+        "buyukAdet": 256313,
+        "buyukTutar": 40676494130812.1
+      },
+      {
+        "yil": 2024,
+        "ay": 6,
+        "fastAdet": 359684622,
+        "fastTutar": 2728439209055.73,
+        "eftAdet": 40615139,
+        "eftTutar": 20536245645969.62,
+        "buyukAdet": 202395,
+        "buyukTutar": 31931066548667.5
+      },
+      {
+        "yil": 2024,
+        "ay": 7,
+        "fastAdet": 379751141,
+        "fastTutar": 2755756697780.23,
+        "eftAdet": 49216757,
+        "eftTutar": 26131111610502.62,
+        "buyukAdet": 253417,
+        "buyukTutar": 40869093569632.7
+      },
+      {
+        "yil": 2024,
+        "ay": 8,
+        "fastAdet": 382239227,
+        "fastTutar": 2789910725841.78,
+        "eftAdet": 45666553,
+        "eftTutar": 24536246816701.98,
+        "buyukAdet": 239266,
+        "buyukTutar": 41810854540173
+      },
+      {
+        "yil": 2024,
+        "ay": 9,
+        "fastAdet": 394578286,
+        "fastTutar": 2901316160172.66,
+        "eftAdet": 48428904,
+        "eftTutar": 26438478238268.9,
+        "buyukAdet": 253195,
+        "buyukTutar": 47365094465739.88
+      },
+      {
+        "yil": 2024,
+        "ay": 10,
+        "fastAdet": 415231837,
+        "fastTutar": 3047647991940.24,
+        "eftAdet": 50433016,
+        "eftTutar": 28170155191860.02,
+        "buyukAdet": 249178,
+        "buyukTutar": 55901869062539.01
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "fastAdet": 413271609,
+        "fastTutar": 3042464222218.16,
+        "eftAdet": 48628221,
+        "eftTutar": 27604970678617.84,
+        "buyukAdet": 235078,
+        "buyukTutar": 58709897411491.49
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "fastAdet": 429276064,
+        "fastTutar": 3250915303954.61,
+        "eftAdet": 53344154,
+        "eftTutar": 32557221530240.14,
+        "buyukAdet": 248714,
+        "buyukTutar": 63172417697729.47
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "fastAdet": 412165310,
+        "fastTutar": 3154082914649.16,
+        "eftAdet": 48557623,
+        "eftTutar": 33331242661010.98,
+        "buyukAdet": 250318,
+        "buyukTutar": 85606594146627.73
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "fastAdet": 389803470,
+        "fastTutar": 3089060349223.57,
+        "eftAdet": 45583624,
+        "eftTutar": 30201764246434.03,
+        "buyukAdet": 237871,
+        "buyukTutar": 71158285274176.2
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "fastAdet": 459973064,
+        "fastTutar": 3682981560528.5103,
+        "eftAdet": 46695357,
+        "eftTutar": 33588511858817.23,
+        "buyukAdet": 270841,
+        "buyukTutar": 72241403340551.42
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "fastAdet": 429559509,
+        "fastTutar": 3676639725319.4,
+        "eftAdet": 43465643,
+        "eftTutar": 33054149814171.258,
+        "buyukAdet": 268765,
+        "buyukTutar": 62580048062414.3
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "fastAdet": 467093244,
+        "fastTutar": 4149098114092.5,
+        "eftAdet": 44918079,
+        "eftTutar": 32606131676220.37,
+        "buyukAdet": 258561,
+        "buyukTutar": 53859430410131.38
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "fastAdet": 434136901,
+        "fastTutar": 4401366025822.28,
+        "eftAdet": 42191193,
+        "eftTutar": 31318542597063.04,
+        "buyukAdet": 334445,
+        "buyukTutar": 55132780183241.26
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "fastAdet": 456065091,
+        "fastTutar": 4738728296004.39,
+        "eftAdet": 45784087,
+        "eftTutar": 36926030742181.49,
+        "buyukAdet": 401350,
+        "buyukTutar": 76931282942619.95
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "fastAdet": 464921780,
+        "fastTutar": 4347085015362.92,
+        "eftAdet": 42733816,
+        "eftTutar": 36642624644185.68,
+        "buyukAdet": 333926,
+        "buyukTutar": 86167534248048.9
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "fastAdet": 480382844,
+        "fastTutar": 4670887180023.35,
+        "eftAdet": 46732764,
+        "eftTutar": 40936887960235.39,
+        "buyukAdet": 315511,
+        "buyukTutar": 93515821506298.16
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "fastAdet": 498270226,
+        "fastTutar": 4880211302219.27,
+        "eftAdet": 47622908,
+        "eftTutar": 40539554753080.97,
+        "buyukAdet": 314699,
+        "buyukTutar": 101682156530908.5
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "fastAdet": 462380780,
+        "fastTutar": 4492320543977.89,
+        "eftAdet": 43352539,
+        "eftTutar": 38421520443484.45,
+        "buyukAdet": 289367,
+        "buyukTutar": 81865574703359.05
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "fastAdet": 454859523,
+        "fastTutar": 5109641345638.47,
+        "eftAdet": 51193167,
+        "eftTutar": 46532029448294.56,
+        "buyukAdet": 335336,
+        "buyukTutar": 95645827215469.34
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "fastAdet": 435850754,
+        "fastTutar": 5019151669637.15,
+        "eftAdet": 43468779,
+        "eftTutar": 42364798666957.45,
+        "buyukAdet": 329859,
+        "buyukTutar": 114728534975541.12
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "fastAdet": 418346423,
+        "fastTutar": 4458482914108.33,
+        "eftAdet": 42554695,
+        "eftTutar": 40980834361942.62,
+        "buyukAdet": 339928,
+        "buyukTutar": 92547666683865.77
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "fastAdet": 477197377,
+        "fastTutar": 5930165303180.45,
+        "eftAdet": 45381999,
+        "eftTutar": 46636825082829.92,
+        "buyukAdet": 415078,
+        "buyukTutar": 89998055004460.7
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "fastAdet": 461097972,
+        "fastTutar": 5575058709768.58,
+        "eftAdet": 45461525,
+        "eftTutar": 47457330520783.25,
+        "buyukAdet": 386348,
+        "buyukTutar": 94788128052953.36
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "fastAdet": 478538130,
+        "fastTutar": 5729148328458.93,
+        "eftAdet": 38344350,
+        "eftTutar": 38919022069000.22,
+        "buyukAdet": 311160,
+        "buyukTutar": 70987838058599.48
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "fastAdet": 474363210,
+        "fastTutar": 5528750344840.43,
+        "eftAdet": 47416608,
+        "eftTutar": 51865250789088.95,
+        "buyukAdet": 423477,
+        "buyukTutar": 109892248175833.33
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "fastAdet": 490432794,
+        "fastTutar": 6260544823760.21,
+        "eftAdet": 46511007,
+        "eftTutar": 53636810695310.24,
+        "buyukAdet": 407454,
+        "buyukTutar": 126214867296048.1
+      },
+      {
+        "yil": 2026,
+        "ay": 8,
+        "fastAdet": 494766913,
+        "fastTutar": 6911924471419.11,
+        "eftAdet": 42776564,
+        "eftTutar": 53198911386717.73,
+        "buyukAdet": 309739,
+        "buyukTutar": 122324662374644.84
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "fastAdet": 507528927,
+        "fastTutar": 8122042841968.68,
+        "eftAdet": 37737419,
+        "eftTutar": 55847107237697.11,
+        "buyukAdet": 329477,
+        "buyukTutar": 129246142197201.88
+      }
+    ],
+    "fastAmac": {
+      "yil": 2026,
+      "ay": 9,
+      "amaclar": [
+        {
+          "ad": "Konut kirası",
+          "adet": 2109685,
+          "tutar": 46651729292.11
+        },
+        {
+          "ad": "İş yeri kirası",
+          "adet": 616235,
+          "tutar": 18847100578.36
+        },
+        {
+          "ad": "Diğer kira",
+          "adet": 1425012,
+          "tutar": 11131771324.42
+        },
+        {
+          "ad": "E-ticaret",
+          "adet": 298441,
+          "tutar": 5457632775.47
+        },
+        {
+          "ad": "Çalışan ödemesi (maaş vb.)",
+          "adet": 1755939,
+          "tutar": 42363028610.43
+        },
+        {
+          "ad": "Ticari ödeme",
+          "adet": 20082916,
+          "tutar": 850407755977.89
+        },
+        {
+          "ad": "Bireysel ödeme",
+          "adet": 474319193,
+          "tutar": 5328618962268.65
+        },
+        {
+          "ad": "Yatırım",
+          "adet": 551628,
+          "tutar": 11540656291.34
+        },
+        {
+          "ad": "Finansal işlemler",
+          "adet": 973009,
+          "tutar": 39516112385.95
+        },
+        {
+          "ad": "Eğitim",
+          "adet": 648630,
+          "tutar": 8143934000.44
+        },
+        {
+          "ad": "Aidat",
+          "adet": 2382688,
+          "tutar": 11837092115.19
+        },
+        {
+          "ad": "Gayrimenkul alımı",
+          "adet": 22227,
+          "tutar": 1137594089.36
+        },
+        {
+          "ad": "Motorlu taşıt alımı",
+          "adet": 137615,
+          "tutar": 39999898297.51
+        },
+        {
+          "ad": "Borç verme / borç ödeme",
+          "adet": 768019,
+          "tutar": 17817838197.64
+        },
+        {
+          "ad": "Hediye, bağış, yardım",
+          "adet": 215675,
+          "tutar": 1765509343.29
+        },
+        {
+          "ad": "Vergi, resim, harç",
+          "adet": 39257,
+          "tutar": 896148320.19
+        },
+        {
+          "ad": "Tazminat, sigorta",
+          "adet": 14119,
+          "tutar": 376344994.48
+        },
+        {
+          "ad": "Avukatlık, danışmanlık, müşavirlik",
+          "adet": 38314,
+          "tutar": 793654093.28
+        },
+        {
+          "ad": "Sağlık",
+          "adet": 34291,
+          "tutar": 486492937.3
+        },
+        {
+          "ad": "Kripto, dijital varlık",
+          "adet": 410893,
+          "tutar": 7733612294.0199995
+        },
+        {
+          "ad": "Şans oyunları, bahis",
+          "adet": 516618,
+          "tutar": 1199436738.53
+        },
+        {
+          "ad": "Eğlence, sosyal medya",
+          "adet": 62365,
+          "tutar": 445364233.39
+        }
+      ]
+    },
+    "alinma": "2026-10-29T18:07:24.571Z"
   }
 }

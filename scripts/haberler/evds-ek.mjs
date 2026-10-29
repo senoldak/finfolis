@@ -384,6 +384,10 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      (doğrulandı 29.10.2026). bie_tsenetler protestolu senet değil, "tahsile alınan ticari senetler"dir; stok/akım
 //      tanımı belirsiz olduğu için alınmaz.
 //  - banknot: tedavüldeki banknotların kupür dağılımı, adet ve tutar (TCMB, aylık, 2009'dan; doğrulandı 29.10.2026).
+//  - odeme: TCMB ödeme sistemleri (doğrulandı 29.10.2026): FAST, perakende ödeme sistemi (bireysel EFT) ve EFT-EMKT'nin
+//      aylık ödeme adedi ve tutarı (TL; günlük verinin EVDS aylık toplamı, tamamlanmamış ay atılır); FAST ödemelerinin son
+//      tam ayda amaçlara göre dağılımı. "Kaynağına göre dağılım (%)" serileri kesir döndüğü ve tanımı belirsiz olduğu için
+//      alınmaz.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -1146,6 +1150,59 @@ export async function banknotAl(simdi, anahtar) {
     kaynak: { ad: 'TCMB, tedavüldeki banknotların kupür dağılımı (TCMB EVDS)', url: EVDS_SAYFA },
     seriler: tanimlar(BANKNOT_SERILERI),
     satirlar: await aylikFormullu(BANKNOT_SERILERI, new Date(Date.UTC(2009, 0, 1)), simdi, anahtar, 'Banknotlar', 150),
+  };
+}
+
+// Ödeme sistemleri: aylık toplam adet ve tutar (TL). FAST Aralık 2020'de başladı; öncesinde boştur (null kalır).
+export const ODEME_SERILERI = [
+  { kod: 'TP.OSGMFAST.CTO', alan: 'fastAdet', ad: 'FAST, ödeme adedi', bosOlabilir: true },
+  { kod: 'TP.OSGMFAST.ATO', alan: 'fastTutar', ad: 'FAST, ödeme tutarı (TL)', bosOlabilir: true },
+  { kod: 'TP.OSGMPOS.ADET.A01', alan: 'eftAdet', ad: 'Perakende ödeme sistemi (bireysel EFT), ödeme adedi' },
+  { kod: 'TP.OSGMPOS.TUTAR.T01', alan: 'eftTutar', ad: 'Perakende ödeme sistemi (bireysel EFT), ödeme tutarı (TL)' },
+  { kod: 'TP.EFTEMKT2.ADET.A01', alan: 'buyukAdet', ad: 'EFT-EMKT, ödeme adedi' },
+  { kod: 'TP.EFTEMKT2.TUTAR.A01', alan: 'buyukTutar', ad: 'EFT-EMKT, ödeme tutarı (TL)' },
+];
+// FAST anlık ödemelerinin amaçları (Nisan 2026'dan 22 amaç; öncesinde ilk 11).
+export const FAST_AMACLARI = [
+  ['OKK', 'Konut kirası'], ['OIK', 'İş yeri kirası'], ['ODK', 'Diğer kira'], ['OET', 'E-ticaret'], ['OC', 'Çalışan ödemesi (maaş vb.)'],
+  ['OT', 'Ticari ödeme'], ['OB', 'Bireysel ödeme'], ['OY', 'Yatırım'], ['OF', 'Finansal işlemler'], ['OE', 'Eğitim'], ['OA', 'Aidat'],
+  ['12', 'Gayrimenkul alımı'], ['13', 'Motorlu taşıt alımı'], ['14', 'Borç verme / borç ödeme'], ['15', 'Hediye, bağış, yardım'],
+  ['16', 'Vergi, resim, harç'], ['17', 'Tazminat, sigorta'], ['18', 'Avukatlık, danışmanlık, müşavirlik'], ['19', 'Sağlık'],
+  ['20', 'Kripto, dijital varlık'], ['21', 'Şans oyunları, bahis'], ['22', 'Eğlence, sosyal medya'],
+].map(([k, ad]) => ({ adet: /^\d/.test(k) ? `TP.OSGMFAST.C${k}` : `TP.OSGMFAST.CA${k}`, tutar: /^\d/.test(k) ? `TP.OSGMFAST.A${k}` : `TP.OSGMFAST.AA${k}`, ad }));
+
+const ayinSonGunu = (yil, ay) => new Date(Date.UTC(yil, ay, 0)).toISOString().slice(0, 10);
+
+export async function odemeAl(simdi, anahtar) {
+  const kodlar = ODEME_SERILERI.map((t) => t.kod);
+  const toplam = `&frequency=5&aggregationTypes=${kodlar.map(() => 'sum').join('-')}`;
+  // Yayımlanan son gün: tamamlanmamış ay bununla bulunur.
+  const sonGun = (await evdsCek(['TP.OSGMPOS.ADET.A01'], [0], new Date(simdi.getTime() - 15 * 864e5), simdi, anahtar))
+    .filter((h) => h.tarih && h.TP_OSGMPOS_ADET_A01 != null)
+    .at(-1)?.tarih;
+  if (!sonGun) throw new Error('Ödeme sistemleri günlük değer yok');
+  const tam = (s) => ayinSonGunu(s.yil, s.ay) <= sonGun;
+  const satirlar = (await evdsCek(kodlar, kodlar.map(() => 0), new Date(Date.UTC(2014, 0, 1)), simdi, anahtar, toplam))
+    .filter((h) => h.ay && tam(h))
+    .map((h) => ({ yil: h.yil, ay: h.ay, ...Object.fromEntries(ODEME_SERILERI.map((t) => [t.alan, h[alanAdi(t.kod, 0)] ?? null])) }))
+    .filter((s) => ODEME_SERILERI.every((t) => t.bosOlabilir || s[t.alan] != null));
+  if (satirlar.length < 120) throw new Error('Ödeme sistemleri serisi yetersiz');
+  const son = satirlar.at(-1);
+  const amacKodlari = FAST_AMACLARI.flatMap((a) => [a.adet, a.tutar]);
+  const ayBasi = new Date(Date.UTC(son.yil, son.ay - 1, 1));
+  const amacHam = (
+    await evdsCek(amacKodlari, amacKodlari.map(() => 0), ayBasi, ayBasi, anahtar, `&frequency=5&aggregationTypes=${amacKodlari.map(() => 'sum').join('-')}`)
+  ).find((h) => h.yil === son.yil && h.ay === son.ay);
+  if (!amacHam) throw new Error('FAST amaç dağılımı yok');
+  const amaclar = FAST_AMACLARI.map((a) => ({ ad: a.ad, adet: amacHam[alanAdi(a.adet, 0)] ?? null, tutar: amacHam[alanAdi(a.tutar, 0)] ?? null })).filter(
+    (a) => a.adet != null && a.tutar != null,
+  );
+  return {
+    kaynak: { ad: 'TCMB ödeme sistemleri istatistikleri: FAST, perakende ödeme sistemi ve EFT-EMKT (TCMB EVDS)', url: EVDS_SAYFA },
+    birim: 'TL',
+    seriler: tanimlar(ODEME_SERILERI),
+    satirlar,
+    fastAmac: { yil: son.yil, ay: son.ay, amaclar },
   };
 }
 

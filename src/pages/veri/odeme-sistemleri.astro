@@ -1,0 +1,264 @@
+---
+// Ödeme sistemleri: TCMB'nin FAST, perakende ödeme sistemi (bireysel EFT) ve EFT-EMKT istatistikleri, EVDS'den. Aylık
+// rakamlar günlük verinin EVDS'deki aylık toplamıdır; tamamlanmamış ay gösterilmez. Sayfa hesapları: trilyon TL'ye ve
+// milyona çevirme, ortalama ödeme tutarı (tutar / adet), FAST amaçlarının anlık ödemeler içindeki payı ve bir yıl önceki
+// aya göre değişim (EVDS düzeylerinden). Başka türetme ve tahmin yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const odeme = RESMI.odeme;
+const satirlar = odeme?.satirlar ?? [];
+const son = satirlar.at(-1);
+const yilOnce = son ? satirlar.find((s) => ayAnahtari(s) === ayAnahtari(son) - 12) : undefined;
+const amac = odeme?.fastAmac;
+
+const trilyon = (n: number) => n / 1e12;
+const milyon = (n: number) => n / 1e6;
+const yd = (n: number) => `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`;
+const degisim = (a: number | null | undefined, b: number | null | undefined) => (a != null && b != null && b > 0 ? (a / b - 1) * 100 : null);
+
+const gruplar1 = [
+  {
+    id: 'adet',
+    ad: 'Adet',
+    seriler: [
+      { id: 'fastAdet', ad: 'FAST', renk: 'murekkep' as const },
+      { id: 'eftAdet', ad: 'Bireysel EFT', renk: 'toprak' as const },
+    ],
+  },
+  {
+    id: 'tutar',
+    ad: 'Tutar',
+    seriler: [
+      { id: 'fastTutar', ad: 'FAST', renk: 'murekkep' as const },
+      { id: 'eftTutar', ad: 'Bireysel EFT', renk: 'toprak' as const },
+      { id: 'buyukTutar', ad: 'EFT-EMKT', renk: 'mavi' as const },
+    ],
+  },
+];
+// Adet milyon, tutar trilyon TL.
+const noktalar1 = satirlar.map((s) => [
+  ayAnahtari(s),
+  s.fastAdet != null ? milyon(s.fastAdet) : null,
+  milyon(s.eftAdet),
+  s.fastTutar != null ? trilyon(s.fastTutar) : null,
+  trilyon(s.eftTutar),
+  trilyon(s.buyukTutar),
+]);
+// Sayfa hesabı: ortalama FAST ödemesi, TL.
+const gruplar2 = [{ id: 'ort', ad: 'Ortalama', seriler: [{ id: 'ort', ad: 'Ortalama FAST ödemesi', renk: 'murekkep' as const }] }];
+const noktalar2 = satirlar.filter((s) => s.fastAdet && s.fastTutar).map((s) => [ayAnahtari(s), s.fastTutar! / s.fastAdet!]);
+
+const amacToplamTutar = amac ? amac.amaclar.reduce((a, x) => a + x.tutar, 0) : 0;
+const amacToplamAdet = amac ? amac.amaclar.reduce((a, x) => a + x.adet, 0) : 0;
+const amacTablo = amac ? [...amac.amaclar].sort((a, b) => b.tutar - a.tutar) : [];
+
+const tablo = satirlar.slice(-12).reverse();
+
+const baslik = 'Ödeme sistemleri';
+const description =
+  son && son.fastAdet != null && son.fastTutar != null
+    ? `${ayAdi(son)} ayında FAST ile ${sayiYaz(milyon(son.fastAdet), 0)} milyon ödeme yapıldı, toplam ${sayiYaz(trilyon(son.fastTutar), 2)} trilyon TL. Bireysel EFT ve EFT-EMKT, FAST ödemelerinin amaçları. TCMB verisi.`
+    : 'FAST, bireysel EFT ve EFT-EMKT ödeme sistemlerinde aylık ödeme adedi ve tutarı, TCMB verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/odeme-sistemleri/' },
+];
+const ayKodu = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(odeme && son
+    ? {
+        sayfaEk: { dateModified: odeme.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Ödeme sistemleri istatistikleri',
+            description:
+              'FAST, perakende ödeme sistemi (bireysel EFT) ve EFT-EMKT’de aylık ödeme adedi ve tutarı (TL); FAST anlık ödemelerinin amaçlara göre dağılımı; TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/odeme-sistemleri/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ayKodu(satirlar[0])}/${ayKodu(son)}`,
+            dateModified: odeme.alinma,
+            variableMeasured: [
+              'FAST ödeme adedi ve tutarı (TL)',
+              'Perakende ödeme sistemi ödeme adedi ve tutarı (TL)',
+              'EFT-EMKT ödeme adedi ve tutarı (TL)',
+              'FAST anlık ödemeleri, amaçlara göre adet ve tutar',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Ödeme sistemleri: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>FAST, bireysel EFT ve EFT-EMKT · TCMB, aylık</p>
+    </header>
+    {
+      odeme && son && son.fastAdet != null && son.fastTutar != null ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>FAST ödemesi</dt>
+              <dd>{sayiYaz(milyon(son.fastAdet), 0)} milyon</dd>
+              <dd class="veri-degisim">
+                {`${ayAdi(son)}${degisim(son.fastAdet, yilOnce?.fastAdet) != null ? `, bir yıl önceye göre ${yd(degisim(son.fastAdet, yilOnce?.fastAdet)!)}` : ''}`}
+              </dd>
+            </div>
+            <div>
+              <dt>FAST tutarı</dt>
+              <dd>{sayiYaz(trilyon(son.fastTutar), 2)} trilyon TL</dd>
+              <dd class="veri-degisim">Ortalama ödeme {sayiYaz(son.fastTutar / son.fastAdet, 0)} TL</dd>
+            </div>
+            <div>
+              <dt>Bireysel EFT</dt>
+              <dd>{sayiYaz(milyon(son.eftAdet), 1)} milyon</dd>
+              <dd class="veri-degisim">{sayiYaz(trilyon(son.eftTutar), 1)} trilyon TL</dd>
+            </div>
+            <div>
+              <dt>EFT-EMKT</dt>
+              <dd>{sayiYaz(trilyon(son.buyukTutar), 1)} trilyon TL</dd>
+              <dd class="veri-degisim">{sayiYaz(son.buyukAdet, 0)} ödeme</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={odeme.kaynak.url} rel="noopener">{odeme.kaynak.ad}</a>. Aylık rakamlar günlük
+            verinin toplamıdır. Siteye alındığı zaman: {zamanYaz(odeme.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Aylık ödeme adedi ve tutarı"
+            ipucu="Adet milyon, tutar trilyon TL (cari fiyatlarla) · Grup düğmesiyle geçilir · FAST Aralık 2020’de başladı"
+            kaynak="Kaynak: TCMB, ödeme sistemleri istatistikleri (TCMB EVDS)."
+            siklik="ay"
+            birim="endeks"
+            ondalik={1}
+            seriIdleri={['fastAdet', 'eftAdet', 'fastTutar', 'eftTutar', 'buyukTutar']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            grupEtiketi="Seri grubu"
+          />
+
+          {amac && amacTablo.length > 0 && (
+            <section class="bolum">
+              <h2 class="bolum-baslik">FAST ödemeleri amaçlarına göre, {ayAdi(amac)}</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Amaç</th>
+                      <th scope="col" class="sag">Adet (bin)</th>
+                      <th scope="col" class="sag">Tutar (milyar TL)</th>
+                      <th scope="col" class="sag">Tutar payı</th>
+                      <th scope="col" class="sag">Ortalama (TL)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {amacTablo.map((a) => (
+                      <tr>
+                        <td>{a.ad}</td>
+                        <td class="sag">{sayiYaz(a.adet / 1000, 0)}</td>
+                        <td class="sag">{sayiYaz(a.tutar / 1e9, 1)}</td>
+                        <td class="sag">{yuzdeYaz((a.tutar / amacToplamTutar) * 100)}</td>
+                        <td class="sag">{a.adet > 0 ? sayiYaz(a.tutar / a.adet, 0) : '–'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Amaçlar, ödemeyi gönderenin seçtiği koddur. Tablo yalnız anlık ödemeleri kapsar ({sayiYaz(amacToplamAdet / 1e6, 0)}{' '}
+                milyon ödeme); katılımcılar arası ödemeler ve iadeler dahil değildir, bu yüzden toplamı FAST toplamından küçüktür.
+                Paylar ve ortalamalar sayfada hesaplanır.
+              </p>
+            </section>
+          )}
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">FAST (milyon)</th>
+                      <th scope="col" class="sag">FAST (trilyon TL)</th>
+                      <th scope="col" class="sag">Bireysel EFT (trilyon TL)</th>
+                      <th scope="col" class="sag">EFT-EMKT (trilyon TL)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{s.fastAdet != null ? sayiYaz(milyon(s.fastAdet), 0) : '–'}</td>
+                        <td class="sag">{s.fastTutar != null ? sayiYaz(trilyon(s.fastTutar), 2) : '–'}</td>
+                        <td class="sag">{sayiYaz(trilyon(s.eftTutar), 1)}</td>
+                        <td class="sag">{sayiYaz(trilyon(s.buyukTutar), 1)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Tutarlar cari fiyatlarla, enflasyondan arındırılmamıştır.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                FAST, TCMB’nin günün her saatinde çalışan anlık ödeme sistemidir; kişiler ve işletmeler arasındaki küçük ve orta
+                tutarlı ödemeler buradan geçer. Perakende ödeme sistemi, iş saatlerinde çalışan bireysel EFT’dir.
+              </p>
+              <p>
+                EFT-EMKT, bankalar arası büyük tutarlı ödemelerin ve menkul kıymet transferlerinin yapıldığı sistemdir; adedi az,
+                tutarı yüksektir. Üç sistemin tutarları ayrı ayrı verilir ve birbirine eklenmez.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Ortalama FAST ödemesi"
+            ipucu="TL, aylık tutar / adet (cari fiyatlarla) · Sayfada hesaplanır"
+            kaynak="Kaynak: TCMB (TCMB EVDS); ortalama sayfada hesaplanır."
+            siklik="ay"
+            birim="tl"
+            seriIdleri={['ort']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+          />
+        </>
+      ) : (
+        <p class="bos">Ödeme sistemleri verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/kartli-harcamalar/">Kartlı harcamalar</a>
+      <a href="/veri/banknotlar/">Banknotlar</a>
+      <a href="/veri/para-arzi/">Para arzı</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

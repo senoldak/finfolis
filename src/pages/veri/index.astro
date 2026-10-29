@@ -87,6 +87,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/elektrik-tuketimi/': 'elektrik tüketimi üretimi enerji teiaş yenilenebilir mwh gwh öncü gösterge',
   '/veri/karsiliksiz-cek/': 'karşılıksız çek takas ibraz çek tutarı ticari stres takasbank',
   '/veri/banknotlar/': 'banknot kupür 200 tl 100 tl nakit tedavül emisyon para',
+  '/veri/odeme-sistemleri/': 'fast eft havale anlık ödeme ödeme sistemleri kira ödemesi karekod',
   '/veri/para-arzi/': 'm1 m2 m3 para arzı parasal büyüklükler dolaşımdaki para vadeli vadesiz mevduat likidite',
   '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
@@ -445,6 +446,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/banknotlar/')}>
               <a href="/veri/banknotlar/" class="fihrist-baslik-link">Banknotlar</a>
               <span class="fihrist-ozet">Tedavüldeki banknotlar kupür kupür: adet, tutar, 200 TL’nin payı, 2009’dan</span>
+            </li>
+            <li data-ek={aramaEki('/veri/odeme-sistemleri/')}>
+              <a href="/veri/odeme-sistemleri/" class="fihrist-baslik-link">Ödeme Sistemleri</a>
+              <span class="fihrist-ozet">FAST, bireysel EFT ve EFT-EMKT’de aylık ödeme adedi ve tutarı; FAST ödemeleri amaçlarına göre</span>
             </li>
             <li data-ek={aramaEki('/veri/tcmb-bilancosu/')}>
               <a href="/veri/tcmb-bilancosu/" class="fihrist-baslik-link">TCMB Bilançosu</a>

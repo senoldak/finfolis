@@ -50,6 +50,7 @@ const SAYFA = {
   elektrik: '/veri/elektrik-tuketimi/',
   cek: '/veri/karsiliksiz-cek/',
   banknot: '/veri/banknotlar/',
+  odeme: '/veri/odeme-sistemleri/',
   portfoy: '/veri/yabanci-portfoy-akimlari/',
   cari: '/veri/cari-denge/',
   disBorc: '/veri/dis-borc/',
@@ -356,6 +357,14 @@ export const TANIMLAR = [
     ['k10Tutar', 'k10-tutar', 'Tedavüldeki banknot, 10 TL, tutar', TL],
     ['k5Tutar', 'k5-tutar', 'Tedavüldeki banknot, 5 TL, tutar', TL],
     ['toplamTutar', 'toplam-tutar', 'Tedavüldeki banknot, Toplam, tutar', TL],
+  ]),
+  t('odeme', 'Bankacılık', SAYFA.odeme, [
+    ['fastAdet', 'fast-adet', 'FAST, aylık ödeme adedi', ADET],
+    ['fastTutar', 'fast-tutar', 'FAST, aylık ödeme tutarı', TL],
+    ['eftAdet', 'eft-adet', 'Bireysel EFT (perakende ödeme sistemi), aylık ödeme adedi', ADET],
+    ['eftTutar', 'eft-tutar', 'Bireysel EFT (perakende ödeme sistemi), aylık ödeme tutarı', TL],
+    ['buyukAdet', 'buyuk-adet', 'EFT-EMKT, aylık ödeme adedi', ADET],
+    ['buyukTutar', 'buyuk-tutar', 'EFT-EMKT, aylık ödeme tutarı', TL],
   ]),
   t('makas', 'Faiz', SAYFA.makas, [
     ['ihtiyac', 'ihtiyac', 'İhtiyaç kredisi faizi', YZ],

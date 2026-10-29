@@ -22,6 +22,7 @@ import {
   elektrikAl,
   cekAl,
   banknotAl,
+  odemeAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -633,6 +634,24 @@ test('banknotAl: kupür başına adet ve tutar, 2009’dan', async () => {
   assert.ok(alanlar(istekler[0]).includes('TP_TEDAVULADT_T200') && alanlar(istekler[0]).includes('TP_TEDAVULTUT_TTU'));
   assert.equal(b.satirlar[0].k200Adet, 2);
   assert.equal(b.satirlar[0].toplamTutar, 2);
+});
+
+test('odemeAl: aylık toplam, tamamlanmamış ay atılır, FAST öncesi boş; son tam ayın amaç dağılımı', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    const u = decodeURIComponent(String(url));
+    istekler.push(u);
+    const a = alanlar(url);
+    if (!u.includes('frequency=5')) return yanit({ items: [{ Tarih: '26-10-2026', TP_OSGMPOS_ADET_A01: '5' }, { Tarih: '27-10-2026', TP_OSGMPOS_ADET_A01: '6' }] });
+    if (u.includes('C12')) return yanit({ items: [{ Tarih: '2026-9', ...Object.fromEntries(a.map((x) => [x, '3'])) }] });
+    return yanit({ items: aylar([2014, 1], 154).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(a.map((x) => [x, x.includes('FAST') && m.yil < 2021 ? null : '9'])) })) });
+  };
+  const o = await odemeAl(SIMDI, 'x');
+  assert.deepEqual([o.satirlar.at(-1).yil, o.satirlar.at(-1).ay], [2026, 9]);
+  assert.equal(o.satirlar[0].fastAdet, null);
+  assert.equal(o.satirlar[0].eftAdet, 9);
+  assert.deepEqual([o.fastAmac.yil, o.fastAmac.ay, o.fastAmac.amaclar.length], [2026, 9, 22]);
+  assert.ok(!istekler.some((x) => /RAOM|ORAN\./.test(x)));
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {
