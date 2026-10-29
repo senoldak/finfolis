@@ -4,8 +4,8 @@
 //
 // 29.10.2026 (sahibinin kararı): Google finfolis yazılarını neredeyse hiç taramıyordu (8 günde 10 ziyaret;
 // en yeni 40 yazının 0'ı dizinde, çoğu "keşfedilmiş, taranmamış"). Yabancı haber akışlarından çevrilen düz
-// haberler sitede, ana sayfada, kategorilerde ve Telegram'da kalır, ama arama motorlarına kapatılır
-// (noindex, follow) ve site haritalarına girmez. Google siteyi resmî kaynaklı ve veri haberleri, araştırma
+// haberler sitede, ana sayfada, kategorilerde ve Telegram'da kalır, ama Google'a kapatılır (googlebot: noindex,
+// follow) ve site haritalarına girmez. ChatGPT, Perplexity, Bing gibi aramalar bu haberleri görmeye devam eder. Google siteyi resmî kaynaklı ve veri haberleri, araştırma
 // yazıları, yazı işleri zinciri, bültenler ve /veri/ sayfaları üzerinden tartsın.
 // Geri almak için aramayaAcik'i yalnız indekslenir(govde) döndürecek hale getir.
 import { indekslenir } from './uzunluk.mjs';

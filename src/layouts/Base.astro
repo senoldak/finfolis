@@ -19,6 +19,8 @@ interface Props {
   imageAlt?: string;
   type?: 'website' | 'article';
   noindex?: boolean;
+  // Yalnız Google'a kapalı (googlebot meta etiketi); robots etiketi ve canonical açık kalır.
+  googleNoindex?: boolean;
 }
 
 // Menülerde yalnız yazısı olan kategoriler görünür (boş kategori sayfası "henüz yazı yok" der).
@@ -37,6 +39,7 @@ const {
   imageAlt,
   type = 'website',
   noindex = false,
+  googleNoindex = false,
 } = Astro.props;
 // Arama sonucunda kesilmesin diye en çok 160 karakter; boşsa site açıklaması.
 const description = kisalt(rawDescription?.trim() || SITE.description, 160);
@@ -72,6 +75,8 @@ const today = new Date().toLocaleDateString(SITE.locale, {
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
+    {/* Yalnız Google'a kapalı sayfa: diğer arama motorları ve yapay zekâ arama botları (ChatGPT, Perplexity, Bing) görmeye devam eder. */}
+    {googleNoindex && !noindex && <meta name="googlebot" content="noindex, follow" />}
     {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
