@@ -87,6 +87,7 @@ const RESMI_SAYFA = {
   insaatIzin: '/veri/insaat-izinleri/',
   kesimBeklenti: '/veri/beklenti-anketleri/',
   paraPiyasasi: '/veri/para-piyasasi/',
+  paraArzi: '/veri/para-arzi/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

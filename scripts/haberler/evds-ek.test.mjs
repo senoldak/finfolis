@@ -14,6 +14,7 @@ import {
   insaatIzinAl,
   kesimBeklentiAl,
   paraPiyasasiAl,
+  paraArziAl,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
   INSAAT_IZIN_SERILERI,
@@ -464,6 +465,33 @@ test('paraPiyasasiAl: haftalık ortalama ve son iş günü; repo boş haftalar k
   assert.equal(p.satirlar[0].aofm, 10);
   assert.equal(p.satirlar.at(-1).tarih, '2026-10-23');
   assert.deepEqual(p.son, { tarih: '2026-10-26', borcVerme: 31, borcAlma: 31, repo: 31, bankalararasi: 31, aofm: 31, fonlama: 31, sterilizasyon: 31, net: 31 });
+});
+
+// Para arzı: tek istek, düzey ve yıllık değişim formülleri; alanı boş haftalar (menkul kıymetler 2010 sonundan, yıllık
+// değişim bir yıl sonra) atılır.
+test('paraArziAl: formüller, boş haftalar atılır, satır şekli', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    const u = decodeURIComponent(String(url));
+    istekler.push(u);
+    const items = [];
+    for (let t = Date.UTC(2010, 0, 1), i = 0; t <= Date.UTC(2026, 9, 16); t += 7 * 864e5, i++) {
+      items.push({
+        Tarih: gunTarihi(new Date(t)),
+        ...Object.fromEntries(alanlar(url).map((x) => [x, (x.endsWith('-3') && i < 52) || (x === 'TP_HPBITABLO1_21' && i < 51) ? null : '7'])),
+      });
+    }
+    return yanit({ items });
+  };
+  const p = await paraArziAl(SIMDI, 'x');
+  assert.equal(istekler.length, 1);
+  assert.ok(istekler[0].includes('startDate=01-01-2010'));
+  assert.ok(istekler[0].includes('formulas=0-0-0-3-3-3-0-0-0-0-0-0-0-0'));
+  assert.equal(p.birim, 'bin TL');
+  assert.equal(p.satirlar[0].tarih, '2010-12-31');
+  assert.equal(Object.keys(p.satirlar[0]).length, 15);
+  assert.equal(p.satirlar.at(-1).tarih, '2026-10-16');
+  assert.equal(p.satirlar.at(-1).m2Yillik, 7);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

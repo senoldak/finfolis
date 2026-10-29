@@ -1,0 +1,322 @@
+---
+// Para arzı: TCMB haftalık para ve banka istatistiklerinden M1, M2, M3 ve bileşenleri (bin TL), EVDS'den; yıllık değişim
+// EVDS'nin formülüyle. Sayfa hesapları: reel M2 değişimi = (1 + M2 yıllık) / (1 + aynı ayın yıllık TÜFE'si) − 1 ve yabancı
+// para mevduatın M2 içindeki payı = (vadesiz YP + vadeli YP) / M2 × 100 (EVDS düzeylerinden, kredi-hacmi toplamları
+// gibi). Başka türetme ve tahmin yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, gunAnahtari, gunYaz, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const paraArzi = RESMI.paraArzi;
+const satirlar = paraArzi?.satirlar ?? [];
+const son = satirlar.at(-1);
+type Satir = (typeof satirlar)[number];
+
+const yd = (n: number) => `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`;
+const trilyon = (n: number) => n / 1e9;
+const trilyonYaz = (n: number) => `${sayiYaz(trilyon(n), 2)} trilyon TL`;
+
+// Haftanın ayına ait yıllık TÜFE (TÜİK); ay henüz açıklanmadıysa yok.
+const tufe = new Map((RESMI.enflasyon?.satirlar ?? []).map((s) => [`${s.yil}-${s.ay}`, s]));
+const haftaninTufesi = (s: Satir) => tufe.get(`${Number(s.tarih.slice(0, 4))}-${Number(s.tarih.slice(5, 7))}`);
+// Sayfa hesabı: reel yıllık değişim, yüzde.
+const reel = (s: Satir) => {
+  const t = haftaninTufesi(s);
+  return t ? ((1 + s.m2Yillik / 100) / (1 + t.yillik / 100) - 1) * 100 : null;
+};
+// Sayfa hesabı: YP mevduatın M2 içindeki payı, yüzde.
+const ypPayi = (s: Satir) => ((s.vadesizYp + s.vadeliYp) / s.m2) * 100;
+
+const sonReel = [...satirlar].reverse().find((s) => reel(s) != null);
+const sonReelTufe = sonReel ? haftaninTufesi(sonReel) : undefined;
+
+const gruplar1 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'm1Yillik', ad: 'M1', renk: 'toprak' as const },
+      { id: 'm2Yillik', ad: 'M2', renk: 'murekkep' as const },
+      { id: 'm3Yillik', ad: 'M3', renk: 'mavi' as const },
+      { id: 'tufe', ad: 'Yıllık enflasyon', renk: 'yesil' as const, kesik: true },
+    ],
+  },
+];
+const noktalar1 = satirlar.map((s) => [gunAnahtari(s.tarih), s.m1Yillik, s.m2Yillik, s.m3Yillik, haftaninTufesi(s)?.yillik ?? null]);
+
+const gruplar2 = [
+  {
+    id: 'reel',
+    ad: 'Reel M2',
+    seriler: [{ id: 'reel', ad: 'M2, enflasyondan arındırılmış yıllık değişim', renk: 'murekkep' as const }],
+  },
+  {
+    id: 'yp',
+    ad: 'YP mevduat payı',
+    seriler: [{ id: 'yp', ad: 'Yabancı para mevduatın M2 içindeki payı', renk: 'toprak' as const }],
+  },
+];
+const noktalar2 = satirlar.map((s) => [gunAnahtari(s.tarih), reel(s), ypPayi(s)]);
+
+const gruplar3 = [
+  {
+    id: 'arz',
+    ad: 'M1, M2, M3',
+    seriler: [
+      { id: 'm3', ad: 'M3', renk: 'mavi' as const },
+      { id: 'm2', ad: 'M2', renk: 'murekkep' as const },
+      { id: 'm1', ad: 'M1', renk: 'toprak' as const },
+    ],
+  },
+  {
+    id: 'mevduat',
+    ad: 'Mevduat',
+    seriler: [
+      { id: 'vadeliTl', ad: 'Vadeli TL', renk: 'murekkep' as const },
+      { id: 'vadesizTl', ad: 'Vadesiz TL', renk: 'mavi' as const },
+      { id: 'vadesizYp', ad: 'Vadesiz YP', renk: 'toprak' as const },
+      { id: 'vadeliYp', ad: 'Vadeli YP', renk: 'yesil' as const },
+    ],
+  },
+];
+const noktalar3 = satirlar.map((s) => [
+  gunAnahtari(s.tarih),
+  trilyon(s.m3),
+  trilyon(s.m2),
+  trilyon(s.m1),
+  trilyon(s.vadeliTl),
+  trilyon(s.vadesizTl),
+  trilyon(s.vadesizYp),
+  trilyon(s.vadeliYp),
+]);
+
+const tablo = satirlar.slice(-12).reverse();
+const bilesenler = son
+  ? [
+      { ad: 'Dolaşımdaki para', d: son.dolasim, ust: 'M1' },
+      { ad: 'Vadesiz mevduat (TL)', d: son.vadesizTl, ust: 'M1' },
+      { ad: 'Vadesiz mevduat (YP)', d: son.vadesizYp, ust: 'M1' },
+      { ad: 'Vadeli mevduat (TL)', d: son.vadeliTl, ust: 'M2' },
+      { ad: 'Vadeli mevduat (YP)', d: son.vadeliYp, ust: 'M2' },
+      { ad: 'Repo', d: son.repo, ust: 'M3' },
+      { ad: 'Para piyasası fonları', d: son.ppf, ust: 'M3' },
+      { ad: 'İhraç edilen menkul kıymetler', d: son.menkul, ust: 'M3' },
+    ]
+  : [];
+
+const baslik = 'Para arzı';
+const description = son
+  ? `${gunYaz(son.tarih)} itibarıyla M2 para arzı ${trilyonYaz(son.m2)}, bir yıl öncesine göre ${yd(son.m2Yillik)}; M3 ${trilyonYaz(son.m3)}, ${yd(son.m3Yillik)}. TCMB haftalık verisi.`
+  : 'M1, M2 ve M3 para arzı, bileşenleri ve yıllık değişimi, TCMB haftalık verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/para-arzi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(paraArzi && son
+    ? {
+        sayfaEk: { dateModified: paraArzi.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Para arzı (M1, M2, M3)',
+            description:
+              'Haftalık M1, M2, M3 para arzı ve bileşenleri (dolaşımdaki para, TL ve yabancı para vadesiz ve vadeli mevduat, repo, para piyasası fonları, ihraç edilen menkul kıymetler), bin TL, yıllık değişim, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/para-arzi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${satirlar[0].tarih}/${son.tarih}`,
+            dateModified: paraArzi.alinma,
+            variableMeasured: [
+              'M1, M2, M3 para arzı (bin TL)',
+              'M1, M2, M3, yıllık değişim (yüzde)',
+              'Dolaşımdaki para (bin TL)',
+              'TL ve yabancı para vadesiz ve vadeli mevduat (bin TL)',
+              'Repo, para piyasası fonları, ihraç edilen menkul kıymetler (bin TL)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Para arzı: ${son ? gunYaz(son.tarih) : 'haftalık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>M1, M2, M3 ve bileşenleri · TCMB, haftalık</p>
+    </header>
+    {
+      paraArzi && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>M2</dt>
+              <dd>{trilyonYaz(son.m2)}</dd>
+              <dd class="veri-degisim">{gunYaz(son.tarih)}, yıllık {yd(son.m2Yillik)}</dd>
+            </div>
+            <div>
+              <dt>M3</dt>
+              <dd>{trilyonYaz(son.m3)}</dd>
+              <dd class="veri-degisim">Yıllık {yd(son.m3Yillik)}</dd>
+            </div>
+            {sonReel && sonReelTufe && (
+              <div>
+                <dt>Reel M2, yıllık</dt>
+                <dd>{yd(reel(sonReel)!)}</dd>
+                <dd class="veri-degisim">
+                  {gunYaz(sonReel.tarih)}; {ayAdi(sonReelTufe)} enflasyonu {yuzdeYaz(sonReelTufe.yillik)}
+                </dd>
+              </div>
+            )}
+            <div>
+              <dt>YP mevduat payı</dt>
+              <dd>{yuzdeYaz(ypPayi(son))}</dd>
+              <dd class="veri-degisim">Yabancı para mevduatın M2 içindeki payı</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={paraArzi.kaynak.url} rel="noopener">{paraArzi.kaynak.ad}</a>; enflasyon TÜİK.
+            Siteye alındığı zaman: {zamanYaz(paraArzi.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Para arzının yıllık değişimi"
+            ipucu="Yüzde, bir yıl önceki aynı haftaya göre · Kesikli çizgi haftanın ayına ait yıllık enflasyondur (TÜİK)"
+            kaynak="Kaynak: TCMB, haftalık para ve banka istatistikleri (TCMB EVDS); enflasyon TÜİK."
+            siklik="hafta"
+            birim="yuzde"
+            seriIdleri={['m1Yillik', 'm2Yillik', 'm3Yillik', 'tufe']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 hafta</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Hafta</th>
+                      <th scope="col" class="sag">M1</th>
+                      <th scope="col" class="sag">M2</th>
+                      <th scope="col" class="sag">M3</th>
+                      <th scope="col" class="sag">M2 yıllık</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{gunYaz(s.tarih)}</td>
+                        <td class="sag">{sayiYaz(trilyon(s.m1), 2)}</td>
+                        <td class="sag">{sayiYaz(trilyon(s.m2), 2)}</td>
+                        <td class="sag">{sayiYaz(trilyon(s.m3), 2)}</td>
+                        <td class="sag">{yd(s.m2Yillik)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Tutarlar trilyon TL, cuma günü itibarıyla stoktur.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                M1 dolaşımdaki para ile vadesiz mevduattır. M2, M1’e vadeli mevduatın eklenmesiyle bulunur. M3 ise M2’ye repo,
+                para piyasası fonları ve bankaların ihraç ettiği menkul kıymetleri ekler. Mevduatlar Türk lirası ve yabancı
+                para olarak ayrı verilir; yabancı para mevduat TL karşılığıyla yer alır, kur değişince tutarı da değişir.
+              </p>
+              <p>
+                Reel değişim, para arzının yıllık artışından aynı ayın yıllık enflasyonunun etkisinin çıkarılmasıyla sayfada
+                hesaplanır. Son haftaların ayına ait enflasyon henüz açıklanmadıysa reel değişim o haftalar için gösterilmez.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Reel M2 ve yabancı para mevduat payı"
+            ipucu="Yüzde · Reel M2, M2’nin yıllık değişiminin enflasyondan arındırılmış hâlidir · Grup düğmesiyle seriler arasında geçilir"
+            kaynak="Kaynak: TCMB (TCMB EVDS), TÜİK; reel değişim ve pay sayfada hesaplanır."
+            siklik="hafta"
+            birim="yuzde"
+            seriIdleri={['reel', 'yp']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+            grupEtiketi="Seri grubu"
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <ZamanGrafik
+            baslik="Para arzı ve mevduat"
+            ipucu="Trilyon TL, cuma stoku · Grup düğmesiyle seriler arasında geçilir"
+            kaynak="Kaynak: TCMB, haftalık para ve banka istatistikleri (TCMB EVDS)."
+            siklik="hafta"
+            birim="endeks"
+            ondalik={1}
+            seriIdleri={['m3', 'm2', 'm1', 'vadeliTl', 'vadesizTl', 'vadesizYp', 'vadeliYp']}
+            noktalar={noktalar3}
+            gruplar={gruplar3}
+            grupEtiketi="Seri grubu"
+          />
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Bileşenler, {gunYaz(son.tarih)}</h2>
+            <div class="tablo-sarma">
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Bileşen</th>
+                    <th scope="col">Toplam</th>
+                    <th scope="col" class="sag">Trilyon TL</th>
+                    <th scope="col" class="sag">M3 içindeki pay</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bilesenler.map((b) => (
+                    <tr>
+                      <td>{b.ad}</td>
+                      <td>{b.ust}</td>
+                      <td class="sag">{sayiYaz(trilyon(b.d), 2)}</td>
+                      <td class="sag">{yuzdeYaz((b.d / son.m3) * 100)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="veri-notu">
+              "Toplam" sütunu bileşenin ilk girdiği para arzı tanımıdır; M1’in bileşenleri M2 ve M3’te de vardır. Bileşenlerin
+              toplamı M3’e eşittir; paylar sayfada hesaplanır.
+            </p>
+          </section>
+        </>
+      ) : (
+        <p class="bos">Para arzı verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/kredi-hacmi/">Kredi hacmi</a>
+      <a href="/veri/doviz-mevduatlari/">Döviz mevduatları</a>
+      <a href="/veri/para-piyasasi/">Para piyasası</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

@@ -365,6 +365,8 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      bankalararası piyasasında gecelik ağırlıklı ortalama faiz, ağırlıklı ortalama fonlama maliyeti (AOFM), toplam
 //      fonlama, sterilizasyon ve net fonlama (TCMB, iş günü; haftalık ortalama 2011'den, son iş günü ayrıca; doğrulandı
 //      29.10.2026). BIST TLREF ve BIST repo serileri Borsa İstanbul verisidir, bilerek alınmaz.
+//  - paraArzi: M1, M2, M3 ve bileşenleri (TCMB, haftalık, cuma, bin TL; 2011'den; doğrulandı 29.10.2026); yıllık değişim
+//      EVDS'nin formülüyle (bir yıl önceki aynı haftaya göre).
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -869,6 +871,42 @@ export async function paraPiyasasiAl(simdi, anahtar) {
     seriler: tanimlar(PARA_PIYASASI_SERILERI),
     satirlar: haftalik,
     son,
+  };
+}
+
+// Para arzı (TCMB haftalık para ve banka istatistikleri, bin TL): M1 = dolaşımdaki para + vadesiz mevduat (TL ve YP);
+// M2 = M1 + vadeli mevduat (TL ve YP); M3 = M2 + repo, para piyasası fonları ve ihraç edilen menkul kıymetler.
+export const PARA_ARZI_SERILERI = [
+  { kod: 'TP.HPBITABLO1.2', formul: 0, alan: 'm1', ad: 'M1' },
+  { kod: 'TP.HPBITABLO1.11', formul: 0, alan: 'm2', ad: 'M2' },
+  { kod: 'TP.HPBITABLO1.18', formul: 0, alan: 'm3', ad: 'M3' },
+  { kod: 'TP.HPBITABLO1.2', formul: 3, alan: 'm1Yillik', ad: 'M1, yıllık değişim' },
+  { kod: 'TP.HPBITABLO1.11', formul: 3, alan: 'm2Yillik', ad: 'M2, yıllık değişim' },
+  { kod: 'TP.HPBITABLO1.18', formul: 3, alan: 'm3Yillik', ad: 'M3, yıllık değişim' },
+  { kod: 'TP.HPBITABLO1.3', formul: 0, alan: 'dolasim', ad: 'Dolaşımdaki para' },
+  { kod: 'TP.HPBITABLO1.4', formul: 0, alan: 'vadesizTl', ad: 'Vadesiz mevduat (TL)' },
+  { kod: 'TP.HPBITABLO1.8', formul: 0, alan: 'vadesizYp', ad: 'Vadesiz mevduat (YP)' },
+  { kod: 'TP.HPBITABLO1.12', formul: 0, alan: 'vadeliTl', ad: 'Vadeli mevduat (TL)' },
+  { kod: 'TP.HPBITABLO1.15', formul: 0, alan: 'vadeliYp', ad: 'Vadeli mevduat (YP)' },
+  { kod: 'TP.HPBITABLO1.19', formul: 0, alan: 'repo', ad: 'Repo' },
+  { kod: 'TP.HPBITABLO1.20', formul: 0, alan: 'ppf', ad: 'Para piyasası fonları' },
+  { kod: 'TP.HPBITABLO1.21', formul: 0, alan: 'menkul', ad: 'İhraç edilen menkul kıymetler' },
+];
+
+// Yıllık değişim bir yıllık geçmiş ister: istek 2010'dan, bütün alanları dolu haftalar alınır (menkul kıymetler 2010 sonundan,
+// yıllık değişim 2011'den dolar). Bitmemiş haftanın satırı yoktur (seri cuma stokudur, yayımlanınca gelir).
+export async function paraArziAl(simdi, anahtar) {
+  const ham = await evdsCek(PARA_ARZI_SERILERI.map((t) => t.kod), PARA_ARZI_SERILERI.map((t) => t.formul), new Date(Date.UTC(2010, 0, 1)), simdi, anahtar);
+  const satirlar = ham
+    .filter((h) => h.tarih)
+    .map((h) => ({ tarih: h.tarih, ...Object.fromEntries(PARA_ARZI_SERILERI.map((t) => [t.alan, h[alanAdi(t.kod, t.formul)]])) }))
+    .filter((s) => PARA_ARZI_SERILERI.every((t) => s[t.alan] != null));
+  if (satirlar.length < 500) throw new Error('Para arzı serisi yetersiz');
+  return {
+    kaynak: { ad: 'TCMB haftalık para ve banka istatistikleri, para arzı (TCMB EVDS)', url: EVDS_SAYFA },
+    birim: 'bin TL',
+    seriler: tanimlar(PARA_ARZI_SERILERI),
+    satirlar,
   };
 }
 

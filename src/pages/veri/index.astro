@@ -28,6 +28,7 @@ const konutSatisSon = RESMI.konutSatis?.satirlar.at(-1);
 const ufeSon = RESMI.ufe?.satirlar.at(-1);
 const kesimSon = RESMI.kesimBeklenti?.satirlar.at(-1);
 const paraSon = RESMI.paraPiyasasi?.son;
+const paraArziSon = RESMI.paraArzi?.satirlar.at(-1);
 const insaatSatirlari = RESMI.insaatIzin?.satirlar ?? [];
 const ruhsatDaire12 = insaatSatirlari.length >= 12 ? insaatSatirlari.slice(-12).reduce((a, s) => a + s.ruhsatDaire, 0) : null;
 const rekSon = rek?.satirlar.at(-1);
@@ -80,6 +81,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/politika-faizi/': 'ppk repo merkez bankası faiz kararı',
   '/veri/reel-faiz/': 'faiz enflasyon',
   '/veri/piyasa-faizleri/': 'mevduat faizi kredi faizi konut kredisi taşıt',
+  '/veri/para-arzi/': 'm1 m2 m3 para arzı parasal büyüklükler dolaşımdaki para vadeli vadesiz mevduat likidite',
   '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
   '/veri/taylor-kurali/': 'politika faizi',
@@ -413,6 +415,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/kredi-hacmi/')}>
               <a href="/veri/kredi-hacmi/" class="fihrist-baslik-link">Kredi Hacmi</a>
               <span class="fihrist-ozet">Bankacılık kredileri, nominal ve reel yıllık büyüme</span>
+            </li>
+            <li data-ek={aramaEki('/veri/para-arzi/')}>
+              <a href="/veri/para-arzi/" class="fihrist-baslik-link">Para Arzı (M1, M2, M3)</a>
+              <span class="fihrist-ozet">Haftalık para arzı, bileşenleri ve reel değişimi ({paraArziSon ? `M2 yıllık %${sayiYaz(paraArziSon.m2Yillik, 1)}` : '–'})</span>
             </li>
           </ul>
         </div>

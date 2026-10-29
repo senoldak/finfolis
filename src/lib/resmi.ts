@@ -294,6 +294,15 @@ export interface ParaPiyasasiBolumu {
   alinma: string;
 }
 
+// Para arzı (TCMB, haftalık cuma stoku, bin TL); yıllık değişim %.
+export interface ParaArziBolumu {
+  kaynak: Kaynak;
+  birim: string;
+  seriler: SeriAdi[];
+  satirlar: ({ tarih: string } & Record<'m1' | 'm2' | 'm3' | 'm1Yillik' | 'm2Yillik' | 'm3Yillik' | 'dolasim' | 'vadesizTl' | 'vadesizYp' | 'vadeliTl' | 'vadeliYp' | 'repo' | 'ppf' | 'menkul', number>)[];
+  alinma: string;
+}
+
 export const RESMI = data as unknown as {
   kur?: KurBolumu;
   faiz?: FaizBolumu;
@@ -356,6 +365,7 @@ export const RESMI = data as unknown as {
   insaatIzin?: InsaatIzinBolumu;
   kesimBeklenti?: KesimBeklentiBolumu;
   paraPiyasasi?: ParaPiyasasiBolumu;
+  paraArzi?: ParaArziBolumu;
 };
 
 // Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).
