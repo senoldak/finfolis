@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-28T21:41:08.670Z",
+  "guncelleme": "2026-10-29T03:41:03.646Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -7,7 +7,7 @@
       "deger": 49.838,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 41.963,
+      "onceki": 41.946,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -17,10 +17,6 @@
       "gecerlilik": "kur",
       "degisim": 0.1,
       "gecmis": [
-        {
-          "tarih": "2026-07-30",
-          "deger": 47.413
-        },
         {
           "tarih": "2026-07-31",
           "deger": 47.525
@@ -289,7 +285,7 @@
       "deger": 55.4846,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 48.8034,
+      "onceki": 48.8076,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -299,10 +295,6 @@
       "gecerlilik": "kur",
       "degisim": -0.1,
       "gecmis": [
-        {
-          "tarih": "2026-07-30",
-          "deger": 54.4107
-        },
         {
           "tarih": "2026-07-31",
           "deger": 54.5829
@@ -571,7 +563,7 @@
       "deger": 31.551,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 27.555,
+      "onceki": 27.564,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -581,10 +573,6 @@
       "gecerlilik": "kur",
       "degisim": 0,
       "gecmis": [
-        {
-          "tarih": "2026-07-30",
-          "deger": 29.098
-        },
         {
           "tarih": "2026-07-31",
           "deger": 29.66
@@ -882,21 +870,17 @@
     {
       "id": "bist100",
       "ad": "BIST 100",
-      "deger": 11151,
+      "deger": 11165.4004,
       "ondalik": 2,
       "simge": "fabrika",
       "kaynak": {
         "ad": "Piyasa kapanış verisi",
         "url": "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
       },
-      "zaman": "2026-10-27T00:00:00+03:00",
+      "zaman": "2026-10-28T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 0,
+      "degisim": 0.1,
       "gecmis": [
-        {
-          "tarih": "2026-07-30",
-          "deger": 13292.9004
-        },
         {
           "tarih": "2026-07-31",
           "deger": 13458.0996
@@ -1148,13 +1132,17 @@
         {
           "tarih": "2026-10-27",
           "deger": 11151
+        },
+        {
+          "tarih": "2026-10-28",
+          "deger": 11165.4004
         }
       ]
     },
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 4081.2,
+      "deger": 4053,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
@@ -1163,12 +1151,8 @@
       },
       "zaman": "2026-10-28T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 0.2,
+      "degisim": 0,
       "gecmis": [
-        {
-          "tarih": "2026-07-30",
-          "deger": 4100.1001
-        },
         {
           "tarih": "2026-07-31",
           "deger": 4107
@@ -1419,7 +1403,11 @@
         },
         {
           "tarih": "2026-10-28",
-          "deger": 4081.2
+          "deger": 4051.6001
+        },
+        {
+          "tarih": "2026-10-28",
+          "deger": 4053
         }
       ],
       "onEk": "$"
