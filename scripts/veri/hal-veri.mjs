@@ -11,9 +11,11 @@ import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { evdsCek } from '../haberler/evds-ek.mjs';
-import { GUN_SINIRI, MEYVE, SEBZE, bultenFiyatlari, gunEkle } from '../../src/lib/tahmin/hal.mjs';
+import { GUN_SINIRI, MEYVE, SEBZE, bultenAdlari, bultenFiyatlari, gunEkle } from '../../src/lib/tahmin/hal.mjs';
 
 const DOSYA = fileURLToPath(new URL('../../src/data/hal-fiyat.json', import.meta.url));
+// Ürün adları (Gıda Fiyatları sayfası): { 'sebze|175': 'DOMATES' }; yalnız eklenir, ad değişirse son ad kalır.
+const ADLAR = fileURLToPath(new URL('../../src/data/hal-urun-adlari.json', import.meta.url));
 const URL_ = 'https://openapi.izmir.bel.tr/api/ibb/halfiyatlari/sebzemeyve/';
 const UA = 'finfolis-veri/1.0 (+https://finfolis.com)';
 const TUIK_SERILERI = [...MEYVE, ...SEBZE].map((k) => `TP.TUKFIY2025.${k}`);
@@ -59,16 +61,19 @@ export async function halGuncelle(veri, simdi = new Date(), al = bultenAl, bekle
   const bos = new Set(veri.bos ?? []);
   const istenen = istenecekGunler(bugun).filter((t) => !aylar[t.slice(0, 7)]?.gunler.includes(t) && !bos.has(t));
   let alinan = 0;
+  const adlar = {};
   for (const t of istenen) {
     if (alinan > 0 && bekle) await new Promise((r) => setTimeout(r, bekle));
-    const fiyatlar = bultenFiyatlari(await al(t));
+    const bulten = await al(t);
+    const fiyatlar = bultenFiyatlari(bulten);
+    Object.assign(adlar, bultenAdlari(bulten));
     alinan++;
     if (Object.keys(fiyatlar).length) aylar = gunEkle(aylar, t, fiyatlar);
     else if (t < bugun) bos.add(t);
   }
   // Boş gün listesi yalnız istenebilecek pencere için tutulur.
   const pencere = new Set(istenecekGunler(bugun));
-  return { aylar, bos: [...bos].filter((t) => pencere.has(t)).sort(), istek: alinan };
+  return { aylar, bos: [...bos].filter((t) => pencere.has(t)).sort(), istek: alinan, adlar };
 }
 
 export async function tuikAl(simdi, anahtar) {
@@ -96,11 +101,22 @@ export function halJson(v) {
 
 async function gecmistenKur(klasor) {
   let aylar = {};
+  const adlar = {};
   const dosyalar = (await readdir(klasor)).filter((f) => /^\d{4}-\d{2}-\d{2}\.json$/.test(f)).sort();
   for (const f of dosyalar) {
-    aylar = gunEkle(aylar, f.slice(0, 10), bultenFiyatlari(JSON.parse(await readFile(join(klasor, f), 'utf8'))));
+    const bulten = JSON.parse(await readFile(join(klasor, f), 'utf8'));
+    aylar = gunEkle(aylar, f.slice(0, 10), bultenFiyatlari(bulten));
+    Object.assign(adlar, bultenAdlari(bulten));
   }
-  return aylar;
+  return { aylar, adlar };
+}
+
+// Tek satırda bir ürün (diff okunur kalsın), anahtar sırasıyla.
+export function adlarJson(adlar) {
+  const satirlar = Object.keys(adlar)
+    .sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
+    .map((k) => `  ${JSON.stringify(k)}: ${JSON.stringify(adlar[k])}`);
+  return `{\n${satirlar.join(',\n')}\n}\n`;
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
@@ -113,10 +129,21 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   } catch {}
   const yeni = { kaynak: KAYNAK, gunSiniri: GUN_SINIRI, bos: eski.bos ?? [], aylar: eski.aylar ?? {}, tuik: eski.tuik ?? [] };
   const gi = process.argv.indexOf('--gecmis');
+  let eskiAdlarMetin = '';
+  let adlar = {};
   try {
-    if (gi > 0) yeni.aylar = await gecmistenKur(process.argv[gi + 1]);
+    eskiAdlarMetin = await readFile(ADLAR, 'utf8');
+    adlar = JSON.parse(eskiAdlarMetin);
+  } catch {}
+  try {
+    if (gi > 0) {
+      const g = await gecmistenKur(process.argv[gi + 1]);
+      yeni.aylar = g.aylar;
+      Object.assign(adlar, g.adlar);
+    }
     const h = await halGuncelle(yeni, simdi);
     Object.assign(yeni, { aylar: h.aylar, bos: h.bos });
+    Object.assign(adlar, h.adlar);
     console.log(`[hal-veri] İzmir ${h.istek} istek`);
   } catch (e) {
     console.error(`[hal-veri] İzmir bülteni alınamadı, eski aylar korunuyor: ${e.message}`);
@@ -133,6 +160,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const sonAy = Object.keys(yeni.aylar).sort().at(-1);
   const ozet = `${Object.keys(yeni.aylar).length} ay (son ${sonAy}, ${yeni.aylar[sonAy]?.gunler.length ?? 0} gün), TÜİK ${yeni.tuik.length} ay`;
   if (process.argv.includes('--yaz')) {
+    const adlarMetin = adlarJson(adlar);
+    if (adlarMetin !== eskiAdlarMetin && Object.keys(adlar).length) await writeFile(ADLAR, adlarMetin);
     if (metin !== eskiMetin) {
       await writeFile(DOSYA, metin);
       console.log(`[hal-veri] ${ozet}`);

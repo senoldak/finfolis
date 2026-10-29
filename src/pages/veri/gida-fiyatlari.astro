@@ -1,0 +1,337 @@
+---
+// Gıda Fiyatları Göstergesi: İzmir hal bülteninden taze meyve ve sebze toptan fiyatlarının aylık ve yıllık değişimi.
+// Hesap src/lib/gida.mjs (veri src/data/hal-fiyat.json ve hal-urun-adlari.json, bot zincirinde güncellenir). Ağırlıksız
+// ürün ortalamasıdır; TÜİK'in tüketici fiyatları endeksi ya da onun bir alt kalemi değildir, ona dair yorum yapılmaz.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { gunYaz, sayiYaz, yuzdeYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { degisimSerisi, sonKapaliAy, urunTablosu, dagilim } from '../../lib/gida.mjs';
+import halFiyat from '../../data/hal-fiyat.json';
+import halAdlari from '../../data/hal-urun-adlari.json';
+
+const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+const ayYaz = (a: string) => `${AYLAR[Number(a.slice(5, 7)) - 1]} ${a.slice(0, 4)}`;
+const yd = (n: number | null, o = 1) => (n == null ? '–' : `${n > 0.05 ? '+' : ''}${yuzdeYaz(n, o)}`);
+
+const veri = halFiyat as any;
+const bugun = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Istanbul' }).format(new Date());
+const seri = degisimSerisi(veri.aylar);
+const sonAy = sonKapaliAy(veri.aylar, bugun);
+const son = seri.find((r) => r.ay === sonAy) ?? null;
+const ayV = sonAy ? veri.aylar[sonAy] : null;
+const tablo = sonAy ? urunTablosu(veri.aylar, halAdlari as Record<string, string>, sonAy) : [];
+const dAylik = dagilim(tablo, 'aylik');
+const dYillik = dagilim(tablo, 'yillik');
+const sirali = [...tablo].sort((a, b) => (b.aylik ?? -Infinity) - (a.aylik ?? -Infinity));
+const artanlar = sirali.filter((r) => r.aylik != null && r.aylik > 0).slice(0, 5);
+const dusenler = [...sirali].reverse().filter((r) => r.aylik != null && r.aylik < 0).slice(0, 5);
+const gunSiniri = veri.gunSiniri;
+const kaynak = veri.kaynak.hal;
+
+const gorunen = seri.filter((r) => r.ay <= (sonAy ?? ''));
+const noktalarYillik = gorunen.filter((r) => r.yillik.toplam != null).map((r) => [r.t, r.yillik.toplam, r.yillik.sebze, r.yillik.meyve]);
+const noktalarAylik = gorunen.filter((r) => r.aylik.toplam != null).map((r) => [r.t, r.aylik.toplam, r.aylik.sebze, r.aylik.meyve]);
+const gruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'toplam', ad: 'Taze meyve ve sebze', renk: 'murekkep' as const },
+      { id: 'sebze', ad: 'Taze sebze', renk: 'yesil' as const },
+      { id: 'meyve', ad: 'Taze meyve', renk: 'toprak' as const },
+    ],
+  },
+];
+const sonTablo = gorunen.slice(-13).reverse();
+
+const baslik = 'Gıda Fiyatları Göstergesi';
+const description = son
+  ? `${ayYaz(son.ay)}: İzmir hal fiyatlarında taze meyve ve sebze, bir yıl öncesine göre ${yd(son.yillik.toplam)}, geçen aya göre ${yd(son.aylik.toplam)}. Belediye açık verisinden finfolis hesabı.`
+  : 'İzmir hal fiyatlarından taze meyve ve sebze toptan fiyatlarının aylık ve yıllık değişimi, belediye açık verisinden.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/gida-fiyatlari/' },
+];
+const ilkAy = seri[0]?.ay;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(son
+    ? {
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Gıda Fiyatları Göstergesi: taze meyve ve sebze, İzmir hal fiyatları',
+            description:
+              'İzmir Büyükşehir Belediyesi hal bülteninden taze meyve ve sebze toptan fiyatlarının aylık ve yıllık değişimi (ağırlıksız ürün ortalaması) ve ürün bazında aylık ortalama fiyatlar. finfolis hesabıdır, resmi istatistik değildir.',
+            url: 'https://finfolis.com/veri/gida-fiyatlari/',
+            isAccessibleForFree: true,
+            license: 'https://creativecommons.org/licenses/by/4.0/',
+            creator: { '@type': 'Organization', name: 'finfolis', url: 'https://finfolis.com/' },
+            isBasedOn: kaynak.url,
+            temporalCoverage: `${ilkAy}/${sonAy}`,
+            variableMeasured: [
+              'Taze meyve ve sebze toptan fiyatı, yıllık değişim (yüzde)',
+              'Taze meyve ve sebze toptan fiyatı, aylık değişim (yüzde)',
+              'Ürün bazında aylık ortalama toptan fiyat (TL)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Gıda Fiyatları Göstergesi${son ? `: ${ayYaz(son.ay)}` : ''}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Taze meyve ve sebze toptan fiyatları · İzmir hal bülteni, aylık · finfolis hesabı</p>
+    </header>
+    {
+      son && ayV ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Taze meyve ve sebze, yıllık</dt>
+              <dd>{yd(son.yillik.toplam)}</dd>
+              <dd class="veri-degisim">{ayYaz(son.ay)}, bir yıl öncesinin aynı ayına göre · {son.urun.yillik.toplam ?? '–'} ürün</dd>
+            </div>
+            <div>
+              <dt>Taze meyve ve sebze, aylık</dt>
+              <dd>{yd(son.aylik.toplam)}</dd>
+              <dd class="veri-degisim">{ayYaz(son.ay)}, geçen aya göre · {son.urun.aylik.toplam ?? '–'} ürün</dd>
+            </div>
+            <div>
+              <dt>Sebze / meyve, yıllık</dt>
+              <dd>
+                {yd(son.yillik.sebze, 0)} / {yd(son.yillik.meyve, 0)}
+              </dd>
+              <dd class="veri-degisim">{ayYaz(son.ay)}, bir yıl öncesinin aynı ayına göre</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Derleme:</strong> {ayYaz(son.ay)} için hal bülteninin {ayV.gunler.length} günü ({gunYaz(ayV.gunler[0])} –{' '}
+            {gunYaz(ayV.gunler.at(-1))}, ayın ilk {gunSiniri} günü), {tablo.length} ürün fiyatı. <strong>Kaynak:</strong>{' '}
+            <a href={kaynak.url} rel="noopener">{kaynak.ad}</a> (lisans {kaynak.lisans}). Hesap finfolis’indir; resmi
+            istatistik değildir.
+          </p>
+
+          <ZamanGrafik
+            baslik="Yıllık değişim"
+            ipucu="Yüzde, bir yıl öncesinin aynı ayına göre, iki ayda da fiyatı olan ürünlerin ortalaması · Toptan fiyat, İzmir hali"
+            kaynak="Kaynak: İzmir Büyükşehir Belediyesi hal fiyatları (açık veri), finfolis hesabı."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['toplam', 'sebze', 'meyve']}
+            noktalar={noktalarYillik}
+            gruplar={gruplar}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <ZamanGrafik
+            baslik="Aylık değişim"
+            ipucu="Yüzde, geçen aya göre · Taze meyve ve sebze mevsime göre çok oynar; aynı ayları yıllar arasında karşılaştırmak daha anlamlıdır"
+            kaynak="Kaynak: İzmir Büyükşehir Belediyesi hal fiyatları (açık veri), finfolis hesabı."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['toplam', 'sebze', 'meyve']}
+            noktalar={noktalarAylik}
+            gruplar={gruplar}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 13 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Yıllık</th>
+                      <th scope="col" class="sag">Aylık</th>
+                      <th scope="col" class="sag">Sebze, yıllık</th>
+                      <th scope="col" class="sag">Meyve, yıllık</th>
+                      <th scope="col" class="sag">Bülten günü</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sonTablo.map((r) => (
+                      <tr>
+                        <td>{ayYaz(r.ay)}</td>
+                        <td class="sag">{yd(r.yillik.toplam)}</td>
+                        <td class="sag">{yd(r.aylik.toplam)}</td>
+                        <td class="sag">{yd(r.yillik.sebze)}</td>
+                        <td class="sag">{yd(r.yillik.meyve)}</td>
+                        <td class="sag">{r.gun}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Değişimler ağırlıksızdır: her ürün eşit sayılır. Bülten günü, ayın ilk {gunSiniri} gününde yayımlanan bülten
+                sayısıdır; tatil ve hafta sonu bülten çıkmaz.
+              </p>
+            </section>
+
+            <section class="bolum">
+              <h2 class="bolum-baslik">{ayYaz(son.ay)}: ürünlerin dağılımı</h2>
+              <p>
+                Geçen aya göre {dAylik.n} üründen {dAylik.artan} tanesinin fiyatı arttı, {dAylik.azalan} tanesininki düştü;
+                ortanca değişim {yd(dAylik.medyan)}. Bir yıl öncesine göre {dYillik.n} üründen {dYillik.artan} tanesi daha
+                pahalı, {dYillik.azalan} tanesi daha ucuz; ortanca değişim {yd(dYillik.medyan)}.
+              </p>
+              <div class="iki-liste">
+                <div>
+                  <h3>Geçen aya göre en çok artan</h3>
+                  <ul>
+                    {artanlar.map((r) => (
+                      <li>
+                        {r.ad} ({r.birim}) <span class="sag">{yd(r.aylik, 0)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3>Geçen aya göre en çok düşen</h3>
+                  <ul>
+                    {dusenler.map((r) => (
+                      <li>
+                        {r.ad} ({r.birim}) <span class="sag">{yd(r.aylik, 0)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <p class="veri-notu">Ürün adları bültende yazıldığı gibidir.</p>
+            </section>
+          </div>
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Ürün fiyatları, {ayYaz(son.ay)}</h2>
+            <div class="tablo-sarma urun-sarma">
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Ürün</th>
+                    <th scope="col">Tür</th>
+                    <th scope="col">Birim</th>
+                    <th scope="col" class="sag">Ortalama fiyat (TL)</th>
+                    <th scope="col" class="sag">Aylık</th>
+                    <th scope="col" class="sag">Yıllık</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tablo.map((r) => (
+                    <tr>
+                      <td>{r.ad}</td>
+                      <td>{r.grup === 'sebze' ? 'Sebze' : 'Meyve'}</td>
+                      <td>{r.birim}</td>
+                      <td class="sag">{sayiYaz(r.fiyat, 2)}</td>
+                      <td class="sag">{yd(r.aylik)}</td>
+                      <td class="sag">{yd(r.yillik)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="veri-notu">
+              Ortalama fiyat, ürünün bültendeki günlük ortalama toptan fiyatlarının ({ayYaz(son.ay)}, ayın ilk {gunSiniri}{' '}
+              günü) geometrik ortalamasıdır. Perakende fiyat değildir. Veri {kaynak.lisans} lisansıyla, kaynak gösterilerek
+              kullanılabilir.
+            </p>
+          </section>
+
+          <section class="bolum prose veri-aciklama">
+            <h2 class="bolum-baslik">Gösterge nasıl hesaplanıyor?</h2>
+            <p>
+              <strong>Kapsam.</strong> İzmir Büyükşehir Belediyesi sebze ve meyve halinin günlük fiyat bülteni. Bültendeki
+              bütün taze meyve ve sebzeler girer; ithal ürünler girmez. Fiyat, bültenin her ürün için verdiği günlük ortalama
+              toptan fiyattır. Tek bir şehrin hal fiyatıdır; Türkiye geneli ya da perakende fiyat değildir.
+            </p>
+            <p>
+              <strong>Derleme.</strong> Her ayın ilk {gunSiniri} günündeki bültenler kullanılır. Bir ürünün aylık fiyatı bu
+              günlerdeki fiyatlarının geometrik ortalamasıdır. Veri {ayYaz(ilkAy)}’dan beri her gün otomatik olarak alınır.
+            </p>
+            <p>
+              <strong>Aylık değişim.</strong> İki ardışık ayda da fiyatı olan ürünlerin fiyat oranlarının geometrik
+              ortalamasıdır. Fiyatı üç katından fazla artan ya da üçte birinin altına düşen ürün hesaba katılmaz; bunlar
+              çoğunlukla mevsim başı ya da sonundaki birkaç günlük fiyattır.
+            </p>
+            <p>
+              <strong>Yıllık değişim.</strong> Ayın ürünleri bir yıl önceki aynı ayın aynı ürünleriyle doğrudan
+              karşılaştırılır. Aylık değişimler üst üste eklenmez, çünkü mevsimlik ürünler yıl içinde girip çıktıkça bu
+              toplam yanıltıcı biçimde kayar.
+            </p>
+            <p>
+              <strong>Ağırlık.</strong> Yok: her ürün eşit sayılır. Gösterge harcama payına göre ağırlıklandırılmış bir
+              tüketici fiyat endeksi değildir ve resmi bir istatistiğin yerine geçmez.
+            </p>
+            <p>
+              Aynı veriyle kurulan aylık tahmin ve onun örneklem dışı karnesi <a href="/veri/tahmin/">Tahminler ve
+              karneleri</a> sayfasındadır.
+            </p>
+            <p class="veri-notu">
+              Bu göstergenin fikri, fiyatları kendisi derleyerek bağımsız ölçüm yapan{' '}
+              <a href="https://www.webtufe.com/" rel="noopener">WebTÜFE</a> ve açık kaynaklı{' '}
+              <a href="https://github.com/fkasap/KTufe" rel="noopener">KTufe</a> çalışmalarından geldi; emekleri için teşekkür
+              ederiz. Hesapta onların verisi, kodu ya da sepeti kullanılmadı: kaynak yalnız İzmir hal bültenidir.
+            </p>
+          </section>
+        </>
+      ) : (
+        <p class="bos">Hal fiyatı verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/tahmin/">Tahminler ve karneleri</a>
+      <a href="/veri/enflasyon/">Tüketici enflasyonu (TÜFE)</a>
+      <a href="/veri/enflasyon-katkilari/">Enflasyonun kaynakları</a>
+    </nav>
+    <YasalUyari>
+      Bu sayfadaki rakamlar İzmir Büyükşehir Belediyesi’nin açık verisinden finfolis tarafından hesaplanır, bilgi amaçlıdır
+      ve resmi istatistik değildir. Yatırım tavsiyesi değildir.
+    </YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+  .urun-sarma {
+    max-height: 28rem;
+    overflow-y: auto;
+  }
+  .iki-liste {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1rem;
+  }
+  .iki-liste h3 {
+    font-size: 1rem;
+    margin: 0 0 0.4rem;
+  }
+  .iki-liste ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .iki-liste li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid var(--cizgi, rgba(0, 0, 0, 0.1));
+  }
+</style>

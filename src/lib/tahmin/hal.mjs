@@ -41,6 +41,18 @@ export function bultenFiyatlari(bulten) {
   return out;
 }
 
+// Bir günün bülteninden ürün adları → { 'sebze|175': 'DOMATES' } (Gıda Fiyatları sayfasının ürün tablosu için).
+export function bultenAdlari(bulten) {
+  const out = {};
+  for (const s of bulten?.HalFiyatListesi ?? []) {
+    const grup = HAL_GRUP[String(s.MalTipAdi ?? '').trim()];
+    const ad = String(s.MalAdi ?? '').trim();
+    if (!grup || !ad) continue;
+    out[`${grup}|${s.MalId}`] = ad.replace(/\s+/g, ' '); // kaynaktaki gibi (büyük harf; "DEVECI" gibi yazımlar düzeltilmez)
+  }
+  return out;
+}
+
 // Aylık özete bir gün ekler: urunler[k] = [geometrik ortalama, gün sayısı]. Aynı gün iki kez eklenmez; ayın
 // GUN_SINIRI'nden sonraki günleri ve boş bültenler katılmaz. Yeni özet döner (girdi değişmez); değişmediyse aynısı.
 export function gunEkle(aylar, tarih, fiyatlar) {
