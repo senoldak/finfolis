@@ -1,120 +1,132 @@
 ---
-// Veriler Ana Sayfası: Tüm Göstergeler, Zaman Serileri, Kur Tahtası ve Tematik Fihrist
-// Son güncellenen serilerden başlayarak kronolojik olarak sıralanmış kartlar.
+// Veriler ana sayfası: arama kutusu, konulara göre bütün veri sayfaları ve öne çıkan gösterge kartları.
+// Arama tarayıcıda madde metnine ve data-ek'e bakar; data-ek, eş anlamlılarla seri gezgini kataloğundaki seri adlarıdır.
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import VeriKarti from '../../components/VeriKarti.astro';
 import { RESMI, ayAdi, gunYaz, oranYaz, sayiYaz } from '../../lib/resmi';
-import { ayinFaizi, enflasyonHizi, kayanToplam, kiraCarpani, kurHizi, reelFaiz } from '../../lib/turetilmis.mjs';
+import { ayinFaizi, kiraCarpani, kurHizi, reelFaiz } from '../../lib/turetilmis.mjs';
 import bistTufeData from '../../data/bist-tufe.json';
 import reelBistData from '../../data/reel-bist.json';
 import altinData from '../../data/tcmb-altin-kazanci.json';
 import swapData from '../../data/tcmb-swap-orani.json';
 import abdTahvilleriData from '../../data/abd-tahvilleri.json';
-import abdTahvilData from '../../data/abd-tahvil.json';
-import makroData from '../../data/makro-soklar.json';
 import dunyaFaizData from '../../data/dunya-faizleri.json';
-import sektorData from '../../data/sektorler.json';
+import kurOynaklikData from '../../data/kur-oynakligi.json';
+import { veriKatalogu } from '../../lib/seri-katalogu-veri';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
 const dunyaFaz = (f: string) => dunyaFaizData.satirlar.filter((x: { faz: string }) => x.faz === f).length;
-const { kur, faiz, enflasyon, konut, issizlik, rezerv, piyasaFaizleri, mevduat, beklenti, kira, kart, guven, rek, brutRezerv, kapasite } = RESMI;
+const { kur, faiz, enflasyon, konut, issizlik, rezerv, beklenti, kira, guven, rek, brutRezerv, kapasite } = RESMI;
 const kiraSon = kira?.satirlar.at(-1);
-const kartSon = kart?.satirlar.at(-1);
 const guvenSon = guven?.satirlar.at(-1);
+const kapasiteSon = kapasite?.satirlar.at(-1);
+const issizlikSon = issizlik?.satirlar.at(-1);
 const rekSon = rek?.satirlar.at(-1);
 const brutRezervSon = brutRezerv?.satirlar.at(-1);
-const kapasiteSon = kapasite?.satirlar.at(-1);
-// Yabancı portföy ve cari denge kartları (finfolis hesaplaması: yılbaşından toplam, 12 aylık birikimli).
-const portfoySatir = RESMI.portfoyHaftalik?.satirlar ?? [];
-const portfoySon = portfoySatir.at(-1);
-const portfoyYil = portfoySon ? portfoySatir.filter((s) => s.tarih.startsWith(portfoySon.tarih.slice(0, 4))).reduce((t, s) => t + s.hisse, 0) : 0;
-const portfoySeri = (kayanToplam(portfoySatir, 'hisse', 52) as (number | null)[]).slice(-104).filter((v): v is number => v != null).map((v) => v / 1000);
-const cariSatir = RESMI.cari?.satirlar ?? [];
-const cariSon = cariSatir.at(-1);
-const cari12 = kayanToplam(cariSatir, 'cari', 12) as (number | null)[];
-// Hesaplanmış göstergeler (finfolis): kartlarda son değer ve kısa seri.
+// Hesaplanmış göstergeler (finfolis): fihristte son değer.
 const { kurHaftalik, makas, birimFiyat } = RESMI;
-const usdHiz = kurHizi(kurHaftalik?.satirlar ?? [], 'usd', 4);
-const enfHiz = enflasyonHizi(enflasyon?.satirlar ?? [], RESMI.tufeArindirilmis?.satirlar ?? []).filter(
-  (x: { ucAylikHiz: number | null }) => x.ucAylikHiz != null,
-);
-const reelSatirlar = (beklenti?.satirlar ?? [])
+const usdHizSon = kurHizi(kurHaftalik?.satirlar ?? [], 'usd', 4).at(-1);
+const usdOynaklik = kurOynaklikData.seriler?.find((x: { id: string }) => x.id === 'usdtry')?.oynaklik.son30;
+const reelSon = (beklenti?.satirlar ?? [])
   .map((b) => {
     const p = ayinFaizi(faiz?.gecmis ?? [], b.yil, b.ay);
-    return p == null ? null : { yil: b.yil, ay: b.ay, reel: reelFaiz(p, b.ay12) as number };
+    return p == null ? null : { reel: reelFaiz(p, b.ay12) as number };
   })
-  .filter((x): x is { yil: number; ay: number; reel: number } => x != null);
-const carpanSatirlar = (birimFiyat?.satirlar ?? []).map((s) => ({ ...s, carpan: kiraCarpani(s.iller.Türkiye.fiyat, s.iller.Türkiye.kira) as number }));
-const makasSatirlar = (makas?.satirlar ?? []).map((s) => ({ tarih: s.tarih, fark: s.ihtiyac - s.mevduat }));
-const usdHizSon = usdHiz.at(-1);
-const enfHizSon = enfHiz.at(-1);
-const reelSon = reelSatirlar.at(-1);
-const carpanSon = carpanSatirlar.at(-1);
-const makasSon = makasSatirlar.at(-1);
+  .filter((x): x is { reel: number } => x != null)
+  .at(-1);
+const carpanSon = (birimFiyat?.satirlar ?? []).map((s) => ({ carpan: kiraCarpani(s.iller.Türkiye.fiyat, s.iller.Türkiye.kira) as number })).at(-1);
+const makasSon = (makas?.satirlar ?? []).map((s) => ({ fark: s.ihtiyac - s.mevduat })).at(-1);
 const beklentiSon = beklenti?.satirlar.at(-1);
-
-// Resmi tekil göstergelerin son değerleri
 const enflasyonSon = enflasyon?.satirlar.at(-1);
 const konutSon = konut?.satirlar.at(-1);
-const issizlikSon = issizlik?.satirlar.at(-1);
-const piyasaFaizleriSon = piyasaFaizleri?.satirlar.at(-1);
-const mevduatSon = mevduat?.satirlar.at(-1);
-const mevduatOnceki = mevduat?.satirlar.at(-2);
-const farkMevduat = mevduatSon && mevduatOnceki ? mevduatSon.toplam - mevduatOnceki.toplam : 0;
-
-// Bağımsız veri setlerinin son değerleri
 const altinSon = altinData?.seri?.at(-1);
 const swapSon = swapData?.seri?.at(-1);
 const abdTahvilleriSon = abdTahvilleriData?.sonNokta;
-const abdTahvilSon = abdTahvilData?.seri?.at(-1);
 
 const satir = (kod: string) => kur?.liste.find((k) => k.kod === kod);
 const kurSayisi = kur?.liste.length ?? 22;
 
-// Hızlı Kur Tahtası için Başlıca Kurlar
-const seciliKurlar = ['USD', 'EUR', 'GBP', 'CHF', 'JPY', 'CAD', 'AUD', 'SAR']
-  .map((kod) => satir(kod))
-  .filter((k): k is NonNullable<typeof k> => Boolean(k));
-
-const kurSayfaHaritasi: Record<string, string> = {
-  USD: '/veri/dolar-kuru/',
-  EUR: '/veri/euro-kuru/',
-  GBP: '/veri/sterlin-kuru/',
-};
-
-// Görsel Sparkline Trend Serileri
+// Öne çıkan kartların kısa serileri
 const usdSeri = kur?.gecmis?.map((g) => (g as Record<string, { satis: number }>).USD?.satis).filter((v): v is number => typeof v === 'number').slice(-30) ?? [];
 const eurSeri = kur?.gecmis?.map((g) => (g as Record<string, { satis: number }>).EUR?.satis).filter((v): v is number => typeof v === 'number').slice(-30) ?? [];
-const altinSeri = altinData?.seri?.slice(-30).map((s) => s.kazanc_milyar_usd) ?? [];
 const faizSeri = faiz?.gecmis?.slice(-16).map((g) => g.oran) ?? [];
-const sektorSeri = sektorData?.sektorler?.slice(0, 14).map((s) => s.aylik) ?? [];
-const sektorMetin = sektorData?.sektorler?.slice(0, 14).map((s) => `${s.ad.replace(/^BIST /, '')}: ${s.aylik < 0 ? '−' : ''}%${sayiYaz(Math.abs(s.aylik), 1)}`) ?? [];
-const netPozSeri = rezerv?.gecmis?.slice(-30).map((g) => g.deger) ?? [];
-const bistTufeSeri = bistTufeData?.noktalar?.slice(-30).map((n: { deger: number }) => n.deger) ?? [];
-const piyasaFaizSeri = piyasaFaizleri?.satirlar?.slice(-24).map((s) => s.mevduat) ?? [];
-const mevduatSeri = mevduat?.satirlar?.slice(-24).map((s) => s.toplam / 1000) ?? [];
 const reelBistSeri = reelBistData?.noktalar?.slice(-36).map((n: { reelEndeks: number }) => n.reelEndeks) ?? [];
 const tufeSeri = enflasyon?.satirlar?.slice(-24).map((s) => s.yillik) ?? [];
 const beklentiSeri = beklenti?.satirlar?.slice(-24).map((s) => s.ay12) ?? [];
-const kiraSeri = kira?.satirlar?.slice(-24).map((s) => s.bolgeler.TR.yillik) ?? [];
-const kartSeri = kart?.satirlar?.slice(-52).map((s) => s.sektorler.KT1.yillik ?? 0) ?? [];
-const guvenSeri = guven?.satirlar?.slice(-24).map((s) => s.endeks) ?? [];
-const rekSeri = rek?.satirlar?.slice(-36).map((s) => s.genel) ?? [];
 const brutRezervSeri = brutRezerv?.satirlar?.slice(-52).map((s) => s.toplam / 1000) ?? [];
-const kapasiteSeri = kapasite?.satirlar?.slice(-24).map((s) => s.arindirilmis) ?? [];
-const swapSeri = swapData?.seri?.slice(-24).map((s) => s.swap_payi_toplam_yuzde) ?? [];
 const konutSeri = konut?.satirlar?.slice(-24).map((s) => s.bolgeler.TR.yillik) ?? [];
-const abdTahvilAkimSeri = abdTahvilData?.seri?.slice(-24).map((s) => s.netAkim / 1000) ?? [];
-const abdTahvilleriSeri = abdTahvilleriData?.noktalar?.slice(-24).map((n) => n.toplamUSD / 1000) ?? [];
-const issizlikSeri = issizlik?.satirlar?.slice(-24).map((s) => s.oran) ?? [];
-const makroSokListe = (makroData?.gostergeler?.tge?.top10 ?? []).slice(0, 10).reverse();
-const makroSokSeri = makroSokListe.map((s) => s.diff);
-const makroSokMetin = makroSokListe.map((s) => `${s.label}: ${s.diff < 0 ? '−' : '+'}${sayiYaz(Math.abs(s.diff), 1)} puan`);
+
+// Aramada sayfa adında geçmeyen ama okurun yazabileceği sözcükler.
+const ESANLAM: Record<string, string> = {
+  '/veri/enflasyon/': 'tüfe fiyat pahalılık hayat pahalılığı',
+  '/veri/enflasyon-hizi/': 'tüfe aylık enflasyon',
+  '/veri/enflasyon-katkilari/': 'tüfe gıda enerji kira harcama grupları',
+  '/veri/enflasyon-beklentisi/': 'piyasa katılımcıları anketi tüfe',
+  '/veri/enflasyon-yolu/': 'baz etkisi tüfe yıl sonu',
+  '/hesapla/kisisel-enflasyon/': 'tüfe hesaplama',
+  '/veri/politika-faizi/': 'ppk repo merkez bankası faiz kararı',
+  '/veri/reel-faiz/': 'faiz enflasyon',
+  '/veri/piyasa-faizleri/': 'mevduat faizi kredi faizi konut kredisi taşıt',
+  '/veri/kredi-mevduat-makasi/': 'banka faiz',
+  '/veri/taylor-kurali/': 'politika faizi',
+  '/veri/tcmb-karnesi/': 'enflasyon raporu ara hedef merkez bankası',
+  '/veri/dolar-kuru/': 'usd döviz kur',
+  '/veri/euro-kuru/': 'eur avro döviz kur',
+  '/veri/sterlin-kuru/': 'gbp pound döviz kur',
+  '/veri/doviz-kurlari/': 'döviz kur frank yen riyal ruble',
+  '/veri/kur-degisim-hizi/': 'dolar euro döviz',
+  '/veri/kur-oynakligi/': 'dolar euro döviz volatilite dağılım mevsimsellik dolar endeksi',
+  '/veri/reel-efektif-kur/': 'tl değeri döviz kur',
+  '/veri/doviz-mevduatlari/': 'dth döviz hesabı yp mevduat',
+  '/veri/tcmb-rezervleri/': 'rezerv altın döviz merkez bankası',
+  '/veri/net-doviz-pozisyonu/': 'net rezerv merkez bankası',
+  '/veri/swap-payi/': 'rezerv merkez bankası',
+  '/veri/altin-kazanci/': 'altın rezerv ons',
+  '/veri/cari-denge/': 'cari açık ödemeler dengesi',
+  '/veri/dis-ticaret/': 'ihracat ithalat dış ticaret açığı',
+  '/veri/dis-borc/': 'borç',
+  '/veri/yabanci-portfoy-akimlari/': 'yabancı hisse tahvil sıcak para',
+  '/veri/abd-tahvilleri/': 'hazine tahvil',
+  '/veri/abd-tahvil-akimlari/': 'hazine tahvil',
+  '/veri/butce-dengesi/': 'bütçe açığı vergi harcama maliye',
+  '/veri/sanayi-uretimi/': 'üretim büyüme imalat',
+  '/veri/kapasite-kullanimi/': 'sanayi üretim',
+  '/veri/issizlik-orani/': 'istihdam iş işgücü',
+  '/veri/kartli-harcamalar/': 'kredi kartı tüketim harcama',
+  '/veri/tuketici-guveni/': 'tüketim güven',
+  '/veri/kredi-hacmi/': 'banka kredi',
+  '/veri/konut-fiyat-endeksi/': 'ev fiyat emlak konut',
+  '/veri/kira-endeksi/': 'ev kira',
+  '/veri/kira-carpani/': 'ev kira amortisman',
+  '/veri/reel-bist-30/': 'borsa hisse bist',
+  '/veri/bist-100-tufe/': 'borsa hisse bist',
+  '/veri/sektorler/': 'borsa hisse bist banka',
+  '/veri/makro-soklar/': 'borsa kriz',
+  '/veri/dunya-politika-faizleri/': 'faiz merkez bankası',
+  '/veri/emsal-ulkeler/': 'ülke karşılaştırma büyüme enflasyon',
+  '/veri/dunyada-turkiye/': 'ülke sıralama',
+  '/veri/fed-projeksiyonlari/': 'abd faiz nokta grafiği',
+  '/veri/fomc-aciklama-metni/': 'fed abd',
+  '/veri/fomc-tonu/': 'fed abd',
+  '/veri/ecb-aciklama-metni/': 'avrupa merkez bankası euro bölgesi',
+  '/veri/ecb-tonu/': 'avrupa merkez bankası euro bölgesi',
+  '/veri/tahmin/': 'model',
+  '/veri/seri-gezgini/': 'grafik karşılaştır csv indir',
+  '/veri/takvim/': 'açıklanma tarihi ne zaman',
+  '/veri/guncellik/': 'son veri',
+  '/veri/revizyonlar/': 'düzeltme',
+};
+const SERI_ADLARI = new Map<string, Set<string>>();
+for (const s of veriKatalogu() as { ad: string; sayfa: string }[]) {
+  if (!SERI_ADLARI.has(s.sayfa)) SERI_ADLARI.set(s.sayfa, new Set());
+  SERI_ADLARI.get(s.sayfa)!.add(s.ad);
+}
+const aramaEki = (href: string) => [ESANLAM[href] ?? '', ...(SERI_ADLARI.get(href) ?? [])].join(' ').trim();
 
 const description =
-  'TCMB net döviz pozisyonu, döviz kurları, politika faizi, TÜFE’den arındırılmış BİST 30, BİST 100 rasyoları, ABD tahvil akımları ve konut fiyatları: Son güncellenen resmi verilerle interaktif gösterge kartları.';
+  'Enflasyon, faiz, döviz, rezerv, dış denge, konut, borsa ve dünya merkez bankaları: finfolis veri sayfalarının konulara göre tam listesi ve öne çıkan göstergelerin son değerleri.';
 const yol = [
   { ad: 'Anasayfa', href: '/' },
   { ad: 'Veriler', href: '/veri/' },
@@ -138,20 +150,374 @@ const araclar = [
       <p>Borsa, enflasyon, faiz, rezerv ve kurların resmi serileri ve finfolis analizleri</p>
     </header>
 
+    <nav class="dizin-ara" aria-label="Veri sayfalarında ara">
+      <label for="dizin-ara-kutu" class="dizin-ara-etiket">Gösterge ara</label>
+      <input
+        id="dizin-ara-kutu"
+        class="dizin-ara-kutu"
+        type="search"
+        placeholder="Örneğin: kira, dolar, işsizlik"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <p class="dizin-ara-durum" id="dizin-ara-durum" aria-live="polite" hidden></p>
+      <ul class="dizin-atla">
+        <li><a href="#enflasyon">Enflasyon &amp; Fiyatlar</a></li>
+        <li><a href="#faiz">Faiz &amp; TCMB</a></li>
+        <li><a href="#doviz">Döviz &amp; Rezervler</a></li>
+        <li><a href="#dis-denge">Dış Denge &amp; Bütçe</a></li>
+        <li><a href="#buyume">Büyüme, İş &amp; Tüketim</a></li>
+        <li><a href="#konut">Konut &amp; Kira</a></li>
+        <li><a href="#borsa">Borsa</a></li>
+        <li><a href="#dunya">Dünya &amp; Merkez Bankaları</a></li>
+        <li><a href="#araclar">Tahmin &amp; Araçlar</a></li>
+      </ul>
+    </nav>
+
     <p class="sayfa-giris">
       Rakamlar doğrudan TCMB, TÜİK, Borsa İstanbul ve ABD Hazine Bakanlığı bültenlerinden derlenir. Veriler yalnızca nominal değerleriyle değil,
       enflasyondan arındırılmış satın alma gücü, tarihsel standart sapmaları ve zaman serisi eğrileriyle analiz edilir.
     </p>
 
-    <!-- Tüm Gösterge Kartları Izgarası (Son Güncellenenden Başlayarak Sıralı) -->
+    <section class="bolum" aria-labelledby="fihrist-baslik">
+      <div class="bolum-baslik-sarici">
+        <h2 id="fihrist-baslik" class="bolum-baslik">Bütün Veri Sayfaları</h2>
+        <span class="bolum-ipucu">Konularına göre, son değerleriyle</span>
+      </div>
+
+      <div class="fihrist-izgara">
+        <div class="fihrist-kutu" id="enflasyon">
+          <div class="fihrist-kutu-baslik">
+            <h3>Enflasyon &amp; Fiyatlar</h3>
+          </div>
+          <ul class="fihrist-liste">
+            <li data-ek={aramaEki('/veri/enflasyon/')}>
+              <a href="/veri/enflasyon/" class="fihrist-baslik-link">Tüketici Enflasyonu (TÜFE)</a>
+              <span class="fihrist-ozet">TÜİK resmi yıllık ({enflasyonSon ? `%${sayiYaz(enflasyonSon.yillik, 2)}` : '–'}) ve aylık fiyat artışları</span>
+            </li>
+            <li data-ek={aramaEki('/veri/enflasyon-hizi/')}>
+              <a href="/veri/enflasyon-hizi/" class="fihrist-baslik-link">Enflasyon Hızı</a>
+              <span class="fihrist-ozet">Aylık ve üç aylık fiyat artışının yıllık karşılığı</span>
+            </li>
+            <li data-ek={aramaEki('/veri/enflasyon-katkilari/')}>
+              <a href="/veri/enflasyon-katkilari/" class="fihrist-baslik-link">Enflasyonun Kaynakları</a>
+              <span class="fihrist-ozet">13 ana harcama grubunun yıllık ve aylık enflasyona katkısı</span>
+            </li>
+            <li data-ek={aramaEki('/veri/enflasyon-beklentisi/')}>
+              <a href="/veri/enflasyon-beklentisi/" class="fihrist-baslik-link">Enflasyon Beklentisi</a>
+              <span class="fihrist-ozet">TCMB anketinde 12 ay ({beklentiSon ? `%${sayiYaz(beklentiSon.ay12, 2)}` : '–'}) ve 24 ay sonrası beklenti, gerçekleşenle birlikte</span>
+            </li>
+            <li data-ek={aramaEki('/hesapla/kisisel-enflasyon/')}>
+              <a href="/hesapla/kisisel-enflasyon/" class="fihrist-baslik-link">Kişisel Enflasyon Hesaplama</a>
+              <span class="fihrist-ozet">Kendi harcama dağılımınızla yıllık enflasyon</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="fihrist-kutu" id="faiz">
+          <div class="fihrist-kutu-baslik">
+            <h3>Faiz &amp; TCMB</h3>
+          </div>
+          <ul class="fihrist-liste">
+            <li data-ek={aramaEki('/veri/politika-faizi/')}>
+              <a href="/veri/politika-faizi/" class="fihrist-baslik-link">TCMB Politika Faizi (PPK)</a>
+              <span class="fihrist-ozet">1 hafta vadeli repo ihale faiz oranı ve toplantı kararları ({faiz ? `%${oranYaz(faiz.oran)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/reel-faiz/')}>
+              <a href="/veri/reel-faiz/" class="fihrist-baslik-link">Reel Faiz</a>
+              <span class="fihrist-ozet">Politika faizinin beklenen ve gerçekleşen enflasyona göre reel karşılığı ({reelSon ? `%${sayiYaz(reelSon.reel, 1)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/piyasa-faizleri/')}>
+              <a href="/veri/piyasa-faizleri/" class="fihrist-baslik-link">Piyasa Faizleri (Kredi &amp; Mevduat)</a>
+              <span class="fihrist-ozet">1-3 ay TL mevduat, ihtiyaç, taşıt ve konut kredisi haftalık akım faizleri</span>
+            </li>
+            <li data-ek={aramaEki('/veri/kredi-mevduat-makasi/')}>
+              <a href="/veri/kredi-mevduat-makasi/" class="fihrist-baslik-link">Kredi-Mevduat Makası</a>
+              <span class="fihrist-ozet">Kredi ve mevduat faizi arasındaki fark, 2018’den ({makasSon ? `${sayiYaz(makasSon.fark, 1)} puan` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/tcmb-karnesi/')}>
+              <a href="/veri/tcmb-karnesi/" class="fihrist-baslik-link">TCMB Karnesi</a>
+              <span class="fihrist-ozet">Enflasyon Raporu tahminleri, ara hedefler, anket beklentileri ve metin tonu gerçekleşenle karşılaştırmalı</span>
+            </li>
+            <li data-ek={aramaEki('/veri/ppk-karar-metni/')}>
+              <a href="/veri/ppk-karar-metni/" class="fihrist-baslik-link">PPK Karar Metni Farkı</a>
+              <span class="fihrist-ozet">Her faiz kararı metni bir öncekiyle cümle cümle: eklenen, silinen ve değişen cümleler</span>
+            </li>
+            <li data-ek={aramaEki('/veri/ppk-tonu/')}>
+              <a href="/veri/ppk-tonu/" class="fihrist-baslik-link">PPK Metin Tonu</a>
+              <span class="fihrist-ozet">PPK metinlerinin yapay zekâyla okunan yönü, −3 güvercin ile +3 şahin arası</span>
+            </li>
+            <li data-ek={aramaEki('/veri/ppk-ifade-izi/')}>
+              <a href="/veri/ppk-ifade-izi/" class="fihrist-baslik-link">PPK İfade İzi</a>
+              <span class="fihrist-ozet">PPK metinlerinde bir ifadenin hangi toplantıda ilk göründüğü, hangisinde kaybolduğu</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="fihrist-kutu" id="doviz">
+          <div class="fihrist-kutu-baslik">
+            <h3>Döviz &amp; Rezervler</h3>
+          </div>
+          <ul class="fihrist-liste">
+            <li data-ek={aramaEki('/veri/dolar-kuru/')}>
+              <a href="/veri/dolar-kuru/" class="fihrist-baslik-link">Dolar / TL (TCMB)</a>
+              <span class="fihrist-ozet">Gösterge döviz ve efektif satış kuru ({satir('USD') ? `₺${sayiYaz(satir('USD')!.dovizSatis, 2)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/euro-kuru/')}>
+              <a href="/veri/euro-kuru/" class="fihrist-baslik-link">Euro / TL (TCMB)</a>
+              <span class="fihrist-ozet">Gösterge döviz ve efektif satış kuru ({satir('EUR') ? `₺${sayiYaz(satir('EUR')!.dovizSatis, 2)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/sterlin-kuru/')}>
+              <a href="/veri/sterlin-kuru/" class="fihrist-baslik-link">Sterlin / TL (TCMB)</a>
+              <span class="fihrist-ozet">İngiliz Sterlini gösterge kuru ({satir('GBP') ? `₺${sayiYaz(satir('GBP')!.dovizSatis, 2)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/doviz-kurlari/')}>
+              <a href="/veri/doviz-kurlari/" class="fihrist-baslik-link">Tüm döviz kurları ({kurSayisi} para birimi)</a>
+              <span class="fihrist-ozet">TCMB bültenindeki tüm kurların alış, satış ve efektif tablosu</span>
+            </li>
+            <li data-ek={aramaEki('/veri/kur-degisim-hizi/')}>
+              <a href="/veri/kur-degisim-hizi/" class="fihrist-baslik-link">Kur Değişim Hızı</a>
+              <span class="fihrist-ozet">Dolar ve euronun 4 ve 13 haftalık yıllıklandırılmış değişimi ({usdHizSon ? `%${sayiYaz(usdHizSon.hiz, 1)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/kur-oynakligi/')}>
+              <a href="/veri/kur-oynakligi/" class="fihrist-baslik-link">Kur Oynaklığı</a>
+              <span class="fihrist-ozet">Dolar/TL, euro/TL, dolar endeksi ve euro/dolar: gerçekleşmiş oynaklık, geçmiş değişimlerin dağılımı, ay etkisi ({usdOynaklik != null ? `%${sayiYaz(usdOynaklik, 1)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/reel-efektif-kur/')}>
+              <a href="/veri/reel-efektif-kur/" class="fihrist-baslik-link">Reel Efektif Döviz Kuru</a>
+              <span class="fihrist-ozet">TÜFE bazlı, 2025=100 ({rekSon ? sayiYaz(rekSon.genel, 2) : '–'}); artış TL’nin reel değer kazancı</span>
+            </li>
+            <li data-ek={aramaEki('/veri/doviz-mevduatlari/')}>
+              <a href="/veri/doviz-mevduatlari/" class="fihrist-baslik-link">Döviz Mevduatları (YP Mevduat)</a>
+              <span class="fihrist-ozet">Bankacılık sektörü yurtiçi yerleşiklerin döviz ve altın mevduatları</span>
+            </li>
+            <li data-ek={aramaEki('/veri/tcmb-rezervleri/')}>
+              <a href="/veri/tcmb-rezervleri/" class="fihrist-baslik-link">TCMB Rezervleri</a>
+              <span class="fihrist-ozet">Haftalık altın ve döviz rezervleri ({brutRezervSon ? `$${sayiYaz(brutRezervSon.toplam / 1000, 1)} mlr` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/net-doviz-pozisyonu/')}>
+              <a href="/veri/net-doviz-pozisyonu/" class="fihrist-baslik-link">TCMB Net Döviz Pozisyonu</a>
+              <span class="fihrist-ozet">Swaplar ve Hazine dövizi hariç net çekirdek rezerv ({rezerv ? `+$${sayiYaz(rezerv.netDovizPozisyonu, 1)} mlr` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/swap-payi/')}>
+              <a href="/veri/swap-payi/" class="fihrist-baslik-link">TCMB Rezervinde Swap Payı</a>
+              <span class="fihrist-ozet">Resmi rezervler içindeki swap (emanet/borç) payı seyri ({swapSon ? `%${sayiYaz(swapSon.swap_payi_toplam_yuzde, 1)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/altin-kazanci/')}>
+              <a href="/veri/altin-kazanci/" class="fihrist-baslik-link">TCMB Altın Portföyü Kazancı</a>
+              <span class="fihrist-ozet">Altın fiyatındaki artıştan doğan değerleme farkı ({altinSon ? `+$${sayiYaz(altinSon.kazanc_milyar_usd, 1)} mlr` : '–'})</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="fihrist-kutu" id="dis-denge">
+          <div class="fihrist-kutu-baslik">
+            <h3>Dış Denge &amp; Bütçe</h3>
+          </div>
+          <ul class="fihrist-liste">
+            <li data-ek={aramaEki('/veri/cari-denge/')}>
+              <a href="/veri/cari-denge/" class="fihrist-baslik-link">Cari Denge</a>
+              <span class="fihrist-ozet">12 aylık cari denge; altın, enerji ve seyahat geliri</span>
+            </li>
+            <li data-ek={aramaEki('/veri/dis-ticaret/')}>
+              <a href="/veri/dis-ticaret/" class="fihrist-baslik-link">Dış Ticaret</a>
+              <span class="fihrist-ozet">İhracat, ithalat ve ithalatın mal grupları</span>
+            </li>
+            <li data-ek={aramaEki('/veri/dis-borc/')}>
+              <a href="/veri/dis-borc/" class="fihrist-baslik-link">Dış Borç</a>
+              <span class="fihrist-ozet">Kısa vadeli dış borç, rezervle karşılama oranı, brüt ve net borç stoku</span>
+            </li>
+            <li data-ek={aramaEki('/veri/yabanci-portfoy-akimlari/')}>
+              <a href="/veri/yabanci-portfoy-akimlari/" class="fihrist-baslik-link">Yabancıların Portföy Akımları</a>
+              <span class="fihrist-ozet">Hisse ve DİBS net alım-satımı, haftalık ve aylık</span>
+            </li>
+            <li data-ek={aramaEki('/veri/abd-tahvilleri/')}>
+              <a href="/veri/abd-tahvilleri/" class="fihrist-baslik-link">ABD Hazine Tahvilleri Portföyü</a>
+              <span class="fihrist-ozet">Türkiye'nin elindeki kısa ve uzun vadeli ABD tahvili stoku ({abdTahvilleriSon ? `$${sayiYaz(abdTahvilleriSon.toplamUSD / 1000, 2)} mlr` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/abd-tahvil-akimlari/')}>
+              <a href="/veri/abd-tahvil-akimlari/" class="fihrist-baslik-link">ABD Tahvili Alımları (Akım)</a>
+              <span class="fihrist-ozet">Türkiye'nin aylık net ABD Hazine tahvili alımları</span>
+            </li>
+            <li data-ek={aramaEki('/veri/butce-dengesi/')}>
+              <a href="/veri/butce-dengesi/" class="fihrist-baslik-link">Genel Bütçe Dengesi</a>
+              <span class="fihrist-ozet">12 aylık bütçe dengesi, faiz dışı denge ve faiz harcaması</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="fihrist-kutu" id="buyume">
+          <div class="fihrist-kutu-baslik">
+            <h3>Büyüme, İş &amp; Tüketim</h3>
+          </div>
+          <ul class="fihrist-liste">
+            <li data-ek={aramaEki('/veri/sanayi-uretimi/')}>
+              <a href="/veri/sanayi-uretimi/" class="fihrist-baslik-link">Sanayi Üretimi</a>
+              <span class="fihrist-ozet">TÜİK sanayi üretim endeksi, aylık ve yıllık değişim</span>
+            </li>
+            <li data-ek={aramaEki('/veri/kapasite-kullanimi/')}>
+              <a href="/veri/kapasite-kullanimi/" class="fihrist-baslik-link">Kapasite Kullanım Oranı</a>
+              <span class="fihrist-ozet">İmalat sanayi, mevsimsellikten arındırılmış ({kapasiteSon ? `%${sayiYaz(kapasiteSon.arindirilmis, 1)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/issizlik-orani/')}>
+              <a href="/veri/issizlik-orani/" class="fihrist-baslik-link">İşsizlik Oranı</a>
+              <span class="fihrist-ozet">TÜİK mevsimsellikten arındırılmış aylık işgücü oranı ({issizlikSon ? `%${sayiYaz(issizlikSon.oran, 1)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/kartli-harcamalar/')}>
+              <a href="/veri/kartli-harcamalar/" class="fihrist-baslik-link">Kartlı Harcamalar</a>
+              <span class="fihrist-ozet">Haftalık banka ve kredi kartı harcamaları, sektörlere göre</span>
+            </li>
+            <li data-ek={aramaEki('/veri/tuketici-guveni/')}>
+              <a href="/veri/tuketici-guveni/" class="fihrist-baslik-link">Tüketici Güven Endeksi</a>
+              <span class="fihrist-ozet">TÜİK aylık tüketici güveni ve alt endeksleri ({guvenSon ? sayiYaz(guvenSon.endeks, 1) : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/kredi-hacmi/')}>
+              <a href="/veri/kredi-hacmi/" class="fihrist-baslik-link">Kredi Hacmi</a>
+              <span class="fihrist-ozet">Bankacılık kredileri, nominal ve reel yıllık büyüme</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="fihrist-kutu" id="konut">
+          <div class="fihrist-kutu-baslik">
+            <h3>Konut &amp; Kira</h3>
+          </div>
+          <ul class="fihrist-liste">
+            <li data-ek={aramaEki('/veri/konut-fiyat-endeksi/')}>
+              <a href="/veri/konut-fiyat-endeksi/" class="fihrist-baslik-link">Konut Fiyat Endeksi (KFE)</a>
+              <span class="fihrist-ozet">TCMB Türkiye geneli ({konutSon ? `%${sayiYaz(konutSon.bolgeler.TR.yillik, 1)}` : '–'}), İstanbul, Ankara, İzmir</span>
+            </li>
+            <li data-ek={aramaEki('/veri/kira-endeksi/')}>
+              <a href="/veri/kira-endeksi/" class="fihrist-baslik-link">Yeni Kiracı Kira Endeksi</a>
+              <span class="fihrist-ozet">TCMB, bölgelere göre yıllık kira artışı ({kiraSon ? `%${sayiYaz(kiraSon.bolgeler.TR.yillik, 1)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/kira-carpani/')}>
+              <a href="/veri/kira-carpani/" class="fihrist-baslik-link">Kira Çarpanı</a>
+              <span class="fihrist-ozet">Konut fiyatı kaç yıllık kiraya eşit, il il ({carpanSon ? `${sayiYaz(carpanSon.carpan, 1)} yıl` : '–'})</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="fihrist-kutu" id="borsa">
+          <div class="fihrist-kutu-baslik">
+            <h3>Borsa</h3>
+          </div>
+          <ul class="fihrist-liste">
+            <li data-ek={aramaEki('/veri/reel-bist-30/')}>
+              <a href="/veri/reel-bist-30/" class="fihrist-baslik-link">TÜFE’den Temizlenmiş BİST 30</a>
+              <span class="fihrist-ozet">Eylül 2014 alım gücüne göre reel endeks ({reelBistData ? `${sayiYaz(reelBistData.istatistik.sonNokta.reelEndeks, 1)} p.` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/bist-100-tufe/')}>
+              <a href="/veri/bist-100-tufe/" class="fihrist-baslik-link">BİST 100 / TÜFE Rasyosu</a>
+              <span class="fihrist-ozet">2 yıllık hareketli ortalama ve standart sapma bantları ({bistTufeData ? `${sayiYaz(bistTufeData.zSkoru, 1)}σ` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/sektorler/')}>
+              <a href="/veri/sektorler/" class="fihrist-baslik-link">BIST Sektör Endeksleri</a>
+              <span class="fihrist-ozet">26 sektörün aylık getiri karnesi, son puanları ve piyasa değerleri</span>
+            </li>
+            <li data-ek={aramaEki('/veri/makro-soklar/')}>
+              <a href="/veri/makro-soklar/" class="fihrist-baslik-link">Makro Şoklar ve Borsa Karnesi</a>
+              <span class="fihrist-ozet">TGE, RKGE, Sanayi ve Reel Kur tarihi kırılmalarının 20 yıllık stres testi</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="fihrist-kutu" id="dunya">
+          <div class="fihrist-kutu-baslik">
+            <h3>Dünya &amp; Merkez Bankaları</h3>
+          </div>
+          <ul class="fihrist-liste">
+            <li data-ek={aramaEki('/veri/dunya-politika-faizleri/')}>
+              <a href="/veri/dunya-politika-faizleri/" class="fihrist-baslik-link">Dünya Politika Faizleri</a>
+              <span class="fihrist-ozet">{dunyaFaizData.satirlar.length} merkez bankasının faizi, son hareketi, fazı ve reel faizi ({dunyaFaz('Sıkılaştırma')} sıkılaştırmada, {dunyaFaz('Gevşeme')} gevşemede)</span>
+            </li>
+            <li data-ek={aramaEki('/veri/emsal-ulkeler/')}>
+              <a href="/veri/emsal-ulkeler/" class="fihrist-baslik-link">Emsal Ülkeler</a>
+              <span class="fihrist-ozet">Türkiye ile 22 ekonominin büyüme, enflasyon, işsizlik, faiz ve reel faizi yan yana</span>
+            </li>
+            <li data-ek={aramaEki('/veri/dunyada-turkiye/')}>
+              <a href="/veri/dunyada-turkiye/" class="fihrist-baslik-link">Türkiye Dünyada Kaçıncı?</a>
+              <span class="fihrist-ozet">Büyüme, enflasyon, işsizlik ve faizde 23 ekonomi arasındaki sıra; paylaşılabilir kartlar</span>
+            </li>
+            <li data-ek={aramaEki('/veri/fed-projeksiyonlari/')}>
+              <a href="/veri/fed-projeksiyonlari/" class="fihrist-baslik-link">Fed Faiz Projeksiyonları (SEP)</a>
+              <span class="fihrist-ozet">FOMC katılımcılarının faiz, büyüme, işsizlik ve enflasyon projeksiyonları; nokta grafiği</span>
+            </li>
+            <li data-ek={aramaEki('/veri/fomc-aciklama-metni/')}>
+              <a href="/veri/fomc-aciklama-metni/" class="fihrist-baslik-link">FOMC Açıklama Metni Farkı</a>
+              <span class="fihrist-ozet">Her faiz kararı açıklaması bir öncekiyle cümle cümle; oy dağılımı ve tutanaklar</span>
+            </li>
+            <li data-ek={aramaEki('/veri/fomc-tonu/')}>
+              <a href="/veri/fomc-tonu/" class="fihrist-baslik-link">FOMC Metin Tonu</a>
+              <span class="fihrist-ozet">FOMC açıklama ve tutanaklarının yapay zekâyla okunan yönü, −3 güvercin ile +3 şahin arası</span>
+            </li>
+            <li data-ek={aramaEki('/veri/ecb-aciklama-metni/')}>
+              <a href="/veri/ecb-aciklama-metni/" class="fihrist-baslik-link">ECB Açıklama Metni Farkı</a>
+              <span class="fihrist-ozet">ECB karar açıklamaları, basın toplantısı metni ve toplantı hesapları cümle cümle</span>
+            </li>
+            <li data-ek={aramaEki('/veri/ecb-tonu/')}>
+              <a href="/veri/ecb-tonu/" class="fihrist-baslik-link">ECB Metin Tonu</a>
+              <span class="fihrist-ozet">ECB metinlerinin yapay zekâyla okunan yönü, −3 güvercin ile +3 şahin arası</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="fihrist-kutu" id="araclar">
+          <div class="fihrist-kutu-baslik">
+            <h3>Tahmin &amp; Araçlar</h3>
+          </div>
+          <ul class="fihrist-liste">
+            <li data-ek={aramaEki('/veri/tahmin/')}>
+              <a href="/veri/tahmin/" class="fihrist-baslik-link">Tahminler ve Karneleri</a>
+              <span class="fihrist-ozet">Enflasyon, cari denge, sanayi ve PPK modelleri; tabanı geçemeyen rakam vermez</span>
+            </li>
+            <li data-ek={aramaEki('/veri/enflasyon-yolu/')}>
+              <a href="/veri/enflasyon-yolu/" class="fihrist-baslik-link">Enflasyon Yolu Hesap Makinesi</a>
+              <span class="fihrist-ozet">Aylık varsayıma göre yıllık enflasyonun 12 aylık yolu, baz etkisiyle</span>
+            </li>
+            <li data-ek={aramaEki('/veri/taylor-kurali/')}>
+              <a href="/veri/taylor-kurali/" class="fihrist-baslik-link">Taylor Kuralı Bandı</a>
+              <span class="fihrist-ozet">Kuralın varsayımlara göre verdiği faiz aralığı ve politika faizi</span>
+            </li>
+            <li data-ek={aramaEki('/veri/seri-gezgini/')}>
+              <a href="/veri/seri-gezgini/" class="fihrist-baslik-link">Seri Gezgini</a>
+              <span class="fihrist-ozet">157 zaman serisini ara, dördüne kadarını aynı grafikte karşılaştır, CSV indir</span>
+            </li>
+            <li data-ek={aramaEki('/veri/takvim/')}>
+              <a href="/veri/takvim/" class="fihrist-baslik-link">Veri Yayın Takvimi</a>
+              <span class="fihrist-ozet">TÜİK bültenleri ve TCMB yayınlarının önümüzdeki 8 haftadaki tarihleri</span>
+            </li>
+            <li data-ek={aramaEki('/veri/guncellik/')}>
+              <a href="/veri/guncellik/" class="fihrist-baslik-link">Veri Güncelliği</a>
+              <span class="fihrist-ozet">Bu sayfalardaki her serinin son gözlemi ve yayın takvimine göre durumu</span>
+            </li>
+            <li data-ek={aramaEki('/veri/revizyonlar/')}>
+              <a href="/veri/revizyonlar/" class="fihrist-baslik-link">Veri Revizyonları</a>
+              <span class="fihrist-ozet">TÜİK ve TCMB verilerinde geçmiş dönem rakamlarının sonradan değişmesi</span>
+            </li>
+            {
+              araclar.map((o) => (
+                <li data-ek={aramaEki(o.href)}>
+                  <a href={o.href} class="fihrist-baslik-link">{o.ad}</a>
+                  <span class="fihrist-ozet">{o.not}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+      <p class="dizin-ara-yok" id="dizin-ara-yok" hidden>
+        Bu sözcükle eşleşen sayfa yok. Tek tek zaman serilerinde aramak için <a href="/veri/seri-gezgini/">Seri Gezgini</a>'ne bakın.
+      </p>
+    </section>
+
     <section class="bolum" aria-labelledby="gostergeler-baslik">
       <div class="bolum-baslik-sarici">
-        <h2 id="gostergeler-baslik" class="bolum-baslik">Tüm Göstergeler ve Zaman Serileri</h2>
-        <span class="bolum-ipucu">Son güncellenen veriden geriye doğru kronolojik sıralama (17 Gösterge)</span>
+        <h2 id="gostergeler-baslik" class="bolum-baslik">Öne Çıkan Göstergeler</h2>
+        <span class="bolum-ipucu">Son değerler ve kısa seyir</span>
       </div>
 
       <div class="kartlar-izgara">
-        <!-- 1. Dolar / TL (23 Ekim 2026) -->
         {
           satir('USD') && (
             <VeriKarti
@@ -169,7 +535,6 @@ const araclar = [
           )
         }
 
-        <!-- 2. Euro / TL (23 Ekim 2026) -->
         {
           satir('EUR') && (
             <VeriKarti
@@ -187,26 +552,6 @@ const araclar = [
           )
         }
 
-        <!-- 3. TCMB Altın Rezervi Kazancı (23 Ekim 2026) -->
-        {
-          altinSon && (
-            <VeriKarti
-              href="/veri/altin-kazanci/"
-              kategori="Rezerv & Emtia"
-              baslik="TCMB Altın Portföyü Kazancı"
-              deger={`+$${sayiYaz(altinSon.kazanc_milyar_usd, 1)}`}
-              birim="milyar $"
-              degisim={`Ons Altın: $${sayiYaz(altinSon.ons_fiyat_usd, 0)} · Rekor kâr`}
-              degisimYon="yukselis"
-              aciklama="Küresel ons rallisiyle TCMB altın rezervinde biriken değerleme kazancı"
-              kaynak="TCMB & LBMA · 23 Ekim 2026"
-              seri={altinSeri}
-              seriBicim="milyarUsd"
-            />
-          )
-        }
-
-        <!-- 4. TCMB Politika Faizi (23 Ekim 2026) -->
         {
           faiz && (
             <VeriKarti
@@ -224,122 +569,6 @@ const araclar = [
           )
         }
 
-        <!-- 5. BIST Sektör Endeksleri (23 Ekim 2026) -->
-        {
-          sektorData && (
-            <VeriKarti
-              href="/veri/sektorler/"
-              kategori="Borsa İstanbul"
-              baslik="BIST Sektör Endeksleri"
-              deger="26"
-              birim="endeks"
-              degisim="Mali, Sınai, Hizmet ve Tematik"
-              degisimYon="notr"
-              aciklama="Sektör endekslerinin aylık getiri karnesi ve piyasa değerleri sıralaması"
-              kaynak="BİST · 23 Ekim 2026"
-              seri={sektorSeri}
-              seriMetinleri={sektorMetin}
-              seriBicim="yuzde"
-            />
-          )
-        }
-
-        <!-- 6. TCMB Net Döviz Pozisyonu (22 Ekim 2026) -->
-        {
-          rezerv && (
-            <VeriKarti
-              href="/veri/net-doviz-pozisyonu/"
-              kategori="Merkez Bankası"
-              baslik="TCMB Net Döviz Pozisyonu"
-              deger={`+$${sayiYaz(rezerv.netDovizPozisyonu, 1)}`}
-              birim="milyar $"
-              degisim={`Günlük: ${rezerv.degisimGunluk >= 0 ? '+' : ''}${sayiYaz(rezerv.degisimGunluk, 2)} milyar $`}
-              degisimYon={rezerv.degisimGunluk >= 0 ? 'yukselis' : 'dusus'}
-              aciklama="Swaplar ve Hazine dövizi hariç net çekirdek rezerv pozisyonu"
-              kaynak={`TCMB · ${gunYaz(rezerv.tarih)}`}
-              seri={netPozSeri}
-              seriBicim="milyarUsd"
-            />
-          )
-        }
-
-        <!-- 7. BİST 100 / TÜFE Standart Sapma Analizi (22 Ekim 2026) -->
-        {
-          bistTufeData && (
-            <VeriKarti
-              href="/veri/bist-100-tufe/"
-              kategori="Değerleme & Sapma"
-              baslik="BİST 100 / TÜFE Oranı"
-              deger={sayiYaz(bistTufeData.guncelDeger, 1)}
-              birim="rasyo"
-              degisim={`${bistTufeData.zSkoru >= 0 ? '+' : ''}${sayiYaz(bistTufeData.zSkoru, 1)}σ (${bistTufeData.durum})`}
-              degisimYon={bistTufeData.zSkoru >= 0 ? 'yukselis' : 'dusus'}
-              aciklama="2 yıllık hareketli ortalama ve standart sapma bantları"
-              kaynak="finfolis · 22 Ekim 2026"
-              seri={bistTufeSeri}
-              seriBicim="endeks"
-            />
-          )
-        }
-
-        <!-- 8. Piyasa Faizleri (16 Ekim 2026) -->
-        {
-          piyasaFaizleriSon && (
-            <VeriKarti
-              href="/veri/piyasa-faizleri/"
-              kategori="Bankacılık & Kredi"
-              baslik="Piyasa Faizleri"
-              deger={`%${sayiYaz(piyasaFaizleriSon.mevduat, 1)}`}
-              birim="mevduat"
-              degisim={`İhtiyaç: %${sayiYaz(piyasaFaizleriSon.ihtiyac, 1)} · Konut: %${sayiYaz(piyasaFaizleriSon.konut, 1)}`}
-              degisimYon="notr"
-              aciklama="TCMB haftalık akım verileriyle 1-3 ay vadeli TL mevduat ve kredi faizleri"
-              kaynak={`TCMB EVDS · ${gunYaz(piyasaFaizleriSon.tarih)}`}
-              seri={piyasaFaizSeri}
-              seriBicim="yuzde"
-            />
-          )
-        }
-
-        <!-- 9. Döviz Mevduatları (YP) (16 Ekim 2026) -->
-        {
-          mevduatSon && (
-            <VeriKarti
-              href="/veri/doviz-mevduatlari/"
-              kategori="Dolarlaşma & Likidite"
-              baslik="Döviz Mevduatları (YP)"
-              deger={`$${sayiYaz(mevduatSon.toplam / 1000, 1)}`}
-              birim="milyar $"
-              degisim={`Haftalık: ${farkMevduat >= 0 ? '+' : ''}$${sayiYaz(farkMevduat / 1000, 2)} mlr`}
-              degisimYon={farkMevduat >= 0 ? 'yukselis' : 'dusus'}
-              aciklama="Bankacılık sektörü yurtiçi yerleşiklerin döviz ve altın mevduat toplamı"
-              kaynak={`TCMB EVDS · ${gunYaz(mevduatSon.tarih)}`}
-              seri={mevduatSeri}
-              seriBicim="milyarUsd"
-            />
-          )
-        }
-
-        <!-- 10. TÜFE'den Temizlenmiş BİST 30 (Eylül 2026) -->
-        {
-          reelBistData && (
-            <VeriKarti
-              href="/veri/reel-bist-30/"
-              kategori="Borsa & Reel Getiri"
-              baslik="TÜFE’den Temizlenmiş BİST 30"
-              deger={sayiYaz(reelBistData.istatistik.sonNokta.reelEndeks, 1)}
-              birim="puan"
-              degisim={reelBistData.istatistik.reelDegisimToplam >= 0 ? `▲ %${sayiYaz(reelBistData.istatistik.reelDegisimToplam, 1)}` : `▼ %${sayiYaz(Math.abs(reelBistData.istatistik.reelDegisimToplam), 1)}`}
-              degisimYon={reelBistData.istatistik.reelDegisimToplam >= 0 ? 'yukselis' : 'dusus'}
-              aciklama="Eylül 2014=100 alım gücü eşiğine göre reel alım gücü endeksi"
-              kaynak={`BİST & TÜİK · ${ayAdi(reelBistData.istatistik.sonNokta)}`}
-              seri={reelBistSeri}
-              seriBicim="endeks"
-            />
-          )
-        }
-
-        <!-- 11. Yıllık Enflasyon (TÜFE) (Eylül 2026) -->
         {
           enflasyonSon && (
             <VeriKarti
@@ -358,7 +587,6 @@ const araclar = [
           )
         }
 
-        <!-- Enflasyon beklentisi (TCMB Piyasa Katılımcıları Anketi) -->
         {
           beklentiSon && (
             <VeriKarti
@@ -372,123 +600,6 @@ const araclar = [
               kaynak={`TCMB · ${ayAdi(beklentiSon)}`}
               seri={beklentiSeri}
               seriBicim="yuzde"
-            />
-          )
-        }
-
-        {
-          portfoySon && (
-            <VeriKarti
-              href="/veri/yabanci-portfoy-akimlari/"
-              kategori="Dış Denge"
-              baslik="Yabancıların Portföy Akımları"
-              deger={`${portfoyYil >= 0 ? '+' : '−'}${sayiYaz(Math.abs(portfoyYil) / 1000, 2)} mlr $`}
-              birim="hisse, yılbaşından"
-              degisim={`Son hafta: ${portfoySon.hisse >= 0 ? '+' : '−'}${sayiYaz(Math.abs(portfoySon.hisse), 1)} mn $`}
-              aciklama={`Yurt dışı yerleşiklerin hisse ve DİBS net alım-satımı (${gunYaz(portfoySon.tarih)} haftası)`}
-              kaynak={`TCMB · ${gunYaz(portfoySon.tarih)}`}
-              seri={portfoySeri}
-              seriBicim="milyarUsd"
-            />
-          )
-        }
-
-        {
-          cariSon && (
-            <VeriKarti
-              href="/veri/cari-denge/"
-              kategori="Dış Denge"
-              baslik="Cari Denge"
-              deger={`${cari12.at(-1)! >= 0 ? '+' : '−'}${sayiYaz(Math.abs(cari12.at(-1)!) / 1000, 1)} mlr $`}
-              birim="12 aylık"
-              degisim={`${ayAdi(cariSon)}: ${cariSon.cari >= 0 ? '+' : '−'}${sayiYaz(Math.abs(cariSon.cari) / 1000, 2)} mlr $`}
-              aciklama="Ödemeler dengesi cari işlemler hesabı, 12 aylık birikimli; altın ve enerji hariç kırılımlar"
-              kaynak={`TCMB · ${ayAdi(cariSon)}`}
-              seri={cari12.slice(-36).map((v) => v! / 1000)}
-              seriBicim="milyarUsd"
-            />
-          )
-        }
-
-        {
-          kiraSon && (
-            <VeriKarti
-              href="/veri/kira-endeksi/"
-              kategori="Konut"
-              baslik="Yeni Kiracı Kira Endeksi"
-              deger={`%${sayiYaz(kiraSon.bolgeler.TR.yillik, 1)}`}
-              birim="yıllık"
-              degisim={`İstanbul: %${sayiYaz(kiraSon.bolgeler.TR10.yillik, 1)}`}
-              aciklama={`Yeni kiracı kirasının yıllık değişimi, konut fiyatı ve enflasyonla (${ayAdi(kiraSon)})`}
-              kaynak={`TCMB · ${ayAdi(kiraSon)}`}
-              seri={kiraSeri}
-              seriBicim="yuzde"
-            />
-          )
-        }
-
-        {
-          kartSon && (
-            <VeriKarti
-              href="/veri/kartli-harcamalar/"
-              kategori="Tüketim"
-              baslik="Kartlı Harcamalar"
-              deger={`${sayiYaz(kartSon.sektorler.KT1.tutar / 1e6, 1)} mlr TL`}
-              birim="haftalık"
-              degisim={kartSon.sektorler.KT1.yillik != null ? `Yıllık: %${sayiYaz(kartSon.sektorler.KT1.yillik, 1)}` : undefined}
-              aciklama="Banka ve kredi kartı harcamaları, sektörlere göre, enflasyonla karşılaştırmalı"
-              kaynak={`TCMB · ${gunYaz(kartSon.tarih)}`}
-              seri={kartSeri}
-              seriBicim="yuzde"
-            />
-          )
-        }
-
-        {
-          guvenSon && (
-            <VeriKarti
-              href="/veri/tuketici-guveni/"
-              kategori="Tüketim"
-              baslik="Tüketici Güven Endeksi"
-              deger={sayiYaz(guvenSon.endeks, 1)}
-              birim="endeks"
-              degisim="100 altı kötümser"
-              aciklama={`Tüketici güveni ve hane, ekonomi beklentisi alt endeksleri (${ayAdi(guvenSon)})`}
-              kaynak={`TÜİK · ${ayAdi(guvenSon)}`}
-              seri={guvenSeri}
-              seriBicim="endeks"
-            />
-          )
-        }
-
-        {
-          kapasiteSon && (
-            <VeriKarti
-              href="/veri/kapasite-kullanimi/"
-              kategori="Sanayi"
-              baslik="Kapasite Kullanım Oranı"
-              deger={`%${sayiYaz(kapasiteSon.arindirilmis, 1)}`}
-              birim="arındırılmış"
-              aciklama={`İmalat sanayi kapasite kullanımı, mal gruplarına göre (${ayAdi(kapasiteSon)})`}
-              kaynak={`TCMB · ${ayAdi(kapasiteSon)}`}
-              seri={kapasiteSeri}
-              seriBicim="yuzde"
-            />
-          )
-        }
-
-        {
-          rekSon && (
-            <VeriKarti
-              href="/veri/reel-efektif-kur/"
-              kategori="Kurlar"
-              baslik="Reel Efektif Kur"
-              deger={sayiYaz(rekSon.genel, 2)}
-              birim="2025=100"
-              aciklama={`TÜFE bazlı reel efektif döviz kuru; artış TL’nin reel değer kazancı (${ayAdi(rekSon)})`}
-              kaynak={`TCMB · ${ayAdi(rekSon)}`}
-              seri={rekSeri}
-              seriBicim="endeks"
             />
           )
         }
@@ -511,108 +622,6 @@ const araclar = [
         }
 
         {
-          usdHizSon && (
-            <VeriKarti
-              href="/veri/kur-degisim-hizi/"
-              kategori="finfolis hesaplaması"
-              baslik="Kur Değişim Hızı"
-              deger={`%${sayiYaz(usdHizSon.hiz, 1)}`}
-              birim="yıllıklandırılmış"
-              degisim="Dolar, son 4 hafta"
-              aciklama="Dolar ve euro kurunun 4 ve 13 haftalık değişiminin yıllık hızı, enflasyonla"
-              kaynak={`TCMB kuru · ${gunYaz(usdHizSon.tarih)}`}
-              seri={usdHiz.slice(-52).map((x) => x.hiz)}
-              seriBicim="yuzde"
-            />
-          )
-        }
-
-        {
-          reelSon && (
-            <VeriKarti
-              href="/veri/reel-faiz/"
-              kategori="finfolis hesaplaması"
-              baslik="Reel Faiz"
-              deger={`%${sayiYaz(reelSon.reel, 1)}`}
-              birim="beklentiye göre"
-              aciklama={`Politika faizinin 12 ay enflasyon beklentisine ve gerçekleşen enflasyona göre reel karşılığı (${ayAdi(reelSon)})`}
-              kaynak={`TCMB · ${ayAdi(reelSon)}`}
-              seri={reelSatirlar.slice(-36).map((x) => x.reel)}
-              seriBicim="yuzde"
-            />
-          )
-        }
-
-        {
-          enfHizSon?.ucAylikHiz != null && (
-            <VeriKarti
-              href="/veri/enflasyon-hizi/"
-              kategori="finfolis hesaplaması"
-              baslik="Enflasyon Hızı"
-              deger={`%${sayiYaz(enfHizSon.ucAylikHiz, 1)}`}
-              birim="son 3 ay, yıllık"
-              degisim={`Yıllık: %${sayiYaz(enfHizSon.yillik, 2)}`}
-              aciklama={`Aylık ve üç aylık fiyat artışının yıllığa çevrilmiş hızı (${ayAdi(enfHizSon)})`}
-              kaynak={`TÜİK · ${ayAdi(enfHizSon)}`}
-              seri={enfHiz.slice(-24).map((x) => x.ucAylikHiz)}
-              seriBicim="yuzde"
-            />
-          )
-        }
-
-        {
-          carpanSon && (
-            <VeriKarti
-              href="/veri/kira-carpani/"
-              kategori="finfolis hesaplaması"
-              baslik="Kira Çarpanı"
-              deger={`${sayiYaz(carpanSon.carpan, 1)} yıl`}
-              birim="Türkiye"
-              aciklama="Ortanca m² konut fiyatı kaç yıllık m² kiraya eşit, il il"
-              kaynak={`TCMB · ${carpanSon.ceyrek}. çeyrek ${carpanSon.yil}`}
-              seri={carpanSatirlar.map((x) => x.carpan)}
-              seriBicim="yil"
-            />
-          )
-        }
-
-        {
-          makasSon && (
-            <VeriKarti
-              href="/veri/kredi-mevduat-makasi/"
-              kategori="finfolis hesaplaması"
-              baslik="Kredi-Mevduat Makası"
-              deger={`${sayiYaz(makasSon.fark, 1)} puan`}
-              birim="ihtiyaç − mevduat"
-              aciklama="Kredi faizi ile 3 aya kadar TL mevduat faizi arasındaki fark, 2018’den"
-              kaynak={`TCMB · ${gunYaz(makasSon.tarih)}`}
-              seri={makasSatirlar.slice(-104).map((x) => x.fark)}
-              seriBicim="puan"
-            />
-          )
-        }
-
-        <!-- 12. TCMB Rezervinde Swap Payı (Eylül 2026) -->
-        {
-          swapSon && (
-            <VeriKarti
-              href="/veri/swap-payi/"
-              kategori="Rezerv Kalitesi"
-              baslik="TCMB Swap Payı"
-              deger={`%${sayiYaz(swapSon.swap_payi_toplam_yuzde, 1)}`}
-              birim="toplam"
-              degisim={`Döviz swap payı: %${sayiYaz(swapSon.swap_payi_doviz_yuzde, 1)}`}
-              degisimYon="dusus"
-              aciklama="Resmi rezervler içindeki takas ve borç payının tarihsel seyri"
-              kaynak="TCMB · Eylül 2026"
-              seri={swapSeri}
-              seriBicim="yuzde"
-            />
-          )
-        }
-
-        <!-- 13. Konut Fiyat Endeksi (Eylül 2026) -->
-        {
           konutSon && (
             <VeriKarti
               href="/veri/konut-fiyat-endeksi/"
@@ -630,471 +639,22 @@ const araclar = [
           )
         }
 
-        <!-- 14. ABD Tahvili Alımları (Akım) (Ağustos 2026) -->
         {
-          abdTahvilSon && (
+          reelBistData && (
             <VeriKarti
-              href="/veri/abd-tahvil-akimlari/"
-              kategori="Dış Varlıklar & Akım"
-              baslik="ABD Tahvili Alımları (Akım)"
-              deger={`+$${sayiYaz(abdTahvilSon.netAkim / 1000, 2)}`}
-              birim="milyar $"
-              degisim={`Son 4 ayda +$${sayiYaz(abdTahvilData.son4AyTicNetAlimMilyarUsd, 2)} mlr net alım`}
-              degisimYon="yukselis"
-              aciklama="Türkiye mukimlerinin aylık net ABD Hazine tahvili alım-satım akımları"
-              kaynak="ABD Hazinesi TIC · Ağustos 2026"
-              seri={abdTahvilAkimSeri}
-              seriBicim="milyarUsd"
+              href="/veri/reel-bist-30/"
+              kategori="Borsa & Reel Getiri"
+              baslik="TÜFE’den Temizlenmiş BİST 30"
+              deger={sayiYaz(reelBistData.istatistik.sonNokta.reelEndeks, 1)}
+              birim="puan"
+              degisim={reelBistData.istatistik.reelDegisimToplam >= 0 ? `▲ %${sayiYaz(reelBistData.istatistik.reelDegisimToplam, 1)}` : `▼ %${sayiYaz(Math.abs(reelBistData.istatistik.reelDegisimToplam), 1)}`}
+              degisimYon={reelBistData.istatistik.reelDegisimToplam >= 0 ? 'yukselis' : 'dusus'}
+              aciklama="Eylül 2014=100 alım gücü eşiğine göre reel alım gücü endeksi"
+              kaynak={`BİST & TÜİK · ${ayAdi(reelBistData.istatistik.sonNokta)}`}
+              seri={reelBistSeri}
+              seriBicim="endeks"
             />
           )
-        }
-
-        <!-- 15. ABD Hazine Tahvilleri Portföyü (Ağustos 2026) -->
-        {
-          abdTahvilleriSon && (
-            <VeriKarti
-              href="/veri/abd-tahvilleri/"
-              kategori="Dış Varlıklar & Portföy"
-              baslik="ABD Tahvilleri Portföyü"
-              deger={`$${sayiYaz(abdTahvilleriSon.toplamUSD / 1000, 2)}`}
-              birim="milyar $"
-              degisim={`Kısa vadeli T-Bill payı: %${abdTahvilleriSon.kisaOran}`}
-              degisimYon="notr"
-              aciklama="Türkiye mukimlerinin elindeki kısa ve uzun vadeli ABD tahvili stoku"
-              kaynak="ABD Hazinesi TIC · Ağustos 2026"
-              seri={abdTahvilleriSeri}
-              seriBicim="milyarUsd"
-            />
-          )
-        }
-
-        <!-- 16. İşsizlik Oranı (Ağustos 2026) -->
-        {
-          issizlikSon && (
-            <VeriKarti
-              href="/veri/issizlik-orani/"
-              kategori="İstihdam & İşgücü"
-              baslik="İşsizlik Oranı"
-              deger={`%${sayiYaz(issizlikSon.oran, 1)}`}
-              birim="oran"
-              degisim="Mevsimsellikten arındırılmış"
-              degisimYon="notr"
-              aciklama={`15 ve daha yukarı yaştaki işsizlerin işgücü içindeki oranı (${ayAdi(issizlikSon)})`}
-              kaynak="TÜİK · Ağustos 2026"
-              seri={issizlikSeri}
-              seriBicim="yuzde"
-            />
-          )
-        }
-
-        <!-- 17. Makro Şoklar ve Borsa (Ağustos 2026) -->
-        {
-          makroData && (
-            <VeriKarti
-              href="/veri/makro-soklar/"
-              kategori="Stres Testi & Krizler"
-              baslik="Makro Şoklar ve Borsa"
-              deger="20 Yıl"
-              birim="analiz"
-              degisim="TGE, RKGE, Sanayi ve REK şokları"
-              degisimYon="notr"
-              aciklama="Tarihi makroekonomik kırılmaların ardından BİST 100 endeksi toparlanma performansı"
-              kaynak="finfolis · Ağustos 2026"
-              seri={makroSokSeri}
-              seriMetinleri={makroSokMetin}
-              seriBicim="puan"
-            />
-          )
-        }
-      </div>
-    </section>
-
-    <!-- TCMB Gösterge Döviz Kurları Tahtası -->
-    <section class="bolum" aria-labelledby="kurlar-baslik">
-      <div class="bolum-baslik-sarici">
-        <h2 id="kurlar-baslik" class="bolum-baslik">TCMB Gösterge Döviz Kurları</h2>
-        <span class="bolum-ipucu">{kur ? `TCMB Resmi Gösterge Bülteni · ${gunYaz(kur.tarih)}` : 'TCMB'}</span>
-      </div>
-
-      <div class="kur-tahtasi-kapsayici">
-        <table class="kur-tahtasi">
-          <thead>
-            <tr>
-              <th scope="col">Para Birimi</th>
-              <th scope="col" class="sag mobil-gizle">Döviz Alış</th>
-              <th scope="col" class="sag">Döviz Satış</th>
-              <th scope="col" class="sag mobil-gizle">Efektif Satış</th>
-              <th scope="col" class="sag">Detay</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              seciliKurlar.map((k) => {
-                const detayHref = kurSayfaHaritasi[k.kod];
-                return (
-                  <tr>
-                    <td class="kur-hucre-ad">
-                      <span class="kur-kod">{k.kod}</span>
-                      <span class="kur-ad">{k.birim > 1 ? `${k.birim} ` : ''}{k.ad}</span>
-                    </td>
-                    <td class="sag sayisal mobil-gizle">₺{sayiYaz(k.dovizAlis, 4)}</td>
-                    <td class="sag sayisal vurgu">₺{sayiYaz(k.dovizSatis, 4)}</td>
-                    <td class="sag sayisal mobil-gizle">{k.efektifSatis ? `₺${sayiYaz(k.efektifSatis, 4)}` : '–'}</td>
-                    <td class="sag">
-                      {detayHref ? (
-                        <a href={detayHref} class="kur-git-link">İncele →</a>
-                      ) : (
-                        <a href="/veri/doviz-kurlari/" class="kur-git-link-soluk">Liste →</a>
-                      )}
-                    </td>
-                  </tr>
-                );
-              })
-            }
-          </tbody>
-        </table>
-        <div class="kur-tahtasi-alt">
-          <span class="kur-alt-not">TCMB bültenindeki {kurSayisi} yabancı para biriminin tamamı için:</span>
-          <a href="/veri/doviz-kurlari/" class="kur-alt-buton">
-            Tüm döviz kurları ({kurSayisi} para birimi) →
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tematik Veri ve Gösterge Fihristi -->
-    <section class="bolum" aria-labelledby="fihrist-baslik">
-      <div class="bolum-baslik-sarici">
-        <h2 id="fihrist-baslik" class="bolum-baslik">Tematik Veri Fihristi</h2>
-        <span class="bolum-ipucu">Tüm veri sayfaları kategorilerine göre gruplandırılmıştır</span>
-      </div>
-
-      <div class="fihrist-izgara">
-        <!-- 1. Borsa & Değerleme -->
-        <div class="fihrist-kutu">
-          <div class="fihrist-kutu-baslik">
-            <h3>Borsa &amp; Değerleme Rasyoları</h3>
-          </div>
-          <ul class="fihrist-liste">
-            <li>
-              <a href="/veri/reel-bist-30/" class="fihrist-baslik-link">TÜFE’den Temizlenmiş BİST 30</a>
-              <span class="fihrist-ozet">Eylül 2014 alım gücüne göre reel endeks ({reelBistData ? `${sayiYaz(reelBistData.istatistik.sonNokta.reelEndeks, 1)} p.` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/bist-100-tufe/" class="fihrist-baslik-link">BİST 100 / TÜFE Rasyosu</a>
-              <span class="fihrist-ozet">2 yıllık hareketli ortalama ve standart sapma bantları ({bistTufeData ? `${sayiYaz(bistTufeData.zSkoru, 1)}σ` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/sektorler/" class="fihrist-baslik-link">BIST Sektör Endeksleri</a>
-              <span class="fihrist-ozet">26 sektörün aylık getiri karnesi, son puanları ve piyasa değerleri</span>
-            </li>
-            <li>
-              <a href="/veri/makro-soklar/" class="fihrist-baslik-link">Makro Şoklar ve Borsa Karnesi</a>
-              <span class="fihrist-ozet">TGE, RKGE, Sanayi ve Reel Kur tarihi kırılmalarının 20 yıllık stres testi</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- 2. Merkez Bankası & Rezervler -->
-        <div class="fihrist-kutu">
-          <div class="fihrist-kutu-baslik">
-            <h3>Merkez Bankası &amp; Rezervler</h3>
-          </div>
-          <ul class="fihrist-liste">
-            <li>
-              <a href="/veri/tcmb-rezervleri/" class="fihrist-baslik-link">TCMB Rezervleri</a>
-              <span class="fihrist-ozet">Haftalık altın ve döviz rezervleri ({brutRezervSon ? `$${sayiYaz(brutRezervSon.toplam / 1000, 1)} mlr` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/reel-efektif-kur/" class="fihrist-baslik-link">Reel Efektif Döviz Kuru</a>
-              <span class="fihrist-ozet">TÜFE bazlı, 2025=100 ({rekSon ? sayiYaz(rekSon.genel, 2) : '–'}); artış TL’nin reel değer kazancı</span>
-            </li>
-            <li>
-              <a href="/veri/net-doviz-pozisyonu/" class="fihrist-baslik-link">TCMB Net Döviz Pozisyonu</a>
-              <span class="fihrist-ozet">Swaplar ve Hazine dövizi hariç net çekirdek rezerv ({rezerv ? `+$${sayiYaz(rezerv.netDovizPozisyonu, 1)} mlr` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/altin-kazanci/" class="fihrist-baslik-link">TCMB Altın Portföyü Kazancı</a>
-              <span class="fihrist-ozet">Altın fiyatındaki artıştan doğan değerleme farkı ({altinSon ? `+$${sayiYaz(altinSon.kazanc_milyar_usd, 1)} mlr` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/swap-payi/" class="fihrist-baslik-link">TCMB Rezervinde Swap Payı</a>
-              <span class="fihrist-ozet">Resmi rezervler içindeki swap (emanet/borç) payı seyri ({swapSon ? `%${sayiYaz(swapSon.swap_payi_toplam_yuzde, 1)}` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/politika-faizi/" class="fihrist-baslik-link">TCMB Politika Faizi (PPK)</a>
-              <span class="fihrist-ozet">1 hafta vadeli repo ihale faiz oranı ve toplantı kararları ({faiz ? `%${oranYaz(faiz.oran)}` : '–'})</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- 3. Döviz Kurları & Dış Varlıklar -->
-        <div class="fihrist-kutu">
-          <div class="fihrist-kutu-baslik">
-            <h3>Döviz Kurları &amp; Dış Varlıklar</h3>
-          </div>
-          <ul class="fihrist-liste">
-            <li>
-              <a href="/veri/dolar-kuru/" class="fihrist-baslik-link">Dolar / TL (TCMB)</a>
-              <span class="fihrist-ozet">Gösterge döviz ve efektif satış kuru ({satir('USD') ? `₺${sayiYaz(satir('USD')!.dovizSatis, 2)}` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/euro-kuru/" class="fihrist-baslik-link">Euro / TL (TCMB)</a>
-              <span class="fihrist-ozet">Gösterge döviz ve efektif satış kuru ({satir('EUR') ? `₺${sayiYaz(satir('EUR')!.dovizSatis, 2)}` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/sterlin-kuru/" class="fihrist-baslik-link">Sterlin / TL (TCMB)</a>
-              <span class="fihrist-ozet">İngiliz Sterlini gösterge kuru ({satir('GBP') ? `₺${sayiYaz(satir('GBP')!.dovizSatis, 2)}` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/doviz-kurlari/" class="fihrist-baslik-link">Tüm döviz kurları ({kurSayisi} para birimi)</a>
-              <span class="fihrist-ozet">TCMB bültenindeki tüm kurların alış, satış ve efektif tablosu</span>
-            </li>
-            <li>
-              <a href="/veri/abd-tahvil-akimlari/" class="fihrist-baslik-link">ABD Tahvili Alımları (Akım)</a>
-              <span class="fihrist-ozet">Türkiye'nin aylık net ABD Hazine tahvili alımları</span>
-            </li>
-            <li>
-              <a href="/veri/abd-tahvilleri/" class="fihrist-baslik-link">ABD Hazine Tahvilleri Portföyü</a>
-              <span class="fihrist-ozet">Türkiye'nin elindeki kısa ve uzun vadeli ABD tahvili stoku ({abdTahvilleriSon ? `$${sayiYaz(abdTahvilleriSon.toplamUSD / 1000, 2)} mlr` : '–'})</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- 4. Makroekonomi & Piyasalar -->
-        <div class="fihrist-kutu">
-          <div class="fihrist-kutu-baslik">
-            <h3>Makroekonomi &amp; Kredi Piyasaları</h3>
-          </div>
-          <ul class="fihrist-liste">
-            <li>
-              <a href="/veri/enflasyon/" class="fihrist-baslik-link">Tüketici Enflasyonu (TÜFE)</a>
-              <span class="fihrist-ozet">TÜİK resmi yıllık ({enflasyonSon ? `%${sayiYaz(enflasyonSon.yillik, 2)}` : '–'}) ve aylık fiyat artışları</span>
-            </li>
-            <li>
-              <a href="/veri/enflasyon-beklentisi/" class="fihrist-baslik-link">Enflasyon Beklentisi</a>
-              <span class="fihrist-ozet">TCMB anketinde 12 ay ({beklentiSon ? `%${sayiYaz(beklentiSon.ay12, 2)}` : '–'}) ve 24 ay sonrası beklenti, gerçekleşenle birlikte</span>
-            </li>
-            <li>
-              <a href="/veri/konut-fiyat-endeksi/" class="fihrist-baslik-link">Konut Fiyat Endeksi (KFE)</a>
-              <span class="fihrist-ozet">TCMB Türkiye geneli ({konutSon ? `%${sayiYaz(konutSon.bolgeler.TR.yillik, 1)}` : '–'}), İstanbul, Ankara, İzmir</span>
-            </li>
-            <li>
-              <a href="/veri/piyasa-faizleri/" class="fihrist-baslik-link">Piyasa Faizleri (Kredi &amp; Mevduat)</a>
-              <span class="fihrist-ozet">1-3 ay TL mevduat, ihtiyaç, taşıt ve konut kredisi haftalık akım faizleri</span>
-            </li>
-            <li>
-              <a href="/veri/doviz-mevduatlari/" class="fihrist-baslik-link">Döviz Mevduatları (YP Mevduat)</a>
-              <span class="fihrist-ozet">Bankacılık sektörü yurtiçi yerleşiklerin döviz ve altın mevduatları</span>
-            </li>
-            <li>
-              <a href="/veri/kira-endeksi/" class="fihrist-baslik-link">Yeni Kiracı Kira Endeksi</a>
-              <span class="fihrist-ozet">TCMB, bölgelere göre yıllık kira artışı ({kiraSon ? `%${sayiYaz(kiraSon.bolgeler.TR.yillik, 1)}` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/kartli-harcamalar/" class="fihrist-baslik-link">Kartlı Harcamalar</a>
-              <span class="fihrist-ozet">Haftalık banka ve kredi kartı harcamaları, sektörlere göre</span>
-            </li>
-            <li>
-              <a href="/veri/tuketici-guveni/" class="fihrist-baslik-link">Tüketici Güven Endeksi</a>
-              <span class="fihrist-ozet">TÜİK aylık tüketici güveni ve alt endeksleri ({guvenSon ? sayiYaz(guvenSon.endeks, 1) : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/kapasite-kullanimi/" class="fihrist-baslik-link">Kapasite Kullanım Oranı</a>
-              <span class="fihrist-ozet">İmalat sanayi, mevsimsellikten arındırılmış ({kapasiteSon ? `%${sayiYaz(kapasiteSon.arindirilmis, 1)}` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/issizlik-orani/" class="fihrist-baslik-link">İşsizlik Oranı</a>
-              <span class="fihrist-ozet">TÜİK mevsimsellikten arındırılmış aylık işgücü oranı ({issizlikSon ? `%${sayiYaz(issizlikSon.oran, 1)}` : '–'})</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Dış denge, kredi ve kamu maliyesi -->
-        <div class="fihrist-kutu">
-          <div class="fihrist-kutu-baslik">
-            <h3>Dış Denge, Kredi &amp; Bütçe</h3>
-          </div>
-          <ul class="fihrist-liste">
-            <li>
-              <a href="/veri/yabanci-portfoy-akimlari/" class="fihrist-baslik-link">Yabancıların Portföy Akımları</a>
-              <span class="fihrist-ozet">Hisse ve DİBS net alım-satımı, haftalık ve aylık</span>
-            </li>
-            <li>
-              <a href="/veri/cari-denge/" class="fihrist-baslik-link">Cari Denge</a>
-              <span class="fihrist-ozet">12 aylık cari denge; altın, enerji ve seyahat geliri</span>
-            </li>
-            <li>
-              <a href="/veri/dis-ticaret/" class="fihrist-baslik-link">Dış Ticaret</a>
-              <span class="fihrist-ozet">İhracat, ithalat ve ithalatın mal grupları</span>
-            </li>
-            <li>
-              <a href="/veri/dis-borc/" class="fihrist-baslik-link">Dış Borç</a>
-              <span class="fihrist-ozet">Kısa vadeli dış borç, rezervle karşılama oranı, brüt ve net borç stoku</span>
-            </li>
-            <li>
-              <a href="/veri/sanayi-uretimi/" class="fihrist-baslik-link">Sanayi Üretimi</a>
-              <span class="fihrist-ozet">TÜİK sanayi üretim endeksi, aylık ve yıllık değişim</span>
-            </li>
-            <li>
-              <a href="/veri/kredi-hacmi/" class="fihrist-baslik-link">Kredi Hacmi</a>
-              <span class="fihrist-ozet">Bankacılık kredileri, nominal ve reel yıllık büyüme</span>
-            </li>
-            <li>
-              <a href="/veri/butce-dengesi/" class="fihrist-baslik-link">Genel Bütçe Dengesi</a>
-              <span class="fihrist-ozet">12 aylık bütçe dengesi, faiz dışı denge ve faiz harcaması</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Para politikası ve dünya -->
-        <div class="fihrist-kutu">
-          <div class="fihrist-kutu-baslik">
-            <h3>Para Politikası &amp; Dünya</h3>
-          </div>
-          <ul class="fihrist-liste">
-            <li>
-              <a href="/veri/dunya-politika-faizleri/" class="fihrist-baslik-link">Dünya Politika Faizleri</a>
-              <span class="fihrist-ozet">{dunyaFaizData.satirlar.length} merkez bankasının faizi, son hareketi, fazı ve reel faizi ({dunyaFaz('Sıkılaştırma')} sıkılaştırmada, {dunyaFaz('Gevşeme')} gevşemede)</span>
-            </li>
-            <li>
-              <a href="/veri/emsal-ulkeler/" class="fihrist-baslik-link">Emsal Ülkeler</a>
-              <span class="fihrist-ozet">Türkiye ile 22 ekonominin büyüme, enflasyon, işsizlik, faiz ve reel faizi yan yana</span>
-            </li>
-            <li>
-              <a href="/veri/ppk-karar-metni/" class="fihrist-baslik-link">PPK Karar Metni Farkı</a>
-              <span class="fihrist-ozet">Her faiz kararı metni bir öncekiyle cümle cümle: eklenen, silinen ve değişen cümleler</span>
-            </li>
-            <li>
-              <a href="/veri/ppk-tonu/" class="fihrist-baslik-link">PPK Metin Tonu</a>
-              <span class="fihrist-ozet">PPK metinlerinin yapay zekâyla okunan yönü, −3 güvercin ile +3 şahin arası</span>
-            </li>
-            <li>
-              <a href="/veri/tahmin/" class="fihrist-baslik-link">Tahminler ve Karneleri</a>
-              <span class="fihrist-ozet">Enflasyon, cari denge, sanayi ve PPK modelleri; tabanı geçemeyen rakam vermez</span>
-            </li>
-            <li>
-              <a href="/veri/enflasyon-yolu/" class="fihrist-baslik-link">Enflasyon Yolu Hesap Makinesi</a>
-              <span class="fihrist-ozet">Aylık varsayıma göre yıllık enflasyonun 12 aylık yolu, baz etkisiyle</span>
-            </li>
-            <li>
-              <a href="/veri/taylor-kurali/" class="fihrist-baslik-link">Taylor Kuralı Bandı</a>
-              <span class="fihrist-ozet">Kuralın varsayımlara göre verdiği faiz aralığı ve politika faizi</span>
-            </li>
-            <li>
-              <a href="/veri/ppk-ifade-izi/" class="fihrist-baslik-link">PPK İfade İzi</a>
-              <span class="fihrist-ozet">PPK metinlerinde bir ifadenin hangi toplantıda ilk göründüğü, hangisinde kaybolduğu</span>
-            </li>
-            <li>
-              <a href="/veri/tcmb-karnesi/" class="fihrist-baslik-link">TCMB Karnesi</a>
-              <span class="fihrist-ozet">Enflasyon Raporu tahminleri, ara hedefler, anket beklentileri ve metin tonu gerçekleşenle karşılaştırmalı</span>
-            </li>
-            <li>
-              <a href="/veri/dunyada-turkiye/" class="fihrist-baslik-link">Türkiye Dünyada Kaçıncı?</a>
-              <span class="fihrist-ozet">Büyüme, enflasyon, işsizlik ve faizde 23 ekonomi arasındaki sıra; paylaşılabilir kartlar</span>
-            </li>
-            <li>
-              <a href="/veri/ecb-aciklama-metni/" class="fihrist-baslik-link">ECB Açıklama Metni Farkı</a>
-              <span class="fihrist-ozet">ECB karar açıklamaları, basın toplantısı metni ve toplantı hesapları cümle cümle</span>
-            </li>
-            <li>
-              <a href="/veri/ecb-tonu/" class="fihrist-baslik-link">ECB Metin Tonu</a>
-              <span class="fihrist-ozet">ECB metinlerinin yapay zekâyla okunan yönü, −3 güvercin ile +3 şahin arası</span>
-            </li>
-            <li>
-              <a href="/veri/takvim/" class="fihrist-baslik-link">Veri Yayın Takvimi</a>
-              <span class="fihrist-ozet">TÜİK bültenleri ve TCMB yayınlarının önümüzdeki 8 haftadaki tarihleri</span>
-            </li>
-            <li>
-              <a href="/veri/guncellik/" class="fihrist-baslik-link">Veri Güncelliği</a>
-              <span class="fihrist-ozet">Bu sayfalardaki her serinin son gözlemi ve yayın takvimine göre durumu</span>
-            </li>
-            <li>
-              <a href="/veri/seri-gezgini/" class="fihrist-baslik-link">Seri Gezgini</a>
-              <span class="fihrist-ozet">157 zaman serisini ara, dördüne kadarını aynı grafikte karşılaştır, CSV indir</span>
-            </li>
-            <li>
-              <a href="/veri/revizyonlar/" class="fihrist-baslik-link">Veri Revizyonları</a>
-              <span class="fihrist-ozet">TÜİK ve TCMB verilerinde geçmiş dönem rakamlarının sonradan değişmesi</span>
-            </li>
-            <li>
-              <a href="/veri/enflasyon-katkilari/" class="fihrist-baslik-link">Enflasyonun Kaynakları</a>
-              <span class="fihrist-ozet">13 ana harcama grubunun yıllık ve aylık enflasyona katkısı</span>
-            </li>
-            <li>
-              <a href="/hesapla/kisisel-enflasyon/" class="fihrist-baslik-link">Kişisel Enflasyon Hesaplama</a>
-              <span class="fihrist-ozet">Kendi harcama dağılımınızla yıllık enflasyon</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Fed -->
-        <div class="fihrist-kutu">
-          <div class="fihrist-kutu-baslik">
-            <h3>Fed (ABD Merkez Bankası)</h3>
-          </div>
-          <ul class="fihrist-liste">
-            <li>
-              <a href="/veri/fed-projeksiyonlari/" class="fihrist-baslik-link">Fed Faiz Projeksiyonları (SEP)</a>
-              <span class="fihrist-ozet">FOMC katılımcılarının faiz, büyüme, işsizlik ve enflasyon projeksiyonları; nokta grafiği</span>
-            </li>
-            <li>
-              <a href="/veri/fomc-aciklama-metni/" class="fihrist-baslik-link">FOMC Açıklama Metni Farkı</a>
-              <span class="fihrist-ozet">Her faiz kararı açıklaması bir öncekiyle cümle cümle; oy dağılımı ve tutanaklar</span>
-            </li>
-            <li>
-              <a href="/veri/fomc-tonu/" class="fihrist-baslik-link">FOMC Metin Tonu</a>
-              <span class="fihrist-ozet">FOMC açıklama ve tutanaklarının yapay zekâyla okunan yönü, −3 güvercin ile +3 şahin arası</span>
-            </li>
-          </ul>
-        </div>
-
-        <!-- 5. Hesaplanmış göstergeler (finfolis) -->
-        <div class="fihrist-kutu">
-          <div class="fihrist-kutu-baslik">
-            <h3>Hesaplanmış Göstergeler</h3>
-          </div>
-          <ul class="fihrist-liste">
-            <li>
-              <a href="/veri/kur-degisim-hizi/" class="fihrist-baslik-link">Kur Değişim Hızı</a>
-              <span class="fihrist-ozet">Dolar ve euronun 4 ve 13 haftalık yıllıklandırılmış değişimi ({usdHizSon ? `%${sayiYaz(usdHizSon.hiz, 1)}` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/reel-faiz/" class="fihrist-baslik-link">Reel Faiz</a>
-              <span class="fihrist-ozet">Politika faizinin beklenen ve gerçekleşen enflasyona göre reel karşılığı ({reelSon ? `%${sayiYaz(reelSon.reel, 1)}` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/enflasyon-hizi/" class="fihrist-baslik-link">Enflasyon Hızı</a>
-              <span class="fihrist-ozet">Aylık ve üç aylık fiyat artışının yıllık karşılığı</span>
-            </li>
-            <li>
-              <a href="/veri/kira-carpani/" class="fihrist-baslik-link">Kira Çarpanı</a>
-              <span class="fihrist-ozet">Konut fiyatı kaç yıllık kiraya eşit, il il ({carpanSon ? `${sayiYaz(carpanSon.carpan, 1)} yıl` : '–'})</span>
-            </li>
-            <li>
-              <a href="/veri/kredi-mevduat-makasi/" class="fihrist-baslik-link">Kredi-Mevduat Makası</a>
-              <span class="fihrist-ozet">Kredi ve mevduat faizi arasındaki fark, 2018’den ({makasSon ? `${sayiYaz(makasSon.fark, 1)} puan` : '–'})</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Hesaplayıcılar ve Araçlar -->
-    <section class="bolum">
-      <div class="bolum-baslik-sarici">
-        <h2 class="bolum-baslik">Finansal Hesaplayıcılar</h2>
-        <span class="bolum-ipucu">TÜFE, getiri ve taksit formülleri</span>
-      </div>
-      <div class="araclar-izgara">
-        {
-          araclar.map((o) => (
-            <a href={o.href} class="arac-karti">
-              <span class="arac-baslik">{o.ad}</span>
-              <p class="arac-not">{o.not}</p>
-              <span class="arac-ok">Hesapla →</span>
-            </a>
-          ))
         }
       </div>
     </section>
@@ -1128,137 +688,6 @@ const araclar = [
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
     margin-bottom: 40px;
-  }
-
-  /* TCMB Gösterge Kur Tahtası */
-  .kur-tahtasi-kapsayici {
-    background: var(--paper);
-    border: 1px solid var(--hair);
-    margin-bottom: 40px;
-    overflow-x: auto;
-  }
-
-  .kur-tahtasi {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: var(--sans);
-    font-size: 0.88rem;
-    text-align: left;
-  }
-
-  .kur-tahtasi th,
-  .kur-tahtasi td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--hair);
-  }
-
-  .kur-tahtasi thead th {
-    background: var(--paper-2);
-    font-weight: 700;
-    font-size: 0.78rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .kur-tahtasi tbody tr:hover td {
-    background: var(--paper-2);
-  }
-
-  .kur-hucre-ad {
-    white-space: nowrap;
-  }
-
-  .kur-hucre-ad .kur-kod {
-    margin-right: 8px;
-  }
-
-  .kur-tahtasi td {
-    vertical-align: middle;
-  }
-
-  .kur-kod {
-    font-weight: 700;
-    color: var(--ink);
-    letter-spacing: 0.02em;
-  }
-
-  .kur-ad {
-    font-size: 0.8rem;
-    color: var(--muted);
-  }
-
-  .kur-tahtasi .sag {
-    text-align: right;
-  }
-
-  .kur-tahtasi .sayisal {
-    font-variant-numeric: tabular-nums;
-    font-size: 0.92rem;
-  }
-
-  .kur-tahtasi .sayisal.vurgu {
-    font-weight: 700;
-    color: var(--ink);
-  }
-
-  .kur-git-link,
-  .kur-git-link-soluk {
-    white-space: nowrap;
-  }
-
-  .kur-git-link {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--toprak-text);
-    text-decoration: none;
-    transition: color 0.15s ease;
-  }
-
-  .kur-git-link:hover {
-    color: var(--toprak);
-    text-decoration: underline;
-  }
-
-  .kur-git-link-soluk {
-    font-size: 0.78rem;
-    color: var(--muted);
-    text-decoration: none;
-  }
-
-  .kur-git-link-soluk:hover {
-    color: var(--ink);
-    text-decoration: underline;
-  }
-
-  .kur-tahtasi-alt {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 18px;
-    background: var(--paper-2);
-    border-top: 1px solid var(--hair);
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .kur-alt-not {
-    font-size: 0.82rem;
-    color: var(--ink-2);
-  }
-
-  .kur-alt-buton {
-    font-family: var(--sans);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--toprak-text);
-    text-decoration: none;
-    transition: color 0.15s ease;
-  }
-
-  .kur-alt-buton:hover {
-    color: var(--toprak);
-    text-decoration: underline;
   }
 
   /* Tematik Veri Fihristi Izgarası */
@@ -1328,54 +757,89 @@ const araclar = [
     line-height: 1.35;
   }
 
-  /* Hesaplayıcı Araç Kartları */
-  .araclar-izgara {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 14px;
-    margin-top: 14px;
+  .fihrist-liste li[hidden],
+  .fihrist-kutu[hidden],
+  .dizin-atla[hidden],
+  .sayfa-giris[hidden] {
+    display: none;
   }
 
-  .arac-karti {
-    display: flex;
-    flex-direction: column;
-    background: var(--paper-2);
-    border: 1px solid var(--hair);
-    padding: 16px 18px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.15s ease;
+  /* Arama kutusu ve konu atlama şeridi */
+  .dizin-ara {
+    margin: 8px 0 32px;
   }
 
-  .arac-karti:hover {
-    border-color: var(--toprak);
-  }
-
-  .arac-baslik {
-    font-family: var(--sans);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--ink);
+  .dizin-ara-etiket {
+    display: block;
     margin-bottom: 6px;
-  }
-
-  .arac-not {
-    margin: 0 0 12px;
-    font-size: 0.82rem;
-    color: var(--ink-2);
-    line-height: 1.4;
-  }
-
-  .arac-ok {
-    margin-top: auto;
     font-family: var(--sans);
     font-size: 0.8rem;
     font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: var(--toprak-text);
   }
 
-  .arac-karti:hover .arac-ok {
+  .dizin-ara-kutu {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 560px;
+    padding: 12px 14px;
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--ink-2);
+    border-radius: 0;
+  }
+
+  .dizin-ara-kutu:focus {
+    outline: 2px solid var(--toprak);
+    outline-offset: 1px;
+  }
+
+  .dizin-ara-durum {
+    margin: 8px 0 0;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .dizin-atla {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+  }
+
+  .dizin-atla a {
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--hair);
+    text-underline-offset: 3px;
+  }
+
+  .dizin-atla a:hover {
     color: var(--toprak);
+    text-decoration-color: currentColor;
+  }
+
+  .fihrist-kutu {
+    scroll-margin-top: 16px;
+  }
+
+  .dizin-ara-yok {
+    margin: -24px 0 40px;
+    font-size: 0.92rem;
+    color: var(--ink-2);
+  }
+
+  .dizin-ara-yok a {
+    color: var(--toprak-text);
   }
 
   @media (max-width: 900px) {
@@ -1385,21 +849,55 @@ const araclar = [
     .fihrist-izgara {
       grid-template-columns: 1fr;
     }
-    .araclar-izgara {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
   }
 
   @media (max-width: 600px) {
     .kartlar-izgara {
       grid-template-columns: 1fr;
     }
-    .araclar-izgara {
-      grid-template-columns: 1fr;
-    }
-    .mobil-gizle,
-    .kur-ad {
-      display: none;
+    .fihrist-kutu {
+      padding: 16px;
     }
   }
 </style>
+
+<script>
+  // Sayfa içi arama: madde metni + data-ek (eş anlamlılar ve seri adları) içinde, büyük/küçük harf ve
+  // Türkçe harf farkı gözetmeden her sözcüğü arar. Betik çalışmazsa liste olduğu gibi tam kalır.
+  const norm = (s: string) =>
+    s
+      .toLocaleLowerCase('tr')
+      .replace(/[ıİ]/g, 'i')
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '');
+  const kutu = document.getElementById('dizin-ara-kutu') as HTMLInputElement | null;
+  const durum = document.getElementById('dizin-ara-durum');
+  const yok = document.getElementById('dizin-ara-yok');
+  const maddeler = [...document.querySelectorAll<HTMLLIElement>('.fihrist-liste li')].map((li) => ({
+    li,
+    metin: norm(`${li.textContent ?? ''} ${li.dataset.ek ?? ''}`),
+  }));
+  const gruplar = [...document.querySelectorAll<HTMLElement>('.fihrist-kutu')];
+  // Arama sürerken giriş metni ve atlama şeridi sonuçları aşağı itmesin diye gizlenir.
+  const aramadaGizle = [...document.querySelectorAll<HTMLElement>('.dizin-atla, .sayfa-giris')];
+
+  function suz() {
+    const kelimeler = norm(kutu?.value ?? '').split(/\s+/).filter(Boolean);
+    let n = 0;
+    for (const m of maddeler) {
+      const goster = kelimeler.every((k) => m.metin.includes(k));
+      m.li.hidden = !goster;
+      if (goster) n++;
+    }
+    for (const g of gruplar) g.hidden = !g.querySelector('li:not([hidden])');
+    if (durum) {
+      durum.hidden = kelimeler.length === 0;
+      durum.textContent = n ? `${n} sayfa bulundu` : '';
+    }
+    if (yok) yok.hidden = kelimeler.length === 0 || n > 0;
+    for (const e of aramadaGizle) e.hidden = kelimeler.length > 0;
+  }
+
+  kutu?.addEventListener('input', suz);
+  if (kutu?.value) suz();
+</script>
