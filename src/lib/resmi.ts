@@ -260,6 +260,19 @@ export type InsaatBelge = 'ruhsat' | 'iskan';
 export type InsaatTuru = 'Apartman' | 'Mustakil' | 'Toplu' | 'Otel' | 'Ofis' | 'Ticaret' | 'Ulastirma' | 'Sanayi' | 'Kamu' | 'Diger';
 export type InsaatIzinBolumu = AylikSeriBolumu<`${InsaatBelge}${'Daire' | 'Alan' | 'Yapi' | InsaatTuru}`>;
 
+// Kesimlerin 12 ay sonrası enflasyon beklentisi (anket ortalaması, %), hanehalkı anketinin yanıt payları (%) ve Piyasa
+// Katılımcıları Anketi'nde son ayın olasılık dağılımı (aralık başına ortalama olasılık, %; son aralığın üstü açık).
+export type HaneGrubu = 'Gida' | 'Enerji' | 'Lokanta' | 'Kira' | 'Dayanikli' | 'Egitim' | 'Diger';
+export interface BeklentiDagilimi {
+  gozlem: number;
+  kutular: { alt: number; ust: number | null; pay: number }[];
+}
+export interface KesimBeklentiBolumu extends AylikSeriBolumu<'piyasa' | 'reel' | 'hanehalki'> {
+  haneSeriler: SeriAdi[];
+  hane: ({ yil: number; ay: number } & Record<'altinda' | 'ayni' | 'uzerinde' | `${'gecmis' | 'gelecek'}${HaneGrubu}`, number>)[];
+  dagilim: { yil: number; ay: number; ay12: BeklentiDagilimi; ay24: BeklentiDagilimi };
+}
+
 export const RESMI = data as unknown as {
   kur?: KurBolumu;
   faiz?: FaizBolumu;
@@ -320,6 +333,7 @@ export const RESMI = data as unknown as {
   konutSatis?: KonutSatisBolumu;
   ufe?: UfeBolumu;
   insaatIzin?: InsaatIzinBolumu;
+  kesimBeklenti?: KesimBeklentiBolumu;
 };
 
 // Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).

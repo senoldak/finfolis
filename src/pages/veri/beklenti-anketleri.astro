@@ -1,0 +1,347 @@
+---
+// Beklenti anketleri: TCMB'nin üç anketinde 12 ay sonrası yıllık enflasyon beklentisi (piyasa katılımcıları, reel kesim,
+// hanehalkı), Hanehalkı Beklenti Anketi'nin yön ve harcama grubu soruları ve Piyasa Katılımcıları Anketi'nde beklentinin
+// olasılık dağılımı, EVDS'den. Anket sonuçlarıdır, sitenin tahmini değildir. Gerçekleşen TÜFE karşılaştırma için
+// enflasyon bölümünden gelir. Sayfa hesabı yoktur; dağılımda yalnız sıfır paylı uç aralıklar gösterilmez. Kur, konut
+// fiyatı ve yatırım tercihi soruları bilerek yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import type { BeklentiDagilimi, HaneGrubu } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const kesimBeklenti = RESMI.kesimBeklenti;
+const satirlar = kesimBeklenti?.satirlar ?? [];
+const hane = kesimBeklenti?.hane ?? [];
+const dagilim = kesimBeklenti?.dagilim;
+const son = satirlar.at(-1);
+const sonHane = hane.at(-1);
+const tufe = RESMI.enflasyon?.satirlar ?? [];
+const sonTufe = tufe.at(-1);
+const tufeHarita = new Map(tufe.map((s) => [ayAnahtari(s), s.yillik]));
+
+const gruplar1 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'piyasa', ad: 'Piyasa katılımcıları', renk: 'murekkep' as const },
+      { id: 'reel', ad: 'Reel kesim', renk: 'toprak' as const },
+      { id: 'hanehalki', ad: 'Hanehalkı', renk: 'mavi' as const },
+      { id: 'tufe', ad: 'Gerçekleşen enflasyon', renk: 'yesil' as const, kesik: true },
+    ],
+  },
+];
+const noktalar1 = satirlar.map((s) => [ayAnahtari(s), s.piyasa, s.reel, s.hanehalki, tufeHarita.get(ayAnahtari(s)) ?? null]);
+
+const gruplar2 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'uzerinde', ad: 'Artmasını bekleyenler', renk: 'toprak' as const },
+      { id: 'ayni', ad: 'Aynı kalmasını bekleyenler', renk: 'murekkep' as const },
+      { id: 'altinda', ad: 'Düşmesini bekleyenler', renk: 'mavi' as const },
+    ],
+  },
+];
+const noktalar2 = hane.map((s) => [ayAnahtari(s), s.uzerinde, s.ayni, s.altinda]);
+
+const tablo = satirlar.slice(-12).reverse();
+
+const GRUPLAR: { alan: HaneGrubu; ad: string }[] = [
+  { alan: 'Gida', ad: 'Gıda' },
+  { alan: 'Enerji', ad: 'Yakıt ve enerji' },
+  { alan: 'Kira', ad: 'Kiralar' },
+  { alan: 'Egitim', ad: 'Eğitim' },
+  { alan: 'Dayanikli', ad: 'Beyaz eşya, otomobil vb. dayanıklı mallar' },
+  { alan: 'Lokanta', ad: 'Otel, lokanta vb. hizmetler' },
+  { alan: 'Diger', ad: 'Diğer' },
+];
+const grupTablo = sonHane
+  ? GRUPLAR.map((g) => ({ ad: g.ad, gecmis: sonHane[`gecmis${g.alan}`], gelecek: sonHane[`gelecek${g.alan}`] })).sort(
+      (a, b) => b.gelecek - a.gelecek,
+    )
+  : [];
+
+// Sıfır paylı uç aralıklar atılır; aradaki sıfırlar kalır.
+const doluKutular = (d: BeklentiDagilimi) => {
+  const ilk = d.kutular.findIndex((k) => k.pay > 0);
+  const sonK = d.kutular.findLastIndex((k) => k.pay > 0);
+  return ilk < 0 ? [] : d.kutular.slice(ilk, sonK + 1);
+};
+const araliYaz = (k: { alt: number; ust: number | null }) =>
+  k.ust == null ? `%${sayiYaz(k.alt, 0)} ve üstü` : `%${sayiYaz(k.alt, 0)}–${sayiYaz(k.ust, 2)}`;
+const dagilimlar = dagilim
+  ? [
+      { id: 'ay12', baslik: '12 ay sonrası', d: dagilim.ay12 },
+      { id: 'ay24', baslik: '24 ay sonrası', d: dagilim.ay24 },
+    ].map((x) => {
+      const kutular = doluKutular(x.d);
+      return { ...x, kutular, enCok: Math.max(...kutular.map((k) => k.pay), 1) };
+    })
+  : [];
+
+const yuzde = (n: number) => yuzdeYaz(n);
+const baslik = 'Beklenti anketleri';
+const description =
+  son && sonHane
+    ? `${ayAdi(son)} anketlerinde 12 ay sonrası yıllık enflasyon beklentisi piyasa katılımcılarında ${yuzde(son.piyasa)}, reel kesimde ${yuzde(son.reel)}, hanehalkında ${yuzde(son.hanehalki)}. Enflasyonun artmasını bekleyen hanehalkı payı ${yuzde(sonHane.uzerinde)}. TCMB anketleri.`
+    : 'Piyasa katılımcıları, reel kesim ve hanehalkının 12 ay sonrası enflasyon beklentisi; hanehalkı anketi ve beklentilerin olasılık dağılımı, TCMB anketleri.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/beklenti-anketleri/' },
+];
+const ayKodu = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(kesimBeklenti && son
+    ? {
+        sayfaEk: { dateModified: kesimBeklenti.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Kesimlere göre enflasyon beklentisi',
+            description:
+              'TCMB Piyasa Katılımcıları Anketi, İktisadi Yönelim Anketi ve Hanehalkı Beklenti Anketi’nde 12 ay sonrası yıllık enflasyon beklentisi; hanehalkının enflasyonun yönüne ve harcama gruplarına ilişkin yanıtları; piyasa katılımcılarının beklentilerinin olasılık dağılımı, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/beklenti-anketleri/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ayKodu(satirlar[0])}/${ayKodu(son)}`,
+            dateModified: kesimBeklenti.alinma,
+            variableMeasured: [
+              'Piyasa katılımcılarının 12 ay sonrası yıllık enflasyon beklentisi (%)',
+              'Reel kesimin 12 ay sonrası yıllık enflasyon beklentisi (%)',
+              'Hanehalkının 12 ay sonrası yıllık enflasyon beklentisi (%)',
+              'Enflasyonun yönüne ilişkin hanehalkı yanıtları (%)',
+              'Fiyatı en çok artan ve artacak harcama grupları, hanehalkı yanıtları (%)',
+              '12 ve 24 ay sonrası enflasyon beklentisinin olasılık dağılımı (%)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Beklenti anketleri: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Piyasa katılımcıları, reel kesim ve hanehalkının enflasyon beklentisi · TCMB anketleri, aylık</p>
+    </header>
+    {
+      kesimBeklenti && son && sonHane ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Piyasa katılımcıları</dt>
+              <dd>{yuzde(son.piyasa)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}, 12 ay sonrası beklenti</dd>
+            </div>
+            <div>
+              <dt>Reel kesim</dt>
+              <dd>{yuzde(son.reel)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}, 12 ay sonrası beklenti</dd>
+            </div>
+            <div>
+              <dt>Hanehalkı</dt>
+              <dd>{yuzde(son.hanehalki)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}, 12 ay sonrası beklenti</dd>
+            </div>
+            {sonTufe && (
+              <div>
+                <dt>Gerçekleşen enflasyon</dt>
+                <dd>{yuzde(sonTufe.yillik)}</dd>
+                <dd class="veri-degisim">{ayAdi(sonTufe)}, yıllık TÜFE (TÜİK)</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={kesimBeklenti.kaynak.url} rel="noopener">{kesimBeklenti.kaynak.ad}</a>; gerçekleşen
+            enflasyon TÜİK. Siteye alındığı zaman: {zamanYaz(kesimBeklenti.alinma)}. Rakamlar anket sonucudur, finfolis’in
+            tahmini değildir.
+          </p>
+
+          <ZamanGrafik
+            baslik="12 ay sonrası enflasyon beklentisi"
+            ipucu="Yüzde, anket ayından 12 ay sonrası için beklenen yıllık enflasyon · Kesikli çizgi o ay açıklanan gerçekleşen yıllık enflasyondur"
+            kaynak="Kaynak: TCMB anketleri (TCMB EVDS); gerçekleşen enflasyon TÜİK."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['piyasa', 'reel', 'hanehalki', 'tufe']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Anket ayı</th>
+                      <th scope="col" class="sag">Piyasa</th>
+                      <th scope="col" class="sag">Reel kesim</th>
+                      <th scope="col" class="sag">Hanehalkı</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{yuzde(s.piyasa)}</td>
+                        <td class="sag">{yuzde(s.reel)}</td>
+                        <td class="sag">{yuzde(s.hanehalki)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Her rakam, o ayki ankette 12 ay sonrası için beklenen yıllık tüketici enflasyonudur.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                TCMB üç ayrı kesime aynı soruyu sorar: 12 ay sonra yıllık enflasyon yüzde kaç olur? Piyasa Katılımcıları Anketi
+                finans ve reel sektördeki uzmanlara, İktisadi Yönelim Anketi imalat sanayi firmalarına, Hanehalkı Beklenti
+                Anketi tüketicilere yapılır.
+              </p>
+              <p>
+                Bu rakamlar katılımcıların görüşüdür; gerçekleşen enflasyon değildir ve finfolis’in tahmini de değildir.
+                Hanehalkı serisi 2026’dan önce farklı bir anketten gelir; EVDS iki dönemi tek seri olarak verir.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Hanehalkı: enflasyon 12 ay sonra nerede olacak?"
+            ipucu="Yanıtların yüzdesi · Soru, son açıklanan yıllık enflasyona göre 12 ay sonrasını sorar · Hanehalkı Beklenti Anketi, 2026’dan"
+            kaynak="Kaynak: TCMB, Hanehalkı Beklenti Anketi (TCMB EVDS)."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['uzerinde', 'ayni', 'altinda']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+          />
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Hanehalkı: fiyatı en çok artan gruplar, {ayAdi(sonHane)}</h2>
+            <div class="tablo-sarma">
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Harcama grubu</th>
+                    <th scope="col" class="sag">Son bir yılda</th>
+                    <th scope="col" class="sag">Gelecek 12 ayda</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {grupTablo.map((g) => (
+                    <tr>
+                      <td>{g.ad}</td>
+                      <td class="sag">{yuzde(g.gecmis)}</td>
+                      <td class="sag">{yuzde(g.gelecek)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="veri-notu">
+              Katılımcılar iki grup seçer; paylar seçimler üzerindendir ve her sütunun toplamı yüzdür. Sıralama gelecek 12 ay
+              sütununa göredir.
+            </p>
+          </section>
+
+          {dagilim && (
+            <section class="bolum">
+              <h2 class="bolum-baslik">Piyasa katılımcılarının beklentisinin dağılımı, {ayAdi(dagilim)}</h2>
+              <p class="veri-notu">
+                Katılımcılar her enflasyon aralığına bir olasılık verir; tablo bu olasılıkların ortalamasıdır. Hiç olasılık
+                verilmeyen uç aralıklar gösterilmez.
+              </p>
+              <div class="dagilim-izgara">
+                {dagilimlar.map((x) => (
+                  <div>
+                    <h3 class="dagilim-baslik">
+                      {x.baslik} <span>({sayiYaz(x.d.gozlem, 0)} katılımcı)</span>
+                    </h3>
+                    <table class="cizelge veri-tablo dagilim-tablo">
+                      <thead>
+                        <tr>
+                          <th scope="col">Enflasyon aralığı</th>
+                          <th scope="col" class="sag">Olasılık</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {x.kutular.map((k) => (
+                          <tr>
+                            <td>{araliYaz(k)}</td>
+                            <td class="sag">
+                              <span class="cubuk" style={`--oran:${(k.pay / x.enCok).toFixed(3)}`} aria-hidden="true" />
+                              {yuzde(k.pay)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+        </>
+      ) : (
+        <p class="bos">Beklenti anketi verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/enflasyon-beklentisi/">Enflasyon beklentisi</a>
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/tuketici-guveni/">Tüketici güveni</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı anket sonuçlarıdır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+  .dagilim-izgara {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  }
+  .dagilim-baslik {
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
+  }
+  .dagilim-baslik span {
+    font-weight: 400;
+    opacity: 0.7;
+  }
+  .dagilim-tablo td.sag {
+    position: relative;
+    white-space: nowrap;
+  }
+  .cubuk {
+    display: inline-block;
+    width: calc(6rem * var(--oran));
+    height: 0.6em;
+    margin-right: 0.5rem;
+    background: currentColor;
+    opacity: 0.35;
+    vertical-align: middle;
+  }
+</style>

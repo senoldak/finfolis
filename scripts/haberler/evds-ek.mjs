@@ -357,6 +357,10 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      geç yayımlanır); yurt içi ÜFE ile karşılaştırmak için TÜFE yıllık değişimi de alınır.
 //  - insaatIzin: yapı ruhsatı ve yapı kullanma izin belgesi (iskân) istatistikleri (TÜİK, aylık, çeyrek çeyrek
 //      yayımlanır; doğrulandı 29.10.2026): daire, yüzölçümü (m²) ve yapı sayısı; bina türlerine göre yüzölçümü.
+//  - kesimBeklenti: piyasa katılımcıları, reel kesim ve hanehalkının 12 ay sonrası yıllık enflasyon beklentisi (TCMB
+//      anketleri, aylık, 2015'ten; doğrulandı 29.10.2026); hanehalkı anketinin yön ve harcama grubu soruları (2026'dan);
+//      Piyasa Katılımcıları Anketi'nde 12 ve 24 ay sonrası beklentinin olasılık dağılımı (son ay; aralıklar EVDS seri
+//      listesinden). Kur, konut fiyatı ve yatırım tercihi soruları bilerek alınmaz.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -723,6 +727,98 @@ export async function insaatIzinAl(simdi, anahtar) {
     kaynak: { ad: 'TÜİK verisi, yapı izin istatistikleri: yapı ruhsatı ve yapı kullanma izin belgesi (TCMB EVDS)', url: EVDS_SAYFA },
     seriler: tanimlar(INSAAT_IZIN_SERILERI),
     satirlar: await aylikFormullu(INSAAT_IZIN_SERILERI, new Date(Date.UTC(2010, 0, 1)), simdi, anahtar, 'İnşaat izinleri', 120),
+  };
+}
+
+// Kesimlerin 12 ay sonrası yıllık enflasyon beklentisi (%, anket ortalaması). Hanehalkı serisi 2026'dan önce başka bir
+// anketten gelir; EVDS tek seri olarak verir.
+export const KESIM_BEKLENTI_SERILERI = [
+  { kod: 'TP.ENFBEK.PKA12ENF', formul: 0, alan: 'piyasa', ad: 'Piyasa katılımcıları, 12 ay sonrası yıllık enflasyon beklentisi' },
+  { kod: 'TP.ENFBEK.IYA12ENF', formul: 0, alan: 'reel', ad: 'Reel kesim, 12 ay sonrası yıllık enflasyon beklentisi' },
+  { kod: 'TP.ENFBEK.HBA12ENF', formul: 0, alan: 'hanehalki', ad: 'Hanehalkı, 12 ay sonrası yıllık enflasyon beklentisi' },
+];
+// Hanehalkı Beklenti Anketi (TCMB, 2026'dan): yanıt payları, %. 15 ve 16. sorularda iki grup seçilir; EVDS payları seçimler
+// üzerinden verir, toplamları 100'dür (doğrulandı 29.10.2026). HAN14A (ortalama beklenti) HBA12ENF ile, HAN13A/C HBA1ENF/
+// HBA3ENF ile aynıdır; ikinci kez alınmaz.
+const HANE_GRUPLARI = [
+  { harf: 'A', alan: 'Gida', ad: 'gıda' },
+  { harf: 'B', alan: 'Enerji', ad: 'yakıt ve enerji' },
+  { harf: 'C', alan: 'Lokanta', ad: 'otel, lokanta vb. hizmetler' },
+  { harf: 'D', alan: 'Kira', ad: 'kiralar' },
+  { harf: 'E', alan: 'Dayanikli', ad: 'beyaz eşya, otomobil vb. dayanıklı mallar' },
+  { harf: 'F', alan: 'Egitim', ad: 'eğitim' },
+  { harf: 'G', alan: 'Diger', ad: 'diğer' },
+];
+export const HANE_BEKLENTI_SERILERI = [
+  { kod: 'TP.HANEBEK.HAN13A', formul: 0, alan: 'altinda', ad: 'Enflasyonun 12 ay sonra bugünkünün altında olmasını bekleyenler' },
+  { kod: 'TP.HANEBEK.HAN13B', formul: 0, alan: 'ayni', ad: 'Enflasyonun 12 ay sonra bugünküyle aynı olmasını bekleyenler' },
+  { kod: 'TP.HANEBEK.HAN13C', formul: 0, alan: 'uzerinde', ad: 'Enflasyonun 12 ay sonra bugünkünün üzerinde olmasını bekleyenler' },
+  ...HANE_GRUPLARI.map((g) => ({
+    kod: `TP.HANEBEK.HAN15${g.harf}`,
+    formul: 0,
+    alan: `gecmis${g.alan}`,
+    ad: `Son bir yılda fiyatı en çok artan gruplar arasında ${g.ad} sayanlar`,
+  })),
+  ...HANE_GRUPLARI.map((g) => ({
+    kod: `TP.HANEBEK.HAN16${g.harf}`,
+    formul: 0,
+    alan: `gelecek${g.alan}`,
+    ad: `Gelecek 12 ayda fiyatı en çok artacak gruplar arasında ${g.ad} sayanlar`,
+  })),
+];
+
+// Olasılık dağılımı aralıkları EVDS seri listesinden: "(18.00-18.99) 12 Ay Sonrası…", "(0.00-2.99) …", "(>=40.00) …",
+// "(Gözlem Sayısı) …". Alt ve üst sınır yüzde; son aralığın üstü açıktır (null).
+async function dagilimSerileri(anahtar) {
+  const yanit = await fetch(`${EVDS}/serieList/type=json&code=bie_bekodtufeyeni`, { headers: { key: anahtar } });
+  if (!yanit.ok) throw new Error(`EVDS seri listesi ${yanit.status}`);
+  const liste = await yanit.json();
+  const vade = { 12: { gozlem: null, kutular: [] }, 24: { gozlem: null, kutular: [] } };
+  for (const s of liste) {
+    const m = String(s.SERIE_NAME).match(/^\((.+?)\) (12|24) Ay Sonrası/);
+    if (!m) continue;
+    const v = vade[m[2]];
+    if (m[1] === 'Gözlem Sayısı') v.gozlem = s.SERIE_CODE;
+    else if (/^>=\d/.test(m[1])) v.kutular.push({ kod: s.SERIE_CODE, alt: Number(m[1].slice(2)), ust: null });
+    else {
+      const a = m[1].match(/^(\d+(?:\.\d+)?)-(\d+(?:\.\d+)?)$/);
+      if (a) v.kutular.push({ kod: s.SERIE_CODE, alt: Number(a[1]), ust: Number(a[2]) });
+    }
+  }
+  for (const [ay, v] of Object.entries(vade)) {
+    if (!v.gozlem || v.kutular.length < 20) throw new Error(`Beklenti dağılımı ${ay} ay seri listesi eksik`);
+    v.kutular.sort((a, b) => a.alt - b.alt);
+  }
+  return vade;
+}
+
+// Dağılım yalnız son yayımlanmış ay için: son üç ay istenir, gözlem sayısı dolu son ay alınır. Paylar EVDS'nin verdiği
+// gibidir (katılımcıların olasılıklarının ortalaması, %); sıfır paylı uç aralıklar sayfada gösterilmez.
+async function dagilimAl(simdi, anahtar) {
+  const vade = await dagilimSerileri(anahtar);
+  const kodlar = Object.values(vade).flatMap((v) => [v.gozlem, ...v.kutular.map((k) => k.kod)]);
+  const bas = new Date(Date.UTC(simdi.getUTCFullYear(), simdi.getUTCMonth() - 3, 1));
+  const ham = await evdsCek(kodlar, kodlar.map(() => 0), bas, simdi, anahtar);
+  const son = ham.filter((h) => h.ay && h[alanAdi(vade[12].gozlem, 0)] != null && h[alanAdi(vade[24].gozlem, 0)] != null).at(-1);
+  if (!son) throw new Error('Beklenti dağılımı boş');
+  const vadeYaz = (v) => ({
+    gozlem: son[alanAdi(v.gozlem, 0)],
+    kutular: v.kutular.map((k) => ({ alt: k.alt, ust: k.ust, pay: son[alanAdi(k.kod, 0)] ?? 0 })),
+  });
+  return { yil: son.yil, ay: son.ay, ay12: vadeYaz(vade[12]), ay24: vadeYaz(vade[24]) };
+}
+
+export async function kesimBeklentiAl(simdi, anahtar) {
+  return {
+    kaynak: {
+      ad: 'TCMB Piyasa Katılımcıları Anketi, İktisadi Yönelim Anketi ve Hanehalkı Beklenti Anketi (TCMB EVDS)',
+      url: EVDS_SAYFA,
+    },
+    seriler: tanimlar(KESIM_BEKLENTI_SERILERI),
+    haneSeriler: tanimlar(HANE_BEKLENTI_SERILERI),
+    satirlar: await aylikFormullu(KESIM_BEKLENTI_SERILERI, new Date(Date.UTC(2015, 0, 1)), simdi, anahtar, 'Kesim beklentileri', 100),
+    hane: await aylikFormullu(HANE_BEKLENTI_SERILERI, new Date(Date.UTC(2026, 0, 1)), simdi, anahtar, 'Hanehalkı beklenti anketi', 6),
+    dagilim: await dagilimAl(simdi, anahtar),
   };
 }
 

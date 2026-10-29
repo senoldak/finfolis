@@ -12,6 +12,8 @@ import {
   konutSatisAl,
   ufeAl,
   insaatIzinAl,
+  kesimBeklentiAl,
+  HANE_BEKLENTI_SERILERI,
   INSAAT_IZIN_SERILERI,
   UFE_SERILERI,
   UFE_HIZMET_SERILERI,
@@ -361,6 +363,68 @@ test('insaatIzinAl: 120 aydan az satır varsa hata verir', async () => {
   globalThis.fetch = async (url) =>
     yanit({ items: aylar([2020, 1], 60).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(alanlar(url).map((x) => [x, '5'])) })) });
   await assert.rejects(() => insaatIzinAl(SIMDI, 'x'), /İnşaat izinleri yetersiz/);
+});
+
+// Kesim beklentileri: iki aylık istek (kesimler 2015'ten, hanehalkı 2026'dan) ve dağılım için seri listesi + son aylar.
+// Dağılım listesinde gözlem sayısı ve aralıklar adlarından ayrıştırılır; ilgisiz ad atlanır. Son ayın gözlemi boşsa bir
+// önceki ay alınır.
+const BEKOD_LISTE = [12, 24].flatMap((v, j) => {
+  const o = j * 60;
+  return [
+    { SERIE_CODE: `TP.BEKODTUFEYENI.BT${o + 1}`, SERIE_NAME: `(Gözlem Sayısı) ${v} Ay Sonrası Yıllık Tüketici Enflasyonu Beklentilerinin Olasılık Dağılımı` },
+    { SERIE_CODE: `TP.BEKODTUFEYENI.BT${o + 2}`, SERIE_NAME: `(0.00-2.99) ${v} Ay Sonrası Yıllık Tüketici Enflasyonu Beklentisi Olasılığı (%)` },
+    ...Array.from({ length: 37 }, (_, i) => ({
+      SERIE_CODE: `TP.BEKODTUFEYENI.BT${o + 3 + i}`,
+      SERIE_NAME: `(${3 + i}.00-${3 + i}.99) ${v} Ay Sonrası Yıllık Tüketici Enflasyonu Beklentisi Olasılığı (%)`,
+    })),
+    { SERIE_CODE: `TP.BEKODTUFEYENI.BT${o + 40}`, SERIE_NAME: `(>=40.00) ${v} Ay Sonrası Yıllık Tüketici Enflasyonu Beklentisi Olasılığı (%)` },
+  ];
+}).concat([{ SERIE_CODE: 'TP.BEKODTUFEYENI.X', SERIE_NAME: 'İlgisiz seri' }]);
+
+const beklentiMock = (istekler = []) => async (url) => {
+  const u = decodeURIComponent(String(url));
+  istekler.push(u);
+  if (u.includes('serieList')) return yanit(BEKOD_LISTE);
+  const a = alanlar(url);
+  if (u.includes('BEKODTUFEYENI')) {
+    // Temmuz–ekim; ekimde gözlem yok (yayımlanmamış), eylülün değerleri alınır.
+    const items = aylar([2026, 7], 4).map((m, i) => ({
+      Tarih: `${m.yil}-${m.ay}`,
+      ...Object.fromEntries(a.map((x) => [x, i === 3 ? null : x.endsWith('_BT1') || x.endsWith('_BT61') ? '40' : x.endsWith('_BT25') ? '60' : x.endsWith('_BT26') ? '40' : '0'])),
+    }));
+    return yanit({ items });
+  }
+  const bas = u.includes('HANEBEK') ? [2026, 1] : [2015, 1];
+  const n = u.includes('HANEBEK') ? 10 : 142;
+  return yanit({ items: aylar(bas, n).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(a.map((x) => [x, '20'])) })) });
+};
+
+test('kesimBeklentiAl: kesimler, hanehalkı ve son ayın dağılımı; aralıklar seri listesinden', async () => {
+  const istekler = [];
+  globalThis.fetch = beklentiMock(istekler);
+  const k = await kesimBeklentiAl(SIMDI, 'x');
+  assert.deepEqual(k.seriler.map((s) => s.alan), ['piyasa', 'reel', 'hanehalki']);
+  assert.deepEqual(k.haneSeriler.map((s) => s.alan), HANE_BEKLENTI_SERILERI.map((s) => s.alan));
+  assert.equal(k.satirlar.length, 142);
+  assert.deepEqual(k.satirlar.at(-1), { yil: 2026, ay: 10, piyasa: 20, reel: 20, hanehalki: 20 });
+  assert.equal(k.hane.length, 10);
+  assert.equal(Object.keys(k.hane[0]).length, 2 + 17);
+  // Kur, konut fiyatı ve yatırım tercihi soruları istenmez.
+  assert.ok(!istekler.some((u) => /HAN1[4789]|HAN20/.test(u)));
+  const d = k.dagilim;
+  assert.deepEqual([d.yil, d.ay], [2026, 9]);
+  assert.equal(d.ay12.gozlem, 40);
+  assert.equal(d.ay12.kutular.length, 39);
+  assert.deepEqual(d.ay12.kutular[0], { alt: 0, ust: 2.99, pay: 0 });
+  assert.deepEqual(d.ay12.kutular.at(-1), { alt: 40, ust: null, pay: 0 });
+  assert.equal(d.ay12.kutular.find((x) => x.alt === 25).pay, 60);
+  assert.equal(d.ay12.kutular.find((x) => x.alt === 26).pay, 40);
+  assert.equal(d.ay24.kutular.find((x) => x.alt === 25).pay, 0);
+});
+
+test('kesimBeklentiAl: dağılım seri listesi eksikse hata verir', async () => {
+  globalThis.fetch = async (url) => (String(url).includes('serieList') ? yanit(BEKOD_LISTE.slice(0, 10)) : beklentiMock()(url));
+  await assert.rejects(() => kesimBeklentiAl(SIMDI, 'x'), /dağılımı .* seri listesi eksik/);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

@@ -26,6 +26,7 @@ const issizlikSon = issizlik?.satirlar.at(-1);
 const buyumeSon = RESMI.buyume?.satirlar.at(-1);
 const konutSatisSon = RESMI.konutSatis?.satirlar.at(-1);
 const ufeSon = RESMI.ufe?.satirlar.at(-1);
+const kesimSon = RESMI.kesimBeklenti?.satirlar.at(-1);
 const insaatSatirlari = RESMI.insaatIzin?.satirlar ?? [];
 const ruhsatDaire12 = insaatSatirlari.length >= 12 ? insaatSatirlari.slice(-12).reduce((a, s) => a + s.ruhsatDaire, 0) : null;
 const rekSon = rek?.satirlar.at(-1);
@@ -67,6 +68,7 @@ const konutSeri = konut?.satirlar?.slice(-24).map((s) => s.bolgeler.TR.yillik) ?
 const ESANLAM: Record<string, string> = {
   '/veri/enflasyon/': 'tüfe fiyat pahalılık hayat pahalılığı',
   '/veri/enflasyon-hizi/': 'tüfe aylık enflasyon',
+  '/veri/beklenti-anketleri/': 'enflasyon beklentisi hanehalkı reel kesim piyasa katılımcıları anket tcmb olasılık dağılımı',
   '/veri/enflasyon-katkilari/': 'tüfe gıda enerji kira harcama grupları',
   '/veri/uretici-fiyatlari/': 'üfe yi-üfe üretici enflasyonu toptan eşya maliyet hizmet tarım girdi gübre',
   '/veri/gida-fiyatlari/': 'hal sebze meyve domates pazar fiyatı gıda enflasyonu toptan izmir',
@@ -229,6 +231,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/enflasyon-beklentisi/')}>
               <a href="/veri/enflasyon-beklentisi/" class="fihrist-baslik-link">Enflasyon Beklentisi</a>
               <span class="fihrist-ozet">TCMB anketinde 12 ay ({beklentiSon ? `%${sayiYaz(beklentiSon.ay12, 2)}` : '–'}) ve 24 ay sonrası beklenti, gerçekleşenle birlikte</span>
+            </li>
+            <li data-ek={aramaEki('/veri/beklenti-anketleri/')}>
+              <a href="/veri/beklenti-anketleri/" class="fihrist-baslik-link">Beklenti Anketleri</a>
+              <span class="fihrist-ozet">Piyasa, reel kesim ve hanehalkının 12 ay sonrası enflasyon beklentisi ({kesimSon ? `hanehalkı %${sayiYaz(kesimSon.hanehalki, 1)}` : '–'}), beklenti dağılımı</span>
             </li>
             <li data-ek={aramaEki('/hesapla/kisisel-enflasyon/')}>
               <a href="/hesapla/kisisel-enflasyon/" class="fihrist-baslik-link">Kişisel Enflasyon Hesaplama</a>

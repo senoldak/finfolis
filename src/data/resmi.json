@@ -64212,5 +64212,1808 @@
       }
     ],
     "alinma": "2026-10-29T16:05:54.876Z"
+  },
+  "kesimBeklenti": {
+    "kaynak": {
+      "ad": "TCMB Piyasa Katılımcıları Anketi, İktisadi Yönelim Anketi ve Hanehalkı Beklenti Anketi (TCMB EVDS)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "seriler": [
+      {
+        "alan": "piyasa",
+        "ad": "Piyasa katılımcıları, 12 ay sonrası yıllık enflasyon beklentisi"
+      },
+      {
+        "alan": "reel",
+        "ad": "Reel kesim, 12 ay sonrası yıllık enflasyon beklentisi"
+      },
+      {
+        "alan": "hanehalki",
+        "ad": "Hanehalkı, 12 ay sonrası yıllık enflasyon beklentisi"
+      }
+    ],
+    "haneSeriler": [
+      {
+        "alan": "altinda",
+        "ad": "Enflasyonun 12 ay sonra bugünkünün altında olmasını bekleyenler"
+      },
+      {
+        "alan": "ayni",
+        "ad": "Enflasyonun 12 ay sonra bugünküyle aynı olmasını bekleyenler"
+      },
+      {
+        "alan": "uzerinde",
+        "ad": "Enflasyonun 12 ay sonra bugünkünün üzerinde olmasını bekleyenler"
+      },
+      {
+        "alan": "gecmisGida",
+        "ad": "Son bir yılda fiyatı en çok artan gruplar arasında gıda sayanlar"
+      },
+      {
+        "alan": "gecmisEnerji",
+        "ad": "Son bir yılda fiyatı en çok artan gruplar arasında yakıt ve enerji sayanlar"
+      },
+      {
+        "alan": "gecmisLokanta",
+        "ad": "Son bir yılda fiyatı en çok artan gruplar arasında otel, lokanta vb. hizmetler sayanlar"
+      },
+      {
+        "alan": "gecmisKira",
+        "ad": "Son bir yılda fiyatı en çok artan gruplar arasında kiralar sayanlar"
+      },
+      {
+        "alan": "gecmisDayanikli",
+        "ad": "Son bir yılda fiyatı en çok artan gruplar arasında beyaz eşya, otomobil vb. dayanıklı mallar sayanlar"
+      },
+      {
+        "alan": "gecmisEgitim",
+        "ad": "Son bir yılda fiyatı en çok artan gruplar arasında eğitim sayanlar"
+      },
+      {
+        "alan": "gecmisDiger",
+        "ad": "Son bir yılda fiyatı en çok artan gruplar arasında diğer sayanlar"
+      },
+      {
+        "alan": "gelecekGida",
+        "ad": "Gelecek 12 ayda fiyatı en çok artacak gruplar arasında gıda sayanlar"
+      },
+      {
+        "alan": "gelecekEnerji",
+        "ad": "Gelecek 12 ayda fiyatı en çok artacak gruplar arasında yakıt ve enerji sayanlar"
+      },
+      {
+        "alan": "gelecekLokanta",
+        "ad": "Gelecek 12 ayda fiyatı en çok artacak gruplar arasında otel, lokanta vb. hizmetler sayanlar"
+      },
+      {
+        "alan": "gelecekKira",
+        "ad": "Gelecek 12 ayda fiyatı en çok artacak gruplar arasında kiralar sayanlar"
+      },
+      {
+        "alan": "gelecekDayanikli",
+        "ad": "Gelecek 12 ayda fiyatı en çok artacak gruplar arasında beyaz eşya, otomobil vb. dayanıklı mallar sayanlar"
+      },
+      {
+        "alan": "gelecekEgitim",
+        "ad": "Gelecek 12 ayda fiyatı en çok artacak gruplar arasında eğitim sayanlar"
+      },
+      {
+        "alan": "gelecekDiger",
+        "ad": "Gelecek 12 ayda fiyatı en çok artacak gruplar arasında diğer sayanlar"
+      }
+    ],
+    "satirlar": [
+      {
+        "yil": 2015,
+        "ay": 1,
+        "piyasa": 6.81,
+        "reel": 8.6,
+        "hanehalki": 22.35
+      },
+      {
+        "yil": 2015,
+        "ay": 2,
+        "piyasa": 6.69,
+        "reel": 8.4,
+        "hanehalki": 23.65
+      },
+      {
+        "yil": 2015,
+        "ay": 3,
+        "piyasa": 6.78,
+        "reel": 8.6,
+        "hanehalki": 27.3
+      },
+      {
+        "yil": 2015,
+        "ay": 4,
+        "piyasa": 6.91,
+        "reel": 8.5,
+        "hanehalki": 24.62
+      },
+      {
+        "yil": 2015,
+        "ay": 5,
+        "piyasa": 6.85,
+        "reel": 8.6,
+        "hanehalki": 28
+      },
+      {
+        "yil": 2015,
+        "ay": 6,
+        "piyasa": 7,
+        "reel": 8.9,
+        "hanehalki": 23.63
+      },
+      {
+        "yil": 2015,
+        "ay": 7,
+        "piyasa": 7.05,
+        "reel": 8.7,
+        "hanehalki": 24.22
+      },
+      {
+        "yil": 2015,
+        "ay": 8,
+        "piyasa": 7.04,
+        "reel": 8.6,
+        "hanehalki": 23.13
+      },
+      {
+        "yil": 2015,
+        "ay": 9,
+        "piyasa": 7.25,
+        "reel": 8.7,
+        "hanehalki": 27.45
+      },
+      {
+        "yil": 2015,
+        "ay": 10,
+        "piyasa": 7.34,
+        "reel": 8.7,
+        "hanehalki": 24.55
+      },
+      {
+        "yil": 2015,
+        "ay": 11,
+        "piyasa": 7.42,
+        "reel": 8.6,
+        "hanehalki": 22.21
+      },
+      {
+        "yil": 2015,
+        "ay": 12,
+        "piyasa": 7.56,
+        "reel": 8.7,
+        "hanehalki": 21.35
+      },
+      {
+        "yil": 2016,
+        "ay": 1,
+        "piyasa": 7.92,
+        "reel": 8.9,
+        "hanehalki": 23.18
+      },
+      {
+        "yil": 2016,
+        "ay": 2,
+        "piyasa": 7.96,
+        "reel": 9.1,
+        "hanehalki": 24.16
+      },
+      {
+        "yil": 2016,
+        "ay": 3,
+        "piyasa": 7.89,
+        "reel": 9,
+        "hanehalki": 23.5
+      },
+      {
+        "yil": 2016,
+        "ay": 4,
+        "piyasa": 7.78,
+        "reel": 8.7,
+        "hanehalki": 22.76
+      },
+      {
+        "yil": 2016,
+        "ay": 5,
+        "piyasa": 7.81,
+        "reel": 8.7,
+        "hanehalki": 22.34
+      },
+      {
+        "yil": 2016,
+        "ay": 6,
+        "piyasa": 7.6,
+        "reel": 8.6,
+        "hanehalki": 21.7
+      },
+      {
+        "yil": 2016,
+        "ay": 7,
+        "piyasa": 7.59,
+        "reel": 8.6,
+        "hanehalki": 23.03
+      },
+      {
+        "yil": 2016,
+        "ay": 8,
+        "piyasa": 7.61,
+        "reel": 8.8,
+        "hanehalki": 21.43
+      },
+      {
+        "yil": 2016,
+        "ay": 9,
+        "piyasa": 7.62,
+        "reel": 8.7,
+        "hanehalki": 16.92
+      },
+      {
+        "yil": 2016,
+        "ay": 10,
+        "piyasa": 7.61,
+        "reel": 8.6,
+        "hanehalki": 16.7
+      },
+      {
+        "yil": 2016,
+        "ay": 11,
+        "piyasa": 7.87,
+        "reel": 8.7,
+        "hanehalki": 19.82
+      },
+      {
+        "yil": 2016,
+        "ay": 12,
+        "piyasa": 8.04,
+        "reel": 8.9,
+        "hanehalki": 20.88
+      },
+      {
+        "yil": 2017,
+        "ay": 1,
+        "piyasa": 8.19,
+        "reel": 9.3,
+        "hanehalki": 22.2
+      },
+      {
+        "yil": 2017,
+        "ay": 2,
+        "piyasa": 8.21,
+        "reel": 9.4,
+        "hanehalki": 23.99
+      },
+      {
+        "yil": 2017,
+        "ay": 3,
+        "piyasa": 8.15,
+        "reel": 9.6,
+        "hanehalki": 20.94
+      },
+      {
+        "yil": 2017,
+        "ay": 4,
+        "piyasa": 8.27,
+        "reel": 10.1,
+        "hanehalki": 23.94
+      },
+      {
+        "yil": 2017,
+        "ay": 5,
+        "piyasa": 8.41,
+        "reel": 10.2,
+        "hanehalki": 22.73
+      },
+      {
+        "yil": 2017,
+        "ay": 6,
+        "piyasa": 8.32,
+        "reel": 10.3,
+        "hanehalki": 22.63
+      },
+      {
+        "yil": 2017,
+        "ay": 7,
+        "piyasa": 8.41,
+        "reel": 10.2,
+        "hanehalki": 21.67
+      },
+      {
+        "yil": 2017,
+        "ay": 8,
+        "piyasa": 8.37,
+        "reel": 10,
+        "hanehalki": 22.08
+      },
+      {
+        "yil": 2017,
+        "ay": 9,
+        "piyasa": 8.35,
+        "reel": 10.1,
+        "hanehalki": 22.79
+      },
+      {
+        "yil": 2017,
+        "ay": 10,
+        "piyasa": 8.52,
+        "reel": 10.3,
+        "hanehalki": 23.58
+      },
+      {
+        "yil": 2017,
+        "ay": 11,
+        "piyasa": 8.65,
+        "reel": 10.6,
+        "hanehalki": 24.82
+      },
+      {
+        "yil": 2017,
+        "ay": 12,
+        "piyasa": 9.3,
+        "reel": 11.2,
+        "hanehalki": 24.53
+      },
+      {
+        "yil": 2018,
+        "ay": 1,
+        "piyasa": 9.24,
+        "reel": 11.1,
+        "hanehalki": 23.01
+      },
+      {
+        "yil": 2018,
+        "ay": 2,
+        "piyasa": 9.26,
+        "reel": 10.9,
+        "hanehalki": 23.65
+      },
+      {
+        "yil": 2018,
+        "ay": 3,
+        "piyasa": 9.24,
+        "reel": 10.9,
+        "hanehalki": 23.24
+      },
+      {
+        "yil": 2018,
+        "ay": 4,
+        "piyasa": 9.62,
+        "reel": 11.4,
+        "hanehalki": 24.06
+      },
+      {
+        "yil": 2018,
+        "ay": 5,
+        "piyasa": 10.15,
+        "reel": 11.5,
+        "hanehalki": 27.1
+      },
+      {
+        "yil": 2018,
+        "ay": 6,
+        "piyasa": 10.47,
+        "reel": 12.4,
+        "hanehalki": 24.47
+      },
+      {
+        "yil": 2018,
+        "ay": 7,
+        "piyasa": 11.07,
+        "reel": 13.6,
+        "hanehalki": 29.64
+      },
+      {
+        "yil": 2018,
+        "ay": 8,
+        "piyasa": 12.96,
+        "reel": 15,
+        "hanehalki": 30.29
+      },
+      {
+        "yil": 2018,
+        "ay": 9,
+        "piyasa": 14.46,
+        "reel": 18,
+        "hanehalki": 37.34
+      },
+      {
+        "yil": 2018,
+        "ay": 10,
+        "piyasa": 17.03,
+        "reel": 22.1,
+        "hanehalki": 43.94
+      },
+      {
+        "yil": 2018,
+        "ay": 11,
+        "piyasa": 17.38,
+        "reel": 22.1,
+        "hanehalki": 41.71
+      },
+      {
+        "yil": 2018,
+        "ay": 12,
+        "piyasa": 16.46,
+        "reel": 20.3,
+        "hanehalki": 41.79
+      },
+      {
+        "yil": 2019,
+        "ay": 1,
+        "piyasa": 15.91,
+        "reel": 19.6,
+        "hanehalki": 40.63
+      },
+      {
+        "yil": 2019,
+        "ay": 2,
+        "piyasa": 15.47,
+        "reel": 19.3,
+        "hanehalki": 42.37
+      },
+      {
+        "yil": 2019,
+        "ay": 3,
+        "piyasa": 15.24,
+        "reel": 19.1,
+        "hanehalki": 44.46
+      },
+      {
+        "yil": 2019,
+        "ay": 4,
+        "piyasa": 15.38,
+        "reel": 19.2,
+        "hanehalki": 41.21
+      },
+      {
+        "yil": 2019,
+        "ay": 5,
+        "piyasa": 15.48,
+        "reel": 19.7,
+        "hanehalki": 45.78
+      },
+      {
+        "yil": 2019,
+        "ay": 6,
+        "piyasa": 14.88,
+        "reel": 19,
+        "hanehalki": 44.27
+      },
+      {
+        "yil": 2019,
+        "ay": 7,
+        "piyasa": 13.9,
+        "reel": 18,
+        "hanehalki": 43.27
+      },
+      {
+        "yil": 2019,
+        "ay": 8,
+        "piyasa": 12.77,
+        "reel": 17.1,
+        "hanehalki": 40.11
+      },
+      {
+        "yil": 2019,
+        "ay": 9,
+        "piyasa": 12.21,
+        "reel": 16.6,
+        "hanehalki": 40.62
+      },
+      {
+        "yil": 2019,
+        "ay": 10,
+        "piyasa": 11.18,
+        "reel": 15.2,
+        "hanehalki": 41.65
+      },
+      {
+        "yil": 2019,
+        "ay": 11,
+        "piyasa": 10.46,
+        "reel": 14.2,
+        "hanehalki": 39.65
+      },
+      {
+        "yil": 2019,
+        "ay": 12,
+        "piyasa": 10.07,
+        "reel": 13.7,
+        "hanehalki": 39.99
+      },
+      {
+        "yil": 2020,
+        "ay": 1,
+        "piyasa": 9.54,
+        "reel": 13.1,
+        "hanehalki": 38.36
+      },
+      {
+        "yil": 2020,
+        "ay": 2,
+        "piyasa": 9.61,
+        "reel": 13,
+        "hanehalki": 40.07
+      },
+      {
+        "yil": 2020,
+        "ay": 3,
+        "piyasa": 9.51,
+        "reel": 13.2,
+        "hanehalki": 40.32
+      },
+      {
+        "yil": 2020,
+        "ay": 4,
+        "piyasa": 9.7,
+        "reel": 13.5,
+        "hanehalki": 40.18
+      },
+      {
+        "yil": 2020,
+        "ay": 5,
+        "piyasa": 9.2,
+        "reel": 12.9,
+        "hanehalki": 39.02
+      },
+      {
+        "yil": 2020,
+        "ay": 6,
+        "piyasa": 9.03,
+        "reel": 12.8,
+        "hanehalki": 39.56
+      },
+      {
+        "yil": 2020,
+        "ay": 7,
+        "piyasa": 9.33,
+        "reel": 12.9,
+        "hanehalki": 39.61
+      },
+      {
+        "yil": 2020,
+        "ay": 8,
+        "piyasa": 9.7,
+        "reel": 13.1,
+        "hanehalki": 38.64
+      },
+      {
+        "yil": 2020,
+        "ay": 9,
+        "piyasa": 10.15,
+        "reel": 13.3,
+        "hanehalki": 40.05
+      },
+      {
+        "yil": 2020,
+        "ay": 10,
+        "piyasa": 10.53,
+        "reel": 13.5,
+        "hanehalki": 41.24
+      },
+      {
+        "yil": 2020,
+        "ay": 11,
+        "piyasa": 10.77,
+        "reel": 14.1,
+        "hanehalki": 43.4
+      },
+      {
+        "yil": 2020,
+        "ay": 12,
+        "piyasa": 10.84,
+        "reel": 14.4,
+        "hanehalki": 40.79
+      },
+      {
+        "yil": 2021,
+        "ay": 1,
+        "piyasa": 10.53,
+        "reel": 14.5,
+        "hanehalki": 41.22
+      },
+      {
+        "yil": 2021,
+        "ay": 2,
+        "piyasa": 10.36,
+        "reel": 14.4,
+        "hanehalki": 40.11
+      },
+      {
+        "yil": 2021,
+        "ay": 3,
+        "piyasa": 10.47,
+        "reel": 14.6,
+        "hanehalki": 39.23
+      },
+      {
+        "yil": 2021,
+        "ay": 4,
+        "piyasa": 11.26,
+        "reel": 15.8,
+        "hanehalki": 44.46
+      },
+      {
+        "yil": 2021,
+        "ay": 5,
+        "piyasa": 11.81,
+        "reel": 16.4,
+        "hanehalki": 44.31
+      },
+      {
+        "yil": 2021,
+        "ay": 6,
+        "piyasa": 12.12,
+        "reel": 16.5,
+        "hanehalki": 44.9
+      },
+      {
+        "yil": 2021,
+        "ay": 7,
+        "piyasa": 12.62,
+        "reel": 16.9,
+        "hanehalki": 45.81
+      },
+      {
+        "yil": 2021,
+        "ay": 8,
+        "piyasa": 12.48,
+        "reel": 17.2,
+        "hanehalki": 48.66
+      },
+      {
+        "yil": 2021,
+        "ay": 9,
+        "piyasa": 12.94,
+        "reel": 17.9,
+        "hanehalki": 47.41
+      },
+      {
+        "yil": 2021,
+        "ay": 10,
+        "piyasa": 13.91,
+        "reel": 18.8,
+        "hanehalki": 50.77
+      },
+      {
+        "yil": 2021,
+        "ay": 11,
+        "piyasa": 15.61,
+        "reel": 20.7,
+        "hanehalki": 52.15
+      },
+      {
+        "yil": 2021,
+        "ay": 12,
+        "piyasa": 21.39,
+        "reel": 24.6,
+        "hanehalki": 58.22
+      },
+      {
+        "yil": 2022,
+        "ay": 1,
+        "piyasa": 25.37,
+        "reel": 30.7,
+        "hanehalki": 58.32
+      },
+      {
+        "yil": 2022,
+        "ay": 2,
+        "piyasa": 24.83,
+        "reel": 36,
+        "hanehalki": 62.84
+      },
+      {
+        "yil": 2022,
+        "ay": 3,
+        "piyasa": 26.43,
+        "reel": 40.1,
+        "hanehalki": 65.65
+      },
+      {
+        "yil": 2022,
+        "ay": 4,
+        "piyasa": 28.41,
+        "reel": 48.6,
+        "hanehalki": 74.31
+      },
+      {
+        "yil": 2022,
+        "ay": 5,
+        "piyasa": 33.28,
+        "reel": 53.9,
+        "hanehalki": 76.85
+      },
+      {
+        "yil": 2022,
+        "ay": 6,
+        "piyasa": 37.91,
+        "reel": 61.1,
+        "hanehalki": 87.13
+      },
+      {
+        "yil": 2022,
+        "ay": 7,
+        "piyasa": 40.23,
+        "reel": 63.4,
+        "hanehalki": 84.18
+      },
+      {
+        "yil": 2022,
+        "ay": 8,
+        "piyasa": 41.99,
+        "reel": 65.7,
+        "hanehalki": 82.55
+      },
+      {
+        "yil": 2022,
+        "ay": 9,
+        "piyasa": 36.74,
+        "reel": 67.1,
+        "hanehalki": 82.06
+      },
+      {
+        "yil": 2022,
+        "ay": 10,
+        "piyasa": 37.34,
+        "reel": 68.9,
+        "hanehalki": 81.07
+      },
+      {
+        "yil": 2022,
+        "ay": 11,
+        "piyasa": 37.47,
+        "reel": 70.1,
+        "hanehalki": 84.83
+      },
+      {
+        "yil": 2022,
+        "ay": 12,
+        "piyasa": 34.92,
+        "reel": 67.5,
+        "hanehalki": 84.04
+      },
+      {
+        "yil": 2023,
+        "ay": 1,
+        "piyasa": 30.44,
+        "reel": 60.6,
+        "hanehalki": 80.6
+      },
+      {
+        "yil": 2023,
+        "ay": 2,
+        "piyasa": 30.75,
+        "reel": 57.3,
+        "hanehalki": 75.88
+      },
+      {
+        "yil": 2023,
+        "ay": 3,
+        "piyasa": 31.63,
+        "reel": 57.1,
+        "hanehalki": 78.76
+      },
+      {
+        "yil": 2023,
+        "ay": 4,
+        "piyasa": 31.02,
+        "reel": 55.5,
+        "hanehalki": 71.58
+      },
+      {
+        "yil": 2023,
+        "ay": 5,
+        "piyasa": 29.84,
+        "reel": 53,
+        "hanehalki": 68.78
+      },
+      {
+        "yil": 2023,
+        "ay": 6,
+        "piyasa": 30.65,
+        "reel": 51.4,
+        "hanehalki": 72.65
+      },
+      {
+        "yil": 2023,
+        "ay": 7,
+        "piyasa": 33.21,
+        "reel": 49.9,
+        "hanehalki": 74.53
+      },
+      {
+        "yil": 2023,
+        "ay": 8,
+        "piyasa": 42.01,
+        "reel": 57.6,
+        "hanehalki": 88.27
+      },
+      {
+        "yil": 2023,
+        "ay": 9,
+        "piyasa": 44.94,
+        "reel": 58.6,
+        "hanehalki": 80.94
+      },
+      {
+        "yil": 2023,
+        "ay": 10,
+        "piyasa": 45.28,
+        "reel": 58.7,
+        "hanehalki": 80.63
+      },
+      {
+        "yil": 2023,
+        "ay": 11,
+        "piyasa": 43.94,
+        "reel": 59.2,
+        "hanehalki": 78.74
+      },
+      {
+        "yil": 2023,
+        "ay": 12,
+        "piyasa": 41.23,
+        "reel": 57.9,
+        "hanehalki": 76.77
+      },
+      {
+        "yil": 2024,
+        "ay": 1,
+        "piyasa": 39.09,
+        "reel": 55.5,
+        "hanehalki": 75.29
+      },
+      {
+        "yil": 2024,
+        "ay": 2,
+        "piyasa": 37.78,
+        "reel": 55.5,
+        "hanehalki": 79.1
+      },
+      {
+        "yil": 2024,
+        "ay": 3,
+        "piyasa": 36.7,
+        "reel": 55.8,
+        "hanehalki": 80.01
+      },
+      {
+        "yil": 2024,
+        "ay": 4,
+        "piyasa": 35.17,
+        "reel": 56.2,
+        "hanehalki": 76.68
+      },
+      {
+        "yil": 2024,
+        "ay": 5,
+        "piyasa": 33.21,
+        "reel": 56,
+        "hanehalki": 76.09
+      },
+      {
+        "yil": 2024,
+        "ay": 6,
+        "piyasa": 31.79,
+        "reel": 56.2,
+        "hanehalki": 71.49
+      },
+      {
+        "yil": 2024,
+        "ay": 7,
+        "piyasa": 30.02,
+        "reel": 55,
+        "hanehalki": 71.98
+      },
+      {
+        "yil": 2024,
+        "ay": 8,
+        "piyasa": 28.71,
+        "reel": 53.8,
+        "hanehalki": 73.14
+      },
+      {
+        "yil": 2024,
+        "ay": 9,
+        "piyasa": 27.49,
+        "reel": 51.1,
+        "hanehalki": 71.56
+      },
+      {
+        "yil": 2024,
+        "ay": 10,
+        "piyasa": 27.44,
+        "reel": 49.5,
+        "hanehalki": 67.23
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "piyasa": 27.2,
+        "reel": 47.8,
+        "hanehalki": 64.05
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "piyasa": 27.07,
+        "reel": 47.6,
+        "hanehalki": 63.14
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "piyasa": 25.38,
+        "reel": 43.8,
+        "hanehalki": 58.82
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "piyasa": 25.26,
+        "reel": 41.9,
+        "hanehalki": 59.18
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "piyasa": 24.55,
+        "reel": 41.1,
+        "hanehalki": 59.25
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "piyasa": 25.56,
+        "reel": 41.7,
+        "hanehalki": 59.3
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "piyasa": 25.06,
+        "reel": 41,
+        "hanehalki": 59.86
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "piyasa": 24.56,
+        "reel": 39.8,
+        "hanehalki": 52.99
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "piyasa": 23.39,
+        "reel": 39,
+        "hanehalki": 54.53
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "piyasa": 22.84,
+        "reel": 37.7,
+        "hanehalki": 54.07
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "piyasa": 22.25,
+        "reel": 36.8,
+        "hanehalki": 52.99
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "piyasa": 23.26,
+        "reel": 36.3,
+        "hanehalki": 54.39
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "piyasa": 23.49,
+        "reel": 35.7,
+        "hanehalki": 52.24
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "piyasa": 23.35,
+        "reel": 34.8,
+        "hanehalki": 50.9
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "piyasa": 22.2,
+        "reel": 32.9,
+        "hanehalki": 48.81
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "piyasa": 22.1,
+        "reel": 32,
+        "hanehalki": 48.81
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "piyasa": 22.17,
+        "reel": 32.9,
+        "hanehalki": 49.89
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "piyasa": 23.39,
+        "reel": 33.7,
+        "hanehalki": 51.56
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "piyasa": 23.82,
+        "reel": 33.1,
+        "hanehalki": 49.51
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "piyasa": 23.81,
+        "reel": 33.1,
+        "hanehalki": 46.13
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "piyasa": 23.95,
+        "reel": 32.5,
+        "hanehalki": 44.94
+      },
+      {
+        "yil": 2026,
+        "ay": 8,
+        "piyasa": 23.69,
+        "reel": 32.8,
+        "hanehalki": 45.58
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "piyasa": 23.7,
+        "reel": 32.5,
+        "hanehalki": 45.6
+      },
+      {
+        "yil": 2026,
+        "ay": 10,
+        "piyasa": 23.89,
+        "reel": 31.8,
+        "hanehalki": 43.75
+      }
+    ],
+    "hane": [
+      {
+        "yil": 2026,
+        "ay": 1,
+        "altinda": 24.96,
+        "ayni": 15.71,
+        "uzerinde": 59.34,
+        "gecmisGida": 41.28,
+        "gecmisEnerji": 23.23,
+        "gecmisLokanta": 3.67,
+        "gecmisKira": 20.48,
+        "gecmisDayanikli": 5.96,
+        "gecmisEgitim": 4.92,
+        "gecmisDiger": 0.47,
+        "gelecekGida": 37.04,
+        "gelecekEnerji": 25.2,
+        "gelecekLokanta": 4.43,
+        "gelecekKira": 19.6,
+        "gelecekDayanikli": 7.92,
+        "gelecekEgitim": 5.52,
+        "gelecekDiger": 0.29
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "altinda": 20.33,
+        "ayni": 16.32,
+        "uzerinde": 63.35,
+        "gecmisGida": 41.05,
+        "gecmisEnerji": 23.95,
+        "gecmisLokanta": 3.94,
+        "gecmisKira": 18.72,
+        "gecmisDayanikli": 5.8,
+        "gecmisEgitim": 5.97,
+        "gecmisDiger": 0.56,
+        "gelecekGida": 36.77,
+        "gelecekEnerji": 24.84,
+        "gelecekLokanta": 5.16,
+        "gelecekKira": 18.42,
+        "gelecekDayanikli": 8.73,
+        "gelecekEgitim": 5.53,
+        "gelecekDiger": 0.55
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "altinda": 15.14,
+        "ayni": 15.58,
+        "uzerinde": 69.28,
+        "gecmisGida": 40.51,
+        "gecmisEnerji": 30.8,
+        "gecmisLokanta": 3.24,
+        "gecmisKira": 16.19,
+        "gecmisDayanikli": 4.96,
+        "gecmisEgitim": 4.04,
+        "gecmisDiger": 0.27,
+        "gelecekGida": 36.1,
+        "gelecekEnerji": 33.16,
+        "gelecekLokanta": 3.5,
+        "gelecekKira": 15.8,
+        "gelecekDayanikli": 6.97,
+        "gelecekEgitim": 4.27,
+        "gelecekDiger": 0.2
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "altinda": 14.57,
+        "ayni": 14.31,
+        "uzerinde": 71.12,
+        "gecmisGida": 40.7,
+        "gecmisEnerji": 38.29,
+        "gecmisLokanta": 1.97,
+        "gecmisKira": 11.83,
+        "gecmisDayanikli": 3.94,
+        "gecmisEgitim": 2.97,
+        "gecmisDiger": 0.29,
+        "gelecekGida": 37.83,
+        "gelecekEnerji": 34.96,
+        "gelecekLokanta": 3.2,
+        "gelecekKira": 13.65,
+        "gelecekDayanikli": 6.17,
+        "gelecekEgitim": 3.9,
+        "gelecekDiger": 0.29
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "altinda": 15.6,
+        "ayni": 16.48,
+        "uzerinde": 67.92,
+        "gecmisGida": 40.92,
+        "gecmisEnerji": 35.8,
+        "gecmisLokanta": 2.24,
+        "gecmisKira": 13.86,
+        "gecmisDayanikli": 3.85,
+        "gecmisEgitim": 3.09,
+        "gecmisDiger": 0.23,
+        "gelecekGida": 37.3,
+        "gelecekEnerji": 33.35,
+        "gelecekLokanta": 3.53,
+        "gelecekKira": 15.21,
+        "gelecekDayanikli": 6.37,
+        "gelecekEgitim": 4.06,
+        "gelecekDiger": 0.18
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "altinda": 15.7,
+        "ayni": 17.84,
+        "uzerinde": 66.46,
+        "gecmisGida": 39.28,
+        "gecmisEnerji": 32.45,
+        "gecmisLokanta": 3.58,
+        "gecmisKira": 15.26,
+        "gecmisDayanikli": 4.71,
+        "gecmisEgitim": 4.27,
+        "gecmisDiger": 0.45,
+        "gelecekGida": 36.18,
+        "gelecekEnerji": 30.62,
+        "gelecekLokanta": 4.1,
+        "gelecekKira": 16.62,
+        "gelecekDayanikli": 6.93,
+        "gelecekEgitim": 5.29,
+        "gelecekDiger": 0.26
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "altinda": 17.63,
+        "ayni": 18.39,
+        "uzerinde": 63.98,
+        "gecmisGida": 39.7,
+        "gecmisEnerji": 31.11,
+        "gecmisLokanta": 3.45,
+        "gecmisKira": 16.03,
+        "gecmisDayanikli": 4.75,
+        "gecmisEgitim": 4.73,
+        "gecmisDiger": 0.22,
+        "gelecekGida": 36.96,
+        "gelecekEnerji": 29.75,
+        "gelecekLokanta": 3.84,
+        "gelecekKira": 17.31,
+        "gelecekDayanikli": 6.12,
+        "gelecekEgitim": 5.75,
+        "gelecekDiger": 0.26
+      },
+      {
+        "yil": 2026,
+        "ay": 8,
+        "altinda": 16.85,
+        "ayni": 17.63,
+        "uzerinde": 65.52,
+        "gecmisGida": 39.26,
+        "gecmisEnerji": 33.59,
+        "gecmisLokanta": 3.19,
+        "gecmisKira": 14.8,
+        "gecmisDayanikli": 4.03,
+        "gecmisEgitim": 4.92,
+        "gecmisDiger": 0.21,
+        "gelecekGida": 36.56,
+        "gelecekEnerji": 32.19,
+        "gelecekLokanta": 3.5,
+        "gelecekKira": 16.46,
+        "gelecekDayanikli": 5.69,
+        "gelecekEgitim": 5.37,
+        "gelecekDiger": 0.23
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "altinda": 16.25,
+        "ayni": 18.6,
+        "uzerinde": 65.15,
+        "gecmisGida": 37.75,
+        "gecmisEnerji": 36.24,
+        "gecmisLokanta": 2.63,
+        "gecmisKira": 14.08,
+        "gecmisDayanikli": 3.52,
+        "gecmisEgitim": 5.51,
+        "gecmisDiger": 0.28,
+        "gelecekGida": 36.67,
+        "gelecekEnerji": 34.72,
+        "gelecekLokanta": 3.04,
+        "gelecekKira": 14.55,
+        "gelecekDayanikli": 5.14,
+        "gelecekEgitim": 5.69,
+        "gelecekDiger": 0.18
+      },
+      {
+        "yil": 2026,
+        "ay": 10,
+        "altinda": 16.56,
+        "ayni": 16.81,
+        "uzerinde": 66.62,
+        "gecmisGida": 36.64,
+        "gecmisEnerji": 38.86,
+        "gecmisLokanta": 2.2,
+        "gecmisKira": 12.42,
+        "gecmisDayanikli": 4.09,
+        "gecmisEgitim": 5.55,
+        "gecmisDiger": 0.24,
+        "gelecekGida": 36.31,
+        "gelecekEnerji": 37.12,
+        "gelecekLokanta": 2.6,
+        "gelecekKira": 14.01,
+        "gelecekDayanikli": 5.13,
+        "gelecekEgitim": 4.59,
+        "gelecekDiger": 0.24
+      }
+    ],
+    "dagilim": {
+      "yil": 2026,
+      "ay": 10,
+      "ay12": {
+        "gozlem": 38,
+        "kutular": [
+          {
+            "alt": 0,
+            "ust": 2.99,
+            "pay": 0
+          },
+          {
+            "alt": 3,
+            "ust": 3.99,
+            "pay": 0
+          },
+          {
+            "alt": 4,
+            "ust": 4.99,
+            "pay": 0
+          },
+          {
+            "alt": 5,
+            "ust": 5.99,
+            "pay": 0
+          },
+          {
+            "alt": 6,
+            "ust": 6.99,
+            "pay": 0
+          },
+          {
+            "alt": 7,
+            "ust": 7.99,
+            "pay": 0
+          },
+          {
+            "alt": 8,
+            "ust": 8.99,
+            "pay": 0
+          },
+          {
+            "alt": 9,
+            "ust": 9.99,
+            "pay": 0
+          },
+          {
+            "alt": 10,
+            "ust": 10.99,
+            "pay": 0
+          },
+          {
+            "alt": 11,
+            "ust": 11.99,
+            "pay": 0
+          },
+          {
+            "alt": 12,
+            "ust": 12.99,
+            "pay": 0
+          },
+          {
+            "alt": 13,
+            "ust": 13.99,
+            "pay": 0
+          },
+          {
+            "alt": 14,
+            "ust": 14.99,
+            "pay": 0
+          },
+          {
+            "alt": 15,
+            "ust": 15.99,
+            "pay": 0
+          },
+          {
+            "alt": 16,
+            "ust": 16.99,
+            "pay": 0
+          },
+          {
+            "alt": 17,
+            "ust": 17.99,
+            "pay": 0
+          },
+          {
+            "alt": 18,
+            "ust": 18.99,
+            "pay": 0.0526
+          },
+          {
+            "alt": 19,
+            "ust": 19.99,
+            "pay": 1.1526
+          },
+          {
+            "alt": 20,
+            "ust": 20.99,
+            "pay": 4.3552
+          },
+          {
+            "alt": 21,
+            "ust": 21.99,
+            "pay": 12.7184
+          },
+          {
+            "alt": 22,
+            "ust": 22.99,
+            "pay": 19.1815
+          },
+          {
+            "alt": 23,
+            "ust": 23.99,
+            "pay": 16.0578
+          },
+          {
+            "alt": 24,
+            "ust": 24.99,
+            "pay": 18.5052
+          },
+          {
+            "alt": 25,
+            "ust": 25.99,
+            "pay": 12.1026
+          },
+          {
+            "alt": 26,
+            "ust": 26.99,
+            "pay": 5.7842
+          },
+          {
+            "alt": 27,
+            "ust": 27.99,
+            "pay": 4.3394
+          },
+          {
+            "alt": 28,
+            "ust": 28.99,
+            "pay": 2.5684
+          },
+          {
+            "alt": 29,
+            "ust": 29.99,
+            "pay": 1.5631
+          },
+          {
+            "alt": 30,
+            "ust": 30.99,
+            "pay": 0.9815
+          },
+          {
+            "alt": 31,
+            "ust": 31.99,
+            "pay": 0.5552
+          },
+          {
+            "alt": 32,
+            "ust": 32.99,
+            "pay": 0.0815
+          },
+          {
+            "alt": 33,
+            "ust": 33.99,
+            "pay": 0
+          },
+          {
+            "alt": 34,
+            "ust": 34.99,
+            "pay": 0
+          },
+          {
+            "alt": 35,
+            "ust": 35.99,
+            "pay": 0
+          },
+          {
+            "alt": 36,
+            "ust": 36.99,
+            "pay": 0
+          },
+          {
+            "alt": 37,
+            "ust": 37.99,
+            "pay": 0
+          },
+          {
+            "alt": 38,
+            "ust": 38.99,
+            "pay": 0
+          },
+          {
+            "alt": 39,
+            "ust": 39.99,
+            "pay": 0
+          },
+          {
+            "alt": 40,
+            "ust": 40.99,
+            "pay": 0
+          },
+          {
+            "alt": 41,
+            "ust": 41.99,
+            "pay": 0
+          },
+          {
+            "alt": 42,
+            "ust": 42.99,
+            "pay": 0
+          },
+          {
+            "alt": 43,
+            "ust": 43.99,
+            "pay": 0
+          },
+          {
+            "alt": 44,
+            "ust": 44.99,
+            "pay": 0
+          },
+          {
+            "alt": 45,
+            "ust": 45.99,
+            "pay": 0
+          },
+          {
+            "alt": 46,
+            "ust": 46.99,
+            "pay": 0
+          },
+          {
+            "alt": 47,
+            "ust": 47.99,
+            "pay": 0
+          },
+          {
+            "alt": 48,
+            "ust": 48.99,
+            "pay": 0
+          },
+          {
+            "alt": 49,
+            "ust": 49.99,
+            "pay": 0
+          },
+          {
+            "alt": 50,
+            "ust": 50.99,
+            "pay": 0
+          },
+          {
+            "alt": 51,
+            "ust": 51.99,
+            "pay": 0
+          },
+          {
+            "alt": 52,
+            "ust": 52.99,
+            "pay": 0
+          },
+          {
+            "alt": 53,
+            "ust": 53.99,
+            "pay": 0
+          },
+          {
+            "alt": 54,
+            "ust": 54.99,
+            "pay": 0
+          },
+          {
+            "alt": 55,
+            "ust": 55.99,
+            "pay": 0
+          },
+          {
+            "alt": 56,
+            "ust": 56.99,
+            "pay": 0
+          },
+          {
+            "alt": 57,
+            "ust": 57.99,
+            "pay": 0
+          },
+          {
+            "alt": 58,
+            "ust": 58.99,
+            "pay": 0
+          },
+          {
+            "alt": 59,
+            "ust": 59.99,
+            "pay": 0
+          },
+          {
+            "alt": 60,
+            "ust": null,
+            "pay": 0
+          }
+        ]
+      },
+      "ay24": {
+        "gozlem": 36,
+        "kutular": [
+          {
+            "alt": 0,
+            "ust": 2.99,
+            "pay": 0
+          },
+          {
+            "alt": 3,
+            "ust": 3.99,
+            "pay": 0
+          },
+          {
+            "alt": 4,
+            "ust": 4.99,
+            "pay": 0
+          },
+          {
+            "alt": 5,
+            "ust": 5.99,
+            "pay": 0
+          },
+          {
+            "alt": 6,
+            "ust": 6.99,
+            "pay": 0
+          },
+          {
+            "alt": 7,
+            "ust": 7.99,
+            "pay": 0
+          },
+          {
+            "alt": 8,
+            "ust": 8.99,
+            "pay": 0
+          },
+          {
+            "alt": 9,
+            "ust": 9.99,
+            "pay": 0
+          },
+          {
+            "alt": 10,
+            "ust": 10.99,
+            "pay": 0
+          },
+          {
+            "alt": 11,
+            "ust": 11.99,
+            "pay": 0.075
+          },
+          {
+            "alt": 12,
+            "ust": 12.99,
+            "pay": 0.3638
+          },
+          {
+            "alt": 13,
+            "ust": 13.99,
+            "pay": 3.6166
+          },
+          {
+            "alt": 14,
+            "ust": 14.99,
+            "pay": 5.8361
+          },
+          {
+            "alt": 15,
+            "ust": 15.99,
+            "pay": 7.4333
+          },
+          {
+            "alt": 16,
+            "ust": 16.99,
+            "pay": 13.1027
+          },
+          {
+            "alt": 17,
+            "ust": 17.99,
+            "pay": 13.6722
+          },
+          {
+            "alt": 18,
+            "ust": 18.99,
+            "pay": 11.45
+          },
+          {
+            "alt": 19,
+            "ust": 19.99,
+            "pay": 9.1555
+          },
+          {
+            "alt": 20,
+            "ust": 20.99,
+            "pay": 8.9555
+          },
+          {
+            "alt": 21,
+            "ust": 21.99,
+            "pay": 7.7833
+          },
+          {
+            "alt": 22,
+            "ust": 22.99,
+            "pay": 5.2833
+          },
+          {
+            "alt": 23,
+            "ust": 23.99,
+            "pay": 2.3305
+          },
+          {
+            "alt": 24,
+            "ust": 24.99,
+            "pay": 1.875
+          },
+          {
+            "alt": 25,
+            "ust": 25.99,
+            "pay": 2.1277
+          },
+          {
+            "alt": 26,
+            "ust": 26.99,
+            "pay": 1.6444
+          },
+          {
+            "alt": 27,
+            "ust": 27.99,
+            "pay": 1.25
+          },
+          {
+            "alt": 28,
+            "ust": 28.99,
+            "pay": 1.1444
+          },
+          {
+            "alt": 29,
+            "ust": 29.99,
+            "pay": 0.9694
+          },
+          {
+            "alt": 30,
+            "ust": 30.99,
+            "pay": 1.1472
+          },
+          {
+            "alt": 31,
+            "ust": 31.99,
+            "pay": 0.5305
+          },
+          {
+            "alt": 32,
+            "ust": 32.99,
+            "pay": 0.2527
+          },
+          {
+            "alt": 33,
+            "ust": 33.99,
+            "pay": 0
+          },
+          {
+            "alt": 34,
+            "ust": 34.99,
+            "pay": 0
+          },
+          {
+            "alt": 35,
+            "ust": 35.99,
+            "pay": 0
+          },
+          {
+            "alt": 36,
+            "ust": 36.99,
+            "pay": 0
+          },
+          {
+            "alt": 37,
+            "ust": 37.99,
+            "pay": 0
+          },
+          {
+            "alt": 38,
+            "ust": 38.99,
+            "pay": 0
+          },
+          {
+            "alt": 39,
+            "ust": 39.99,
+            "pay": 0
+          },
+          {
+            "alt": 40,
+            "ust": null,
+            "pay": 0
+          }
+        ]
+      }
+    },
+    "alinma": "2026-10-29T16:16:18.425Z"
   }
 }
