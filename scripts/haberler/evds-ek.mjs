@@ -355,6 +355,8 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //  - ufe: yurt içi, hizmet ve tarım ürünleri üretici fiyat endeksleri ile tarımsal girdi fiyat endeksi (TÜİK, aylık;
 //      doğrulandı 29.10.2026): dört ayrı satır dizisi, çünkü serilerin ilk ve son ayları farklıdır (tarımsal girdi bir ay
 //      geç yayımlanır); yurt içi ÜFE ile karşılaştırmak için TÜFE yıllık değişimi de alınır.
+//  - insaatIzin: yapı ruhsatı ve yapı kullanma izin belgesi (iskân) istatistikleri (TÜİK, aylık, çeyrek çeyrek
+//      yayımlanır; doğrulandı 29.10.2026): daire, yüzölçümü (m²) ve yapı sayısı; bina türlerine göre yüzölçümü.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -682,6 +684,45 @@ export async function ufeAl(simdi, anahtar) {
     hizmet,
     tarim,
     tarimGirdi,
+  };
+}
+
+// Yapı ruhsatı (RH2) ve iskân (KL2), TÜİK, aylık akım: A yapı sayısı, B yüzölçümü (m²), D daire sayısı; formül 0 düzey.
+// On bina türünün yüzölçümü toplamı Türkiye toplamına eşittir (doğrulandı 29.10.2026). Değer (C) serileri boştur, alınmaz.
+export const INSAAT_BINA_TURLERI = [
+  { kod: 'APT', alan: 'Apartman', ad: 'İki ve daha fazla daireli konut binaları' },
+  { kod: 'EV', alan: 'Mustakil', ad: 'Tek daireli konut binaları' },
+  { kod: 'HALK', alan: 'Toplu', ad: 'Topluluklara ait ikamet binaları (yurt, misafirhane vb.)' },
+  { kod: 'OTEL', alan: 'Otel', ad: 'Otel ve benzeri binalar' },
+  { kod: 'OFIS', alan: 'Ofis', ad: 'Ofis (iş yeri) binaları' },
+  { kod: 'TOPTAN', alan: 'Ticaret', ad: 'Toptan ve perakende ticaret binaları' },
+  { kod: 'TRAFIK', alan: 'Ulastirma', ad: 'Ulaştırma ve iletişim binaları' },
+  { kod: 'SANAYI', alan: 'Sanayi', ad: 'Sanayi binaları ve depolar' },
+  { kod: 'KAMU', alan: 'Kamu', ad: 'Eğitim, sağlık, kültür ve eğlence binaları' },
+  { kod: 'DIGER', alan: 'Diger', ad: 'Diğer binalar' },
+];
+const INSAAT_BELGELER = [
+  { grup: 'RH2', on: 'ruhsat', ad: 'Yapı ruhsatı' },
+  { grup: 'KL2', on: 'iskan', ad: 'İskân' },
+];
+export const INSAAT_IZIN_SERILERI = INSAAT_BELGELER.flatMap(({ grup, on, ad }) => [
+  { kod: `TP.IN.${grup}.TOPLAM.TOP.D`, formul: 0, alan: `${on}Daire`, ad: `${ad}, daire sayısı` },
+  { kod: `TP.IN.${grup}.TOPLAM.TOP.B`, formul: 0, alan: `${on}Alan`, ad: `${ad}, yüzölçümü (m²)` },
+  { kod: `TP.IN.${grup}.TOPLAM.TOP.A`, formul: 0, alan: `${on}Yapi`, ad: `${ad}, yapı sayısı` },
+  ...INSAAT_BINA_TURLERI.map((t) => ({
+    kod: `TP.IN.${grup}.${t.kod}.TOP.B`,
+    formul: 0,
+    alan: `${on}${t.alan}`,
+    ad: `${ad}, ${t.ad.charAt(0).toLocaleLowerCase('tr')}${t.ad.slice(1)} (m²)`,
+  })),
+]);
+
+// Aylık akımlar çok oynaktır (aralıkta yıl sonu sıçraması); 12 aylık toplamlar sayfada alınır, burada hesaplanmaz.
+export async function insaatIzinAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TÜİK verisi, yapı izin istatistikleri: yapı ruhsatı ve yapı kullanma izin belgesi (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(INSAAT_IZIN_SERILERI),
+    satirlar: await aylikFormullu(INSAAT_IZIN_SERILERI, new Date(Date.UTC(2010, 0, 1)), simdi, anahtar, 'İnşaat izinleri', 120),
   };
 }
 

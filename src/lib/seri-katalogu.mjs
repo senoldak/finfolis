@@ -15,6 +15,7 @@ const END = 'endeks';
 const PUAN = 'puan';
 const TL = 'TL';
 const ADET = 'adet';
+const M2 = 'm²';
 
 const SAYFA = {
   enflasyon: '/veri/enflasyon/',
@@ -37,6 +38,7 @@ const SAYFA = {
   buyume: '/veri/buyume/',
   konutSatis: '/veri/konut-satislari/',
   ufe: '/veri/uretici-fiyatlari/',
+  insaatIzin: '/veri/insaat-izinleri/',
   portfoy: '/veri/yabanci-portfoy-akimlari/',
   cari: '/veri/cari-denge/',
   disBorc: '/veri/dis-borc/',
@@ -185,6 +187,34 @@ export const TANIMLAR = [
     ['aylik', 'aylik', 'Tarımsal girdi fiyat endeksi, aylık değişim', YZ],
     ['yillik', 'yillik', 'Tarımsal girdi fiyat endeksi, yıllık değişim', YZ],
   ], { satirlar: 'tarimGirdi', idOnek: 'ufe-tarim-girdi' }),
+  t('insaatIzin', 'Konut', SAYFA.insaatIzin, [
+    ['ruhsatDaire', 'ruhsat-daire', 'Yapı ruhsatı, daire sayısı', ADET],
+    ['ruhsatAlan', 'ruhsat-alan', 'Yapı ruhsatı, yüzölçümü', M2],
+    ['ruhsatYapi', 'ruhsat-yapi', 'Yapı ruhsatı, yapı sayısı', ADET],
+    ['ruhsatApartman', 'ruhsat-apartman', 'Yapı ruhsatı, iki ve daha fazla daireli konut binaları, yüzölçümü', M2],
+    ['ruhsatMustakil', 'ruhsat-mustakil', 'Yapı ruhsatı, tek daireli konut binaları, yüzölçümü', M2],
+    ['ruhsatToplu', 'ruhsat-toplu', 'Yapı ruhsatı, topluluklara ait ikamet binaları, yüzölçümü', M2],
+    ['ruhsatOtel', 'ruhsat-otel', 'Yapı ruhsatı, otel ve benzeri binalar, yüzölçümü', M2],
+    ['ruhsatOfis', 'ruhsat-ofis', 'Yapı ruhsatı, ofis (iş yeri) binaları, yüzölçümü', M2],
+    ['ruhsatTicaret', 'ruhsat-ticaret', 'Yapı ruhsatı, toptan ve perakende ticaret binaları, yüzölçümü', M2],
+    ['ruhsatUlastirma', 'ruhsat-ulastirma', 'Yapı ruhsatı, ulaştırma ve iletişim binaları, yüzölçümü', M2],
+    ['ruhsatSanayi', 'ruhsat-sanayi', 'Yapı ruhsatı, sanayi binaları ve depolar, yüzölçümü', M2],
+    ['ruhsatKamu', 'ruhsat-kamu', 'Yapı ruhsatı, eğitim, sağlık, kültür ve eğlence binaları, yüzölçümü', M2],
+    ['ruhsatDiger', 'ruhsat-diger', 'Yapı ruhsatı, diğer binalar, yüzölçümü', M2],
+    ['iskanDaire', 'iskan-daire', 'İskân, daire sayısı', ADET],
+    ['iskanAlan', 'iskan-alan', 'İskân, yüzölçümü', M2],
+    ['iskanYapi', 'iskan-yapi', 'İskân, yapı sayısı', ADET],
+    ['iskanApartman', 'iskan-apartman', 'İskân, iki ve daha fazla daireli konut binaları, yüzölçümü', M2],
+    ['iskanMustakil', 'iskan-mustakil', 'İskân, tek daireli konut binaları, yüzölçümü', M2],
+    ['iskanToplu', 'iskan-toplu', 'İskân, topluluklara ait ikamet binaları, yüzölçümü', M2],
+    ['iskanOtel', 'iskan-otel', 'İskân, otel ve benzeri binalar, yüzölçümü', M2],
+    ['iskanOfis', 'iskan-ofis', 'İskân, ofis (iş yeri) binaları, yüzölçümü', M2],
+    ['iskanTicaret', 'iskan-ticaret', 'İskân, toptan ve perakende ticaret binaları, yüzölçümü', M2],
+    ['iskanUlastirma', 'iskan-ulastirma', 'İskân, ulaştırma ve iletişim binaları, yüzölçümü', M2],
+    ['iskanSanayi', 'iskan-sanayi', 'İskân, sanayi binaları ve depolar, yüzölçümü', M2],
+    ['iskanKamu', 'iskan-kamu', 'İskân, eğitim, sağlık, kültür ve eğlence binaları, yüzölçümü', M2],
+    ['iskanDiger', 'iskan-diger', 'İskân, diğer binalar, yüzölçümü', M2],
+  ]),
   t('makas', 'Faiz', SAYFA.makas, [
     ['ihtiyac', 'ihtiyac', 'İhtiyaç kredisi faizi', YZ],
     ['tasit', 'tasit', 'Taşıt kredisi faizi', YZ],

@@ -1,0 +1,304 @@
+---
+// İnşaat izinleri: TÜİK yapı izin istatistikleri (yapı ruhsatı ve yapı kullanma izin belgesi), aylık akım, EVDS'den.
+// Düzeyler EVDS'nin verdiği gibidir. Sayfa hesabı yalnız 12 aylık toplamlar, bir önceki 12 aya göre değişim ve bina
+// türü paylarıdır (EVDS düzeylerinden toplam ve oran, kredi-hacmi toplamları gibi); başka türetme ve tahmin yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import type { InsaatTuru } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const insaatIzin = RESMI.insaatIzin;
+const satirlar = insaatIzin?.satirlar ?? [];
+const son = satirlar.at(-1);
+type Satir = (typeof satirlar)[number];
+type Alan = Exclude<keyof Satir, 'yil' | 'ay'>;
+
+const yd = (n: number) => `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`;
+// Sayfa hesabı: i. aya kadar (i dahil) son 12 ayın toplamı; 12 ay yoksa null.
+const toplam12 = (i: number, alan: Alan) =>
+  i < 11 ? null : satirlar.slice(i - 11, i + 1).reduce((a, s) => a + s[alan], 0);
+const sonI = satirlar.length - 1;
+// Sayfa hesabı: son 12 ayın toplamının bir önceki 12 ayın toplamına göre yüzde değişimi.
+const degisim12 = (alan: Alan) => {
+  const simdi = toplam12(sonI, alan);
+  const once = toplam12(sonI - 12, alan);
+  return simdi == null || once == null || !(once > 0) ? null : (simdi / once - 1) * 100;
+};
+const milyonM2 = (n: number) => `${sayiYaz(n / 1e6, 1)} milyon m²`;
+
+const ruhsatDaire12 = toplam12(sonI, 'ruhsatDaire');
+const iskanDaire12 = toplam12(sonI, 'iskanDaire');
+const ruhsatAlan12 = toplam12(sonI, 'ruhsatAlan');
+const ruhsatDaireDeg = degisim12('ruhsatDaire');
+const iskanDaireDeg = degisim12('iskanDaire');
+const ruhsatAlanDeg = degisim12('ruhsatAlan');
+const degYaz = (n: number | null) => (n == null ? '' : `, bir önceki 12 aya göre ${yd(n)}`);
+const donem = son ? `${ayAdi(satirlar[sonI - 11])} – ${ayAdi(son)}` : '';
+
+const gruplar1 = [
+  {
+    id: 'daire',
+    ad: 'Daire sayısı',
+    seriler: [
+      { id: 'ruhsatDaire', ad: 'Yapı ruhsatı', renk: 'murekkep' as const },
+      { id: 'iskanDaire', ad: 'İskân', renk: 'toprak' as const },
+    ],
+  },
+  {
+    id: 'alan',
+    ad: 'Yüzölçümü',
+    seriler: [
+      { id: 'ruhsatAlan', ad: 'Yapı ruhsatı', renk: 'murekkep' as const },
+      { id: 'iskanAlan', ad: 'İskân', renk: 'toprak' as const },
+    ],
+  },
+];
+// 12 aylık toplamlar; yüzölçümü milyon m² olarak.
+const noktalar1 = satirlar.flatMap((s, i) => {
+  if (i < 11) return [];
+  const m = (alan: Alan) => (toplam12(i, alan) ?? 0) / 1e6;
+  return [[ayAnahtari(s), toplam12(i, 'ruhsatDaire'), toplam12(i, 'iskanDaire'), m('ruhsatAlan'), m('iskanAlan')]];
+});
+
+const gruplar2 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'ruhsatDaire', ad: 'Yapı ruhsatı', renk: 'murekkep' as const },
+      { id: 'iskanDaire', ad: 'İskân', renk: 'toprak' as const },
+    ],
+  },
+];
+const noktalar2 = satirlar.map((s) => [ayAnahtari(s), s.ruhsatDaire, s.iskanDaire]);
+
+const tablo = satirlar.slice(-12).reverse();
+
+const TURLER: { alan: InsaatTuru; ad: string }[] = [
+  { alan: 'Apartman', ad: 'İki ve daha fazla daireli konut binaları' },
+  { alan: 'Mustakil', ad: 'Tek daireli konut binaları' },
+  { alan: 'Toplu', ad: 'Yurt, misafirhane vb. ikamet binaları' },
+  { alan: 'Otel', ad: 'Otel ve benzeri binalar' },
+  { alan: 'Ofis', ad: 'Ofis (iş yeri) binaları' },
+  { alan: 'Ticaret', ad: 'Toptan ve perakende ticaret binaları' },
+  { alan: 'Ulastirma', ad: 'Ulaştırma ve iletişim binaları' },
+  { alan: 'Sanayi', ad: 'Sanayi binaları ve depolar' },
+  { alan: 'Kamu', ad: 'Eğitim, sağlık, kültür ve eğlence binaları' },
+  { alan: 'Diger', ad: 'Diğer binalar' },
+];
+const iskanAlan12 = toplam12(sonI, 'iskanAlan');
+const turTablo = son
+  ? TURLER.map((t) => ({
+      ad: t.ad,
+      ruhsat: toplam12(sonI, `ruhsat${t.alan}`) ?? 0,
+      iskan: toplam12(sonI, `iskan${t.alan}`) ?? 0,
+    })).sort((a, b) => b.ruhsat - a.ruhsat)
+  : [];
+// Sayfa hesabı: türün payı = tür yüzölçümü / toplam yüzölçümü × 100 (12 aylık toplamlardan).
+const payYaz = (parca: number, butun: number | null) => (butun && butun > 0 ? yuzdeYaz((parca / butun) * 100) : '–');
+const binM2 = (n: number) => sayiYaz(n / 1000, 0);
+
+const baslik = 'İnşaat izinleri';
+const description =
+  son && ruhsatDaire12 != null && iskanDaire12 != null
+    ? `${donem} döneminde ${sayiYaz(ruhsatDaire12, 0)} daire için yapı ruhsatı, ${sayiYaz(iskanDaire12, 0)} daire için iskân verildi. Yüzölçümü ve bina türleri. TÜİK verisi.`
+    : 'Yapı ruhsatı ve iskân (yapı kullanma izin belgesi) istatistikleri: daire sayısı, yüzölçümü ve bina türleri, TÜİK verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/insaat-izinleri/' },
+];
+const ayKodu = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(insaatIzin && son
+    ? {
+        sayfaEk: { dateModified: insaatIzin.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Yapı ruhsatı ve iskân istatistikleri',
+            description:
+              'Aylık yapı ruhsatı ve yapı kullanma izin belgesi (iskân) istatistikleri: daire sayısı, yüzölçümü, yapı sayısı ve bina türlerine göre yüzölçümü, TÜİK verisi, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/insaat-izinleri/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye İstatistik Kurumu', url: 'https://www.tuik.gov.tr/' },
+            temporalCoverage: `${ayKodu(satirlar[0])}/${ayKodu(son)}`,
+            dateModified: insaatIzin.alinma,
+            variableMeasured: [
+              'Yapı ruhsatı, daire sayısı (adet)',
+              'Yapı ruhsatı, yüzölçümü (m²)',
+              'Yapı ruhsatı, yapı sayısı (adet)',
+              'İskân, daire sayısı (adet)',
+              'İskân, yüzölçümü (m²)',
+              'İskân, yapı sayısı (adet)',
+              'Bina türlerine göre yüzölçümü (m²)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`İnşaat izinleri: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Yapı ruhsatı ve iskân istatistikleri · TÜİK, aylık, üç ayda bir yayımlanır</p>
+    </header>
+    {
+      insaatIzin && son && ruhsatDaire12 != null && iskanDaire12 != null && ruhsatAlan12 != null ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Ruhsat verilen daire, 12 ay</dt>
+              <dd>{sayiYaz(ruhsatDaire12, 0)}</dd>
+              <dd class="veri-degisim">{donem}{degYaz(ruhsatDaireDeg)}</dd>
+            </div>
+            <div>
+              <dt>İskân verilen daire, 12 ay</dt>
+              <dd>{sayiYaz(iskanDaire12, 0)}</dd>
+              <dd class="veri-degisim">{donem}{degYaz(iskanDaireDeg)}</dd>
+            </div>
+            <div>
+              <dt>Ruhsatlı yüzölçümü, 12 ay</dt>
+              <dd>{milyonM2(ruhsatAlan12)}</dd>
+              <dd class="veri-degisim">Bütün binalar{degYaz(ruhsatAlanDeg)}</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={insaatIzin.kaynak.url} rel="noopener">{insaatIzin.kaynak.ad}</a>. Siteye alındığı
+            zaman: {zamanYaz(insaatIzin.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Son 12 ayın toplamı"
+            ipucu="Her nokta o aya kadarki 12 ayın toplamıdır · Daire sayısı adet, yüzölçümü milyon m² · Grup düğmesiyle seriler arasında geçilir"
+            kaynak="Kaynak: TÜİK, yapı izin istatistikleri (TCMB EVDS); 12 aylık toplamlar sayfada alınır."
+            siklik="ay"
+            birim="endeks"
+            ondalik={0}
+            seriIdleri={['ruhsatDaire', 'iskanDaire', 'ruhsatAlan', 'iskanAlan']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            grupEtiketi="Seri grubu"
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Ruhsat, daire</th>
+                      <th scope="col" class="sag">Ruhsat, bin m²</th>
+                      <th scope="col" class="sag">İskân, daire</th>
+                      <th scope="col" class="sag">İskân, bin m²</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{sayiYaz(s.ruhsatDaire, 0)}</td>
+                        <td class="sag">{binM2(s.ruhsatAlan)}</td>
+                        <td class="sag">{sayiYaz(s.iskanDaire, 0)}</td>
+                        <td class="sag">{binM2(s.iskanAlan)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Aylık rakamlar o ay verilen belgelerin toplamıdır ve aydan aya çok oynar; aralık ayları genellikle yüksektir. Bu
+                yüzden sayfanın üstündeki rakamlar son 12 ayın toplamıdır.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Yapı ruhsatı, belediyelerin ve yetkili idarelerin bir yapının inşasına başlamadan önce verdiği izindir; yapılması
+                planlanan inşaatı gösterir. Yapı kullanma izin belgesi (iskân) ise inşaatı biten yapının kullanılabilir olduğunu
+                belgeler; tamamlanan inşaatı gösterir.
+              </p>
+              <p>
+                Daire sayısı konut ve diğer binalardaki bağımsız bölümleri, yüzölçümü bütün binaların toplam alanını kapsar.
+                Ruhsat alan her yapının inşaatı aynı yıl başlamaz ya da bitmez; iki seri farklı aşamaları ölçer.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Aylık daire sayısı"
+            ipucu="Adet, o ay verilen belgeler · Aylık rakamlar oynaktır, aralık ayları genellikle yüksektir"
+            kaynak="Kaynak: TÜİK, yapı izin istatistikleri (TCMB EVDS)."
+            siklik="ay"
+            birim="endeks"
+            ondalik={0}
+            seriIdleri={['ruhsatDaire', 'iskanDaire']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+          />
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Bina türlerine göre yüzölçümü, {donem}</h2>
+            <div class="tablo-sarma">
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Bina türü</th>
+                    <th scope="col" class="sag">Ruhsat, bin m²</th>
+                    <th scope="col" class="sag">Pay</th>
+                    <th scope="col" class="sag">İskân, bin m²</th>
+                    <th scope="col" class="sag">Pay</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {turTablo.map((t) => (
+                    <tr>
+                      <td>{t.ad}</td>
+                      <td class="sag">{binM2(t.ruhsat)}</td>
+                      <td class="sag">{payYaz(t.ruhsat, ruhsatAlan12)}</td>
+                      <td class="sag">{binM2(t.iskan)}</td>
+                      <td class="sag">{payYaz(t.iskan, iskanAlan12)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="veri-notu">
+              Son 12 ayın toplamıdır; sıralama ruhsatlı yüzölçümünün büyüğünden küçüğünedir. On bina türünün toplamı Türkiye
+              toplamına eşittir. Paylar sayfada hesaplanır.
+            </p>
+          </section>
+        </>
+      ) : (
+        <p class="bos">İnşaat izin verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/konut-satislari/">Konut satışları</a>
+      <a href="/veri/konut-fiyat-endeksi/">Konut fiyat endeksi</a>
+      <a href="/veri/buyume/">Büyüme</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TÜİK’in yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

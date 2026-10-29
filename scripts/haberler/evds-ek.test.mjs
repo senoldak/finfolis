@@ -11,6 +11,8 @@ import {
   buyumeAl,
   konutSatisAl,
   ufeAl,
+  insaatIzinAl,
+  INSAAT_IZIN_SERILERI,
   UFE_SERILERI,
   UFE_HIZMET_SERILERI,
   UFE_TARIM_SERILERI,
@@ -326,6 +328,39 @@ test('ufeAl: seri istekleri doğru kod ve formüllerle yapılır', async () => {
   assert.deepEqual(alanlar(istekler[1]), ['TP_HUFE_GK378119440-1', 'TP_HUFE_GK378119440-3']);
   assert.deepEqual(alanlar(istekler[2]), ['TP_TARIMUFE01-3', 'TP_TARIMUFE01-1']);
   assert.deepEqual(alanlar(istekler[3]), ['TP_TARIMGFE_GK378650484-3', 'TP_TARIMGFE_GK378650484-1']);
+});
+
+// İnşaat izinleri: 26 seri tek istekte, hepsi düzey (formül 0); son ay boş gelirse (yayımlanmamış) satır atılır.
+test('insaatIzinAl: tek istek, düzey serileri, alan adları belge önekiyle; boş son ay atılır', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    istekler.push(decodeURIComponent(String(url)));
+    const a = alanlar(url);
+    const items = aylar([2010, 1], 200).map((m, i) => ({
+      Tarih: `${m.yil}-${m.ay}`,
+      ...Object.fromEntries(a.map((x) => [x, i === 199 ? null : '1000'])),
+    }));
+    return yanit({ items });
+  };
+  const k = await insaatIzinAl(SIMDI, 'x');
+  assert.equal(istekler.length, 1);
+  assert.ok(istekler[0].includes('startDate=01-01-2010'));
+  assert.equal(alanlar(istekler[0]).length, 26);
+  assert.ok(alanlar(istekler[0]).every((x) => !x.includes('-')));
+  assert.deepEqual(alanlar(istekler[0]).slice(0, 4), ['TP_IN_RH2_TOPLAM_TOP_D', 'TP_IN_RH2_TOPLAM_TOP_B', 'TP_IN_RH2_TOPLAM_TOP_A', 'TP_IN_RH2_APT_TOP_B']);
+  assert.deepEqual(k.seriler.map((x) => x.alan), INSAAT_IZIN_SERILERI.map((x) => x.alan));
+  assert.equal(k.satirlar.length, 199);
+  const son = k.satirlar.at(-1);
+  assert.deepEqual([son.yil, son.ay], [2026, 7]);
+  assert.equal(son.ruhsatDaire, 1000);
+  assert.equal(son.iskanDiger, 1000);
+  assert.equal(Object.keys(son).length, 28);
+});
+
+test('insaatIzinAl: 120 aydan az satır varsa hata verir', async () => {
+  globalThis.fetch = async (url) =>
+    yanit({ items: aylar([2020, 1], 60).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(alanlar(url).map((x) => [x, '5'])) })) });
+  await assert.rejects(() => insaatIzinAl(SIMDI, 'x'), /İnşaat izinleri yetersiz/);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

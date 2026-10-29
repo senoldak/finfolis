@@ -26,6 +26,8 @@ const issizlikSon = issizlik?.satirlar.at(-1);
 const buyumeSon = RESMI.buyume?.satirlar.at(-1);
 const konutSatisSon = RESMI.konutSatis?.satirlar.at(-1);
 const ufeSon = RESMI.ufe?.satirlar.at(-1);
+const insaatSatirlari = RESMI.insaatIzin?.satirlar ?? [];
+const ruhsatDaire12 = insaatSatirlari.length >= 12 ? insaatSatirlari.slice(-12).reduce((a, s) => a + s.ruhsatDaire, 0) : null;
 const rekSon = rek?.satirlar.at(-1);
 const brutRezervSon = brutRezerv?.satirlar.at(-1);
 // Hesaplanmış göstergeler (finfolis): fihristte son değer.
@@ -108,6 +110,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/kira-endeksi/': 'ev kira',
   '/veri/kira-carpani/': 'ev kira amortisman',
   '/veri/konut-satislari/': 'ev satış emlak tapu ipotek ilk el ikinci el',
+  '/veri/insaat-izinleri/': 'yapı ruhsatı iskân inşaat izni konut arzı daire metrekare bina',
   '/veri/reel-bist-30/': 'borsa hisse bist',
   '/veri/bist-100-tufe/': 'borsa hisse bist',
   '/veri/sektorler/': 'borsa hisse bist banka',
@@ -422,6 +425,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/konut-satislari/')}>
               <a href="/veri/konut-satislari/" class="fihrist-baslik-link">Konut Satışları</a>
               <span class="fihrist-ozet">TÜİK aylık satış, ilk el, ikinci el, ipotekli ve il il ({konutSatisSon ? `${sayiYaz(konutSatisSon.toplam, 0)} adet` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/insaat-izinleri/')}>
+              <a href="/veri/insaat-izinleri/" class="fihrist-baslik-link">İnşaat İzinleri</a>
+              <span class="fihrist-ozet">Yapı ruhsatı ve iskân: daire sayısı, yüzölçümü ve bina türleri ({ruhsatDaire12 != null ? `12 ayda ${sayiYaz(ruhsatDaire12, 0)} daireye ruhsat` : '–'})</span>
             </li>
           </ul>
         </div>

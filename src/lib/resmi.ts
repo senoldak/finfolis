@@ -254,6 +254,12 @@ export interface UfeBolumu
   tarimGirdi: ({ yil: number; ay: number } & Record<'aylik' | 'yillik', number>)[];
 }
 
+// İnşaat izinleri (TÜİK, aylık akım): yapı ruhsatı ve iskân için daire, yüzölçümü (m²), yapı sayısı ve on bina türünün
+// yüzölçümü. Alan adları belge önekiyle: ruhsatDaire, iskanApartman gibi.
+export type InsaatBelge = 'ruhsat' | 'iskan';
+export type InsaatTuru = 'Apartman' | 'Mustakil' | 'Toplu' | 'Otel' | 'Ofis' | 'Ticaret' | 'Ulastirma' | 'Sanayi' | 'Kamu' | 'Diger';
+export type InsaatIzinBolumu = AylikSeriBolumu<`${InsaatBelge}${'Daire' | 'Alan' | 'Yapi' | InsaatTuru}`>;
+
 export const RESMI = data as unknown as {
   kur?: KurBolumu;
   faiz?: FaizBolumu;
@@ -313,6 +319,7 @@ export const RESMI = data as unknown as {
   >;
   konutSatis?: KonutSatisBolumu;
   ufe?: UfeBolumu;
+  insaatIzin?: InsaatIzinBolumu;
 };
 
 // Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).
