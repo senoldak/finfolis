@@ -98,6 +98,7 @@ const RESMI_SAYFA = {
   odeme: '/veri/odeme-sistemleri/',
   turizm: '/veri/turizm/',
   uyp: '/veri/yatirim-pozisyonu/',
+  reelGuven: '/veri/reel-kesim-guveni/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

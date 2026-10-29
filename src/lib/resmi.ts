@@ -362,6 +362,12 @@ export interface UypBolumu {
   alinma: string;
 }
 
+// Reel kesim güveni (mevsimsellikten arındırılmış, 2007'den) ve finansal hizmetler güveni (2012'den), endeks.
+export interface ReelGuvenBolumu extends AylikSeriBolumu<'endeks' | 'ham' | 'siparis' | 'stok' | 'uretim' | 'istihdam' | 'siparisSon3' | 'ihracat' | 'yatirim' | 'gidisat'> {
+  finansSeriler: SeriAdi[];
+  finans: ({ yil: number; ay: number } & Record<'endeks' | 'isDurumu' | 'talepSon3' | 'talepGelecek3', number>)[];
+}
+
 // Para arzı (TCMB, haftalık cuma stoku, bin TL); yıllık değişim %.
 export interface ParaArziBolumu {
   kaynak: Kaynak;
@@ -442,6 +448,7 @@ export const RESMI = data as unknown as {
   odeme?: OdemeBolumu;
   turizm?: TurizmBolumu;
   uyp?: UypBolumu;
+  reelGuven?: ReelGuvenBolumu;
   banknot?: AylikSeriBolumu<`${'k200' | 'k100' | 'k50' | 'k20' | 'k10' | 'k5' | 'diger' | 'toplam'}${'Adet' | 'Tutar'}`>;
   cek?: AylikSeriBolumu<'ibrazAdet' | 'ibrazTutar' | 'karsiliksizAdet' | 'karsiliksizTutar'>;
 };

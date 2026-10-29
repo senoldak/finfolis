@@ -25,6 +25,7 @@ import {
   odemeAl,
   turizmAl,
   uypAl,
+  reelGuvenAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -697,6 +698,21 @@ test('uypAl: üç aylık 14 seri, 2006’dan', async () => {
   assert.equal(u.birim, 'milyon ABD doları');
   assert.deepEqual([u.ceyrekler[0].yil, u.ceyrekler[0].ceyrek, u.ceyrekler.at(-1).yil, u.ceyrekler.at(-1).ceyrek], [2006, 1, 2026, 2]);
   assert.equal(u.ceyrekler[0].net, -5);
+});
+
+test('reelGuvenAl: arındırılmış reel kesim serileri 2007’den, finansal hizmetler ayrı dizi', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    const u = decodeURIComponent(String(url));
+    istekler.push(u);
+    const bas = u.includes('FHGE') ? [2012, 5] : [2007, 1];
+    const n = u.includes('FHGE') ? 174 : 238;
+    return yanit({ items: aylar(bas, n).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(alanlar(url).map((x) => [x, '101'])) })) });
+  };
+  const g = await reelGuvenAl(SIMDI, 'x');
+  assert.ok(alanlar(istekler[0]).includes('TP_GY1_N2_MA'));
+  assert.deepEqual([g.satirlar[0].yil, g.finans[0].yil, g.finans[0].ay], [2007, 2012, 5]);
+  assert.equal(Object.keys(g.satirlar[0]).length, 12);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

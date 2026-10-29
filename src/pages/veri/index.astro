@@ -90,6 +90,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/odeme-sistemleri/': 'fast eft havale anlık ödeme ödeme sistemleri kira ödemesi karekod',
   '/veri/turizm/': 'turizm turist yabancı ziyaretçi turizm geliri almanya rusya ingiltere',
   '/veri/yatirim-pozisyonu/': 'uluslararası yatırım pozisyonu uyp net dış varlık yükümlülük doğrudan yatırım portföy',
+  '/veri/reel-kesim-guveni/': 'reel kesim güven endeksi rkge iktisadi yönelim sipariş imalat finansal hizmetler güveni',
   '/veri/para-arzi/': 'm1 m2 m3 para arzı parasal büyüklükler dolaşımdaki para vadeli vadesiz mevduat likidite',
   '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
@@ -440,6 +441,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/tuketici-guveni/')}>
               <a href="/veri/tuketici-guveni/" class="fihrist-baslik-link">Tüketici Güven Endeksi</a>
               <span class="fihrist-ozet">TÜİK aylık tüketici güveni ve alt endeksleri ({guvenSon ? sayiYaz(guvenSon.endeks, 1) : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/reel-kesim-guveni/')}>
+              <a href="/veri/reel-kesim-guveni/" class="fihrist-baslik-link">Reel Kesim Güveni</a>
+              <span class="fihrist-ozet">İmalat firmalarının güven endeksi ve alt endeksleri, finansal hizmetler güveni</span>
             </li>
             <li data-ek={aramaEki('/veri/kredi-hacmi/')}>
               <a href="/veri/kredi-hacmi/" class="fihrist-baslik-link">Kredi Hacmi</a>

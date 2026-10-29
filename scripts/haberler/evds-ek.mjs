@@ -393,6 +393,8 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      ziyaretçiden farklı ayda biter, ayrı dizi). Doğrulandı 29.10.2026.
 //  - uyp: uluslararası yatırım pozisyonu (TCMB, üç aylık, milyon ABD doları, 2006'dan; doğrulandı 29.10.2026): net
 //      pozisyon, varlıklar ve yükümlülükler ile doğrudan yatırım, portföy, türev, diğer yatırım ve rezerv kırılımı.
+//  - reelGuven: reel kesim güven endeksi ve alt endeksleri, mevsimsellikten arındırılmış (TCMB, aylık, 2007'den) ile
+//      finansal hizmetler güven endeksi ve alt endeksleri (TCMB, aylık, Mayıs 2012'den; ayrı dizi). Doğrulandı 29.10.2026.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -1313,6 +1315,36 @@ export async function uypAl(simdi, anahtar) {
     birim: 'milyon ABD doları',
     seriler: tanimlar(UYP_SERILERI),
     ceyrekler: await ceyrekFormullu(UYP_SERILERI, new Date(Date.UTC(2006, 0, 1)), simdi, anahtar, 'Uluslararası yatırım pozisyonu', 70),
+  };
+}
+
+// Reel kesim güven endeksi (İktisadi Yönelim Anketi): -MA serileri mevsimsellikten arındırılmıştır; ham endeks ayrıca.
+export const REEL_GUVEN_SERILERI = [
+  ['TP.GY1.N2.MA', 'endeks', 'Reel kesim güven endeksi (mevsimsellikten arındırılmış)'],
+  ['TP.GY1.N2', 'ham', 'Reel kesim güven endeksi (arındırılmamış)'],
+  ['TP.GY2.N2.MA', 'siparis', 'Toplam sipariş, mevcut durum'],
+  ['TP.GY3.N2.MA', 'stok', 'Mamul mal stoku, mevcut durum'],
+  ['TP.GY4.N2.MA', 'uretim', 'Üretim hacmi, gelecek üç ay'],
+  ['TP.GY5.N2.MA', 'istihdam', 'Toplam istihdam, gelecek üç ay'],
+  ['TP.GY6.N2.MA', 'siparisSon3', 'Toplam sipariş, son üç ay'],
+  ['TP.GY7.N2.MA', 'ihracat', 'İhracat siparişi, gelecek üç ay'],
+  ['TP.GY8.N2.MA', 'yatirim', 'Sabit sermaye yatırım harcaması'],
+  ['TP.GY9.N2.MA', 'gidisat', 'Genel gidişat'],
+].map(([kod, alan, ad]) => ({ kod, formul: 0, alan, ad }));
+export const FINANS_GUVEN_SERILERI = [
+  ['TP.FHGE.S01', 'endeks', 'Finansal hizmetler güven endeksi'],
+  ['TP.FHGE.S02', 'isDurumu', 'İş durumu, son üç ay'],
+  ['TP.FHGE.S03', 'talepSon3', 'Hizmetlere talep, son üç ay'],
+  ['TP.FHGE.S04', 'talepGelecek3', 'Hizmetlere talep, gelecek üç ay'],
+].map(([kod, alan, ad]) => ({ kod, formul: 0, alan, ad }));
+
+export async function reelGuvenAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TCMB, İktisadi Yönelim Anketi ve reel kesim güven endeksi; Finansal Hizmetler Anketi (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(REEL_GUVEN_SERILERI),
+    finansSeriler: tanimlar(FINANS_GUVEN_SERILERI),
+    satirlar: await aylikFormullu(REEL_GUVEN_SERILERI, new Date(Date.UTC(2007, 0, 1)), simdi, anahtar, 'Reel kesim güveni', 200),
+    finans: await aylikFormullu(FINANS_GUVEN_SERILERI, new Date(Date.UTC(2012, 4, 1)), simdi, anahtar, 'Finansal hizmetler güveni', 150),
   };
 }
 
