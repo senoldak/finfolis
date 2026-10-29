@@ -1,0 +1,267 @@
+---
+// Konut satışları: TÜİK aylık konut ve iş yeri satış istatistikleri (adet), EVDS'den. Düzeyler ve yıllık değişim EVDS'nin
+// verdiği gibidir. Sayfa hesabı yalnız ilk el ve ipotekli payıdır (EVDS düzeylerinden parça / toplam × 100, kredi-hacmi
+// toplamları gibi); başka türetme ve tahmin yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const konutSatis = RESMI.konutSatis;
+const satirlar = konutSatis?.satirlar ?? [];
+const son = satirlar.at(-1);
+const il = konutSatis?.ilTablosu;
+
+const yd = (n: number) => `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`;
+const ydYaz = (n: number | null) => (n == null ? '–' : yd(n));
+// Sayfa hesabı: pay = parça / toplam × 100 (EVDS düzeylerinden).
+const payYaz = (parca: number | null, toplam: number) => (parca == null || !(toplam > 0) ? '–' : yuzdeYaz((parca / toplam) * 100));
+
+const gruplar1 = [
+  {
+    id: 'toplam',
+    ad: 'Toplam',
+    seriler: [
+      { id: 'toplam', ad: 'Toplam konut satışı', renk: 'murekkep' as const },
+      { id: 'arindirilmis', ad: 'Arındırılmış toplam', renk: 'toprak' as const, kesik: true },
+    ],
+  },
+  {
+    id: 'el',
+    ad: 'İlk el ve ikinci el',
+    seriler: [
+      { id: 'ilkEl', ad: 'İlk el satış', renk: 'murekkep' as const },
+      { id: 'ikinciEl', ad: 'İkinci el satış', renk: 'toprak' as const },
+    ],
+  },
+  {
+    id: 'ipotekli',
+    ad: 'İpotekli',
+    seriler: [
+      { id: 'toplam', ad: 'Toplam konut satışı', renk: 'murekkep' as const },
+      { id: 'ipotekli', ad: 'İpotekli satış', renk: 'mavi' as const },
+    ],
+  },
+];
+const noktalar1 = satirlar.map((s) => [ayAnahtari(s), s.toplam, s.arindirilmis, s.ilkEl, s.ikinciEl, s.ipotekli]);
+
+const gruplar2 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [{ id: 'toplamYillik', ad: 'Toplam konut satışı, yıllık değişim', renk: 'mavi' as const }],
+  },
+];
+const noktalar2 = satirlar.map((s) => [ayAnahtari(s), s.toplamYillik]);
+
+const tablo = satirlar.slice(-12).reverse();
+const ilSirali = [...(il?.iller ?? [])].sort((a, b) => b.toplam - a.toplam);
+
+const baslik = 'Konut satışları';
+const description = son
+  ? `${ayAdi(son)} ayında Türkiye genelinde ${sayiYaz(son.toplam, 0)} konut satıldı; bir yıl öncesinin aynı ayına göre ${yd(son.toplamYillik)}. TÜİK verisi.`
+  : 'Konut ve iş yeri satışları: toplam, ilk el, ikinci el ve ipotekli satış, il bazında son ay, TÜİK verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/konut-satislari/' },
+];
+const ayKodu = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(konutSatis && son
+    ? {
+        sayfaEk: { dateModified: konutSatis.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Konut ve iş yeri satışları',
+            description:
+              'Aylık konut satışları (toplam, ilk el, ikinci el, ipotekli, mevsim ve takvim etkilerinden arındırılmış) ve iş yeri satışları ile son ayın il bazında konut satışları, TÜİK verisi, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/konut-satislari/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye İstatistik Kurumu', url: 'https://www.tuik.gov.tr/' },
+            temporalCoverage: `${ayKodu(satirlar[0])}/${ayKodu(son)}`,
+            dateModified: konutSatis.alinma,
+            variableMeasured: [
+              'Toplam konut satışı (adet)',
+              'Toplam konut satışı, yıllık değişim (yüzde)',
+              'Toplam konut satışı, mevsim ve takvim etkilerinden arındırılmış (adet)',
+              'İlk el konut satışı (adet)',
+              'İkinci el konut satışı (adet)',
+              'İpotekli konut satışı (adet)',
+              'Toplam iş yeri satışı (adet)',
+              'İllere göre konut satışı (adet)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Konut satışları: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Konut ve iş yeri satış istatistikleri · TÜİK, aylık</p>
+    </header>
+    {
+      konutSatis && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Toplam satış (adet)</dt>
+              <dd>{sayiYaz(son.toplam, 0)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}, bir yıl öncesinin aynı ayına göre {yd(son.toplamYillik)}</dd>
+            </div>
+            <div>
+              <dt>İlk el payı</dt>
+              <dd>{payYaz(son.ilkEl, son.toplam)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}, toplam konut satışı içinde</dd>
+            </div>
+            <div>
+              <dt>İpotekli satış payı</dt>
+              <dd>{payYaz(son.ipotekli, son.toplam)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}, toplam konut satışı içinde</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={konutSatis.kaynak.url} rel="noopener">{konutSatis.kaynak.ad}</a>. Siteye alındığı zaman:
+            {zamanYaz(konutSatis.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Aylık konut satışları"
+            ipucu="Adet, aylık · Kesikli çizgi mevsim ve takvim etkilerinden arındırılmış seridir · Grup düğmesiyle seriler arasında geçilir"
+            kaynak="Kaynak: TÜİK, konut satış istatistikleri (TCMB EVDS)."
+            siklik="ay"
+            birim="endeks"
+            ondalik={0}
+            seriIdleri={['toplam', 'arindirilmis', 'ilkEl', 'ikinciEl', 'ipotekli']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            grupEtiketi="Seri grubu"
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Toplam</th>
+                      <th scope="col" class="sag">Yıllık değişim</th>
+                      <th scope="col" class="sag">İlk el</th>
+                      <th scope="col" class="sag">İkinci el</th>
+                      <th scope="col" class="sag">İpotekli</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{sayiYaz(s.toplam, 0)}</td>
+                        <td class="sag">{yd(s.toplamYillik)}</td>
+                        <td class="sag">{sayiYaz(s.ilkEl, 0)}</td>
+                        <td class="sag">{sayiYaz(s.ikinciEl, 0)}</td>
+                        <td class="sag">{sayiYaz(s.ipotekli, 0)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Satışlar adet (konut sayısı) olarak verilir; yıllık değişim bir yıl öncesinin aynı ayına göredir. İlk el ve
+                ipotekli satış payları, ilgili adedin toplam konut satışına bölünmesiyle sayfada hesaplanır.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                İlk el satış, müteahhitten ya da ilk kez satılan konutların satışıdır. İkinci el satış, daha önce satılmış bir
+                konutun yeniden satışıdır. İpotekli satış, konut kredisiyle, yani ipotek tesis edilerek yapılan satıştır.
+              </p>
+              <p>
+                Mevsim ve takvim etkilerinden arındırılmış seri, ayların mevsimsel özelliklerini ve takvim farklarını ayıklar;
+                böylece art arda gelen aylar birbiriyle karşılaştırılabilir.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Yıllık değişim"
+            ipucu="Yüzde, toplam konut satışı, bir yıl öncesinin aynı ayına göre · Sıfırın altı, satışın bir yıl öncesinden düşük olduğunu gösterir"
+            kaynak="Kaynak: TÜİK, konut satış istatistikleri (TCMB EVDS)."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['toplamYillik']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          {il ? (
+            <section class="bolum">
+              <h2 class="bolum-baslik">İllere göre konut satışı, {ayAdi(il)}</h2>
+              <div class="tablo-sarma il-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">İl</th>
+                      <th scope="col" class="sag">Satış (adet)</th>
+                      <th scope="col" class="sag">Yıllık değişim</th>
+                      <th scope="col" class="sag">İpotekli payı</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ilSirali.map((i) => (
+                      <tr>
+                        <td>{i.ad}</td>
+                        <td class="sag">{sayiYaz(i.toplam, 0)}</td>
+                        <td class="sag">{ydYaz(i.yillik)}</td>
+                        <td class="sag">{payYaz(i.ipotekli, i.toplam)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Sıralama satış adedinin büyüğünden küçüğünedir. İpotekli payı, ilin ipotekli satış adedinin il toplamına
+                bölünmesiyle sayfada hesaplanır.
+              </p>
+            </section>
+          ) : null}
+        </>
+      ) : (
+        <p class="bos">Konut satış verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/konut-fiyat-endeksi/">Konut fiyat endeksi</a>
+      <a href="/veri/kira-carpani/">Kira çarpanı</a>
+      <a href="/veri/kredi-hacmi/">Kredi hacmi</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TÜİK’in yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+  .il-sarma {
+    max-height: 28rem;
+    overflow-y: auto;
+  }
+</style>

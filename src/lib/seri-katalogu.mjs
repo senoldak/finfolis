@@ -14,6 +14,7 @@ const BUSD = 'bin ABD doları';
 const END = 'endeks';
 const PUAN = 'puan';
 const TL = 'TL';
+const ADET = 'adet';
 
 const SAYFA = {
   enflasyon: '/veri/enflasyon/',
@@ -34,6 +35,7 @@ const SAYFA = {
   kur: '/veri/doviz-kurlari/',
   sanayi: '/veri/sanayi-uretimi/',
   buyume: '/veri/buyume/',
+  konutSatis: '/veri/konut-satislari/',
   portfoy: '/veri/yabanci-portfoy-akimlari/',
   cari: '/veri/cari-denge/',
   disBorc: '/veri/dis-borc/',
@@ -148,6 +150,15 @@ export const TANIMLAR = [
     ['mesleki', 'mesleki', 'Mesleki, idari ve destek hizmetleri, yıllık değişim', YZ],
     ['kamu', 'kamu', 'Kamu yönetimi, eğitim, sağlık, yıllık değişim', YZ],
     ['diger', 'diger', 'Diğer hizmetler (GSYH sektörü), yıllık değişim', YZ],
+  ]),
+  t('konutSatis', 'Konut', SAYFA.konutSatis, [
+    ['toplam', 'toplam', 'Toplam konut satışı', ADET],
+    ['toplamYillik', 'toplamYillik', 'Toplam konut satışı, yıllık değişim', YZ],
+    ['arindirilmis', 'arindirilmis', 'Toplam konut satışı, mevsim ve takvim etkilerinden arındırılmış', ADET],
+    ['ilkEl', 'ilkEl', 'İlk el konut satışı', ADET],
+    ['ikinciEl', 'ikinciEl', 'İkinci el konut satışı', ADET],
+    ['ipotekli', 'ipotekli', 'İpotekli konut satışı', ADET],
+    ['isyeri', 'isyeri', 'Toplam iş yeri satışı', ADET],
   ]),
   t('makas', 'Faiz', SAYFA.makas, [
     ['ihtiyac', 'ihtiyac', 'İhtiyaç kredisi faizi', YZ],

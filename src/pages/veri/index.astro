@@ -4,7 +4,7 @@
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import VeriKarti from '../../components/VeriKarti.astro';
-import { RESMI, ayAdi, gunYaz, oranYaz, sayiYaz } from '../../lib/resmi';
+import { RESMI, ayAdi, gunYaz, oranYaz, sayiYaz, yuzdeYaz } from '../../lib/resmi';
 import { ayinFaizi, kiraCarpani, kurHizi, reelFaiz } from '../../lib/turetilmis.mjs';
 import bistTufeData from '../../data/bist-tufe.json';
 import reelBistData from '../../data/reel-bist.json';
@@ -23,6 +23,8 @@ const kiraSon = kira?.satirlar.at(-1);
 const guvenSon = guven?.satirlar.at(-1);
 const kapasiteSon = kapasite?.satirlar.at(-1);
 const issizlikSon = issizlik?.satirlar.at(-1);
+const buyumeSon = RESMI.buyume?.satirlar.at(-1);
+const konutSatisSon = RESMI.konutSatis?.satirlar.at(-1);
 const rekSon = rek?.satirlar.at(-1);
 const brutRezervSon = brutRezerv?.satirlar.at(-1);
 // Hesaplanmış göstergeler (finfolis): fihristte son değer.
@@ -91,6 +93,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/abd-tahvilleri/': 'hazine tahvil',
   '/veri/abd-tahvil-akimlari/': 'hazine tahvil',
   '/veri/butce-dengesi/': 'bütçe açığı vergi harcama maliye',
+  '/veri/buyume/': 'gsyh gsyih milli gelir ekonomi büyüme hızı',
   '/veri/sanayi-uretimi/': 'üretim büyüme imalat',
   '/veri/kapasite-kullanimi/': 'sanayi üretim',
   '/veri/issizlik-orani/': 'istihdam iş işgücü',
@@ -100,6 +103,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/konut-fiyat-endeksi/': 'ev fiyat emlak konut',
   '/veri/kira-endeksi/': 'ev kira',
   '/veri/kira-carpani/': 'ev kira amortisman',
+  '/veri/konut-satislari/': 'ev satış emlak tapu ipotek ilk el ikinci el',
   '/veri/reel-bist-30/': 'borsa hisse bist',
   '/veri/bist-100-tufe/': 'borsa hisse bist',
   '/veri/sektorler/': 'borsa hisse bist banka',
@@ -351,6 +355,10 @@ const araclar = [
             <h3>Büyüme, İş &amp; Tüketim</h3>
           </div>
           <ul class="fihrist-liste">
+            <li data-ek={aramaEki('/veri/buyume/')}>
+              <a href="/veri/buyume/" class="fihrist-baslik-link">Büyüme (GSYH)</a>
+              <span class="fihrist-ozet">TÜİK üç aylık büyüme, harcama kalemleri ve sektörler ({buyumeSon ? `${buyumeSon.yillik > 0 ? '+' : ''}${yuzdeYaz(buyumeSon.yillik)}` : '–'})</span>
+            </li>
             <li data-ek={aramaEki('/veri/sanayi-uretimi/')}>
               <a href="/veri/sanayi-uretimi/" class="fihrist-baslik-link">Sanayi Üretimi</a>
               <span class="fihrist-ozet">TÜİK sanayi üretim endeksi, aylık ve yıllık değişim</span>
@@ -394,6 +402,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/kira-carpani/')}>
               <a href="/veri/kira-carpani/" class="fihrist-baslik-link">Kira Çarpanı</a>
               <span class="fihrist-ozet">Konut fiyatı kaç yıllık kiraya eşit, il il ({carpanSon ? `${sayiYaz(carpanSon.carpan, 1)} yıl` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/konut-satislari/')}>
+              <a href="/veri/konut-satislari/" class="fihrist-baslik-link">Konut Satışları</a>
+              <span class="fihrist-ozet">TÜİK aylık satış, ilk el, ikinci el, ipotekli ve il il ({konutSatisSon ? `${sayiYaz(konutSatisSon.toplam, 0)} adet` : '–'})</span>
             </li>
           </ul>
         </div>

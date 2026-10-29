@@ -50304,5 +50304,2220 @@
       }
     ],
     "alinma": "2026-10-29T09:24:53.889Z"
+  },
+  "konutSatis": {
+    "kaynak": {
+      "ad": "TÜİK verisi, konut ve iş yeri satış istatistikleri (TCMB EVDS)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "birim": "adet",
+    "seriler": [
+      {
+        "alan": "toplam",
+        "ad": "Toplam konut satışı"
+      },
+      {
+        "alan": "toplamYillik",
+        "ad": "Toplam konut satışı, yıllık değişim"
+      },
+      {
+        "alan": "arindirilmis",
+        "ad": "Toplam konut satışı, mevsim ve takvim etkilerinden arındırılmış"
+      },
+      {
+        "alan": "ilkEl",
+        "ad": "İlk el satış"
+      },
+      {
+        "alan": "ikinciEl",
+        "ad": "İkinci el satış"
+      },
+      {
+        "alan": "ipotekli",
+        "ad": "İpotekli satış"
+      },
+      {
+        "alan": "isyeri",
+        "ad": "Toplam iş yeri satışı"
+      }
+    ],
+    "satirlar": [
+      {
+        "yil": 2014,
+        "ay": 1,
+        "toplam": 93777,
+        "toplamYillik": 1.27762058,
+        "arindirilmis": 106959,
+        "ilkEl": 44747,
+        "ikinciEl": 49030,
+        "ipotekli": 34410,
+        "isyeri": 11153
+      },
+      {
+        "yil": 2014,
+        "ay": 2,
+        "toplam": 87515,
+        "toplamYillik": -6.65763623,
+        "arindirilmis": 97706,
+        "ilkEl": 41673,
+        "ikinciEl": 45842,
+        "ipotekli": 25878,
+        "isyeri": 11286
+      },
+      {
+        "yil": 2014,
+        "ay": 3,
+        "toplam": 93045,
+        "toplamYillik": -9.97706977,
+        "arindirilmis": 94361,
+        "ilkEl": 45807,
+        "ikinciEl": 47238,
+        "ipotekli": 26378,
+        "isyeri": 11455
+      },
+      {
+        "yil": 2014,
+        "ay": 4,
+        "toplam": 89012,
+        "toplamYillik": -11.65851189,
+        "arindirilmis": 89209,
+        "ilkEl": 41560,
+        "ikinciEl": 47452,
+        "ipotekli": 25412,
+        "isyeri": 11776
+      },
+      {
+        "yil": 2014,
+        "ay": 5,
+        "toplam": 95337,
+        "toplamYillik": -12.82517853,
+        "arindirilmis": 97885,
+        "ilkEl": 44769,
+        "ikinciEl": 50568,
+        "ipotekli": 32044,
+        "isyeri": 10934
+      },
+      {
+        "yil": 2014,
+        "ay": 6,
+        "toplam": 99021,
+        "toplamYillik": -3.36680622,
+        "arindirilmis": 102676,
+        "ilkEl": 46926,
+        "ikinciEl": 52095,
+        "ipotekli": 34535,
+        "isyeri": 10486
+      },
+      {
+        "yil": 2014,
+        "ay": 7,
+        "toplam": 90707,
+        "toplamYillik": -19.66433443,
+        "arindirilmis": 105867,
+        "ilkEl": 43322,
+        "ikinciEl": 47385,
+        "ipotekli": 33453,
+        "isyeri": 9664
+      },
+      {
+        "yil": 2014,
+        "ay": 8,
+        "toplam": 112147,
+        "toplamYillik": 25.17943051,
+        "arindirilmis": 109578,
+        "ilkEl": 53414,
+        "ikinciEl": 58733,
+        "ipotekli": 37918,
+        "isyeri": 10886
+      },
+      {
+        "yil": 2014,
+        "ay": 9,
+        "toplam": 123358,
+        "toplamYillik": 14.38877607,
+        "arindirilmis": 110785,
+        "ilkEl": 58169,
+        "ikinciEl": 65189,
+        "ipotekli": 46316,
+        "isyeri": 12245
+      },
+      {
+        "yil": 2014,
+        "ay": 10,
+        "toplam": 102083,
+        "toplamYillik": 26.08910463,
+        "arindirilmis": 113901,
+        "ilkEl": 48849,
+        "ikinciEl": 53234,
+        "ipotekli": 36747,
+        "isyeri": 10814
+      },
+      {
+        "yil": 2014,
+        "ay": 11,
+        "toplam": 110397,
+        "toplamYillik": 0.86062766,
+        "arindirilmis": 116639,
+        "ilkEl": 52674,
+        "ikinciEl": 57723,
+        "ipotekli": 39578,
+        "isyeri": 12533
+      },
+      {
+        "yil": 2014,
+        "ay": 12,
+        "toplam": 144515,
+        "toplamYillik": 16.60830133,
+        "arindirilmis": 108560,
+        "ilkEl": 72240,
+        "ikinciEl": 72275,
+        "ipotekli": 46425,
+        "isyeri": 17686
+      },
+      {
+        "yil": 2015,
+        "ay": 1,
+        "toplam": 91891,
+        "toplamYillik": -2.01115412,
+        "arindirilmis": 113089,
+        "ilkEl": 41608,
+        "ikinciEl": 50283,
+        "ipotekli": 35695,
+        "isyeri": 11216
+      },
+      {
+        "yil": 2015,
+        "ay": 2,
+        "toplam": 101459,
+        "toplamYillik": 15.93326858,
+        "arindirilmis": 113108,
+        "ilkEl": 45029,
+        "ikinciEl": 56430,
+        "ipotekli": 39590,
+        "isyeri": 12696
+      },
+      {
+        "yil": 2015,
+        "ay": 3,
+        "toplam": 120664,
+        "toplamYillik": 29.68348649,
+        "arindirilmis": 112885,
+        "ilkEl": 54637,
+        "ikinciEl": 66027,
+        "ipotekli": 47404,
+        "isyeri": 13545
+      },
+      {
+        "yil": 2015,
+        "ay": 4,
+        "toplam": 124185,
+        "toplamYillik": 39.51489687,
+        "arindirilmis": 120994,
+        "ilkEl": 55925,
+        "ikinciEl": 68260,
+        "ipotekli": 48201,
+        "isyeri": 14116
+      },
+      {
+        "yil": 2015,
+        "ay": 5,
+        "toplam": 112337,
+        "toplamYillik": 17.83148201,
+        "arindirilmis": 121131,
+        "ilkEl": 52050,
+        "ikinciEl": 60287,
+        "ipotekli": 41950,
+        "isyeri": 12288
+      },
+      {
+        "yil": 2015,
+        "ay": 6,
+        "toplam": 115386,
+        "toplamYillik": 16.52679735,
+        "arindirilmis": 112702,
+        "ilkEl": 54443,
+        "ikinciEl": 60943,
+        "ipotekli": 42485,
+        "isyeri": 12557
+      },
+      {
+        "yil": 2015,
+        "ay": 7,
+        "toplam": 100342,
+        "toplamYillik": 10.62211296,
+        "arindirilmis": 105656,
+        "ilkEl": 46185,
+        "ikinciEl": 54157,
+        "ipotekli": 32179,
+        "isyeri": 10949
+      },
+      {
+        "yil": 2015,
+        "ay": 8,
+        "toplam": 116928,
+        "toplamYillik": 4.26315461,
+        "arindirilmis": 114507,
+        "ilkEl": 56218,
+        "ikinciEl": 60710,
+        "ipotekli": 37609,
+        "isyeri": 12380
+      },
+      {
+        "yil": 2015,
+        "ay": 9,
+        "toplam": 96351,
+        "toplamYillik": -21.89318893,
+        "arindirilmis": 102445,
+        "ilkEl": 45952,
+        "ikinciEl": 50399,
+        "ipotekli": 30112,
+        "isyeri": 10116
+      },
+      {
+        "yil": 2015,
+        "ay": 10,
+        "toplam": 108144,
+        "toplamYillik": 5.93732551,
+        "arindirilmis": 107047,
+        "ilkEl": 53295,
+        "ikinciEl": 54849,
+        "ipotekli": 29286,
+        "isyeri": 12341
+      },
+      {
+        "yil": 2015,
+        "ay": 11,
+        "toplam": 110554,
+        "toplamYillik": 0.14221401,
+        "arindirilmis": 108137,
+        "ilkEl": 54204,
+        "ikinciEl": 56350,
+        "ipotekli": 29945,
+        "isyeri": 13458
+      },
+      {
+        "yil": 2015,
+        "ay": 12,
+        "toplam": 151081,
+        "toplamYillik": 4.543473,
+        "arindirilmis": 110902,
+        "ilkEl": 80653,
+        "ikinciEl": 70428,
+        "ipotekli": 42247,
+        "isyeri": 19502
+      },
+      {
+        "yil": 2016,
+        "ay": 1,
+        "toplam": 88231,
+        "toplamYillik": -3.98297983,
+        "arindirilmis": 117550,
+        "ilkEl": 42760,
+        "ikinciEl": 45471,
+        "ipotekli": 27849,
+        "isyeri": 11241
+      },
+      {
+        "yil": 2016,
+        "ay": 2,
+        "toplam": 107060,
+        "toplamYillik": 5.52045654,
+        "arindirilmis": 113456,
+        "ilkEl": 50390,
+        "ikinciEl": 56670,
+        "ipotekli": 31922,
+        "isyeri": 12496
+      },
+      {
+        "yil": 2016,
+        "ay": 3,
+        "toplam": 124044,
+        "toplamYillik": 2.80116688,
+        "arindirilmis": 110136,
+        "ilkEl": 57289,
+        "ikinciEl": 66755,
+        "ipotekli": 40902,
+        "isyeri": 14726
+      },
+      {
+        "yil": 2016,
+        "ay": 4,
+        "toplam": 112238,
+        "toplamYillik": -9.62032452,
+        "arindirilmis": 110336,
+        "ilkEl": 51340,
+        "ikinciEl": 60898,
+        "ipotekli": 35188,
+        "isyeri": 13086
+      },
+      {
+        "yil": 2016,
+        "ay": 5,
+        "toplam": 120555,
+        "toplamYillik": 7.31548822,
+        "arindirilmis": 115721,
+        "ilkEl": 60155,
+        "ikinciEl": 60400,
+        "ipotekli": 37288,
+        "isyeri": 13081
+      },
+      {
+        "yil": 2016,
+        "ay": 6,
+        "toplam": 112122,
+        "toplamYillik": -2.82876605,
+        "arindirilmis": 111310,
+        "ilkEl": 53543,
+        "ikinciEl": 58579,
+        "ipotekli": 38249,
+        "isyeri": 12397
+      },
+      {
+        "yil": 2016,
+        "ay": 7,
+        "toplam": 85345,
+        "toplamYillik": -14.94588507,
+        "arindirilmis": 114972,
+        "ilkEl": 40579,
+        "ikinciEl": 44766,
+        "ipotekli": 24987,
+        "isyeri": 8653
+      },
+      {
+        "yil": 2016,
+        "ay": 8,
+        "toplam": 120460,
+        "toplamYillik": 3.02066229,
+        "arindirilmis": 110599,
+        "ilkEl": 57654,
+        "ikinciEl": 62806,
+        "ipotekli": 38180,
+        "isyeri": 12210
+      },
+      {
+        "yil": 2016,
+        "ay": 9,
+        "toplam": 116019,
+        "toplamYillik": 20.41286546,
+        "arindirilmis": 134910,
+        "ilkEl": 56152,
+        "ikinciEl": 59867,
+        "ipotekli": 44205,
+        "isyeri": 10984
+      },
+      {
+        "yil": 2016,
+        "ay": 10,
+        "toplam": 138268,
+        "toplamYillik": 27.85545199,
+        "arindirilmis": 137187,
+        "ilkEl": 67534,
+        "ikinciEl": 70734,
+        "ipotekli": 50476,
+        "isyeri": 13588
+      },
+      {
+        "yil": 2016,
+        "ay": 11,
+        "toplam": 140685,
+        "toplamYillik": 27.25455434,
+        "arindirilmis": 130736,
+        "ilkEl": 69473,
+        "ikinciEl": 71212,
+        "ipotekli": 51493,
+        "isyeri": 14901
+      },
+      {
+        "yil": 2016,
+        "ay": 12,
+        "toplam": 152008,
+        "toplamYillik": 0.61357815,
+        "arindirilmis": 119401,
+        "ilkEl": 78807,
+        "ikinciEl": 73201,
+        "ipotekli": 51782,
+        "isyeri": 17973
+      },
+      {
+        "yil": 2017,
+        "ay": 1,
+        "toplam": 100023,
+        "toplamYillik": 13.36491709,
+        "arindirilmis": 117878,
+        "ilkEl": 47263,
+        "ikinciEl": 52760,
+        "ipotekli": 37811,
+        "isyeri": 11462
+      },
+      {
+        "yil": 2017,
+        "ay": 2,
+        "toplam": 107065,
+        "toplamYillik": 0.00467028,
+        "arindirilmis": 121403,
+        "ilkEl": 48943,
+        "ikinciEl": 58122,
+        "ipotekli": 40840,
+        "isyeri": 11783
+      },
+      {
+        "yil": 2017,
+        "ay": 3,
+        "toplam": 135987,
+        "toplamYillik": 9.62803521,
+        "arindirilmis": 119932,
+        "ilkEl": 61124,
+        "ikinciEl": 74863,
+        "ipotekli": 53191,
+        "isyeri": 15244
+      },
+      {
+        "yil": 2017,
+        "ay": 4,
+        "toplam": 120361,
+        "toplamYillik": 7.23729931,
+        "arindirilmis": 126151,
+        "ilkEl": 55928,
+        "ikinciEl": 64433,
+        "ipotekli": 45566,
+        "isyeri": 13178
+      },
+      {
+        "yil": 2017,
+        "ay": 5,
+        "toplam": 122262,
+        "toplamYillik": 1.41595123,
+        "arindirilmis": 117876,
+        "ilkEl": 56765,
+        "ikinciEl": 65497,
+        "ipotekli": 43771,
+        "isyeri": 13340
+      },
+      {
+        "yil": 2017,
+        "ay": 6,
+        "toplam": 102615,
+        "toplamYillik": -8.47915663,
+        "arindirilmis": 116660,
+        "ilkEl": 48752,
+        "ikinciEl": 53863,
+        "ipotekli": 37122,
+        "isyeri": 10784
+      },
+      {
+        "yil": 2017,
+        "ay": 7,
+        "toplam": 122198,
+        "toplamYillik": 43.18120569,
+        "arindirilmis": 124840,
+        "ilkEl": 58344,
+        "ikinciEl": 63854,
+        "ipotekli": 40575,
+        "isyeri": 11967
+      },
+      {
+        "yil": 2017,
+        "ay": 8,
+        "toplam": 127135,
+        "toplamYillik": 5.54125851,
+        "arindirilmis": 119637,
+        "ilkEl": 61255,
+        "ikinciEl": 65880,
+        "ipotekli": 40718,
+        "isyeri": 12848
+      },
+      {
+        "yil": 2017,
+        "ay": 9,
+        "toplam": 153521,
+        "toplamYillik": 32.32401589,
+        "arindirilmis": 164841,
+        "ilkEl": 80381,
+        "ikinciEl": 73140,
+        "ipotekli": 42757,
+        "isyeri": 15375
+      },
+      {
+        "yil": 2017,
+        "ay": 10,
+        "toplam": 130679,
+        "toplamYillik": -5.48861631,
+        "arindirilmis": 116241,
+        "ilkEl": 62386,
+        "ikinciEl": 68293,
+        "ipotekli": 40592,
+        "isyeri": 14039
+      },
+      {
+        "yil": 2017,
+        "ay": 11,
+        "toplam": 130250,
+        "toplamYillik": -7.41727974,
+        "arindirilmis": 120205,
+        "ilkEl": 64576,
+        "ikinciEl": 65674,
+        "ipotekli": 39222,
+        "isyeri": 14827
+      },
+      {
+        "yil": 2017,
+        "ay": 12,
+        "toplam": 140990,
+        "toplamYillik": -7.24830272,
+        "arindirilmis": 111573,
+        "ilkEl": 72387,
+        "ikinciEl": 68603,
+        "ipotekli": 35824,
+        "isyeri": 18616
+      },
+      {
+        "yil": 2018,
+        "ay": 1,
+        "toplam": 103160,
+        "toplamYillik": 3.13627866,
+        "arindirilmis": 122592,
+        "ilkEl": 48433,
+        "ikinciEl": 54727,
+        "ipotekli": 30229,
+        "isyeri": 12739
+      },
+      {
+        "yil": 2018,
+        "ay": 2,
+        "toplam": 101596,
+        "toplamYillik": -5.10811189,
+        "arindirilmis": 117723,
+        "ilkEl": 47421,
+        "ikinciEl": 54175,
+        "ipotekli": 29440,
+        "isyeri": 12383
+      },
+      {
+        "yil": 2018,
+        "ay": 3,
+        "toplam": 116770,
+        "toplamYillik": -14.13149786,
+        "arindirilmis": 112965,
+        "ilkEl": 54391,
+        "ikinciEl": 62379,
+        "ipotekli": 34619,
+        "isyeri": 14129
+      },
+      {
+        "yil": 2018,
+        "ay": 4,
+        "toplam": 109186,
+        "toplamYillik": -9.28456892,
+        "arindirilmis": 118754,
+        "ilkEl": 51711,
+        "ikinciEl": 57475,
+        "ipotekli": 29559,
+        "isyeri": 12946
+      },
+      {
+        "yil": 2018,
+        "ay": 5,
+        "toplam": 128963,
+        "toplamYillik": 5.4808526,
+        "arindirilmis": 120768,
+        "ilkEl": 62383,
+        "ikinciEl": 66580,
+        "ipotekli": 38880,
+        "isyeri": 14030
+      },
+      {
+        "yil": 2018,
+        "ay": 6,
+        "toplam": 126737,
+        "toplamYillik": 23.50728451,
+        "arindirilmis": 149812,
+        "ilkEl": 61868,
+        "ikinciEl": 64869,
+        "ipotekli": 50264,
+        "isyeri": 10912
+      },
+      {
+        "yil": 2018,
+        "ay": 7,
+        "toplam": 131346,
+        "toplamYillik": 7.4862109,
+        "arindirilmis": 126326,
+        "ilkEl": 62627,
+        "ikinciEl": 68719,
+        "ipotekli": 32189,
+        "isyeri": 13789
+      },
+      {
+        "yil": 2018,
+        "ay": 8,
+        "toplam": 111390,
+        "toplamYillik": -12.3844732,
+        "arindirilmis": 130531,
+        "ilkEl": 53452,
+        "ikinciEl": 57938,
+        "ipotekli": 13500,
+        "isyeri": 12286
+      },
+      {
+        "yil": 2018,
+        "ay": 9,
+        "toplam": 135772,
+        "toplamYillik": -11.56128478,
+        "arindirilmis": 134448,
+        "ilkEl": 66062,
+        "ikinciEl": 69710,
+        "ipotekli": 12456,
+        "isyeri": 15456
+      },
+      {
+        "yil": 2018,
+        "ay": 10,
+        "toplam": 160582,
+        "toplamYillik": 22.88278912,
+        "arindirilmis": 136204,
+        "ilkEl": 85131,
+        "ikinciEl": 75451,
+        "ipotekli": 8868,
+        "isyeri": 22352
+      },
+      {
+        "yil": 2018,
+        "ay": 11,
+        "toplam": 95953,
+        "toplamYillik": -26.33166987,
+        "arindirilmis": 85055,
+        "ilkEl": 45180,
+        "ikinciEl": 50773,
+        "ipotekli": 5709,
+        "isyeri": 12860
+      },
+      {
+        "yil": 2018,
+        "ay": 12,
+        "toplam": 146783,
+        "toplamYillik": 4.10880204,
+        "arindirilmis": 101502,
+        "ilkEl": 76930,
+        "ikinciEl": 69853,
+        "ipotekli": 7673,
+        "isyeri": 21541
+      },
+      {
+        "yil": 2019,
+        "ay": 1,
+        "toplam": 77161,
+        "toplamYillik": -25.20259791,
+        "arindirilmis": 93719,
+        "ilkEl": 33457,
+        "ikinciEl": 43704,
+        "ipotekli": 7196,
+        "isyeri": 10302
+      },
+      {
+        "yil": 2019,
+        "ay": 2,
+        "toplam": 83504,
+        "toplamYillik": -17.80778771,
+        "arindirilmis": 99390,
+        "ilkEl": 35523,
+        "ikinciEl": 47981,
+        "ipotekli": 10021,
+        "isyeri": 11361
+      },
+      {
+        "yil": 2019,
+        "ay": 3,
+        "toplam": 114693,
+        "toplamYillik": -1.77871029,
+        "arindirilmis": 118450,
+        "ilkEl": 49251,
+        "ikinciEl": 65442,
+        "ipotekli": 27720,
+        "isyeri": 13757
+      },
+      {
+        "yil": 2019,
+        "ay": 4,
+        "toplam": 103869,
+        "toplamYillik": -4.86967194,
+        "arindirilmis": 108053,
+        "ilkEl": 42757,
+        "ikinciEl": 61112,
+        "ipotekli": 23797,
+        "isyeri": 11261
+      },
+      {
+        "yil": 2019,
+        "ay": 5,
+        "toplam": 97424,
+        "toplamYillik": -24.45585168,
+        "arindirilmis": 94273,
+        "ilkEl": 40404,
+        "ikinciEl": 57020,
+        "ipotekli": 15843,
+        "isyeri": 12332
+      },
+      {
+        "yil": 2019,
+        "ay": 6,
+        "toplam": 64807,
+        "toplamYillik": -48.86497234,
+        "arindirilmis": 94061,
+        "ilkEl": 25202,
+        "ikinciEl": 39605,
+        "ipotekli": 7764,
+        "isyeri": 7720
+      },
+      {
+        "yil": 2019,
+        "ay": 7,
+        "toplam": 107730,
+        "toplamYillik": -17.97999178,
+        "arindirilmis": 101783,
+        "ilkEl": 41813,
+        "ikinciEl": 65917,
+        "ipotekli": 13831,
+        "isyeri": 11912
+      },
+      {
+        "yil": 2019,
+        "ay": 8,
+        "toplam": 116390,
+        "toplamYillik": 4.48873328,
+        "arindirilmis": 135877,
+        "ilkEl": 43687,
+        "ikinciEl": 72703,
+        "ipotekli": 35978,
+        "isyeri": 10680
+      },
+      {
+        "yil": 2019,
+        "ay": 9,
+        "toplam": 155387,
+        "toplamYillik": 14.44701411,
+        "arindirilmis": 147978,
+        "ilkEl": 55811,
+        "ikinciEl": 99576,
+        "ipotekli": 60962,
+        "isyeri": 13311
+      },
+      {
+        "yil": 2019,
+        "ay": 10,
+        "toplam": 154353,
+        "toplamYillik": -3.87901508,
+        "arindirilmis": 144543,
+        "ilkEl": 57702,
+        "ikinciEl": 96651,
+        "ipotekli": 53402,
+        "isyeri": 15384
+      },
+      {
+        "yil": 2019,
+        "ay": 11,
+        "toplam": 148187,
+        "toplamYillik": 54.43706815,
+        "arindirilmis": 147714,
+        "ilkEl": 54526,
+        "ikinciEl": 93661,
+        "ipotekli": 46713,
+        "isyeri": 16088
+      },
+      {
+        "yil": 2019,
+        "ay": 12,
+        "toplam": 215558,
+        "toplamYillik": 46.85488101,
+        "arindirilmis": 151966,
+        "ilkEl": 83286,
+        "ikinciEl": 132272,
+        "ipotekli": 53298,
+        "isyeri": 30604
+      },
+      {
+        "yil": 2020,
+        "ay": 1,
+        "toplam": 120066,
+        "toplamYillik": 55.60451523,
+        "arindirilmis": 145548,
+        "ilkEl": 38888,
+        "ikinciEl": 81178,
+        "ipotekli": 44721,
+        "isyeri": 12729
+      },
+      {
+        "yil": 2020,
+        "ay": 2,
+        "toplam": 125409,
+        "toplamYillik": 50.18322476,
+        "arindirilmis": 147012,
+        "ilkEl": 40309,
+        "ikinciEl": 85100,
+        "ipotekli": 46325,
+        "isyeri": 14427
+      },
+      {
+        "yil": 2020,
+        "ay": 3,
+        "toplam": 114796,
+        "toplamYillik": 0.08980496,
+        "arindirilmis": 108190,
+        "ilkEl": 36901,
+        "ikinciEl": 77895,
+        "ipotekli": 45959,
+        "isyeri": 11387
+      },
+      {
+        "yil": 2020,
+        "ay": 4,
+        "toplam": 45218,
+        "toplamYillik": -56.46631815,
+        "arindirilmis": 45658,
+        "ilkEl": 16007,
+        "ikinciEl": 29211,
+        "ipotekli": 18084,
+        "isyeri": 4612
+      },
+      {
+        "yil": 2020,
+        "ay": 5,
+        "toplam": 55205,
+        "toplamYillik": -43.33531779,
+        "arindirilmis": 68736,
+        "ilkEl": 19497,
+        "ikinciEl": 35708,
+        "ipotekli": 19546,
+        "isyeri": 4736
+      },
+      {
+        "yil": 2020,
+        "ay": 6,
+        "toplam": 204034,
+        "toplamYillik": 214.83327418,
+        "arindirilmis": 193064,
+        "ilkEl": 66860,
+        "ikinciEl": 137174,
+        "ipotekli": 106699,
+        "isyeri": 13344
+      },
+      {
+        "yil": 2020,
+        "ay": 7,
+        "toplam": 244133,
+        "toplamYillik": 126.61561311,
+        "arindirilmis": 249096,
+        "ilkEl": 75130,
+        "ikinciEl": 169003,
+        "ipotekli": 137963,
+        "isyeri": 17862
+      },
+      {
+        "yil": 2020,
+        "ay": 8,
+        "toplam": 181464,
+        "toplamYillik": 55.91030157,
+        "arindirilmis": 186635,
+        "ilkEl": 57594,
+        "ikinciEl": 123870,
+        "ipotekli": 80398,
+        "isyeri": 14965
+      },
+      {
+        "yil": 2020,
+        "ay": 9,
+        "toplam": 145448,
+        "toplamYillik": -6.39628798,
+        "arindirilmis": 129914,
+        "ilkEl": 45778,
+        "ikinciEl": 99670,
+        "ipotekli": 37741,
+        "isyeri": 16237
+      },
+      {
+        "yil": 2020,
+        "ay": 10,
+        "toplam": 127809,
+        "toplamYillik": -17.19694467,
+        "arindirilmis": 124504,
+        "ilkEl": 41729,
+        "ikinciEl": 86080,
+        "ipotekli": 27087,
+        "isyeri": 15293
+      },
+      {
+        "yil": 2020,
+        "ay": 11,
+        "toplam": 125196,
+        "toplamYillik": -15.51485623,
+        "arindirilmis": 123703,
+        "ilkEl": 45117,
+        "ikinciEl": 80079,
+        "ipotekli": 26072,
+        "isyeri": 13808
+      },
+      {
+        "yil": 2020,
+        "ay": 12,
+        "toplam": 119522,
+        "toplamYillik": -44.55227827,
+        "arindirilmis": 75497,
+        "ilkEl": 46227,
+        "ikinciEl": 73295,
+        "ipotekli": 16297,
+        "isyeri": 17594
+      },
+      {
+        "yil": 2021,
+        "ay": 1,
+        "toplam": 75603,
+        "toplamYillik": -37.03213233,
+        "arindirilmis": 110501,
+        "ilkEl": 25035,
+        "ikinciEl": 50568,
+        "ipotekli": 11560,
+        "isyeri": 10570
+      },
+      {
+        "yil": 2021,
+        "ay": 2,
+        "toplam": 88020,
+        "toplamYillik": -29.81364974,
+        "arindirilmis": 111172,
+        "ilkEl": 28780,
+        "ikinciEl": 59240,
+        "ipotekli": 15932,
+        "isyeri": 12449
+      },
+      {
+        "yil": 2021,
+        "ay": 3,
+        "toplam": 120415,
+        "toplamYillik": 4.89476985,
+        "arindirilmis": 115168,
+        "ilkEl": 38739,
+        "ikinciEl": 81676,
+        "ipotekli": 23771,
+        "isyeri": 16454
+      },
+      {
+        "yil": 2021,
+        "ay": 4,
+        "toplam": 102219,
+        "toplamYillik": 126.05820691,
+        "arindirilmis": 109781,
+        "ilkEl": 32451,
+        "ikinciEl": 69768,
+        "ipotekli": 18779,
+        "isyeri": 12882
+      },
+      {
+        "yil": 2021,
+        "ay": 5,
+        "toplam": 65497,
+        "toplamYillik": 18.64323884,
+        "arindirilmis": 78692,
+        "ilkEl": 22057,
+        "ikinciEl": 43440,
+        "ipotekli": 11282,
+        "isyeri": 7211
+      },
+      {
+        "yil": 2021,
+        "ay": 6,
+        "toplam": 145247,
+        "toplamYillik": -28.8123548,
+        "arindirilmis": 140588,
+        "ilkEl": 45743,
+        "ikinciEl": 99504,
+        "ipotekli": 30613,
+        "isyeri": 15619
+      },
+      {
+        "yil": 2021,
+        "ay": 7,
+        "toplam": 115264,
+        "toplamYillik": -52.78639102,
+        "arindirilmis": 144214,
+        "ilkEl": 36157,
+        "ikinciEl": 79107,
+        "ipotekli": 21736,
+        "isyeri": 12733
+      },
+      {
+        "yil": 2021,
+        "ay": 8,
+        "toplam": 151033,
+        "toplamYillik": -16.76971741,
+        "arindirilmis": 140753,
+        "ilkEl": 47843,
+        "ikinciEl": 103190,
+        "ipotekli": 29146,
+        "isyeri": 16164
+      },
+      {
+        "yil": 2021,
+        "ay": 9,
+        "toplam": 157819,
+        "toplamYillik": 8.50544525,
+        "arindirilmis": 140558,
+        "ilkEl": 49589,
+        "ikinciEl": 108230,
+        "ipotekli": 31604,
+        "isyeri": 18460
+      },
+      {
+        "yil": 2021,
+        "ay": 10,
+        "toplam": 152228,
+        "toplamYillik": 19.10585327,
+        "arindirilmis": 155235,
+        "ilkEl": 51461,
+        "ikinciEl": 100767,
+        "ipotekli": 30092,
+        "isyeri": 16455
+      },
+      {
+        "yil": 2021,
+        "ay": 11,
+        "toplam": 192820,
+        "toplamYillik": 54.01450526,
+        "arindirilmis": 178900,
+        "ilkEl": 63478,
+        "ikinciEl": 129342,
+        "ipotekli": 41989,
+        "isyeri": 20882
+      },
+      {
+        "yil": 2021,
+        "ay": 12,
+        "toplam": 243396,
+        "toplamYillik": 103.64117066,
+        "arindirilmis": 156065,
+        "ilkEl": 86140,
+        "ikinciEl": 157256,
+        "ipotekli": 48262,
+        "isyeri": 31145
+      },
+      {
+        "yil": 2022,
+        "ay": 1,
+        "toplam": 93118,
+        "toplamYillik": 23.16707009,
+        "arindirilmis": 127812,
+        "ilkEl": 29233,
+        "ikinciEl": 63885,
+        "ipotekli": 19304,
+        "isyeri": 12234
+      },
+      {
+        "yil": 2022,
+        "ay": 2,
+        "toplam": 103437,
+        "toplamYillik": 17.51533742,
+        "arindirilmis": 130431,
+        "ilkEl": 31731,
+        "ikinciEl": 71706,
+        "ipotekli": 21060,
+        "isyeri": 13960
+      },
+      {
+        "yil": 2022,
+        "ay": 3,
+        "toplam": 145698,
+        "toplamYillik": 20.99655359,
+        "arindirilmis": 138868,
+        "ilkEl": 45282,
+        "ikinciEl": 100416,
+        "ipotekli": 32443,
+        "isyeri": 17848
+      },
+      {
+        "yil": 2022,
+        "ay": 4,
+        "toplam": 150843,
+        "toplamYillik": 47.56845596,
+        "arindirilmis": 158324,
+        "ilkEl": 48394,
+        "ikinciEl": 102449,
+        "ipotekli": 35539,
+        "isyeri": 17105
+      },
+      {
+        "yil": 2022,
+        "ay": 5,
+        "toplam": 132420,
+        "toplamYillik": 102.17719896,
+        "arindirilmis": 151263,
+        "ilkEl": 38070,
+        "ikinciEl": 94350,
+        "ipotekli": 31292,
+        "isyeri": 15392
+      },
+      {
+        "yil": 2022,
+        "ay": 6,
+        "toplam": 161684,
+        "toplamYillik": 11.31658485,
+        "arindirilmis": 157399,
+        "ilkEl": 50830,
+        "ikinciEl": 110854,
+        "ipotekli": 43149,
+        "isyeri": 19918
+      },
+      {
+        "yil": 2022,
+        "ay": 7,
+        "toplam": 99646,
+        "toplamYillik": -13.54976402,
+        "arindirilmis": 119605,
+        "ilkEl": 31745,
+        "ikinciEl": 67901,
+        "ipotekli": 20198,
+        "isyeri": 12100
+      },
+      {
+        "yil": 2022,
+        "ay": 8,
+        "toplam": 131713,
+        "toplamYillik": -12.7919064,
+        "arindirilmis": 116509,
+        "ilkEl": 43553,
+        "ikinciEl": 88160,
+        "ipotekli": 23440,
+        "isyeri": 16129
+      },
+      {
+        "yil": 2022,
+        "ay": 9,
+        "toplam": 124030,
+        "toplamYillik": -21.40996965,
+        "arindirilmis": 112449,
+        "ilkEl": 42615,
+        "ikinciEl": 81415,
+        "ipotekli": 18139,
+        "isyeri": 15877
+      },
+      {
+        "yil": 2022,
+        "ay": 10,
+        "toplam": 127049,
+        "toplamYillik": -16.5403211,
+        "arindirilmis": 121942,
+        "ilkEl": 51311,
+        "ikinciEl": 75738,
+        "ipotekli": 16988,
+        "isyeri": 15823
+      },
+      {
+        "yil": 2022,
+        "ay": 11,
+        "toplam": 130513,
+        "toplamYillik": -32.31355668,
+        "arindirilmis": 121491,
+        "ilkEl": 45694,
+        "ikinciEl": 84819,
+        "ipotekli": 18752,
+        "isyeri": 17287
+      },
+      {
+        "yil": 2022,
+        "ay": 12,
+        "toplam": 225623,
+        "toplamYillik": -7.30209206,
+        "arindirilmis": 144919,
+        "ilkEl": 88600,
+        "ikinciEl": 137023,
+        "ipotekli": 24128,
+        "isyeri": 35074
+      },
+      {
+        "yil": 2023,
+        "ay": 1,
+        "toplam": 102927,
+        "toplamYillik": 10.53394618,
+        "arindirilmis": 125969,
+        "ilkEl": 29924,
+        "ikinciEl": 73003,
+        "ipotekli": 17159,
+        "isyeri": 14701
+      },
+      {
+        "yil": 2023,
+        "ay": 2,
+        "toplam": 84396,
+        "toplamYillik": -18.40830651,
+        "arindirilmis": 106545,
+        "ilkEl": 25348,
+        "ikinciEl": 59048,
+        "ipotekli": 18329,
+        "isyeri": 10729
+      },
+      {
+        "yil": 2023,
+        "ay": 3,
+        "toplam": 111322,
+        "toplamYillik": -23.59400953,
+        "arindirilmis": 108939,
+        "ilkEl": 35737,
+        "ikinciEl": 75585,
+        "ipotekli": 26732,
+        "isyeri": 13488
+      },
+      {
+        "yil": 2023,
+        "ay": 4,
+        "toplam": 92607,
+        "toplamYillik": -38.6070285,
+        "arindirilmis": 116696,
+        "ilkEl": 31102,
+        "ikinciEl": 61505,
+        "ipotekli": 22961,
+        "isyeri": 11061
+      },
+      {
+        "yil": 2023,
+        "ay": 5,
+        "toplam": 133287,
+        "toplamYillik": 0.65473493,
+        "arindirilmis": 128477,
+        "ilkEl": 48810,
+        "ikinciEl": 84477,
+        "ipotekli": 31033,
+        "isyeri": 14839
+      },
+      {
+        "yil": 2023,
+        "ay": 6,
+        "toplam": 90118,
+        "toplamYillik": -44.26288315,
+        "arindirilmis": 112827,
+        "ilkEl": 29656,
+        "ikinciEl": 60462,
+        "ipotekli": 14354,
+        "isyeri": 11653
+      },
+      {
+        "yil": 2023,
+        "ay": 7,
+        "toplam": 117058,
+        "toplamYillik": 17.47385746,
+        "arindirilmis": 114023,
+        "ilkEl": 35763,
+        "ikinciEl": 81295,
+        "ipotekli": 15363,
+        "isyeri": 13937
+      },
+      {
+        "yil": 2023,
+        "ay": 8,
+        "toplam": 132124,
+        "toplamYillik": 0.31204209,
+        "arindirilmis": 115342,
+        "ilkEl": 40713,
+        "ikinciEl": 91411,
+        "ipotekli": 17486,
+        "isyeri": 15034
+      },
+      {
+        "yil": 2023,
+        "ay": 9,
+        "toplam": 110810,
+        "toplamYillik": -10.6587116,
+        "arindirilmis": 105154,
+        "ilkEl": 35186,
+        "ikinciEl": 75624,
+        "ipotekli": 9030,
+        "isyeri": 14094
+      },
+      {
+        "yil": 2023,
+        "ay": 10,
+        "toplam": 106183,
+        "toplamYillik": -16.4235846,
+        "arindirilmis": 93893,
+        "ilkEl": 37799,
+        "ikinciEl": 68384,
+        "ipotekli": 6132,
+        "isyeri": 14620
+      },
+      {
+        "yil": 2023,
+        "ay": 11,
+        "toplam": 100579,
+        "toplamYillik": -22.93564626,
+        "arindirilmis": 93592,
+        "ilkEl": 35047,
+        "ikinciEl": 65532,
+        "ipotekli": 5668,
+        "isyeri": 14562
+      },
+      {
+        "yil": 2023,
+        "ay": 12,
+        "toplam": 148724,
+        "toplamYillik": -34.0829614,
+        "arindirilmis": 97617,
+        "ilkEl": 57399,
+        "ikinciEl": 91325,
+        "ipotekli": 6593,
+        "isyeri": 24312
+      },
+      {
+        "yil": 2024,
+        "ay": 1,
+        "toplam": 84801,
+        "toplamYillik": -17.61053951,
+        "arindirilmis": 105085,
+        "ilkEl": 27350,
+        "ikinciEl": 57451,
+        "ipotekli": 6255,
+        "isyeri": 12510
+      },
+      {
+        "yil": 2024,
+        "ay": 2,
+        "toplam": 99558,
+        "toplamYillik": 17.96530641,
+        "arindirilmis": 115008,
+        "ilkEl": 31549,
+        "ikinciEl": 68009,
+        "ipotekli": 9387,
+        "isyeri": 13856
+      },
+      {
+        "yil": 2024,
+        "ay": 3,
+        "toplam": 111345,
+        "toplamYillik": 0.02066079,
+        "arindirilmis": 124282,
+        "ilkEl": 37308,
+        "ikinciEl": 74037,
+        "ipotekli": 13671,
+        "isyeri": 14105
+      },
+      {
+        "yil": 2024,
+        "ay": 4,
+        "toplam": 80276,
+        "toplamYillik": -13.31540812,
+        "arindirilmis": 110927,
+        "ilkEl": 26237,
+        "ikinciEl": 54039,
+        "ipotekli": 7482,
+        "isyeri": 10237
+      },
+      {
+        "yil": 2024,
+        "ay": 5,
+        "toplam": 118926,
+        "toplamYillik": -10.77449414,
+        "arindirilmis": 113109,
+        "ilkEl": 40024,
+        "ikinciEl": 78902,
+        "ipotekli": 10828,
+        "isyeri": 15382
+      },
+      {
+        "yil": 2024,
+        "ay": 6,
+        "toplam": 82924,
+        "toplamYillik": -7.98286691,
+        "arindirilmis": 116405,
+        "ilkEl": 26958,
+        "ikinciEl": 55966,
+        "ipotekli": 7150,
+        "isyeri": 10958
+      },
+      {
+        "yil": 2024,
+        "ay": 7,
+        "toplam": 132426,
+        "toplamYillik": 13.12853457,
+        "arindirilmis": 124436,
+        "ilkEl": 43049,
+        "ikinciEl": 89377,
+        "ipotekli": 11990,
+        "isyeri": 15612
+      },
+      {
+        "yil": 2024,
+        "ay": 8,
+        "toplam": 139411,
+        "toplamYillik": 5.51527353,
+        "arindirilmis": 130557,
+        "ilkEl": 44080,
+        "ikinciEl": 95331,
+        "ipotekli": 14117,
+        "isyeri": 15872
+      },
+      {
+        "yil": 2024,
+        "ay": 9,
+        "toplam": 146557,
+        "toplamYillik": 32.25972385,
+        "arindirilmis": 137297,
+        "ilkEl": 47145,
+        "ikinciEl": 99412,
+        "ipotekli": 16507,
+        "isyeri": 16455
+      },
+      {
+        "yil": 2024,
+        "ay": 10,
+        "toplam": 171619,
+        "toplamYillik": 61.62568396,
+        "arindirilmis": 149778,
+        "ilkEl": 60513,
+        "ikinciEl": 111106,
+        "ipotekli": 21979,
+        "isyeri": 18132
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "toplam": 159805,
+        "toplamYillik": 58.88505553,
+        "arindirilmis": 152498,
+        "ilkEl": 52168,
+        "ikinciEl": 107637,
+        "ipotekli": 22789,
+        "isyeri": 19603
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "toplam": 222112,
+        "toplamYillik": 49.34509561,
+        "arindirilmis": 140756,
+        "ilkEl": 81219,
+        "ikinciEl": 140893,
+        "ipotekli": 24480,
+        "isyeri": 30935
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "toplam": 117025,
+        "toplamYillik": 37.99955189,
+        "arindirilmis": 143817,
+        "ilkEl": 34783,
+        "ikinciEl": 82242,
+        "ipotekli": 17516,
+        "isyeri": 15287
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "toplam": 117586,
+        "toplamYillik": 18.10803753,
+        "arindirilmis": 140084,
+        "ilkEl": 35695,
+        "ikinciEl": 81891,
+        "ipotekli": 17593,
+        "isyeri": 15240
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "toplam": 115788,
+        "toplamYillik": 3.99030042,
+        "arindirilmis": 139046,
+        "ilkEl": 35281,
+        "ikinciEl": 80507,
+        "ipotekli": 19109,
+        "isyeri": 15083
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "toplam": 123569,
+        "toplamYillik": 53.93019084,
+        "arindirilmis": 142475,
+        "ilkEl": 36775,
+        "ikinciEl": 86794,
+        "ipotekli": 18340,
+        "isyeri": 14245
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "toplam": 135664,
+        "toplamYillik": 14.0742983,
+        "arindirilmis": 145152,
+        "ilkEl": 41860,
+        "ikinciEl": 93804,
+        "ipotekli": 20325,
+        "isyeri": 16555
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "toplam": 112196,
+        "toplamYillik": 35.29979258,
+        "arindirilmis": 143273,
+        "ilkEl": 35267,
+        "ikinciEl": 76929,
+        "ipotekli": 15101,
+        "isyeri": 13896
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "toplam": 148939,
+        "toplamYillik": 12.46960567,
+        "arindirilmis": 146061,
+        "ilkEl": 46514,
+        "ikinciEl": 102425,
+        "ipotekli": 19315,
+        "isyeri": 17441
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "toplam": 149440,
+        "toplamYillik": 7.19383693,
+        "arindirilmis": 145277,
+        "ilkEl": 46459,
+        "ikinciEl": 102981,
+        "ipotekli": 20646,
+        "isyeri": 17023
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "toplam": 156918,
+        "toplamYillik": 7.06960432,
+        "arindirilmis": 141558,
+        "ilkEl": 49608,
+        "ikinciEl": 107310,
+        "ipotekli": 22264,
+        "isyeri": 18028
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "toplam": 170955,
+        "toplamYillik": -0.38690355,
+        "arindirilmis": 146699,
+        "ilkEl": 57675,
+        "ikinciEl": 113280,
+        "ipotekli": 24684,
+        "isyeri": 18856
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "toplam": 146989,
+        "toplamYillik": -8.0197741,
+        "arindirilmis": 145609,
+        "ilkEl": 49174,
+        "ikinciEl": 97815,
+        "ipotekli": 22523,
+        "isyeri": 17763
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "toplam": 265223,
+        "toplamYillik": 19.40957715,
+        "arindirilmis": 151535,
+        "ilkEl": 101721,
+        "ikinciEl": 163502,
+        "ipotekli": 30604,
+        "isyeri": 37143
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "toplam": 111480,
+        "toplamYillik": -4.73830378,
+        "arindirilmis": 142671,
+        "ilkEl": 34069,
+        "ikinciEl": 77411,
+        "ipotekli": 20263,
+        "isyeri": 13267
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "toplam": 124549,
+        "toplamYillik": 5.92162332,
+        "arindirilmis": 144133,
+        "ilkEl": 37785,
+        "ikinciEl": 86764,
+        "ipotekli": 25035,
+        "isyeri": 15069
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "toplam": 113367,
+        "toplamYillik": -2.09089025,
+        "arindirilmis": 133140,
+        "ilkEl": 35725,
+        "ikinciEl": 77642,
+        "ipotekli": 25978,
+        "isyeri": 13499
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "toplam": 126808,
+        "toplamYillik": 2.62120758,
+        "arindirilmis": 134974,
+        "ilkEl": 40306,
+        "ikinciEl": 86502,
+        "ipotekli": 25771,
+        "isyeri": 15694
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "toplam": 93333,
+        "toplamYillik": -31.20282463,
+        "arindirilmis": 132378,
+        "ilkEl": 30196,
+        "ikinciEl": 63137,
+        "ipotekli": 19754,
+        "isyeri": 11434
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "toplam": 129979,
+        "toplamYillik": 15.84994117,
+        "arindirilmis": 133566,
+        "ilkEl": 43406,
+        "ikinciEl": 86573,
+        "ipotekli": 25993,
+        "isyeri": 16565
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "toplam": 123603,
+        "toplamYillik": -17.01099108,
+        "arindirilmis": 126442,
+        "ilkEl": 42529,
+        "ikinciEl": 81074,
+        "ipotekli": 23888,
+        "isyeri": 16733
+      },
+      {
+        "yil": 2026,
+        "ay": 8,
+        "toplam": 127410,
+        "toplamYillik": -14.74170236,
+        "arindirilmis": 128515,
+        "ilkEl": 44378,
+        "ikinciEl": 83032,
+        "ipotekli": 22131,
+        "isyeri": 15937
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "toplam": 142390,
+        "toplamYillik": -9.25833875,
+        "arindirilmis": 130939,
+        "ilkEl": 51519,
+        "ikinciEl": 90871,
+        "ipotekli": 23397,
+        "isyeri": 17345
+      }
+    ],
+    "ilTablosu": {
+      "yil": 2026,
+      "ay": 9,
+      "iller": [
+        {
+          "ad": "Adana",
+          "toplam": 2943,
+          "yillik": -12.43677477,
+          "ipotekli": 563
+        },
+        {
+          "ad": "Adıyaman",
+          "toplam": 767,
+          "yillik": 20.97791798,
+          "ipotekli": 82
+        },
+        {
+          "ad": "Afyonkarahisar",
+          "toplam": 1035,
+          "yillik": -10.54451167,
+          "ipotekli": 141
+        },
+        {
+          "ad": "Ağrı",
+          "toplam": 490,
+          "yillik": 15.8392435,
+          "ipotekli": 37
+        },
+        {
+          "ad": "Aksaray",
+          "toplam": 921,
+          "yillik": -11.01449275,
+          "ipotekli": 75
+        },
+        {
+          "ad": "Amasya",
+          "toplam": 765,
+          "yillik": 5.51724138,
+          "ipotekli": 106
+        },
+        {
+          "ad": "Ankara",
+          "toplam": 12406,
+          "yillik": -8.02876418,
+          "ipotekli": 2508
+        },
+        {
+          "ad": "Antalya",
+          "toplam": 6704,
+          "yillik": -8.7642896,
+          "ipotekli": 933
+        },
+        {
+          "ad": "Ardahan",
+          "toplam": 67,
+          "yillik": -30.92783505,
+          "ipotekli": 3
+        },
+        {
+          "ad": "Artvin",
+          "toplam": 143,
+          "yillik": -33.48837209,
+          "ipotekli": 26
+        },
+        {
+          "ad": "Aydın",
+          "toplam": 2702,
+          "yillik": -5.32585844,
+          "ipotekli": 312
+        },
+        {
+          "ad": "Balıkesir",
+          "toplam": 3086,
+          "yillik": -9.31531002,
+          "ipotekli": 314
+        },
+        {
+          "ad": "Bartın",
+          "toplam": 209,
+          "yillik": -27.93103448,
+          "ipotekli": 31
+        },
+        {
+          "ad": "Batman",
+          "toplam": 876,
+          "yillik": -18.43575419,
+          "ipotekli": 158
+        },
+        {
+          "ad": "Bayburt",
+          "toplam": 165,
+          "yillik": 38.65546218,
+          "ipotekli": 14
+        },
+        {
+          "ad": "Bilecik",
+          "toplam": 315,
+          "yillik": -27.91762014,
+          "ipotekli": 54
+        },
+        {
+          "ad": "Bingöl",
+          "toplam": 396,
+          "yillik": 30.26315789,
+          "ipotekli": 17
+        },
+        {
+          "ad": "Bitlis",
+          "toplam": 701,
+          "yillik": 13.98373984,
+          "ipotekli": 84
+        },
+        {
+          "ad": "Bolu",
+          "toplam": 649,
+          "yillik": -7.28571429,
+          "ipotekli": 76
+        },
+        {
+          "ad": "Burdur",
+          "toplam": 331,
+          "yillik": -9.80926431,
+          "ipotekli": 54
+        },
+        {
+          "ad": "Bursa",
+          "toplam": 4534,
+          "yillik": -16.34686347,
+          "ipotekli": 991
+        },
+        {
+          "ad": "Çanakkale",
+          "toplam": 1143,
+          "yillik": -16.93313953,
+          "ipotekli": 142
+        },
+        {
+          "ad": "Çankırı",
+          "toplam": 251,
+          "yillik": -25.51928783,
+          "ipotekli": 33
+        },
+        {
+          "ad": "Çorum",
+          "toplam": 862,
+          "yillik": -4.22222222,
+          "ipotekli": 134
+        },
+        {
+          "ad": "Denizli",
+          "toplam": 1701,
+          "yillik": -11.08207005,
+          "ipotekli": 387
+        },
+        {
+          "ad": "Diyarbakır",
+          "toplam": 2380,
+          "yillik": -16.04938272,
+          "ipotekli": 370
+        },
+        {
+          "ad": "Düzce",
+          "toplam": 754,
+          "yillik": -1.17955439,
+          "ipotekli": 122
+        },
+        {
+          "ad": "Edirne",
+          "toplam": 632,
+          "yillik": -16.4021164,
+          "ipotekli": 102
+        },
+        {
+          "ad": "Elazığ",
+          "toplam": 1622,
+          "yillik": 29.96794872,
+          "ipotekli": 97
+        },
+        {
+          "ad": "Erzincan",
+          "toplam": 469,
+          "yillik": 6.83371298,
+          "ipotekli": 53
+        },
+        {
+          "ad": "Erzurum",
+          "toplam": 1195,
+          "yillik": 9.13242009,
+          "ipotekli": 134
+        },
+        {
+          "ad": "Eskişehir",
+          "toplam": 2439,
+          "yillik": -4.57746479,
+          "ipotekli": 450
+        },
+        {
+          "ad": "Gaziantep",
+          "toplam": 4096,
+          "yillik": -0.91920658,
+          "ipotekli": 722
+        },
+        {
+          "ad": "Giresun",
+          "toplam": 695,
+          "yillik": -20.57142857,
+          "ipotekli": 88
+        },
+        {
+          "ad": "Gümüşhane",
+          "toplam": 193,
+          "yillik": -2.03045685,
+          "ipotekli": 14
+        },
+        {
+          "ad": "Hakkari",
+          "toplam": 82,
+          "yillik": -45.69536424,
+          "ipotekli": 10
+        },
+        {
+          "ad": "Hatay",
+          "toplam": 1506,
+          "yillik": 12.64023934,
+          "ipotekli": 190
+        },
+        {
+          "ad": "Iğdır",
+          "toplam": 271,
+          "yillik": 16.81034483,
+          "ipotekli": 37
+        },
+        {
+          "ad": "Isparta",
+          "toplam": 682,
+          "yillik": -3.94366197,
+          "ipotekli": 108
+        },
+        {
+          "ad": "İstanbul",
+          "toplam": 22212,
+          "yillik": -16.85569905,
+          "ipotekli": 4629
+        },
+        {
+          "ad": "İzmir",
+          "toplam": 7535,
+          "yillik": -14.92604719,
+          "ipotekli": 1392
+        },
+        {
+          "ad": "Kahramanmaraş",
+          "toplam": 1220,
+          "yillik": -7.71558245,
+          "ipotekli": 187
+        },
+        {
+          "ad": "Karabük",
+          "toplam": 364,
+          "yillik": -17.46031746,
+          "ipotekli": 50
+        },
+        {
+          "ad": "Karaman",
+          "toplam": 358,
+          "yillik": -13.73493976,
+          "ipotekli": 52
+        },
+        {
+          "ad": "Kars",
+          "toplam": 598,
+          "yillik": 9.52380952,
+          "ipotekli": 56
+        },
+        {
+          "ad": "Kastamonu",
+          "toplam": 646,
+          "yillik": 3.19488818,
+          "ipotekli": 87
+        },
+        {
+          "ad": "Kayseri",
+          "toplam": 3055,
+          "yillik": -10.59408838,
+          "ipotekli": 477
+        },
+        {
+          "ad": "Kırıkkale",
+          "toplam": 666,
+          "yillik": 0.45248869,
+          "ipotekli": 117
+        },
+        {
+          "ad": "Kırklareli",
+          "toplam": 575,
+          "yillik": -10.71428571,
+          "ipotekli": 93
+        },
+        {
+          "ad": "Kırşehir",
+          "toplam": 604,
+          "yillik": -0.82101806,
+          "ipotekli": 52
+        },
+        {
+          "ad": "Kilis",
+          "toplam": 265,
+          "yillik": -0.74906367,
+          "ipotekli": 29
+        },
+        {
+          "ad": "Kocaeli",
+          "toplam": 3869,
+          "yillik": -6.68113845,
+          "ipotekli": 882
+        },
+        {
+          "ad": "Konya",
+          "toplam": 3904,
+          "yillik": -7.44428639,
+          "ipotekli": 515
+        },
+        {
+          "ad": "Kütahya",
+          "toplam": 791,
+          "yillik": -16.56118143,
+          "ipotekli": 114
+        },
+        {
+          "ad": "Malatya",
+          "toplam": 899,
+          "yillik": 2.62557078,
+          "ipotekli": 97
+        },
+        {
+          "ad": "Manisa",
+          "toplam": 1920,
+          "yillik": -20.23265476,
+          "ipotekli": 360
+        },
+        {
+          "ad": "Mardin",
+          "toplam": 1188,
+          "yillik": -9.65779468,
+          "ipotekli": 103
+        },
+        {
+          "ad": "Mersin",
+          "toplam": 4425,
+          "yillik": -17.90352505,
+          "ipotekli": 654
+        },
+        {
+          "ad": "Muğla",
+          "toplam": 1952,
+          "yillik": -2.59481038,
+          "ipotekli": 239
+        },
+        {
+          "ad": "Muş",
+          "toplam": 508,
+          "yillik": 23.90243902,
+          "ipotekli": 33
+        },
+        {
+          "ad": "Nevşehir",
+          "toplam": 523,
+          "yillik": -4.90909091,
+          "ipotekli": 58
+        },
+        {
+          "ad": "Niğde",
+          "toplam": 668,
+          "yillik": 11.14808652,
+          "ipotekli": 85
+        },
+        {
+          "ad": "Ordu",
+          "toplam": 982,
+          "yillik": -17.4789916,
+          "ipotekli": 173
+        },
+        {
+          "ad": "Osmaniye",
+          "toplam": 523,
+          "yillik": -10.2915952,
+          "ipotekli": 100
+        },
+        {
+          "ad": "Rize",
+          "toplam": 229,
+          "yillik": -21.84300341,
+          "ipotekli": 37
+        },
+        {
+          "ad": "Sakarya",
+          "toplam": 2479,
+          "yillik": -0.76060849,
+          "ipotekli": 289
+        },
+        {
+          "ad": "Samsun",
+          "toplam": 2912,
+          "yillik": -5.23917995,
+          "ipotekli": 427
+        },
+        {
+          "ad": "Siirt",
+          "toplam": 324,
+          "yillik": -27.35426009,
+          "ipotekli": 52
+        },
+        {
+          "ad": "Sinop",
+          "toplam": 299,
+          "yillik": -14.32664756,
+          "ipotekli": 51
+        },
+        {
+          "ad": "Sivas",
+          "toplam": 1139,
+          "yillik": 8.1671415,
+          "ipotekli": 161
+        },
+        {
+          "ad": "Şanlıurfa",
+          "toplam": 2867,
+          "yillik": -13.43599034,
+          "ipotekli": 330
+        },
+        {
+          "ad": "Şırnak",
+          "toplam": 289,
+          "yillik": 20.92050209,
+          "ipotekli": 16
+        },
+        {
+          "ad": "Tekirdağ",
+          "toplam": 3943,
+          "yillik": 1.91263892,
+          "ipotekli": 757
+        },
+        {
+          "ad": "Tokat",
+          "toplam": 658,
+          "yillik": -12.84768212,
+          "ipotekli": 109
+        },
+        {
+          "ad": "Trabzon",
+          "toplam": 886,
+          "yillik": -11.57684631,
+          "ipotekli": 126
+        },
+        {
+          "ad": "Tunceli",
+          "toplam": 115,
+          "yillik": -19.01408451,
+          "ipotekli": 12
+        },
+        {
+          "ad": "Uşak",
+          "toplam": 770,
+          "yillik": 7.24233983,
+          "ipotekli": 112
+        },
+        {
+          "ad": "Van",
+          "toplam": 1237,
+          "yillik": 4.83050847,
+          "ipotekli": 187
+        },
+        {
+          "ad": "Yalova",
+          "toplam": 1266,
+          "yillik": -16.65569454,
+          "ipotekli": 129
+        },
+        {
+          "ad": "Yozgat",
+          "toplam": 709,
+          "yillik": 1.43061516,
+          "ipotekli": 66
+        },
+        {
+          "ad": "Zonguldak",
+          "toplam": 840,
+          "yillik": 21.73913043,
+          "ipotekli": 130
+        }
+      ]
+    },
+    "alinma": "2026-10-29T09:37:53.174Z"
   }
 }

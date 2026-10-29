@@ -9,7 +9,9 @@ import {
   kurHaftalikAl,
   birimFiyatAl,
   buyumeAl,
+  konutSatisAl,
   BUYUME_SERILERI,
+  KONUT_SATIS_SERILERI,
   KIRA_BOLGELERI,
   KIRA_TUM_BOLGELER,
   KART_SEKTORLERI,
@@ -148,6 +150,89 @@ test('buyumeAl: çeyrek serisinde boşluk varsa hata verir', async () => {
     return yanit({ items });
   };
   await assert.rejects(() => buyumeAl(SIMDI, 'x'), /boşluk/);
+});
+
+// Konut satışı: Türkiye serileri 2013-01'den (2026-09'a kadar 165 ay), il tablosu son ayın tek aylık isteklerinden. Mock iki
+// serieList adresini (bie_akonutsat1 toplam, bie_akonutsat2 ipotekli) ve seri isteklerini yanıtlar; listelere elenmesi
+// gereken girdiler (Türkiye, iş yeri, arındırılmış) karıştırılmıştır ve ikisinde de karşılığı vardır.
+const konutListe = (no, ek, n) => [
+  { SERIE_CODE: `TP.AKONUTSAT${no}.KTRTOPLAM`, SERIE_NAME: `Türkiye_Konut_${ek}` },
+  ...Array.from({ length: n }, (_, i) => ({ SERIE_CODE: `TP.AKONUTSAT${no}.KTR${i + 1}`, SERIE_NAME: `İl${i + 1}_Konut_${ek}` })),
+  { SERIE_CODE: `TP.AKONUTSAT${no}.ISYERI1`, SERIE_NAME: `Fazla1_İş Yeri_${ek}` },
+  { SERIE_CODE: `TP.AKONUTSAT${no}.KMA1`, SERIE_NAME: `Fazla2_Konut_${ek}-Mevsim ve Takvim Etkilerinden Arındırılmış` },
+];
+const konutMock =
+  (n = 81, istekler = []) =>
+  async (url) => {
+    const u = decodeURIComponent(String(url));
+    if (u.includes('serieList')) {
+      return yanit(u.includes('bie_akonutsat1') ? konutListe(1, 'Toplam Satışlar', n) : konutListe(2, 'İpotekli Satışlar', n));
+    }
+    istekler.push(url);
+    const a = alanlar(url);
+    if (u.includes('startDate=01-01-2013')) {
+      // İlk 12 ayda yıllık değişim yok.
+      const items = aylar([2013, 1], 165).map((m, i) => ({
+        Tarih: `${m.yil}-${m.ay}`,
+        ...Object.fromEntries(a.map((x) => [x, x.endsWith('-3') ? (i < 12 ? null : '12') : '5000'])),
+      }));
+      return yanit({ items });
+    }
+    const deger = (x) => {
+      const il = Number(x.match(/KTR(\d+)/)?.[1]);
+      return x.endsWith('-3') ? '7.5' : x.includes('AKONUTSAT2') ? String(il * 10) : String(il * 100);
+    };
+    return yanit({ items: [{ Tarih: '2026-9', ...Object.fromEntries(a.map((x) => [x, deger(x)])) }] });
+  };
+const tekAyIstekleri = (istekler) => istekler.filter((u) => !decodeURIComponent(String(u)).includes('startDate=01-01-2013'));
+
+test('konutSatisAl: satır şekli, il tablosu serieList adlarından; Türkiye, iş yeri ve arındırılmış girdiler elenir', async () => {
+  const istekler = [];
+  globalThis.fetch = konutMock(81, istekler);
+  const k = await konutSatisAl(SIMDI, 'x');
+  assert.equal(k.birim, 'adet');
+  assert.deepEqual(k.seriler.map((s) => s.alan), KONUT_SATIS_SERILERI.map((s) => s.alan));
+  // İlk 12 ayın yıllık değişimi boş, bu satırlar atılır: 2014-01'den 2026-09'a 153 satır.
+  assert.equal(k.satirlar.length, 153);
+  assert.deepEqual(k.satirlar[0], {
+    yil: 2014,
+    ay: 1,
+    toplam: 5000,
+    toplamYillik: 12,
+    arindirilmis: 5000,
+    ilkEl: 5000,
+    ikinciEl: 5000,
+    ipotekli: 5000,
+    isyeri: 5000,
+  });
+  assert.deepEqual([k.satirlar.at(-1).yil, k.satirlar.at(-1).ay], [2026, 9]);
+  assert.deepEqual([k.ilTablosu.yil, k.ilTablosu.ay], [2026, 9]);
+  assert.equal(k.ilTablosu.iller.length, 81);
+  assert.deepEqual(k.ilTablosu.iller.map((i) => i.ad), Array.from({ length: 81 }, (_, i) => `İl${i + 1}`));
+  assert.deepEqual(k.ilTablosu.iller[6], { ad: 'İl7', toplam: 700, yillik: 7.5, ipotekli: 70 });
+  // Elenen girdilerin serileri il isteklerine girmez.
+  const ilAlanlari = tekAyIstekleri(istekler).flatMap((u) => alanlar(u));
+  assert.ok(!ilAlanlari.some((a) => /KTRTOPLAM|ISYERI|KMA/.test(a)));
+});
+
+test('konutSatisAl: il serileri en çok 60 serilik parçalarda ve tek ay için istenir', async () => {
+  const istekler = [];
+  globalThis.fetch = konutMock(81, istekler);
+  await konutSatisAl(SIMDI, 'x');
+  assert.ok(istekler.every((u) => alanlar(u).length <= 60));
+  const il = tekAyIstekleri(istekler);
+  assert.deepEqual(il.map((u) => alanlar(u).length), [60, 60, 60, 60, 3]);
+  assert.ok(
+    il.every((u) => {
+      const d = decodeURIComponent(String(u));
+      return d.includes('startDate=01-09-2026') && d.includes('endDate=01-09-2026');
+    }),
+  );
+});
+
+test('konutSatisAl: 81’den az il varsa hata verir', async () => {
+  globalThis.fetch = konutMock(80);
+  await assert.rejects(() => konutSatisAl(SIMDI, 'x'), /il listesi eksik/);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

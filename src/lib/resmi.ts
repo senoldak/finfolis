@@ -228,6 +228,17 @@ export interface DisBorcBolumu extends BirimliAylikBolumu<'kalanVade' | 'orijina
   ceyrekler: { yil: number; ceyrek: number; brut: number; net: number }[];
 }
 
+// Konut ve iş yeri satışları (TÜİK, aylık, adet) ve son ayın il tablosu. İl yıllık değişimi ve ipotekli satışı
+// yayımlanmamışsa null.
+export interface KonutSatisBolumu
+  extends BirimliAylikBolumu<'toplam' | 'toplamYillik' | 'arindirilmis' | 'ilkEl' | 'ikinciEl' | 'ipotekli' | 'isyeri'> {
+  ilTablosu: {
+    yil: number;
+    ay: number;
+    iller: { ad: string; toplam: number; yillik: number | null; ipotekli: number | null }[];
+  };
+}
+
 export const RESMI = data as unknown as {
   kur?: KurBolumu;
   faiz?: FaizBolumu;
@@ -285,6 +296,7 @@ export const RESMI = data as unknown as {
     | 'kamu'
     | 'diger'
   >;
+  konutSatis?: KonutSatisBolumu;
 };
 
 // Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).

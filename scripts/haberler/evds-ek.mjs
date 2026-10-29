@@ -349,6 +349,9 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      takvim etkisinden arındırılmış yıllık değişim, imalat endeksi.
 //  - buyume: gayrisafi yurt içi hasıla büyümesi (TÜİK, üç aylık, zincirlenmiş hacim; doğrulandı 29.10.2026): yıllık büyüme,
 //      arındırılmış çeyreklik büyüme ve hacim endeksi, harcama kalemleri ve sektörler için yıllık değişim.
+//  - konutSatis: konut ve iş yeri satışları (TÜİK, aylık, adet; doğrulandı 29.10.2026): toplam, mevsim ve takvim etkisinden
+//      arındırılmış, ilk el, ikinci el, ipotekli satış ve yıllık değişim; son ayın il tablosu (il serileri EVDS seri
+//      listesinden alınır, kod yazılmaz).
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -545,6 +548,79 @@ export async function buyumeAl(simdi, anahtar) {
     kaynak: { ad: 'TÜİK verisi, dönemsel gayrisafi yurt içi hasıla, zincirlenmiş hacim (TCMB EVDS)', url: EVDS_SAYFA },
     seriler: tanimlar(BUYUME_SERILERI),
     satirlar: await ceyrekFormullu(BUYUME_SERILERI, new Date(Date.UTC(1998, 0, 1)), simdi, anahtar, 'Büyüme', 80),
+  };
+}
+
+// Konut ve iş yeri satışları (TÜİK, aylık, adet): formül 0 düzey, 3 bir yıl öncesinin aynı ayına göre yüzde değişim.
+// Yıllık değişim ilk 12 ayda boştur; o satırlar elenir (satırlar 2014-01'den başlar).
+export const KONUT_SATIS_SERILERI = [
+  { kod: 'TP.AKONUTSAT1.KTRTOPLAM', formul: 0, alan: 'toplam', ad: 'Toplam konut satışı' },
+  { kod: 'TP.AKONUTSAT1.KTRTOPLAM', formul: 3, alan: 'toplamYillik', ad: 'Toplam konut satışı, yıllık değişim' },
+  { kod: 'TP.AKONUTSAT1.KMA', formul: 0, alan: 'arindirilmis', ad: 'Toplam konut satışı, mevsim ve takvim etkilerinden arındırılmış' },
+  { kod: 'TP.AKONUTSAT3.KTRTOPLAM', formul: 0, alan: 'ilkEl', ad: 'İlk el satış' },
+  { kod: 'TP.AKONUTSAT4.KTRTOPLAM', formul: 0, alan: 'ikinciEl', ad: 'İkinci el satış' },
+  { kod: 'TP.AKONUTSAT2.KTRTOPLAM', formul: 0, alan: 'ipotekli', ad: 'İpotekli satış' },
+  { kod: 'TP.AKONUTSAT1.TRTOPLAM', formul: 0, alan: 'isyeri', ad: 'Toplam iş yeri satışı' },
+];
+
+// İl listesi EVDS'den: bie_akonutsat1 "Adana_Konut_Toplam Satışlar", bie_akonutsat2 "Adana_Konut_İpotekli Satışlar".
+// Çıpalı desenler mevsim ve takvim etkisinden arındırılmış serileri ("-Mevsim ve Takvim…" eki) ve "_İş Yeri_" serilerini
+// dışarıda bırakır; Türkiye satırı il değildir. İkisinde de olmayan il atlanır.
+async function konutIlSerileri(anahtar) {
+  const liste = async (grup, desen) => {
+    const j = JSON.parse(await hentMetin(`${EVDS}/serieList/type=json&code=${grup}`, { headers: { key: anahtar } }));
+    const harita = new Map();
+    for (const x of j) {
+      const e = String(x.SERIE_NAME).trim().match(desen);
+      if (e && e[1] !== 'Türkiye') harita.set(e[1], x.SERIE_CODE);
+    }
+    return harita;
+  };
+  const toplam = await liste('bie_akonutsat1', /^(.+)_Konut_Toplam Satışlar$/);
+  const ipotekli = await liste('bie_akonutsat2', /^(.+)_Konut_İpotekli Satışlar$/);
+  return [...toplam].filter(([ad]) => ipotekli.has(ad)).map(([ad, kod]) => ({ ad, toplamKod: kod, ipotekKod: ipotekli.get(ad) }));
+}
+
+const KONUT_IL_PARCA = 60;
+
+// Türkiye serileri 2013-01'den; il tablosu yalnız son ay için: il başına toplam (düzey), toplam (yıllık değişim) ve ipotekli
+// (düzey), yani 243 seri, istek başına en çok 60 seri. Tek aylık sonuçlar alan adıyla birleştirilir.
+export async function konutSatisAl(simdi, anahtar) {
+  const satirlar = await aylikFormullu(KONUT_SATIS_SERILERI, new Date(Date.UTC(2013, 0, 1)), simdi, anahtar, 'Konut satışları', 120);
+  const iller = await konutIlSerileri(anahtar);
+  if (iller.length < 81) throw new Error('Konut satış il listesi eksik');
+  const son = satirlar.at(-1);
+  const ay = new Date(Date.UTC(son.yil, son.ay - 1, 1));
+  const istenen = [
+    ...iller.map((i) => ({ kod: i.toplamKod, formul: 0 })),
+    ...iller.map((i) => ({ kod: i.toplamKod, formul: 3 })),
+    ...iller.map((i) => ({ kod: i.ipotekKod, formul: 0 })),
+  ];
+  const deger = {};
+  for (let b = 0; b < istenen.length; b += KONUT_IL_PARCA) {
+    const parca = istenen.slice(b, b + KONUT_IL_PARCA);
+    const ham = await evdsCek(parca.map((s) => s.kod), parca.map((s) => s.formul), ay, ay, anahtar);
+    const h = ham.find((r) => r.yil === son.yil && r.ay === son.ay) ?? {};
+    for (const s of parca) {
+      const a = alanAdi(s.kod, s.formul);
+      deger[a] = h[a] ?? null;
+    }
+  }
+  const ilTablosu = iller
+    .map((i) => ({
+      ad: i.ad,
+      toplam: deger[alanAdi(i.toplamKod, 0)] ?? null,
+      yillik: deger[alanAdi(i.toplamKod, 3)] ?? null,
+      ipotekli: deger[alanAdi(i.ipotekKod, 0)] ?? null,
+    }))
+    .filter((i) => i.toplam != null);
+  if (ilTablosu.length < 75) throw new Error('Konut satış il tablosu eksik');
+  return {
+    kaynak: { ad: 'TÜİK verisi, konut ve iş yeri satış istatistikleri (TCMB EVDS)', url: EVDS_SAYFA },
+    birim: 'adet',
+    seriler: tanimlar(KONUT_SATIS_SERILERI),
+    satirlar,
+    ilTablosu: { yil: son.yil, ay: son.ay, iller: ilTablosu },
   };
 }
 
