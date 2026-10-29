@@ -1,0 +1,279 @@
+---
+// TCMB bilançosu: analitik bilançonun ana kalemleri (bin TL), EVDS'den. Grafik ve tablo haftanın son iş gününün değeri,
+// üstteki rakamlar son iş günü. Sayfa hesapları: trilyon TL'ye çevirme, kalemlerin aktif toplamı içindeki payı ve rezerv
+// paranın 52 hafta önceki değere göre yüzde değişimi (EVDS düzeylerinden). Döviz tarafının ayrıntısı net döviz pozisyonu
+// sayfasındadır. Başka türetme ve tahmin yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, gunAnahtari, gunYaz, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const tcmbBilanco = RESMI.tcmbBilanco;
+const satirlar = tcmbBilanco?.satirlar ?? [];
+const son = tcmbBilanco?.son;
+
+const trilyon = (n: number) => n / 1e9;
+const trilyonYaz = (n: number) => `${n < 0 ? '−' : ''}${sayiYaz(Math.abs(trilyon(n)), 2)} trilyon TL`;
+const yd = (n: number) => `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`;
+
+// Sayfa hesabı: son iş gününden 364 gün önceye en yakın haftalık satır; rezerv paranın yüzde değişimi.
+const yilOnce = son
+  ? satirlar.reduce<(typeof satirlar)[number] | undefined>((a, s) => {
+      const hedef = gunAnahtari(son.tarih) - 364;
+      return !a || Math.abs(gunAnahtari(s.tarih) - hedef) < Math.abs(gunAnahtari(a.tarih) - hedef) ? s : a;
+    }, undefined)
+  : undefined;
+const rezervDegisim = son && yilOnce ? (son.rezervPara / yilOnce.rezervPara - 1) * 100 : null;
+
+const gruplar1 = [
+  {
+    id: 'bilanco',
+    ad: 'Bilanço',
+    seriler: [
+      { id: 'aktif', ad: 'Aktif toplamı', renk: 'murekkep' as const },
+      { id: 'disVarlik', ad: 'Dış varlıklar', renk: 'toprak' as const },
+      { id: 'icVarlik', ad: 'İç varlıklar', renk: 'mavi' as const },
+      { id: 'dovizYuk', ad: 'Döviz yükümlülükleri', renk: 'yesil' as const, kesik: true },
+    ],
+  },
+  {
+    id: 'rezerv',
+    ad: 'Rezerv para',
+    seriler: [
+      { id: 'rezervPara', ad: 'Rezerv para', renk: 'murekkep' as const },
+      { id: 'emisyon', ad: 'Emisyon', renk: 'toprak' as const },
+      { id: 'serbest', ad: 'Serbest mevduat', renk: 'mavi' as const },
+      { id: 'zorunlu', ad: 'Zorunlu karşılıklar', renk: 'yesil' as const },
+    ],
+  },
+  {
+    id: 'ic',
+    ad: 'Hazine, bankalar, kamu',
+    seriler: [
+      { id: 'hazine', ad: 'Hazine borçları', renk: 'murekkep' as const },
+      { id: 'bankaKredi', ad: 'Bankalara krediler', renk: 'toprak' as const },
+      { id: 'api', ad: 'Açık piyasa işlemleri', renk: 'mavi' as const },
+      { id: 'kamuMevduat', ad: 'Kamu mevduatı', renk: 'yesil' as const },
+    ],
+  },
+];
+const ALANLAR = ['aktif', 'disVarlik', 'icVarlik', 'dovizYuk', 'rezervPara', 'emisyon', 'serbest', 'zorunlu', 'hazine', 'bankaKredi', 'api', 'kamuMevduat'] as const;
+const noktalar1 = satirlar.map((s) => [gunAnahtari(s.tarih), ...ALANLAR.map((a) => trilyon(s[a]))]);
+
+const tablo = satirlar.slice(-12).reverse();
+const ozet = son
+  ? [
+      { ad: 'Dış varlıklar', d: son.disVarlik, yan: 'Aktif', seviye: 0 },
+      { ad: 'İç varlıklar', d: son.icVarlik, yan: 'Aktif', seviye: 0 },
+      { ad: 'Hazine borçları', d: son.hazine, yan: 'Aktif', seviye: 1 },
+      { ad: 'Bankacılık sektörüne açılan nakit krediler', d: son.bankaKredi, yan: 'Aktif', seviye: 1 },
+      { ad: 'Değerleme hesabı', d: son.degerleme, yan: 'Aktif', seviye: 0 },
+      { ad: 'Toplam döviz yükümlülükleri', d: son.dovizYuk, yan: 'Pasif', seviye: 0 },
+      { ad: 'Merkez bankası parası', d: son.mbParasi, yan: 'Pasif', seviye: 0 },
+      { ad: 'Rezerv para', d: son.rezervPara, yan: 'Pasif', seviye: 1 },
+      { ad: 'Emisyon', d: son.emisyon, yan: 'Pasif', seviye: 2 },
+      { ad: 'Zorunlu karşılıklar', d: son.zorunlu, yan: 'Pasif', seviye: 2 },
+      { ad: 'Bankaların serbest mevduatı', d: son.serbest, yan: 'Pasif', seviye: 2 },
+      { ad: 'Açık piyasa işlemleri', d: son.api, yan: 'Pasif', seviye: 1 },
+      { ad: 'Kamu mevduatı', d: son.kamuMevduat, yan: 'Pasif', seviye: 1 },
+    ]
+  : [];
+
+const baslik = 'TCMB bilançosu';
+const description = son
+  ? `${gunYaz(son.tarih)} itibarıyla TCMB analitik bilançosunda aktif toplamı ${trilyonYaz(son.aktif)}, rezerv para ${trilyonYaz(son.rezervPara)}, emisyon ${trilyonYaz(son.emisyon)}. TCMB verisi.`
+  : 'TCMB analitik bilançosunun ana kalemleri: dış ve iç varlıklar, rezerv para, emisyon, açık piyasa işlemleri.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/tcmb-bilancosu/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(tcmbBilanco && son && satirlar.length
+    ? {
+        sayfaEk: { dateModified: tcmbBilanco.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'TCMB analitik bilançosu',
+            description:
+              'TCMB analitik bilançosunun ana kalemleri: aktif toplamı, dış ve iç varlıklar, Hazine borçları, bankacılık sektörüne krediler, döviz yükümlülükleri, merkez bankası parası, rezerv para, emisyon, zorunlu karşılıklar, serbest mevduat, açık piyasa işlemleri ve kamu mevduatı; bin TL, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/tcmb-bilancosu/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${satirlar[0].tarih}/${son.tarih}`,
+            dateModified: tcmbBilanco.alinma,
+            variableMeasured: [
+              'Aktif toplamı (bin TL)',
+              'Dış ve iç varlıklar (bin TL)',
+              'Toplam döviz yükümlülükleri (bin TL)',
+              'Rezerv para ve emisyon (bin TL)',
+              'Zorunlu karşılıklar ve serbest mevduat (bin TL)',
+              'Açık piyasa işlemleri ve kamu mevduatı (bin TL)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`TCMB bilançosu: ${son ? gunYaz(son.tarih) : 'analitik bilanço'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Analitik bilançonun ana kalemleri · TCMB, iş günü</p>
+    </header>
+    {
+      tcmbBilanco && son && satirlar.length ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Aktif toplamı</dt>
+              <dd>{trilyonYaz(son.aktif)}</dd>
+              <dd class="veri-degisim">{gunYaz(son.tarih)}</dd>
+            </div>
+            <div>
+              <dt>Rezerv para</dt>
+              <dd>{trilyonYaz(son.rezervPara)}</dd>
+              <dd class="veri-degisim">{rezervDegisim != null && yilOnce ? `52 hafta öncesine göre ${yd(rezervDegisim)}` : ''}</dd>
+            </div>
+            <div>
+              <dt>Emisyon</dt>
+              <dd>{trilyonYaz(son.emisyon)}</dd>
+              <dd class="veri-degisim">Dolaşımdaki banknot</dd>
+            </div>
+            <div>
+              <dt>Açık piyasa işlemleri</dt>
+              <dd>{trilyonYaz(son.api)}</dd>
+              <dd class="veri-degisim">Pasifte, TCMB’nin piyasadan çektiği TL</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={tcmbBilanco.kaynak.url} rel="noopener">{tcmbBilanco.kaynak.ad}</a>. Üstteki
+            rakamlar {gunYaz(son.tarih)} tarihlidir; grafik ve tablo haftanın son iş günüdür. Siteye alındığı zaman:{' '}
+            {zamanYaz(tcmbBilanco.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="TCMB bilançosunun kalemleri"
+            ipucu="Trilyon TL, haftanın son iş günü · Grup düğmesiyle kalemler arasında geçilir"
+            kaynak="Kaynak: TCMB, analitik bilanço (TCMB EVDS)."
+            siklik="hafta"
+            birim="endeks"
+            ondalik={1}
+            seriIdleri={[...ALANLAR]}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            grupEtiketi="Seri grubu"
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Bilanço özeti, {gunYaz(son.tarih)}</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Kalem</th>
+                      <th scope="col" class="sag">Trilyon TL</th>
+                      <th scope="col" class="sag">Aktif içindeki pay</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ozet.map((k) => (
+                      <tr class={`seviye-${k.seviye}`}>
+                        <td>
+                          {k.yan === 'Pasif' && k.seviye === 0 ? 'Pasif: ' : ''}
+                          {k.ad}
+                        </td>
+                        <td class="sag">{trilyonYaz(k.d).replace(' trilyon TL', '')}</td>
+                        <td class="sag">{yuzdeYaz((k.d / son.aktif) * 100)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Girintili bir satır, üstünde kalan ve ondan az girintili ilk kalemin parçasıdır. Aktif = dış varlıklar + iç varlıklar + değerleme hesabı;
+                pasif = döviz yükümlülükleri + merkez bankası parası. Paylar sayfada hesaplanır.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Rezerv para, dolaşımdaki banknot (emisyon) ile bankaların TCMB’de tuttuğu Türk lirası mevduatın toplamına yakındır.
+                Bankaların mevduatı, yasal olarak tutmaları gereken zorunlu karşılıklar ve serbest mevduat olarak ikiye ayrılır.
+              </p>
+              <p>
+                Pasifteki açık piyasa işlemleri, TCMB’nin bankalardan çektiği Türk lirasını gösterir. Aktifteki bankalara
+                açılan krediler ise TCMB’nin bankalara verdiği fonlamadır. Döviz tarafının ayrıntısı ve net döviz pozisyonu
+                ayrı sayfadadır.
+              </p>
+            </section>
+          </div>
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Son 12 hafta</h2>
+            <div class="tablo-sarma">
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Hafta</th>
+                    <th scope="col" class="sag">Aktif</th>
+                    <th scope="col" class="sag">Rezerv para</th>
+                    <th scope="col" class="sag">Emisyon</th>
+                    <th scope="col" class="sag">Açık piyasa</th>
+                    <th scope="col" class="sag">Bankalara kredi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tablo.map((s) => (
+                    <tr>
+                      <td>{gunYaz(s.tarih)}</td>
+                      <td class="sag">{sayiYaz(trilyon(s.aktif), 2)}</td>
+                      <td class="sag">{sayiYaz(trilyon(s.rezervPara), 2)}</td>
+                      <td class="sag">{sayiYaz(trilyon(s.emisyon), 2)}</td>
+                      <td class="sag">{sayiYaz(trilyon(s.api), 2)}</td>
+                      <td class="sag">{sayiYaz(trilyon(s.bankaKredi), 2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="veri-notu">Trilyon TL, haftanın son iş günü.</p>
+          </section>
+        </>
+      ) : (
+        <p class="bos">TCMB bilanço verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/net-doviz-pozisyonu/">Net döviz pozisyonu</a>
+      <a href="/veri/para-piyasasi/">Para piyasası</a>
+      <a href="/veri/para-arzi/">Para arzı</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+  .seviye-1 td:first-child {
+    padding-left: 1.25rem;
+  }
+  .seviye-2 td:first-child {
+    padding-left: 2.5rem;
+  }
+</style>

@@ -16,6 +16,8 @@ import {
   paraPiyasasiAl,
   paraArziAl,
   kkmAl,
+  tcmbBilancoAl,
+  TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
   INSAAT_IZIN_SERILERI,
@@ -506,6 +508,32 @@ test('kkmAl: aylık dört seri, Aralık 2021’den', async () => {
   assert.deepEqual(alanlar(istekler[0]), ['TP_KKM_K1', 'TP_KKM_K2', 'TP_KKM_K3', 'TP_KKM_K4']);
   assert.deepEqual(k.satirlar[0], { yil: 2021, ay: 12, dd: 1.5, ddGercek: 1.5, ddTuzel: 1.5, tl: 1.5 });
   assert.equal(k.satirlar.length, 56);
+});
+
+// TCMB bilançosu: haftalık istek haftanın son değeriyle (last), günlük istek son iş günü için; para piyasası sahtesi
+// gibi bitmemiş hafta atılır, günlükte boş son gün geçilir.
+test('tcmbBilancoAl: haftanın son değeri ve son iş günü', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    const u = decodeURIComponent(String(url));
+    istekler.push(u);
+    const a = alanlar(url);
+    const items = [];
+    if (u.includes('frequency=3')) {
+      for (let t = Date.UTC(2013, 0, 4); t <= Date.UTC(2026, 9, 30); t += 7 * 864e5) items.push({ Tarih: gunTarihi(new Date(t)), ...Object.fromEntries(a.map((x) => [x, '5'])) });
+    } else {
+      items.push({ Tarih: '26-10-2026', ...Object.fromEntries(a.map((x) => [x, '6'])) }, { Tarih: '27-10-2026', ...Object.fromEntries(a.map((x) => [x, null])) });
+    }
+    return yanit({ items });
+  };
+  const b = await tcmbBilancoAl(SIMDI, 'x');
+  assert.ok(istekler[0].includes(`aggregationTypes=${TCMB_BILANCO_SERILERI.map(() => 'last').join('-')}`));
+  assert.ok(istekler[0].includes('startDate=01-01-2013'));
+  assert.equal(b.satirlar[0].tarih, '2013-01-04');
+  assert.equal(b.satirlar.at(-1).tarih, '2026-10-23');
+  assert.equal(b.son.tarih, '2026-10-26');
+  assert.equal(b.son.rezervPara, 6);
+  assert.equal(Object.keys(b.son).length, 15);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

@@ -82,6 +82,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/reel-faiz/': 'faiz enflasyon',
   '/veri/piyasa-faizleri/': 'mevduat faizi kredi faizi konut kredisi taşıt',
   '/veri/kur-korumali-mevduat/': 'kkm kur korumalı mevduat döviz dönüşümlü tl kkm',
+  '/veri/tcmb-bilancosu/': 'merkez bankası bilançosu analitik bilanço rezerv para emisyon zorunlu karşılık serbest mevduat açık piyasa',
   '/veri/para-arzi/': 'm1 m2 m3 para arzı parasal büyüklükler dolaşımdaki para vadeli vadesiz mevduat likidite',
   '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
@@ -424,6 +425,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/para-arzi/')}>
               <a href="/veri/para-arzi/" class="fihrist-baslik-link">Para Arzı (M1, M2, M3)</a>
               <span class="fihrist-ozet">Haftalık para arzı, bileşenleri ve reel değişimi ({paraArziSon ? `M2 yıllık %${sayiYaz(paraArziSon.m2Yillik, 1)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/tcmb-bilancosu/')}>
+              <a href="/veri/tcmb-bilancosu/" class="fihrist-baslik-link">TCMB Bilançosu</a>
+              <span class="fihrist-ozet">Analitik bilanço: rezerv para, emisyon, açık piyasa işlemleri, Hazine ve bankalara krediler</span>
             </li>
           </ul>
         </div>

@@ -294,6 +294,17 @@ export interface ParaPiyasasiBolumu {
   alinma: string;
 }
 
+// TCMB analitik bilançosu (bin TL): satırlar haftanın son iş günü, son ayrıca son iş günü.
+export type TcmbBilancoSatiri = { tarih: string } & Record<'aktif' | 'disVarlik' | 'icVarlik' | 'hazine' | 'bankaKredi' | 'degerleme' | 'dovizYuk' | 'mbParasi' | 'rezervPara' | 'emisyon' | 'zorunlu' | 'serbest' | 'api' | 'kamuMevduat', number>;
+export interface TcmbBilancoBolumu {
+  kaynak: Kaynak;
+  birim: string;
+  seriler: SeriAdi[];
+  satirlar: TcmbBilancoSatiri[];
+  son: TcmbBilancoSatiri;
+  alinma: string;
+}
+
 // Para arzı (TCMB, haftalık cuma stoku, bin TL); yıllık değişim %.
 export interface ParaArziBolumu {
   kaynak: Kaynak;
@@ -367,6 +378,7 @@ export const RESMI = data as unknown as {
   paraPiyasasi?: ParaPiyasasiBolumu;
   paraArzi?: ParaArziBolumu;
   kkm?: AylikSeriBolumu<'dd' | 'ddGercek' | 'ddTuzel' | 'tl'>;
+  tcmbBilanco?: TcmbBilancoBolumu;
 };
 
 // Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).

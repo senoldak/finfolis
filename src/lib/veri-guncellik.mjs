@@ -89,6 +89,7 @@ const RESMI_SAYFA = {
   paraPiyasasi: '/veri/para-piyasasi/',
   paraArzi: '/veri/para-arzi/',
   kkm: '/veri/kur-korumali-mevduat/',
+  tcmbBilanco: '/veri/tcmb-bilancosu/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

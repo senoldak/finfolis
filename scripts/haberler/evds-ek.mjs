@@ -369,6 +369,8 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      EVDS'nin formülüyle (bir yıl önceki aynı haftaya göre).
 //  - kkm: kur korumalı mevduat stoku (TCMB, aylık, Aralık 2021'den; doğrulandı 29.10.2026): döviz dönüşümlü KKM (milyar
 //      ABD doları; gerçek ve tüzel kişiler) ve TL KKM (milyar TL). Birimler farklıdır, toplanmaz.
+//  - tcmbBilanco: TCMB analitik bilançosunun ana kalemleri (TCMB, iş günü, bin TL; haftanın son iş günü 2013'ten, son iş
+//      günü ayrıca; doğrulandı 29.10.2026). Döviz tarafının ayrıntısı net döviz pozisyonu sayfasındadır.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -924,6 +926,55 @@ export async function kkmAl(simdi, anahtar) {
     kaynak: { ad: 'TCMB kur korumalı mevduat istatistikleri (TCMB EVDS)', url: EVDS_SAYFA },
     seriler: tanimlar(KKM_SERILERI),
     satirlar: await aylikFormullu(KKM_SERILERI, new Date(Date.UTC(2021, 11, 1)), simdi, anahtar, 'Kur korumalı mevduat', 50),
+  };
+}
+
+// Analitik bilanço (bin TL). Aktif = dış varlıklar + iç varlıklar + değerleme hesabı; pasif = döviz yükümlülükleri + merkez
+// bankası parası. Rezerv para = emisyon + bankalar mevduatı (zorunlu karşılık + serbest) + fon hesapları + banka dışı kesim.
+export const TCMB_BILANCO_SERILERI = [
+  { kod: 'TP.AB.A01', alan: 'aktif', ad: 'Aktif toplamı' },
+  { kod: 'TP.AB.A02', alan: 'disVarlik', ad: 'Dış varlıklar' },
+  { kod: 'TP.AB.A03', alan: 'icVarlik', ad: 'İç varlıklar' },
+  { kod: 'TP.AB.A05', alan: 'hazine', ad: 'Hazine borçları' },
+  { kod: 'TP.AB.A06', alan: 'bankaKredi', ad: 'Bankacılık sektörüne açılan nakit krediler' },
+  { kod: 'TP.AB.A08', alan: 'degerleme', ad: 'Değerleme hesabı' },
+  { kod: 'TP.AB.A10', alan: 'dovizYuk', ad: 'Toplam döviz yükümlülükleri' },
+  { kod: 'TP.AB.A15', alan: 'mbParasi', ad: 'Merkez bankası parası' },
+  { kod: 'TP.AB.A16', alan: 'rezervPara', ad: 'Rezerv para' },
+  { kod: 'TP.AB.A17', alan: 'emisyon', ad: 'Emisyon (dolaşımdaki banknot)' },
+  { kod: 'TP.AB.A19', alan: 'zorunlu', ad: 'Zorunlu karşılıklar' },
+  { kod: 'TP.AB.A20', alan: 'serbest', ad: 'Bankaların serbest mevduatı' },
+  { kod: 'TP.AB.A24', alan: 'api', ad: 'Açık piyasa işlemleri' },
+  { kod: 'TP.AB.A25', alan: 'kamuMevduat', ad: 'Kamu mevduatı' },
+];
+
+const bilancoSatiri = (h) => ({ tarih: h.tarih, ...Object.fromEntries(TCMB_BILANCO_SERILERI.map((t) => [t.alan, h[alanAdi(t.kod, 0)]])) });
+const bilancoDolu = (s) => TCMB_BILANCO_SERILERI.every((t) => s[t.alan] != null);
+
+// Haftalık: haftanın son iş gününün değeri (stok), bitmemiş haftanın satırı atılır. Son: son 15 günün dolu son iş günü.
+export async function tcmbBilancoAl(simdi, anahtar) {
+  const kodlar = TCMB_BILANCO_SERILERI.map((t) => t.kod);
+  const sifirlar = kodlar.map(() => 0);
+  const bugun = simdi.toISOString().slice(0, 10);
+  const satirlar = (
+    await evdsCek(kodlar, sifirlar, new Date(Date.UTC(2013, 0, 1)), simdi, anahtar, `&frequency=3&aggregationTypes=${kodlar.map(() => 'last').join('-')}`)
+  )
+    .filter((h) => h.tarih && h.tarih <= bugun)
+    .map(bilancoSatiri)
+    .filter(bilancoDolu);
+  if (satirlar.length < 500) throw new Error('TCMB bilançosu haftalık serisi yetersiz');
+  const son = (await evdsCek(kodlar, sifirlar, new Date(simdi.getTime() - 15 * 864e5), simdi, anahtar))
+    .filter((h) => h.tarih)
+    .map(bilancoSatiri)
+    .filter(bilancoDolu)
+    .at(-1);
+  if (!son) throw new Error('TCMB bilançosu günlük değer yok');
+  return {
+    kaynak: { ad: 'TCMB analitik bilançosu (TCMB EVDS)', url: EVDS_SAYFA },
+    birim: 'bin TL',
+    seriler: tanimlar(TCMB_BILANCO_SERILERI),
+    satirlar,
+    son,
   };
 }
 
