@@ -48,6 +48,7 @@ const SAYFA = {
   faizAyrinti: '/veri/piyasa-faizleri/',
   dovizHacmi: '/veri/doviz-piyasasi/',
   elektrik: '/veri/elektrik-tuketimi/',
+  cek: '/veri/karsiliksiz-cek/',
   portfoy: '/veri/yabanci-portfoy-akimlari/',
   cari: '/veri/cari-denge/',
   disBorc: '/veri/dis-borc/',
@@ -333,6 +334,12 @@ export const TANIMLAR = [
     ['ithalat', 'ithalat', 'Elektrik ithalatı (haftalık günlük ortalama)', 'MWh'],
     ['ihracat', 'ihracat', 'Elektrik ihracatı (haftalık günlük ortalama)', 'MWh'],
   ], { siklik: 'hafta' }),
+  t('cek', 'Bankacılık', SAYFA.cek, [
+    ['ibrazAdet', 'ibraz-adet', 'Takas odalarına ibraz edilen çek adedi', ADET],
+    ['ibrazTutar', 'ibraz-tutar', 'Takas odalarına ibraz edilen çek tutarı', BTL],
+    ['karsiliksizAdet', 'karsiliksiz-adet', 'Karşılıksız çek adedi', ADET],
+    ['karsiliksizTutar', 'karsiliksiz-tutar', 'Karşılıksız çek tutarı', BTL],
+  ]),
   t('makas', 'Faiz', SAYFA.makas, [
     ['ihtiyac', 'ihtiyac', 'İhtiyaç kredisi faizi', YZ],
     ['tasit', 'tasit', 'Taşıt kredisi faizi', YZ],

@@ -1,0 +1,212 @@
+---
+// Karşılıksız çek: takas odalarına ibraz edilen ve karşılıksız çıkan çeklerin aylık adet ve tutarı (Takasbank verisi), TCMB
+// EVDS'den. Sayfa hesapları: karşılıksız çeklerin ibraz edilenler içindeki payı (adet ve tutar), milyar TL'ye çevirme ve
+// son 12 ayın toplamı (EVDS düzeylerinden). Tutarlar cari TL'dir, enflasyondan arındırılmaz. Başka türetme ve tahmin yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const cek = RESMI.cek;
+const satirlar = cek?.satirlar ?? [];
+const son = satirlar.at(-1);
+type Satir = (typeof satirlar)[number];
+
+const milyar = (n: number) => n / 1e6;
+const milyarYaz = (n: number) => `${sayiYaz(milyar(n), 1)} milyar TL`;
+// Sayfa hesabı: karşılıksız payı, yüzde.
+const tutarPayi = (s: Satir) => (s.karsiliksizTutar / s.ibrazTutar) * 100;
+const adetPayi = (s: Satir) => (s.karsiliksizAdet / s.ibrazAdet) * 100;
+// Sayfa hesabı: son 12 ayın toplamı.
+const son12 = satirlar.slice(-12);
+const toplam12 = (alan: 'karsiliksizAdet' | 'karsiliksizTutar' | 'ibrazTutar') => son12.reduce((a, s) => a + s[alan], 0);
+
+const gruplar1 = [
+  {
+    id: 'pay',
+    ad: 'Karşılıksız payı',
+    seriler: [
+      { id: 'tutar', ad: 'Tutar olarak', renk: 'murekkep' as const },
+      { id: 'adet', ad: 'Adet olarak', renk: 'toprak' as const },
+    ],
+  },
+];
+const noktalar1 = satirlar.map((s) => [ayAnahtari(s), tutarPayi(s), adetPayi(s)]);
+const gruplar2 = [
+  { id: 'tutar', ad: 'Tutar', seriler: [{ id: 'tutar', ad: 'Karşılıksız çek tutarı', renk: 'murekkep' as const }] },
+  { id: 'adet', ad: 'Adet', seriler: [{ id: 'adet', ad: 'Karşılıksız çek adedi (bin)', renk: 'toprak' as const }] },
+];
+const noktalar2 = satirlar.map((s) => [ayAnahtari(s), milyar(s.karsiliksizTutar), s.karsiliksizAdet / 1000]);
+
+const tablo = satirlar.slice(-12).reverse();
+
+const baslik = 'Karşılıksız çek';
+const description = son
+  ? `${ayAdi(son)} ayında ${sayiYaz(son.karsiliksizAdet, 0)} çek karşılıksız çıktı, tutarı ${milyarYaz(son.karsiliksizTutar)}. İbraz edilen çek tutarı içindeki payı ${yuzdeYaz(tutarPayi(son))}. Takasbank verisi.`
+  : 'Takas odalarına ibraz edilen ve karşılıksız çıkan çeklerin adet ve tutarı, Takasbank verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/karsiliksiz-cek/' },
+];
+const ayKodu = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(cek && son
+    ? {
+        sayfaEk: { dateModified: cek.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Takas odalarında işlem gören çekler',
+            description:
+              'Takas odalarına ibraz edilen ve karşılıksız çıkan çeklerin aylık adet ve tutarı (bin TL), Takasbank verisi, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/karsiliksiz-cek/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'Organization', name: 'İstanbul Takas ve Saklama Bankası A.Ş. (Takasbank)', url: 'https://www.takasbank.com.tr/' },
+            temporalCoverage: `${ayKodu(satirlar[0])}/${ayKodu(son)}`,
+            dateModified: cek.alinma,
+            variableMeasured: [
+              'İbraz edilen çek adedi ve tutarı',
+              'Karşılıksız çek adedi ve tutarı',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Karşılıksız çek: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Takas odalarına ibraz edilen ve karşılıksız çıkan çekler · Takasbank, aylık</p>
+    </header>
+    {
+      cek && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Karşılıksız çek tutarı</dt>
+              <dd>{milyarYaz(son.karsiliksizTutar)}</dd>
+              <dd class="veri-degisim">
+                {ayAdi(son)}, {sayiYaz(son.karsiliksizAdet, 0)} çek
+              </dd>
+            </div>
+            <div>
+              <dt>Tutar olarak pay</dt>
+              <dd>{yuzdeYaz(tutarPayi(son))}</dd>
+              <dd class="veri-degisim">İbraz edilen çek tutarı içinde</dd>
+            </div>
+            <div>
+              <dt>Adet olarak pay</dt>
+              <dd>{yuzdeYaz(adetPayi(son))}</dd>
+              <dd class="veri-degisim">İbraz edilen çek adedi içinde</dd>
+            </div>
+            {son12.length === 12 && (
+              <div>
+                <dt>Son 12 ay</dt>
+                <dd>{milyarYaz(toplam12('karsiliksizTutar'))}</dd>
+                <dd class="veri-degisim">{sayiYaz(toplam12('karsiliksizAdet'), 0)} çek</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={cek.kaynak.url} rel="noopener">{cek.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
+            {zamanYaz(cek.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Karşılıksız çeklerin payı"
+            ipucu="Yüzde, ibraz edilen çekler içinde · Sayfada hesaplanır"
+            kaynak="Kaynak: Takasbank (TCMB EVDS); pay sayfada hesaplanır."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['tutar', 'adet']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Karşılıksız adet</th>
+                      <th scope="col" class="sag">Karşılıksız tutar</th>
+                      <th scope="col" class="sag">Tutar payı</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{sayiYaz(s.karsiliksizAdet, 0)}</td>
+                        <td class="sag">{sayiYaz(milyar(s.karsiliksizTutar), 1)}</td>
+                        <td class="sag">{yuzdeYaz(tutarPayi(s))}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Tutar milyar TL, cari fiyatlarla; enflasyondan arındırılmamıştır, bu yüzden yıllar arası karşılaştırmada pay
+                daha anlamlıdır. Paylar sayfada hesaplanır.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Bir çek bankaya ibraz edildiğinde hesapta yeterli para yoksa karşılıksız çıkar. Takas odaları, bankalar arasında
+                el değiştiren çeklerin takasını yapar; bu sayfadaki rakamlar oraya ibraz edilen çeklerdir.
+              </p>
+              <p>
+                Karşılıksız çeklerin payı, işletmeler arasındaki ödeme zorluklarının göstergelerinden biri olarak izlenir. Tek
+                ayın değeri, o ay ibraz edilen çeklerin vadesine ve sayısına göre oynar.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Karşılıksız çek tutarı ve adedi"
+            ipucu="Tutar milyar TL (cari fiyatlarla), adet bin çek · Grup düğmesiyle geçilir"
+            kaynak="Kaynak: Takasbank (TCMB EVDS)."
+            siklik="ay"
+            birim="endeks"
+            ondalik={1}
+            seriIdleri={['tutar', 'adet']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+            grupEtiketi="Seri grubu"
+          />
+        </>
+      ) : (
+        <p class="bos">Çek verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/kredi-hacmi/">Kredi hacmi</a>
+      <a href="/veri/piyasa-faizleri/">Piyasa faizleri</a>
+      <a href="/veri/kapasite-kullanimi/">Kapasite kullanımı</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve resmi istatistiklerdir. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

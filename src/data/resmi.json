@@ -133427,5 +133427,1832 @@
       }
     ],
     "alinma": "2026-10-29T17:49:32.216Z"
+  },
+  "cek": {
+    "kaynak": {
+      "ad": "Takasbank verisi, takas odalarına ibraz edilen ve karşılıksız çekler (TCMB EVDS)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "seriler": [
+      {
+        "alan": "ibrazAdet",
+        "ad": "İbraz edilen çek adedi"
+      },
+      {
+        "alan": "ibrazTutar",
+        "ad": "İbraz edilen çek tutarı (bin TL)"
+      },
+      {
+        "alan": "karsiliksizAdet",
+        "ad": "Karşılıksız çek adedi"
+      },
+      {
+        "alan": "karsiliksizTutar",
+        "ad": "Karşılıksız çek tutarı (bin TL)"
+      }
+    ],
+    "satirlar": [
+      {
+        "yil": 2008,
+        "ay": 1,
+        "ibrazAdet": 2089364,
+        "ibrazTutar": 20629297.071,
+        "karsiliksizAdet": 111050,
+        "karsiliksizTutar": 985291.29
+      },
+      {
+        "yil": 2008,
+        "ay": 2,
+        "ibrazAdet": 1961992,
+        "ibrazTutar": 19477709.565,
+        "karsiliksizAdet": 103173,
+        "karsiliksizTutar": 906590.792
+      },
+      {
+        "yil": 2008,
+        "ay": 3,
+        "ibrazAdet": 2043850,
+        "ibrazTutar": 19934179.468,
+        "karsiliksizAdet": 103315,
+        "karsiliksizTutar": 890538.41
+      },
+      {
+        "yil": 2008,
+        "ay": 4,
+        "ibrazAdet": 2075436,
+        "ibrazTutar": 21181028.35,
+        "karsiliksizAdet": 102415,
+        "karsiliksizTutar": 888147.353
+      },
+      {
+        "yil": 2008,
+        "ay": 5,
+        "ibrazAdet": 1825082,
+        "ibrazTutar": 20830594.604,
+        "karsiliksizAdet": 84200,
+        "karsiliksizTutar": 798082.242
+      },
+      {
+        "yil": 2008,
+        "ay": 6,
+        "ibrazAdet": 2507793,
+        "ibrazTutar": 25067415.714,
+        "karsiliksizAdet": 131040,
+        "karsiliksizTutar": 1134652.921
+      },
+      {
+        "yil": 2008,
+        "ay": 7,
+        "ibrazAdet": 2246785,
+        "ibrazTutar": 24082215.249,
+        "karsiliksizAdet": 110706,
+        "karsiliksizTutar": 1021639.36
+      },
+      {
+        "yil": 2008,
+        "ay": 8,
+        "ibrazAdet": 1578850,
+        "ibrazTutar": 20234110.313,
+        "karsiliksizAdet": 72146,
+        "karsiliksizTutar": 784623.669
+      },
+      {
+        "yil": 2008,
+        "ay": 9,
+        "ibrazAdet": 2092096,
+        "ibrazTutar": 22355703.563,
+        "karsiliksizAdet": 115984,
+        "karsiliksizTutar": 1083162.406
+      },
+      {
+        "yil": 2008,
+        "ay": 10,
+        "ibrazAdet": 2962584,
+        "ibrazTutar": 28130428.876,
+        "karsiliksizAdet": 191327,
+        "karsiliksizTutar": 1781782.525
+      },
+      {
+        "yil": 2008,
+        "ay": 11,
+        "ibrazAdet": 1475969,
+        "ibrazTutar": 18433567.016,
+        "karsiliksizAdet": 92636,
+        "karsiliksizTutar": 1076681.444
+      },
+      {
+        "yil": 2008,
+        "ay": 12,
+        "ibrazAdet": 2751215,
+        "ibrazTutar": 24910255.444,
+        "karsiliksizAdet": 216447,
+        "karsiliksizTutar": 1965839.259
+      },
+      {
+        "yil": 2009,
+        "ay": 1,
+        "ibrazAdet": 1545230,
+        "ibrazTutar": 17508770.352,
+        "karsiliksizAdet": 118237,
+        "karsiliksizTutar": 1188191.367
+      },
+      {
+        "yil": 2009,
+        "ay": 2,
+        "ibrazAdet": 1535307,
+        "ibrazTutar": 16381848.948,
+        "karsiliksizAdet": 111454,
+        "karsiliksizTutar": 1042391.129
+      },
+      {
+        "yil": 2009,
+        "ay": 3,
+        "ibrazAdet": 2291917,
+        "ibrazTutar": 20713436.165,
+        "karsiliksizAdet": 238306,
+        "karsiliksizTutar": 2139855.786
+      },
+      {
+        "yil": 2009,
+        "ay": 4,
+        "ibrazAdet": 1732891,
+        "ibrazTutar": 18014968.484,
+        "karsiliksizAdet": 163115,
+        "karsiliksizTutar": 1514740.672
+      },
+      {
+        "yil": 2009,
+        "ay": 5,
+        "ibrazAdet": 1205637,
+        "ibrazTutar": 14826592.789,
+        "karsiliksizAdet": 86528,
+        "karsiliksizTutar": 952654.95
+      },
+      {
+        "yil": 2009,
+        "ay": 6,
+        "ibrazAdet": 2351804,
+        "ibrazTutar": 22153235.373,
+        "karsiliksizAdet": 215145,
+        "karsiliksizTutar": 1821446.12
+      },
+      {
+        "yil": 2009,
+        "ay": 7,
+        "ibrazAdet": 1845581,
+        "ibrazTutar": 19387365.239,
+        "karsiliksizAdet": 137067,
+        "karsiliksizTutar": 1266851.791
+      },
+      {
+        "yil": 2009,
+        "ay": 8,
+        "ibrazAdet": 1820986,
+        "ibrazTutar": 20099574.747,
+        "karsiliksizAdet": 130460,
+        "karsiliksizTutar": 1215855.213
+      },
+      {
+        "yil": 2009,
+        "ay": 9,
+        "ibrazAdet": 1791146,
+        "ibrazTutar": 19464415.565,
+        "karsiliksizAdet": 121653,
+        "karsiliksizTutar": 1193072.981
+      },
+      {
+        "yil": 2009,
+        "ay": 10,
+        "ibrazAdet": 1560800,
+        "ibrazTutar": 18503170.549,
+        "karsiliksizAdet": 90795,
+        "karsiliksizTutar": 961254.607
+      },
+      {
+        "yil": 2009,
+        "ay": 11,
+        "ibrazAdet": 1389880,
+        "ibrazTutar": 15790907.84,
+        "karsiliksizAdet": 80685,
+        "karsiliksizTutar": 787703.164
+      },
+      {
+        "yil": 2009,
+        "ay": 12,
+        "ibrazAdet": 2500510,
+        "ibrazTutar": 25403065.504,
+        "karsiliksizAdet": 158435,
+        "karsiliksizTutar": 1499843.022
+      },
+      {
+        "yil": 2010,
+        "ay": 1,
+        "ibrazAdet": 1117287,
+        "ibrazTutar": 15381072.01,
+        "karsiliksizAdet": 49508,
+        "karsiliksizTutar": 560676.964
+      },
+      {
+        "yil": 2010,
+        "ay": 2,
+        "ibrazAdet": 1536914,
+        "ibrazTutar": 17152080.665,
+        "karsiliksizAdet": 75787,
+        "karsiliksizTutar": 722285.144
+      },
+      {
+        "yil": 2010,
+        "ay": 3,
+        "ibrazAdet": 2098775,
+        "ibrazTutar": 21763172.19,
+        "karsiliksizAdet": 101060,
+        "karsiliksizTutar": 931729.494
+      },
+      {
+        "yil": 2010,
+        "ay": 4,
+        "ibrazAdet": 1594724,
+        "ibrazTutar": 19166969.795,
+        "karsiliksizAdet": 68410,
+        "karsiliksizTutar": 674217.211
+      },
+      {
+        "yil": 2010,
+        "ay": 5,
+        "ibrazAdet": 1649857,
+        "ibrazTutar": 20055310.938,
+        "karsiliksizAdet": 66875,
+        "karsiliksizTutar": 686238.478
+      },
+      {
+        "yil": 2010,
+        "ay": 6,
+        "ibrazAdet": 1676143,
+        "ibrazTutar": 20502772.193,
+        "karsiliksizAdet": 64918,
+        "karsiliksizTutar": 695336.867
+      },
+      {
+        "yil": 2010,
+        "ay": 7,
+        "ibrazAdet": 1439323,
+        "ibrazTutar": 19237134.391,
+        "karsiliksizAdet": 49681,
+        "karsiliksizTutar": 588355.232
+      },
+      {
+        "yil": 2010,
+        "ay": 8,
+        "ibrazAdet": 1972678,
+        "ibrazTutar": 23947029.747,
+        "karsiliksizAdet": 76680,
+        "karsiliksizTutar": 829802.303
+      },
+      {
+        "yil": 2010,
+        "ay": 9,
+        "ibrazAdet": 1674960,
+        "ibrazTutar": 21278150.383,
+        "karsiliksizAdet": 60768,
+        "karsiliksizTutar": 699932.402
+      },
+      {
+        "yil": 2010,
+        "ay": 10,
+        "ibrazAdet": 1081679,
+        "ibrazTutar": 17070653.044,
+        "karsiliksizAdet": 32426,
+        "karsiliksizTutar": 454544.567
+      },
+      {
+        "yil": 2010,
+        "ay": 11,
+        "ibrazAdet": 2251586,
+        "ibrazTutar": 27155689.945,
+        "karsiliksizAdet": 80237,
+        "karsiliksizTutar": 934423.881
+      },
+      {
+        "yil": 2010,
+        "ay": 12,
+        "ibrazAdet": 1694091,
+        "ibrazTutar": 22475826.692,
+        "karsiliksizAdet": 52456,
+        "karsiliksizTutar": 698707.756
+      },
+      {
+        "yil": 2011,
+        "ay": 1,
+        "ibrazAdet": 1524853,
+        "ibrazTutar": 21470048.719,
+        "karsiliksizAdet": 40754,
+        "karsiliksizTutar": 562756.741
+      },
+      {
+        "yil": 2011,
+        "ay": 2,
+        "ibrazAdet": 1439014,
+        "ibrazTutar": 20284025.487,
+        "karsiliksizAdet": 37156,
+        "karsiliksizTutar": 510833.365
+      },
+      {
+        "yil": 2011,
+        "ay": 3,
+        "ibrazAdet": 1549948,
+        "ibrazTutar": 21605640.218,
+        "karsiliksizAdet": 37022,
+        "karsiliksizTutar": 534017.666
+      },
+      {
+        "yil": 2011,
+        "ay": 4,
+        "ibrazAdet": 1053932,
+        "ibrazTutar": 18704952.233,
+        "karsiliksizAdet": 22135,
+        "karsiliksizTutar": 375944.259
+      },
+      {
+        "yil": 2011,
+        "ay": 5,
+        "ibrazAdet": 2089046,
+        "ibrazTutar": 27688445.922,
+        "karsiliksizAdet": 51626,
+        "karsiliksizTutar": 727770.636
+      },
+      {
+        "yil": 2011,
+        "ay": 6,
+        "ibrazAdet": 1605726,
+        "ibrazTutar": 24771079.572,
+        "karsiliksizAdet": 37246,
+        "karsiliksizTutar": 598131.79
+      },
+      {
+        "yil": 2011,
+        "ay": 7,
+        "ibrazAdet": 1135324,
+        "ibrazTutar": 21646302.218,
+        "karsiliksizAdet": 25224,
+        "karsiliksizTutar": 464162.728
+      },
+      {
+        "yil": 2011,
+        "ay": 8,
+        "ibrazAdet": 1558564,
+        "ibrazTutar": 24683507.317,
+        "karsiliksizAdet": 41616,
+        "karsiliksizTutar": 717806.377
+      },
+      {
+        "yil": 2011,
+        "ay": 9,
+        "ibrazAdet": 2282926,
+        "ibrazTutar": 32809828.174,
+        "karsiliksizAdet": 68814,
+        "karsiliksizTutar": 1147012.417
+      },
+      {
+        "yil": 2011,
+        "ay": 10,
+        "ibrazAdet": 1737864,
+        "ibrazTutar": 28035440.817,
+        "karsiliksizAdet": 51059,
+        "karsiliksizTutar": 931170.683
+      },
+      {
+        "yil": 2011,
+        "ay": 11,
+        "ibrazAdet": 1686316,
+        "ibrazTutar": 27562588.481,
+        "karsiliksizAdet": 55667,
+        "karsiliksizTutar": 1005293.139
+      },
+      {
+        "yil": 2011,
+        "ay": 12,
+        "ibrazAdet": 1386752,
+        "ibrazTutar": 24981486.019,
+        "karsiliksizAdet": 47596,
+        "karsiliksizTutar": 975790.271
+      },
+      {
+        "yil": 2012,
+        "ay": 1,
+        "ibrazAdet": 1957945,
+        "ibrazTutar": 30462662.539,
+        "karsiliksizAdet": 68432,
+        "karsiliksizTutar": 1212805.489
+      },
+      {
+        "yil": 2012,
+        "ay": 2,
+        "ibrazAdet": 1519564,
+        "ibrazTutar": 25128539.916,
+        "karsiliksizAdet": 55303,
+        "karsiliksizTutar": 1039686.983
+      },
+      {
+        "yil": 2012,
+        "ay": 3,
+        "ibrazAdet": 1281858,
+        "ibrazTutar": 23088151.386,
+        "karsiliksizAdet": 47210,
+        "karsiliksizTutar": 920229.946
+      },
+      {
+        "yil": 2012,
+        "ay": 4,
+        "ibrazAdet": 1892852,
+        "ibrazTutar": 29965016.498,
+        "karsiliksizAdet": 72151,
+        "karsiliksizTutar": 1289373.972
+      },
+      {
+        "yil": 2012,
+        "ay": 5,
+        "ibrazAdet": 1615367,
+        "ibrazTutar": 28173492.282,
+        "karsiliksizAdet": 60808,
+        "karsiliksizTutar": 1178525.732
+      },
+      {
+        "yil": 2012,
+        "ay": 6,
+        "ibrazAdet": 1079771,
+        "ibrazTutar": 22931074.456,
+        "karsiliksizAdet": 37993,
+        "karsiliksizTutar": 864734.334
+      },
+      {
+        "yil": 2012,
+        "ay": 7,
+        "ibrazAdet": 2199400,
+        "ibrazTutar": 35899973.166,
+        "karsiliksizAdet": 92738,
+        "karsiliksizTutar": 1764194.657
+      },
+      {
+        "yil": 2012,
+        "ay": 8,
+        "ibrazAdet": 1605816,
+        "ibrazTutar": 29676198.583,
+        "karsiliksizAdet": 69690,
+        "karsiliksizTutar": 1469900.346
+      },
+      {
+        "yil": 2012,
+        "ay": 9,
+        "ibrazAdet": 1094419,
+        "ibrazTutar": 24093471.104,
+        "karsiliksizAdet": 45906,
+        "karsiliksizTutar": 1135247.093
+      },
+      {
+        "yil": 2012,
+        "ay": 10,
+        "ibrazAdet": 2220199,
+        "ibrazTutar": 37936553.152,
+        "karsiliksizAdet": 103192,
+        "karsiliksizTutar": 2086461.202
+      },
+      {
+        "yil": 2012,
+        "ay": 11,
+        "ibrazAdet": 1631394,
+        "ibrazTutar": 31470592.871,
+        "karsiliksizAdet": 73341,
+        "karsiliksizTutar": 1622751.411
+      },
+      {
+        "yil": 2012,
+        "ay": 12,
+        "ibrazAdet": 1632106,
+        "ibrazTutar": 31109776.366,
+        "karsiliksizAdet": 73295,
+        "karsiliksizTutar": 1633525.739
+      },
+      {
+        "yil": 2013,
+        "ay": 1,
+        "ibrazAdet": 1497932,
+        "ibrazTutar": 30506612.466,
+        "karsiliksizAdet": 62013,
+        "karsiliksizTutar": 1405925.028
+      },
+      {
+        "yil": 2013,
+        "ay": 2,
+        "ibrazAdet": 1397038,
+        "ibrazTutar": 27813409.301,
+        "karsiliksizAdet": 53550,
+        "karsiliksizTutar": 1217752.104
+      },
+      {
+        "yil": 2013,
+        "ay": 3,
+        "ibrazAdet": 997587,
+        "ibrazTutar": 22921268.943,
+        "karsiliksizAdet": 34933,
+        "karsiliksizTutar": 917500.935
+      },
+      {
+        "yil": 2013,
+        "ay": 4,
+        "ibrazAdet": 1980842,
+        "ibrazTutar": 35633277.208,
+        "karsiliksizAdet": 73124,
+        "karsiliksizTutar": 1558019.623
+      },
+      {
+        "yil": 2013,
+        "ay": 5,
+        "ibrazAdet": 1516583,
+        "ibrazTutar": 31046195.474,
+        "karsiliksizAdet": 52123,
+        "karsiliksizTutar": 1185294.218
+      },
+      {
+        "yil": 2013,
+        "ay": 6,
+        "ibrazAdet": 974630,
+        "ibrazTutar": 24606983.468,
+        "karsiliksizAdet": 29828,
+        "karsiliksizTutar": 761823.947
+      },
+      {
+        "yil": 2013,
+        "ay": 7,
+        "ibrazAdet": 2078444,
+        "ibrazTutar": 39481677.377,
+        "karsiliksizAdet": 70293,
+        "karsiliksizTutar": 1476599.998
+      },
+      {
+        "yil": 2013,
+        "ay": 8,
+        "ibrazAdet": 978297,
+        "ibrazTutar": 25719840.631,
+        "karsiliksizAdet": 28268,
+        "karsiliksizTutar": 729273.129
+      },
+      {
+        "yil": 2013,
+        "ay": 9,
+        "ibrazAdet": 2099182,
+        "ibrazTutar": 40783572.522,
+        "karsiliksizAdet": 66187,
+        "karsiliksizTutar": 1436411.569
+      },
+      {
+        "yil": 2013,
+        "ay": 10,
+        "ibrazAdet": 1562527,
+        "ibrazTutar": 33771273.53,
+        "karsiliksizAdet": 47878,
+        "karsiliksizTutar": 1125878.414
+      },
+      {
+        "yil": 2013,
+        "ay": 11,
+        "ibrazAdet": 1012167,
+        "ibrazTutar": 27283903.595,
+        "karsiliksizAdet": 28239,
+        "karsiliksizTutar": 757632.644
+      },
+      {
+        "yil": 2013,
+        "ay": 12,
+        "ibrazAdet": 2112628,
+        "ibrazTutar": 41643713.622,
+        "karsiliksizAdet": 64909,
+        "karsiliksizTutar": 1547322.489
+      },
+      {
+        "yil": 2014,
+        "ay": 1,
+        "ibrazAdet": 1449076,
+        "ibrazTutar": 33550777.21,
+        "karsiliksizAdet": 40343,
+        "karsiliksizTutar": 1065437.538
+      },
+      {
+        "yil": 2014,
+        "ay": 2,
+        "ibrazAdet": 1377348,
+        "ibrazTutar": 31880135.033,
+        "karsiliksizAdet": 36588,
+        "karsiliksizTutar": 969766.252
+      },
+      {
+        "yil": 2014,
+        "ay": 3,
+        "ibrazAdet": 1478318,
+        "ibrazTutar": 33039031.621,
+        "karsiliksizAdet": 40513,
+        "karsiliksizTutar": 1082238.982
+      },
+      {
+        "yil": 2014,
+        "ay": 4,
+        "ibrazAdet": 1509523,
+        "ibrazTutar": 34980777.153,
+        "karsiliksizAdet": 41794,
+        "karsiliksizTutar": 1127420.408
+      },
+      {
+        "yil": 2014,
+        "ay": 5,
+        "ibrazAdet": 1229428,
+        "ibrazTutar": 31700699.426,
+        "karsiliksizAdet": 33690,
+        "karsiliksizTutar": 1007493.779
+      },
+      {
+        "yil": 2014,
+        "ay": 6,
+        "ibrazAdet": 1852552,
+        "ibrazTutar": 41079846.281,
+        "karsiliksizAdet": 53932,
+        "karsiliksizTutar": 1454724.962
+      },
+      {
+        "yil": 2014,
+        "ay": 7,
+        "ibrazAdet": 1515469,
+        "ibrazTutar": 32875104.968,
+        "karsiliksizAdet": 44696,
+        "karsiliksizTutar": 1209955.06
+      },
+      {
+        "yil": 2014,
+        "ay": 8,
+        "ibrazAdet": 1024425,
+        "ibrazTutar": 34028866.831,
+        "karsiliksizAdet": 27886,
+        "karsiliksizTutar": 924020.797
+      },
+      {
+        "yil": 2014,
+        "ay": 9,
+        "ibrazAdet": 2127943,
+        "ibrazTutar": 47322755.175,
+        "karsiliksizAdet": 64921,
+        "karsiliksizTutar": 1744091.839
+      },
+      {
+        "yil": 2014,
+        "ay": 10,
+        "ibrazAdet": 1605347,
+        "ibrazTutar": 39470369.586,
+        "karsiliksizAdet": 50025,
+        "karsiliksizTutar": 1446610.249
+      },
+      {
+        "yil": 2014,
+        "ay": 11,
+        "ibrazAdet": 985283,
+        "ibrazTutar": 30149730.603,
+        "karsiliksizAdet": 29651,
+        "karsiliksizTutar": 983689.431
+      },
+      {
+        "yil": 2014,
+        "ay": 12,
+        "ibrazAdet": 2170583,
+        "ibrazTutar": 48619546.678,
+        "karsiliksizAdet": 69512,
+        "karsiliksizTutar": 1959531.133
+      },
+      {
+        "yil": 2015,
+        "ay": 1,
+        "ibrazAdet": 1158004,
+        "ibrazTutar": 32880024.118,
+        "karsiliksizAdet": 35217,
+        "karsiliksizTutar": 1208188.472
+      },
+      {
+        "yil": 2015,
+        "ay": 2,
+        "ibrazAdet": 1220589,
+        "ibrazTutar": 33433203.561,
+        "karsiliksizAdet": 36290,
+        "karsiliksizTutar": 1110042.707
+      },
+      {
+        "yil": 2015,
+        "ay": 3,
+        "ibrazAdet": 1938186,
+        "ibrazTutar": 44937428.47,
+        "karsiliksizAdet": 61274,
+        "karsiliksizTutar": 1750876.494
+      },
+      {
+        "yil": 2015,
+        "ay": 4,
+        "ibrazAdet": 1470315,
+        "ibrazTutar": 38213743.417,
+        "karsiliksizAdet": 47372,
+        "karsiliksizTutar": 1429011.99
+      },
+      {
+        "yil": 2015,
+        "ay": 5,
+        "ibrazAdet": 935716,
+        "ibrazTutar": 30186153.267,
+        "karsiliksizAdet": 28918,
+        "karsiliksizTutar": 1001114.899
+      },
+      {
+        "yil": 2015,
+        "ay": 6,
+        "ibrazAdet": 2039377,
+        "ibrazTutar": 49238905.636,
+        "karsiliksizAdet": 67714,
+        "karsiliksizTutar": 1975693.684
+      },
+      {
+        "yil": 2015,
+        "ay": 7,
+        "ibrazAdet": 1499638,
+        "ibrazTutar": 40965201.133,
+        "karsiliksizAdet": 50397,
+        "karsiliksizTutar": 1565885.679
+      },
+      {
+        "yil": 2015,
+        "ay": 8,
+        "ibrazAdet": 1531784,
+        "ibrazTutar": 42387711.052,
+        "karsiliksizAdet": 52094,
+        "karsiliksizTutar": 1620700.674
+      },
+      {
+        "yil": 2015,
+        "ay": 9,
+        "ibrazAdet": 1504535,
+        "ibrazTutar": 42162496.897,
+        "karsiliksizAdet": 52096,
+        "karsiliksizTutar": 1621991.787
+      },
+      {
+        "yil": 2015,
+        "ay": 10,
+        "ibrazAdet": 1284751,
+        "ibrazTutar": 38546799.878,
+        "karsiliksizAdet": 46880,
+        "karsiliksizTutar": 1643760.05
+      },
+      {
+        "yil": 2015,
+        "ay": 11,
+        "ibrazAdet": 1838360,
+        "ibrazTutar": 49060925.225,
+        "karsiliksizAdet": 66654,
+        "karsiliksizTutar": 2114181.273
+      },
+      {
+        "yil": 2015,
+        "ay": 12,
+        "ibrazAdet": 1553396,
+        "ibrazTutar": 43244325.486,
+        "karsiliksizAdet": 56418,
+        "karsiliksizTutar": 1915643.333
+      },
+      {
+        "yil": 2016,
+        "ay": 1,
+        "ibrazAdet": 922028,
+        "ibrazTutar": 32026414.369,
+        "karsiliksizAdet": 31436,
+        "karsiliksizTutar": 1230289.281
+      },
+      {
+        "yil": 2016,
+        "ay": 2,
+        "ibrazAdet": 1866228,
+        "ibrazTutar": 48894481.392,
+        "karsiliksizAdet": 65143,
+        "karsiliksizTutar": 2071276.736
+      },
+      {
+        "yil": 2016,
+        "ay": 3,
+        "ibrazAdet": 1420072,
+        "ibrazTutar": 40584869.622,
+        "karsiliksizAdet": 48184,
+        "karsiliksizTutar": 1614143.626
+      },
+      {
+        "yil": 2016,
+        "ay": 4,
+        "ibrazAdet": 902018,
+        "ibrazTutar": 31777747.148,
+        "karsiliksizAdet": 29271,
+        "karsiliksizTutar": 1127132.545
+      },
+      {
+        "yil": 2016,
+        "ay": 5,
+        "ibrazAdet": 1965921,
+        "ibrazTutar": 51855869.135,
+        "karsiliksizAdet": 69228,
+        "karsiliksizTutar": 2064015.059
+      },
+      {
+        "yil": 2016,
+        "ay": 6,
+        "ibrazAdet": 1390353,
+        "ibrazTutar": 41906253.309,
+        "karsiliksizAdet": 49349,
+        "karsiliksizTutar": 1622965.742
+      },
+      {
+        "yil": 2016,
+        "ay": 7,
+        "ibrazAdet": 873943,
+        "ibrazTutar": 31473267.351,
+        "karsiliksizAdet": 30737,
+        "karsiliksizTutar": 1150660.188
+      },
+      {
+        "yil": 2016,
+        "ay": 8,
+        "ibrazAdet": 1931012,
+        "ibrazTutar": 53498714.883,
+        "karsiliksizAdet": 77546,
+        "karsiliksizTutar": 2472307.114
+      },
+      {
+        "yil": 2016,
+        "ay": 9,
+        "ibrazAdet": 1359032,
+        "ibrazTutar": 42336493.426,
+        "karsiliksizAdet": 53867,
+        "karsiliksizTutar": 1837153.636
+      },
+      {
+        "yil": 2016,
+        "ay": 10,
+        "ibrazAdet": 1421808,
+        "ibrazTutar": 44773498.147,
+        "karsiliksizAdet": 54778,
+        "karsiliksizTutar": 1939183.149
+      },
+      {
+        "yil": 2016,
+        "ay": 11,
+        "ibrazAdet": 1363511,
+        "ibrazTutar": 43775887.186,
+        "karsiliksizAdet": 48833,
+        "karsiliksizTutar": 1726691.658
+      },
+      {
+        "yil": 2016,
+        "ay": 12,
+        "ibrazAdet": 1056847,
+        "ibrazTutar": 37814720.67,
+        "karsiliksizAdet": 34156,
+        "karsiliksizTutar": 1358443.051
+      },
+      {
+        "yil": 2017,
+        "ay": 1,
+        "ibrazAdet": 1614247,
+        "ibrazTutar": 48316763.222,
+        "karsiliksizAdet": 50391,
+        "karsiliksizTutar": 1716507.561
+      },
+      {
+        "yil": 2017,
+        "ay": 2,
+        "ibrazAdet": 1206356,
+        "ibrazTutar": 39338578.265,
+        "karsiliksizAdet": 31249,
+        "karsiliksizTutar": 1118782.182
+      },
+      {
+        "yil": 2017,
+        "ay": 3,
+        "ibrazAdet": 1272000,
+        "ibrazTutar": 41882743.808,
+        "karsiliksizAdet": 30422,
+        "karsiliksizTutar": 1073941.732
+      },
+      {
+        "yil": 2017,
+        "ay": 4,
+        "ibrazAdet": 777833,
+        "ibrazTutar": 32501811.115,
+        "karsiliksizAdet": 14954,
+        "karsiliksizTutar": 605264.245
+      },
+      {
+        "yil": 2017,
+        "ay": 5,
+        "ibrazAdet": 1779718,
+        "ibrazTutar": 54343837.651,
+        "karsiliksizAdet": 38680,
+        "karsiliksizTutar": 1251474.173
+      },
+      {
+        "yil": 2017,
+        "ay": 6,
+        "ibrazAdet": 1217359,
+        "ibrazTutar": 42583102.265,
+        "karsiliksizAdet": 23447,
+        "karsiliksizTutar": 830451.825
+      },
+      {
+        "yil": 2017,
+        "ay": 7,
+        "ibrazAdet": 1287747,
+        "ibrazTutar": 46149043.281,
+        "karsiliksizAdet": 24242,
+        "karsiliksizTutar": 881613.722
+      },
+      {
+        "yil": 2017,
+        "ay": 8,
+        "ibrazAdet": 777391,
+        "ibrazTutar": 34947684.364,
+        "karsiliksizAdet": 12341,
+        "karsiliksizTutar": 561754.071
+      },
+      {
+        "yil": 2017,
+        "ay": 9,
+        "ibrazAdet": 1271057,
+        "ibrazTutar": 46822817.118,
+        "karsiliksizAdet": 23950,
+        "karsiliksizTutar": 927871.234
+      },
+      {
+        "yil": 2017,
+        "ay": 10,
+        "ibrazAdet": 1819537,
+        "ibrazTutar": 60084915.417,
+        "karsiliksizAdet": 36426,
+        "karsiliksizTutar": 1361359.945
+      },
+      {
+        "yil": 2017,
+        "ay": 11,
+        "ibrazAdet": 1289996,
+        "ibrazTutar": 48793670.839,
+        "karsiliksizAdet": 24601,
+        "karsiliksizTutar": 1131102.779
+      },
+      {
+        "yil": 2017,
+        "ay": 12,
+        "ibrazAdet": 815223,
+        "ibrazTutar": 36930995.563,
+        "karsiliksizAdet": 14391,
+        "karsiliksizTutar": 811791.536
+      },
+      {
+        "yil": 2018,
+        "ay": 1,
+        "ibrazAdet": 1772902,
+        "ibrazTutar": 61273123.349,
+        "karsiliksizAdet": 33912,
+        "karsiliksizTutar": 1401684.258
+      },
+      {
+        "yil": 2018,
+        "ay": 2,
+        "ibrazAdet": 1186800,
+        "ibrazTutar": 46374746.016,
+        "karsiliksizAdet": 20956,
+        "karsiliksizTutar": 954549.73
+      },
+      {
+        "yil": 2018,
+        "ay": 3,
+        "ibrazAdet": 975134,
+        "ibrazTutar": 41581981.228,
+        "karsiliksizAdet": 17277,
+        "karsiliksizTutar": 909317.608
+      },
+      {
+        "yil": 2018,
+        "ay": 4,
+        "ibrazAdet": 1585148,
+        "ibrazTutar": 59111845.614,
+        "karsiliksizAdet": 31219,
+        "karsiliksizTutar": 1381892.725
+      },
+      {
+        "yil": 2018,
+        "ay": 5,
+        "ibrazAdet": 1290391,
+        "ibrazTutar": 52019414.354,
+        "karsiliksizAdet": 26101,
+        "karsiliksizTutar": 1223997.196
+      },
+      {
+        "yil": 2018,
+        "ay": 6,
+        "ibrazAdet": 764429,
+        "ibrazTutar": 38188544.301,
+        "karsiliksizAdet": 15493,
+        "karsiliksizTutar": 916220.312
+      },
+      {
+        "yil": 2018,
+        "ay": 7,
+        "ibrazAdet": 1831505,
+        "ibrazTutar": 68261517.523,
+        "karsiliksizAdet": 43404,
+        "karsiliksizTutar": 2063748.566
+      },
+      {
+        "yil": 2018,
+        "ay": 8,
+        "ibrazAdet": 1277124,
+        "ibrazTutar": 53413195.22,
+        "karsiliksizAdet": 35611,
+        "karsiliksizTutar": 1787816.67
+      },
+      {
+        "yil": 2018,
+        "ay": 9,
+        "ibrazAdet": 806664,
+        "ibrazTutar": 40036559.765,
+        "karsiliksizAdet": 25163,
+        "karsiliksizTutar": 1452269.115
+      },
+      {
+        "yil": 2018,
+        "ay": 10,
+        "ibrazAdet": 1887003,
+        "ibrazTutar": 70808393.454,
+        "karsiliksizAdet": 74923,
+        "karsiliksizTutar": 3604474.583
+      },
+      {
+        "yil": 2018,
+        "ay": 11,
+        "ibrazAdet": 1328526,
+        "ibrazTutar": 56026250.775,
+        "karsiliksizAdet": 59576,
+        "karsiliksizTutar": 2920785.494
+      },
+      {
+        "yil": 2018,
+        "ay": 12,
+        "ibrazAdet": 1341935,
+        "ibrazTutar": 56547533.374,
+        "karsiliksizAdet": 63103,
+        "karsiliksizTutar": 2925984.01
+      },
+      {
+        "yil": 2019,
+        "ay": 1,
+        "ibrazAdet": 1203983,
+        "ibrazTutar": 52530096.104,
+        "karsiliksizAdet": 53525,
+        "karsiliksizTutar": 2484870.178
+      },
+      {
+        "yil": 2019,
+        "ay": 2,
+        "ibrazAdet": 1092865,
+        "ibrazTutar": 48230383.361,
+        "karsiliksizAdet": 45175,
+        "karsiliksizTutar": 2087794.416
+      },
+      {
+        "yil": 2019,
+        "ay": 3,
+        "ibrazAdet": 689649,
+        "ibrazTutar": 37018323.292,
+        "karsiliksizAdet": 22571,
+        "karsiliksizTutar": 1181535.519
+      },
+      {
+        "yil": 2019,
+        "ay": 4,
+        "ibrazAdet": 1510121,
+        "ibrazTutar": 61818206.25,
+        "karsiliksizAdet": 57176,
+        "karsiliksizTutar": 2508380.283
+      },
+      {
+        "yil": 2019,
+        "ay": 5,
+        "ibrazAdet": 1057176,
+        "ibrazTutar": 48388986.289,
+        "karsiliksizAdet": 35500,
+        "karsiliksizTutar": 1668417.89
+      },
+      {
+        "yil": 2019,
+        "ay": 6,
+        "ibrazAdet": 611310,
+        "ibrazTutar": 34367562.869,
+        "karsiliksizAdet": 14793,
+        "karsiliksizTutar": 847480.523
+      },
+      {
+        "yil": 2019,
+        "ay": 7,
+        "ibrazAdet": 1490535,
+        "ibrazTutar": 64137970.574,
+        "karsiliksizAdet": 48694,
+        "karsiliksizTutar": 2163840.671
+      },
+      {
+        "yil": 2019,
+        "ay": 8,
+        "ibrazAdet": 608137,
+        "ibrazTutar": 36382010.455,
+        "karsiliksizAdet": 13761,
+        "karsiliksizTutar": 798059.842
+      },
+      {
+        "yil": 2019,
+        "ay": 9,
+        "ibrazAdet": 1437144,
+        "ibrazTutar": 63439023.437,
+        "karsiliksizAdet": 40202,
+        "karsiliksizTutar": 1845164.704
+      },
+      {
+        "yil": 2019,
+        "ay": 10,
+        "ibrazAdet": 1032310,
+        "ibrazTutar": 51164995.88,
+        "karsiliksizAdet": 23177,
+        "karsiliksizTutar": 1160118.828
+      },
+      {
+        "yil": 2019,
+        "ay": 11,
+        "ibrazAdet": 610005,
+        "ibrazTutar": 37719958.144,
+        "karsiliksizAdet": 9744,
+        "karsiliksizTutar": 638097.358
+      },
+      {
+        "yil": 2019,
+        "ay": 12,
+        "ibrazAdet": 1399323,
+        "ibrazTutar": 65568423.282,
+        "karsiliksizAdet": 27294,
+        "karsiliksizTutar": 1380700.394
+      },
+      {
+        "yil": 2020,
+        "ay": 1,
+        "ibrazAdet": 932882,
+        "ibrazTutar": 50649566.69,
+        "karsiliksizAdet": 12928,
+        "karsiliksizTutar": 702148.685
+      },
+      {
+        "yil": 2020,
+        "ay": 2,
+        "ibrazAdet": 705444,
+        "ibrazTutar": 43176008.934,
+        "karsiliksizAdet": 8449,
+        "karsiliksizTutar": 503529.244
+      },
+      {
+        "yil": 2020,
+        "ay": 3,
+        "ibrazAdet": 1121038,
+        "ibrazTutar": 58662379.25,
+        "karsiliksizAdet": 19262,
+        "karsiliksizTutar": 1094184.133
+      },
+      {
+        "yil": 2020,
+        "ay": 4,
+        "ibrazAdet": 927793,
+        "ibrazTutar": 53289410.807,
+        "karsiliksizAdet": 22342,
+        "karsiliksizTutar": 1189399.354
+      },
+      {
+        "yil": 2020,
+        "ay": 5,
+        "ibrazAdet": 525033,
+        "ibrazTutar": 36926659.849,
+        "karsiliksizAdet": 8859,
+        "karsiliksizTutar": 596359.311
+      },
+      {
+        "yil": 2020,
+        "ay": 6,
+        "ibrazAdet": 1219568,
+        "ibrazTutar": 63445342.607,
+        "karsiliksizAdet": 21128,
+        "karsiliksizTutar": 1074674.38
+      },
+      {
+        "yil": 2020,
+        "ay": 7,
+        "ibrazAdet": 484936,
+        "ibrazTutar": 42180804.894,
+        "karsiliksizAdet": 5043,
+        "karsiliksizTutar": 614078.375
+      },
+      {
+        "yil": 2020,
+        "ay": 8,
+        "ibrazAdet": 1122456,
+        "ibrazTutar": 68381781.799,
+        "karsiliksizAdet": 14556,
+        "karsiliksizTutar": 1072443.092
+      },
+      {
+        "yil": 2020,
+        "ay": 9,
+        "ibrazAdet": 798959,
+        "ibrazTutar": 54206090.737,
+        "karsiliksizAdet": 8186,
+        "karsiliksizTutar": 561653.647
+      },
+      {
+        "yil": 2020,
+        "ay": 10,
+        "ibrazAdet": 653706,
+        "ibrazTutar": 49389288.349,
+        "karsiliksizAdet": 5627,
+        "karsiliksizTutar": 438328.973
+      },
+      {
+        "yil": 2020,
+        "ay": 11,
+        "ibrazAdet": 1080423,
+        "ibrazTutar": 68805807.101,
+        "karsiliksizAdet": 9818,
+        "karsiliksizTutar": 661170.13
+      },
+      {
+        "yil": 2020,
+        "ay": 12,
+        "ibrazAdet": 939607,
+        "ibrazTutar": 64559033.507,
+        "karsiliksizAdet": 9004,
+        "karsiliksizTutar": 718012.341
+      },
+      {
+        "yil": 2021,
+        "ay": 1,
+        "ibrazAdet": 547478,
+        "ibrazTutar": 48382626.65,
+        "karsiliksizAdet": 4866,
+        "karsiliksizTutar": 439026.323
+      },
+      {
+        "yil": 2021,
+        "ay": 2,
+        "ibrazAdet": 856232,
+        "ibrazTutar": 59193506.943,
+        "karsiliksizAdet": 7514,
+        "karsiliksizTutar": 587438.738
+      },
+      {
+        "yil": 2021,
+        "ay": 3,
+        "ibrazAdet": 1241501,
+        "ibrazTutar": 81640248.982,
+        "karsiliksizAdet": 11437,
+        "karsiliksizTutar": 853709.218
+      },
+      {
+        "yil": 2021,
+        "ay": 4,
+        "ibrazAdet": 913795,
+        "ibrazTutar": 66977415.548,
+        "karsiliksizAdet": 5089,
+        "karsiliksizTutar": 438598.892
+      },
+      {
+        "yil": 2021,
+        "ay": 5,
+        "ibrazAdet": 1132389,
+        "ibrazTutar": 79160520.135,
+        "karsiliksizAdet": 0,
+        "karsiliksizTutar": 0
+      },
+      {
+        "yil": 2021,
+        "ay": 6,
+        "ibrazAdet": 1061503,
+        "ibrazTutar": 79300615.296,
+        "karsiliksizAdet": 24319,
+        "karsiliksizTutar": 1922413.355
+      },
+      {
+        "yil": 2021,
+        "ay": 7,
+        "ibrazAdet": 716045,
+        "ibrazTutar": 61658038.302,
+        "karsiliksizAdet": 8813,
+        "karsiliksizTutar": 786443.59
+      },
+      {
+        "yil": 2021,
+        "ay": 8,
+        "ibrazAdet": 1217431,
+        "ibrazTutar": 93791596.091,
+        "karsiliksizAdet": 13333,
+        "karsiliksizTutar": 1154308.054
+      },
+      {
+        "yil": 2021,
+        "ay": 9,
+        "ibrazAdet": 982303,
+        "ibrazTutar": 81648514.628,
+        "karsiliksizAdet": 10111,
+        "karsiliksizTutar": 939628.933
+      },
+      {
+        "yil": 2021,
+        "ay": 10,
+        "ibrazAdet": 570540,
+        "ibrazTutar": 57407151.909,
+        "karsiliksizAdet": 5457,
+        "karsiliksizTutar": 550707.936
+      },
+      {
+        "yil": 2021,
+        "ay": 11,
+        "ibrazAdet": 1481192,
+        "ibrazTutar": 114617023.81,
+        "karsiliksizAdet": 13182,
+        "karsiliksizTutar": 1262787.6
+      },
+      {
+        "yil": 2021,
+        "ay": 12,
+        "ibrazAdet": 1086389,
+        "ibrazTutar": 94670536.157,
+        "karsiliksizAdet": 9353,
+        "karsiliksizTutar": 977076.503
+      },
+      {
+        "yil": 2022,
+        "ay": 1,
+        "ibrazAdet": 1052614,
+        "ibrazTutar": 99974696.341,
+        "karsiliksizAdet": 8466,
+        "karsiliksizTutar": 945167.894
+      },
+      {
+        "yil": 2022,
+        "ay": 2,
+        "ibrazAdet": 1033077,
+        "ibrazTutar": 99087821.27,
+        "karsiliksizAdet": 7847,
+        "karsiliksizTutar": 983157.735
+      },
+      {
+        "yil": 2022,
+        "ay": 3,
+        "ibrazAdet": 1083265,
+        "ibrazTutar": 109622801.282,
+        "karsiliksizAdet": 7635,
+        "karsiliksizTutar": 947458.858
+      },
+      {
+        "yil": 2022,
+        "ay": 4,
+        "ibrazAdet": 641754,
+        "ibrazTutar": 89001369.241,
+        "karsiliksizAdet": 4454,
+        "karsiliksizTutar": 586326.169
+      },
+      {
+        "yil": 2022,
+        "ay": 5,
+        "ibrazAdet": 1465232,
+        "ibrazTutar": 151695567.271,
+        "karsiliksizAdet": 9636,
+        "karsiliksizTutar": 1235823.761
+      },
+      {
+        "yil": 2022,
+        "ay": 6,
+        "ibrazAdet": 1058785,
+        "ibrazTutar": 134441911.657,
+        "karsiliksizAdet": 6313,
+        "karsiliksizTutar": 964347.721
+      },
+      {
+        "yil": 2022,
+        "ay": 7,
+        "ibrazAdet": 657963,
+        "ibrazTutar": 107751373.241,
+        "karsiliksizAdet": 4200,
+        "karsiliksizTutar": 703231.503
+      },
+      {
+        "yil": 2022,
+        "ay": 8,
+        "ibrazAdet": 1526916,
+        "ibrazTutar": 201767098.051,
+        "karsiliksizAdet": 10109,
+        "karsiliksizTutar": 1666015.874
+      },
+      {
+        "yil": 2022,
+        "ay": 9,
+        "ibrazAdet": 1091976,
+        "ibrazTutar": 167224473.768,
+        "karsiliksizAdet": 7267,
+        "karsiliksizTutar": 1276717.614
+      },
+      {
+        "yil": 2022,
+        "ay": 10,
+        "ibrazAdet": 1117826,
+        "ibrazTutar": 183015155.821,
+        "karsiliksizAdet": 8040,
+        "karsiliksizTutar": 1590993.92
+      },
+      {
+        "yil": 2022,
+        "ay": 11,
+        "ibrazAdet": 1105760,
+        "ibrazTutar": 190998798.71,
+        "karsiliksizAdet": 7978,
+        "karsiliksizTutar": 1650741.334
+      },
+      {
+        "yil": 2022,
+        "ay": 12,
+        "ibrazAdet": 849848,
+        "ibrazTutar": 169194704.901,
+        "karsiliksizAdet": 6260,
+        "karsiliksizTutar": 1434143.445
+      },
+      {
+        "yil": 2023,
+        "ay": 1,
+        "ibrazAdet": 1378978,
+        "ibrazTutar": 250067028.778,
+        "karsiliksizAdet": 9018,
+        "karsiliksizTutar": 2228284.682
+      },
+      {
+        "yil": 2023,
+        "ay": 2,
+        "ibrazAdet": 1054900,
+        "ibrazTutar": 205724112.277,
+        "karsiliksizAdet": 7033,
+        "karsiliksizTutar": 1985196.829
+      },
+      {
+        "yil": 2023,
+        "ay": 3,
+        "ibrazAdet": 1197768,
+        "ibrazTutar": 238926232.967,
+        "karsiliksizAdet": 6692,
+        "karsiliksizTutar": 2079732.81
+      },
+      {
+        "yil": 2023,
+        "ay": 4,
+        "ibrazAdet": 711563,
+        "ibrazTutar": 174411633.146,
+        "karsiliksizAdet": 6328,
+        "karsiliksizTutar": 1821352.944
+      },
+      {
+        "yil": 2023,
+        "ay": 5,
+        "ibrazAdet": 1509039,
+        "ibrazTutar": 309445836.715,
+        "karsiliksizAdet": 14489,
+        "karsiliksizTutar": 3977855.608
+      },
+      {
+        "yil": 2023,
+        "ay": 6,
+        "ibrazAdet": 605235,
+        "ibrazTutar": 169782011.718,
+        "karsiliksizAdet": 7009,
+        "karsiliksizTutar": 2255702.995
+      },
+      {
+        "yil": 2023,
+        "ay": 7,
+        "ibrazAdet": 1545053,
+        "ibrazTutar": 356225810.987,
+        "karsiliksizAdet": 15153,
+        "karsiliksizTutar": 5279477.052
+      },
+      {
+        "yil": 2023,
+        "ay": 8,
+        "ibrazAdet": 1084405,
+        "ibrazTutar": 297556235.442,
+        "karsiliksizAdet": 10151,
+        "karsiliksizTutar": 4012765.872
+      },
+      {
+        "yil": 2023,
+        "ay": 9,
+        "ibrazAdet": 681083,
+        "ibrazTutar": 236331757.128,
+        "karsiliksizAdet": 6236,
+        "karsiliksizTutar": 2661009.033
+      },
+      {
+        "yil": 2023,
+        "ay": 10,
+        "ibrazAdet": 1554812,
+        "ibrazTutar": 422408711.281,
+        "karsiliksizAdet": 14270,
+        "karsiliksizTutar": 6026377.873
+      },
+      {
+        "yil": 2023,
+        "ay": 11,
+        "ibrazAdet": 1098516,
+        "ibrazTutar": 354653187.968,
+        "karsiliksizAdet": 10268,
+        "karsiliksizTutar": 4699866.629
+      },
+      {
+        "yil": 2023,
+        "ay": 12,
+        "ibrazAdet": 697897,
+        "ibrazTutar": 276852219.27,
+        "karsiliksizAdet": 7791,
+        "karsiliksizTutar": 4196101.038
+      },
+      {
+        "yil": 2024,
+        "ay": 1,
+        "ibrazAdet": 1486634,
+        "ibrazTutar": 467528172.124,
+        "karsiliksizAdet": 15828,
+        "karsiliksizTutar": 7899246.725
+      },
+      {
+        "yil": 2024,
+        "ay": 2,
+        "ibrazAdet": 1006047,
+        "ibrazTutar": 357530434.048,
+        "karsiliksizAdet": 11242,
+        "karsiliksizTutar": 6043700.831
+      },
+      {
+        "yil": 2024,
+        "ay": 3,
+        "ibrazAdet": 654631,
+        "ibrazTutar": 284504454.395,
+        "karsiliksizAdet": 8270,
+        "karsiliksizTutar": 5133553.977
+      },
+      {
+        "yil": 2024,
+        "ay": 4,
+        "ibrazAdet": 1429514,
+        "ibrazTutar": 506640600.513,
+        "karsiliksizAdet": 20098,
+        "karsiliksizTutar": 11261173.622
+      },
+      {
+        "yil": 2024,
+        "ay": 5,
+        "ibrazAdet": 1051784,
+        "ibrazTutar": 440927456.08,
+        "karsiliksizAdet": 15790,
+        "karsiliksizTutar": 9445737.238
+      },
+      {
+        "yil": 2024,
+        "ay": 6,
+        "ibrazAdet": 614764,
+        "ibrazTutar": 307449253.783,
+        "karsiliksizAdet": 10546,
+        "karsiliksizTutar": 6451611.996
+      },
+      {
+        "yil": 2024,
+        "ay": 7,
+        "ibrazAdet": 1472577,
+        "ibrazTutar": 606278299.433,
+        "karsiliksizAdet": 26351,
+        "karsiliksizTutar": 15770139.929
+      },
+      {
+        "yil": 2024,
+        "ay": 8,
+        "ibrazAdet": 613636,
+        "ibrazTutar": 353155649.622,
+        "karsiliksizAdet": 12030,
+        "karsiliksizTutar": 7946886.54
+      },
+      {
+        "yil": 2024,
+        "ay": 9,
+        "ibrazAdet": 1407588,
+        "ibrazTutar": 596276688.16,
+        "karsiliksizAdet": 25523,
+        "karsiliksizTutar": 15256183.287
+      },
+      {
+        "yil": 2024,
+        "ay": 10,
+        "ibrazAdet": 1028978,
+        "ibrazTutar": 513654947.527,
+        "karsiliksizAdet": 18619,
+        "karsiliksizTutar": 11815061.628
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "ibrazAdet": 632246,
+        "ibrazTutar": 384379891.748,
+        "karsiliksizAdet": 11480,
+        "karsiliksizTutar": 8238994.347
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "ibrazAdet": 1414862,
+        "ibrazTutar": 648281594.198,
+        "karsiliksizAdet": 24729,
+        "karsiliksizTutar": 17386907.684
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "ibrazAdet": 973038,
+        "ibrazTutar": 529234082.663,
+        "karsiliksizAdet": 16202,
+        "karsiliksizTutar": 12212109.239
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "ibrazAdet": 922993,
+        "ibrazTutar": 492537979.071,
+        "karsiliksizAdet": 14708,
+        "karsiliksizTutar": 10668126.935
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "ibrazAdet": 594846,
+        "ibrazTutar": 373420368.194,
+        "karsiliksizAdet": 10261,
+        "karsiliksizTutar": 7786908.872
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "ibrazAdet": 1328308,
+        "ibrazTutar": 684512712.004,
+        "karsiliksizAdet": 22566,
+        "karsiliksizTutar": 15679099.663
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "ibrazAdet": 709060,
+        "ibrazTutar": 470077262.336,
+        "karsiliksizAdet": 13932,
+        "karsiliksizTutar": 11311379.67
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "ibrazAdet": 1189393,
+        "ibrazTutar": 670721416.902,
+        "karsiliksizAdet": 23519,
+        "karsiliksizTutar": 18662532.189
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "ibrazAdet": 976065,
+        "ibrazTutar": 649399799.559,
+        "karsiliksizAdet": 21050,
+        "karsiliksizTutar": 17730624.762
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "ibrazAdet": 594915,
+        "ibrazTutar": 488518869.16,
+        "karsiliksizAdet": 14242,
+        "karsiliksizTutar": 12867990.187
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "ibrazAdet": 1337769,
+        "ibrazTutar": 790834190.176,
+        "karsiliksizAdet": 28688,
+        "karsiliksizTutar": 23911935.282
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "ibrazAdet": 993696,
+        "ibrazTutar": 675298570.145,
+        "karsiliksizAdet": 21713,
+        "karsiliksizTutar": 19577242.235
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "ibrazAdet": 594110,
+        "ibrazTutar": 495584559.155,
+        "karsiliksizAdet": 13658,
+        "karsiliksizTutar": 13554308.121
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "ibrazAdet": 1370902,
+        "ibrazTutar": 869271167.178,
+        "karsiliksizAdet": 28602,
+        "karsiliksizTutar": 26043900.387
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "ibrazAdet": 680982,
+        "ibrazTutar": 575523598.38,
+        "karsiliksizAdet": 14332,
+        "karsiliksizTutar": 14121157.589
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "ibrazAdet": 800497,
+        "ibrazTutar": 593173629.418,
+        "karsiliksizAdet": 15099,
+        "karsiliksizTutar": 14905577.36
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "ibrazAdet": 1237611,
+        "ibrazTutar": 836467939.59,
+        "karsiliksizAdet": 24306,
+        "karsiliksizTutar": 24227998.066
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "ibrazAdet": 907041,
+        "ibrazTutar": 644762220.629,
+        "karsiliksizAdet": 18131,
+        "karsiliksizTutar": 17934176.564
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "ibrazAdet": 481838,
+        "ibrazTutar": 417702883.34,
+        "karsiliksizAdet": 10345,
+        "karsiliksizTutar": 11253596.392
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "ibrazAdet": 1326166,
+        "ibrazTutar": 947165363.145,
+        "karsiliksizAdet": 29827,
+        "karsiliksizTutar": 30408260.574
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "ibrazAdet": 933875,
+        "ibrazTutar": 780150263.271,
+        "karsiliksizAdet": 23249,
+        "karsiliksizTutar": 24303406.378
+      },
+      {
+        "yil": 2026,
+        "ay": 8,
+        "ibrazAdet": 933491,
+        "ibrazTutar": 772633781.68,
+        "karsiliksizAdet": 23492,
+        "karsiliksizTutar": 24795160.808
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "ibrazAdet": 933311,
+        "ibrazTutar": 779847024.79,
+        "karsiliksizAdet": 23956,
+        "karsiliksizTutar": 25651132.438
+      }
+    ],
+    "alinma": "2026-10-29T17:55:47.383Z"
   }
 }

@@ -413,6 +413,7 @@ export const RESMI = data as unknown as {
   faizAyrinti?: FaizAyrintiBolumu;
   dovizHacmi?: DovizHacmiBolumu;
   elektrik?: ElektrikBolumu;
+  cek?: AylikSeriBolumu<'ibrazAdet' | 'ibrazTutar' | 'karsiliksizAdet' | 'karsiliksizTutar'>;
 };
 
 // Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).

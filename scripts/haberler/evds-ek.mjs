@@ -380,6 +380,9 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //  - elektrik: günlük elektrik tüketimi, üretimi, ithalatı ve ihracatı (TEİAŞ verisi, EVDS; MWh; doğrulandı 29.10.2026):
 //      2016'dan haftalık günlük ortalama ve son 400 günün günlük değerleri; yenilenebilir ve yenilenemez üretim Şubat
 //      2026'dan.
+//  - cek: takas odalarına ibraz edilen ve karşılıksız çıkan çekler (Takasbank verisi, aylık, adet ve bin TL), 2008'den
+//      (doğrulandı 29.10.2026). bie_tsenetler protestolu senet değil, "tahsile alınan ticari senetler"dir; stok/akım
+//      tanımı belirsiz olduğu için alınmaz.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -1101,6 +1104,22 @@ export async function elektrikAl(simdi, anahtar) {
     seriler: tanimlar(hepsi),
     satirlar,
     gunluk,
+  };
+}
+
+// Takas odalarındaki çekler (aylık akım): tutarlar bin TL.
+export const CEK_SERILERI = [
+  { kod: 'TP.BTO1', formul: 0, alan: 'ibrazAdet', ad: 'İbraz edilen çek adedi' },
+  { kod: 'TP.BTO2', formul: 0, alan: 'ibrazTutar', ad: 'İbraz edilen çek tutarı (bin TL)' },
+  { kod: 'TP.BTO3', formul: 0, alan: 'karsiliksizAdet', ad: 'Karşılıksız çek adedi' },
+  { kod: 'TP.BTO4', formul: 0, alan: 'karsiliksizTutar', ad: 'Karşılıksız çek tutarı (bin TL)' },
+];
+
+export async function cekAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'Takasbank verisi, takas odalarına ibraz edilen ve karşılıksız çekler (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(CEK_SERILERI),
+    satirlar: await aylikFormullu(CEK_SERILERI, new Date(Date.UTC(2008, 0, 1)), simdi, anahtar, 'Karşılıksız çek', 150),
   };
 }
 

@@ -93,6 +93,7 @@ const RESMI_SAYFA = {
   faizAyrinti: '/veri/piyasa-faizleri/',
   dovizHacmi: '/veri/doviz-piyasasi/',
   elektrik: '/veri/elektrik-tuketimi/',
+  cek: '/veri/karsiliksiz-cek/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

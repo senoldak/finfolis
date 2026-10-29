@@ -20,6 +20,7 @@ import {
   faizAyrintiAl,
   dovizHacmiAl,
   elektrikAl,
+  cekAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -606,6 +607,18 @@ test('elektrikAl: günlük son 400 gün ve haftalık ortalama; yarım hafta atı
   assert.equal(el.satirlar.at(-1).tarih, '2026-10-23');
   assert.equal(el.satirlar[0].tuketim, 900);
   assert.ok(istekler.some((x) => x.includes('aggregationTypes=avg-avg-avg-avg')));
+});
+
+test('cekAl: dört aylık seri 2008’den, senet serileri istenmez', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    istekler.push(decodeURIComponent(String(url)));
+    return yanit({ items: aylar([2008, 1], 225).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(alanlar(url).map((x) => [x, '10'])) })) });
+  };
+  const c = await cekAl(SIMDI, 'x');
+  assert.deepEqual(alanlar(istekler[0]), ['TP_BTO1', 'TP_BTO2', 'TP_BTO3', 'TP_BTO4']);
+  assert.ok(!istekler.some((u) => u.includes('TSENETLER')));
+  assert.deepEqual(c.satirlar[0], { yil: 2008, ay: 1, ibrazAdet: 10, ibrazTutar: 10, karsiliksizAdet: 10, karsiliksizTutar: 10 });
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {
