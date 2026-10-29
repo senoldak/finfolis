@@ -91,6 +91,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/turizm/': 'turizm turist yabancı ziyaretçi turizm geliri almanya rusya ingiltere',
   '/veri/yatirim-pozisyonu/': 'uluslararası yatırım pozisyonu uyp net dış varlık yükümlülük doğrudan yatırım portföy',
   '/veri/reel-kesim-guveni/': 'reel kesim güven endeksi rkge iktisadi yönelim sipariş imalat finansal hizmetler güveni',
+  '/veri/ticari-gayrimenkul/': 'ticari gayrimenkul dükkan ofis fiyat endeksi işyeri yeni konut ikinci el konut fiyatı',
   '/veri/para-arzi/': 'm1 m2 m3 para arzı parasal büyüklükler dolaşımdaki para vadeli vadesiz mevduat likidite',
   '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
@@ -481,6 +482,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/konut-fiyat-endeksi/')}>
               <a href="/veri/konut-fiyat-endeksi/" class="fihrist-baslik-link">Konut Fiyat Endeksi (KFE)</a>
               <span class="fihrist-ozet">TCMB Türkiye geneli ({konutSon ? `%${sayiYaz(konutSon.bolgeler.TR.yillik, 1)}` : '–'}), İstanbul, Ankara, İzmir</span>
+            </li>
+            <li data-ek={aramaEki('/veri/ticari-gayrimenkul/')}>
+              <a href="/veri/ticari-gayrimenkul/" class="fihrist-baslik-link">Ticari Gayrimenkul Fiyatları</a>
+              <span class="fihrist-ozet">Dükkân ve ofis fiyat endeksleri, İstanbul, Ankara, İzmir; yeni ve eski konut fiyatları</span>
             </li>
             <li data-ek={aramaEki('/veri/kira-endeksi/')}>
               <a href="/veri/kira-endeksi/" class="fihrist-baslik-link">Yeni Kiracı Kira Endeksi</a>

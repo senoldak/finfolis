@@ -26,6 +26,7 @@ import {
   turizmAl,
   uypAl,
   reelGuvenAl,
+  ticariGayrimenkulAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -713,6 +714,26 @@ test('reelGuvenAl: arındırılmış reel kesim serileri 2007’den, finansal hi
   assert.ok(alanlar(istekler[0]).includes('TP_GY1_N2_MA'));
   assert.deepEqual([g.satirlar[0].yil, g.finans[0].yil, g.finans[0].ay], [2007, 2012, 5]);
   assert.equal(Object.keys(g.satirlar[0]).length, 12);
+});
+
+test('ticariGayrimenkulAl: üç aylık 15 seri ve aylık yeni/eski konut', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    const u = decodeURIComponent(String(url));
+    istekler.push(u);
+    const a = alanlar(url);
+    if (u.includes('TGFE')) {
+      const items = [];
+      for (let y = 2015; y <= 2026; y++) for (let q = 1; q <= 4 && !(y === 2026 && q > 2); q++) items.push({ Tarih: `${y}-Q${q}`, ...Object.fromEntries(a.map((x) => [x, x.endsWith('-3') && y < 2016 ? null : '9'])) });
+      return yanit({ items });
+    }
+    return yanit({ items: aylar([2010, 1], 201).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(a.map((x) => [x, x.endsWith('-3') && m.yil < 2011 ? null : '7'])) })) });
+  };
+  const g = await ticariGayrimenkulAl(SIMDI, 'x');
+  assert.equal(alanlar(istekler[0]).length, 15);
+  assert.deepEqual([g.ceyrekler[0].yil, g.ceyrekler[0].ceyrek], [2016, 1]);
+  assert.equal(Object.keys(g.ceyrekler[0]).length, 17);
+  assert.deepEqual([g.konut[0].yil, g.konut[0].ay], [2011, 1]);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

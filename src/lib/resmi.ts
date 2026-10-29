@@ -368,6 +368,16 @@ export interface ReelGuvenBolumu extends AylikSeriBolumu<'endeks' | 'ham' | 'sip
   finans: ({ yil: number; ay: number } & Record<'endeks' | 'isDurumu' | 'talepSon3' | 'talepGelecek3', number>)[];
 }
 
+// Ticari gayrimenkul (üç aylık endeks ve yıllık %) ile yeni ve yeni olmayan konut fiyat endeksleri (aylık).
+export interface TicariGayrimenkulBolumu {
+  kaynak: Kaynak;
+  seriler: SeriAdi[];
+  konutSeriler: SeriAdi[];
+  ceyrekler: ({ yil: number; ceyrek: number } & Record<`${'tg' | 'dukkan' | 'ofis'}${'' | 'Yillik' | 'Ist' | 'Ank' | 'Izm'}`, number>)[];
+  konut: ({ yil: number; ay: number } & Record<'yeni' | 'yeniYillik' | 'eski' | 'eskiYillik', number>)[];
+  alinma: string;
+}
+
 // Para arzı (TCMB, haftalık cuma stoku, bin TL); yıllık değişim %.
 export interface ParaArziBolumu {
   kaynak: Kaynak;
@@ -449,6 +459,7 @@ export const RESMI = data as unknown as {
   turizm?: TurizmBolumu;
   uyp?: UypBolumu;
   reelGuven?: ReelGuvenBolumu;
+  ticariGayrimenkul?: TicariGayrimenkulBolumu;
   banknot?: AylikSeriBolumu<`${'k200' | 'k100' | 'k50' | 'k20' | 'k10' | 'k5' | 'diger' | 'toplam'}${'Adet' | 'Tutar'}`>;
   cek?: AylikSeriBolumu<'ibrazAdet' | 'ibrazTutar' | 'karsiliksizAdet' | 'karsiliksizTutar'>;
 };

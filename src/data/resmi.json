@@ -152339,5 +152339,2387 @@
       }
     ],
     "alinma": "2026-10-29T18:26:23.749Z"
+  },
+  "ticariGayrimenkul": {
+    "kaynak": {
+      "ad": "TCMB, ticari gayrimenkul, dükkân ve ofis fiyat endeksleri; yeni ve yeni olmayan konut fiyat endeksleri (TCMB EVDS)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "seriler": [
+      {
+        "alan": "tg",
+        "ad": "Ticari gayrimenkul fiyat endeksi, Türkiye"
+      },
+      {
+        "alan": "tgYillik",
+        "ad": "Ticari gayrimenkul fiyat endeksi, Türkiye, yıllık değişim"
+      },
+      {
+        "alan": "tgIst",
+        "ad": "Ticari gayrimenkul fiyat endeksi, İstanbul, yıllık değişim"
+      },
+      {
+        "alan": "tgAnk",
+        "ad": "Ticari gayrimenkul fiyat endeksi, Ankara, yıllık değişim"
+      },
+      {
+        "alan": "tgIzm",
+        "ad": "Ticari gayrimenkul fiyat endeksi, İzmir, yıllık değişim"
+      },
+      {
+        "alan": "dukkan",
+        "ad": "Dükkân fiyat endeksi, Türkiye"
+      },
+      {
+        "alan": "dukkanYillik",
+        "ad": "Dükkân fiyat endeksi, Türkiye, yıllık değişim"
+      },
+      {
+        "alan": "dukkanIst",
+        "ad": "Dükkân fiyat endeksi, İstanbul, yıllık değişim"
+      },
+      {
+        "alan": "dukkanAnk",
+        "ad": "Dükkân fiyat endeksi, Ankara, yıllık değişim"
+      },
+      {
+        "alan": "dukkanIzm",
+        "ad": "Dükkân fiyat endeksi, İzmir, yıllık değişim"
+      },
+      {
+        "alan": "ofis",
+        "ad": "Ofis fiyat endeksi, Türkiye"
+      },
+      {
+        "alan": "ofisYillik",
+        "ad": "Ofis fiyat endeksi, Türkiye, yıllık değişim"
+      },
+      {
+        "alan": "ofisIst",
+        "ad": "Ofis fiyat endeksi, İstanbul, yıllık değişim"
+      },
+      {
+        "alan": "ofisAnk",
+        "ad": "Ofis fiyat endeksi, Ankara, yıllık değişim"
+      },
+      {
+        "alan": "ofisIzm",
+        "ad": "Ofis fiyat endeksi, İzmir, yıllık değişim"
+      }
+    ],
+    "konutSeriler": [
+      {
+        "alan": "yeni",
+        "ad": "Yeni konutlar fiyat endeksi"
+      },
+      {
+        "alan": "yeniYillik",
+        "ad": "Yeni konutlar fiyat endeksi, yıllık değişim"
+      },
+      {
+        "alan": "eski",
+        "ad": "Yeni olmayan konutlar fiyat endeksi"
+      },
+      {
+        "alan": "eskiYillik",
+        "ad": "Yeni olmayan konutlar fiyat endeksi, yıllık değişim"
+      }
+    ],
+    "ceyrekler": [
+      {
+        "yil": 2016,
+        "ceyrek": 2,
+        "tg": 11.1,
+        "tgYillik": 9.9009901,
+        "tgIst": 15.09433962,
+        "tgAnk": 6.66666667,
+        "tgIzm": 9.1954023,
+        "dukkan": 11.3,
+        "dukkanYillik": 9.70873786,
+        "dukkanIst": 15.23809524,
+        "dukkanAnk": 7.20720721,
+        "dukkanIzm": 8.88888889,
+        "ofis": 10.4,
+        "ofisYillik": 11.82795699,
+        "ofisIst": 14.81481481,
+        "ofisAnk": 9.5890411,
+        "ofisIzm": 13.63636364
+      },
+      {
+        "yil": 2016,
+        "ceyrek": 3,
+        "tg": 11.5,
+        "tgYillik": 11.65048544,
+        "tgIst": 13.63636364,
+        "tgAnk": 8.49056604,
+        "tgIzm": 12.64367816,
+        "dukkan": 11.7,
+        "dukkanYillik": 11.42857143,
+        "dukkanIst": 14.54545455,
+        "dukkanAnk": 8.03571429,
+        "dukkanIzm": 11.11111111,
+        "ofis": 10.5,
+        "ofisYillik": 9.375,
+        "ofisIst": 11.71171171,
+        "ofisAnk": 10.52631579,
+        "ofisIzm": 19.71830986
+      },
+      {
+        "yil": 2016,
+        "ceyrek": 4,
+        "tg": 11.6,
+        "tgYillik": 10.47619048,
+        "tgIst": 10.43478261,
+        "tgAnk": 10.67961165,
+        "tgIzm": 10.11235955,
+        "dukkan": 11.8,
+        "dukkanYillik": 10.28037383,
+        "dukkanIst": 10.34482759,
+        "dukkanAnk": 11.00917431,
+        "dukkanIzm": 8.69565217,
+        "ofis": 10.6,
+        "ofisYillik": 10.41666667,
+        "ofisIst": 12.61261261,
+        "ofisAnk": 12.32876712,
+        "ofisIzm": 12.16216216
+      },
+      {
+        "yil": 2017,
+        "ceyrek": 1,
+        "tg": 11.9,
+        "tgYillik": 11.21495327,
+        "tgIst": 12.93103448,
+        "tgAnk": 5.60747664,
+        "tgIzm": 9.57446809,
+        "dukkan": 12,
+        "dukkanYillik": 10.09174312,
+        "dukkanIst": 11.96581197,
+        "dukkanAnk": 7.07964602,
+        "dukkanIzm": 9.27835052,
+        "ofis": 11.1,
+        "ofisYillik": 13.26530612,
+        "ofisIst": 16.81415929,
+        "ofisAnk": 10.25641026,
+        "ofisIzm": 8
+      },
+      {
+        "yil": 2017,
+        "ceyrek": 2,
+        "tg": 12.1,
+        "tgYillik": 9.00900901,
+        "tgIst": 8.19672131,
+        "tgAnk": 2.67857143,
+        "tgIzm": 11.57894737,
+        "dukkan": 12.2,
+        "dukkanYillik": 7.96460177,
+        "dukkanIst": 8.26446281,
+        "dukkanAnk": 3.36134454,
+        "dukkanIzm": 11.2244898,
+        "ofis": 11.3,
+        "ofisYillik": 8.65384615,
+        "ofisIst": 8.06451613,
+        "ofisAnk": 8.75,
+        "ofisIzm": 12
+      },
+      {
+        "yil": 2017,
+        "ceyrek": 3,
+        "tg": 12.3,
+        "tgYillik": 6.95652174,
+        "tgIst": 7.2,
+        "tgAnk": 4.34782609,
+        "tgIzm": 13.26530612,
+        "dukkan": 12.5,
+        "dukkanYillik": 6.83760684,
+        "dukkanIst": 7.14285714,
+        "dukkanAnk": 4.95867769,
+        "dukkanIzm": 13,
+        "ofis": 11.5,
+        "ofisYillik": 9.52380952,
+        "ofisIst": 7.25806452,
+        "ofisAnk": 10.71428571,
+        "ofisIzm": 9.41176471
+      },
+      {
+        "yil": 2017,
+        "ceyrek": 4,
+        "tg": 12.8,
+        "tgYillik": 10.34482759,
+        "tgIst": 7.87401575,
+        "tgAnk": 6.14035088,
+        "tgIzm": 19.3877551,
+        "dukkan": 13,
+        "dukkanYillik": 10.16949153,
+        "dukkanIst": 7.8125,
+        "dukkanAnk": 5.78512397,
+        "dukkanIzm": 21,
+        "ofis": 11.7,
+        "ofisYillik": 10.37735849,
+        "ofisIst": 7.2,
+        "ofisAnk": 17.07317073,
+        "ofisIzm": 6.02409639
+      },
+      {
+        "yil": 2018,
+        "ceyrek": 1,
+        "tg": 12.9,
+        "tgYillik": 8.40336134,
+        "tgIst": 4.58015267,
+        "tgAnk": 8.84955752,
+        "tgIzm": 18.44660194,
+        "dukkan": 13.1,
+        "dukkanYillik": 9.16666667,
+        "dukkanIst": 5.34351145,
+        "dukkanAnk": 7.43801653,
+        "dukkanIzm": 18.86792453,
+        "ofis": 11.8,
+        "ofisYillik": 6.30630631,
+        "ofisIst": 1.51515152,
+        "ofisAnk": 12.79069767,
+        "ofisIzm": 16.04938272
+      },
+      {
+        "yil": 2018,
+        "ceyrek": 2,
+        "tg": 13.3,
+        "tgYillik": 9.91735537,
+        "tgIst": 6.81818182,
+        "tgAnk": 9.56521739,
+        "tgIzm": 12.26415094,
+        "dukkan": 13.5,
+        "dukkanYillik": 10.6557377,
+        "dukkanIst": 9.16030534,
+        "dukkanAnk": 8.94308943,
+        "dukkanIzm": 11.9266055,
+        "ofis": 12.1,
+        "ofisYillik": 7.07964602,
+        "ofisIst": 1.49253731,
+        "ofisAnk": 12.64367816,
+        "ofisIzm": 17.85714286
+      },
+      {
+        "yil": 2018,
+        "ceyrek": 3,
+        "tg": 13.2,
+        "tgYillik": 7.31707317,
+        "tgIst": 3.73134328,
+        "tgAnk": 4.16666667,
+        "tgIzm": 14.41441441,
+        "dukkan": 13.4,
+        "dukkanYillik": 7.2,
+        "dukkanIst": 3.7037037,
+        "dukkanAnk": 3.93700787,
+        "dukkanIzm": 16.81415929,
+        "ofis": 12,
+        "ofisYillik": 4.34782609,
+        "ofisIst": 3.7593985,
+        "ofisAnk": 6.4516129,
+        "ofisIzm": -4.30107527
+      },
+      {
+        "yil": 2018,
+        "ceyrek": 4,
+        "tg": 13.3,
+        "tgYillik": 3.90625,
+        "tgIst": 1.45985401,
+        "tgAnk": 3.30578512,
+        "tgIzm": 8.54700855,
+        "dukkan": 13.5,
+        "dukkanYillik": 3.84615385,
+        "dukkanIst": 1.44927536,
+        "dukkanAnk": 3.90625,
+        "dukkanIzm": 9.09090909,
+        "ofis": 12.2,
+        "ofisYillik": 4.27350427,
+        "ofisIst": 0.74626866,
+        "ofisAnk": 2.08333333,
+        "ofisIzm": 3.40909091
+      },
+      {
+        "yil": 2019,
+        "ceyrek": 1,
+        "tg": 13.3,
+        "tgYillik": 3.10077519,
+        "tgIst": 0.72992701,
+        "tgAnk": 2.43902439,
+        "tgIzm": 0.81967213,
+        "dukkan": 13.5,
+        "dukkanYillik": 3.05343511,
+        "dukkanIst": 0.72463768,
+        "dukkanAnk": 3.07692308,
+        "dukkanIzm": 0.79365079,
+        "ofis": 12.3,
+        "ofisYillik": 4.23728814,
+        "ofisIst": 1.49253731,
+        "ofisAnk": 1.03092784,
+        "ofisIzm": 4.25531915
+      },
+      {
+        "yil": 2019,
+        "ceyrek": 2,
+        "tg": 13.6,
+        "tgYillik": 2.2556391,
+        "tgIst": 0,
+        "tgAnk": 2.38095238,
+        "tgIzm": 5.04201681,
+        "dukkan": 13.8,
+        "dukkanYillik": 2.22222222,
+        "dukkanIst": 0,
+        "dukkanAnk": 2.98507463,
+        "dukkanIzm": 5.73770492,
+        "ofis": 12.3,
+        "ofisYillik": 1.65289256,
+        "ofisIst": 0.73529412,
+        "ofisAnk": 3.06122449,
+        "ofisIzm": -3.03030303
+      },
+      {
+        "yil": 2019,
+        "ceyrek": 3,
+        "tg": 13.8,
+        "tgYillik": 4.54545455,
+        "tgIst": 2.15827338,
+        "tgAnk": 4.8,
+        "tgIzm": -2.36220472,
+        "dukkan": 14,
+        "dukkanYillik": 4.47761194,
+        "dukkanIst": 2.85714286,
+        "dukkanAnk": 5.3030303,
+        "dukkanIzm": -3.03030303,
+        "ofis": 12.6,
+        "ofisYillik": 5,
+        "ofisIst": 0,
+        "ofisAnk": 5.05050505,
+        "ofisIzm": 7.86516854
+      },
+      {
+        "yil": 2019,
+        "ceyrek": 4,
+        "tg": 14.2,
+        "tgYillik": 6.76691729,
+        "tgIst": 5.03597122,
+        "tgAnk": 6.4,
+        "tgIzm": 2.36220472,
+        "dukkan": 14.4,
+        "dukkanYillik": 6.66666667,
+        "dukkanIst": 6.42857143,
+        "dukkanAnk": 6.76691729,
+        "dukkanIzm": 2.27272727,
+        "ofis": 13,
+        "ofisYillik": 6.55737705,
+        "ofisIst": 2.22222222,
+        "ofisAnk": 5.10204082,
+        "ofisIzm": 8.79120879
+      },
+      {
+        "yil": 2020,
+        "ceyrek": 1,
+        "tg": 15,
+        "tgYillik": 12.78195489,
+        "tgIst": 12.31884058,
+        "tgAnk": 11.11111111,
+        "tgIzm": 13.00813008,
+        "dukkan": 15.2,
+        "dukkanYillik": 12.59259259,
+        "dukkanIst": 13.66906475,
+        "dukkanAnk": 11.19402985,
+        "dukkanIzm": 12.5984252,
+        "ofis": 13.6,
+        "ofisYillik": 10.56910569,
+        "ofisIst": 8.82352941,
+        "ofisAnk": 11.2244898,
+        "ofisIzm": 9.18367347
+      },
+      {
+        "yil": 2020,
+        "ceyrek": 2,
+        "tg": 15.9,
+        "tgYillik": 16.91176471,
+        "tgIst": 12.76595745,
+        "tgAnk": 12.40310078,
+        "tgIzm": 21.6,
+        "dukkan": 16.2,
+        "dukkanYillik": 17.39130435,
+        "dukkanIst": 13.98601399,
+        "dukkanAnk": 10.86956522,
+        "dukkanIzm": 22.48062016,
+        "ofis": 14.1,
+        "ofisYillik": 14.63414634,
+        "ofisIst": 8.75912409,
+        "ofisAnk": 14.85148515,
+        "ofisIzm": 10.41666667
+      },
+      {
+        "yil": 2020,
+        "ceyrek": 3,
+        "tg": 16.6,
+        "tgYillik": 20.28985507,
+        "tgIst": 19.71830986,
+        "tgAnk": 18.32061069,
+        "tgIzm": 22.58064516,
+        "dukkan": 16.9,
+        "dukkanYillik": 20.71428571,
+        "dukkanIst": 20.83333333,
+        "dukkanAnk": 17.98561151,
+        "dukkanIzm": 22.65625,
+        "ofis": 14.8,
+        "ofisYillik": 17.46031746,
+        "ofisIst": 14.49275362,
+        "ofisAnk": 20.19230769,
+        "ofisIzm": 20.83333333
+      },
+      {
+        "yil": 2020,
+        "ceyrek": 4,
+        "tg": 17.7,
+        "tgYillik": 24.64788732,
+        "tgIst": 26.02739726,
+        "tgAnk": 22.55639098,
+        "tgIzm": 24.61538462,
+        "dukkan": 18.1,
+        "dukkanYillik": 25.69444444,
+        "dukkanIst": 27.51677852,
+        "dukkanAnk": 21.12676056,
+        "dukkanIzm": 23.7037037,
+        "ofis": 15.7,
+        "ofisYillik": 20.76923077,
+        "ofisIst": 21.73913043,
+        "ofisAnk": 29.12621359,
+        "ofisIzm": 31.31313131
+      },
+      {
+        "yil": 2021,
+        "ceyrek": 1,
+        "tg": 18.6,
+        "tgYillik": 24,
+        "tgIst": 21.93548387,
+        "tgAnk": 22.14285714,
+        "tgIzm": 20.14388489,
+        "dukkan": 18.9,
+        "dukkanYillik": 24.34210526,
+        "dukkanIst": 22.78481013,
+        "dukkanAnk": 20.80536913,
+        "dukkanIzm": 20.27972028,
+        "ofis": 16.9,
+        "ofisYillik": 24.26470588,
+        "ofisIst": 18.24324324,
+        "ofisAnk": 30.27522936,
+        "ofisIzm": 22.42990654
+      },
+      {
+        "yil": 2021,
+        "ceyrek": 2,
+        "tg": 20.1,
+        "tgYillik": 26.41509434,
+        "tgIst": 27.67295597,
+        "tgAnk": 26.20689655,
+        "tgIzm": 21.05263158,
+        "dukkan": 20.5,
+        "dukkanYillik": 26.54320988,
+        "dukkanIst": 28.83435583,
+        "dukkanAnk": 25.49019608,
+        "dukkanIzm": 19.62025316,
+        "ofis": 17.8,
+        "ofisYillik": 26.24113475,
+        "ofisIst": 22.81879195,
+        "ofisAnk": 32.75862069,
+        "ofisIzm": 37.73584906
+      },
+      {
+        "yil": 2021,
+        "ceyrek": 3,
+        "tg": 21.7,
+        "tgYillik": 30.72289157,
+        "tgIst": 28.82352941,
+        "tgAnk": 24.51612903,
+        "tgIzm": 30.92105263,
+        "dukkan": 22.1,
+        "dukkanYillik": 30.76923077,
+        "dukkanIst": 29.88505747,
+        "dukkanAnk": 23.7804878,
+        "dukkanIzm": 29.93630573,
+        "ofis": 19.6,
+        "ofisYillik": 32.43243243,
+        "ofisIst": 26.58227848,
+        "ofisAnk": 28.8,
+        "ofisIzm": 37.93103448
+      },
+      {
+        "yil": 2021,
+        "ceyrek": 4,
+        "tg": 25.6,
+        "tgYillik": 44.63276836,
+        "tgIst": 43.47826087,
+        "tgAnk": 41.71779141,
+        "tgIzm": 48.14814815,
+        "dukkan": 26,
+        "dukkanYillik": 43.64640884,
+        "dukkanIst": 40,
+        "dukkanAnk": 39.53488372,
+        "dukkanIzm": 47.30538922,
+        "ofis": 23.6,
+        "ofisYillik": 50.31847134,
+        "ofisIst": 54.16666667,
+        "ofisAnk": 51.12781955,
+        "ofisIzm": 50
+      },
+      {
+        "yil": 2022,
+        "ceyrek": 1,
+        "tg": 32.9,
+        "tgYillik": 76.88172043,
+        "tgIst": 82.53968254,
+        "tgAnk": 76.02339181,
+        "tgIzm": 82.63473054,
+        "dukkan": 33.1,
+        "dukkanYillik": 75.13227513,
+        "dukkanIst": 78.35051546,
+        "dukkanAnk": 68.88888889,
+        "dukkanIzm": 81.97674419,
+        "ofis": 31.5,
+        "ofisYillik": 86.39053254,
+        "ofisIst": 94.85714286,
+        "ofisAnk": 105.63380282,
+        "ofisIzm": 96.18320611
+      },
+      {
+        "yil": 2022,
+        "ceyrek": 2,
+        "tg": 42.5,
+        "tgYillik": 111.44278607,
+        "tgIst": 121.67487685,
+        "tgAnk": 121.8579235,
+        "tgIzm": 109.7826087,
+        "dukkan": 42.7,
+        "dukkanYillik": 108.29268293,
+        "dukkanIst": 114.28571429,
+        "dukkanAnk": 112.5,
+        "dukkanIzm": 107.40740741,
+        "ofis": 41.6,
+        "ofisYillik": 133.70786517,
+        "ofisIst": 146.44808743,
+        "ofisAnk": 159.09090909,
+        "ofisIzm": 136.98630137
+      },
+      {
+        "yil": 2022,
+        "ceyrek": 3,
+        "tg": 53.7,
+        "tgYillik": 147.46543779,
+        "tgIst": 164.84018265,
+        "tgAnk": 165.28497409,
+        "tgIzm": 142.21105528,
+        "dukkan": 53.6,
+        "dukkanYillik": 142.53393665,
+        "dukkanIst": 153.98230088,
+        "dukkanAnk": 150.73891626,
+        "dukkanIzm": 138.7254902,
+        "ofis": 54.3,
+        "ofisYillik": 177.04081633,
+        "ofisIst": 199.5,
+        "ofisAnk": 225.46583851,
+        "ofisIzm": 183.75
+      },
+      {
+        "yil": 2022,
+        "ceyrek": 4,
+        "tg": 62.6,
+        "tgYillik": 144.53125,
+        "tgIst": 151.51515152,
+        "tgAnk": 161.03896104,
+        "tgIzm": 147.08333333,
+        "dukkan": 62.6,
+        "dukkanYillik": 140.76923077,
+        "dukkanIst": 147.7443609,
+        "dukkanAnk": 150.83333333,
+        "dukkanIzm": 142.68292683,
+        "ofis": 62.4,
+        "ofisYillik": 164.40677966,
+        "ofisIst": 162.93436293,
+        "ofisAnk": 202.48756219,
+        "ofisIzm": 190.76923077
+      },
+      {
+        "yil": 2023,
+        "ceyrek": 1,
+        "tg": 76.3,
+        "tgYillik": 131.91489362,
+        "tgIst": 128.98550725,
+        "tgAnk": 144.51827243,
+        "tgIzm": 151.47540984,
+        "dukkan": 76,
+        "dukkanYillik": 129.60725076,
+        "dukkanIst": 127.16763006,
+        "dukkanAnk": 141.44736842,
+        "dukkanIzm": 149.20127796,
+        "ofis": 78.1,
+        "ofisYillik": 147.93650794,
+        "ofisIst": 136.36363636,
+        "ofisAnk": 153.42465753,
+        "ofisIzm": 166.92607004
+      },
+      {
+        "yil": 2023,
+        "ceyrek": 2,
+        "tg": 90.1,
+        "tgYillik": 112,
+        "tgIst": 101.77777778,
+        "tgAnk": 125.36945813,
+        "tgIzm": 133.67875648,
+        "dukkan": 89.9,
+        "dukkanYillik": 110.53864169,
+        "dukkanIst": 101.55555556,
+        "dukkanAnk": 123.7745098,
+        "dukkanIzm": 129.84693878,
+        "ofis": 91.3,
+        "ofisYillik": 119.47115385,
+        "ofisIst": 101.77383592,
+        "ofisAnk": 130.82706767,
+        "ofisIzm": 161.84971098
+      },
+      {
+        "yil": 2023,
+        "ceyrek": 3,
+        "tg": 110,
+        "tgYillik": 104.84171322,
+        "tgIst": 89.48275862,
+        "tgAnk": 113.671875,
+        "tgIzm": 126.5560166,
+        "dukkan": 109.9,
+        "dukkanYillik": 105.03731343,
+        "dukkanIst": 91.11498258,
+        "dukkanAnk": 114.34184676,
+        "dukkanIzm": 122.7926078,
+        "ofis": 110.4,
+        "ofisYillik": 103.31491713,
+        "ofisIst": 84.80801336,
+        "ofisAnk": 110.49618321,
+        "ofisIzm": 149.11894273
+      },
+      {
+        "yil": 2023,
+        "ceyrek": 4,
+        "tg": 123.6,
+        "tgYillik": 97.44408946,
+        "tgIst": 81.02409639,
+        "tgAnk": 108.12603648,
+        "tgIzm": 109.10623946,
+        "dukkan": 124.2,
+        "dukkanYillik": 98.40255591,
+        "dukkanIst": 83.45978756,
+        "dukkanAnk": 109.46843854,
+        "dukkanIzm": 106.7001675,
+        "ofis": 120.1,
+        "ofisYillik": 92.46794872,
+        "ofisIst": 72.98091043,
+        "ofisAnk": 103.28947368,
+        "ofisIzm": 125.3968254
+      },
+      {
+        "yil": 2024,
+        "ceyrek": 1,
+        "tg": 138.3,
+        "tgYillik": 81.25819135,
+        "tgIst": 69.11392405,
+        "tgAnk": 92.66304348,
+        "tgIzm": 79.92177314,
+        "dukkan": 138.8,
+        "dukkanYillik": 82.63157895,
+        "dukkanIst": 71.50127226,
+        "dukkanAnk": 94.55040872,
+        "dukkanIzm": 75.12820513,
+        "ofis": 135.7,
+        "ofisYillik": 73.75160051,
+        "ofisIst": 61.41439206,
+        "ofisAnk": 87.83783784,
+        "ofisIzm": 113.11953353
+      },
+      {
+        "yil": 2024,
+        "ceyrek": 2,
+        "tg": 148.4,
+        "tgYillik": 64.70588235,
+        "tgIst": 51.54185022,
+        "tgAnk": 72.13114754,
+        "tgIzm": 61.97339246,
+        "dukkan": 149.9,
+        "dukkanYillik": 66.74082314,
+        "dukkanIst": 54.79603087,
+        "dukkanAnk": 75.68455641,
+        "dukkanIzm": 62.70810211,
+        "ofis": 140.8,
+        "ofisYillik": 54.21686747,
+        "ofisIst": 42.08791209,
+        "ofisAnk": 62.10640608,
+        "ofisIzm": 57.72626932
+      },
+      {
+        "yil": 2024,
+        "ceyrek": 3,
+        "tg": 158.5,
+        "tgYillik": 44.09090909,
+        "tgIst": 32.02911738,
+        "tgAnk": 55.57586837,
+        "tgIzm": 44.78021978,
+        "dukkan": 159.6,
+        "dukkanYillik": 45.22292994,
+        "dukkanIst": 33.18140383,
+        "dukkanAnk": 61.59486709,
+        "dukkanIzm": 43.77880184,
+        "ofis": 152.8,
+        "ofisYillik": 38.4057971,
+        "ofisIst": 28.45528455,
+        "ofisAnk": 38.62194016,
+        "ofisIzm": 50.92838196
+      },
+      {
+        "yil": 2024,
+        "ceyrek": 4,
+        "tg": 170.1,
+        "tgYillik": 37.62135922,
+        "tgIst": 28.36938436,
+        "tgAnk": 41.67330677,
+        "tgIzm": 37.17741935,
+        "dukkan": 171.9,
+        "dukkanYillik": 38.4057971,
+        "dukkanIst": 29.77667494,
+        "dukkanAnk": 44.01268834,
+        "dukkanIzm": 38.00648298,
+        "ofis": 160.5,
+        "ofisYillik": 33.63863447,
+        "ofisIst": 24.44821732,
+        "ofisAnk": 35.03236246,
+        "ofisIzm": 32.00312989
+      },
+      {
+        "yil": 2025,
+        "ceyrek": 1,
+        "tg": 183.16,
+        "tgYillik": 32.43673174,
+        "tgIst": 21.42215569,
+        "tgAnk": 37.52468265,
+        "tgIzm": 35.29710145,
+        "dukkan": 184.3,
+        "dukkanYillik": 32.78097983,
+        "dukkanIst": 21.29080119,
+        "dukkanAnk": 40.6162465,
+        "dukkanIzm": 36.67642753,
+        "ofis": 176.8,
+        "ofisYillik": 30.28739867,
+        "ofisIst": 21.29131437,
+        "ofisAnk": 28.77697842,
+        "ofisIzm": 27.49658003
+      },
+      {
+        "yil": 2025,
+        "ceyrek": 2,
+        "tg": 195.71,
+        "tgYillik": 31.88005391,
+        "tgIst": 25.92296512,
+        "tgAnk": 35.56825397,
+        "tgIzm": 38.61738535,
+        "dukkan": 197.3,
+        "dukkanYillik": 31.62108072,
+        "dukkanIst": 25.35612536,
+        "dukkanAnk": 35.78553616,
+        "dukkanIzm": 37.99454297,
+        "ofis": 187,
+        "ofisYillik": 32.8125,
+        "ofisIst": 27.61020882,
+        "ofisAnk": 34.62826524,
+        "ofisIzm": 42.2673198
+      },
+      {
+        "yil": 2025,
+        "ceyrek": 3,
+        "tg": 206.06,
+        "tgYillik": 30.00630915,
+        "tgIst": 23.25292901,
+        "tgAnk": 31.96239718,
+        "tgIzm": 31.90385832,
+        "dukkan": 207.5,
+        "dukkanYillik": 30.01253133,
+        "dukkanIst": 23.95619439,
+        "dukkanAnk": 28.64435621,
+        "dukkanIzm": 33.14102564,
+        "ofis": 198.1,
+        "ofisYillik": 29.64659686,
+        "ofisIst": 20.74542897,
+        "ofisAnk": 42.05362982,
+        "ofisIzm": 24.60456942
+      },
+      {
+        "yil": 2025,
+        "ceyrek": 4,
+        "tg": 222.72,
+        "tgYillik": 30.93474427,
+        "tgIst": 24.97731692,
+        "tgAnk": 36.52418448,
+        "tgIzm": 31.34038801,
+        "dukkan": 225.2,
+        "dukkanYillik": 31.00639907,
+        "dukkanIst": 24.7928617,
+        "dukkanAnk": 36.94933921,
+        "dukkanIzm": 30.76923077,
+        "ofis": 209.4,
+        "ofisYillik": 30.46728972,
+        "ofisIst": 25.37517053,
+        "ofisAnk": 35.0509287,
+        "ofisIzm": 34.43983402
+      },
+      {
+        "yil": 2026,
+        "ceyrek": 1,
+        "tg": 239.97,
+        "tgYillik": 31.01659751,
+        "tgIst": 29.5956109,
+        "tgAnk": 36.29044664,
+        "tgIzm": 29.76273365,
+        "dukkan": 241.8,
+        "dukkanYillik": 31.19913185,
+        "dukkanIst": 29.66360856,
+        "dukkanAnk": 34.4123506,
+        "dukkanIzm": 30.42313873,
+        "ofis": 230.3,
+        "ofisYillik": 30.260181,
+        "ofisIst": 29.65779468,
+        "ofisAnk": 41.50837989,
+        "ofisIzm": 26.66309013
+      },
+      {
+        "yil": 2026,
+        "ceyrek": 2,
+        "tg": 253.18,
+        "tgYillik": 29.3648766,
+        "tgIst": 27.81208518,
+        "tgAnk": 32.47939303,
+        "tgIzm": 25.65178748,
+        "dukkan": 254.9,
+        "dukkanYillik": 29.19412063,
+        "dukkanIst": 26.64772727,
+        "dukkanAnk": 30.39485767,
+        "dukkanIzm": 25.85269402,
+        "ofis": 244.2,
+        "ofisYillik": 30.58823529,
+        "ofisIst": 31.39393939,
+        "ofisAnk": 38.65671642,
+        "ofisIzm": 24.64338416
+      }
+    ],
+    "konut": [
+      {
+        "yil": 2011,
+        "ay": 1,
+        "yeni": 4.69,
+        "yeniYillik": 7.07762557,
+        "eski": 5.05,
+        "eskiYillik": 7.21868365
+      },
+      {
+        "yil": 2011,
+        "ay": 2,
+        "yeni": 4.72,
+        "yeniYillik": 7.51708428,
+        "eski": 5.09,
+        "eskiYillik": 8.06794055
+      },
+      {
+        "yil": 2011,
+        "ay": 3,
+        "yeni": 4.82,
+        "yeniYillik": 9.79498861,
+        "eski": 5.15,
+        "eskiYillik": 8.8794926
+      },
+      {
+        "yil": 2011,
+        "ay": 4,
+        "yeni": 4.81,
+        "yeniYillik": 8.08988764,
+        "eski": 5.19,
+        "eskiYillik": 9.03361345
+      },
+      {
+        "yil": 2011,
+        "ay": 5,
+        "yeni": 4.89,
+        "yeniYillik": 9.88764045,
+        "eski": 5.24,
+        "eskiYillik": 8.48861284
+      },
+      {
+        "yil": 2011,
+        "ay": 6,
+        "yeni": 4.9,
+        "yeniYillik": 10.11235955,
+        "eski": 5.3,
+        "eskiYillik": 9.27835052
+      },
+      {
+        "yil": 2011,
+        "ay": 7,
+        "yeni": 4.89,
+        "yeniYillik": 8.90868597,
+        "eski": 5.25,
+        "eskiYillik": 8.47107438
+      },
+      {
+        "yil": 2011,
+        "ay": 8,
+        "yeni": 4.94,
+        "yeniYillik": 9.05077263,
+        "eski": 5.3,
+        "eskiYillik": 8.38445808
+      },
+      {
+        "yil": 2011,
+        "ay": 9,
+        "yeni": 4.99,
+        "yeniYillik": 8.47826087,
+        "eski": 5.31,
+        "eskiYillik": 8.14663951
+      },
+      {
+        "yil": 2011,
+        "ay": 10,
+        "yeni": 5.09,
+        "yeniYillik": 11.13537118,
+        "eski": 5.38,
+        "eskiYillik": 10.24590164
+      },
+      {
+        "yil": 2011,
+        "ay": 11,
+        "yeni": 5.06,
+        "yeniYillik": 8.8172043,
+        "eski": 5.41,
+        "eskiYillik": 8.85311871
+      },
+      {
+        "yil": 2011,
+        "ay": 12,
+        "yeni": 5.02,
+        "yeniYillik": 7.49464668,
+        "eski": 5.39,
+        "eskiYillik": 8.01603206
+      },
+      {
+        "yil": 2012,
+        "ay": 1,
+        "yeni": 5.19,
+        "yeniYillik": 10.66098081,
+        "eski": 5.54,
+        "eskiYillik": 9.7029703
+      },
+      {
+        "yil": 2012,
+        "ay": 2,
+        "yeni": 5.22,
+        "yeniYillik": 10.59322034,
+        "eski": 5.61,
+        "eskiYillik": 10.21611002
+      },
+      {
+        "yil": 2012,
+        "ay": 3,
+        "yeni": 5.26,
+        "yeniYillik": 9.12863071,
+        "eski": 5.64,
+        "eskiYillik": 9.51456311
+      },
+      {
+        "yil": 2012,
+        "ay": 4,
+        "yeni": 5.29,
+        "yeniYillik": 9.97920998,
+        "eski": 5.72,
+        "eskiYillik": 10.21194605
+      },
+      {
+        "yil": 2012,
+        "ay": 5,
+        "yeni": 5.41,
+        "yeniYillik": 10.63394683,
+        "eski": 5.81,
+        "eskiYillik": 10.8778626
+      },
+      {
+        "yil": 2012,
+        "ay": 6,
+        "yeni": 5.44,
+        "yeniYillik": 11.02040816,
+        "eski": 5.85,
+        "eskiYillik": 10.37735849
+      },
+      {
+        "yil": 2012,
+        "ay": 7,
+        "yeni": 5.51,
+        "yeniYillik": 12.67893661,
+        "eski": 5.89,
+        "eskiYillik": 12.19047619
+      },
+      {
+        "yil": 2012,
+        "ay": 8,
+        "yeni": 5.55,
+        "yeniYillik": 12.34817814,
+        "eski": 5.93,
+        "eskiYillik": 11.88679245
+      },
+      {
+        "yil": 2012,
+        "ay": 9,
+        "yeni": 5.59,
+        "yeniYillik": 12.0240481,
+        "eski": 5.93,
+        "eskiYillik": 11.67608286
+      },
+      {
+        "yil": 2012,
+        "ay": 10,
+        "yeni": 5.58,
+        "yeniYillik": 9.62671906,
+        "eski": 5.92,
+        "eskiYillik": 10.03717472
+      },
+      {
+        "yil": 2012,
+        "ay": 11,
+        "yeni": 5.62,
+        "yeniYillik": 11.06719368,
+        "eski": 5.99,
+        "eskiYillik": 10.72088725
+      },
+      {
+        "yil": 2012,
+        "ay": 12,
+        "yeni": 5.68,
+        "yeniYillik": 13.14741036,
+        "eski": 6.04,
+        "eskiYillik": 12.0593692
+      },
+      {
+        "yil": 2013,
+        "ay": 1,
+        "yeni": 5.73,
+        "yeniYillik": 10.40462428,
+        "eski": 6.14,
+        "eskiYillik": 10.83032491
+      },
+      {
+        "yil": 2013,
+        "ay": 2,
+        "yeni": 5.82,
+        "yeniYillik": 11.49425287,
+        "eski": 6.19,
+        "eskiYillik": 10.33868093
+      },
+      {
+        "yil": 2013,
+        "ay": 3,
+        "yeni": 5.91,
+        "yeniYillik": 12.35741445,
+        "eski": 6.3,
+        "eskiYillik": 11.70212766
+      },
+      {
+        "yil": 2013,
+        "ay": 4,
+        "yeni": 5.91,
+        "yeniYillik": 11.72022684,
+        "eski": 6.33,
+        "eskiYillik": 10.66433566
+      },
+      {
+        "yil": 2013,
+        "ay": 5,
+        "yeni": 5.98,
+        "yeniYillik": 10.53604436,
+        "eski": 6.44,
+        "eskiYillik": 10.84337349
+      },
+      {
+        "yil": 2013,
+        "ay": 6,
+        "yeni": 6.09,
+        "yeniYillik": 11.94852941,
+        "eski": 6.49,
+        "eskiYillik": 10.94017094
+      },
+      {
+        "yil": 2013,
+        "ay": 7,
+        "yeni": 6.19,
+        "yeniYillik": 12.34119782,
+        "eski": 6.57,
+        "eskiYillik": 11.54499151
+      },
+      {
+        "yil": 2013,
+        "ay": 8,
+        "yeni": 6.22,
+        "yeniYillik": 12.07207207,
+        "eski": 6.6,
+        "eskiYillik": 11.29848229
+      },
+      {
+        "yil": 2013,
+        "ay": 9,
+        "yeni": 6.23,
+        "yeniYillik": 11.4490161,
+        "eski": 6.6,
+        "eskiYillik": 11.29848229
+      },
+      {
+        "yil": 2013,
+        "ay": 10,
+        "yeni": 6.29,
+        "yeniYillik": 12.72401434,
+        "eski": 6.69,
+        "eskiYillik": 13.00675676
+      },
+      {
+        "yil": 2013,
+        "ay": 11,
+        "yeni": 6.28,
+        "yeniYillik": 11.74377224,
+        "eski": 6.7,
+        "eskiYillik": 11.85308848
+      },
+      {
+        "yil": 2013,
+        "ay": 12,
+        "yeni": 6.34,
+        "yeniYillik": 11.61971831,
+        "eski": 6.81,
+        "eskiYillik": 12.74834437
+      },
+      {
+        "yil": 2014,
+        "ay": 1,
+        "yeni": 6.29,
+        "yeniYillik": 9.77312391,
+        "eski": 6.88,
+        "eskiYillik": 12.05211726
+      },
+      {
+        "yil": 2014,
+        "ay": 2,
+        "yeni": 6.43,
+        "yeniYillik": 10.48109966,
+        "eski": 6.87,
+        "eskiYillik": 10.98546042
+      },
+      {
+        "yil": 2014,
+        "ay": 3,
+        "yeni": 6.48,
+        "yeniYillik": 9.64467005,
+        "eski": 7,
+        "eskiYillik": 11.11111111
+      },
+      {
+        "yil": 2014,
+        "ay": 4,
+        "yeni": 6.49,
+        "yeniYillik": 9.81387479,
+        "eski": 7.09,
+        "eskiYillik": 12.00631912
+      },
+      {
+        "yil": 2014,
+        "ay": 5,
+        "yeni": 6.64,
+        "yeniYillik": 11.0367893,
+        "eski": 7.2,
+        "eskiYillik": 11.80124224
+      },
+      {
+        "yil": 2014,
+        "ay": 6,
+        "yeni": 6.66,
+        "yeniYillik": 9.35960591,
+        "eski": 7.27,
+        "eskiYillik": 12.01848998
+      },
+      {
+        "yil": 2014,
+        "ay": 7,
+        "yeni": 6.76,
+        "yeniYillik": 9.20840065,
+        "eski": 7.39,
+        "eskiYillik": 12.48097412
+      },
+      {
+        "yil": 2014,
+        "ay": 8,
+        "yeni": 6.84,
+        "yeniYillik": 9.96784566,
+        "eski": 7.42,
+        "eskiYillik": 12.42424242
+      },
+      {
+        "yil": 2014,
+        "ay": 9,
+        "yeni": 6.92,
+        "yeniYillik": 11.07544141,
+        "eski": 7.52,
+        "eskiYillik": 13.93939394
+      },
+      {
+        "yil": 2014,
+        "ay": 10,
+        "yeni": 6.98,
+        "yeniYillik": 10.96979332,
+        "eski": 7.57,
+        "eskiYillik": 13.15396114
+      },
+      {
+        "yil": 2014,
+        "ay": 11,
+        "yeni": 7.04,
+        "yeniYillik": 12.10191083,
+        "eski": 7.65,
+        "eskiYillik": 14.17910448
+      },
+      {
+        "yil": 2014,
+        "ay": 12,
+        "yeni": 7.1,
+        "yeniYillik": 11.9873817,
+        "eski": 7.76,
+        "eskiYillik": 13.95007342
+      },
+      {
+        "yil": 2015,
+        "ay": 1,
+        "yeni": 7.19,
+        "yeniYillik": 14.30842607,
+        "eski": 7.86,
+        "eskiYillik": 14.24418605
+      },
+      {
+        "yil": 2015,
+        "ay": 2,
+        "yeni": 7.31,
+        "yeniYillik": 13.68584759,
+        "eski": 7.98,
+        "eskiYillik": 16.15720524
+      },
+      {
+        "yil": 2015,
+        "ay": 3,
+        "yeni": 7.41,
+        "yeniYillik": 14.35185185,
+        "eski": 8.11,
+        "eskiYillik": 15.85714286
+      },
+      {
+        "yil": 2015,
+        "ay": 4,
+        "yeni": 7.51,
+        "yeniYillik": 15.7164869,
+        "eski": 8.26,
+        "eskiYillik": 16.50211566
+      },
+      {
+        "yil": 2015,
+        "ay": 5,
+        "yeni": 7.56,
+        "yeniYillik": 13.85542169,
+        "eski": 8.37,
+        "eskiYillik": 16.25
+      },
+      {
+        "yil": 2015,
+        "ay": 6,
+        "yeni": 7.68,
+        "yeniYillik": 15.31531532,
+        "eski": 8.52,
+        "eskiYillik": 17.19394773
+      },
+      {
+        "yil": 2015,
+        "ay": 7,
+        "yeni": 7.83,
+        "yeniYillik": 15.82840237,
+        "eski": 8.57,
+        "eskiYillik": 15.96752368
+      },
+      {
+        "yil": 2015,
+        "ay": 8,
+        "yeni": 7.79,
+        "yeniYillik": 13.88888889,
+        "eski": 8.59,
+        "eskiYillik": 15.76819407
+      },
+      {
+        "yil": 2015,
+        "ay": 9,
+        "yeni": 7.95,
+        "yeniYillik": 14.88439306,
+        "eski": 8.68,
+        "eskiYillik": 15.42553191
+      },
+      {
+        "yil": 2015,
+        "ay": 10,
+        "yeni": 7.94,
+        "yeniYillik": 13.75358166,
+        "eski": 8.75,
+        "eskiYillik": 15.58784676
+      },
+      {
+        "yil": 2015,
+        "ay": 11,
+        "yeni": 8.09,
+        "yeniYillik": 14.91477273,
+        "eski": 8.97,
+        "eskiYillik": 17.25490196
+      },
+      {
+        "yil": 2015,
+        "ay": 12,
+        "yeni": 8.08,
+        "yeniYillik": 13.8028169,
+        "eski": 8.96,
+        "eskiYillik": 15.46391753
+      },
+      {
+        "yil": 2016,
+        "ay": 1,
+        "yeni": 8.2,
+        "yeniYillik": 14.0472879,
+        "eski": 9.04,
+        "eskiYillik": 15.01272265
+      },
+      {
+        "yil": 2016,
+        "ay": 2,
+        "yeni": 8.24,
+        "yeniYillik": 12.72229822,
+        "eski": 9.14,
+        "eskiYillik": 14.53634085
+      },
+      {
+        "yil": 2016,
+        "ay": 3,
+        "yeni": 8.35,
+        "yeniYillik": 12.68556005,
+        "eski": 9.19,
+        "eskiYillik": 13.31689273
+      },
+      {
+        "yil": 2016,
+        "ay": 4,
+        "yeni": 8.44,
+        "yeniYillik": 12.38348868,
+        "eski": 9.33,
+        "eskiYillik": 12.95399516
+      },
+      {
+        "yil": 2016,
+        "ay": 5,
+        "yeni": 8.5,
+        "yeniYillik": 12.43386243,
+        "eski": 9.48,
+        "eskiYillik": 13.26164875
+      },
+      {
+        "yil": 2016,
+        "ay": 6,
+        "yeni": 8.61,
+        "yeniYillik": 12.109375,
+        "eski": 9.57,
+        "eskiYillik": 12.32394366
+      },
+      {
+        "yil": 2016,
+        "ay": 7,
+        "yeni": 8.61,
+        "yeniYillik": 9.96168582,
+        "eski": 9.58,
+        "eskiYillik": 11.78529755
+      },
+      {
+        "yil": 2016,
+        "ay": 8,
+        "yeni": 8.71,
+        "yeniYillik": 11.81001284,
+        "eski": 9.69,
+        "eskiYillik": 12.80558789
+      },
+      {
+        "yil": 2016,
+        "ay": 9,
+        "yeni": 8.76,
+        "yeniYillik": 10.18867925,
+        "eski": 9.78,
+        "eskiYillik": 12.67281106
+      },
+      {
+        "yil": 2016,
+        "ay": 10,
+        "yeni": 8.84,
+        "yeniYillik": 11.33501259,
+        "eski": 9.83,
+        "eskiYillik": 12.34285714
+      },
+      {
+        "yil": 2016,
+        "ay": 11,
+        "yeni": 8.93,
+        "yeniYillik": 10.38318912,
+        "eski": 9.89,
+        "eskiYillik": 10.25641026
+      },
+      {
+        "yil": 2016,
+        "ay": 12,
+        "yeni": 9.03,
+        "yeniYillik": 11.75742574,
+        "eski": 9.98,
+        "eskiYillik": 11.38392857
+      },
+      {
+        "yil": 2017,
+        "ay": 1,
+        "yeni": 9.02,
+        "yeniYillik": 10,
+        "eski": 10.12,
+        "eskiYillik": 11.94690265
+      },
+      {
+        "yil": 2017,
+        "ay": 2,
+        "yeni": 9.26,
+        "yeniYillik": 12.37864078,
+        "eski": 10.2,
+        "eskiYillik": 11.59737418
+      },
+      {
+        "yil": 2017,
+        "ay": 3,
+        "yeni": 9.37,
+        "yeniYillik": 12.21556886,
+        "eski": 10.34,
+        "eskiYillik": 12.51360174
+      },
+      {
+        "yil": 2017,
+        "ay": 4,
+        "yeni": 9.4,
+        "yeniYillik": 11.37440758,
+        "eski": 10.47,
+        "eskiYillik": 12.21864952
+      },
+      {
+        "yil": 2017,
+        "ay": 5,
+        "yeni": 9.44,
+        "yeniYillik": 11.05882353,
+        "eski": 10.58,
+        "eskiYillik": 11.60337553
+      },
+      {
+        "yil": 2017,
+        "ay": 6,
+        "yeni": 9.46,
+        "yeniYillik": 9.87224158,
+        "eski": 10.68,
+        "eskiYillik": 11.59874608
+      },
+      {
+        "yil": 2017,
+        "ay": 7,
+        "yeni": 9.55,
+        "yeniYillik": 10.91753775,
+        "eski": 10.67,
+        "eskiYillik": 11.37787056
+      },
+      {
+        "yil": 2017,
+        "ay": 8,
+        "yeni": 9.49,
+        "yeniYillik": 8.95522388,
+        "eski": 10.57,
+        "eskiYillik": 9.08152735
+      },
+      {
+        "yil": 2017,
+        "ay": 9,
+        "yeni": 9.73,
+        "yeniYillik": 11.07305936,
+        "eski": 10.78,
+        "eskiYillik": 10.22494888
+      },
+      {
+        "yil": 2017,
+        "ay": 10,
+        "yeni": 9.79,
+        "yeniYillik": 10.74660633,
+        "eski": 10.84,
+        "eskiYillik": 10.27466938
+      },
+      {
+        "yil": 2017,
+        "ay": 11,
+        "yeni": 9.89,
+        "yeniYillik": 10.75027996,
+        "eski": 10.89,
+        "eskiYillik": 10.11122346
+      },
+      {
+        "yil": 2017,
+        "ay": 12,
+        "yeni": 9.87,
+        "yeniYillik": 9.30232558,
+        "eski": 10.98,
+        "eskiYillik": 10.02004008
+      },
+      {
+        "yil": 2018,
+        "ay": 1,
+        "yeni": 9.91,
+        "yeniYillik": 9.86696231,
+        "eski": 11.02,
+        "eskiYillik": 8.89328063
+      },
+      {
+        "yil": 2018,
+        "ay": 2,
+        "yeni": 10.09,
+        "yeniYillik": 8.96328294,
+        "eski": 11.1,
+        "eskiYillik": 8.82352941
+      },
+      {
+        "yil": 2018,
+        "ay": 3,
+        "yeni": 10.21,
+        "yeniYillik": 8.96478122,
+        "eski": 11.2,
+        "eskiYillik": 8.3172147
+      },
+      {
+        "yil": 2018,
+        "ay": 4,
+        "yeni": 10.21,
+        "yeniYillik": 8.61702128,
+        "eski": 11.31,
+        "eskiYillik": 8.02292264
+      },
+      {
+        "yil": 2018,
+        "ay": 5,
+        "yeni": 10.41,
+        "yeniYillik": 10.27542373,
+        "eski": 11.5,
+        "eskiYillik": 8.69565217
+      },
+      {
+        "yil": 2018,
+        "ay": 6,
+        "yeni": 10.5,
+        "yeniYillik": 10.99365751,
+        "eski": 11.68,
+        "eskiYillik": 9.36329588
+      },
+      {
+        "yil": 2018,
+        "ay": 7,
+        "yeni": 10.47,
+        "yeniYillik": 9.63350785,
+        "eski": 11.57,
+        "eskiYillik": 8.4348641
+      },
+      {
+        "yil": 2018,
+        "ay": 8,
+        "yeni": 10.46,
+        "yeniYillik": 10.22128556,
+        "eski": 11.51,
+        "eskiYillik": 8.89309366
+      },
+      {
+        "yil": 2018,
+        "ay": 9,
+        "yeni": 10.51,
+        "yeniYillik": 8.01644399,
+        "eski": 11.64,
+        "eskiYillik": 7.97773655
+      },
+      {
+        "yil": 2018,
+        "ay": 10,
+        "yeni": 10.43,
+        "yeniYillik": 6.53728294,
+        "eski": 11.75,
+        "eskiYillik": 8.39483395
+      },
+      {
+        "yil": 2018,
+        "ay": 11,
+        "yeni": 10.63,
+        "yeniYillik": 7.48230536,
+        "eski": 11.61,
+        "eskiYillik": 6.61157025
+      },
+      {
+        "yil": 2018,
+        "ay": 12,
+        "yeni": 10.7,
+        "yeniYillik": 8.40932118,
+        "eski": 11.49,
+        "eskiYillik": 4.64480874
+      },
+      {
+        "yil": 2019,
+        "ay": 1,
+        "yeni": 10.81,
+        "yeniYillik": 9.08173562,
+        "eski": 11.43,
+        "eskiYillik": 3.72050817
+      },
+      {
+        "yil": 2019,
+        "ay": 2,
+        "yeni": 10.64,
+        "yeniYillik": 5.45094153,
+        "eski": 11.47,
+        "eskiYillik": 3.33333333
+      },
+      {
+        "yil": 2019,
+        "ay": 3,
+        "yeni": 10.57,
+        "yeniYillik": 3.52595495,
+        "eski": 11.59,
+        "eskiYillik": 3.48214286
+      },
+      {
+        "yil": 2019,
+        "ay": 4,
+        "yeni": 10.71,
+        "yeniYillik": 4.89715965,
+        "eski": 11.63,
+        "eskiYillik": 2.82935455
+      },
+      {
+        "yil": 2019,
+        "ay": 5,
+        "yeni": 10.81,
+        "yeniYillik": 3.84245917,
+        "eski": 11.76,
+        "eskiYillik": 2.26086957
+      },
+      {
+        "yil": 2019,
+        "ay": 6,
+        "yeni": 10.75,
+        "yeniYillik": 2.38095238,
+        "eski": 11.68,
+        "eskiYillik": 0
+      },
+      {
+        "yil": 2019,
+        "ay": 7,
+        "yeni": 10.88,
+        "yeniYillik": 3.91595033,
+        "eski": 11.79,
+        "eskiYillik": 1.90146932
+      },
+      {
+        "yil": 2019,
+        "ay": 8,
+        "yeni": 11.24,
+        "yeniYillik": 7.45697897,
+        "eski": 12.09,
+        "eskiYillik": 5.03909644
+      },
+      {
+        "yil": 2019,
+        "ay": 9,
+        "yeni": 11.34,
+        "yeniYillik": 7.89724072,
+        "eski": 12.22,
+        "eskiYillik": 4.98281787
+      },
+      {
+        "yil": 2019,
+        "ay": 10,
+        "yeni": 11.5,
+        "yeniYillik": 10.25886865,
+        "eski": 12.34,
+        "eskiYillik": 5.0212766
+      },
+      {
+        "yil": 2019,
+        "ay": 11,
+        "yeni": 11.7,
+        "yeniYillik": 10.06585136,
+        "eski": 12.47,
+        "eskiYillik": 7.40740741
+      },
+      {
+        "yil": 2019,
+        "ay": 12,
+        "yeni": 11.87,
+        "yeniYillik": 10.93457944,
+        "eski": 12.59,
+        "eskiYillik": 9.57354221
+      },
+      {
+        "yil": 2020,
+        "ay": 1,
+        "yeni": 12.29,
+        "yeniYillik": 13.69102683,
+        "eski": 12.93,
+        "eskiYillik": 13.12335958
+      },
+      {
+        "yil": 2020,
+        "ay": 2,
+        "yeni": 12.53,
+        "yeniYillik": 17.76315789,
+        "eski": 13.24,
+        "eskiYillik": 15.43156059
+      },
+      {
+        "yil": 2020,
+        "ay": 3,
+        "yeni": 12.84,
+        "yeniYillik": 21.47587512,
+        "eski": 13.48,
+        "eskiYillik": 16.30716135
+      },
+      {
+        "yil": 2020,
+        "ay": 4,
+        "yeni": 12.58,
+        "yeniYillik": 17.46031746,
+        "eski": 13.49,
+        "eskiYillik": 15.99312124
+      },
+      {
+        "yil": 2020,
+        "ay": 5,
+        "yeni": 13.02,
+        "yeniYillik": 20.4440333,
+        "eski": 13.7,
+        "eskiYillik": 16.49659864
+      },
+      {
+        "yil": 2020,
+        "ay": 6,
+        "yeni": 13.95,
+        "yeniYillik": 29.76744186,
+        "eski": 14.69,
+        "eskiYillik": 25.77054795
+      },
+      {
+        "yil": 2020,
+        "ay": 7,
+        "yeni": 14.47,
+        "yeniYillik": 32.99632353,
+        "eski": 15.23,
+        "eskiYillik": 29.17726887
+      },
+      {
+        "yil": 2020,
+        "ay": 8,
+        "yeni": 14.53,
+        "yeniYillik": 29.27046263,
+        "eski": 15.45,
+        "eskiYillik": 27.79156328
+      },
+      {
+        "yil": 2020,
+        "ay": 9,
+        "yeni": 14.73,
+        "yeniYillik": 29.89417989,
+        "eski": 15.62,
+        "eskiYillik": 27.82324059
+      },
+      {
+        "yil": 2020,
+        "ay": 10,
+        "yeni": 15.15,
+        "yeniYillik": 31.73913043,
+        "eski": 15.93,
+        "eskiYillik": 29.0923825
+      },
+      {
+        "yil": 2020,
+        "ay": 11,
+        "yeni": 15.68,
+        "yeniYillik": 34.01709402,
+        "eski": 16.35,
+        "eskiYillik": 31.11467522
+      },
+      {
+        "yil": 2020,
+        "ay": 12,
+        "yeni": 15.8,
+        "yeniYillik": 33.10867734,
+        "eski": 16.57,
+        "eskiYillik": 31.61239079
+      },
+      {
+        "yil": 2021,
+        "ay": 1,
+        "yeni": 15.87,
+        "yeniYillik": 29.12937347,
+        "eski": 16.92,
+        "eskiYillik": 30.85846868
+      },
+      {
+        "yil": 2021,
+        "ay": 2,
+        "yeni": 16.6,
+        "yeniYillik": 32.4820431,
+        "eski": 17.34,
+        "eskiYillik": 30.96676737
+      },
+      {
+        "yil": 2021,
+        "ay": 3,
+        "yeni": 17.24,
+        "yeniYillik": 34.26791277,
+        "eski": 17.63,
+        "eskiYillik": 30.78635015
+      },
+      {
+        "yil": 2021,
+        "ay": 4,
+        "yeni": 17.76,
+        "yeniYillik": 41.17647059,
+        "eski": 18.15,
+        "eskiYillik": 34.54410675
+      },
+      {
+        "yil": 2021,
+        "ay": 5,
+        "yeni": 18.13,
+        "yeniYillik": 39.24731183,
+        "eski": 18.49,
+        "eskiYillik": 34.96350365
+      },
+      {
+        "yil": 2021,
+        "ay": 6,
+        "yeni": 18.88,
+        "yeniYillik": 35.34050179,
+        "eski": 18.97,
+        "eskiYillik": 29.1354663
+      },
+      {
+        "yil": 2021,
+        "ay": 7,
+        "yeni": 19.53,
+        "yeniYillik": 34.96890117,
+        "eski": 19.64,
+        "eskiYillik": 28.95600788
+      },
+      {
+        "yil": 2021,
+        "ay": 8,
+        "yeni": 20.36,
+        "yeniYillik": 40.12388162,
+        "eski": 20.11,
+        "eskiYillik": 30.1618123
+      },
+      {
+        "yil": 2021,
+        "ay": 9,
+        "yeni": 20.99,
+        "yeniYillik": 42.49830278,
+        "eski": 20.89,
+        "eskiYillik": 33.73879641
+      },
+      {
+        "yil": 2021,
+        "ay": 10,
+        "yeni": 21.94,
+        "yeniYillik": 44.81848185,
+        "eski": 21.76,
+        "eskiYillik": 36.59761456
+      },
+      {
+        "yil": 2021,
+        "ay": 11,
+        "yeni": 23.44,
+        "yeniYillik": 49.48979592,
+        "eski": 23.31,
+        "eskiYillik": 42.56880734
+      },
+      {
+        "yil": 2021,
+        "ay": 12,
+        "yeni": 26.94,
+        "yeniYillik": 70.50632911,
+        "eski": 26.48,
+        "eskiYillik": 59.8068799
+      },
+      {
+        "yil": 2022,
+        "ay": 1,
+        "yeni": 30.01,
+        "yeniYillik": 89.0989288,
+        "eski": 29.86,
+        "eskiYillik": 76.47754137
+      },
+      {
+        "yil": 2022,
+        "ay": 2,
+        "yeni": 32.24,
+        "yeniYillik": 94.21686747,
+        "eski": 32.29,
+        "eskiYillik": 86.21683968
+      },
+      {
+        "yil": 2022,
+        "ay": 3,
+        "yeni": 35.05,
+        "yeniYillik": 103.3062645,
+        "eski": 35.4,
+        "eskiYillik": 100.79410096
+      },
+      {
+        "yil": 2022,
+        "ay": 4,
+        "yeni": 38.92,
+        "yeniYillik": 119.14414414,
+        "eski": 39.49,
+        "eskiYillik": 117.57575758
+      },
+      {
+        "yil": 2022,
+        "ay": 5,
+        "yeni": 44.83,
+        "yeniYillik": 147.2697187,
+        "eski": 44.5,
+        "eskiYillik": 140.67063277
+      },
+      {
+        "yil": 2022,
+        "ay": 6,
+        "yeni": 48.78,
+        "yeniYillik": 158.36864407,
+        "eski": 49.55,
+        "eskiYillik": 161.20189773
+      },
+      {
+        "yil": 2022,
+        "ay": 7,
+        "yeni": 51.84,
+        "yeniYillik": 165.43778802,
+        "eski": 53.28,
+        "eskiYillik": 171.28309572
+      },
+      {
+        "yil": 2022,
+        "ay": 8,
+        "yeni": 54.59,
+        "yeniYillik": 168.1237721,
+        "eski": 56.54,
+        "eskiYillik": 181.1536549
+      },
+      {
+        "yil": 2022,
+        "ay": 9,
+        "yeni": 57.57,
+        "yeniYillik": 174.27346355,
+        "eski": 59.9,
+        "eskiYillik": 186.74006702
+      },
+      {
+        "yil": 2022,
+        "ay": 10,
+        "yeni": 59.92,
+        "yeniYillik": 173.10847767,
+        "eski": 62.52,
+        "eskiYillik": 187.31617647
+      },
+      {
+        "yil": 2022,
+        "ay": 11,
+        "yeni": 62.61,
+        "yeniYillik": 167.10750853,
+        "eski": 64.59,
+        "eskiYillik": 177.09137709
+      },
+      {
+        "yil": 2022,
+        "ay": 12,
+        "yeni": 64.86,
+        "yeniYillik": 140.75723831,
+        "eski": 67.3,
+        "eskiYillik": 154.15407855
+      },
+      {
+        "yil": 2023,
+        "ay": 1,
+        "yeni": 73.28,
+        "yeniYillik": 144.18527158,
+        "eski": 73.82,
+        "eskiYillik": 147.22036169
+      },
+      {
+        "yil": 2023,
+        "ay": 2,
+        "yeni": 76.52,
+        "yeniYillik": 137.34491315,
+        "eski": 78.69,
+        "eskiYillik": 143.69773924
+      },
+      {
+        "yil": 2023,
+        "ay": 3,
+        "yeni": 84.58,
+        "yeniYillik": 141.31241084,
+        "eski": 84.82,
+        "eskiYillik": 139.60451977
+      },
+      {
+        "yil": 2023,
+        "ay": 4,
+        "yeni": 87.98,
+        "yeniYillik": 126.05344296,
+        "eski": 87.45,
+        "eskiYillik": 121.44846797
+      },
+      {
+        "yil": 2023,
+        "ay": 5,
+        "yeni": 90.68,
+        "yeniYillik": 102.2752621,
+        "eski": 91.4,
+        "eskiYillik": 105.39325843
+      },
+      {
+        "yil": 2023,
+        "ay": 6,
+        "yeni": 94.76,
+        "yeniYillik": 94.2599426,
+        "eski": 95.89,
+        "eskiYillik": 93.52169526
+      },
+      {
+        "yil": 2023,
+        "ay": 7,
+        "yeni": 101.15,
+        "yeniYillik": 95.11959877,
+        "eski": 101.92,
+        "eskiYillik": 91.29129129
+      },
+      {
+        "yil": 2023,
+        "ay": 8,
+        "yeni": 109.21,
+        "yeniYillik": 100.05495512,
+        "eski": 108.95,
+        "eskiYillik": 92.69543686
+      },
+      {
+        "yil": 2023,
+        "ay": 9,
+        "yeni": 116.93,
+        "yeniYillik": 103.10925829,
+        "eski": 116.12,
+        "eskiYillik": 93.85642738
+      },
+      {
+        "yil": 2023,
+        "ay": 10,
+        "yeni": 120.16,
+        "yeniYillik": 100.53404539,
+        "eski": 119.1,
+        "eskiYillik": 90.49904031
+      },
+      {
+        "yil": 2023,
+        "ay": 11,
+        "yeni": 120.66,
+        "yeniYillik": 92.7168184,
+        "eski": 119.64,
+        "eskiYillik": 85.22991175
+      },
+      {
+        "yil": 2023,
+        "ay": 12,
+        "yeni": 124.09,
+        "yeniYillik": 91.31976565,
+        "eski": 122.21,
+        "eskiYillik": 81.58989599
+      },
+      {
+        "yil": 2024,
+        "ay": 1,
+        "yeni": 125.32,
+        "yeniYillik": 71.01528384,
+        "eski": 125.66,
+        "eskiYillik": 70.22487131
+      },
+      {
+        "yil": 2024,
+        "ay": 2,
+        "yeni": 127.77,
+        "yeniYillik": 66.975954,
+        "eski": 129.56,
+        "eskiYillik": 64.64607955
+      },
+      {
+        "yil": 2024,
+        "ay": 3,
+        "yeni": 131.21,
+        "yeniYillik": 55.1312367,
+        "eski": 131.33,
+        "eskiYillik": 54.83376562
+      },
+      {
+        "yil": 2024,
+        "ay": 4,
+        "yeni": 133.47,
+        "yeniYillik": 51.70493294,
+        "eski": 132.54,
+        "eskiYillik": 51.56089194
+      },
+      {
+        "yil": 2024,
+        "ay": 5,
+        "yeni": 138.43,
+        "yeniYillik": 52.6576974,
+        "eski": 137.43,
+        "eskiYillik": 50.36105033
+      },
+      {
+        "yil": 2024,
+        "ay": 6,
+        "yeni": 140.41,
+        "yeniYillik": 48.17433516,
+        "eski": 139.43,
+        "eskiYillik": 45.4061946
+      },
+      {
+        "yil": 2024,
+        "ay": 7,
+        "yeni": 139.86,
+        "yeniYillik": 38.26989619,
+        "eski": 141.31,
+        "eskiYillik": 38.64795918
+      },
+      {
+        "yil": 2024,
+        "ay": 8,
+        "yeni": 148.32,
+        "yeniYillik": 35.81173885,
+        "eski": 145.68,
+        "eskiYillik": 33.71271225
+      },
+      {
+        "yil": 2024,
+        "ay": 9,
+        "yeni": 147.44,
+        "yeniYillik": 26.09253399,
+        "eski": 147.76,
+        "eskiYillik": 27.24767482
+      },
+      {
+        "yil": 2024,
+        "ay": 10,
+        "yeni": 151.9,
+        "yeniYillik": 26.41478029,
+        "eski": 150.46,
+        "eskiYillik": 26.33081444
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "yeni": 157.99,
+        "yeniYillik": 30.93817338,
+        "eski": 154.25,
+        "eskiYillik": 28.92845202
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "yeni": 159.52,
+        "yeniYillik": 28.55185752,
+        "eski": 157.85,
+        "eskiYillik": 29.16291629
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "yeni": 167.39,
+        "yeniYillik": 33.57006064,
+        "eski": 165.45,
+        "eskiYillik": 31.6648098
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "yeni": 170.56,
+        "yeniYillik": 33.4898646,
+        "eski": 170.06,
+        "eskiYillik": 31.25964804
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "yeni": 175.08,
+        "yeniYillik": 33.4349516,
+        "eski": 173.2,
+        "eskiYillik": 31.88151984
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "yeni": 176.55,
+        "yeniYillik": 32.27691616,
+        "eski": 176.18,
+        "eskiYillik": 32.92590916
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "yeni": 183.18,
+        "yeniYillik": 32.32680777,
+        "eski": 181.59,
+        "eskiYillik": 32.13272211
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "yeni": 186,
+        "yeniYillik": 32.46919735,
+        "eski": 185.44,
+        "eskiYillik": 32.99863731
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "yeni": 188.07,
+        "yeniYillik": 34.47018447,
+        "eski": 187.34,
+        "eskiYillik": 32.57377397
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "yeni": 194.12,
+        "yeniYillik": 30.87918015,
+        "eski": 192.18,
+        "eskiYillik": 31.91927512
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "yeni": 198.29,
+        "yeniYillik": 34.48860553,
+        "eski": 194.93,
+        "eskiYillik": 31.92338928
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "yeni": 202.61,
+        "yeniYillik": 33.38380513,
+        "eski": 197.67,
+        "eskiYillik": 31.3771102
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "yeni": 207.62,
+        "yeniYillik": 31.41338059,
+        "eski": 202.85,
+        "eskiYillik": 31.50729335
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "yeni": 210.55,
+        "yeniYillik": 31.98971916,
+        "eski": 203.31,
+        "eskiYillik": 28.79949319
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "yeni": 215.54,
+        "yeniYillik": 28.76515921,
+        "eski": 210.71,
+        "eskiYillik": 27.35569659
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "yeni": 221.05,
+        "yeniYillik": 29.60248593,
+        "eski": 214.39,
+        "eskiYillik": 26.06727038
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "yeni": 224.71,
+        "yeniYillik": 28.34704135,
+        "eski": 218.58,
+        "eskiYillik": 26.20092379
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "yeni": 229.47,
+        "yeniYillik": 29.97451147,
+        "eski": 222.12,
+        "eskiYillik": 26.0756045
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "yeni": 231.34,
+        "yeniYillik": 26.29107981,
+        "eski": 225.77,
+        "eskiYillik": 24.32953356
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "yeni": 236.08,
+        "yeniYillik": 26.92473118,
+        "eski": 229.89,
+        "eskiYillik": 23.97001726
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "yeni": 238.68,
+        "yeniYillik": 26.91019301,
+        "eski": 233.78,
+        "eskiYillik": 24.78915341
+      },
+      {
+        "yil": 2026,
+        "ay": 8,
+        "yeni": 241.62,
+        "yeniYillik": 24.46940037,
+        "eski": 235.38,
+        "eskiYillik": 22.47892601
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "yeni": 246.91,
+        "yeniYillik": 24.51964295,
+        "eski": 237.51,
+        "eskiYillik": 21.84373878
+      }
+    ],
+    "alinma": "2026-10-29T18:31:03.400Z"
   }
 }

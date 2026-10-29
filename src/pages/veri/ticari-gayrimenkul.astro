@@ -1,0 +1,231 @@
+---
+// Ticari gayrimenkul: TCMB'nin ticari gayrimenkul, dükkân ve ofis fiyat endeksleri (üç aylık; Türkiye, İstanbul, Ankara,
+// İzmir) ile yeni ve yeni olmayan konut fiyat endeksleri (aylık), EVDS'den. Yıllık değişimler EVDS'nin formülüyle. Sayfa
+// hesabı yoktur; tahmin yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const tg = RESMI.ticariGayrimenkul;
+const ceyrekler = tg?.ceyrekler ?? [];
+const konut = tg?.konut ?? [];
+const son = ceyrekler.at(-1);
+const sonKonut = konut.at(-1);
+
+const ceyrekAdi = (s: { yil: number; ceyrek: number }) => `${s.yil} ${s.ceyrek}. çeyrek`;
+const t = (s: { yil: number; ceyrek: number }) => s.yil * 4 + s.ceyrek - 1;
+const yd = (n: number) => `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`;
+
+const gruplar1 = [
+  {
+    id: 'tur',
+    ad: 'Türkiye',
+    seriler: [
+      { id: 'tgYillik', ad: 'Ticari gayrimenkul', renk: 'murekkep' as const },
+      { id: 'dukkanYillik', ad: 'Dükkân', renk: 'toprak' as const },
+      { id: 'ofisYillik', ad: 'Ofis', renk: 'mavi' as const },
+    ],
+  },
+  {
+    id: 'il',
+    ad: 'İllere göre',
+    seriler: [
+      { id: 'tgIst', ad: 'İstanbul', renk: 'murekkep' as const },
+      { id: 'tgAnk', ad: 'Ankara', renk: 'toprak' as const },
+      { id: 'tgIzm', ad: 'İzmir', renk: 'mavi' as const },
+    ],
+  },
+];
+const IDLER = ['tgYillik', 'dukkanYillik', 'ofisYillik', 'tgIst', 'tgAnk', 'tgIzm'] as const;
+const noktalar1 = ceyrekler.map((s) => [t(s), ...IDLER.map((a) => s[a])]);
+const gruplar2 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'yeniYillik', ad: 'Yeni konutlar', renk: 'murekkep' as const },
+      { id: 'eskiYillik', ad: 'Yeni olmayan konutlar', renk: 'toprak' as const },
+    ],
+  },
+];
+const noktalar2 = konut.map((s) => [ayAnahtari(s), s.yeniYillik, s.eskiYillik]);
+
+const tablo = son
+  ? [
+      { ad: 'Ticari gayrimenkul', tr: son.tgYillik, ist: son.tgIst, ank: son.tgAnk, izm: son.tgIzm },
+      { ad: 'Dükkân', tr: son.dukkanYillik, ist: son.dukkanIst, ank: son.dukkanAnk, izm: son.dukkanIzm },
+      { ad: 'Ofis', tr: son.ofisYillik, ist: son.ofisIst, ank: son.ofisAnk, izm: son.ofisIzm },
+    ]
+  : [];
+
+const baslik = 'Ticari gayrimenkul fiyatları';
+const description = son
+  ? `${ceyrekAdi(son)} itibarıyla ticari gayrimenkul fiyatları bir yıl öncesine göre ${yd(son.tgYillik)}: dükkân ${yd(son.dukkanYillik)}, ofis ${yd(son.ofisYillik)}. İstanbul, Ankara, İzmir; yeni ve yeni olmayan konut fiyatları. TCMB verisi.`
+  : 'Ticari gayrimenkul, dükkân ve ofis fiyat endeksleri; yeni ve yeni olmayan konut fiyat endeksleri, TCMB verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/ticari-gayrimenkul/' },
+];
+const ck = (s: { yil: number; ceyrek: number }) => `${s.yil}-Q${s.ceyrek}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(tg && son
+    ? {
+        sayfaEk: { dateModified: tg.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Ticari gayrimenkul fiyat endeksleri',
+            description:
+              'Ticari gayrimenkul, dükkân ve ofis fiyat endeksleri (üç aylık; Türkiye, İstanbul, Ankara, İzmir) ile yeni ve yeni olmayan konut fiyat endeksleri (aylık), TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/ticari-gayrimenkul/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ck(ceyrekler[0])}/${ck(son)}`,
+            dateModified: tg.alinma,
+            variableMeasured: [
+              'Ticari gayrimenkul, dükkân ve ofis fiyat endeksi ve yıllık değişimi',
+              'Yeni ve yeni olmayan konut fiyat endeksi ve yıllık değişimi',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Ticari gayrimenkul fiyatları: ${son ? ceyrekAdi(son) : 'üç aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Dükkân ve ofis fiyatları; yeni ve eski konut · TCMB</p>
+    </header>
+    {
+      tg && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Ticari gayrimenkul</dt>
+              <dd>{yd(son.tgYillik)}</dd>
+              <dd class="veri-degisim">{ceyrekAdi(son)}, yıllık</dd>
+            </div>
+            <div>
+              <dt>Dükkân</dt>
+              <dd>{yd(son.dukkanYillik)}</dd>
+              <dd class="veri-degisim">Yıllık değişim</dd>
+            </div>
+            <div>
+              <dt>Ofis</dt>
+              <dd>{yd(son.ofisYillik)}</dd>
+              <dd class="veri-degisim">Yıllık değişim</dd>
+            </div>
+            {sonKonut && (
+              <div>
+                <dt>Yeni konut</dt>
+                <dd>{yd(sonKonut.yeniYillik)}</dd>
+                <dd class="veri-degisim">{`${ayAdi(sonKonut)}; yeni olmayan ${yd(sonKonut.eskiYillik)}`}</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={tg.kaynak.url} rel="noopener">{tg.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
+            {zamanYaz(tg.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Ticari gayrimenkul fiyatlarının yıllık değişimi"
+            ipucu="Yüzde, bir yıl öncesinin aynı çeyreğine göre · Grup düğmesiyle Türkiye ve iller arasında geçilir"
+            kaynak="Kaynak: TCMB, ticari gayrimenkul fiyat endeksleri (TCMB EVDS)."
+            siklik="ceyrek"
+            birim="yuzde"
+            seriIdleri={[...IDLER]}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            grupEtiketi="Seri grubu"
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Yıllık değişim, {ceyrekAdi(son)}</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Endeks</th>
+                      <th scope="col" class="sag">Türkiye</th>
+                      <th scope="col" class="sag">İstanbul</th>
+                      <th scope="col" class="sag">Ankara</th>
+                      <th scope="col" class="sag">İzmir</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((r) => (
+                      <tr>
+                        <td>{r.ad}</td>
+                        <td class="sag">{yd(r.tr)}</td>
+                        <td class="sag">{yd(r.ist)}</td>
+                        <td class="sag">{yd(r.ank)}</td>
+                        <td class="sag">{yd(r.izm)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Bir yıl öncesinin aynı çeyreğine göre yüzde değişim; EVDS’nin formülüyle.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Ticari gayrimenkul fiyat endeksi, TCMB’nin değerleme raporlarına dayanarak hesapladığı dükkân ve ofis fiyat
+                endekslerini bir araya getirir. Endeksler üç ayda bir yayımlanır.
+              </p>
+              <p>
+                Yeni konutlar fiyat endeksi yeni inşa edilmiş konutları, yeni olmayan konutlar fiyat endeksi ise daha önce
+                kullanılmış konutları kapsar. Bu iki endeks konut fiyat endeksiyle aynı kaynaktan, aylık olarak hesaplanır.
+              </p>
+            </section>
+          </div>
+
+          {konut.length > 0 && (
+            <ZamanGrafik
+              baslik="Yeni ve yeni olmayan konut fiyatları"
+              ipucu="Yüzde, bir yıl öncesinin aynı ayına göre"
+              kaynak="Kaynak: TCMB, konut fiyat endeksleri (TCMB EVDS)."
+              siklik="ay"
+              birim="yuzde"
+              seriIdleri={['yeniYillik', 'eskiYillik']}
+              noktalar={noktalar2}
+              gruplar={gruplar2}
+              referans={{ deger: 0, ad: 'Sıfır' }}
+            />
+          )}
+        </>
+      ) : (
+        <p class="bos">Ticari gayrimenkul verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/konut-fiyat-endeksi/">Konut fiyat endeksi</a>
+      <a href="/veri/konut-satislari/">Konut satışları</a>
+      <a href="/veri/insaat-izinleri/">İnşaat izinleri</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

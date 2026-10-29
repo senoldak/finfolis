@@ -395,6 +395,8 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      pozisyon, varlıklar ve yükümlülükler ile doğrudan yatırım, portföy, türev, diğer yatırım ve rezerv kırılımı.
 //  - reelGuven: reel kesim güven endeksi ve alt endeksleri, mevsimsellikten arındırılmış (TCMB, aylık, 2007'den) ile
 //      finansal hizmetler güven endeksi ve alt endeksleri (TCMB, aylık, Mayıs 2012'den; ayrı dizi). Doğrulandı 29.10.2026.
+//  - ticariGayrimenkul: ticari gayrimenkul, dükkân ve ofis fiyat endeksleri (TCMB, üç aylık, 2015'ten; Türkiye, İstanbul,
+//      Ankara, İzmir) ile yeni ve yeni olmayan konut fiyat endeksleri (TCMB, aylık, 2010'dan; ayrı dizi). Doğrulandı 29.10.2026.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -1345,6 +1347,39 @@ export async function reelGuvenAl(simdi, anahtar) {
     finansSeriler: tanimlar(FINANS_GUVEN_SERILERI),
     satirlar: await aylikFormullu(REEL_GUVEN_SERILERI, new Date(Date.UTC(2007, 0, 1)), simdi, anahtar, 'Reel kesim güveni', 200),
     finans: await aylikFormullu(FINANS_GUVEN_SERILERI, new Date(Date.UTC(2012, 4, 1)), simdi, anahtar, 'Finansal hizmetler güveni', 150),
+  };
+}
+
+// Ticari gayrimenkul (üç aylık endeks): Türkiye düzey ve yıllık değişim; İstanbul, Ankara, İzmir yıllık değişim.
+const TG_ENDEKSLERI = [
+  { kod: 'TGFE', on: 'tg', ad: 'Ticari gayrimenkul fiyat endeksi' },
+  { kod: 'DFE', on: 'dukkan', ad: 'Dükkân fiyat endeksi' },
+  { kod: 'OFE', on: 'ofis', ad: 'Ofis fiyat endeksi' },
+];
+const TG_ILLERI = [
+  { kod: 'IST', son: 'Ist', ad: 'İstanbul' },
+  { kod: 'ANK', son: 'Ank', ad: 'Ankara' },
+  { kod: 'IZM', son: 'Izm', ad: 'İzmir' },
+];
+export const TICARI_GAYRIMENKUL_SERILERI = TG_ENDEKSLERI.flatMap((e) => [
+  { kod: `TP.${e.kod}.TR`, formul: 0, alan: e.on, ad: `${e.ad}, Türkiye` },
+  { kod: `TP.${e.kod}.TR`, formul: 3, alan: `${e.on}Yillik`, ad: `${e.ad}, Türkiye, yıllık değişim` },
+  ...TG_ILLERI.map((i) => ({ kod: `TP.${e.kod}.${i.kod}`, formul: 3, alan: `${e.on}${i.son}`, ad: `${e.ad}, ${i.ad}, yıllık değişim` })),
+]);
+export const KONUT_YENI_SERILERI = [
+  { kod: 'TP.YKFE.TR', formul: 0, alan: 'yeni', ad: 'Yeni konutlar fiyat endeksi' },
+  { kod: 'TP.YKFE.TR', formul: 3, alan: 'yeniYillik', ad: 'Yeni konutlar fiyat endeksi, yıllık değişim' },
+  { kod: 'TP.YOKFEND.TR', formul: 0, alan: 'eski', ad: 'Yeni olmayan konutlar fiyat endeksi' },
+  { kod: 'TP.YOKFEND.TR', formul: 3, alan: 'eskiYillik', ad: 'Yeni olmayan konutlar fiyat endeksi, yıllık değişim' },
+];
+
+export async function ticariGayrimenkulAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TCMB, ticari gayrimenkul, dükkân ve ofis fiyat endeksleri; yeni ve yeni olmayan konut fiyat endeksleri (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(TICARI_GAYRIMENKUL_SERILERI),
+    konutSeriler: tanimlar(KONUT_YENI_SERILERI),
+    ceyrekler: await ceyrekFormullu(TICARI_GAYRIMENKUL_SERILERI, new Date(Date.UTC(2015, 0, 1)), simdi, anahtar, 'Ticari gayrimenkul', 30),
+    konut: await aylikFormullu(KONUT_YENI_SERILERI, new Date(Date.UTC(2010, 0, 1)), simdi, anahtar, 'Yeni ve eski konut', 150),
   };
 }
 
