@@ -1,0 +1,269 @@
+---
+// Elektrik tüketimi: TEİAŞ'ın günlük elektrik tüketimi, üretimi, ithalatı ve ihracatı (MWh), TCMB EVDS'den. Sayfa
+// hesapları: GWh'ye çevirme, son 7 günün ortalamasının 364 gün önceki 7 günle (aynı haftanın günleri) karşılaştırılması,
+// haftalık ortalamanın 52 hafta önceki haftaya göre değişimi ve yenilenebilir üretimin payı (EVDS düzeylerinden). Başka
+// türetme ve tahmin yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, gunAnahtari, gunYaz, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const elektrik = RESMI.elektrik;
+const satirlar = elektrik?.satirlar ?? [];
+const gunluk = elektrik?.gunluk ?? [];
+const son = gunluk.at(-1);
+
+const gwh = (n: number) => n / 1000;
+const gwhYaz = (n: number) => `${sayiYaz(gwh(n), 0)} GWh`;
+const yd = (n: number) => `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`;
+const ort = (a: number[]) => a.reduce((x, y) => x + y, 0) / a.length;
+
+// Sayfa hesabı: son 7 gün ve 364 gün önceki 7 gün.
+const gunHaritasi = new Map(gunluk.map((s) => [gunAnahtari(s.tarih), s]));
+const son7 = gunluk.slice(-7);
+const once7 = son7.map((s) => gunHaritasi.get(gunAnahtari(s.tarih) - 364)).filter((s) => s != null);
+const son7Ort = son7.length === 7 ? ort(son7.map((s) => s.tuketim)) : null;
+const once7Ort = once7.length === 7 ? ort(once7.map((s) => s!.tuketim)) : null;
+const son7Degisim = son7Ort != null && once7Ort != null ? (son7Ort / once7Ort - 1) * 100 : null;
+// Sayfa hesabı: yenilenebilir üretimin, yenilenebilir + yenilenemez üretim içindeki payı.
+const ybPay = (s: { yenilenebilir: number | null; yenilenemez: number | null }) =>
+  s.yenilenebilir != null && s.yenilenemez != null && s.yenilenebilir + s.yenilenemez > 0
+    ? (s.yenilenebilir / (s.yenilenebilir + s.yenilenemez)) * 100
+    : null;
+const son7Yb = son7.every((s) => ybPay(s) != null)
+  ? (son7.reduce((a, s) => a + s.yenilenebilir!, 0) / son7.reduce((a, s) => a + s.yenilenebilir! + s.yenilenemez!, 0)) * 100
+  : null;
+
+const gruplar1 = [
+  { id: 'tuketim', ad: 'Tüketim', seriler: [{ id: 'tuketim', ad: 'Tüketim', renk: 'murekkep' as const }] },
+  {
+    id: 'uretim',
+    ad: 'Üretim ve tüketim',
+    seriler: [
+      { id: 'uretim', ad: 'Üretim', renk: 'toprak' as const },
+      { id: 'tuketim', ad: 'Tüketim', renk: 'murekkep' as const },
+    ],
+  },
+  {
+    id: 'dis',
+    ad: 'İthalat ve ihracat',
+    seriler: [
+      { id: 'ihracat', ad: 'İhracat', renk: 'toprak' as const },
+      { id: 'ithalat', ad: 'İthalat', renk: 'mavi' as const },
+    ],
+  },
+];
+const noktalar1 = satirlar.map((s) => [gunAnahtari(s.tarih), gwh(s.tuketim), gwh(s.uretim), gwh(s.ithalat), gwh(s.ihracat)]);
+
+// Sayfa hesabı: haftalık günlük ortalamanın 52 hafta önceki haftaya göre değişimi.
+const haftaHaritasi = new Map(satirlar.map((s) => [gunAnahtari(s.tarih), s.tuketim]));
+const gruplar2 = [{ id: 'yillik', ad: 'Yıllık', seriler: [{ id: 'yillik', ad: 'Tüketim, bir yıl önceki aynı haftaya göre', renk: 'murekkep' as const }] }];
+const noktalar2 = satirlar.map((s) => {
+  const once = haftaHaritasi.get(gunAnahtari(s.tarih) - 364);
+  return [gunAnahtari(s.tarih), once ? (s.tuketim / once - 1) * 100 : null];
+});
+
+const ybGunluk = gunluk.filter((s) => ybPay(s) != null);
+const gruplar3 = [{ id: 'pay', ad: 'Pay', seriler: [{ id: 'pay', ad: 'Yenilenebilir üretimin payı', renk: 'yesil' as const }] }];
+const noktalar3 = ybGunluk.map((s) => [gunAnahtari(s.tarih), ybPay(s)]);
+
+const tablo = gunluk.slice(-14).reverse();
+const gunAdi = (t: string) => new Date(`${t}T12:00:00Z`).toLocaleDateString('tr-TR', { weekday: 'short', timeZone: 'UTC' });
+
+const baslik = 'Elektrik tüketimi';
+const description =
+  son && son7Ort != null
+    ? `Son 7 günde (${gunYaz(son7[0].tarih)} – ${gunYaz(son.tarih)}) günlük ortalama elektrik tüketimi ${gwhYaz(son7Ort)}${son7Degisim != null ? `, bir yıl önceki aynı günlere göre ${yd(son7Degisim)}` : ''}. TEİAŞ verisi.`
+    : 'Türkiye günlük elektrik tüketimi, üretimi, ithalatı ve ihracatı, TEİAŞ verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/elektrik-tuketimi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(elektrik && son && satirlar.length
+    ? {
+        sayfaEk: { dateModified: elektrik.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Günlük elektrik tüketimi ve üretimi',
+            description:
+              'Türkiye günlük elektrik tüketimi, üretimi, ithalatı ve ihracatı (MWh); 2016’dan haftalık ortalama, son 400 gün günlük; yenilenebilir ve yenilenemez üretim Şubat 2026’dan; TEİAŞ verisi, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/elektrik-tuketimi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Elektrik İletim A.Ş. (TEİAŞ)', url: 'https://www.teias.gov.tr/' },
+            temporalCoverage: `${satirlar[0].tarih}/${son.tarih}`,
+            dateModified: elektrik.alinma,
+            variableMeasured: [
+              'Elektrik tüketimi (MWh)',
+              'Elektrik üretimi (MWh)',
+              'Elektrik ithalatı ve ihracatı (MWh)',
+              'Yenilenebilir ve yenilenemez üretim (MWh)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Elektrik tüketimi: ${son ? gunYaz(son.tarih) : 'günlük veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Günlük tüketim, üretim ve dış ticaret · TEİAŞ, günlük</p>
+    </header>
+    {
+      elektrik && son && son7Ort != null ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Son 7 gün, günlük ortalama</dt>
+              <dd>{gwhYaz(son7Ort)}</dd>
+              <dd class="veri-degisim">
+                {gunYaz(son7[0].tarih)} – {gunYaz(son.tarih)}
+              </dd>
+            </div>
+            {son7Degisim != null && (
+              <div>
+                <dt>Bir yıl önceye göre</dt>
+                <dd>{yd(son7Degisim)}</dd>
+                <dd class="veri-degisim">364 gün önceki aynı 7 günle</dd>
+              </div>
+            )}
+            <div>
+              <dt>Son gün</dt>
+              <dd>{gwhYaz(son.tuketim)}</dd>
+              <dd class="veri-degisim">
+                {gunYaz(son.tarih)}, {gunAdi(son.tarih)}
+              </dd>
+            </div>
+            {son7Yb != null && (
+              <div>
+                <dt>Yenilenebilir payı</dt>
+                <dd>{yuzdeYaz(son7Yb)}</dd>
+                <dd class="veri-degisim">Son 7 günün üretiminde</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={elektrik.kaynak.url} rel="noopener">{elektrik.kaynak.ad}</a>. Siteye alındığı
+            zaman: {zamanYaz(elektrik.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Günlük elektrik tüketimi ve üretimi"
+            ipucu="GWh, haftanın günlük ortalaması · Grup düğmesiyle tüketim, üretim ve dış ticaret arasında geçilir"
+            kaynak="Kaynak: TEİAŞ (TCMB EVDS)."
+            siklik="hafta"
+            birim="endeks"
+            ondalik={0}
+            seriIdleri={['tuketim', 'uretim', 'ithalat', 'ihracat']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            grupEtiketi="Seri grubu"
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 14 gün</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Gün</th>
+                      <th scope="col" class="sag">Tüketim</th>
+                      <th scope="col" class="sag">Yıl önce</th>
+                      <th scope="col" class="sag">Yenilenebilir</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => {
+                      const once = gunHaritasi.get(gunAnahtari(s.tarih) - 364);
+                      const pay = ybPay(s);
+                      return (
+                        <tr>
+                          <td>
+                            {gunYaz(s.tarih)}, {gunAdi(s.tarih)}
+                          </td>
+                          <td class="sag">{sayiYaz(gwh(s.tuketim), 0)}</td>
+                          <td class="sag">{once ? yd((s.tuketim / once.tuketim - 1) * 100) : '–'}</td>
+                          <td class="sag">{pay != null ? yuzdeYaz(pay) : '–'}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Tüketim GWh. "Yıl önce" sütunu 364 gün önceki aynı gündür, böylece hafta günü tutar; resmî tatiller denk
+                gelmeyebilir. Yenilenebilir payı o günün üretimi içindedir. Hesaplar sayfada yapılır.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Rakamlar TEİAŞ’ın yayımladığı günlük üretim ve tüketim toplamlarıdır. Tüketim, üretime ithalatın
+                eklenip ihracatın çıkarılmasıyla bulunur. Hafta sonları ve tatillerde tüketim düşer, yaz ve kış aylarında
+                ısıtma ve soğutma yüzünden artar.
+              </p>
+              <p>
+                Elektrik tüketimi üretimle birlikte hareket ettiği için sanayi ve ekonomik etkinlik hakkında erken bilgi verir;
+                ama hava sıcaklığı ve tatiller de tüketimi etkiler. Bu yüzden tek bir günün değişimi tek başına okunmaz.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Bir yıl önceye göre değişim"
+            ipucu="Yüzde, haftalık günlük ortalama tüketimin 52 hafta önceki haftaya göre değişimi · Sayfada hesaplanır"
+            kaynak="Kaynak: TEİAŞ (TCMB EVDS); değişim sayfada hesaplanır."
+            siklik="hafta"
+            birim="yuzde"
+            seriIdleri={['yillik']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          {noktalar3.length > 30 && (
+            <ZamanGrafik
+              baslik="Yenilenebilir üretimin payı"
+              ipucu="Yüzde, günlük · Yenilenebilir ve yenilenemez üretim ayrımı Şubat 2026’dan beri yayımlanıyor"
+              kaynak="Kaynak: TEİAŞ (TCMB EVDS); pay sayfada hesaplanır."
+              siklik="hafta"
+              birim="yuzde"
+              seriIdleri={['pay']}
+              noktalar={noktalar3}
+              gruplar={gruplar3}
+            />
+          )}
+        </>
+      ) : (
+        <p class="bos">Elektrik verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/sanayi-uretimi/">Sanayi üretimi</a>
+      <a href="/veri/kapasite-kullanimi/">Kapasite kullanımı</a>
+      <a href="/veri/buyume/">Büyüme</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TEİAŞ’ın yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

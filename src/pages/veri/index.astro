@@ -84,6 +84,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/kur-korumali-mevduat/': 'kkm kur korumalı mevduat döviz dönüşümlü tl kkm',
   '/veri/tcmb-bilancosu/': 'merkez bankası bilançosu analitik bilanço rezerv para emisyon zorunlu karşılık serbest mevduat açık piyasa',
   '/veri/doviz-piyasasi/': 'döviz işlem hacmi spot swap vadeli forward efektif bankalararası döviz piyasası',
+  '/veri/elektrik-tuketimi/': 'elektrik tüketimi üretimi enerji teiaş yenilenebilir mwh gwh öncü gösterge',
   '/veri/para-arzi/': 'm1 m2 m3 para arzı parasal büyüklükler dolaşımdaki para vadeli vadesiz mevduat likidite',
   '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
@@ -406,6 +407,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/sanayi-uretimi/')}>
               <a href="/veri/sanayi-uretimi/" class="fihrist-baslik-link">Sanayi Üretimi</a>
               <span class="fihrist-ozet">TÜİK sanayi üretim endeksi, aylık ve yıllık değişim</span>
+            </li>
+            <li data-ek={aramaEki('/veri/elektrik-tuketimi/')}>
+              <a href="/veri/elektrik-tuketimi/" class="fihrist-baslik-link">Elektrik Tüketimi</a>
+              <span class="fihrist-ozet">Günlük tüketim, üretim ve yenilenebilir payı, bir yıl öncesiyle karşılaştırma (TEİAŞ)</span>
             </li>
             <li data-ek={aramaEki('/veri/kapasite-kullanimi/')}>
               <a href="/veri/kapasite-kullanimi/" class="fihrist-baslik-link">Kapasite Kullanım Oranı</a>

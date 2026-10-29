@@ -47,6 +47,7 @@ const SAYFA = {
   tcmbBilanco: '/veri/tcmb-bilancosu/',
   faizAyrinti: '/veri/piyasa-faizleri/',
   dovizHacmi: '/veri/doviz-piyasasi/',
+  elektrik: '/veri/elektrik-tuketimi/',
   portfoy: '/veri/yabanci-portfoy-akimlari/',
   cari: '/veri/cari-denge/',
   disBorc: '/veri/dis-borc/',
@@ -325,6 +326,12 @@ export const TANIMLAR = [
     ['yurtDisiSwap', 'yurt-disi-swap', 'Yurt dışı taraflarla swap işlem hacmi (haftalık günlük ortalama)', MUSD],
     ['musteriSpot', 'musteri-spot', 'Yurt içi müşterilerle spot döviz işlem hacmi (haftalık günlük ortalama)', MUSD],
     ['efektif', 'efektif', 'Efektif (banknot) işlem hacmi (haftalık günlük ortalama)', MUSD],
+  ], { siklik: 'hafta' }),
+  t('elektrik', 'Sanayi', SAYFA.elektrik, [
+    ['tuketim', 'tuketim', 'Elektrik tüketimi (haftalık günlük ortalama)', 'MWh'],
+    ['uretim', 'uretim', 'Elektrik üretimi (haftalık günlük ortalama)', 'MWh'],
+    ['ithalat', 'ithalat', 'Elektrik ithalatı (haftalık günlük ortalama)', 'MWh'],
+    ['ihracat', 'ihracat', 'Elektrik ihracatı (haftalık günlük ortalama)', 'MWh'],
   ], { siklik: 'hafta' }),
   t('makas', 'Faiz', SAYFA.makas, [
     ['ihtiyac', 'ihtiyac', 'İhtiyaç kredisi faizi', YZ],

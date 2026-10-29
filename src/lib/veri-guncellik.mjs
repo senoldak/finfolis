@@ -92,6 +92,7 @@ const RESMI_SAYFA = {
   tcmbBilanco: '/veri/tcmb-bilancosu/',
   faizAyrinti: '/veri/piyasa-faizleri/',
   dovizHacmi: '/veri/doviz-piyasasi/',
+  elektrik: '/veri/elektrik-tuketimi/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

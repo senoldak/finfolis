@@ -19,6 +19,7 @@ import {
   tcmbBilancoAl,
   faizAyrintiAl,
   dovizHacmiAl,
+  elektrikAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -578,6 +579,33 @@ test('dovizHacmiAl: haftalık günlük ortalama; son iş gününden sonra biten 
   assert.equal(d.son.spot, 95);
   assert.equal(d.satirlar.at(-1).tarih, '2026-10-16');
   assert.equal(d.birim, 'milyon ABD doları');
+});
+
+test('elektrikAl: günlük son 400 gün ve haftalık ortalama; yarım hafta atılır, kaynak kırılımı boş kalabilir', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    const u = decodeURIComponent(String(url));
+    istekler.push(u);
+    const a = alanlar(url);
+    const items = [];
+    if (u.includes('frequency=3')) {
+      for (let t = Date.UTC(2016, 0, 1); t <= Date.UTC(2026, 9, 30); t += 7 * 864e5) items.push({ Tarih: gunTarihi(new Date(t)), ...Object.fromEntries(a.map((x) => [x, '900'])) });
+    } else {
+      for (let t = Date.UTC(2025, 8, 22); t <= Date.UTC(2026, 9, 25); t += 864e5) {
+        const once = t < Date.UTC(2026, 1, 1);
+        items.push({ Tarih: gunTarihi(new Date(t)), ...Object.fromEntries(a.map((x) => [x, once && /URTY/.test(x) ? null : '800'])) });
+      }
+    }
+    return yanit({ items });
+  };
+  const el = await elektrikAl(SIMDI, 'x');
+  assert.equal(el.birim, 'MWh');
+  assert.equal(el.gunluk.at(-1).tarih, '2026-10-25');
+  assert.equal(el.gunluk[0].yenilenebilir, null);
+  assert.equal(el.gunluk.at(-1).yenilenebilir, 800);
+  assert.equal(el.satirlar.at(-1).tarih, '2026-10-23');
+  assert.equal(el.satirlar[0].tuketim, 900);
+  assert.ok(istekler.some((x) => x.includes('aggregationTypes=avg-avg-avg-avg')));
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

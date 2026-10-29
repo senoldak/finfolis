@@ -326,6 +326,16 @@ export interface DovizHacmiBolumu {
   alinma: string;
 }
 
+// Elektrik (TEİAŞ, MWh): satırlar haftalık günlük ortalama, gunluk son 400 gün; yenilenebilir/yenilenemez Şubat 2026'dan.
+export interface ElektrikBolumu {
+  kaynak: Kaynak;
+  birim: string;
+  seriler: SeriAdi[];
+  satirlar: ({ tarih: string } & Record<'tuketim' | 'uretim' | 'ithalat' | 'ihracat', number>)[];
+  gunluk: ({ tarih: string; yenilenebilir: number | null; yenilenemez: number | null } & Record<'tuketim' | 'uretim' | 'ithalat' | 'ihracat', number>)[];
+  alinma: string;
+}
+
 // Para arzı (TCMB, haftalık cuma stoku, bin TL); yıllık değişim %.
 export interface ParaArziBolumu {
   kaynak: Kaynak;
@@ -402,6 +412,7 @@ export const RESMI = data as unknown as {
   tcmbBilanco?: TcmbBilancoBolumu;
   faizAyrinti?: FaizAyrintiBolumu;
   dovizHacmi?: DovizHacmiBolumu;
+  elektrik?: ElektrikBolumu;
 };
 
 // Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).

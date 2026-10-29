@@ -377,6 +377,9 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //  - dovizHacmi: bankaların TL karşılığı döviz işlem hacimleri (TCMB, iş günü, milyon ABD doları; haftalık günlük ortalama
 //      2010'dan, son iş günü ayrıca; doğrulandı 29.10.2026). TL uzlaşmalı vadeli döviz satım serileri (bie_tluzvdov)
 //      alınmaz: toplam pozisyon yayımlanan iki bileşenin toplamı değil, farkın kaynağı açıklanmıyor.
+//  - elektrik: günlük elektrik tüketimi, üretimi, ithalatı ve ihracatı (TEİAŞ verisi, EVDS; MWh; doğrulandı 29.10.2026):
+//      2016'dan haftalık günlük ortalama ve son 400 günün günlük değerleri; yenilenebilir ve yenilenemez üretim Şubat
+//      2026'dan.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -1058,6 +1061,46 @@ export async function dovizHacmiAl(simdi, anahtar) {
     seriler: tanimlar(DOVIZ_HACMI_SERILERI),
     satirlar,
     son,
+  };
+}
+
+// Elektrik (TEİAŞ, günlük, MWh). Tüketim = üretim + ithalat − ihracat (depolama küçük kalemdir). Yenilenebilir ve
+// yenilenemez üretim Şubat 2026'dan önce boştur; günlük satırlarda null kalır.
+export const ELEKTRIK_SERILERI = [
+  { kod: 'TP.ELEKTUKETIM.TKT1', alan: 'tuketim', ad: 'Elektrik tüketimi' },
+  { kod: 'TP.ELEKTUKETIM.URT', alan: 'uretim', ad: 'Elektrik üretimi' },
+  { kod: 'TP.ELEKTUKETIM.ITH', alan: 'ithalat', ad: 'Elektrik ithalatı' },
+  { kod: 'TP.ELEKTUKETIM.IHR', alan: 'ihracat', ad: 'Elektrik ihracatı' },
+];
+export const ELEKTRIK_KAYNAK_SERILERI = [
+  { kod: 'TP.ELEKTUKETIM.URTYB', alan: 'yenilenebilir', ad: 'Yenilenebilir üretim' },
+  { kod: 'TP.ELEKTUKETIM.URTYMZ', alan: 'yenilenemez', ad: 'Yenilenemez üretim' },
+];
+
+// Haftalık: EVDS'nin haftalık ortalaması (cuma tarihli, günlük MWh); yayımlanan son günden sonra biten yarım hafta atılır.
+// Günlük: son 400 gün (bir yıl önceki aynı günlerle karşılaştırma sayfada yapılır).
+export async function elektrikAl(simdi, anahtar) {
+  const ana = ELEKTRIK_SERILERI.map((t) => t.kod);
+  const hepsi = [...ELEKTRIK_SERILERI, ...ELEKTRIK_KAYNAK_SERILERI];
+  const gunluk = (await evdsCek(hepsi.map((t) => t.kod), hepsi.map(() => 0), new Date(simdi.getTime() - 400 * 864e5), simdi, anahtar))
+    .filter((h) => h.tarih)
+    .map((h) => ({ tarih: h.tarih, ...Object.fromEntries(hepsi.map((t) => [t.alan, h[alanAdi(t.kod, 0)] ?? null])) }))
+    .filter((s) => ELEKTRIK_SERILERI.every((t) => s[t.alan] != null));
+  if (gunluk.length < 360) throw new Error('Elektrik günlük serisi yetersiz');
+  const sonGun = gunluk.at(-1).tarih;
+  const satirlar = (
+    await evdsCek(ana, ana.map(() => 0), new Date(Date.UTC(2016, 0, 1)), simdi, anahtar, `&frequency=3&aggregationTypes=${ana.map(() => 'avg').join('-')}`)
+  )
+    .filter((h) => h.tarih && h.tarih <= sonGun)
+    .map((h) => ({ tarih: h.tarih, ...Object.fromEntries(ELEKTRIK_SERILERI.map((t) => [t.alan, h[alanAdi(t.kod, 0)]])) }))
+    .filter((s) => ELEKTRIK_SERILERI.every((t) => s[t.alan] != null));
+  if (satirlar.length < 500) throw new Error('Elektrik haftalık serisi yetersiz');
+  return {
+    kaynak: { ad: 'TEİAŞ verisi, günlük elektrik üretim ve tüketimi (TCMB EVDS)', url: EVDS_SAYFA },
+    birim: 'MWh',
+    seriler: tanimlar(hepsi),
+    satirlar,
+    gunluk,
   };
 }
 
