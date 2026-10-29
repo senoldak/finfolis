@@ -8,6 +8,8 @@ import {
   brutRezervAl,
   kurHaftalikAl,
   birimFiyatAl,
+  buyumeAl,
+  BUYUME_SERILERI,
   KIRA_BOLGELERI,
   KIRA_TUM_BOLGELER,
   KART_SEKTORLERI,
@@ -107,6 +109,45 @@ test('kartAl: haftalık tutar ve yıllık değişim, sektör kodlarıyla', async
   assert.equal(k.satirlar[0].tarih, '2023-10-27');
   assert.deepEqual(Object.keys(k.satirlar[0].sektorler), KART_SEKTORLERI.map((s) => s.kod));
   assert.deepEqual(k.satirlar[0].sektorler.KT1, { tutar: 1000, yillik: 30 });
+});
+
+const ceyrekler = (bas, n) =>
+  Array.from({ length: n }, (_, i) => ({ yil: bas[0] + Math.floor((bas[1] - 1 + i) / 4), ceyrek: ((bas[1] - 1 + i) % 4) + 1 }));
+
+test('buyumeAl: çeyrek satırları, baştaki boş yıllık değişimler ve yayımlanmamış son çeyrek atılır', async () => {
+  let istek;
+  globalThis.fetch = async (url) => {
+    istek = decodeURIComponent(String(url));
+    const a = alanlar(url);
+    const items = ceyrekler([1998, 1], 110).map((c, i) => ({
+      Tarih: `${c.yil}-Q${c.ceyrek}`,
+      // 1998 yılında yıllık değişim yok; son çeyrek (2025-Q2) henüz yayımlanmamış.
+      ...Object.fromEntries(a.map((x) => [x, i === 109 || (i < 4 && x.endsWith('-3')) ? null : x.endsWith('-3') ? '5' : x.endsWith('-1') ? '1.5' : '200'])),
+    }));
+    return yanit({ items });
+  };
+  const b = await buyumeAl(SIMDI, 'x');
+  assert.ok(istek.includes('startDate=01-01-1998'));
+  assert.equal(b.satirlar.length, 105);
+  assert.deepEqual(b.satirlar[0], {
+    yil: 1999,
+    ceyrek: 1,
+    ...Object.fromEntries(BUYUME_SERILERI.map((s) => [s.alan, s.formul === 3 ? 5 : s.formul === 1 ? 1.5 : 200])),
+  });
+  assert.deepEqual(b.satirlar.at(-1).yil, 2025);
+  assert.deepEqual(b.satirlar.at(-1).ceyrek, 1);
+  assert.deepEqual(b.seriler.map((s) => s.alan), BUYUME_SERILERI.map((s) => s.alan));
+});
+
+test('buyumeAl: çeyrek serisinde boşluk varsa hata verir', async () => {
+  globalThis.fetch = async (url) => {
+    const a = alanlar(url);
+    const items = ceyrekler([1998, 1], 110)
+      .filter((_, i) => i !== 50)
+      .map((c) => ({ Tarih: `${c.yil}-Q${c.ceyrek}`, ...Object.fromEntries(a.map((x) => [x, '5'])) }));
+    return yanit({ items });
+  };
+  await assert.rejects(() => buyumeAl(SIMDI, 'x'), /boşluk/);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

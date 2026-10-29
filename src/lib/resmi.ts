@@ -160,6 +160,14 @@ export interface AylikSeriBolumu<A extends string> {
   alinma: string;
 }
 
+// Üç aylık, birkaç alanlı seri bölümü (büyüme).
+export interface CeyrekSeriBolumu<A extends string> {
+  kaynak: Kaynak;
+  seriler: SeriAdi[];
+  satirlar: ({ yil: number; ceyrek: number } & Record<A, number>)[];
+  alinma: string;
+}
+
 // TCMB rezervleri (haftalık, milyon ABD doları).
 export interface BrutRezervBolumu {
   kaynak: Kaynak;
@@ -256,6 +264,26 @@ export const RESMI = data as unknown as {
     | 'sirketKalkinma'
     | 'sirketKatilim'
     | 'toplamYillik'
+  >;
+  buyume?: CeyrekSeriBolumu<
+    | 'yillik'
+    | 'ceyreklik'
+    | 'endeks'
+    | 'hanehalki'
+    | 'devlet'
+    | 'yatirim'
+    | 'ihracat'
+    | 'ithalat'
+    | 'tarim'
+    | 'sanayi'
+    | 'insaat'
+    | 'hizmetler'
+    | 'bilgi'
+    | 'finans'
+    | 'gayrimenkul'
+    | 'mesleki'
+    | 'kamu'
+    | 'diger'
   >;
 };
 

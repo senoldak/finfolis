@@ -15,7 +15,7 @@
 //      sonucudur, sitenin tahmini değildir; kur ve faiz beklentileri bilerek alınmaz.
 //    Kira, kartlı harcama, tüketici güveni, reel efektif kur, TCMB rezervleri, kapasite kullanımı, haftalık kur, kredi ve
 //      mevduat faizleri, konut birim fiyat ve kiraları, arındırılmış TÜFE; yabancıların portföy akımları, cari denge,
-//      dış borç, dış ticaret, sanayi üretimi, genel bütçe ve kredi hacmi: evds-ek.mjs.
+//      dış borç, dış ticaret, sanayi üretimi, genel bütçe, kredi hacmi ve üç aylık büyüme: evds-ek.mjs.
 //
 // Altın (gram) için resmi, ücretsiz bir günlük kaynak bulunamadı. BIST 100 EVDS'de var ama Borsa İstanbul verisinin
 // yeniden yayımı lisansa bağlı; bu yüzden ikisi de burada yoktur.
@@ -50,6 +50,7 @@ import {
   sanayiAl,
   butceAl,
   krediAl,
+  buyumeAl,
 } from './evds-ek.mjs';
 
 const DOSYA = fileURLToPath(new URL('../../src/data/resmi.json', import.meta.url));
@@ -323,6 +324,7 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
     sanayi,
     butce,
     kredi,
+    buyume,
   ] =
     await Promise.all([
       dene('kurlar', () => kurlariAl(eski?.kur, simdi, gun)),
@@ -352,6 +354,7 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
       evds('sanayi', sanayiAl),
       evds('butce', butceAl),
       evds('kredi', krediAl),
+      evds('buyume', buyumeAl),
     ]);
   const sonuc = {};
   for (const [ad, yeni] of Object.entries({
@@ -382,6 +385,7 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
     sanayi,
     butce,
     kredi,
+    buyume,
   })) {
     const b = birlestir(eski?.[ad], yeni, iso);
     if (b) sonuc[ad] = b;

@@ -1,0 +1,275 @@
+---
+// Büyüme: TÜİK üç aylık gayrisafi yurt içi hasıla (zincirlenmiş hacim). Yıllık büyüme arındırılmamış seriden, çeyreklik
+// büyüme mevsim ve takvim etkisinden arındırılmış seriden; harcama kalemleri ve sektörler için yıllık değişim. Tüm oranlar
+// EVDS'nin hesabıdır; zincirlenmiş hacimler toplanmadığı için katkı hesaplanmaz, sayfada ek hesaplama yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const buyume = RESMI.buyume;
+const satirlar = buyume?.satirlar ?? [];
+const son = satirlar.at(-1);
+
+const yd = (n: number) => `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`;
+const ceyrekAdi = (s: { yil: number; ceyrek: number }) => `${s.yil} ${s.ceyrek}. çeyrek`;
+const t = (s: { yil: number; ceyrek: number }) => s.yil * 4 + s.ceyrek - 1;
+
+const kalemler = [
+  { id: 'hanehalki', ad: 'Hanehalkı tüketimi' },
+  { id: 'devlet', ad: 'Devletin nihai tüketimi' },
+  { id: 'yatirim', ad: 'Sabit sermaye oluşumu (yatırım)' },
+  { id: 'ihracat', ad: 'Mal ve hizmet ihracatı' },
+  { id: 'ithalat', ad: 'Mal ve hizmet ithalatı' },
+] as const;
+const sektorler = [
+  { id: 'tarim', ad: 'Tarım, ormancılık ve balıkçılık' },
+  { id: 'sanayi', ad: 'Sanayi' },
+  { id: 'insaat', ad: 'İnşaat' },
+  { id: 'hizmetler', ad: 'Ticaret, ulaştırma, konaklama' },
+  { id: 'bilgi', ad: 'Bilgi ve iletişim' },
+  { id: 'finans', ad: 'Finans ve sigorta' },
+  { id: 'gayrimenkul', ad: 'Gayrimenkul faaliyetleri' },
+  { id: 'mesleki', ad: 'Mesleki, idari ve destek hizmetleri' },
+  { id: 'kamu', ad: 'Kamu yönetimi, eğitim, sağlık' },
+  { id: 'diger', ad: 'Diğer hizmetler' },
+] as const;
+
+// ZamanGrafik grup başına en çok dört seri çizer; renkler sırayla verilir.
+const renkler = ['murekkep', 'toprak', 'mavi', 'yesil'] as const;
+const grup = (id: string, ad: string, liste: readonly { id: string; ad: string }[]) => ({
+  id,
+  ad,
+  seriler: liste.map((k, i) => ({ id: k.id, ad: k.ad, renk: renkler[i] })),
+});
+
+const gruplar1 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [{ id: 'yillik', ad: 'Yıllık büyüme', renk: 'mavi' as const }],
+  },
+];
+const noktalar1 = satirlar.map((s) => [t(s), s.yillik]);
+
+const gruplar2 = [grup('tuketim', 'Tüketim ve yatırım', kalemler.slice(0, 3)), grup('dis', 'Dış ticaret', kalemler.slice(3))];
+const noktalar2 = satirlar.map((s) => [t(s), ...kalemler.map((k) => s[k.id])]);
+
+const gruplar3 = [
+  grup('uretim', 'Tarım, sanayi, inşaat', sektorler.slice(0, 3)),
+  grup('ticaret', 'Ticaret ve finans', sektorler.slice(3, 7)),
+  grup('kamu', 'Kamu ve mesleki hizmetler', sektorler.slice(7)),
+];
+const noktalar3 = satirlar.map((s) => [t(s), ...sektorler.map((k) => s[k.id])]);
+
+const tablo = satirlar.slice(-8).reverse();
+const sektorTablosu = son ? sektorler.map((k) => ({ ad: k.ad, deger: son[k.id] })).sort((a, b) => b.deger - a.deger) : [];
+
+const baslik = 'Büyüme';
+const description = son
+  ? `${ceyrekAdi(son)} itibarıyla gayrisafi yurt içi hasıla bir yıl öncesinin aynı çeyreğine göre ${yd(son.yillik)}, bir önceki çeyreğe göre (mevsim ve takvim etkisinden arındırılmış) ${yd(son.ceyreklik)} değişti. TÜİK verisi.`
+  : 'Gayrisafi yurt içi hasıla büyümesi: yıllık ve çeyreklik değişim, harcama kalemleri ve sektörler, TÜİK verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/buyume/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(buyume && son
+    ? {
+        sayfaEk: { dateModified: buyume.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Gayrisafi yurt içi hasıla büyümesi (zincirlenmiş hacim)',
+            description:
+              'Üç aylık gayrisafi yurt içi hasıla büyümesi (yıllık ve mevsim ve takvim etkisinden arındırılmış çeyreklik), harcama kalemleri ve üretim sektörleri için yıllık değişim oranları, TÜİK verisi, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/buyume/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye İstatistik Kurumu', url: 'https://www.tuik.gov.tr/' },
+            temporalCoverage: `${satirlar[0].yil}-Q${satirlar[0].ceyrek}/${son.yil}-Q${son.ceyrek}`,
+            dateModified: buyume.alinma,
+            variableMeasured: [
+              'GSYH yıllık büyüme (yüzde)',
+              'GSYH çeyreklik büyüme, arındırılmış (yüzde)',
+              'GSYH hacim endeksi (2009=100)',
+              'Harcama kalemleri, yıllık değişim (yüzde)',
+              'Sektörler, yıllık değişim (yüzde)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Büyüme: ${son ? ceyrekAdi(son) : 'üç aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Gayrisafi yurt içi hasıla · TÜİK, üç aylık</p>
+    </header>
+    {
+      buyume && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Yıllık büyüme (son çeyrek)</dt>
+              <dd>{yd(son.yillik)}</dd>
+              <dd class="veri-degisim">{ceyrekAdi(son)}, bir yıl öncesinin aynı çeyreğine göre</dd>
+            </div>
+            <div>
+              <dt>Çeyreklik büyüme (arındırılmış)</dt>
+              <dd>{yd(son.ceyreklik)}</dd>
+              <dd class="veri-degisim">{ceyrekAdi(son)}, bir önceki çeyreğe göre</dd>
+            </div>
+            <div>
+              <dt>Hanehalkı tüketimi</dt>
+              <dd>{yd(son.hanehalki)}</dd>
+              <dd class="veri-degisim">{ceyrekAdi(son)}, yıllık değişim</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={buyume.kaynak.url} rel="noopener">{buyume.kaynak.ad}</a>. Siteye alındığı zaman:
+            {zamanYaz(buyume.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Yıllık büyüme"
+            ipucu="Yüzde, zincirlenmiş hacim, bir yıl öncesinin aynı çeyreğine göre · Sıfırın altı, üretimin bir yıl öncesinden düşük olduğunu gösterir"
+            kaynak="Kaynak: TÜİK, dönemsel gayrisafi yurt içi hasıla (TCMB EVDS)."
+            siklik="ceyrek"
+            birim="yuzde"
+            seriIdleri={['yillik']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 8 çeyrek</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Çeyrek</th>
+                      <th scope="col" class="sag">Yıllık büyüme</th>
+                      <th scope="col" class="sag">Çeyreklik büyüme</th>
+                      <th scope="col" class="sag">Hanehalkı tüketimi</th>
+                      <th scope="col" class="sag">Yatırım</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ceyrekAdi(s)}</td>
+                        <td class="sag">{yd(s.yillik)}</td>
+                        <td class="sag">{yd(s.ceyreklik)}</td>
+                        <td class="sag">{yd(s.hanehalki)}</td>
+                        <td class="sag">{yd(s.yatirim)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Yıllık büyüme, hanehalkı tüketimi ve yatırım bir yıl öncesinin aynı çeyreğine göre; çeyreklik büyüme bir önceki
+                çeyreğe göredir.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Sayfadaki rakamlar zincirlenmiş hacim üzerinden hesaplanır: üretim ve harcama değerleri fiyat değişiminden
+                arındırılır, yani enflasyondan arındırılmış (reel) büyüklüklerdir. Bu nedenle oranlar, fiyatların artışını
+                değil, üretilen mal ve hizmet miktarındaki değişimi gösterir.
+              </p>
+              <p>
+                Yıllık büyüme arındırılmamış serinin bir yıl öncesinin aynı çeyreğine göre değişimidir; TÜİK’in manşet büyüme
+                rakamı budur. Çeyreklik büyüme ise mevsim ve takvim etkisinden arındırılmış serinin bir önceki çeyreğe göre
+                değişimidir. İki oran farklı serilerden hesaplandığı için aynı çeyrek için farklı çıkabilir. TÜİK geçmiş
+                çeyreklerin değerlerini yeni veri geldikçe revize edebilir; sayfa EVDS’de yayımlanan son değerleri gösterir.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Harcama kalemleri, yıllık değişim"
+            ipucu="Yüzde, zincirlenmiş hacim, bir yıl öncesinin aynı çeyreğine göre · Grup düğmesiyle kalemler arasında geçilir"
+            kaynak="Kaynak: TÜİK, dönemsel gayrisafi yurt içi hasıla (TCMB EVDS)."
+            siklik="ceyrek"
+            birim="yuzde"
+            seriIdleri={kalemler.map((k) => k.id)}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+            grupEtiketi="Kalem grubu"
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <ZamanGrafik
+            baslik="Sektörler, yıllık değişim"
+            ipucu="Yüzde, zincirlenmiş hacim, bir yıl öncesinin aynı çeyreğine göre · Grup düğmesiyle sektörler arasında geçilir"
+            kaynak="Kaynak: TÜİK, dönemsel gayrisafi yurt içi hasıla (TCMB EVDS)."
+            siklik="ceyrek"
+            birim="yuzde"
+            seriIdleri={sektorler.map((k) => k.id)}
+            noktalar={noktalar3}
+            gruplar={gruplar3}
+            grupEtiketi="Sektör grubu"
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Sektörlere göre yıllık değişim, {ceyrekAdi(son)}</h2>
+            <div class="tablo-sarma">
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Sektör</th>
+                    <th scope="col" class="sag">Yıllık değişim</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sektorTablosu.map((k) => (
+                    <tr>
+                      <td>{k.ad}</td>
+                      <td class="sag">{yd(k.deger)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="veri-notu">
+              Sıralama yıllık değişimin büyüğünden küçüğünedir. Zincirlenmiş hacimler toplanmadığı için sektör oranları
+              toplam büyümeye katkı olarak okunmaz.
+            </p>
+          </section>
+        </>
+      ) : (
+        <p class="bos">Büyüme verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/sanayi-uretimi/">Sanayi üretimi</a>
+      <a href="/veri/issizlik-orani/">İşsizlik oranı</a>
+      <a href="/veri/dis-ticaret/">Dış ticaret</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TÜİK’in yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

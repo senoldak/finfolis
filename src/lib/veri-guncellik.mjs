@@ -81,6 +81,7 @@ const RESMI_SAYFA = {
   disBorc: '/veri/dis-borc/',
   disTicaret: '/veri/dis-ticaret/',
   sanayi: '/veri/sanayi-uretimi/',
+  buyume: '/veri/buyume/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

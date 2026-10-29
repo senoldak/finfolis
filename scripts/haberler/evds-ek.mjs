@@ -347,6 +347,8 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //  - disTicaret: genel ticaret sistemine göre ihracat ve ithalat, ithalatın yatırım/ara/tüketim malı kırılımı (TÜİK, bin $).
 //  - sanayi: sanayi üretim endeksi (TÜİK, 2021=100): mevsim ve takvim etkisinden arındırılmış endeks ve aylık değişim,
 //      takvim etkisinden arındırılmış yıllık değişim, imalat endeksi.
+//  - buyume: gayrisafi yurt içi hasıla büyümesi (TÜİK, üç aylık, zincirlenmiş hacim; doğrulandı 29.10.2026): yıllık büyüme,
+//      arındırılmış çeyreklik büyüme ve hacim endeksi, harcama kalemleri ve sektörler için yıllık değişim.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -428,6 +430,22 @@ async function aylikFormullu(tanim, bas, simdi, anahtar, ad, enAz) {
   return satirlar;
 }
 
+// Üç aylık seride aylık gibi: tanım { kod, formul, alan }; bütün alanları dolu çeyrekler alınır, ortada boşluk varsa bölüm
+// güncellenmez. Boşluk denetimi yalnız tutulan satırlara bakar (baştaki boş yıllık değişimler önce elenir).
+const ceyrekAnahtari = (s) => s.yil * 4 + s.ceyrek;
+
+async function ceyrekFormullu(tanim, bas, simdi, anahtar, ad, enAz) {
+  const ham = await evdsCek(tanim.map((t) => t.kod), tanim.map((t) => t.formul), bas, simdi, anahtar);
+  const satirlar = ham
+    .filter((h) => h.ceyrek && tanim.every((t) => h[alanAdi(t.kod, t.formul)] != null))
+    .map((h) => ({ yil: h.yil, ceyrek: h.ceyrek, ...Object.fromEntries(tanim.map((t) => [t.alan, h[alanAdi(t.kod, t.formul)]])) }));
+  for (let i = 1; i < satirlar.length; i++) {
+    if (ceyrekAnahtari(satirlar[i]) !== ceyrekAnahtari(satirlar[i - 1]) + 1) throw new Error(`${ad} serisinde boşluk`);
+  }
+  if (satirlar.length < enAz) throw new Error(`${ad} yetersiz`);
+  return satirlar;
+}
+
 export async function portfoyHaftalikAl(simdi, anahtar) {
   return {
     kaynak: { ad: 'TCMB, yurt dışı yerleşiklerin menkul kıymet portföyü (EVDS, haftalık)', url: EVDS_SAYFA },
@@ -494,6 +512,39 @@ export async function sanayiAl(simdi, anahtar) {
     kaynak: { ad: 'TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)', url: EVDS_SAYFA },
     seriler: tanimlar(SANAYI_SERILERI),
     satirlar: await aylikFormullu(SANAYI_SERILERI, new Date(Date.UTC(2010, 0, 1)), simdi, anahtar, 'Sanayi üretimi', 120),
+  };
+}
+
+// Gayrisafi yurt içi hasıla (TÜİK, üç aylık): formül 3 yıllık, 1 bir önceki döneme göre yüzde değişim, 0 düzey.
+// Yıllık büyüme ve harcama/üretim kalemleri arındırılmamış zincirlenmiş hacimden; çeyreklik büyüme ve endeks mevsim ve
+// takvim etkisinden arındırılmış seriden. Zincirlenmiş hacimler toplanmaz, katkı hesaplanmaz.
+export const BUYUME_SERILERI = [
+  { kod: 'TP.GSYIH20.CY.B1GQ', formul: 3, alan: 'yillik', ad: 'GSYH yıllık büyüme' },
+  { kod: 'TP.GSYIH30.HY.B1GQ', formul: 1, alan: 'ceyreklik', ad: 'GSYH çeyreklik büyüme, arındırılmış' },
+  { kod: 'TP.GSYIH30.HY.B1GQ', formul: 0, alan: 'endeks', ad: 'GSYH hacim endeksi (2009=100), arındırılmış' },
+  { kod: 'TP.GSYIH20.CY.P311', formul: 3, alan: 'hanehalki', ad: 'Hanehalkı tüketimi' },
+  { kod: 'TP.GSYIH20.CY.P32', formul: 3, alan: 'devlet', ad: 'Devletin nihai tüketimi' },
+  { kod: 'TP.GSYIH20.CY.P51G', formul: 3, alan: 'yatirim', ad: 'Gayrisafi sabit sermaye oluşumu (yatırım)' },
+  { kod: 'TP.GSYIH20.CY.P6', formul: 3, alan: 'ihracat', ad: 'Mal ve hizmet ihracatı' },
+  { kod: 'TP.GSYIH20.CY.P7', formul: 3, alan: 'ithalat', ad: 'Mal ve hizmet ithalatı' },
+  { kod: 'TP.GSYIH40.IFC.A', formul: 3, alan: 'tarim', ad: 'Tarım, ormancılık ve balıkçılık' },
+  { kod: 'TP.GSYIH40.IFC.BTE', formul: 3, alan: 'sanayi', ad: 'Sanayi' },
+  { kod: 'TP.GSYIH40.IFC.F', formul: 3, alan: 'insaat', ad: 'İnşaat' },
+  { kod: 'TP.GSYIH40.IFC.GTI', formul: 3, alan: 'hizmetler', ad: 'Ticaret, ulaştırma, konaklama (hizmetler)' },
+  { kod: 'TP.GSYIH40.IFC.J', formul: 3, alan: 'bilgi', ad: 'Bilgi ve iletişim' },
+  { kod: 'TP.GSYIH40.IFC.K', formul: 3, alan: 'finans', ad: 'Finans ve sigorta' },
+  { kod: 'TP.GSYIH40.IFC.L', formul: 3, alan: 'gayrimenkul', ad: 'Gayrimenkul faaliyetleri' },
+  { kod: 'TP.GSYIH40.IFC.MN', formul: 3, alan: 'mesleki', ad: 'Mesleki, idari ve destek hizmetleri' },
+  { kod: 'TP.GSYIH40.IFC.OTQ', formul: 3, alan: 'kamu', ad: 'Kamu yönetimi, eğitim, sağlık' },
+  { kod: 'TP.GSYIH40.IFC.RTU', formul: 3, alan: 'diger', ad: 'Diğer hizmetler' },
+];
+
+// Yıllık değişim bir yıllık geçmiş ister: istek 1998'den başlar, 1999 öncesi boş satırlar elenir.
+export async function buyumeAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TÜİK verisi, dönemsel gayrisafi yurt içi hasıla, zincirlenmiş hacim (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(BUYUME_SERILERI),
+    satirlar: await ceyrekFormullu(BUYUME_SERILERI, new Date(Date.UTC(1998, 0, 1)), simdi, anahtar, 'Büyüme', 80),
   };
 }
 
