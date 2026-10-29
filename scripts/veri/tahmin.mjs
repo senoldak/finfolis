@@ -28,6 +28,7 @@ import {
   yuvarlaNesne,
 } from '../../src/lib/tahmin/modeller.mjs';
 import { arsiveEkle } from '../../src/lib/tahmin/arsiv.mjs';
+import { halModeli } from '../../src/lib/tahmin/hal.mjs';
 
 const veri = (ad) => fileURLToPath(new URL(`../../src/data/${ad}`, import.meta.url));
 const okuJson = async (ad, bos) => {
@@ -69,7 +70,7 @@ function ekkModeli(ad, gozlemler) {
   };
 }
 
-export function hesapla({ resmi, ito, girdi, ppkMetin, ppkTon, takvim }, simdi = new Date()) {
+export function hesapla({ resmi, ito, girdi, ppkMetin, ppkTon, takvim, halFiyat }, simdi = new Date()) {
   const bugun = istanbulGunu(simdi);
   const buAy = ak({ yil: Number(bugun.slice(0, 4)), ay: Number(bugun.slice(5, 7)) });
   const tufe = resmi.enflasyon.satirlar;
@@ -108,6 +109,9 @@ export function hesapla({ resmi, ito, girdi, ppkMetin, ppkTon, takvim }, simdi =
     sonrakiToplanti: toplanti ?? null,
     simdi: ppk.karne.gecti && ppk.simdi ? { tarih: ppk.simdi.tarih, olasilik: ppk.simdi.model, girdiler: ppk.simdi.girdiler } : null,
   };
+
+  // Taze meyve ve sebze (hal fiyatlarından): toplam ve sebze ayrı kapıdan geçer; meyve yayımlanmaz (hal.mjs).
+  if (halFiyat) modeller.hal = halModeli(halFiyat, bugun, karne);
 
   // Yıllık enflasyon yolu: son 11 ayın aylık değişimi ve PKA'nın aylık beklentileri (hesap makinesinin açılış değerleri).
   const yk = pkaYolKarnesi({ tufe, girdi: girdi.satirlar });
@@ -155,6 +159,9 @@ export function arsivKayitlari(sonuc, bugun) {
   }
   const p = sonuc.modeller.ppk;
   if (p.gecti && p.simdi) out.push({ model: 'ppk', surum: p.surum, hedef: p.simdi.tarih, yapildi: bugun, olasilik: p.simdi.olasilik });
+  for (const [grup, m] of Object.entries(sonuc.modeller.hal?.gruplar ?? {})) {
+    if (m.gecti && m.simdi) out.push({ model: `hal-${grup}`, surum: m.surum, hedef: m.simdi.ay, yapildi: bugun, tahmin: m.simdi.tahmin, a80: m.simdi.a80, a95: m.simdi.a95, birim: 'yuzde' });
+  }
   return out;
 }
 
@@ -167,6 +174,7 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     ppkMetin: await okuJson('ppk-metinler.json'),
     ppkTon: await okuJson('ppk-ton.json'),
     takvim: await okuJson('veri-takvimi.json', null),
+    halFiyat: await okuJson('hal-fiyat.json', null),
   };
   const sonuc = hesapla(girdiler, simdi);
   const eski = await okuJson('tahmin.json', null);

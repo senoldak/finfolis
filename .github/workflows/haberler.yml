@@ -153,6 +153,8 @@ jobs:
           node scripts/veri/ecb-ton.mjs --yaz || true
           # Tahmin sayfası: İTO + PKA (EVDS), sonra modeller ve yalnız ekleme yapılan arşiv (ağsız, saniyeler).
           node scripts/veri/tahmin-veri.mjs --yaz || true
+          # Taze meyve-sebze kalemi: İzmir hal bülteninin eksik günleri (ayda ~15 istek) + TÜİK alt sınıfları (EVDS).
+          node scripts/veri/hal-veri.mjs --yaz || true
           node scripts/veri/tahmin.mjs --yaz || true
 
       # Üretim adımı düşse de (zaman aşımı, motor hatası, beklenmeyen hata) o ana kadar yazılan haberler ve durum dosyası

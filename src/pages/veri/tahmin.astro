@@ -13,9 +13,15 @@ import { canliKarne } from '../../lib/tahmin/arsiv.mjs';
 import tahmin from '../../data/tahmin.json';
 import arsiv from '../../data/tahmin-arsivi.json';
 import VeriKarti from '../../components/VeriKarti.astro';
+import halFiyat from '../../data/hal-fiyat.json';
+import { tuikDegisimleri, yuzdeye } from '../../lib/tahmin/hal.mjs';
 
 const T = tahmin as any;
-const M = T.modeller;
+// Hal fiyatı kaleminin iki grubu (toplam, sebze) öteki EKK modelleri gibi ayrı satır olarak gösterilir.
+const HAL = T.modeller.hal ?? null;
+const halAdlari: string[] = HAL ? Object.keys(HAL.gruplar).map((g) => `hal-${g}`) : [];
+const M = { ...T.modeller, ...Object.fromEntries(halAdlari.map((ad) => [ad, { ...HAL.gruplar[ad.slice(4)], bazlar: HAL.bazlar }])) };
+const halTuik = tuikDegisimleri((halFiyat as any).tuik);
 const ayYaz = (a: string) => `${AYLAR[Number(a.slice(5, 7)) - 1]} ${a.slice(0, 4)}`;
 const ayT = (a: string) => Number(a.slice(0, 4)) * 12 + Number(a.slice(5, 7)) - 1;
 const puan = (n: number, o = 2) => `${sayiYaz(n, o)} puan`;
@@ -29,6 +35,8 @@ const MODEL_AD: Record<string, string> = {
   cari: 'Cari denge',
   sanayi: 'Sanayi üretimi',
   ppk: 'PPK karar yönü',
+  'hal-toplam': 'Taze meyve ve sebze (hal fiyatlarından tahmin)',
+  'hal-sebze': 'Taze sebze (hal fiyatlarından tahmin)',
 };
 const BAZ_AD: Record<string, string> = {
   pka: 'PKA’nın cari ay beklentisi',
@@ -37,6 +45,8 @@ const BAZ_AD: Record<string, string> = {
   disTicaret: 'Dış ticaret dengesi',
   ar1: 'AR(1) modeli',
   gecenAy: 'Geçen ayın yıllık değişimi',
+  mevsim: 'Geçmişte aynı ayın ortalama değişimi',
+  oncekiAy: 'Geçen ayın aylık değişimi',
 };
 const hataYaz = (ad: string, n: number) => (ad === 'cari' ? `${sayiYaz(n, 0)} milyon $` : puan(n));
 
@@ -47,6 +57,10 @@ const gercekBul = (k: any) => {
   if (k.model === 'cari') return bul(RESMI.cari?.satirlar ?? [])?.cari ?? null;
   if (k.model === 'tufe') return bul(RESMI.enflasyon?.satirlar ?? [])?.aylik ?? null;
   if (k.model === 'sanayi') return bul(RESMI.sanayi?.satirlar ?? [])?.yillik ?? null;
+  if (k.model.startsWith('hal-')) {
+    const d = halTuik[k.hedef]?.[k.model.slice(4)];
+    return d == null ? null : yuzdeye(d);
+  }
   return null;
 };
 const canli = (ad: string) => canliKarne((arsiv as any).kayitlar.filter((k: any) => k.model === ad && k.surum === M[ad].surum), gercekBul);
@@ -72,10 +86,15 @@ const cariNoktalar = [
 ];
 
 const ppk = M.ppk;
-const ekkModeller = ['tufe', 'cari', 'sanayi'];
+const ekkModeller = ['tufe', 'cari', 'sanayi', ...halAdlari];
+// Hal kaleminin yanında yazılan bilgiler: kapsam, kaynak, ürün sayısı, derleme günleri.
+const halB = HAL?.bilgi;
+const halBilgi = halB
+  ? `${ayYaz(halB.ay)}: İzmir hal bülteninin ${halB.bultenGunu} günü (${gunYaz(halB.ilkGun)} – ${gunYaz(halB.sonGun)}, ayın ilk ${halB.gunSiniri} günü), geçen ayla karşılaştırılan ${halB.urun?.toplam ?? '–'} ürün (${halB.urun?.sebze ?? '–'} sebze, ${halB.urun?.meyve ?? '–'} meyve). Kaynak: İzmir Büyükşehir Belediyesi açık verisi (CC BY 4.0).`
+  : '';
 const baslik = 'Tahminler ve karneleri';
 const description =
-  'finfolis’in enflasyon, cari denge, sanayi üretimi ve PPK kararı için kurduğu modeller, örneklem dışı karneleriyle. Tabanını geçemeyen model rakam vermez. Model tahminidir, yatırım tavsiyesi değildir.';
+  'finfolis’in enflasyon, cari denge, sanayi üretimi, PPK kararı ve hal fiyatlarından taze meyve-sebze için kurduğu modeller, örneklem dışı karneleriyle. Tabanını geçemeyen model rakam vermez. Model tahminidir, yatırım tavsiyesi değildir.';
 const yol2 = [
   { ad: 'Anasayfa', href: '/' },
   { ad: 'Veriler', href: '/veri/' },
@@ -100,7 +119,7 @@ const durumYaz = (ad: string) =>
 
     <section class="bolum prose veri-aciklama">
       <p>
-        Bu sayfadaki dört model, resmi verinin açıklanmasından önce o veriyi tahmin eder. Her model, aynı işi gören basit
+        Bu sayfadaki modeller, resmi verinin açıklanmasından önce o veriyi tahmin eder. Her model, aynı işi gören basit
         bir yöntemle (taban) yarışır. Geçmişte hiç görmediği aylarda tabanından daha az hata yapmayan model rakam
         vermez; sayfada yalnız karnesi kalır. Kur, borsa, altın ve tahvil faizi tahmini yapılmaz. Enflasyonun önümüzdeki aylardaki yolunu
         <a href="/veri/enflasyon-yolu/">enflasyon yolu hesap makinesi</a>, kuralın verdiği faiz aralığını
@@ -192,6 +211,7 @@ const durumYaz = (ad: string) =>
               {c.n > 0 && ` Canlı karne: yayımlanan ${c.n} tahminin hatası ${hataYaz(ad, c.rmse)}.`}{' '}
               <a href={`#${ad}`}>Karne ve yöntem</a>
             </p>
+            {ad.startsWith('hal-') && <p class="veri-notu">{halBilgi} Hal fiyatındaki değişim: {yuzdeYaz(m.simdi.hal, 1)}.</p>}
             {ad === 'cari' && (
               <ZamanGrafik
                 baslik="Cari denge: tahmin ve gerçekleşen"
@@ -295,7 +315,7 @@ const durumYaz = (ad: string) =>
         return (
           <details class="tahmin-ayrinti" id={ad}>
             <summary>
-              <span>{MODEL_AD[ad]} {ad === 'sanayi' ? 'anlık tahmini (yıllık değişim)' : 'anlık tahmini'}</span>
+              <span>{ad.startsWith('hal-') ? `${MODEL_AD[ad]}, aylık değişim` : `${MODEL_AD[ad]} ${ad === 'sanayi' ? 'anlık tahmini (yıllık değişim)' : 'anlık tahmini'}`}</span>
               <span class="tahmin-rozet">{durumYaz(ad)}</span>
             </summary>
             {m.gecti ? (
@@ -376,6 +396,39 @@ const durumYaz = (ad: string) =>
                   TÜİK’ten bir ay sonra, sanayi üretimi yaklaşık iki ay sonra gelir. 2017’den itibaren her ay yeniden
                   kurularak sınanır. Tabanlar: aynı veriyle kurulan AR(1) modeli ve geçen ayın yıllık değişimi.
                 </p>
+              )}
+              {ad.startsWith('hal-') && (
+                <>
+                  <p>
+                    İzmir Büyükşehir Belediyesi her iş günü hal fiyat bülteni yayımlar. Bültendeki her meyve ve sebze için
+                    ayın ilk {HAL.bilgi.gunSiniri} günündeki ortalama fiyatların geometrik ortalaması alınır. İthal ürünler
+                    dışarıda kalır. İki ayda da fiyatı olan ürünlerin fiyat değişimlerinin ortalaması o ayın hal değişimidir;
+                    fiyatı üç katından fazla artan ya da üçte birinin altına düşen ürün hesaba katılmaz.
+                  </p>
+                  <p>
+                    Tahmin edilen değer, TÜİK’in tüketici fiyatları alt sınıflarından taze meyve (dört alt sınıf) ve taze
+                    sebze (beş alt sınıf) endekslerinin aylık değişimidir. Toplam kalemde sebzenin ağırlığı meyvenin iki
+                    katı alınır; alt sınıflar kendi içinde ağırlıksız ortalanır. Bu rakam TÜİK’in açıkladığı bir gösterge
+                    değildir. Hal değişimi ile bu değişim en küçük kareler yöntemiyle ilişkilendirilir. Model 2019’dan bu
+                    yana veriyle kurulur, 2021’den itibaren her ay yeniden kurularak sınanır. Aralıklar, son {HAL.bilgi.pencere}
+                    ayın örneklem dışı hatalarından kurulur. Tahmin, ayın {HAL.bilgi.gunSiniri}. gününden sonra verilir ve
+                    TÜİK o ayın verisini açıklayınca karneye girer. Meyve tek başına yayımlanmaz, çünkü sınamada
+                    tabanını geçemedi. Tabanlar: geçmişte aynı ayın ortalama değişimi ve geçen ayın aylık değişimi.
+                  </p>
+                  <p class="veri-notu">
+                    {halBilgi} Hal fiyatı toptan fiyattır; perakende fiyatla aynı yönde ama aynı ölçüde hareket etmeyebilir.
+                    Kaynaklar: <a href={HAL.bilgi.kaynak.hal.url} rel="noopener">İzmir Büyükşehir Belediyesi açık veri portalı</a>{' '}
+                    (lisans {HAL.bilgi.kaynak.hal.lisans}), TÜİK verisi için <a href={HAL.bilgi.kaynak.tuik.url} rel="noopener">TCMB EVDS</a>.
+                    Son TÜİK verisi: {ayYaz(HAL.bilgi.sonTuik)}.
+                  </p>
+                  <p class="veri-notu">
+                    Bu kalemin fikri, fiyatları kendisi derleyerek bağımsız ölçüm yapan{' '}
+                    <a href="https://www.webtufe.com/" rel="noopener">WebTÜFE</a> ve açık kaynaklı{' '}
+                    <a href="https://github.com/fkasap/KTufe" rel="noopener">KTufe</a> çalışmalarından geldi; emekleri için
+                    teşekkür ederiz. Hesapta onların verisi, kodu ya da sepeti kullanılmadı: kaynak yalnız İzmir hal bültenidir,
+                    yöntem bu sayfada anlatılan basit ortalama ve en küçük kareler köprüsüdür.
+                  </p>
+                </>
               )}
             </div>
           </details>
