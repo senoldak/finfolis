@@ -100,6 +100,7 @@ const RESMI_SAYFA = {
   uyp: '/veri/yatirim-pozisyonu/',
   reelGuven: '/veri/reel-kesim-guveni/',
   ticariGayrimenkul: '/veri/ticari-gayrimenkul/',
+  krediEgilim: '/veri/kredi-egilim-anketi/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

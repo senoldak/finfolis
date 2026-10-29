@@ -378,6 +378,14 @@ export interface TicariGayrimenkulBolumu {
   alinma: string;
 }
 
+// Banka Kredileri Eğilim Anketi (üç aylık, net yüzde; artı gevşeme ya da artış).
+export interface KrediEgilimBolumu {
+  kaynak: Kaynak;
+  seriler: SeriAdi[];
+  ceyrekler: ({ yil: number; ceyrek: number } & Record<'isStandart' | 'kobiStandart' | 'buyukStandart' | 'isTalep' | 'isStandartBeklenti' | 'isTalepBeklenti' | 'konutStandart' | 'tasitStandart' | 'digerStandart' | 'konutTalep' | 'tasitTalep' | 'digerTalep', number>)[];
+  alinma: string;
+}
+
 // Para arzı (TCMB, haftalık cuma stoku, bin TL); yıllık değişim %.
 export interface ParaArziBolumu {
   kaynak: Kaynak;
@@ -460,6 +468,7 @@ export const RESMI = data as unknown as {
   uyp?: UypBolumu;
   reelGuven?: ReelGuvenBolumu;
   ticariGayrimenkul?: TicariGayrimenkulBolumu;
+  krediEgilim?: KrediEgilimBolumu;
   banknot?: AylikSeriBolumu<`${'k200' | 'k100' | 'k50' | 'k20' | 'k10' | 'k5' | 'diger' | 'toplam'}${'Adet' | 'Tutar'}`>;
   cek?: AylikSeriBolumu<'ibrazAdet' | 'ibrazTutar' | 'karsiliksizAdet' | 'karsiliksizTutar'>;
 };

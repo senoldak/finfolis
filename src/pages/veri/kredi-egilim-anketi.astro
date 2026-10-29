@@ -1,0 +1,223 @@
+---
+// Kredi eğilim anketi: TCMB Banka Kredileri Eğilim Anketi'nde işletme ve bireysel kredilerde kredi standartları ve kredi
+// talebi (üç aylık, net yüzde), EVDS'den. TCMB metaverisine göre net yüzde, standartlarda gevşeten bankaların payından
+// sıkılaştıranların payının, talepte artış bildirenlerden azalış bildirenlerin çıkarılmasıdır: artı gevşeme ya da artış.
+// Oran, değişimin büyüklüğünü değil, o yönde yanıt veren bankaların payını gösterir. Sayfa hesabı yoktur; anket
+// sonucudur, tahmin değildir.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const ke = RESMI.krediEgilim;
+const ceyrekler = ke?.ceyrekler ?? [];
+const son = ceyrekler.at(-1);
+
+const ceyrekAdi = (s: { yil: number; ceyrek: number }) => `${s.yil} ${s.ceyrek}. çeyrek`;
+const t = (s: { yil: number; ceyrek: number }) => s.yil * 4 + s.ceyrek - 1;
+const net = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${sayiYaz(Math.abs(n), 1)}`;
+const standartYonu = (n: number) => (n > 0 ? 'gevşeme' : n < 0 ? 'sıkılaşma' : 'değişim yok');
+const talepYonu = (n: number) => (n > 0 ? 'artış' : n < 0 ? 'azalış' : 'değişim yok');
+
+const gruplar1 = [
+  {
+    id: 'is',
+    ad: 'İşletme',
+    seriler: [
+      { id: 'isStandart', ad: 'Kredi standartları', renk: 'murekkep' as const },
+      { id: 'isTalep', ad: 'Kredi talebi', renk: 'toprak' as const },
+    ],
+  },
+  {
+    id: 'olcek',
+    ad: 'KOBİ ve büyük işletme',
+    seriler: [
+      { id: 'kobiStandart', ad: 'KOBİ standartları', renk: 'murekkep' as const },
+      { id: 'buyukStandart', ad: 'Büyük işletme standartları', renk: 'toprak' as const },
+    ],
+  },
+  {
+    id: 'bireysel',
+    ad: 'Bireysel standartlar',
+    seriler: [
+      { id: 'konutStandart', ad: 'Konut', renk: 'murekkep' as const },
+      { id: 'tasitStandart', ad: 'Taşıt', renk: 'toprak' as const },
+      { id: 'digerStandart', ad: 'Diğer bireysel', renk: 'mavi' as const },
+    ],
+  },
+  {
+    id: 'bireyselTalep',
+    ad: 'Bireysel talep',
+    seriler: [
+      { id: 'konutTalep', ad: 'Konut', renk: 'murekkep' as const },
+      { id: 'tasitTalep', ad: 'Taşıt', renk: 'toprak' as const },
+      { id: 'digerTalep', ad: 'Diğer bireysel', renk: 'mavi' as const },
+    ],
+  },
+];
+const IDLER = ['isStandart', 'isTalep', 'kobiStandart', 'buyukStandart', 'konutStandart', 'tasitStandart', 'digerStandart', 'konutTalep', 'tasitTalep', 'digerTalep'] as const;
+const noktalar = ceyrekler.map((s) => [t(s), ...IDLER.map((a) => s[a])]);
+
+const tablo = son
+  ? [
+      { ad: 'İşletme kredileri', standart: son.isStandart, talep: son.isTalep },
+      { ad: 'KOBİ kredileri', standart: son.kobiStandart, talep: null },
+      { ad: 'Büyük işletme kredileri', standart: son.buyukStandart, talep: null },
+      { ad: 'Konut kredileri', standart: son.konutStandart, talep: son.konutTalep },
+      { ad: 'Taşıt kredileri', standart: son.tasitStandart, talep: son.tasitTalep },
+      { ad: 'Diğer bireysel krediler', standart: son.digerStandart, talep: son.digerTalep },
+    ]
+  : [];
+
+const baslik = 'Kredi eğilim anketi';
+const description = son
+  ? `TCMB Banka Kredileri Eğilim Anketi, ${ceyrekAdi(son)}: işletme kredisi standartlarında net ${net(son.isStandart)} (${standartYonu(son.isStandart)}), işletme kredi talebinde net ${net(son.isTalep)} (${talepYonu(son.isTalep)}). Konut, taşıt ve diğer bireysel krediler.`
+  : 'TCMB Banka Kredileri Eğilim Anketi: işletme ve bireysel kredilerde kredi standartları ve kredi talebi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/kredi-egilim-anketi/' },
+];
+const ck = (s: { yil: number; ceyrek: number }) => `${s.yil}-Q${s.ceyrek}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(ke && son
+    ? {
+        sayfaEk: { dateModified: ke.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Banka Kredileri Eğilim Anketi',
+            description:
+              'İşletme ve bireysel kredilerde kredi standartları ve kredi talebinin geçen üç aydaki değişimi ile işletme kredileri için gelecek üç ay beklentisi; net yüzde, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/kredi-egilim-anketi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ck(ceyrekler[0])}/${ck(son)}`,
+            dateModified: ke.alinma,
+            variableMeasured: ['Kredi standartları, net yüzde', 'Kredi talebi, net yüzde'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Kredi eğilim anketi: ${son ? ceyrekAdi(son) : 'üç aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Bankaların kredi standartları ve kredi talebi · TCMB, üç aylık</p>
+    </header>
+    {
+      ke && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>İşletme kredi standartları</dt>
+              <dd>{net(son.isStandart)}</dd>
+              <dd class="veri-degisim">{`${ceyrekAdi(son)}, net ${standartYonu(son.isStandart)}`}</dd>
+            </div>
+            <div>
+              <dt>İşletme kredi talebi</dt>
+              <dd>{net(son.isTalep)}</dd>
+              <dd class="veri-degisim">Net {talepYonu(son.isTalep)}</dd>
+            </div>
+            <div>
+              <dt>Gelecek üç ay, standartlar</dt>
+              <dd>{net(son.isStandartBeklenti)}</dd>
+              <dd class="veri-degisim">İşletme, bankaların beklentisi</dd>
+            </div>
+            <div>
+              <dt>Konut kredisi standartları</dt>
+              <dd>{net(son.konutStandart)}</dd>
+              <dd class="veri-degisim">Net {standartYonu(son.konutStandart)}</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={ke.kaynak.url} rel="noopener">{ke.kaynak.ad}</a>. Rakamlar net yüzdedir: artı
+            değer standartlarda gevşeme, talepte artış demektir. Siteye alındığı zaman: {zamanYaz(ke.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Kredi standartları ve talep"
+            ipucu="Net yüzde · Standartlarda sıfırın üstü gevşeme, altı sıkılaşma; talepte üstü artış, altı azalış · Grup düğmesiyle geçilir"
+            kaynak="Kaynak: TCMB, Banka Kredileri Eğilim Anketi (TCMB EVDS)."
+            siklik="ceyrek"
+            birim="endeks"
+            ondalik={1}
+            seriIdleri={[...IDLER]}
+            noktalar={noktalar}
+            gruplar={gruplar1}
+            grupEtiketi="Seri grubu"
+            referans={{ deger: 0, ad: 'Değişim yok' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Geçen üç ay, {ceyrekAdi(son)}</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Kredi türü</th>
+                      <th scope="col" class="sag">Standartlar</th>
+                      <th scope="col" class="sag">Talep</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((r) => (
+                      <tr>
+                        <td>{r.ad}</td>
+                        <td class="sag">{net(r.standart)}</td>
+                        <td class="sag">{r.talep != null ? net(r.talep) : '–'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Net yüzde. KOBİ ve büyük işletme ayrımı yalnız standartlar sorusundadır. İşletmeler için gelecek üç ay
+                beklentisi: standartlarda {net(son.isStandartBeklenti)}, talepte {net(son.isTalepBeklenti)}.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                TCMB her çeyrek bankalara kredi standartlarını, yani bir krediyi onaylarken uyguladıkları ölçütleri, son üç ayda
+                gevşetip gevşetmediklerini ve kredi talebinin nasıl değiştiğini sorar.
+              </p>
+              <p>
+                Net yüzde, gevşeten bankaların payından sıkılaştıranların payı çıkarılarak bulunur; talepte artış bildirenlerin
+                payından azalış bildirenlerin payı çıkarılır. Bu oran değişimin büyüklüğünü değil, o yönde yanıt veren bankaların
+                payını gösterir. Örneğin −25, bankaların net yüzde 25’inin standartları sıkılaştırdığı anlamına gelir.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Kredi eğilim anketi verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/kredi-hacmi/">Kredi hacmi</a>
+      <a href="/veri/piyasa-faizleri/">Piyasa faizleri</a>
+      <a href="/veri/reel-kesim-guveni/">Reel kesim güveni</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı anket sonuçlarıdır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

@@ -27,6 +27,7 @@ import {
   uypAl,
   reelGuvenAl,
   ticariGayrimenkulAl,
+  krediEgilimAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -734,6 +735,21 @@ test('ticariGayrimenkulAl: üç aylık 15 seri ve aylık yeni/eski konut', async
   assert.deepEqual([g.ceyrekler[0].yil, g.ceyrekler[0].ceyrek], [2016, 1]);
   assert.equal(Object.keys(g.ceyrekler[0]).length, 17);
   assert.deepEqual([g.konut[0].yil, g.konut[0].ay], [2011, 1]);
+});
+
+test('krediEgilimAl: üç aylık 12 net yüzde serisi, 2005 sonundan', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    istekler.push(decodeURIComponent(String(url)));
+    const items = [];
+    for (let y = 2005; y <= 2026; y++) for (let q = y === 2005 ? 4 : 1; q <= 4 && !(y === 2026 && q > 3); q++) items.push({ Tarih: `${y}-Q${q}`, ...Object.fromEntries(alanlar(url).map((x) => [x, '-7.5'])) });
+    return yanit({ items });
+  };
+  const b = await krediEgilimAl(SIMDI, 'x');
+  assert.equal(alanlar(istekler[0]).length, 12);
+  assert.ok(istekler[0].includes('startDate=01-10-2005'));
+  assert.deepEqual([b.ceyrekler[0].yil, b.ceyrekler[0].ceyrek, b.ceyrekler.length], [2005, 4, 84]);
+  assert.equal(b.ceyrekler[0].isStandart, -7.5);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

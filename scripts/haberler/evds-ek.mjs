@@ -397,6 +397,9 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      finansal hizmetler güven endeksi ve alt endeksleri (TCMB, aylık, Mayıs 2012'den; ayrı dizi). Doğrulandı 29.10.2026.
 //  - ticariGayrimenkul: ticari gayrimenkul, dükkân ve ofis fiyat endeksleri (TCMB, üç aylık, 2015'ten; Türkiye, İstanbul,
 //      Ankara, İzmir) ile yeni ve yeni olmayan konut fiyat endeksleri (TCMB, aylık, 2010'dan; ayrı dizi). Doğrulandı 29.10.2026.
+//  - krediEgilim: Banka Kredileri Eğilim Anketi (TCMB, üç aylık, 2005 sonundan): işletme ve bireysel kredilerde kredi
+//      standartları ve kredi talebi, net yüzde. TCMB metaverisine göre (doğrulandı 29.10.2026) net oran standartlarda
+//      gevşeten eksi sıkılaştıran bankaların payı, talepte artış eksi azalış bildirenlerin payıdır: artı gevşeme/artış.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -1380,6 +1383,30 @@ export async function ticariGayrimenkulAl(simdi, anahtar) {
     konutSeriler: tanimlar(KONUT_YENI_SERILERI),
     ceyrekler: await ceyrekFormullu(TICARI_GAYRIMENKUL_SERILERI, new Date(Date.UTC(2015, 0, 1)), simdi, anahtar, 'Ticari gayrimenkul', 30),
     konut: await aylikFormullu(KONUT_YENI_SERILERI, new Date(Date.UTC(2010, 0, 1)), simdi, anahtar, 'Yeni ve eski konut', 150),
+  };
+}
+
+// Banka Kredileri Eğilim Anketi (net yüzde): standartlarda artı gevşeme, talepte artı artış.
+export const KREDI_EGILIM_SERILERI = [
+  ['S001', 'isStandart', 'İşletme kredileri, kredi standartları, geçen üç ay'],
+  ['S002', 'kobiStandart', 'KOBİ kredileri, kredi standartları, geçen üç ay'],
+  ['S003', 'buyukStandart', 'Büyük işletme kredileri, kredi standartları, geçen üç ay'],
+  ['S024', 'isTalep', 'İşletme kredileri, kredi talebi, geçen üç ay'],
+  ['S042', 'isStandartBeklenti', 'İşletme kredileri, kredi standartları, gelecek üç ay beklentisi'],
+  ['S049', 'isTalepBeklenti', 'İşletme kredileri, kredi talebi, gelecek üç ay beklentisi'],
+  ['S056', 'konutStandart', 'Konut kredileri, kredi standartları, geçen üç ay'],
+  ['S057', 'tasitStandart', 'Taşıt kredileri, kredi standartları, geçen üç ay'],
+  ['S058', 'digerStandart', 'Diğer bireysel krediler, kredi standartları, geçen üç ay'],
+  ['S092', 'konutTalep', 'Konut kredileri, kredi talebi, geçen üç ay'],
+  ['S093', 'tasitTalep', 'Taşıt kredileri, kredi talebi, geçen üç ay'],
+  ['S094', 'digerTalep', 'Diğer bireysel krediler, kredi talebi, geçen üç ay'],
+].map(([k, alan, ad]) => ({ kod: `TP.BKEA.${k}`, formul: 0, alan, ad }));
+
+export async function krediEgilimAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TCMB, Banka Kredileri Eğilim Anketi (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(KREDI_EGILIM_SERILERI),
+    ceyrekler: await ceyrekFormullu(KREDI_EGILIM_SERILERI, new Date(Date.UTC(2005, 9, 1)), simdi, anahtar, 'Kredi eğilim anketi', 60),
   };
 }
 

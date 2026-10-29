@@ -92,6 +92,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/yatirim-pozisyonu/': 'uluslararası yatırım pozisyonu uyp net dış varlık yükümlülük doğrudan yatırım portföy',
   '/veri/reel-kesim-guveni/': 'reel kesim güven endeksi rkge iktisadi yönelim sipariş imalat finansal hizmetler güveni',
   '/veri/ticari-gayrimenkul/': 'ticari gayrimenkul dükkan ofis fiyat endeksi işyeri yeni konut ikinci el konut fiyatı',
+  '/veri/kredi-egilim-anketi/': 'banka kredileri eğilim anketi kredi standartları kredi talebi sıkılaşma gevşeme bkea',
   '/veri/para-arzi/': 'm1 m2 m3 para arzı parasal büyüklükler dolaşımdaki para vadeli vadesiz mevduat likidite',
   '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
@@ -450,6 +451,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/kredi-hacmi/')}>
               <a href="/veri/kredi-hacmi/" class="fihrist-baslik-link">Kredi Hacmi</a>
               <span class="fihrist-ozet">Bankacılık kredileri, nominal ve reel yıllık büyüme</span>
+            </li>
+            <li data-ek={aramaEki('/veri/kredi-egilim-anketi/')}>
+              <a href="/veri/kredi-egilim-anketi/" class="fihrist-baslik-link">Kredi Eğilim Anketi</a>
+              <span class="fihrist-ozet">Bankaların kredi standartları ve kredi talebi: işletme, konut, taşıt, üç aylık</span>
             </li>
             <li data-ek={aramaEki('/veri/karsiliksiz-cek/')}>
               <a href="/veri/karsiliksiz-cek/" class="fihrist-baslik-link">Karşılıksız Çek</a>
