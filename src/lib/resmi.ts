@@ -239,6 +239,21 @@ export interface KonutSatisBolumu
   };
 }
 
+// Üretici fiyatları (TÜİK, aylık): yurt içi ÜFE (düzey, aylık ve yıllık değişim, TÜFE yıllık değişimi, sektörler), hizmet ÜFE,
+// tarım ürünleri ÜFE ve tarımsal girdi fiyat endeksi. Diziler farklı aylarda başlar ve biter (tarımsal girdi bir ay
+// geç yayımlanır), bu yüzden ayrı tutulur.
+export interface UfeBolumu
+  extends AylikSeriBolumu<
+    'endeks' | 'aylik' | 'yillik' | 'tufeYillik' | 'madencilik' | 'imalat' | 'enerji' | 'su' | 'gida' | 'petrol' | 'metal'
+  > {
+  hizmetSeriler: SeriAdi[];
+  tarimSeriler: SeriAdi[];
+  tarimGirdiSeriler: SeriAdi[];
+  hizmet: ({ yil: number; ay: number } & Record<'aylik' | 'yillik', number>)[];
+  tarim: ({ yil: number; ay: number } & Record<'aylik' | 'yillik', number>)[];
+  tarimGirdi: ({ yil: number; ay: number } & Record<'aylik' | 'yillik', number>)[];
+}
+
 export const RESMI = data as unknown as {
   kur?: KurBolumu;
   faiz?: FaizBolumu;
@@ -297,6 +312,7 @@ export const RESMI = data as unknown as {
     | 'diger'
   >;
   konutSatis?: KonutSatisBolumu;
+  ufe?: UfeBolumu;
 };
 
 // Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).

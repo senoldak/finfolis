@@ -10,6 +10,11 @@ import {
   birimFiyatAl,
   buyumeAl,
   konutSatisAl,
+  ufeAl,
+  UFE_SERILERI,
+  UFE_HIZMET_SERILERI,
+  UFE_TARIM_SERILERI,
+  UFE_TARIM_GIRDI_SERILERI,
   BUYUME_SERILERI,
   KONUT_SATIS_SERILERI,
   KIRA_BOLGELERI,
@@ -233,6 +238,94 @@ test('konutSatisAl: il serileri en çok 60 serilik parçalarda ve tek ay için i
 test('konutSatisAl: 81’den az il varsa hata verir', async () => {
   globalThis.fetch = konutMock(80);
   await assert.rejects(() => konutSatisAl(SIMDI, 'x'), /il listesi eksik/);
+});
+
+// Üretici fiyatları: dört istek, her birinin ay aralığı farklı. Yurt içi ÜFE 2005-01..2026-09, hizmet 2017-01..2026-09,
+// tarım ürünleri 2020-01..2026-09, tarımsal girdi 2015-01..2026-08 (bir ay geç). Yıllık değişim ilk 12 ayda, aylık değişim
+// ilk ayda boştur; o satırlar elenir.
+const ufeMock =
+  (istekler = []) =>
+  async (url) => {
+    const u = decodeURIComponent(String(url));
+    istekler.push(u);
+    const [bas, n] = u.includes('TUFE1YI')
+      ? [[2005, 1], 261]
+      : u.includes('HUFE')
+        ? [[2017, 1], 117]
+        : u.includes('TARIMUFE')
+          ? [[2020, 1], 81]
+          : [[2015, 1], 140];
+    const a = alanlar(url);
+    const items = aylar(bas, n).map((m, i) => ({
+      Tarih: `${m.yil}-${m.ay}`,
+      ...Object.fromEntries(
+        a.map((x) => [x, x.endsWith('-3') ? (i < 12 ? null : '30') : x.endsWith('-1') ? (i === 0 ? null : '2') : '500']),
+      ),
+    }));
+    return yanit({ items });
+  };
+
+test('ufeAl: dört ayrı dizi, her biri kendi son ayını korur; geç yayımlanan seri diğerlerini kısaltmaz', async () => {
+  const istekler = [];
+  globalThis.fetch = ufeMock(istekler);
+  const u = await ufeAl(SIMDI, 'x');
+  assert.equal(istekler.length, 4);
+  assert.ok(istekler[0].includes('startDate=01-01-2005'));
+  assert.ok(istekler[1].includes('startDate=01-01-2017'));
+  assert.ok(istekler[2].includes('startDate=01-01-2020'));
+  assert.ok(istekler[3].includes('startDate=01-01-2015'));
+  assert.deepEqual(u.seriler.map((s) => s.alan), UFE_SERILERI.map((s) => s.alan));
+  assert.deepEqual(u.hizmetSeriler.map((s) => s.alan), UFE_HIZMET_SERILERI.map((s) => s.alan));
+  assert.deepEqual(u.tarimSeriler.map((s) => s.alan), UFE_TARIM_SERILERI.map((s) => s.alan));
+  assert.deepEqual(u.tarimGirdiSeriler.map((s) => s.alan), UFE_TARIM_GIRDI_SERILERI.map((s) => s.alan));
+  // Her dizi kendi alanlarının dolu olduğu ilk aydan başlar.
+  assert.equal(u.satirlar.length, 249);
+  assert.deepEqual(u.satirlar[0], {
+    yil: 2006,
+    ay: 1,
+    endeks: 500,
+    aylik: 2,
+    yillik: 30,
+    tufeYillik: 30,
+    madencilik: 30,
+    imalat: 30,
+    enerji: 30,
+    su: 30,
+    gida: 30,
+    petrol: 30,
+    metal: 30,
+  });
+  assert.deepEqual(u.hizmet[0], { yil: 2018, ay: 1, aylik: 2, yillik: 30 });
+  assert.deepEqual(u.tarim[0], { yil: 2021, ay: 1, aylik: 2, yillik: 30 });
+  assert.deepEqual(u.tarimGirdi[0], { yil: 2016, ay: 1, aylik: 2, yillik: 30 });
+  assert.deepEqual([u.hizmet.length, u.tarim.length, u.tarimGirdi.length], [105, 69, 128]);
+  // Tarımsal girdi bir ay geride; diğer diziler son aylarını korur.
+  assert.deepEqual([u.satirlar.at(-1).yil, u.satirlar.at(-1).ay], [2026, 9]);
+  assert.deepEqual([u.hizmet.at(-1).yil, u.hizmet.at(-1).ay], [2026, 9]);
+  assert.deepEqual([u.tarim.at(-1).yil, u.tarim.at(-1).ay], [2026, 9]);
+  assert.deepEqual([u.tarimGirdi.at(-1).yil, u.tarimGirdi.at(-1).ay], [2026, 8]);
+});
+
+test('ufeAl: seri istekleri doğru kod ve formüllerle yapılır', async () => {
+  const istekler = [];
+  globalThis.fetch = ufeMock(istekler);
+  await ufeAl(SIMDI, 'x');
+  assert.deepEqual(alanlar(istekler[0]), [
+    'TP_TUFE1YI_T1',
+    'TP_TUFE1YI_T1-1',
+    'TP_TUFE1YI_T1-3',
+    'TP_TUKFIY2025_GENEL-3',
+    'TP_TUFE1YI_T2-3',
+    'TP_TUFE1YI_T15-3',
+    'TP_TUFE1YI_T118-3',
+    'TP_TUFE1YI_T123-3',
+    'TP_TUFE1YI_T16-3',
+    'TP_TUFE1YI_T49-3',
+    'TP_TUFE1YI_T73-3',
+  ]);
+  assert.deepEqual(alanlar(istekler[1]), ['TP_HUFE_GK378119440-1', 'TP_HUFE_GK378119440-3']);
+  assert.deepEqual(alanlar(istekler[2]), ['TP_TARIMUFE01-3', 'TP_TARIMUFE01-1']);
+  assert.deepEqual(alanlar(istekler[3]), ['TP_TARIMGFE_GK378650484-3', 'TP_TARIMGFE_GK378650484-1']);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

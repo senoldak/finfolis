@@ -83,6 +83,7 @@ const RESMI_SAYFA = {
   sanayi: '/veri/sanayi-uretimi/',
   buyume: '/veri/buyume/',
   konutSatis: '/veri/konut-satislari/',
+  ufe: '/veri/uretici-fiyatlari/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

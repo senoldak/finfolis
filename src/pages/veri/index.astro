@@ -25,6 +25,7 @@ const kapasiteSon = kapasite?.satirlar.at(-1);
 const issizlikSon = issizlik?.satirlar.at(-1);
 const buyumeSon = RESMI.buyume?.satirlar.at(-1);
 const konutSatisSon = RESMI.konutSatis?.satirlar.at(-1);
+const ufeSon = RESMI.ufe?.satirlar.at(-1);
 const rekSon = rek?.satirlar.at(-1);
 const brutRezervSon = brutRezerv?.satirlar.at(-1);
 // Hesaplanmış göstergeler (finfolis): fihristte son değer.
@@ -65,6 +66,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/enflasyon/': 'tüfe fiyat pahalılık hayat pahalılığı',
   '/veri/enflasyon-hizi/': 'tüfe aylık enflasyon',
   '/veri/enflasyon-katkilari/': 'tüfe gıda enerji kira harcama grupları',
+  '/veri/uretici-fiyatlari/': 'üfe yi-üfe üretici enflasyonu toptan eşya maliyet hizmet tarım girdi gübre',
   '/veri/gida-fiyatlari/': 'hal sebze meyve domates pazar fiyatı gıda enflasyonu toptan izmir',
   '/veri/coban-salatasi/': 'çoban salatası endeksi domates salatalık biber soğan maydanoz limon hal toptan izmir menemen tantuni',
   '/veri/enflasyon-beklentisi/': 'piyasa katılımcıları anketi tüfe',
@@ -208,6 +210,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/enflasyon-katkilari/')}>
               <a href="/veri/enflasyon-katkilari/" class="fihrist-baslik-link">Enflasyonun Kaynakları</a>
               <span class="fihrist-ozet">13 ana harcama grubunun yıllık ve aylık enflasyona katkısı</span>
+            </li>
+            <li data-ek={aramaEki('/veri/uretici-fiyatlari/')}>
+              <a href="/veri/uretici-fiyatlari/" class="fihrist-baslik-link">Üretici Fiyatları (ÜFE)</a>
+              <span class="fihrist-ozet">TÜİK yurt içi ÜFE ({ufeSon ? `%${sayiYaz(ufeSon.yillik, 2)}` : '–'}), sektörler, hizmet ve tarım ÜFE, tarımsal girdi</span>
             </li>
             <li data-ek={aramaEki('/veri/gida-fiyatlari/')}>
               <a href="/veri/gida-fiyatlari/" class="fihrist-baslik-link">Gıda Fiyatları Göstergesi</a>

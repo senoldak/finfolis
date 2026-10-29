@@ -1,0 +1,351 @@
+---
+// Üretici fiyatları: TÜİK aylık yurt içi, hizmet ve tarım ürünleri üretici fiyat endeksleri ile tarımsal girdi fiyat
+// endeksi, EVDS'den. Düzeyler ve değişimler EVDS'nin verdiği gibidir. Sayfa hesabı yalnız ÜFE–TÜFE farkıdır (Yİ-ÜFE yıllık
+// değişimi eksi TÜFE yıllık değişimi, yüzde puanı; kredi-hacmi toplamları gibi); başka türetme ve tahmin yoktur. Dört dizi
+// farklı aylarda biter (tarımsal girdi bir ay geç yayımlanır), bu yüzden her biri kendi son ayıyla gösterilir.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const ufe = RESMI.ufe;
+const satirlar = ufe?.satirlar ?? [];
+const hizmet = ufe?.hizmet ?? [];
+const tarim = ufe?.tarim ?? [];
+const tarimGirdi = ufe?.tarimGirdi ?? [];
+const son = satirlar.at(-1);
+const sonHizmet = hizmet.at(-1);
+const sonTarim = tarim.at(-1);
+const sonGirdi = tarimGirdi.at(-1);
+
+const yd = (n: number) => `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`;
+// Sayfa hesabı: fark = Yİ-ÜFE yıllık − TÜFE yıllık (yüzde puanı).
+const fark = (s: { yillik: number; tufeYillik: number }) => s.yillik - s.tufeYillik;
+const puanYaz = (n: number) => {
+  const r = Math.round(n * 10) / 10;
+  return `${r > 0 ? '+' : r < 0 ? '−' : ''}${sayiYaz(Math.abs(r), 1)} puan`;
+};
+
+const gruplar1 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'yillik', ad: 'Yİ-ÜFE', renk: 'murekkep' as const },
+      { id: 'tufeYillik', ad: 'TÜFE', renk: 'toprak' as const, kesik: true },
+    ],
+  },
+];
+const noktalar1 = satirlar.map((s) => [ayAnahtari(s), s.yillik, s.tufeYillik]);
+
+const gruplar2 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [{ id: 'fark', ad: 'Yİ-ÜFE ile TÜFE arasındaki fark', renk: 'mavi' as const }],
+  },
+];
+const noktalar2 = satirlar.map((s) => [ayAnahtari(s), fark(s)]);
+
+const gruplar3 = [
+  {
+    id: 'ana',
+    ad: 'Ana sektörler',
+    seriler: [
+      { id: 'madencilik', ad: 'Madencilik ve taşocakçılığı', renk: 'murekkep' as const },
+      { id: 'imalat', ad: 'İmalat', renk: 'toprak' as const },
+      { id: 'enerji', ad: 'Elektrik, gaz, buhar ve iklimlendirme', renk: 'mavi' as const },
+      { id: 'su', ad: 'Su temini, kanalizasyon, atık yönetimi', renk: 'yesil' as const },
+    ],
+  },
+  {
+    id: 'imalattan',
+    ad: 'İmalattan seçilenler',
+    seriler: [
+      { id: 'gida', ad: 'Gıda ürünleri', renk: 'murekkep' as const },
+      { id: 'petrol', ad: 'Kok ve rafine petrol ürünleri', renk: 'toprak' as const },
+      { id: 'metal', ad: 'Ana metaller', renk: 'mavi' as const },
+    ],
+  },
+];
+const noktalar3 = satirlar.map((s) => [ayAnahtari(s), s.madencilik, s.imalat, s.enerji, s.su, s.gida, s.petrol, s.metal]);
+
+// İki dizi ay anahtarıyla birleştirilir; tarımsal girdi geç yayımlandığı için eksik ay null kalır.
+const tarimHarita = new Map(tarim.map((s) => [ayAnahtari(s), s.yillik]));
+const girdiHarita = new Map(tarimGirdi.map((s) => [ayAnahtari(s), s.yillik]));
+const tarimAnahtarlari = [...new Set([...tarimHarita.keys(), ...girdiHarita.keys()])].sort((a, b) => a - b);
+const gruplar4 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'tarim', ad: 'Tarım ürünleri ÜFE', renk: 'murekkep' as const },
+      { id: 'girdi', ad: 'Tarımsal girdi fiyat endeksi', renk: 'toprak' as const },
+    ],
+  },
+];
+const noktalar4 = tarimAnahtarlari.map((k) => [k, tarimHarita.get(k) ?? null, girdiHarita.get(k) ?? null]);
+
+const gruplar5 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [{ id: 'yillik', ad: 'Hizmet ÜFE, yıllık değişim', renk: 'mavi' as const }],
+  },
+];
+const noktalar5 = hizmet.map((s) => [ayAnahtari(s), s.yillik]);
+
+const tablo = satirlar.slice(-12).reverse();
+const SEKTORLER = [
+  { alan: 'madencilik', ad: 'Madencilik ve taşocakçılığı' },
+  { alan: 'imalat', ad: 'İmalat' },
+  { alan: 'enerji', ad: 'Elektrik, gaz, buhar ve iklimlendirme' },
+  { alan: 'su', ad: 'Su temini, kanalizasyon, atık yönetimi' },
+  { alan: 'gida', ad: 'Gıda ürünleri (imalat)' },
+  { alan: 'petrol', ad: 'Kok ve rafine petrol ürünleri' },
+  { alan: 'metal', ad: 'Ana metaller' },
+] as const;
+const sektorSirali = son ? SEKTORLER.map((x) => ({ ad: x.ad, yillik: son[x.alan] })).sort((a, b) => b.yillik - a.yillik) : [];
+
+const baslik = 'Üretici fiyatları';
+const description = son
+  ? `${ayAdi(son)} ayında yurt içi üretici fiyatlarında yıllık değişim ${yd(son.yillik)}, aylık değişim ${yd(son.aylik)}. Hizmet ve tarım üretici fiyatları ile tarımsal girdi fiyatları. TÜİK verisi.`
+  : 'Yurt içi, hizmet ve tarım ürünleri üretici fiyat endeksleri ile tarımsal girdi fiyat endeksi, TÜİK verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/uretici-fiyatlari/' },
+];
+const ayKodu = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(ufe && son
+    ? {
+        sayfaEk: { dateModified: ufe.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Üretici fiyat endeksleri',
+            description:
+              'Aylık yurt içi üretici fiyat endeksi (Yİ-ÜFE) ve sektörler, hizmet üretici fiyat endeksi, tarım ürünleri üretici fiyat endeksi ve tarımsal girdi fiyat endeksi, TÜİK verisi, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/uretici-fiyatlari/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye İstatistik Kurumu', url: 'https://www.tuik.gov.tr/' },
+            temporalCoverage: `${ayKodu(satirlar[0])}/${ayKodu(son)}`,
+            dateModified: ufe.alinma,
+            variableMeasured: [
+              'Yurt içi üretici fiyat endeksi (2003=100)',
+              'Yurt içi üretici fiyatları, aylık değişim (yüzde)',
+              'Yurt içi üretici fiyatları, yıllık değişim (yüzde)',
+              'Yurt içi üretici fiyatları, sektörlere göre yıllık değişim (yüzde)',
+              'Hizmet üretici fiyat endeksi, aylık ve yıllık değişim (yüzde)',
+              'Tarım ürünleri üretici fiyat endeksi, aylık ve yıllık değişim (yüzde)',
+              'Tarımsal girdi fiyat endeksi, aylık ve yıllık değişim (yüzde)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Üretici fiyatları: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Yurt içi, hizmet ve tarım üretici fiyat endeksleri · TÜİK, aylık</p>
+    </header>
+    {
+      ufe && son && sonHizmet && sonTarim && sonGirdi ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Yİ-ÜFE, yıllık değişim</dt>
+              <dd>{yd(son.yillik)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}, aylık değişim {yd(son.aylik)}</dd>
+            </div>
+            <div>
+              <dt>Hizmet ÜFE, yıllık değişim</dt>
+              <dd>{yd(sonHizmet.yillik)}</dd>
+              <dd class="veri-degisim">{ayAdi(sonHizmet)}</dd>
+            </div>
+            <div>
+              <dt>Tarım ürünleri ÜFE, yıllık değişim</dt>
+              <dd>{yd(sonTarim.yillik)}</dd>
+              <dd class="veri-degisim">{ayAdi(sonTarim)}</dd>
+            </div>
+            <div>
+              <dt>Tarımsal girdi fiyatları, yıllık değişim</dt>
+              <dd>{yd(sonGirdi.yillik)}</dd>
+              <dd class="veri-degisim">{ayAdi(sonGirdi)}</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={ufe.kaynak.url} rel="noopener">{ufe.kaynak.ad}</a>. Siteye alındığı zaman:
+            {zamanYaz(ufe.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Yİ-ÜFE ve TÜFE, yıllık değişim"
+            ipucu="Yüzde, bir yıl öncesinin aynı ayına göre · Kesikli çizgi TÜFE’dir · Sıfırın altı, fiyatların bir yıl öncesinden düşük olduğunu gösterir"
+            kaynak="Kaynak: TÜİK, üretici ve tüketici fiyat endeksleri (TCMB EVDS)."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['yillik', 'tufeYillik']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <ZamanGrafik
+            baslik="ÜFE ile TÜFE arasındaki fark"
+            ipucu="Yüzde puanı · Sıfırın üstü, üretici fiyatlarının yıllık artışının tüketici fiyatlarınınkinden yüksek olduğunu gösterir"
+            kaynak="Kaynak: TÜİK, üretici ve tüketici fiyat endeksleri (TCMB EVDS); fark sayfada hesaplanır."
+            siklik="ay"
+            birim="puan"
+            seriIdleri={['fark']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+            referans={{ deger: 0, ad: 'Fark yok' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Yİ-ÜFE yıllık</th>
+                      <th scope="col" class="sag">Aylık</th>
+                      <th scope="col" class="sag">TÜFE yıllık</th>
+                      <th scope="col" class="sag">Fark (puan)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{yd(s.yillik)}</td>
+                        <td class="sag">{yd(s.aylik)}</td>
+                        <td class="sag">{yd(s.tufeYillik)}</td>
+                        <td class="sag">{puanYaz(fark(s))}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Yıllık değişim bir yıl öncesinin aynı ayına, aylık değişim bir önceki aya göredir. Fark, Yİ-ÜFE yıllık değişimi ile
+                TÜFE yıllık değişimi arasındaki yüzde puanı farkıdır ve sayfada hesaplanır.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Yurt içi üretici fiyat endeksi (Yİ-ÜFE), üreticilerin yurt içinde sattığı malların fiyatlarındaki değişimi ölçer;
+                fiyatlara vergi ve taşıma dahil değildir. Hizmet üretici fiyat endeksi, işletmelere satılan hizmetler için aynı
+                ölçümü yapar; bu sayfadaki seri ticaret, finans ve sigorta hariç hizmet faaliyetlerini kapsar.
+              </p>
+              <p>
+                Tarım ürünleri ÜFE, çiftçinin ürünleri için aldığı fiyatları izler. Tarımsal girdi fiyat endeksi ise çiftçinin
+                gübre, yem, ilaç ve enerji gibi girdiler için ödediği fiyatları izler. Tarımsal girdi endeksi diğerlerinden bir ay
+                geç yayımlandığı için son ayı farklı olabilir.
+              </p>
+              <p>
+                ÜFE ve TÜFE farklı sepetleri ölçer: ÜFE üreticinin sattığı malların ve hizmetlerin, TÜFE hanehalklarının satın
+                aldığı mal ve hizmetlerin fiyatlarını izler. Aralarındaki fark bir karşılaştırmadır, tahmin değildir.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Sektörlere göre Yİ-ÜFE, yıllık değişim"
+            ipucu="Yüzde, bir yıl öncesinin aynı ayına göre · Grup düğmesiyle seriler arasında geçilir"
+            kaynak="Kaynak: TÜİK, yurt içi üretici fiyat endeksi (TCMB EVDS)."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['madencilik', 'imalat', 'enerji', 'su', 'gida', 'petrol', 'metal']}
+            noktalar={noktalar3}
+            gruplar={gruplar3}
+            grupEtiketi="Seri grubu"
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Sektörlere göre yıllık değişim, {ayAdi(son)}</h2>
+            <div class="tablo-sarma">
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Sektör</th>
+                    <th scope="col" class="sag">Yıllık değişim</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sektorSirali.map((x) => (
+                    <tr>
+                      <td>{x.ad}</td>
+                      <td class="sag">{yd(x.yillik)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="veri-notu">
+              Sıralama yıllık değişimin büyüğünden küçüğünedir. Gıda ürünleri, kok ve rafine petrol ürünleri ile ana metaller
+              imalatın alt kalemleridir.
+            </p>
+          </section>
+
+          <ZamanGrafik
+            baslik="Tarım: ürün ve girdi fiyatları, yıllık değişim"
+            ipucu="Yüzde, bir yıl öncesinin aynı ayına göre · Tarımsal girdi bir ay geç yayımlanır"
+            kaynak="Kaynak: TÜİK, tarım ürünleri üretici fiyat endeksi ve tarımsal girdi fiyat endeksi (TCMB EVDS)."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['tarim', 'girdi']}
+            noktalar={noktalar4}
+            gruplar={gruplar4}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <ZamanGrafik
+            baslik="Hizmet üretici fiyatları, yıllık değişim"
+            ipucu="Yüzde, bir yıl öncesinin aynı ayına göre · Hizmet üretici fiyat endeksi (ticaret, finans ve sigorta hariç)"
+            kaynak="Kaynak: TÜİK, hizmet üretici fiyat endeksi (TCMB EVDS)."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['yillik']}
+            noktalar={noktalar5}
+            gruplar={gruplar5}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+        </>
+      ) : (
+        <p class="bos">Üretici fiyat verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/enflasyon-katkilari/">Enflasyon katkıları</a>
+      <a href="/veri/sanayi-uretimi/">Sanayi üretimi</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TÜİK’in yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

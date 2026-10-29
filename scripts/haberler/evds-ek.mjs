@@ -352,6 +352,9 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //  - konutSatis: konut ve iş yeri satışları (TÜİK, aylık, adet; doğrulandı 29.10.2026): toplam, mevsim ve takvim etkisinden
 //      arındırılmış, ilk el, ikinci el, ipotekli satış ve yıllık değişim; son ayın il tablosu (il serileri EVDS seri
 //      listesinden alınır, kod yazılmaz).
+//  - ufe: yurt içi, hizmet ve tarım ürünleri üretici fiyat endeksleri ile tarımsal girdi fiyat endeksi (TÜİK, aylık;
+//      doğrulandı 29.10.2026): dört ayrı satır dizisi, çünkü serilerin ilk ve son ayları farklıdır (tarımsal girdi bir ay
+//      geç yayımlanır); yurt içi ÜFE ile karşılaştırmak için TÜFE yıllık değişimi de alınır.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -621,6 +624,64 @@ export async function konutSatisAl(simdi, anahtar) {
     seriler: tanimlar(KONUT_SATIS_SERILERI),
     satirlar,
     ilTablosu: { yil: son.yil, ay: son.ay, iller: ilTablosu },
+  };
+}
+
+// Üretici fiyatları (TÜİK, aylık): formül 0 düzey, 1 bir önceki aya göre, 3 bir yıl öncesinin aynı ayına göre yüzde değişim.
+// Seriler farklı aylarda başlar ve biter; tek satır dizisine zorlanmaz, her dizi kendi alanlarının dolu olduğu aylardan başlar.
+export const UFE_SERILERI = [
+  { kod: 'TP.TUFE1YI.T1', formul: 0, alan: 'endeks', ad: 'Yurt içi üretici fiyat endeksi (2003=100)' },
+  { kod: 'TP.TUFE1YI.T1', formul: 1, alan: 'aylik', ad: 'Yİ-ÜFE, aylık değişim' },
+  { kod: 'TP.TUFE1YI.T1', formul: 3, alan: 'yillik', ad: 'Yİ-ÜFE, yıllık değişim' },
+  { kod: 'TP.TUKFIY2025.GENEL', formul: 3, alan: 'tufeYillik', ad: 'TÜFE, yıllık değişim' },
+  { kod: 'TP.TUFE1YI.T2', formul: 3, alan: 'madencilik', ad: 'Madencilik ve taşocakçılığı' },
+  { kod: 'TP.TUFE1YI.T15', formul: 3, alan: 'imalat', ad: 'İmalat' },
+  { kod: 'TP.TUFE1YI.T118', formul: 3, alan: 'enerji', ad: 'Elektrik, gaz, buhar ve iklimlendirme' },
+  { kod: 'TP.TUFE1YI.T123', formul: 3, alan: 'su', ad: 'Su temini, kanalizasyon, atık yönetimi' },
+  { kod: 'TP.TUFE1YI.T16', formul: 3, alan: 'gida', ad: 'Gıda ürünleri (imalat)' },
+  { kod: 'TP.TUFE1YI.T49', formul: 3, alan: 'petrol', ad: 'Kok ve rafine petrol ürünleri' },
+  { kod: 'TP.TUFE1YI.T73', formul: 3, alan: 'metal', ad: 'Ana metaller' },
+];
+export const UFE_HIZMET_SERILERI = [
+  { kod: 'TP.HUFE.GK378119440', formul: 1, alan: 'aylik', ad: 'Hizmet ÜFE, aylık değişim' },
+  { kod: 'TP.HUFE.GK378119440', formul: 3, alan: 'yillik', ad: 'Hizmet ÜFE, yıllık değişim' },
+];
+export const UFE_TARIM_SERILERI = [
+  { kod: 'TP.TARIMUFE01', formul: 3, alan: 'yillik', ad: 'Tarım ürünleri ÜFE, yıllık değişim' },
+  { kod: 'TP.TARIMUFE01', formul: 1, alan: 'aylik', ad: 'Tarım ürünleri ÜFE, aylık değişim' },
+];
+export const UFE_TARIM_GIRDI_SERILERI = [
+  { kod: 'TP.TARIMGFE.GK378650484', formul: 3, alan: 'yillik', ad: 'Tarımsal girdi fiyat endeksi, yıllık değişim' },
+  { kod: 'TP.TARIMGFE.GK378650484', formul: 1, alan: 'aylik', ad: 'Tarımsal girdi fiyat endeksi, aylık değişim' },
+];
+
+// Hizmet ÜFE, TÜİK'in ticaret, finans ve sigorta hariç hizmet toplamıdır (H-N). Yıllık değişim bir yıllık geçmiş ister;
+// baştaki boş satırlar elenir. Dört dizi ayrı istenir ve ayrı tutulur: tarımsal girdi bir ay geç yayımlanır.
+export async function ufeAl(simdi, anahtar) {
+  const satirlar = await aylikFormullu(UFE_SERILERI, new Date(Date.UTC(2005, 0, 1)), simdi, anahtar, 'Yurt içi ÜFE', 120);
+  const hizmet = await aylikFormullu(UFE_HIZMET_SERILERI, new Date(Date.UTC(2017, 0, 1)), simdi, anahtar, 'Hizmet ÜFE', 60);
+  const tarim = await aylikFormullu(UFE_TARIM_SERILERI, new Date(Date.UTC(2020, 0, 1)), simdi, anahtar, 'Tarım ürünleri ÜFE', 48);
+  const tarimGirdi = await aylikFormullu(
+    UFE_TARIM_GIRDI_SERILERI,
+    new Date(Date.UTC(2015, 0, 1)),
+    simdi,
+    anahtar,
+    'Tarımsal girdi fiyat endeksi',
+    60,
+  );
+  return {
+    kaynak: {
+      ad: 'TÜİK verisi, yurt içi, hizmet ve tarım ürünleri üretici fiyat endeksleri ile tarımsal girdi fiyat endeksi (TCMB EVDS)',
+      url: EVDS_SAYFA,
+    },
+    seriler: tanimlar(UFE_SERILERI),
+    hizmetSeriler: tanimlar(UFE_HIZMET_SERILERI),
+    tarimSeriler: tanimlar(UFE_TARIM_SERILERI),
+    tarimGirdiSeriler: tanimlar(UFE_TARIM_GIRDI_SERILERI),
+    satirlar,
+    hizmet,
+    tarim,
+    tarimGirdi,
   };
 }
 
