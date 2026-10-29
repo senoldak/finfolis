@@ -32,6 +32,11 @@ interface Props {
   gruplar: Grup[];
   grupEtiketi?: string;
   referans?: { deger: number; ad: string };
+  // Zaman eksenindeki olaylar (ör. PPK faiz değişiklikleri): t noktalarla aynı ölçekte; yon artis/indirim işaretin
+  // yönünü ve rengini belirler. Grafikte ince dikey çizgi + üstte üçgen, imleç o döneme gelince bilgi kutusunda ad.
+  olaylar?: { t: number; ad: string; yon?: 'artis' | 'indirim' }[];
+  // Olay işaretlerinin grafiğin altındaki açıklaması.
+  olayNotu?: string;
   sifirdan?: boolean;
   // Kısa seride (birkaç haftalık kur gibi) dönem düğmeleri gösterilmez.
   araliksiz?: boolean;
@@ -49,6 +54,8 @@ const {
   gruplar,
   grupEtiketi,
   referans,
+  olaylar = [],
+  olayNotu,
   sifirdan = false,
   araliksiz = false,
 } = Astro.props;
@@ -70,7 +77,7 @@ const araliklar =
         { id: '1095', ad: '3 yıl' },
         { id: 'tum', ad: 'Tümü' },
       ];
-const veri = { siklik, birim, ondalik, seriIdleri, noktalar, gruplar, referans: referans ?? null, sifirdan };
+const veri = { siklik, birim, ondalik, seriIdleri, noktalar, gruplar, referans: referans ?? null, olaylar, sifirdan };
 const kimlik = `zg-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-')}`;
 ---
 
@@ -112,7 +119,7 @@ const kimlik = `zg-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-'
     <svg viewBox="0 0 880 420" role="img" aria-label={`${baslik} çizgi grafiği`} data-svg></svg>
     <div class="ipucu" data-ipucu hidden></div>
   </div>
-  <p class="kart-alt">{kaynak}</p>
+  <p class="kart-alt">{kaynak}{olaylar.length > 0 && olayNotu && <> {olayNotu}</>}</p>
 
   <script type="application/json" data-zg-veri set:html={JSON.stringify(veri)} />
 </section>
@@ -145,6 +152,7 @@ const kimlik = `zg-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-'
     noktalar: (number | null)[][];
     gruplar: { id: string; ad: string; seriler: Seri[] }[];
     referans: { deger: number; ad: string } | null;
+    olaylar: { t: number; ad: string; yon?: 'artis' | 'indirim' }[];
     sifirdan: boolean;
   }
 
@@ -250,6 +258,14 @@ const kimlik = `zg-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-'
         el('line', { x1: P.sol, x2: W - P.sag, y1: y(v.referans.deger), y2: y(v.referans.deger), class: 'referans' });
         el('text', { x: P.sol + 6, y: y(v.referans.deger) - 6, class: 'referans-etiket' }).textContent = v.referans.ad;
       }
+      const olaylar = (v.olaylar ?? []).filter((o) => o.t >= bas && o.t <= bit);
+      for (const o of olaylar) {
+        const ox = x(o.t);
+        el('line', { x1: ox, x2: ox, y1: P.ust + 8, y2: H - P.alt, class: `olay olay-${o.yon ?? 'notr'}` });
+        const u = P.ust + 2;
+        const ucgen = o.yon === 'indirim' ? `${ox - 4},${u} ${ox + 4},${u} ${ox},${u + 7}` : `${ox - 4},${u + 7} ${ox + 4},${u + 7} ${ox},${u}`;
+        el('polygon', { points: ucgen, class: `olay-isaret olay-${o.yon ?? 'notr'}` });
+      }
       const yillar = [...new Set(pencere.map((n) => yilOf(n[0] as number)))];
       const yilAdimi = Math.ceil(yillar.length / 9);
       for (const yil of yillar) {
@@ -319,6 +335,7 @@ const kimlik = `zg-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-'
           halkalar[k].setAttribute('cy', String(y(d)));
           html += `<div class="ip-satir"><span class="ip-nokta renk-${s.r}"></span><span class="ip-ad">${s.ad}</span><strong>${degerYaz(d)}</strong></div>`;
         });
+        for (const o of olaylar) if (o.t === t) html += `<div class="ip-olay">${o.yon === 'indirim' ? '▼' : o.yon === 'artis' ? '▲' : '•'} ${o.ad}</div>`;
         ipucu.innerHTML = html;
         ipucu.hidden = false;
         const kutu = kok.querySelector<HTMLElement>('[data-cizim]')!.getBoundingClientRect();
@@ -524,6 +541,26 @@ const kimlik = `zg-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-'
     stroke-width: 1;
   }
 
+  .cizim :global(.olay) {
+    stroke: var(--hair);
+    stroke-width: 1;
+    stroke-dasharray: 2 3;
+  }
+  .cizim :global(.olay-isaret.olay-artis) {
+    fill: #c2502b;
+  }
+  .cizim :global(.olay-isaret.olay-indirim) {
+    fill: #1f63a8;
+  }
+  .cizim :global(.olay-isaret.olay-notr) {
+    fill: var(--muted);
+  }
+  .ipucu :global(.ip-olay) {
+    margin-top: 4px;
+    padding-top: 4px;
+    border-top: 1px solid var(--hair);
+    color: var(--ink-2);
+  }
   .cizim :global(.referans) {
     stroke: var(--muted);
     stroke-width: 1;

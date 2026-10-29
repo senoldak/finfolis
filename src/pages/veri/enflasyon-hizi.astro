@@ -5,6 +5,7 @@ import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { ppkOlaylari } from '../../lib/ppk-olaylari.mjs';
 import { RESMI, ayAdi, ayAnahtari, yuzdeYaz, zamanYaz } from '../../lib/resmi';
 import { enflasyonHizi } from '../../lib/turetilmis.mjs';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -97,6 +98,8 @@ const jsonLd = sayfaSemasi({
             birim="yuzde"
             seriIdleri={['yillik', 'uc', 'aylik']}
             noktalar={noktalar}
+            olaylar={ppkOlaylari(RESMI.faiz?.gecmis, 'ay')}
+            olayNotu="▲ ▼ işaretleri: PPK politika faizi artırımı ve indirimi."
             gruplar={gruplar}
             sifirdan
           />

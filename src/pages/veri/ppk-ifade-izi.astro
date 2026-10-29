@@ -1,0 +1,769 @@
+---
+// PPK ifade izi: TCMB karar metinlerinde bir ifadenin hangi toplantıda ilk göründüğü, hangisinde kaybolduğu.
+// Metinler src/data/ppk-metinler.json'dan gelir (yalnız "karar" metinleri). Hesap kurallı koddur (src/lib/ppk-ifade.mjs);
+// yapay zekâ ve yorum yoktur. Hesap derleme anında yapılır; arama kutusu aynı kodu tarayıcıda çalıştırır.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { gunYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { ifadeIziHesapla, ifadeleriIzle, vurgula } from '../../lib/ppk-ifade.mjs';
+import ppk from '../../data/ppk-metinler.json';
+
+const belgeler: any[] = (ppk as any).belgeler ?? [];
+const kararlar = belgeler.filter((b) => b.tur === 'karar').sort((a, b) => a.tarih.localeCompare(b.tarih));
+const hazir = kararlar.length >= 5;
+const N = kararlar.length;
+
+const AY = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
+const ayYil = (t: string) => `${AY[Number(t.slice(5, 7)) - 1]} ${t.slice(0, 4)}`;
+const kisaTarih = (t: string) => `${Number(t.slice(8, 10))} ${AY[Number(t.slice(5, 7)) - 1]} ${t.slice(2, 4)}`;
+const yilBasi = new Set(kararlar.map((k, i) => (i === 0 || k.tarih.slice(0, 4) !== kararlar[i - 1].tarih.slice(0, 4) ? i : -1)));
+
+// Sık sorulan ifadeler: metinde en az iki kararda geçenler gösterilir.
+const TOHUM = ['sıkı para politikası duruşu', 'ihtiyatlı', 'ölçülü', 'toplantı bazlı', 'belirgin ve kalıcı bir bozulma', 'dezenflasyon süreci', 'talep koşulları', 'yakından izlenecek'];
+
+let sonuc: any = null;
+let tohumlar: any[] = [];
+let otomatik: any[] = [];
+let giren: any[] = [];
+let cikan: any[] = [];
+let hesapMs = 0;
+let veriJson = '';
+if (hazir) {
+  sonuc = ifadeIziHesapla(kararlar);
+  hesapMs = sonuc.ms;
+  tohumlar = ifadeleriIzle(kararlar, TOHUM).filter((i: any) => i.sayi >= 2 && i.sayi < N);
+  const desen = new Set(tohumlar.map((i: any) => i.bit.join('')));
+  // Otomatik bulunanlar ilk göründükleri toplantıya göre eskiden yeniye dizilir.
+  otomatik = sonuc.izler
+    .filter((i: any) => !desen.has(i.bit.join('')))
+    .sort((a: any, b: any) => a.ilk.localeCompare(b.ilk) || a.ifade.localeCompare(b.ifade, 'tr'));
+
+  const ozetle = (o: any[]) =>
+    o.slice(0, 8).map((x) => {
+      const [once, esl, sonra] = vurgula(x.cumle, x.bas, x.adet);
+      return { ifade: x.ifade, once, esl, sonra };
+    });
+  giren = ozetle(sonuc.giren);
+  cikan = ozetle(sonuc.cikan);
+
+  // Sayfaya gömülen metin: her cümle bir kez, kararlar cümle dizinleriyle.
+  const cumleler: string[] = [];
+  const dizin = new Map<string, number>();
+  const k = kararlar.map((x) => [
+    x.tarih,
+    x.cumleler.map((c: string) => {
+      if (!dizin.has(c)) {
+        dizin.set(c, cumleler.length);
+        cumleler.push(c);
+      }
+      return dizin.get(c);
+    }),
+  ]);
+  veriJson = JSON.stringify({ k, s: cumleler }).replace(/</g, '\\u003c');
+}
+
+const son = kararlar.at(-1);
+const onceki = kararlar.at(-2);
+const ozetMetni = (i: any) => `${ayYil(i.ilk)} → ${ayYil(i.son)} · ${i.sayi} karar · ${i.simdi ? 'son kararda var' : 'son kararda yok'}`;
+
+const baslik = 'PPK ifade izi';
+const description = hazir
+  ? `TCMB Para Politikası Kurulu karar metinlerinde bir ifadenin hangi toplantıda ilk göründüğü, hangisinde kaybolduğu ve kaç kararda kaldığı. ${gunYaz(kararlar[0].tarih)} – ${gunYaz(son.tarih)} arası ${N} karar. Kendi ifadenizi arayabilirsiniz.`
+  : 'TCMB Para Politikası Kurulu karar metinlerinde ifadelerin izi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/ppk-ifade-izi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: `${baslik} (TCMB)`,
+  aciklama: description,
+  ...(hazir
+    ? {
+        sayfaEk: { dateModified: (ppk as any).alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'TCMB PPK karar metinlerinde ifadelerin izi',
+            description: 'TCMB Para Politikası Kurulu’nun faiz kararlarına ilişkin basın duyuru metinlerinde seçilen ifadelerin hangi kararlarda geçtiği.',
+            url: 'https://finfolis.com/veri/ppk-ifade-izi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${kararlar[0].tarih}/${son.tarih}`,
+            dateModified: (ppk as any).alinma,
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`${baslik}: karar metinlerinde ifadeler ne zaman girdi, ne zaman çıktı`} description={description} noindex={!hazir}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa ifz-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Türkiye Cumhuriyet Merkez Bankası · Para Politikası Kurulu karar metinlerinde ifadeler</p>
+    </header>
+    {
+      hazir ? (
+        <>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={(ppk as any).kaynak.url} rel="noopener">TCMB basın duyuruları</a>: {gunYaz(kararlar[0].tarih)} – {gunYaz(son.tarih)} arası {N} karar metni. Siteye alındığı zaman: {zamanYaz((ppk as any).alinma)}.
+          </p>
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Son kararda giren ve çıkan ifadeler</h2>
+            <p class="veri-notu ifz-aciklama">
+              {gunYaz(son.tarih)} tarihli karar metni, {gunYaz(onceki.tarih)} tarihli metinle ifade düzeyinde karşılaştırıldı. Soldaki liste yeni metinde olup öncekinde bulunmayan,
+              sağdaki liste öncekinde olup yeni metinde bulunmayan ifadelerdir. Faiz oranları ve sayılar bu listeye girmez.
+            </p>
+            <div class="ifz-fark">
+              <div class="ifz-fark-kol ifz-giren">
+                <h3>Giren ifadeler <span>{giren.length}</span></h3>
+                {giren.length ? (
+                  <ul>
+                    {giren.map((g) => (
+                      <li>
+                        <strong>{g.ifade}</strong>
+                        <p>{g.once} <ins>{g.esl}</ins> {g.sonra}</p>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p class="veri-notu">Bu karşılaştırmada giren ifade yok.</p>
+                )}
+              </div>
+              <div class="ifz-fark-kol ifz-cikan">
+                <h3>Çıkan ifadeler <span>{cikan.length}</span></h3>
+                {cikan.length ? (
+                  <ul>
+                    {cikan.map((g) => (
+                      <li>
+                        <strong>{g.ifade}</strong>
+                        <p>{g.once} <del>{g.esl}</del> {g.sonra}</p>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p class="veri-notu">Bu karşılaştırmada çıkan ifade yok.</p>
+                )}
+              </div>
+            </div>
+            <p class="veri-notu">
+              Cümle düzeyindeki tam karşılaştırma için <a href={`/veri/ppk-karar-metni/#karar-${son.tarih}`}>PPK karar metni farkı</a> sayfasına bakılabilir.
+            </p>
+          </section>
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">İfadelerin izi</h2>
+            <p class="veri-notu ifz-aciklama">
+              Her satır bir ifade, her sütun bir karar (soldan sağa eskiden yeniye). Dolu kare, ifadenin o kararın metninde geçtiğini gösterir.
+              Bir kareye gelince ya da dokununca kararın tarihi ve ifadenin geçtiği cümle altta görünür. Sütun başlığındaki tarih, kararın metnine götürür.
+            </p>
+
+            <form class="ifz-arama" role="search" onsubmit="return false">
+              <label for="ifz-ara">Kendi ifadenizi arayın</label>
+              <div class="ifz-arama-satir">
+                <input id="ifz-ara" type="search" autocomplete="off" spellcheck="false" placeholder="ör. jeopolitik gelişmeler" />
+                <button type="button" class="ifz-temizle" hidden>Temizle</button>
+              </div>
+              <p class="veri-notu ifz-ornek">
+                Örnekler:
+                <button type="button" data-ornek="jeopolitik">jeopolitik</button>
+                <button type="button" data-ornek="makro finansal istikrar">makro finansal istikrar</button>
+                <button type="button" data-ornek="teyit">teyit</button>
+                <button type="button" data-ornek="ölçülü">ölçülü</button>
+              </p>
+              <p class="veri-notu ifz-arama-durum" id="ifz-arama-durum" aria-live="polite"></p>
+            </form>
+
+            <div class="ifz-kaydir" tabindex="0" role="region" aria-label="Karar sütunlarını gösteren kaydırılabilir tablo">
+              <table class="ifz-izgara" role="grid" aria-label="İfadelerin kararlara göre varlığı">
+                <thead>
+                  <tr>
+                    <th class="ifz-ilk" scope="col"><span>İfade</span></th>
+                    {kararlar.map((k, i) => (
+                      <th scope="col" class={`ifz-kol${yilBasi.has(i) && i > 0 ? ' ifz-yil' : ''}`}>
+                        <a href={`/veri/ppk-karar-metni/#karar-${k.tarih}`} title={`${gunYaz(k.tarih)} karar metni`}>
+                          <span>{kisaTarih(k.tarih)}</span>
+                        </a>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody id="ifz-arama-govde" class="ifz-arama-govde" hidden></tbody>
+                {tohumlar.length > 0 && (
+                  <tbody>
+                    <tr class="ifz-grup"><th colspan={N + 1} scope="colgroup"><span>Sık sorulan ifadeler</span></th></tr>
+                    {tohumlar.map((i) => (
+                      <tr data-kok={i.kokler.join(' ')} data-ifade={i.ifade}>
+                        <th scope="row" class="ifz-ilk"><span class="ifz-ad">{i.ifade}</span><span class="ifz-meta">{ozetMetni(i)}</span></th>
+                        {i.bit.map((b: number, ki: number) => (
+                          <td data-k={ki} class={`${b ? 'ifz-var' : 'ifz-yok'}${yilBasi.has(ki) && ki > 0 ? ' ifz-yil' : ''}`}></td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                )}
+                <tbody>
+                  <tr class="ifz-grup"><th colspan={N + 1} scope="colgroup"><span>Metinlerden otomatik bulunanlar</span></th></tr>
+                  {otomatik.map((i) => (
+                    <tr data-kok={i.kokler.join(' ')} data-ifade={i.ifade}>
+                      <th scope="row" class="ifz-ilk"><span class="ifz-ad">{i.ifade}</span><span class="ifz-meta">{ozetMetni(i)}</span></th>
+                      {i.bit.map((b: number, ki: number) => (
+                        <td data-k={ki} class={`${b ? 'ifz-var' : 'ifz-yok'}${yilBasi.has(ki) && ki > 0 ? ' ifz-yil' : ''}`}></td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="ifz-detay" id="ifz-detay" aria-live="polite" hidden></div>
+            <p class="veri-notu">
+              Metinden otomatik bulunan ifadeler, en az üç kararda geçen ama her kararda geçmeyen 3–6 sözcüklük dizilerdir. Birbirinin parçası olan ifadeler birleştirilir;
+              “para politikası kurulu”, “bir hafta vadeli repo” gibi her metinde bulunan kalıplar ve rakam içeren ifadeler alınmaz. Sıralama, ifadenin ilk göründüğü toplantıya göredir.
+            </p>
+          </section>
+
+          <section class="bolum prose veri-aciklama">
+            <h2 class="bolum-baslik">Bu sayfa nasıl hazırlanıyor</h2>
+            <p>
+              Karar metinleri TCMB’nin <a href="https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Basin" rel="noopener">basın duyuruları</a> sayfasından alınır;
+              başlığı “Faiz Oranlarına İlişkin Basın Duyurusu” olan duyuruların metni kullanılır. Toplantı özetleri bu sayfada yoktur.
+            </p>
+            <p>
+              Karşılaştırma kurallı bir programla yapılır. Metin cümlelere, cümleler sözcüklere bölünür; harfler küçültülür, noktalama ve kesme işaretinden sonraki ek atılır.
+              Türkçede aynı sözcük eklerle değiştiği için (“duruşu”, “duruşunun”), her sözcüğün ilk altı harfi kök olarak alınır ve ifadeler köklerle eşleştirilir. Bu kaba bir kuraldır:
+              “izlenecektir” ile “izlenmektedir” gibi kökü altı harften sonra ayrılan çekimler ayrı sayılır, “ihtiyaç” ile “ihtiyat” gibi birkaç sözcük ise bilerek ayrı tutulur.
+              Bir ifade, aynı cümlede arka arkaya gelen köklerden oluşur. Cümle sınırını aşan eşleşme aranmaz.
+            </p>
+            <p>
+              Arama kutusu aynı kuralı tarayıcıda çalıştırır; yazdığınız ifade sunucuya gönderilmez. Sayfaya gömülen karar metni yaklaşık {Math.round(veriJson.length / 1024)} KB’tır. Derlemede otomatik keşif {hesapMs} ms sürmüştür.
+            </p>
+            <p>
+              Sayfa metinleri yorumlamaz. Bir ifadenin metinde bulunması ya da bulunmaması tek başına politika değişikliği anlamına gelmez; yalnız iki metin arasındaki sözcük farkını gösterir.
+            </p>
+            <p>
+              <a href="/veri/ppk-karar-metni/">PPK karar metni farkı</a> · <a href="/veri/politika-faizi/">Politika faizi</a> · <a href="/veri/enflasyon/">Enflasyon verileri</a>
+            </p>
+          </section>
+
+          <script type="application/json" id="ifz-veri" set:html={veriJson} />
+        </>
+      ) : (
+        <p class="bos">PPK karar metni verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <YasalUyari>Bu sayfadaki metinler TCMB’nin yayımladığı resmi duyurulardır; karşılaştırma bilgi amaçlıdır.</YasalUyari>
+  </div>
+</Base>
+
+<script>
+  import { belirteclestir, ifadeKokleri, diziBul, vurgula } from '../../lib/ppk-ifade.mjs';
+
+  const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+  const AY = AYLAR.map((a) => a.slice(0, 3));
+  const uzun = (t: string) => `${Number(t.slice(8, 10))} ${AYLAR[Number(t.slice(5, 7)) - 1]} ${t.slice(0, 4)}`;
+  const ayYil = (t: string) => `${AY[Number(t.slice(5, 7)) - 1]} ${t.slice(0, 4)}`;
+
+  const el = document.getElementById('ifz-veri');
+  const tablo = document.querySelector<HTMLTableElement>('.ifz-izgara');
+  const detay = document.getElementById('ifz-detay');
+  if (el && tablo && detay) {
+    const veri = JSON.parse(el.textContent || '{}') as { k: [string, number[]][]; s: string[] };
+    const N = veri.k.length;
+    const belirtecler: any[][] = veri.s.map((c) => belirteclestir(c));
+    const kokler = belirtecler.map((b) => b.map((t) => t.kok));
+
+    // Bir kararda ifadenin geçtiği ilk cümlenin dizini; yoksa -1.
+    const bul = (ki: number, ara: string[]) => {
+      for (const ci of veri.k[ki][1]) if (diziBul(kokler[ci], ara) >= 0) return ci;
+      return -1;
+    };
+
+    const metinYaz = (parca: string[], ad: string) => {
+      const p = document.createElement('p');
+      p.className = 'ifz-cumle';
+      p.append(parca[0] ? parca[0] + ' ' : '');
+      const m = document.createElement('mark');
+      m.textContent = parca[1];
+      p.append(m, parca[2] ? ' ' + parca[2] : '');
+      return p;
+    };
+
+    function goster(tr: HTMLTableRowElement, ki: number) {
+      const ara = (tr.dataset.kok || '').split(' ');
+      const ad = tr.dataset.ifade || '';
+      const ci = bul(ki, ara);
+      detay!.hidden = false;
+      detay!.replaceChildren();
+      const b = document.createElement('p');
+      b.className = 'ifz-detay-bas';
+      const t = veri.k[ki][0];
+      b.append(`${uzun(t)} kararı · `);
+      const s = document.createElement('strong');
+      s.textContent = `“${ad}”`;
+      b.append(s, ci >= 0 ? ' bu metinde var' : ' bu metinde yok');
+      detay!.append(b);
+      if (ci >= 0) {
+        const i = diziBul(kokler[ci], ara);
+        detay!.append(metinYaz(vurgula(veri.s[ci], i, ara.length), ad));
+      }
+    }
+
+    function sec(td: HTMLTableCellElement | null) {
+      if (!td || !td.dataset.k) return;
+      tablo!.querySelectorAll('.ifz-secili').forEach((x) => x.classList.remove('ifz-secili'));
+      td.classList.add('ifz-secili');
+      goster(td.parentElement as HTMLTableRowElement, Number(td.dataset.k));
+    }
+
+    const hucre = (h: EventTarget | null) => (h instanceof Element ? (h.closest('td[data-k]') as HTMLTableCellElement | null) : null);
+    tablo.addEventListener('mouseover', (e) => sec(hucre(e.target)));
+    tablo.addEventListener('click', (e) => sec(hucre(e.target)));
+    tablo.addEventListener('focusin', (e) => {
+      const td = hucre(e.target);
+      if (!td) return;
+      tablo.querySelectorAll('td[tabindex="0"]').forEach((x) => x.setAttribute('tabindex', '-1'));
+      td.setAttribute('tabindex', '0');
+      sec(td);
+    });
+    // Ok tuşlarıyla kareden kareye gezinme.
+    tablo.addEventListener('keydown', (e) => {
+      const td = hucre(e.target);
+      if (!td) return;
+      const tr = td.parentElement as HTMLTableRowElement;
+      let hedef: HTMLElement | null = null;
+      if (e.key === 'ArrowRight') hedef = td.nextElementSibling as HTMLElement;
+      else if (e.key === 'ArrowLeft') hedef = td.previousElementSibling as HTMLElement;
+      else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        const satirlar = [...tablo.querySelectorAll<HTMLTableRowElement>('tbody:not([hidden]) tr[data-kok]')];
+        const s = satirlar[satirlar.indexOf(tr) + (e.key === 'ArrowDown' ? 1 : -1)];
+        hedef = s ? (s.children[Number(td.dataset.k) + 1] as HTMLElement) : null;
+      }
+      if (hedef && hedef.matches('td[data-k]')) {
+        e.preventDefault();
+        hedef.focus();
+      }
+    });
+    // Erişilebilirlik: her kareye ad verilir (sayfayı hafif tutmak için sunucu bunu yazmaz).
+    tablo.querySelectorAll<HTMLTableCellElement>('tr[data-kok] td[data-k]').forEach((td) => {
+      td.setAttribute('role', 'gridcell');
+      td.tabIndex = -1;
+      const ad = (td.parentElement as HTMLElement).dataset.ifade;
+      const var_ = td.classList.contains('ifz-var') ? 'var' : 'yok';
+      td.setAttribute('aria-label', `${ad}: ${uzun(veri.k[Number(td.dataset.k)][0])} kararında ${var_}`);
+    });
+    const ilkHucre = tablo.querySelector('td[data-k]');
+    ilkHucre?.setAttribute('tabindex', '0');
+
+    // En yeni kararlar sağda: telefonda şerit sağa kaydırılmış açılır.
+    const kaydir = document.querySelector<HTMLElement>('.ifz-kaydir');
+    if (kaydir) kaydir.scrollLeft = kaydir.scrollWidth;
+
+    // Arama
+    const girdi = document.getElementById('ifz-ara') as HTMLInputElement;
+    const govde = document.getElementById('ifz-arama-govde') as HTMLElement;
+    const durum = document.getElementById('ifz-arama-durum') as HTMLElement;
+    const temizle = document.querySelector<HTMLButtonElement>('.ifz-temizle')!;
+    const yil = (ki: number) => (ki > 0 && veri.k[ki][0].slice(0, 4) !== veri.k[ki - 1][0].slice(0, 4) ? ' ifz-yil' : '');
+
+    function ara() {
+      const metin = girdi.value.trim();
+      govde.replaceChildren();
+      temizle.hidden = !metin;
+      if (metin.replace(/[^\p{L}\p{N}]/gu, '').length < 3) {
+        govde.hidden = true;
+        durum.textContent = metin ? 'En az üç harf yazın.' : '';
+        return;
+      }
+      const k = ifadeKokleri(metin);
+      if (!k.length) {
+        govde.hidden = true;
+        return;
+      }
+      const bit: number[] = [];
+      const yuzey = new Map<string, number>();
+      for (let ki = 0; ki < N; ki++) {
+        const ci = bul(ki, k);
+        bit.push(ci >= 0 ? 1 : 0);
+        if (ci >= 0) {
+          const i = diziBul(kokler[ci], k);
+          const yz = belirtecler[ci].slice(i, i + k.length).map((t: any) => t.yuzey).join(' ');
+          yuzey.set(yz, (yuzey.get(yz) || 0) + 1);
+        }
+      }
+      const sayi = bit.reduce((a, b) => a + b, 0);
+      const tr = document.createElement('tr');
+      tr.dataset.kok = k.join(' ');
+      tr.dataset.ifade = metin;
+      tr.className = 'ifz-aranan';
+      const th = document.createElement('th');
+      th.scope = 'row';
+      th.className = 'ifz-ilk';
+      const ad = document.createElement('span');
+      ad.className = 'ifz-ad';
+      ad.textContent = metin;
+      const meta = document.createElement('span');
+      meta.className = 'ifz-meta';
+      const ilk = bit.indexOf(1);
+      const son = bit.lastIndexOf(1);
+      meta.textContent = sayi ? `${ayYil(veri.k[ilk][0])} → ${ayYil(veri.k[son][0])} · ${sayi} karar · ${bit[N - 1] ? 'son kararda var' : 'son kararda yok'}` : 'hiçbir kararda geçmiyor';
+      th.append(ad, meta);
+      tr.append(th);
+      bit.forEach((b, ki) => {
+        const td = document.createElement('td');
+        td.setAttribute('role', 'gridcell');
+        td.tabIndex = -1;
+        td.dataset.k = String(ki);
+        td.className = (b ? 'ifz-var' : 'ifz-yok') + yil(ki);
+        td.setAttribute('aria-label', `${metin}: ${uzun(veri.k[ki][0])} kararında ${b ? 'var' : 'yok'}`);
+        tr.append(td);
+      });
+      govde.append(tr);
+      govde.hidden = false;
+      durum.textContent = sayi
+        ? `“${metin}” ${N} kararın ${sayi}’inde geçiyor (ilk: ${uzun(veri.k[ilk][0])}, son: ${uzun(veri.k[son][0])}).`
+        : `“${metin}” ${N} kararın hiçbirinde geçmiyor. Eşleşme sözcük köklerine göre ve cümle içinde art arda yapılır; ifadeyi kısaltmayı deneyin.`;
+    }
+
+    girdi.addEventListener('input', ara);
+    temizle.addEventListener('click', () => {
+      girdi.value = '';
+      ara();
+      girdi.focus();
+    });
+    document.querySelectorAll<HTMLButtonElement>('[data-ornek]').forEach((b) =>
+      b.addEventListener('click', () => {
+        girdi.value = b.dataset.ornek || '';
+        ara();
+      }),
+    );
+  }
+</script>
+
+<style is:global>
+  .ifz-sayfa .ifz-aciklama {
+    margin: 14px 0 0;
+  }
+
+  /* Son kararda giren ve çıkan ifadeler */
+  .ifz-sayfa .ifz-fark {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 18px;
+  }
+  .ifz-sayfa .ifz-fark-kol h3 {
+    margin: 0 0 6px;
+    padding-left: 12px;
+    border-left: 3px solid var(--green);
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .ifz-sayfa .ifz-cikan h3 {
+    border-left-color: var(--red);
+  }
+  .ifz-sayfa .ifz-fark-kol h3 span {
+    margin-left: 6px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .ifz-sayfa .ifz-fark-kol ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .ifz-sayfa .ifz-fark-kol li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--hair);
+    font-family: var(--sans);
+  }
+  .ifz-sayfa .ifz-fark-kol li strong {
+    display: block;
+    font-size: 0.95rem;
+  }
+  .ifz-sayfa .ifz-fark-kol li p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+  .ifz-sayfa ins {
+    color: var(--green-text);
+    background: color-mix(in srgb, var(--green) 12%, transparent);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+  }
+  .ifz-sayfa del {
+    color: var(--red-text);
+    background: color-mix(in srgb, var(--red) 9%, transparent);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+  }
+
+  /* Arama */
+  .ifz-sayfa .ifz-arama {
+    margin: 18px 0 14px;
+    font-family: var(--sans);
+  }
+  .ifz-sayfa .ifz-arama label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+  .ifz-sayfa .ifz-arama-satir {
+    display: flex;
+    gap: 8px;
+    margin-top: 6px;
+    max-width: 34rem;
+  }
+  .ifz-sayfa .ifz-arama input {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+    padding: 8px 12px;
+    font: inherit;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--ink-2);
+    border-radius: 0;
+  }
+  .ifz-sayfa .ifz-arama input:focus-visible,
+  .ifz-sayfa .ifz-arama button:focus-visible,
+  .ifz-sayfa .ifz-kaydir:focus-visible {
+    outline: 2px solid var(--toprak-text);
+    outline-offset: 2px;
+  }
+  .ifz-sayfa .ifz-arama button {
+    min-height: 44px;
+    padding: 0 14px;
+    font: inherit;
+    color: var(--ink);
+    background: var(--paper-2);
+    border: 1px solid var(--hair);
+    cursor: pointer;
+  }
+  .ifz-sayfa .ifz-ornek {
+    margin: 10px 0 0;
+  }
+  .ifz-sayfa .ifz-ornek button {
+    min-height: 32px;
+    margin: 2px 4px 2px 0;
+    padding: 0 10px;
+    font-size: 0.88rem;
+  }
+  .ifz-sayfa .ifz-arama-durum {
+    margin: 8px 0 0;
+    min-height: 1.4em;
+  }
+
+  /* Izgara */
+  .ifz-sayfa .ifz-kaydir {
+    overflow-x: auto;
+    border-top: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+    overscroll-behavior-x: contain;
+  }
+  .ifz-sayfa .ifz-izgara {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: var(--sans);
+    font-size: 0.86rem;
+  }
+  .ifz-sayfa .ifz-izgara .ifz-ilk {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    width: 15rem;
+    min-width: 15rem;
+    max-width: 15rem;
+    padding: 6px 12px 6px 4px;
+    text-align: left;
+    vertical-align: middle;
+    background: var(--paper);
+    border-bottom: 1px solid var(--hair);
+    border-right: 1px solid var(--hair);
+  }
+  .ifz-sayfa .ifz-izgara thead .ifz-ilk {
+    z-index: 3;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    vertical-align: bottom;
+  }
+  .ifz-sayfa .ifz-ad {
+    display: block;
+    font-weight: 600;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+  .ifz-sayfa .ifz-meta {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.35;
+  }
+  .ifz-sayfa .ifz-kol {
+    width: 22px;
+    min-width: 22px;
+    height: 78px;
+    padding: 0 0 6px;
+    font-weight: 400;
+    vertical-align: bottom;
+    border-bottom: 1px solid var(--hair);
+  }
+  .ifz-sayfa .ifz-kol a {
+    display: block;
+    color: var(--ink-2);
+    text-decoration: none;
+  }
+  .ifz-sayfa .ifz-kol a:hover,
+  .ifz-sayfa .ifz-kol a:focus-visible {
+    color: var(--toprak-text);
+    text-decoration: underline;
+  }
+  .ifz-sayfa .ifz-kol span {
+    display: block;
+    margin: 0 auto;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+    font-size: 0.72rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .ifz-sayfa .ifz-izgara td {
+    width: 22px;
+    min-width: 22px;
+    height: 34px;
+    padding: 0;
+    border-bottom: 1px solid var(--hair);
+    cursor: pointer;
+    position: relative;
+  }
+  .ifz-sayfa .ifz-izgara td::after {
+    content: '';
+    position: absolute;
+    inset: 5px 2px;
+    background: var(--soluk);
+  }
+  .ifz-sayfa .ifz-izgara td.ifz-var::after {
+    background: var(--toprak);
+  }
+  .ifz-sayfa .ifz-izgara td.ifz-yok::after {
+    inset: 14px 6px;
+  }
+  .ifz-sayfa .ifz-yil {
+    border-left: 1px solid var(--hair);
+  }
+  .ifz-sayfa .ifz-izgara td:hover::after,
+  .ifz-sayfa .ifz-izgara td.ifz-secili::after {
+    outline: 2px solid var(--ink);
+    outline-offset: 1px;
+  }
+  .ifz-sayfa .ifz-izgara td:focus-visible {
+    outline: 2px solid var(--toprak-text);
+    outline-offset: -2px;
+  }
+  .ifz-sayfa .ifz-grup th {
+    position: sticky;
+    left: 0;
+    padding: 18px 4px 6px;
+    text-align: left;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
+    border-bottom: 1px solid var(--ink-2);
+    background: var(--paper);
+  }
+  .ifz-sayfa .ifz-grup th span {
+    position: sticky;
+    left: 4px;
+  }
+  .ifz-sayfa .ifz-aranan .ifz-ilk {
+    background: var(--paper-2);
+  }
+  .ifz-sayfa .ifz-arama-govde[hidden] {
+    display: none;
+  }
+
+  /* Seçilen karenin cümlesi */
+  .ifz-sayfa .ifz-detay[hidden] {
+    display: none;
+  }
+  .ifz-sayfa .ifz-detay {
+    position: sticky;
+    bottom: 8px;
+    z-index: 4;
+    margin-top: 12px;
+    padding: 12px 14px;
+    font-family: var(--sans);
+    background: var(--paper-2);
+    border: 1px solid var(--ink-2);
+  }
+  .ifz-sayfa .ifz-detay p {
+    margin: 0;
+  }
+  .ifz-sayfa .ifz-detay-bos {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .ifz-sayfa .ifz-detay-bas {
+    font-size: 0.88rem;
+    color: var(--ink-2);
+  }
+  .ifz-sayfa .ifz-cumle {
+    margin-top: 6px !important;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+  .ifz-sayfa .ifz-cumle mark {
+    color: var(--ink);
+    background: color-mix(in srgb, var(--toprak) 22%, transparent);
+    padding: 0 2px;
+  }
+
+  @media (max-width: 720px) {
+    .ifz-sayfa .ifz-fark {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+    .ifz-sayfa .ifz-izgara .ifz-ilk {
+      width: 9.5rem;
+      min-width: 9.5rem;
+      max-width: 9.5rem;
+      padding-right: 8px;
+    }
+    .ifz-sayfa .ifz-ad {
+      font-size: 0.8rem;
+    }
+    .ifz-sayfa .ifz-meta {
+      font-size: 0.68rem;
+    }
+    .ifz-sayfa .ifz-kol,
+    .ifz-sayfa .ifz-izgara td {
+      width: 26px;
+      min-width: 26px;
+    }
+  }
+</style>

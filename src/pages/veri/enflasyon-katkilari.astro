@@ -1,0 +1,339 @@
+---
+// Enflasyonun kaynakları: TÜFE ana harcama gruplarının yıllık ve aylık enflasyona katkısı (yüzde puan).
+// Veri scripts/veri/enflasyon-katkilari.mjs ile TCMB EVDS'den (TÜİK endeks ve ağırlıkları) üretilir; yöntem src/lib/enflasyon-katkilari.mjs.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import veri from '../../data/enflasyon-katkilari.json';
+import { ayAdi, sayiYaz, zamanYaz, AYLAR } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const satirlar = veri.satirlar;
+const son = satirlar.at(-1)!;
+const gruplar = veri.gruplar;
+const kisa = ['Gıda', 'Alkol, tütün', 'Giyim', 'Konut', 'Ev eşyası', 'Sağlık', 'Ulaştırma', 'İletişim', 'Eğlence', 'Eğitim', 'Lokanta, otel', 'Sigorta, finans', 'Çeşitli'];
+const eksi = (n: number) => (n < 0 ? '−' : '');
+const puan = (n: number) => `${eksi(n)}${sayiYaz(Math.abs(n), 2)}`;
+const yuzde = (n: number) => `${eksi(n)}%${sayiYaz(Math.abs(n), 2)}`;
+const ayKisa = (s: { yil: number; ay: number }) => `${AYLAR[s.ay - 1].slice(0, 3)} ${String(s.yil).slice(2)}`;
+
+// Çubuk grafiği: değerlerin sıfıra göre konumu (negatif katkı sola uzar).
+function cubuklar(degerler: number[]) {
+  const alt = Math.min(0, ...degerler);
+  const ust = Math.max(0, ...degerler);
+  const aralik = ust - alt || 1;
+  return {
+    sifir: ((0 - alt) / aralik) * 100,
+    liste: gruplar
+      .map((g, i) => ({ ad: g.ad, deger: degerler[i] }))
+      .sort((a, b) => b.deger - a.deger)
+      .map((c) => ({
+        ...c,
+        sol: ((Math.min(0, c.deger) - alt) / aralik) * 100,
+        genislik: Math.max((Math.abs(c.deger) / aralik) * 100, 0.4),
+      })),
+  };
+}
+const yillik = cubuklar(son.yillikKatki);
+const aylik = cubuklar(son.aylikKatki);
+const bolumler = [
+  { baslik: 'Yıllık enflasyona katkı', cubuk: yillik, toplam: son.yillikToplam, manset: son.manset.yillik, mansetAd: 'manşet yıllık enflasyon' },
+  { baslik: 'Aylık enflasyona katkı', cubuk: aylik, toplam: son.aylikToplam, manset: son.manset.aylik, mansetAd: 'manşet aylık değişim' },
+];
+
+const tablo = [...satirlar].reverse();
+const enBuyuk = yillik.liste[0];
+const enSapma = Math.max(...satirlar.map((s) => Math.abs(s.yillikFark)));
+const kucukHarf = (s: string) => s.charAt(0).toLocaleLowerCase('tr-TR') + s.slice(1);
+const baslik = 'Enflasyonun kaynakları';
+const description = `${ayAdi(son)} yıllık TÜFE ${yuzde(son.manset.yillik)}: en büyük katkı ${kucukHarf(enBuyuk.ad)} grubundan, ${puan(enBuyuk.deger)} puan. 13 ana harcama grubunun yıllık ve aylık enflasyona katkısı, son 24 ay, ağırlıklar.`;
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Enflasyonun kaynakları', href: '/veri/enflasyon-katkilari/' },
+];
+const ilk = satirlar[0];
+const iso = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  sayfaEk: { dateModified: veri.guncelleme },
+  ekler: [
+    {
+      '@type': 'Dataset',
+      name: 'TÜFE ana harcama gruplarının enflasyona katkısı',
+      description:
+        'TÜİK’in tüketici fiyat endeksi (TÜFE) ana harcama gruplarının yıllık ve aylık enflasyona katkısı (yüzde puan); TÜİK endeks ve ağırlıklarından zincirleme Laspeyres yöntemiyle hesaplanmıştır, veri TCMB EVDS’den alınmıştır.',
+      url: 'https://finfolis.com/veri/enflasyon-katkilari/',
+      isAccessibleForFree: true,
+      creator: { '@type': 'GovernmentOrganization', name: 'Türkiye İstatistik Kurumu', url: 'https://www.tuik.gov.tr/' },
+      temporalCoverage: `${iso(ilk)}/${iso(son)}`,
+      dateModified: veri.guncelleme,
+      variableMeasured: ['Yıllık enflasyona katkı (puan)', 'Aylık enflasyona katkı (puan)', 'Ana grup ağırlığı (%)', 'Ana grup yıllık değişim (%)'],
+    },
+  ],
+});
+---
+
+<Base title={`Enflasyonun kaynakları: ${ayAdi(son)} TÜFE’ye hangi grup ne kadar katkı yaptı`} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>TÜFE ana harcama gruplarının enflasyona katkısı · TÜİK verisi</p>
+    </header>
+
+    <dl class="veri-rakamlar">
+      <div>
+        <dt>Yıllık enflasyon</dt>
+        <dd>{yuzde(son.manset.yillik)}</dd>
+        <dd class="veri-degisim">{ayAdi(son)}</dd>
+      </div>
+      <div>
+        <dt>Aylık değişim</dt>
+        <dd>{yuzde(son.manset.aylik)}</dd>
+        <dd class="veri-degisim">{ayAdi(son)}</dd>
+      </div>
+      <div>
+        <dt>En büyük yıllık katkı</dt>
+        <dd>{puan(enBuyuk.deger)} <small>puan</small></dd>
+        <dd class="veri-degisim">{enBuyuk.ad}</dd>
+      </div>
+    </dl>
+    <p class="veri-notu veri-kaynak">
+      <strong>Kaynak:</strong> <a href={veri.kaynak.url} rel="noopener">{veri.kaynak.ad}</a>. Katkılar bu endeks ve ağırlıklardan
+      hesaplanmıştır. Siteye alındığı zaman: {zamanYaz(veri.guncelleme)}.
+    </p>
+
+    <div class="katki-ikili">
+      {
+        bolumler.map((b) => (
+          <section class="bolum">
+            <h2 class="bolum-baslik">{b.baslik}, {ayAdi(son)}</h2>
+            <p class="veri-notu">
+              Yüzde puan. Gruplar toplamı {puan(b.toplam)} puan; {b.mansetAd} {yuzde(b.manset)}.
+            </p>
+            <ul class="katki-liste" role="list">
+              {b.cubuk.liste.map((c) => (
+                <li>
+                  <div class="katki-ust">
+                    <span>{c.ad}</span>
+                    <span class="katki-sayi">{puan(c.deger)}</span>
+                  </div>
+                  <div class="katki-ray" style={`--sifir:${b.cubuk.sifir}%`} aria-hidden="true">
+                    <span class={`katki-cubuk${c.deger < 0 ? ' eksi' : ''}`} style={`left:${c.sol}%;width:${c.genislik}%`} />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+
+    <section class="bolum">
+      <h2 class="bolum-baslik">Gruplar: ağırlık ve değişim</h2>
+      <div class="tablo-kaydir">
+        <table class="cizelge veri-tablo veri-tablo-genis">
+          <thead>
+            <tr>
+              <th scope="col">Ana grup</th>
+              <th scope="col" class="sag">Ağırlık {veri.agirlikYili} (%)</th>
+              <th scope="col" class="sag">Ağırlık {veri.agirlikYili - 1} (%)</th>
+              <th scope="col" class="sag">Yıllık değişim</th>
+              <th scope="col" class="sag">Aylık değişim</th>
+              <th scope="col" class="sag">Yıllık katkı (puan)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              gruplar.map((g, i) => (
+                <tr>
+                  <th scope="row">{g.ad}</th>
+                  <td class="sag">{sayiYaz(g.agirlik, 2)}</td>
+                  <td class="sag">{g.oncekiAgirlik == null ? '–' : sayiYaz(g.oncekiAgirlik, 2)}</td>
+                  <td class="sag">{yuzde(g.yillik)}</td>
+                  <td class="sag">{yuzde(g.aylik)}</td>
+                  <td class="sag">{puan(son.yillikKatki[i])}</td>
+                </tr>
+              ))
+            }
+            <tr class="katki-toplam">
+              <th scope="row">Genel (manşet)</th>
+              <td class="sag">100,00</td>
+              <td class="sag">100,00</td>
+              <td class="sag">{yuzde(son.manset.yillik)}</td>
+              <td class="sag">{yuzde(son.manset.aylik)}</td>
+              <td class="sag">{puan(son.yillikToplam)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="veri-notu">Grup değişimleri TÜİK’in 2025=100 bazlı endekslerinden alınmıştır. Ağırlıklar yıl başından geçerlidir.</p>
+    </section>
+
+    {
+      [
+        { baslik: 'Son 24 ayda yıllık enflasyona katkı', alan: 'yillikKatki', toplam: 'yillikToplam', manset: 'yillik', ad: 'yıllık' },
+        { baslik: 'Son 24 ayda aylık enflasyona katkı', alan: 'aylikKatki', toplam: 'aylikToplam', manset: 'aylik', ad: 'aylık' },
+      ].map((t) => (
+        <section class="bolum">
+          <h2 class="bolum-baslik">{t.baslik}</h2>
+          <p class="veri-notu">Yüzde puan; her satırdaki gruplar toplamı o ayın {t.ad} enflasyonuna eşittir (yuvarlama farkı dışında).</p>
+          <div class="tablo-kaydir">
+            <table class="cizelge veri-tablo katki-tablo">
+              <thead>
+                <tr>
+                  <th scope="col">Ay</th>
+                  {kisa.map((k, i) => (
+                    <th scope="col" class="sag" title={gruplar[i].ad}>
+                      {k}
+                    </th>
+                  ))}
+                  <th scope="col" class="sag">Toplam</th>
+                  <th scope="col" class="sag">Manşet</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tablo.map((s) => (
+                  <tr>
+                    <th scope="row">{ayKisa(s)}</th>
+                    {(s as any)[t.alan].map((v: number) => (
+                      <td class="sag">{puan(v)}</td>
+                    ))}
+                    <td class="sag">{puan((s as any)[t.toplam])}</td>
+                    <td class="sag">
+                      <strong>{puan((s.manset as any)[t.manset])}</strong>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      ))
+    }
+
+    <section class="bolum prose veri-aciklama">
+      <h2 class="bolum-baslik">Nasıl hesaplanıyor?</h2>
+      <p>
+        Katkı, bir grubun fiyat artışının toplam enflasyondaki payıdır. Ağırlığı büyük bir grupta orta düzeyde bir artış, ağırlığı
+        küçük bir gruptaki yüksek artıştan daha fazla katkı yapabilir. Bu yüzden grubun kendi değişimi ile katkısı ayrı okunmalıdır.
+      </p>
+      <p>
+        TÜİK, TÜFE’yi zincirleme Laspeyres endeksi olarak hesaplar: her yılın ana grup ağırlıkları, bir önceki yılın Aralık ayına
+        bağlanır. Genel endeks, grup endekslerinin ağırlıklı toplamıdır; bu yüzden her grubun payı ayrı bulunabilir. Aylık katkı,
+        grubun ağırlığı ile grup endeksinin o aydaki değişiminin, bir önceki ayın genel endeksine oranıdır. Yıllık katkıda aynı
+        işlem yıl sınırını aşarsa iki parçaya bölünür: bir önceki Aralık’a kadar olan kısım önceki yılın, Aralık’tan sonrası
+        yeni yılın ağırlığıyla hesaplanır. Parçalar toplandığında genel endeksin yıllık değişimi çıkar.
+      </p>
+      <p>
+        Endeks ve ağırlıklar TÜİK’indir, TCMB EVDS’den alınmıştır. Katkı tablosu TÜİK’in yayımladığı hazır bir tablo değildir; bu
+        veriden hesaplanmıştır. EVDS’deki endeks değerleri yuvarlanmış olduğundan katkıların toplamı manşetten en fazla {sayiYaz(enSapma, 3)}
+        puan sapar; bu yuvarlama farkı tablolara yansıtılmamıştır. Grup adları ve sayısı TÜİK’in 2025 bazlı COICOP 2018
+        sınıflamasına uyar; 2025 öncesi seriler TÜİK’in aynı sınıflamaya göre yeniden düzenlediği serilerdir.
+      </p>
+    </section>
+
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/enflasyon-hizi/">Enflasyon hızı</a>
+      <a href="/veri/enflasyon-beklentisi/">Enflasyon beklentisi</a>
+      <a href="/veri/reel-faiz/">Reel faiz</a>
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+      <a href="/hesapla/enflasyon/">Enflasyon hesaplama</a>
+      <a href="/sozluk/tufe/">TÜFE nedir?</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır; endeks ve ağırlıklar TÜİK’in açıkladığı resmi rakamlardır, katkılar bu rakamlardan hesaplanmıştır.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .katki-ikili {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 48px;
+    align-items: start;
+  }
+  .katki-liste {
+    list-style: none;
+    margin: 14px 0 0;
+    padding: 0;
+  }
+  .katki-liste li {
+    padding: 7px 0 9px;
+    border-bottom: 1px solid var(--hair);
+  }
+  .katki-ust {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+  }
+  .katki-sayi {
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .katki-ray {
+    position: relative;
+    height: 10px;
+    margin-top: 6px;
+    background: var(--soluk);
+  }
+  .katki-ray::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    left: var(--sifir);
+    width: 1px;
+    background: var(--ink);
+  }
+  .katki-cubuk {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: var(--toprak);
+  }
+  .katki-cubuk.eksi {
+    background: var(--green);
+  }
+  .katki-toplam th,
+  .katki-toplam td {
+    border-top: 2px solid var(--ink);
+    font-weight: 700;
+  }
+  .katki-tablo {
+    min-width: 1080px;
+    font-size: 0.88rem;
+  }
+  .katki-tablo th[scope='col'] {
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    vertical-align: bottom;
+  }
+  .katki-tablo tbody th {
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 700;
+    white-space: nowrap;
+    position: sticky;
+    left: 0;
+    background: var(--paper);
+  }
+  .katki-tablo td,
+  .katki-tablo th.sag {
+    white-space: nowrap;
+  }
+  @media (max-width: 800px) {
+    .katki-ikili {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,209 @@
+---
+// ECB metin tonu: ECB'nin karar açıklamaları, basın toplantısı giriş metinleri ve toplantı hesapları yapay zekâyla okunur;
+// PPK ve FOMC metin tonu sayfalarıyla aynı iki puan (−3 güvercin … +3 şahin). Metinler src/data/ecb-metinler.json
+// (ecb.europa.eu), puanlar src/data/ecb-ton.json (scripts/veri/ecb-ton.mjs). İstem src/lib/ecb-ton.mjs, hesap src/lib/ppk-ton.mjs.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import metinVerisi from '../../data/ecb-metinler.json';
+import tonVerisi from '../../data/ecb-ton.json';
+import { DONGU_AYARI } from '../../lib/ecb-ton.mjs';
+import { belgeListesi, donguler, tonAdi } from '../../lib/ppk-ton.mjs';
+import { gunYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+type Puan = { ileriYon: number; durus: number; gerekce: string; alintilar: string[]; okundu: string };
+type Belge = { id: string; tur: string; tarih: string; baslik: string; url: string };
+const belgeler = belgeListesi(metinVerisi).belgeler as Belge[];
+const puanlar = ((tonVerisi as { puanlar?: Record<string, Puan> }).puanlar ?? {}) as Record<string, Puan>;
+const dongu = donguler(belgeler, puanlar, DONGU_AYARI).filter((d) => d.ileriYon != null);
+const son = dongu.at(-1);
+const onceki = dongu.at(-2);
+const ivme = son && onceki ? Math.round(((son.ileriYon as number) - (onceki.ileriYon as number)) * 100) / 100 : null;
+const okunan = belgeler
+  .filter((b) => puanlar[b.id])
+  .sort((a, b) => b.tarih.localeCompare(a.tarih));
+const bekleyen = belgeler.filter((b) => ['karar', 'aciklama', 'hesap'].includes(b.tur) && !puanlar[b.id]).length;
+const isaret = (n: number | null | undefined) =>
+  n == null ? '–' : `${n > 0 ? '+' : n < 0 ? '−' : ''}${Math.abs(n).toLocaleString('tr-TR', { maximumFractionDigits: 2 })}`;
+const TUR: Record<string, string> = { karar: 'Karar açıklaması', aciklama: 'Basın toplantısı metni', hesap: 'Toplantı hesabı' };
+const gun = (iso: string) => Math.floor(Date.parse(`${iso}T00:00:00Z`) / 86_400_000);
+const grafikNoktalari = dongu.map((d) => [gun(d.toplanti), d.ileriYon, d.durus]);
+const guncelleme = (tonVerisi as { guncelleme?: string }).guncelleme ?? null;
+
+const baslik = 'ECB metin tonu';
+const description = son
+  ? `ECB para politikası metinlerinin yapay zekâyla okunan tonu. ${gunYaz(son.toplanti)} toplantısının döngüsünde ileri yön ${isaret(son.ileriYon)} (${tonAdi(son.ileriYon)}), mevcut duruş ${isaret(son.durus)}.`
+  : 'ECB karar açıklamaları, basın toplantısı metinleri ve toplantı hesaplarının yapay zekâyla okunan tonu.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/ecb-tonu/' },
+];
+const jsonLd = sayfaSemasi({ yol, ad: baslik, aciklama: description, ...(guncelleme ? { sayfaEk: { dateModified: guncelleme } } : {}) });
+---
+
+<Base title={`${baslik}: ECB metinleri şahin mi güvercin mi?`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Avrupa Merkez Bankası metinlerinin yapay zekâyla okunan yönü · −3 güvercin, +3 şahin</p>
+    </header>
+    {
+      son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>İleri yön ({gunYaz(son.toplanti)} döngüsü)</dt>
+              <dd>
+                {isaret(son.ileriYon)} <span class="ton-adi">{tonAdi(son.ileriYon)}</span>
+              </dd>
+            </div>
+            <div>
+              <dt>Mevcut duruş</dt>
+              <dd>{isaret(son.durus)}</dd>
+            </div>
+            <div>
+              <dt>Önceki döngüye göre</dt>
+              <dd>{ivme == null ? '–' : isaret(ivme)}</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> metinler <a href="https://www.ecb.europa.eu/press/govcdec/mopo/html/index.en.html" rel="noopener">ECB (ecb.europa.eu)</a>; puanlar finfolis'in
+            yapay zekâ okumasıdır, ECB'nin değildir.{guncelleme && <> Son okuma: {zamanYaz(guncelleme)}.</>}
+            {bekleyen > 0 && <> Henüz okunmamış {bekleyen} metin sonraki güncellemelerde eklenecek.</>}
+          </p>
+
+          <ZamanGrafik
+            baslik="ECB toplantılarına göre ton"
+            ipucu="Puan; her nokta bir ECB toplantısının açıklaması, basın toplantısı metni ve hesabı"
+            kaynak="Metinler: ECB. Puanlar: finfolis, yapay zekâ okuması."
+            siklik="hafta"
+            birim="puan"
+            seriIdleri={['ileri', 'durus']}
+            noktalar={grafikNoktalari}
+            gruplar={[
+              {
+                id: 'hepsi',
+                ad: 'Hepsi',
+                seriler: [
+                  { id: 'ileri', ad: 'İleri yön', renk: 'toprak' },
+                  { id: 'durus', ad: 'Mevcut duruş', renk: 'murekkep', kesik: true },
+                ],
+              },
+            ]}
+            referans={{ deger: 0, ad: 'Dengeli' }}
+          />
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Okunan metinler</h2>
+            <p class="veri-notu">Satır açıldığında okumanın gerekçesi ve metinden birebir (İngilizce) alıntılar görünür.</p>
+            <div class="tablo-kaydir">
+              <table class="cizelge veri-tablo ton-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Tarih</th>
+                    <th scope="col">Metin</th>
+                    <th scope="col" class="sag">İleri yön</th>
+                    <th scope="col" class="sag">Duruş</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {okunan.map((b) => {
+                    const p = puanlar[b.id];
+                    return (
+                      <tr>
+                        <td class="tarih-hucre">{gunYaz(b.tarih)}</td>
+                        <td>
+                          <details>
+                            <summary>
+                              {TUR[b.tur] ?? b.tur}
+                            </summary>
+                            <p>{p.gerekce}</p>
+                            <ul class="alintilar">
+                              {p.alintilar.map((a) => (
+                                <li>“{a}”</li>
+                              ))}
+                            </ul>
+                            <p>
+                              <a href={b.url} rel="noopener">
+                                {b.baslik}
+                              </a>
+                            </p>
+                          </details>
+                        </td>
+                        <td class="sag">{isaret(p.ileriYon)}</td>
+                        <td class="sag">{isaret(p.durus)}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </>
+      ) : (
+        <p class="bos">Puanlanmış metin henüz yok. Okumalar tamamlandıkça bu sayfada gösterilecek.</p>
+      )
+    }
+
+    <section class="bolum prose veri-aciklama">
+      <h2 class="bolum-baslik">Bu puanlar nasıl hazırlanıyor?</h2>
+      <p>
+        ECB'nin yayımladığı para politikası kararı açıklamaları, basın toplantısı giriş metinleri ve toplantı hesapları
+        (accounts), Google'ın Gemini yapay zekâ modeline okutulur. Hesapların yalnız para politikası değerlendirmesini ve
+        kararı anlatan bölümleri okunur. Metinler İngilizcedir;
+        gerekçeler Türkçe, alıntılar özgün İngilizce metinden birebir.
+        Model yalnız metne bakar ve iki puan verir. <strong>İleri yön</strong>, metnin para politikasının sonraki adımları
+        için verdiği işarettir: −3 belirgin gevşeme (güvercin), 0 dengeli, +3 belirgin sıkılaştırma (şahin).
+        <strong>Mevcut duruş</strong>, metnin bugünkü politikayı ne kadar sıkı tanımladığıdır.
+      </p>
+      <p>
+        Model her puan için kısa bir gerekçe ve metinden birebir alıntı vermek zorundadır. Alıntılar program tarafından ECB
+        metninde aranır; metinde birebir geçmeyen alıntı atılır, geçerli alıntısı kalmayan okuma kullanılmaz. Bir toplantının
+        tonu, karar açıklaması, basın toplantısı metni ve o toplantının hesabının eşit ağırlıklı ortalamasıdır; hesap
+        toplantıdan yaklaşık dört hafta sonra yayımlanır.
+      </p>
+      <p>
+        Puanlar bir yorumdur, ölçüm değildir. Aynı metni başka bir model ya da insan farklı puanlayabilir. Puanlar faiz
+        kararı tahmini değildir, ECB'nin kendi değerlendirmesi değildir ve yatırım kararına dayanak olarak kullanılmamalıdır.
+        Puanlar yayımlandıktan sonra elle değiştirilmez.
+      </p>
+      <p>
+        <a href="/veri/ecb-aciklama-metni/">ECB açıklamasında neler değişti?</a> · <a href="/veri/fomc-tonu/">FOMC metin tonu</a> · <a href="/veri/ppk-tonu/">PPK metin tonu</a> · <a href="/yapay-zeka-kullanimi/">Yapay zekâ kullanımı</a>
+      </p>
+    </section>
+    <YasalUyari>Bu sayfadaki puanlar yapay zekânın metin okumasıdır; ECB'nin açıklaması ya da yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .ton-adi {
+    font-size: 0.55em;
+    font-weight: 400;
+    color: var(--muted);
+    margin-left: 0.3em;
+  }
+  .tablo-kaydir {
+    overflow-x: auto;
+  }
+  .tarih-hucre {
+    white-space: nowrap;
+  }
+  .ton-tablo summary {
+    cursor: pointer;
+  }
+  .ton-tablo details p {
+    margin: 0.5rem 0;
+  }
+  .alintilar {
+    margin: 0.4rem 0;
+    padding-left: 1.1rem;
+    color: var(--ink-2);
+    font-style: italic;
+  }
+</style>

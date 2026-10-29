@@ -63,7 +63,9 @@ test('döngüler: özet önceki karara bağlanır, ortalama', () => {
   const puanlar = { k1: { ileriYon: 0.5, durus: 2 }, o1: { ileriYon: 1.5, durus: 2.5 }, k2: { ileriYon: -1, durus: 2 } };
   const d = donguler(belgeler, puanlar);
   assert.equal(d.length, 2);
-  assert.deepEqual(d[0], { toplanti: '2026-09-10', kararId: 'k1', ozetId: 'o1', ileriYon: 1, durus: 2.25, kararIleriYon: 0.5, ozetIleriYon: 1.5, metin: 2 });
+  const { turler, ...ilk } = d[0];
+  assert.deepEqual(ilk, { toplanti: '2026-09-10', kararId: 'k1', ozetId: 'o1', ileriYon: 1, durus: 2.25, kararIleriYon: 0.5, ozetIleriYon: 1.5, metin: 2 });
+  assert.equal(turler.konusma, null);
   assert.equal(d[1].ozetId, null);
   assert.equal(d[1].ileriYon, -1);
 });
@@ -75,4 +77,39 @@ test('ton adı', () => {
   assert.equal(tonAdi(-1), 'ılımlı güvercin');
   assert.equal(tonAdi(-2.5), 'güvercin');
   assert.equal(tonAdi(null), '–');
+});
+
+test('döngüler: tür dengeli ortalama, politika içeriği yoksa sayılmaz', () => {
+  const belgeler = [
+    { id: 'k1', tur: 'karar', tarih: '2026-09-10' },
+    { id: 's1', tur: 'konusma', tarih: '2026-09-12' },
+    { id: 's2', tur: 'konusma', tarih: '2026-09-20' },
+    { id: 's3', tur: 'konusma', tarih: '2026-09-25' },
+    { id: 'r1', tur: 'rapor_fir', tarih: '2026-09-30' },
+    { id: 'k2', tur: 'karar', tarih: '2026-10-22' },
+  ];
+  const puanlar = {
+    k1: { ileriYon: 1, durus: 2 },
+    s1: { ileriYon: -1, durus: 2 },
+    s2: { ileriYon: 0, durus: 1 },
+    s3: { politikaYok: true, ileriYon: null, durus: null },
+    r1: { ileriYon: 2, durus: 3 },
+  };
+  const d = donguler(belgeler, puanlar);
+  // karar 1, konuşmalar ort. −0,5, rapor 2 → (1 − 0,5 + 2) / 3
+  assert.equal(d[0].ileriYon, 0.83);
+  assert.equal(d[0].metin, 4);
+  assert.deepEqual(d[0].turler.konusma, { ileriYon: -0.5, durus: 1.5 });
+  assert.equal(d[1].metin, 0);
+});
+
+test('politika içeriği yok yanıtı', () => {
+  const b = { tur: 'konusma', paragraflar: ['Finansal istikrar görünümü anlatıldı.'] };
+  assert.deepEqual(yanitDogrula({ ileri_yon: 0, durus: 0, gerekce: 'Politika yok.', alintilar: [], politika_icerigi: false }, b), {
+    politikaYok: true,
+    ileriYon: null,
+    durus: null,
+    gerekce: 'Politika yok.',
+    alintilar: [],
+  });
 });

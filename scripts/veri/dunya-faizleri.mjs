@@ -54,6 +54,13 @@ export async function dunyaFaizleriUret() {
   }
   const bisTrSon = seriler.TR.at(-1);
   seriler.TR = tcmbIleUzat(seriler.TR, resmi?.faiz?.gecmis);
+  // Türkiye TÜFE'si de BIS'in gerisinde kalabilir; TÜİK'in daha yeni ayı (resmi.json enflasyon) varsa o kullanılır,
+  // böylece reel faiz emsal ülkeler sayfasıyla aynı çıkar.
+  const tufeSon = resmi?.enflasyon?.satirlar?.at(-1);
+  if (tufeSon && typeof tufeSon.yillik === 'number') {
+    const donem = `${tufeSon.yil}-${String(tufeSon.ay).padStart(2, '0')}`;
+    if (!tufeler.TR || donem > tufeler.TR.donem) tufeler.TR = { donem, deger: tufeSon.yillik };
+  }
 
   const ref = ULKELER.map((u) => seriler[u.bis].at(-1).t).sort().at(-1);
   const satirlar = ULKELER.map((u) => faizSatiri({ ulke: u, seri: seriler[u.bis], tufe: tufeler[u.bis] ?? null, ref, bugun }));

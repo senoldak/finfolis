@@ -12,6 +12,11 @@ const araclar = [
     not: 'Bir tutarın iki ay arasındaki karşılığı, TÜİK TÜFE verisiyle',
   },
   {
+    href: '/hesapla/kisisel-enflasyon/',
+    ad: 'Kişisel enflasyon hesaplama',
+    not: 'Kendi harcama dağılımınızla yıllık enflasyon, TÜFE ile karşılaştırmalı',
+  },
+  {
     href: '/hesapla/mevduat-getirisi/',
     ad: 'Mevduat getirisi hesaplama',
     not: 'Brüt faiz, stopaj kesintisi ve net getiri',
@@ -26,7 +31,7 @@ const yol = [
   { ad: 'Anasayfa', href: '/' },
   { ad: 'Hesapla', href: '/hesapla/' },
 ];
-const description = 'Enflasyon, mevduat getirisi ve kredi taksit hesaplayıcıları; formülleri açıkça yazılı, hesap tarayıcınızda yapılır.';
+const description = 'Enflasyon, kişisel enflasyon, mevduat getirisi ve kredi taksit hesaplayıcıları; formülleri açıkça yazılı, hesap tarayıcınızda yapılır.';
 const jsonLd = sayfaSemasi({ yol, ad: 'Hesaplayıcılar', aciklama: description, tur: 'CollectionPage' });
 ---
 
