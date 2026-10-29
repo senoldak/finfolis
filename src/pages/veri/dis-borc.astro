@@ -1,11 +1,12 @@
 ---
 // Dış borç: TCMB kısa vadeli dış borç ve resmi rezerv (aylık) ile brüt/net dış borç stoku (üç aylık), milyon ABD doları.
-// Rezervin kalan vadeli kısa vadeli borcu karşılama oranı finfolis hesaplamasıdır.
+// Rezervin kalan vadeli kısa vadeli borcu karşılama oranı finfolis hesaplamasıdır. Altta TCMB dış borç çevirme oranları
+// (EVDS'nin verdiği gibi, sayfada hesap yok).
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import ZamanGrafik from '../../components/ZamanGrafik.astro';
-import { RESMI, ayAdi, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
@@ -83,6 +84,29 @@ const jsonLd = sayfaSemasi({
       }
     : {}),
 });
+// Dış borç çevirme oranları (TCMB, %): 100'ün üstü kullanılan yeni borcun geri ödenenden fazla olduğunu gösterir.
+const cevirme = RESMI.borcCevirme;
+const cevirmeSatir = cevirme?.satirlar ?? [];
+const sonCevirme = cevirmeSatir.at(-1);
+const cevirmeGruplari = [
+  {
+    id: 'haric',
+    ad: 'Tahvil hariç',
+    seriler: [
+      { id: 'banka', ad: 'Bankalar', renk: 'murekkep' as const },
+      { id: 'diger', ad: 'Diğer sektörler', renk: 'toprak' as const },
+    ],
+  },
+  {
+    id: 'dahil',
+    ad: 'Tahvil dahil',
+    seriler: [
+      { id: 'bankaTahvil', ad: 'Bankalar', renk: 'murekkep' as const },
+      { id: 'digerTahvil', ad: 'Diğer sektörler', renk: 'toprak' as const },
+    ],
+  },
+];
+const cevirmeNoktalari = cevirmeSatir.map((s) => [ayAnahtari(s), s.banka, s.diger, s.bankaTahvil, s.digerTahvil]);
 ---
 
 <Base title={`Dış borç: ${sonCeyrek ? ceyrekAdi(sonCeyrek) : 'TCMB verisi'}`} description={description} noindex={!(sonAy && sonCeyrek)}>
@@ -198,6 +222,40 @@ const jsonLd = sayfaSemasi({
             gruplar={gruplarCeyrek}
             sifirdan
           />
+          {cevirme && sonCevirme && (
+            <section class="bolum" id="cevirme">
+              <h2 class="bolum-baslik">Dış borç çevirme oranı</h2>
+              <dl class="veri-rakamlar">
+                <div>
+                  <dt>Bankalar</dt>
+                  <dd>{yuzdeYaz(sonCevirme.banka)}</dd>
+                  <dd class="veri-degisim">{`${ayAdi(sonCevirme)}, tahvil hariç; dahil ${yuzdeYaz(sonCevirme.bankaTahvil)}`}</dd>
+                </div>
+                <div>
+                  <dt>Diğer sektörler</dt>
+                  <dd>{yuzdeYaz(sonCevirme.diger)}</dd>
+                  <dd class="veri-degisim">{`Tahvil hariç; dahil ${yuzdeYaz(sonCevirme.digerTahvil)}`}</dd>
+                </div>
+              </dl>
+              <ZamanGrafik
+                baslik="Dış borç çevirme oranı"
+                ipucu="Yüzde · 100’ün üstü, kullanılan yeni dış borcun geri ödenenden fazla olduğunu gösterir · Grup düğmesiyle tahvil hariç ve dahil arasında geçilir"
+                kaynak="Kaynak: TCMB, ödemeler dengesi istatistikleri (TCMB EVDS)."
+                siklik="ay"
+                birim="yuzde"
+                seriIdleri={['banka', 'diger', 'bankaTahvil', 'digerTahvil']}
+                noktalar={cevirmeNoktalari}
+                gruplar={cevirmeGruplari}
+                grupEtiketi="Seri grubu"
+                referans={{ deger: 100, ad: '100' }}
+              />
+              <p class="veri-notu">
+                Çevirme oranı, yurt dışından kullanılan yeni kredilerin (tahvil dahil seride ihraç edilen tahvillerin de) aynı
+                dönemdeki geri ödemelere oranıdır. Oranlar TCMB’nin verdiği gibidir. Siteye alındığı zaman:{' '}
+                {zamanYaz(cevirme.alinma)}.
+              </p>
+            </section>
+          )}
         </>
       ) : (
         <p class="bos">Dış borç verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>

@@ -1,11 +1,12 @@
 ---
 // Genel bütçe dengesi: Hazine ve Maliye Bakanlığı genel bütçe gelir, harcama, faiz harcaması ve denge rakamları (bin TL).
-// 12 aylık birikimli toplamlar finfolis hesaplamasıdır. Tutarlar enflasyondan arındırılmamıştır.
+// 12 aylık birikimli toplamlar finfolis hesaplamasıdır. Tutarlar enflasyondan arındırılmamıştır. Altta merkezi yönetim
+// bütçesinde vergi ve gider kalemleri: 12 aylık toplamlar ve paylar sayfada alınır.
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import ZamanGrafik from '../../components/ZamanGrafik.astro';
-import { RESMI, ayAdi, ayAnahtari, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
 import { kayanToplam } from '../../lib/turetilmis.mjs';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
@@ -87,6 +88,72 @@ const jsonLd = sayfaSemasi({
       }
     : {}),
 });
+// Merkezi yönetim bütçesi ayrıntısı (HMB, bin TL). Sayfa hesapları: son 12 ayın toplamı, önceki 12 aya göre değişim ve
+// kalemlerin vergi ya da gider toplamı içindeki payı; 12 aylık toplamların payları grafikte.
+const butceAyrinti = RESMI.butceAyrinti;
+const ba = butceAyrinti?.satirlar ?? [];
+type BaAlan = Exclude<keyof (typeof ba)[number], 'yil' | 'ay'>;
+const toplamBa = (alan: BaAlan, bit: number) => (bit >= 11 ? ba.slice(bit - 11, bit + 1).reduce((a, s) => a + s[alan], 0) : null);
+const sonBaI = ba.length - 1;
+const VERGILER: { alan: BaAlan; ad: string }[] = [
+  { alan: 'kdvDahil', ad: 'Dahilde alınan KDV' },
+  { alan: 'kdvIthal', ad: 'İthalde alınan KDV' },
+  { alan: 'gelirVergisi', ad: 'Gelir vergisi' },
+  { alan: 'kurumlar', ad: 'Kurumlar vergisi' },
+  { alan: 'otv', ad: 'Özel tüketim vergisi' },
+  { alan: 'bsmv', ad: 'Banka ve sigorta muameleleri vergisi' },
+  { alan: 'harc', ad: 'Harçlar' },
+  { alan: 'damga', ad: 'Damga vergisi' },
+];
+const GIDERLER: { alan: BaAlan; ad: string }[] = [
+  { alan: 'personel', ad: 'Personel giderleri' },
+  { alan: 'sgk', ad: 'SGK’ya devlet primi' },
+  { alan: 'malHizmet', ad: 'Mal ve hizmet alımları' },
+  { alan: 'cariTransfer', ad: 'Cari transferler' },
+  { alan: 'sermaye', ad: 'Sermaye giderleri' },
+  { alan: 'faiz', ad: 'Faiz giderleri' },
+];
+const baSatir = (k: { alan: BaAlan; ad: string }, butun: BaAlan) => {
+  const son = toplamBa(k.alan, sonBaI);
+  const once = toplamBa(k.alan, sonBaI - 12);
+  const top = toplamBa(butun, sonBaI);
+  return { ad: k.ad, son, pay: son != null && top ? (son / top) * 100 : null, degisim: son != null && once ? (son / once - 1) * 100 : null };
+};
+const vergiTablo = VERGILER.map((v) => baSatir(v, 'vergi')).sort((a, b) => (b.son ?? 0) - (a.son ?? 0));
+const giderTablo = GIDERLER.map((g) => baSatir(g, 'gider')).sort((a, b) => (b.son ?? 0) - (a.son ?? 0));
+const vergi12 = toplamBa('vergi', sonBaI);
+const gider12 = toplamBa('gider', sonBaI);
+const payGruplari = [
+  {
+    id: 'vergi',
+    ad: 'Vergiler',
+    seriler: [
+      { id: 'kdv', ad: 'KDV (dahilde ve ithalde)', renk: 'murekkep' as const },
+      { id: 'gelirVergisi', ad: 'Gelir vergisi', renk: 'toprak' as const },
+      { id: 'kurumlar', ad: 'Kurumlar vergisi', renk: 'mavi' as const },
+      { id: 'otv', ad: 'ÖTV', renk: 'yesil' as const },
+    ],
+  },
+  {
+    id: 'gider',
+    ad: 'Giderler',
+    seriler: [
+      { id: 'faiz', ad: 'Faiz giderleri', renk: 'murekkep' as const },
+      { id: 'personel', ad: 'Personel', renk: 'toprak' as const },
+      { id: 'cariTransfer', ad: 'Cari transferler', renk: 'mavi' as const },
+      { id: 'sermaye', ad: 'Sermaye giderleri', renk: 'yesil' as const },
+    ],
+  },
+];
+const payNoktalari = ba.flatMap((s, i) => {
+  const v = toplamBa('vergi', i);
+  const g = toplamBa('gider', i);
+  if (!v || !g) return [];
+  const p = (a: BaAlan, b: number) => (toplamBa(a, i)! / b) * 100;
+  return [[ayAnahtari(s), ((toplamBa('kdvDahil', i)! + toplamBa('kdvIthal', i)!) / v) * 100, p('gelirVergisi', v), p('kurumlar', v), p('otv', v), p('faiz', g), p('personel', g), p('cariTransfer', g), p('sermaye', g)]];
+});
+const trilyonBa = (n: number | null) => (n == null ? '–' : sayiYaz(n / 1e9, 2));
+const ydBa = (n: number | null) => (n == null ? '–' : `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`);
 ---
 
 <Base title={`Genel bütçe dengesi: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son || sonK.denge == null}>
@@ -199,6 +266,77 @@ const jsonLd = sayfaSemasi({
             gruplar={gruplar2}
             sifirdan
           />
+          {butceAyrinti && ba.length > 24 && vergi12 && gider12 && (
+            <section class="bolum" id="ayrinti">
+              <h2 class="bolum-baslik">Vergiler ve giderler, son 12 ay ({ayAdi(ba[sonBaI - 11])} – {ayAdi(ba[sonBaI])})</h2>
+              <p class="veri-notu">
+                Merkezi yönetim bütçesi: vergi gelirleri {trilyonBa(vergi12)} trilyon TL, bütçe giderleri {trilyonBa(gider12)} trilyon
+                TL. Bu bölümdeki rakamlar merkezi yönetim bütçesindendir; yukarıdaki genel bütçe rakamlarından kapsamı biraz
+                geniştir.
+              </p>
+              <div class="veri-izgara">
+                <div class="tablo-sarma">
+                  <table class="cizelge veri-tablo">
+                    <thead>
+                      <tr>
+                        <th scope="col">Vergi</th>
+                        <th scope="col" class="sag">Trilyon TL</th>
+                        <th scope="col" class="sag">Pay</th>
+                        <th scope="col" class="sag">Önceki 12 aya göre</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {vergiTablo.map((v) => (
+                        <tr>
+                          <td>{v.ad}</td>
+                          <td class="sag">{trilyonBa(v.son)}</td>
+                          <td class="sag">{v.pay != null ? yuzdeYaz(v.pay) : '–'}</td>
+                          <td class="sag">{ydBa(v.degisim)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tablo-sarma">
+                  <table class="cizelge veri-tablo">
+                    <thead>
+                      <tr>
+                        <th scope="col">Gider</th>
+                        <th scope="col" class="sag">Trilyon TL</th>
+                        <th scope="col" class="sag">Pay</th>
+                        <th scope="col" class="sag">Önceki 12 aya göre</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {giderTablo.map((g) => (
+                        <tr>
+                          <td>{g.ad}</td>
+                          <td class="sag">{trilyonBa(g.son)}</td>
+                          <td class="sag">{g.pay != null ? yuzdeYaz(g.pay) : '–'}</td>
+                          <td class="sag">{ydBa(g.degisim)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <ZamanGrafik
+                baslik="Vergi ve gider kalemlerinin payı"
+                ipucu="Yüzde, 12 aylık toplamların vergi gelirleri ya da bütçe giderleri içindeki payı · Grup düğmesiyle geçilir · Sayfada hesaplanır"
+                kaynak="Kaynak: Hazine ve Maliye Bakanlığı (TCMB EVDS); paylar sayfada hesaplanır."
+                siklik="ay"
+                birim="yuzde"
+                seriIdleri={['kdv', 'gelirVergisi', 'kurumlar', 'otv', 'faiz', 'personel', 'cariTransfer', 'sermaye']}
+                noktalar={payNoktalari}
+                gruplar={payGruplari}
+                grupEtiketi="Seri grubu"
+              />
+              <p class="veri-notu">
+                Pay sütunu vergiler için vergi gelirleri, giderler için toplam bütçe giderleri içindedir; tablolar bütün kalemleri
+                içermez, toplamı yüzü bulmaz. Tutarlar cari fiyatlarla. Siteye alındığı zaman: {zamanYaz(butceAyrinti.alinma)}.
+              </p>
+            </section>
+          )}
         </>
       ) : (
         <p class="bos">Bütçe verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>

@@ -489,6 +489,8 @@ export const RESMI = data as unknown as {
   krediEgilim?: KrediEgilimBolumu;
   otomotiv?: OtomotivBolumu;
   disTicaretAyrinti?: DisTicaretAyrintiBolumu;
+  borcCevirme?: AylikSeriBolumu<'banka' | 'diger' | 'bankaTahvil' | 'digerTahvil'>;
+  butceAyrinti?: BirimliAylikBolumu<'vergi' | 'gelirVergisi' | 'kurumlar' | 'kdvDahil' | 'kdvIthal' | 'otv' | 'bsmv' | 'damga' | 'harc' | 'gider' | 'personel' | 'sgk' | 'malHizmet' | 'cariTransfer' | 'sermaye' | 'faiz'>;
   banknot?: AylikSeriBolumu<`${'k200' | 'k100' | 'k50' | 'k20' | 'k10' | 'k5' | 'diger' | 'toplam'}${'Adet' | 'Tutar'}`>;
   cek?: AylikSeriBolumu<'ibrazAdet' | 'ibrazTutar' | 'karsiliksizAdet' | 'karsiliksizTutar'>;
 };

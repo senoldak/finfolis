@@ -405,6 +405,10 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //  - disTicaretAyrinti: dış ticaret sayfasının ayrıntısı (TÜİK verisi, EVDS; doğrulandı 29.10.2026): ihracat ve ithalat
 //      birim değer ve miktar endeksleri (aylık, 2013'ten) ile ISIC Rev.4'e göre ihracatın son 24 ayı (bin ABD doları;
 //      sektör listesi EVDS seri listesinden).
+//  - borcCevirme: bankalar ve diğer sektörlerin dış borç çevirme oranları, tahvil hariç ve dahil (TCMB, aylık, %, Haziran
+//      2006'dan; doğrulandı 29.10.2026). Dış borç sayfasında gösterilir.
+//  - butceAyrinti: merkezi yönetim bütçesinde başlıca vergi gelirleri ve ana gider kalemleri (HMB, aylık, bin TL, 2014'ten;
+//      doğrulandı 29.10.2026). Bütçe dengesi sayfasında gösterilir.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -1501,6 +1505,52 @@ export async function disTicaretAyrintiAl(simdi, anahtar) {
     seriler: tanimlar(DIS_TICARET_ENDEKS_SERILERI),
     endeksler,
     sektorTablosu: { bas: ay(son24[12]), bit: ay(son24.at(-1)), birim: 'bin ABD doları', sektorler: tablo },
+  };
+}
+
+// Dış borç çevirme oranı (%): 100'ün üstü, kullanılan yeni dış borcun geri ödenenden fazla olduğunu gösterir.
+export const BORC_CEVIRME_SERILERI = [
+  { kod: 'TP.ODEROLL.K1', formul: 0, alan: 'banka', ad: 'Bankalar, kısa ve uzun vade (tahvil hariç)' },
+  { kod: 'TP.ODEROLL.K2', formul: 0, alan: 'diger', ad: 'Diğer sektörler, kısa ve uzun vade (tahvil hariç)' },
+  { kod: 'TP.ODEROLL.K3', formul: 0, alan: 'bankaTahvil', ad: 'Bankalar, kısa ve uzun vade (tahvil dahil)' },
+  { kod: 'TP.ODEROLL.K4', formul: 0, alan: 'digerTahvil', ad: 'Diğer sektörler, kısa ve uzun vade (tahvil dahil)' },
+];
+
+export async function borcCevirmeAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TCMB, ödemeler dengesi istatistikleri, dış borç çevirme oranları (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(BORC_CEVIRME_SERILERI),
+    satirlar: await aylikFormullu(BORC_CEVIRME_SERILERI, new Date(Date.UTC(2006, 5, 1)), simdi, anahtar, 'Dış borç çevirme oranı', 200),
+  };
+}
+
+// Merkezi yönetim bütçesi (HMB, bin TL, aylık akım): vergiler ve giderler. Genel bütçe serilerinden (butce) kapsamı
+// biraz geniştir; faiz gideri iki seride ayrı ayrı yayımlanır.
+export const BUTCE_AYRINTI_SERILERI = [
+  ['GEL003', 'vergi', 'Vergi gelirleri'],
+  ['GEL005', 'gelirVergisi', 'Gelir vergisi'],
+  ['GEL010', 'kurumlar', 'Kurumlar vergisi'],
+  ['GEL018', 'kdvDahil', 'Dahilde alınan KDV'],
+  ['GEL033', 'kdvIthal', 'İthalde alınan KDV'],
+  ['GEL021', 'otv', 'Özel tüketim vergisi'],
+  ['GEL028', 'bsmv', 'Banka ve sigorta muameleleri vergisi'],
+  ['GEL035', 'damga', 'Damga vergisi'],
+  ['GEL036', 'harc', 'Harçlar'],
+  ['GID001', 'gider', 'Merkezi yönetim bütçe giderleri'],
+  ['GID003', 'personel', 'Personel giderleri'],
+  ['GID008', 'sgk', 'Sosyal güvenlik kurumlarına devlet primi'],
+  ['GID014', 'malHizmet', 'Mal ve hizmet alım giderleri'],
+  ['GID026', 'cariTransfer', 'Cari transferler'],
+  ['GID110', 'sermaye', 'Sermaye giderleri'],
+  ['GID152', 'faiz', 'Faiz giderleri'],
+].map(([k, alan, ad]) => ({ kod: `TP.KB.${k}`, formul: 0, alan, ad }));
+
+export async function butceAyrintiAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'Hazine ve Maliye Bakanlığı, merkezi yönetim bütçe gelirleri ve giderleri (TCMB EVDS)', url: EVDS_SAYFA },
+    birim: 'bin TL',
+    seriler: tanimlar(BUTCE_AYRINTI_SERILERI),
+    satirlar: await aylikFormullu(BUTCE_AYRINTI_SERILERI, new Date(Date.UTC(2014, 0, 1)), simdi, anahtar, 'Bütçe ayrıntısı', 120),
   };
 }
 

@@ -103,6 +103,8 @@ const RESMI_SAYFA = {
   krediEgilim: '/veri/kredi-egilim-anketi/',
   otomotiv: '/veri/sanayi-uretimi/',
   disTicaretAyrinti: '/veri/dis-ticaret/',
+  borcCevirme: '/veri/dis-borc/',
+  butceAyrinti: '/veri/butce-dengesi/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

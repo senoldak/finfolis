@@ -30,6 +30,8 @@ import {
   krediEgilimAl,
   otomotivAl,
   disTicaretAyrintiAl,
+  borcCevirmeAl,
+  butceAyrintiAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -785,6 +787,29 @@ test('disTicaretAyrintiAl: endeksler ve sektör tablosu (son 12 / önceki 12 ay)
   assert.ok(!t.sektorler.some((s) => s.ad === 'Kurulum'));
   assert.deepEqual(t.sektorler.find((s) => s.tur === 'toplam'), { ad: 'Toplam', tur: 'toplam', son12: 120, once12: 120 });
   assert.equal(t.sektorler.find((s) => s.ad === 'İmalat').tur, 'bolum');
+});
+
+test('borcCevirmeAl: dört oran, Haziran 2006’dan', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    istekler.push(decodeURIComponent(String(url)));
+    return yanit({ items: aylar([2006, 6], 243).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(alanlar(url).map((x) => [x, '110'])) })) });
+  };
+  const b = await borcCevirmeAl(SIMDI, 'x');
+  assert.ok(istekler[0].includes('startDate=01-06-2006'));
+  assert.deepEqual(b.satirlar[0], { yil: 2006, ay: 6, banka: 110, diger: 110, bankaTahvil: 110, digerTahvil: 110 });
+});
+
+test('butceAyrintiAl: 16 vergi ve gider serisi, 2014’ten, bin TL', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    istekler.push(decodeURIComponent(String(url)));
+    return yanit({ items: aylar([2014, 1], 153).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(alanlar(url).map((x) => [x, '1000'])) })) });
+  };
+  const b = await butceAyrintiAl(SIMDI, 'x');
+  assert.equal(alanlar(istekler[0]).length, 16);
+  assert.equal(b.birim, 'bin TL');
+  assert.equal(Object.keys(b.satirlar[0]).length, 18);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {
