@@ -35,7 +35,54 @@
       ],
       "istemSurumu": 1,
       "okundu": "2026-10-28T23:46:44.608Z"
+    },
+    "ecbhesap_2026-07-23": {
+      "ileriYon": 0.5,
+      "durus": 1,
+      "gerekce": "Metinde faizlerin bu toplantıda sabit tutulduğu ancak enflasyona yönelik yukarı yönlü risklerin sürdüğü ve koşulların gerektirmesi halinde yeni bir faiz artırımının muhtemelen gerekebileceği belirtilmektedir. Mevcut duruş ise hafif sıkı veya nötr-pozitif bir çizgide değerlendirilmektedir.",
+      "alintilar": [
+        "keep the three key ECB interest rates unchanged",
+        "another rate hike would likely be necessary unless the inflation outlook improved significantly"
+      ],
+      "istemSurumu": 1,
+      "okundu": "2026-10-29T10:03:49.653Z"
+    },
+    "ecb_2026-07-23": {
+      "ileriYon": 0,
+      "durus": 0,
+      "gerekce": "Yönetim Konseyi faizleri sabit tutmuş ve gelecekteki faiz patikası için belirli bir taahhütte bulunmayarak veriye dayalı ve toplantıdan toplantıya bir yaklaşım izleyeceğini belirtmiştir.",
+      "alintilar": [
+        "The Governing Council today decided to keep the three key ECB interest rates unchanged.",
+        "It will follow a data-dependent and meeting-by-meeting approach to determining the appropriate monetary policy stance.",
+        "The Governing Council is not pre-committing to a particular rate path."
+      ],
+      "istemSurumu": 1,
+      "okundu": "2026-10-29T10:03:55.045Z"
+    },
+    "ecbacik_2026-07-23": {
+      "ileriYon": 0,
+      "durus": 1.5,
+      "gerekce": "Faiz oranları sabit tutulmuş olup, toplantı bazlı ve verilere bağlı bir yaklaşım benimsenmiştir; para politikası duruşunun ise sıkılaştırıcı etkileri sürdürmektedir.",
+      "alintilar": [
+        "The Governing Council today decided to keep the three key ECB interest rates unchanged.",
+        "We will follow a data-dependent and meeting-by-meeting approach to determining the appropriate monetary policy stance.",
+        "Overall financial conditions have become slightly tighter since our previous meeting, consistent with the increase in the key ECB interest rates."
+      ],
+      "istemSurumu": 1,
+      "okundu": "2026-10-29T10:03:59.121Z"
+    },
+    "ecbhesap_2026-06-11": {
+      "ileriYon": 1.5,
+      "durus": 1,
+      "gerekce": "Enflasyon görünümünün kötüleşmesi ve faiz artırımı yapılması, sıkılaştırma yönünde bir eğilime işaret etmektedir. Para politikasının bugünkü duruşu ise ılımlı sıkı bir çizgide değerlendirilmektedir.",
+      "alintilar": [
+        "Mr Lane proposed that the three key ECB interest rates be increased by 25 basis points.",
+        "The inflation outlook had deteriorated, with the staff baseline projections for inflation revised up",
+        "Monetary policy had been broadly neutral for the past year."
+      ],
+      "istemSurumu": 1,
+      "okundu": "2026-10-29T10:04:04.380Z"
     }
   },
-  "guncelleme": "2026-10-28T23:46:44.608Z"
+  "guncelleme": "2026-10-29T10:04:04.380Z"
 }

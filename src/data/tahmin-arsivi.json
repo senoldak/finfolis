@@ -16,6 +16,38 @@
         3622.0218
       ],
       "birim": "milyonUsd"
+    },
+    {
+      "model": "hal-toplam",
+      "surum": "hal-toplam-v1",
+      "hedef": "2026-10",
+      "yapildi": "2026-10-29",
+      "tahmin": 1.586,
+      "a80": [
+        -4.7238,
+        13.1592
+      ],
+      "a95": [
+        -13.9192,
+        16.1582
+      ],
+      "birim": "yuzde"
+    },
+    {
+      "model": "hal-sebze",
+      "surum": "hal-sebze-v1",
+      "hedef": "2026-10",
+      "yapildi": "2026-10-29",
+      "tahmin": 3.5257,
+      "a80": [
+        -4.4569,
+        17.0187
+      ],
+      "a95": [
+        -9.8188,
+        20.0829
+      ],
+      "birim": "yuzde"
     }
   ]
 }

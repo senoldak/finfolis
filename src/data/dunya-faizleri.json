@@ -1,7 +1,7 @@
 {
-  "alinma": "2026-10-29T08:26:13.966Z",
-  "referansTarih": "2026-10-23",
-  "tufeCogunluk": "2026-08",
+  "alinma": "2026-10-29T10:02:05.514Z",
+  "referansTarih": "2026-10-27",
+  "tufeCogunluk": "2026-09",
   "kaynaklar": [
     {
       "ad": "BIS, merkez bankası politika faizleri (WS_CBPOL)",
@@ -42,7 +42,7 @@
         "alt": 3.75,
         "ust": 4
       },
-      "tarih": "2026-10-20",
+      "tarih": "2026-10-27",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -51,10 +51,10 @@
       "degisim12Ay": -25,
       "faz": "Sıkılaştırma",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 3.4
+        "donem": "2026-09",
+        "deger": 3.74
       },
-      "reel": 0.48
+      "reel": 0.14
     },
     {
       "kod": "XM",
@@ -62,7 +62,7 @@
       "banka": "ECB",
       "faiz": 2.5,
       "aralik": null,
-      "tarih": "2026-10-20",
+      "tarih": "2026-10-27",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -71,10 +71,10 @@
       "degisim12Ay": 50,
       "faz": "Sıkılaştırma",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 3.25
+        "donem": "2026-09",
+        "deger": 3.77
       },
-      "reel": -0.75
+      "reel": -1.27
     },
     {
       "kod": "JPN",
@@ -82,7 +82,7 @@
       "banka": "Japonya Merkez Bankası",
       "faiz": 1.25,
       "aralik": null,
-      "tarih": "2026-10-20",
+      "tarih": "2026-10-27",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -91,10 +91,10 @@
       "degisim12Ay": 75,
       "faz": "Sıkılaştırma",
       "tufe": {
-        "donem": "2026-07",
-        "deger": 1.9
+        "donem": "2026-09",
+        "deger": 2.1
       },
-      "reel": -0.65
+      "reel": -0.85
     },
     {
       "kod": "GBR",
@@ -102,7 +102,7 @@
       "banka": "İngiltere Merkez Bankası",
       "faiz": 3.75,
       "aralik": null,
-      "tarih": "2026-10-19",
+      "tarih": "2026-10-26",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -111,10 +111,10 @@
       "degisim12Ay": -25,
       "faz": "Beklemede",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 3.09
+        "donem": "2026-09",
+        "deger": 3.45
       },
-      "reel": 0.66
+      "reel": 0.3
     },
     {
       "kod": "CHE",
@@ -122,7 +122,7 @@
       "banka": "İsviçre Ulusal Bankası",
       "faiz": 0,
       "aralik": null,
-      "tarih": "2026-10-20",
+      "tarih": "2026-10-27",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -131,10 +131,10 @@
       "degisim12Ay": 0,
       "faz": "Beklemede",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 0.81
+        "donem": "2026-09",
+        "deger": 0.99
       },
-      "reel": -0.81
+      "reel": -0.99
     },
     {
       "kod": "CAN",
@@ -142,7 +142,7 @@
       "banka": "Kanada Merkez Bankası",
       "faiz": 2.25,
       "aralik": null,
-      "tarih": "2026-10-19",
+      "tarih": "2026-10-26",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -151,10 +151,10 @@
       "degisim12Ay": -25,
       "faz": "Beklemede",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 3.03
+        "donem": "2026-09",
+        "deger": 3.09
       },
-      "reel": -0.78
+      "reel": -0.84
     },
     {
       "kod": "AUS",
@@ -162,7 +162,7 @@
       "banka": "Avustralya Merkez Bankası",
       "faiz": 4.6,
       "aralik": null,
-      "tarih": "2026-10-15",
+      "tarih": "2026-10-22",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -182,7 +182,7 @@
       "banka": "Yeni Zelanda Merkez Bankası",
       "faiz": 2.75,
       "aralik": null,
-      "tarih": "2026-10-16",
+      "tarih": "2026-10-23",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -191,10 +191,10 @@
       "degisim12Ay": 25,
       "faz": "Sıkılaştırma",
       "tufe": {
-        "donem": "2026-06",
-        "deger": 4.06
+        "donem": "2026-09",
+        "deger": 3.71
       },
-      "reel": -1.31
+      "reel": -0.96
     },
     {
       "kod": "NOR",
@@ -202,7 +202,7 @@
       "banka": "Norveç Merkez Bankası",
       "faiz": 4.5,
       "aralik": null,
-      "tarih": "2026-10-13",
+      "tarih": "2026-10-23",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -211,10 +211,10 @@
       "degisim12Ay": 50,
       "faz": "Sıkılaştırma",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 3.29
+        "donem": "2026-09",
+        "deger": 3.38
       },
-      "reel": 1.21
+      "reel": 1.12
     },
     {
       "kod": "SWE",
@@ -222,7 +222,7 @@
       "banka": "İsveç Merkez Bankası",
       "faiz": 1.75,
       "aralik": null,
-      "tarih": "2026-10-20",
+      "tarih": "2026-10-27",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -231,10 +231,10 @@
       "degisim12Ay": 0,
       "faz": "Beklemede",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 0.31
+        "donem": "2026-09",
+        "deger": 1.15
       },
-      "reel": 1.44
+      "reel": 0.6
     },
     {
       "kod": "CZE",
@@ -242,7 +242,7 @@
       "banka": "Çek Ulusal Bankası",
       "faiz": 3.75,
       "aralik": null,
-      "tarih": "2026-10-19",
+      "tarih": "2026-10-26",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -251,10 +251,10 @@
       "degisim12Ay": 25,
       "faz": "Sıkılaştırma",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 1.89
+        "donem": "2026-09",
+        "deger": 2.5
       },
-      "reel": 1.86
+      "reel": 1.25
     },
     {
       "kod": "KOR",
@@ -271,10 +271,10 @@
       "degisim12Ay": 50,
       "faz": "Sıkılaştırma",
       "tufe": {
-        "donem": "2026-07",
-        "deger": 2.79
+        "donem": "2026-09",
+        "deger": 2.88
       },
-      "reel": 0.21
+      "reel": 0.12
     },
     {
       "kod": "BRA",
@@ -282,7 +282,7 @@
       "banka": "Brezilya Merkez Bankası",
       "faiz": 13.75,
       "aralik": null,
-      "tarih": "2026-10-20",
+      "tarih": "2026-10-27",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -291,10 +291,10 @@
       "degisim12Ay": -125,
       "faz": "Gevşeme",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 4.22
+        "donem": "2026-09",
+        "deger": 4.58
       },
-      "reel": 9.53
+      "reel": 9.17
     },
     {
       "kod": "MEX",
@@ -302,7 +302,7 @@
       "banka": "Meksika Merkez Bankası",
       "faiz": 6.5,
       "aralik": null,
-      "tarih": "2026-10-20",
+      "tarih": "2026-10-27",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -311,10 +311,10 @@
       "degisim12Ay": -100,
       "faz": "Gevşeme",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 3.26
+        "donem": "2026-09",
+        "deger": 3.45
       },
-      "reel": 3.24
+      "reel": 3.05
     },
     {
       "kod": "CHL",
@@ -322,7 +322,7 @@
       "banka": "Şili Merkez Bankası",
       "faiz": 4.5,
       "aralik": null,
-      "tarih": "2026-10-20",
+      "tarih": "2026-10-27",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -331,10 +331,10 @@
       "degisim12Ay": -25,
       "faz": "Beklemede",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 4.13
+        "donem": "2026-09",
+        "deger": 4.08
       },
-      "reel": 0.37
+      "reel": 0.42
     },
     {
       "kod": "COL",
@@ -342,7 +342,7 @@
       "banka": "Kolombiya Merkez Bankası",
       "faiz": 12.25,
       "aralik": null,
-      "tarih": "2026-10-16",
+      "tarih": "2026-10-23",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -351,10 +351,10 @@
       "degisim12Ay": 300,
       "faz": "Sıkılaştırma",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 6.24
+        "donem": "2026-09",
+        "deger": 6.29
       },
-      "reel": 6.01
+      "reel": 5.96
     },
     {
       "kod": "POL",
@@ -362,7 +362,7 @@
       "banka": "Polonya Ulusal Bankası",
       "faiz": 3.75,
       "aralik": null,
-      "tarih": "2026-10-20",
+      "tarih": "2026-10-27",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -371,10 +371,10 @@
       "degisim12Ay": -75,
       "faz": "Beklemede",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 3.26
+        "donem": "2026-09",
+        "deger": 3.97
       },
-      "reel": 0.49
+      "reel": -0.22
     },
     {
       "kod": "HUN",
@@ -382,7 +382,7 @@
       "banka": "Macaristan Merkez Bankası",
       "faiz": 5.5,
       "aralik": null,
-      "tarih": "2026-10-14",
+      "tarih": "2026-10-21",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -391,10 +391,10 @@
       "degisim12Ay": -100,
       "faz": "Gevşeme",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 1.29
+        "donem": "2026-09",
+        "deger": 1.56
       },
-      "reel": 4.21
+      "reel": 3.94
     },
     {
       "kod": "ZAF",
@@ -402,7 +402,7 @@
       "banka": "Güney Afrika Merkez Bankası",
       "faiz": 7.25,
       "aralik": null,
-      "tarih": "2026-10-19",
+      "tarih": "2026-10-26",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -411,10 +411,10 @@
       "degisim12Ay": 25,
       "faz": "Sıkılaştırma",
       "tufe": {
-        "donem": "2026-07",
-        "deger": 4.26
+        "donem": "2026-09",
+        "deger": 4.55
       },
-      "reel": 2.99
+      "reel": 2.7
     },
     {
       "kod": "IND",
@@ -431,10 +431,10 @@
       "degisim12Ay": 0,
       "faz": "Sıkılaştırma",
       "tufe": {
-        "donem": "2026-07",
-        "deger": 4.44
+        "donem": "2026-09",
+        "deger": 5.54
       },
-      "reel": 1.06
+      "reel": -0.04
     },
     {
       "kod": "IDN",
@@ -451,10 +451,10 @@
       "degisim12Ay": 100,
       "faz": "Sıkılaştırma",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 3.19
+        "donem": "2026-09",
+        "deger": 3.28
       },
-      "reel": 2.56
+      "reel": 2.47
     },
     {
       "kod": "CHN",
@@ -471,10 +471,10 @@
       "degisim12Ay": 0,
       "faz": "Beklemede",
       "tufe": {
-        "donem": "2026-08",
-        "deger": 0.8
+        "donem": "2026-09",
+        "deger": 0.9
       },
-      "reel": 2.2
+      "reel": 2.1
     }
   ],
   "grafik": {
@@ -926,9 +926,9 @@
       "ad": "TCMB, bir hafta vadeli repo ihale faiz oranı",
       "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Temel+Faaliyetler/Para+Politikasi/Merkez+Bankasi+Faiz+Oranlari/1+Hafta+Repo"
     },
-    "bisOran": 37,
-    "bisTarih": "2026-10-16",
-    "uzatildi": true,
+    "bisOran": 36,
+    "bisTarih": "2026-10-23",
+    "uzatildi": false,
     "farkli": false
   }
 }
