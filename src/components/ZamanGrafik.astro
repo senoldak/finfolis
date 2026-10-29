@@ -24,7 +24,7 @@ interface Props {
   ipucu?: string;
   kaynak: string;
   siklik: 'ay' | 'ceyrek' | 'hafta';
-  birim: 'yuzde' | 'endeks' | 'milyarUsd' | 'milyarTl' | 'puan' | 'yil';
+  birim: 'yuzde' | 'endeks' | 'milyarUsd' | 'milyarTl' | 'tl' | 'puan' | 'yil';
   ondalik?: number;
   // Her nokta [t, ...değerler]; değerler `seriIdleri` sırasında, yoksa null.
   seriIdleri: string[];
@@ -146,7 +146,7 @@ const kimlik = `zg-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-'
   }
   interface Veri {
     siklik: 'ay' | 'ceyrek' | 'hafta';
-    birim: 'yuzde' | 'endeks' | 'milyarUsd' | 'milyarTl' | 'puan' | 'yil';
+    birim: 'yuzde' | 'endeks' | 'milyarUsd' | 'milyarTl' | 'tl' | 'puan' | 'yil';
     ondalik: number;
     seriIdleri: string[];
     noktalar: (number | null)[][];
@@ -171,6 +171,7 @@ const kimlik = `zg-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-'
       if (v.birim === 'yuzde') return yuzde(n, v.ondalik);
       if (v.birim === 'milyarUsd') return `${sayi(n, v.ondalik)} milyar $`;
       if (v.birim === 'milyarTl') return `${sayi(n, v.ondalik)} milyar TL`;
+      if (v.birim === 'tl') return `${sayi(n, v.ondalik)} TL`;
       if (v.birim === 'puan') return `${sayi(n, v.ondalik)} puan`;
       if (v.birim === 'yil') return `${sayi(n, v.ondalik)} yıl`;
       return sayi(n, v.ondalik);

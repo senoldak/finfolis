@@ -1,0 +1,340 @@
+---
+// Çoban Salatası Endeksi: dört kişilik bir çoban salatasının sebze-meyvesinin İzmir halindeki toptan maliyeti, aylık.
+// Hesap src/lib/coban-salatasi.mjs (veri src/data/hal-fiyat.json, bot zincirinde güncellenir). Sabit tarif, toptan fiyat;
+// TÜİK'in tüketici fiyatları endeksi ya da onun bir kalemi değildir, ona dair yorum yapılmaz.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { gunYaz, sayiYaz, yuzdeYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { sonKapaliAy } from '../../lib/gida.mjs';
+import { TARIF, salataSerisi, paylar } from '../../lib/coban-salatasi.mjs';
+import halFiyat from '../../data/hal-fiyat.json';
+import halAdlari from '../../data/hal-urun-adlari.json';
+
+const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+const ayYaz = (a: string) => `${AYLAR[Number(a.slice(5, 7)) - 1]} ${a.slice(0, 4)}`;
+const yd = (n: number | null, o = 1) => (n == null ? '–' : `${n > 0.05 ? '+' : ''}${yuzdeYaz(n, o)}`);
+const tl = (n: number | null, o = 2) => (n == null ? '–' : `${sayiYaz(n, o)} TL`);
+const kucuk = (s: string) => s.toLocaleLowerCase('tr');
+const miktarYaz = (k: { miktar: number; birim: string }) =>
+  k.birim === 'BAĞ' ? `${k.miktar} bağ` : k.miktar < 1 ? `${Math.round(k.miktar * 1000)} g` : `${k.miktar} kg`;
+const birYilOnce = (ay: string) => `${Number(ay.slice(0, 4)) - 1}${ay.slice(4)}`;
+
+const veri = halFiyat as any;
+const adlar = halAdlari as Record<string, string>;
+const bugun = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Istanbul' }).format(new Date());
+const seri = salataSerisi(veri.aylar);
+const sonAy = sonKapaliAy(veri.aylar, bugun);
+const son = seri.find((r) => r.ay === sonAy) ?? null;
+const ayV = sonAy ? veri.aylar[sonAy] : null;
+const gunSiniri = veri.gunSiniri;
+const kaynak = veri.kaynak.hal;
+
+const gorunen = seri.filter((r) => r.ay <= (sonAy ?? ''));
+const ilk = gorunen[0] ?? null;
+const noktalarTl = gorunen.map((r) => [r.t, r.toplam, r.ort12]);
+const noktalarYillik = gorunen.filter((r) => r.yillik != null).map((r) => [r.t, r.yillik]);
+const grupTl = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'toplam', ad: 'Ayın maliyeti', renk: 'murekkep' as const },
+      { id: 'ort12', ad: '12 aylık ortalama', renk: 'toprak' as const, kesik: true },
+    ],
+  },
+];
+const grupYillik = [{ id: 'hepsi', ad: 'Hepsi', seriler: [{ id: 'yillik', ad: 'Yıllık değişim', renk: 'murekkep' as const }] }];
+const sonTablo = gorunen.slice(-13).reverse();
+const kalemler = son ? paylar(son.kalemler) : [];
+const urunAdi = (anahtar: string) => adlar[anahtar.split('|').slice(0, 2).join('|')] ?? anahtar;
+const yillikli = kalemler.filter((k) => k.yillik != null);
+const enPahalanan = yillikli.length ? yillikli.reduce((a, b) => (b.yillik! > a.yillik! ? b : a)) : null;
+const enUcuzlayan = yillikli.length ? yillikli.reduce((a, b) => (b.yillik! < a.yillik! ? b : a)) : null;
+const enBuyukPay = kalemler.length ? kalemler.reduce((a, b) => (b.pay > a.pay ? b : a)) : null;
+// Aynı ay, önceki yıllar: mevsimi sabit tutup yılları yan yana koyar.
+const ayniAylar = son ? gorunen.filter((r) => r.ay.slice(5) === son.ay.slice(5)).reverse() : [];
+
+const baslik = 'Çoban Salatası Endeksi';
+const description = son
+  ? `${ayYaz(son.ay)}: dört kişilik bir çoban salatasının sebzesi İzmir halinde ${tl(son.toplam)}; bir yıl öncesine göre ${yd(son.yillik)}. Belediye açık verisinden finfolis hesabı.`
+  : 'Dört kişilik bir çoban salatasının sebzesinin İzmir halindeki toptan maliyeti, 2019’dan beri her ay, belediye açık verisinden.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/coban-salatasi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(son && ilk
+    ? {
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Çoban Salatası Endeksi: sabit tarifin İzmir hal maliyeti',
+            description:
+              'Dört kişilik bir çoban salatasının altı malzemesinin (domates, salatalık, sivri biber, kuru soğan, maydanoz, limon) İzmir Büyükşehir Belediyesi hal bültenindeki toptan fiyatlarla aylık maliyeti, yıllık değişimi ve malzeme payları. finfolis hesabıdır, resmi istatistik değildir.',
+            url: 'https://finfolis.com/veri/coban-salatasi/',
+            isAccessibleForFree: true,
+            license: 'https://creativecommons.org/licenses/by/4.0/',
+            creator: { '@type': 'Organization', name: 'finfolis', url: 'https://finfolis.com/' },
+            isBasedOn: kaynak.url,
+            temporalCoverage: `${ilk.ay}/${son.ay}`,
+            variableMeasured: [
+              'Dört kişilik çoban salatasının toptan maliyeti (TL)',
+              'Maliyetin yıllık değişimi (yüzde)',
+              'Malzeme bazında aylık ortalama toptan fiyat (TL) ve pay (yüzde)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Çoban Salatası Endeksi${son ? `: ${ayYaz(son.ay)}` : ''}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Dört kişilik salatanın sebzesi halde kaça · İzmir hal bülteni, aylık · finfolis hesabı</p>
+    </header>
+    {
+      son && ayV && ilk ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Salatanın hal maliyeti</dt>
+              <dd>{tl(son.toplam)}</dd>
+              <dd class="veri-degisim">{ayYaz(son.ay)}, dört kişilik, altı malzeme · toptan fiyat</dd>
+            </div>
+            <div>
+              <dt>Bir yıl öncesine göre</dt>
+              <dd>{yd(son.yillik)}</dd>
+              <dd class="veri-degisim">
+                {ayYaz(son.ay)}, {ayYaz(birYilOnce(son.ay))} ile karşılaştırıldı
+              </dd>
+            </div>
+            <div>
+              <dt>12 aylık ortalama</dt>
+              <dd>{tl(son.ort12)}</dd>
+              <dd class="veri-degisim">Son on iki ayın ortalaması · geçen aya göre {yd(son.aylik)}</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Derleme:</strong> {ayYaz(son.ay)} için hal bülteninin {ayV.gunler.length} günü ({gunYaz(ayV.gunler[0])} –{' '}
+            {gunYaz(ayV.gunler.at(-1))}, ayın ilk {gunSiniri} günü). <strong>Kaynak:</strong>{' '}
+            <a href={kaynak.url} rel="noopener">{kaynak.ad}</a> (lisans {kaynak.lisans}). Hesap finfolis’indir; resmi
+            istatistik değildir.
+          </p>
+
+          <ZamanGrafik
+            baslik="Salatanın hal maliyeti"
+            ipucu="TL, dört kişilik tarif · Ayın maliyeti mevsimle dalgalanır, kesikli çizgi son on iki ayın ortalamasıdır"
+            kaynak="Kaynak: İzmir Büyükşehir Belediyesi hal fiyatları (açık veri), finfolis hesabı."
+            siklik="ay"
+            birim="tl"
+            ondalik={2}
+            seriIdleri={['toplam', 'ort12']}
+            noktalar={noktalarTl}
+            gruplar={grupTl}
+            sifirdan
+          />
+
+          <ZamanGrafik
+            baslik="Yıllık değişim"
+            ipucu="Yüzde, bir yıl öncesinin aynı ayına göre · Aynı mevsim karşılaştırıldığı için yaz-kış farkı burada görünmez"
+            kaynak="Kaynak: İzmir Büyükşehir Belediyesi hal fiyatları (açık veri), finfolis hesabı."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['yillik']}
+            noktalar={noktalarYillik}
+            gruplar={grupYillik}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">{ayYaz(son.ay)}: tabaktaki malzemeler</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Malzeme</th>
+                      <th scope="col">Miktar</th>
+                      <th scope="col" class="sag">Hal fiyatı</th>
+                      <th scope="col" class="sag">Tutar</th>
+                      <th scope="col" class="sag">Pay</th>
+                      <th scope="col" class="sag">Yıllık</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {kalemler.map((k) => (
+                      <tr>
+                        <td>{k.ad}</td>
+                        <td>{miktarYaz(k)}</td>
+                        <td class="sag">
+                          {tl(k.fiyat)}/{k.birim === 'BAĞ' ? 'bağ' : 'kg'}
+                        </td>
+                        <td class="sag">{tl(k.tutar)}</td>
+                        <td class="sag">{yuzdeYaz(k.pay, 0)}</td>
+                        <td class="sag">{yd(k.yillik, 0)}</td>
+                      </tr>
+                    ))}
+                    <tr class="toplam">
+                      <td>Toplam</td>
+                      <td />
+                      <td />
+                      <td class="sag">{tl(son.toplam)}</td>
+                      <td class="sag">%100</td>
+                      <td class="sag">{yd(son.yillik, 0)}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              {enPahalanan && enUcuzlayan && enBuyukPay ? (
+                <p>
+                  Bu ay paranın en büyük kısmı {kucuk(enBuyukPay.ad)} için ödeniyor ({yuzdeYaz(enBuyukPay.pay, 0)}). Bir yıl
+                  öncesine göre en çok pahalanan malzeme {kucuk(enPahalanan.ad)} ({yd(enPahalanan.yillik, 0)}), en çok
+                  ucuzlayan {kucuk(enUcuzlayan.ad)} ({yd(enUcuzlayan.yillik, 0)}).
+                </p>
+              ) : null}
+              <p class="veri-notu">
+                Bültendeki ürün: {kalemler.map((k) => `${kucuk(k.ad)} için ${urunAdi(k.anahtar)}`).join(', ')}. Yıllık
+                değişim, malzemenin bu aydaki tutarının bir yıl önceki aynı aydaki tutarına oranıdır.
+              </p>
+            </section>
+
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 13 ay</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Maliyet</th>
+                      <th scope="col" class="sag">Yıllık</th>
+                      <th scope="col" class="sag">Aylık</th>
+                      <th scope="col" class="sag">12 aylık ort.</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {sonTablo.map((r) => (
+                      <tr>
+                        <td>{ayYaz(r.ay)}</td>
+                        <td class="sag">{tl(r.toplam)}</td>
+                        <td class="sag">{yd(r.yillik)}</td>
+                        <td class="sag">{yd(r.aylik)}</td>
+                        <td class="sag">{tl(r.ort12)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <h3 class="alt-baslik">Aynı ay, önceki yıllar</h3>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Maliyet</th>
+                      <th scope="col" class="sag">Yıllık</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ayniAylar.map((r) => (
+                      <tr>
+                        <td>{ayYaz(r.ay)}</td>
+                        <td class="sag">{tl(r.toplam)}</td>
+                        <td class="sag">{yd(r.yillik)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+
+          <section class="bolum prose veri-aciklama">
+            <h2 class="bolum-baslik">Endeks nasıl hesaplanıyor?</h2>
+            <p>
+              <strong>Tarif.</strong> Dört kişilik, yaklaşık bir kiloluk bir çoban salatası:{' '}
+              {TARIF.map((k) => `${miktarYaz(k)} ${kucuk(k.ad)}`).join(', ')}. Miktarlar finfolis’in seçimidir ve
+              değişmez; endeks bu sabit sepetin fiyatını izler. Zeytinyağı, tuz, nane, sumak halde satılmadığı için tarifte
+              yoktur. Rakam, salatanın sebzesinin toptan fiyatıdır; mutfaktaki maliyet değildir.
+            </p>
+            <p>
+              <strong>Fiyat.</strong> İzmir Büyükşehir Belediyesi sebze ve meyve halinin günlük bülteni. Her malzeme için
+              bültendeki bir ürün esas alınır: domates için salkım domates, o ay bültende yoksa sırayla beef, pembe ve
+              diğer domates; salatalık, sivri biber, kuru soğan, maydanoz (bağ) ve limon için bültendeki ana ürün. Hangi
+              ürünün kullanıldığı her ay tabloda yazar. Fiyat, bültenin günlük ortalama toptan fiyatıdır; perakende fiyat
+              değildir ve yalnız İzmir halidir.
+            </p>
+            <p>
+              <strong>Derleme.</strong> Her ayın ilk {gunSiniri} günündeki bültenler kullanılır; bir ürünün aylık fiyatı bu
+              günlerin geometrik ortalamasıdır. Bir malzemenin hiçbir ürünü o ay bültende yoksa o ay hesaplanmaz. Veri{' '}
+              {ayYaz(ilk.ay)}’dan beri her gün otomatik alınır.
+            </p>
+            <p>
+              <strong>Mevsim.</strong> Domates ve salatalık kışın sera malıdır ve pahalıdır, yazın ucuzlar; ayın maliyeti
+              bu yüzden yıl içinde ikiye katlanıp yarıya inebilir. Bunun için ana karşılaştırma bir yıl öncesinin aynı
+              ayıyladır: aynı mevsim aynı mevsimle ölçülür, kalan fark pahalanmadır. Kesikli çizgi son on iki
+              ayın ortalamasıdır; mevsim dalgasını düzler ve yıldan yıla eğilimi gösterir.
+            </p>
+            <p>
+              <strong>Ne değildir.</strong> Harcama payına göre ağırlıklandırılmış bir tüketici fiyat endeksi değildir;
+              resmi bir istatistiğin yerine geçmez ve onunla kıyaslanmaz. Tek bir şehrin toptan fiyatıdır, Türkiye geneli
+              değildir.
+            </p>
+            <p>
+              Aynı veriyle bütün taze meyve ve sebzenin değişimi <a href="/veri/gida-fiyatlari/">Gıda Fiyatları Göstergesi</a>{' '}
+              sayfasında, aylık tahmin ve karnesi <a href="/veri/tahmin/">Tahminler ve karneleri</a> sayfasındadır.
+            </p>
+            <p class="veri-notu">
+              Tek bir tabak üzerinden fiyat izleme fikri yeni değil; menemen ve tantuni gibi tabak endeksleri bu sayfadan
+              önce vardı. Hal verisiyle ölçüm fikri ise fiyatları kendisi derleyen{' '}
+              <a href="https://www.webtufe.com/" rel="noopener">WebTÜFE</a> ve açık kaynaklı{' '}
+              <a href="https://github.com/fkasap/KTufe" rel="noopener">KTufe</a> çalışmalarından geldi; emekleri için
+              teşekkür ederiz. Hesapta onların verisi, kodu ya da sepeti kullanılmadı: kaynak yalnız İzmir hal bültenidir.
+            </p>
+          </section>
+        </>
+      ) : (
+        <p class="bos">Hal fiyatı verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/gida-fiyatlari/">Gıda Fiyatları Göstergesi</a>
+      <a href="/veri/tahmin/">Tahminler ve karneleri</a>
+      <a href="/veri/enflasyon/">Tüketici enflasyonu (TÜFE)</a>
+    </nav>
+    <YasalUyari>
+      Bu sayfadaki rakamlar İzmir Büyükşehir Belediyesi’nin açık verisinden finfolis tarafından sabit bir tarifle hesaplanır,
+      bilgi amaçlıdır ve resmi istatistik değildir. Yatırım tavsiyesi değildir.
+    </YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+  .tablo-sarma td,
+  .tablo-sarma th {
+    white-space: nowrap;
+  }
+  .toplam td {
+    font-weight: 600;
+    border-top: 2px solid var(--cizgi, rgba(0, 0, 0, 0.2));
+  }
+  .alt-baslik {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.4rem;
+  }
+</style>

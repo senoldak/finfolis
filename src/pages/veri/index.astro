@@ -66,6 +66,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/enflasyon-hizi/': 'tüfe aylık enflasyon',
   '/veri/enflasyon-katkilari/': 'tüfe gıda enerji kira harcama grupları',
   '/veri/gida-fiyatlari/': 'hal sebze meyve domates pazar fiyatı gıda enflasyonu toptan izmir',
+  '/veri/coban-salatasi/': 'çoban salatası endeksi domates salatalık biber soğan maydanoz limon hal toptan izmir menemen tantuni',
   '/veri/enflasyon-beklentisi/': 'piyasa katılımcıları anketi tüfe',
   '/veri/enflasyon-yolu/': 'baz etkisi tüfe yıl sonu',
   '/hesapla/kisisel-enflasyon/': 'tüfe hesaplama',
@@ -211,6 +212,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/gida-fiyatlari/')}>
               <a href="/veri/gida-fiyatlari/" class="fihrist-baslik-link">Gıda Fiyatları Göstergesi</a>
               <span class="fihrist-ozet">İzmir hal fiyatlarından taze meyve ve sebzenin aylık ve yıllık değişimi, ürün ürün</span>
+            </li>
+            <li data-ek={aramaEki('/veri/coban-salatasi/')}>
+              <a href="/veri/coban-salatasi/" class="fihrist-baslik-link">Çoban Salatası Endeksi</a>
+              <span class="fihrist-ozet">Dört kişilik bir çoban salatasının sebzesi İzmir halinde kaça mal oluyor, 2019’dan beri her ay</span>
             </li>
             <li data-ek={aramaEki('/veri/enflasyon-beklentisi/')}>
               <a href="/veri/enflasyon-beklentisi/" class="fihrist-baslik-link">Enflasyon Beklentisi</a>
