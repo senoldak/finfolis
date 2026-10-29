@@ -12,6 +12,7 @@ import { sayfaSemasi } from '../../lib/seo';
 import { canliKarne } from '../../lib/tahmin/arsiv.mjs';
 import tahmin from '../../data/tahmin.json';
 import arsiv from '../../data/tahmin-arsivi.json';
+import VeriKarti from '../../components/VeriKarti.astro';
 
 const T = tahmin as any;
 const M = T.modeller;
@@ -106,6 +107,60 @@ const durumYaz = (ad: string) =>
         <a href="/veri/taylor-kurali/">Taylor kuralı bandı</a> sayfası gösterir.
       </p>
     </section>
+
+    {
+      (() => {
+        // Üç kutu: bu sayfanın model tahminleri, enflasyon yolu ve Taylor bandı sayfaları.
+        const yolV = T.yol;
+        const tay = T.taylor;
+        const modelSayisi = ['tufe', 'cari', 'sanayi', 'ppk'].length;
+        const yayinSayisi = ['tufe', 'cari', 'sanayi', 'ppk'].filter((ad) => M[ad].gecti).length;
+        const ilk = ['cari', 'tufe', 'sanayi'].find((ad) => M[ad].gecti && M[ad].simdi);
+        const yillikSeri = (RESMI.enflasyon?.satirlar ?? []).slice(-24).map((s: any) => s.yillik);
+        return (
+          <div class="tahmin-kartlar">
+            <VeriKarti
+              href="#guncel-baslik"
+              kategori="Model tahminleri"
+              baslik="Tahminler ve karne"
+              deger={`${yayinSayisi} / ${modelSayisi}`}
+              birim="model yayında"
+              degisim={
+                ilk
+                  ? `${MODEL_AD[ilk]}, ${ayYaz(M[ilk].simdi.ay)}: ${ilk === 'cari' ? milyar(M[ilk].simdi.tahmin) : yuzdeYaz(M[ilk].simdi.tahmin, 2)}`
+                  : 'Şu an rakam veren model yok'
+              }
+              aciklama="Enflasyon, cari denge, sanayi üretimi ve PPK kararı; tabanını geçemeyen model rakam vermez"
+              kaynak={`finfolis modeli · ${zamanYaz(T.guncelleme)}`}
+            />
+            <VeriKarti
+              href="/veri/enflasyon-yolu/"
+              kategori="Hesap makinesi"
+              baslik="Enflasyon yolu"
+              deger={yuzdeYaz(yolV.sonYillik, 2)}
+              birim={`yıllık TÜFE, ${ayYaz(yolV.sonAy)}`}
+              degisim={`PKA 12 ay sonrası beklentisi: ${yuzdeYaz(yolV.pka.ay12, 2)}`}
+              aciklama="Aylık enflasyon varsayımına göre yıllık enflasyonun 12 aylık yolu, baz etkisiyle"
+              kaynak={`TÜİK, TCMB · ${ayYaz(yolV.sonAy)}`}
+              seri={yillikSeri}
+              seriBicim="yuzde"
+            />
+            <VeriKarti
+              href="/veri/taylor-kurali/"
+              kategori="Ölçü"
+              baslik="Taylor kuralı bandı"
+              deger={`${yuzdeYaz(tay.son.alt, 1)} – ${yuzdeYaz(tay.son.ust, 1)}`}
+              birim={`kural bandı, ${ayYaz(tay.son.ay)}`}
+              degisim={`Politika faizi: %${oranYaz(tay.son.faiz)}`}
+              aciklama="Kuralın varsayımlara göre verdiği faiz aralığı; faiz tahmini değildir"
+              kaynak={`finfolis hesaplaması · ${ayYaz(tay.son.ay)}`}
+              seri={tay.seri.slice(-24).map((s: any) => s.faiz)}
+              seriBicim="yuzde"
+            />
+          </div>
+        );
+      })()
+    }
 
     <section class="bolum" aria-labelledby="guncel-baslik">
       <h2 id="guncel-baslik" class="bolum-baslik">Güncel tahminler</h2>
@@ -472,6 +527,17 @@ const durumYaz = (ad: string) =>
   }
   .tahmin-model {
     margin-top: 2.5rem;
+  }
+  .tahmin-kartlar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin: 1.5rem 0 2rem;
+  }
+  @media (max-width: 900px) {
+    .tahmin-kartlar {
+      grid-template-columns: 1fr;
+    }
   }
   .tahmin-kart + .tahmin-kart {
     margin-top: 2rem;
