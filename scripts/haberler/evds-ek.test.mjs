@@ -13,6 +13,8 @@ import {
   ufeAl,
   insaatIzinAl,
   kesimBeklentiAl,
+  paraPiyasasiAl,
+  PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
   INSAAT_IZIN_SERILERI,
   UFE_SERILERI,
@@ -425,6 +427,43 @@ test('kesimBeklentiAl: kesimler, hanehalkı ve son ayın dağılımı; aralıkla
 test('kesimBeklentiAl: dağılım seri listesi eksikse hata verir', async () => {
   globalThis.fetch = async (url) => (String(url).includes('serieList') ? yanit(BEKOD_LISTE.slice(0, 10)) : beklentiMock()(url));
   await assert.rejects(() => kesimBeklentiAl(SIMDI, 'x'), /dağılımı .* seri listesi eksik/);
+});
+
+// Para piyasası: haftalık istek (frequency=3, ortalama) ve son 15 günün günlük isteği. Haftalıkta repo ilk 100 haftada
+// boştur (satır kalır), bitmemiş hafta (cuma bugünden sonra) atılır; günlükte son gün boşsa bir önceki gün alınır.
+const gunTarihi = (d) => `${String(d.getUTCDate()).padStart(2, '0')}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${d.getUTCFullYear()}`;
+const paraMock = (istekler = []) => async (url) => {
+  const u = decodeURIComponent(String(url));
+  istekler.push(u);
+  const a = alanlar(url);
+  if (u.includes('frequency=3')) {
+    // 7 Ocak 2011 cumasından başlayıp SIMDI'den (27 Ekim 2026 salı) sonraki cumaya kadar.
+    const items = [];
+    for (let t = Date.UTC(2011, 0, 7), i = 0; t <= Date.UTC(2026, 9, 30); t += 7 * 864e5, i++) {
+      items.push({ Tarih: gunTarihi(new Date(t)), ...Object.fromEntries(a.map((x) => [x, x === 'TP_PY_P02_1H' && i < 100 ? null : '10'])) });
+    }
+    return yanit({ items });
+  }
+  const items = [Date.UTC(2026, 9, 23), Date.UTC(2026, 9, 26), Date.UTC(2026, 9, 27)].map((t, i) => ({
+    Tarih: gunTarihi(new Date(t)),
+    ...Object.fromEntries(a.map((x) => [x, i === 2 ? null : String(30 + i)])),
+  }));
+  return yanit({ items });
+};
+
+test('paraPiyasasiAl: haftalık ortalama ve son iş günü; repo boş haftalar kalır, bitmemiş hafta atılır', async () => {
+  const istekler = [];
+  globalThis.fetch = paraMock(istekler);
+  const p = await paraPiyasasiAl(SIMDI, 'x');
+  assert.equal(istekler.length, 2);
+  assert.ok(istekler[0].includes('aggregationTypes=avg-avg-avg-avg-avg-avg-avg-avg'));
+  assert.deepEqual(alanlar(istekler[0]), PARA_PIYASASI_SERILERI.map((t) => t.kod.replaceAll('.', '_')));
+  assert.ok(!istekler.some((u) => /BISTTLREF|AOFOBAP/.test(u)));
+  assert.equal(p.satirlar[0].tarih, '2011-01-07');
+  assert.equal(p.satirlar[0].repo, null);
+  assert.equal(p.satirlar[0].aofm, 10);
+  assert.equal(p.satirlar.at(-1).tarih, '2026-10-23');
+  assert.deepEqual(p.son, { tarih: '2026-10-26', borcVerme: 31, borcAlma: 31, repo: 31, bankalararasi: 31, aofm: 31, fonlama: 31, sterilizasyon: 31, net: 31 });
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

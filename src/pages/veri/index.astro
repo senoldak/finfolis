@@ -27,6 +27,7 @@ const buyumeSon = RESMI.buyume?.satirlar.at(-1);
 const konutSatisSon = RESMI.konutSatis?.satirlar.at(-1);
 const ufeSon = RESMI.ufe?.satirlar.at(-1);
 const kesimSon = RESMI.kesimBeklenti?.satirlar.at(-1);
+const paraSon = RESMI.paraPiyasasi?.son;
 const insaatSatirlari = RESMI.insaatIzin?.satirlar ?? [];
 const ruhsatDaire12 = insaatSatirlari.length >= 12 ? insaatSatirlari.slice(-12).reduce((a, s) => a + s.ruhsatDaire, 0) : null;
 const rekSon = rek?.satirlar.at(-1);
@@ -79,6 +80,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/politika-faizi/': 'ppk repo merkez bankası faiz kararı',
   '/veri/reel-faiz/': 'faiz enflasyon',
   '/veri/piyasa-faizleri/': 'mevduat faizi kredi faizi konut kredisi taşıt',
+  '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
   '/veri/taylor-kurali/': 'politika faizi',
   '/veri/tcmb-karnesi/': 'enflasyon raporu ara hedef merkez bankası',
@@ -259,6 +261,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/piyasa-faizleri/')}>
               <a href="/veri/piyasa-faizleri/" class="fihrist-baslik-link">Piyasa Faizleri (Kredi &amp; Mevduat)</a>
               <span class="fihrist-ozet">1-3 ay TL mevduat, ihtiyaç, taşıt ve konut kredisi haftalık akım faizleri</span>
+            </li>
+            <li data-ek={aramaEki('/veri/para-piyasasi/')}>
+              <a href="/veri/para-piyasasi/" class="fihrist-baslik-link">Para Piyasası</a>
+              <span class="fihrist-ozet">Faiz koridoru, fonlama maliyeti (AOFM) ve TCMB net fonlaması ({paraSon ? `AOFM %${sayiYaz(paraSon.aofm, 2)}` : '–'})</span>
             </li>
             <li data-ek={aramaEki('/veri/kredi-mevduat-makasi/')}>
               <a href="/veri/kredi-mevduat-makasi/" class="fihrist-baslik-link">Kredi-Mevduat Makası</a>

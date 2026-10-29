@@ -17,7 +17,8 @@
 //      mevduat faizleri, konut birim fiyat ve kiraları, arındırılmış TÜFE; yabancıların portföy akımları, cari denge,
 //      dış borç, dış ticaret, sanayi üretimi, genel bütçe, kredi hacmi, üç aylık büyüme, konut satışları, üretici
 //      fiyatları (yurt içi, hizmet, tarım ürünleri ÜFE ve tarımsal girdi) inşaat izinleri ve kesimlerin enflasyon
-//      beklentisi (piyasa, reel kesim, hanehalkı; olasılık dağılımı): evds-ek.mjs.
+//      beklentisi (piyasa, reel kesim, hanehalkı; olasılık dağılımı) ve para piyasası (faiz koridoru, AOFM,
+//      TCMB net fonlaması): evds-ek.mjs.
 //
 // Altın (gram) için resmi, ücretsiz bir günlük kaynak bulunamadı. BIST 100 EVDS'de var ama Borsa İstanbul verisinin
 // yeniden yayımı lisansa bağlı; bu yüzden ikisi de burada yoktur.
@@ -57,6 +58,7 @@ import {
   ufeAl,
   insaatIzinAl,
   kesimBeklentiAl,
+  paraPiyasasiAl,
 } from './evds-ek.mjs';
 
 const DOSYA = fileURLToPath(new URL('../../src/data/resmi.json', import.meta.url));
@@ -335,6 +337,7 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
     ufe,
     insaatIzin,
     kesimBeklenti,
+    paraPiyasasi,
   ] =
     await Promise.all([
       dene('kurlar', () => kurlariAl(eski?.kur, simdi, gun)),
@@ -369,6 +372,7 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
       evds('ufe', ufeAl),
       evds('insaatIzin', insaatIzinAl),
       evds('kesimBeklenti', kesimBeklentiAl),
+      evds('paraPiyasasi', paraPiyasasiAl),
     ]);
   const sonuc = {};
   for (const [ad, yeni] of Object.entries({
@@ -404,6 +408,7 @@ export async function guncelle(eski, simdi = new Date(), { gun = 14, evdsAnahtar
     ufe,
     insaatIzin,
     kesimBeklenti,
+    paraPiyasasi,
   })) {
     const b = birlestir(eski?.[ad], yeni, iso);
     if (b) sonuc[ad] = b;

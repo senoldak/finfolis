@@ -1,0 +1,247 @@
+---
+// Para piyasası: TCMB faiz koridoru (gecelik borç alma ve borç verme kotasyonları), bir haftalık repo faizi, TCMB
+// bankalararası piyasasında gecelik ağırlıklı ortalama faiz, ağırlıklı ortalama fonlama maliyeti (AOFM) ve TCMB'nin net
+// fonlaması, EVDS'den. Grafik ve tablo haftalık ortalamadır (EVDS hesaplar), üstteki rakamlar son iş günü. Sayfa hesabı
+// yalnız milyon TL'nin milyar TL'ye çevrilmesidir. BIST TLREF ve BIST repo Borsa İstanbul verisi olduğu için yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { ppkOlaylari, gozlemeHizala } from '../../lib/ppk-olaylari.mjs';
+import { RESMI, gunAnahtari, gunYaz, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const paraPiyasasi = RESMI.paraPiyasasi;
+const satirlar = paraPiyasasi?.satirlar ?? [];
+const son = paraPiyasasi?.son;
+
+const milyar = (n: number) => n / 1000;
+const milyarYaz = (n: number) => `${n < 0 ? '−' : ''}${sayiYaz(Math.abs(milyar(n)), 1)} milyar TL`;
+const oranYaz = (n: number | null) => (n == null ? '–' : yuzdeYaz(n));
+
+const gruplar1 = [
+  {
+    id: 'koridor',
+    ad: 'Koridor',
+    seriler: [
+      { id: 'borcVerme', ad: 'Gecelik borç verme', renk: 'toprak' as const, kesik: true },
+      { id: 'repo', ad: 'Bir haftalık repo', renk: 'murekkep' as const },
+      { id: 'aofm', ad: 'AOFM', renk: 'mavi' as const },
+      { id: 'borcAlma', ad: 'Gecelik borç alma', renk: 'yesil' as const, kesik: true },
+    ],
+  },
+  {
+    id: 'gecelik',
+    ad: 'Gecelik piyasa',
+    seriler: [
+      { id: 'bankalararasi', ad: 'Bankalararası gecelik', renk: 'murekkep' as const },
+      { id: 'aofm', ad: 'AOFM', renk: 'mavi' as const },
+      { id: 'borcAlma', ad: 'Gecelik borç alma', renk: 'yesil' as const, kesik: true },
+    ],
+  },
+];
+const noktalar1 = satirlar.map((s) => [gunAnahtari(s.tarih), s.borcVerme, s.repo, s.aofm, s.borcAlma, s.bankalararasi]);
+const olaylar = gozlemeHizala(
+  ppkOlaylari(RESMI.faiz?.gecmis, 'hafta'),
+  noktalar1.map((n) => n[0] as number),
+);
+
+const gruplar2 = [
+  {
+    id: 'net',
+    ad: 'Net fonlama',
+    seriler: [{ id: 'net', ad: 'Net fonlama', renk: 'murekkep' as const }],
+  },
+  {
+    id: 'ayri',
+    ad: 'Fonlama ve sterilizasyon',
+    seriler: [
+      { id: 'fonlama', ad: 'Toplam fonlama', renk: 'toprak' as const },
+      { id: 'sterilizasyon', ad: 'Toplam sterilizasyon', renk: 'mavi' as const },
+    ],
+  },
+];
+const noktalar2 = satirlar.map((s) => [gunAnahtari(s.tarih), milyar(s.net), milyar(s.fonlama), milyar(s.sterilizasyon)]);
+
+const tablo = satirlar.slice(-12).reverse();
+
+const baslik = 'Para piyasası';
+const description = son
+  ? `${gunYaz(son.tarih)} itibarıyla TCMB bir haftalık repo faizi ${oranYaz(son.repo)}, faiz koridoru ${yuzdeYaz(son.borcAlma)}–${yuzdeYaz(son.borcVerme)}, ağırlıklı ortalama fonlama maliyeti ${yuzdeYaz(son.aofm)}. TCMB net fonlaması ${milyarYaz(son.net)}.`
+  : 'TCMB faiz koridoru, ağırlıklı ortalama fonlama maliyeti (AOFM), bankalararası gecelik faiz ve TCMB net fonlaması.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/para-piyasasi/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(paraPiyasasi && son && satirlar.length
+    ? {
+        sayfaEk: { dateModified: paraPiyasasi.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'TCMB para piyasası göstergeleri',
+            description:
+              'TCMB gecelik borç alma ve borç verme faizleri, bir haftalık repo faizi, TCMB bankalararası piyasasında gecelik ağırlıklı ortalama faiz, ağırlıklı ortalama fonlama maliyeti, toplam fonlama, sterilizasyon ve net fonlama; haftalık ortalama, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/para-piyasasi/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${satirlar[0].tarih}/${son.tarih}`,
+            dateModified: paraPiyasasi.alinma,
+            variableMeasured: [
+              'Gecelik borç verme faizi (%)',
+              'Gecelik borç alma faizi (%)',
+              'Bir haftalık repo faizi (%)',
+              'Bankalararası gecelik ağırlıklı ortalama faiz (%)',
+              'Ağırlıklı ortalama fonlama maliyeti (%)',
+              'Toplam fonlama, sterilizasyon ve net fonlama (milyon TL)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Para piyasası: ${son ? gunYaz(son.tarih) : 'TCMB verisi'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Faiz koridoru, fonlama maliyeti ve TCMB net fonlaması · TCMB, iş günü</p>
+    </header>
+    {
+      paraPiyasasi && son && satirlar.length ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Bir haftalık repo</dt>
+              <dd>{oranYaz(son.repo)}</dd>
+              <dd class="veri-degisim">{gunYaz(son.tarih)}, politika faizi</dd>
+            </div>
+            <div>
+              <dt>Faiz koridoru</dt>
+              <dd>
+                {yuzdeYaz(son.borcAlma)}–{yuzdeYaz(son.borcVerme)}
+              </dd>
+              <dd class="veri-degisim">Gecelik borç alma ve borç verme</dd>
+            </div>
+            <div>
+              <dt>Fonlama maliyeti (AOFM)</dt>
+              <dd>{yuzdeYaz(son.aofm)}</dd>
+              <dd class="veri-degisim">Bankalararası gecelik {yuzdeYaz(son.bankalararasi)}</dd>
+            </div>
+            <div>
+              <dt>Net fonlama</dt>
+              <dd>{milyarYaz(son.net)}</dd>
+              <dd class="veri-degisim">
+                Fonlama {sayiYaz(milyar(son.fonlama), 1)}, sterilizasyon {sayiYaz(milyar(son.sterilizasyon), 1)} milyar TL
+              </dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={paraPiyasasi.kaynak.url} rel="noopener">{paraPiyasasi.kaynak.ad}</a>. Üstteki
+            rakamlar {gunYaz(son.tarih)} tarihlidir; grafik ve tablo haftalık ortalamadır. Siteye alındığı zaman:{' '}
+            {zamanYaz(paraPiyasasi.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Faiz koridoru ve fonlama maliyeti"
+            ipucu="Yüzde, haftalık ortalama · Kesikli çizgiler koridorun alt ve üst sınırıdır · Dikey işaretler PPK kararlarıdır"
+            kaynak="Kaynak: TCMB, piyasa verileri (TCMB EVDS)."
+            siklik="hafta"
+            birim="yuzde"
+            seriIdleri={['borcVerme', 'repo', 'aofm', 'borcAlma', 'bankalararasi']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            grupEtiketi="Seri grubu"
+            olaylar={olaylar}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Son 12 hafta</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Hafta</th>
+                      <th scope="col" class="sag">Repo</th>
+                      <th scope="col" class="sag">AOFM</th>
+                      <th scope="col" class="sag">Koridor</th>
+                      <th scope="col" class="sag">Net fonlama</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{gunYaz(s.tarih)}</td>
+                        <td class="sag">{oranYaz(s.repo)}</td>
+                        <td class="sag">{yuzdeYaz(s.aofm)}</td>
+                        <td class="sag">
+                          {yuzdeYaz(s.borcAlma)}–{yuzdeYaz(s.borcVerme)}
+                        </td>
+                        <td class="sag">{milyarYaz(s.net)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Her satır cuma günü biten haftanın iş günü ortalamasıdır; ortalamayı EVDS hesaplar. Net fonlama milyar TL’dir.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                TCMB, bankalara gecelik vadede borç verdiği ve onlardan borç aldığı iki faizle bir koridor çizer. Bir haftalık
+                repo faizi politika faizidir. Ağırlıklı ortalama fonlama maliyeti (AOFM), TCMB’nin o gün bütün yollarla verdiği
+                fonlamanın ortalama faizidir.
+              </p>
+              <p>
+                Fonlama, TCMB’nin piyasaya verdiği Türk lirasıdır; sterilizasyon, piyasadan çektiği. Net fonlama ikisinin
+                farkıdır. Eksi değer, TCMB’nin piyasaya verdiğinden fazlasını çektiğini gösterir; bu durumda gecelik faizler
+                koridorun alt sınırına yaklaşır.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="TCMB net fonlaması"
+            ipucu="Milyar TL, haftalık ortalama · Sıfırın altı, TCMB’nin piyasaya verdiğinden fazla Türk lirası çektiğini gösterir"
+            kaynak="Kaynak: TCMB, net fonlama (TCMB EVDS)."
+            siklik="hafta"
+            birim="milyarTl"
+            ondalik={0}
+            seriIdleri={['net', 'fonlama', 'sterilizasyon']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+            grupEtiketi="Seri grubu"
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+        </>
+      ) : (
+        <p class="bos">Para piyasası verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/politika-faizi/">Politika faizi</a>
+      <a href="/veri/piyasa-faizleri/">Piyasa faizleri</a>
+      <a href="/veri/reel-faiz/">Reel faiz</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

@@ -86,6 +86,7 @@ const RESMI_SAYFA = {
   ufe: '/veri/uretici-fiyatlari/',
   insaatIzin: '/veri/insaat-izinleri/',
   kesimBeklenti: '/veri/beklenti-anketleri/',
+  paraPiyasasi: '/veri/para-piyasasi/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

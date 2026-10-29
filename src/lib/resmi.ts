@@ -273,6 +273,27 @@ export interface KesimBeklentiBolumu extends AylikSeriBolumu<'piyasa' | 'reel' |
   dagilim: { yil: number; ay: number; ay12: BeklentiDagilimi; ay24: BeklentiDagilimi };
 }
 
+// Para piyasası (TCMB): faizler %, fonlama tutarları milyon TL. Satırlar haftalık ortalama (cuma tarihli), son ayrıca son
+// iş günü. Bir haftalık repo kotasyonu Eylül 2018'den önce null.
+export interface ParaPiyasasiSatiri {
+  tarih: string;
+  borcVerme: number;
+  borcAlma: number;
+  repo: number | null;
+  bankalararasi: number;
+  aofm: number;
+  fonlama: number;
+  sterilizasyon: number;
+  net: number;
+}
+export interface ParaPiyasasiBolumu {
+  kaynak: Kaynak;
+  seriler: SeriAdi[];
+  satirlar: ParaPiyasasiSatiri[];
+  son: ParaPiyasasiSatiri;
+  alinma: string;
+}
+
 export const RESMI = data as unknown as {
   kur?: KurBolumu;
   faiz?: FaizBolumu;
@@ -334,6 +355,7 @@ export const RESMI = data as unknown as {
   ufe?: UfeBolumu;
   insaatIzin?: InsaatIzinBolumu;
   kesimBeklenti?: KesimBeklentiBolumu;
+  paraPiyasasi?: ParaPiyasasiBolumu;
 };
 
 // Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).

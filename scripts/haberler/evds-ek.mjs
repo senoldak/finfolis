@@ -361,6 +361,10 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      anketleri, aylık, 2015'ten; doğrulandı 29.10.2026); hanehalkı anketinin yön ve harcama grubu soruları (2026'dan);
 //      Piyasa Katılımcıları Anketi'nde 12 ve 24 ay sonrası beklentinin olasılık dağılımı (son ay; aralıklar EVDS seri
 //      listesinden). Kur, konut fiyatı ve yatırım tercihi soruları bilerek alınmaz.
+//  - paraPiyasasi: TCMB gecelik borç alma ve borç verme kotasyonları (faiz koridoru), bir haftalık repo kotasyonu, TCMB
+//      bankalararası piyasasında gecelik ağırlıklı ortalama faiz, ağırlıklı ortalama fonlama maliyeti (AOFM), toplam
+//      fonlama, sterilizasyon ve net fonlama (TCMB, iş günü; haftalık ortalama 2011'den, son iş günü ayrıca; doğrulandı
+//      29.10.2026). BIST TLREF ve BIST repo serileri Borsa İstanbul verisidir, bilerek alınmaz.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -819,6 +823,52 @@ export async function kesimBeklentiAl(simdi, anahtar) {
     satirlar: await aylikFormullu(KESIM_BEKLENTI_SERILERI, new Date(Date.UTC(2015, 0, 1)), simdi, anahtar, 'Kesim beklentileri', 100),
     hane: await aylikFormullu(HANE_BEKLENTI_SERILERI, new Date(Date.UTC(2026, 0, 1)), simdi, anahtar, 'Hanehalkı beklenti anketi', 6),
     dagilim: await dagilimAl(simdi, anahtar),
+  };
+}
+
+// Faizler %, fonlama tutarları milyon TL. Bir haftalık repo kotasyonu Eylül 2018'den önce yoktur (bosOlabilir); öteki
+// alanlar dolu olmayan satır atılır. Net fonlama = fonlama − sterilizasyon (TCMB'nin verdiği seri); eksi değer TCMB'nin
+// piyasaya verdiğinden fazlasını çektiğini gösterir.
+export const PARA_PIYASASI_SERILERI = [
+  { kod: 'TP.PY.P02.ON', alan: 'borcVerme', ad: 'TCMB gecelik borç verme faizi (koridorun üst sınırı)' },
+  { kod: 'TP.PY.P01.ON', alan: 'borcAlma', ad: 'TCMB gecelik borç alma faizi (koridorun alt sınırı)' },
+  { kod: 'TP.PY.P02.1H', alan: 'repo', ad: 'TCMB bir haftalık repo faizi (politika faizi)', bosOlabilir: true },
+  { kod: 'TP.PY.P06.ON', alan: 'bankalararasi', ad: 'TCMB bankalararası piyasası, gecelik ağırlıklı ortalama faiz' },
+  { kod: 'TP.APIFON4', alan: 'aofm', ad: 'TCMB ağırlıklı ortalama fonlama maliyeti (AOFM)' },
+  { kod: 'TP.APIFON1.TOP', alan: 'fonlama', ad: 'TCMB toplam fonlama' },
+  { kod: 'TP.APIFON2.TOP', alan: 'sterilizasyon', ad: 'TCMB toplam sterilizasyon' },
+  { kod: 'TP.APIFON3', alan: 'net', ad: 'TCMB net fonlama' },
+];
+
+const paraSatiri = (h) => ({
+  tarih: h.tarih,
+  ...Object.fromEntries(PARA_PIYASASI_SERILERI.map((t) => [t.alan, h[alanAdi(t.kod, 0)] ?? null])),
+});
+const paraDolu = (s) => PARA_PIYASASI_SERILERI.every((t) => t.bosOlabilir || s[t.alan] != null);
+
+// Haftalık: EVDS'nin haftalık ortalaması (cuma tarihli); bitmemiş haftanın satırı atılır. Son: son 15 günün dolu son iş günü.
+export async function paraPiyasasiAl(simdi, anahtar) {
+  const kodlar = PARA_PIYASASI_SERILERI.map((t) => t.kod);
+  const sifirlar = kodlar.map(() => 0);
+  const bugun = simdi.toISOString().slice(0, 10);
+  const haftalik = (
+    await evdsCek(kodlar, sifirlar, new Date(Date.UTC(2011, 0, 1)), simdi, anahtar, `&frequency=3&aggregationTypes=${kodlar.map(() => 'avg').join('-')}`)
+  )
+    .filter((h) => h.tarih && h.tarih <= bugun)
+    .map(paraSatiri)
+    .filter(paraDolu);
+  if (haftalik.length < 500) throw new Error('Para piyasası haftalık serisi yetersiz');
+  const gunluk = (await evdsCek(kodlar, sifirlar, new Date(simdi.getTime() - 15 * 864e5), simdi, anahtar))
+    .filter((h) => h.tarih)
+    .map(paraSatiri)
+    .filter((s) => paraDolu(s) && s.repo != null);
+  const son = gunluk.at(-1);
+  if (!son) throw new Error('Para piyasası günlük değer yok');
+  return {
+    kaynak: { ad: 'TCMB piyasa verileri: bankalararası para piyasası, net fonlama ve fonlama maliyeti (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(PARA_PIYASASI_SERILERI),
+    satirlar: haftalik,
+    son,
   };
 }
 

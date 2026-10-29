@@ -16,6 +16,7 @@ const PUAN = 'puan';
 const TL = 'TL';
 const ADET = 'adet';
 const M2 = 'm²';
+const MTL = 'milyon TL';
 
 const SAYFA = {
   enflasyon: '/veri/enflasyon/',
@@ -40,6 +41,7 @@ const SAYFA = {
   ufe: '/veri/uretici-fiyatlari/',
   insaatIzin: '/veri/insaat-izinleri/',
   kesimBeklenti: '/veri/beklenti-anketleri/',
+  paraPiyasasi: '/veri/para-piyasasi/',
   portfoy: '/veri/yabanci-portfoy-akimlari/',
   cari: '/veri/cari-denge/',
   disBorc: '/veri/dis-borc/',
@@ -240,6 +242,16 @@ export const TANIMLAR = [
     ['gelecekEgitim', 'gelecek-egitim', 'Hanehalkı: gelecek 12 ayda en çok artacak grup, eğitim (seçimlerin payı)', YZ],
     ['gelecekDiger', 'gelecek-diger', 'Hanehalkı: gelecek 12 ayda en çok artacak grup, diğer (seçimlerin payı)', YZ],
   ], { satirlar: 'hane', idOnek: 'hane-beklenti' }),
+  t('paraPiyasasi', 'Faiz', SAYFA.paraPiyasasi, [
+    ['borcVerme', 'borc-verme', 'TCMB gecelik borç verme faizi (haftalık ortalama)', YZ],
+    ['borcAlma', 'borc-alma', 'TCMB gecelik borç alma faizi (haftalık ortalama)', YZ],
+    ['repo', 'repo', 'TCMB bir haftalık repo faizi (haftalık ortalama)', YZ],
+    ['bankalararasi', 'bankalararasi', 'TCMB bankalararası piyasası, gecelik ağırlıklı ortalama faiz (haftalık ortalama)', YZ],
+    ['aofm', 'aofm', 'TCMB ağırlıklı ortalama fonlama maliyeti (haftalık ortalama)', YZ],
+    ['fonlama', 'fonlama', 'TCMB toplam fonlama (haftalık ortalama)', MTL],
+    ['sterilizasyon', 'sterilizasyon', 'TCMB toplam sterilizasyon (haftalık ortalama)', MTL],
+    ['net', 'net', 'TCMB net fonlama (haftalık ortalama)', MTL],
+  ], { siklik: 'hafta' }),
   t('makas', 'Faiz', SAYFA.makas, [
     ['ihtiyac', 'ihtiyac', 'İhtiyaç kredisi faizi', YZ],
     ['tasit', 'tasit', 'Taşıt kredisi faizi', YZ],
