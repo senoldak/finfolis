@@ -89237,5 +89237,480 @@
       }
     ],
     "alinma": "2026-10-29T16:31:48.296Z"
+  },
+  "kkm": {
+    "kaynak": {
+      "ad": "TCMB kur korumalı mevduat istatistikleri (TCMB EVDS)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "seriler": [
+      {
+        "alan": "dd",
+        "ad": "Döviz dönüşümlü KKM, toplam (milyar ABD doları)"
+      },
+      {
+        "alan": "ddGercek",
+        "ad": "Döviz dönüşümlü KKM, gerçek kişiler (milyar ABD doları)"
+      },
+      {
+        "alan": "ddTuzel",
+        "ad": "Döviz dönüşümlü KKM, tüzel kişiler (milyar ABD doları)"
+      },
+      {
+        "alan": "tl",
+        "ad": "TL KKM, toplam (milyar TL)"
+      }
+    ],
+    "satirlar": [
+      {
+        "yil": 2021,
+        "ay": 12,
+        "dd": 0.7,
+        "ddGercek": 0.7,
+        "ddTuzel": 0,
+        "tl": 68.2
+      },
+      {
+        "yil": 2022,
+        "ay": 1,
+        "dd": 7.6,
+        "ddGercek": 3.8,
+        "ddTuzel": 3.8,
+        "tl": 153.7
+      },
+      {
+        "yil": 2022,
+        "ay": 2,
+        "dd": 22.5,
+        "ddGercek": 5.8,
+        "ddTuzel": 16.7,
+        "tl": 217.2
+      },
+      {
+        "yil": 2022,
+        "ay": 3,
+        "dd": 26.3,
+        "ddGercek": 7,
+        "ddTuzel": 19.3,
+        "tl": 320.4
+      },
+      {
+        "yil": 2022,
+        "ay": 4,
+        "dd": 28.3,
+        "ddGercek": 8.7,
+        "ddTuzel": 19.6,
+        "tl": 408.4
+      },
+      {
+        "yil": 2022,
+        "ay": 5,
+        "dd": 30.8,
+        "ddGercek": 10.4,
+        "ddTuzel": 20.4,
+        "tl": 476.4
+      },
+      {
+        "yil": 2022,
+        "ay": 6,
+        "dd": 33.2,
+        "ddGercek": 12.2,
+        "ddTuzel": 21.1,
+        "tl": 540.9
+      },
+      {
+        "yil": 2022,
+        "ay": 7,
+        "dd": 34.6,
+        "ddGercek": 13.3,
+        "ddTuzel": 21.3,
+        "tl": 591.1
+      },
+      {
+        "yil": 2022,
+        "ay": 8,
+        "dd": 36.2,
+        "ddGercek": 17.1,
+        "ddTuzel": 19.1,
+        "tl": 651.2
+      },
+      {
+        "yil": 2022,
+        "ay": 9,
+        "dd": 39.6,
+        "ddGercek": 19.9,
+        "ddTuzel": 19.7,
+        "tl": 688.3
+      },
+      {
+        "yil": 2022,
+        "ay": 10,
+        "dd": 42.9,
+        "ddGercek": 22.4,
+        "ddTuzel": 20.5,
+        "tl": 693.8
+      },
+      {
+        "yil": 2022,
+        "ay": 11,
+        "dd": 47.6,
+        "ddGercek": 27.2,
+        "ddTuzel": 20.4,
+        "tl": 618.6
+      },
+      {
+        "yil": 2022,
+        "ay": 12,
+        "dd": 51.8,
+        "ddGercek": 30.5,
+        "ddTuzel": 21.3,
+        "tl": 487.3
+      },
+      {
+        "yil": 2023,
+        "ay": 1,
+        "dd": 58.7,
+        "ddGercek": 36.3,
+        "ddTuzel": 22.4,
+        "tl": 364.5
+      },
+      {
+        "yil": 2023,
+        "ay": 2,
+        "dd": 66.4,
+        "ddGercek": 43.3,
+        "ddTuzel": 23.1,
+        "tl": 329.1
+      },
+      {
+        "yil": 2023,
+        "ay": 3,
+        "dd": 74.7,
+        "ddGercek": 50.5,
+        "ddTuzel": 24.3,
+        "tl": 318.3
+      },
+      {
+        "yil": 2023,
+        "ay": 4,
+        "dd": 85.7,
+        "ddGercek": 57.4,
+        "ddTuzel": 28.3,
+        "tl": 521.2
+      },
+      {
+        "yil": 2023,
+        "ay": 5,
+        "dd": 92.6,
+        "ddGercek": 62.4,
+        "ddTuzel": 30.2,
+        "tl": 750.7
+      },
+      {
+        "yil": 2023,
+        "ay": 6,
+        "dd": 94.3,
+        "ddGercek": 63.7,
+        "ddTuzel": 30.5,
+        "tl": 853.9
+      },
+      {
+        "yil": 2023,
+        "ay": 7,
+        "dd": 97.2,
+        "ddGercek": 64.7,
+        "ddTuzel": 32.5,
+        "tl": 1020.9
+      },
+      {
+        "yil": 2023,
+        "ay": 8,
+        "dd": 92.4,
+        "ddGercek": 60.2,
+        "ddTuzel": 32.2,
+        "tl": 1061.2
+      },
+      {
+        "yil": 2023,
+        "ay": 9,
+        "dd": 90.7,
+        "ddGercek": 59.5,
+        "ddTuzel": 31.2,
+        "tl": 953.5
+      },
+      {
+        "yil": 2023,
+        "ay": 10,
+        "dd": 90.1,
+        "ddGercek": 60.4,
+        "ddTuzel": 29.7,
+        "tl": 609.7
+      },
+      {
+        "yil": 2023,
+        "ay": 11,
+        "dd": 88.8,
+        "ddGercek": 60.5,
+        "ddTuzel": 28.3,
+        "tl": 341.9
+      },
+      {
+        "yil": 2023,
+        "ay": 12,
+        "dd": 86.6,
+        "ddGercek": 59,
+        "ddTuzel": 27.6,
+        "tl": 282.5
+      },
+      {
+        "yil": 2024,
+        "ay": 1,
+        "dd": 79,
+        "ddGercek": 53.8,
+        "ddTuzel": 25.2,
+        "tl": 196.6
+      },
+      {
+        "yil": 2024,
+        "ay": 2,
+        "dd": 75.6,
+        "ddGercek": 52.1,
+        "ddTuzel": 23.6,
+        "tl": 131.5
+      },
+      {
+        "yil": 2024,
+        "ay": 3,
+        "dd": 74.8,
+        "ddGercek": 51.8,
+        "ddTuzel": 23,
+        "tl": 98.8
+      },
+      {
+        "yil": 2024,
+        "ay": 4,
+        "dd": 73.3,
+        "ddGercek": 51.3,
+        "ddTuzel": 22,
+        "tl": 65.1
+      },
+      {
+        "yil": 2024,
+        "ay": 5,
+        "dd": 68.3,
+        "ddGercek": 48.5,
+        "ddTuzel": 19.8,
+        "tl": 37.1
+      },
+      {
+        "yil": 2024,
+        "ay": 6,
+        "dd": 64,
+        "ddGercek": 45.3,
+        "ddTuzel": 18.7,
+        "tl": 25.1
+      },
+      {
+        "yil": 2024,
+        "ay": 7,
+        "dd": 56.8,
+        "ddGercek": 40.7,
+        "ddTuzel": 16.1,
+        "tl": 7.9
+      },
+      {
+        "yil": 2024,
+        "ay": 8,
+        "dd": 50.7,
+        "ddGercek": 36.9,
+        "ddTuzel": 13.8,
+        "tl": 3.9
+      },
+      {
+        "yil": 2024,
+        "ay": 9,
+        "dd": 48.1,
+        "ddGercek": 35.4,
+        "ddTuzel": 12.6,
+        "tl": 2.8
+      },
+      {
+        "yil": 2024,
+        "ay": 10,
+        "dd": 42,
+        "ddGercek": 31.9,
+        "ddTuzel": 10.1,
+        "tl": 1.3
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "dd": 35.7,
+        "ddGercek": 28.4,
+        "ddTuzel": 7.3,
+        "tl": 0.4
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "dd": 32.5,
+        "ddGercek": 25.9,
+        "ddTuzel": 6.6,
+        "tl": 0
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "dd": 28.8,
+        "ddGercek": 23.1,
+        "ddTuzel": 5.8,
+        "tl": 0
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "dd": 24.1,
+        "ddGercek": 20.4,
+        "ddTuzel": 3.7,
+        "tl": 0
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "dd": 21.5,
+        "ddGercek": 18.5,
+        "ddTuzel": 3,
+        "tl": 0
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "dd": 18.7,
+        "ddGercek": 16.9,
+        "ddTuzel": 1.8,
+        "tl": 0
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "dd": 15.2,
+        "ddGercek": 14.6,
+        "ddTuzel": 0.6,
+        "tl": 0
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "dd": 14,
+        "ddGercek": 13.7,
+        "ddTuzel": 0.3,
+        "tl": 0
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "dd": 11.9,
+        "ddGercek": 11.7,
+        "ddTuzel": 0.2,
+        "tl": 0
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "dd": 9.7,
+        "ddGercek": 9.6,
+        "ddTuzel": 0.2,
+        "tl": 0
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "dd": 7.4,
+        "ddGercek": 7.2,
+        "ddTuzel": 0.2,
+        "tl": 0
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "dd": 3.5,
+        "ddGercek": 3.4,
+        "ddTuzel": 0.1,
+        "tl": 0
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "dd": 0.5,
+        "ddGercek": 0.4,
+        "ddTuzel": 0.1,
+        "tl": 0
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "dd": 0.2,
+        "ddGercek": 0.2,
+        "ddTuzel": 0,
+        "tl": 0
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "dd": 0.1,
+        "ddGercek": 0.1,
+        "ddTuzel": 0,
+        "tl": 0
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "dd": 0.044,
+        "ddGercek": 0.044,
+        "ddTuzel": 0,
+        "tl": 0
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "dd": 0.018,
+        "ddGercek": 0.018,
+        "ddTuzel": 0,
+        "tl": 0
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "dd": 0.014,
+        "ddGercek": 0.014,
+        "ddTuzel": 0,
+        "tl": 0
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "dd": 0.009,
+        "ddGercek": 0.009,
+        "ddTuzel": 0,
+        "tl": 0
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "dd": 0.007,
+        "ddGercek": 0.007,
+        "ddTuzel": 0,
+        "tl": 0
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "dd": 0.004,
+        "ddGercek": 0.004,
+        "ddTuzel": 0,
+        "tl": 0
+      }
+    ],
+    "alinma": "2026-10-29T16:36:51.298Z"
   }
 }

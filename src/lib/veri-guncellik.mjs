@@ -88,6 +88,7 @@ const RESMI_SAYFA = {
   kesimBeklenti: '/veri/beklenti-anketleri/',
   paraPiyasasi: '/veri/para-piyasasi/',
   paraArzi: '/veri/para-arzi/',
+  kkm: '/veri/kur-korumali-mevduat/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

@@ -15,6 +15,7 @@ import {
   kesimBeklentiAl,
   paraPiyasasiAl,
   paraArziAl,
+  kkmAl,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
   INSAAT_IZIN_SERILERI,
@@ -492,6 +493,19 @@ test('paraArziAl: formüller, boş haftalar atılır, satır şekli', async () =
   assert.equal(Object.keys(p.satirlar[0]).length, 15);
   assert.equal(p.satirlar.at(-1).tarih, '2026-10-16');
   assert.equal(p.satirlar.at(-1).m2Yillik, 7);
+});
+
+test('kkmAl: aylık dört seri, Aralık 2021’den', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    istekler.push(decodeURIComponent(String(url)));
+    return yanit({ items: aylar([2021, 12], 56).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(alanlar(url).map((x) => [x, '1.5'])) })) });
+  };
+  const k = await kkmAl(SIMDI, 'x');
+  assert.ok(istekler[0].includes('startDate=01-12-2021'));
+  assert.deepEqual(alanlar(istekler[0]), ['TP_KKM_K1', 'TP_KKM_K2', 'TP_KKM_K3', 'TP_KKM_K4']);
+  assert.deepEqual(k.satirlar[0], { yil: 2021, ay: 12, dd: 1.5, ddGercek: 1.5, ddTuzel: 1.5, tl: 1.5 });
+  assert.equal(k.satirlar.length, 56);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

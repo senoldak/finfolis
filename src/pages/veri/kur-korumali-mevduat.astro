@@ -1,0 +1,211 @@
+---
+// Kur korumalı mevduat (KKM): TCMB'nin aylık stok verisi, EVDS'den. Döviz dönüşümlü KKM milyar ABD doları, TL KKM milyar
+// TL olarak gelir; birimler farklı olduğu için toplanmaz. Sayfa hesabı yalnız zirve ayının ve TL KKM'nin sıfırlandığı ayın
+// bulunmasıdır (EVDS düzeylerinden); başka türetme ve tahmin yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const kkm = RESMI.kkm;
+const satirlar = kkm?.satirlar ?? [];
+const son = satirlar.at(-1);
+const ilk = satirlar[0];
+type Satir = (typeof satirlar)[number];
+
+// Sayfa hesabı: en yüksek stokun olduğu ay.
+const zirve = (alan: 'dd' | 'tl') => satirlar.reduce<Satir | undefined>((a, s) => (!a || s[alan] > a[alan] ? s : a), undefined);
+const ddZirve = zirve('dd');
+const tlZirve = zirve('tl');
+// TL KKM'nin sıfıra indiği ilk ay (zirveden sonra).
+const tlSifir = tlZirve ? satirlar.find((s) => ayAnahtari(s) > ayAnahtari(tlZirve) && s.tl === 0) : undefined;
+
+const usdYaz = (n: number) =>
+  n === 0 ? '0' : n < 1 ? `${sayiYaz(n * 1000, 0)} milyon $` : `${sayiYaz(n, 1)} milyar $`;
+const tlYaz = (n: number) => (n === 0 ? '0' : `${sayiYaz(n, 1)} milyar TL`);
+
+const gruplar1 = [
+  {
+    id: 'dd',
+    ad: 'Döviz dönüşümlü',
+    seriler: [
+      { id: 'dd', ad: 'Toplam', renk: 'murekkep' as const },
+      { id: 'ddGercek', ad: 'Gerçek kişiler', renk: 'toprak' as const },
+      { id: 'ddTuzel', ad: 'Tüzel kişiler', renk: 'mavi' as const },
+    ],
+  },
+];
+const noktalar1 = satirlar.map((s) => [ayAnahtari(s), s.dd, s.ddGercek, s.ddTuzel]);
+const gruplar2 = [{ id: 'tl', ad: 'TL KKM', seriler: [{ id: 'tl', ad: 'TL KKM', renk: 'murekkep' as const }] }];
+const noktalar2 = satirlar.map((s) => [ayAnahtari(s), s.tl]);
+
+// Her yılın aralık ayı ve son ay.
+const tablo = satirlar.filter((s, i) => s.ay === 12 || i === satirlar.length - 1).reverse();
+
+const baslik = 'Kur korumalı mevduat';
+const description =
+  son && ddZirve && tlZirve
+    ? `Döviz dönüşümlü kur korumalı mevduat ${ayAdi(ddZirve)} ayında ${usdYaz(ddZirve.dd)} ile zirve yaptı, ${ayAdi(son)} itibarıyla ${usdYaz(son.dd)}. TL KKM ${ayAdi(tlZirve)} ayında ${tlYaz(tlZirve.tl)} idi. TCMB verisi.`
+    : 'Kur korumalı mevduatın (KKM) aylık stoku: döviz dönüşümlü ve TL KKM, TCMB verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/kur-korumali-mevduat/' },
+];
+const ayKodu = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(kkm && son && ilk
+    ? {
+        sayfaEk: { dateModified: kkm.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Kur korumalı mevduat stoku',
+            description:
+              'Aylık kur korumalı mevduat stoku: döviz dönüşümlü KKM (gerçek ve tüzel kişiler, milyar ABD doları) ve TL KKM (milyar TL), TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/kur-korumali-mevduat/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ayKodu(ilk)}/${ayKodu(son)}`,
+            dateModified: kkm.alinma,
+            variableMeasured: [
+              'Döviz dönüşümlü KKM, toplam (milyar ABD doları)',
+              'Döviz dönüşümlü KKM, gerçek kişiler (milyar ABD doları)',
+              'Döviz dönüşümlü KKM, tüzel kişiler (milyar ABD doları)',
+              'TL KKM, toplam (milyar TL)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Kur korumalı mevduat: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>KKM stoku, Aralık 2021’den bugüne · TCMB, aylık</p>
+    </header>
+    {
+      kkm && son && ddZirve && tlZirve ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Döviz dönüşümlü, zirve</dt>
+              <dd>{usdYaz(ddZirve.dd)}</dd>
+              <dd class="veri-degisim">{ayAdi(ddZirve)}</dd>
+            </div>
+            <div>
+              <dt>Döviz dönüşümlü, son</dt>
+              <dd>{usdYaz(son.dd)}</dd>
+              <dd class="veri-degisim">{ayAdi(son)}, yayımlanan son ay</dd>
+            </div>
+            <div>
+              <dt>TL KKM, zirve</dt>
+              <dd>{tlYaz(tlZirve.tl)}</dd>
+              <dd class="veri-degisim">
+                {ayAdi(tlZirve)}
+                {tlSifir ? `; ${ayAdi(tlSifir)} sıfır` : ''}
+              </dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={kkm.kaynak.url} rel="noopener">{kkm.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
+            {zamanYaz(kkm.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Döviz dönüşümlü KKM"
+            ipucu="Milyar ABD doları, ay sonu stoku"
+            kaynak="Kaynak: TCMB, kur korumalı mevduat istatistikleri (TCMB EVDS)."
+            siklik="ay"
+            birim="milyarUsd"
+            ondalik={1}
+            seriIdleri={['dd', 'ddGercek', 'ddTuzel']}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Yıl sonları</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ay</th>
+                      <th scope="col" class="sag">Döviz dönüşümlü</th>
+                      <th scope="col" class="sag">Gerçek kişi</th>
+                      <th scope="col" class="sag">Tüzel kişi</th>
+                      <th scope="col" class="sag">TL KKM</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((s) => (
+                      <tr>
+                        <td>{ayAdi(s)}</td>
+                        <td class="sag">{usdYaz(s.dd)}</td>
+                        <td class="sag">{usdYaz(s.ddGercek)}</td>
+                        <td class="sag">{usdYaz(s.ddTuzel)}</td>
+                        <td class="sag">{tlYaz(s.tl)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Her yılın aralık ayı ve yayımlanan son ay. Döviz dönüşümlü KKM ABD doları, TL KKM Türk lirasıdır.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Kur korumalı mevduat, Aralık 2021’de başlayan bir Türk lirası mevduat türüdür. Vade sonunda kurdaki artış faiz
+                getirisini aşarsa aradaki fark hesap sahibine ödenir.
+              </p>
+              <p>
+                TCMB iki kalemi ayrı verir: döviz ve altın hesaplarından dönüştürülerek açılan KKM ABD doları cinsinden, Türk
+                lirası mevduattan açılan TL KKM ise Türk lirası cinsinden. Birimleri farklı olduğu için bu sayfada toplanmaz.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="TL KKM"
+            ipucu="Milyar TL, ay sonu stoku"
+            kaynak="Kaynak: TCMB, kur korumalı mevduat istatistikleri (TCMB EVDS)."
+            siklik="ay"
+            birim="milyarTl"
+            ondalik={0}
+            seriIdleri={['tl']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+          />
+        </>
+      ) : (
+        <p class="bos">Kur korumalı mevduat verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/sozluk/kur-korumali-mevduat/">Sözlük: KKM</a>
+      <a href="/veri/doviz-mevduatlari/">Döviz mevduatları</a>
+      <a href="/veri/para-arzi/">Para arzı</a>
+      <a href="/veri/tcmb-rezervleri/">TCMB rezervleri</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

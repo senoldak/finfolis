@@ -43,6 +43,7 @@ const SAYFA = {
   kesimBeklenti: '/veri/beklenti-anketleri/',
   paraPiyasasi: '/veri/para-piyasasi/',
   paraArzi: '/veri/para-arzi/',
+  kkm: '/veri/kur-korumali-mevduat/',
   portfoy: '/veri/yabanci-portfoy-akimlari/',
   cari: '/veri/cari-denge/',
   disBorc: '/veri/dis-borc/',
@@ -269,6 +270,12 @@ export const TANIMLAR = [
     ['ppf', 'ppf', 'Para piyasası fonları (M3 bileşeni)', BTL],
     ['menkul', 'menkul', 'İhraç edilen menkul kıymetler (M3 bileşeni)', BTL],
   ], { siklik: 'hafta' }),
+  t('kkm', 'Bankacılık', SAYFA.kkm, [
+    ['dd', 'dd', 'Döviz dönüşümlü kur korumalı mevduat, toplam', MYUSD],
+    ['ddGercek', 'dd-gercek', 'Döviz dönüşümlü kur korumalı mevduat, gerçek kişiler', MYUSD],
+    ['ddTuzel', 'dd-tuzel', 'Döviz dönüşümlü kur korumalı mevduat, tüzel kişiler', MYUSD],
+    ['tl', 'tl', 'TL kur korumalı mevduat, toplam', 'milyar TL'],
+  ]),
   t('makas', 'Faiz', SAYFA.makas, [
     ['ihtiyac', 'ihtiyac', 'İhtiyaç kredisi faizi', YZ],
     ['tasit', 'tasit', 'Taşıt kredisi faizi', YZ],

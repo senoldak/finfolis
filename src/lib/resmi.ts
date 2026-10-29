@@ -366,6 +366,7 @@ export const RESMI = data as unknown as {
   kesimBeklenti?: KesimBeklentiBolumu;
   paraPiyasasi?: ParaPiyasasiBolumu;
   paraArzi?: ParaArziBolumu;
+  kkm?: AylikSeriBolumu<'dd' | 'ddGercek' | 'ddTuzel' | 'tl'>;
 };
 
 // Haftalık veri için ZamanGrafik zaman anahtarı: 1970'ten beri gün (UTC).

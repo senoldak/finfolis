@@ -367,6 +367,8 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      29.10.2026). BIST TLREF ve BIST repo serileri Borsa İstanbul verisidir, bilerek alınmaz.
 //  - paraArzi: M1, M2, M3 ve bileşenleri (TCMB, haftalık, cuma, bin TL; 2011'den; doğrulandı 29.10.2026); yıllık değişim
 //      EVDS'nin formülüyle (bir yıl önceki aynı haftaya göre).
+//  - kkm: kur korumalı mevduat stoku (TCMB, aylık, Aralık 2021'den; doğrulandı 29.10.2026): döviz dönüşümlü KKM (milyar
+//      ABD doları; gerçek ve tüzel kişiler) ve TL KKM (milyar TL). Birimler farklıdır, toplanmaz.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -907,6 +909,21 @@ export async function paraArziAl(simdi, anahtar) {
     birim: 'bin TL',
     seriler: tanimlar(PARA_ARZI_SERILERI),
     satirlar,
+  };
+}
+
+export const KKM_SERILERI = [
+  { kod: 'TP.KKM.K1', formul: 0, alan: 'dd', ad: 'Döviz dönüşümlü KKM, toplam (milyar ABD doları)' },
+  { kod: 'TP.KKM.K2', formul: 0, alan: 'ddGercek', ad: 'Döviz dönüşümlü KKM, gerçek kişiler (milyar ABD doları)' },
+  { kod: 'TP.KKM.K3', formul: 0, alan: 'ddTuzel', ad: 'Döviz dönüşümlü KKM, tüzel kişiler (milyar ABD doları)' },
+  { kod: 'TP.KKM.K4', formul: 0, alan: 'tl', ad: 'TL KKM, toplam (milyar TL)' },
+];
+
+export async function kkmAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TCMB kur korumalı mevduat istatistikleri (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(KKM_SERILERI),
+    satirlar: await aylikFormullu(KKM_SERILERI, new Date(Date.UTC(2021, 11, 1)), simdi, anahtar, 'Kur korumalı mevduat', 50),
   };
 }
 

@@ -81,6 +81,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/politika-faizi/': 'ppk repo merkez bankası faiz kararı',
   '/veri/reel-faiz/': 'faiz enflasyon',
   '/veri/piyasa-faizleri/': 'mevduat faizi kredi faizi konut kredisi taşıt',
+  '/veri/kur-korumali-mevduat/': 'kkm kur korumalı mevduat döviz dönüşümlü tl kkm',
   '/veri/para-arzi/': 'm1 m2 m3 para arzı parasal büyüklükler dolaşımdaki para vadeli vadesiz mevduat likidite',
   '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
@@ -327,6 +328,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/doviz-mevduatlari/')}>
               <a href="/veri/doviz-mevduatlari/" class="fihrist-baslik-link">Döviz Mevduatları (YP Mevduat)</a>
               <span class="fihrist-ozet">Bankacılık sektörü yurtiçi yerleşiklerin döviz ve altın mevduatları</span>
+            </li>
+            <li data-ek={aramaEki('/veri/kur-korumali-mevduat/')}>
+              <a href="/veri/kur-korumali-mevduat/" class="fihrist-baslik-link">Kur Korumalı Mevduat (KKM)</a>
+              <span class="fihrist-ozet">Aralık 2021’den bugüne döviz dönüşümlü ve TL KKM stoku</span>
             </li>
             <li data-ek={aramaEki('/veri/tcmb-rezervleri/')}>
               <a href="/veri/tcmb-rezervleri/" class="fihrist-baslik-link">TCMB Rezervleri</a>
