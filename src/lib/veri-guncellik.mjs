@@ -97,6 +97,7 @@ const RESMI_SAYFA = {
   banknot: '/veri/banknotlar/',
   odeme: '/veri/odeme-sistemleri/',
   turizm: '/veri/turizm/',
+  uyp: '/veri/yatirim-pozisyonu/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

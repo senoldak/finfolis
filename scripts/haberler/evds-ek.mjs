@@ -391,6 +391,8 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //  - turizm: milliyetlere göre yabancı ziyaretçi sayısı (Kültür ve Turizm Bakanlığı, aylık, 2008'den; kıtalar ve başlıca
 //      ülkeler, son ayın ülke tablosu EVDS seri listesinden) ile turizm geliri ve gideri (bin ABD doları, aylık, 2012'den;
 //      ziyaretçiden farklı ayda biter, ayrı dizi). Doğrulandı 29.10.2026.
+//  - uyp: uluslararası yatırım pozisyonu (TCMB, üç aylık, milyon ABD doları, 2006'dan; doğrulandı 29.10.2026): net
+//      pozisyon, varlıklar ve yükümlülükler ile doğrudan yatırım, portföy, türev, diğer yatırım ve rezerv kırılımı.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -1282,6 +1284,35 @@ export async function turizmAl(simdi, anahtar) {
     satirlar,
     gelir,
     ulkeTablosu: { yil: son.yil, ay: son.ay, ulkeler: ulkeTablosu },
+  };
+}
+
+// Uluslararası yatırım pozisyonu (çeyrek sonu stok, milyon $). Varlıklar = doğrudan + portföy + türev + diğer + rezerv;
+// yükümlülükler = doğrudan + portföy + türev + diğer; net = varlıklar − yükümlülükler (doğrulandı 29.10.2026). Türevler
+// 2005 sonundan; satırlar 2006'dan.
+export const UYP_SERILERI = [
+  ['K1', 'net', 'Uluslararası yatırım pozisyonu, net'],
+  ['K2', 'varlik', 'Varlıklar'],
+  ['K40', 'yukumluluk', 'Yükümlülükler'],
+  ['K3', 'vDogrudan', 'Varlıklar, doğrudan yatırımlar'],
+  ['K6', 'vPortfoy', 'Varlıklar, portföy yatırımları'],
+  ['K88', 'vTurev', 'Varlıklar, finansal türevler'],
+  ['K15', 'vDiger', 'Varlıklar, diğer yatırımlar'],
+  ['K32', 'rezerv', 'Rezerv varlıklar'],
+  ['K41', 'yDogrudan', 'Yükümlülükler, doğrudan yatırımlar'],
+  ['K44', 'yPortfoy', 'Yükümlülükler, portföy yatırımları'],
+  ['K86', 'yHisse', 'Yükümlülükler, hisse senetleri ve yatırım fonu payları'],
+  ['K48', 'yBorcSenedi', 'Yükümlülükler, borç senetleri'],
+  ['K89', 'yTurev', 'Yükümlülükler, finansal türevler'],
+  ['K58', 'yDiger', 'Yükümlülükler, diğer yatırımlar (krediler, mevduatlar)'],
+].map(([k, alan, ad]) => ({ kod: `TP.UYPUCAY.${k}`, formul: 0, alan, ad }));
+
+export async function uypAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TCMB, uluslararası yatırım pozisyonu (TCMB EVDS)', url: EVDS_SAYFA },
+    birim: 'milyon ABD doları',
+    seriler: tanimlar(UYP_SERILERI),
+    ceyrekler: await ceyrekFormullu(UYP_SERILERI, new Date(Date.UTC(2006, 0, 1)), simdi, anahtar, 'Uluslararası yatırım pozisyonu', 70),
   };
 }
 

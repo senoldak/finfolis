@@ -1,0 +1,225 @@
+---
+// Uluslararası yatırım pozisyonu: TCMB'nin üç aylık UYP verisi (çeyrek sonu stok, milyon ABD doları), EVDS'den. Sayfa
+// hesapları yalnız milyar dolara çevirme ve kalemlerin toplam içindeki payıdır (EVDS düzeylerinden). Stoklar kur ve
+// fiyat değişimlerini de içerir. Başka türetme ve tahmin yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const uyp = RESMI.uyp;
+const ceyrekler = uyp?.ceyrekler ?? [];
+const son = ceyrekler.at(-1);
+const yilOnce = son ? ceyrekler.find((s) => s.yil === son.yil - 1 && s.ceyrek === son.ceyrek) : undefined;
+
+const ceyrekAdi = (s: { yil: number; ceyrek: number }) => `${s.yil} ${s.ceyrek}. çeyrek`;
+const t = (s: { yil: number; ceyrek: number }) => s.yil * 4 + s.ceyrek - 1;
+const milyar = (n: number) => n / 1000;
+const milyarYaz = (n: number) => `${n < 0 ? '−' : ''}${sayiYaz(Math.abs(milyar(n)), 1)} milyar $`;
+
+const gruplar1 = [
+  {
+    id: 'toplam',
+    ad: 'Net, varlık, yükümlülük',
+    seriler: [
+      { id: 'yukumluluk', ad: 'Yükümlülükler', renk: 'toprak' as const },
+      { id: 'varlik', ad: 'Varlıklar', renk: 'mavi' as const },
+      { id: 'net', ad: 'Net pozisyon', renk: 'murekkep' as const },
+    ],
+  },
+  {
+    id: 'yuk',
+    ad: 'Yükümlülükler',
+    seriler: [
+      { id: 'yDiger', ad: 'Diğer yatırımlar (krediler, mevduat)', renk: 'murekkep' as const },
+      { id: 'yDogrudan', ad: 'Doğrudan yatırımlar', renk: 'toprak' as const },
+      { id: 'yPortfoy', ad: 'Portföy yatırımları', renk: 'mavi' as const },
+      { id: 'yTurev', ad: 'Finansal türevler', renk: 'yesil' as const },
+    ],
+  },
+  {
+    id: 'varlik',
+    ad: 'Varlıklar',
+    seriler: [
+      { id: 'rezerv', ad: 'Rezerv varlıklar', renk: 'murekkep' as const },
+      { id: 'vDiger', ad: 'Diğer yatırımlar', renk: 'toprak' as const },
+      { id: 'vDogrudan', ad: 'Doğrudan yatırımlar', renk: 'mavi' as const },
+      { id: 'vPortfoy', ad: 'Portföy yatırımları', renk: 'yesil' as const },
+    ],
+  },
+];
+const ALANLAR = ['yukumluluk', 'varlik', 'net', 'yDiger', 'yDogrudan', 'yPortfoy', 'yTurev', 'rezerv', 'vDiger', 'vDogrudan', 'vPortfoy'] as const;
+const noktalar = ceyrekler.map((s) => [t(s), ...ALANLAR.map((a) => milyar(s[a]))]);
+
+const tablo = son
+  ? [
+      { ad: 'Varlıklar', d: son.varlik, ust: true, toplam: son.varlik },
+      { ad: 'Doğrudan yatırımlar', d: son.vDogrudan, toplam: son.varlik },
+      { ad: 'Portföy yatırımları', d: son.vPortfoy, toplam: son.varlik },
+      { ad: 'Finansal türevler', d: son.vTurev, toplam: son.varlik },
+      { ad: 'Diğer yatırımlar', d: son.vDiger, toplam: son.varlik },
+      { ad: 'Rezerv varlıklar', d: son.rezerv, toplam: son.varlik },
+      { ad: 'Yükümlülükler', d: son.yukumluluk, ust: true, toplam: son.yukumluluk },
+      { ad: 'Doğrudan yatırımlar', d: son.yDogrudan, toplam: son.yukumluluk },
+      { ad: 'Portföy yatırımları', d: son.yPortfoy, toplam: son.yukumluluk },
+      { ad: 'Hisse senedi ve fon payları', d: son.yHisse, toplam: son.yukumluluk, alt: true },
+      { ad: 'Borç senetleri', d: son.yBorcSenedi, toplam: son.yukumluluk, alt: true },
+      { ad: 'Finansal türevler', d: son.yTurev, toplam: son.yukumluluk },
+      { ad: 'Diğer yatırımlar (krediler, mevduat)', d: son.yDiger, toplam: son.yukumluluk },
+    ]
+  : [];
+
+const baslik = 'Uluslararası yatırım pozisyonu';
+const description = son
+  ? `${ceyrekAdi(son)} sonunda Türkiye’nin uluslararası yatırım pozisyonu ${milyarYaz(son.net)}: varlıklar ${milyarYaz(son.varlik)}, yükümlülükler ${milyarYaz(son.yukumluluk)}. TCMB verisi.`
+  : 'Türkiye’nin yurt dışına karşı finansal varlıkları, yükümlülükleri ve net uluslararası yatırım pozisyonu, TCMB verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/yatirim-pozisyonu/' },
+];
+const ck = (s: { yil: number; ceyrek: number }) => `${s.yil}-Q${s.ceyrek}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(uyp && son
+    ? {
+        sayfaEk: { dateModified: uyp.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Uluslararası yatırım pozisyonu',
+            description:
+              'Türkiye’nin çeyrek sonu uluslararası yatırım pozisyonu: varlıklar, yükümlülükler ve net pozisyon; doğrudan yatırım, portföy, türev, diğer yatırım ve rezerv kırılımı (milyon ABD doları), TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/yatirim-pozisyonu/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ck(ceyrekler[0])}/${ck(son)}`,
+            dateModified: uyp.alinma,
+            variableMeasured: ['Net uluslararası yatırım pozisyonu (milyon ABD doları)', 'Varlıklar ve yükümlülükler, kalemlere göre (milyon ABD doları)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Uluslararası yatırım pozisyonu: ${son ? ceyrekAdi(son) : 'üç aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Yurt dışına karşı varlıklar ve yükümlülükler · TCMB, üç aylık</p>
+    </header>
+    {
+      uyp && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Net pozisyon</dt>
+              <dd>{milyarYaz(son.net)}</dd>
+              <dd class="veri-degisim">{`${ceyrekAdi(son)} sonu${yilOnce ? `; bir yıl önce ${milyarYaz(yilOnce.net)}` : ''}`}</dd>
+            </div>
+            <div>
+              <dt>Varlıklar</dt>
+              <dd>{milyarYaz(son.varlik)}</dd>
+              <dd class="veri-degisim">Rezervler {milyarYaz(son.rezerv)}</dd>
+            </div>
+            <div>
+              <dt>Yükümlülükler</dt>
+              <dd>{milyarYaz(son.yukumluluk)}</dd>
+              <dd class="veri-degisim">Doğrudan yatırımlar {milyarYaz(son.yDogrudan)}</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={uyp.kaynak.url} rel="noopener">{uyp.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
+            {zamanYaz(uyp.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Varlıklar, yükümlülükler ve net pozisyon"
+            ipucu="Milyar ABD doları, çeyrek sonu · Grup düğmesiyle kalemler arasında geçilir · Sıfırın altı net yükümlülüktür"
+            kaynak="Kaynak: TCMB, uluslararası yatırım pozisyonu (TCMB EVDS)."
+            siklik="ceyrek"
+            birim="milyarUsd"
+            ondalik={0}
+            seriIdleri={[...ALANLAR]}
+            noktalar={noktalar}
+            gruplar={gruplar1}
+            grupEtiketi="Seri grubu"
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Kalemler, {ceyrekAdi(son)} sonu</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Kalem</th>
+                      <th scope="col" class="sag">Milyar $</th>
+                      <th scope="col" class="sag">Pay</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tablo.map((k) => (
+                      <tr class:list={{ ust: k.ust, alt: k.alt }}>
+                        <td>{k.ad}</td>
+                        <td class="sag">{sayiYaz(milyar(k.d), 1)}</td>
+                        <td class="sag">{k.ust ? '' : yuzdeYaz((k.d / k.toplam) * 100)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Pay, kalemin varlıklar ya da yükümlülükler toplamı içindeki payıdır ve sayfada hesaplanır. Girintili iki satır
+                portföy yatırımlarının parçasıdır.
+              </p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Uluslararası yatırım pozisyonu, Türkiye’de yerleşik kişi ve kurumların yurt dışındaki finansal varlıkları ile
+                yurt dışına olan finansal yükümlülüklerinin belli bir tarihteki stokudur. Net pozisyon, varlıklardan
+                yükümlülüklerin çıkarılmasıyla bulunur; eksi değer net yükümlülük demektir.
+              </p>
+              <p>
+                Yükümlülüklerde doğrudan yatırımlar, yabancıların Türkiye’deki şirketlerdeki ortaklık paylarını ve şirket içi borçlarını; portföy
+                yatırımları hisse senedi ve tahvil alımlarını; diğer yatırımlar ise kredi ve mevduatları gösterir. Stoklar dolar
+                cinsinden olduğu için kurdaki ve fiyatlardaki değişimler de rakamları etkiler.
+              </p>
+            </section>
+          </div>
+        </>
+      ) : (
+        <p class="bos">Yatırım pozisyonu verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/dis-borc/">Dış borç</a>
+      <a href="/veri/cari-denge/">Cari denge</a>
+      <a href="/veri/yabanci-portfoy-akimlari/">Yabancı portföy akımları</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+  .ust td {
+    font-weight: 600;
+  }
+  .alt td:first-child {
+    padding-left: 1.25rem;
+  }
+</style>

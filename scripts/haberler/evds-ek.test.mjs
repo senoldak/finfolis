@@ -24,6 +24,7 @@ import {
   banknotAl,
   odemeAl,
   turizmAl,
+  uypAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -681,6 +682,21 @@ test('turizmAl: 2009’dan satırlar, eksik gider ayı null, ülke tablosu seri 
   assert.deepEqual([t.gelir.at(-1).yil, t.gelir.at(-1).ay], [2026, 3]);
   assert.equal(t.ulkeTablosu.ulkeler.length, 60);
   assert.ok(!t.ulkeTablosu.ulkeler.some((x) => /Diğer|Toplam|Avrupa/.test(x.ad)));
+});
+
+test('uypAl: üç aylık 14 seri, 2006’dan', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    istekler.push(decodeURIComponent(String(url)));
+    const items = [];
+    for (let y = 2006; y <= 2026; y++) for (let q = 1; q <= 4 && !(y === 2026 && q > 2); q++) items.push({ Tarih: `${y}-Q${q}`, ...Object.fromEntries(alanlar(url).map((x) => [x, '-5'])) });
+    return yanit({ items });
+  };
+  const u = await uypAl(SIMDI, 'x');
+  assert.equal(alanlar(istekler[0]).length, 14);
+  assert.equal(u.birim, 'milyon ABD doları');
+  assert.deepEqual([u.ceyrekler[0].yil, u.ceyrekler[0].ceyrek, u.ceyrekler.at(-1).yil, u.ceyrekler.at(-1).ceyrek], [2006, 1, 2026, 2]);
+  assert.equal(u.ceyrekler[0].net, -5);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

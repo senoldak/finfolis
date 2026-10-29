@@ -89,6 +89,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/banknotlar/': 'banknot kupür 200 tl 100 tl nakit tedavül emisyon para',
   '/veri/odeme-sistemleri/': 'fast eft havale anlık ödeme ödeme sistemleri kira ödemesi karekod',
   '/veri/turizm/': 'turizm turist yabancı ziyaretçi turizm geliri almanya rusya ingiltere',
+  '/veri/yatirim-pozisyonu/': 'uluslararası yatırım pozisyonu uyp net dış varlık yükümlülük doğrudan yatırım portföy',
   '/veri/para-arzi/': 'm1 m2 m3 para arzı parasal büyüklükler dolaşımdaki para vadeli vadesiz mevduat likidite',
   '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
@@ -383,6 +384,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/dis-borc/')}>
               <a href="/veri/dis-borc/" class="fihrist-baslik-link">Dış Borç</a>
               <span class="fihrist-ozet">Kısa vadeli dış borç, rezervle karşılama oranı, brüt ve net borç stoku</span>
+            </li>
+            <li data-ek={aramaEki('/veri/yatirim-pozisyonu/')}>
+              <a href="/veri/yatirim-pozisyonu/" class="fihrist-baslik-link">Uluslararası Yatırım Pozisyonu</a>
+              <span class="fihrist-ozet">Türkiye’nin yurt dışına karşı varlıkları, yükümlülükleri ve net pozisyonu, üç aylık</span>
             </li>
             <li data-ek={aramaEki('/veri/yabanci-portfoy-akimlari/')}>
               <a href="/veri/yabanci-portfoy-akimlari/" class="fihrist-baslik-link">Yabancıların Portföy Akımları</a>

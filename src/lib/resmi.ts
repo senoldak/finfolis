@@ -353,6 +353,15 @@ export interface TurizmBolumu extends AylikSeriBolumu<'toplam' | 'toplamYillik' 
   ulkeTablosu: { yil: number; ay: number; ulkeler: { ad: string; sayi: number; yillik: number | null }[] };
 }
 
+// Uluslararası yatırım pozisyonu (TCMB, çeyrek sonu, milyon $).
+export interface UypBolumu {
+  kaynak: Kaynak;
+  birim: string;
+  seriler: SeriAdi[];
+  ceyrekler: ({ yil: number; ceyrek: number } & Record<'net' | 'varlik' | 'yukumluluk' | 'vDogrudan' | 'vPortfoy' | 'vTurev' | 'vDiger' | 'rezerv' | 'yDogrudan' | 'yPortfoy' | 'yHisse' | 'yBorcSenedi' | 'yTurev' | 'yDiger', number>)[];
+  alinma: string;
+}
+
 // Para arzı (TCMB, haftalık cuma stoku, bin TL); yıllık değişim %.
 export interface ParaArziBolumu {
   kaynak: Kaynak;
@@ -432,6 +441,7 @@ export const RESMI = data as unknown as {
   elektrik?: ElektrikBolumu;
   odeme?: OdemeBolumu;
   turizm?: TurizmBolumu;
+  uyp?: UypBolumu;
   banknot?: AylikSeriBolumu<`${'k200' | 'k100' | 'k50' | 'k20' | 'k10' | 'k5' | 'diger' | 'toplam'}${'Adet' | 'Tutar'}`>;
   cek?: AylikSeriBolumu<'ibrazAdet' | 'ibrazTutar' | 'karsiliksizAdet' | 'karsiliksizTutar'>;
 };
