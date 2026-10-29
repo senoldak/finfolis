@@ -141271,5 +141271,4734 @@
       ]
     },
     "alinma": "2026-10-29T18:07:24.571Z"
+  },
+  "turizm": {
+    "kaynak": {
+      "ad": "Kültür ve Turizm Bakanlığı verisi, milliyetlere göre ziyaretçi sayısı; turizm gelir ve giderleri (TCMB EVDS)",
+      "url": "https://evds3.tcmb.gov.tr/"
+    },
+    "seriler": [
+      {
+        "alan": "toplam",
+        "ad": "Yabancı ziyaretçi, toplam"
+      },
+      {
+        "alan": "toplamYillik",
+        "ad": "Yabancı ziyaretçi, toplam, yıllık değişim"
+      },
+      {
+        "alan": "avrupa",
+        "ad": "Avrupa"
+      },
+      {
+        "alan": "asya",
+        "ad": "Asya"
+      },
+      {
+        "alan": "amerika",
+        "ad": "Amerika"
+      },
+      {
+        "alan": "afrika",
+        "ad": "Afrika"
+      },
+      {
+        "alan": "okyanusya",
+        "ad": "Okyanusya"
+      },
+      {
+        "alan": "almanya",
+        "ad": "Almanya"
+      },
+      {
+        "alan": "rusya",
+        "ad": "Rusya"
+      },
+      {
+        "alan": "ingiltere",
+        "ad": "İngiltere"
+      },
+      {
+        "alan": "iran",
+        "ad": "İran"
+      }
+    ],
+    "gelirSeriler": [
+      {
+        "alan": "gelir",
+        "ad": "Turizm geliri (bin ABD doları)"
+      },
+      {
+        "alan": "gider",
+        "ad": "Turizm gideri (bin ABD doları)"
+      }
+    ],
+    "satirlar": [
+      {
+        "yil": 2009,
+        "ay": 1,
+        "toplam": 906602,
+        "toplamYillik": -1.40690063,
+        "avrupa": 595837,
+        "asya": 250670,
+        "amerika": 34512,
+        "afrika": 19116,
+        "okyanusya": 5121,
+        "almanya": 158969,
+        "rusya": 37542,
+        "ingiltere": 35992,
+        "iran": 27575
+      },
+      {
+        "yil": 2009,
+        "ay": 2,
+        "toplam": 857114,
+        "toplamYillik": -0.19062569,
+        "avrupa": 529904,
+        "asya": 277392,
+        "amerika": 24172,
+        "afrika": 20852,
+        "okyanusya": 3610,
+        "almanya": 131017,
+        "rusya": 32056,
+        "ingiltere": 33371,
+        "iran": 30736
+      },
+      {
+        "yil": 2009,
+        "ay": 3,
+        "toplam": 1179459,
+        "toplamYillik": -3.44712697,
+        "avrupa": 715065,
+        "asya": 391728,
+        "amerika": 39876,
+        "afrika": 27697,
+        "okyanusya": 3772,
+        "almanya": 198101,
+        "rusya": 33651,
+        "ingiltere": 44414,
+        "iran": 132580
+      },
+      {
+        "yil": 2009,
+        "ay": 4,
+        "toplam": 1564694,
+        "toplamYillik": 10.85366934,
+        "avrupa": 1080609,
+        "asya": 379522,
+        "amerika": 57760,
+        "afrika": 31857,
+        "okyanusya": 13102,
+        "almanya": 276199,
+        "rusya": 46737,
+        "ingiltere": 98392,
+        "iran": 91154
+      },
+      {
+        "yil": 2009,
+        "ay": 5,
+        "toplam": 2416640,
+        "toplamYillik": -3.71940684,
+        "avrupa": 1838307,
+        "asya": 440553,
+        "amerika": 90949,
+        "afrika": 30338,
+        "okyanusya": 14657,
+        "almanya": 336715,
+        "rusya": 243035,
+        "ingiltere": 229667,
+        "iran": 102461
+      },
+      {
+        "yil": 2009,
+        "ay": 6,
+        "toplam": 2999541,
+        "toplamYillik": 3.32741062,
+        "avrupa": 2326496,
+        "asya": 508711,
+        "amerika": 113972,
+        "afrika": 32180,
+        "okyanusya": 15825,
+        "almanya": 425237,
+        "rusya": 467197,
+        "ingiltere": 322492,
+        "iran": 133936
+      },
+      {
+        "yil": 2009,
+        "ay": 7,
+        "toplam": 3615548,
+        "toplamYillik": 1.96720341,
+        "avrupa": 2793188,
+        "asya": 623442,
+        "amerika": 127478,
+        "afrika": 46393,
+        "okyanusya": 20743,
+        "almanya": 499159,
+        "rusya": 484041,
+        "ingiltere": 359696,
+        "iran": 173637
+      },
+      {
+        "yil": 2009,
+        "ay": 8,
+        "toplam": 4605083,
+        "toplamYillik": 3.48312761,
+        "avrupa": 3677870,
+        "asya": 708069,
+        "amerika": 125776,
+        "afrika": 65741,
+        "okyanusya": 22645,
+        "almanya": 796792,
+        "rusya": 514118,
+        "ingiltere": 464683,
+        "iran": 153252
+      },
+      {
+        "yil": 2009,
+        "ay": 9,
+        "toplam": 3349978,
+        "toplamYillik": 1.91603402,
+        "avrupa": 2685080,
+        "asya": 493654,
+        "amerika": 126416,
+        "afrika": 21390,
+        "okyanusya": 20968,
+        "almanya": 526500,
+        "rusya": 469257,
+        "ingiltere": 407808,
+        "iran": 112785
+      },
+      {
+        "yil": 2009,
+        "ay": 10,
+        "toplam": 3115112,
+        "toplamYillik": 9.68808506,
+        "avrupa": 2324311,
+        "asya": 573503,
+        "amerika": 148094,
+        "afrika": 45976,
+        "okyanusya": 20520,
+        "almanya": 651383,
+        "rusya": 255366,
+        "ingiltere": 338938,
+        "iran": 178991
+      },
+      {
+        "yil": 2009,
+        "ay": 11,
+        "toplam": 1581734,
+        "toplamYillik": 9.51523397,
+        "avrupa": 999847,
+        "asya": 452653,
+        "amerika": 82326,
+        "afrika": 35597,
+        "okyanusya": 9693,
+        "almanya": 312003,
+        "rusya": 65296,
+        "ingiltere": 74677,
+        "iran": 140223
+      },
+      {
+        "yil": 2009,
+        "ay": 12,
+        "toplam": 1156472,
+        "toplamYillik": 11.23409838,
+        "avrupa": 673130,
+        "asya": 403559,
+        "amerika": 37264,
+        "afrika": 34751,
+        "okyanusya": 6185,
+        "almanya": 169496,
+        "rusya": 48488,
+        "ingiltere": 34885,
+        "iran": 92566
+      },
+      {
+        "yil": 2010,
+        "ay": 1,
+        "toplam": 940379,
+        "toplamYillik": 3.72567014,
+        "avrupa": 577216,
+        "asya": 309327,
+        "amerika": 29401,
+        "afrika": 18945,
+        "okyanusya": 4435,
+        "almanya": 158731,
+        "rusya": 40680,
+        "ingiltere": 28608,
+        "iran": 90150
+      },
+      {
+        "yil": 2010,
+        "ay": 2,
+        "toplam": 897345,
+        "toplamYillik": 4.69377469,
+        "avrupa": 495244,
+        "asya": 357738,
+        "amerika": 22086,
+        "afrika": 18663,
+        "okyanusya": 2859,
+        "almanya": 126747,
+        "rusya": 37194,
+        "ingiltere": 29236,
+        "iran": 108668
+      },
+      {
+        "yil": 2010,
+        "ay": 3,
+        "toplam": 1269770,
+        "toplamYillik": 7.65698511,
+        "avrupa": 695946,
+        "asya": 506608,
+        "amerika": 36867,
+        "afrika": 25234,
+        "okyanusya": 4034,
+        "almanya": 211778,
+        "rusya": 40867,
+        "ingiltere": 37757,
+        "iran": 216898
+      },
+      {
+        "yil": 2010,
+        "ay": 4,
+        "toplam": 1634199,
+        "toplamYillik": 4.44208261,
+        "avrupa": 1050139,
+        "asya": 484706,
+        "amerika": 57986,
+        "afrika": 27417,
+        "okyanusya": 12383,
+        "almanya": 270455,
+        "rusya": 57242,
+        "ingiltere": 95248,
+        "iran": 156601
+      },
+      {
+        "yil": 2010,
+        "ay": 5,
+        "toplam": 2711058,
+        "toplamYillik": 12.18294823,
+        "avrupa": 2035178,
+        "asya": 517071,
+        "amerika": 111607,
+        "afrika": 29416,
+        "okyanusya": 16167,
+        "almanya": 373082,
+        "rusya": 329978,
+        "ingiltere": 286639,
+        "iran": 159595
+      },
+      {
+        "yil": 2010,
+        "ay": 6,
+        "toplam": 3292445,
+        "toplamYillik": 9.76496071,
+        "avrupa": 2525936,
+        "asya": 583377,
+        "amerika": 125269,
+        "afrika": 31396,
+        "okyanusya": 24375,
+        "almanya": 418535,
+        "rusya": 571657,
+        "ingiltere": 408614,
+        "iran": 179412
+      },
+      {
+        "yil": 2010,
+        "ay": 7,
+        "toplam": 3809378,
+        "toplamYillik": 5.36101305,
+        "avrupa": 2848559,
+        "asya": 761843,
+        "amerika": 123385,
+        "afrika": 50896,
+        "okyanusya": 20295,
+        "almanya": 440751,
+        "rusya": 553694,
+        "ingiltere": 430335,
+        "iran": 206835
+      },
+      {
+        "yil": 2010,
+        "ay": 8,
+        "toplam": 4320205,
+        "toplamYillik": -6.18616429,
+        "avrupa": 3471867,
+        "asya": 687833,
+        "amerika": 98223,
+        "afrika": 39504,
+        "okyanusya": 18860,
+        "almanya": 705076,
+        "rusya": 556036,
+        "ingiltere": 483899,
+        "iran": 141101
+      },
+      {
+        "yil": 2010,
+        "ay": 9,
+        "toplam": 3612808,
+        "toplamYillik": 7.84572317,
+        "avrupa": 2746940,
+        "asya": 692286,
+        "amerika": 121479,
+        "afrika": 27448,
+        "okyanusya": 22390,
+        "almanya": 529244,
+        "rusya": 495084,
+        "ingiltere": 421772,
+        "iran": 208296
+      },
+      {
+        "yil": 2010,
+        "ay": 10,
+        "toplam": 3264167,
+        "toplamYillik": 4.78490019,
+        "avrupa": 2472090,
+        "asya": 599213,
+        "amerika": 132365,
+        "afrika": 36641,
+        "okyanusya": 21698,
+        "almanya": 682960,
+        "rusya": 291757,
+        "ingiltere": 355096,
+        "iran": 168004
+      },
+      {
+        "yil": 2010,
+        "ay": 11,
+        "toplam": 1637993,
+        "toplamYillik": 3.55679274,
+        "avrupa": 1015753,
+        "asya": 519974,
+        "amerika": 67003,
+        "afrika": 26164,
+        "okyanusya": 7709,
+        "almanya": 315436,
+        "rusya": 69535,
+        "ingiltere": 71241,
+        "iran": 134996
+      },
+      {
+        "yil": 2010,
+        "ay": 12,
+        "toplam": 1121105,
+        "toplamYillik": -3.0581804,
+        "avrupa": 587749,
+        "asya": 471129,
+        "amerika": 31491,
+        "afrika": 25194,
+        "okyanusya": 4424,
+        "almanya": 137453,
+        "rusya": 44013,
+        "ingiltere": 32143,
+        "iran": 100397
+      },
+      {
+        "yil": 2011,
+        "ay": 1,
+        "toplam": 1079135,
+        "toplamYillik": 14.75532737,
+        "avrupa": 603940,
+        "asya": 411954,
+        "amerika": 33933,
+        "afrika": 23285,
+        "okyanusya": 4870,
+        "almanya": 148005,
+        "rusya": 49369,
+        "ingiltere": 29991,
+        "iran": 102866
+      },
+      {
+        "yil": 2011,
+        "ay": 2,
+        "toplam": 1004108,
+        "toplamYillik": 11.89765363,
+        "avrupa": 566728,
+        "asya": 382981,
+        "amerika": 30365,
+        "afrika": 19575,
+        "okyanusya": 3564,
+        "almanya": 133851,
+        "rusya": 51793,
+        "ingiltere": 31963,
+        "iran": 103872
+      },
+      {
+        "yil": 2011,
+        "ay": 3,
+        "toplam": 1515953,
+        "toplamYillik": 19.3879994,
+        "avrupa": 868347,
+        "asya": 569129,
+        "amerika": 49335,
+        "afrika": 23988,
+        "okyanusya": 3830,
+        "almanya": 246817,
+        "rusya": 70300,
+        "ingiltere": 41453,
+        "iran": 237810
+      },
+      {
+        "yil": 2011,
+        "ay": 4,
+        "toplam": 2002607,
+        "toplamYillik": 22.54364371,
+        "avrupa": 1356670,
+        "asya": 518083,
+        "amerika": 79516,
+        "afrika": 33273,
+        "okyanusya": 13190,
+        "almanya": 351036,
+        "rusya": 101666,
+        "ingiltere": 123770,
+        "iran": 155897
+      },
+      {
+        "yil": 2011,
+        "ay": 5,
+        "toplam": 2988727,
+        "toplamYillik": 10.24208999,
+        "avrupa": 2278551,
+        "asya": 526124,
+        "amerika": 127306,
+        "afrika": 34290,
+        "okyanusya": 20413,
+        "almanya": 422245,
+        "rusya": 424038,
+        "ingiltere": 276002,
+        "iran": 135738
+      },
+      {
+        "yil": 2011,
+        "ay": 6,
+        "toplam": 3512503,
+        "toplamYillik": 6.68372592,
+        "avrupa": 2665297,
+        "asya": 659879,
+        "amerika": 128637,
+        "afrika": 34992,
+        "okyanusya": 21199,
+        "almanya": 469357,
+        "rusya": 603553,
+        "ingiltere": 361693,
+        "iran": 162328
+      },
+      {
+        "yil": 2011,
+        "ay": 7,
+        "toplam": 4250199,
+        "toplamYillik": 11.57199417,
+        "avrupa": 3149978,
+        "asya": 853644,
+        "amerika": 148371,
+        "afrika": 64824,
+        "okyanusya": 28550,
+        "almanya": 488829,
+        "rusya": 606299,
+        "ingiltere": 389403,
+        "iran": 187386
+      },
+      {
+        "yil": 2011,
+        "ay": 8,
+        "toplam": 4427495,
+        "toplamYillik": 2.48344697,
+        "avrupa": 3387847,
+        "asya": 711046,
+        "amerika": 146620,
+        "afrika": 158056,
+        "okyanusya": 20738,
+        "almanya": 631466,
+        "rusya": 604946,
+        "ingiltere": 446959,
+        "iran": 154926
+      },
+      {
+        "yil": 2011,
+        "ay": 9,
+        "toplam": 4142092,
+        "toplamYillik": 14.65021114,
+        "avrupa": 3076040,
+        "asya": 835177,
+        "amerika": 157499,
+        "afrika": 42450,
+        "okyanusya": 27432,
+        "almanya": 669589,
+        "rusya": 534258,
+        "ingiltere": 426109,
+        "iran": 254914
+      },
+      {
+        "yil": 2011,
+        "ay": 10,
+        "toplam": 3464540,
+        "toplamYillik": 6.1385646,
+        "avrupa": 2604403,
+        "asya": 620368,
+        "amerika": 170628,
+        "afrika": 43692,
+        "okyanusya": 23064,
+        "almanya": 725037,
+        "rusya": 296794,
+        "ingiltere": 353662,
+        "iran": 154476
+      },
+      {
+        "yil": 2011,
+        "ay": 11,
+        "toplam": 1802660,
+        "toplamYillik": 10.05297336,
+        "avrupa": 1137574,
+        "asya": 533045,
+        "amerika": 86558,
+        "afrika": 35668,
+        "okyanusya": 8112,
+        "almanya": 386687,
+        "rusya": 62970,
+        "ingiltere": 77802,
+        "iran": 119326
+      },
+      {
+        "yil": 2011,
+        "ay": 12,
+        "toplam": 1134509,
+        "toplamYillik": 1.19560612,
+        "avrupa": 606464,
+        "asya": 449679,
+        "amerika": 32389,
+        "afrika": 40089,
+        "okyanusya": 4587,
+        "almanya": 142237,
+        "rusya": 40664,
+        "ingiltere": 31854,
+        "iran": 95963
+      },
+      {
+        "yil": 2012,
+        "ay": 1,
+        "toplam": 1097254,
+        "toplamYillik": 1.67902996,
+        "avrupa": 609843,
+        "asya": 404447,
+        "amerika": 35667,
+        "afrika": 40886,
+        "okyanusya": 5076,
+        "almanya": 153796,
+        "rusya": 58601,
+        "ingiltere": 29257,
+        "iran": 86734
+      },
+      {
+        "yil": 2012,
+        "ay": 2,
+        "toplam": 932503,
+        "toplamYillik": -7.13120501,
+        "avrupa": 525604,
+        "asya": 336602,
+        "amerika": 27712,
+        "afrika": 38278,
+        "okyanusya": 3211,
+        "almanya": 132771,
+        "rusya": 49413,
+        "ingiltere": 30280,
+        "iran": 61705
+      },
+      {
+        "yil": 2012,
+        "ay": 3,
+        "toplam": 1344975,
+        "toplamYillik": -11.27858186,
+        "avrupa": 791610,
+        "asya": 454241,
+        "amerika": 44026,
+        "afrika": 49973,
+        "okyanusya": 3495,
+        "almanya": 215385,
+        "rusya": 57882,
+        "ingiltere": 42924,
+        "iran": 119165
+      },
+      {
+        "yil": 2012,
+        "ay": 4,
+        "toplam": 1930140,
+        "toplamYillik": -3.61863311,
+        "avrupa": 1310151,
+        "asya": 470042,
+        "amerika": 74217,
+        "afrika": 60825,
+        "okyanusya": 12706,
+        "almanya": 337164,
+        "rusya": 88871,
+        "ingiltere": 118051,
+        "iran": 80308
+      },
+      {
+        "yil": 2012,
+        "ay": 5,
+        "toplam": 2907105,
+        "toplamYillik": -2.7309955,
+        "avrupa": 2181865,
+        "asya": 504957,
+        "amerika": 140540,
+        "afrika": 55779,
+        "okyanusya": 21706,
+        "almanya": 415930,
+        "rusya": 404021,
+        "ingiltere": 236684,
+        "iran": 80437
+      },
+      {
+        "yil": 2012,
+        "ay": 6,
+        "toplam": 3575063,
+        "toplamYillik": 1.78106609,
+        "avrupa": 2697722,
+        "asya": 639275,
+        "amerika": 145057,
+        "afrika": 62955,
+        "okyanusya": 27185,
+        "almanya": 515900,
+        "rusya": 587322,
+        "ingiltere": 343950,
+        "iran": 114250
+      },
+      {
+        "yil": 2012,
+        "ay": 7,
+        "toplam": 4240079,
+        "toplamYillik": -0.2381065,
+        "avrupa": 3215999,
+        "asya": 748854,
+        "amerika": 160821,
+        "afrika": 80154,
+        "okyanusya": 29470,
+        "almanya": 570290,
+        "rusya": 624127,
+        "ingiltere": 367512,
+        "iran": 124934
+      },
+      {
+        "yil": 2012,
+        "ay": 8,
+        "toplam": 4636889,
+        "toplamYillik": 4.72940116,
+        "avrupa": 3670475,
+        "asya": 766708,
+        "amerika": 121932,
+        "afrika": 49102,
+        "okyanusya": 24489,
+        "almanya": 719081,
+        "rusya": 649253,
+        "ingiltere": 416296,
+        "iran": 163351
+      },
+      {
+        "yil": 2012,
+        "ay": 9,
+        "toplam": 4284149,
+        "toplamYillik": 3.42959548,
+        "avrupa": 3280683,
+        "asya": 739669,
+        "amerika": 141501,
+        "afrika": 88466,
+        "okyanusya": 29520,
+        "almanya": 707945,
+        "rusya": 612895,
+        "ingiltere": 415635,
+        "iran": 145606
+      },
+      {
+        "yil": 2012,
+        "ay": 10,
+        "toplam": 3397483,
+        "toplamYillik": -1.93552391,
+        "avrupa": 2636540,
+        "asya": 517720,
+        "amerika": 149919,
+        "afrika": 64877,
+        "okyanusya": 25223,
+        "almanya": 739086,
+        "rusya": 327380,
+        "ingiltere": 335815,
+        "iran": 76263
+      },
+      {
+        "yil": 2012,
+        "ay": 11,
+        "toplam": 1807663,
+        "toplamYillik": 0.27753431,
+        "avrupa": 1164007,
+        "asya": 481479,
+        "amerika": 94418,
+        "afrika": 56390,
+        "okyanusya": 9591,
+        "almanya": 370204,
+        "rusya": 80735,
+        "ingiltere": 93785,
+        "iran": 66896
+      },
+      {
+        "yil": 2012,
+        "ay": 12,
+        "toplam": 1189161,
+        "toplamYillik": 4.81723812,
+        "avrupa": 644837,
+        "asya": 442889,
+        "amerika": 41066,
+        "afrika": 53482,
+        "okyanusya": 5200,
+        "almanya": 148108,
+        "rusya": 45228,
+        "ingiltere": 39522,
+        "iran": 64161
+      },
+      {
+        "yil": 2013,
+        "ay": 1,
+        "toplam": 1147136,
+        "toplamYillik": 4.54607593,
+        "avrupa": 647632,
+        "asya": 391389,
+        "amerika": 46063,
+        "afrika": 54344,
+        "okyanusya": 6093,
+        "almanya": 142837,
+        "rusya": 69877,
+        "ingiltere": 33531,
+        "iran": 61280
+      },
+      {
+        "yil": 2013,
+        "ay": 2,
+        "toplam": 1117425,
+        "toplamYillik": 19.83071368,
+        "avrupa": 611686,
+        "asya": 418119,
+        "amerika": 37362,
+        "afrika": 45371,
+        "okyanusya": 3541,
+        "almanya": 130989,
+        "rusya": 62033,
+        "ingiltere": 33810,
+        "iran": 71814
+      },
+      {
+        "yil": 2013,
+        "ay": 3,
+        "toplam": 1577358,
+        "toplamYillik": 17.27786762,
+        "avrupa": 938391,
+        "asya": 515819,
+        "amerika": 57789,
+        "afrika": 58958,
+        "okyanusya": 4176,
+        "almanya": 248775,
+        "rusya": 69958,
+        "ingiltere": 51782,
+        "iran": 109684
+      },
+      {
+        "yil": 2013,
+        "ay": 4,
+        "toplam": 2096105,
+        "toplamYillik": 8.59859907,
+        "avrupa": 1389239,
+        "asya": 534520,
+        "amerika": 84946,
+        "afrika": 71151,
+        "okyanusya": 13183,
+        "almanya": 360288,
+        "rusya": 103747,
+        "ingiltere": 111970,
+        "iran": 87165
+      },
+      {
+        "yil": 2013,
+        "ay": 5,
+        "toplam": 3402790,
+        "toplamYillik": 17.05081172,
+        "avrupa": 2567360,
+        "asya": 600769,
+        "amerika": 139944,
+        "afrika": 69207,
+        "okyanusya": 22445,
+        "almanya": 500220,
+        "rusya": 523998,
+        "ingiltere": 245467,
+        "iran": 89235
+      },
+      {
+        "yil": 2013,
+        "ay": 6,
+        "toplam": 3773896,
+        "toplamYillik": 5.56166423,
+        "avrupa": 2811893,
+        "asya": 705458,
+        "amerika": 148823,
+        "afrika": 75255,
+        "okyanusya": 28918,
+        "almanya": 474623,
+        "rusya": 673682,
+        "ingiltere": 343401,
+        "iran": 102052
+      },
+      {
+        "yil": 2013,
+        "ay": 7,
+        "toplam": 4133292,
+        "toplamYillik": -2.5185144,
+        "avrupa": 3142152,
+        "asya": 735178,
+        "amerika": 163138,
+        "afrika": 57532,
+        "okyanusya": 31484,
+        "almanya": 500243,
+        "rusya": 676387,
+        "ingiltere": 361643,
+        "iran": 102158
+      },
+      {
+        "yil": 2013,
+        "ay": 8,
+        "toplam": 5079689,
+        "toplamYillik": 9.54950615,
+        "avrupa": 3869664,
+        "asya": 958893,
+        "amerika": 142407,
+        "afrika": 73156,
+        "okyanusya": 30845,
+        "almanya": 736601,
+        "rusya": 732823,
+        "ingiltere": 438652,
+        "iran": 145707
+      },
+      {
+        "yil": 2013,
+        "ay": 9,
+        "toplam": 4503776,
+        "toplamYillik": 5.12650237,
+        "avrupa": 3383370,
+        "asya": 827581,
+        "amerika": 158892,
+        "afrika": 91845,
+        "okyanusya": 37851,
+        "almanya": 709184,
+        "rusya": 727009,
+        "ingiltere": 417426,
+        "iran": 151897
+      },
+      {
+        "yil": 2013,
+        "ay": 10,
+        "toplam": 3826713,
+        "toplamYillik": 12.63376447,
+        "avrupa": 2909021,
+        "asya": 661690,
+        "amerika": 160176,
+        "afrika": 64544,
+        "okyanusya": 27669,
+        "almanya": 749026,
+        "rusya": 484079,
+        "ingiltere": 350159,
+        "iran": 104177
+      },
+      {
+        "yil": 2013,
+        "ay": 11,
+        "toplam": 1887608,
+        "toplamYillik": 4.42256106,
+        "avrupa": 1187631,
+        "asya": 531933,
+        "amerika": 87500,
+        "afrika": 68724,
+        "okyanusya": 9836,
+        "almanya": 352086,
+        "rusya": 95426,
+        "ingiltere": 93603,
+        "iran": 88716
+      },
+      {
+        "yil": 2013,
+        "ay": 12,
+        "toplam": 1281685.99,
+        "toplamYillik": 7.78069496,
+        "avrupa": 686189,
+        "asya": 481939.99,
+        "amerika": 46825,
+        "afrika": 59335,
+        "okyanusya": 5709,
+        "almanya": 143327,
+        "rusya": 50201,
+        "ingiltere": 36572,
+        "iran": 75230
+      },
+      {
+        "yil": 2014,
+        "ay": 1,
+        "toplam": 1236452,
+        "toplamYillik": 7.78599922,
+        "avrupa": 678365,
+        "asya": 442752,
+        "amerika": 44837,
+        "afrika": 61963,
+        "okyanusya": 6502,
+        "almanya": 143863,
+        "rusya": 76711,
+        "ingiltere": 32940,
+        "iran": 78366
+      },
+      {
+        "yil": 2014,
+        "ay": 2,
+        "toplam": 1226182,
+        "toplamYillik": 9.73282323,
+        "avrupa": 631709,
+        "asya": 502068,
+        "amerika": 35374,
+        "afrika": 51708,
+        "okyanusya": 3765,
+        "almanya": 115241,
+        "rusya": 59809,
+        "ingiltere": 39709,
+        "iran": 113110
+      },
+      {
+        "yil": 2014,
+        "ay": 3,
+        "toplam": 1677890,
+        "toplamYillik": 6.37344217,
+        "avrupa": 913568,
+        "asya": 637824,
+        "amerika": 53856,
+        "afrika": 66404,
+        "okyanusya": 4281,
+        "almanya": 212463,
+        "rusya": 74736,
+        "ingiltere": 49192,
+        "iran": 183066
+      },
+      {
+        "yil": 2014,
+        "ay": 4,
+        "toplam": 2244712,
+        "toplamYillik": 7.08967347,
+        "avrupa": 1449222,
+        "asya": 623108,
+        "amerika": 79131,
+        "afrika": 74626,
+        "okyanusya": 14607,
+        "almanya": 375547,
+        "rusya": 106318,
+        "ingiltere": 125955,
+        "iran": 125835
+      },
+      {
+        "yil": 2014,
+        "ay": 5,
+        "toplam": 3520669,
+        "toplamYillik": 3.46418674,
+        "avrupa": 2580605,
+        "asya": 697256,
+        "amerika": 137143,
+        "afrika": 78476,
+        "okyanusya": 23269,
+        "almanya": 437406,
+        "rusya": 597716,
+        "ingiltere": 269306,
+        "iran": 107028
+      },
+      {
+        "yil": 2014,
+        "ay": 6,
+        "toplam": 4160935,
+        "toplamYillik": 10.25568802,
+        "avrupa": 3042973,
+        "asya": 837619,
+        "amerika": 154658,
+        "afrika": 90464,
+        "okyanusya": 30981,
+        "almanya": 564031,
+        "rusya": 776649,
+        "ingiltere": 351786,
+        "iran": 132002
+      },
+      {
+        "yil": 2014,
+        "ay": 7,
+        "toplam": 4320918,
+        "toplamYillik": 4.5393841,
+        "avrupa": 3269855,
+        "asya": 809470,
+        "amerika": 154498,
+        "afrika": 45940,
+        "okyanusya": 36895,
+        "almanya": 424758,
+        "rusya": 821774,
+        "ingiltere": 366868,
+        "iran": 151892
+      },
+      {
+        "yil": 2014,
+        "ay": 8,
+        "toplam": 5717412,
+        "toplamYillik": 12.55437095,
+        "avrupa": 4265986,
+        "asya": 1171566,
+        "amerika": 146194,
+        "afrika": 96446,
+        "okyanusya": 29807,
+        "almanya": 877404,
+        "rusya": 815516,
+        "ingiltere": 460142,
+        "iran": 192806
+      },
+      {
+        "yil": 2014,
+        "ay": 9,
+        "toplam": 4626281,
+        "toplamYillik": 2.72005091,
+        "avrupa": 3423284,
+        "asya": 908332,
+        "amerika": 157332,
+        "afrika": 91818,
+        "okyanusya": 39338,
+        "almanya": 794282,
+        "rusya": 677693,
+        "ingiltere": 437346,
+        "iran": 199315
+      },
+      {
+        "yil": 2014,
+        "ay": 10,
+        "toplam": 3840928,
+        "toplamYillik": 0.37146763,
+        "avrupa": 2805353,
+        "asya": 757097,
+        "amerika": 165069,
+        "afrika": 76442,
+        "okyanusya": 29202,
+        "almanya": 794644,
+        "rusya": 355546,
+        "ingiltere": 351189,
+        "iran": 117732
+      },
+      {
+        "yil": 2014,
+        "ay": 11,
+        "toplam": 1901420,
+        "toplamYillik": 0.73171972,
+        "avrupa": 1183974,
+        "asya": 560148,
+        "amerika": 72179,
+        "afrika": 71832,
+        "okyanusya": 9976,
+        "almanya": 361280,
+        "rusya": 79913,
+        "ingiltere": 83638,
+        "iran": 89562
+      },
+      {
+        "yil": 2014,
+        "ay": 12,
+        "toplam": 1376487,
+        "toplamYillik": 7.39658627,
+        "avrupa": 707389,
+        "asya": 544955,
+        "amerika": 51379,
+        "afrika": 64181,
+        "okyanusya": 5951,
+        "almanya": 150951,
+        "rusya": 40007,
+        "ingiltere": 38558,
+        "iran": 90406
+      },
+      {
+        "yil": 2015,
+        "ay": 1,
+        "toplam": 1382909,
+        "toplamYillik": 11.8449402,
+        "avrupa": 733579,
+        "asya": 523254,
+        "amerika": 52698,
+        "afrika": 63510,
+        "okyanusya": 6660,
+        "almanya": 170075,
+        "rusya": 59586,
+        "ingiltere": 34112,
+        "iran": 84219
+      },
+      {
+        "yil": 2015,
+        "ay": 2,
+        "toplam": 1256944,
+        "toplamYillik": 2.50876297,
+        "avrupa": 642018,
+        "asya": 511795,
+        "amerika": 42252,
+        "afrika": 54555,
+        "okyanusya": 3898,
+        "almanya": 135609,
+        "rusya": 40555,
+        "ingiltere": 41880,
+        "iran": 105743
+      },
+      {
+        "yil": 2015,
+        "ay": 3,
+        "toplam": 1674479,
+        "toplamYillik": -0.20329104,
+        "avrupa": 869081,
+        "asya": 669748,
+        "amerika": 62035,
+        "afrika": 66172,
+        "okyanusya": 4553,
+        "almanya": 217235,
+        "rusya": 53162,
+        "ingiltere": 56011,
+        "iran": 193016
+      },
+      {
+        "yil": 2015,
+        "ay": 4,
+        "toplam": 2260479,
+        "toplamYillik": 0.70240637,
+        "avrupa": 1381918,
+        "asya": 664737,
+        "amerika": 88589,
+        "afrika": 75714,
+        "okyanusya": 45351,
+        "almanya": 382339,
+        "rusya": 78998,
+        "ingiltere": 127976,
+        "iran": 138840
+      },
+      {
+        "yil": 2015,
+        "ay": 5,
+        "toplam": 3393180,
+        "toplamYillik": -3.62115837,
+        "avrupa": 2406274,
+        "asya": 739457,
+        "amerika": 134848,
+        "afrika": 83816,
+        "okyanusya": 24312,
+        "almanya": 512614,
+        "rusya": 410558,
+        "ingiltere": 251385,
+        "iran": 123513
+      },
+      {
+        "yil": 2015,
+        "ay": 6,
+        "toplam": 3983799,
+        "toplamYillik": -4.25712009,
+        "avrupa": 2829141,
+        "asya": 863431,
+        "amerika": 171438,
+        "afrika": 79879,
+        "okyanusya": 34745,
+        "almanya": 582353,
+        "rusya": 606242,
+        "ingiltere": 348759,
+        "iran": 146445
+      },
+      {
+        "yil": 2015,
+        "ay": 7,
+        "toplam": 4505434,
+        "toplamYillik": 4.27029627,
+        "avrupa": 3224766,
+        "asya": 1005500,
+        "amerika": 169489,
+        "afrika": 64342,
+        "okyanusya": 35220,
+        "almanya": 526092,
+        "rusya": 695090,
+        "ingiltere": 363642,
+        "iran": 204453
+      },
+      {
+        "yil": 2015,
+        "ay": 8,
+        "toplam": 5744545,
+        "toplamYillik": 0.47456786,
+        "avrupa": 4151791,
+        "asya": 1272453,
+        "amerika": 156259,
+        "afrika": 122038,
+        "okyanusya": 32056,
+        "almanya": 945902,
+        "rusya": 686530,
+        "ingiltere": 460549,
+        "iran": 178518
+      },
+      {
+        "yil": 2015,
+        "ay": 9,
+        "toplam": 4511561,
+        "toplamYillik": -2.47974561,
+        "avrupa": 3183042,
+        "asya": 1021802,
+        "amerika": 168480,
+        "afrika": 94011,
+        "okyanusya": 36982,
+        "almanya": 812572,
+        "rusya": 548649,
+        "ingiltere": 406117,
+        "iran": 172502
+      },
+      {
+        "yil": 2015,
+        "ay": 10,
+        "toplam": 3711542,
+        "toplamYillik": -3.368613,
+        "avrupa": 2680981,
+        "asya": 775455,
+        "amerika": 155262,
+        "afrika": 67232,
+        "okyanusya": 26913,
+        "almanya": 815406,
+        "rusya": 347888,
+        "ingiltere": 321037,
+        "iran": 118514
+      },
+      {
+        "yil": 2015,
+        "ay": 11,
+        "toplam": 1833747,
+        "toplamYillik": -3.5590769,
+        "avrupa": 1110858,
+        "asya": 585363,
+        "amerika": 74016,
+        "afrika": 51870,
+        "okyanusya": 8427,
+        "almanya": 345744,
+        "rusya": 100099,
+        "ingiltere": 72347,
+        "iran": 96680
+      },
+      {
+        "yil": 2015,
+        "ay": 12,
+        "toplam": 1333541,
+        "toplamYillik": -3.11997135,
+        "avrupa": 669344,
+        "asya": 560931,
+        "amerika": 47336,
+        "afrika": 48204,
+        "okyanusya": 4884,
+        "almanya": 147124,
+        "rusya": 25073,
+        "ingiltere": 36238,
+        "iran": 100106
+      },
+      {
+        "yil": 2016,
+        "ay": 1,
+        "toplam": 1296726,
+        "toplamYillik": -6.23200804,
+        "avrupa": 665585,
+        "asya": 521771,
+        "amerika": 49919,
+        "afrika": 50352,
+        "okyanusya": 5801,
+        "almanya": 172068,
+        "rusya": 26368,
+        "ingiltere": 35111,
+        "iran": 96264
+      },
+      {
+        "yil": 2016,
+        "ay": 2,
+        "toplam": 1183830,
+        "toplamYillik": -5.81680648,
+        "avrupa": 574434,
+        "asya": 523251,
+        "amerika": 38120,
+        "afrika": 42931,
+        "okyanusya": 3213,
+        "almanya": 123065,
+        "rusya": 18637,
+        "ingiltere": 35019,
+        "iran": 121866
+      },
+      {
+        "yil": 2016,
+        "ay": 3,
+        "toplam": 1533990,
+        "toplamYillik": -8.39001265,
+        "avrupa": 759539,
+        "asya": 661138,
+        "amerika": 55509,
+        "afrika": 51780,
+        "okyanusya": 3869,
+        "almanya": 196184,
+        "rusya": 22768,
+        "ingiltere": 54666,
+        "iran": 221614
+      },
+      {
+        "yil": 2016,
+        "ay": 4,
+        "toplam": 1667413,
+        "toplamYillik": -26.23629771,
+        "avrupa": 954073,
+        "asya": 586624,
+        "amerika": 58214,
+        "afrika": 57262,
+        "okyanusya": 8298,
+        "almanya": 242933,
+        "rusya": 27334,
+        "ingiltere": 98993,
+        "iran": 120527
+      },
+      {
+        "yil": 2016,
+        "ay": 5,
+        "toplam": 2329031,
+        "toplamYillik": -31.36140729,
+        "avrupa": 1484931,
+        "asya": 664660,
+        "amerika": 95531,
+        "afrika": 65177,
+        "okyanusya": 15461,
+        "almanya": 392507,
+        "rusya": 37585,
+        "ingiltere": 174457,
+        "iran": 122153
+      },
+      {
+        "yil": 2016,
+        "ay": 6,
+        "toplam": 2334127,
+        "toplamYillik": -41.4095189,
+        "avrupa": 1477913,
+        "asya": 679876,
+        "amerika": 107978,
+        "afrika": 47065,
+        "okyanusya": 18499,
+        "almanya": 324125,
+        "rusya": 42805,
+        "ingiltere": 233350,
+        "iran": 157069
+      },
+      {
+        "yil": 2016,
+        "ay": 7,
+        "toplam": 2733909,
+        "toplamYillik": -39.31974145,
+        "avrupa": 1778802,
+        "asya": 807859,
+        "amerika": 79069,
+        "afrika": 49413,
+        "okyanusya": 14466,
+        "almanya": 380713,
+        "rusya": 47057,
+        "ingiltere": 233859,
+        "iran": 152820
+      },
+      {
+        "yil": 2016,
+        "ay": 8,
+        "toplam": 3642977,
+        "toplamYillik": -36.58371551,
+        "avrupa": 2536337,
+        "asya": 942638,
+        "amerika": 72475,
+        "afrika": 74198,
+        "okyanusya": 11542,
+        "almanya": 714393,
+        "rusya": 92483,
+        "ingiltere": 293703,
+        "iran": 107843
+      },
+      {
+        "yil": 2016,
+        "ay": 9,
+        "toplam": 3089623,
+        "toplamYillik": -31.51764988,
+        "avrupa": 1937287,
+        "asya": 1004021,
+        "amerika": 71715,
+        "afrika": 56413,
+        "okyanusya": 14283,
+        "almanya": 514876,
+        "rusya": 155701,
+        "ingiltere": 270684,
+        "iran": 189988
+      },
+      {
+        "yil": 2016,
+        "ay": 10,
+        "toplam": 2730649,
+        "toplamYillik": -26.42817999,
+        "avrupa": 1903505,
+        "asya": 679702,
+        "amerika": 70389,
+        "afrika": 61912,
+        "okyanusya": 11182,
+        "almanya": 575526,
+        "rusya": 263887,
+        "ingiltere": 219207,
+        "iran": 142227
+      },
+      {
+        "yil": 2016,
+        "ay": 11,
+        "toplam": 1479030,
+        "toplamYillik": -19.34383533,
+        "avrupa": 771529,
+        "asya": 605270,
+        "amerika": 41201,
+        "afrika": 53448,
+        "okyanusya": 4649,
+        "almanya": 186698,
+        "rusya": 84340,
+        "ingiltere": 43131,
+        "iran": 111557
+      },
+      {
+        "yil": 2016,
+        "ay": 12,
+        "toplam": 1244101,
+        "toplamYillik": -6.70695539,
+        "avrupa": 569385,
+        "asya": 583987,
+        "amerika": 37069,
+        "afrika": 47566,
+        "okyanusya": 3685,
+        "almanya": 105866,
+        "rusya": 36749,
+        "ingiltere": 28607,
+        "iran": 113077
+      },
+      {
+        "yil": 2017,
+        "ay": 1,
+        "toplam": 1184957,
+        "toplamYillik": -8.61932282,
+        "avrupa": 548961,
+        "asya": 540254,
+        "amerika": 38599,
+        "afrika": 50216,
+        "okyanusya": 4014,
+        "almanya": 121521,
+        "rusya": 50258,
+        "ingiltere": 28397,
+        "iran": 104514
+      },
+      {
+        "yil": 2017,
+        "ay": 2,
+        "toplam": 1110950,
+        "toplamYillik": -6.15628933,
+        "avrupa": 484505,
+        "asya": 555946,
+        "amerika": 26271,
+        "afrika": 39030,
+        "okyanusya": 2658,
+        "almanya": 80300,
+        "rusya": 36231,
+        "ingiltere": 27496,
+        "iran": 128063
+      },
+      {
+        "yil": 2017,
+        "ay": 3,
+        "toplam": 1476386,
+        "toplamYillik": -3.75517441,
+        "avrupa": 652618,
+        "asya": 728239,
+        "amerika": 36261,
+        "afrika": 53786,
+        "okyanusya": 2691,
+        "almanya": 120348,
+        "rusya": 51140,
+        "ingiltere": 36173,
+        "iran": 225440
+      },
+      {
+        "yil": 2017,
+        "ay": 4,
+        "toplam": 1889519,
+        "toplamYillik": 13.32039513,
+        "avrupa": 998179,
+        "asya": 770662,
+        "amerika": 45741,
+        "afrika": 65539,
+        "okyanusya": 4895,
+        "almanya": 235028,
+        "rusya": 101182,
+        "ingiltere": 99216,
+        "iran": 155245
+      },
+      {
+        "yil": 2017,
+        "ay": 5,
+        "toplam": 2670106,
+        "toplamYillik": 14.64450237,
+        "avrupa": 1731161,
+        "asya": 809499,
+        "amerika": 51019,
+        "afrika": 67698,
+        "okyanusya": 6352,
+        "almanya": 276454,
+        "rusya": 503156,
+        "ingiltere": 151506,
+        "iran": 149678
+      },
+      {
+        "yil": 2017,
+        "ay": 6,
+        "toplam": 3115407,
+        "toplamYillik": 33.47204329,
+        "avrupa": 2180349,
+        "asya": 830068,
+        "amerika": 57843,
+        "afrika": 36272,
+        "okyanusya": 7932,
+        "almanya": 316173,
+        "rusya": 714215,
+        "ingiltere": 205708,
+        "iran": 220321
+      },
+      {
+        "yil": 2017,
+        "ay": 7,
+        "toplam": 4188105,
+        "toplamYillik": 53.19109012,
+        "avrupa": 2738397,
+        "asya": 1276934,
+        "amerika": 77166,
+        "afrika": 75391,
+        "okyanusya": 13356,
+        "almanya": 405685,
+        "rusya": 831965,
+        "ingiltere": 231708,
+        "iran": 251950
+      },
+      {
+        "yil": 2017,
+        "ay": 8,
+        "toplam": 5242858,
+        "toplamYillik": 43.91685701,
+        "avrupa": 3495925,
+        "asya": 1537974,
+        "amerika": 81499,
+        "afrika": 106071,
+        "okyanusya": 12629,
+        "almanya": 718298,
+        "rusya": 843848,
+        "ingiltere": 288506,
+        "iran": 292033
+      },
+      {
+        "yil": 2017,
+        "ay": 9,
+        "toplam": 4339345,
+        "toplamYillik": 40.44901271,
+        "avrupa": 2794132,
+        "asya": 1374878,
+        "amerika": 75337,
+        "afrika": 72718,
+        "okyanusya": 13597,
+        "almanya": 541646,
+        "rusya": 768505,
+        "ingiltere": 272264,
+        "iran": 336000
+      },
+      {
+        "yil": 2017,
+        "ay": 10,
+        "toplam": 3421449,
+        "toplamYillik": 25.29801523,
+        "avrupa": 2311326,
+        "asya": 953727,
+        "amerika": 61983,
+        "afrika": 76701,
+        "okyanusya": 11395,
+        "almanya": 466756,
+        "rusya": 619915,
+        "ingiltere": 228471,
+        "iran": 240094
+      },
+      {
+        "yil": 2017,
+        "ay": 11,
+        "toplam": 1836496,
+        "toplamYillik": 24.16894857,
+        "avrupa": 924239,
+        "asya": 798602,
+        "amerika": 37610,
+        "afrika": 66746,
+        "okyanusya": 5372,
+        "almanya": 204680,
+        "rusya": 121882,
+        "ingiltere": 58482,
+        "iran": 199128
+      },
+      {
+        "yil": 2017,
+        "ay": 12,
+        "toplam": 1603949,
+        "toplamYillik": 28.92433974,
+        "avrupa": 692919,
+        "asya": 804818,
+        "amerika": 32956,
+        "afrika": 65099,
+        "okyanusya": 4670,
+        "almanya": 107247,
+        "rusya": 57260,
+        "ingiltere": 35443,
+        "iran": 184304
+      },
+      {
+        "yil": 2018,
+        "ay": 1,
+        "toplam": 1601862,
+        "toplamYillik": 35.18313323,
+        "avrupa": 715136,
+        "asya": 767992,
+        "amerika": 42637,
+        "afrika": 66870,
+        "okyanusya": 5077,
+        "almanya": 127573,
+        "rusya": 80728,
+        "ingiltere": 36771,
+        "iran": 159163
+      },
+      {
+        "yil": 2018,
+        "ay": 2,
+        "toplam": 1444008,
+        "toplamYillik": 29.97956704,
+        "avrupa": 600168,
+        "asya": 741224,
+        "amerika": 35740,
+        "afrika": 60568,
+        "okyanusya": 3425,
+        "almanya": 94975,
+        "rusya": 62970,
+        "ingiltere": 37100,
+        "iran": 191289
+      },
+      {
+        "yil": 2018,
+        "ay": 3,
+        "toplam": 1862961,
+        "toplamYillik": 26.18387061,
+        "avrupa": 792911,
+        "asya": 932334,
+        "amerika": 50183,
+        "afrika": 80226,
+        "okyanusya": 3591,
+        "almanya": 151823,
+        "rusya": 85145,
+        "ingiltere": 45912,
+        "iran": 318230
+      },
+      {
+        "yil": 2018,
+        "ay": 4,
+        "toplam": 2433008,
+        "toplamYillik": 28.76335194,
+        "avrupa": 1326146,
+        "asya": 935026,
+        "amerika": 63439,
+        "afrika": 95084,
+        "okyanusya": 7021,
+        "almanya": 267954,
+        "rusya": 169550,
+        "ingiltere": 132492,
+        "iran": 189992
+      },
+      {
+        "yil": 2018,
+        "ay": 5,
+        "toplam": 3398215,
+        "toplamYillik": 27.26891741,
+        "avrupa": 2420047,
+        "asya": 807660,
+        "amerika": 77445,
+        "afrika": 80153,
+        "okyanusya": 7714,
+        "almanya": 379319,
+        "rusya": 714441,
+        "ingiltere": 222677,
+        "iran": 112253
+      },
+      {
+        "yil": 2018,
+        "ay": 6,
+        "toplam": 4023879,
+        "toplamYillik": 29.16062011,
+        "avrupa": 2943901,
+        "asya": 913503,
+        "amerika": 90101,
+        "afrika": 60575,
+        "okyanusya": 10520,
+        "almanya": 383216,
+        "rusya": 972985,
+        "ingiltere": 296861,
+        "iran": 161292
+      },
+      {
+        "yil": 2018,
+        "ay": 7,
+        "toplam": 4857186,
+        "toplamYillik": 15.97574559,
+        "avrupa": 3344705,
+        "asya": 1277372,
+        "amerika": 102533,
+        "afrika": 106872,
+        "okyanusya": 16519,
+        "almanya": 507894,
+        "rusya": 947371,
+        "ingiltere": 308335,
+        "iran": 164277
+      },
+      {
+        "yil": 2018,
+        "ay": 8,
+        "toplam": 6001678,
+        "toplamYillik": 14.47340363,
+        "avrupa": 4135067,
+        "asya": 1602661,
+        "amerika": 105339,
+        "afrika": 131249,
+        "okyanusya": 15793,
+        "almanya": 819544,
+        "rusya": 914725,
+        "ingiltere": 388807,
+        "iran": 188041
+      },
+      {
+        "yil": 2018,
+        "ay": 9,
+        "toplam": 5045870,
+        "toplamYillik": 16.28183516,
+        "avrupa": 3569968,
+        "asya": 1229555,
+        "amerika": 102387,
+        "afrika": 117338,
+        "okyanusya": 17231,
+        "almanya": 657311,
+        "rusya": 912817,
+        "ingiltere": 350642,
+        "iran": 179391
+      },
+      {
+        "yil": 2018,
+        "ay": 10,
+        "toplam": 4292466,
+        "toplamYillik": 25.45754737,
+        "avrupa": 3154400,
+        "asya": 914051,
+        "amerika": 92074,
+        "afrika": 110376,
+        "okyanusya": 13896,
+        "almanya": 709025,
+        "rusya": 788144,
+        "ingiltere": 322425,
+        "iran": 107966
+      },
+      {
+        "yil": 2018,
+        "ay": 11,
+        "toplam": 2234062,
+        "toplamYillik": 21.64807329,
+        "avrupa": 1270153,
+        "asya": 789986,
+        "amerika": 64142,
+        "afrika": 98401,
+        "okyanusya": 6649,
+        "almanya": 252341,
+        "rusya": 207158,
+        "ingiltere": 80732,
+        "iran": 108716
+      },
+      {
+        "yil": 2018,
+        "ay": 12,
+        "toplam": 1756707,
+        "toplamYillik": 9.5238689,
+        "avrupa": 854514,
+        "asya": 745169,
+        "amerika": 55417,
+        "afrika": 91417,
+        "okyanusya": 5840,
+        "almanya": 145198,
+        "rusya": 81816,
+        "ingiltere": 39755,
+        "iran": 101748
+      },
+      {
+        "yil": 2019,
+        "ay": 1,
+        "toplam": 1804135,
+        "toplamYillik": 12.6273674,
+        "avrupa": 863301,
+        "asya": 768489,
+        "amerika": 58697,
+        "afrika": 100395,
+        "okyanusya": 6677,
+        "almanya": 159067,
+        "rusya": 114310,
+        "ingiltere": 40345,
+        "iran": 104735
+      },
+      {
+        "yil": 2019,
+        "ay": 2,
+        "toplam": 1574614,
+        "toplamYillik": 9.04468673,
+        "avrupa": 734505,
+        "asya": 704483,
+        "amerika": 45146,
+        "afrika": 82240,
+        "okyanusya": 4028,
+        "almanya": 112049,
+        "rusya": 80827,
+        "ingiltere": 42151,
+        "iran": 107717
+      },
+      {
+        "yil": 2019,
+        "ay": 3,
+        "toplam": 2081631,
+        "toplamYillik": 11.73776585,
+        "avrupa": 1044021,
+        "asya": 854010,
+        "amerika": 68975,
+        "afrika": 105332,
+        "okyanusya": 4383,
+        "almanya": 179370,
+        "rusya": 123671,
+        "ingiltere": 57423,
+        "iran": 183597
+      },
+      {
+        "yil": 2019,
+        "ay": 4,
+        "toplam": 2845084,
+        "toplamYillik": 16.93689458,
+        "avrupa": 1667667,
+        "asya": 955826,
+        "amerika": 83462,
+        "afrika": 122101,
+        "okyanusya": 9557,
+        "almanya": 327728,
+        "rusya": 232488,
+        "ingiltere": 159547,
+        "iran": 158585
+      },
+      {
+        "yil": 2019,
+        "ay": 5,
+        "toplam": 3832240,
+        "toplamYillik": 12.77214655,
+        "avrupa": 2796104,
+        "asya": 845829,
+        "amerika": 97905,
+        "afrika": 76354,
+        "okyanusya": 10982,
+        "almanya": 366351,
+        "rusya": 856511,
+        "ingiltere": 258365,
+        "iran": 129237
+      },
+      {
+        "yil": 2019,
+        "ay": 6,
+        "toplam": 4821887,
+        "toplamYillik": 19.83180906,
+        "avrupa": 3463394,
+        "asya": 1124137,
+        "amerika": 115793,
+        "afrika": 96754,
+        "okyanusya": 14635,
+        "almanya": 512455,
+        "rusya": 1021201,
+        "ingiltere": 347003,
+        "iran": 178898
+      },
+      {
+        "yil": 2019,
+        "ay": 7,
+        "toplam": 5717804,
+        "toplamYillik": 17.7184485,
+        "avrupa": 3902305,
+        "asya": 1512131,
+        "amerika": 133607,
+        "afrika": 137865,
+        "okyanusya": 20984,
+        "almanya": 591047,
+        "rusya": 1055387,
+        "ingiltere": 372037,
+        "iran": 208390
+      },
+      {
+        "yil": 2019,
+        "ay": 8,
+        "toplam": 7018257,
+        "toplamYillik": 16.93824627,
+        "avrupa": 4819380,
+        "asya": 1868852,
+        "amerika": 133719,
+        "afrika": 162435,
+        "okyanusya": 19168,
+        "almanya": 903720,
+        "rusya": 1078045,
+        "ingiltere": 448969,
+        "iran": 267394
+      },
+      {
+        "yil": 2019,
+        "ay": 9,
+        "toplam": 5702078,
+        "toplamYillik": 13.00485347,
+        "avrupa": 4004971,
+        "asya": 1382317,
+        "amerika": 133030,
+        "afrika": 148653,
+        "okyanusya": 21215,
+        "almanya": 702318,
+        "rusya": 1057296,
+        "ingiltere": 402902,
+        "iran": 268998
+      },
+      {
+        "yil": 2019,
+        "ay": 10,
+        "toplam": 4878255,
+        "toplamYillik": 13.64691066,
+        "avrupa": 3531913,
+        "asya": 1069273,
+        "amerika": 121548,
+        "afrika": 129165,
+        "okyanusya": 17239,
+        "almanya": 763741,
+        "rusya": 980589,
+        "ingiltere": 294102,
+        "iran": 188281
+      },
+      {
+        "yil": 2019,
+        "ay": 11,
+        "toplam": 2501695,
+        "toplamYillik": 11.97965858,
+        "avrupa": 1413688,
+        "asya": 890826,
+        "amerika": 76194,
+        "afrika": 107236,
+        "okyanusya": 8587,
+        "almanya": 255958,
+        "rusya": 288156,
+        "ingiltere": 93301,
+        "iran": 150502
+      },
+      {
+        "yil": 2019,
+        "ay": 12,
+        "toplam": 1935290,
+        "toplamYillik": 10.16578177,
+        "avrupa": 919526,
+        "asya": 838954,
+        "amerika": 66697,
+        "afrika": 98871,
+        "okyanusya": 6380,
+        "almanya": 150389,
+        "rusya": 111926,
+        "ingiltere": 53341,
+        "iran": 128789
+      },
+      {
+        "yil": 2020,
+        "ay": 1,
+        "toplam": 2065570,
+        "toplamYillik": 14.4908779,
+        "avrupa": 992643,
+        "asya": 884698,
+        "amerika": 66612,
+        "afrika": 106493,
+        "okyanusya": 7321,
+        "almanya": 180881,
+        "rusya": 154941,
+        "ingiltere": 44051,
+        "iran": 130896
+      },
+      {
+        "yil": 2020,
+        "ay": 2,
+        "toplam": 1664208,
+        "toplamYillik": 5.68990241,
+        "avrupa": 821096,
+        "asya": 697176,
+        "amerika": 47928,
+        "afrika": 88971,
+        "okyanusya": 4459,
+        "almanya": 141536,
+        "rusya": 101284,
+        "ingiltere": 47730,
+        "iran": 107191
+      },
+      {
+        "yil": 2020,
+        "ay": 3,
+        "toplam": 906067,
+        "toplamYillik": -56.4732174,
+        "avrupa": 548778,
+        "asya": 257601,
+        "amerika": 32322,
+        "afrika": 61459,
+        "okyanusya": 3028,
+        "almanya": 110649,
+        "rusya": 94333,
+        "ingiltere": 37459,
+        "iran": 9452
+      },
+      {
+        "yil": 2020,
+        "ay": 4,
+        "toplam": 50630,
+        "toplamYillik": -98.22043919,
+        "avrupa": 22542,
+        "asya": 24972,
+        "amerika": 690,
+        "afrika": 2249,
+        "okyanusya": 49,
+        "almanya": 2888,
+        "rusya": 1413,
+        "ingiltere": 423,
+        "iran": 7234
+      },
+      {
+        "yil": 2020,
+        "ay": 5,
+        "toplam": 51588,
+        "toplamYillik": -98.65384214,
+        "avrupa": 25815,
+        "asya": 19024,
+        "amerika": 523,
+        "afrika": 6029,
+        "okyanusya": 127,
+        "almanya": 1740,
+        "rusya": 1512,
+        "ingiltere": 387,
+        "iran": 5065
+      },
+      {
+        "yil": 2020,
+        "ay": 6,
+        "toplam": 128861,
+        "toplamYillik": -97.3275815,
+        "avrupa": 85530,
+        "asya": 33595,
+        "amerika": 1938,
+        "afrika": 7222,
+        "okyanusya": 256,
+        "almanya": 16837,
+        "rusya": 3083,
+        "ingiltere": 2279,
+        "iran": 7472
+      },
+      {
+        "yil": 2020,
+        "ay": 7,
+        "toplam": 529990,
+        "toplamYillik": -90.730882,
+        "avrupa": 423580,
+        "asya": 84300,
+        "amerika": 7556,
+        "afrika": 13343,
+        "okyanusya": 367,
+        "almanya": 94960,
+        "rusya": 8051,
+        "ingiltere": 27157,
+        "iran": 15117
+      },
+      {
+        "yil": 2020,
+        "ay": 8,
+        "toplam": 1712380,
+        "toplamYillik": -75.60106448,
+        "avrupa": 1533606,
+        "asya": 132821,
+        "amerika": 17987,
+        "afrika": 24555,
+        "okyanusya": 874,
+        "almanya": 228601,
+        "rusya": 294313,
+        "ingiltere": 221711,
+        "iran": 14496
+      },
+      {
+        "yil": 2020,
+        "ay": 9,
+        "toplam": 2187683,
+        "toplamYillik": -61.63358341,
+        "avrupa": 1915392,
+        "asya": 209883,
+        "amerika": 24205,
+        "afrika": 33821,
+        "okyanusya": 1431,
+        "almanya": 166164,
+        "rusya": 601864,
+        "ingiltere": 271942,
+        "iran": 18388
+      },
+      {
+        "yil": 2020,
+        "ay": 10,
+        "toplam": 2000557,
+        "toplamYillik": -58.99031518,
+        "avrupa": 1664544,
+        "asya": 264167,
+        "amerika": 25058,
+        "afrika": 42225,
+        "okyanusya": 1257,
+        "almanya": 145682,
+        "rusya": 590914,
+        "ingiltere": 135455,
+        "iran": 27664
+      },
+      {
+        "yil": 2020,
+        "ay": 11,
+        "toplam": 960402,
+        "toplamYillik": -61.60994845,
+        "avrupa": 645628,
+        "asya": 244775,
+        "amerika": 22292,
+        "afrika": 43844,
+        "okyanusya": 769,
+        "almanya": 49837,
+        "rusya": 198463,
+        "ingiltere": 21914,
+        "iran": 28105
+      },
+      {
+        "yil": 2020,
+        "ay": 12,
+        "toplam": 681408,
+        "toplamYillik": -64.79039317,
+        "avrupa": 406286,
+        "asya": 208429,
+        "amerika": 20527,
+        "afrika": 42961,
+        "okyanusya": 779,
+        "almanya": 38577,
+        "rusya": 74202,
+        "ingiltere": 18811,
+        "iran": 33933
+      },
+      {
+        "yil": 2021,
+        "ay": 1,
+        "toplam": 570447,
+        "toplamYillik": -72.38307102,
+        "avrupa": 338877,
+        "asya": 173373,
+        "amerika": 19236,
+        "afrika": 35791,
+        "okyanusya": 540,
+        "almanya": 39211,
+        "rusya": 110237,
+        "ingiltere": 5706,
+        "iran": 37311
+      },
+      {
+        "yil": 2021,
+        "ay": 2,
+        "toplam": 494337,
+        "toplamYillik": -70.2959606,
+        "avrupa": 271833,
+        "asya": 175861,
+        "amerika": 13625,
+        "afrika": 30600,
+        "okyanusya": 482,
+        "almanya": 29806,
+        "rusya": 76382,
+        "ingiltere": 4256,
+        "iran": 40648
+      },
+      {
+        "yil": 2021,
+        "ay": 3,
+        "toplam": 761443,
+        "toplamYillik": -15.96173351,
+        "avrupa": 463958,
+        "asya": 232802,
+        "amerika": 18201,
+        "afrika": 43246,
+        "okyanusya": 630,
+        "almanya": 46729,
+        "rusya": 182245,
+        "ingiltere": 6785,
+        "iran": 56415
+      },
+      {
+        "yil": 2021,
+        "ay": 4,
+        "toplam": 895342,
+        "toplamYillik": 1668.40213312,
+        "avrupa": 563529,
+        "asya": 261974,
+        "amerika": 21871,
+        "afrika": 44233,
+        "okyanusya": 812,
+        "almanya": 74190,
+        "rusya": 204845,
+        "ingiltere": 13104,
+        "iran": 56954
+      },
+      {
+        "yil": 2021,
+        "ay": 5,
+        "toplam": 757518,
+        "toplamYillik": 1368.39962782,
+        "avrupa": 527724,
+        "asya": 178600,
+        "amerika": 21978,
+        "afrika": 26066,
+        "okyanusya": 725,
+        "almanya": 60295,
+        "rusya": 20684,
+        "ingiltere": 10168,
+        "iran": 39767
+      },
+      {
+        "yil": 2021,
+        "ay": 6,
+        "toplam": 1491955,
+        "toplamYillik": 1057.80181746,
+        "avrupa": 1039224,
+        "asya": 351717,
+        "amerika": 41124,
+        "afrika": 54518,
+        "okyanusya": 804,
+        "almanya": 137124,
+        "rusya": 42060,
+        "ingiltere": 5679,
+        "iran": 66936
+      },
+      {
+        "yil": 2021,
+        "ay": 7,
+        "toplam": 3231555,
+        "toplamYillik": 509.738863,
+        "avrupa": 2405314,
+        "asya": 665432,
+        "amerika": 72844,
+        "afrika": 78414,
+        "okyanusya": 1553,
+        "almanya": 404018,
+        "rusya": 703659,
+        "ingiltere": 14925,
+        "iran": 101190
+      },
+      {
+        "yil": 2021,
+        "ay": 8,
+        "toplam": 4578265,
+        "toplamYillik": 167.36267651,
+        "avrupa": 3629698,
+        "asya": 750832,
+        "amerika": 94620,
+        "afrika": 91392,
+        "okyanusya": 1741,
+        "almanya": 811734,
+        "rusya": 898620,
+        "ingiltere": 33914,
+        "iran": 108684
+      },
+      {
+        "yil": 2021,
+        "ay": 9,
+        "toplam": 3648131,
+        "toplamYillik": 66.75775238,
+        "avrupa": 2790778,
+        "asya": 682786,
+        "amerika": 73615,
+        "afrika": 91659,
+        "okyanusya": 1581,
+        "almanya": 522290,
+        "rusya": 935117,
+        "ingiltere": 22694,
+        "iran": 138135
+      },
+      {
+        "yil": 2021,
+        "ay": 10,
+        "toplam": 3777732,
+        "toplamYillik": 88.83400973,
+        "avrupa": 2916799,
+        "asya": 671343,
+        "amerika": 76953,
+        "afrika": 102241,
+        "okyanusya": 2769,
+        "almanya": 537802,
+        "rusya": 1031717,
+        "ingiltere": 132332,
+        "iran": 160320
+      },
+      {
+        "yil": 2021,
+        "ay": 11,
+        "toplam": 2080510,
+        "toplamYillik": 116.62907824,
+        "avrupa": 1309961,
+        "asya": 586100,
+        "amerika": 70117,
+        "afrika": 106313,
+        "okyanusya": 2329,
+        "almanya": 219602,
+        "rusya": 343576,
+        "ingiltere": 84041,
+        "iran": 136641
+      },
+      {
+        "yil": 2021,
+        "ay": 12,
+        "toplam": 1652786,
+        "toplamYillik": 142.55453414,
+        "avrupa": 884177,
+        "asya": 610233,
+        "amerika": 60463,
+        "afrika": 90061,
+        "okyanusya": 3078,
+        "almanya": 131810,
+        "rusya": 109617,
+        "ingiltere": 47345,
+        "iran": 147451
+      },
+      {
+        "yil": 2022,
+        "ay": 1,
+        "toplam": 1593112,
+        "toplamYillik": 179.27432347,
+        "avrupa": 912351,
+        "asya": 526590,
+        "amerika": 60634,
+        "afrika": 83306,
+        "okyanusya": 4156,
+        "almanya": 172205,
+        "rusya": 167451,
+        "ingiltere": 45061,
+        "iran": 126461
+      },
+      {
+        "yil": 2022,
+        "ay": 2,
+        "toplam": 1400014,
+        "toplamYillik": 183.21044146,
+        "avrupa": 726070,
+        "asya": 537861,
+        "amerika": 41910,
+        "afrika": 86590,
+        "okyanusya": 3162,
+        "almanya": 106651,
+        "rusya": 101964,
+        "ingiltere": 52245,
+        "iran": 114827
+      },
+      {
+        "yil": 2022,
+        "ay": 3,
+        "toplam": 1950838,
+        "toplamYillik": 156.20276239,
+        "avrupa": 961688,
+        "asya": 791375,
+        "amerika": 69266,
+        "afrika": 118503,
+        "okyanusya": 4104,
+        "almanya": 175573,
+        "rusya": 98634,
+        "ingiltere": 75220,
+        "iran": 220074
+      },
+      {
+        "yil": 2022,
+        "ay": 4,
+        "toplam": 2381722,
+        "toplamYillik": 166.01254046,
+        "avrupa": 1555610,
+        "asya": 653620,
+        "amerika": 92484,
+        "afrika": 69694,
+        "okyanusya": 5066,
+        "almanya": 367086,
+        "rusya": 99576,
+        "ingiltere": 197682,
+        "iran": 197031
+      },
+      {
+        "yil": 2022,
+        "ay": 5,
+        "toplam": 3483143,
+        "toplamYillik": 359.80993191,
+        "avrupa": 2270607,
+        "asya": 945854,
+        "amerika": 147716,
+        "afrika": 103188,
+        "okyanusya": 7979,
+        "almanya": 410021,
+        "rusya": 288225,
+        "ingiltere": 322958,
+        "iran": 179050
+      },
+      {
+        "yil": 2022,
+        "ay": 6,
+        "toplam": 4517203,
+        "toplamYillik": 202.770727,
+        "avrupa": 3062917,
+        "asya": 1118088,
+        "amerika": 185739,
+        "afrika": 130015,
+        "okyanusya": 12563,
+        "almanya": 596548,
+        "rusya": 535404,
+        "ingiltere": 461273,
+        "iran": 210410
+      },
+      {
+        "yil": 2022,
+        "ay": 7,
+        "toplam": 5693111,
+        "toplamYillik": 76.17249281,
+        "avrupa": 3857517,
+        "asya": 1455337,
+        "amerika": 208882,
+        "afrika": 141814,
+        "okyanusya": 18056,
+        "almanya": 708549,
+        "rusya": 716435,
+        "ingiltere": 466374,
+        "iran": 230209
+      },
+      {
+        "yil": 2022,
+        "ay": 8,
+        "toplam": 7076690,
+        "toplamYillik": 54.571437,
+        "avrupa": 4979739,
+        "asya": 1673503,
+        "amerika": 211910,
+        "afrika": 177337,
+        "okyanusya": 20666,
+        "almanya": 1022829,
+        "rusya": 805145,
+        "ingiltere": 590542,
+        "iran": 239707
+      },
+      {
+        "yil": 2022,
+        "ay": 9,
+        "toplam": 5856202,
+        "toplamYillik": 60.52608856,
+        "avrupa": 3982718,
+        "asya": 1466887,
+        "amerika": 207307,
+        "afrika": 167046,
+        "okyanusya": 20712,
+        "almanya": 820196,
+        "rusya": 794483,
+        "ingiltere": 507029,
+        "iran": 312195
+      },
+      {
+        "yil": 2022,
+        "ay": 10,
+        "toplam": 5206943,
+        "toplamYillik": 37.83251432,
+        "avrupa": 3708542,
+        "asya": 1098530,
+        "amerika": 222744,
+        "afrika": 148069,
+        "okyanusya": 19434,
+        "almanya": 833472,
+        "rusya": 777034,
+        "ingiltere": 463308,
+        "iran": 201676
+      },
+      {
+        "yil": 2022,
+        "ay": 11,
+        "toplam": 2937397,
+        "toplamYillik": 41.1863918,
+        "avrupa": 1741271,
+        "asya": 909319,
+        "amerika": 144801,
+        "afrika": 123582,
+        "okyanusya": 12419,
+        "almanya": 318580,
+        "rusya": 429728,
+        "ingiltere": 128081,
+        "iran": 156851
+      },
+      {
+        "yil": 2022,
+        "ay": 12,
+        "toplam": 2245147,
+        "toplamYillik": 35.84015111,
+        "avrupa": 1169285,
+        "asya": 856402,
+        "amerika": 92407,
+        "afrika": 115220,
+        "okyanusya": 7191,
+        "almanya": 158289,
+        "rusya": 266435,
+        "ingiltere": 69565,
+        "iran": 144322
+      },
+      {
+        "yil": 2023,
+        "ay": 1,
+        "toplam": 2323115,
+        "toplamYillik": 45.82245316,
+        "avrupa": 1273855,
+        "asya": 825968,
+        "amerika": 92855,
+        "afrika": 116787,
+        "okyanusya": 7389,
+        "almanya": 196538,
+        "rusya": 313267,
+        "ingiltere": 65903,
+        "iran": 132014
+      },
+      {
+        "yil": 2023,
+        "ay": 2,
+        "toplam": 1903325,
+        "toplamYillik": 35.95042621,
+        "avrupa": 1023443,
+        "asya": 702840,
+        "amerika": 65021,
+        "afrika": 102051,
+        "okyanusya": 5800,
+        "almanya": 142930,
+        "rusya": 248862,
+        "ingiltere": 71415,
+        "iran": 114021
+      },
+      {
+        "yil": 2023,
+        "ay": 3,
+        "toplam": 2282794,
+        "toplamYillik": 17.01607207,
+        "avrupa": 1234110,
+        "asya": 830448,
+        "amerika": 105621,
+        "afrika": 101698,
+        "okyanusya": 6573,
+        "almanya": 182209,
+        "rusya": 275162,
+        "ingiltere": 90932,
+        "iran": 197897
+      },
+      {
+        "yil": 2023,
+        "ay": 4,
+        "toplam": 2959088,
+        "toplamYillik": 24.24153617,
+        "avrupa": 1956982,
+        "asya": 782908,
+        "amerika": 136169,
+        "afrika": 67445,
+        "okyanusya": 11644,
+        "almanya": 428209,
+        "rusya": 327639,
+        "ingiltere": 246257,
+        "iran": 190660
+      },
+      {
+        "yil": 2023,
+        "ay": 5,
+        "toplam": 4165554,
+        "toplamYillik": 19.59181693,
+        "avrupa": 2874179,
+        "asya": 944891,
+        "amerika": 210743,
+        "afrika": 109363,
+        "okyanusya": 19569,
+        "almanya": 497117,
+        "rusya": 588744,
+        "ingiltere": 388734,
+        "iran": 157980
+      },
+      {
+        "yil": 2023,
+        "ay": 6,
+        "toplam": 5194705,
+        "toplamYillik": 14.99826331,
+        "avrupa": 3601531,
+        "asya": 1199201,
+        "amerika": 239188,
+        "afrika": 122642,
+        "okyanusya": 24629,
+        "almanya": 623843,
+        "rusya": 788597,
+        "ingiltere": 515690,
+        "iran": 213966
+      },
+      {
+        "yil": 2023,
+        "ay": 7,
+        "toplam": 6230192,
+        "toplamYillik": 9.43387543,
+        "avrupa": 4179621,
+        "asya": 1617560,
+        "amerika": 255969,
+        "afrika": 134937,
+        "okyanusya": 31514,
+        "almanya": 737251,
+        "rusya": 887039,
+        "ingiltere": 504582,
+        "iran": 237112
+      },
+      {
+        "yil": 2023,
+        "ay": 8,
+        "toplam": 7457527,
+        "toplamYillik": 5.38156963,
+        "avrupa": 5188966,
+        "asya": 1817153,
+        "amerika": 236401,
+        "afrika": 171634,
+        "okyanusya": 31538,
+        "almanya": 1009631,
+        "rusya": 888897,
+        "ingiltere": 620957,
+        "iran": 272464
+      },
+      {
+        "yil": 2023,
+        "ay": 9,
+        "toplam": 6053057,
+        "toplamYillik": 3.36147899,
+        "avrupa": 4194877,
+        "asya": 1410196,
+        "amerika": 254398,
+        "afrika": 150135,
+        "okyanusya": 34796,
+        "almanya": 849227,
+        "rusya": 792609,
+        "ingiltere": 544980,
+        "iran": 337812
+      },
+      {
+        "yil": 2023,
+        "ay": 10,
+        "toplam": 5530138,
+        "toplamYillik": 6.20700092,
+        "avrupa": 3999995,
+        "asya": 1055916,
+        "amerika": 311177,
+        "afrika": 126343,
+        "okyanusya": 29893,
+        "almanya": 973727,
+        "rusya": 764408,
+        "ingiltere": 505429,
+        "iran": 233054
+      },
+      {
+        "yil": 2023,
+        "ay": 11,
+        "toplam": 2947972,
+        "toplamYillik": 0.36001262,
+        "avrupa": 1794553,
+        "asya": 864256,
+        "amerika": 163076,
+        "afrika": 108303,
+        "okyanusya": 14371,
+        "almanya": 370006,
+        "rusya": 336087,
+        "ingiltere": 164694,
+        "iran": 206782
+      },
+      {
+        "yil": 2023,
+        "ay": 12,
+        "toplam": 2299499,
+        "toplamYillik": 2.42086598,
+        "avrupa": 1229729,
+        "asya": 855515,
+        "amerika": 94290,
+        "afrika": 108986,
+        "okyanusya": 8398,
+        "almanya": 187574,
+        "rusya": 225180,
+        "ingiltere": 85021,
+        "iran": 212396
+      },
+      {
+        "yil": 2024,
+        "ay": 1,
+        "toplam": 2382849.4,
+        "toplamYillik": 2.5713062,
+        "avrupa": 1288603,
+        "asya": 863117.4,
+        "amerika": 98862,
+        "afrika": 120521,
+        "okyanusya": 8228,
+        "almanya": 212063,
+        "rusya": 253321,
+        "ingiltere": 81084,
+        "iran": 230811
+      },
+      {
+        "yil": 2024,
+        "ay": 2,
+        "toplam": 2167348.94,
+        "toplamYillik": 13.87172133,
+        "avrupa": 1144370,
+        "asya": 825741.94,
+        "amerika": 78635,
+        "afrika": 110131,
+        "okyanusya": 5712,
+        "almanya": 168915,
+        "rusya": 197046,
+        "ingiltere": 95106,
+        "iran": 218450
+      },
+      {
+        "yil": 2024,
+        "ay": 3,
+        "toplam": 2517798,
+        "toplamYillik": 10.29457761,
+        "avrupa": 1442237,
+        "asya": 856223,
+        "amerika": 118973,
+        "afrika": 90837,
+        "okyanusya": 6767,
+        "almanya": 262467,
+        "rusya": 237789,
+        "ingiltere": 119262,
+        "iran": 262746
+      },
+      {
+        "yil": 2024,
+        "ay": 4,
+        "toplam": 3289343,
+        "toplamYillik": 11.16070222,
+        "avrupa": 2173031,
+        "asya": 887319,
+        "amerika": 125929,
+        "afrika": 87853,
+        "okyanusya": 11589,
+        "almanya": 457030,
+        "rusya": 309033,
+        "ingiltere": 306970,
+        "iran": 235464
+      },
+      {
+        "yil": 2024,
+        "ay": 5,
+        "toplam": 4813089.25,
+        "toplamYillik": 15.54499714,
+        "avrupa": 3431822,
+        "asya": 1008276.25,
+        "amerika": 219966,
+        "afrika": 124382,
+        "okyanusya": 23382,
+        "almanya": 632678,
+        "rusya": 673755,
+        "ingiltere": 484514,
+        "iran": 206289
+      },
+      {
+        "yil": 2024,
+        "ay": 6,
+        "toplam": 5589777,
+        "toplamYillik": 7.60528269,
+        "avrupa": 3866569,
+        "asya": 1309463,
+        "amerika": 258770,
+        "afrika": 121679,
+        "okyanusya": 27553,
+        "almanya": 610191,
+        "rusya": 849259,
+        "ingiltere": 566297,
+        "iran": 279348
+      },
+      {
+        "yil": 2024,
+        "ay": 7,
+        "toplam": 6469899.15,
+        "toplamYillik": 3.84750823,
+        "avrupa": 4476113,
+        "asya": 1513915.15,
+        "amerika": 300817,
+        "afrika": 138099,
+        "okyanusya": 33750,
+        "almanya": 705110,
+        "rusya": 935879,
+        "ingiltere": 595142,
+        "iran": 304914
+      },
+      {
+        "yil": 2024,
+        "ay": 8,
+        "toplam": 7652973.8,
+        "toplamYillik": 2.62079909,
+        "avrupa": 5542262,
+        "asya": 1616584.8,
+        "amerika": 285784,
+        "afrika": 167959,
+        "okyanusya": 32850,
+        "almanya": 1099561,
+        "rusya": 948927,
+        "ingiltere": 709844,
+        "iran": 324991
+      },
+      {
+        "yil": 2024,
+        "ay": 9,
+        "toplam": 6248632,
+        "toplamYillik": 3.23101203,
+        "avrupa": 4455774,
+        "asya": 1325480,
+        "amerika": 272790,
+        "afrika": 150663,
+        "okyanusya": 37051,
+        "almanya": 841014,
+        "rusya": 890060,
+        "ingiltere": 609076,
+        "iran": 399170
+      },
+      {
+        "yil": 2024,
+        "ay": 10,
+        "toplam": 5847535.15,
+        "toplamYillik": 5.73940741,
+        "avrupa": 4315827,
+        "asya": 1064080.15,
+        "amerika": 302608,
+        "afrika": 125232,
+        "okyanusya": 33657,
+        "almanya": 1019370,
+        "rusya": 857808,
+        "ingiltere": 585097,
+        "iran": 292632
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "toplam": 3267338.87,
+        "toplamYillik": 10.83344313,
+        "avrupa": 2029103,
+        "asya": 962394.87,
+        "amerika": 148021,
+        "afrika": 111858,
+        "okyanusya": 12769,
+        "almanya": 418510,
+        "rusya": 373371,
+        "ingiltere": 201148,
+        "iran": 259770
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "toplam": 2386136,
+        "toplamYillik": 3.76764678,
+        "avrupa": 1227042,
+        "asya": 911652,
+        "amerika": 122718,
+        "afrika": 111483,
+        "okyanusya": 10239,
+        "almanya": 199439,
+        "rusya": 199762,
+        "ingiltere": 88153,
+        "iran": 259687
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "toplam": 2506554,
+        "toplamYillik": 5.19145692,
+        "avrupa": 1324673,
+        "asya": 931282,
+        "amerika": 117993,
+        "afrika": 117642,
+        "okyanusya": 11852,
+        "almanya": 226719,
+        "rusya": 222180,
+        "ingiltere": 84995,
+        "iran": 252143
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "toplam": 2117635,
+        "toplamYillik": -2.29376724,
+        "avrupa": 1092140,
+        "asya": 813949,
+        "amerika": 92045,
+        "afrika": 110280,
+        "okyanusya": 6940,
+        "almanya": 162719,
+        "rusya": 163358,
+        "ingiltere": 96834,
+        "iran": 218652
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "toplam": 2277925,
+        "toplamYillik": -9.52709471,
+        "avrupa": 1362657,
+        "asya": 735232,
+        "amerika": 107401,
+        "afrika": 64797,
+        "okyanusya": 6008,
+        "almanya": 220690,
+        "rusya": 221882,
+        "ingiltere": 113805,
+        "iran": 238247
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "toplam": 3434458,
+        "toplamYillik": 4.41167127,
+        "avrupa": 2249519,
+        "asya": 919500,
+        "amerika": 150533,
+        "afrika": 96490,
+        "okyanusya": 14932,
+        "almanya": 516887,
+        "rusya": 289074,
+        "ingiltere": 324052,
+        "iran": 229929
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "toplam": 4725036,
+        "toplamYillik": -1.82945392,
+        "avrupa": 3309406,
+        "asya": 1012710,
+        "amerika": 256026,
+        "afrika": 115071,
+        "okyanusya": 27121,
+        "almanya": 526179,
+        "rusya": 675611,
+        "ingiltere": 491006,
+        "iran": 222704
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "toplam": 5574569,
+        "toplamYillik": -0.2720681,
+        "avrupa": 3987026,
+        "asya": 1148262,
+        "amerika": 293089,
+        "afrika": 110061,
+        "okyanusya": 31147,
+        "almanya": 698428,
+        "rusya": 865685,
+        "ingiltere": 538503,
+        "iran": 179485
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "toplam": 6254109,
+        "toplamYillik": -3.33529387,
+        "avrupa": 4403621,
+        "asya": 1356318,
+        "amerika": 318458,
+        "afrika": 134581,
+        "okyanusya": 35721,
+        "almanya": 663935,
+        "rusya": 961038,
+        "ingiltere": 545302,
+        "iran": 242158
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "toplam": 7686300,
+        "toplamYillik": 0.43546732,
+        "avrupa": 5573757,
+        "asya": 1628224,
+        "amerika": 285832,
+        "afrika": 158461,
+        "okyanusya": 33647,
+        "almanya": 1112840,
+        "rusya": 1005251,
+        "ingiltere": 682086,
+        "iran": 327135
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "toplam": 6260672,
+        "toplamYillik": 0.19268217,
+        "avrupa": 4510931,
+        "asya": 1273748,
+        "amerika": 290719,
+        "afrika": 143921,
+        "okyanusya": 35741,
+        "almanya": 928848,
+        "rusya": 929933,
+        "ingiltere": 565751,
+        "iran": 340492
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "toplam": 6122007,
+        "toplamYillik": 4.69380419,
+        "avrupa": 4527822,
+        "asya": 1090396.99,
+        "amerika": 333674,
+        "afrika": 127028,
+        "okyanusya": 36546,
+        "almanya": 1089161,
+        "rusya": 939314,
+        "ingiltere": 566624,
+        "iran": 276220
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "toplam": 3306208,
+        "toplamYillik": 1.18962653,
+        "avrupa": 2052826,
+        "asya": 958631,
+        "amerika": 163576,
+        "afrika": 114916,
+        "okyanusya": 12951,
+        "almanya": 404234,
+        "rusya": 420126,
+        "ingiltere": 182514,
+        "iran": 246525
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "toplam": 2476190,
+        "toplamYillik": 3.77405144,
+        "avrupa": 1289278,
+        "asya": 932575,
+        "amerika": 123267,
+        "afrika": 118186,
+        "okyanusya": 10298,
+        "almanya": 204710,
+        "rusya": 214756,
+        "ingiltere": 88653,
+        "iran": 257028
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "toplam": 2594178.45,
+        "toplamYillik": 3.49581338,
+        "avrupa": 1383374,
+        "asya": 942741.45,
+        "amerika": 126235,
+        "afrika": 126463,
+        "okyanusya": 12399,
+        "almanya": 239271,
+        "rusya": 241071,
+        "ingiltere": 85783,
+        "iran": 241901
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "toplam": 2087038.69,
+        "toplamYillik": -1.44483398,
+        "avrupa": 1102084,
+        "asya": 790645.69,
+        "amerika": 90039,
+        "afrika": 96040,
+        "okyanusya": 6235,
+        "almanya": 169358,
+        "rusya": 165169,
+        "ingiltere": 84727,
+        "iran": 196611
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "toplam": 2200569,
+        "toplamYillik": -3.39589758,
+        "avrupa": 1390496,
+        "asya": 616663,
+        "amerika": 118882,
+        "afrika": 65836,
+        "okyanusya": 7100,
+        "almanya": 235560,
+        "rusya": 237237,
+        "ingiltere": 109442,
+        "iran": 87682
+      },
+      {
+        "yil": 2026,
+        "ay": 4,
+        "toplam": 3274028,
+        "toplamYillik": -4.67118829,
+        "avrupa": 2263659,
+        "asya": 722849,
+        "amerika": 173628,
+        "afrika": 97076,
+        "okyanusya": 13951,
+        "almanya": 508075,
+        "rusya": 318765,
+        "ingiltere": 306177,
+        "iran": 139165
+      },
+      {
+        "yil": 2026,
+        "ay": 5,
+        "toplam": 4556267.56,
+        "toplamYillik": -3.57179162,
+        "avrupa": 3210884,
+        "asya": 963123.56,
+        "amerika": 247108,
+        "afrika": 104656,
+        "okyanusya": 26834,
+        "almanya": 570345,
+        "rusya": 627188,
+        "ingiltere": 449875,
+        "iran": 230652
+      },
+      {
+        "yil": 2026,
+        "ay": 6,
+        "toplam": 5223031,
+        "toplamYillik": -6.30610187,
+        "avrupa": 3680386,
+        "asya": 1148814,
+        "amerika": 251114,
+        "afrika": 108728,
+        "okyanusya": 29464,
+        "almanya": 627346,
+        "rusya": 867607,
+        "ingiltere": 460863,
+        "iran": 281490
+      },
+      {
+        "yil": 2026,
+        "ay": 7,
+        "toplam": 6229357,
+        "toplamYillik": -0.3957718,
+        "avrupa": 4328692,
+        "asya": 1459388,
+        "amerika": 264750,
+        "afrika": 135499,
+        "okyanusya": 35873,
+        "almanya": 683030,
+        "rusya": 1002695,
+        "ingiltere": 475690,
+        "iran": 320996
+      },
+      {
+        "yil": 2026,
+        "ay": 8,
+        "toplam": 7594387.42,
+        "toplamYillik": -1.19579746,
+        "avrupa": 5464839,
+        "asya": 1681892.42,
+        "amerika": 239872,
+        "afrika": 170679,
+        "okyanusya": 30879,
+        "almanya": 1116066,
+        "rusya": 1074351,
+        "ingiltere": 627427,
+        "iran": 374619
+      }
+    ],
+    "gelir": [
+      {
+        "yil": 2012,
+        "ay": 1,
+        "gelir": 1205511,
+        "gider": 287483
+      },
+      {
+        "yil": 2012,
+        "ay": 2,
+        "gelir": 1088581,
+        "gider": 272529
+      },
+      {
+        "yil": 2012,
+        "ay": 3,
+        "gelir": 1395775,
+        "gider": 354345
+      },
+      {
+        "yil": 2012,
+        "ay": 4,
+        "gelir": 1899851,
+        "gider": 393071
+      },
+      {
+        "yil": 2012,
+        "ay": 5,
+        "gelir": 2702244,
+        "gider": 416226
+      },
+      {
+        "yil": 2012,
+        "ay": 6,
+        "gelir": 3334309,
+        "gider": 481784
+      },
+      {
+        "yil": 2012,
+        "ay": 7,
+        "gelir": 5166410,
+        "gider": 377976
+      },
+      {
+        "yil": 2012,
+        "ay": 8,
+        "gelir": 5597705,
+        "gider": 351782
+      },
+      {
+        "yil": 2012,
+        "ay": 9,
+        "gelir": 5339422,
+        "gider": 281117
+      },
+      {
+        "yil": 2012,
+        "ay": 10,
+        "gelir": 4105894,
+        "gider": 479325
+      },
+      {
+        "yil": 2012,
+        "ay": 11,
+        "gelir": 2264219,
+        "gider": 465157
+      },
+      {
+        "yil": 2012,
+        "ay": 12,
+        "gelir": 1617416,
+        "gider": 364300
+      },
+      {
+        "yil": 2013,
+        "ay": 1,
+        "gelir": 1541434,
+        "gider": 387674
+      },
+      {
+        "yil": 2013,
+        "ay": 2,
+        "gelir": 1488176,
+        "gider": 470081
+      },
+      {
+        "yil": 2013,
+        "ay": 3,
+        "gelir": 1948675,
+        "gider": 499421
+      },
+      {
+        "yil": 2013,
+        "ay": 4,
+        "gelir": 2214955,
+        "gider": 445786
+      },
+      {
+        "yil": 2013,
+        "ay": 5,
+        "gelir": 3490942,
+        "gider": 455219
+      },
+      {
+        "yil": 2013,
+        "ay": 6,
+        "gelir": 3951418,
+        "gider": 519319
+      },
+      {
+        "yil": 2013,
+        "ay": 7,
+        "gelir": 5128229,
+        "gider": 459372
+      },
+      {
+        "yil": 2013,
+        "ay": 8,
+        "gelir": 6270910,
+        "gider": 486607
+      },
+      {
+        "yil": 2013,
+        "ay": 9,
+        "gelir": 5736221,
+        "gider": 364330
+      },
+      {
+        "yil": 2013,
+        "ay": 10,
+        "gelir": 4433016,
+        "gider": 747960
+      },
+      {
+        "yil": 2013,
+        "ay": 11,
+        "gelir": 2303582,
+        "gider": 520215
+      },
+      {
+        "yil": 2013,
+        "ay": 12,
+        "gelir": 1678770,
+        "gider": 519194
+      },
+      {
+        "yil": 2014,
+        "ay": 1,
+        "gelir": 1549776,
+        "gider": 403912
+      },
+      {
+        "yil": 2014,
+        "ay": 2,
+        "gelir": 1492296,
+        "gider": 503746
+      },
+      {
+        "yil": 2014,
+        "ay": 3,
+        "gelir": 1912774,
+        "gider": 489171
+      },
+      {
+        "yil": 2014,
+        "ay": 4,
+        "gelir": 2304194,
+        "gider": 396412
+      },
+      {
+        "yil": 2014,
+        "ay": 5,
+        "gelir": 3516184,
+        "gider": 472927
+      },
+      {
+        "yil": 2014,
+        "ay": 6,
+        "gelir": 4201077,
+        "gider": 509491
+      },
+      {
+        "yil": 2014,
+        "ay": 7,
+        "gelir": 5205332,
+        "gider": 538047
+      },
+      {
+        "yil": 2014,
+        "ay": 8,
+        "gelir": 7022082,
+        "gider": 516814
+      },
+      {
+        "yil": 2014,
+        "ay": 9,
+        "gelir": 5860873,
+        "gider": 424946
+      },
+      {
+        "yil": 2014,
+        "ay": 10,
+        "gelir": 4219277,
+        "gider": 592247
+      },
+      {
+        "yil": 2014,
+        "ay": 11,
+        "gelir": 2278251,
+        "gider": 460326
+      },
+      {
+        "yil": 2014,
+        "ay": 12,
+        "gelir": 1754720,
+        "gider": 483052
+      },
+      {
+        "yil": 2015,
+        "ay": 1,
+        "gelir": 1695206,
+        "gider": 410571
+      },
+      {
+        "yil": 2015,
+        "ay": 2,
+        "gelir": 1486877,
+        "gider": 428457
+      },
+      {
+        "yil": 2015,
+        "ay": 3,
+        "gelir": 1863380,
+        "gider": 439589
+      },
+      {
+        "yil": 2015,
+        "ay": 4,
+        "gelir": 2061684,
+        "gider": 516287
+      },
+      {
+        "yil": 2015,
+        "ay": 5,
+        "gelir": 3010121,
+        "gider": 597704
+      },
+      {
+        "yil": 2015,
+        "ay": 6,
+        "gelir": 3490765,
+        "gider": 547874
+      },
+      {
+        "yil": 2015,
+        "ay": 7,
+        "gelir": 5093497,
+        "gider": 644660
+      },
+      {
+        "yil": 2015,
+        "ay": 8,
+        "gelir": 6653339,
+        "gider": 570687
+      },
+      {
+        "yil": 2015,
+        "ay": 9,
+        "gelir": 5299640,
+        "gider": 528608
+      },
+      {
+        "yil": 2015,
+        "ay": 10,
+        "gelir": 3627303,
+        "gider": 580867
+      },
+      {
+        "yil": 2015,
+        "ay": 11,
+        "gelir": 1918727,
+        "gider": 507030
+      },
+      {
+        "yil": 2015,
+        "ay": 12,
+        "gelir": 1500384,
+        "gider": 524167
+      },
+      {
+        "yil": 2016,
+        "ay": 1,
+        "gelir": 1495423,
+        "gider": 494570
+      },
+      {
+        "yil": 2016,
+        "ay": 2,
+        "gelir": 1265484,
+        "gider": 546810
+      },
+      {
+        "yil": 2016,
+        "ay": 3,
+        "gelir": 1478317,
+        "gider": 541262
+      },
+      {
+        "yil": 2016,
+        "ay": 4,
+        "gelir": 1469034,
+        "gider": 457063
+      },
+      {
+        "yil": 2016,
+        "ay": 5,
+        "gelir": 1999778,
+        "gider": 536439
+      },
+      {
+        "yil": 2016,
+        "ay": 6,
+        "gelir": 1950192,
+        "gider": 465654
+      },
+      {
+        "yil": 2016,
+        "ay": 7,
+        "gelir": 3358851,
+        "gider": 504759
+      },
+      {
+        "yil": 2016,
+        "ay": 8,
+        "gelir": 4410374,
+        "gider": 379346
+      },
+      {
+        "yil": 2016,
+        "ay": 9,
+        "gelir": 3883212,
+        "gider": 427314
+      },
+      {
+        "yil": 2016,
+        "ay": 10,
+        "gelir": 2464967,
+        "gider": 324596
+      },
+      {
+        "yil": 2016,
+        "ay": 11,
+        "gelir": 1474998,
+        "gider": 282303
+      },
+      {
+        "yil": 2016,
+        "ay": 12,
+        "gelir": 1288379,
+        "gider": 295676
+      },
+      {
+        "yil": 2017,
+        "ay": 1,
+        "gelir": 1166029,
+        "gider": 288666
+      },
+      {
+        "yil": 2017,
+        "ay": 2,
+        "gelir": 1023804,
+        "gider": 290930
+      },
+      {
+        "yil": 2017,
+        "ay": 3,
+        "gelir": 1239735,
+        "gider": 318091
+      },
+      {
+        "yil": 2017,
+        "ay": 4,
+        "gelir": 1452930,
+        "gider": 447753
+      },
+      {
+        "yil": 2017,
+        "ay": 5,
+        "gelir": 2039536,
+        "gider": 521071
+      },
+      {
+        "yil": 2017,
+        "ay": 6,
+        "gelir": 2327395,
+        "gider": 478376
+      },
+      {
+        "yil": 2017,
+        "ay": 7,
+        "gelir": 4669576,
+        "gider": 622028
+      },
+      {
+        "yil": 2017,
+        "ay": 8,
+        "gelir": 5820363,
+        "gider": 564084
+      },
+      {
+        "yil": 2017,
+        "ay": 9,
+        "gelir": 4853034,
+        "gider": 554044
+      },
+      {
+        "yil": 2017,
+        "ay": 10,
+        "gelir": 3236700,
+        "gider": 486159
+      },
+      {
+        "yil": 2017,
+        "ay": 11,
+        "gelir": 1822961,
+        "gider": 438802
+      },
+      {
+        "yil": 2017,
+        "ay": 12,
+        "gelir": 1601773,
+        "gider": 477597
+      },
+      {
+        "yil": 2018,
+        "ay": 1,
+        "gelir": 1553267,
+        "gider": 387280
+      },
+      {
+        "yil": 2018,
+        "ay": 2,
+        "gelir": 1338146,
+        "gider": 365653
+      },
+      {
+        "yil": 2018,
+        "ay": 3,
+        "gelir": 1653954,
+        "gider": 398963
+      },
+      {
+        "yil": 2018,
+        "ay": 4,
+        "gelir": 2021025,
+        "gider": 606097
+      },
+      {
+        "yil": 2018,
+        "ay": 5,
+        "gelir": 2695917,
+        "gider": 560556
+      },
+      {
+        "yil": 2018,
+        "ay": 6,
+        "gelir": 3155250,
+        "gider": 612872
+      },
+      {
+        "yil": 2018,
+        "ay": 7,
+        "gelir": 4970096,
+        "gider": 537220
+      },
+      {
+        "yil": 2018,
+        "ay": 8,
+        "gelir": 6086512,
+        "gider": 528569
+      },
+      {
+        "yil": 2018,
+        "ay": 9,
+        "gelir": 5218529,
+        "gider": 452232
+      },
+      {
+        "yil": 2018,
+        "ay": 10,
+        "gelir": 3632143,
+        "gider": 370375
+      },
+      {
+        "yil": 2018,
+        "ay": 11,
+        "gelir": 2002927,
+        "gider": 340587
+      },
+      {
+        "yil": 2018,
+        "ay": 12,
+        "gelir": 1593143,
+        "gider": 370172
+      },
+      {
+        "yil": 2019,
+        "ay": 1,
+        "gelir": 1667924,
+        "gider": 348803
+      },
+      {
+        "yil": 2019,
+        "ay": 2,
+        "gelir": 1423331,
+        "gider": 337721
+      },
+      {
+        "yil": 2019,
+        "ay": 3,
+        "gelir": 1753166,
+        "gider": 388273
+      },
+      {
+        "yil": 2019,
+        "ay": 4,
+        "gelir": 2291805,
+        "gider": 328261
+      },
+      {
+        "yil": 2019,
+        "ay": 5,
+        "gelir": 3026039,
+        "gider": 312851
+      },
+      {
+        "yil": 2019,
+        "ay": 6,
+        "gelir": 3845610,
+        "gider": 416582
+      },
+      {
+        "yil": 2019,
+        "ay": 7,
+        "gelir": 6166530,
+        "gider": 528390
+      },
+      {
+        "yil": 2019,
+        "ay": 8,
+        "gelir": 7472056,
+        "gider": 506872
+      },
+      {
+        "yil": 2019,
+        "ay": 9,
+        "gelir": 6192897,
+        "gider": 413765
+      },
+      {
+        "yil": 2019,
+        "ay": 10,
+        "gelir": 4708693,
+        "gider": 369276
+      },
+      {
+        "yil": 2019,
+        "ay": 11,
+        "gelir": 2436143,
+        "gider": 349574
+      },
+      {
+        "yil": 2019,
+        "ay": 12,
+        "gelir": 1867585,
+        "gider": 355475
+      },
+      {
+        "yil": 2020,
+        "ay": 1,
+        "gelir": 2159471,
+        "gider": 351352
+      },
+      {
+        "yil": 2020,
+        "ay": 2,
+        "gelir": 1760913,
+        "gider": 324892
+      },
+      {
+        "yil": 2020,
+        "ay": 3,
+        "gelir": 922242,
+        "gider": 170954
+      },
+      {
+        "yil": 2020,
+        "ay": 4,
+        "gelir": 176696,
+        "gider": null
+      },
+      {
+        "yil": 2020,
+        "ay": 5,
+        "gelir": 197522,
+        "gider": null
+      },
+      {
+        "yil": 2020,
+        "ay": 6,
+        "gelir": 277177,
+        "gider": null
+      },
+      {
+        "yil": 2020,
+        "ay": 7,
+        "gelir": 735797,
+        "gider": 57533
+      },
+      {
+        "yil": 2020,
+        "ay": 8,
+        "gelir": 2182195,
+        "gider": 48954
+      },
+      {
+        "yil": 2020,
+        "ay": 9,
+        "gelir": 2613927,
+        "gider": 41396
+      },
+      {
+        "yil": 2020,
+        "ay": 10,
+        "gelir": 2231222,
+        "gider": 67656
+      },
+      {
+        "yil": 2020,
+        "ay": 11,
+        "gelir": 1153266,
+        "gider": 58827
+      },
+      {
+        "yil": 2020,
+        "ay": 12,
+        "gelir": 877380,
+        "gider": 66813
+      },
+      {
+        "yil": 2021,
+        "ay": 1,
+        "gelir": 853809,
+        "gider": 65063
+      },
+      {
+        "yil": 2021,
+        "ay": 2,
+        "gelir": 738868,
+        "gider": 67987
+      },
+      {
+        "yil": 2021,
+        "ay": 3,
+        "gelir": 1076937,
+        "gider": 90876
+      },
+      {
+        "yil": 2021,
+        "ay": 4,
+        "gelir": 1014665,
+        "gider": 82158
+      },
+      {
+        "yil": 2021,
+        "ay": 5,
+        "gelir": 883337,
+        "gider": 96481
+      },
+      {
+        "yil": 2021,
+        "ay": 6,
+        "gelir": 1594258,
+        "gider": 157141
+      },
+      {
+        "yil": 2021,
+        "ay": 7,
+        "gelir": 4274124,
+        "gider": 223830
+      },
+      {
+        "yil": 2021,
+        "ay": 8,
+        "gelir": 6292848,
+        "gider": 297200
+      },
+      {
+        "yil": 2021,
+        "ay": 9,
+        "gelir": 5029437,
+        "gider": 307806
+      },
+      {
+        "yil": 2021,
+        "ay": 10,
+        "gelir": 4392951,
+        "gider": 264772
+      },
+      {
+        "yil": 2021,
+        "ay": 11,
+        "gelir": 2351477,
+        "gider": 331707
+      },
+      {
+        "yil": 2021,
+        "ay": 12,
+        "gelir": 2025630,
+        "gider": 218129
+      },
+      {
+        "yil": 2022,
+        "ay": 1,
+        "gelir": 2115594,
+        "gider": 220601
+      },
+      {
+        "yil": 2022,
+        "ay": 2,
+        "gelir": 1802400,
+        "gider": 227834
+      },
+      {
+        "yil": 2022,
+        "ay": 3,
+        "gelir": 2450564,
+        "gider": 264128
+      },
+      {
+        "yil": 2022,
+        "ay": 4,
+        "gelir": 2562925,
+        "gider": 328175
+      },
+      {
+        "yil": 2022,
+        "ay": 5,
+        "gelir": 3611773,
+        "gider": 446618
+      },
+      {
+        "yil": 2022,
+        "ay": 6,
+        "gelir": 4449306,
+        "gider": 495084
+      },
+      {
+        "yil": 2022,
+        "ay": 7,
+        "gelir": 6559263,
+        "gider": 455039
+      },
+      {
+        "yil": 2022,
+        "ay": 8,
+        "gelir": 8166195,
+        "gider": 490967
+      },
+      {
+        "yil": 2022,
+        "ay": 9,
+        "gelir": 6782835,
+        "gider": 519235
+      },
+      {
+        "yil": 2022,
+        "ay": 10,
+        "gelir": 5791119,
+        "gider": 427647
+      },
+      {
+        "yil": 2022,
+        "ay": 11,
+        "gelir": 3371943,
+        "gider": 540862
+      },
+      {
+        "yil": 2022,
+        "ay": 12,
+        "gelir": 2585018,
+        "gider": 682688
+      },
+      {
+        "yil": 2023,
+        "ay": 1,
+        "gelir": 3220522,
+        "gider": 535617
+      },
+      {
+        "yil": 2023,
+        "ay": 2,
+        "gelir": 2468867,
+        "gider": 510396
+      },
+      {
+        "yil": 2023,
+        "ay": 3,
+        "gelir": 2761391,
+        "gider": 552906
+      },
+      {
+        "yil": 2023,
+        "ay": 4,
+        "gelir": 3389156,
+        "gider": 600966
+      },
+      {
+        "yil": 2023,
+        "ay": 5,
+        "gelir": 4388926,
+        "gider": 676139
+      },
+      {
+        "yil": 2023,
+        "ay": 6,
+        "gelir": 5662093,
+        "gider": 758073
+      },
+      {
+        "yil": 2023,
+        "ay": 7,
+        "gelir": 6959059,
+        "gider": 943318
+      },
+      {
+        "yil": 2023,
+        "ay": 8,
+        "gelir": 8510427,
+        "gider": 757604
+      },
+      {
+        "yil": 2023,
+        "ay": 9,
+        "gelir": 7032645,
+        "gider": 715861
+      },
+      {
+        "yil": 2023,
+        "ay": 10,
+        "gelir": 5958631,
+        "gider": 780405
+      },
+      {
+        "yil": 2023,
+        "ay": 11,
+        "gelir": 3372698,
+        "gider": 782221
+      },
+      {
+        "yil": 2023,
+        "ay": 12,
+        "gelir": 2715196,
+        "gider": 816467
+      },
+      {
+        "yil": 2024,
+        "ay": 1,
+        "gelir": 3248301,
+        "gider": 590121
+      },
+      {
+        "yil": 2024,
+        "ay": 2,
+        "gelir": 2691946,
+        "gider": 615664
+      },
+      {
+        "yil": 2024,
+        "ay": 3,
+        "gelir": 3007642,
+        "gider": 573862
+      },
+      {
+        "yil": 2024,
+        "ay": 4,
+        "gelir": 3766507,
+        "gider": 647026
+      },
+      {
+        "yil": 2024,
+        "ay": 5,
+        "gelir": 5273468,
+        "gider": 582471
+      },
+      {
+        "yil": 2024,
+        "ay": 6,
+        "gelir": 5978968,
+        "gider": 726309
+      },
+      {
+        "yil": 2024,
+        "ay": 7,
+        "gelir": 7478639,
+        "gider": 686284
+      },
+      {
+        "yil": 2024,
+        "ay": 8,
+        "gelir": 8758815,
+        "gider": 632720
+      },
+      {
+        "yil": 2024,
+        "ay": 9,
+        "gelir": 7111097,
+        "gider": 555212
+      },
+      {
+        "yil": 2024,
+        "ay": 10,
+        "gelir": 6708147,
+        "gider": 614079
+      },
+      {
+        "yil": 2024,
+        "ay": 11,
+        "gelir": 3985176,
+        "gider": 761934
+      },
+      {
+        "yil": 2024,
+        "ay": 12,
+        "gelir": 3094712,
+        "gider": 755315
+      },
+      {
+        "yil": 2025,
+        "ay": 1,
+        "gelir": 3512648,
+        "gider": 901509
+      },
+      {
+        "yil": 2025,
+        "ay": 2,
+        "gelir": 2910621,
+        "gider": 856258
+      },
+      {
+        "yil": 2025,
+        "ay": 3,
+        "gelir": 3070447,
+        "gider": 690445
+      },
+      {
+        "yil": 2025,
+        "ay": 4,
+        "gelir": 4257568,
+        "gider": 909662
+      },
+      {
+        "yil": 2025,
+        "ay": 5,
+        "gelir": 5554400,
+        "gider": 858162
+      },
+      {
+        "yil": 2025,
+        "ay": 6,
+        "gelir": 6472354,
+        "gider": 992094
+      },
+      {
+        "yil": 2025,
+        "ay": 7,
+        "gelir": 7625284,
+        "gider": 891663
+      },
+      {
+        "yil": 2025,
+        "ay": 8,
+        "gelir": 9099846,
+        "gider": 819199
+      },
+      {
+        "yil": 2025,
+        "ay": 9,
+        "gelir": 7575738,
+        "gider": 768348
+      },
+      {
+        "yil": 2025,
+        "ay": 10,
+        "gelir": 7361004,
+        "gider": 600124
+      },
+      {
+        "yil": 2025,
+        "ay": 11,
+        "gelir": 4365859,
+        "gider": 655304
+      },
+      {
+        "yil": 2025,
+        "ay": 12,
+        "gelir": 3424979,
+        "gider": 659321
+      },
+      {
+        "yil": 2026,
+        "ay": 1,
+        "gelir": 3843817,
+        "gider": 843357
+      },
+      {
+        "yil": 2026,
+        "ay": 2,
+        "gelir": 2942136,
+        "gider": 677425
+      },
+      {
+        "yil": 2026,
+        "ay": 3,
+        "gelir": 3110504,
+        "gider": 703821
+      }
+    ],
+    "ulkeTablosu": {
+      "yil": 2026,
+      "ay": 8,
+      "ulkeler": [
+        {
+          "ad": "Almanya",
+          "sayi": 1116066,
+          "yillik": 0.28988893
+        },
+        {
+          "ad": "Arnavutluk",
+          "sayi": 23823,
+          "yillik": -6.26770538
+        },
+        {
+          "ad": "Avusturya",
+          "sayi": 133866,
+          "yillik": -4.92606639
+        },
+        {
+          "ad": "Belarus (Beyaz Rusya)",
+          "sayi": 46082,
+          "yillik": -2.3003371
+        },
+        {
+          "ad": "Belçika",
+          "sayi": 126506,
+          "yillik": -8.0484667
+        },
+        {
+          "ad": "Bosna Hersek",
+          "sayi": 24756,
+          "yillik": -6.69028683
+        },
+        {
+          "ad": "Bulgaristan",
+          "sayi": 232777,
+          "yillik": -7.38008555
+        },
+        {
+          "ad": "Çek Cumhuriyeti",
+          "sayi": 76782,
+          "yillik": -4.48336775
+        },
+        {
+          "ad": "Danimarka",
+          "sayi": 45647,
+          "yillik": -7.43789922
+        },
+        {
+          "ad": "Estonya",
+          "sayi": 9311,
+          "yillik": -0.79906243
+        },
+        {
+          "ad": "Finlandiya",
+          "sayi": 12048,
+          "yillik": -4.64582509
+        },
+        {
+          "ad": "Fransa",
+          "sayi": 244000,
+          "yillik": -5.78641317
+        },
+        {
+          "ad": "Güney Kıbrıs",
+          "sayi": 2738,
+          "yillik": -3.07964602
+        },
+        {
+          "ad": "Hırvatistan",
+          "sayi": 6583,
+          "yillik": -12.92328042
+        },
+        {
+          "ad": "Hollanda",
+          "sayi": 269686,
+          "yillik": -6.58672264
+        },
+        {
+          "ad": "İngiltere",
+          "sayi": 627427,
+          "yillik": -8.01350563
+        },
+        {
+          "ad": "İrlanda",
+          "sayi": 27582,
+          "yillik": -10.05380727
+        },
+        {
+          "ad": "İspanya",
+          "sayi": 63916,
+          "yillik": -6.15079656
+        },
+        {
+          "ad": "İsveç",
+          "sayi": 70598,
+          "yillik": 1.96571197
+        },
+        {
+          "ad": "İsviçre",
+          "sayi": 47984,
+          "yillik": -7.26116619
+        },
+        {
+          "ad": "İtalya",
+          "sayi": 122402,
+          "yillik": -1.98744435
+        },
+        {
+          "ad": "İzlanda",
+          "sayi": 533,
+          "yillik": -1.2962963
+        },
+        {
+          "ad": "Karadağ",
+          "sayi": 2379,
+          "yillik": 1.19098256
+        },
+        {
+          "ad": "Kosova",
+          "sayi": 20265,
+          "yillik": -5.17967434
+        },
+        {
+          "ad": "Letonya",
+          "sayi": 12116,
+          "yillik": -3.18043791
+        },
+        {
+          "ad": "Litvanya",
+          "sayi": 26876,
+          "yillik": -5.14910888
+        },
+        {
+          "ad": "Lüksemburg",
+          "sayi": 2726,
+          "yillik": -11.95090439
+        },
+        {
+          "ad": "Macaristan",
+          "sayi": 54886,
+          "yillik": 18.37808692
+        },
+        {
+          "ad": "Kuzey Makedonya",
+          "sayi": 29517,
+          "yillik": -3.44139488
+        },
+        {
+          "ad": "Malta",
+          "sayi": 1818,
+          "yillik": -18.36551414
+        },
+        {
+          "ad": "Moldova",
+          "sayi": 46695,
+          "yillik": -15.99654595
+        },
+        {
+          "ad": "Norveç",
+          "sayi": 32238,
+          "yillik": 0.77209215
+        },
+        {
+          "ad": "Polonya",
+          "sayi": 328909,
+          "yillik": -0.96831012
+        },
+        {
+          "ad": "Portekiz",
+          "sayi": 16744,
+          "yillik": -6.57292713
+        },
+        {
+          "ad": "Romanya",
+          "sayi": 177279,
+          "yillik": -8.11131614
+        },
+        {
+          "ad": "Rusya",
+          "sayi": 1074351,
+          "yillik": 6.87390512
+        },
+        {
+          "ad": "Sırbistan",
+          "sayi": 43996,
+          "yillik": -7.62382682
+        },
+        {
+          "ad": "Slovakya",
+          "sayi": 57143,
+          "yillik": -5.92196246
+        },
+        {
+          "ad": "Slovenya",
+          "sayi": 5197,
+          "yillik": -11.34425111
+        },
+        {
+          "ad": "Ukrayna",
+          "sayi": 146576,
+          "yillik": 6.25607122
+        },
+        {
+          "ad": "Yunanistan",
+          "sayi": 53501,
+          "yillik": -10.31147321
+        },
+        {
+          "ad": "ABD",
+          "sayi": 154106,
+          "yillik": -17.27850989
+        },
+        {
+          "ad": "Arjantin",
+          "sayi": 4312,
+          "yillik": -31.64235891
+        },
+        {
+          "ad": "Brezilya",
+          "sayi": 11364,
+          "yillik": 2.84162896
+        },
+        {
+          "ad": "Kanada",
+          "sayi": 37209,
+          "yillik": -9.56177235
+        },
+        {
+          "ad": "Kolombiya",
+          "sayi": 6527,
+          "yillik": -14.47851153
+        },
+        {
+          "ad": "Meksika",
+          "sayi": 11483,
+          "yillik": -23.73140276
+        },
+        {
+          "ad": "Şili",
+          "sayi": 2055,
+          "yillik": -21.32465544
+        },
+        {
+          "ad": "Venezüella",
+          "sayi": 1712,
+          "yillik": -42.0642978
+        },
+        {
+          "ad": "Cezayir",
+          "sayi": 41782,
+          "yillik": 7.4916388
+        },
+        {
+          "ad": "Fas",
+          "sayi": 34974,
+          "yillik": 8.85154062
+        },
+        {
+          "ad": "Güney Afrika",
+          "sayi": 5722,
+          "yillik": -17.40762125
+        },
+        {
+          "ad": "Libya",
+          "sayi": 14737,
+          "yillik": -22.70128508
+        },
+        {
+          "ad": "Mısır",
+          "sayi": 30564,
+          "yillik": 43.78998871
+        },
+        {
+          "ad": "Sudan",
+          "sayi": 2343,
+          "yillik": 7.32936326
+        },
+        {
+          "ad": "Tunus",
+          "sayi": 20169,
+          "yillik": 11.74580309
+        },
+        {
+          "ad": "Azerbaycan",
+          "sayi": 125306,
+          "yillik": -2.0151232
+        },
+        {
+          "ad": "Birleşik Arap Emirlikleri",
+          "sayi": 17749,
+          "yillik": -10.96563832
+        },
+        {
+          "ad": "Bahreyn",
+          "sayi": 6055,
+          "yillik": -18.8772776
+        },
+        {
+          "ad": "Bangladeş",
+          "sayi": 2239,
+          "yillik": -20.68721219
+        },
+        {
+          "ad": "Çin",
+          "sayi": 64914,
+          "yillik": 60.17865074
+        },
+        {
+          "ad": "Endonezya",
+          "sayi": 8367,
+          "yillik": -28.92456677
+        },
+        {
+          "ad": "Ermenistan",
+          "sayi": 4401,
+          "yillik": 24.49787836
+        },
+        {
+          "ad": "Filipinler",
+          "sayi": 12813,
+          "yillik": -21.72877214
+        },
+        {
+          "ad": "Gürcistan",
+          "sayi": 134454,
+          "yillik": -0.0876854
+        },
+        {
+          "ad": "Güney Kore",
+          "sayi": 13233,
+          "yillik": -27.30718523
+        },
+        {
+          "ad": "Hindistan",
+          "sayi": 18796,
+          "yillik": 5.91682633
+        },
+        {
+          "ad": "Irak",
+          "sayi": 145932,
+          "yillik": 0.20118238
+        },
+        {
+          "ad": "İran",
+          "sayi": 374619,
+          "yillik": 14.51510844
+        },
+        {
+          "ad": "İsrail",
+          "sayi": 27823,
+          "yillik": 34.90593483
+        },
+        {
+          "ad": "Japonya",
+          "sayi": 12631,
+          "yillik": -27.49555135
+        },
+        {
+          "ad": "Katar",
+          "sayi": 10444,
+          "yillik": -12.38990018
+        },
+        {
+          "ad": "Kazakistan",
+          "sayi": 136075,
+          "yillik": 11.59359675
+        },
+        {
+          "ad": "Kırgızistan",
+          "sayi": 17135,
+          "yillik": -3.26314007
+        },
+        {
+          "ad": "Kuveyt",
+          "sayi": 29301,
+          "yillik": -37.33478763
+        },
+        {
+          "ad": "Kuzey Kıbrıs Türk Cumhuriyeti",
+          "sayi": 39342,
+          "yillik": 2.77429467
+        },
+        {
+          "ad": "Lübnan",
+          "sayi": 39093,
+          "yillik": 10.13353617
+        },
+        {
+          "ad": "Malezya",
+          "sayi": 3987,
+          "yillik": 5.81210191
+        },
+        {
+          "ad": "Özbekistan",
+          "sayi": 93575,
+          "yillik": 10.55386215
+        },
+        {
+          "ad": "Pakistan",
+          "sayi": 16218,
+          "yillik": 0.8833043
+        },
+        {
+          "ad": "Singapur",
+          "sayi": 1746,
+          "yillik": 8.37988827
+        },
+        {
+          "ad": "Suriye",
+          "sayi": 17564.42,
+          "yillik": -11.69220714
+        },
+        {
+          "ad": "Suudi Arabistan",
+          "sayi": 187287,
+          "yillik": -4.48585548
+        },
+        {
+          "ad": "Tacikistan",
+          "sayi": 2986,
+          "yillik": 2.33036326
+        },
+        {
+          "ad": "Türkmenistan",
+          "sayi": 16978,
+          "yillik": 21.81087674
+        },
+        {
+          "ad": "Tayland",
+          "sayi": 2786,
+          "yillik": -11.30213308
+        },
+        {
+          "ad": "Ürdün",
+          "sayi": 47635,
+          "yillik": 1.82552746
+        },
+        {
+          "ad": "Yemen",
+          "sayi": 3964,
+          "yillik": -8.09181544
+        },
+        {
+          "ad": "Avustralya",
+          "sayi": 26214,
+          "yillik": -8.00814149
+        },
+        {
+          "ad": "Yeni Zellanda",
+          "sayi": 4559,
+          "yillik": -10.20287571
+        }
+      ]
+    },
+    "alinma": "2026-10-29T18:13:58.158Z"
   }
 }

@@ -88,6 +88,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/karsiliksiz-cek/': 'karşılıksız çek takas ibraz çek tutarı ticari stres takasbank',
   '/veri/banknotlar/': 'banknot kupür 200 tl 100 tl nakit tedavül emisyon para',
   '/veri/odeme-sistemleri/': 'fast eft havale anlık ödeme ödeme sistemleri kira ödemesi karekod',
+  '/veri/turizm/': 'turizm turist yabancı ziyaretçi turizm geliri almanya rusya ingiltere',
   '/veri/para-arzi/': 'm1 m2 m3 para arzı parasal büyüklükler dolaşımdaki para vadeli vadesiz mevduat likidite',
   '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
@@ -370,6 +371,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/cari-denge/')}>
               <a href="/veri/cari-denge/" class="fihrist-baslik-link">Cari Denge</a>
               <span class="fihrist-ozet">12 aylık cari denge; altın, enerji ve seyahat geliri</span>
+            </li>
+            <li data-ek={aramaEki('/veri/turizm/')}>
+              <a href="/veri/turizm/" class="fihrist-baslik-link">Turizm</a>
+              <span class="fihrist-ozet">Yabancı ziyaretçi sayısı ülke ülke, turizm geliri ve gideri</span>
             </li>
             <li data-ek={aramaEki('/veri/dis-ticaret/')}>
               <a href="/veri/dis-ticaret/" class="fihrist-baslik-link">Dış Ticaret</a>

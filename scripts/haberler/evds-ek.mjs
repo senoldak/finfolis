@@ -388,6 +388,9 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //      aylık ödeme adedi ve tutarı (TL; günlük verinin EVDS aylık toplamı, tamamlanmamış ay atılır); FAST ödemelerinin son
 //      tam ayda amaçlara göre dağılımı. "Kaynağına göre dağılım (%)" serileri kesir döndüğü ve tanımı belirsiz olduğu için
 //      alınmaz.
+//  - turizm: milliyetlere göre yabancı ziyaretçi sayısı (Kültür ve Turizm Bakanlığı, aylık, 2008'den; kıtalar ve başlıca
+//      ülkeler, son ayın ülke tablosu EVDS seri listesinden) ile turizm geliri ve gideri (bin ABD doları, aylık, 2012'den;
+//      ziyaretçiden farklı ayda biter, ayrı dizi). Doğrulandı 29.10.2026.
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -1203,6 +1206,82 @@ export async function odemeAl(simdi, anahtar) {
     seriler: tanimlar(ODEME_SERILERI),
     satirlar,
     fastAmac: { yil: son.yil, ay: son.ay, amaclar },
+  };
+}
+
+// Yabancı ziyaretçi (kişi, aylık). EVDS 2008'den önce yalnız aralık aylarında yıllık toplam verir; aylık yıllık değişim bu
+// yüzden 2009'dan anlamlıdır, satırlar Ocak 2009'dan başlar.
+export const ZIYARETCI_SERILERI = [
+  { kod: 'TP.ODEMGZS.GTOPLAM', formul: 0, alan: 'toplam', ad: 'Yabancı ziyaretçi, toplam' },
+  { kod: 'TP.ODEMGZS.GTOPLAM', formul: 3, alan: 'toplamYillik', ad: 'Yabancı ziyaretçi, toplam, yıllık değişim' },
+  { kod: 'TP.ODEMGZS.AVRUPATOP', formul: 0, alan: 'avrupa', ad: 'Avrupa' },
+  { kod: 'TP.ODEMGZS.ASYATOP', formul: 0, alan: 'asya', ad: 'Asya' },
+  { kod: 'TP.ODEMGZS.AMERIKATOP', formul: 0, alan: 'amerika', ad: 'Amerika' },
+  { kod: 'TP.ODEMGZS.AFRIKATOP', formul: 0, alan: 'afrika', ad: 'Afrika' },
+  { kod: 'TP.ODEMGZS.OKYANUSYATOP', formul: 0, alan: 'okyanusya', ad: 'Okyanusya' },
+  { kod: 'TP.ODEMGZS.ALMANYA', formul: 0, alan: 'almanya', ad: 'Almanya' },
+  { kod: 'TP.ODEMGZS.RUSYA', formul: 0, alan: 'rusya', ad: 'Rusya' },
+  { kod: 'TP.ODEMGZS.INGILTERE', formul: 0, alan: 'ingiltere', ad: 'İngiltere' },
+  { kod: 'TP.ODEMGZS.IRAN', formul: 0, alan: 'iran', ad: 'İran' },
+];
+export const TURIZM_GELIR_SERILERI = [
+  { kod: 'TP.TURIZMGELGIT.GK178635', formul: 0, alan: 'gelir', ad: 'Turizm geliri (bin ABD doları)' },
+  { kod: 'TP.TURIZMGELGIT.GK178887', formul: 0, alan: 'gider', ad: 'Turizm gideri (bin ABD doları)' },
+];
+
+// Ülke listesi EVDS'den (bie_odemgzs): kıta toplamları (…TOP), genel toplam ve "Diğer …" kalemleri ülke değildir.
+async function ziyaretciUlkeleri(anahtar) {
+  const yanit = await fetch(`${EVDS}/serieList/type=json&code=bie_odemgzs`, { headers: { key: anahtar } });
+  if (!yanit.ok) throw new Error(`EVDS seri listesi ${yanit.status}`);
+  const ulkeler = (await yanit.json())
+    .filter((s) => !/TOP$|GTOPLAM$/.test(s.SERIE_CODE) && !/^Diğer/.test(String(s.SERIE_NAME)))
+    .map((s) => ({ kod: s.SERIE_CODE, ad: String(s.SERIE_NAME).trim() }));
+  if (ulkeler.length < 50) throw new Error('Ziyaretçi ülke listesi eksik');
+  return ulkeler;
+}
+
+// Ülke tablosu yalnız son ay için: ülke başına sayı (düzey) ve yıllık değişim, istek başına en çok 60 seri.
+export async function turizmAl(simdi, anahtar) {
+  const satirlar = (await aylikFormullu(ZIYARETCI_SERILERI, new Date(Date.UTC(2007, 0, 1)), simdi, anahtar, 'Yabancı ziyaretçi', 150)).filter(
+    (s) => s.yil >= 2009,
+  );
+  // Turizm gideri Nisan–Haziran 2020'de yayımlanmadı: o aylar null kalır (aylikFormullu boşlukta bölümü düşürürdü); eksik
+  // ay satırı da null ile doldurulur, grafik boşluğu çizgiyle kapatmaz.
+  const gelirHam = await evdsCek(TURIZM_GELIR_SERILERI.map((t) => t.kod), [0, 0], new Date(Date.UTC(2012, 0, 1)), simdi, anahtar);
+  const gelirHarita = new Map(gelirHam.filter((h) => h.ay).map((h) => [h.yil * 12 + h.ay, h]));
+  const gelirSatir = [];
+  for (let k = 2012 * 12 + 1; k <= simdi.getUTCFullYear() * 12 + simdi.getUTCMonth() + 1; k++) {
+    const h = gelirHarita.get(k);
+    const yil = Math.floor((k - 1) / 12);
+    gelirSatir.push({ yil, ay: k - yil * 12, gelir: h?.[alanAdi(TURIZM_GELIR_SERILERI[0].kod, 0)] ?? null, gider: h?.[alanAdi(TURIZM_GELIR_SERILERI[1].kod, 0)] ?? null });
+  }
+  const gelirSon = gelirSatir.findLastIndex((s) => s.gelir != null && s.gider != null);
+  const gelir = gelirSatir.slice(gelirSatir.findIndex((s) => s.gelir != null), gelirSon + 1);
+  if (gelir.length < 100) throw new Error('Turizm geliri yetersiz');
+  const son = satirlar.at(-1);
+  const ay = new Date(Date.UTC(son.yil, son.ay - 1, 1));
+  const ulkeler = await ziyaretciUlkeleri(anahtar);
+  const istek = ulkeler.flatMap((u) => [
+    { kod: u.kod, formul: 0 },
+    { kod: u.kod, formul: 3 },
+  ]);
+  const deger = {};
+  for (let i = 0; i < istek.length; i += KONUT_IL_PARCA) {
+    const parca = istek.slice(i, i + KONUT_IL_PARCA);
+    const ham = await evdsCek(parca.map((p) => p.kod), parca.map((p) => p.formul), ay, ay, anahtar);
+    Object.assign(deger, ham.find((h) => h.yil === son.yil && h.ay === son.ay) ?? {});
+  }
+  const ulkeTablosu = ulkeler
+    .map((u) => ({ ad: u.ad, sayi: deger[alanAdi(u.kod, 0)] ?? null, yillik: deger[alanAdi(u.kod, 3)] ?? null }))
+    .filter((u) => u.sayi != null && u.sayi > 0);
+  if (ulkeTablosu.length < 40) throw new Error('Ziyaretçi ülke tablosu eksik');
+  return {
+    kaynak: { ad: 'Kültür ve Turizm Bakanlığı verisi, milliyetlere göre ziyaretçi sayısı; turizm gelir ve giderleri (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(ZIYARETCI_SERILERI),
+    gelirSeriler: tanimlar(TURIZM_GELIR_SERILERI),
+    satirlar,
+    gelir,
+    ulkeTablosu: { yil: son.yil, ay: son.ay, ulkeler: ulkeTablosu },
   };
 }
 

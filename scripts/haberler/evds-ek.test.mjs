@@ -23,6 +23,7 @@ import {
   cekAl,
   banknotAl,
   odemeAl,
+  turizmAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -652,6 +653,34 @@ test('odemeAl: aylık toplam, tamamlanmamış ay atılır, FAST öncesi boş; so
   assert.equal(o.satirlar[0].eftAdet, 9);
   assert.deepEqual([o.fastAmac.yil, o.fastAmac.ay, o.fastAmac.amaclar.length], [2026, 9, 22]);
   assert.ok(!istekler.some((x) => /RAOM|ORAN\./.test(x)));
+});
+
+test('turizmAl: 2009’dan satırlar, eksik gider ayı null, ülke tablosu seri listesinden', async () => {
+  const istekler = [];
+  const liste = [
+    { SERIE_CODE: 'TP.ODEMGZS.GTOPLAM', SERIE_NAME: 'Genel Toplam' },
+    { SERIE_CODE: 'TP.ODEMGZS.AVRUPATOP', SERIE_NAME: 'Avrupa' },
+    { SERIE_CODE: 'TP.ODEMGZS.DAVRUPA', SERIE_NAME: 'Diğer Avrupa Ülkeleri' },
+    ...Array.from({ length: 60 }, (_, i) => ({ SERIE_CODE: `TP.ODEMGZS.U${i}`, SERIE_NAME: `Ülke${i}` })),
+  ];
+  globalThis.fetch = async (url) => {
+    const u = decodeURIComponent(String(url));
+    istekler.push(u);
+    if (u.includes('serieList')) return yanit(liste);
+    const a = alanlar(url);
+    if (u.includes('TURIZMGELGIT')) {
+      return yanit({ items: aylar([2012, 1], 171).filter((m) => !(m.yil === 2020 && m.ay === 5)).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(a.map((x) => [x, x.endsWith('887') && m.yil === 2020 && m.ay === 4 ? null : '100'])) })) });
+    }
+    return yanit({ items: aylar([2007, 1], 236).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(a.map((x) => [x, x.endsWith('-3') && m.yil < 2008 ? null : '50'])) })) });
+  };
+  const t = await turizmAl(SIMDI, 'x');
+  assert.deepEqual([t.satirlar[0].yil, t.satirlar[0].ay], [2009, 1]);
+  assert.deepEqual([t.satirlar.at(-1).yil, t.satirlar.at(-1).ay], [2026, 8]);
+  assert.equal(t.gelir.find((s) => s.yil === 2020 && s.ay === 4).gider, null);
+  assert.deepEqual(t.gelir.find((s) => s.yil === 2020 && s.ay === 5), { yil: 2020, ay: 5, gelir: null, gider: null });
+  assert.deepEqual([t.gelir.at(-1).yil, t.gelir.at(-1).ay], [2026, 3]);
+  assert.equal(t.ulkeTablosu.ulkeler.length, 60);
+  assert.ok(!t.ulkeTablosu.ulkeler.some((x) => /Diğer|Toplam|Avrupa/.test(x.ad)));
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

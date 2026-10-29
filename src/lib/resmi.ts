@@ -346,6 +346,13 @@ export interface OdemeBolumu {
   alinma: string;
 }
 
+// Turizm: yabancı ziyaretçi (kişi, aylık, 2009'dan) ve turizm geliri/gideri (bin ABD doları, aylık, null olabilir).
+export interface TurizmBolumu extends AylikSeriBolumu<'toplam' | 'toplamYillik' | 'avrupa' | 'asya' | 'amerika' | 'afrika' | 'okyanusya' | 'almanya' | 'rusya' | 'ingiltere' | 'iran'> {
+  gelirSeriler: SeriAdi[];
+  gelir: { yil: number; ay: number; gelir: number | null; gider: number | null }[];
+  ulkeTablosu: { yil: number; ay: number; ulkeler: { ad: string; sayi: number; yillik: number | null }[] };
+}
+
 // Para arzı (TCMB, haftalık cuma stoku, bin TL); yıllık değişim %.
 export interface ParaArziBolumu {
   kaynak: Kaynak;
@@ -424,6 +431,7 @@ export const RESMI = data as unknown as {
   dovizHacmi?: DovizHacmiBolumu;
   elektrik?: ElektrikBolumu;
   odeme?: OdemeBolumu;
+  turizm?: TurizmBolumu;
   banknot?: AylikSeriBolumu<`${'k200' | 'k100' | 'k50' | 'k20' | 'k10' | 'k5' | 'diger' | 'toplam'}${'Adet' | 'Tutar'}`>;
   cek?: AylikSeriBolumu<'ibrazAdet' | 'ibrazTutar' | 'karsiliksizAdet' | 'karsiliksizTutar'>;
 };

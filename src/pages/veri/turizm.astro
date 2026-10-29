@@ -1,0 +1,265 @@
+---
+// Turizm: Kültür ve Turizm Bakanlığı'nın milliyetlere göre yabancı ziyaretçi sayısı (aylık) ile turizm geliri ve gideri
+// (bin ABD doları, aylık), TCMB EVDS'den. Ziyaretçinin yıllık değişimi EVDS'nin formülüyle. Sayfa hesapları: yılbaşından
+// bu yana toplam ve bir önceki yılın aynı dönemiyle karşılaştırma, 12 aylık turizm geliri toplamı, ülke payları (EVDS
+// düzeylerinden). Turizm gideri Nisan–Haziran 2020'de yayımlanmadı. Başka türetme ve tahmin yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const turizm = RESMI.turizm;
+const satirlar = turizm?.satirlar ?? [];
+const gelir = turizm?.gelir ?? [];
+const son = satirlar.at(-1);
+const sonGelir = [...gelir].reverse().find((s) => s.gelir != null);
+const ulke = turizm?.ulkeTablosu;
+
+const yd = (n: number) => `${n > 0 ? '+' : ''}${yuzdeYaz(n)}`;
+const milyonKisi = (n: number) => `${sayiYaz(n / 1e6, 2)} milyon`;
+
+// Sayfa hesabı: yılbaşından son aya kadar toplam ve bir önceki yılın aynı ayları.
+const yilBasi = son ? satirlar.filter((s) => s.yil === son.yil && s.ay <= son.ay) : [];
+const oncekiYil = son ? satirlar.filter((s) => s.yil === son.yil - 1 && s.ay <= son.ay) : [];
+const ybToplam = yilBasi.reduce((a, s) => a + s.toplam, 0);
+const ybOnce = oncekiYil.reduce((a, s) => a + s.toplam, 0);
+const ybDegisim = oncekiYil.length === yilBasi.length && ybOnce > 0 ? (ybToplam / ybOnce - 1) * 100 : null;
+// Sayfa hesabı: son 12 ayın turizm geliri (milyar $), 12 ay dolu ise.
+const gelir12 = (() => {
+  if (!sonGelir) return null;
+  const i = gelir.indexOf(sonGelir);
+  const pencere = gelir.slice(i - 11, i + 1);
+  return pencere.length === 12 && pencere.every((s) => s.gelir != null) ? pencere.reduce((a, s) => a + s.gelir!, 0) / 1e6 : null;
+})();
+
+const gruplar1 = [
+  { id: 'toplam', ad: 'Toplam', seriler: [{ id: 'toplam', ad: 'Yabancı ziyaretçi', renk: 'murekkep' as const }] },
+  {
+    id: 'kita',
+    ad: 'Kıtalar',
+    seriler: [
+      { id: 'avrupa', ad: 'Avrupa', renk: 'murekkep' as const },
+      { id: 'asya', ad: 'Asya', renk: 'toprak' as const },
+      { id: 'amerika', ad: 'Amerika', renk: 'mavi' as const },
+      { id: 'afrika', ad: 'Afrika', renk: 'yesil' as const },
+    ],
+  },
+  {
+    id: 'ulke',
+    ad: 'Başlıca ülkeler',
+    seriler: [
+      { id: 'almanya', ad: 'Almanya', renk: 'murekkep' as const },
+      { id: 'rusya', ad: 'Rusya', renk: 'toprak' as const },
+      { id: 'ingiltere', ad: 'İngiltere', renk: 'mavi' as const },
+      { id: 'iran', ad: 'İran', renk: 'yesil' as const },
+    ],
+  },
+];
+const ALANLAR = ['toplam', 'avrupa', 'asya', 'amerika', 'afrika', 'almanya', 'rusya', 'ingiltere', 'iran'] as const;
+// Kişi sayıları bin kişi.
+const noktalar1 = satirlar.map((s) => [ayAnahtari(s), ...ALANLAR.map((a) => s[a] / 1000)]);
+const gruplar2 = [{ id: 'yillik', ad: 'Yıllık', seriler: [{ id: 'yillik', ad: 'Yabancı ziyaretçi, yıllık değişim', renk: 'murekkep' as const }] }];
+const noktalar2 = satirlar.map((s) => [ayAnahtari(s), s.toplamYillik]);
+const gruplar3 = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'gelir', ad: 'Turizm geliri', renk: 'murekkep' as const },
+      { id: 'gider', ad: 'Turizm gideri', renk: 'toprak' as const },
+    ],
+  },
+];
+const noktalar3 = gelir.map((s) => [ayAnahtari(s), s.gelir != null ? s.gelir / 1e6 : null, s.gider != null ? s.gider / 1e6 : null]);
+
+const ulkeSirali = ulke ? [...ulke.ulkeler].sort((a, b) => b.sayi - a.sayi) : [];
+const ulkeToplam = son?.toplam ?? 0;
+
+const baslik = 'Turizm';
+const description = son
+  ? `${ayAdi(son)} ayında Türkiye’ye ${milyonKisi(son.toplam)} yabancı ziyaretçi geldi, bir yıl öncesine göre ${yd(son.toplamYillik)}. Ülke ülke ziyaretçi sayısı, turizm geliri ve gideri. Kültür ve Turizm Bakanlığı verisi.`
+  : 'Milliyetlere göre yabancı ziyaretçi sayısı, turizm geliri ve gideri, Kültür ve Turizm Bakanlığı verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/turizm/' },
+];
+const ayKodu = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(turizm && son
+    ? {
+        sayfaEk: { dateModified: turizm.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Yabancı ziyaretçi sayısı ve turizm gelirleri',
+            description:
+              'Milliyetlere göre aylık yabancı ziyaretçi sayısı (kıtalar ve ülkeler) ile aylık turizm geliri ve gideri (bin ABD doları), Kültür ve Turizm Bakanlığı verisi, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/turizm/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'T.C. Kültür ve Turizm Bakanlığı', url: 'https://www.ktb.gov.tr/' },
+            temporalCoverage: `${ayKodu(satirlar[0])}/${ayKodu(son)}`,
+            dateModified: turizm.alinma,
+            variableMeasured: [
+              'Yabancı ziyaretçi sayısı (kişi)',
+              'Kıtalara ve ülkelere göre yabancı ziyaretçi sayısı (kişi)',
+              'Turizm geliri ve gideri (bin ABD doları)',
+            ],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Turizm: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Yabancı ziyaretçiler ve turizm geliri · Kültür ve Turizm Bakanlığı, aylık</p>
+    </header>
+    {
+      turizm && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Yabancı ziyaretçi</dt>
+              <dd>{milyonKisi(son.toplam)}</dd>
+              <dd class="veri-degisim">
+                {`${ayAdi(son)}, bir yıl önceye göre ${yd(son.toplamYillik)}`}
+              </dd>
+            </div>
+            <div>
+              <dt>Yılbaşından bu yana</dt>
+              <dd>{milyonKisi(ybToplam)}</dd>
+              <dd class="veri-degisim">{ybDegisim != null ? `Geçen yılın aynı dönemine göre ${yd(ybDegisim)}` : `Ocak – ${ayAdi(son)}`}</dd>
+            </div>
+            {sonGelir && sonGelir.gelir != null && (
+              <div>
+                <dt>Turizm geliri</dt>
+                <dd>{sayiYaz(sonGelir.gelir / 1e6, 2)} milyar $</dd>
+                <dd class="veri-degisim">{`${ayAdi(sonGelir)}${gelir12 != null ? `; son 12 ay ${sayiYaz(gelir12, 1)} milyar $` : ''}`}</dd>
+              </div>
+            )}
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={turizm.kaynak.url} rel="noopener">{turizm.kaynak.ad}</a>. Turizm geliri ziyaretçi
+            verisinden daha geç yayımlanır. Siteye alındığı zaman: {zamanYaz(turizm.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Aylık yabancı ziyaretçi"
+            ipucu="Bin kişi · Grup düğmesiyle toplam, kıtalar ve başlıca ülkeler arasında geçilir"
+            kaynak="Kaynak: Kültür ve Turizm Bakanlığı (TCMB EVDS)."
+            siklik="ay"
+            birim="endeks"
+            ondalik={0}
+            seriIdleri={[...ALANLAR]}
+            noktalar={noktalar1}
+            gruplar={gruplar1}
+            grupEtiketi="Seri grubu"
+          />
+
+          {ulke && (
+            <section class="bolum">
+              <h2 class="bolum-baslik">Ülkelere göre ziyaretçi, {ayAdi(ulke)}</h2>
+              <div class="tablo-sarma ulke-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Ülke</th>
+                      <th scope="col" class="sag">Ziyaretçi</th>
+                      <th scope="col" class="sag">Pay</th>
+                      <th scope="col" class="sag">Yıllık değişim</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ulkeSirali.map((u) => (
+                      <tr>
+                        <td>{u.ad}</td>
+                        <td class="sag">{sayiYaz(u.sayi, 0)}</td>
+                        <td class="sag">{ulkeToplam > 0 ? yuzdeYaz((u.sayi / ulkeToplam) * 100) : '–'}</td>
+                        <td class="sag">{u.yillik != null ? yd(u.yillik) : '–'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">
+                Sıralama ziyaretçi sayısına göredir. Pay, ülkenin o ayki toplam yabancı ziyaretçi içindeki payıdır ve sayfada
+                hesaplanır; "diğer" kalemleri tabloda yoktur.
+              </p>
+            </section>
+          )}
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <ZamanGrafik
+                baslik="Turizm geliri ve gideri"
+                ipucu="Milyar ABD doları, aylık · Gider Nisan–Haziran 2020’de yayımlanmadı"
+                kaynak="Kaynak: Kültür ve Turizm Bakanlığı (TCMB EVDS)."
+                siklik="ay"
+                birim="milyarUsd"
+                ondalik={2}
+                seriIdleri={['gelir', 'gider']}
+                noktalar={noktalar3}
+                gruplar={gruplar3}
+              />
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Ziyaretçi sayısı, sınır kapılarından giriş yapan yabancıların milliyetlerine göre dağılımıdır. Bir kişi yıl
+                içinde birden çok kez gelirse her girişi ayrı sayılır.
+              </p>
+              <p>
+                Turizm geliri, yabancı ve yurt dışında yaşayan yurttaş ziyaretçilerin Türkiye’de yaptığı harcamalardır; turizm
+                gideri, yurt dışına çıkan yurttaşların harcamalarıdır. Aylar arasında belirgin bir mevsim etkisi vardır; bu yüzden
+                aynı ayın bir önceki yılla karşılaştırılması daha anlamlıdır.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Ziyaretçi sayısının yıllık değişimi"
+            ipucu="Yüzde, bir yıl önceki aynı aya göre"
+            kaynak="Kaynak: Kültür ve Turizm Bakanlığı (TCMB EVDS)."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={['yillik']}
+            noktalar={noktalar2}
+            gruplar={gruplar2}
+            referans={{ deger: 0, ad: 'Sıfır' }}
+          />
+        </>
+      ) : (
+        <p class="bos">Turizm verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/cari-denge/">Cari denge</a>
+      <a href="/veri/reel-efektif-kur/">Reel efektif kur</a>
+      <a href="/veri/kartli-harcamalar/">Kartlı harcamalar</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve resmi istatistiklerdir. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+  .ulke-sarma {
+    max-height: 28rem;
+    overflow-y: auto;
+  }
+</style>
