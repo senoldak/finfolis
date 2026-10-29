@@ -1,0 +1,532 @@
+---
+// ECB açıklama metni farkı: ECB'nin her para politikası kararı açıklaması bir öncekiyle cümle cümle karşılaştırılır.
+// Metinler src/data/ecb-metinler.json'dan gelir (scripts/veri/ecb-metinler.mjs, yalnız ecb.europa.eu). Metin İngilizce kalır, sayfa dili Türkçedir.
+// Karşılaştırma kurallı koddur (src/lib/ppk-fark.mjs, dile bağlı değil); yapay zekâ, çeviri ve yorum yoktur. Bütün farklar derleme anında üretilir.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { gunYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { cumleFarki } from '../../lib/ppk-fark.mjs';
+import { ecbKarari } from '../../lib/ecb-metin.mjs';
+import ecb from '../../data/ecb-metinler.json';
+
+const belgeler: any[] = (ecb as any).belgeler ?? [];
+const sirala = (tur: string) => belgeler.filter((b) => b.tur === tur).sort((a, b) => a.tarih.localeCompare(b.tarih));
+const kararlar = sirala('karar');
+const aciklamalar = sirala('aciklama');
+const hesaplar = sirala('hesap');
+const hazir = kararlar.length >= 2;
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const oranYaz = (n: number) => `%${n.toFixed(2).replace('.', ',')}`;
+
+const ETIKET: Record<string, string> = { eklendi: 'Eklendi', silindi: 'Silindi', degisti: 'Değişti' };
+
+// Bir cümle satırı: aynı kalan soluk, eklenen ve silinen etiketli; değişende sözcük farkı.
+function satirHtml(s: any) {
+  if (s.tur === 'ayni') return `<li class="ecb-satir ecb-ayni"><p>${esc(s.yeni)}</p></li>`;
+  const etiket = `<span class="ecb-etiket">${ETIKET[s.tur]}</span>`;
+  let govde: string;
+  if (s.tur === 'eklendi') govde = `<ins>${esc(s.yeni)}</ins>`;
+  else if (s.tur === 'silindi') govde = `<del>${esc(s.eski)}</del>`;
+  else
+    govde = s.sozcukler
+      .map((p: any) => (p.tur === 'eklendi' ? `<ins>${esc(p.metin)}</ins>` : p.tur === 'silindi' ? `<del>${esc(p.metin)}</del>` : esc(p.metin)))
+      .join(' ');
+  return `<li class="ecb-satir ecb-${s.tur}">${etiket}<p>${govde}</p></li>`;
+}
+const listeHtml = (satirlar: any[]) => `<ol class="ecb-liste" lang="en">${satirlar.map(satirHtml).join('')}</ol>`;
+// Değişiklik: eklenen, silinen ve değişen her cümle bir değişikliktir. Yeni taraf: yeni metinde aynı olmayan birim sayısı.
+const toplam = (o: any) => o.eklenen + o.silinen + o.degisen;
+const yeniTarafi = (o: any) => o.eklenen + o.degisen;
+
+// Her karar açıklaması bir öncekiyle karşılaştırılır (en eskinin öncesi yok).
+const kararFarklari: any[] = kararlar.map((k, i) => {
+  const onceki = i > 0 ? kararlar[i - 1] : null;
+  return { karar: k, onceki, fark: onceki ? cumleFarki(onceki.cumleler, k.cumleler) : null, faiz: ecbKarari(k.cumleler) };
+});
+kararFarklari.forEach((a, i) => {
+  a.oncekiFaiz = i > 0 ? kararFarklari[i - 1].faiz : null;
+});
+const son = kararFarklari.at(-1);
+const arsiv = [...kararFarklari].reverse();
+
+// Faiz kararı: değişen kararlarda "önceki → yeni", sabit kararlarda "faiz (sabit)". Faiz: mevduat kolaylığı faizi.
+function faizMetni(a: any) {
+  const f = a.faiz;
+  if (!f) return '–';
+  if (f.yon === 'sabit') return `${oranYaz(f.mevduat)} (sabit)`;
+  return a.oncekiFaiz ? `${oranYaz(a.oncekiFaiz.mevduat)} → ${oranYaz(f.mevduat)}` : oranYaz(f.mevduat);
+}
+
+// Basın toplantısı giriş metni: son iki metin. Değişenlerin ilk kısmı görünür, kalanı açılır kutuda.
+const sonAciklama = aciklamalar.at(-1);
+const oncekiAciklama = aciklamalar.at(-2);
+let aciklamaBolumu: null | { fark: any; degisenler: any[] } = null;
+if (sonAciklama && oncekiAciklama) {
+  const f = cumleFarki(oncekiAciklama.cumleler, sonAciklama.cumleler);
+  aciklamaBolumu = { fark: f, degisenler: f.satirlar.filter((s: any) => s.tur !== 'ayni') };
+}
+const GORUNEN = 8;
+
+// Toplantı hesabı: son iki hesap. Hesap, toplantıdan yaklaşık dört hafta sonra yayımlanır.
+const sonHesap = hesaplar.at(-1);
+const oncekiHesap = hesaplar.at(-2);
+let hesapBolumu: null | { paragrafFarki: any; cumleFarki: any; ilkler: any[] } = null;
+if (sonHesap && oncekiHesap) {
+  const pf = cumleFarki(oncekiHesap.paragraflar, sonHesap.paragraflar);
+  const cf = cumleFarki(oncekiHesap.cumleler, sonHesap.cumleler);
+  hesapBolumu = { paragrafFarki: pf, cumleFarki: cf, ilkler: cf.satirlar.filter((s: any) => s.tur !== 'ayni').slice(0, 6) };
+}
+const bekleyenHesap = son && sonHesap && son.karar.tarih > sonHesap.toplantiTarihi ? son.karar.tarih : null;
+
+const baslik = 'ECB açıklama metni farkı';
+const description = hazir
+  ? `Avrupa Merkez Bankası’nın (ECB) para politikası kararı açıklamaları, bir öncekiyle cümle cümle karşılaştırılır: eklenen, silinen ve değişen cümleler. ${gunYaz(kararlar[0].tarih)} – ${gunYaz(son!.karar.tarih)} arası ${kararlar.length} karar açıklaması.`
+  : 'ECB para politikası kararı açıklamalarının cümle düzeyinde karşılaştırması.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/ecb-aciklama-metni/' },
+];
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: `${baslik} (ECB)`,
+  aciklama: description,
+  ...(hazir
+    ? {
+        sayfaEk: { dateModified: (ecb as any).alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'ECB para politikası kararı açıklama metinlerinin cümle düzeyinde karşılaştırması',
+            description: 'Avrupa Merkez Bankası Yönetim Konseyi’nin para politikası kararı açıklama metinleri ve her metnin bir öncekine göre eklenen, silinen ve değişen cümleleri.',
+            url: 'https://finfolis.com/veri/ecb-aciklama-metni/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'European Central Bank', url: 'https://www.ecb.europa.eu/' },
+            temporalCoverage: `${kararlar[0].tarih}/${son!.karar.tarih}`,
+            dateModified: (ecb as any).alinma,
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`${baslik}: ECB kararları cümle cümle karşılaştırma`} description={description} noindex={!hazir}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa ecb-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Avrupa Merkez Bankası (ECB) · Yönetim Konseyi para politikası kararı açıklamaları</p>
+    </header>
+    {
+      hazir && son ? (
+        <>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={(ecb as any).kaynak.url} rel="noopener">ECB para politikası kararları</a>:{' '}
+            <a href={son.karar.url} rel="noopener">{gunYaz(son.karar.tarih)} tarihli açıklama</a>. Metinler İngilizce, yayımlandığı gibidir. Siteye alındığı zaman: {zamanYaz((ecb as any).alinma)}.
+          </p>
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Son karar açıklaması: {gunYaz(son.karar.tarih)}</h2>
+            <p class="veri-notu ecb-aciklama">
+              {gunYaz(son.karar.tarih)} tarihli açıklama, {gunYaz(son.onceki.tarih)} tarihli metinle karşılaştırıldı.
+              <ins class="ecb-ornek">Eklenen</ins>, <del class="ecb-ornek">silinen</del> ve değişen sözcükler işaretlidir; aynı kalan cümleler soluk gösterilir.
+            </p>
+            <dl class="veri-rakamlar">
+              <div>
+                <dt>ECB mevduat faizi</dt>
+                <dd>{faizMetni(son)}</dd>
+              </div>
+              <div>
+                <dt>Değişiklik (cümle)</dt>
+                <dd>{toplam(son.fark.ozet)}</dd>
+              </div>
+              <div>
+                <dt>Aynı kalan cümle</dt>
+                <dd>{son.fark.ozet.ayni}</dd>
+              </div>
+            </dl>
+            {son.faiz && (
+              <p class="veri-notu ecb-aciklama">
+                Üç politika faizi: mevduat kolaylığı {oranYaz(son.faiz.mevduat)}, ana yeniden finansman işlemleri {oranYaz(son.faiz.mro)}, marjinal borç verme kolaylığı {oranYaz(son.faiz.mlf)}.
+              </p>
+            )}
+            <div class="ecb-fark" set:html={listeHtml(son.fark.satirlar)} />
+            <p class="veri-notu ecb-sayim">
+              Eklenen {son.fark.ozet.eklenen} · silinen {son.fark.ozet.silinen} · değişen {son.fark.ozet.degisen} · aynı {son.fark.ozet.ayni} cümle.
+            </p>
+          </section>
+
+          {
+            aciklamaBolumu && sonAciklama && oncekiAciklama && (
+              <section class="bolum">
+                <h2 class="bolum-baslik">Basın toplantısı açıklaması</h2>
+                <p class="veri-notu ecb-aciklama">
+                  {gunYaz(sonAciklama.tarih)} tarihli basın toplantısının giriş metni, {gunYaz(oncekiAciklama.tarih)} tarihli metinle karşılaştırıldı. Karar açıklaması kısa olduğu için gerekçeler bu metinde yer alır. Soru-cevap bölümü alınmaz.
+                </p>
+                <dl class="veri-rakamlar">
+                  <div>
+                    <dt>Değişen cümle</dt>
+                    <dd>
+                      {yeniTarafi(aciklamaBolumu.fark.ozet)}
+                      <span class="ecb-pay"> / {sonAciklama.cumleler.length}</span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Silinen cümle</dt>
+                    <dd>{aciklamaBolumu.fark.ozet.silinen}</dd>
+                  </div>
+                </dl>
+                <p class="veri-notu ecb-aciklama ecb-bosluk">
+                  Giriş metni her toplantıda güncel verilerle yeniden yazıldığı için çoğu paragraf değişir. Aşağıda metnin sırasıyla ilk {Math.min(GORUNEN, aciklamaBolumu.degisenler.length)} değişiklik var;
+                  <a href={sonAciklama.url} rel="noopener">ECB’nin metnine</a> bakılabilir.
+                </p>
+                <div class="ecb-fark" set:html={listeHtml(aciklamaBolumu.degisenler.slice(0, GORUNEN))} />
+                {aciklamaBolumu.degisenler.length > GORUNEN && (
+                  <details class="ecb-digerleri">
+                    <summary>Kalan {aciklamaBolumu.degisenler.length - GORUNEN} değişiklik</summary>
+                    <div class="ecb-fark" set:html={listeHtml(aciklamaBolumu.degisenler.slice(GORUNEN))} />
+                  </details>
+                )}
+              </section>
+            )
+          }
+
+          {
+            hesapBolumu && sonHesap && oncekiHesap && (
+              <section class="bolum">
+                <h2 class="bolum-baslik">Son toplantı hesabı</h2>
+                <p class="veri-notu ecb-aciklama">
+                  {sonHesap.toplantiAraligi} toplantısının hesabı ({gunYaz(sonHesap.tarih)} tarihli yayın), {oncekiHesap.toplantiAraligi} toplantısının hesabıyla karşılaştırıldı. Katılımcı listesi ve belge bağlantıları alınmaz.
+                </p>
+                <dl class="veri-rakamlar">
+                  <div>
+                    <dt>Değişen paragraf</dt>
+                    <dd>
+                      {yeniTarafi(hesapBolumu.paragrafFarki.ozet)}
+                      <span class="ecb-pay"> / {sonHesap.paragraflar.length}</span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>Değişen cümle</dt>
+                    <dd>
+                      {yeniTarafi(hesapBolumu.cumleFarki.ozet)}
+                      <span class="ecb-pay"> / {sonHesap.cumleler.length}</span>
+                    </dd>
+                  </div>
+                </dl>
+                <p class="veri-notu ecb-aciklama ecb-bosluk">
+                  Hesaplar her toplantıda güncel verilerle yeniden yazıldığı için çoğu paragraf değişir. Aşağıda metnin sırasıyla ilk {hesapBolumu.ilkler.length} değişiklik var; tamamı için
+                  <a href={sonHesap.url} rel="noopener">ECB’nin hesap metnine</a> bakılabilir.
+                </p>
+                <div class="ecb-fark" set:html={listeHtml(hesapBolumu.ilkler)} />
+                {bekleyenHesap && (
+                  <p class="veri-notu ecb-bosluk">
+                    {gunYaz(bekleyenHesap)} tarihli kararın toplantı hesabı ECB tarafından yayımlandığında bu bölüme eklenecek.
+                  </p>
+                )}
+                <details class="ecb-hesaplar">
+                  <summary>Tüm hesaplar ({hesaplar.length})</summary>
+                  <ul>
+                    {[...hesaplar].reverse().map((t) => (
+                      <li>
+                        <a href={t.url} rel="noopener">{t.toplantiAraligi}</a> <span class="veri-notu">· {gunYaz(t.tarih)} tarihinde yayımlandı</span>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              </section>
+            )
+          }
+
+          <section class="bolum">
+            <h2 class="bolum-baslik">Karar açıklaması arşivi</h2>
+            <p class="veri-notu ecb-aciklama">
+              {gunYaz(kararlar[0].tarih)} tarihinden bugüne her karar açıklaması bir öncekiyle karşılaştırıldı. Bir satıra dokununca o açıklamanın farkı açılır.
+            </p>
+            <div class="ecb-arsiv">
+              <div class="ecb-arsiv-bas" aria-hidden="true">
+                <span>Tarih</span>
+                <span>ECB mevduat faizi</span>
+                <span class="sag">Değişiklik</span>
+              </div>
+              {arsiv.map((a) => (
+                a.fark ? (
+                  <details id={`karar-${a.karar.tarih}`} class="ecb-ayrinti">
+                    <summary>
+                      <span class="ecb-tarih">{gunYaz(a.karar.tarih)}</span>
+                      <span class={`ecb-faiz ecb-faiz-${a.faiz?.yon ?? 'yok'}`}>{faizMetni(a)}</span>
+                      <span class="ecb-sayi sag">{toplam(a.fark.ozet)}</span>
+                    </summary>
+                    <div class="ecb-ic">
+                      <p class="veri-notu ecb-aciklama">
+                        {gunYaz(a.onceki.tarih)} tarihli metne göre: eklenen {a.fark.ozet.eklenen} · silinen {a.fark.ozet.silinen} · değişen {a.fark.ozet.degisen} · aynı kalan {a.fark.ozet.ayni} cümle.
+                        <a href={a.karar.url} rel="noopener">ECB açıklaması</a>
+                      </p>
+                      <div class="ecb-fark" set:html={listeHtml(a.fark.satirlar.filter((s: any) => s.tur !== 'ayni'))} />
+                    </div>
+                  </details>
+                ) : (
+                  <div class="ecb-ayrinti ecb-ilk">
+                    <div class="ecb-ozet-satir">
+                      <span class="ecb-tarih">{gunYaz(a.karar.tarih)}</span>
+                      <span class={`ecb-faiz ecb-faiz-${a.faiz?.yon ?? 'yok'}`}>{faizMetni(a)}</span>
+                      <span class="ecb-sayi sag">–</span>
+                    </div>
+                  </div>
+                )
+              ))}
+            </div>
+            <p class="veri-notu">
+              Değişiklik sütunu, eklenen, silinen ve değişen cümlelerin toplamıdır. Arşivdeki ilk açıklama, karşılaştırılacak önceki metin bu sayfada olmadığı için farksız gösterilir. Faiz, açıklamadaki karar cümlesinden okunan mevduat kolaylığı faizidir; ECB’nin politika duruşunu bu oran belirler. Değişen kararlarda önceki açıklamanın faizi soldadır.
+            </p>
+          </section>
+
+          <section class="bolum prose veri-aciklama">
+            <h2 class="bolum-baslik">Bu sayfa nasıl hazırlanıyor</h2>
+            <p>
+              Karar açıklaması, basın toplantısı giriş metni ve toplantı hesabı, ECB’nin <a href="https://www.ecb.europa.eu/press/govcdec/mopo/html/index.en.html" rel="noopener">para politikası kararları</a>,
+              <a href="https://www.ecb.europa.eu/press/press_conference/monetary-policy-statement/html/index.en.html" rel="noopener">basın toplantısı metinleri</a> ve
+              <a href="https://www.ecb.europa.eu/press/accounts/html/index.en.html" rel="noopener">toplantı hesapları</a> listelerindeki bağlantılardan alınır; yalnız ecb.europa.eu kullanılır.
+              Metin ECB sayfasındaki halinden çıkarılır, İngilizce kalır ve çevrilmez. Karar açıklamasındaki “***” ayracı ve basın toplantısı saatini bildiren cümle, giriş metnindeki karşılama cümleleri ve soru-cevap bölümü,
+              hesaptaki katılımcı listesi karşılaştırmaya girmez.
+            </p>
+            <p>
+              Karşılaştırma kurallı bir programla yapılır. Metinler cümlelere bölünür, iki metindeki cümleler sıra korunarak eşleştirilir. Birebir aynı olan cümleler “aynı kalan”,
+              yalnız yeni metinde olanlar “eklenen”, yalnız eski metinde olanlar “silinen” sayılır. Sözcüklerinin yarıdan fazlası ortak olan cümleler aynı cümlenin değişmiş hali sayılır ve
+              sözcük sözcük gösterilir. Programa yapay zekâ karışmaz, sayfaya yorum eklenmez.
+            </p>
+            <p>
+              Bu sayfa metinlerin neyi anlattığını yorumlamaz; yalnız iki metin arasında ne değiştiğini gösterir. Hesaplar toplantıdan yaklaşık dört hafta sonra yayımlandığı için en son kararın hesabı sonradan eklenir.
+            </p>
+            <p>
+              <a href="/veri/ecb-tonu/">ECB metin tonu</a> · <a href="/veri/fomc-aciklama-metni/">FOMC açıklama metni farkı</a> · <a href="/veri/ppk-karar-metni/">PPK karar metni farkı</a> · <a href="/veri/dunya-politika-faizleri/">Dünya politika faizleri</a> · <a href="/veri/politika-faizi/">Politika faizi</a>
+            </p>
+          </section>
+        </>
+      ) : (
+        <p class="bos">ECB açıklama metni verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <YasalUyari>Bu sayfadaki metinler Avrupa Merkez Bankası’nın yayımladığı resmi açıklamalardır; karşılaştırma bilgi amaçlıdır.</YasalUyari>
+  </div>
+</Base>
+
+<script>
+  // Adreste #karar-YYYY-AA-GG varsa o açıklamanın farkını açar.
+  const ac = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id.startsWith('karar-')) return;
+    const el = document.getElementById(id);
+    if (el instanceof HTMLDetailsElement) {
+      el.open = true;
+      el.scrollIntoView();
+    }
+  };
+  ac();
+  addEventListener('hashchange', ac);
+</script>
+
+<style is:global>
+  .ecb-sayfa .ecb-aciklama {
+    margin: 14px 0 0;
+  }
+  .ecb-sayfa .ecb-bosluk {
+    margin-bottom: 14px;
+  }
+  .ecb-sayfa .ecb-pay {
+    color: var(--muted);
+    font-size: 0.6em;
+    font-weight: 400;
+  }
+  .ecb-sayfa .ecb-sayim {
+    margin-top: 14px;
+  }
+  .ecb-sayfa .ecb-digerleri {
+    margin-top: 12px;
+    font-family: var(--sans);
+  }
+  .ecb-sayfa .ecb-digerleri summary {
+    cursor: pointer;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+  }
+  .ecb-sayfa .ecb-digerleri summary:focus-visible {
+    outline: 2px solid var(--toprak-text);
+    outline-offset: 2px;
+  }
+
+  /* Fark listesi: ins/del işaretli cümleler. Renk tek başına işaret değil: altı çizili ve üstü çizili ayrıca etiketlidir. */
+  .ecb-sayfa .ecb-liste {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 0;
+  }
+  .ecb-sayfa .ecb-satir {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 10px 0 10px 12px;
+    border-bottom: 1px solid var(--hair);
+    border-left: 3px solid transparent;
+  }
+  .ecb-sayfa .ecb-satir p {
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+    font-family: var(--sans);
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+  .ecb-sayfa .ecb-ayni p {
+    color: var(--muted);
+  }
+  .ecb-sayfa .ecb-eklendi {
+    border-left-color: var(--green);
+  }
+  .ecb-sayfa .ecb-silindi {
+    border-left-color: var(--red);
+  }
+  .ecb-sayfa .ecb-degisti {
+    border-left-color: var(--ink-2);
+  }
+  .ecb-sayfa .ecb-etiket {
+    flex: none;
+    width: 4.6em;
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-2);
+  }
+  .ecb-sayfa ins {
+    color: var(--green-text);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
+    background: color-mix(in srgb, var(--green) 12%, transparent);
+  }
+  .ecb-sayfa del {
+    color: var(--red-text);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    background: color-mix(in srgb, var(--red) 9%, transparent);
+  }
+
+  /* Hesap listesi */
+  .ecb-sayfa .ecb-hesaplar {
+    margin-top: 16px;
+    font-family: var(--sans);
+  }
+  .ecb-sayfa .ecb-hesaplar summary {
+    cursor: pointer;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+  }
+  .ecb-sayfa .ecb-hesaplar summary:focus-visible {
+    outline: 2px solid var(--toprak-text);
+    outline-offset: 2px;
+  }
+  .ecb-sayfa .ecb-hesaplar ul {
+    margin: 0;
+    padding: 0 0 0 1.1em;
+  }
+  .ecb-sayfa .ecb-hesaplar li {
+    padding: 6px 0;
+  }
+
+  /* Arşiv */
+  .ecb-sayfa .ecb-arsiv {
+    margin-top: 18px;
+    border-top: 1px solid var(--hair);
+  }
+  .ecb-sayfa .ecb-arsiv-bas,
+  .ecb-sayfa .ecb-ayrinti summary,
+  .ecb-sayfa .ecb-ozet-satir {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: 12px;
+    align-items: baseline;
+    padding: 12px 4px;
+    font-family: var(--sans);
+  }
+  .ecb-sayfa .ecb-arsiv-bas {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--hair);
+  }
+  .ecb-sayfa .ecb-ayrinti {
+    border-bottom: 1px solid var(--hair);
+  }
+  .ecb-sayfa .ecb-ayrinti summary {
+    cursor: pointer;
+    list-style: none;
+    min-height: 44px;
+  }
+  .ecb-sayfa .ecb-ayrinti summary::-webkit-details-marker {
+    display: none;
+  }
+  .ecb-sayfa .ecb-ayrinti summary:hover {
+    background: var(--paper-2);
+  }
+  .ecb-sayfa .ecb-ayrinti summary:focus-visible {
+    outline: 2px solid var(--toprak-text);
+    outline-offset: -2px;
+  }
+  .ecb-sayfa .ecb-tarih::before {
+    content: '▸';
+    display: inline-block;
+    width: 1.1em;
+    color: var(--muted);
+    transition: transform 0.15s;
+  }
+  .ecb-sayfa .ecb-ayrinti[open] .ecb-tarih::before {
+    transform: rotate(90deg);
+  }
+  .ecb-sayfa .ecb-ilk .ecb-tarih::before {
+    content: '';
+  }
+  .ecb-sayfa .ecb-faiz {
+    font-variant-numeric: tabular-nums;
+  }
+  .ecb-sayfa .sag {
+    text-align: right;
+  }
+  .ecb-sayfa .ecb-sayi {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+  }
+  .ecb-sayfa .ecb-ic {
+    padding: 0 4px 18px;
+  }
+
+  @media (max-width: 640px) {
+    .ecb-sayfa .ecb-arsiv-bas,
+    .ecb-sayfa .ecb-ayrinti summary,
+    .ecb-sayfa .ecb-ozet-satir {
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr) auto;
+      gap: 8px;
+      font-size: 0.92rem;
+    }
+    .ecb-sayfa .ecb-satir {
+      flex-direction: column;
+      gap: 4px;
+    }
+    .ecb-sayfa .ecb-etiket {
+      width: auto;
+    }
+  }
+</style>

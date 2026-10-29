@@ -5,6 +5,7 @@ import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { ppkOlaylari, gozlemeHizala } from '../../lib/ppk-olaylari.mjs';
 import { RESMI, gunAnahtari, gunYaz, sayiYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
@@ -102,6 +103,8 @@ const jsonLd = sayfaSemasi({
             birim="puan"
             seriIdleri={KREDILER.map((k) => k.alan)}
             noktalar={farkNoktalar}
+            olaylar={gozlemeHizala(ppkOlaylari(RESMI.faiz?.gecmis, 'hafta'), (farkNoktalar).map((n) => n[0] as number))}
+            olayNotu="▲ ▼ işaretleri: PPK politika faizi artırımı ve indirimi."
             gruplar={farkGruplar}
             sifirdan
           />
@@ -114,6 +117,8 @@ const jsonLd = sayfaSemasi({
             birim="yuzde"
             seriIdleri={['mevduat', ...KREDILER.map((k) => `f_${k.alan}`)]}
             noktalar={faizNoktalar}
+            olaylar={gozlemeHizala(ppkOlaylari(RESMI.faiz?.gecmis, 'hafta'), (faizNoktalar).map((n) => n[0] as number))}
+            olayNotu="▲ ▼ işaretleri: PPK politika faizi artırımı ve indirimi."
             gruplar={faizGruplar}
             sifirdan
           />
