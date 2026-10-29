@@ -7,9 +7,9 @@ import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 import { SEKTOR_VERISI, sektorler } from '../../lib/sektorler';
 
-const baslik = 'BIST Sektör Endeksleri ve Getiri Karnesi';
+const baslik = 'BIST Sektör Endeksleri';
 const description =
-  'Borsa İstanbul sektör ve tematik endekslerinin (BIST Banka, Sınai, Teknoloji, Halka Arz vb.) aylık getiri sıralaması, son puanları ve toplam piyasa değerleri.';
+  'Borsa İstanbul sektör ve tematik endekslerinin (BIST Banka, Sınai, Teknoloji, Halka Arz vb.) son puanları, günlük değişimleri ve kapsadıkları şirketler.';
 
 const yol = [
   { ad: 'Anasayfa', href: '/' },
@@ -25,7 +25,7 @@ const jsonLd = sayfaSemasi({
   ekler: [
     {
       '@type': 'Dataset',
-      name: 'Borsa İstanbul Sektör Endeksleri Getiri ve Piyasa Değeri Verisi',
+      name: 'Borsa İstanbul sektör endeksleri, son puan ve günlük değişim',
       description,
       url: 'https://finfolis.com/veri/sektorler/',
       isAccessibleForFree: true,
@@ -43,12 +43,12 @@ const jsonLd = sayfaSemasi({
 
     <header class="sayfa-bas sayfa-bas-duz">
       <h1>BIST Sektör Endeksleri</h1>
-      <p>Sektör ve tematik endekslerin performans karnesi ve piyasa değerleri</p>
+      <p>Sektör ve tematik endekslerin son puanı ve günlük değişimi</p>
     </header>
 
     <p class="sayfa-giris">
       Borsa İstanbul'da yalnızca BIST 100 değil; bankacılıktan sanayiye, teknolojiden halka arzlara kadar onlarca farklı sektör
-      ve tematik endeks işlem görür. Bu sayfa, hangi sektörün ne kazandırdığını ve toplam sermaye büyüklüğünü karşılaştırmalı olarak gösterir.
+      ve tematik endeks işlem görür. Bu sayfa, endekslerin son puanını ve bir önceki kapanışa göre günlük değişimini yan yana gösterir.
     </p>
 
     <!-- Sektör Karnesi Tablosu ve Özetler -->
@@ -60,29 +60,20 @@ const jsonLd = sayfaSemasi({
 
       <div class="rehber-grid">
         <article class="rehber-kutu">
-          <h3>1. Sektör Getirisi (%)</h3>
+          <h3>1. Günlük değişim (%)</h3>
           <p>
-            Her endeksin aylık getirisi, o ayın son işlem günündeki kapanış puanı ile bir önceki ayın son kapanış puanı arasındaki
-            farkın önceki puana bölünmesiyle hesaplanır:
+            Endeksin son puanının bir önceki kapanış puanına göre yüzde değişimidir:
           </p>
           <div class="formül-blok">
-            Getiri (%) = [(Ay Sonu Kapanış − Önceki Ay Kapanış) ÷ Önceki Ay Kapanış] × 100
+            Günlük değişim (%) = [(Son puan − Önceki kapanış) ÷ Önceki kapanış] × 100
           </div>
         </article>
 
         <article class="rehber-kutu">
-          <h3>2. Endeks Piyasa Değeri</h3>
-          <p>
-            Bir endeksin piyasa değeri, o endekse dahil tüm şirketlerin <strong>Hisse Fiyatı × Toplam Ödenmiş Sermaye</strong> tutarlarının
-            toplanmasıyla elde edilir. Bu büyüklük sektörün borsadaki ağırlığını gösterir.
-          </p>
-        </article>
-
-        <article class="rehber-kutu">
-          <h3>3. Alt Endeksler Ne İşe Yarar?</h3>
+          <h3>2. Alt endeksler ne işe yarar?</h3>
           <p>
             Örneğin BIST 100 genel olarak yatay kalırken, <strong>XBANK (Banka)</strong> yükselip <strong>XFINK (Faktoring)</strong>
-            sert düşebilir. Sektör karnesi, paranın borsada hangi sektörlere kaydığını anlamanın en net yoludur.
+            sert düşebilir. Alt endeksler, genel endeksin gizlediği sektör farklarını gösterir.
           </p>
         </article>
       </div>

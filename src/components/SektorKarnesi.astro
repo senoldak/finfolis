@@ -1,6 +1,6 @@
 ---
 import Change from './Change.astro';
-import { sektorler, sayi, piyasaDegeriMetni, piyasaDegeriTam, SEKTOR_VERISI } from '../lib/sektorler';
+import { sektorler, sayi, SEKTOR_VERISI } from '../lib/sektorler';
 
 interface Props {
   baslikGoster?: boolean;
@@ -8,13 +8,11 @@ interface Props {
 
 const { baslikGoster = true } = Astro.props;
 
-// Varsayılan sıralama: Aylık getiriye göre çoktan aza
-const siraliAylik = [...sektorler].sort((a, b) => b.aylik - a.aylik);
-const enYukselen = siraliAylik[0];
-const enDusen = siraliAylik[siraliAylik.length - 1];
-const enBuyukPiyasa = [...sektorler]
-  .filter((s) => s.kategori !== 'ana-endeks' && s.piyasaDegeri)
-  .sort((a, b) => (b.piyasaDegeri ?? 0) - (a.piyasaDegeri ?? 0))[0];
+// Yalnız canlı gelen son puan ve günlük değişim gösterilir; haftalık, aylık, yılbaşı getirisi ve piyasa değeri canlı
+// veriden hesaplanmadığı için yoktur. Varsayılan sıralama: günlük değişime göre çoktan aza.
+const siraliGunluk = [...sektorler].sort((a, b) => b.gunluk - a.gunluk);
+const enYukselen = siraliGunluk[0];
+const enDusen = siraliGunluk[siraliGunluk.length - 1];
 ---
 
 <section class="sektor-karnesi-alani" aria-labelledby="sektor-baslik">
@@ -24,50 +22,34 @@ const enBuyukPiyasa = [...sektorler]
         <div class="baslik-metin">
           <span class="etiket">BIST GÖSTERGELERİ</span>
           <h2 id="sektor-baslik" class="bolum-baslik">
-            Sektör Karnesi ve Piyasa Değerleri
+            Sektör Endeksleri
           </h2>
           <p class="sektor-alt-metin">
-            Borsa İstanbul'daki sektör ve tematik endekslerin performansları, lokomotif şirketleri ve piyasa değerleri.
+            Borsa İstanbul'daki sektör ve tematik endekslerin son puanı, günlük değişimi ve lokomotif şirketleri.
           </p>
         </div>
       </header>
     )
   }
 
-  <!-- 3'lü Hızlı Özet Kartları -->
+  <!-- Günün en çok yükselen ve düşen endeksi -->
   <div class="sektor-ozet-kutulari">
     <div class="ozet-kart" id="kart-lider">
-      <span class="ozet-etiket" id="etiket-lider">DÖNEMİN LİDERİ</span>
+      <span class="ozet-etiket" id="etiket-lider">GÜNÜN EN ÇOK YÜKSELENİ</span>
       <strong class="ozet-deger kazanc" id="deger-lider-kod">{enYukselen.kod}</strong>
       <span class="ozet-ad" id="deger-lider-ad">{enYukselen.ad}</span>
-      <span class="ozet-oran pozitif" id="deger-lider-oran">▲ %{sayi(Math.abs(enYukselen.aylik), 1)}</span>
+      <span class={`ozet-oran ${enYukselen.gunluk >= 0 ? 'pozitif' : 'negatif'}`} id="deger-lider-oran">{enYukselen.gunluk >= 0 ? '▲' : '▼'} %{sayi(Math.abs(enYukselen.gunluk), 1)}</span>
     </div>
     <div class="ozet-kart" id="kart-dusen">
-      <span class="ozet-etiket" id="etiket-dusen">EN ÇOK DÜŞEN</span>
+      <span class="ozet-etiket" id="etiket-dusen">GÜNÜN EN ÇOK DÜŞENİ</span>
       <strong class="ozet-deger kayip" id="deger-dusen-kod">{enDusen.kod}</strong>
       <span class="ozet-ad" id="deger-dusen-ad">{enDusen.ad}</span>
-      <span class="ozet-oran negatif" id="deger-dusen-oran">▼ %{sayi(Math.abs(enDusen.aylik), 1)}</span>
-    </div>
-    <div class="ozet-kart">
-      <span class="ozet-etiket">EN BÜYÜK SEKTÖR</span>
-      <strong class="ozet-deger">{enBuyukPiyasa?.kod ?? 'XUMAL'}</strong>
-      <span class="ozet-ad">{enBuyukPiyasa?.ad ?? 'BIST Mali'}</span>
-      <span class="ozet-oran">{piyasaDegeriMetni(enBuyukPiyasa?.piyasaDegeri ?? null)}</span>
+      <span class={`ozet-oran ${enDusen.gunluk >= 0 ? 'pozitif' : 'negatif'}`} id="deger-dusen-oran">{enDusen.gunluk >= 0 ? '▲' : '▼'} %{sayi(Math.abs(enDusen.gunluk), 1)}</span>
     </div>
   </div>
 
-  <!-- Kontrol Çubuğu: Dönem Seçici, Kategori Filtreleri ve Görsel İndir Butonu -->
+  <!-- Kontrol Çubuğu: Kategori Filtreleri ve Görsel İndir Butonu -->
   <div class="tablo-kontrolleri">
-    <div class="kontrol-grubu">
-      <span class="kontrol-etiket">Dönem:</span>
-      <div class="buton-grubu" role="radiogroup" aria-label="Performans dönemi">
-        <button type="button" class="donem-btn" data-donem="gunluk">Günlük</button>
-        <button type="button" class="donem-btn" data-donem="haftalik">Haftalık</button>
-        <button type="button" class="donem-btn aktif" data-donem="aylik" aria-checked="true">Aylık</button>
-        <button type="button" class="donem-btn" data-donem="ytd">Yılbaşı (YTD)</button>
-      </div>
-    </div>
-
     <div class="kontrol-grubu">
       <span class="kontrol-etiket">Kategori:</span>
       <div class="buton-grubu" role="toolbar" aria-label="Sektör kategorisi">
@@ -89,7 +71,7 @@ const enBuyukPiyasa = [...sektorler]
   <!-- Tablo -->
   <div class="cizelge-kaydir">
     <table class="cizelge sektor-tablosu" data-sektor-tablo>
-      <caption class="sr-only">BIST Sektör ve Tematik Endeks Getirileri ile Piyasa Değerleri</caption>
+      <caption class="sr-only">BIST sektör ve tematik endekslerinin son puanı ve günlük değişimi</caption>
       <thead>
         <tr>
           <th scope="col" aria-sort="none">
@@ -101,14 +83,8 @@ const enBuyukPiyasa = [...sektorler]
           <th scope="col" class="sayisal" aria-sort="none">
             <button type="button" class="sirala" data-anahtar="deger">Son Puan</button>
           </th>
-          <th scope="col" class="sayisal" aria-sort="none">
-            <button type="button" class="sirala" data-anahtar="gunluk">Günlük %</button>
-          </th>
           <th scope="col" class="sayisal" aria-sort="descending">
-            <button type="button" class="sirala" data-anahtar="getiri" id="th-getiri-baslik">Aylık %</button>
-          </th>
-          <th scope="col" class="sayisal" aria-sort="none">
-            <button type="button" class="sirala" data-anahtar="piyasa">Piyasa Değeri</button>
+            <button type="button" class="sirala" data-anahtar="gunluk">Günlük %</button>
           </th>
           <th scope="col" class="aksiyon-kolonu">
             <span class="sr-only">Detay</span>
@@ -117,8 +93,7 @@ const enBuyukPiyasa = [...sektorler]
       </thead>
       <tbody>
         {
-          siraliAylik.map((s) => {
-            const pozitif = s.aylik >= 0;
+          siraliGunluk.map((s) => {
             return (
               <>
                 <tr
@@ -128,11 +103,6 @@ const enBuyukPiyasa = [...sektorler]
                   data-kategori={s.kategori}
                   data-deger={s.deger}
                   data-gunluk={s.gunluk}
-                  data-haftalik={s.haftalik ?? 0}
-                  data-aylik={s.aylik}
-                  data-ytd={s.ytd ?? 0}
-                  data-getiri={s.aylik}
-                  data-piyasa={s.piyasaDegeri ?? 0}
                   tabindex="0"
                   role="button"
                   aria-expanded="false"
@@ -150,20 +120,12 @@ const enBuyukPiyasa = [...sektorler]
                   <td class="sayisal">
                     <Change value={s.gunluk} />
                   </td>
-                  <td class={`sayisal getiri-hucre ${pozitif ? 'artis' : 'azalis'}`}>
-                    <span class="getiri-oran">
-                      {pozitif ? '▲' : '▼'} %{sayi(Math.abs(s.aylik), 1)}
-                    </span>
-                  </td>
-                  <td class="sayisal piyasa-hucre" title={piyasaDegeriTam(s.piyasaDegeri)}>
-                    <span class="piyasa-kisa">{piyasaDegeriMetni(s.piyasaDegeri)}</span>
-                  </td>
                   <td class="aksiyon-hucre">
                     <span class="detay-tetikleyici" aria-hidden="true">Detay ▾</span>
                   </td>
                 </tr>
                 <tr id={`detay-${s.kod}`} class="detay-satiri gizli" aria-hidden="true">
-                  <td colspan="7">
+                  <td colspan="5">
                     <div class="detay-kutusu">
                       <div class="detay-bolum">
                         <span class="detay-baslik">Endeks Kapsamı ve Tanımı</span>
@@ -201,7 +163,8 @@ const enBuyukPiyasa = [...sektorler]
   <footer class="sektor-dipnot">
     <p class="veri-notu">
       Kaynak: {SEKTOR_VERISI.kaynak.ad} · Son güncelleme: {new Date(SEKTOR_VERISI.guncelleme).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}.
-      Piyasa değerleri endeks kapsamındaki payların toplam piyasa büyüklüğüdür. Detayları görmek için herhangi bir satıra tıklayabilirsiniz.
+      Son puan ve günlük değişim bir önceki kapanışa göredir; veri alınamayan endekste son alınan değer kalır. Detayları görmek
+      için herhangi bir satıra tıklayabilirsiniz.
     </p>
   </footer>
 
@@ -215,91 +178,6 @@ const enBuyukPiyasa = [...sektorler]
   if (tablo) {
     const govde = tablo.tBodies[0];
     const basliklar = tablo.querySelectorAll<HTMLTableCellElement>('thead th');
-    let aktifDonem = 'aylik';
-
-    // 1. DÖNEM SEÇİCİ (Günlük, Haftalık, Aylık, YTD)
-    const donemButonlari = document.querySelectorAll<HTMLButtonElement>('.donem-btn');
-    const getiriBaslik = document.getElementById('th-getiri-baslik');
-
-    function donemiUygula(yeniDonem: string) {
-      aktifDonem = yeniDonem;
-      const etiketler: Record<string, string> = {
-        gunluk: 'Günlük %',
-        haftalik: 'Haftalık %',
-        aylik: 'Aylık %',
-        ytd: 'Yılbaşı (YTD) %',
-      };
-
-      if (getiriBaslik) {
-        getiriBaslik.textContent = etiketler[yeniDonem] || 'Getiri %';
-      }
-
-      // Her satırdaki getiri hücresini ve data-getiri değerini güncelle
-      const anaSatirlar = Array.from(govde.querySelectorAll<HTMLTableRowElement>('tr.ana-satir'));
-      anaSatirlar.forEach((satir) => {
-        const valStr = satir.dataset[yeniDonem] ?? '0';
-        const val = Number(valStr);
-        satir.dataset.getiri = valStr;
-
-        const hucre = satir.querySelector('.getiri-hucre');
-        if (hucre) {
-          hucre.className = `sayisal getiri-hucre ${val >= 0 ? 'artis' : 'azalis'}`;
-          const span = hucre.querySelector('.getiri-oran');
-          if (span) {
-            const isaret = val >= 0 ? '▲' : '▼';
-            const absTr = Math.abs(val).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-            span.textContent = `${isaret} %${absTr}`;
-          }
-        }
-      });
-
-      // 3'lü Hızlı Özet Kartlarını Güncelle
-      const sirali = [...anaSatirlar].sort((a, b) => Number(b.dataset.getiri) - Number(a.dataset.getiri));
-      const lider = sirali[0];
-      const dusen = sirali[sirali.length - 1];
-
-      if (lider && dusen) {
-        const liderVal = Number(lider.dataset.getiri);
-        const dusenVal = Number(dusen.dataset.getiri);
-
-        const dLiderKod = document.getElementById('deger-lider-kod');
-        const dLiderAd = document.getElementById('deger-lider-ad');
-        const dLiderOran = document.getElementById('deger-lider-oran');
-        if (dLiderKod) dLiderKod.textContent = lider.dataset.kod || '';
-        if (dLiderAd) dLiderAd.textContent = lider.dataset.ad || '';
-        if (dLiderOran) {
-          const lTr = Math.abs(liderVal).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-          dLiderOran.textContent = `${liderVal >= 0 ? '▲' : '▼'} %${lTr}`;
-          dLiderOran.className = `ozet-oran ${liderVal >= 0 ? 'pozitif' : 'negatif'}`;
-        }
-
-        const dDusenKod = document.getElementById('deger-dusen-kod');
-        const dDusenAd = document.getElementById('deger-dusen-ad');
-        const dDusenOran = document.getElementById('deger-dusen-oran');
-        if (dDusenKod) dDusenKod.textContent = dusen.dataset.kod || '';
-        if (dDusenAd) dDusenAd.textContent = dusen.dataset.ad || '';
-        if (dDusenOran) {
-          const dTr = Math.abs(dusenVal).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-          dDusenOran.textContent = `${dusenVal >= 0 ? '▲' : '▼'} %${dTr}`;
-          dDusenOran.className = `ozet-oran ${dusenVal >= 0 ? 'pozitif' : 'negatif'}`;
-        }
-      }
-
-      // Seçili sütun getiri ise yeniden sırala
-      const thGetiri = getiriBaslik?.closest('th');
-      if (thGetiri?.getAttribute('aria-sort') !== 'none') {
-        sirala('getiri', thGetiri?.getAttribute('aria-sort') === 'ascending');
-      }
-    }
-
-    donemButonlari.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        donemButonlari.forEach((b) => b.classList.remove('aktif'));
-        btn.classList.add('aktif');
-        const d = btn.dataset.donem;
-        if (d) donemiUygula(d);
-      });
-    });
 
     // 2. TABLO SIRALAMA
     function sirala(anahtar: string, artan: boolean) {
@@ -446,8 +324,7 @@ const enBuyukPiyasa = [...sektorler]
 
         ctx.fillStyle = '#1b1b1b';
         ctx.font = 'bold 38px "Bricolage Grotesque", system-ui, sans-serif';
-        const donemMetni = aktifDonem === 'gunluk' ? 'Günlük' : aktifDonem === 'haftalik' ? 'Haftalık' : aktifDonem === 'ytd' ? 'Yılbaşı (YTD)' : 'Aylık';
-        ctx.fillText(`BIST Sektör Performans Karnesi (${donemMetni})`, 60, 125);
+        ctx.fillText('BIST Sektör Endeksleri (Günlük değişim)', 60, 125);
 
         // Tarih damgası
         ctx.fillStyle = '#5d5b55';
@@ -461,7 +338,7 @@ const enBuyukPiyasa = [...sektorler]
           .map((s) => ({
             kod: s.dataset.kod || '',
             ad: s.dataset.ad || '',
-            getiri: Number(s.dataset.getiri || 0),
+            getiri: Number(s.dataset.gunluk || 0),
           }))
           .sort((a, b) => b.getiri - a.getiri);
 
@@ -490,7 +367,7 @@ const enBuyukPiyasa = [...sektorler]
 
           ctx.fillStyle = '#3f7350';
           ctx.font = 'bold 20px "Bricolage Grotesque", monospace';
-          const yuzde = `+ %${Math.abs(s.getiri).toFixed(1)}`;
+          const yuzde = `${s.getiri >= 0 ? '+' : '−'} %${Math.abs(s.getiri).toFixed(1)}`;
           ctx.fillText(yuzde, 470, y);
         });
 
@@ -516,7 +393,7 @@ const enBuyukPiyasa = [...sektorler]
 
           ctx.fillStyle = '#a3243b';
           ctx.font = 'bold 20px "Bricolage Grotesque", monospace';
-          const yuzde = `- %${Math.abs(s.getiri).toFixed(1)}`;
+          const yuzde = `${s.getiri >= 0 ? '+' : '−'} %${Math.abs(s.getiri).toFixed(1)}`;
           ctx.fillText(yuzde, 1040, y);
         });
 

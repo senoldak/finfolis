@@ -18,7 +18,7 @@ test('SEKTOR_TANIMLARI: temel BIST endeksleri tanımlı', () => {
 });
 
 test('sectorVerisiBirlestir: Yahoo meta verilerini doğru dönüştürür', () => {
-  const def = { kod: 'XBANK', ad: 'BIST Banka', kategori: 'mali', aciklama: 'Banka Payları', piyasaDegeri: 2300000000000, aylik: 0.0 };
+  const def = { kod: 'XBANK', ad: 'BIST Banka', kategori: 'mali', aciklama: 'Banka Payları' };
   const yahooMeta = {
     regularMarketPrice: 14974.75,
     regularMarketChangePercent: 2.35,
@@ -29,6 +29,10 @@ test('sectorVerisiBirlestir: Yahoo meta verilerini doğru dönüştürür', () =
   assert.equal(sonuc.kod, 'XBANK');
   assert.equal(sonuc.deger, 14974.75);
   assert.equal(sonuc.gunluk, 2.4);
-  assert.equal(sonuc.aylik, 0.0);
-  assert.equal(sonuc.piyasaDegeri, 2300000000000);
+  // Canlı veriden hesaplanmayan alanlar tutulmaz.
+  for (const alan of ['haftalik', 'aylik', 'ytd', 'piyasaDegeri']) assert.equal(alan in sonuc, false, alan);
+});
+
+test('SEKTOR_TANIMLARI: elle yazılmış getiri ya da piyasa değeri yok', () => {
+  for (const d of SEKTOR_TANIMLARI) for (const alan of ['haftalik', 'aylik', 'ytd', 'piyasaDegeri']) assert.equal(alan in d, false, `${d.kod}.${alan}`);
 });

@@ -24,10 +24,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Finansal kiralama (leasing) ve alacak finansmanı (faktoring) şirketlerinin paylarını kapsar.',
     hisseler: ['VAKFN', 'GARFA', 'SEKFK', 'CRDFA', 'ISFIN'],
     dinamik: 'Kredi hacimleri, faiz marjları ve ticari tahsilat risklerine en duyarlı mali alt sektördür.',
-    piyasaDegeri: 436169713843,
-    haftalik: -7.8,
-    aylik: -40.6,
-    ytd: 22.4,
   },
   {
     kod: 'XHARZ',
@@ -37,10 +33,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Son 2 yıl içinde Borsa İstanbul’da ilk defa halka arz edilip işlem görmeye başlayan şirketlerden oluşur.',
     hisseler: ['TABGD', 'EBEBK', 'REEDR', 'KLYVN', 'AGROT'],
     dinamik: 'Küçük ve bireysel yatırımcı ilgisinin, piyasadaki genel likidite ve risk iştahının temel barometresidir.',
-    piyasaDegeri: 1343548047108,
-    haftalik: -6.4,
-    aylik: -39.6,
-    ytd: 15.2,
   },
   {
     kod: 'XBANA',
@@ -50,10 +42,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Yıldız Pazar büyüklük kriterlerini sağlamayan ancak Borsa İstanbul kotunda işlem gören orta ölçekli şirketler.',
     hisseler: ['ALBRK', 'CEMTS', 'KARTN', 'KLMSN', 'PARSN'],
     dinamik: 'BIST 100 dışı likidite hareketlerinden ve yerli yatırımcı spekülasyonlarından doğrudan etkilenir.',
-    piyasaDegeri: 1357906040834,
-    haftalik: -5.9,
-    aylik: -39.0,
-    ytd: 18.5,
   },
   {
     kod: 'XAKUR',
@@ -63,10 +51,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Sermaye piyasalarında aracılık, portföy yöneticiliği ve yatırım danışmanlığı yapan halka açık kurumlar.',
     hisseler: ['ISMEN', 'INFO', 'OSMEN', 'GEDIK', 'TERA'],
     dinamik: 'Borsanın günlük toplam işlem hacmi, komisyon gelirleri ve faiz ortamı doğrudan kârlılığı belirler.',
-    piyasaDegeri: 145431107853,
-    haftalik: -4.8,
-    aylik: -37.9,
-    ytd: 24.1,
   },
   {
     kod: 'XELOT',
@@ -76,10 +60,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'BIST 50 içinde yer alan fakat BIST 30 en büyük şirketleri arasında bulunmayan 20 şirketi içerir.',
     hisseler: ['MGROS', 'TAVHL', 'CCOLA', 'OYAKC', 'AEFES'],
     dinamik: 'Genişleme dönemlerinde büyük endeks hisselerine kıyasla daha yüksek büyüme ve getiri potansiyeli sunar.',
-    piyasaDegeri: 1418954990720,
-    haftalik: -3.8,
-    aylik: -30.1,
-    ytd: 31.8,
   },
   {
     kod: 'XYUZO',
@@ -89,10 +69,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'BIST 100’ün BIST 30 haricinde kalan 70 orta-büyük ölçekli şirketinin performansını ölçer.',
     hisseler: ['SOKM', 'CIMSA', 'BERA', 'OTKAR', 'VESBE'],
     dinamik: 'Ana endeks rallilerinin genele yayılıp yayılmadığını anlamak için en çok takip edilen endekstir.',
-    piyasaDegeri: 2999939470029,
-    haftalik: -4.2,
-    aylik: -29.1,
-    ytd: 28.4,
   },
   {
     kod: 'XTUMY',
@@ -102,10 +78,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Borsa İstanbul’daki tüm hisseler içerisinden BIST 100 haricindeki daha küçük ölçekli tüm şirketler.',
     hisseler: ['GSDHO', 'KAREL', 'DESPC', 'DITAS', 'EUKYO'],
     dinamik: 'Yerli küçük yatırımcı iştahını ve yan tahta hareketliliğini gösterir; likiditesi düşüktür.',
-    piyasaDegeri: 4991096988778,
-    haftalik: -4.5,
-    aylik: -28.5,
-    ytd: 26.0,
   },
   {
     kod: 'XINSA',
@@ -115,10 +87,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Altyapı, üstyapı, gayrimenkul geliştirme ve taahhüt projeleri yürüten inşaat şirketleri.',
     hisseler: ['ENKAI', 'TKFEN', 'CWENE', 'YEOTK', 'GESAN'],
     dinamik: 'Kamu yatırımları, yurt dışı müteahhitlik ihaleleri ve faiz oranlarındaki dalgalanmalar yön verir.',
-    piyasaDegeri: 713362107366,
-    haftalik: -3.5,
-    aylik: -24.0,
-    ytd: 19.8,
   },
   {
     kod: 'XGMYO',
@@ -128,10 +96,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Gayrimenkul portföyü, konut ve ticari arsa projeleri yöneten ve kurumlar vergisinden muaf ortaklıklar.',
     hisseler: ['EKGYO', 'TRGYO', 'ISGYO', 'KLGYO', 'SNGYO'],
     dinamik: 'Konut kredisi faizleri, gayrimenkul fiyat endeksi ve enflasyon beklentileri ana tetikleyicidir.',
-    piyasaDegeri: 781747203477,
-    haftalik: -3.1,
-    aylik: -21.9,
-    ytd: 34.5,
   },
   {
     kod: 'XK100',
@@ -141,10 +105,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Faizli borç ve gelir kriterleri ile faaliyet alanı katılım finans (faizsiz) ilkelerine uyan 100 şirket.',
     hisseler: ['BIMAS', 'THYAO', 'ASELS', 'FROTO', 'TUPRS'],
     dinamik: 'Bireysel ve kurumsal katılım fonlarının zorunlu portföy tercihi nedeniyle güçlü düzenli fon akışı alır.',
-    piyasaDegeri: 5576524648219,
-    haftalik: -2.8,
-    aylik: -19.9,
-    ytd: 42.1,
   },
   {
     kod: 'XUMAL',
@@ -154,10 +114,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Bankalar, sigortalar, holdingler, aracı kurumlar ve GYO’ların tamamını kapsayan çatı endeks.',
     hisseler: ['GARAN', 'AKBNK', 'KCHOL', 'SAHOL', 'ISCTR'],
     dinamik: 'Türkiye ekonomisinin finansal nabzıdır; TCMB politika faizi ve makroekonomik istikrara en bağımlı sektördür.',
-    piyasaDegeri: 6097618452500,
-    haftalik: -2.5,
-    aylik: -18.7,
-    ytd: 55.4,
   },
   {
     kod: 'XUTEK',
@@ -167,10 +123,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Yazılım geliştirme, telekomünikasyon altyapısı, savunma elektroniği ve donanım üreticileri.',
     hisseler: ['ASELS', 'LOGO', 'MIATK', 'KFEIN', 'ARDYZ'],
     dinamik: 'Ar-Ge teşvikleri, dijitalleşme projeleri ve ihracat potansiyeliyle yüksek çarpanlarla değerlenir.',
-    piyasaDegeri: 1995909519050,
-    haftalik: -3.9,
-    aylik: -18.6,
-    ytd: 48.2,
   },
   {
     kod: 'XHOLD',
@@ -180,10 +132,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Farklı sektörlerdeki iştirakleri tek çatı altında toplayan Türkiye’nin en köklü sanayi ve finans holdingleri.',
     hisseler: ['KCHOL', 'SAHOL', 'SISE', 'AGHOL', 'DOHOL'],
     dinamik: 'Çeşitlendirilmiş gelir modeli sayesinde tekil sektör krizlerine karşı defansif bir yapı sergiler.',
-    piyasaDegeri: 1995713604071,
-    haftalik: -2.2,
-    aylik: -17.7,
-    ytd: 46.8,
   },
   {
     kod: 'XGIDA',
@@ -193,10 +141,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Temel gıda maddeleri, içecek, unlu mamuller, süt ürünleri ve tarımsal sanayi üreticileri.',
     hisseler: ['CCOLA', 'AEFES', 'ULKER', 'TATGD', 'PNSUT'],
     dinamik: 'Talep esnekliği düşük olduğu için kriz ve enflasyon dönemlerinde defansif (güvenli liman) nitelik taşır.',
-    piyasaDegeri: 707132563161,
-    haftalik: -2.7,
-    aylik: -16.1,
-    ytd: 38.6,
   },
   {
     kod: 'XUSIN',
@@ -206,10 +150,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Türkiye imalat sanayisinin kalbini oluşturan otomotiv, beyaz eşya, kimya, çelik ve tekstil devleri.',
     hisseler: ['FROTO', 'TOASO', 'EREGL', 'TUPRS', 'ARCLK'],
     dinamik: 'Sanayi üretimi kapasite kullanım oranı, ihracat pazarları (özellikle AB) ve emtia fiyatlarına duyarlıdır.',
-    piyasaDegeri: 5074384076493,
-    haftalik: -2.9,
-    aylik: -13.7,
-    ytd: 32.1,
   },
   {
     kod: 'XULAS',
@@ -219,10 +159,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Havayolu taşımacılığı, havaalanı işletmeciliği, yer hizmetleri ve lojistik şirketleri.',
     hisseler: ['THYAO', 'PGSUS', 'TAVHL', 'CLEBI', 'RYSAS'],
     dinamik: 'Turizm sezonu, yolcu doluluk oranları, jet yakıtı maliyetleri ve küresel hava sahası jeopolitiği yönlendirir.',
-    piyasaDegeri: 641218610262,
-    haftalik: -1.8,
-    aylik: -13.3,
-    ytd: 62.4,
   },
   {
     kod: 'XUHIZ',
@@ -232,10 +168,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Perakende ticaret, telekomünikasyon, ulaştırma, enerji ve turizm gibi imalat dışı tüm hizmet şirketleri.',
     hisseler: ['BIMAS', 'THYAO', 'TCELL', 'TTKOM', 'PGSUS'],
     dinamik: 'İç tüketim canlılığı ve hanehalkı harcamalarının doğrudan yansıdığı lokomotif çatı endekstir.',
-    piyasaDegeri: 4186224768897,
-    haftalik: -1.5,
-    aylik: -11.2,
-    ytd: 51.3,
   },
   {
     kod: 'XU100',
@@ -245,10 +177,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Piyasa değeri ve işlem hacmi en yüksek 100 paydan oluşan, Türkiye sermaye piyasalarının ana göstergesi.',
     hisseler: ['THYAO', 'BIMAS', 'GARAN', 'KCHOL', 'ASELS'],
     dinamik: 'Yabancı sermaye giriş-çıkışları, küresel risk iştahı ve makro ekonomik göstergelerin birincil özetidir.',
-    piyasaDegeri: 12363039828161,
-    haftalik: -2.1,
-    aylik: -10.0,
-    ytd: 44.5,
   },
   {
     kod: 'XU050',
@@ -258,10 +186,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'BIST 100 içindeki likiditesi ve piyasa değeri en yüksek 50 şirketin performansını ölçer.',
     hisseler: ['TUPRS', 'EREGL', 'SAHOL', 'AKBNK', 'FROTO'],
     dinamik: 'VİOP vadeli işlem kontratlarına ve varantlara dayanak oluşturan temel çekirdek şirketler grubudur.',
-    piyasaDegeri: 10782055348852,
-    haftalik: -1.6,
-    aylik: -6.6,
-    ytd: 47.9,
   },
   {
     kod: 'XTMTU',
@@ -271,10 +195,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Son 3 yılda kâr payı dağıtan ve yatırımcısına nakit temettü verimi sağlayan şirketler.',
     hisseler: ['FROTO', 'TTRAK', 'TOASO', 'TUPRS', 'ISMEN'],
     dinamik: 'Uzun vadeli değer ve gelir yatırımcılarının ana sığınağıdır; temettü sezonunda (Mart-Mayıs) talep artar.',
-    piyasaDegeri: 9028344984781,
-    haftalik: -1.4,
-    aylik: -5.0,
-    ytd: 53.2,
   },
   {
     kod: 'XUGRA',
@@ -284,10 +204,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Borsada hisse fiyatının şirket değerini yansıtmadığı gerekçesiyle hisse geri alım programı uygulayan ortaklıklar.',
     hisseler: ['SAHOL', 'THYAO', 'BIMAS', 'MPARK', 'SISE'],
     dinamik: 'Şirket yönetiminin hissesine güvendiğini ve fiyat tabanı oluşturma iradesini simgeler.',
-    piyasaDegeri: 1642706356016,
-    haftalik: -1.2,
-    aylik: -4.7,
-    ytd: 49.0,
   },
   {
     kod: 'X10XB',
@@ -297,10 +213,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Bankacılık hisseleri hariç tutularak, piyasa değeri ve likiditesi en yüksek 10 sanayi ve hizmet devi.',
     hisseler: ['THYAO', 'TUPRS', 'BIMAS', 'KCHOL', 'ASELS'],
     dinamik: 'Bankacılık regülasyonlarından ve faiz baskısından bağımsız reel sektör rüzgarını gösterir.',
-    piyasaDegeri: 4370558512444,
-    haftalik: -0.9,
-    aylik: -3.7,
-    ytd: 56.7,
   },
   {
     kod: 'XU030',
@@ -310,10 +222,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Borsa İstanbul’un en yüksek piyasa değerine sahip, yabancı fonların en çok işlem yaptığı 30 amiral gemisi.',
     hisseler: ['THYAO', 'BIMAS', 'GARAN', 'AKBNK', 'KCHOL'],
     dinamik: 'Türkiye borsa toplam piyasa değerinin yaklaşık %75’ini temsil eder; en derin ve en likit pazardır.',
-    piyasaDegeri: 9363100358132,
-    haftalik: -0.8,
-    aylik: -3.0,
-    ytd: 50.2,
   },
   {
     kod: 'XBANK',
@@ -323,10 +231,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Kamu ve özel sermayeli tüm mevduat ve kalkınma bankalarının paylarından oluşur.',
     hisseler: ['GARAN', 'AKBNK', 'ISCTR', 'YKBNK', 'VAKBN'],
     dinamik: 'TCMB faiz kararları, net faiz marjı, kredi büyümesi ve ülke risk primi (CDS) ile doğrudan koreledir.',
-    piyasaDegeri: 2306407483852,
-    haftalik: 1.2,
-    aylik: 0.0,
-    ytd: 78.4,
   },
   {
     kod: 'XLBNK',
@@ -336,10 +240,6 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Bankacılık sektörü içinde işlem hacmi ve serbest dolaşım büyüklüğü en üstte yer alan seçkin bankalar.',
     hisseler: ['GARAN', 'AKBNK', 'ISCTR', 'YKBNK'],
     dinamik: 'Yabancı kurumsal yatırımcıların bankacılık sektörüne giriş-çıkışlarında ilk kullandığı enstrümandır.',
-    piyasaDegeri: 2210833556352,
-    haftalik: 1.5,
-    aylik: 0.8,
-    ytd: 81.2,
   },
   {
     kod: 'XPTIC',
@@ -349,25 +249,19 @@ export const SEKTOR_TANIMLARI = [
     tanim: 'Süpermarket zincirleri, indirim mağazaları ve organize perakende ticaret şirketleri.',
     hisseler: ['BIMAS', 'MGROS', 'SOKM', 'BIZIM'],
     dinamik: 'Hızlı nakit akışı ve enflasyonu fiyatlara hızlı yansıtma kabiliyeti sayesinde enflasyonist dönemlerin lideridir.',
-    piyasaDegeri: 805375463996,
-    haftalik: 2.1,
-    aylik: 3.4,
-    ytd: 65.3,
   },
 ];
 
 const yuvarla = (n, o = 2) => Math.round(n * 10 ** o) / 10 ** o;
 
 export function sectorVerisiBirlestir(def, yahooMeta, eskiSektor) {
+// Haftalık, aylık, yılbaşı getirisi ve piyasa değeri canlı veriden hesaplanmadığı için tutulmaz (29.10.2026'da elle
+// yazılmış değerler kaldırıldı). Yalnız Yahoo'nun verdiği son fiyat ve günlük değişim; alınamazsa önceki kayıt kendi
+// zamanıyla kalır.
   const fiyat = yahooMeta?.regularMarketPrice ?? eskiSektor?.deger ?? 0;
   const gunlukDegisim = yahooMeta?.regularMarketChangePercent != null
     ? yuvarla(yahooMeta.regularMarketChangePercent, 1)
     : (eskiSektor?.gunluk ?? 0);
-
-  const piyasaDegeri = def.piyasaDegeri ?? eskiSektor?.piyasaDegeri ?? null;
-  const aylik = eskiSektor?.aylik ?? def.aylik ?? 0;
-  const haftalik = eskiSektor?.haftalik ?? def.haftalik ?? 0;
-  const ytd = eskiSektor?.ytd ?? def.ytd ?? 0;
 
   return {
     kod: def.kod,
@@ -379,10 +273,6 @@ export function sectorVerisiBirlestir(def, yahooMeta, eskiSektor) {
     dinamik: def.dinamik,
     deger: yuvarla(fiyat, 2),
     gunluk: gunlukDegisim,
-    haftalik: yuvarla(haftalik, 1),
-    aylik: yuvarla(aylik, 1),
-    ytd: yuvarla(ytd, 1),
-    piyasaDegeri,
     oncekiKapanis: yahooMeta?.chartPreviousClose ? yuvarla(yahooMeta.chartPreviousClose, 2) : (eskiSektor?.oncekiKapanis ?? null),
     zaman: new Date((yahooMeta?.regularMarketTime ?? Math.floor(Date.now() / 1000)) * 1000).toISOString(),
   };

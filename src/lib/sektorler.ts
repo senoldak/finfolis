@@ -11,10 +11,6 @@ export interface Sektor {
   dinamik?: string;
   deger: number;
   gunluk: number;
-  haftalik: number;
-  aylik: number;
-  ytd: number;
-  piyasaDegeri: number | null;
   oncekiKapanis: number | null;
   zaman: string;
 }
@@ -38,22 +34,4 @@ export function sayi(n: number, ondalik = 2): string {
 export function yuzdeFormatla(n: number): string {
   const isaret = n > 0 ? '+' : '';
   return `${isaret}%${sayi(Math.abs(n), 1)}`;
-}
-
-// Piyasa değerini anlaşılır Türkçe birimlere dönüştürür (Trilyon TL, Milyar TL)
-export function piyasaDegeriMetni(tl: number | null): string {
-  if (tl == null || tl <= 0) return '—';
-  if (tl >= 1_000_000_000_000) {
-    return `${sayi(tl / 1_000_000_000_000, 2)} Trilyon TL`;
-  }
-  if (tl >= 1_000_000_000) {
-    return `${sayi(tl / 1_000_000_000, 2)} Milyar TL`;
-  }
-  return `${sayi(tl, 0)} TL`;
-}
-
-// Tabloda tam rakam göstermek için (12.363.039.828.161 ₺)
-export function piyasaDegeriTam(tl: number | null): string {
-  if (tl == null || tl <= 0) return '—';
-  return `${sayi(tl, 0)} ₺`;
 }
