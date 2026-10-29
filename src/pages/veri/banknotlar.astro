@@ -1,0 +1,225 @@
+---
+// Banknotlar: tedavüldeki banknotların kupür dağılımı, adet ve tutar (TCMB, aylık), EVDS'den. Sayfa hesapları: kupürlerin
+// adet ve tutar içindeki payı ve ortalama banknot değeri (toplam tutar / toplam adet), EVDS düzeylerinden. Başka türetme ve
+// tahmin yoktur.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, ayAdi, ayAnahtari, sayiYaz, yuzdeYaz, zamanYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const banknot = RESMI.banknot;
+const satirlar = banknot?.satirlar ?? [];
+const son = satirlar.at(-1);
+type Satir = (typeof satirlar)[number];
+
+const KUPURLER = [
+  { alan: 'k200', ad: '200 TL' },
+  { alan: 'k100', ad: '100 TL' },
+  { alan: 'k50', ad: '50 TL' },
+  { alan: 'k20', ad: '20 TL' },
+  { alan: 'k10', ad: '10 TL' },
+  { alan: 'k5', ad: '5 TL' },
+  { alan: 'diger', ad: 'Diğer' },
+] as const;
+type Kupur = (typeof KUPURLER)[number]['alan'];
+
+// Sayfa hesapları.
+const tutarPayi = (s: Satir, k: Kupur) => (s[`${k}Tutar`] / s.toplamTutar) * 100;
+const adetPayi = (s: Satir, k: Kupur) => (s[`${k}Adet`] / s.toplamAdet) * 100;
+const ortalama = (s: Satir) => s.toplamTutar / s.toplamAdet;
+const yilOnce = son ? satirlar.find((s) => ayAnahtari(s) === ayAnahtari(son) - 12) : undefined;
+
+const renkler = ['murekkep', 'toprak', 'mavi', 'yesil'] as const;
+const gruplar = (on: string) => [
+  {
+    id: 'buyuk',
+    ad: '200, 100, 50, 20 TL',
+    seriler: KUPURLER.slice(0, 4).map((k, i) => ({ id: `${on}-${k.alan}`, ad: k.ad, renk: renkler[i] })),
+  },
+  {
+    id: 'kucuk',
+    ad: '10, 5 TL ve diğer',
+    seriler: KUPURLER.slice(4).map((k, i) => ({ id: `${on}-${k.alan}`, ad: k.ad, renk: renkler[i] })),
+  },
+];
+const tutarIdleri = KUPURLER.map((k) => `tutar-${k.alan}`);
+const adetIdleri = KUPURLER.map((k) => `adet-${k.alan}`);
+const tutarNoktalari = satirlar.map((s) => [ayAnahtari(s), ...KUPURLER.map((k) => tutarPayi(s, k.alan))]);
+const adetNoktalari = satirlar.map((s) => [ayAnahtari(s), ...KUPURLER.map((k) => adetPayi(s, k.alan))]);
+const ortGruplari = [{ id: 'ort', ad: 'Ortalama', seriler: [{ id: 'ort', ad: 'Ortalama banknot değeri', renk: 'murekkep' as const }] }];
+const ortNoktalari = satirlar.map((s) => [ayAnahtari(s), ortalama(s)]);
+
+const baslik = 'Banknotlar';
+const description = son
+  ? `${ayAdi(son)} sonunda tedavülde ${sayiYaz(son.toplamAdet / 1e9, 2)} milyar adet banknot vardı, toplam ${sayiYaz(son.toplamTutar / 1e12, 2)} trilyon TL. 200 TL’lik banknotların tutar içindeki payı ${yuzdeYaz(tutarPayi(son, 'k200'))}. TCMB verisi.`
+  : 'Tedavüldeki banknotların kupür dağılımı: adet, tutar ve kupür payları, TCMB verisi.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/banknotlar/' },
+];
+const ayKodu = (s: { yil: number; ay: number }) => `${s.yil}-${String(s.ay).padStart(2, '0')}`;
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  ...(banknot && son
+    ? {
+        sayfaEk: { dateModified: banknot.alinma },
+        ekler: [
+          {
+            '@type': 'Dataset',
+            name: 'Tedavüldeki banknotların kupür dağılımı',
+            description: 'Tedavüldeki banknotların kupür başına aylık adet ve TL tutarı, TCMB EVDS’den.',
+            url: 'https://finfolis.com/veri/banknotlar/',
+            isAccessibleForFree: true,
+            creator: { '@type': 'GovernmentOrganization', name: 'Türkiye Cumhuriyet Merkez Bankası', url: 'https://www.tcmb.gov.tr/' },
+            temporalCoverage: `${ayKodu(satirlar[0])}/${ayKodu(son)}`,
+            dateModified: banknot.alinma,
+            variableMeasured: ['Kupür başına tedavüldeki banknot adedi', 'Kupür başına tedavüldeki banknot tutarı (TL)'],
+          },
+        ],
+      }
+    : {}),
+});
+---
+
+<Base title={`Banknotlar: ${son ? ayAdi(son) : 'aylık veri'}`} description={description} noindex={!son}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>Tedavüldeki banknotların kupür dağılımı · TCMB, aylık</p>
+    </header>
+    {
+      banknot && son ? (
+        <>
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>Toplam tutar</dt>
+              <dd>{sayiYaz(son.toplamTutar / 1e12, 2)} trilyon TL</dd>
+              <dd class="veri-degisim">
+                {ayAdi(son)} sonu{yilOnce ? `, bir yıl önce ${sayiYaz(yilOnce.toplamTutar / 1e12, 2)} trilyon TL` : ''}
+              </dd>
+            </div>
+            <div>
+              <dt>Toplam adet</dt>
+              <dd>{sayiYaz(son.toplamAdet / 1e9, 2)} milyar</dd>
+              <dd class="veri-degisim">Tedavüldeki banknot sayısı</dd>
+            </div>
+            <div>
+              <dt>200 TL’nin payı</dt>
+              <dd>{yuzdeYaz(tutarPayi(son, 'k200'))}</dd>
+              <dd class="veri-degisim">Tutarda; adette {yuzdeYaz(adetPayi(son, 'k200'))}</dd>
+            </div>
+            <div>
+              <dt>Ortalama banknot</dt>
+              <dd>{sayiYaz(ortalama(son), 1)} TL</dd>
+              <dd class="veri-degisim">Toplam tutar / toplam adet</dd>
+            </div>
+          </dl>
+          <p class="veri-notu veri-kaynak">
+            <strong>Kaynak:</strong> <a href={banknot.kaynak.url} rel="noopener">{banknot.kaynak.ad}</a>. Siteye alındığı zaman:{' '}
+            {zamanYaz(banknot.alinma)}.
+          </p>
+
+          <ZamanGrafik
+            baslik="Kupürlerin tutar içindeki payı"
+            ipucu="Yüzde, ay sonu · Grup düğmesiyle büyük ve küçük kupürler arasında geçilir · Sayfada hesaplanır"
+            kaynak="Kaynak: TCMB (TCMB EVDS); paylar sayfada hesaplanır."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={tutarIdleri}
+            noktalar={tutarNoktalari}
+            gruplar={gruplar('tutar')}
+            grupEtiketi="Kupür grubu"
+          />
+
+          <div class="veri-izgara">
+            <section class="bolum">
+              <h2 class="bolum-baslik">Kupür dağılımı, {ayAdi(son)}</h2>
+              <div class="tablo-sarma">
+                <table class="cizelge veri-tablo">
+                  <thead>
+                    <tr>
+                      <th scope="col">Kupür</th>
+                      <th scope="col" class="sag">Adet (milyon)</th>
+                      <th scope="col" class="sag">Tutar (milyar TL)</th>
+                      <th scope="col" class="sag">Adet payı</th>
+                      <th scope="col" class="sag">Tutar payı</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {KUPURLER.filter((k) => son[`${k.alan}Adet`] > 0).map((k) => (
+                      <tr>
+                        <td>{k.ad}</td>
+                        <td class="sag">{sayiYaz(son[`${k.alan}Adet`] / 1e6, 0)}</td>
+                        <td class="sag">{sayiYaz(son[`${k.alan}Tutar`] / 1e9, 1)}</td>
+                        <td class="sag">{yuzdeYaz(adetPayi(son, k.alan))}</td>
+                        <td class="sag">{yuzdeYaz(tutarPayi(son, k.alan))}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p class="veri-notu">Ay sonu itibarıyla. Kupürlerin toplamı EVDS’deki toplama eşittir; paylar sayfada hesaplanır.</p>
+            </section>
+
+            <section class="bolum prose veri-aciklama">
+              <h2 class="bolum-baslik">Bu rakamlar ne anlama geliyor?</h2>
+              <p>
+                Tedavüldeki banknotlar, TCMB’nin bastığı ve bankalar ile halkın elinde bulunan kâğıt paralardır. Tutarı TCMB
+                bilançosundaki emisyon kalemine karşılık gelir.
+              </p>
+              <p>
+                Fiyatlar yükseldiği dönemlerde en büyük kupürün payı ve ortalama banknot değeri genellikle artar; grafikler bu
+                seyri gösterir. Ortalama banknot değeri, toplam tutarın toplam adede bölünmesidir.
+              </p>
+            </section>
+          </div>
+
+          <ZamanGrafik
+            baslik="Kupürlerin adet içindeki payı"
+            ipucu="Yüzde, ay sonu · Sayfada hesaplanır"
+            kaynak="Kaynak: TCMB (TCMB EVDS); paylar sayfada hesaplanır."
+            siklik="ay"
+            birim="yuzde"
+            seriIdleri={adetIdleri}
+            noktalar={adetNoktalari}
+            gruplar={gruplar('adet')}
+            grupEtiketi="Kupür grubu"
+          />
+
+          <ZamanGrafik
+            baslik="Ortalama banknot değeri"
+            ipucu="TL, toplam tutar / toplam adet · Sayfada hesaplanır"
+            kaynak="Kaynak: TCMB (TCMB EVDS); ortalama sayfada hesaplanır."
+            siklik="ay"
+            birim="tl"
+            seriIdleri={['ort']}
+            noktalar={ortNoktalari}
+            gruplar={ortGruplari}
+          />
+        </>
+      ) : (
+        <p class="bos">Banknot verisi şu anda yok. Veri alınabildiğinde bu sayfada gösterilecek.</p>
+      )
+    }
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/tcmb-bilancosu/">TCMB bilançosu</a>
+      <a href="/veri/para-arzi/">Para arzı</a>
+      <a href="/veri/enflasyon/">Enflasyon</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki veriler bilgi amaçlıdır ve TCMB’nin yayımladığı resmi rakamlardır. Yatırım tavsiyesi değildir.</YasalUyari>
+  </div>
+</Base>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+</style>

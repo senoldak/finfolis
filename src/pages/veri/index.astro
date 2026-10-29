@@ -86,6 +86,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/doviz-piyasasi/': 'döviz işlem hacmi spot swap vadeli forward efektif bankalararası döviz piyasası',
   '/veri/elektrik-tuketimi/': 'elektrik tüketimi üretimi enerji teiaş yenilenebilir mwh gwh öncü gösterge',
   '/veri/karsiliksiz-cek/': 'karşılıksız çek takas ibraz çek tutarı ticari stres takasbank',
+  '/veri/banknotlar/': 'banknot kupür 200 tl 100 tl nakit tedavül emisyon para',
   '/veri/para-arzi/': 'm1 m2 m3 para arzı parasal büyüklükler dolaşımdaki para vadeli vadesiz mevduat likidite',
   '/veri/para-piyasasi/': 'aofm fonlama maliyeti faiz koridoru gecelik borç verme alma repo net fonlama sterilizasyon likidite',
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
@@ -440,6 +441,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/para-arzi/')}>
               <a href="/veri/para-arzi/" class="fihrist-baslik-link">Para Arzı (M1, M2, M3)</a>
               <span class="fihrist-ozet">Haftalık para arzı, bileşenleri ve reel değişimi ({paraArziSon ? `M2 yıllık %${sayiYaz(paraArziSon.m2Yillik, 1)}` : '–'})</span>
+            </li>
+            <li data-ek={aramaEki('/veri/banknotlar/')}>
+              <a href="/veri/banknotlar/" class="fihrist-baslik-link">Banknotlar</a>
+              <span class="fihrist-ozet">Tedavüldeki banknotlar kupür kupür: adet, tutar, 200 TL’nin payı, 2009’dan</span>
             </li>
             <li data-ek={aramaEki('/veri/tcmb-bilancosu/')}>
               <a href="/veri/tcmb-bilancosu/" class="fihrist-baslik-link">TCMB Bilançosu</a>

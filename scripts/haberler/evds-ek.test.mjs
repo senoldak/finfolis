@@ -21,6 +21,7 @@ import {
   dovizHacmiAl,
   elektrikAl,
   cekAl,
+  banknotAl,
   TCMB_BILANCO_SERILERI,
   PARA_PIYASASI_SERILERI,
   HANE_BEKLENTI_SERILERI,
@@ -619,6 +620,19 @@ test('cekAl: dört aylık seri 2008’den, senet serileri istenmez', async () =>
   assert.deepEqual(alanlar(istekler[0]), ['TP_BTO1', 'TP_BTO2', 'TP_BTO3', 'TP_BTO4']);
   assert.ok(!istekler.some((u) => u.includes('TSENETLER')));
   assert.deepEqual(c.satirlar[0], { yil: 2008, ay: 1, ibrazAdet: 10, ibrazTutar: 10, karsiliksizAdet: 10, karsiliksizTutar: 10 });
+});
+
+test('banknotAl: kupür başına adet ve tutar, 2009’dan', async () => {
+  const istekler = [];
+  globalThis.fetch = async (url) => {
+    istekler.push(decodeURIComponent(String(url)));
+    return yanit({ items: aylar([2009, 1], 213).map((m) => ({ Tarih: `${m.yil}-${m.ay}`, ...Object.fromEntries(alanlar(url).map((x) => [x, '2'])) })) });
+  };
+  const b = await banknotAl(SIMDI, 'x');
+  assert.equal(alanlar(istekler[0]).length, 16);
+  assert.ok(alanlar(istekler[0]).includes('TP_TEDAVULADT_T200') && alanlar(istekler[0]).includes('TP_TEDAVULTUT_TTU'));
+  assert.equal(b.satirlar[0].k200Adet, 2);
+  assert.equal(b.satirlar[0].toplamTutar, 2);
 });
 
 test('guvenAl ve brutRezervAl: alan adları tanımdan', async () => {

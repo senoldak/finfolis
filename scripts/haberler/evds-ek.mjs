@@ -383,6 +383,7 @@ export async function tufeArindirilmisAl(simdi, anahtar) {
 //  - cek: takas odalarına ibraz edilen ve karşılıksız çıkan çekler (Takasbank verisi, aylık, adet ve bin TL), 2008'den
 //      (doğrulandı 29.10.2026). bie_tsenetler protestolu senet değil, "tahsile alınan ticari senetler"dir; stok/akım
 //      tanımı belirsiz olduğu için alınmaz.
+//  - banknot: tedavüldeki banknotların kupür dağılımı, adet ve tutar (TCMB, aylık, 2009'dan; doğrulandı 29.10.2026).
 //  - butce: genel bütçe gelir, harcama, faiz harcaması, faiz dışı denge ve denge (HMB, aylık, bin TL).
 //  - kredi: bankacılık sektörü yurt içi kredi hacmi (TCMB, aylık, bin TL) ve yıllık değişimi; hanehalkı ve şirket
 //      kredileri banka türlerine göre (toplamı sayfada alınır).
@@ -1120,6 +1121,31 @@ export async function cekAl(simdi, anahtar) {
     kaynak: { ad: 'Takasbank verisi, takas odalarına ibraz edilen ve karşılıksız çekler (TCMB EVDS)', url: EVDS_SAYFA },
     seriler: tanimlar(CEK_SERILERI),
     satirlar: await aylikFormullu(CEK_SERILERI, new Date(Date.UTC(2008, 0, 1)), simdi, anahtar, 'Karşılıksız çek', 150),
+  };
+}
+
+// Tedavüldeki banknotlar (ay sonu): adet ve TL tutar; "diğer" EVDS'de "Diğer*" olarak verilen kalemdir. Kupürlerin toplamı
+// toplama eşittir (doğrulandı 29.10.2026).
+export const BANKNOT_KUPURLERI = [
+  { kod: 'T200', alan: 'k200', ad: '200 TL' },
+  { kod: 'T100', alan: 'k100', ad: '100 TL' },
+  { kod: 'T50', alan: 'k50', ad: '50 TL' },
+  { kod: 'T20', alan: 'k20', ad: '20 TL' },
+  { kod: 'T10', alan: 'k10', ad: '10 TL' },
+  { kod: 'T5', alan: 'k5', ad: '5 TL' },
+  { kod: 'TDG', alan: 'diger', ad: 'Diğer' },
+  { kod: 'TTU', alan: 'toplam', ad: 'Toplam' },
+];
+export const BANKNOT_SERILERI = [
+  ...BANKNOT_KUPURLERI.map((k) => ({ kod: `TP.TEDAVULADT.${k.kod}`, formul: 0, alan: `${k.alan}Adet`, ad: `${k.ad}, adet` })),
+  ...BANKNOT_KUPURLERI.map((k) => ({ kod: `TP.TEDAVULTUT.${k.kod}`, formul: 0, alan: `${k.alan}Tutar`, ad: `${k.ad}, tutar (TL)` })),
+];
+
+export async function banknotAl(simdi, anahtar) {
+  return {
+    kaynak: { ad: 'TCMB, tedavüldeki banknotların kupür dağılımı (TCMB EVDS)', url: EVDS_SAYFA },
+    seriler: tanimlar(BANKNOT_SERILERI),
+    satirlar: await aylikFormullu(BANKNOT_SERILERI, new Date(Date.UTC(2009, 0, 1)), simdi, anahtar, 'Banknotlar', 150),
   };
 }
 

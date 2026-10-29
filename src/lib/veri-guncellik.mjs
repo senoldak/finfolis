@@ -94,6 +94,7 @@ const RESMI_SAYFA = {
   dovizHacmi: '/veri/doviz-piyasasi/',
   elektrik: '/veri/elektrik-tuketimi/',
   cek: '/veri/karsiliksiz-cek/',
+  banknot: '/veri/banknotlar/',
   butce: '/veri/butce-dengesi/',
   kredi: '/veri/kredi-hacmi/',
 };

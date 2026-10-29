@@ -413,6 +413,7 @@ export const RESMI = data as unknown as {
   faizAyrinti?: FaizAyrintiBolumu;
   dovizHacmi?: DovizHacmiBolumu;
   elektrik?: ElektrikBolumu;
+  banknot?: AylikSeriBolumu<`${'k200' | 'k100' | 'k50' | 'k20' | 'k10' | 'k5' | 'diger' | 'toplam'}${'Adet' | 'Tutar'}`>;
   cek?: AylikSeriBolumu<'ibrazAdet' | 'ibrazTutar' | 'karsiliksizAdet' | 'karsiliksizTutar'>;
 };
 
