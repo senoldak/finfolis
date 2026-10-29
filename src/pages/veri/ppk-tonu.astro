@@ -7,18 +7,15 @@ import YasalUyari from '../../components/YasalUyari.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import ZamanGrafik from '../../components/ZamanGrafik.astro';
 import metinVerisi from '../../data/ppk-metinler.json';
-import ekMetinVerisi from '../../data/tcmb-metinler.json';
 import tonVerisi from '../../data/ppk-ton.json';
 import { belgeListesi, donguler, tonAdi } from '../../lib/ppk-ton.mjs';
 import { gunYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 
-type Puan = { ileriYon: number | null; durus: number | null; gerekce: string; alintilar: string[]; okundu: string; politikaYok?: boolean };
+type Puan = { ileriYon: number; durus: number; gerekce: string; alintilar: string[]; okundu: string };
 type Belge = { id: string; tur: string; tarih: string; baslik: string; url: string };
-// PPK karar ve özetleri ile Başkan konuşmaları, sunumlar ve rapor genel değerlendirmeleri.
-const belgeler = [...belgeListesi(metinVerisi).belgeler, ...belgeListesi(ekMetinVerisi).belgeler] as Belge[];
-const OKUNAN_TURLER = ['karar', 'ozet', 'konusma', 'rapor_er', 'rapor_fir'];
+const belgeler = belgeListesi(metinVerisi).belgeler as Belge[];
 const puanlar = ((tonVerisi as { puanlar?: Record<string, Puan> }).puanlar ?? {}) as Record<string, Puan>;
 const dongu = donguler(belgeler, puanlar).filter((d) => d.ileriYon != null);
 const son = dongu.at(-1);
@@ -27,16 +24,10 @@ const ivme = son && onceki ? Math.round(((son.ileriYon as number) - (onceki.iler
 const okunan = belgeler
   .filter((b) => puanlar[b.id])
   .sort((a, b) => b.tarih.localeCompare(a.tarih));
-const bekleyen = belgeler.filter((b) => OKUNAN_TURLER.includes(b.tur) && !puanlar[b.id]).length;
+const bekleyen = belgeler.filter((b) => (b.tur === 'karar' || b.tur === 'ozet') && !puanlar[b.id]).length;
 const isaret = (n: number | null | undefined) =>
   n == null ? '–' : `${n > 0 ? '+' : n < 0 ? '−' : ''}${Math.abs(n).toLocaleString('tr-TR', { maximumFractionDigits: 2 })}`;
-const TUR: Record<string, string> = {
-  karar: 'PPK kararı',
-  ozet: 'Toplantı özeti',
-  konusma: 'Konuşma / sunum',
-  rapor_er: 'Enflasyon Raporu',
-  rapor_fir: 'Finansal İstikrar Raporu',
-};
+const TUR: Record<string, string> = { karar: 'PPK kararı', ozet: 'Toplantı özeti' };
 const gun = (iso: string) => Math.floor(Date.parse(`${iso}T00:00:00Z`) / 86_400_000);
 const grafikNoktalari = dongu.map((d) => [gun(d.toplanti), d.ileriYon, d.durus]);
 const guncelleme = (tonVerisi as { guncelleme?: string }).guncelleme ?? null;
@@ -130,7 +121,6 @@ const jsonLd = sayfaSemasi({ yol, ad: baslik, aciklama: description, ...(guncell
                           <details>
                             <summary>
                               {TUR[b.tur] ?? b.tur}
-                              {p.politikaYok && <span class="politika-yok"> · politika içeriği yok</span>}
                             </summary>
                             <p>{p.gerekce}</p>
                             <ul class="alintilar">
@@ -163,10 +153,7 @@ const jsonLd = sayfaSemasi({ yol, ad: baslik, aciklama: description, ...(guncell
     <section class="bolum prose veri-aciklama">
       <h2 class="bolum-baslik">Bu puanlar nasıl hazırlanıyor?</h2>
       <p>
-        TCMB'nin yayımladığı PPK karar metinleri, PPK toplantı özetleri, Başkan'ın Türkçe konuşma ve sunumları ile Enflasyon
-        Raporu ve Finansal İstikrar Raporunun genel değerlendirme bölümleri, Google'ın Gemini yapay zekâ modeline okutulur.
-        Sunumların metni slaytlardan çıkarılır. Para politikası hakkında bir şey söylemeyen metin "politika içeriği yok"
-        olarak işaretlenir ve ortalamaya girmez.
+        TCMB'nin yayımladığı PPK karar metinleri ve PPK toplantı özetleri, Google'ın Gemini yapay zekâ modeline okutulur.
         Model yalnız metne bakar ve iki puan verir. <strong>İleri yön</strong>, metnin para politikasının sonraki adımları
         için verdiği işarettir: −3 belirgin gevşeme (güvercin), 0 dengeli, +3 belirgin sıkılaştırma (şahin).
         <strong>Mevcut duruş</strong>, metnin bugünkü politikayı ne kadar sıkı tanımladığıdır.
@@ -174,9 +161,7 @@ const jsonLd = sayfaSemasi({ yol, ad: baslik, aciklama: description, ...(guncell
       <p>
         Model her puan için kısa bir gerekçe ve metinden birebir alıntı vermek zorundadır. Alıntılar program tarafından TCMB
         metninde aranır; metinde birebir geçmeyen alıntı atılır, geçerli alıntısı kalmayan okuma kullanılmaz. Bir PPK
-        döngüsünün tonu tür dengeli ortalamadır: döngüdeki karar metni, toplantı özeti, konuşmalar ve raporlar önce kendi
-        içinde ortalanır, sonra bu dört tür eşit ağırlıkla birleştirilir. Böylece sayıca çok olan konuşmalar sonucu tek
-        başına belirlemez.
+        döngüsünün tonu, o toplantının karar metni ile toplantı özetinin eşit ağırlıklı ortalamasıdır.
       </p>
       <p>
         Puanlar bir yorumdur, ölçüm değildir. Aynı metni başka bir model ya da insan farklı puanlayabilir. Puanlar faiz
@@ -203,10 +188,6 @@ const jsonLd = sayfaSemasi({ yol, ad: baslik, aciklama: description, ...(guncell
   }
   .tarih-hucre {
     white-space: nowrap;
-  }
-  .politika-yok {
-    color: var(--muted);
-    font-size: 0.9em;
   }
   .ton-tablo summary {
     cursor: pointer;

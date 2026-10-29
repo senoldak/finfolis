@@ -1,0 +1,21 @@
+{
+  "aciklama": "finfolis tahmin arşivi. Yalnız ekleme yapılır; kayıt değiştirilmez ve silinmez. Her kayıt yayımlandığı gün ve model sürümüyle tutulur. Model tahminidir, yatırım tavsiyesi değildir.",
+  "kayitlar": [
+    {
+      "model": "cari",
+      "surum": "cari-v1",
+      "hedef": "2026-09",
+      "yapildi": "2026-10-29",
+      "tahmin": 932.161,
+      "a80": [
+        -892.8559,
+        2757.178
+      ],
+      "a95": [
+        -1757.6998,
+        3622.0218
+      ],
+      "birim": "milyonUsd"
+    }
+  ]
+}

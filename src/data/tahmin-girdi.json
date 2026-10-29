@@ -1,0 +1,2398 @@
+{
+  "kaynak": {
+    "ad": "TCMB, Piyasa Katılımcıları Anketi ve gösterge niteliğindeki döviz kurları (EVDS)",
+    "url": "https://evds3.tcmb.gov.tr/"
+  },
+  "seriler": [
+    {
+      "alan": "pkaCari",
+      "ad": "Cari ayın aylık TÜFE beklentisi"
+    },
+    {
+      "alan": "pka1",
+      "ad": "1 ay sonrasının aylık TÜFE beklentisi"
+    },
+    {
+      "alan": "pka2",
+      "ad": "2 ay sonrasının aylık TÜFE beklentisi"
+    },
+    {
+      "alan": "pka12",
+      "ad": "12 ay sonrasının yıllık TÜFE beklentisi"
+    },
+    {
+      "alan": "usd",
+      "ad": "ABD doları alış kuru, aylık ortalama"
+    }
+  ],
+  "satirlar": [
+    {
+      "yil": 2004,
+      "ay": 12,
+      "usd": 1.3933,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2005,
+      "ay": 1,
+      "usd": 1.35,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2005,
+      "ay": 2,
+      "usd": 1.3102,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2005,
+      "ay": 3,
+      "usd": 1.305,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2005,
+      "ay": 4,
+      "usd": 1.3535,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2005,
+      "ay": 5,
+      "usd": 1.365,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2005,
+      "ay": 6,
+      "usd": 1.3547,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2005,
+      "ay": 7,
+      "usd": 1.3327,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2005,
+      "ay": 8,
+      "usd": 1.3366,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2005,
+      "ay": 9,
+      "usd": 1.3342,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2005,
+      "ay": 10,
+      "usd": 1.3512,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2005,
+      "ay": 11,
+      "usd": 1.3537,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2005,
+      "ay": 12,
+      "usd": 1.3457,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2006,
+      "ay": 1,
+      "usd": 1.3279,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2006,
+      "ay": 2,
+      "usd": 1.3202,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2006,
+      "ay": 3,
+      "usd": 1.3287,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2006,
+      "ay": 4,
+      "usd": 1.3309,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2006,
+      "ay": 5,
+      "usd": 1.4139,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2006,
+      "ay": 6,
+      "usd": 1.5929,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2006,
+      "ay": 7,
+      "usd": 1.5508,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2006,
+      "ay": 8,
+      "usd": 1.4622,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2006,
+      "ay": 9,
+      "usd": 1.4721,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2006,
+      "ay": 10,
+      "usd": 1.4762,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2006,
+      "ay": 11,
+      "usd": 1.451,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2006,
+      "ay": 12,
+      "usd": 1.4264,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2007,
+      "ay": 1,
+      "usd": 1.4198,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2007,
+      "ay": 2,
+      "usd": 1.3902,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2007,
+      "ay": 3,
+      "usd": 1.4029,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2007,
+      "ay": 4,
+      "usd": 1.3553,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2007,
+      "ay": 5,
+      "usd": 1.3319,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2007,
+      "ay": 6,
+      "usd": 1.3152,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2007,
+      "ay": 7,
+      "usd": 1.276,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2007,
+      "ay": 8,
+      "usd": 1.3083,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2007,
+      "ay": 9,
+      "usd": 1.2613,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2007,
+      "ay": 10,
+      "usd": 1.1966,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2007,
+      "ay": 11,
+      "usd": 1.1847,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2007,
+      "ay": 12,
+      "usd": 1.173,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2008,
+      "ay": 1,
+      "usd": 1.1704,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2008,
+      "ay": 2,
+      "usd": 1.1882,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2008,
+      "ay": 3,
+      "usd": 1.2324,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2008,
+      "ay": 4,
+      "usd": 1.2967,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2008,
+      "ay": 5,
+      "usd": 1.247,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2008,
+      "ay": 6,
+      "usd": 1.2278,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2008,
+      "ay": 7,
+      "usd": 1.21,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2008,
+      "ay": 8,
+      "usd": 1.1727,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2008,
+      "ay": 9,
+      "usd": 1.2296,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2008,
+      "ay": 10,
+      "usd": 1.4733,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2008,
+      "ay": 11,
+      "usd": 1.5879,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2008,
+      "ay": 12,
+      "usd": 1.5388,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2009,
+      "ay": 1,
+      "usd": 1.5891,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2009,
+      "ay": 2,
+      "usd": 1.6524,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2009,
+      "ay": 3,
+      "usd": 1.7045,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2009,
+      "ay": 4,
+      "usd": 1.6042,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2009,
+      "ay": 5,
+      "usd": 1.5518,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2009,
+      "ay": 6,
+      "usd": 1.5398,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2009,
+      "ay": 7,
+      "usd": 1.5137,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2009,
+      "ay": 8,
+      "usd": 1.4792,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2009,
+      "ay": 9,
+      "usd": 1.4852,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2009,
+      "ay": 10,
+      "usd": 1.4621,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2009,
+      "ay": 11,
+      "usd": 1.48,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2009,
+      "ay": 12,
+      "usd": 1.4995,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2010,
+      "ay": 1,
+      "usd": 1.4663,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2010,
+      "ay": 2,
+      "usd": 1.5056,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2010,
+      "ay": 3,
+      "usd": 1.5283,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2010,
+      "ay": 4,
+      "usd": 1.4879,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2010,
+      "ay": 5,
+      "usd": 1.5348,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2010,
+      "ay": 6,
+      "usd": 1.5703,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2010,
+      "ay": 7,
+      "usd": 1.5363,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2010,
+      "ay": 8,
+      "usd": 1.5016,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2010,
+      "ay": 9,
+      "usd": 1.4889,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2010,
+      "ay": 10,
+      "usd": 1.4185,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2010,
+      "ay": 11,
+      "usd": 1.4295,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2010,
+      "ay": 12,
+      "usd": 1.5131,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2011,
+      "ay": 1,
+      "usd": 1.5538,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2011,
+      "ay": 2,
+      "usd": 1.5828,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2011,
+      "ay": 3,
+      "usd": 1.5747,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2011,
+      "ay": 4,
+      "usd": 1.5156,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2011,
+      "ay": 5,
+      "usd": 1.5642,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2011,
+      "ay": 6,
+      "usd": 1.594,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2011,
+      "ay": 7,
+      "usd": 1.6467,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2011,
+      "ay": 8,
+      "usd": 1.7442,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2011,
+      "ay": 9,
+      "usd": 1.7865,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2011,
+      "ay": 10,
+      "usd": 1.8271,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2011,
+      "ay": 11,
+      "usd": 1.8038,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2011,
+      "ay": 12,
+      "usd": 1.8589,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2012,
+      "ay": 1,
+      "usd": 1.8389,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2012,
+      "ay": 2,
+      "usd": 1.7511,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2012,
+      "ay": 3,
+      "usd": 1.7793,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2012,
+      "ay": 4,
+      "usd": 1.7798,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2012,
+      "ay": 5,
+      "usd": 1.797,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2012,
+      "ay": 6,
+      "usd": 1.8161,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2012,
+      "ay": 7,
+      "usd": 1.8049,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2012,
+      "ay": 8,
+      "usd": 1.7858,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2012,
+      "ay": 9,
+      "usd": 1.7956,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2012,
+      "ay": 10,
+      "usd": 1.7941,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2012,
+      "ay": 11,
+      "usd": 1.7855,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2012,
+      "ay": 12,
+      "usd": 1.7791,
+      "pkaCari": null,
+      "pka1": null,
+      "pka2": null,
+      "pka12": null
+    },
+    {
+      "yil": 2013,
+      "ay": 1,
+      "usd": 1.7639,
+      "pkaCari": 0.85,
+      "pka1": 0.52,
+      "pka2": 0.5,
+      "pka12": 6.1
+    },
+    {
+      "yil": 2013,
+      "ay": 2,
+      "usd": 1.7699,
+      "pkaCari": 0.53,
+      "pka1": 0.5,
+      "pka2": 0.69,
+      "pka12": 6.07
+    },
+    {
+      "yil": 2013,
+      "ay": 3,
+      "usd": 1.8072,
+      "pkaCari": 0.48,
+      "pka1": 0.669,
+      "pka2": 0.45,
+      "pka12": 6.18
+    },
+    {
+      "yil": 2013,
+      "ay": 4,
+      "usd": 1.7965,
+      "pkaCari": 0.65,
+      "pka1": 0.48,
+      "pka2": -0.08,
+      "pka12": 6.13
+    },
+    {
+      "yil": 2013,
+      "ay": 5,
+      "usd": 1.8228,
+      "pkaCari": 0.46,
+      "pka1": -0.11,
+      "pka2": 0.04,
+      "pka12": 6.15
+    },
+    {
+      "yil": 2013,
+      "ay": 6,
+      "usd": 1.8945,
+      "pkaCari": -0.02,
+      "pka1": 0.11,
+      "pka2": 0.31,
+      "pka12": 6.2
+    },
+    {
+      "yil": 2013,
+      "ay": 7,
+      "usd": 1.9305,
+      "pkaCari": 0.13,
+      "pka1": 0.3,
+      "pka2": 0.71,
+      "pka12": 6.45
+    },
+    {
+      "yil": 2013,
+      "ay": 8,
+      "usd": 1.9547,
+      "pkaCari": 0.32,
+      "pka1": 0.66,
+      "pka2": 1.06,
+      "pka12": 6.45
+    },
+    {
+      "yil": 2013,
+      "ay": 9,
+      "usd": 2.0171,
+      "pkaCari": 0.69,
+      "pka1": 1.09,
+      "pka2": 0.7,
+      "pka12": 6.64
+    },
+    {
+      "yil": 2013,
+      "ay": 10,
+      "usd": 1.9903,
+      "pkaCari": 1.12,
+      "pka1": 0.7,
+      "pka2": 0.45,
+      "pka12": 6.61
+    },
+    {
+      "yil": 2013,
+      "ay": 11,
+      "usd": 2.0217,
+      "pkaCari": 0.59,
+      "pka1": 0.36,
+      "pka2": 0.73,
+      "pka12": 6.74
+    },
+    {
+      "yil": 2013,
+      "ay": 12,
+      "usd": 2.0578,
+      "pkaCari": 0.42,
+      "pka1": 0.68,
+      "pka2": 0.51,
+      "pka12": 6.74
+    },
+    {
+      "yil": 2014,
+      "ay": 1,
+      "usd": 2.2168,
+      "pkaCari": 1.06,
+      "pka1": 0.6,
+      "pka2": 0.64,
+      "pka12": 7.06
+    },
+    {
+      "yil": 2014,
+      "ay": 2,
+      "usd": 2.2128,
+      "pkaCari": 0.69,
+      "pka1": 0.66,
+      "pka2": 0.74,
+      "pka12": 7.21
+    },
+    {
+      "yil": 2014,
+      "ay": 3,
+      "usd": 2.2178,
+      "pkaCari": 0.65,
+      "pka1": 0.78,
+      "pka2": 0.59,
+      "pka12": 7.31
+    },
+    {
+      "yil": 2014,
+      "ay": 4,
+      "usd": 2.1275,
+      "pkaCari": 0.76,
+      "pka1": 0.59,
+      "pka2": 0.3,
+      "pka12": 7.22
+    },
+    {
+      "yil": 2014,
+      "ay": 5,
+      "usd": 2.0908,
+      "pkaCari": 0.63,
+      "pka1": 0.25,
+      "pka2": 0.17,
+      "pka12": 7.21
+    },
+    {
+      "yil": 2014,
+      "ay": 6,
+      "usd": 2.1157,
+      "pkaCari": 0.22,
+      "pka1": 0.15,
+      "pka2": 0.15,
+      "pka12": 7.19
+    },
+    {
+      "yil": 2014,
+      "ay": 7,
+      "usd": 2.1187,
+      "pkaCari": 0.06,
+      "pka1": 0.12,
+      "pka2": 0.6,
+      "pka12": 7.27
+    },
+    {
+      "yil": 2014,
+      "ay": 8,
+      "usd": 2.1583,
+      "pkaCari": 0.15,
+      "pka1": 0.57,
+      "pka2": 1.02,
+      "pka12": 7.35
+    },
+    {
+      "yil": 2014,
+      "ay": 9,
+      "usd": 2.2036,
+      "pkaCari": 0.53,
+      "pka1": 1.04,
+      "pka2": 0.47,
+      "pka12": 7.44
+    },
+    {
+      "yil": 2014,
+      "ay": 10,
+      "usd": 2.2583,
+      "pkaCari": 1.38,
+      "pka1": 0.55,
+      "pka2": 0.43,
+      "pka12": 7.54
+    },
+    {
+      "yil": 2014,
+      "ay": 11,
+      "usd": 2.2336,
+      "pkaCari": 0.46,
+      "pka1": 0.41,
+      "pka2": 0.92,
+      "pka12": 7.5
+    },
+    {
+      "yil": 2014,
+      "ay": 12,
+      "usd": 2.2877,
+      "pkaCari": 0.31,
+      "pka1": 0.8,
+      "pka2": 0.47,
+      "pka12": 7.21
+    },
+    {
+      "yil": 2015,
+      "ay": 1,
+      "usd": 2.3283,
+      "pkaCari": 0.72,
+      "pka1": 0.41,
+      "pka2": 0.56,
+      "pka12": 6.81
+    },
+    {
+      "yil": 2015,
+      "ay": 2,
+      "usd": 2.4552,
+      "pkaCari": 0.49,
+      "pka1": 0.61,
+      "pka2": 0.73,
+      "pka12": 6.69
+    },
+    {
+      "yil": 2015,
+      "ay": 3,
+      "usd": 2.5838,
+      "pkaCari": 0.69,
+      "pka1": 0.73,
+      "pka2": 0.49,
+      "pka12": 6.78
+    },
+    {
+      "yil": 2015,
+      "ay": 4,
+      "usd": 2.6481,
+      "pkaCari": 0.85,
+      "pka1": 0.53,
+      "pka2": 0.24,
+      "pka12": 6.91
+    },
+    {
+      "yil": 2015,
+      "ay": 5,
+      "usd": 2.6461,
+      "pkaCari": 0.52,
+      "pka1": 0.17,
+      "pka2": 0.2,
+      "pka12": 6.85
+    },
+    {
+      "yil": 2015,
+      "ay": 6,
+      "usd": 2.7012,
+      "pkaCari": 0.17,
+      "pka1": 0.2,
+      "pka2": 0.19,
+      "pka12": 7
+    },
+    {
+      "yil": 2015,
+      "ay": 7,
+      "usd": 2.6946,
+      "pkaCari": 0.12,
+      "pka1": 0.19,
+      "pka2": 0.5,
+      "pka12": 7.05
+    },
+    {
+      "yil": 2015,
+      "ay": 8,
+      "usd": 2.8456,
+      "pkaCari": 0.15,
+      "pka1": 0.53,
+      "pka2": 1.14,
+      "pka12": 7.04
+    },
+    {
+      "yil": 2015,
+      "ay": 9,
+      "usd": 3.0027,
+      "pkaCari": 0.59,
+      "pka1": 1.2,
+      "pka2": 0.51,
+      "pka12": 7.25
+    },
+    {
+      "yil": 2015,
+      "ay": 10,
+      "usd": 2.9296,
+      "pkaCari": 1.26,
+      "pka1": 0.48,
+      "pka2": 0.28,
+      "pka12": 7.34
+    },
+    {
+      "yil": 2015,
+      "ay": 11,
+      "usd": 2.8713,
+      "pkaCari": 0.43,
+      "pka1": 0.22,
+      "pka2": 0.89,
+      "pka12": 7.42
+    },
+    {
+      "yil": 2015,
+      "ay": 12,
+      "usd": 2.9172,
+      "pkaCari": 0.07,
+      "pka1": 0.94,
+      "pka2": 0.58,
+      "pka12": 7.56
+    },
+    {
+      "yil": 2016,
+      "ay": 1,
+      "usd": 3.0069,
+      "pkaCari": 1.21,
+      "pka1": 0.62,
+      "pka2": 0.79,
+      "pka12": 7.92
+    },
+    {
+      "yil": 2016,
+      "ay": 2,
+      "usd": 2.9407,
+      "pkaCari": 0.68,
+      "pka1": 0.82,
+      "pka2": 1.04,
+      "pka12": 7.96
+    },
+    {
+      "yil": 2016,
+      "ay": 3,
+      "usd": 2.8917,
+      "pkaCari": 0.77,
+      "pka1": 0.99,
+      "pka2": 0.6,
+      "pka12": 7.89
+    },
+    {
+      "yil": 2016,
+      "ay": 4,
+      "usd": 2.8347,
+      "pkaCari": 0.92,
+      "pka1": 0.63,
+      "pka2": 0.14,
+      "pka12": 7.78
+    },
+    {
+      "yil": 2016,
+      "ay": 5,
+      "usd": 2.9266,
+      "pkaCari": 0.65,
+      "pka1": 0.17,
+      "pka2": 0.15,
+      "pka12": 7.81
+    },
+    {
+      "yil": 2016,
+      "ay": 6,
+      "usd": 2.917,
+      "pkaCari": 0.11,
+      "pka1": 0.2,
+      "pka2": 0.41,
+      "pka12": 7.6
+    },
+    {
+      "yil": 2016,
+      "ay": 7,
+      "usd": 2.9576,
+      "pkaCari": 0.26,
+      "pka1": 0.38,
+      "pka2": 0.75,
+      "pka12": 7.59
+    },
+    {
+      "yil": 2016,
+      "ay": 8,
+      "usd": 2.9629,
+      "pkaCari": 0.33,
+      "pka1": 0.71,
+      "pka2": 1.2401,
+      "pka12": 7.61
+    },
+    {
+      "yil": 2016,
+      "ay": 9,
+      "usd": 2.9601,
+      "pkaCari": 0.72,
+      "pka1": 1.34,
+      "pka2": 0.61,
+      "pka12": 7.62
+    },
+    {
+      "yil": 2016,
+      "ay": 10,
+      "usd": 3.0679,
+      "pkaCari": 1.32,
+      "pka1": 0.74,
+      "pka2": 0.46,
+      "pka12": 7.61
+    },
+    {
+      "yil": 2016,
+      "ay": 11,
+      "usd": 3.2675,
+      "pkaCari": 0.83,
+      "pka1": 0.55,
+      "pka2": 1.11,
+      "pka12": 7.87
+    },
+    {
+      "yil": 2016,
+      "ay": 12,
+      "usd": 3.4889,
+      "pkaCari": 0.79,
+      "pka1": 1.21,
+      "pka2": 0.58,
+      "pka12": 8.04
+    },
+    {
+      "yil": 2017,
+      "ay": 1,
+      "usd": 3.7349,
+      "pkaCari": 1.44,
+      "pka1": 0.69,
+      "pka2": 0.76,
+      "pka12": 8.19
+    },
+    {
+      "yil": 2017,
+      "ay": 2,
+      "usd": 3.6724,
+      "pkaCari": 0.62,
+      "pka1": 0.76,
+      "pka2": 0.95,
+      "pka12": 8.21
+    },
+    {
+      "yil": 2017,
+      "ay": 3,
+      "usd": 3.6659,
+      "pkaCari": 0.68,
+      "pka1": 0.91,
+      "pka2": 0.62,
+      "pka12": 8.15
+    },
+    {
+      "yil": 2017,
+      "ay": 4,
+      "usd": 3.6538,
+      "pkaCari": 0.95,
+      "pka1": 0.6,
+      "pka2": 0.24,
+      "pka12": 8.27
+    },
+    {
+      "yil": 2017,
+      "ay": 5,
+      "usd": 3.5639,
+      "pkaCari": 0.59,
+      "pka1": 0.22,
+      "pka2": 0.35,
+      "pka12": 8.41
+    },
+    {
+      "yil": 2017,
+      "ay": 6,
+      "usd": 3.519,
+      "pkaCari": 0.14,
+      "pka1": 0.25,
+      "pka2": 0.22,
+      "pka12": 8.32
+    },
+    {
+      "yil": 2017,
+      "ay": 7,
+      "usd": 3.5599,
+      "pkaCari": 0.18,
+      "pka1": 0.21,
+      "pka2": 0.57,
+      "pka12": 8.41
+    },
+    {
+      "yil": 2017,
+      "ay": 8,
+      "usd": 3.5094,
+      "pkaCari": 0.21,
+      "pka1": 0.57,
+      "pka2": 1.17,
+      "pka12": 8.37
+    },
+    {
+      "yil": 2017,
+      "ay": 9,
+      "usd": 3.4655,
+      "pkaCari": 0.57,
+      "pka1": 1.22,
+      "pka2": 0.5,
+      "pka12": 8.35
+    },
+    {
+      "yil": 2017,
+      "ay": 10,
+      "usd": 3.6623,
+      "pkaCari": 1.31,
+      "pka1": 0.6,
+      "pka2": 0.51,
+      "pka12": 8.52
+    },
+    {
+      "yil": 2017,
+      "ay": 11,
+      "usd": 3.8791,
+      "pkaCari": 0.75,
+      "pka1": 0.43,
+      "pka2": 1.27,
+      "pka12": 8.65
+    },
+    {
+      "yil": 2017,
+      "ay": 12,
+      "usd": 3.8477,
+      "pkaCari": 0.55,
+      "pka1": 1.29,
+      "pka2": 0.67,
+      "pka12": 9.3
+    },
+    {
+      "yil": 2018,
+      "ay": 1,
+      "usd": 3.7723,
+      "pkaCari": 1.32,
+      "pka1": 0.62,
+      "pka2": 0.78,
+      "pka12": 9.24
+    },
+    {
+      "yil": 2018,
+      "ay": 2,
+      "usd": 3.778,
+      "pkaCari": 0.64,
+      "pka1": 0.84,
+      "pka2": 1.05,
+      "pka12": 9.26
+    },
+    {
+      "yil": 2018,
+      "ay": 3,
+      "usd": 3.8809,
+      "pkaCari": 0.82,
+      "pka1": 1.03,
+      "pka2": 0.66,
+      "pka12": 9.24
+    },
+    {
+      "yil": 2018,
+      "ay": 4,
+      "usd": 4.053,
+      "pkaCari": 1.23,
+      "pka1": 0.76,
+      "pka2": 0.32,
+      "pka12": 9.62
+    },
+    {
+      "yil": 2018,
+      "ay": 5,
+      "usd": 4.3979,
+      "pkaCari": 0.99,
+      "pka1": 0.49,
+      "pka2": 0.51,
+      "pka12": 10.15
+    },
+    {
+      "yil": 2018,
+      "ay": 6,
+      "usd": 4.6282,
+      "pkaCari": 0.82,
+      "pka1": 0.69,
+      "pka2": 0.54,
+      "pka12": 10.47
+    },
+    {
+      "yil": 2018,
+      "ay": 7,
+      "usd": 4.748,
+      "pkaCari": 0.83,
+      "pka1": 0.59,
+      "pka2": 0.87,
+      "pka12": 11.07
+    },
+    {
+      "yil": 2018,
+      "ay": 8,
+      "usd": 5.7302,
+      "pkaCari": 1.15,
+      "pka1": 1.25,
+      "pka2": 1.5,
+      "pka12": 12.96
+    },
+    {
+      "yil": 2018,
+      "ay": 9,
+      "usd": 6.3669,
+      "pkaCari": 2.13,
+      "pka1": 2.05,
+      "pka2": 1.33,
+      "pka12": 14.46
+    },
+    {
+      "yil": 2018,
+      "ay": 10,
+      "usd": 5.8594,
+      "pkaCari": 1.99,
+      "pka1": 1.31,
+      "pka2": 0.98,
+      "pka12": 17.03
+    },
+    {
+      "yil": 2018,
+      "ay": 11,
+      "usd": 5.3735,
+      "pkaCari": 0.88,
+      "pka1": 0.77,
+      "pka2": 1.71,
+      "pka12": 17.38
+    },
+    {
+      "yil": 2018,
+      "ay": 12,
+      "usd": 5.3061,
+      "pkaCari": 0.45,
+      "pka1": 1.56,
+      "pka2": 0.98,
+      "pka12": 16.46
+    },
+    {
+      "yil": 2019,
+      "ay": 1,
+      "usd": 5.3694,
+      "pkaCari": 1.16,
+      "pka1": 0.94,
+      "pka2": 1.03,
+      "pka12": 15.91
+    },
+    {
+      "yil": 2019,
+      "ay": 2,
+      "usd": 5.2621,
+      "pkaCari": 0.76,
+      "pka1": 0.96,
+      "pka2": 1.47,
+      "pka12": 15.47
+    },
+    {
+      "yil": 2019,
+      "ay": 3,
+      "usd": 5.4419,
+      "pkaCari": 0.94,
+      "pka1": 1.54,
+      "pka2": 1.11,
+      "pka12": 15.24
+    },
+    {
+      "yil": 2019,
+      "ay": 4,
+      "usd": 5.7358,
+      "pkaCari": 1.61,
+      "pka1": 1.12,
+      "pka2": 0.88,
+      "pka12": 15.38
+    },
+    {
+      "yil": 2019,
+      "ay": 5,
+      "usd": 6.0494,
+      "pkaCari": 1.48,
+      "pka1": 1.1,
+      "pka2": 0.96,
+      "pka12": 15.48
+    },
+    {
+      "yil": 2019,
+      "ay": 6,
+      "usd": 5.8119,
+      "pkaCari": 0.91,
+      "pka1": 0.94,
+      "pka2": 0.91,
+      "pka12": 14.88
+    },
+    {
+      "yil": 2019,
+      "ay": 7,
+      "usd": 5.6722,
+      "pkaCari": 1.25,
+      "pka1": 0.85,
+      "pka2": 1.35,
+      "pka12": 13.9
+    },
+    {
+      "yil": 2019,
+      "ay": 8,
+      "usd": 5.6248,
+      "pkaCari": 1.26,
+      "pka1": 1.46,
+      "pka2": 1.93,
+      "pka12": 12.77
+    },
+    {
+      "yil": 2019,
+      "ay": 9,
+      "usd": 5.7128,
+      "pkaCari": 1.49,
+      "pka1": 1.93,
+      "pka2": 1.17,
+      "pka12": 12.21
+    },
+    {
+      "yil": 2019,
+      "ay": 10,
+      "usd": 5.7845,
+      "pkaCari": 1.9,
+      "pka1": 1.13,
+      "pka2": 0.93,
+      "pka12": 11.18
+    },
+    {
+      "yil": 2019,
+      "ay": 11,
+      "usd": 5.7312,
+      "pkaCari": 0.82,
+      "pka1": 0.72,
+      "pka2": 1.26,
+      "pka12": 10.46
+    },
+    {
+      "yil": 2019,
+      "ay": 12,
+      "usd": 5.8376,
+      "pkaCari": 0.59,
+      "pka1": 1.16,
+      "pka2": 0.65,
+      "pka12": 10.07
+    },
+    {
+      "yil": 2020,
+      "ay": 1,
+      "usd": 5.9182,
+      "pkaCari": 1.1,
+      "pka1": 0.64,
+      "pka2": 0.81,
+      "pka12": 9.54
+    },
+    {
+      "yil": 2020,
+      "ay": 2,
+      "usd": 6.0445,
+      "pkaCari": 0.69,
+      "pka1": 0.84,
+      "pka2": 1.08,
+      "pka12": 9.61
+    },
+    {
+      "yil": 2020,
+      "ay": 3,
+      "usd": 6.3144,
+      "pkaCari": 0.82,
+      "pka1": 0.97,
+      "pka2": 0.7,
+      "pka12": 9.51
+    },
+    {
+      "yil": 2020,
+      "ay": 4,
+      "usd": 6.819,
+      "pkaCari": 0.93,
+      "pka1": 0.7,
+      "pka2": 0.43,
+      "pka12": 9.7
+    },
+    {
+      "yil": 2020,
+      "ay": 5,
+      "usd": 6.9519,
+      "pkaCari": 0.76,
+      "pka1": 0.45,
+      "pka2": 0.44,
+      "pka12": 9.2
+    },
+    {
+      "yil": 2020,
+      "ay": 6,
+      "usd": 6.8088,
+      "pkaCari": 0.5,
+      "pka1": 0.47,
+      "pka2": 0.48,
+      "pka12": 9.03
+    },
+    {
+      "yil": 2020,
+      "ay": 7,
+      "usd": 6.8511,
+      "pkaCari": 0.61,
+      "pka1": 0.53,
+      "pka2": 0.82,
+      "pka12": 9.33
+    },
+    {
+      "yil": 2020,
+      "ay": 8,
+      "usd": 7.2522,
+      "pkaCari": 0.68,
+      "pka1": 0.92,
+      "pka2": 1.29,
+      "pka12": 9.7
+    },
+    {
+      "yil": 2020,
+      "ay": 9,
+      "usd": 7.5078,
+      "pkaCari": 1.07,
+      "pka1": 1.46,
+      "pka2": 0.65,
+      "pka12": 10.15
+    },
+    {
+      "yil": 2020,
+      "ay": 10,
+      "usd": 7.8739,
+      "pkaCari": 1.62,
+      "pka1": 0.75,
+      "pka2": 0.65,
+      "pka12": 10.53
+    },
+    {
+      "yil": 2020,
+      "ay": 11,
+      "usd": 8.0033,
+      "pkaCari": 0.99,
+      "pka1": 0.74,
+      "pka2": 1.28,
+      "pka12": 10.77
+    },
+    {
+      "yil": 2020,
+      "ay": 12,
+      "usd": 7.7211,
+      "pkaCari": 0.9,
+      "pka1": 1.29,
+      "pka2": 0.66,
+      "pka12": 10.84
+    },
+    {
+      "yil": 2021,
+      "ay": 1,
+      "usd": 7.394,
+      "pkaCari": 1.35,
+      "pka1": 0.69,
+      "pka2": 0.83,
+      "pka12": 10.53
+    },
+    {
+      "yil": 2021,
+      "ay": 2,
+      "usd": 7.0724,
+      "pkaCari": 0.78,
+      "pka1": 0.86,
+      "pka2": 1.08,
+      "pka12": 10.36
+    },
+    {
+      "yil": 2021,
+      "ay": 3,
+      "usd": 7.6282,
+      "pkaCari": 0.94,
+      "pka1": 1.12,
+      "pka2": 0.81,
+      "pka12": 10.47
+    },
+    {
+      "yil": 2021,
+      "ay": 4,
+      "usd": 8.155,
+      "pkaCari": 1.51,
+      "pka1": 1.05,
+      "pka2": 0.67,
+      "pka12": 11.26
+    },
+    {
+      "yil": 2021,
+      "ay": 5,
+      "usd": 8.3423,
+      "pkaCari": 1.27,
+      "pka1": 0.82,
+      "pka2": 0.69,
+      "pka12": 11.81
+    },
+    {
+      "yil": 2021,
+      "ay": 6,
+      "usd": 8.5967,
+      "pkaCari": 1.21,
+      "pka1": 0.75,
+      "pka2": 0.74,
+      "pka12": 12.12
+    },
+    {
+      "yil": 2021,
+      "ay": 7,
+      "usd": 8.6129,
+      "pkaCari": 1.17,
+      "pka1": 0.85,
+      "pka2": 1.13,
+      "pka12": 12.62
+    },
+    {
+      "yil": 2021,
+      "ay": 8,
+      "usd": 8.4757,
+      "pkaCari": 0.99,
+      "pka1": 1.17,
+      "pka2": 1.57,
+      "pka12": 12.48
+    },
+    {
+      "yil": 2021,
+      "ay": 9,
+      "usd": 8.5119,
+      "pkaCari": 1.11,
+      "pka1": 1.65,
+      "pka2": 0.95,
+      "pka12": 12.94
+    },
+    {
+      "yil": 2021,
+      "ay": 10,
+      "usd": 9.1399,
+      "pkaCari": 1.94,
+      "pka1": 1.18,
+      "pka2": 0.94,
+      "pka12": 13.91
+    },
+    {
+      "yil": 2021,
+      "ay": 11,
+      "usd": 10.5233,
+      "pkaCari": 1.77,
+      "pka1": 1.32,
+      "pka2": 1.8,
+      "pka12": 15.61
+    },
+    {
+      "yil": 2021,
+      "ay": 12,
+      "usd": 13.5285,
+      "pkaCari": 3.37,
+      "pka1": 2.99,
+      "pka2": 1.96,
+      "pka12": 21.39
+    },
+    {
+      "yil": 2022,
+      "ay": 1,
+      "usd": 13.5193,
+      "pkaCari": 6.45,
+      "pka1": 3.04,
+      "pka2": 2.34,
+      "pka12": 25.37
+    },
+    {
+      "yil": 2022,
+      "ay": 2,
+      "usd": 13.6211,
+      "pkaCari": 4.22,
+      "pka1": 2.81,
+      "pka2": 2.62,
+      "pka12": 24.83
+    },
+    {
+      "yil": 2022,
+      "ay": 3,
+      "usd": 14.5656,
+      "pkaCari": 4.13,
+      "pka1": 3.29,
+      "pka2": 2.4,
+      "pka12": 26.43
+    },
+    {
+      "yil": 2022,
+      "ay": 4,
+      "usd": 14.6836,
+      "pkaCari": 4.23,
+      "pka1": 2.86,
+      "pka2": 2.25,
+      "pka12": 28.41
+    },
+    {
+      "yil": 2022,
+      "ay": 5,
+      "usd": 15.6239,
+      "pkaCari": 3.97,
+      "pka1": 2.97,
+      "pka2": 2.54,
+      "pka12": 33.28
+    },
+    {
+      "yil": 2022,
+      "ay": 6,
+      "usd": 16.9647,
+      "pkaCari": 3.77,
+      "pka1": 2.98,
+      "pka2": 2.54,
+      "pka12": 37.91
+    },
+    {
+      "yil": 2022,
+      "ay": 7,
+      "usd": 17.3874,
+      "pkaCari": 3.4,
+      "pka1": 2.88,
+      "pka2": 3.31,
+      "pka12": 40.23
+    },
+    {
+      "yil": 2022,
+      "ay": 8,
+      "usd": 17.995,
+      "pkaCari": 2.57,
+      "pka1": 3.28,
+      "pka2": 3.67,
+      "pka12": 41.99
+    },
+    {
+      "yil": 2022,
+      "ay": 9,
+      "usd": 18.2815,
+      "pkaCari": 2.98,
+      "pka1": 2.94,
+      "pka2": 2.7,
+      "pka12": 36.74
+    },
+    {
+      "yil": 2022,
+      "ay": 10,
+      "usd": 18.5646,
+      "pkaCari": 3.39,
+      "pka1": 3.05,
+      "pka2": 2.91,
+      "pka12": 37.34
+    },
+    {
+      "yil": 2022,
+      "ay": 11,
+      "usd": 18.5909,
+      "pkaCari": 3.14,
+      "pka1": 3.16,
+      "pka2": 3.76,
+      "pka12": 37.47
+    },
+    {
+      "yil": 2022,
+      "ay": 12,
+      "usd": 18.637,
+      "pkaCari": 2.69,
+      "pka1": 3.39,
+      "pka2": 2.62,
+      "pka12": 34.92
+    },
+    {
+      "yil": 2023,
+      "ay": 1,
+      "usd": 18.7576,
+      "pkaCari": 2.65,
+      "pka1": 2.24,
+      "pka2": 2.22,
+      "pka12": 30.44
+    },
+    {
+      "yil": 2023,
+      "ay": 2,
+      "usd": 18.8233,
+      "pkaCari": 3.01,
+      "pka1": 2.7,
+      "pka2": 2.57,
+      "pka12": 30.75
+    },
+    {
+      "yil": 2023,
+      "ay": 3,
+      "usd": 18.9693,
+      "pkaCari": 2.88,
+      "pka1": 2.89,
+      "pka2": 2.53,
+      "pka12": 31.63
+    },
+    {
+      "yil": 2023,
+      "ay": 4,
+      "usd": 19.3023,
+      "pkaCari": 2.65,
+      "pka1": 2.46,
+      "pka2": 2.61,
+      "pka12": 31.02
+    },
+    {
+      "yil": 2023,
+      "ay": 5,
+      "usd": 19.684,
+      "pkaCari": 2.41,
+      "pka1": 2.49,
+      "pka2": 2.37,
+      "pka12": 29.84
+    },
+    {
+      "yil": 2023,
+      "ay": 6,
+      "usd": 23.0645,
+      "pkaCari": 2.81,
+      "pka1": 2.51,
+      "pka2": 2.21,
+      "pka12": 30.65
+    },
+    {
+      "yil": 2023,
+      "ay": 7,
+      "usd": 26.4227,
+      "pkaCari": 3.76,
+      "pka1": 3.1,
+      "pka2": 3.24,
+      "pka12": 33.21
+    },
+    {
+      "yil": 2023,
+      "ay": 8,
+      "usd": 26.9506,
+      "pkaCari": 5.54,
+      "pka1": 4.34,
+      "pka2": 3.97,
+      "pka12": 42.01
+    },
+    {
+      "yil": 2023,
+      "ay": 9,
+      "usd": 26.9409,
+      "pkaCari": 5.14,
+      "pka1": 4.42,
+      "pka2": 3.73,
+      "pka12": 44.94
+    },
+    {
+      "yil": 2023,
+      "ay": 10,
+      "usd": 27.796,
+      "pkaCari": 4.3,
+      "pka1": 3.92,
+      "pka2": 3.42,
+      "pka12": 45.28
+    },
+    {
+      "yil": 2023,
+      "ay": 11,
+      "usd": 28.5856,
+      "pkaCari": 4.07,
+      "pka1": 3.57,
+      "pka2": 4.96,
+      "pka12": 43.94
+    },
+    {
+      "yil": 2023,
+      "ay": 12,
+      "usd": 29.0226,
+      "pkaCari": 3.26,
+      "pka1": 4.86,
+      "pka2": 3.25,
+      "pka12": 41.23
+    },
+    {
+      "yil": 2024,
+      "ay": 1,
+      "usd": 29.9997,
+      "pkaCari": 5.41,
+      "pka1": 3.51,
+      "pka2": 3.1,
+      "pka12": 39.09
+    },
+    {
+      "yil": 2024,
+      "ay": 2,
+      "usd": 30.7042,
+      "pkaCari": 3.8,
+      "pka1": 3.17,
+      "pka2": 3.28,
+      "pka12": 37.78
+    },
+    {
+      "yil": 2024,
+      "ay": 3,
+      "usd": 31.9292,
+      "pkaCari": 3.43,
+      "pka1": 3.42,
+      "pka2": 2.82,
+      "pka12": 36.7
+    },
+    {
+      "yil": 2024,
+      "ay": 4,
+      "usd": 32.2713,
+      "pkaCari": 3.25,
+      "pka1": 3,
+      "pka2": 2.54,
+      "pka12": 35.17
+    },
+    {
+      "yil": 2024,
+      "ay": 5,
+      "usd": 32.1899,
+      "pkaCari": 3.04,
+      "pka1": 2.56,
+      "pka2": 2.34,
+      "pka12": 33.21
+    },
+    {
+      "yil": 2024,
+      "ay": 6,
+      "usd": 32.4627,
+      "pkaCari": 2.52,
+      "pka1": 2.41,
+      "pka2": 2.16,
+      "pka12": 31.79
+    },
+    {
+      "yil": 2024,
+      "ay": 7,
+      "usd": 32.8353,
+      "pkaCari": 2.77,
+      "pka1": 2.17,
+      "pka2": 2.25,
+      "pka12": 30.02
+    },
+    {
+      "yil": 2024,
+      "ay": 8,
+      "usd": 33.5608,
+      "pkaCari": 2.55,
+      "pka1": 2.22,
+      "pka2": 2.39,
+      "pka12": 28.71
+    },
+    {
+      "yil": 2024,
+      "ay": 9,
+      "usd": 33.9693,
+      "pkaCari": 2.22,
+      "pka1": 2.24,
+      "pka2": 1.86,
+      "pka12": 27.49
+    },
+    {
+      "yil": 2024,
+      "ay": 10,
+      "usd": 34.171,
+      "pkaCari": 2.39,
+      "pka1": 1.96,
+      "pka2": 1.68,
+      "pka12": 27.44
+    },
+    {
+      "yil": 2024,
+      "ay": 11,
+      "usd": 34.3647,
+      "pkaCari": 2.01,
+      "pka1": 1.67,
+      "pka2": 3.74,
+      "pka12": 27.2
+    },
+    {
+      "yil": 2024,
+      "ay": 12,
+      "usd": 34.9038,
+      "pkaCari": 1.72,
+      "pka1": 4,
+      "pka2": 2.58,
+      "pka12": 27.07
+    },
+    {
+      "yil": 2025,
+      "ay": 1,
+      "usd": 35.456,
+      "pkaCari": 4.07,
+      "pka1": 2.65,
+      "pka2": 2.15,
+      "pka12": 25.38
+    },
+    {
+      "yil": 2025,
+      "ay": 2,
+      "usd": 36.094,
+      "pkaCari": 3.23,
+      "pka1": 2.26,
+      "pka2": 2.2,
+      "pka12": 25.26
+    },
+    {
+      "yil": 2025,
+      "ay": 3,
+      "usd": 36.9707,
+      "pkaCari": 2.27,
+      "pka1": 2.25,
+      "pka2": 1.87,
+      "pka12": 24.55
+    },
+    {
+      "yil": 2025,
+      "ay": 4,
+      "usd": 38.0218,
+      "pkaCari": 3.07,
+      "pka1": 2.2,
+      "pka2": 1.7,
+      "pka12": 25.56
+    },
+    {
+      "yil": 2025,
+      "ay": 5,
+      "usd": 38.6854,
+      "pkaCari": 2.36,
+      "pka1": 1.77,
+      "pka2": 1.94,
+      "pka12": 25.06
+    },
+    {
+      "yil": 2025,
+      "ay": 6,
+      "usd": 39.3392,
+      "pkaCari": 1.61,
+      "pka1": 1.86,
+      "pka2": 1.64,
+      "pka12": 24.56
+    },
+    {
+      "yil": 2025,
+      "ay": 7,
+      "usd": 40.1061,
+      "pkaCari": 2.11,
+      "pka1": 1.63,
+      "pka2": 1.93,
+      "pka12": 23.39
+    },
+    {
+      "yil": 2025,
+      "ay": 8,
+      "usd": 40.7283,
+      "pkaCari": 1.69,
+      "pka1": 1.97,
+      "pka2": 2.05,
+      "pka12": 22.84
+    },
+    {
+      "yil": 2025,
+      "ay": 9,
+      "usd": 41.2192,
+      "pkaCari": 2.04,
+      "pka1": 2.05,
+      "pka2": 1.57,
+      "pka12": 22.25
+    },
+    {
+      "yil": 2025,
+      "ay": 10,
+      "usd": 41.7303,
+      "pkaCari": 2.34,
+      "pka1": 1.55,
+      "pka2": 1.14,
+      "pka12": 23.26
+    },
+    {
+      "yil": 2025,
+      "ay": 11,
+      "usd": 42.1792,
+      "pkaCari": 1.59,
+      "pka1": 1.16,
+      "pka2": 3.34,
+      "pka12": 23.49
+    },
+    {
+      "yil": 2025,
+      "ay": 12,
+      "usd": 42.5861,
+      "pkaCari": 1.08,
+      "pka1": 3.44,
+      "pka2": 2.01,
+      "pka12": 23.35
+    },
+    {
+      "yil": 2026,
+      "ay": 1,
+      "usd": 43.1125,
+      "pkaCari": 3.76,
+      "pka1": 2.05,
+      "pka2": 1.84,
+      "pka12": 22.2
+    },
+    {
+      "yil": 2026,
+      "ay": 2,
+      "usd": 43.5857,
+      "pkaCari": 2.54,
+      "pka1": 1.89,
+      "pka2": 1.89,
+      "pka12": 22.1
+    },
+    {
+      "yil": 2026,
+      "ay": 3,
+      "usd": 44.0737,
+      "pkaCari": 2.18,
+      "pka1": 2.11,
+      "pka2": 1.5,
+      "pka12": 22.17
+    },
+    {
+      "yil": 2026,
+      "ay": 4,
+      "usd": 44.6497,
+      "pkaCari": 2.93,
+      "pka1": 1.82,
+      "pka2": 1.52,
+      "pka12": 23.39
+    },
+    {
+      "yil": 2026,
+      "ay": 5,
+      "usd": 45.3151,
+      "pkaCari": 1.89,
+      "pka1": 1.52,
+      "pka2": 1.62,
+      "pka12": 23.82
+    },
+    {
+      "yil": 2026,
+      "ay": 6,
+      "usd": 46.1353,
+      "pkaCari": 1.36,
+      "pka1": 1.57,
+      "pka2": 1.49,
+      "pka12": 23.81
+    },
+    {
+      "yil": 2026,
+      "ay": 7,
+      "usd": 46.9494,
+      "pkaCari": 1.68,
+      "pka1": 1.44,
+      "pka2": 2.03,
+      "pka12": 23.95
+    },
+    {
+      "yil": 2026,
+      "ay": 8,
+      "usd": 47.7388,
+      "pkaCari": 1.67,
+      "pka1": 2.08,
+      "pka2": 1.97,
+      "pka12": 23.69
+    },
+    {
+      "yil": 2026,
+      "ay": 9,
+      "usd": 48.5187,
+      "pkaCari": 2.12,
+      "pka1": 1.97,
+      "pka2": 1.13,
+      "pka12": 23.7
+    },
+    {
+      "yil": 2026,
+      "ay": 10,
+      "usd": 49.3112,
+      "pkaCari": 2.11,
+      "pka1": 1.18,
+      "pka2": 0.97,
+      "pka12": 23.89
+    }
+  ],
+  "alinma": "2026-10-28T23:36:07.170Z"
+}

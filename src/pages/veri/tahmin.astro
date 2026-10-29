@@ -1,0 +1,683 @@
+---
+// Tahminler: finfolis'in kendi modelleri, örneklem dışı karneleriyle. Hesap scripts/veri/tahmin.mjs'te (bot zinciri),
+// sonuç src/data/tahmin.json'da. Yayın kapısı: tabanını örneklem dışında geçemeyen modelin rakamı bu sayfaya hiç
+// gelmez; yalnız karnesi görünür. Kur, borsa, altın ve tahvil tahmini yapılmaz.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import { RESMI, AYLAR, sayiYaz, yuzdeYaz, oranYaz, zamanYaz, gunYaz } from '../../lib/resmi';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { canliKarne } from '../../lib/tahmin/arsiv.mjs';
+import tahmin from '../../data/tahmin.json';
+import arsiv from '../../data/tahmin-arsivi.json';
+
+const T = tahmin as any;
+const M = T.modeller;
+const ayYaz = (a: string) => `${AYLAR[Number(a.slice(5, 7)) - 1]} ${a.slice(0, 4)}`;
+const ayT = (a: string) => Number(a.slice(0, 4)) * 12 + Number(a.slice(5, 7)) - 1;
+const puan = (n: number, o = 2) => `${sayiYaz(n, o)} puan`;
+const isaretli = (n: number, o = 2) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${sayiYaz(Math.abs(n), o)}`;
+const milyar = (n: number) => `${isaretli(n / 1000)} milyar $`;
+const oran = (n: number | null) => (n == null ? '–' : yuzdeYaz(100 * n, 0));
+const pYaz = (p: number) => (p < 0.001 ? '< 0,001' : sayiYaz(p, 3));
+
+const MODEL_AD: Record<string, string> = {
+  tufe: 'Aylık enflasyon (TÜFE)',
+  cari: 'Cari denge',
+  sanayi: 'Sanayi üretimi',
+  ppk: 'PPK karar yönü',
+};
+const BAZ_AD: Record<string, string> = {
+  pka: 'PKA’nın cari ay beklentisi',
+  ito: 'İTO’nun aylık değişimi',
+  gecenYil: 'Geçen yılın aynı ayı',
+  disTicaret: 'Dış ticaret dengesi',
+  ar1: 'AR(1) modeli',
+  gecenAy: 'Geçen ayın yıllık değişimi',
+};
+const hataYaz = (ad: string, n: number) => (ad === 'cari' ? `${sayiYaz(n, 0)} milyon $` : puan(n));
+
+// Canlı karne: arşivdeki yayımlanmış tahminlerden gerçekleşmesi gelenler.
+const gercekBul = (k: any) => {
+  const t = ayT(k.hedef);
+  const bul = (s: any[]) => s.find((x) => x.yil * 12 + x.ay - 1 === t);
+  if (k.model === 'cari') return bul(RESMI.cari?.satirlar ?? [])?.cari ?? null;
+  if (k.model === 'tufe') return bul(RESMI.enflasyon?.satirlar ?? [])?.aylik ?? null;
+  if (k.model === 'sanayi') return bul(RESMI.sanayi?.satirlar ?? [])?.yillik ?? null;
+  return null;
+};
+const canli = (ad: string) => canliKarne((arsiv as any).kayitlar.filter((k: any) => k.model === ad && k.surum === M[ad].surum), gercekBul);
+const dustu = (ad: string) => !M[ad].gecti && (arsiv as any).kayitlar.some((k: any) => k.model === ad);
+
+// Cari denge grafiği: son 24 ayın örneklem dışı tahmini, %80 aralığı ve gerçekleşen (milyar $).
+const cari = M.cari;
+const cariGruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'gercek', ad: 'Gerçekleşen', renk: 'murekkep' as const },
+      { id: 'tahmin', ad: 'Model tahmini', renk: 'mavi' as const },
+      { id: 'alt', ad: '%80 aralık alt sınırı', renk: 'yesil' as const, kesik: true },
+      { id: 'ust', ad: '%80 aralık üst sınırı', renk: 'yesil' as const, kesik: true },
+    ],
+  },
+];
+const cariNoktalar = [
+  ...cari.seri.map((s: any) => [ayT(s.ay), s.gercek / 1000, s.tahmin / 1000, s.a80[0] / 1000, s.a80[1] / 1000]),
+  ...(cari.simdi ? [[ayT(cari.simdi.ay), null, cari.simdi.tahmin / 1000, cari.simdi.a80[0] / 1000, cari.simdi.a80[1] / 1000]] : []),
+];
+
+// Yıllık enflasyon yolu.
+const yol = T.yol;
+const yolGruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'gercek', ad: 'Gerçekleşen yıllık TÜFE', renk: 'murekkep' as const },
+      { id: 'beklenti', ad: '12 ay önceki PKA beklentisi', renk: 'mavi' as const, kesik: true },
+    ],
+  },
+];
+const yolNoktalar = yol.seri.filter((s: any) => s.gercek != null).map((s: any) => [ayT(s.ay), s.gercek, s.beklenti]);
+const ppkAylik = (1 + yol.pka.ay12 / 100) ** (1 / 12) * 100 - 100;
+
+// Taylor bandı.
+const taylor = T.taylor;
+const taylorGruplar = [
+  {
+    id: 'hepsi',
+    ad: 'Hepsi',
+    seriler: [
+      { id: 'faiz', ad: 'Politika faizi', renk: 'murekkep' as const },
+      { id: 'alt', ad: 'Kural bandının alt ucu', renk: 'mavi' as const, kesik: true },
+      { id: 'ust', ad: 'Kural bandının üst ucu', renk: 'yesil' as const, kesik: true },
+    ],
+  },
+];
+const taylorNoktalar = taylor.seri.map((s: any) => [ayT(s.ay), s.faiz, s.alt, s.ust]);
+const varyantlar = [...taylor.son.varyantlar].sort((a: any, b: any) => a.faiz - b.faiz);
+
+const ppk = M.ppk;
+const ekkModeller = ['tufe', 'cari', 'sanayi'];
+const baslik = 'Tahminler ve karneleri';
+const description =
+  'finfolis’in enflasyon, cari denge, sanayi üretimi ve PPK kararı için kurduğu modeller, örneklem dışı karneleriyle. Tabanını geçemeyen model rakam vermez. Model tahminidir, yatırım tavsiyesi değildir.';
+const yol2 = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: baslik, href: '/veri/tahmin/' },
+];
+const jsonLd = sayfaSemasi({ yol: yol2, ad: baslik, aciklama: description, sayfaEk: { dateModified: T.guncelleme } });
+---
+
+<Base title="Tahminler ve karneleri" description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+  <div class="container veri-sayfa">
+    <Breadcrumb yol={yol2} />
+    <header class="sayfa-bas sayfa-bas-duz">
+      <h1>{baslik}</h1>
+      <p>finfolis modelleri · model tahminidir, yatırım tavsiyesi değildir</p>
+    </header>
+
+    <section class="bolum prose veri-aciklama">
+      <p>
+        Bu sayfadaki dört model, resmi verinin açıklanmasından önce o veriyi tahmin eder. Her model, aynı işi gören basit
+        bir yöntemle (taban) yarışır. Geçmişte hiç görmediği aylarda tabanından daha az hata yapmayan model rakam
+        vermez; sayfada yalnız karnesi kalır. Kur, borsa, altın ve tahvil faizi tahmini yapılmaz.
+      </p>
+    </section>
+
+    <section class="bolum" aria-labelledby="karne-ozet">
+      <h2 id="karne-ozet" class="bolum-baslik">Karne</h2>
+      <div class="tablo-sarma">
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col">Model</th>
+              <th scope="col">Durum</th>
+              <th scope="col" class="sag">Model hatası</th>
+              <th scope="col" class="sag">En iyi taban</th>
+              <th scope="col" class="sag">Son 24 ay: model / taban</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ekkModeller.map((ad) => {
+              const k = M[ad].karne;
+              const b = k.enIyiBaz;
+              return (
+                <tr>
+                  <td><a href={`#${ad}`}>{MODEL_AD[ad]}</a></td>
+                  <td>{M[ad].gecti ? 'Yayında' : 'Rakam vermiyor'}</td>
+                  <td class="sag">{hataYaz(ad, k.tum.model)}</td>
+                  <td class="sag">{hataYaz(ad, k.tum.bazlar[b])}<br /><small>{BAZ_AD[b]}</small></td>
+                  <td class="sag">{hataYaz(ad, k.son.model)} / {hataYaz(ad, k.son.bazlar[b])}</td>
+                </tr>
+              );
+            })}
+            <tr>
+              <td><a href="#ppk">{MODEL_AD.ppk}</a></td>
+              <td>{ppk.gecti ? 'Yayında' : 'Rakam vermiyor'}</td>
+              <td class="sag">Brier {sayiYaz(ppk.karne.brierModel, 3)}</td>
+              <td class="sag">Brier {sayiYaz(ppk.karne.brierBaz, 3)}<br /><small>Son kararın yönüne göre sıklık</small></td>
+              <td class="sag">–</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="veri-notu">
+        Hata: kök ortalama kare hata (RMSE), örneklem dışı. Her ayın tahmini yalnız o aydan önceki verilerle kurulan
+        modelden gelir. PPK için Brier puanı kullanılır; düşük puan daha iyidir. Bir modelin yayına çıkması için üç
+        koşulun üçü de gerekir: bütün sınama döneminde her tabandan az hata, son 24 ayda da her tabandan az hata ve
+        aradaki farkın Diebold-Mariano testinde anlamlı çıkması (p {sayiYaz(T.kapiP, 2)} altında). Sınamada
+        verilerin bugünkü, düzeltilmiş hâli kullanılır; ilk açıklanan rakamlarla yapılsaydı karne biraz daha kötü
+        çıkabilirdi. Bu yüzden yayımlanan her tahmin ayrıca <a href="#arsiv">arşive</a> yazılır ve canlı karneye girer.
+        Hesap: {zamanYaz(T.guncelleme)}.
+      </p>
+    </section>
+
+    {
+      ekkModeller.map((ad) => {
+        const m = M[ad];
+        const k = m.karne;
+        const c = canli(ad);
+        return (
+          <section class="bolum tahmin-model" id={ad} aria-labelledby={`${ad}-baslik`}>
+            <h2 id={`${ad}-baslik`} class="bolum-baslik">
+              {MODEL_AD[ad]} {ad === 'sanayi' ? 'anlık tahmini (yıllık değişim)' : 'anlık tahmini'}
+            </h2>
+            {m.gecti && m.simdi ? (
+              <dl class="veri-rakamlar">
+                <div>
+                  <dt>{ayYaz(m.simdi.ay)} tahmini</dt>
+                  <dd>{ad === 'cari' ? milyar(m.simdi.tahmin) : yuzdeYaz(m.simdi.tahmin, 2)}</dd>
+                  <dd class="veri-degisim">Model tahmini, {m.surum}</dd>
+                </div>
+                <div>
+                  <dt>%80 aralık</dt>
+                  <dd class="tahmin-aralik">
+                    {ad === 'cari' ? `${milyar(m.simdi.a80[0])} / ${milyar(m.simdi.a80[1])}` : `${yuzdeYaz(m.simdi.a80[0], 2)} / ${yuzdeYaz(m.simdi.a80[1], 2)}`}
+                  </dd>
+                  <dd class="veri-degisim">%95 aralık: {ad === 'cari' ? `${milyar(m.simdi.a95[0])} / ${milyar(m.simdi.a95[1])}` : `${yuzdeYaz(m.simdi.a95[0], 2)} / ${yuzdeYaz(m.simdi.a95[1], 2)}`}</dd>
+                </div>
+              </dl>
+            ) : m.gecti ? (
+              <p class="tahmin-durum">Model yayında. Şu an tahmin edilecek ay yok: son açıklanan ayın sonraki ayı için girdi verisi henüz gelmedi.</p>
+            ) : (
+              <p class="tahmin-durum">
+                <strong>Taban model daha iyi.</strong> Model sınamada kapıdan geçemediği için rakam vermiyor. En güçlü
+                taban: {BAZ_AD[k.enIyiBaz]}.
+                {dustu(ad) && ' Model daha önce yayındaydı; son sınamada kapıdan geçemediği için tahmin vermeyi bıraktı.'}
+              </p>
+            )}
+
+            <div class="tablo-sarma">
+              <table class="cizelge veri-tablo">
+                <thead>
+                  <tr>
+                    <th scope="col">Yöntem</th>
+                    <th scope="col" class="sag">Hata, tüm dönem</th>
+                    <th scope="col" class="sag">Hata, son 24 ay</th>
+                    <th scope="col" class="sag">Fark testi (p)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Model ({m.surum})</strong></td>
+                    <td class="sag">{hataYaz(ad, k.tum.model)}</td>
+                    <td class="sag">{hataYaz(ad, k.son.model)}</td>
+                    <td class="sag">–</td>
+                  </tr>
+                  {m.bazlar.map((b: string) => (
+                    <tr>
+                      <td>{BAZ_AD[b]}</td>
+                      <td class="sag">{hataYaz(ad, k.tum.bazlar[b])}</td>
+                      <td class="sag">{hataYaz(ad, k.son.bazlar[b])}</td>
+                      <td class="sag">{pYaz(k.dm[b].p)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="veri-notu">
+              Sınama dönemi: {ayYaz(k.tum.ilk)} – {ayYaz(k.tum.son)}, {k.tum.n} ay. Gerçekleşen değerin aralığın içinde
+              kaldığı ayların payı: %80 aralıkta {oran(k.tum.kapsama80)}, %95 aralıkta {oran(k.tum.kapsama95)}; son 24 ayda{' '}
+              {oran(k.son.kapsama80)} ve {oran(k.son.kapsama95)}. Fark testindeki p değeri küçüldükçe, model ile taban
+              arasındaki farkın şans eseri çıkmış olma ihtimali azalır. Kapı için p, {sayiYaz(T.kapiP, 2)} altında olmalı.
+              {c.n > 0 &&
+                ` Canlı karne: yayımlanan ${c.n} tahminin hatası ${hataYaz(ad, c.rmse)}. Gerçekleşenin %80 aralıkta kaldığı tahminlerin payı ${oran(c.kapsama80)}.`}
+            </p>
+
+            {ad === 'cari' && m.gecti && (
+              <ZamanGrafik
+                baslik="Cari denge: tahmin ve gerçekleşen"
+                ipucu="Milyar dolar, aylık · Son 24 ayın tahmini, o aydan önceki verilerle kurulan modelden"
+                kaynak="Kaynak: TCMB ödemeler dengesi ve TÜİK dış ticaret verisi (EVDS); tahmin finfolis modeli."
+                siklik="ay"
+                birim="milyarUsd"
+                ondalik={2}
+                seriIdleri={['gercek', 'tahmin', 'alt', 'ust']}
+                noktalar={cariNoktalar}
+                gruplar={cariGruplar}
+                referans={{ deger: 0, ad: 'Sıfır' }}
+                araliksiz
+              />
+            )}
+
+            <div class="prose veri-aciklama tahmin-yontem">
+              <h3>Yöntem</h3>
+              {ad === 'tufe' && (
+                <p>
+                  TÜİK’in aylık TÜFE değişimi; İstanbul Ticaret Odası’nın (İTO) aynı ay için iki gün önce açıkladığı
+                  İstanbul ücretliler geçinme endeksi değişimi, doların o ayki ortalama kurunun bir önceki aya göre değişimi
+                  ve ay etkileri (her ay için ayrı sabit) ile en küçük kareler yöntemiyle ilişkilendirilir. Model 2005’ten
+                  bu yana veriyle kurulur, 2015’ten itibaren her ay yeniden kurularak sınanır. Tabanlar: TCMB Piyasa
+                  Katılımcıları Anketi’nin (PKA) o ay için aylık TÜFE beklentisi, İTO’nun açıkladığı değişimin aynısı ve
+                  geçen yılın aynı ayı.
+                </p>
+              )}
+              {ad === 'cari' && (
+                <p>
+                  TCMB’nin cari işlemler dengesi, TÜİK’in bir ay önce açıkladığı dış ticaret dengesi (ihracat eksi
+                  ithalat) ve ay etkileriyle ilişkilendirilir. Ay etkileri turizm gelirinin yaz aylarındaki yükselişini
+                  yakalar. Tahmin, dış ticaret verisi açıklanınca yapılır; cari denge yaklaşık iki hafta sonra gelir.
+                  Model 2013’ten bu yana veriyle kurulur, 2016’dan itibaren her ay yeniden kurularak sınanır. Tabanlar:
+                  geçen yılın aynı ayı ve dış ticaret dengesinin kendisi. Aralıklar, modelin geçmişteki örneklem dışı
+                  hatalarından kurulur. Hatalar bazı yıllarda aynı yöne yığıldı (2020, 2022–2024); bu yüzden %80 aralığı
+                  gerçekleşmelerin %80’inden azını kapsadı.
+                </p>
+              )}
+              {ad === 'sanayi' && (
+                <p>
+                  Sanayi üretiminin takvim etkisinden arındırılmış yıllık değişimi; bir önceki ayın yıllık değişimi, imalat
+                  sanayi kapasite kullanım oranının bir yıl öncesine göre farkı ve ara malı ithalatının dolar cinsinden
+                  yıllık değişimi ile ilişkilendirilir. Kapasite kullanım oranı TCMB’den aynı ay, ara malı ithalatı
+                  TÜİK’ten bir ay sonra, sanayi üretimi yaklaşık iki ay sonra gelir. 2017’den itibaren her ay yeniden
+                  kurularak sınanır. Tabanlar: aynı veriyle kurulan AR(1) modeli ve geçen ayın yıllık değişimi.
+                </p>
+              )}
+            </div>
+          </section>
+        );
+      })
+    }
+
+    <section class="bolum tahmin-model" id="ppk" aria-labelledby="ppk-baslik">
+      <h2 id="ppk-baslik" class="bolum-baslik">PPK karar yönü olasılığı</h2>
+      {
+        ppk.gecti && ppk.simdi ? (
+          <dl class="veri-rakamlar">
+            <div>
+              <dt>İndirim</dt>
+              <dd>{yuzdeYaz(100 * ppk.simdi.olasilik[0], 0)}</dd>
+              <dd class="veri-degisim">{gunYaz(ppk.simdi.tarih)} toplantısı</dd>
+            </div>
+            <div>
+              <dt>Sabit</dt>
+              <dd>{yuzdeYaz(100 * ppk.simdi.olasilik[1], 0)}</dd>
+              <dd class="veri-degisim">Model olasılığı, tavsiye değildir</dd>
+            </div>
+            <div>
+              <dt>Artırım</dt>
+              <dd>{yuzdeYaz(100 * ppk.simdi.olasilik[2], 0)}</dd>
+              <dd class="veri-degisim">Adım büyüklüğü tahmin edilmez</dd>
+            </div>
+          </dl>
+        ) : (
+          <p class="tahmin-durum">
+            <strong>Taban model daha iyi.</strong> Model, son kararın yönüne dayanan tabanı anlamlı bir farkla
+            geçemedi, bu yüzden {ppk.sonrakiToplanti ? `${gunYaz(ppk.sonrakiToplanti)} toplantısı için ` : ''}olasılık vermiyor.
+          </p>
+        )
+      }
+      <p class="tahmin-uyari">
+        <strong>Az gözlem uyarısı:</strong> Modelin dayandığı karar metni tonu {gunYaz(ppk.ilk)} kararından bu yana
+        ölçülüyor. Sınamada {ppk.gozlem} karar var, örneklem dışı ölçülen {ppk.karne.n} karar. Bu kadar az gözlemle
+        olasılıkların güvenilirliği sınırlıdır.
+      </p>
+      <div class="tablo-sarma">
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col">Ölçü ({ppk.karne.n} karar)</th>
+              <th scope="col" class="sag">Model ({ppk.surum})</th>
+              <th scope="col" class="sag">Taban</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Brier puanı (düşük daha iyi)</td>
+              <td class="sag">{sayiYaz(ppk.karne.brierModel, 3)}</td>
+              <td class="sag">{sayiYaz(ppk.karne.brierBaz, 3)}</td>
+            </tr>
+            <tr>
+              <td>En olası sınıfı bilme oranı</td>
+              <td class="sag">{oran(ppk.karne.modelIsabet)}</td>
+              <td class="sag">{oran(ppk.karne.tekrarIsabet)}</td>
+            </tr>
+            <tr>
+              <td>Fark testi (p)</td>
+              <td class="sag" colspan="2">{pYaz(ppk.karne.dm.p)}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 class="tahmin-alt-baslik">Kalibrasyon</h3>
+      <div class="tablo-sarma">
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col">Modelin verdiği olasılık</th>
+              <th scope="col" class="sag">Tahmin sayısı</th>
+              <th scope="col" class="sag">Ortalama olasılık</th>
+              <th scope="col" class="sag">Gerçekleşme sıklığı</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ppk.karne.kalibrasyon.map((k: any) => (
+              <tr>
+                <td>%{sayiYaz(100 * k.aralik[0], 0)} – %{sayiYaz(100 * k.aralik[1], 0)}</td>
+                <td class="sag">{k.n}</td>
+                <td class="sag">{oran(k.ortP)}</td>
+                <td class="sag">{oran(k.siklik)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div class="prose veri-aciklama tahmin-yontem">
+        <h3>Yöntem</h3>
+        <p>
+          Sıralı probit modeli üç sınıf arasında olasılık dağıtır: indirim, sabit, artırım. Girdiler: bir önceki karar
+          metninin ileriye dönük tonu (<a href="/veri/ppk-tonu/">PPK metin tonu</a> sayfasındaki puan), bir önceki kararın
+          yönü ve toplantı öncesindeki reel faiz (politika faizi eksi bir önceki ayın PKA 12 ay sonrası enflasyon
+          beklentisi). Küçük örneklemde aşırı uç olasılıklar çıkmasın diye katsayılara sabit bir ceza uygulanır. Model
+          her karardan önce yalnız o güne kadarki kararlarla yeniden kurulur. Taban, geçmişte son kararın yönünü hangi
+          kararın izlediğini sayar. Kalibrasyon tablosu, modelin söylediği olasılıkla gerçekleşme sıklığının ne kadar
+          örtüştüğünü gösterir. Olasılıklar karar gününden önce sosyal medyada ya da Telegram’da ayrıca duyurulmaz.
+        </p>
+      </div>
+    </section>
+
+    <section class="bolum tahmin-model" id="yol" aria-labelledby="yol-baslik">
+      <h2 id="yol-baslik" class="bolum-baslik">Yıllık enflasyon yolu hesap makinesi</h2>
+      <p>
+        Hesap makinesi baz etkisini hesaplar, tahmin vermez. Yıllık enflasyon son 12 ayın aylık değişimlerinden oluşur; her yeni ay
+        eklendiğinde bir yıl önceki ay hesaptan çıkar (baz etkisi). Önümüzdeki ayların aylık enflasyonu için bir varsayım
+        yazıldığında, tablo yıllık enflasyonun izleyeceği yolu hesaplar. Son açıklanan veri: {ayYaz(yol.sonAy)}, yıllık
+        {' '}{yuzdeYaz(yol.sonYillik, 2)}.
+      </p>
+      <form class="yol-form" data-yol-form>
+        <label>
+          Aylık enflasyon varsayımı (%)
+          <input type="number" step="0.1" min="-5" max="20" value={sayiYaz(ppkAylik, 2).replace(',', '.')} data-yol-oran inputmode="decimal" />
+        </label>
+        <label class="yol-secim">
+          <input type="checkbox" checked data-yol-pka />
+          İlk üç ay için PKA’nın aylık beklentilerini kullan
+        </label>
+      </form>
+      <p class="veri-notu">
+        Açılış değeri {sayiYaz(ppkAylik, 2)}: PKA’nın {ayYaz(yol.pka.ay)} anketindeki 12 ay sonrası beklentisine
+        ({yuzdeYaz(yol.pka.ay12, 2)}) denk gelen sabit aylık oran. PKA’nın aylık beklentileri: {ayYaz(yol.pka.ay)}{' '}
+        {yuzdeYaz(yol.pka.cari, 2)}, sonraki ay {yuzdeYaz(yol.pka.bir, 2)}, ondan sonraki ay {yuzdeYaz(yol.pka.iki, 2)}.
+      </p>
+      <div class="tablo-sarma">
+        <table class="cizelge veri-tablo" data-yol-tablo>
+          <thead>
+            <tr>
+              <th scope="col">Ay</th>
+              <th scope="col" class="sag">Varsayılan aylık</th>
+              <th scope="col" class="sag">Hesaptan çıkan ay</th>
+              <th scope="col" class="sag">Yıllık enflasyon</th>
+            </tr>
+          </thead>
+          <tbody data-yol-govde></tbody>
+        </table>
+      </div>
+      <noscript><p class="veri-notu">Hesap makinesi tarayıcıda JavaScript ile çalışır.</p></noscript>
+
+      <h3 class="tahmin-alt-baslik">PKA beklentisi ve geçmiş hatası</h3>
+      <p>
+        PKA katılımcılarının {ayYaz(yol.pkaAralik.ay)} itibarıyla 12 ay sonrası için yıllık enflasyon beklentisi{' '}
+        {yuzdeYaz(yol.pkaAralik.beklenti, 2)}. Geçmiş hatalara göre %80 aralık {yuzdeYaz(yol.pkaAralik.a80[0], 1)} –{' '}
+        {yuzdeYaz(yol.pkaAralik.a80[1], 1)}. Bu beklenti anket sonucudur, finfolis’in tahmini değildir.
+      </p>
+      <p class="veri-notu">
+        {yol.pkaKarne.hataSayisi} beklentinin hatası (12 ay sonra gerçekleşen eksi beklenti) ortalamada{' '}
+        {isaretli(yol.pkaKarne.ortalamaHata, 1)} puan, kök ortalama kare hatası {puan(yol.pkaKarne.rmse, 1)}. Aralık,
+        hataların mutlak değerinin %80 ve %95 yüzdeliklerinden kurulur; merkez PKA beklentisinde kalır, ortalama sapma
+        düzeltmesi yapılmaz. 2021–2023’teki büyük hatalar aralığı genişletir. %95 aralığın alt ucu sıfırın altına
+        düştüğü ({yuzdeYaz(yol.pkaAralik.a95[0], 1)} – {yuzdeYaz(yol.pkaAralik.a95[1], 1)}) için anlamlı bir aralık
+        sayılmaz. Hatalar aynı yöne yığıldığı için aralıklar geçmişte söz verdiklerinden az kapsadı. Ölçülen{' '}
+        {yol.pkaKarne.olcuSayisi} ayda (başlangıç: {ayYaz(yol.pkaKarne.ilk)}) gerçekleşen enflasyon %80 aralığın içinde{' '}
+        {oran(yol.pkaKarne.kapsama80)}, %95 aralığın içinde {oran(yol.pkaKarne.kapsama95)} oranında kaldı.
+      </p>
+      <ZamanGrafik
+        baslik="PKA beklentisi ve gerçekleşen enflasyon"
+        ipucu="Yüzde · Her ayda, 12 ay önce anketin o ay için beklediği yıllık TÜFE ile gerçekleşen yıllık TÜFE"
+        kaynak="Kaynak: TCMB Piyasa Katılımcıları Anketi (EVDS), TÜİK verisi."
+        siklik="ay"
+        birim="yuzde"
+        seriIdleri={['gercek', 'beklenti']}
+        noktalar={yolNoktalar}
+        gruplar={yolGruplar}
+      />
+      <script type="application/json" data-yol-veri set:html={JSON.stringify({ gecmis: yol.aylikGecmis, pka: yol.pka })} />
+    </section>
+
+    <section class="bolum tahmin-model" id="taylor" aria-labelledby="taylor-baslik">
+      <h2 id="taylor-baslik" class="bolum-baslik">Taylor kuralı bandı</h2>
+      <p>
+        Taylor kuralı, politika faizini enflasyona ve enflasyonun hedeften uzaklığına bağlayan basit bir formüldür. Bant,
+        kuralın bugünkü verilerle hangi faizi verdiğini gösterir; TCMB’nin kararlarını değerlendirmek için kurulmadı.
+        Varsayımlar tartışmalı olduğu için tek rakam yerine, aşağıdaki varsayımların bütün birleşimlerinden çıkan en düşük
+        ve en yüksek faiz verilir.
+      </p>
+      <dl class="veri-rakamlar">
+        <div>
+          <dt>Kural bandı</dt>
+          <dd>{yuzdeYaz(taylor.son.alt, 1)} – {yuzdeYaz(taylor.son.ust, 1)}</dd>
+          <dd class="veri-degisim">{ayYaz(taylor.son.ay)}, {varyantlar.length} varyant</dd>
+        </div>
+        <div>
+          <dt>Politika faizi</dt>
+          <dd>%{oranYaz(taylor.son.faiz)}</dd>
+          <dd class="veri-degisim">{ayYaz(taylor.son.ay)} sonu, TCMB</dd>
+        </div>
+      </dl>
+      <div class="prose veri-aciklama tahmin-yontem">
+        <h3>Varsayımlar</h3>
+        <ul>
+          <li>Formül: faiz = r* + π + a × (π − π*). Çıktı açığı terimi yok; Türkiye için aylık resmi çıktı açığı serisi yayımlanmıyor.</li>
+          <li>r* (nötr reel faiz): %{taylor.varsayimlar.rYildiz.join(', %')}. Türkiye için resmi bir r* tahmini yok; değerler varsayımdır.</li>
+          <li>a (enflasyon sapmasına tepki): {taylor.varsayimlar.a.map((v: number) => sayiYaz(v, 1)).join(' ve ')}. Taylor’ın özgün formülünde 0,5.</li>
+          <li>π (enflasyon): ya gerçekleşen yıllık TÜFE ya da PKA’nın 12 ay sonrası beklentisi.</li>
+          <li>π* (hedef): %{taylor.varsayimlar.hedef}, TCMB’nin enflasyon hedefi.</li>
+          <li>Grafiğin başlangıcı: {ayYaz(taylor.varsayimlar.baslangic)}. Öncesinde TCMB faiz koridoru uyguluyordu; bir hafta vadeli repo faizi fonlamanın maliyetini tek başına göstermiyordu.</li>
+        </ul>
+      </div>
+      <ZamanGrafik
+        baslik="Politika faizi ve Taylor kuralı bandı"
+        ipucu="Yüzde, ay sonu · Bant, varsayımların bütün birleşimlerinde kuralın verdiği en düşük ve en yüksek faiz"
+        kaynak="Kaynak: TCMB (politika faizi, PKA), TÜİK verisi; bant finfolis hesaplaması."
+        siklik="ay"
+        birim="yuzde"
+        seriIdleri={['faiz', 'alt', 'ust']}
+        noktalar={taylorNoktalar}
+        gruplar={taylorGruplar}
+      />
+      <div class="tablo-sarma">
+        <table class="cizelge veri-tablo">
+          <thead>
+            <tr>
+              <th scope="col">Enflasyon ölçüsü</th>
+              <th scope="col" class="sag">r*</th>
+              <th scope="col" class="sag">a</th>
+              <th scope="col" class="sag">Kuralın faizi</th>
+            </tr>
+          </thead>
+          <tbody>
+            {varyantlar.map((v: any) => (
+              <tr>
+                <td>{v.kaynak === 'tufe' ? 'Yıllık TÜFE' : 'PKA 12 ay beklentisi'}</td>
+                <td class="sag">%{v.r}</td>
+                <td class="sag">{sayiYaz(v.a, 1)}</td>
+                <td class="sag">{yuzdeYaz(v.faiz, 1)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="veri-notu">{ayYaz(taylor.son.ay)} verisiyle, her varsayım birleşimi için formülün sonucu.</p>
+    </section>
+
+    <section class="bolum" id="arsiv" aria-labelledby="arsiv-baslik">
+      <h2 id="arsiv-baslik" class="bolum-baslik">Arşiv</h2>
+      <p>
+        Yayımlanan her tahmin, yapıldığı gün ve model sürümüyle arşive yazılır. Arşivdeki kayıt sonradan değiştirilmez ya
+        da silinmez. Model değişirse yeni bir sürüm adı alır; eski sürümün kayıtları ve karnesi yerinde kalır.
+      </p>
+      {
+        (arsiv as any).kayitlar.length > 0 ? (
+          <div class="tablo-sarma">
+            <table class="cizelge veri-tablo">
+              <thead>
+                <tr>
+                  <th scope="col">Yapıldığı gün</th>
+                  <th scope="col">Model</th>
+                  <th scope="col">Dönem</th>
+                  <th scope="col" class="sag">Tahmin</th>
+                  <th scope="col" class="sag">Gerçekleşen</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[...(arsiv as any).kayitlar].reverse().slice(0, 24).map((k: any) => {
+                  const g = gercekBul(k);
+                  const yaz = (n: number) => (k.model === 'cari' ? milyar(n) : yuzdeYaz(n, 2));
+                  return (
+                    <tr>
+                      <td>{gunYaz(k.yapildi)}</td>
+                      <td>{MODEL_AD[k.model]} <small>{k.surum}</small></td>
+                      <td>{k.model === 'ppk' ? gunYaz(k.hedef) : ayYaz(k.hedef)}</td>
+                      <td class="sag">{k.tahmin != null ? yaz(k.tahmin) : '–'}</td>
+                      <td class="sag">{g != null ? yaz(g) : 'bekleniyor'}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p class="bos">Arşivde henüz kayıt yok.</p>
+        )
+      }
+    </section>
+
+    <nav class="veri-baglantilar" aria-label="İlgili sayfalar">
+      <a href="/veri/enflasyon/">Enflasyon</a>
+      <a href="/veri/enflasyon-beklentisi/">Enflasyon beklentisi</a>
+      <a href="/veri/cari-denge/">Cari denge</a>
+      <a href="/veri/ppk-tonu/">PPK metin tonu</a>
+    </nav>
+    <YasalUyari>Bu sayfadaki rakamlar finfolis modellerinin tahminidir, tavsiye değildir. Kur, borsa, altın ya da tahvil faizi tahmini içermez.</YasalUyari>
+  </div>
+</Base>
+
+<script>
+  const AYLAR = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+  const veriEl = document.querySelector('[data-yol-veri]');
+  const govde = document.querySelector('[data-yol-govde]');
+  const oranEl = document.querySelector<HTMLInputElement>('[data-yol-oran]');
+  const pkaEl = document.querySelector<HTMLInputElement>('[data-yol-pka]');
+  if (veriEl && govde && oranEl && pkaEl) {
+    const { gecmis, pka } = JSON.parse(veriEl.textContent || '{}') as {
+      gecmis: { ay: string; aylik: number }[];
+      pka: { ay: string; cari: number; bir: number; iki: number };
+    };
+    const t = (a: string) => Number(a.slice(0, 4)) * 12 + Number(a.slice(5, 7)) - 1;
+    const ad = (k: number) => `${AYLAR[k % 12]} ${Math.floor(k / 12)}`;
+    const sayi = (n: number, o: number) => n.toLocaleString('tr-TR', { minimumFractionDigits: o, maximumFractionDigits: o });
+    const yuzde = (n: number, o = 2) => `${n < 0 ? '−' : ''}%${sayi(Math.abs(n), o)}`;
+    const ciz = () => {
+      const v = Number(String(oranEl.value).replace(',', '.'));
+      if (!Number.isFinite(v)) return;
+      const son = t(gecmis[gecmis.length - 1].ay);
+      const pkaT = t(pka.ay);
+      const dizi = gecmis.map((g) => ({ k: t(g.ay), aylik: g.aylik }));
+      const satirlar: string[] = [];
+      for (let i = 1; i <= 12; i++) {
+        const k = son + i;
+        const fark = k - pkaT;
+        const aylik = pkaEl.checked && fark >= 0 && fark <= 2 ? [pka.cari, pka.bir, pka.iki][fark] : v;
+        const cikan = dizi.find((d) => d.k === k - 12);
+        dizi.push({ k, aylik });
+        const son12 = dizi.slice(-12);
+        const yillik = 100 * (son12.reduce((c, d) => c * (1 + d.aylik / 100), 1) - 1);
+        satirlar.push(
+          `<tr><td>${ad(k)}</td><td class="sag">${yuzde(aylik)}</td><td class="sag">${cikan ? `${ad(cikan.k)}: ${yuzde(cikan.aylik)}` : '–'}</td><td class="sag"><strong>${yuzde(yillik, 1)}</strong></td></tr>`,
+        );
+      }
+      govde.innerHTML = satirlar.join('');
+    };
+    oranEl.addEventListener('input', ciz);
+    pkaEl.addEventListener('change', ciz);
+    ciz();
+  }
+</script>
+
+<style>
+  .tablo-sarma {
+    overflow-x: auto;
+  }
+  .tahmin-model {
+    margin-top: 2.5rem;
+  }
+  .tahmin-durum,
+  .tahmin-uyari {
+    background: var(--soluk, #e4e1d7);
+    border-radius: 4px;
+    padding: 0.6rem 0.9rem;
+    margin: 1rem 0;
+  }
+  .tahmin-aralik {
+    font-size: 1.1em;
+  }
+  .tahmin-alt-baslik,
+  .tahmin-yontem h3 {
+    font-size: 1.05rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  .yol-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    align-items: end;
+    margin: 1rem 0 0.5rem;
+  }
+  .yol-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-weight: 600;
+  }
+  .yol-form .yol-secim {
+    flex-direction: row;
+    align-items: center;
+    font-weight: 400;
+  }
+  .yol-form input[type='number'] {
+    width: 8rem;
+    padding: 0.4rem 0.5rem;
+    font: inherit;
+    border: 1px solid currentColor;
+    border-radius: 4px;
+    background: transparent;
+  }
+  td small {
+    color: var(--gri, #5d5b55);
+  }
+</style>
