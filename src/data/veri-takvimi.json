@@ -1,5 +1,5 @@
 {
-  "alinma": "2026-10-30T20:00:08.956Z",
+  "alinma": "2026-10-30T22:00:27.718Z",
   "kaynaklar": [
     {
       "ad": "TÜİK ulusal veri yayımlama takvimi (Resmi İstatistik Portalı)",
@@ -15,42 +15,6 @@
     }
   ],
   "olaylar": [
-    {
-      "tarih": "2026-09-30",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "Dış Ticaret İstatistikleri",
-      "donem": "Ağustos 2026",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Dış-Ticaret-İstatistikleri-Ağustos-2026-58239&dil=1",
-      "kaynak": "tuik"
-    },
-    {
-      "tarih": "2026-09-30",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "Hizmet Üretici Fiyat Endeksi",
-      "donem": "Ağustos 2026",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hizmet-Üretici-Fiyat-Endeksi-Ağustos-2026-58098&dil=1",
-      "kaynak": "tuik"
-    },
-    {
-      "tarih": "2026-09-30",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "İşgücü İstatistikleri",
-      "donem": "Ağustos 2026",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İşgücü-İstatistikleri-Ağustos-2026-57987&dil=1",
-      "kaynak": "tuik"
-    },
-    {
-      "tarih": "2026-09-30",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Aylık Para ve Banka İstatistikleri",
-      "donem": "Ağustos 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Aylik+Para+ve+Banka+Istatistikleri/",
-      "kaynak": "tcmb-api"
-    },
     {
       "tarih": "2026-10-01",
       "saat": "10:00",
