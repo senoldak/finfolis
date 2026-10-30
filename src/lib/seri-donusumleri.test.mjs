@@ -33,6 +33,25 @@ test('yillikDegisim: çeyreklik veride 4 çeyrek öncesiyle hesaplar', () => {
   assert.equal(res[0][1], 400);
 });
 
+test('yillikDegisim: günlük veride sliding pointer ile yaklaşık 365 gün öncesini bulur', () => {
+  // 400 günlük veri
+  const veri = Array.from({ length: 400 }, (_, i) => [i, 100 + i]);
+  const res = yillikDegisim(veri, 'gun');
+  assert.ok(res.length > 0);
+  // i = 365: simdi = 100 + 365 = 465, once = 100. Degisim = ((465 - 100) / 100) * 100 = 365%
+  const nokta365 = res.find((r) => r[0] === 365);
+  assert.ok(nokta365);
+  assert.equal(nokta365[1], 365);
+});
+
+test('yillikDegisim: negatif değerlerde yönü doğru hesaplar', () => {
+  // once = -10, simdi = -5 (iyileşme -> +50%)
+  const veri = [[0, -10], ...Array.from({ length: 11 }, (_, i) => [i + 1, -10]), [12, -5]];
+  const res = yillikDegisim(veri, 'ay');
+  assert.equal(res.length, 1);
+  assert.equal(res[0][1], 50);
+});
+
 test('yillikDegisim: kısa serilerde boş döner', () => {
   const kisa = Array.from({ length: 5 }, (_, i) => [i, 100]);
   assert.deepEqual(yillikDegisim(kisa, 'ay'), []);
@@ -46,6 +65,16 @@ test('donemselDegisim: ardışık noktalar arasında yüzde değişim hesaplar',
   assert.equal(res[0][1], 10);
   assert.equal(res[1][0], 2);
   assert.equal(Math.round(res[1][1] * 100) / 100, -10);
+});
+
+test('donemselDegisim: negatif değerlerde yönü doğru hesaplar', () => {
+  // -10'dan -5'e: iyileşme -> +50%
+  const veri1 = [[0, -10], [1, -5]];
+  assert.equal(donemselDegisim(veri1)[0][1], 50);
+
+  // -10'dan -20'ye: bozulma -> -100%
+  const veri2 = [[0, -10], [1, -20]];
+  assert.equal(donemselDegisim(veri2)[0][1], -100);
 });
 
 test('kayanToplamDonusumu: 12 dönemlik kayan toplam hesaplar', () => {

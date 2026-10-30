@@ -23,20 +23,21 @@ const {
 const secilenler = oneCikanGostergeler(ajanda, limit);
 ---
 
-<section class="ajanda-vitrin" aria-labelledby="ajanda-vitrin-baslik">
-  <div class="ajanda-vitrin-ust">
-    <div class="ajanda-vitrin-baslik-alani">
-      <div class="ajanda-vitrin-etiket">
-        <span class="ajanda-vitrin-nokta" aria-hidden="true">●</span>
-        <span>GÜNÜN MAKROEKONOMİK AJANDASI</span>
+{secilenler.length > 0 && (
+  <section class="ajanda-vitrin" aria-labelledby="ajanda-vitrin-baslik">
+    <div class="ajanda-vitrin-ust">
+      <div class="ajanda-vitrin-baslik-alani">
+        <div class="ajanda-vitrin-etiket">
+          <span class="ajanda-vitrin-nokta" aria-hidden="true">●</span>
+          <span>GÜNÜN MAKROEKONOMİK AJANDASI</span>
+        </div>
+        <h2 id="ajanda-vitrin-baslik" class="ajanda-vitrin-baslik">
+          Günün Öne Çıkan Verileri
+        </h2>
+        {ajanda?.altBaslik && (
+          <p class="ajanda-vitrin-tarih">{ajanda.altBaslik}</p>
+        )}
       </div>
-      <h2 id="ajanda-vitrin-baslik" class="ajanda-vitrin-baslik">
-        Günün Öne Çıkan Verileri
-      </h2>
-      {ajanda.altBaslik && (
-        <p class="ajanda-vitrin-tarih">{ajanda.altBaslik}</p>
-      )}
-    </div>
 
     <a href="/veri/ajanda/" class="ajanda-vitrin-link">
       <span>Tüm ajandayı gör</span>
@@ -119,13 +120,14 @@ const secilenler = oneCikanGostergeler(ajanda, limit);
 
   <footer class="ajanda-vitrin-alt">
     <p class="ajanda-vitrin-alt-not">
-      Bugün toplam <strong>{ajanda.gostergeler.length} gösterge</strong> takip ediliyor. Tüm veriler, resmi kaynaklar ve göstergeler sözlüğü için:
+      Bugün toplam <strong>{ajanda?.gostergeler?.length ?? secilenler.length} gösterge</strong> takip ediliyor. Tüm veriler, resmi kaynaklar ve göstergeler sözlüğü için:
     </p>
     <a href="/veri/ajanda/" class="ajanda-vitrin-alt-link">
       Tüm Ekonomik Ajandayı İncele →
     </a>
   </footer>
 </section>
+)}
 
 <style>
   .ajanda-vitrin {
@@ -411,12 +413,18 @@ const secilenler = oneCikanGostergeler(ajanda, limit);
 
   .durum-rozet.beklenti-ustu {
     background: #eaf3ed;
-    color: #2b613c;
+    color: var(--green-text, #3a6b4a);
   }
 
   .durum-rozet.beklenti-alti {
     background: #fbebed;
-    color: #a3243b;
+    color: var(--red-text, #a3243b);
+  }
+
+  .durum-rozet.paralel {
+    background: var(--soluk, #e4e1d7);
+    color: var(--ink-2, #3d3c38);
+    border-left: 2px solid var(--hair, #cfccc2);
   }
 
   .durum-rozet.durum-bekleniyor {
@@ -426,13 +434,13 @@ const secilenler = oneCikanGostergeler(ajanda, limit);
 
   .durum-rozet.pmi-genisleme {
     background: #eaf3ed;
-    color: #2b613c;
+    color: var(--green-text, #3a6b4a);
     border-left: 2px solid var(--green, #3f7350);
   }
 
   .durum-rozet.pmi-daralma {
     background: #fbebed;
-    color: #a3243b;
+    color: var(--red-text, #a3243b);
     border-left: 2px solid var(--red, #a3243b);
   }
 

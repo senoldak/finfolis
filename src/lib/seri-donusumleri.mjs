@@ -3,9 +3,11 @@
 // - duzey: Ham veriler
 // - yoy: % Yıllık değişim
 // - mom: % Dönemsel (aylık/gözlemden gözleme) değişim
-// - kayanToplam: 12 aylık (veya 1 yıllık dönemlik) kümülatif kayan toplam
+// - kayanToplam: 12 aylık (veya 1 yıllık dönemlik) kümülatif kayan toplam (src/lib/turetilmis.mjs üzerinden)
 // - log: Logaritmik ölçek (log10, v > 0 için)
 // - endeks: Ortak başlangıca göre endeksleme (=100)
+
+import { kayanToplam } from './turetilmis.mjs';
 
 const yuvarla = (n) => Math.round(n * 1e6) / 1e6;
 
@@ -34,28 +36,24 @@ export function yillikDegisim(noktalar, siklik = 'ay') {
     for (let i = adim; i < noktalar.length; i++) {
       const once = noktalar[i - adim][1];
       const simdi = noktalar[i][1];
-      if (typeof once === 'number' && typeof simdi === 'number' && once !== 0) {
-        out.push([noktalar[i][0], yuvarla(((simdi / once) - 1) * 100)]);
+      if (typeof once === 'number' && typeof simdi === 'number' && Math.abs(once) > 1e-9) {
+        out.push([noktalar[i][0], yuvarla(((simdi - once) / Math.abs(once)) * 100)]);
       }
     }
   } else {
-    // Günlük veri: t gün cinsindendir, yaklaşık 365 gün (360-370 gün) öncesindeki en yakın gözlem bulunur.
+    // Günlük veri: t gün cinsindendir. İki işaretçili (sliding pointer) O(N) arama ile
+    // yaklaşık 365 gün (±7 gün tolerans) öncesindeki en yakın gözlem bulunur.
+    let j = 0;
     for (let i = 0; i < noktalar.length; i++) {
       const hedefT = noktalar[i][0] - 365;
-      let enYakin = -1;
-      let enKucukFark = 6; // En fazla ±5 gün tolerans (iş günü farkları için)
-      for (let j = 0; j < i; j++) {
-        const fark = Math.abs(noktalar[j][0] - hedefT);
-        if (fark < enKucukFark) {
-          enKucukFark = fark;
-          enYakin = j;
-        }
+      while (j + 1 < i && Math.abs(noktalar[j + 1][0] - hedefT) <= Math.abs(noktalar[j][0] - hedefT)) {
+        j++;
       }
-      if (enYakin >= 0) {
-        const once = noktalar[enYakin][1];
+      if (Math.abs(noktalar[j][0] - hedefT) <= 7) {
+        const once = noktalar[j][1];
         const simdi = noktalar[i][1];
-        if (typeof once === 'number' && typeof simdi === 'number' && once !== 0) {
-          out.push([noktalar[i][0], yuvarla(((simdi / once) - 1) * 100)]);
+        if (typeof once === 'number' && typeof simdi === 'number' && Math.abs(once) > 1e-9) {
+          out.push([noktalar[i][0], yuvarla(((simdi - once) / Math.abs(once)) * 100)]);
         }
       }
     }
@@ -74,15 +72,15 @@ export function donemselDegisim(noktalar) {
   for (let i = 1; i < noktalar.length; i++) {
     const once = noktalar[i - 1][1];
     const simdi = noktalar[i][1];
-    if (typeof once === 'number' && typeof simdi === 'number' && once !== 0) {
-      out.push([noktalar[i][0], yuvarla(((simdi / once) - 1) * 100)]);
+    if (typeof once === 'number' && typeof simdi === 'number' && Math.abs(once) > 1e-9) {
+      out.push([noktalar[i][0], yuvarla(((simdi - once) / Math.abs(once)) * 100)]);
     }
   }
   return out;
 }
 
 /**
- * 12 Aylık / 1 Yıllık kayan kümülatif toplam.
+ * 12 Aylık / 1 Yıllık kayan kümülatif toplam (turetilmis.mjs kayanToplam üzerinden).
  * @param {[number, number][]} noktalar
  * @param {'gun' | 'hafta' | 'ay' | 'ceyrek'} siklik
  * @returns {[number, number][]}
@@ -92,13 +90,14 @@ export function kayanToplamDonusumu(noktalar, siklik = 'ay') {
   const n = siklik === 'ay' ? 12 : siklik === 'ceyrek' ? 4 : siklik === 'hafta' ? 52 : 365;
   if (noktalar.length < n) return [];
 
+  const satirlar = noktalar.map(([t, v]) => ({ t, v }));
+  const toplamlar = kayanToplam(satirlar, 'v', n);
+
   const out = [];
-  let toplam = 0;
-  for (let i = 0; i < noktalar.length; i++) {
-    toplam += noktalar[i][1];
-    if (i >= n) toplam -= noktalar[i - n][1];
-    if (i >= n - 1) {
-      out.push([noktalar[i][0], toplam]);
+  for (let i = 0; i < satirlar.length; i++) {
+    const v = toplamlar[i];
+    if (v != null) {
+      out.push([satirlar[i].t, yuvarla(v)]);
     }
   }
   return out;
@@ -115,7 +114,7 @@ export function logaritmik(noktalar) {
   for (let i = 0; i < noktalar.length; i++) {
     const v = noktalar[i][1];
     if (typeof v === 'number' && v > 0) {
-      out.push([noktalar[i][0], Math.log10(v)]);
+      out.push([noktalar[i][0], yuvarla(Math.log10(v))]);
     }
   }
   return out;
@@ -131,5 +130,5 @@ export function endeksle(noktalar, tabanDeger) {
   if (!Array.isArray(noktalar) || !noktalar.length) return [];
   const taban = tabanDeger != null ? tabanDeger : noktalar[0][1];
   if (!(taban > 0)) return [];
-  return noktalar.map(([t, v]) => [t, (v / taban) * 100]);
+  return noktalar.map(([t, v]) => [t, yuvarla((v / taban) * 100)]);
 }

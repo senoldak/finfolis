@@ -210,10 +210,37 @@ export function gostergeleriFiltrele(gostergeler, filtre = 'tumu') {
 export function oneCikanGostergeler(ajanda, limit = 4) {
   const aktifAjanda = ajanda ?? gunlukAjandaGetir();
   const gostergeler = aktifAjanda?.gostergeler ?? [];
-  if (gostergeler.length === 0) return [];
-  const kritikVeYuksek = gostergeler.filter((g) => g.onem === 'kritik' || g.onem === 'yuksek');
-  const secilenler = kritikVeYuksek.length >= 3 ? kritikVeYuksek : gostergeler;
-  return secilenler.slice(0, limit);
+  if (gostergeler.length === 0 || limit <= 0) return [];
+
+  const ONEM_PUANI = {
+    kritik: 4,
+    yuksek: 3,
+    orta: 2,
+    dusuk: 1,
+  };
+
+  const adaylar = gostergeler.map((g, index) => {
+    const onemSkoru = ONEM_PUANI[g.onem] ?? 1;
+    // Yerel (TR) göstergeler eşit önem düzeyinde hafif öncelikli
+    const yerelBonus = g.ulkeKodu === 'TR' ? 0.2 : 0;
+    return {
+      gosterge: g,
+      index,
+      skor: onemSkoru + yerelBonus,
+    };
+  });
+
+  // Skora göre azalan sırala, eşitlikte günün akış sırasını koru
+  adaylar.sort((a, b) => b.skor - a.skor || a.index - b.index);
+
+  // En yüksek öncelikli limit kadar göstergeyi seç
+  const secilenler = adaylar.slice(0, limit);
+
+  // Vitrinde günün doğal akışı içinde (saat / kronolojik sıra) göstermek için
+  // seçilen göstergeleri orijinal sırasına göre tekrar diz
+  secilenler.sort((a, b) => a.index - b.index);
+
+  return secilenler.map((a) => a.gosterge);
 }
 
 

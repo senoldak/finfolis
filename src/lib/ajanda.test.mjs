@@ -204,5 +204,31 @@ test('oneCikanGostergeler: anasayfa vitrini için kritik/yüksek göstergeleri v
   // Boş ajanda durumunda boş dizi döner
   const bos = oneCikanGostergeler({ tarih: '2026-10-31', baslik: 'Boş', gostergeler: [] });
   assert.deepEqual(bos, []);
+
+  // Limit sıfır veya negatif
+  assert.deepEqual(oneCikanGostergeler(undefined, 0), []);
+  assert.deepEqual(oneCikanGostergeler(undefined, -1), []);
+
+  // Karışık önem dereceleri: kritik/yüksek sayısı limitin altındayken bile kritik olanlar atlanmaz
+  const karmaAjanda = {
+    tarih: '2026-11-01',
+    baslik: 'Karma Gün',
+    gostergeler: [
+      { id: '1', saat: '09:00', ulke: 'Japonya', ulkeKodu: 'JP', bayrak: '🇯🇵', gosterge: 'G1', onem: 'dusuk', onceki: '1', nedenOnemli: 'Açıklama 12345', kaynak: 'K' },
+      { id: '2', saat: '10:00', ulke: 'Almanya', ulkeKodu: 'DE', bayrak: '🇩🇪', gosterge: 'G2', onem: 'orta', onceki: '2', nedenOnemli: 'Açıklama 12345', kaynak: 'K' },
+      { id: '3', saat: '11:00', ulke: 'İtalya', ulkeKodu: 'IT', bayrak: '🇮🇹', gosterge: 'G3', onem: 'orta', onceki: '3', nedenOnemli: 'Açıklama 12345', kaynak: 'K' },
+      { id: '4', saat: '12:00', ulke: 'Fransa', ulkeKodu: 'FR', bayrak: '🇫🇷', gosterge: 'G4', onem: 'dusuk', onceki: '4', nedenOnemli: 'Açıklama 12345', kaynak: 'K' },
+      { id: '5', saat: '14:00', ulke: 'Türkiye', ulkeKodu: 'TR', bayrak: '🇹🇷', gosterge: 'TCMB', onem: 'kritik', onceki: '50.0', nedenOnemli: 'Açıklama 12345', kaynak: 'K' },
+      { id: '6', saat: '15:30', ulke: 'ABD', ulkeKodu: 'US', bayrak: '🇺🇸', gosterge: 'ABD Tarım Dışı', onem: 'kritik', onceki: '150K', nedenOnemli: 'Açıklama 12345', kaynak: 'K' },
+    ],
+  };
+
+  const karmaSonuc = oneCikanGostergeler(karmaAjanda, 4);
+  assert.equal(karmaSonuc.length, 4);
+  // Kritik göstergelerin ikisi de mutlaka seçilmeli
+  assert.ok(karmaSonuc.some((g) => g.id === '5'));
+  assert.ok(karmaSonuc.some((g) => g.id === '6'));
+  // Kronolojik akış korunmalıdır: G2 (10:00), G3 (11:00), TCMB (14:00), ABD (15:30)
+  assert.deepEqual(karmaSonuc.map((g) => g.id), ['2', '3', '5', '6']);
 });
 
