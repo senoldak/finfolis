@@ -1399,7 +1399,51 @@
       ],
       "istemSurumu": 2,
       "okundu": "2026-10-30T13:59:26.738Z"
+    },
+    "sunum_B07_02_2025": {
+      "ileriYon": 0,
+      "durus": 2,
+      "gerekce": "Metinde sıkı parasal duruşun sürdürüleceği vurgulanmış ancak sonraki adımlara dair ek bir sıkılaştırma veya gevşeme sinyali verilmemiştir.",
+      "alintilar": [
+        "Sıkı parasal duruş korunmaktadır.",
+        "Sıkı para politikası duruşu kararlılıkla sürdürülecektir."
+      ],
+      "istemSurumu": 2,
+      "okundu": "2026-10-30T15:58:27.373Z"
+    },
+    "sunum_B17_01_2025": {
+      "ileriYon": 0.5,
+      "durus": 2,
+      "gerekce": "Metinde sıkı para politikası duruşunun hedeflenen dezenflasyon sağlanana kadar sürdürüleceği vurgulanmıştır. Koşullu ek sıkılaştırma ifadeleri yer aldığından sonraki adımlar için hafif pozitif bir yön verilmiştir.",
+      "alintilar": [
+        "Aylık enflasyonun ana eğiliminde belirgin ve kalıcı bir düşüş sağlanana ve enflasyon beklentileri öngörülen tahmin aralığına yakınsayana kadar sıkı para politikası duruşu sürdürülecektir.",
+        "Enflasyonda belirgin ve kalıcı bir bozulma öngörülmesi durumunda para politikası araçları etkili şekilde kullanılacaktır."
+      ],
+      "istemSurumu": 2,
+      "okundu": "2026-10-30T15:58:40.306Z"
+    },
+    "sunum_B09_12_2024": {
+      "ileriYon": 0,
+      "durus": 2,
+      "gerekce": "Metin, mevcut sıkı para politikası duruşunun korunduğunu ve makroihtiyati adımlarla desteklendiğini belirtmektedir. Gelecek dönem para politikası adımlarına dair spesifik bir yönlendirme yer almamaktadır.",
+      "alintilar": [
+        "Sıkı parasal duruş korunmaktadır.",
+        "Sıkı parasal duruş makroihtiyati adımlarla desteklenmektedir."
+      ],
+      "istemSurumu": 2,
+      "okundu": "2026-10-30T15:58:47.794Z"
+    },
+    "sunum_B27_11_2024": {
+      "ileriYon": 0,
+      "durus": 2,
+      "gerekce": "Metinde mevcut sıkı para politikası duruşunun korunduğu vurgulanmakta ancak gelecek dönemdeki faiz adımlarına ilişkin yeni bir sinyal veya yönlendirme bulunmamaktadır.",
+      "alintilar": [
+        "Sıkı parasal duruş korunmaktadır.",
+        "Sıkı parasal duruş makroihtiyati adımlarla desteklenmektedir."
+      ],
+      "istemSurumu": 2,
+      "okundu": "2026-10-30T15:58:50.950Z"
     }
   },
-  "guncelleme": "2026-10-30T13:59:26.738Z"
+  "guncelleme": "2026-10-30T15:58:50.950Z"
 }
