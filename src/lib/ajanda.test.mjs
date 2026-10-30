@@ -10,6 +10,7 @@ import {
   gostergeFarkiniHesapla,
   gunlukAjandaGetir,
   gostergeleriFiltrele,
+  oneCikanGostergeler,
   GOSTERGE_REHBERI,
 } from './ajanda.mjs';
 
@@ -190,3 +191,18 @@ test('GOSTERGE_REHBERI: temel makro göstergelerin açıklamaları mevcuttur', (
   assert.ok(GOSTERGE_REHBERI.pce);
   assert.ok(GOSTERGE_REHBERI.pmi.esik.includes('50'));
 });
+
+test('oneCikanGostergeler: anasayfa vitrini için kritik/yüksek göstergeleri ve limiti sağlar', () => {
+  const gostergeler = oneCikanGostergeler(undefined, 4);
+  assert.equal(gostergeler.length, 4);
+  assert.ok(gostergeler.every((g) => g.onem === 'kritik' || g.onem === 'yuksek'));
+
+  // Limit testi
+  const tekGosterge = oneCikanGostergeler(undefined, 1);
+  assert.equal(tekGosterge.length, 1);
+
+  // Boş ajanda durumunda boş dizi döner
+  const bos = oneCikanGostergeler({ tarih: '2026-10-31', baslik: 'Boş', gostergeler: [] });
+  assert.deepEqual(bos, []);
+});
+

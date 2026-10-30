@@ -1,0 +1,498 @@
+---
+// Finfolis — Anasayfa Günün Makroekonomik Ajandası Vitrin Bileşeni
+// Kimlik v2 (BRAND.md) ve ürün ilkeleri (PRODUCT.md): sakin, öğretici, sıcak, sıfır gölge.
+import {
+  gunlukAjandaGetir,
+  oneCikanGostergeler,
+  onemBilgisi,
+  gostergeFarkiniHesapla,
+  pmiDegerlendir,
+} from '../lib/ajanda.mjs';
+import type { GunlukAjanda, AjandaGosterge } from '../lib/ajanda.d.mts';
+
+interface Props {
+  ajanda?: GunlukAjanda;
+  limit?: number;
+}
+
+const {
+  ajanda = gunlukAjandaGetir(),
+  limit = 4,
+} = Astro.props;
+
+const secilenler = oneCikanGostergeler(ajanda, limit);
+---
+
+<section class="ajanda-vitrin" aria-labelledby="ajanda-vitrin-baslik">
+  <div class="ajanda-vitrin-ust">
+    <div class="ajanda-vitrin-baslik-alani">
+      <div class="ajanda-vitrin-etiket">
+        <span class="ajanda-vitrin-nokta" aria-hidden="true">●</span>
+        <span>GÜNÜN MAKROEKONOMİK AJANDASI</span>
+      </div>
+      <h2 id="ajanda-vitrin-baslik" class="ajanda-vitrin-baslik">
+        Günün Öne Çıkan Verileri
+      </h2>
+      {ajanda.altBaslik && (
+        <p class="ajanda-vitrin-tarih">{ajanda.altBaslik}</p>
+      )}
+    </div>
+
+    <a href="/veri/ajanda/" class="ajanda-vitrin-link">
+      <span>Tüm ajandayı gör</span>
+      <span class="ajanda-link-ok" aria-hidden="true">→</span>
+    </a>
+  </div>
+
+  <div class="ajanda-vitrin-izgara">
+    {secilenler.map((g: AjandaGosterge) => {
+      const onem = onemBilgisi(g.onem);
+      const fark = gostergeFarkiniHesapla(g);
+      const pmiMi = g.gosterge.toLowerCase().includes('pmi');
+      const pmiSonuc = pmiMi ? pmiDegerlendir(g.aciklanan ?? g.beklenti ?? g.onceki) : null;
+
+      return (
+        <a
+          href={`/veri/ajanda/#gosterge-${g.id}`}
+          class:list={['ajanda-vitrin-kart', { 'kart-kritik': g.onem === 'kritik' }]}
+        >
+          <div class="kart-ust">
+            <div class="kart-saat-ulke">
+              <span class="kart-saat" title="Türkiye Saati (TSİ)">{g.saat}</span>
+              <span class="kart-ulke">
+                <span class="kart-bayrak" aria-hidden="true">{g.bayrak}</span>
+                <span>{g.ulke}</span>
+              </span>
+            </div>
+            <span class={`kart-onem ${onem.sinif}`}>{onem.kisa}</span>
+          </div>
+
+          <div class="kart-ana">
+            <h3 class="kart-baslik">{g.gosterge}</h3>
+            {g.donem && <span class="kart-donem">{g.donem}</span>}
+          </div>
+
+          <div class="kart-degerler">
+            <div class="deger-kutu">
+              <span class="deger-etiket">Önceki</span>
+              <span class="deger-sayi">{g.onceki}</span>
+            </div>
+            <div class="deger-kutu">
+              <span class="deger-etiket">Beklenti</span>
+              <span class="deger-sayi">{g.beklenti ?? '—'}</span>
+            </div>
+            <div class="deger-kutu deger-kutu-vurgu">
+              <span class="deger-etiket">Açıklanan</span>
+              <span class={`deger-sayi ${g.aciklanan ? 'aciklandi' : 'bekleniyor'}`}>
+                {g.aciklanan ?? 'Bekleniyor'}
+              </span>
+            </div>
+          </div>
+
+          <div class="kart-durum-seridi">
+            {g.aciklanan ? (
+              <span class={`durum-rozet ${fark.durumu}`}>
+                {fark.yon === 'yukari' && '▲ '}
+                {fark.yon === 'asagi' && '▼ '}
+                {fark.metin}
+              </span>
+            ) : (
+              <span class="durum-rozet durum-bekleniyor">Sonuç bekleniyor</span>
+            )}
+            {pmiSonuc && (
+              <span class={`durum-rozet pmi-${pmiSonuc.durum}`}>
+                {pmiSonuc.etiket}
+              </span>
+            )}
+          </div>
+
+          <p class="kart-aciklama">{g.nedenOnemli}</p>
+
+          <div class="kart-dip">
+            <span class="kart-detay-yazi">Veri analizi ve eşikler</span>
+            <span class="kart-detay-ok" aria-hidden="true">→</span>
+          </div>
+        </a>
+      );
+    })}
+  </div>
+
+  <footer class="ajanda-vitrin-alt">
+    <p class="ajanda-vitrin-alt-not">
+      Bugün toplam <strong>{ajanda.gostergeler.length} gösterge</strong> takip ediliyor. Tüm veriler, resmi kaynaklar ve göstergeler sözlüğü için:
+    </p>
+    <a href="/veri/ajanda/" class="ajanda-vitrin-alt-link">
+      Tüm Ekonomik Ajandayı İncele →
+    </a>
+  </footer>
+</section>
+
+<style>
+  .ajanda-vitrin {
+    margin: 44px 0 32px;
+    padding-top: 36px;
+    padding-bottom: 36px;
+    border-top: 1px solid var(--ink, #1b1b1b);
+    border-bottom: 1px solid var(--ink, #1b1b1b);
+    font-family: var(--sans, system-ui, sans-serif);
+    color: var(--ink, #1b1b1b);
+  }
+
+  .ajanda-vitrin-ust {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--ink, #1b1b1b);
+  }
+
+  .ajanda-vitrin-etiket {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--toprak, #c2502b);
+    margin-bottom: 4px;
+  }
+
+  .ajanda-vitrin-nokta {
+    font-size: 0.55rem;
+  }
+
+  .ajanda-vitrin-baslik {
+    margin: 0;
+    font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink, #1b1b1b);
+  }
+
+  .ajanda-vitrin-tarih {
+    margin: 6px 0 0;
+    font-size: 0.9rem;
+    color: var(--muted, #5d5b55);
+    font-weight: 500;
+  }
+
+  .ajanda-vitrin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--toprak-text, #a8431f);
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 6px 0;
+    transition: color 0.15s ease;
+  }
+
+  .ajanda-vitrin-link:hover {
+    color: var(--toprak, #c2502b);
+    text-decoration: underline;
+  }
+
+  .ajanda-link-ok {
+    font-size: 1.1rem;
+    transition: transform 0.15s ease;
+  }
+
+  .ajanda-vitrin-link:hover .ajanda-link-ok {
+    transform: translateX(4px);
+  }
+
+  /* 4'lü Izgara */
+  .ajanda-vitrin-izgara {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  @media (max-width: 1080px) {
+    .ajanda-vitrin-izgara {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .ajanda-vitrin-ust {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .ajanda-vitrin-izgara {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+  }
+
+  .ajanda-vitrin-kart {
+    display: flex;
+    flex-direction: column;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 16px 18px;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 0;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+    position: relative;
+  }
+
+  .ajanda-vitrin-kart:hover {
+    background: var(--paper-2, #e9e7df);
+    border-color: var(--ink, #1b1b1b);
+  }
+
+  .ajanda-vitrin-kart.kart-kritik {
+    border-top: 3px solid var(--toprak, #c2502b);
+  }
+
+  .kart-ust {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--hair, #cfccc2);
+  }
+
+  .kart-saat-ulke {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .kart-saat {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    background: var(--soluk, #e4e1d7);
+    padding: 2px 6px;
+    letter-spacing: 0.02em;
+    color: var(--ink, #1b1b1b);
+  }
+
+  .kart-ulke {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--ink-2, #3d3c38);
+  }
+
+  .kart-bayrak {
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+
+  .kart-onem {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    padding: 2px 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .kart-onem.onem-kritik {
+    background: #ffebe8;
+    color: var(--toprak-text, #a8431f);
+    border: 1px solid var(--toprak, #c2502b);
+  }
+
+  .kart-onem.onem-yuksek {
+    background: #fdf3eb;
+    color: #92451c;
+    border: 1px solid #e09873;
+  }
+
+  .kart-onem.onem-orta {
+    background: var(--soluk, #e4e1d7);
+    color: var(--ink-2, #3d3c38);
+    border: 1px solid var(--hair, #cfccc2);
+  }
+
+  .kart-onem.onem-dusuk {
+    background: transparent;
+    color: var(--muted, #5d5b55);
+    border: 1px solid var(--hair, #cfccc2);
+  }
+
+  .kart-ana {
+    margin-bottom: 12px;
+  }
+
+  .kart-baslik {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--ink, #1b1b1b);
+  }
+
+  .kart-donem {
+    display: block;
+    font-size: 0.78125rem;
+    color: var(--muted, #5d5b55);
+    margin-top: 3px;
+    font-weight: 500;
+  }
+
+  /* Rakam Paneli */
+  .kart-degerler {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    background: #fff;
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 8px 10px;
+    margin-bottom: 10px;
+  }
+
+  .deger-kutu {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .deger-etiket {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted, #5d5b55);
+  }
+
+  .deger-sayi {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink, #1b1b1b);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .deger-sayi.aciklandi {
+    color: var(--toprak-text, #a8431f);
+  }
+
+  .deger-sayi.bekleniyor {
+    font-size: 0.78125rem;
+    font-weight: 500;
+    color: var(--muted, #5d5b55);
+    font-style: italic;
+  }
+
+  /* Durum Şeridi */
+  .kart-durum-seridi {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+
+  .durum-rozet {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 6px;
+    background: var(--soluk, #e4e1d7);
+    color: var(--ink, #1b1b1b);
+  }
+
+  .durum-rozet.beklenti-ustu {
+    background: #eaf3ed;
+    color: #2b613c;
+  }
+
+  .durum-rozet.beklenti-alti {
+    background: #fbebed;
+    color: #a3243b;
+  }
+
+  .durum-rozet.durum-bekleniyor {
+    background: var(--soluk, #e4e1d7);
+    color: var(--muted, #5d5b55);
+  }
+
+  .durum-rozet.pmi-genisleme {
+    background: #eaf3ed;
+    color: #2b613c;
+    border-left: 2px solid var(--green, #3f7350);
+  }
+
+  .durum-rozet.pmi-daralma {
+    background: #fbebed;
+    color: #a3243b;
+    border-left: 2px solid var(--red, #a3243b);
+  }
+
+  .kart-aciklama {
+    margin: 0 0 14px;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--ink-2, #3d3c38);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+  }
+
+  .kart-dip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    border-top: 1px solid var(--hair, #cfccc2);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--toprak-text, #a8431f);
+  }
+
+  .kart-detay-ok {
+    transition: transform 0.15s ease;
+  }
+
+  .ajanda-vitrin-kart:hover .kart-detay-ok {
+    transform: translateX(4px);
+  }
+
+  .ajanda-vitrin-alt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+    padding: 12px 16px;
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+    font-size: 0.875rem;
+  }
+
+  .ajanda-vitrin-alt-not {
+    margin: 0;
+    color: var(--ink-2, #3d3c38);
+  }
+
+  .ajanda-vitrin-alt-link {
+    font-weight: 700;
+    color: var(--toprak-text, #a8431f);
+    text-decoration: none;
+  }
+
+  .ajanda-vitrin-alt-link:hover {
+    color: var(--toprak, #c2502b);
+    text-decoration: underline;
+  }
+</style>

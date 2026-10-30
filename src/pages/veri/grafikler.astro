@@ -10,7 +10,7 @@ import { jsonLdMetni } from '../../lib/json-ld.mjs';
 
 const baslik = 'Finansal Grafik Kataloğu — 62 Gösterge Kartı';
 const description =
-  'Mebius Design 62 ücretsiz finans grafik bileşeninin finfolis tasarım sistemine, kâğıt ve mürekkep kimliğine ve resmi Türkiye veri standartlarına uyarlanmış koleksiyonu.';
+  'Türkiye piyasaları ve makroekonomik göstergeler için finfolis tasarım sistemine, kâğıt ve mürekkep kimliğine uygun 62 finansal grafik bileşeni.';
 
 const yol = [
   { ad: 'Anasayfa', href: '/' },
@@ -45,8 +45,7 @@ const kategoriler = [
       <span class="ust-etiket">VERİ GÖRSELLEŞTİRME SİSTEMİ</span>
       <h1>Finansal Grafik Kataloğu</h1>
       <p class="sayfa-ozet">
-        Mebius Design'ın 62 finansal grafik kartının finfolis kimliğine (kâğıt, mürekkep, tek vurgu pişmiş toprak, sıfır yuvarlak köşe)
-        ve resmi Türkiye piyasa verilerine dönüştürülmüş tam seti.
+        Finfolis kimliğine (kâğıt, mürekkep, tek vurgu pişmiş toprak, sıfır yuvarlak köşe) ve resmi Türkiye piyasa verilerine dayalı 62 finansal grafik kartı.
       </p>
     </header>
 
@@ -112,7 +111,7 @@ const kategoriler = [
             class="grafik-karti-sarmal"
             data-kategori={grafik.kategori}
             data-tur={grafik.tur}
-            data-arama={normalle(`${grafik.baslik} ${grafik.aciklama} ${grafik.metrik} ${grafik.id} ${grafik.kategori} ${grafik.mebiusTitle}`)}
+            data-arama={normalle(`${grafik.baslik} ${grafik.aciklama} ${grafik.metrik} ${grafik.id} ${grafik.kategori} `)}
           >
             <FinfolisChartCard grafik={grafik} />
           </div>

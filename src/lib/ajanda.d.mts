@@ -41,6 +41,11 @@ export function gostergeleriFiltrele(
   filtre?: 'tumu' | 'kritik' | 'turkiye' | 'kuresel'
 ): AjandaGosterge[];
 
+export function oneCikanGostergeler(
+  ajanda?: GunlukAjanda,
+  limit?: number
+): AjandaGosterge[];
+
 export const GOSTERGE_REHBERI: Record<
   string,
   {

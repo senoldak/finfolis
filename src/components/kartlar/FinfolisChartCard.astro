@@ -19,7 +19,7 @@ const zamanSerisiMi = ['alan', 'sutun', 'coklu-karma', 'ayrisan-cubuk'].includes
   <header class="kart-ust">
     <div class="kategori-satiri">
       <span class="kart-kategori">{grafik.kategori}</span>
-      <span class="mebius-etiket" title={`Mebius kaynak: ${grafik.mebiusTitle}`}>#{grafik.id.replace('charts-', '')}</span>
+      <span class="kart-no">#{grafik.id.replace('charts-', '')}</span>
     </div>
 
     <div class="baslik-blok">
@@ -140,7 +140,7 @@ const zamanSerisiMi = ['alan', 'sutun', 'coklu-karma', 'ayrisan-cubuk'].includes
     color: var(--toprak, #c2502b); /* BRAND.md §7: Pişmiş toprak #c2502b */
   }
 
-  .mebius-etiket {
+  .kart-no {
     font-family: monospace;
     font-size: 0.7rem;
     color: var(--muted, #5d5b55);

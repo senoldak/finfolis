@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import NewsCard from '../components/NewsCard.astro';
 import Indicators from '../components/Indicators.astro';
 import Cizelge from '../components/Cizelge.astro';
+import AjandaVitrin from '../components/AjandaVitrin.astro';
 import { CATEGORIES, category as categoryOf, formatDate } from '../lib/site';
 import { getNews, newsUrl } from '../lib/news';
 import { KAPAK_DONUSUM } from '../lib/gorsel.mjs';
@@ -109,6 +110,8 @@ const sections = CATEGORIES.map((c) => ({
         <p class="bos">Henüz haber yok. İlk haber yönetim panelinden eklenince burada görünecek.</p>
       )
     }
+
+    <AjandaVitrin />
 
     {
       sections.map((s) => (

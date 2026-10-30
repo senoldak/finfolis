@@ -201,6 +201,23 @@ export function gostergeleriFiltrele(gostergeler, filtre = 'tumu') {
 }
 
 /**
+ * Anasayfa veya özet vitrin için günün en kritik ve öne çıkan göstergelerini seçer.
+ * Kritik ve yüksek önemdekileri önceler, saat sırasına göre dizer.
+ * @param {import('./ajanda.d.mts').GunlukAjanda} [ajanda]
+ * @param {number} [limit=4]
+ * @returns {import('./ajanda.d.mts').AjandaGosterge[]}
+ */
+export function oneCikanGostergeler(ajanda, limit = 4) {
+  const aktifAjanda = ajanda ?? gunlukAjandaGetir();
+  const gostergeler = aktifAjanda?.gostergeler ?? [];
+  if (gostergeler.length === 0) return [];
+  const kritikVeYuksek = gostergeler.filter((g) => g.onem === 'kritik' || g.onem === 'yuksek');
+  const secilenler = kritikVeYuksek.length >= 3 ? kritikVeYuksek : gostergeler;
+  return secilenler.slice(0, limit);
+}
+
+
+/**
  * Temel makroekonomik kavramlar için öğretici sözlük kartı.
  * Kullanıcı göstergeye tıkladığında veya merak ettiğinde sabırlı bir öğretmen gibi açıklar.
  */
