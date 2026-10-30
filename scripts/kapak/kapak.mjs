@@ -565,6 +565,169 @@ export function karneKapagi({ kategori: slug = 'piyasalar', baslik, tarih, satir
   };
 }
 
+// Günün öne çıkan verileri / ekonomik ajanda kartı (1200×675).
+// Kâğıt zemin, üstte pişmiş toprak şerit, sağ üstte küçük abaküs işareti;
+// sol üstte "GÜNÜN ÖNE ÇIKAN VERİLERİ" pişmiş toprak etiketi, tarih başlığı;
+// altta saat, ülke, gösterge adı, beklenti/önceki ve eğitici özet/eşik notu;
+// dipte "finfolis · Karmaşadan uzakta" ve SPK uyarısı.
+export function ajandaKapagi({
+  tarih = 'Ekonomik Ajanda',
+  altBaslik = '',
+  maddeler = [],
+  ornek = false,
+} = {}) {
+  return async () => {
+    await fontlariDenetle();
+    const katmanlar = [];
+    let svg = `<rect width="${B}" height="${H}" fill="${R.kagit}"/>`;
+
+    // Üstte 6px pişmiş toprak marka şeridi
+    svg += `<rect x="0" y="0" width="${B}" height="6" fill="${KIMLIK.toprak}"/>`;
+
+    // Sağ üstte küçük abaküs işareti (64px)
+    svg += abakusSvg({ boyut: 64, zemin: 'acik', vurgu: true, ekler: 'x="1072" y="24"' });
+
+    // Üst Başlık Bloğu
+    const ustEtiket = await yazi('GÜNÜN ÖNE ÇIKAN VERİLERİ', {
+      boyut: 22,
+      kalinlik: 700,
+      renk: KIMLIK.toprak,
+      aralik: 0.1,
+      buyukHarf: true,
+    });
+    katmanlar.push({ ...ustEtiket, left: 64, top: 28 });
+
+    const anaBaslik = await yazi(tarih, {
+      boyut: 38,
+      kalinlik: 700,
+      renk: R.murekkep,
+      aralik: -0.02,
+    });
+    katmanlar.push({ ...anaBaslik, left: 64, top: 28 + ustEtiket.yukseklik + 4 });
+
+    let ustH = 28 + ustEtiket.yukseklik + 4 + anaBaslik.yukseklik;
+    if (altBaslik) {
+      const alt = await yazi(altBaslik, {
+        boyut: 19,
+        kalinlik: 500,
+        renk: KIMLIK.gri,
+      });
+      katmanlar.push({ ...alt, left: 64, top: ustH + 4 });
+      ustH += alt.yukseklik + 4;
+    }
+
+    // Tablo başlığı
+    const tabloY0 = ustH + 16;
+    const tabloW = B - 128; // 1072
+    svg += `<rect x="64" y="${tabloY0}" width="${tabloW}" height="28" fill="${KIMLIK.soluk}"/>`;
+
+    const colSaat = await yazi('SAAT / ÜLKE', { boyut: 15, kalinlik: 700, renk: KIMLIK.gri, buyukHarf: true });
+    katmanlar.push({ ...colSaat, left: 76, top: tabloY0 + 6 });
+
+    const colGosterge = await yazi('GÖSTERGE & DÖNEM', { boyut: 15, kalinlik: 700, renk: KIMLIK.gri, buyukHarf: true });
+    katmanlar.push({ ...colGosterge, left: 240, top: tabloY0 + 6 });
+
+    const colDeger = await yazi('BEKLENTİ / ÖNCEKİ', { boyut: 15, kalinlik: 700, renk: KIMLIK.gri, buyukHarf: true });
+    katmanlar.push({ ...colDeger, left: 620, top: tabloY0 + 6 });
+
+    const colEsik = await yazi('KRİTİK EŞİK & ANLAMI', { boyut: 15, kalinlik: 700, renk: KIMLIK.gri, buyukHarf: true });
+    katmanlar.push({ ...colEsik, left: 840, top: tabloY0 + 6 });
+
+    // Satırlar (6 göstergeye kadar tam sığar; 6'dan fazla ise kritik/yüksek olanlar önceliklendirilir)
+    let siraliMaddeler = maddeler;
+    if (maddeler.length > 6) {
+      const oncelikler = { kritik: 0, yuksek: 1, orta: 2, dusuk: 3 };
+      const kopyalar = [...maddeler].sort(
+        (a, b) => (oncelikler[a.onem ?? 'orta'] ?? 2) - (oncelikler[b.onem ?? 'orta'] ?? 2)
+      );
+      siraliMaddeler = kopyalar.slice(0, 6).sort((a, b) => (a.saat || '').localeCompare(b.saat || ''));
+    } else {
+      siraliMaddeler = maddeler.slice(0, 6);
+    }
+
+    const alanH = H - 65 - (tabloY0 + 32);
+    const satirH = Math.min(84, Math.floor(alanH / Math.max(1, siraliMaddeler.length)));
+    const sikisik = siraliMaddeler.length >= 6;
+
+    for (const [i, m] of siraliMaddeler.entries()) {
+      const y = tabloY0 + 32 + i * satirH;
+      // Satır altı ayraç
+      svg += `<line x1="64" y1="${y + satirH}" x2="${B - 64}" y2="${y + satirH}" stroke="${KIMLIK.boncukGri}" stroke-width="1"/>`;
+
+      // 1. Sütun: Saat + Ülke Kodu Kutusu
+      const saatTxt = await yazi(m.saat ?? '—', { boyut: sikisik ? 20 : 22, kalinlik: 700, renk: R.murekkep });
+      katmanlar.push({ ...saatTxt, left: 76, top: y + (sikisik ? 8 : 10) });
+
+      const ulkeKod = m.ulkeKodu ?? (m.ulke ? m.ulke.slice(0, 2).toUpperCase() : 'TR');
+      svg += `<rect x="156" y="${y + (sikisik ? 9 : 11)}" width="46" height="22" fill="${KIMLIK.soluk}"/>`;
+      const ulkeTxt = await yazi(ulkeKod, { boyut: 14, kalinlik: 700, renk: R.murekkep, aralik: 0.05 });
+      katmanlar.push({ ...ulkeTxt, left: 156 + Math.round((46 - ulkeTxt.genislik) / 2), top: y + (sikisik ? 12 : 14) });
+
+      // 2. Sütun: Gösterge Adı + Dönem
+      const gostergeTxt = await yazi(m.gosterge, {
+        boyut: sikisik ? (m.gosterge.length > 25 ? 18 : 20) : (m.gosterge.length > 28 ? 20 : 22),
+        kalinlik: 700,
+        renk: R.murekkep,
+        genislik: 360,
+      });
+      katmanlar.push({ ...gostergeTxt, left: 240, top: y + (sikisik ? 6 : 8) });
+
+      if (m.donem) {
+        const donemTxt = await yazi(m.donem, { boyut: sikisik ? 14 : 16, kalinlik: 500, renk: KIMLIK.gri });
+        katmanlar.push({ ...donemTxt, left: 240, top: y + (sikisik ? 6 : 8) + gostergeTxt.yukseklik + 2 });
+      }
+
+      // 3. Sütun: Beklenti ve Önceki
+      const bDeger = m.beklenti ? `Bekl: ${m.beklenti}` : (m.aciklanan ? `Açıkl: ${m.aciklanan}` : '—');
+      const bTxt = await yazi(bDeger, { boyut: sikisik ? 18 : 19, kalinlik: 700, renk: R.murekkep });
+      katmanlar.push({ ...bTxt, left: 620, top: y + (sikisik ? 6 : 8) });
+
+      const oDeger = m.onceki ? `Önceki: ${m.onceki}` : '';
+      if (oDeger) {
+        const oTxt = await yazi(oDeger, { boyut: sikisik ? 14 : 15, kalinlik: 500, renk: KIMLIK.gri });
+        katmanlar.push({ ...oTxt, left: 620, top: y + (sikisik ? 6 : 8) + bTxt.yukseklik + 2 });
+      }
+
+      // 4. Sütun: Eğitici Not / Eşik
+      let esikNot = m.esik?.aciklama ?? (m.gosterge.toLowerCase().includes('pmi') ? 'Eşik 50 · Üzeri büyüme' : (m.not ?? ''));
+      if (!esikNot && m.nedenOnemli) {
+        esikNot = m.nedenOnemli.slice(0, 48) + (m.nedenOnemli.length > 48 ? '…' : '');
+      }
+      if (esikNot) {
+        svg += `<circle cx="848" cy="${y + (sikisik ? 17 : 20)}" r="4" fill="${KIMLIK.toprak}"/>`;
+        const esikTxt = await yazi(esikNot, {
+          boyut: sikisik ? 15 : 16,
+          kalinlik: 600,
+          renk: KIMLIK.toprak,
+          genislik: 280,
+        });
+        katmanlar.push({ ...esikTxt, left: 858, top: y + (sikisik ? 8 : 10) });
+      }
+    }
+
+    // Dip Alanı: Marka ve SPK Uyarısı
+    const logoTxt = await yazi('finfolis', { boyut: 32, kalinlik: 600, renk: R.murekkep, aralik: -0.03 });
+    katmanlar.push({ ...logoTxt, left: 64, top: H - 48 });
+
+    const sloganTxt = await yazi('· Karmaşadan uzakta', { boyut: 19, kalinlik: 400, renk: KIMLIK.gri });
+    katmanlar.push({ ...sloganTxt, left: 64 + logoTxt.genislik + 8, top: H - 42 });
+
+    const spkTxt = await yazi('Bilgilendirme amaçlıdır · Yatırım tavsiyesi değildir', {
+      boyut: 17,
+      kalinlik: 500,
+      renk: KIMLIK.gri,
+    });
+    katmanlar.push({ ...spkTxt, left: B - 64 - spkTxt.genislik, top: H - 42 });
+
+    if (ornek) {
+      const o = await yazi('Örnek veri', { boyut: 18, kalinlik: 600, renk: R.murekkep, alfa: 70 });
+      katmanlar.push({ ...o, left: Math.round((B - o.genislik) / 2), top: H - 42 });
+    }
+
+    return { svg, katmanlar };
+  };
+}
+
 // ── PNG'ye çevirme ─────────────────────────────────────────────────────
 
 // Uzun bir şirket adı ya da büyük bir rakam görselden taşarsa katman, oranı korunarak

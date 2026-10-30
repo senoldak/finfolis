@@ -1,0 +1,334 @@
+---
+import type { FinfolisGrafikTanimi } from '../../lib/finfolis-charts-data';
+import FinfolisChartRenderer from './FinfolisChartRenderer.astro';
+
+interface Props {
+  grafik: FinfolisGrafikTanimi;
+  kucuk?: boolean;
+}
+
+const { grafik, kucuk = false } = Astro.props;
+
+const artisMi = grafik.degisim >= 0;
+const degisimOk = artisMi ? '▲' : '▼';
+const degisimMetni = `${degisimOk} %${Math.abs(grafik.degisim).toLocaleString('tr-TR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}`;
+const zamanSerisiMi = ['alan', 'sutun', 'coklu-karma', 'ayrisan-cubuk'].includes(grafik.tur);
+---
+
+<article class="finfolis-kart" data-kart-id={grafik.id}>
+  <header class="kart-ust">
+    <div class="kategori-satiri">
+      <span class="kart-kategori">{grafik.kategori}</span>
+      <span class="mebius-etiket" title={`Mebius kaynak: ${grafik.mebiusTitle}`}>#{grafik.id.replace('charts-', '')}</span>
+    </div>
+
+    <div class="baslik-blok">
+      <h3 class="kart-baslik">{grafik.baslik}</h3>
+      <p class="kart-aciklama">{grafik.aciklama}</p>
+    </div>
+
+    <div class="metrik-blok">
+      <div class="metrik-deger">{grafik.metrik}</div>
+      <div class={`degisim-rozet ${artisMi ? 'artis' : 'azalis'}`}>
+        <span class="degisim-oran">{degisimMetni}</span>
+        <span class="degisim-etiket">{grafik.degisimEtiket}</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Zaman aralığı filtresi: Yalnızca zaman serisi grafiklerinde gösterilir -->
+  {
+    zamanSerisiMi ? (
+      <div class="zaman-filtresi" role="tablist" aria-label="Zaman aralığı">
+        <button type="button" class="filtre-sekme aktif" role="tab" aria-selected="true" data-vade="1A">1A</button>
+        <button type="button" class="filtre-sekme" role="tab" aria-selected="false" data-vade="3A">3A</button>
+        <button type="button" class="filtre-sekme" role="tab" aria-selected="false" data-vade="1Y">1Y</button>
+        <button type="button" class="filtre-sekme" role="tab" aria-selected="false" data-vade="Tümü">Tümü</button>
+      </div>
+    ) : (
+      <div class="tur-rozet-serit">
+        <span class="tur-etiket">{grafik.tur.toUpperCase()}</span>
+      </div>
+    )
+  }
+
+  <!-- SVG Çizim Alanı -->
+  <div class="kart-cizim-alani">
+    <FinfolisChartRenderer grafik={grafik} yukseklik={kucuk ? 180 : 220} />
+  </div>
+
+  <!-- Abaküs Boncuk Göstergesi (BRAND.md §5 & §9: Her kart için abaküs dili) -->
+  {
+    typeof grafik.boncukMiktar === 'number' && (
+      <div class="boncuk-seridi" aria-label={`Abaküs boncukları: ${grafik.boncukMiktar} birim`}>
+        <div class="teller">
+          <div class="tel">
+            {Array.from({ length: Math.min(10, Math.max(1, grafik.boncukMiktar)) }).map(() => (
+              <span class="boncuk koyu" />
+            ))}
+            {Array.from({ length: Math.max(0, 10 - Math.min(10, Math.max(1, grafik.boncukMiktar))) }).map(() => (
+              <span class="boncuk acik" />
+            ))}
+          </div>
+        </div>
+        <span class="boncuk-aciklama">● = {grafik.boncukBirim ?? '1 birim'}</span>
+      </div>
+    )
+  }
+
+  <!-- Kart Altı: Kaynak, Tarih ve Yasal Hatırlatma -->
+  <footer class="kart-alt">
+    <div class="kaynak-satiri">
+      <span class="kaynak-metin">Kaynak: <strong>{grafik.kaynak}</strong></span>
+      <span class="tarih-metin">{grafik.tarih}</span>
+    </div>
+    <div class="spk-notu">Yatırım tavsiyesi değildir.</div>
+  </footer>
+</article>
+
+<script>
+  // Kart içi zaman sekmesi etkileşimi
+  document.querySelectorAll<HTMLElement>('.finfolis-kart').forEach((kart) => {
+    const sekmeler = kart.querySelectorAll<HTMLButtonElement>('.filtre-sekme');
+    sekmeler.forEach((sekme) => {
+      sekme.addEventListener('click', () => {
+        sekmeler.forEach((s) => {
+          s.classList.remove('aktif');
+          s.setAttribute('aria-selected', 'false');
+        });
+        sekme.classList.add('aktif');
+        sekme.setAttribute('aria-selected', 'true');
+      });
+    });
+  });
+</script>
+
+<style>
+  .finfolis-kart {
+    background: #ffffff;
+    border: 1px solid var(--hair, #cfccc2);
+    border-radius: 0px; /* BRAND.md: Yuvarlak köşe yok */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: var(--sans, 'Bricolage Grotesque', system-ui, sans-serif);
+    transition: border-color 0.15s ease;
+    position: relative;
+  }
+
+  .finfolis-kart:hover {
+    border-color: var(--ink, #1b1b1b);
+  }
+
+  .kart-ust {
+    margin-bottom: 12px;
+  }
+
+  .kategori-satiri {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .kart-kategori {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--toprak, #c2502b); /* BRAND.md §7: Pişmiş toprak #c2502b */
+  }
+
+  .mebius-etiket {
+    font-family: monospace;
+    font-size: 0.7rem;
+    color: var(--muted, #5d5b55);
+    background: var(--paper-2, #e9e7df);
+    padding: 1px 6px;
+    border: 1px solid var(--hair, #cfccc2);
+  }
+
+  .baslik-blok {
+    margin-bottom: 10px;
+  }
+
+  .kart-baslik {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+    margin: 0 0 4px 0;
+    letter-spacing: -0.01em;
+  }
+
+  .kart-aciklama {
+    font-size: 0.82rem;
+    color: var(--muted, #5d5b55);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .metrik-blok {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .metrik-deger {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--ink, #1b1b1b);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  .degisim-rozet {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .degisim-rozet.artis {
+    color: var(--green, #3f7350);
+  }
+
+  .degisim-rozet.azalis {
+    color: var(--red, #a3243b);
+  }
+
+  .degisim-etiket {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted, #5d5b55);
+  }
+
+  /* Zaman Filtresi */
+  .zaman-filtresi {
+    display: inline-flex;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 2px;
+    margin-bottom: 12px;
+    align-self: flex-start;
+  }
+
+  .filtre-sekme {
+    all: unset;
+    cursor: pointer;
+    padding: 3px 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted, #5d5b55);
+    transition: all 0.12s ease;
+  }
+
+  .filtre-sekme:hover {
+    color: var(--ink, #1b1b1b);
+  }
+
+  .filtre-sekme.aktif {
+    background: var(--ink, #1b1b1b);
+    color: #ffffff;
+  }
+
+  /* Zaman dışı grafik tür rozeti */
+  .tur-rozet-serit {
+    display: inline-flex;
+    margin-bottom: 12px;
+    align-self: flex-start;
+  }
+
+  .tur-etiket {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--muted, #5d5b55);
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 2px 7px;
+  }
+
+  .kart-cizim-alani {
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  /* Abaküs Boncuk Şeridi */
+  .boncuk-seridi {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--paper-2, #e9e7df);
+    padding-top: 8px;
+    margin-bottom: 10px;
+  }
+
+  .teller {
+    display: flex;
+    gap: 4px;
+  }
+
+  .tel {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .boncuk {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .boncuk.koyu {
+    background: var(--ink, #1b1b1b);
+  }
+
+  .boncuk.acik {
+    background: var(--hair, #cfccc2);
+  }
+
+  .boncuk-aciklama {
+    font-size: 0.7rem;
+    color: var(--muted, #5d5b55);
+  }
+
+  /* Alt Kısım */
+  .kart-alt {
+    border-top: 1px solid var(--hair, #cfccc2);
+    padding-top: 10px;
+    margin-top: auto;
+    font-size: 0.75rem;
+  }
+
+  .kaynak-satiri {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--muted, #5d5b55);
+  }
+
+  .kaynak-metin strong {
+    color: var(--ink-2, #3d3c38);
+  }
+
+  .tarih-metin {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .spk-notu {
+    font-size: 0.68rem;
+    color: var(--muted, #5d5b55);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0.8;
+  }
+</style>

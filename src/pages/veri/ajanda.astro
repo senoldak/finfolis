@@ -1,0 +1,328 @@
+---
+// Ekonomik ajanda sayfası: günün öne çıkan makroekonomik verileri, kritik eşikler ve eğitici gösterge rehberi.
+// Kimlik v2 (BRAND.md) ve ürün ilkeleri (PRODUCT.md): sakin, öğretici ve sıcak.
+import Base from '../../layouts/Base.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import EkonomikAjanda from '../../components/EkonomikAjanda.astro';
+import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+import { gunlukAjandaGetir, GOSTERGE_REHBERI } from '../../lib/ajanda.mjs';
+import ajandaVerisi from '../../data/ajanda.json';
+
+const urlTarih = Astro.url.searchParams.get('tarih') ?? undefined;
+const secilenAjanda = gunlukAjandaGetir(urlTarih, ajandaVerisi);
+const tumAjandalar = ajandaVerisi.ajandalar;
+
+const baslik = 'Günün Öne Çıkan Verileri · Ekonomik Ajanda';
+const description = 'Türkiye ve küresel piyasalarda günün takip edilecek makroekonomik verileri; PMI eşikleri, enflasyon, faiz kararları ve göstergelerin piyasaya etkileri.';
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Ekonomik ajanda', href: '/veri/ajanda/' },
+];
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama: description,
+  sayfaEk: { dateModified: ajandaVerisi.guncellenme },
+});
+---
+
+<Base title={baslik} description={description}>
+  <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
+
+  <div class="container veri-sayfa ajanda-sayfasi">
+    <Breadcrumb yol={yol} />
+
+    {tumAjandalar.length > 1 && (
+      <nav class="ajanda-tarih-secici" aria-label="Ajanda tarihi seçimi">
+        <span class="ajanda-secici-etiket">Tarih seçin:</span>
+        <div class="ajanda-tarih-butonlari">
+          {tumAjandalar.map((a, i) => (
+            <a
+              href={`/veri/ajanda/?tarih=${a.tarih}`}
+              class={`ajanda-tarih-link ${i === 0 ? 'aktif' : ''}`}
+              data-tarih={a.tarih}
+              aria-current={i === 0 ? 'true' : 'false'}
+            >
+              {a.tarih}
+            </a>
+          ))}
+        </div>
+      </nav>
+    )}
+
+    {/* Günlük Ajandalar: Tüm günler statik olarak derlenir, etkileşimle anında geçiş yapılır */}
+    <div class="ajanda-gunler-kutusu">
+      {tumAjandalar.map((a, i) => (
+        <section
+          class={`ajanda-gun-alani ${i === 0 ? 'aktif' : ''}`}
+          data-ajanda-tarih={a.tarih}
+          style={i === 0 ? '' : 'display: none;'}
+        >
+          <EkonomikAjanda ajanda={a} />
+        </section>
+      ))}
+    </div>
+
+    {/* Eğitici Kılavuz: Sabırlı Öğretmen Bölümü */}
+    <section class="bolum ajanda-rehber-bolum">
+      <h2 class="bolum-baslik">
+        Göstergeler Sözlüğü: Hangi Veri Ne Anlatır?
+        <span class="rehber-alt-not">Temel makroekonomik kavramlar ve kritik eşikler</span>
+      </h2>
+
+      <div class="rehber-kartlari">
+        <article class="rehber-kart">
+          <div class="rehber-kart-ust">
+            <span class="rehber-etiket">ÖNCÜ GÖSTERGE</span>
+            <span class="rehber-esik">{GOSTERGE_REHBERI.pmi.esik}</span>
+          </div>
+          <h3 class="rehber-baslik">{GOSTERGE_REHBERI.pmi.baslik}</h3>
+          <p><strong>Nedir?</strong> {GOSTERGE_REHBERI.pmi.nedir}</p>
+          <p><strong>Nasıl okunur?</strong> {GOSTERGE_REHBERI.pmi.nasilOkunur}</p>
+          <p class="rehber-onem-satir"><strong>Neden önemli?</strong> {GOSTERGE_REHBERI.pmi.onemi}</p>
+        </article>
+
+        <article class="rehber-kart">
+          <div class="rehber-kart-ust">
+            <span class="rehber-etiket">FİYAT İSTİKRARI</span>
+            <span class="rehber-esik">{GOSTERGE_REHBERI.tufe.esik}</span>
+          </div>
+          <h3 class="rehber-baslik">{GOSTERGE_REHBERI.tufe.baslik}</h3>
+          <p><strong>Nedir?</strong> {GOSTERGE_REHBERI.tufe.nedir}</p>
+          <p><strong>Nasıl okunur?</strong> {GOSTERGE_REHBERI.tufe.nasilOkunur}</p>
+          <p class="rehber-onem-satir"><strong>Neden önemli?</strong> {GOSTERGE_REHBERI.tufe.onemi}</p>
+        </article>
+
+        <article class="rehber-kart">
+          <div class="rehber-kart-ust">
+            <span class="rehber-etiket">PARA POLİTİKASI</span>
+            <span class="rehber-esik">{GOSTERGE_REHBERI.faiz.esik}</span>
+          </div>
+          <h3 class="rehber-baslik">{GOSTERGE_REHBERI.faiz.baslik}</h3>
+          <p><strong>Nedir?</strong> {GOSTERGE_REHBERI.faiz.nedir}</p>
+          <p><strong>Nasıl okunur?</strong> {GOSTERGE_REHBERI.faiz.nasilOkunur}</p>
+          <p class="rehber-onem-satir"><strong>Neden önemli?</strong> {GOSTERGE_REHBERI.faiz.onemi}</p>
+        </article>
+
+        <article class="rehber-kart">
+          <div class="rehber-kart-ust">
+            <span class="rehber-etiket">FED'İN RADARI</span>
+            <span class="rehber-esik">{GOSTERGE_REHBERI.pce.esik}</span>
+          </div>
+          <h3 class="rehber-baslik">{GOSTERGE_REHBERI.pce.baslik}</h3>
+          <p><strong>Nedir?</strong> {GOSTERGE_REHBERI.pce.nedir}</p>
+          <p><strong>Nasıl okunur?</strong> {GOSTERGE_REHBERI.pce.nasilOkunur}</p>
+          <p class="rehber-onem-satir"><strong>Neden önemli?</strong> {GOSTERGE_REHBERI.pce.onemi}</p>
+        </article>
+      </div>
+    </section>
+
+    {/* Yasal Uyarı: SPK EK/3 Tebliği Uyarınca */}
+    <YasalUyari />
+  </div>
+
+  <script>
+    function baslatTarihSecici() {
+      const seciciLinkler = document.querySelectorAll<HTMLAnchorElement>('.ajanda-tarih-link');
+      const gunAlanlari = document.querySelectorAll<HTMLElement>('.ajanda-gun-alani');
+      if (!seciciLinkler.length || !gunAlanlari.length) return;
+
+      function tarihiGoster(tarih: string, urlGuncelle = false) {
+        let bulundu = false;
+        gunAlanlari.forEach((alan) => {
+          const buTarih = alan.getAttribute('data-ajanda-tarih');
+          if (buTarih === tarih) {
+            alan.style.display = 'block';
+            alan.classList.add('aktif');
+            bulundu = true;
+          } else {
+            alan.style.display = 'none';
+            alan.classList.remove('aktif');
+          }
+        });
+
+        if (bulundu) {
+          seciciLinkler.forEach((link) => {
+            const lTarih = link.getAttribute('data-tarih');
+            const aktif = lTarih === tarih;
+            link.classList.toggle('aktif', aktif);
+            link.setAttribute('aria-current', aktif ? 'true' : 'false');
+          });
+
+          if (urlGuncelle) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('tarih', tarih);
+            window.history.pushState({ tarih }, '', url.toString());
+          }
+        }
+      }
+
+      // Sayfa açıldığında URL parametresinde tarih var mı?
+      const parametre = new URLSearchParams(window.location.search).get('tarih');
+      if (parametre) {
+        tarihiGoster(parametre, false);
+      }
+
+      // Tarih bağlantılarına tıklama
+      seciciLinkler.forEach((link) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const tarih = link.getAttribute('data-tarih');
+          if (tarih) {
+            tarihiGoster(tarih, true);
+          }
+        });
+      });
+
+      // Tarayıcı ileri/geri tuşu desteği
+      window.addEventListener('popstate', (e) => {
+        const t = e.state?.tarih ?? new URLSearchParams(window.location.search).get('tarih');
+        if (t) {
+          tarihiGoster(t, false);
+        } else if (gunAlanlari[0]) {
+          const varsayilan = gunAlanlari[0].getAttribute('data-ajanda-tarih');
+          if (varsayilan) tarihiGoster(varsayilan, false);
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', baslatTarihSecici);
+    } else {
+      baslatTarihSecici();
+    }
+  </script>
+</Base>
+
+<style>
+  .ajanda-sayfasi {
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+  }
+
+  .ajanda-tarih-secici {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1.5rem 0 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+  }
+
+  .ajanda-secici-etiket {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--muted, #5d5b55);
+  }
+
+  .ajanda-tarih-butonlari {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .ajanda-tarih-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.25rem 0.65rem;
+    border: 1px solid var(--hair, #cfccc2);
+    background: #fff;
+    color: var(--ink, #1b1b1b);
+    text-decoration: none;
+  }
+
+  .ajanda-tarih-link:hover {
+    border-color: var(--ink, #1b1b1b);
+    text-decoration: none;
+  }
+
+  .ajanda-tarih-link.aktif {
+    background: var(--ink, #1b1b1b);
+    border-color: var(--ink, #1b1b1b);
+    color: var(--paper, #f4f3ee);
+  }
+
+  /* Rehber Bölümü */
+  .ajanda-rehber-bolum {
+    margin-top: 3.5rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--ink, #1b1b1b);
+  }
+
+  .bolum-baslik {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.25rem, 2.2vw, 1.625rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .rehber-alt-not {
+    display: block;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    color: var(--muted, #5d5b55);
+    margin-top: 0.25rem;
+  }
+
+  .rehber-kartlari {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .rehber-kart {
+    background: #fff;
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .rehber-kart-ust {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--soluk, #e4e1d7);
+    padding-bottom: 0.4rem;
+  }
+
+  .rehber-etiket {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--toprak, #c2502b);
+    letter-spacing: 0.08em;
+  }
+
+  .rehber-esik {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--soluk, #e4e1d7);
+    padding: 0.15rem 0.4rem;
+  }
+
+  .rehber-baslik {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .rehber-kart p {
+    margin: 0;
+  }
+
+  .rehber-onem-satir {
+    color: var(--ink-2, #3d3c38);
+    background: var(--paper, #f4f3ee);
+    padding: 0.5rem;
+    border-left: 2px solid var(--hair, #cfccc2);
+  }
+</style>

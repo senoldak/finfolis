@@ -1,0 +1,759 @@
+---
+import type { FinfolisGrafikTanimi } from '../../lib/finfolis-charts-data';
+
+interface Props {
+  grafik: FinfolisGrafikTanimi;
+  genislik?: number;
+  yukseklik?: number;
+}
+
+const { grafik, genislik = 400, yukseklik = 220 } = Astro.props;
+
+// SVG Boyutları ve Boşlukları
+const W = genislik;
+const H = yukseklik;
+const P = { ust: 18, alt: 32, sol: 42, sag: 20 };
+const cizimW = W - P.sol - P.sag;
+const cizimH = H - P.ust - P.alt;
+
+// Helper formats
+const sayiTR = (n: number) => n.toLocaleString('tr-TR');
+---
+
+<div class="finfolis-svg-kapsayici" data-grafik-id={grafik.id}>
+  {
+    grafik.tur === 'alan' && grafik.seri && (() => {
+      const seri = grafik.seri;
+      const degerler = seri.map((d) => d.deger);
+      const min = Math.min(...degerler);
+      const max = Math.max(...degerler);
+      const span = max - min || 1;
+      const x = (i: number) => P.sol + (i / Math.max(seri.length - 1, 1)) * cizimW;
+      const y = (d: number) => P.ust + (1 - (d - min) / span) * cizimH;
+
+      let yol = '';
+      seri.forEach((pt, i) => {
+        yol += `${i === 0 ? 'M' : 'L'} ${x(i).toFixed(1)} ${y(pt.deger).toFixed(1)} `;
+      });
+
+      const alanYol = `${yol} L ${x(seri.length - 1).toFixed(1)} ${(H - P.alt).toFixed(1)} L ${x(0).toFixed(1)} ${(H - P.alt).toFixed(1)} Z`;
+
+      return (
+        <svg viewBox={`0 0 ${W} ${H}`} class="finfolis-svg" role="img" aria-label={grafik.baslik}>
+          {/* Izgara çizgileri */}
+          <line x1={P.sol} x2={W - P.sag} y1={P.ust} y2={P.ust} class="izgara" />
+          <line x1={P.sol} x2={W - P.sag} y1={P.ust + cizimH / 2} y2={P.ust + cizimH / 2} class="izgara" />
+          <line x1={P.sol} x2={W - P.sag} y1={H - P.alt} y2={H - P.alt} class="taban" />
+
+          {/* Dikey Eksen Değerleri */}
+          <text x={P.sol - 6} y={P.ust + 4} text-anchor="end" class="eksen">{sayiTR(max)}</text>
+          <text x={P.sol - 6} y={H - P.alt} text-anchor="end" class="eksen">{sayiTR(min)}</text>
+
+          {/* Alan Dolgusu ve Çizgisi (BRAND.md: Mürekkep tonu) */}
+          <path d={alanYol} class="alan-dolgu" />
+          <path d={yol} class="alan-cizgi" />
+
+          {/* Noktalar ve Yatay Eksen */}
+          {seri.map((pt, i) => (
+            <g class="nokta-grubu">
+              <circle
+                cx={x(i)}
+                cy={y(pt.deger)}
+                r={i === seri.length - 1 ? 4.5 : 3.5}
+                class={i === seri.length - 1 ? 'nokta-son' : 'nokta'}
+              />
+              <text x={x(i)} y={H - P.alt + 18} text-anchor="middle" class="eksen">{pt.etiket}</text>
+            </g>
+          ))}
+        </svg>
+      );
+    })()
+  }
+
+  {
+    grafik.tur === 'sutun' && grafik.seri && (() => {
+      const seri = grafik.seri;
+      const degerler = seri.map((d) => d.deger);
+      const max = Math.max(...degerler);
+      const barW = Math.min(36, (cizimW / seri.length) * 0.65);
+      const x = (i: number) => P.sol + ((i + 0.5) / seri.length) * cizimW;
+
+      return (
+        <svg viewBox={`0 0 ${W} ${H}`} class="finfolis-svg" role="img" aria-label={grafik.baslik}>
+          <line x1={P.sol} x2={W - P.sag} y1={P.ust} y2={P.ust} class="izgara" />
+          <line x1={P.sol} x2={W - P.sag} y1={P.ust + cizimH / 2} y2={P.ust + cizimH / 2} class="izgara" />
+          <line x1={P.sol} x2={W - P.sag} y1={H - P.alt} y2={H - P.alt} class="taban" />
+
+          <text x={P.sol - 6} y={P.ust + 4} text-anchor="end" class="eksen">{sayiTR(max)}</text>
+          <text x={P.sol - 6} y={H - P.alt} text-anchor="end" class="eksen">0</text>
+
+          {seri.map((pt, i) => {
+            const h = Math.max(2, (pt.deger / max) * cizimH);
+            const bx = x(i) - barW / 2;
+            const by = H - P.alt - h;
+            return (
+              <g class="sutun-grubu">
+                <rect x={bx} y={by} width={barW} height={h} class="sutun-bar" />
+                <text x={x(i)} y={H - P.alt + 18} text-anchor="middle" class="eksen">{pt.etiket}</text>
+              </g>
+            );
+          })}
+        </svg>
+      );
+    })()
+  }
+
+  {
+    grafik.tur === 'yigilmis-sutun' && grafik.gruplar && (() => {
+      const gruplar = grafik.gruplar;
+      const maks = Math.max(...gruplar.map((g) => Math.max(g.varlik, g.yukumluluk)));
+      const wGrup = cizimW / gruplar.length;
+      const barW = Math.min(22, wGrup * 0.38);
+
+      return (
+        <svg viewBox={`0 0 ${W} ${H}`} class="finfolis-svg" role="img" aria-label={grafik.baslik}>
+          <line x1={P.sol} x2={W - P.sag} y1={P.ust} y2={P.ust} class="izgara" />
+          <line x1={P.sol} x2={W - P.sag} y1={P.ust + cizimH / 2} y2={P.ust + cizimH / 2} class="izgara" />
+          <line x1={P.sol} x2={W - P.sag} y1={H - P.alt} y2={H - P.alt} class="taban" />
+
+          <text x={P.sol - 6} y={P.ust + 4} text-anchor="end" class="eksen">{sayiTR(maks)}</text>
+          <text x={P.sol - 6} y={H - P.alt} text-anchor="end" class="eksen">0</text>
+
+          {gruplar.map((g, i) => {
+            const gx = P.sol + i * wGrup + wGrup / 2;
+            const h1 = (g.varlik / maks) * cizimH;
+            const h2 = (g.yukumluluk / maks) * cizimH;
+            return (
+              <g class="yigilmis-grubu">
+                <rect x={gx - barW - 2} y={H - P.alt - h1} width={barW} height={h1} class="sutun-aktif" />
+                <rect x={gx + 2} y={H - P.alt - h2} width={barW} height={h2} class="sutun-pasif" />
+                <text x={gx} y={H - P.alt + 18} text-anchor="middle" class="eksen">{g.etiket}</text>
+              </g>
+            );
+          })}
+        </svg>
+      );
+    })()
+  }
+
+  {
+    grafik.tur === 'ayrisan-cubuk' && grafik.seri && (() => {
+      const seri = grafik.seri;
+      const mutlakMaks = Math.max(...seri.map((s) => Math.abs(s.deger)));
+      const sifirY = P.ust + cizimH / 2;
+      const barW = Math.min(32, (cizimW / seri.length) * 0.6);
+      const x = (i: number) => P.sol + ((i + 0.5) / seri.length) * cizimW;
+
+      return (
+        <svg viewBox={`0 0 ${W} ${H}`} class="finfolis-svg" role="img" aria-label={grafik.baslik}>
+          <line x1={P.sol} x2={W - P.sag} y1={P.ust} y2={P.ust} class="izgara" />
+          <line x1={P.sol} x2={W - P.sag} y1={sifirY} y2={sifirY} class="taban-sifir" />
+          <line x1={P.sol} x2={W - P.sag} y1={H - P.alt} y2={H - P.alt} class="izgara" />
+
+          <text x={P.sol - 6} y={P.ust + 4} text-anchor="end" class="eksen">+{mutlakMaks}</text>
+          <text x={P.sol - 6} y={sifirY + 4} text-anchor="end" class="eksen">0</text>
+          <text x={P.sol - 6} y={H - P.alt} text-anchor="end" class="eksen">−{mutlakMaks}</text>
+
+          {seri.map((pt, i) => {
+            const h = (Math.abs(pt.deger) / mutlakMaks) * (cizimH / 2);
+            const bx = x(i) - barW / 2;
+            const by = pt.deger >= 0 ? sifirY - h : sifirY;
+            const cls = pt.deger >= 0 ? 'ayrisan-pozitif' : 'ayrisan-negatif';
+            return (
+              <g class="ayrisan-grup">
+                <rect x={bx} y={by} width={barW} height={Math.max(2, h)} class={cls} />
+                <text x={x(i)} y={H - P.alt + 18} text-anchor="middle" class="eksen">{pt.etiket}</text>
+              </g>
+            );
+          })}
+        </svg>
+      );
+    })()
+  }
+
+  {
+    grafik.tur === 'aralik-bant' && grafik.araliklar && (() => {
+      const araliklar = grafik.araliklar;
+      const minG = Math.min(...araliklar.map((a) => a.min));
+      const maxG = Math.max(...araliklar.map((a) => a.max));
+      const span = maxG - minG || 1;
+      const satirH = cizimH / araliklar.length;
+      const xVal = (v: number) => P.sol + 40 + ((v - minG) / span) * (cizimW - 50);
+
+      return (
+        <svg viewBox={`0 0 ${W} ${H}`} class="finfolis-svg" role="img" aria-label={grafik.baslik}>
+          <line x1={P.sol + 40} x2={W - P.sag} y1={H - P.alt} y2={H - P.alt} class="taban" />
+
+          {araliklar.map((a, i) => {
+            const sy = P.ust + i * satirH + satirH / 2;
+            const x1 = xVal(a.min);
+            const x2 = xVal(a.max);
+            const xm = xVal(a.mevcut);
+            return (
+              <g class="aralik-satiri">
+                <text x={P.sol + 30} y={sy + 4} text-anchor="end" class="eksen-kalin">{a.etiket}</text>
+                {/* Bant */}
+                <line x1={x1} x2={x2} y1={sy} y2={sy} class="bant-cizgi" />
+                <line x1={x1} x2={x1} y1={sy - 5} y2={sy + 5} class="bant-uc" />
+                <line x1={x2} x2={x2} y1={sy - 5} y2={sy + 5} class="bant-uc" />
+                {/* Mevcut elmas / nokta */}
+                <polygon points={`${xm},${sy - 5} ${xm + 5},${sy} ${xm},${sy + 5} ${xm - 5},${sy}`} class="aralik-elmas" />
+              </g>
+            );
+          })}
+        </svg>
+      );
+    })()
+  }
+
+  {
+    grafik.tur === 'halka-pay' && grafik.dilimler && (() => {
+      const dilimler = grafik.dilimler;
+      const size = 160;
+      const cx = size / 2;
+      const cy = size / 2;
+      const r = 58;
+      const c = 2 * Math.PI * r;
+      let offset = 0;
+
+      const RENK_SINIFI: Record<string, string> = {
+        toprak: 'dilim-toprak',
+        murekkep: 'dilim-murekkep',
+        komur: 'dilim-komur',
+        yesil: 'dilim-yesil',
+        gri: 'dilim-gri',
+      };
+
+      return (
+        <div class="halka-kapsayici">
+          <svg viewBox={`0 0 ${size} ${size}`} class="finfolis-svg-halka" role="img" aria-label={grafik.baslik}>
+            <circle cx={cx} cy={cy} r={r} class="halka-taban" />
+            {dilimler.map((d) => {
+              const dash = (d.oran / 100) * c;
+              const currentOffset = offset;
+              offset += dash;
+              return (
+                <circle
+                  cx={cx}
+                  cy={cy}
+                  r={r}
+                  stroke-dasharray={`${dash} ${c}`}
+                  stroke-dashoffset={-currentOffset}
+                  transform={`rotate(-90 ${cx} ${cy})`}
+                  class={`halka-dilim ${RENK_SINIFI[d.renk] ?? 'dilim-murekkep'}`}
+                />
+              );
+            })}
+            <text x={cx} y={cy + 6} text-anchor="middle" class="halka-merkez">{grafik.metrik.split(' ')[0]}</text>
+          </svg>
+          <div class="halka-lejant">
+            {dilimler.map((d) => (
+              <div class="lejant-satir">
+                <span class={`boncuk-ornek ${RENK_SINIFI[d.renk] ?? 'dilim-murekkep'}`} />
+                <span class="lejant-ad">{d.ad}</span>
+                <strong class="lejant-oran">%{d.oran}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    })()
+  }
+
+  {
+    grafik.tur === 'radyal-hedef' && (() => {
+      const oran = Math.min(100, Math.max(0, grafik.oran ?? 75));
+      const cx = W / 2;
+      const cy = H / 2 + 10;
+      const r = 64;
+      // 240 derecelik kadran
+      const yay = Math.PI * 1.333 * r;
+      const dolu = (oran / 100) * yay;
+
+      return (
+        <svg viewBox={`0 0 ${W} ${H}`} class="finfolis-svg" role="img" aria-label={grafik.baslik}>
+          <circle
+            cx={cx}
+            cy={cy}
+            r={r}
+            class="radyal-taban"
+            stroke-dasharray={`${yay} 999`}
+            transform={`rotate(150 ${cx} ${cy})`}
+          />
+          <circle
+            cx={cx}
+            cy={cy}
+            r={r}
+            class="radyal-dolu"
+            stroke-dasharray={`${dolu} 999`}
+            transform={`rotate(150 ${cx} ${cy})`}
+          />
+          <text x={cx} y={cy - 4} text-anchor="middle" class="radyal-rakam">%{oran}</text>
+          <text x={cx} y={cy + 18} text-anchor="middle" class="eksen">{grafik.degisimEtiket}</text>
+        </svg>
+      );
+    })()
+  }
+
+  {
+    grafik.tur === 'coklu-karma' && grafik.seriler && (() => {
+      const seriler = grafik.seriler;
+      const maxCubuk = Math.max(...seriler.map((s) => s.cubuk));
+      const minCizgi = Math.min(...seriler.map((s) => s.cizgi));
+      const maxCizgi = Math.max(...seriler.map((s) => s.cizgi));
+      const spanCizgi = maxCizgi - minCizgi || 1;
+      const barW = Math.min(28, (cizimW / seriler.length) * 0.5);
+
+      const x = (i: number) => P.sol + ((i + 0.5) / seriler.length) * cizimW;
+      const yCubuk = (v: number) => H - P.alt - (v / maxCubuk) * cizimH;
+      const yCizgi = (v: number) => P.ust + (1 - (v - minCizgi) / spanCizgi) * cizimH;
+
+      let cizgiYol = '';
+      seriler.forEach((s, i) => {
+        cizgiYol += `${i === 0 ? 'M' : 'L'} ${x(i).toFixed(1)} ${yCizgi(s.cizgi).toFixed(1)} `;
+      });
+
+      return (
+        <svg viewBox={`0 0 ${W} ${H}`} class="finfolis-svg" role="img" aria-label={grafik.baslik}>
+          <line x1={P.sol} x2={W - P.sag} y1={H - P.alt} y2={H - P.alt} class="taban" />
+
+          {seriler.map((s, i) => {
+            const h = (s.cubuk / maxCubuk) * cizimH;
+            return (
+              <g class="karma-grup">
+                <rect x={x(i) - barW / 2} y={H - P.alt - h} width={barW} height={h} class="karma-bar" />
+                <text x={x(i)} y={H - P.alt + 18} text-anchor="middle" class="eksen">{s.etiket}</text>
+              </g>
+            );
+          })}
+
+          <path d={cizgiYol} class="karma-cizgi" />
+          {seriler.map((s, i) => (
+            <circle cx={x(i)} cy={yCizgi(s.cizgi)} r="4" class="karma-nokta" />
+          ))}
+        </svg>
+      );
+    })()
+  }
+
+  {
+    grafik.tur === 'nokta-dagilim' && grafik.noktalar && (() => {
+      const noktalar = grafik.noktalar;
+      const xVal = (v: number) => P.sol + (v / 100) * cizimW;
+      const yVal = (v: number) => P.ust + (1 - v / 100) * cizimH;
+
+      return (
+        <svg viewBox={`0 0 ${W} ${H}`} class="finfolis-svg" role="img" aria-label={grafik.baslik}>
+          <line x1={P.sol} x2={W - P.sag} y1={H - P.alt} y2={H - P.alt} class="taban" />
+          <line x1={P.sol} x2={P.sol} y1={P.ust} y2={H - P.alt} class="taban" />
+
+          {/* Izgara */}
+          <line x1={P.sol} x2={W - P.sag} y1={P.ust + cizimH / 2} y2={P.ust + cizimH / 2} class="izgara" />
+          <line x1={P.sol + cizimW / 2} x2={P.sol + cizimW / 2} y1={P.ust} y2={H - P.alt} class="izgara" />
+
+          {noktalar.map((pt, i) => (
+            <circle
+              cx={xVal(pt.x)}
+              cy={yVal(pt.y)}
+              r={i === noktalar.length - 1 ? 5.5 : 3.5}
+              class={i === noktalar.length - 1 ? 'scatter-nokta-vurgu' : 'scatter-nokta'}
+            />
+          ))}
+          <text x={P.sol} y={H - P.alt + 18} class="eksen">Düşük</text>
+          <text x={W - P.sag} y={H - P.alt + 18} text-anchor="end" class="eksen">Yüksek</text>
+        </svg>
+      );
+    })()
+  }
+
+  {
+    grafik.tur === 'siralama-cubuk' && grafik.ogeler && (() => {
+      const ogeler = grafik.ogeler;
+      const maxVal = Math.max(...ogeler.map((o) => o.deger));
+      const satirH = cizimH / ogeler.length;
+      const barH = Math.min(18, satirH * 0.65);
+      const alanW = cizimW - 80;
+
+      return (
+        <svg viewBox={`0 0 ${W} ${H}`} class="finfolis-svg" role="img" aria-label={grafik.baslik}>
+          {ogeler.map((o, i) => {
+            const sy = P.ust + i * satirH;
+            const w = (o.deger / maxVal) * alanW;
+            return (
+              <g class="siralama-satir">
+                <text x={P.sol + 65} y={sy + barH - 3} text-anchor="end" class="eksen-siralama">{o.etiket}</text>
+                <rect x={P.sol + 75} y={sy} width={w} height={barH} class="siralama-bar" />
+                <text x={P.sol + 85 + w} y={sy + barH - 3} class="siralama-deger">%{o.deger}</text>
+              </g>
+            );
+          })}
+        </svg>
+      );
+    })()
+  }
+
+  {
+    grafik.tur === 'akis-selale' && grafik.adimlari && (() => {
+      const adimlari = grafik.adimlari;
+      
+      // Kümülatif basamak hesaplama
+      let runningTotal = 0;
+      const adimVerileri = adimlari.map((a) => {
+        let yStart = runningTotal;
+        let yEnd = runningTotal;
+        if (a.tur === 'net') {
+          yStart = 0;
+          yEnd = a.deger;
+        } else {
+          yStart = runningTotal;
+          yEnd = runningTotal + a.deger;
+          runningTotal = yEnd;
+        }
+        return {
+          ad: a.ad,
+          deger: a.deger,
+          tur: a.tur,
+          start: Math.min(yStart, yEnd),
+          end: Math.max(yStart, yEnd),
+          netLevel: yEnd,
+        };
+      });
+
+      const tumDegerler = adimVerileri.flatMap((d) => [d.start, d.end, 0]);
+      const minVal = Math.min(...tumDegerler);
+      const maxVal = Math.max(...tumDegerler);
+      const span = maxVal - minVal || 1;
+
+      const yPos = (val: number) => P.ust + (1 - (val - minVal) / span) * cizimH;
+      const wAdim = cizimW / adimlari.length;
+      const barW = Math.min(32, wAdim * 0.65);
+      const sifirY = yPos(0);
+
+      return (
+        <svg viewBox={`0 0 ${W} ${H}`} class="finfolis-svg" role="img" aria-label={grafik.baslik}>
+          <line x1={P.sol} x2={W - P.sag} y1={sifirY} y2={sifirY} class="taban" />
+
+          {adimVerileri.map((a, i) => {
+            const yUst = yPos(a.end);
+            const yAlt = yPos(a.start);
+            const h = Math.max(2, Math.abs(yAlt - yUst));
+            const bx = P.sol + i * wAdim + wAdim / 2 - barW / 2;
+            const cls = a.tur === 'artis' ? 'selale-artis' : a.tur === 'azalis' ? 'selale-azalis' : 'selale-net';
+
+            const next = adimVerileri[i + 1];
+            const connY = yPos(a.netLevel);
+            const nextBx = P.sol + (i + 1) * wAdim + wAdim / 2 - barW / 2;
+
+            return (
+              <g class="selale-grup">
+                {next && next.tur !== 'net' && (
+                  <line
+                    x1={bx + barW}
+                    x2={nextBx}
+                    y1={connY}
+                    y2={connY}
+                    class="selale-baglanti"
+                  />
+                )}
+                <rect x={bx} y={yUst} width={barW} height={h} class={cls} />
+                <text x={P.sol + i * wAdim + wAdim / 2} y={H - P.alt + 18} text-anchor="middle" class="eksen-kisa">{a.ad}</text>
+              </g>
+            );
+          })}
+        </svg>
+      );
+    })()
+  }
+</div>
+
+<style>
+  .finfolis-svg-kapsayici {
+    width: 100%;
+    margin: 8px 0;
+  }
+
+  .finfolis-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Izgara ve Eksen Çizgileri - Keskin, 0px, Finfolis tonları */
+  :global(.izgara) {
+    stroke: var(--paper-2, #e9e7df);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+  }
+
+  :global(.taban) {
+    stroke: var(--hair, #cfccc2);
+    stroke-width: 1.5;
+  }
+
+  :global(.taban-sifir) {
+    stroke: var(--ink, #1b1b1b);
+    stroke-width: 1.5;
+  }
+
+  :global(.eksen) {
+    font-family: var(--sans, 'Bricolage Grotesque', system-ui, sans-serif);
+    font-size: 11px;
+    fill: var(--muted, #5d5b55);
+    font-variant-numeric: tabular-nums;
+  }
+
+  :global(.eksen-kisa) {
+    font-family: var(--sans, 'Bricolage Grotesque', system-ui, sans-serif);
+    font-size: 9.5px;
+    fill: var(--muted, #5d5b55);
+  }
+
+  :global(.eksen-kalin) {
+    font-family: var(--sans, 'Bricolage Grotesque', system-ui, sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+    fill: var(--ink, #1b1b1b);
+  }
+
+  :global(.eksen-siralama) {
+    font-family: var(--sans, 'Bricolage Grotesque', system-ui, sans-serif);
+    font-size: 11px;
+    font-weight: 600;
+    fill: var(--ink, #1b1b1b);
+  }
+
+  :global(.siralama-deger) {
+    font-family: var(--sans, 'Bricolage Grotesque', system-ui, sans-serif);
+    font-size: 11px;
+    font-weight: 700;
+    fill: var(--muted, #5d5b55);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Alan Grafiği (BRAND.md: Mürekkep hattı, soluk gri dolgu) */
+  :global(.alan-dolgu) {
+    fill: rgba(27, 27, 27, 0.05);
+  }
+
+  :global(.alan-cizgi) {
+    fill: none;
+    stroke: var(--ink, #1b1b1b);
+    stroke-width: 2.25;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+  }
+
+  :global(.nokta) {
+    fill: var(--paper, #f4f3ee);
+    stroke: var(--muted, #5d5b55);
+    stroke-width: 1.75;
+  }
+
+  :global(.nokta-son) {
+    fill: var(--ink, #1b1b1b);
+    stroke: var(--ink, #1b1b1b);
+    stroke-width: 2;
+  }
+
+  /* Sütun Grafiği */
+  :global(.sutun-bar) {
+    fill: var(--ink, #1b1b1b);
+    transition: opacity 0.15s ease;
+  }
+
+  :global(.sutun-bar:hover) {
+    opacity: 0.8;
+  }
+
+  /* Yığılmış Sütun */
+  :global(.sutun-aktif) {
+    fill: var(--ink, #1b1b1b);
+  }
+
+  :global(.sutun-pasif) {
+    fill: var(--boncuk, #cfccc2);
+  }
+
+  /* Ayrışan Çubuk */
+  :global(.ayrisan-pozitif) {
+    fill: var(--green, #3f7350);
+  }
+
+  :global(.ayrisan-negatif) {
+    fill: var(--red, #a3243b);
+  }
+
+  /* Aralık ve Bant */
+  :global(.bant-cizgi) {
+    stroke: var(--hair, #cfccc2);
+    stroke-width: 3;
+  }
+
+  :global(.bant-uc) {
+    stroke: var(--ink, #1b1b1b);
+    stroke-width: 2;
+  }
+
+  :global(.aralik-elmas) {
+    fill: var(--ink, #1b1b1b);
+  }
+
+  /* Halka / Donut */
+  .halka-kapsayici {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .finfolis-svg-halka {
+    width: 140px;
+    height: 140px;
+    flex-shrink: 0;
+  }
+
+  :global(.halka-taban) {
+    fill: none;
+    stroke: var(--paper-2, #e9e7df);
+    stroke-width: 16;
+  }
+
+  :global(.halka-dilim) {
+    fill: none;
+    stroke-width: 16;
+    transition: opacity 0.15s ease;
+  }
+
+  :global(.dilim-toprak) { stroke: #c2502b; }
+  :global(.dilim-murekkep) { stroke: #1b1b1b; }
+  :global(.dilim-komur) { stroke: #3d3c38; }
+  :global(.dilim-yesil) { stroke: #3f7350; }
+  :global(.dilim-gri) { stroke: #cfccc2; }
+
+  :global(.boncuk-ornek.dilim-toprak) { background: #c2502b; }
+  :global(.boncuk-ornek.dilim-murekkep) { background: #1b1b1b; }
+  :global(.boncuk-ornek.dilim-komur) { background: #3d3c38; }
+  :global(.boncuk-ornek.dilim-yesil) { background: #3f7350; }
+  :global(.boncuk-ornek.dilim-gri) { background: #cfccc2; }
+
+  :global(.halka-merkez) {
+    font-family: var(--sans, 'Bricolage Grotesque', system-ui, sans-serif);
+    font-size: 16px;
+    font-weight: 700;
+    fill: var(--ink, #1b1b1b);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .halka-lejant {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-family: var(--sans, 'Bricolage Grotesque', system-ui, sans-serif);
+    font-size: 0.8rem;
+    min-width: 0;
+    flex-grow: 1;
+  }
+
+  .lejant-satir {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .boncuk-ornek {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .lejant-ad {
+    color: var(--ink-2, #3d3c38);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .lejant-oran {
+    margin-left: auto;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Radyal Hedef */
+  :global(.radyal-taban) {
+    fill: none;
+    stroke: var(--paper-2, #e9e7df);
+    stroke-width: 14;
+    stroke-linecap: square;
+  }
+
+  :global(.radyal-dolu) {
+    fill: none;
+    stroke: var(--ink, #1b1b1b);
+    stroke-width: 14;
+    stroke-linecap: square;
+  }
+
+  :global(.radyal-rakam) {
+    font-family: var(--sans, 'Bricolage Grotesque', system-ui, sans-serif);
+    font-size: 26px;
+    font-weight: 800;
+    fill: var(--ink, #1b1b1b);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Karma Grafik */
+  :global(.karma-bar) {
+    fill: var(--paper-2, #e9e7df);
+    stroke: var(--hair, #cfccc2);
+    stroke-width: 1;
+  }
+
+  :global(.karma-cizgi) {
+    fill: none;
+    stroke: var(--ink, #1b1b1b);
+    stroke-width: 2.25;
+  }
+
+  :global(.karma-nokta) {
+    fill: #fff;
+    stroke: var(--ink, #1b1b1b);
+    stroke-width: 2;
+  }
+
+  /* Nokta Saçılım */
+  :global(.scatter-nokta) {
+    fill: var(--muted, #5d5b55);
+    opacity: 0.75;
+  }
+
+  :global(.scatter-nokta-vurgu) {
+    fill: var(--ink, #1b1b1b);
+  }
+
+  /* Sıralama Bar */
+  :global(.siralama-bar) {
+    fill: var(--ink, #1b1b1b);
+  }
+
+  /* Şelale Akışı */
+  :global(.selale-artis) {
+    fill: var(--green, #3f7350);
+  }
+
+  :global(.selale-azalis) {
+    fill: var(--red, #a3243b);
+  }
+
+  :global(.selale-net) {
+    fill: var(--ink, #1b1b1b);
+  }
+
+  :global(.selale-baglanti) {
+    stroke: var(--hair, #cfccc2);
+    stroke-width: 1.25;
+    stroke-dasharray: 3 3;
+  }
+</style>

@@ -98,6 +98,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/kredi-mevduat-makasi/': 'banka faiz',
   '/veri/taylor-kurali/': 'politika faizi',
   '/veri/tcmb-karnesi/': 'enflasyon raporu ara hedef merkez bankası',
+  '/veri/grafikler/': 'grafik grafikler mebius göstergeler kartlar veri görselleştirme portföy',
   '/veri/dolar-kuru/': 'usd döviz kur',
   '/veri/euro-kuru/': 'eur avro döviz kur',
   '/veri/sterlin-kuru/': 'gbp pound döviz kur',
@@ -143,6 +144,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/ecb-tonu/': 'avrupa merkez bankası euro bölgesi',
   '/veri/tahmin/': 'model',
   '/veri/seri-gezgini/': 'grafik karşılaştır csv indir',
+  '/veri/ajanda/': 'ekonomik ajanda günün verileri pmi tüfe faiz makro takvim göstergeler',
   '/veri/takvim/': 'açıklanma tarihi ne zaman',
   '/veri/guncellik/': 'son veri',
   '/veri/revizyonlar/': 'düzeltme',
@@ -580,6 +582,10 @@ const araclar = [
             <h3>Tahmin &amp; Araçlar</h3>
           </div>
           <ul class="fihrist-liste">
+            <li data-ek={aramaEki('/veri/grafikler/')}>
+              <a href="/veri/grafikler/" class="fihrist-baslik-link">Finansal Grafik Kataloğu</a>
+              <span class="fihrist-ozet">62 finansal grafik ve gösterge kartı: trend, dağılım, bütçe, nakit akışı ve portföy</span>
+            </li>
             <li data-ek={aramaEki('/veri/tahmin/')}>
               <a href="/veri/tahmin/" class="fihrist-baslik-link">Tahminler ve Karneleri</a>
               <span class="fihrist-ozet">Enflasyon, cari denge, sanayi ve PPK modelleri; tabanı geçemeyen rakam vermez</span>
@@ -595,6 +601,10 @@ const araclar = [
             <li data-ek={aramaEki('/veri/seri-gezgini/')}>
               <a href="/veri/seri-gezgini/" class="fihrist-baslik-link">Seri Gezgini</a>
               <span class="fihrist-ozet">157 zaman serisini ara, dördüne kadarını aynı grafikte karşılaştır, CSV indir</span>
+            </li>
+            <li data-ek={aramaEki('/veri/ajanda/')}>
+              <a href="/veri/ajanda/" class="fihrist-baslik-link">Ekonomik Ajanda</a>
+              <span class="fihrist-ozet">Günün öne çıkan makro verileri, PMI eşikleri ve piyasa etkileri</span>
             </li>
             <li data-ek={aramaEki('/veri/takvim/')}>
               <a href="/veri/takvim/" class="fihrist-baslik-link">Veri Yayın Takvimi</a>

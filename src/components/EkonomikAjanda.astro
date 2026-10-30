@@ -1,0 +1,610 @@
+---
+// Finfolis — Günün Öne Çıkan Verileri (Ekonomik Ajanda) Bileşeni
+// Kimlik v2 (BRAND.md) ve ürün ilkeleri (PRODUCT.md): sakin, öğretici ve sıcak.
+// Kuru borsa terminali yerine her rakamı eşiği ve anlamıyla açıklayan finansal okuryazarlık kartı.
+import {
+  gunlukAjandaGetir,
+  pmiDegerlendir,
+  onemBilgisi,
+  gostergeFarkiniHesapla,
+} from '../lib/ajanda.mjs';
+import type { GunlukAjanda, AjandaGosterge } from '../lib/ajanda.d.mts';
+
+interface Props {
+  ajanda?: GunlukAjanda;
+  baslikGoster?: boolean;
+  ozetGoster?: boolean;
+  filtreGoster?: boolean;
+}
+
+const {
+  ajanda = gunlukAjandaGetir(),
+  baslikGoster = true,
+  ozetGoster = true,
+  filtreGoster = true,
+} = Astro.props;
+
+const gostergeler = ajanda.gostergeler;
+---
+
+<div class="ajanda-bilesen" id={`ajanda-${ajanda.tarih}`}>
+  {baslikGoster && (
+    <header class="ajanda-baslik-alani">
+      <div class="ajanda-kategori-etiketi">GÜNÜN ÖNE ÇIKAN VERİLERİ</div>
+      <div class="ajanda-baslik-satiri">
+        <h2 class="ajanda-ana-baslik">{ajanda.baslik}</h2>
+        {ajanda.altBaslik && <span class="ajanda-tarih-etiket">{ajanda.altBaslik}</span>}
+      </div>
+      {ozetGoster && ajanda.ozet && (
+        <p class="ajanda-ozet-metin">{ajanda.ozet}</p>
+      )}
+    </header>
+  )}
+
+  {filtreGoster && (
+    <div class="ajanda-filtreler" role="tablist" aria-label="Ajanda gösterge filtreleri">
+      <button type="button" class="ajanda-filtre-dugme aktif" data-filtre="tumu" aria-pressed="true">
+        Tümü ({gostergeler.length})
+      </button>
+      <button type="button" class="ajanda-filtre-dugme" data-filtre="kritik" aria-pressed="false">
+        Kritik ({gostergeler.filter((g) => g.onem === 'kritik' || g.onem === 'yuksek').length})
+      </button>
+      <button type="button" class="ajanda-filtre-dugme" data-filtre="tr" aria-pressed="false">
+        Türkiye 🇹🇷 ({gostergeler.filter((g) => g.ulkeKodu === 'TR').length})
+      </button>
+      <button type="button" class="ajanda-filtre-dugme" data-filtre="kuresel" aria-pressed="false">
+        Küresel 🌍 ({gostergeler.filter((g) => g.ulkeKodu !== 'TR').length})
+      </button>
+    </div>
+  )}
+
+  <div class="ajanda-liste">
+    {gostergeler.map((g: AjandaGosterge) => {
+      const onem = onemBilgisi(g.onem);
+      const fark = gostergeFarkiniHesapla(g);
+      const pmiMi = g.gosterge.toLowerCase().includes('pmi');
+      const pmiSonuc = pmiMi ? pmiDegerlendir(g.aciklanan ?? g.beklenti ?? g.onceki) : null;
+      const turkiyeMi = g.ulkeKodu === 'TR';
+      const kritikMi = g.onem === 'kritik' || g.onem === 'yuksek';
+
+      return (
+        <article
+          class="ajanda-kart"
+          data-ulke={turkiyeMi ? 'tr' : 'kuresel'}
+          data-onem={kritikMi ? 'kritik' : 'diger'}
+          id={`gosterge-${g.id}`}
+        >
+          {/* Üst Bilgi Satırı: Saat, Ülke, Önem */}
+          <div class="ajanda-kart-ust">
+            <div class="ajanda-kimlik">
+              <span class="ajanda-saat" title="Türkiye Saati">{g.saat}</span>
+              <span class="ajanda-ulke">
+                <span class="ajanda-bayrak" aria-hidden="true">{g.bayrak}</span>
+                <span class="ajanda-ulke-adi">{g.ulke}</span>
+              </span>
+            </div>
+            <div class="ajanda-rozetler">
+              {pmiMi && (
+                <span class="ajanda-esik-rozet" title="PMI için 50 kritik eşiktir">
+                  Eşik: 50 Puan
+                </span>
+              )}
+              <span class={`ajanda-onem-rozet ${onem.sinif}`}>
+                {onem.kisa}
+              </span>
+            </div>
+          </div>
+
+          {/* Başlık ve Dönem */}
+          <div class="ajanda-gosterge-baslik-satiri">
+            <h3 class="ajanda-gosterge-ad">{g.gosterge}</h3>
+            {g.donem && <span class="ajanda-donem">{g.donem}</span>}
+          </div>
+
+          {/* Değerler Tablosu (Önceki / Beklenti / Açıklanan) */}
+          <div class="ajanda-degerler-paneli">
+            <div class="ajanda-deger-sutun">
+              <span class="ajanda-deger-etiket">Önceki</span>
+              <span class="ajanda-deger-sayi ajanda-onceki">{g.onceki}</span>
+            </div>
+
+            <div class="ajanda-deger-sutun">
+              <span class="ajanda-deger-etiket">Beklenti</span>
+              <span class="ajanda-deger-sayi ajanda-beklenti">
+                {g.beklenti ?? '—'}
+              </span>
+            </div>
+
+            <div class="ajanda-deger-sutun ajanda-aciklanan-sutun">
+              <span class="ajanda-deger-etiket">Açıklanan</span>
+              <span class={`ajanda-deger-sayi ajanda-aciklanan ${g.aciklanan ? 'vurgulu' : 'bekleniyor'}`}>
+                {g.aciklanan ?? 'Bekleniyor'}
+              </span>
+            </div>
+          </div>
+
+          {/* Durum / Yorum Şeridi */}
+          {g.aciklanan && (
+            <div class="ajanda-durum-seridi">
+              <span class={`ajanda-fark-etiket ${fark.durumu}`}>
+                {fark.yon === 'yukari' && '▲ '}
+                {fark.yon === 'asagi' && '▼ '}
+                {fark.metin}
+              </span>
+              {pmiSonuc && (
+                <span class={`ajanda-pmi-etiket ${pmiSonuc.durum}`}>
+                  {pmiSonuc.etiket}
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Öğretici Kutu: "Bu ne demek? / Neden önemli?" */}
+          <div class="ajanda-ogretici-kutu">
+            <div class="ajanda-ogretici-baslik">
+              <span class="ajanda-ogretici-ikon">●</span>
+              <span>Bu veri ne anlatır? Neden önemli?</span>
+            </div>
+            <p class="ajanda-ogretici-metin">{g.nedenOnemli}</p>
+            {g.piyasaEtkisi && (
+              <p class="ajanda-piyasa-etkisi">
+                <strong>Piyasa Etkisi:</strong> {g.piyasaEtkisi}
+              </p>
+            )}
+            <div class="ajanda-kaynak-satiri">
+              <span class="ajanda-kaynak-etiket">Kaynak:</span>
+              {g.kaynakUrl ? (
+                <a href={g.kaynakUrl} target="_blank" rel="noopener noreferrer" class="ajanda-kaynak-link">
+                  {g.kaynak}
+                </a>
+              ) : (
+                <span class="ajanda-kaynak-ad">{g.kaynak}</span>
+              )}
+            </div>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+
+  <footer class="ajanda-dipnot">
+    <p>
+      <strong>Finfolis Notu:</strong> Göstergeler resmi kurumların ve uluslararası kuruluşların yayımlama takvimlerinden derlenmiştir. Saatler Türkiye saatidir (TSİ).
+    </p>
+  </footer>
+</div>
+
+<script>
+  // Filtreleme mantığı: Tümü / Kritik / Türkiye / Küresel
+  function baslatAjandaFiltresi() {
+    const konteynerler = document.querySelectorAll('.ajanda-bilesen');
+    konteynerler.forEach((konteyner) => {
+      const dugmeler = konteyner.querySelectorAll('.ajanda-filtre-dugme');
+      const kartlar = konteyner.querySelectorAll<HTMLElement>('.ajanda-kart');
+
+      dugmeler.forEach((dugme) => {
+        dugme.addEventListener('click', () => {
+          const filtre = dugme.getAttribute('data-filtre');
+
+          dugmeler.forEach((d) => {
+            d.classList.remove('aktif');
+            d.setAttribute('aria-pressed', 'false');
+          });
+          dugme.classList.add('aktif');
+          dugme.setAttribute('aria-pressed', 'true');
+
+          kartlar.forEach((kart) => {
+            const ulke = kart.getAttribute('data-ulke');
+            const onem = kart.getAttribute('data-onem');
+
+            let gorunur = true;
+            if (filtre === 'kritik') {
+              gorunur = onem === 'kritik';
+            } else if (filtre === 'tr') {
+              gorunur = ulke === 'tr';
+            } else if (filtre === 'kuresel') {
+              gorunur = ulke === 'kuresel';
+            }
+
+            kart.style.display = gorunur ? 'block' : 'none';
+          });
+        });
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', baslatAjandaFiltresi);
+  } else {
+    baslatAjandaFiltresi();
+  }
+</script>
+
+<style>
+  .ajanda-bilesen {
+    margin: 2rem 0;
+    font-family: var(--sans, system-ui, sans-serif);
+    color: var(--ink, #1b1b1b);
+  }
+
+  .ajanda-baslik-alani {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid var(--ink, #1b1b1b);
+  }
+
+  .ajanda-kategori-etiketi {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--toprak, #c2502b);
+    margin-bottom: 0.35rem;
+  }
+
+  .ajanda-baslik-satiri {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .ajanda-ana-baslik {
+    margin: 0;
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .ajanda-tarih-etiket {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--muted, #5d5b55);
+  }
+
+  .ajanda-ozet-metin {
+    margin: 0.5rem 0 0;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink-2, #3d3c38);
+    max-width: 80ch;
+  }
+
+  /* Filtre Düğmeleri */
+  .ajanda-filtreler {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .ajanda-filtre-dugme {
+    background: transparent;
+    border: 1px solid var(--hair, #cfccc2);
+    color: var(--ink, #1b1b1b);
+    padding: 0.4rem 0.85rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .ajanda-filtre-dugme:hover {
+    background: var(--soluk, #e4e1d7);
+    border-color: var(--ink, #1b1b1b);
+  }
+
+  .ajanda-filtre-dugme.aktif {
+    background: var(--ink, #1b1b1b);
+    border-color: var(--ink, #1b1b1b);
+    color: var(--paper, #f4f3ee);
+  }
+
+  /* Gösterge Kartları Listesi */
+  .ajanda-liste {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .ajanda-kart {
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 1.25rem;
+    border-radius: 0;
+    box-sizing: border-box;
+  }
+
+  .ajanda-kart-ust {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--hair, #cfccc2);
+  }
+
+  .ajanda-kimlik {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .ajanda-saat {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    background: var(--soluk, #e4e1d7);
+    padding: 0.15rem 0.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .ajanda-ulke {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .ajanda-bayrak {
+    font-size: 1.125rem;
+    line-height: 1;
+  }
+
+  .ajanda-rozetler {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .ajanda-esik-rozet {
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 0.15rem 0.4rem;
+    color: var(--muted, #5d5b55);
+    background: #fff;
+  }
+
+  .ajanda-onem-rozet {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .ajanda-onem-rozet.onem-kritik {
+    background: #ffebe8;
+    color: var(--toprak-text, #a8431f);
+    border: 1px solid var(--toprak, #c2502b);
+  }
+
+  .ajanda-onem-rozet.onem-yuksek {
+    background: #fdf3eb;
+    color: #92451c;
+    border: 1px solid #e09873;
+  }
+
+  .ajanda-onem-rozet.onem-orta {
+    background: var(--soluk, #e4e1d7);
+    color: var(--ink-2, #3d3c38);
+    border: 1px solid var(--hair, #cfccc2);
+  }
+
+  .ajanda-onem-rozet.onem-dusuk {
+    background: transparent;
+    color: var(--muted, #5d5b55);
+    border: 1px solid var(--hair, #cfccc2);
+  }
+
+  .ajanda-gosterge-baslik-satiri {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .ajanda-gosterge-ad {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .ajanda-donem {
+    font-size: 0.875rem;
+    color: var(--muted, #5d5b55);
+    font-weight: 500;
+  }
+
+  /* Rakamlar / Değerler Bloğu */
+  .ajanda-degerler-paneli {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    background: #fff;
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 0.85rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .ajanda-deger-sutun {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .ajanda-deger-etiket {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted, #5d5b55);
+  }
+
+  .ajanda-deger-sayi {
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink, #1b1b1b);
+  }
+
+  .ajanda-aciklanan.vurgulu {
+    color: var(--toprak-text, #a8431f);
+  }
+
+  .ajanda-aciklanan.bekleniyor {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--muted, #5d5b55);
+    font-style: italic;
+  }
+
+  /* Durum Şeridi */
+  .ajanda-durum-seridi {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .ajanda-fark-etiket {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    background: var(--soluk, #e4e1d7);
+    color: var(--ink, #1b1b1b);
+  }
+
+  .ajanda-fark-etiket.beklenti-ustu {
+    background: #eaf3ed;
+    color: var(--green-text, #3a6b4a);
+  }
+
+  .ajanda-fark-etiket.beklenti-alti {
+    background: #fbebed;
+    color: var(--red-text, #a3243b);
+  }
+
+  .ajanda-pmi-etiket {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .ajanda-pmi-etiket.genisleme {
+    background: #eaf3ed;
+    color: var(--green-text, #3a6b4a);
+    border-left: 2px solid var(--green, #3f7350);
+  }
+
+  .ajanda-pmi-etiket.daralma {
+    background: #fbebed;
+    color: var(--red-text, #a3243b);
+    border-left: 2px solid var(--red, #a3243b);
+  }
+
+  /* Öğretici Kutu (Sabırlı Öğretmen) */
+  .ajanda-ogretici-kutu {
+    background: var(--paper-2, #e9e7df);
+    border-left: 3px solid var(--toprak, #c2502b);
+    padding: 0.85rem 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .ajanda-ogretici-baslik {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--toprak-text, #a8431f);
+    margin-bottom: 0.4rem;
+  }
+
+  .ajanda-ogretici-ikon {
+    font-size: 0.625rem;
+    color: var(--toprak, #c2502b);
+  }
+
+  .ajanda-ogretici-metin {
+    margin: 0 0 0.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ink, #1b1b1b);
+  }
+
+  .ajanda-piyasa-etkisi {
+    margin: 0 0 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--ink-2, #3d3c38);
+  }
+
+  .ajanda-kaynak-satiri {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8125rem;
+    color: var(--muted, #5d5b55);
+    margin-top: 0.4rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--hair, #cfccc2);
+  }
+
+  .ajanda-kaynak-link {
+    color: var(--ink, #1b1b1b);
+    text-decoration: underline;
+  }
+
+  .ajanda-kaynak-link:hover {
+    color: var(--toprak, #c2502b);
+  }
+
+  /* Dipnot */
+  .ajanda-dipnot {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--hair, #cfccc2);
+    font-size: 0.8125rem;
+    color: var(--muted, #5d5b55);
+  }
+
+  .ajanda-dipnot p {
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .ajanda-degerler-paneli {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .ajanda-deger-sutun {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px dashed var(--soluk, #e4e1d7);
+    }
+
+    .ajanda-deger-sutun:last-child {
+      border-bottom: none;
+    }
+
+    .ajanda-baslik-satiri {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+</style>

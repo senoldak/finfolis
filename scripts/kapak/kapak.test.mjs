@@ -152,3 +152,112 @@ test('grafikKapagi: olay günleri veri renginde (düşüş kırmızı), olay yok
   const yok = await grafikKapagi({ kategori: 'borsa', baslik: 'Seri', seri })();
   assert.doesNotMatch(yok.svg, /stroke-width="6"/);
 });
+
+test('ajandaKapagi: günün öne çıkan verileri kartı kâğıt zeminli ve geçerli PNG üretir', async () => {
+  const { ajandaKapagi } = await import('./kapak.mjs');
+  const { default: sharp } = await import('sharp');
+
+  const maddeler = [
+    {
+      saat: '10:00',
+      ulke: 'Türkiye',
+      ulkeKodu: 'TR',
+      gosterge: 'İSO İmalat PMI',
+      donem: 'Ekim 2026',
+      onceki: '49,2',
+      beklenti: '50,1',
+      aciklanan: '49,8',
+      esik: { aciklama: 'Eşik 50 · Üzeri büyüme' },
+      nedenOnemli: 'Satın Alma Yöneticileri Endeksi sanayide büyüme ve daralmayı ölçer.',
+    },
+    {
+      saat: '13:00',
+      ulke: 'Euro Bölgesi',
+      ulkeKodu: 'EU',
+      gosterge: 'TÜFE Enflasyonu (Öncü)',
+      donem: 'Ekim 2026',
+      onceki: '%2,2',
+      beklenti: '%2,0',
+      aciklanan: '%2,1',
+      esik: { aciklama: 'ECB Hedefi: %2,0' },
+      nedenOnemli: 'Avrupa Merkez Bankası faiz kararlarında bu göstergeyi izler.',
+    },
+  ];
+
+  const png = await kapakCiz(
+    ajandaKapagi({
+      tarih: 'Günün Öne Çıkan Verileri · 31 Ekim 2026',
+      altBaslik: 'Küresel ve Yerel Makroekonomik Ajanda',
+      maddeler,
+      ornek: true,
+    })
+  );
+
+  assert.ok(Buffer.isBuffer(png));
+  assert.ok(png.length > 5000);
+
+  const meta = await sharp(png).metadata();
+  assert.equal(meta.width, 1200);
+  assert.equal(meta.height, 675);
+
+  // Kâğıt zemin kontrolü
+  const solUst = [...(await sharp(png).extract({ left: 4, top: 12, width: 1, height: 1 }).removeAlpha().raw().toBuffer())];
+  assert.deepEqual(solUst, [0xf4, 0xf3, 0xee]);
+
+  // Üst 6px pişmiş toprak şerit kontrolü (y = 2)
+  const serit = [...(await sharp(png).extract({ left: 600, top: 2, width: 1, height: 1 }).removeAlpha().raw().toBuffer())];
+  assert.deepEqual(serit, [0xc2, 0x50, 0x2b]);
+});
+
+test('ajandaKartiUret: betik programatik olarak çağrıldığında kartı üretir', async () => {
+  const { ajandaKartiUret } = await import('./ajanda-kart-uret.mjs');
+  const sonuc = await ajandaKartiUret({ ornek: true });
+
+  assert.ok(sonuc.buffer);
+  assert.ok(sonuc.buffer.length > 5000);
+  assert.ok(sonuc.yol);
+  assert.ok(sonuc.tarih);
+});
+
+test('ajandaKapagi: 6 göstergeli tam ajanda ve 7+ göstergeli önceliklendirme taşmadan çizilir', async () => {
+  const { ajandaKapagi } = await import('./kapak.mjs');
+  const rawData = (await import('../../src/data/ajanda.json', { with: { type: 'json' } })).default;
+  const altiMadde = rawData.ajandalar[0].gostergeler;
+  assert.equal(altiMadde.length, 6, 'İlk günün 6 göstergesi olmalıdır');
+
+  // 6 göstergeli çizim
+  const pngAlti = await kapakCiz(
+    ajandaKapagi({
+      tarih: '31 Ekim 2026',
+      altBaslik: '6 Göstergeli Ajanda Kartı',
+      maddeler: altiMadde,
+    })
+  );
+  assert.ok(Buffer.isBuffer(pngAlti));
+  assert.ok(pngAlti.length > 5000);
+
+  // 7 göstergeli (önceliklendirme testi)
+  const yediMadde = [
+    ...altiMadde,
+    {
+      saat: '19:00',
+      ulke: 'ABD',
+      ulkeKodu: 'US',
+      gosterge: 'Düşük Öncelikli Veri',
+      onem: 'dusuk',
+      onceki: '10',
+      nedenOnemli: 'Açıklayıcı metin örneğidir.',
+      kaynak: 'Kaynak',
+    },
+  ];
+  const pngYedi = await kapakCiz(
+    ajandaKapagi({
+      tarih: '31 Ekim 2026',
+      altBaslik: '7 Göstergeli Önceliklendirme Kartı',
+      maddeler: yediMadde,
+    })
+  );
+  assert.ok(Buffer.isBuffer(pngYedi));
+  assert.ok(pngYedi.length > 5000);
+});
+
