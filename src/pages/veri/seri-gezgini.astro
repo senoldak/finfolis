@@ -781,11 +781,15 @@ const ornekler = [
         return;
       }
 
-      // Endeksleme pencere içinde tekrar baz alınarak da normalize edilebilir
+      // Endeksleme pencere içinde tekrar baz alınarak normalize edilir
       if (durum.donusum === 'endeks') {
-        const taban = aralikNoktalari[0][1];
-        if (taban > 0) {
+        const tabanNokta = aralikNoktalari.find((p) => p[1] > 0);
+        if (tabanNokta) {
+          const taban = tabanNokta[1];
           aralikNoktalari = aralikNoktalari.map(([t, v]) => [t, (v / taban) * 100]);
+        } else {
+          notlar.push(`“${s.ad}” seçilen aralıkta pozitif başlangıç değeri içermediği için endekslenemedi.`);
+          return;
         }
       }
 
@@ -793,6 +797,38 @@ const ornekler = [
     });
 
     return { bas, bit, cizilen, notlar, hata: null };
+  }
+
+  function olcekHesapla(degerler: number[], sifirDahilEt = false) {
+    if (!degerler.length) return { alt: 0, ust: 1, adim: 1, eksenOndalik: 0 };
+    let alt = Math.min(...degerler);
+    let ust = Math.max(...degerler);
+    if (sifirDahilEt) {
+      if (alt > 0) alt = 0;
+      if (ust < 0) ust = 0;
+    }
+    const ham = (ust - alt) / 5 || Math.abs(ust) / 5 || 1;
+    const kuvvet = 10 ** Math.floor(Math.log10(ham));
+    const adim = [1, 2, 2.5, 5, 10].map((c) => c * kuvvet).find((a) => a >= ham)!;
+    alt = Math.floor(alt / adim + 1e-9) * adim;
+    ust = Math.ceil(ust / adim - 1e-9) * adim;
+    if (ust === alt) ust = alt + adim;
+
+    let eksenOndalik = 0;
+    while (eksenOndalik < 4 && Math.abs(Math.round(adim * 10 ** eksenOndalik) - adim * 10 ** eksenOndalik) > 1e-6) eksenOndalik++;
+    return { alt, ust, adim, eksenOndalik };
+  }
+
+  function ciftEksenMi(cizilen: Cizilen[], donusum: Donusum): boolean {
+    if (cizilen.length !== 2 || donusum !== 'duzey') return false;
+    const s0 = cizilen[0].s;
+    const s1 = cizilen[1].s;
+    if (s0.birim !== s1.birim) return true;
+    const max0 = Math.max(...cizilen[0].pts.map((p) => Math.abs(p[1])));
+    const max1 = Math.max(...cizilen[1].pts.map((p) => Math.abs(p[1])));
+    if (max0 === 0 || max1 === 0) return false;
+    const oran = max0 / max1;
+    return oran > 3 || oran < 0.33;
   }
 
   // ---- Grafik Çizimi -----------------------------------------------------------------------------------------------
@@ -804,64 +840,109 @@ const ornekler = [
 
     const { bas, bit, cizilen } = p;
     const degerler = cizilen.flatMap((c) => c.pts.map((x) => x[1]));
-    let alt = Math.min(...degerler);
-    let ust = Math.max(...degerler);
-
-    // Düzey veya log'da sıfır tabanı desteği
-    if (durum.donusum === 'yoy' || durum.donusum === 'mom') {
-      if (alt > 0) alt = 0;
-      if (ust < 0) ust = 0;
-    }
-
-    const ham = (ust - alt) / 5 || Math.abs(ust) / 5 || 1;
-    const kuvvet = 10 ** Math.floor(Math.log10(ham));
-    const adim = [1, 2, 2.5, 5, 10].map((c) => c * kuvvet).find((a) => a >= ham)!;
-
-    alt = Math.floor(alt / adim + 1e-9) * adim;
-    ust = Math.ceil(ust / adim - 1e-9) * adim;
-    if (ust === alt) ust = alt + adim;
-
-    let eksenOndalik = 0;
-    while (eksenOndalik < 4 && Math.abs(Math.round(adim * 10 ** eksenOndalik) - adim * 10 ** eksenOndalik) > 1e-6) eksenOndalik++;
-
-    const yuzdeMi = durum.donusum === 'yoy' || durum.donusum === 'mom' || (durum.donusum === 'duzey' && cizilen.every((c) => c.s.birim === '%'));
-    const eksenYaz = (n: number) =>
-      yuzdeMi
-        ? `${n < 0 ? '−' : ''}%${kisaSayi(Math.abs(n), eksenOndalik)}`
-        : durum.donusum === 'log'
-          ? `10^${sayi(n, 1)}`
-          : kisaSayi(n, eksenOndalik);
+    const ciftEksen = ciftEksenMi(cizilen, durum.donusum);
+    const o0 = ciftEksen ? olcekHesapla(cizilen[0].pts.map((x) => x[1]), false) : null;
+    const o1 = ciftEksen ? olcekHesapla(cizilen[1].pts.map((x) => x[1]), false) : null;
+    const oTek = !ciftEksen ? olcekHesapla(degerler, durum.donusum === 'yoy' || durum.donusum === 'mom') : null;
 
     const dar = darEkran();
     const yaziBoyu = dar ? 18 : 12;
-    const etiketler: string[] = [];
-    for (let d = alt; d <= ust + adim / 2; d += adim) etiketler.push(eksenYaz(d));
+
+    const yuzdeMi =
+      durum.donusum === 'yoy' ||
+      durum.donusum === 'mom' ||
+      (durum.donusum === 'duzey' && cizilen.every((c) => c.s.birim === '%'));
+
+    const formatci = (o: ReturnType<typeof olcekHesapla>, yuzde = false) => (n: number) =>
+      yuzde
+        ? `${n < 0 ? '−' : ''}%${kisaSayi(Math.abs(n), o.eksenOndalik)}`
+        : durum.donusum === 'log'
+          ? `10^${sayi(n, 1)}`
+          : kisaSayi(n, o.eksenOndalik);
+
+    const f0 = formatci(o0 ?? oTek!, ciftEksen ? cizilen[0].s.birim === '%' : yuzdeMi);
+    const f1 = ciftEksen ? formatci(o1!, cizilen[1].s.birim === '%') : null;
+
+    const solEtiketler: string[] = [];
+    const oSol = o0 ?? oTek!;
+    for (let d = oSol.alt; d <= oSol.ust + oSol.adim / 2; d += oSol.adim) solEtiketler.push(f0(d));
+
+    const sagEtiketler: string[] = [];
+    if (ciftEksen && o1 && f1) {
+      for (let d = o1.alt; d <= o1.ust + o1.adim / 2; d += o1.adim) sagEtiketler.push(f1(d));
+    }
+
+    const solGenislik = Math.max(56, Math.max(...solEtiketler.map((e) => e.length)) * yaziBoyu * 0.6 + 14);
+    const sagGenislik = ciftEksen
+      ? Math.max(64, Math.max(...sagEtiketler.map((e) => e.length)) * yaziBoyu * 0.6 + 20)
+      : dar
+        ? 88
+        : 84;
 
     const P = {
-      ust: 24,
+      ust: ciftEksen ? 32 : 24,
       alt: 40,
-      sol: Math.max(56, Math.max(...etiketler.map((e) => e.length)) * yaziBoyu * 0.6 + 14),
-      sag: dar ? 88 : 84,
+      sol: solGenislik,
+      sag: sagGenislik,
     };
 
     const x = (t: number) => P.sol + ((t - bas) / Math.max(bit - bas, 1)) * (W - P.sol - P.sag);
-    const y = (d: number) => P.ust + (1 - (d - alt) / (ust - alt)) * (H - P.ust - P.alt);
 
-    // Yatay ızgara ve Y eksen etiketleri
-    for (let d = alt, i = 0; d <= ust + adim / 2; d += adim, i++) {
+    const y0 = (d: number) => P.ust + (1 - (d - oSol.alt) / (oSol.ust - oSol.alt)) * (H - P.ust - P.alt);
+    const y1 = (d: number) =>
+      ciftEksen && o1
+        ? P.ust + (1 - (d - o1.alt) / (o1.ust - o1.alt)) * (H - P.ust - P.alt)
+        : y0(d);
+
+    const yOf = (renkIdx: number, d: number) => (ciftEksen && renkIdx === 1 ? y1(d) : y0(d));
+
+    // Yatay ızgara ve sol eksen etiketleri
+    for (let d = oSol.alt, i = 0; d <= oSol.ust + oSol.adim / 2; d += oSol.adim, i++) {
       el('line', {
         x1: P.sol,
         x2: W - P.sag,
-        y1: y(d),
-        y2: y(d),
-        class: Math.abs(d) < adim / 1000 ? 'taban' : 'izgara',
+        y1: y0(d),
+        y2: y0(d),
+        class: Math.abs(d) < oSol.adim / 1000 ? 'taban' : 'izgara',
       });
       el('text', {
         x: P.sol - 8,
-        y: y(d) + 4,
+        y: y0(d) + 4,
         'text-anchor': 'end',
         class: 'eksen',
-      }).textContent = etiketler[i];
+        fill: ciftEksen ? RENKLER[0] : undefined,
+      }).textContent = solEtiketler[i];
+    }
+
+    // Çift eksen durumunda sağ eksen etiketleri ve başlıklar
+    if (ciftEksen && o1 && f1) {
+      for (let d = o1.alt, i = 0; d <= o1.ust + o1.adim / 2; d += o1.adim, i++) {
+        el('text', {
+          x: W - P.sag + 8,
+          y: y1(d) + 4,
+          'text-anchor': 'start',
+          class: 'eksen',
+          fill: RENKLER[1],
+          'font-weight': '600',
+        }).textContent = sagEtiketler[i];
+      }
+      el('text', {
+        x: P.sol,
+        y: P.ust - 10,
+        'text-anchor': 'start',
+        class: 'eksen',
+        fill: RENKLER[0],
+        'font-weight': '700',
+      }).textContent = `← ${cizilen[0].s.ad.slice(0, 22)} (${kisaBirim(cizilen[0].s.birim)})`;
+
+      el('text', {
+        x: W - P.sag,
+        y: P.ust - 10,
+        'text-anchor': 'end',
+        class: 'eksen',
+        fill: RENKLER[1],
+        'font-weight': '700',
+      }).textContent = `${cizilen[1].s.ad.slice(0, 22)} (${kisaBirim(cizilen[1].s.birim)}) →`;
     }
 
     // Olaylar Katmanı (PPK ve Kriz Çizgileri)
@@ -948,7 +1029,7 @@ const ornekler = [
     // Çizgi yolları
     const sonlar: { c: Cizilen; t: number; d: number; ey: number }[] = [];
     for (const c of cizilen) {
-      const yol = c.pts.map(([t, d], i) => `${i ? 'L' : 'M'}${x(t).toFixed(1)} ${y(d).toFixed(1)}`).join('');
+      const yol = c.pts.map(([t, d], i) => `${i ? 'L' : 'M'}${x(t).toFixed(1)} ${yOf(c.renk, d).toFixed(1)}`).join('');
       el('path', {
         d: yol,
         fill: 'none',
@@ -958,10 +1039,10 @@ const ornekler = [
         'stroke-linecap': 'round',
       });
       if (c.pts.length === 1) {
-        el('circle', { cx: x(c.pts[0][0]), cy: y(c.pts[0][1]), r: 3.5, fill: RENKLER[c.renk] });
+        el('circle', { cx: x(c.pts[0][0]), cy: yOf(c.renk, c.pts[0][1]), r: 3.5, fill: RENKLER[c.renk] });
       }
       const son = c.pts[c.pts.length - 1];
-      sonlar.push({ c, t: son[0], d: son[1], ey: y(son[1]) });
+      sonlar.push({ c, t: son[0], d: son[1], ey: yOf(c.renk, son[1]) });
     }
 
     // Çizgi uç etiketleri
@@ -970,7 +1051,7 @@ const ornekler = [
       sonlar[i].ey = Math.max(sonlar[i].ey, sonlar[i - 1].ey + (dar ? 24 : 14));
     }
     for (const e of sonlar) {
-      el('circle', { cx: x(e.t), cy: y(e.d), r: 4, fill: RENKLER[e.c.renk], stroke: '#fff', 'stroke-width': 2 });
+      el('circle', { cx: x(e.t), cy: yOf(e.c.renk, e.d), r: 4, fill: RENKLER[e.c.renk], stroke: '#fff', 'stroke-width': 2 });
       el('text', { x: x(e.t) + 8, y: e.ey + 4, class: 'son-etiket' }).textContent = degerYaz(e.d, e.c.s.birim, durum.donusum);
     }
 
@@ -1010,7 +1091,7 @@ const ornekler = [
         if (!gecerli) return;
 
         halkalar[k].setAttribute('cx', String(x(yakin[0])));
-        halkalar[k].setAttribute('cy', String(y(yakin[1])));
+        halkalar[k].setAttribute('cy', String(yOf(c.renk, yakin[1])));
         siklikler.push(c.s.siklik);
 
         const kendiTarih = Math.abs(yakin[0] - en) > 0.5 ? ` <small>${tarihYaz(isoOf(yakin[0]), c.s.siklik)}</small>` : '';
@@ -1102,16 +1183,23 @@ const ornekler = [
     const iletiler: string[] = [];
     if (p.hata) iletiler.push(p.hata);
 
+    const ciftEksen = ciftEksenMi(p.cizilen, durum.donusum);
     const birimler = [...new Set(p.cizilen.map((c) => c.s.birim))];
     if (durum.donusum === 'duzey' && birimler.length > 1) {
-      const m = document.createElement('span');
-      m.textContent = `Seçilen göstergeler farklı birimlerde (${birimler.join(', ')}); doğrudan karşılaştırmak yanıltıcı olabilir. `;
-      const b = dugme('Endeksle (=100)', 'sg-uyari-dugme');
-      b.addEventListener('click', () => {
-        durum.donusum = 'endeks';
-        guncelle();
-      });
-      uyariEl.append(m, b);
+      if (ciftEksen) {
+        iletiler.push(
+          `Çift eksen devrede: Sol eksen “${p.cizilen[0].s.ad}” (${kisaBirim(p.cizilen[0].s.birim)}), sağ eksen “${p.cizilen[1].s.ad}” (${kisaBirim(p.cizilen[1].s.birim)}) ölçeğindedir.`
+        );
+      } else {
+        const m = document.createElement('span');
+        m.textContent = `Seçilen göstergeler farklı birimlerde (${birimler.join(', ')}); doğrudan karşılaştırmak için endeksleme önerilir. `;
+        const b = dugme('Endeksle (=100)', 'sg-uyari-dugme');
+        b.addEventListener('click', () => {
+          durum.donusum = 'endeks';
+          guncelle();
+        });
+        uyariEl.append(m, b);
+      }
     }
 
     for (const n of p.notlar) iletiler.push(n);
@@ -1311,41 +1399,52 @@ const ornekler = [
 
     // Grafik sınırları
     const degerler = p.cizilen.flatMap((c) => c.pts.map((x) => x[1]));
-    let alt = Math.min(...degerler);
-    let ust = Math.max(...degerler);
-    if (durum.donusum === 'yoy' || durum.donusum === 'mom') {
-      if (alt > 0) alt = 0;
-      if (ust < 0) ust = 0;
-    }
-    const ham = (ust - alt) / 5 || Math.abs(ust) / 5 || 1;
-    const kuvvet = 10 ** Math.floor(Math.log10(ham));
-    const adim = [1, 2, 2.5, 5, 10].map((c) => c * kuvvet).find((a) => a >= ham)!;
-    alt = Math.floor(alt / adim + 1e-9) * adim;
-    ust = Math.ceil(ust / adim - 1e-9) * adim;
-    if (ust === alt) ust = alt + adim;
+    const ciftEksen = ciftEksenMi(p.cizilen, durum.donusum);
+    const o0 = ciftEksen ? olcekHesapla(p.cizilen[0].pts.map((x) => x[1]), false) : null;
+    const o1 = ciftEksen ? olcekHesapla(p.cizilen[1].pts.map((x) => x[1]), false) : null;
+    const oTek = !ciftEksen ? olcekHesapla(degerler, durum.donusum === 'yoy' || durum.donusum === 'mom') : null;
 
-    const padL = 70;
-    const padR = 100;
-    const padT = 30;
+    const padL = 74;
+    const padR = ciftEksen ? 84 : 96;
+    const padT = 36;
     const padB = 40;
 
     const gx = (t: number) => chartX + padL + ((t - p.bas) / Math.max(p.bit - p.bas, 1)) * (chartW - padL - padR);
-    const gy = (d: number) => chartY + padT + (1 - (d - alt) / (ust - alt)) * (chartH - padT - padB);
 
-    // Izgara çizgileri ve Y etiketleri
+    const oSol = o0 ?? oTek!;
+    const gy0 = (d: number) => chartY + padT + (1 - (d - oSol.alt) / (oSol.ust - oSol.alt)) * (chartH - padT - padB);
+    const gy1 = (d: number) =>
+      ciftEksen && o1
+        ? chartY + padT + (1 - (d - o1.alt) / (o1.ust - o1.alt)) * (chartH - padT - padB)
+        : gy0(d);
+
+    const gyOf = (renkIdx: number, d: number) => (ciftEksen && renkIdx === 1 ? gy1(d) : gy0(d));
+
+    // Izgara çizgileri ve sol Y etiketleri
     ctx.fillStyle = '#5d5b55';
     ctx.font = '500 12px -apple-system, BlinkMacSystemFont, sans-serif';
-    for (let d = alt; d <= ust + adim / 2; d += adim) {
-      const cy = gy(d);
+    for (let d = oSol.alt; d <= oSol.ust + oSol.adim / 2; d += oSol.adim) {
+      const cy = gy0(d);
       ctx.beginPath();
-      ctx.strokeStyle = Math.abs(d) < adim / 1000 ? '#cfccc2' : '#e9e7df';
-      ctx.lineWidth = Math.abs(d) < adim / 1000 ? 1.5 : 1;
+      ctx.strokeStyle = Math.abs(d) < oSol.adim / 1000 ? '#cfccc2' : '#e9e7df';
+      ctx.lineWidth = Math.abs(d) < oSol.adim / 1000 ? 1.5 : 1;
       ctx.moveTo(chartX + padL, cy);
       ctx.lineTo(chartX + chartW - padR, cy);
       ctx.stroke();
 
       ctx.textAlign = 'right';
       ctx.fillText(kisaSayi(d, 1), chartX + padL - 8, cy + 4);
+    }
+
+    // Çift eksen durumunda sağ eksen etiketleri
+    if (ciftEksen && o1) {
+      ctx.fillStyle = RENKLER[1];
+      ctx.font = '600 12px -apple-system, BlinkMacSystemFont, sans-serif';
+      for (let d = o1.alt; d <= o1.ust + o1.adim / 2; d += o1.adim) {
+        const cy = gy1(d);
+        ctx.textAlign = 'left';
+        ctx.fillText(kisaSayi(d, 1), chartX + chartW - padR + 8, cy + 4);
+      }
     }
 
     // X ekseni (Zaman)
@@ -1387,15 +1486,15 @@ const ornekler = [
       ctx.lineCap = 'round';
       ctx.beginPath();
       c.pts.forEach(([t, d], i) => {
-        if (i === 0) ctx.moveTo(gx(t), gy(d));
-        else ctx.lineTo(gx(t), gy(d));
+        if (i === 0) ctx.moveTo(gx(t), gyOf(c.renk, d));
+        else ctx.lineTo(gx(t), gyOf(c.renk, d));
       });
       ctx.stroke();
 
       // Uç noktası
       const son = c.pts[c.pts.length - 1];
       const ex = gx(son[0]);
-      const ey = gy(son[1]);
+      const ey = gyOf(c.renk, son[1]);
       ctx.beginPath();
       ctx.arc(ex, ey, 4.5, 0, Math.PI * 2);
       ctx.fillStyle = RENKLER[c.renk];
@@ -1413,15 +1512,21 @@ const ornekler = [
 
     // 6. Kart İçi Lejant (Sol Üst)
     let legX = chartX + padL + 12;
-    const legY = chartY + padT + 16;
+    let legY = chartY + padT + 16;
     ctx.font = '600 13px -apple-system, BlinkMacSystemFont, sans-serif';
     p.cizilen.forEach((c) => {
+      const metin = `${c.s.ad} (${kisaBirim(c.s.birim)})`;
+      const metinEn = ctx.measureText(metin).width;
+      if (legX + metinEn + 30 > chartX + chartW - padR) {
+        legX = chartX + padL + 12;
+        legY += 22;
+      }
       ctx.fillStyle = RENKLER[c.renk];
       ctx.fillRect(legX, legY - 10, 16, 4);
       ctx.fillStyle = '#1b1b1b';
       ctx.textAlign = 'left';
-      ctx.fillText(c.s.ad, legX + 22, legY - 5);
-      legX += ctx.measureText(c.s.ad).width + 42;
+      ctx.fillText(metin, legX + 22, legY - 5);
+      legX += metinEn + 36;
     });
 
     // 7. Alt Bilgi & Kaynak Şeridi
@@ -1481,18 +1586,21 @@ const ornekler = [
       grafikCiz(p);
       const seciliSeriler = p.cizilen.map((c) => c.s);
       const birimler = [...new Set(seciliSeriler.map((s) => s.birim))];
+      const ciftEksen = ciftEksenMi(p.cizilen, durum.donusum);
       const eksen =
-        durum.donusum === 'endeks'
-          ? 'Eksen: Endeks (seçili dönem başı = 100). '
-          : durum.donusum === 'yoy'
-            ? 'Eksen: % Yıllık değişim (YoY). '
-            : durum.donusum === 'mom'
-              ? 'Eksen: % Dönemsel değişim (MoM). '
-              : durum.donusum === 'log'
-                ? 'Eksen: Logaritmik ölçek (log10). '
-                : birimler.length === 1
-                  ? `Eksen birimi: ${birimler[0]}. `
-                  : '';
+        ciftEksen
+          ? `Çift Eksen (Sol: ${seciliSeriler[0].ad} [${kisaBirim(seciliSeriler[0].birim)}], Sağ: ${seciliSeriler[1].ad} [${kisaBirim(seciliSeriler[1].birim)}]). `
+          : durum.donusum === 'endeks'
+            ? 'Eksen: Endeks (seçili dönem başı = 100). '
+            : durum.donusum === 'yoy'
+              ? 'Eksen: % Yıllık değişim (YoY). '
+              : durum.donusum === 'mom'
+                ? 'Eksen: % Dönemsel değişim (MoM). '
+                : durum.donusum === 'log'
+                  ? 'Eksen: Logaritmik ölçek (log10). '
+                  : birimler.length === 1
+                    ? `Eksen birimi: ${birimler[0]}. `
+                    : '';
       altEl.textContent = `${eksen}Kaynaklar: ${[...new Set(seciliSeriler.map((s) => s.kaynak.ad))].join('; ')}.`;
     } else {
       svg.replaceChildren();
@@ -1537,6 +1645,17 @@ const ornekler = [
   olaylarBtn.addEventListener('click', () => {
     durum.olaylarAcik = !durum.olaylarAcik;
     guncelle();
+  });
+
+  const odakBtn = kok.querySelector<HTMLButtonElement>('[data-odak]');
+  const terminalBolum = kok.querySelector<HTMLElement>('#sg-terminal-alan');
+  odakBtn?.addEventListener('click', () => {
+    const acik = terminalBolum?.classList.toggle('sg-terminal-odak') ?? false;
+    odakBtn.classList.toggle('aktif', acik);
+    odakBtn.setAttribute('aria-pressed', String(acik));
+    odakBtn.innerHTML = acik
+      ? '<span class="sg-btn-ikon" aria-hidden="true">✕</span> Odaktan Çık'
+      : '<span class="sg-btn-ikon" aria-hidden="true">⛶</span> Odak Modu';
   });
 
   for (const b of kok.querySelectorAll<HTMLButtonElement>('[data-ornek]')) {
@@ -1946,7 +2065,7 @@ const ornekler = [
   /* 4. SABİT YÜZEN SEÇİM DOCK'U (Floating Selection Dock) */
   .sg-dock {
     position: fixed;
-    bottom: 20px;
+    bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
     width: min(940px, calc(100% - 32px));
@@ -1958,6 +2077,10 @@ const ornekler = [
     z-index: 1000;
     box-sizing: border-box;
     animation: dockKay 0.25s ease-out;
+  }
+
+  .sg-dock[hidden] {
+    display: none !important;
   }
 
   @keyframes dockKay {
@@ -2086,6 +2209,30 @@ const ornekler = [
   /* TERMINAL KARŞILAŞTIRMA ALANI */
   .sg-terminal-alani {
     scroll-margin-top: 24px;
+    transition: all 0.2s ease;
+  }
+
+  .sg-terminal-alani.sg-terminal-odak {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    background: var(--paper);
+    overflow-y: auto;
+    padding: 24px 32px 64px;
+    box-sizing: border-box;
+    margin: 0;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.45);
+  }
+
+  .sg-btn-odak.aktif {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
   }
 
   .sg-terminal-ust {
@@ -2526,7 +2673,7 @@ const ornekler = [
       gap: 10px;
     }
     .sg-dock {
-      bottom: 10px;
+      bottom: 16px;
       padding: 10px 12px;
     }
     .sg-dock-icerik {
