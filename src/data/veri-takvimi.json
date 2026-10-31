@@ -1,5 +1,5 @@
 {
-  "alinma": "2026-10-31T19:59:34.618Z",
+  "alinma": "2026-10-31T21:44:22.624Z",
   "kaynaklar": [
     {
       "ad": "TÜİK ulusal veri yayımlama takvimi (Resmi İstatistik Portalı)",
@@ -15,115 +15,6 @@
     }
   ],
   "olaylar": [
-    {
-      "tarih": "2026-10-01",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "Devlet Hesapları",
-      "donem": "2025",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Devlet-Hesapları-2025-58117&dil=1",
-      "kaynak": "tuik"
-    },
-    {
-      "tarih": "2026-10-01",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Banka ve Kredi Kartı Sektörel Harcama İstatistikleri",
-      "donem": "39. Hafta 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Banka+ve+Kredi+Karti+Sektorel+Harcama+Istatistikleri/",
-      "kaynak": "tcmb-api",
-      "haftalik": true
-    },
-    {
-      "tarih": "2026-10-01",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Haftalık Para ve Banka İstatistikleri",
-      "donem": "39. Hafta 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Haftalik+Para+ve+Banka+Istatistikleri/",
-      "kaynak": "tcmb-api",
-      "haftalik": true
-    },
-    {
-      "tarih": "2026-10-01",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Menkul Kıymet İstatistikleri",
-      "donem": "39. Hafta 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Menkul+Kiymet+Istatistikleri/",
-      "kaynak": "tcmb-api",
-      "haftalik": true
-    },
-    {
-      "tarih": "2026-10-01",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Uluslararası Rezervler ve Döviz Likiditesi (Haftalık)",
-      "donem": "39. Hafta 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Rezervler+ve+Doviz+Likiditesi/",
-      "kaynak": "tcmb-api",
-      "haftalik": true
-    },
-    {
-      "tarih": "2026-10-01",
-      "saat": "15:30",
-      "kurum": "TCMB",
-      "baslik": "Zorunlu Karşılığa Tabi Katılım Fonları",
-      "donem": "38. Hafta 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
-      "kaynak": "tcmb-api",
-      "haftalik": true
-    },
-    {
-      "tarih": "2026-10-01",
-      "saat": "15:30",
-      "kurum": "TCMB",
-      "baslik": "Zorunlu Karşılığa Tabi Mevduatlar",
-      "donem": "38. Hafta 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Bankacilik+Verileri/Zorunlu+Karsiliklar/",
-      "kaynak": "tcmb-api",
-      "haftalik": true
-    },
-    {
-      "tarih": "2026-10-01",
-      "saat": "17:00",
-      "kurum": "TCMB",
-      "baslik": "Katılma Hesabı Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
-      "donem": "39. Hafta 2026",
-      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt200h",
-      "kaynak": "tcmb-api",
-      "haftalik": true
-    },
-    {
-      "tarih": "2026-10-01",
-      "saat": "17:00",
-      "kurum": "TCMB",
-      "baslik": "Kredi Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
-      "donem": "39. Hafta 2026",
-      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt100h",
-      "kaynak": "tcmb-api",
-      "haftalik": true
-    },
-    {
-      "tarih": "2026-10-01",
-      "saat": "17:00",
-      "kurum": "TCMB",
-      "baslik": "Kredi Kâr Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
-      "donem": "39. Hafta 2026",
-      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_kt200h",
-      "kaynak": "tcmb-api",
-      "haftalik": true
-    },
-    {
-      "tarih": "2026-10-01",
-      "saat": "17:00",
-      "kurum": "TCMB",
-      "baslik": "Mevduat Faiz Oranları (Haftalık Akım, Ağırlıklı Ortalama)",
-      "donem": "39. Hafta 2026",
-      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450501/bie_mt100h",
-      "kaynak": "tcmb-api",
-      "haftalik": true
-    },
     {
       "tarih": "2026-10-02",
       "saat": "10:00",
