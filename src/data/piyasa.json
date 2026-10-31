@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-30T21:41:12.977Z",
+  "guncelleme": "2026-10-31T03:41:10.854Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -7,7 +7,7 @@
       "deger": 49.948,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 41.988,
+      "onceki": 42.049,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -293,7 +293,7 @@
       "deger": 55.8015,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 48.496,
+      "onceki": 48.5832,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -579,7 +579,7 @@
       "deger": 31.763,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 27.188,
+      "onceki": 27.272,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -894,16 +894,16 @@
     {
       "id": "bist100",
       "ad": "BIST 100",
-      "deger": 11165.4004,
+      "deger": 10759.5996,
       "ondalik": 2,
       "simge": "fabrika",
       "kaynak": {
         "ad": "Piyasa kapanış verisi",
         "url": "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
       },
-      "zaman": "2026-10-28T00:00:00+03:00",
+      "zaman": "2026-10-30T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 0.1,
+      "degisim": -3.6,
       "gecmis": [
         {
           "tarih": "2026-08-03",
@@ -1156,6 +1156,10 @@
         {
           "tarih": "2026-10-28",
           "deger": 11165.4004
+        },
+        {
+          "tarih": "2026-10-30",
+          "deger": 10759.5996
         }
       ]
     },
