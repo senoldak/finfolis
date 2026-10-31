@@ -3,14 +3,17 @@ import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
 import FinfolisChartCard from '../../components/kartlar/FinfolisChartCard.astro';
+import ZamanGrafik from '../../components/ZamanGrafik.astro';
+import Grafik from '../../components/Grafik.astro';
+import NoktaGrafik from '../../components/NoktaGrafik.astro';
 import { FİNFOLİS_GRAFİKLER } from '../../lib/finfolis-charts-data';
 import { normalle } from '../../lib/arama-cekirdek.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 
-const baslik = 'Finansal Grafik Kataloğu — 62 Gösterge Kartı';
+const baslik = 'Veri Görselleştirme Sistemi & Grafik Kataloğu';
 const description =
-  'Türkiye piyasaları ve makroekonomik göstergeler için finfolis tasarım sistemine, kâğıt ve mürekkep kimliğine uygun 62 finansal grafik bileşeni.';
+  'Finfolis tasarım sistemi standartları: İnteraktif zaman serileri, haber içi piktogramlar, beklenti dağılımları ve 62 gösterge kartı.';
 
 const yol = [
   { ad: 'Anasayfa', href: '/' },
@@ -33,6 +36,72 @@ const kategoriler = [
   { id: 'KİŞİSEL FİNANS', ad: 'Kişisel Finans', sayi: FİNFOLİS_GRAFİKLER.filter((g) => g.kategori === 'KİŞİSEL FİNANS').length },
   { id: 'BANKACILIK', ad: 'Bankacılık', sayi: FİNFOLİS_GRAFİKLER.filter((g) => g.kategori === 'BANKACILIK').length },
 ];
+
+// 1. Temel Sistem Bileşeni Örneği: ZamanGrafik (İnteraktif Zaman Serisi)
+const ornekZamanNoktalar = [
+  [2024 * 12 + 0, 45.0, 64.9],
+  [2024 * 12 + 1, 45.0, 67.1],
+  [2024 * 12 + 2, 50.0, 68.5],
+  [2024 * 12 + 3, 50.0, 69.8],
+  [2024 * 12 + 4, 50.0, 75.4],
+  [2024 * 12 + 5, 50.0, 71.6],
+  [2024 * 12 + 6, 50.0, 61.8],
+  [2024 * 12 + 7, 50.0, 52.0],
+  [2024 * 12 + 8, 50.0, 49.4],
+  [2024 * 12 + 9, 50.0, 48.6],
+  [2024 * 12 + 10, 50.0, 47.1],
+  [2024 * 12 + 11, 47.5, 44.4],
+];
+
+const ornekZamanGruplar = [
+  {
+    id: 'ana',
+    ad: 'Makro Göstergeler',
+    seriler: [
+      { id: 'faiz', ad: 'Politika Faizi (1 Hafta Repo)', renk: 'toprak' as const },
+      { id: 'tufe', ad: 'TÜFE (Yıllık % Değişim)', renk: 'murekkep' as const },
+    ],
+  },
+];
+
+// 2. Temel Sistem Bileşeni Örneği: Grafik (Haber İçi Piktogram / Abaküs)
+const ornekPiktogramGrafik = {
+  baslik: 'Merkezi Yönetim Bütçe Dengesi Kalemleri (2024 Gerçekleşmesi)',
+  simge: 'lira',
+  birimEtiket: 'milyar TL (● = 100 milyar TL)',
+  birim: 100,
+  satirlar: [
+    { etiket: 'Vergi Gelirleri', metin: '7.400 milyar TL', deger: 7400 },
+    { etiket: 'Cari Transferler (Sosyal Güvenlik, Destek)', metin: '4.100 milyar TL', deger: 4100 },
+    { etiket: 'Personel Giderleri', metin: '2.800 milyar TL', deger: 2800 },
+    { etiket: 'Faiz Giderleri', metin: '1.250 milyar TL', deger: 1250 },
+    { etiket: 'Sermaye Yatırımları', metin: '900 milyar TL', deger: 900 },
+  ],
+};
+
+// 3. Temel Sistem Bileşeni Örneği: NoktaGrafik (Fed / PPK Dot Plot)
+const ornekNoktaSepler = [
+  {
+    id: 'sep-ornek',
+    etiket: 'FOMC Katılımcıları Politika Faizi Projeksiyonları (Dot Plot)',
+    yillar: [2024, 2025, 2026, 'uzun'] as (number | 'uzun')[],
+    satirlar: [
+      { oran: 5.5, sayilar: [1, null, null, null] },
+      { oran: 5.25, sayilar: [2, null, null, null] },
+      { oran: 5.0, sayilar: [8, 1, null, null] },
+      { oran: 4.75, sayilar: [5, 4, 1, null] },
+      { oran: 4.5, sayilar: [3, 7, 3, null] },
+      { oran: 4.25, sayilar: [null, 4, 6, null] },
+      { oran: 4.0, sayilar: [null, 2, 5, 1] },
+      { oran: 3.75, sayilar: [null, 1, 3, 2] },
+      { oran: 3.5, sayilar: [null, null, 1, 5] },
+      { oran: 3.25, sayilar: [null, null, null, 6] },
+      { oran: 3.0, sayilar: [null, null, null, 4] },
+      { oran: 2.75, sayilar: [null, null, null, 1] },
+    ],
+    medyan: [4.875, 4.375, 4.125, 3.125],
+  },
+];
 ---
 
 <Base title={baslik} description={description}>
@@ -43,13 +112,14 @@ const kategoriler = [
 
     <header class="sayfa-bas sayfa-bas-duz">
       <span class="ust-etiket">VERİ GÖRSELLEŞTİRME SİSTEMİ</span>
-      <h1>Finansal Grafik Kataloğu</h1>
+      <h1>Veri Görselleştirme Sistemi &amp; Grafik Kataloğu</h1>
       <p class="sayfa-ozet">
-        Finfolis kimliğine (kâğıt, mürekkep, tek vurgu pişmiş toprak, sıfır yuvarlak köşe) ve resmi Türkiye piyasa verilerine dayalı 62 finansal grafik kartı.
+        Finfolis editoryal kimliğine (gazete kâğıdı, basılı mürekkep, tek vurgu pişmiş toprak, sıfır yuvarlak köşe)
+        uygun olarak geliştirilen tüm görselleştirme motorları, interaktif seriler ve 62 finansal gösterge kartı.
       </p>
     </header>
 
-    <!-- Bilgilendirme ve Kimlik Uyum Notu -->
+    <!-- Kimlik Bilgi Panosu -->
     <section class="kimlik-bilgi-panosu">
       <div class="bilgi-sutun">
         <strong>🧮 Abaküs &amp; Boncuk Dili</strong>
@@ -57,7 +127,7 @@ const kategoriler = [
       </div>
       <div class="bilgi-sutun">
         <strong>📐 0px Keskin Geometri</strong>
-        <p>Gölge, degrade ve yuvarlak köşe yok. Yalnız açık kâğıt zemin (`#f4f3ee` / `#ffffff`) ve mürekkep çizgileri.</p>
+        <p>Gölge, degrade ve yuvarlak köşe yok. Yalnız açık kâğıt zemin (`#fbf8f3`) ve keskin mürekkep çizgileri.</p>
       </div>
       <div class="bilgi-sutun">
         <strong>🎯 Resmi Veri Standartları</strong>
@@ -65,59 +135,225 @@ const kategoriler = [
       </div>
     </section>
 
-    <!-- Filtre Çubuğu ve Arama Motoru -->
-    <div class="katalog-arac-cubugu">
-      <div class="arama-kutusu">
-        <input
-          type="search"
-          id="grafik-arama"
-          placeholder="62 grafik içinde ara (başlık, gösterge, kod veya kategori)..."
-          aria-label="Grafik ara"
-        />
+    <!-- Hızlı Atlama Gezintisi -->
+    <nav class="bolum-atlama-bari" aria-label="Katalog bölümleri">
+      <span class="atlama-etiket">Katalog Bölümleri:</span>
+      <a href="#temel-stiller" class="atlama-link">1. Temel Sistem Motorları (ZamanGrafik, Piktogram, Nokta)</a>
+      <a href="#kullanim-rehberi" class="atlama-link">2. Editoryal Kullanım Matrisi</a>
+      <a href="#katalog-bolumu" class="atlama-link">3. 62 Gösterge Kartı Koleksiyonu</a>
+    </nav>
+
+    <!-- BÖLÜM 1: TEMEL GRAFİK STİLLERİMİZ -->
+    <section id="temel-stiller" class="temel-stiller-bolumu">
+      <div class="bolum-baslik-blok">
+        <span class="bolum-no">01</span>
+        <div>
+          <h2 class="bolum-ana-baslik">Temel Grafik Stilleri &amp; Motorları</h2>
+          <p class="bolum-alt-metin">Finfolis veri sayfalarında ve bültenlerde kullanılan yerel, dinamik grafik bileşenleri.</p>
+        </div>
       </div>
 
-      <div class="kategori-butonlari" role="toolbar" aria-label="Grafik kategorileri">
+      <!-- Stil 1: ZamanGrafik -->
+      <article class="stil-vitrin-karti">
+        <div class="stil-karti-ust">
+          <div class="stil-bilgi">
+            <span class="stil-tur-etiketi">İNTERAKTİF ÇİZGİ GRAFİK &middot; ZAMANGRAFİK.ASTRO</span>
+            <h3 class="stil-baslik">Zaman Serisi Çizgi Grafiği</h3>
+            <p class="stil-aciklama">
+              Uzun vadeli trendleri, çoklu seri karşılaştırmalarını ve PPK faiz kararı gibi olay işaretlerini gösteren amiral gemisi bileşenimiz.
+              Fare imleciyle tarih bazlı değer okuma ve grup/dönem filtreleme özellikleri sunar.
+            </p>
+          </div>
+          <div class="stil-kod-etiket">
+            <code>&lt;ZamanGrafik /&gt;</code>
+          </div>
+        </div>
+        <div class="stil-canli-onizleme">
+          <ZamanGrafik
+            baslik="TCMB Politika Faizi ve Yıllık TÜFE Enflasyonu"
+            ipucu="Zaman serisi çizgisi, dinamik kılavuz imleci ve PPK olay işaretleri"
+            kaynak="TCMB, TÜİK"
+            siklik="ay"
+            birim="yuzde"
+            ondalik={1}
+            seriIdleri={['faiz', 'tufe']}
+            noktalar={ornekZamanNoktalar}
+            gruplar={ornekZamanGruplar}
+            olaylar={[
+              { t: 2024 * 12 + 2, ad: 'PPK Sıkılaşma (+500 bp)', yon: 'artis' },
+              { t: 2024 * 12 + 11, ad: 'PPK İndirim Döngüsü (-250 bp)', yon: 'indirim' },
+            ]}
+            olayNotu="Dikey kesikli çizgiler TCMB Para Politikası Kurulu faiz kararlarını temsil eder."
+          />
+        </div>
+      </article>
+
+      <!-- Stil 2: Grafik & IsoRow -->
+      <article class="stil-vitrin-karti">
+        <div class="stil-karti-ust">
+          <div class="stil-bilgi">
+            <span class="stil-tur-etiketi">PİKTOGRAM &amp; ABAKÜS SERİSİ &middot; GRAFİK.ASTRO</span>
+            <h3 class="stil-baslik">Haber İçi Sayılabilir Abaküs Piktogramı</h3>
+            <p class="stil-aciklama">
+              Otto Neurath ve Isotype felsefesine dayanan, büyüklükleri çubuk boyuyla değil sayılabilir boncuk adediyle sunan grafik türümüz.
+              Haber metinlerinde bütçe, harcama veya pay kalemlerini sadeleştirmek için kullanılır.
+            </p>
+          </div>
+          <div class="stil-kod-etiket">
+            <code>&lt;Grafik /&gt;</code>
+          </div>
+        </div>
+        <div class="stil-canli-onizleme">
+          <Grafik
+            grafik={ornekPiktogramGrafik}
+            kaynak={{ ad: 'Hazine ve Maliye Bakanlığı', url: 'https://www.hmb.gov.tr' }}
+            tarih={new Date('2024-12-31')}
+          />
+        </div>
+      </article>
+
+      <!-- Stil 3: NoktaGrafik -->
+      <article class="stil-vitrin-karti">
+        <div class="stil-karti-ust">
+          <div class="stil-bilgi">
+            <span class="stil-tur-etiketi">DAĞILIM &amp; PROJEKSİYON &middot; NOKTAGRAFİK.ASTRO</span>
+            <h3 class="stil-baslik">Beklenti Nokta Grafiği (Dot Plot)</h3>
+            <p class="stil-aciklama">
+              Fed (FOMC) veya anket katılımcılarının faiz/enflasyon tahmin kümelenmelerini ve medyan değerlerini gösteren özel nokta dağılımı.
+              Her nokta bir katılımcının beklentisini, turuncu elmas ise konsensüs medyanı ifade eder.
+            </p>
+          </div>
+          <div class="stil-kod-etiket">
+            <code>&lt;NoktaGrafik /&gt;</code>
+          </div>
+        </div>
+        <div class="stil-canli-onizleme">
+          <NoktaGrafik
+            baslik="FOMC Katılımcıları Politika Faizi Projeksiyonları"
+            ipucu="Her nokta bir katılımcının yıl sonu federal fon oranı beklentisidir"
+            kaynak="Federal Reserve Board (SEP)"
+            sepler={ornekNoktaSepler}
+          />
+        </div>
+      </article>
+    </section>
+
+    <!-- BÖLÜM 2: EDİTORYAL KULLANIM MATRİSİ -->
+    <section id="kullanim-rehberi" class="kullanim-rehberi-bolumu">
+      <div class="bolum-baslik-blok">
+        <span class="bolum-no">02</span>
+        <div>
+          <h2 class="bolum-ana-baslik">Editoryal Grafik Seçim Matrisi</h2>
+          <p class="bolum-alt-metin">Hangi içerik türünde hangi grafik stilinin tercih edilmesi gerektiğine dair rehber.</p>
+        </div>
+      </div>
+
+      <div class="tablo-kapsayici">
+        <table class="rehber-tablo">
+          <thead>
+            <tr>
+              <th>Grafik Stili</th>
+              <th>Bileşen Kodu</th>
+              <th>En Uygun İçerik Bağlamı</th>
+              <th>Veri Tipi &amp; Özellik</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>İnteraktif Zaman Serisi</strong></td>
+              <td><code>&lt;ZamanGrafik /&gt;</code></td>
+              <td>Veri sayfaları, makro analizler, tarihsel kıyaslamalar</td>
+              <td>Çok yıllık seriler, PPK olay işaretleri, dönem filtreleri</td>
+            </tr>
+            <tr>
+              <td><strong>Haber İçi Piktogram</strong></td>
+              <td><code>&lt;Grafik /&gt;</code></td>
+              <td>Günlük haberler, bültenler, bütçe ve harcama dökümleri</td>
+              <td>Sayılabilir abaküs boncukları (● = X birim), metin içi piktogram</td>
+            </tr>
+            <tr>
+              <td><strong>Beklenti Nokta Dağılımı</strong></td>
+              <td><code>&lt;NoktaGrafik /&gt;</code></td>
+              <td>FOMC / PPK beklenti analizleri, anket dağılımları</td>
+              <td>Dot plot, medyan elması, katılımcı oy kümelenmesi</td>
+            </tr>
+            <tr>
+              <td><strong>Kompakt Gösterge Kartları</strong></td>
+              <td><code>&lt;FinfolisChartCard /&gt;</code></td>
+              <td>Kapak panoları, veri hub vitrinleri, özet göstergeler</td>
+              <td>62 çeşit mikro-kart: Donut, Şelale, Alan, Çubuk, Radar, vb.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BÖLÜM 3: 62 GÖSTERGE KARTI KOLEKSİYONU -->
+    <section id="katalog-bolumu" class="katalog-bolumu">
+      <div class="bolum-baslik-blok">
+        <span class="bolum-no">03</span>
+        <div>
+          <h2 class="bolum-ana-baslik">62 Gösterge Kartı Koleksiyonu</h2>
+          <p class="bolum-alt-metin">
+            Türkiye finansal piyasaları için uyarlanmış; abaküs boncuklu, saf SVG mikro kartlar.
+          </p>
+        </div>
+      </div>
+
+      <!-- Filtre Çubuğu ve Arama Motoru -->
+      <div class="katalog-arac-cubugu">
+        <div class="arama-kutusu">
+          <input
+            type="search"
+            id="grafik-arama"
+            placeholder="62 kart içinde ara (ör: enflasyon, rezerv, bütçe, borsa, tahvil)..."
+            aria-label="Kart ara"
+          />
+        </div>
+
+        <div class="kategori-butonlari" role="toolbar" aria-label="Grafik kategorileri">
+          {
+            kategoriler.map((k) => (
+              <button
+                type="button"
+                class={`kat-btn ${k.id === 'hepsi' ? 'aktif' : ''}`}
+                data-kategori={k.id}
+              >
+                {k.ad} <span class="kat-sayi">({k.sayi})</span>
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Sonuç Sayacı -->
+      <div class="sonuc-sayaci" id="sonuc-sayaci">
+        Toplam <strong>62</strong> gösterge kartı listeleniyor.
+      </div>
+
+      <!-- Boş Arama Durumu -->
+      <div id="bos-durum" class="bos-durum" style="display: none;">
+        <p class="bos-baslik">Aramanızla eşleşen grafik bulunamadı.</p>
+        <p class="bos-aciklama">Farklı bir terim deneyebilir veya filtreyi temizleyebilirsiniz.</p>
+        <button type="button" id="filtre-sifirla-btn" class="sifirla-btn">Filtreleri Sıfırla</button>
+      </div>
+
+      <!-- 62 Grafik Kartı Izgarası -->
+      <div class="grafikler-izgarasi" id="grafikler-izgarasi">
         {
-          kategoriler.map((k) => (
-            <button
-              type="button"
-              class={`kat-btn ${k.id === 'hepsi' ? 'aktif' : ''}`}
-              data-kategori={k.id}
+          FİNFOLİS_GRAFİKLER.map((grafik) => (
+            <div
+              class="grafik-karti-sarmal"
+              data-kategori={grafik.kategori}
+              data-tur={grafik.tur}
+              data-arama={normalle(`${grafik.baslik} ${grafik.aciklama} ${grafik.metrik} ${grafik.id} ${grafik.kategori} `)}
             >
-              {k.ad} <span class="kat-sayi">({k.sayi})</span>
-            </button>
+              <FinfolisChartCard grafik={grafik} />
+            </div>
           ))
         }
       </div>
-    </div>
-
-    <!-- Sonuç Sayacı -->
-    <div class="sonuc-sayaci" id="sonuc-sayaci">
-      Toplam <strong>62</strong> grafik gösteriliyor.
-    </div>
-
-    <!-- Boş Arama Durumu -->
-    <div id="bos-durum" class="bos-durum" style="display: none;">
-      <p class="bos-baslik">Aramanızla eşleşen grafik bulunamadı.</p>
-      <p class="bos-aciklama">Farklı bir terim deneyebilir veya filtreyi temizleyebilirsiniz.</p>
-      <button type="button" id="filtre-sifirla-btn" class="sifirla-btn">Filtreleri Sıfırla</button>
-    </div>
-
-    <!-- 62 Grafik Kartı Izgarası -->
-    <div class="grafikler-izgarasi" id="grafikler-izgarasi">
-      {
-        FİNFOLİS_GRAFİKLER.map((grafik) => (
-          <div
-            class="grafik-karti-sarmal"
-            data-kategori={grafik.kategori}
-            data-tur={grafik.tur}
-            data-arama={normalle(`${grafik.baslik} ${grafik.aciklama} ${grafik.metrik} ${grafik.id} ${grafik.kategori} `)}
-          >
-            <FinfolisChartCard grafik={grafik} />
-          </div>
-        ))
-      }
-    </div>
+    </section>
 
     <YasalUyari />
   </div>
@@ -126,7 +362,6 @@ const kategoriler = [
 <script>
   import { normalle } from '../../lib/arama-cekirdek.mjs';
 
-  // İstemci tarafı anlık arama ve kategori filtreleme (Türkçe harf aksansız normalizasyon)
   const aramaInput = document.getElementById('grafik-arama') as HTMLInputElement | null;
   const katButonlari = document.querySelectorAll<HTMLButtonElement>('.kat-btn');
   const kartlar = document.querySelectorAll<HTMLElement>('.grafik-karti-sarmal');
@@ -156,7 +391,7 @@ const kategoriler = [
     });
 
     if (sayac) {
-      sayac.innerHTML = `Toplam <strong>${gorunenSayisi}</strong> grafik listeleniyor (toplam 62).`;
+      sayac.innerHTML = `Toplam <strong>${gorunenSayisi}</strong> gösterge kartı listeleniyor (toplam 62).`;
     }
 
     if (bosDurum) {
@@ -223,7 +458,7 @@ const kategoriler = [
     background: var(--paper-2, #e9e7df);
     border: 1px solid var(--hair, #cfccc2);
     padding: 18px 20px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
 
   .bilgi-sutun strong {
@@ -240,7 +475,175 @@ const kategoriler = [
     line-height: 1.5;
   }
 
-  /* Araç Çubuğu */
+  /* Hızlı Atlama Barı */
+  .bolum-atlama-bari {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    padding: 12px 16px;
+    background: var(--paper, #f4f3ee);
+    border: 1px solid var(--hair, #cfccc2);
+    margin-bottom: 36px;
+    font-size: 0.85rem;
+  }
+
+  .atlama-etiket {
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+  }
+
+  .atlama-link {
+    color: var(--toprak, #c2502b);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  .atlama-link:hover {
+    color: var(--ink, #1b1b1b);
+  }
+
+  /* Bölüm Başlık Blokları */
+  .bolum-baslik-blok {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--ink, #1b1b1b);
+  }
+
+  .bolum-no {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--toprak, #c2502b);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .bolum-ana-baslik {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+    margin: 0 0 4px 0;
+  }
+
+  .bolum-alt-metin {
+    font-size: 0.9rem;
+    color: var(--muted, #5d5b55);
+    margin: 0;
+  }
+
+  /* Bölüm 1: Temel Stiller */
+  .temel-stiller-bolumu {
+    margin-bottom: 48px;
+  }
+
+  .stil-vitrin-karti {
+    background: #ffffff;
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 24px;
+    margin-bottom: 28px;
+  }
+
+  .stil-karti-ust {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--hair, #cfccc2);
+  }
+
+  .stil-tur-etiketi {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--toprak, #c2502b);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .stil-baslik {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+    margin: 0 0 6px 0;
+  }
+
+  .stil-aciklama {
+    font-size: 0.9rem;
+    color: var(--ink-2, #3d3c38);
+    line-height: 1.5;
+    margin: 0;
+    max-width: 760px;
+  }
+
+  .stil-kod-etiket code {
+    background: var(--paper-2, #e9e7df);
+    border: 1px solid var(--hair, #cfccc2);
+    padding: 6px 10px;
+    font-size: 0.82rem;
+    font-family: var(--mono, monospace);
+    color: var(--ink, #1b1b1b);
+    white-space: nowrap;
+  }
+
+  .stil-canli-onizleme {
+    background: var(--paper, #f4f3ee);
+    padding: 16px;
+    border: 1px solid var(--hair, #cfccc2);
+  }
+
+  /* Bölüm 2: Matris Tablosu */
+  .kullanim-rehberi-bolumu {
+    margin-bottom: 48px;
+  }
+
+  .tablo-kapsayici {
+    overflow-x: auto;
+    border: 1px solid var(--hair, #cfccc2);
+    background: #ffffff;
+  }
+
+  .rehber-tablo {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    text-align: left;
+  }
+
+  .rehber-tablo th {
+    background: var(--paper-2, #e9e7df);
+    padding: 10px 14px;
+    font-weight: 700;
+    color: var(--ink, #1b1b1b);
+    border-bottom: 1px solid var(--hair, #cfccc2);
+  }
+
+  .rehber-tablo td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--hair, #cfccc2);
+    color: var(--ink-2, #3d3c38);
+  }
+
+  .rehber-tablo tr:last-child td {
+    border-bottom: none;
+  }
+
+  .rehber-tablo code {
+    background: var(--paper, #f4f3ee);
+    padding: 2px 6px;
+    font-size: 0.82rem;
+    font-family: var(--mono, monospace);
+  }
+
+  /* Bölüm 3: 62 Kart Koleksiyonu */
+  .katalog-bolumu {
+    margin-bottom: 48px;
+  }
+
   .katalog-arac-cubugu {
     display: flex;
     flex-direction: column;
@@ -361,6 +764,10 @@ const kategoriler = [
   @media (max-width: 768px) {
     .grafikler-izgarasi {
       grid-template-columns: 1fr;
+    }
+
+    .stil-karti-ust {
+      flex-direction: column;
     }
   }
 </style>
