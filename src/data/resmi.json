@@ -3550,22 +3550,6 @@
     },
     "satirlar": [
       {
-        "tarih": "2025-10-24",
-        "ihtiyac": 61.95,
-        "tasit": 35.37,
-        "konut": 38,
-        "mevduat": 49.89,
-        "politika": 39.5
-      },
-      {
-        "tarih": "2025-10-31",
-        "ihtiyac": 61.52,
-        "tasit": 35.16,
-        "konut": 37.75,
-        "mevduat": 48.13,
-        "politika": 39.5
-      },
-      {
         "tarih": "2025-11-07",
         "ihtiyac": 62.66,
         "tasit": 36.62,
@@ -3966,7 +3950,7 @@
         "politika": 37
       }
     ],
-    "alinma": "2026-10-23T09:48:03.113Z"
+    "alinma": "2026-11-01T03:59:34.787Z"
   },
   "mevduat": {
     "kaynak": {
@@ -4399,12 +4383,6 @@
       "url": "https://evds3.tcmb.gov.tr/"
     },
     "satirlar": [
-      {
-        "yil": 2016,
-        "ay": 10,
-        "ay12": 7.61,
-        "ay24": 7.01
-      },
       {
         "yil": 2016,
         "ay": 11,
@@ -5126,7 +5104,7 @@
         "ay24": 17.94
       }
     ],
-    "alinma": "2026-10-27T18:37:52.171Z"
+    "alinma": "2026-11-01T03:59:34.787Z"
   },
   "kira": {
     "kaynak": {
@@ -129846,15 +129824,6 @@
     ],
     "gunluk": [
       {
-        "tarih": "2025-09-26",
-        "tuketim": 959145.79,
-        "uretim": 955410.84,
-        "ithalat": 11525.73,
-        "ihracat": 7790.81,
-        "yenilenebilir": null,
-        "yenilenemez": null
-      },
-      {
         "tarih": "2025-09-27",
         "tuketim": 901108.76,
         "uretim": 900160.11,
@@ -133401,7 +133370,7 @@
         "yenilenemez": 405561.214
       }
     ],
-    "alinma": "2026-10-31T03:57:04.959Z"
+    "alinma": "2026-11-01T03:59:34.787Z"
   },
   "cek": {
     "kaynak": {
