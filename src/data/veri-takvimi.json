@@ -1,5 +1,5 @@
 {
-  "alinma": "2026-11-01T19:47:05.694Z",
+  "alinma": "2026-11-01T21:56:50.824Z",
   "kaynaklar": [
     {
       "ad": "TÜİK ulusal veri yayımlama takvimi (Resmi İstatistik Portalı)",
@@ -15,87 +15,6 @@
     }
   ],
   "olaylar": [
-    {
-      "tarih": "2026-10-02",
-      "saat": "10:00",
-      "kurum": "TCMB",
-      "baslik": "Banka Kredileri Eğilim Anketi",
-      "donem": "Temmuz - Eylül 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Banka+Kredileri+Egilim+Anketi/",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-02",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "Yapay Zeka İstatistikleri",
-      "donem": "2026",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yapay-Zeka-İstatistikleri-2026-62066&dil=1",
-      "kaynak": "tuik"
-    },
-    {
-      "tarih": "2026-10-02",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Bankalarca İşletme Kredilerine Fiilen Uygulanan Azami Faiz Oranları (Aylık)",
-      "donem": "Ağustos 2026",
-      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_kt210aisl",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-02",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Bankalarca Mevduatlara Fiilen Uygulanan Azami Faiz Oranları (Stok Veri %) (Aylık)",
-      "donem": "Ağustos 2026",
-      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_mt210as",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-02",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Finansman Şirketleri Kredi Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
-      "donem": "Ağustos 2026",
-      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_fs101a",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-02",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Kamu Bankalarınca Mevduatlara Fiilen Uygulanan Azami Faiz Oranları (Stok Veri %) (Aylık)",
-      "donem": "Ağustos 2026",
-      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450503/bie_mt210ak",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-02",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Kredi Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
-      "donem": "Ağustos 2026",
-      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_kt210a",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-02",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Kredi Kâr Oranları (Aylık Stok, Ağırlıklı Ortalama)",
-      "donem": "Ağustos 2026",
-      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_kt210aks",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-02",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Mevduat Faiz Oranları (Aylık Stok, Ağırlıklı Ortalama)",
-      "donem": "Ağustos 2026",
-      "url": "https://evds3.tcmb.gov.tr/tumSeriler/450502/bie_mt210ags",
-      "kaynak": "tcmb-api"
-    },
     {
       "tarih": "2026-10-05",
       "saat": "10:00",
