@@ -18,6 +18,8 @@ function tarihler() {
   const haber = new Map();
   const kategori = new Map();
   const kisa = new Set();
+  const bulten = new Set();
+  const ozel = new Set();
   // Arşiv günü → o gün yayımlanan haber (bülten hariç) sayısı ve en yeni tarih.
   const gun = new Map();
   let enYeni;
@@ -40,6 +42,9 @@ function tarihler() {
     const acik = aramayaAcik({ govde: md, tur: alan('tur'), icerikTuru: alan('icerikTuru'), author: alan('author'), uretim: alan('uretim') });
     if (acik) haber.set(ad, Number.isNaN(g.valueOf()) || g < d ? d : g);
     else kisa.add(ad);
+    // Site haritası parçası (bkz. chunks): bülten, yazı işleri/imzalı yazı, diğer haber.
+    if (alan('tur') === 'bulten') bulten.add(ad);
+    else if (alan('author') || ['yazi-isleri', 'editor'].includes(alan('uretim') ?? '')) ozel.add(ad);
     // Kategori sayfası yalnız kısa olmayan yazıları listeler (getNews indeksli); yalnız kısa yazısı olan
     // kategori sayfa tarafında boş ve noindex'tir, haritaya da girmemeli.
     const k = alan('category');
@@ -51,10 +56,16 @@ function tarihler() {
       gun.set(istanbulGunu(d), { sayi: g.sayi + 1, son: g.son < d ? d : g.son });
     }
   }
-  return { haber, kategori, enYeni, kisa, gun };
+  return { haber, kategori, enYeni, kisa, gun, bulten, ozel };
 }
 
 const T = tarihler();
+
+// Haber adresinin kimliği (/haber/<id>/ → id) ya da undefined.
+const haberId = (url) => {
+  const h = new URL(url).pathname.match(/^\/haber\/([^/]+)\/$/);
+  return h ? decodeURIComponent(h[1]) : undefined;
+};
 
 // Veri sayfalarının (/veri/…) lastmod'u: resmi verinin siteye alındığı zaman (src/data/resmi.json).
 // Bölümü hiç alınamamış sayfa noindex olur ve haritaya girmez.
@@ -124,6 +135,19 @@ export default defineConfig({
               : V.get(yol);
         if (d) item.lastmod = d.toISOString();
         return item;
+      },
+      // Site haritası türe göre bölünür (sitemap-<tür>-0.xml; geri kalan sitemap-pages-0.xml). Search Console'da her
+      // harita ayrı gönderilir; "Sayfa dizine ekleme" raporu böylece her türün dizin oranını ayrı gösterir.
+      // Eklenti parçaları birbirinden ayırmaz, koşullar örtüşmemeli.
+      chunks: {
+        bulten: (item) => (T.bulten.has(haberId(item.url)) ? item : undefined),
+        ozel: (item) => (T.ozel.has(haberId(item.url)) ? item : undefined),
+        haber: (item) => {
+          const id = haberId(item.url);
+          return id && !T.bulten.has(id) && !T.ozel.has(id) ? item : undefined;
+        },
+        veri: (item) => (/^\/(veri|hesapla)\//.test(new URL(item.url).pathname) ? item : undefined),
+        sozluk: (item) => (new URL(item.url).pathname.startsWith('/sozluk/') ? item : undefined),
       },
     }),
   ],
