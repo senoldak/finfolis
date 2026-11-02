@@ -1,5 +1,5 @@
 ---
-title: "Standard chartered kripto saklama kuruluşu zodia custody'yi almak için anlaşma imzaladı"
+title: "Standard Chartered kripto saklama kuruluşu Zodia Custody'yi almak için anlaşma imzaladı"
 description: "İngiliz bankası Standard Chartered, dijital varlık saklama kuruluşu Zodia Custody'yi satın almak üzere anlaşma imzaladı. Anlaşmayla birlikte Zodia Custody'nin hizmetleri Standard Chartered'ın bünyesine entegre edilecek."
 date: 2026-10-21T17:28:34.000Z
 category: "kripto"
@@ -20,7 +20,7 @@ key_points:
   - "Zodia Custody hissedarları Mayıs ayında teklifi onayladı."
   - "Banka 2025 yılında Londra'da bir ticaret masası kurdu."
 cover: kapak.png
-coverAlt: "Küresel · Standard chartered kripto saklama kuruluşu zodia custody'yi almak için anlaşma imzaladı"
+coverAlt: "Küresel · Standard Chartered kripto saklama kuruluşu Zodia Custody'yi almak için anlaşma imzaladı"
 coverSitede: false
 ---
 

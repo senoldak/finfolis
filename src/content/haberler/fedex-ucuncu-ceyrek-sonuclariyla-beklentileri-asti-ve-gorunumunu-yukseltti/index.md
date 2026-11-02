@@ -1,6 +1,6 @@
 ---
 title: "FedEx üçüncü çeyrek sonuçlarıyla beklentileri aştı ve görünümünü yükseltti"
-description: "FedEx, 28 Ekim 2026 tarihinde açıkladığı üçeyrek sonuçlarında Wall Street beklentilerini geride bırakarak tam yıl görünümünü yukarı yönlü revize etti. Şirket, hisse başına düzeltilmiş kazancını 3,74 dolar olarak açıkladı."
+description: "FedEx, 28 Ekim 2026 tarihinde açıkladığı çeyrek sonuçlarında Wall Street beklentilerini geride bırakarak tam yıl görünümünü yukarı yönlü revize etti. Şirket, hisse başına düzeltilmiş kazancını 3,74 dolar olarak açıkladı."
 date: 2026-10-28T20:35:33.000Z
 category: "piyasalar"
 tur: "haber"

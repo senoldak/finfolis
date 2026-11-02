@@ -12,7 +12,7 @@ rakamlar:
     deger: "100 milyar dolar"
   - etiket: "Zhong Shanshan serveti"
     deger: "61 milyar dolar"
-  - etiket: "Temmuz-eyylül büyümesi"
+  - etiket: "Temmuz-eylül büyümesi"
     deger: "yüzde 4,5"
   - etiket: "Milyarder sayısı artışı"
     deger: "1.176"
@@ -20,7 +20,7 @@ why_matters: "Bu gelişme, Çin'deki servet dağılımının yapay zeka ve yüks
 key_points:
   - "Zhang Yiming'in serveti 100 milyar dolara ulaştı"
   - "Serveti 5 milyar yuandan fazla olan rekor sayıdaki kişi 1.529 oldu"
-  - "Çin ekonomisi temmuz-eyylül çeyreğinde yüzde 4,5 büyüdü"
+  - "Çin ekonomisi temmuz-eylül çeyreğinde yüzde 4,5 büyüdü"
 cover: kapak.png
 coverAlt: "ABD · ByteDance kurucusu Zhang Yiming Çin'in en zenginler listesinin başında yer aldı"
 coverSitede: false
@@ -30,4 +30,4 @@ ByteDance kurucusu Zhang Yiming, yapay zeka alanındaki büyümenin etkisiyle Ç
 
 Zhang Yiming, servetini yüzde 43 artırarak 100 milyar dolara çıkardı ve listenin zirvesinde yer aldı. Hurun Report Başkanı Rupert Hoogewerf, yaptığı açıklamada bu tutarın Çin'in en zengin kişisi için bir rekor olduğunu belirtti. Hoogewerf, ByteDance'in Doubao asistanının Çin'de en çok kullanılan yapay zeka asistanı olduğunu vurguladı. Listede yapay zeka girişimcisi DeepSeek kurucusu Liang Wenfeng yedinci, yapay zeka çip üreticisi Cambricon başkanı Chen Tianshi ise onuncu sırada yer aldı. Öte yandan, şişelenmiş su üreticisi Zhong Shanshan servetindeki yüzde 23'lük düşüşle 61 milyar dolara gerileyerek ikinci sıraya düştü. Elektrikli araç bataryası üreticisi CATL'in başkanı Robin Zeng ise üçüncü sırada yer aldı.
 
-Hoogewerf, bu yılki kazançların kutuplaştığını, yapay zeka, yarı iletkenler ve robotik alanındaki girişimcilerin öne geçtiğini, tüketim, gayrimenkul ve geleneksel imalattaki kişilerin ise servetlerinin küçüldüğünü ifade etti. Çin geçen hafta, temmuz-eyylül çeyreğinde ekonomisinin bir önceki yılın aynı dönemine göre güçlü ihracatın desteğiyle yüzde 4,5 büyüdüğünü açıkladı. Çinli liderler tüm yıl için geçen yılki yüzde 5'lik büyümenin altında kalacak şekilde yüzde 4,5 ile yüzde 5 arasında bir büyüme hedefi belirledi.
+Hoogewerf, bu yılki kazançların kutuplaştığını, yapay zeka, yarı iletkenler ve robotik alanındaki girişimcilerin öne geçtiğini, tüketim, gayrimenkul ve geleneksel imalattaki kişilerin ise servetlerinin küçüldüğünü ifade etti. Çin geçen hafta, temmuz-eylül çeyreğinde ekonomisinin bir önceki yılın aynı dönemine göre güçlü ihracatın desteğiyle yüzde 4,5 büyüdüğünü açıkladı. Çinli liderler tüm yıl için geçen yılki yüzde 5'lik büyümenin altında kalacak şekilde yüzde 4,5 ile yüzde 5 arasında bir büyüme hedefi belirledi.

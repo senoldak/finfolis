@@ -26,7 +26,7 @@ coverSitede: false
 
 Avrupa Merkez Bankası referans kuruna göre USD/BRL paritesi 26 Ekim 2026 tarihinde 5,5884 seviyesine ulaşarak bir önceki iş günü olan 23 Ekim 2026 tarihindeki 5,0465 seviyesine kıyasla yüzde 10,7 oranında günlük artış kaydetti. Brezilya'da gerçekleşen seçim sonuçları döviz kurunda hareketlilik yaşanmasına yol açtı. Bu oranlar piyasalardaki ani değişimi net bir şekilde ortaya koyarken, döviz cephesindeki hareketlilik yatırımcıların da dikkatini çekti.
 
-Meta, yapay zeka altyapı harcamalarını finanse etmek amacıyla 95 milyar dolara kadar hisse satışı planladığını duyurdu. Şirket, yapay zeka veri merkezleri ve operasyonları için kaynak yaratmayı hedefliores. Bu hamle, şirketin artan maliyetleri ve nakit akışındaki dönemsel baskılarla birlikte gerçekleşti. Teknoloji devinin bu adımı, sektördeki sermaye ihtiyacının ne denli yüksek olduğunu gösteriyor.
+Meta, yapay zeka altyapı harcamalarını finanse etmek amacıyla 95 milyar dolara kadar hisse satışı planladığını duyurdu. Şirket, yapay zeka veri merkezleri ve operasyonları için kaynak yaratmayı hedefliyor. Bu hamle, şirketin artan maliyetleri ve nakit akışındaki dönemsel baskılarla birlikte gerçekleşti. Teknoloji devinin bu adımı, sektördeki sermaye ihtiyacının ne denli yüksek olduğunu gösteriyor.
 
 Brezilya'daki seçim sonuçları, ülkenin para birimi ve hisse senedi piyasasında düşüşlere neden oldu. Seçimlerin ardından yatırımcılar arasında yaşanan gelişmeler piyasalarda dalgalanmayı artırdı. Ülke varlıkları döviz ve borsa cephesinde değer kaybetti; bu durum piyasalardaki belirsizliği kısa sürede tırmandırdı.
 

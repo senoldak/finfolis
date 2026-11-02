@@ -1,5 +1,5 @@
 ---
-title: "Anheuser-busch inbev kâr beklentilerini karşıladı ancak maliyetler arttı"
+title: "Anheuser-Busch InBev kâr beklentilerini karşıladı ancak maliyetler arttı"
 description: "Dünyanın en büyük bira üreticisi Anheuser-Busch InBev, üçüncü çeyrekte kâr beklentilerini tutturdu ancak artan maliyetler kazançları baskıladı. Şirketin organik faaliyet kârı yüzde 3,9 oranında arttı."
 date: 2026-10-29T08:17:50.000Z
 category: "ekonomi"

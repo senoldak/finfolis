@@ -25,7 +25,7 @@ cover: kapak.png
 coverAlt: "Hindistan Nifty 50 son altı ay günlük kapanış grafiği: altı ayda −%4,4, son kapanış 23.053,10"
 ---
 
-Hindistan piyasa düzenleyicisi, yabancı yatırımcılara uygulanan uzun vadeli sermaye kazancı vergisinin kaldırılmasını hükümete tavsiye etti. Konuya yakın iki kaynağın aktardığına göre, Hindistan Menkul Kıymetler ve Borsa Kurulu (SEBI) ayrıca yerli yatırım fonu yatırımcıları için de vergi muafiyeti önerisinde bulundu. Şubat ayındaki yıllık federal bütçe öncesinde sunulan bu tavsiyeler bağlayıcı nitelikteluk taşımıyor ve nihai karar hükümetin elinde bulunuyor.
+Hindistan piyasa düzenleyicisi, yabancı yatırımcılara uygulanan uzun vadeli sermaye kazancı vergisinin kaldırılmasını hükümete tavsiye etti. Konuya yakın iki kaynağın aktardığına göre, Hindistan Menkul Kıymetler ve Borsa Kurulu (SEBI) ayrıca yerli yatırım fonu yatırımcıları için de vergi muafiyeti önerisinde bulundu. Şubat ayındaki yıllık federal bütçe öncesinde sunulan bu tavsiyeler bağlayıcı nitelik taşımıyor ve nihai karar hükümetin elinde bulunuyor.
 
 Son iki yılda Hindistan'ın hisse senedi piyasası gelişmekte olan piyasa emsallerinin gerisinde kaldı. Yabancı yatırımcılar bu yıl Hint hisselerinden 31 milyar dolar tutarında satış yaparken, getirilerin durgunlaşmasıyla perakende yatırımcıların yurt dışı yatırımları da arttı. SEBI'nin bu önerileri, satışların devam etmesi ve para birimi üzerinde baskı yaratması nedeniyle düzenleyicinin son iki yılda yabancı yatırımcılarla yaptığı çok sayıda görüşmenin ardından geldi. Yatırımcılardan gelen tutarlı geri bildirimlerin başında Hindistan'ın vergilendirme yönteminin değiştirilmesi gerekliliği yer aldı.
 

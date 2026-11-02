@@ -1,6 +1,6 @@
 ---
 title: "Küresel borsalarda yapay zeka endişesiyle dalgalanma sürerken İngiltere'de perakende satışlar geriledi"
-description: "Küresel piyasalarda yapay zeka getirilerinin sürdürülebilirliğine yönelik kaygılar hisse senetlerinde satış getirirken, İngiltere'de perakende satışlar eylül ayında yüzde 0,4 oranında azaldı. Resmi verilere göre, eylül ayında giyim ve süpermeto hacimlerinde düşüş görüldü."
+description: "Küresel piyasalarda yapay zeka getirilerinin sürdürülebilirliğine yönelik kaygılar hisse senetlerinde satış getirirken, İngiltere'de perakende satışlar eylül ayında yüzde 0,4 oranında azaldı. Resmi verilere göre, eylül ayında giyim ve süpermarket hacimlerinde düşüş görüldü."
 date: 2026-10-23T07:21:37.000Z
 category: "ekonomi"
 tur: "haber"
