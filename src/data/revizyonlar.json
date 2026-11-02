@@ -1,3 +1,95 @@
 {
-  "revizyonlar": []
+  "revizyonlar": [
+    {
+      "bolum": "issizlik",
+      "alan": "oran",
+      "donem": "2024-09",
+      "eski": 8.6,
+      "yeni": 8.5,
+      "fark": -0.1,
+      "tespit": "2026-11-02T13:59:59.579Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, TCMB EVDS temel işgücü göstergeleri (mevsimsellikten arındırılmış)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "issizlik",
+      "alan": "oran",
+      "donem": "2025-04",
+      "eski": 8.6,
+      "yeni": 8.7,
+      "fark": 0.1,
+      "tespit": "2026-11-02T13:59:59.579Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, TCMB EVDS temel işgücü göstergeleri (mevsimsellikten arındırılmış)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "issizlik",
+      "alan": "oran",
+      "donem": "2025-09",
+      "eski": 8.6,
+      "yeni": 8.5,
+      "fark": -0.1,
+      "tespit": "2026-11-02T13:59:59.579Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, TCMB EVDS temel işgücü göstergeleri (mevsimsellikten arındırılmış)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "issizlik",
+      "alan": "oran",
+      "donem": "2025-10",
+      "eski": 8.5,
+      "yeni": 8.4,
+      "fark": -0.1,
+      "tespit": "2026-11-02T13:59:59.579Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, TCMB EVDS temel işgücü göstergeleri (mevsimsellikten arındırılmış)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "issizlik",
+      "alan": "oran",
+      "donem": "2026-06",
+      "eski": 7.6,
+      "yeni": 7.7,
+      "fark": 0.1,
+      "tespit": "2026-11-02T13:59:59.579Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, TCMB EVDS temel işgücü göstergeleri (mevsimsellikten arındırılmış)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "issizlik",
+      "alan": "oran",
+      "donem": "2026-07",
+      "eski": 8.1,
+      "yeni": 8.2,
+      "fark": 0.1,
+      "tespit": "2026-11-02T13:59:59.579Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, TCMB EVDS temel işgücü göstergeleri (mevsimsellikten arındırılmış)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "issizlik",
+      "alan": "oran",
+      "donem": "2026-08",
+      "eski": 7.8,
+      "yeni": 7.9,
+      "fark": 0.1,
+      "tespit": "2026-11-02T13:59:59.579Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, TCMB EVDS temel işgücü göstergeleri (mevsimsellikten arındırılmış)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    }
+  ]
 }
