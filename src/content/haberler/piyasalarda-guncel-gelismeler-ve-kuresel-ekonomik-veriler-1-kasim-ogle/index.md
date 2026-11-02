@@ -1,6 +1,6 @@
 ---
 title: "Piyasalarda Güncel Gelişmeler ve Küresel Ekonomik Veriler · 1 Kasım, öğle"
-description: "Küresel piyasalarda emtia, kripto para ve hisse senedi piyasalarında hareketlilik sürerken, merkez bankaları ve büyük şirketler yeni döneme ilişkin adımlarını duyuruyor. Yatırımcılar artان faiz oranları ve teknoloji sektöründeki bilanço sonuçlarını yakından takip ediyor."
+description: "Küresel piyasalarda emtia, kripto para ve hisse senedi piyasalarında hareketlilik sürerken, merkez bankaları ve büyük şirketler yeni döneme ilişkin adımlarını duyuruyor. Yatırımcılar artan faiz oranları ve teknoloji sektöründeki bilanço sonuçlarını yakından takip ediyor."
 date: 2026-11-01T13:01:00.000Z
 category: "ekonomi"
 tur: "haber"

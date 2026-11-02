@@ -1,6 +1,6 @@
 ---
 title: "Petrol piyasaları İran savaş riskleri ve acil stratejik rezerv satışları arasında kaldı"
-description: "Petrol fiyatları, acil arz önlemleri ile İran'la müzakerelerin yeniden başlamasına yönelik girişimler arasında denge ararken gerileді. Aralık vadeli Batı Teksas türü ham petrol varil başına 102,77 dolardan işlem görürken, Brent petrol 114,88 dolara geriledi."
+description: "Petrol fiyatları, acil arz önlemleri ile İran'la müzakerelerin yeniden başlamasına yönelik girişimler arasında denge ararken geriledi. Aralık vadeli Batı Teksas türü ham petrol varil başına 102,77 dolardan işlem görürken, Brent petrol 114,88 dolara geriledi."
 date: 2026-10-30T11:30:00.000Z
 category: "piyasalar"
 tur: "haber"

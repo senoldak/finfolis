@@ -11,7 +11,7 @@ rakamlar:
   - etiket: "Üçüncü Çeyrek Satış"
     deger: "12,9 milyar dolar"
   - etiket: "Dördüncü Çeyrek Öngörüsü"
-    deger: "13,4 milyار dolar"
+    deger: "13,4 milyar dolar"
   - etiket: "Dördüncü Çeyrek Büyüme"
     deger: "yüzde 11,5"
   - etiket: "Abone Sayısı"
