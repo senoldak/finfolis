@@ -141304,125 +141304,135 @@
         "eftTutar": 55847107237697.11,
         "buyukAdet": 329477,
         "buyukTutar": 129246142197201.88
+      },
+      {
+        "yil": 2026,
+        "ay": 10,
+        "fastAdet": 524528676,
+        "fastTutar": 7706313636323.1,
+        "eftAdet": 36868623,
+        "eftTutar": 49475536069879.96,
+        "buyukAdet": 301637,
+        "buyukTutar": 133307641408271.4
       }
     ],
     "fastAmac": {
       "yil": 2026,
-      "ay": 9,
+      "ay": 10,
       "amaclar": [
         {
           "ad": "Konut kirası",
-          "adet": 2109685,
-          "tutar": 46651729292.11
+          "adet": 2116083,
+          "tutar": 48175415584.89
         },
         {
           "ad": "İş yeri kirası",
-          "adet": 616235,
-          "tutar": 18847100578.36
+          "adet": 636562,
+          "tutar": 19928679187.87
         },
         {
           "ad": "Diğer kira",
-          "adet": 1425012,
-          "tutar": 11131771324.42
+          "adet": 1582695,
+          "tutar": 11174661157.83
         },
         {
           "ad": "E-ticaret",
-          "adet": 298441,
-          "tutar": 5457632775.47
+          "adet": 302265,
+          "tutar": 5519733408.22
         },
         {
           "ad": "Çalışan ödemesi (maaş vb.)",
-          "adet": 1755939,
-          "tutar": 42363028610.43
+          "adet": 1821139,
+          "tutar": 43548820266.85
         },
         {
           "ad": "Ticari ödeme",
-          "adet": 20082916,
-          "tutar": 850407755977.89
+          "adet": 20286330,
+          "tutar": 861578358374.52
         },
         {
           "ad": "Bireysel ödeme",
-          "adet": 474319193,
-          "tutar": 5328618962268.65
+          "adet": 490454968,
+          "tutar": 5327199049128.9
         },
         {
           "ad": "Yatırım",
-          "adet": 551628,
-          "tutar": 11540656291.34
+          "adet": 547077,
+          "tutar": 11181880541.71
         },
         {
           "ad": "Finansal işlemler",
-          "adet": 973009,
-          "tutar": 39516112385.95
+          "adet": 987841,
+          "tutar": 39027294902.87
         },
         {
           "ad": "Eğitim",
-          "adet": 648630,
-          "tutar": 8143934000.44
+          "adet": 714936,
+          "tutar": 7243013861.07
         },
         {
           "ad": "Aidat",
-          "adet": 2382688,
-          "tutar": 11837092115.19
+          "adet": 2445780,
+          "tutar": 11844526218.66
         },
         {
           "ad": "Gayrimenkul alımı",
-          "adet": 22227,
-          "tutar": 1137594089.36
+          "adet": 23761,
+          "tutar": 1150458088.11
         },
         {
           "ad": "Motorlu taşıt alımı",
-          "adet": 137615,
-          "tutar": 39999898297.51
+          "adet": 126664,
+          "tutar": 35650967129.57
         },
         {
           "ad": "Borç verme / borç ödeme",
-          "adet": 768019,
-          "tutar": 17817838197.64
+          "adet": 826333,
+          "tutar": 18462835984.22
         },
         {
           "ad": "Hediye, bağış, yardım",
-          "adet": 215675,
-          "tutar": 1765509343.29
+          "adet": 238909,
+          "tutar": 1833510927.34
         },
         {
           "ad": "Vergi, resim, harç",
-          "adet": 39257,
-          "tutar": 896148320.19
+          "adet": 40388,
+          "tutar": 896687556.88
         },
         {
           "ad": "Tazminat, sigorta",
-          "adet": 14119,
-          "tutar": 376344994.48
+          "adet": 14005,
+          "tutar": 367360554.12
         },
         {
           "ad": "Avukatlık, danışmanlık, müşavirlik",
-          "adet": 38314,
-          "tutar": 793654093.28
+          "adet": 41126,
+          "tutar": 856529222.13
         },
         {
           "ad": "Sağlık",
-          "adet": 34291,
-          "tutar": 486492937.3
+          "adet": 36545,
+          "tutar": 581443273.28
         },
         {
           "ad": "Kripto, dijital varlık",
-          "adet": 410893,
-          "tutar": 7733612294.0199995
+          "adet": 407590,
+          "tutar": 7471258607.15
         },
         {
           "ad": "Şans oyunları, bahis",
-          "adet": 516618,
-          "tutar": 1199436738.53
+          "adet": 708750,
+          "tutar": 1813957165.51
         },
         {
           "ad": "Eğlence, sosyal medya",
-          "adet": 62365,
-          "tutar": 445364233.39
+          "adet": 62209,
+          "tutar": 406195611.53
         }
       ]
     },
-    "alinma": "2026-10-29T18:07:24.571Z"
+    "alinma": "2026-11-02T17:59:19.226Z"
   },
   "turizm": {
     "kaynak": {
