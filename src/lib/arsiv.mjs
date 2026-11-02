@@ -21,7 +21,8 @@ export function ayBasligi(ay) {
 
 /**
  * Haberleri günlere ayırır. Girdi { id, data: { date, tur } } listesi (koleksiyon girdisi biçimi).
- * Çıktı yeniden eskiye: [{ gun, haberler (eskiden yeniye), bulten (günün son bülteni ya da undefined) }]
+ * Çıktı yeniden eskiye: [{ gun, haberler (eskiden yeniye), bultenler (eskiden yeniye),
+ * bulten (günün son bülteni ya da undefined) }]
  */
 export function gunlereAyir(haberler) {
   const harita = new Map();
@@ -35,7 +36,8 @@ export function gunlereAyir(haberler) {
     .map(({ gun, haberler: hs, bultenler }) => ({
       gun,
       haberler: hs.sort((a, b) => zaman(a) - zaman(b)),
-      bulten: bultenler.sort((a, b) => zaman(b) - zaman(a))[0],
+      bultenler: bultenler.sort((a, b) => zaman(a) - zaman(b)),
+      bulten: bultenler.at(-1),
     }))
     .sort((a, b) => (a.gun < b.gun ? 1 : -1));
 }

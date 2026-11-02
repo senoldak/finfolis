@@ -22,6 +22,11 @@ const noindex = g.haberler.length < ARSIV_ESIGI;
 // Günün özeti: o günün son bülteninin maddeleri (bölge bölge kalın başlık + tek cümle).
 const maddeler = bultenMaddeleri(g.bulten?.body);
 const ozet = maddeler.length ? maddeler.slice(0, 2).map((m) => `${m.baslik}: ${m.metin}`).join(' ') : undefined;
+// "Piyasa bülteni · 15 Ekim 2026, öğle" → "öğle"; gece yayımlanan önceki günün kapanışı tarihiyle kalır.
+const bultenEtiketi = (t: string) => {
+  const ek = t.split(' · ').at(-1) ?? t;
+  return ek.startsWith(`${baslik}, `) ? ek.slice(baslik.length + 2) : ek;
+};
 ---
 
 <Base
@@ -51,8 +56,22 @@ const ozet = maddeler.length ? maddeler.slice(0, 2).map((m) => `${m.baslik}: ${m
                 </li>
               ))}
             </ul>
-            <a href={newsUrl(g.bulten)}>Günün bültenini oku →</a>
           </section>
+        )
+      }
+
+      {/* Günün bütün bültenleri: yalnız sonuncusuna bağlantı verilince açılış/öğle bültenleri yetim kalıyordu. */}
+      {
+        g.bultenler.length > 0 && (
+          <p class="gun-bultenleri">
+            <span>{g.bultenler.length > 1 ? 'Günün bültenleri:' : 'Günün bülteni:'}</span>{' '}
+            {g.bultenler.map((b, i) => (
+              <>
+                {i > 0 && ' · '}
+                <a href={newsUrl(b)}>{bultenEtiketi(b.data.title)}</a>
+              </>
+            ))}
+          </p>
         )
       }
 
@@ -92,6 +111,14 @@ const ozet = maddeler.length ? maddeler.slice(0, 2).map((m) => `${m.baslik}: ${m
   }
   .gunun-ozeti li + li {
     margin-top: 6px;
+  }
+  .gun-bultenleri {
+    margin: 0 0 16px;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+  }
+  .gun-bultenleri span {
+    color: var(--muted);
   }
   .liste {
     margin-top: 8px;

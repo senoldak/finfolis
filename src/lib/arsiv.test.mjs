@@ -16,7 +16,9 @@ test('gunlereAyir: İstanbul gününe göre, yeni gün önce; haberler saat sır
   assert.deepEqual(g.map((x) => x.gun), ['2026-10-16', '2026-10-14']);
   assert.deepEqual(g[0].haberler.map((x) => x.id), ['c', 'b', 'a']);
   assert.equal(g[0].bulten.id, 't');
+  assert.deepEqual(g[0].bultenler.map((x) => x.id), ['s', 't']);
   assert.equal(g[1].bulten, undefined);
+  assert.deepEqual(g[1].bultenler, []);
 });
 
 test('ayTakvimi: pazartesiyle başlar, boşluklar null, haber sayıları işlenir', () => {
