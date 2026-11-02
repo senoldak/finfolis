@@ -2,8 +2,12 @@
 // Faiz kararı onem 100, diğer para politikası duyuruları onem 60 (0–100 ölçeği); geri kalanı atılır.
 // Kapak: Fed, ECB ve TCMB'de politika faizinin son beş yıllık grafiği (grafik-kapak.mjs); alınamazsa faiz rakamı ya da
 // konu kartı. BoJ için resmî, anahtarsız günlük seri yok: rakam/konu kartı.
-import { appendFileSync } from 'node:fs';
-import { hentMetin } from '../lib.mjs';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import { mkdtemp, writeFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { hentMetin, USER_AGENT } from '../lib.mjs';
 import { tcmbSonKarar } from '../piyasa-verisi.mjs';
 import { kaynakKapagi, rakamKapagi } from '../../kapak/kapak.mjs';
 import { faizGrafigi } from '../grafik-kapak.mjs';
@@ -77,27 +81,40 @@ export function pencere(metin, index) {
 // Fed tutanak bülteni yalnızca "tutanak yayımlandı" der; asıl metin linklenen sayfadadır.
 const FED_TUTANAK = /href="([^"]*\/monetarypolicy\/fomcminutes\d{8}\.htm)"/i;
 
-// PDF gölgesi (28 Ekim 2026): PDF_GOLGE=1 iken bot PDF'i yine ayrıştırmaz, yalnız adresini PDF_GOLGE_DOSYASI'na
-// (runner'ın geçici dosyası) yazar. Yayından sonra pdf-golge.py Docling ile metne çevirip yalnız ölçer (iş akışı).
-const pdfGorulen = new Set();
-export function pdfGolgeKaydet(kurum, url, env = process.env) {
-  if (env.PDF_GOLGE !== '1' || !env.PDF_GOLGE_DOSYASI || pdfGorulen.has(url)) return false;
-  pdfGorulen.add(url);
+const calistir = promisify(execFile);
+
+async function pdftotext(buf) {
+  const dizin = await mkdtemp(path.join(tmpdir(), 'mb-pdf-'));
   try {
-    appendFileSync(env.PDF_GOLGE_DOSYASI, `${JSON.stringify({ kurum, url })}\n`);
-    return true;
+    const dosya = path.join(dizin, 'belge.pdf');
+    await writeFile(dosya, buf);
+    const { stdout } = await calistir('pdftotext', ['-enc', 'UTF-8', dosya, '-'], { maxBuffer: 64 * 1024 * 1024, encoding: 'utf8' });
+    return stdout;
+  } finally {
+    await rm(dizin, { recursive: true, force: true });
+  }
+}
+
+// PDF duyurular (BoJ karar bildirisi ve raporları): metin sistemdeki pdftotext ile çıkarılır (scripts/veri/tcmb-metinler.mjs
+// ile aynı yol, npm bağımlılığı yok; haberler.yml poppler-utils kurar). 28 Ekim–2 Kasım'daki Docling gölgesinin yerine:
+// Docling tabloları daha iyi okuyordu ama torch kurulumu ağırdı, karar metni için düz metin yeter. İndirilemezse, PDF
+// değilse ya da pdftotext yoksa boş döner (çağıran başlıkla devam eder).
+export async function pdfMetni(url, { cevir = pdftotext } = {}) {
+  try {
+    const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT }, signal: AbortSignal.timeout(60000) });
+    if (!res.ok) return '';
+    const buf = Buffer.from(await res.arrayBuffer());
+    if (buf.subarray(0, 5).toString('latin1') !== '%PDF-') return '';
+    return (await cevir(buf)).replace(/\r\n?|\f/g, '\n').replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
   } catch {
-    return false;
+    return '';
   }
 }
 
 // Tam sayfa metni (script/style atılmış) ve varsa takip edilen asıl belgenin URL'si;
 // kesme çağıranda pencere() ile yapılır.
-async function govdeMetni(url, baslik, kurum) {
-  if (/\.pdf($|\?)/i.test(url)) {
-    pdfGolgeKaydet(kurum, url);
-    return { metin: baslik }; // PDF metni ayrıştırılmaz (gölge yalnız ölçer)
-  }
+async function govdeMetni(url, baslik) {
+  if (/\.pdf($|\?)/i.test(url)) return { metin: (await pdfMetni(url)) || baslik };
   let html;
   try {
     html = await hentMetin(url);
@@ -125,7 +142,7 @@ async function rssKaynagi(k, simdi, grafik) {
       if (simdi - o.tarih > AZAMI_GUN * GUN_MS) continue;
       const tur = siniflandir(k.kurum, o);
       if (!tur) continue;
-      const { metin: tam, belge } = await govdeMetni(o.url, o.baslik, k.kurum);
+      const { metin: tam, belge } = await govdeMetni(o.url, o.baslik);
       const faiz = tur === 'karar' ? faizCoz(k.kurum, tam) : null;
       const kaynakMetni = pencere(tam, faiz?.index);
       adaylar.push({

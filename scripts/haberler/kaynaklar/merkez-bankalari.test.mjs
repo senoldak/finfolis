@@ -1,9 +1,7 @@
 import { test, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, mkdtempSync, existsSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import path from 'node:path';
-import mb, { faizCoz, pencere, pdfGolgeKaydet } from './merkez-bankalari.mjs';
+import { readFileSync } from 'node:fs';
+import mb, { faizCoz, pencere, pdfMetni } from './merkez-bankalari.mjs';
 import { kapakCiz } from '../../kapak/kapak.mjs';
 
 const fx = (ad) => readFileSync(new URL(`./fixtures/${ad}`, import.meta.url), 'utf8');
@@ -149,12 +147,18 @@ test('Fed tutanak duyurusu: bültendeki linkten asıl tutanak metni alınır', a
   assert.equal(fed.kaynaklar.at(-1).url, 'https://www.federalreserve.gov/monetarypolicy/fomcminutes20260916.htm');
 });
 
-test('pdfGolgeKaydet: yalnız PDF_GOLGE=1 ve dosya varken, aynı adres bir kez', () => {
-  const dosya = path.join(mkdtempSync(path.join(tmpdir(), 'pdf-golge-')), 'k.jsonl');
+test('pdfMetni: PDF pdftotext ile metne çevrilir; indirilemez, PDF değilse ya da çevirici düşerse boş', async () => {
   const url = 'https://www.boj.or.jp/en/mopo/mpmdeci/deneme.pdf';
-  assert.equal(pdfGolgeKaydet('BoJ', url, { PDF_GOLGE_DOSYASI: dosya }), false);
-  assert.equal(existsSync(dosya), false);
-  assert.equal(pdfGolgeKaydet('BoJ', url, { PDF_GOLGE: '1', PDF_GOLGE_DOSYASI: dosya }), true);
-  assert.equal(pdfGolgeKaydet('BoJ', url, { PDF_GOLGE: '1', PDF_GOLGE_DOSYASI: dosya }), false);
-  assert.deepEqual(JSON.parse(readFileSync(dosya, 'utf8').trim()), { kurum: 'BoJ', url });
+  const cevir = async (buf) => {
+    assert.equal(buf.subarray(0, 5).toString('latin1'), '%PDF-');
+    return 'Statement on Monetary Policy  \n\n\n\nThe Bank decided\fto keep the rate.';
+  };
+  sahteFetch({ 'deneme.pdf': '%PDF-1.7 ikili' });
+  assert.equal(await pdfMetni(url, { cevir }), 'Statement on Monetary Policy\n\nThe Bank decided\nto keep the rate.');
+  sahteFetch({ 'deneme.pdf': '<html>bakım</html>' });
+  assert.equal(await pdfMetni(url, { cevir }), '');
+  sahteFetch({ 'deneme.pdf': 500 });
+  assert.equal(await pdfMetni(url, { cevir }), '');
+  sahteFetch({ 'deneme.pdf': '%PDF-1.7' });
+  assert.equal(await pdfMetni(url, { cevir: async () => { throw new Error('pdftotext yok'); } }), '');
 });
