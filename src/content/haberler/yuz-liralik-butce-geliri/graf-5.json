@@ -1,0 +1,41 @@
+{
+ "tittel": "Gelirlerin giderleri karşılama oranı, 2015 yılı ve 2025 yılı",
+ "under": "Merkezi yönetim bütçe gelirlerinin giderlere oranı, Ocak–Aralık toplamları, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "HMB (TCMB EVDS)"
+ },
+ "form": "nokkeltall",
+ "serier": [
+  {
+   "navn": "Gelirle karşılanan",
+   "rol": "ana",
+   "punkter": [
+    {
+     "x": "2025 yılı",
+     "y": 87.61
+    }
+   ]
+  },
+  {
+   "navn": "Karşılaştırma",
+   "rol": "sammenligning",
+   "punkter": [
+    {
+     "x": "2015 yılı",
+     "y": 95.35
+    },
+    {
+     "x": "2025 yılı",
+     "y": 87.61
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "2025 yılı"
+  ]
+ }
+}

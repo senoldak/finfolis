@@ -1,0 +1,64 @@
+{
+ "tittel": "Atıl işgücü oranı yükselirken işsizlik oranı geriledi",
+ "under": "TÜİK'in temel ve tamamlayıcı işgücü göstergeleri, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "İşsizlik oranı",
+   "punkter": [
+    {
+     "x": "2014",
+     "y": 9.9
+    },
+    {
+     "x": "2025",
+     "y": 8.3
+    }
+   ]
+  },
+  {
+   "navn": "Eksik istihdam ve işsizler",
+   "punkter": [
+    {
+     "x": "2014",
+     "y": 11.9
+    },
+    {
+     "x": "2025",
+     "y": 19.6
+    }
+   ]
+  },
+  {
+   "navn": "İşsizler ve potansiyel işgücü",
+   "punkter": [
+    {
+     "x": "2014",
+     "y": 15.5
+    },
+    {
+     "x": "2025",
+     "y": 19.9
+    }
+   ]
+  },
+  {
+   "navn": "Atıl işgücü oranı",
+   "punkter": [
+    {
+     "x": "2014",
+     "y": 17.4
+    },
+    {
+     "x": "2025",
+     "y": 29.7
+    }
+   ]
+  }
+ ]
+}

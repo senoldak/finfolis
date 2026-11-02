@@ -1,0 +1,45 @@
+{
+ "tittel": "Haziran–eylül dönemi 2025 yılında seyahat gelirinin yarısının altına indi",
+ "under": "Haziran–eylül döneminin yıllık seyahat gelirindeki payı, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TCMB"
+ },
+ "form": "nokkeltall",
+ "serier": [
+  {
+   "navn": "Pay",
+   "rol": "ana",
+   "punkter": [
+    {
+     "x": "2025 yılı",
+     "y": 47.146
+    }
+   ]
+  },
+  {
+   "navn": "Karşılaştırma",
+   "rol": "sammenligning",
+   "punkter": [
+    {
+     "x": "2003 yılı",
+     "y": 61.160000000000004
+    },
+    {
+     "x": "2019 yılı",
+     "y": 54.69500000000001
+    },
+    {
+     "x": "2025 yılı",
+     "y": 47.146
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "2025 yılı"
+  ]
+ }
+}

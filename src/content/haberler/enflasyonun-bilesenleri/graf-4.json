@@ -1,0 +1,45 @@
+{
+ "tittel": "Lokanta ve oteller endeksi genel endeksin iki katını aştı",
+ "under": "TÜFE endeksi, 2003 yılı ortalaması yüz, Aralık 2025",
+ "enhet": "TÜFE endeksi, 2003 yılı ortalaması yüz, Aralık 2025",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK (TCMB EVDS)"
+ },
+ "form": "nokkeltall",
+ "serier": [
+  {
+   "navn": "Lokanta ve oteller",
+   "rol": "ana",
+   "punkter": [
+    {
+     "x": "Lokanta ve oteller, Aralık 2025",
+     "y": 7123.56
+    }
+   ]
+  },
+  {
+   "navn": "Karşılaştırma",
+   "rol": "sammenligning",
+   "punkter": [
+    {
+     "x": "Lokanta ve oteller",
+     "y": 7123.56
+    },
+    {
+     "x": "Genel endeks",
+     "y": 3513.87
+    },
+    {
+     "x": "Haberleşme",
+     "y": 560.04
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "Lokanta ve oteller"
+  ]
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "tittel": "IMF’nin son raporunda büyüme 2026 yılında yavaşlıyor, 2027 yılında hızlanıyor",
+ "under": "Türkiye, reel GSYH büyümesi, yüzde; son iki nokta IMF’nin Ekim 2026 tahmini",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK, IMF"
+ },
+ "form": "linje",
+ "serier": [
+  {
+   "navn": "Büyüme",
+   "punkter": [
+    {
+     "x": "2023",
+     "y": 5.05
+    },
+    {
+     "x": "2024",
+     "y": 3.48
+    },
+    {
+     "x": "2025",
+     "y": 3.74
+    },
+    {
+     "x": "2026",
+     "y": 2.650203
+    },
+    {
+     "x": "2027",
+     "y": 3.578017
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "prognoseFra": "2025"
+ }
+}

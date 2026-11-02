@@ -1,0 +1,62 @@
+{
+ "tittel": "Son on yılda oran en çok 2022 yılında düştü, en çok 2020 yılında yükseldi",
+ "under": "AB tanımlı genel yönetim borç stoku / GSYH oranında bir önceki yıl sonuna göre değişim, yüzde puanı",
+ "enhet": "AB tanımlı genel yönetim borç stoku / GSYH oranında bir önceki yıl sonuna göre değişim, yüzde puanı",
+ "desimaler": 3,
+ "kilde": {
+  "navn": "TÜİK (TCMB EVDS), HMB"
+ },
+ "form": "soyle",
+ "serier": [
+  {
+   "navn": "Yıllık değişim",
+   "punkter": [
+    {
+     "x": "2016",
+     "y": 0.563
+    },
+    {
+     "x": "2017",
+     "y": -0.091
+    },
+    {
+     "x": "2018",
+     "y": 1.899
+    },
+    {
+     "x": "2019",
+     "y": 2.369
+    },
+    {
+     "x": "2020",
+     "y": 7.103
+    },
+    {
+     "x": "2021",
+     "y": 0.612
+    },
+    {
+     "x": "2022",
+     "y": -9.477
+    },
+    {
+     "x": "2023",
+     "y": -1.182
+    },
+    {
+     "x": "2024",
+     "y": -4.688
+    },
+    {
+     "x": "2025",
+     "y": 0.116
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "2022"
+  ]
+ }
+}

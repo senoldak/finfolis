@@ -1,0 +1,67 @@
+{
+ "tittel": "Zamana bağlı eksik istihdamın işgücüne oranı ve iki ölçü arasındaki fark birlikte arttı",
+ "under": "Zamana bağlı eksik istihdamın işgücüne oranı ve atıl işgücü oranı ile işsizlik oranı arasındaki fark, puan",
+ "enhet": "Zamana bağlı eksik istihdamın işgücüne oranı ve atıl işgücü oranı ile işsizlik oranı arasındaki fark, puan",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "minitabell",
+ "serier": [
+  {
+   "navn": "Eksik istihdam",
+   "punkter": [
+    {
+     "x": "2014",
+     "y": 2
+    },
+    {
+     "x": "2019",
+     "y": 1.1
+    },
+    {
+     "x": "2021",
+     "y": 4.8
+    },
+    {
+     "x": "2023",
+     "y": 6
+    },
+    {
+     "x": "2025",
+     "y": 11.3
+    }
+   ]
+  },
+  {
+   "navn": "İki ölçü arası",
+   "punkter": [
+    {
+     "x": "2014",
+     "y": 7.5
+    },
+    {
+     "x": "2019",
+     "y": 5.4
+    },
+    {
+     "x": "2021",
+     "y": 12.4
+    },
+    {
+     "x": "2023",
+     "y": 13.4
+    },
+    {
+     "x": "2025",
+     "y": 21.4
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "2025"
+  ]
+ }
+}

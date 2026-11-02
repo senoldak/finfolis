@@ -1,0 +1,34 @@
+{
+ "tittel": "Toplamda en büyük giriş Fed hedefinin değişmediği yıllarda",
+ "under": "Fed hedefinin yıllık değişimine göre gruplanan yılların net portföy akımı toplamı, ABD doları; grupların yıl sayıları farklı, milyar dolar",
+ "enhet": "milyar dolar",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TCMB"
+ },
+ "form": "soyle",
+ "serier": [
+  {
+   "navn": "Toplam",
+   "punkter": [
+    {
+     "x": "Yükselen",
+     "y": 45.414
+    },
+    {
+     "x": "Düşen",
+     "y": 26.476
+    },
+    {
+     "x": "Değişmeyen",
+     "y": 117.366
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "Yükselen"
+  ]
+ }
+}

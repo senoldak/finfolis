@@ -1,0 +1,67 @@
+{
+ "tittel": "Bir yıldaki en büyük politika faizi değişimi Türkiye’de",
+ "under": "Ağustos 2025’ten Ağustos 2026’ya politika faizindeki değişim, yüzde puanı",
+ "enhet": "Ağustos 2025’ten Ağustos 2026’ya politika faizindeki değişim, yüzde puanı",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "BIS (TCMB EVDS)"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Değişim",
+   "punkter": [
+    {
+     "x": "Türkiye",
+     "y": -6
+    },
+    {
+     "x": "Polonya",
+     "y": -1.25
+    },
+    {
+     "x": "Meksika",
+     "y": -1.25
+    },
+    {
+     "x": "Brezilya",
+     "y": -1
+    },
+    {
+     "x": "Macaristan",
+     "y": -1
+    },
+    {
+     "x": "ABD",
+     "y": -0.75
+    },
+    {
+     "x": "Norveç",
+     "y": 0
+    },
+    {
+     "x": "Çin",
+     "y": 0
+    },
+    {
+     "x": "Japonya",
+     "y": 0.5
+    },
+    {
+     "x": "Endonezya",
+     "y": 0.75
+    },
+    {
+     "x": "Kolombiya",
+     "y": 2.75
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": false,
+  "fremhev": [
+   "Türkiye"
+  ]
+ }
+}

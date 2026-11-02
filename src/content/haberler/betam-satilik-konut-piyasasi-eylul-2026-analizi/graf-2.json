@@ -1,0 +1,43 @@
+{
+ "tittel": "Büyükşehirlerde yıllık cari satış fiyatı artışları",
+ "under": "Yıllık cari satılık konut fiyat artış oranı, Eylül 2026, her boncuk 5 puan",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "BETAM"
+ },
+ "tall": {
+  "verdi": "8,8 puan",
+  "etikett": "fark, artış"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Cari Satış Fiyatı Artışı",
+   "punkter": [
+    {
+     "x": "İzmir",
+     "y": 17.7
+    },
+    {
+     "x": "Türkiye",
+     "y": 19.6
+    },
+    {
+     "x": "İstanbul",
+     "y": 24.6
+    },
+    {
+     "x": "Ankara",
+     "y": 26.5
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": false,
+  "fremhev": [
+   "Ankara"
+  ]
+ }
+}

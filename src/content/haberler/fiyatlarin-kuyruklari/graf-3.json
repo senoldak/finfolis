@@ -1,0 +1,77 @@
+{
+ "tittel": "Her ana grubun içinde hızlı ve yavaş artan kalemler arasında geniş bir açıklık var",
+ "under": "Eylül 2026 yıllık değişim, yüzde; her grupta en hızlı ve en yavaş artan seçili iki alt sınıf",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "minitabell",
+ "serier": [
+  {
+   "navn": "Hızlı",
+   "punkter": [
+    {
+     "x": "Gıda",
+     "y": 39.46853435
+    },
+    {
+     "x": "Ulaştırma",
+     "y": 53.76039305
+    },
+    {
+     "x": "İletişim",
+     "y": 46.36909373
+    },
+    {
+     "x": "Konut",
+     "y": 55.72560317
+    },
+    {
+     "x": "Sağlık",
+     "y": 40.25017654
+    },
+    {
+     "x": "Eğitim",
+     "y": 57.71107497
+    }
+   ],
+   "prosent": true
+  },
+  {
+   "navn": "Yavaş",
+   "punkter": [
+    {
+     "x": "Gıda",
+     "y": -0.98696462
+    },
+    {
+     "x": "Ulaştırma",
+     "y": 12.580098
+    },
+    {
+     "x": "İletişim",
+     "y": 2.4906241
+    },
+    {
+     "x": "Konut",
+     "y": 27.86003961
+    },
+    {
+     "x": "Sağlık",
+     "y": 19.32007446
+    },
+    {
+     "x": "Eğitim",
+     "y": 39.03312444
+    }
+   ],
+   "prosent": true
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "Ulaştırma"
+  ]
+ }
+}

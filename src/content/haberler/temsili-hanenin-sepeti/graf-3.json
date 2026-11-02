@@ -1,0 +1,116 @@
+{
+ "tittel": "Eski sınıflamada ulaştırmanın payı büyüdü, gıdanınki küçüldü",
+ "under": "TÜFE ana grup ağırlığı, yüz liralık harcamanın lira karşılığı",
+ "enhet": "TÜFE ana grup ağırlığı, yüz liralık harcamanın lira karşılığı",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "Gıda",
+   "punkter": [
+    {
+     "x": "2006",
+     "y": 27.68
+    },
+    {
+     "x": "2025",
+     "y": 24.9654
+    }
+   ]
+  },
+  {
+   "navn": "Konut",
+   "punkter": [
+    {
+     "x": "2006",
+     "y": 16.29
+    },
+    {
+     "x": "2025",
+     "y": 15.2156
+    }
+   ]
+  },
+  {
+   "navn": "Ulaştırma",
+   "punkter": [
+    {
+     "x": "2006",
+     "y": 10.48
+    },
+    {
+     "x": "2025",
+     "y": 15.3426
+    }
+   ]
+  },
+  {
+   "navn": "Lokanta ve oteller",
+   "punkter": [
+    {
+     "x": "2006",
+     "y": 6.74
+    },
+    {
+     "x": "2025",
+     "y": 8.3155
+    }
+   ]
+  },
+  {
+   "navn": "Giyim",
+   "punkter": [
+    {
+     "x": "2006",
+     "y": 8.28
+    },
+    {
+     "x": "2025",
+     "y": 7.1591
+    }
+   ]
+  },
+  {
+   "navn": "Alkol ve tütün",
+   "punkter": [
+    {
+     "x": "2006",
+     "y": 5.62
+    },
+    {
+     "x": "2025",
+     "y": 3.5228
+    }
+   ]
+  },
+  {
+   "navn": "Haberleşme",
+   "punkter": [
+    {
+     "x": "2006",
+     "y": 4.55
+    },
+    {
+     "x": "2025",
+     "y": 3.6205
+    }
+   ]
+  },
+  {
+   "navn": "Sağlık",
+   "punkter": [
+    {
+     "x": "2006",
+     "y": 2.54
+    },
+    {
+     "x": "2025",
+     "y": 4.0872
+    }
+   ]
+  }
+ ]
+}

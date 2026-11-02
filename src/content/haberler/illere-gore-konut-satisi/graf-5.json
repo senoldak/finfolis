@@ -1,0 +1,54 @@
+{
+ "tittel": "Bir konut satışına düşen kişi sayısı en çok küçük tabanlı illerde azaldı",
+ "under": "İl nüfusunun yıllık konut satışına bölümü, kişi",
+ "enhet": "İl nüfusunun yıllık konut satışına bölümü, kişi",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "manual",
+ "valg": {
+  "gruppenavn": [
+   "2013",
+   "2025"
+  ],
+  "sorter": false
+ },
+ "serier": [
+  {
+   "navn": "Bir konut satışına düşen kişi sayısı en çok küçük tabanlı illerde azaldı",
+   "punkter": [
+    {
+     "x": "Yalova",
+     "y": 21.3,
+     "y2": 18.6
+    },
+    {
+     "x": "Ankara",
+     "y": 34.4,
+     "y2": 38.5
+    },
+    {
+     "x": "İstanbul",
+     "y": 53.4,
+     "y2": 50.7
+    },
+    {
+     "x": "Türkiye",
+     "y": 62.5,
+     "y2": 48.9
+    },
+    {
+     "x": "Van",
+     "y": 328.2,
+     "y2": 82.8
+    },
+    {
+     "x": "Muş",
+     "y": 788.8,
+     "y2": 92.4
+    }
+   ]
+  }
+ ]
+}

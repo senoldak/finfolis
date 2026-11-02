@@ -1,0 +1,31 @@
+{
+ "tittel": "Aralık 2003’ten Eylül 2026’ya üretici fiyatları tüketici fiyatlarından daha çok yükseldi",
+ "under": "Eylül 2026 düzeyinin Aralık 2003 düzeyine oranı, kat, her boncuk 5",
+ "enhet": "",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Kaç kat",
+   "punkter": [
+    {
+     "x": "Tüketici fiyatları (TÜFE)",
+     "y": 41.95
+    },
+    {
+     "x": "Üretici fiyatları (Yİ-ÜFE)",
+     "y": 57.98
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": false,
+  "fremhev": [
+   "Üretici fiyatları (Yİ-ÜFE)"
+  ]
+ }
+}

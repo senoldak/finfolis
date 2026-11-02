@@ -1,0 +1,46 @@
+{
+ "tittel": "Yıllık büyüme 2021 yılından sonra yavaşladı, 2025 yılında biraz yükseldi",
+ "under": "Türkiye, zincirlenmiş hacimle GSYH’nin yıllık değişimi, yüzde",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "soyle",
+ "serier": [
+  {
+   "navn": "Büyüme",
+   "punkter": [
+    {
+     "x": "2020",
+     "y": 1.8
+    },
+    {
+     "x": "2021",
+     "y": 11.81
+    },
+    {
+     "x": "2022",
+     "y": 5.44
+    },
+    {
+     "x": "2023",
+     "y": 5.05
+    },
+    {
+     "x": "2024",
+     "y": 3.48
+    },
+    {
+     "x": "2025",
+     "y": 3.74
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "2025"
+  ]
+ }
+}

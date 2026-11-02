@@ -1,0 +1,40 @@
+{
+ "tittel": "Kiralık konutların yayında kalma süresi uzadı",
+ "under": "Ortalama kapatılan ilan yaşı, gün",
+ "enhet": "Ortalama kapatılan ilan yaşı, gün",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "BETAM"
+ },
+ "form": "nokkeltall",
+ "serier": [
+  {
+   "navn": "Ana Gösterge",
+   "rol": "ana",
+   "punkter": [
+    {
+     "x": "Türkiye Geneli",
+     "y": 28
+    }
+   ]
+  },
+  {
+   "navn": "Büyükşehirler",
+   "rol": "sammenligning",
+   "punkter": [
+    {
+     "x": "İstanbul",
+     "y": 23.5
+    },
+    {
+     "x": "Ankara",
+     "y": 24.7
+    },
+    {
+     "x": "İzmir",
+     "y": 37.5
+    }
+   ]
+  }
+ ]
+}

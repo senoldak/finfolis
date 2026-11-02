@@ -1,0 +1,107 @@
+{
+ "tittel": "Türkiye’de hane borcunun ekonomiye oranı seçilmiş ekonomilerin çoğunun altında",
+ "under": "Hane borcu (kredi ve borç senetleri), GSYH’ye oran, yüzde; IMF verisinin son yılı",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "IMF (Global Debt Database)"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Oran",
+   "punkter": [
+    {
+     "x": "İsviçre",
+     "y": 125.4348
+    },
+    {
+     "x": "Avustralya",
+     "y": 112.1495
+    },
+    {
+     "x": "Kanada",
+     "y": 100.0667
+    },
+    {
+     "x": "Güney Kore",
+     "y": 90.141
+    },
+    {
+     "x": "Birleşik Krallık",
+     "y": 76.1753
+    },
+    {
+     "x": "ABD",
+     "y": 69.3537
+    },
+    {
+     "x": "Japonya",
+     "y": 65.0712
+    },
+    {
+     "x": "Çin",
+     "y": 61.4037
+    },
+    {
+     "x": "Fransa",
+     "y": 60.5148
+    },
+    {
+     "x": "Almanya",
+     "y": 49.9289
+    },
+    {
+     "x": "Şili",
+     "y": 44.8062
+    },
+    {
+     "x": "Hindistan",
+     "y": 40.7684
+    },
+    {
+     "x": "Brezilya",
+     "y": 36.3504
+    },
+    {
+     "x": "Güney Afrika",
+     "y": 33.7213
+    },
+    {
+     "x": "Kolombiya",
+     "y": 25.7074
+    },
+    {
+     "x": "Polonya",
+     "y": 22.8901
+    },
+    {
+     "x": "Macaristan",
+     "y": 17.0043
+    },
+    {
+     "x": "Meksika",
+     "y": 16.7128
+    },
+    {
+     "x": "Endonezya",
+     "y": 16.1602
+    },
+    {
+     "x": "Arjantin",
+     "y": 4.6902
+    },
+    {
+     "x": "Türkiye",
+     "y": 9.6401
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": true,
+  "fremhev": [
+   "Türkiye"
+  ]
+ }
+}

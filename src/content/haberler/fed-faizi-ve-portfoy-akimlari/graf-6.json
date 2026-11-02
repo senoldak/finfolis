@@ -1,0 +1,46 @@
+{
+ "tittel": "Son on iki ayın girişi dört kaynağa dağılıyor",
+ "under": "Eylül 2025–Ağustos 2026, net yükümlülük oluşumu, ABD doları; merkez bankası kalemi çok küçük olduğu için gösterilmedi, milyar dolar",
+ "enhet": "milyar dolar",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TCMB"
+ },
+ "form": "bidrag",
+ "serier": [
+  {
+   "navn": "Parçalar",
+   "punkter": [
+    {
+     "x": "Hisse ve fon payları",
+     "y": 9.184
+    },
+    {
+     "x": "Genel hükümet, yurt içi borç senedi",
+     "y": 4.315
+    },
+    {
+     "x": "Genel hükümet, yurt dışı borç senedi",
+     "y": 4.732
+    },
+    {
+     "x": "Bankalar, borç senedi",
+     "y": 5.199
+    },
+    {
+     "x": "Diğer sektörler, borç senedi",
+     "y": 7.108
+    }
+   ]
+  },
+  {
+   "navn": "Toplam",
+   "punkter": [
+    {
+     "x": "Net giriş",
+     "y": 30.533
+    }
+   ]
+  }
+ ]
+}

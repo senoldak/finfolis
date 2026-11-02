@@ -1,0 +1,35 @@
+{
+ "tittel": "Çalışan kadınlar arasında tarımın payı üçte birden fazla küçüldü",
+ "under": "Kadın istihdamında tarımın payı, yüzde, her boncuk 5 puan",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "tall": {
+  "verdi": "29,3 puan",
+  "etikett": "fark, düşüş"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Kadın istihdamı",
+   "punkter": [
+    {
+     "x": "2005",
+     "y": 46.7
+    },
+    {
+     "x": "2025",
+     "y": 17.4
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": false,
+  "fremhev": [
+   "2025"
+  ]
+ }
+}

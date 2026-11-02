@@ -1,0 +1,69 @@
+{
+ "tittel": "Türkiye’de oran düşerken bazı ekonomilerde yükseldi",
+ "under": "Hane borcunun GSYH’ye oranı, yüzde",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "IMF (Global Debt Database)"
+ },
+ "form": "manual",
+ "valg": {
+  "gruppenavn": [
+   "2013",
+   "2024"
+  ],
+  "sorter": false
+ },
+ "serier": [
+  {
+   "navn": "Türkiye’de oran düşerken bazı ekonomilerde yükseldi",
+   "punkter": [
+    {
+     "x": "Güney Kore",
+     "y": 74.9097,
+     "y2": 90.141
+    },
+    {
+     "x": "Çin",
+     "y": 32.7659,
+     "y2": 61.4037
+    },
+    {
+     "x": "Brezilya",
+     "y": 25.7051,
+     "y2": 36.3504
+    },
+    {
+     "x": "Şili",
+     "y": 37.2777,
+     "y2": 44.8062
+    },
+    {
+     "x": "ABD",
+     "y": 81.5489,
+     "y2": 69.3537
+    },
+    {
+     "x": "Birleşik Krallık",
+     "y": 89.6956,
+     "y2": 76.1753
+    },
+    {
+     "x": "Polonya",
+     "y": 35.4697,
+     "y2": 22.8901
+    },
+    {
+     "x": "Macaristan",
+     "y": 28.4778,
+     "y2": 17.0043
+    },
+    {
+     "x": "Türkiye",
+     "y": 19.4528,
+     "y2": 9.6401
+    }
+   ]
+  }
+ ]
+}

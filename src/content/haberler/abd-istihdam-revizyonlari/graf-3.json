@@ -1,0 +1,77 @@
+{
+ "tittel": "Ocak–Ağustos 2025 döneminde bugünkü aylık değerler ilk açıklamaların altında",
+ "under": "Aylık istihdam değişimi, ilk açıklama ve Ekim 2026 itibarıyla bugünkü değer, bin kişi",
+ "enhet": "bin kişi",
+ "desimaler": 0,
+ "kilde": {
+  "navn": "BLS"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "Oca 2025",
+   "punkter": [
+    {
+     "x": "İlk açıklama",
+     "y": 143
+    },
+    {
+     "x": "Bugünkü değer",
+     "y": -48
+    }
+   ]
+  },
+  {
+   "navn": "Mar 2025",
+   "punkter": [
+    {
+     "x": "İlk açıklama",
+     "y": 228
+    },
+    {
+     "x": "Bugünkü değer",
+     "y": 67
+    }
+   ]
+  },
+  {
+   "navn": "May 2025",
+   "punkter": [
+    {
+     "x": "İlk açıklama",
+     "y": 139
+    },
+    {
+     "x": "Bugünkü değer",
+     "y": 13
+    }
+   ]
+  },
+  {
+   "navn": "Haz 2025",
+   "punkter": [
+    {
+     "x": "İlk açıklama",
+     "y": 147
+    },
+    {
+     "x": "Bugünkü değer",
+     "y": -20
+    }
+   ]
+  },
+  {
+   "navn": "Ağu 2025",
+   "punkter": [
+    {
+     "x": "İlk açıklama",
+     "y": 22
+    },
+    {
+     "x": "Bugünkü değer",
+     "y": -70
+    }
+   ]
+  }
+ ]
+}

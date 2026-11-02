@@ -1,0 +1,55 @@
+{
+ "tittel": "Altı ayda göstergelerin çoğu yükseldi",
+ "under": "OECD bileşik öncü göstergesinde Mart–Eylül 2026 değişimi, endeks",
+ "enhet": "OECD bileşik öncü göstergesinde Mart–Eylül 2026 değişimi, endeks",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "OECD"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Değişim",
+   "punkter": [
+    {
+     "x": "Türkiye",
+     "y": 0.65
+    },
+    {
+     "x": "G7",
+     "y": 0.5
+    },
+    {
+     "x": "G20",
+     "y": -0.17
+    },
+    {
+     "x": "ABD",
+     "y": 0.57
+    },
+    {
+     "x": "Almanya",
+     "y": 0.38
+    },
+    {
+     "x": "Japonya",
+     "y": 0.27
+    },
+    {
+     "x": "Çin",
+     "y": -1.52
+    },
+    {
+     "x": "Birleşik Krallık",
+     "y": 0.99
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": true,
+  "fremhev": [
+   "Türkiye"
+  ]
+ }
+}

@@ -1,0 +1,67 @@
+{
+ "tittel": "Enerji ithalatı büyürken altın ve enerji hariç denge 2012 yılından bu yana fazla verdi",
+ "under": "Enerji ithalatı ve altın ile enerji hariç cari denge, yıllık, dolar, milyar dolar",
+ "enhet": "milyar dolar",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TCMB"
+ },
+ "form": "minitabell",
+ "serier": [
+  {
+   "navn": "Enerji ithalatı",
+   "punkter": [
+    {
+     "x": "2003",
+     "y": 11.575
+    },
+    {
+     "x": "2011",
+     "y": 54.11749
+    },
+    {
+     "x": "2019",
+     "y": 41.73114
+    },
+    {
+     "x": "2022",
+     "y": 96.54882
+    },
+    {
+     "x": "2025",
+     "y": 62.52775
+    }
+   ]
+  },
+  {
+   "navn": "Hariç denge",
+   "punkter": [
+    {
+     "x": "2003",
+     "y": 5.5629
+    },
+    {
+     "x": "2011",
+     "y": -22.04643
+    },
+    {
+     "x": "2019",
+     "y": 57.56779
+    },
+    {
+     "x": "2022",
+     "y": 52.84971
+    },
+    {
+     "x": "2025",
+     "y": 37.07607
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "2022"
+  ]
+ }
+}

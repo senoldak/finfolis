@@ -1,0 +1,77 @@
+{
+ "tittel": "Eylül 2026'da akaryakıt hızla yükselirken ulaştırma hizmetleri yatay kaldı",
+ "under": "Eylül 2026, yıllık ve aylık değişim, yüzde; Brent dolar cinsinden",
+ "enhet": "prosent",
+ "desimaler": 3,
+ "kilde": {
+  "navn": "EIA (FRED), TÜİK"
+ },
+ "form": "minitabell",
+ "serier": [
+  {
+   "navn": "Yıllık",
+   "punkter": [
+    {
+     "x": "Brent",
+     "y": 67.907
+    },
+    {
+     "x": "Motorin",
+     "y": 67.2216538
+    },
+    {
+     "x": "Benzin",
+     "y": 47.85281789
+    },
+    {
+     "x": "Enerji",
+     "y": 46.11645948
+    },
+    {
+     "x": "Ulaşım hizmeti",
+     "y": 43.78294855
+    },
+    {
+     "x": "TÜFE",
+     "y": 29.73151825
+    }
+   ],
+   "prosent": true
+  },
+  {
+   "navn": "Aylık",
+   "punkter": [
+    {
+     "x": "Brent",
+     "y": 25.34
+    },
+    {
+     "x": "Motorin",
+     "y": 12.93422954
+    },
+    {
+     "x": "Benzin",
+     "y": 11.54684096
+    },
+    {
+     "x": "Enerji",
+     "y": 6.25297356
+    },
+    {
+     "x": "Ulaşım hizmeti",
+     "y": 0.24714829
+    },
+    {
+     "x": "TÜFE",
+     "y": 1.84044527
+    }
+   ],
+   "prosent": true
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "Ulaşım hizmeti"
+  ]
+ }
+}

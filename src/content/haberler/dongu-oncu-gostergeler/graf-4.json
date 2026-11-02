@@ -1,0 +1,91 @@
+{
+ "tittel": "Göstergelerin çoğu son ayda yükseldi",
+ "under": "OECD bileşik öncü göstergesi, Eylül 2026 değeri ve bir önceki aya göre değişim",
+ "enhet": "OECD bileşik öncü göstergesi, Eylül 2026 değeri ve bir önceki aya göre değişim",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "OECD"
+ },
+ "form": "minitabell",
+ "serier": [
+  {
+   "navn": "Eylül",
+   "punkter": [
+    {
+     "x": "Türkiye",
+     "y": 100.73
+    },
+    {
+     "x": "G7",
+     "y": 100.94
+    },
+    {
+     "x": "G20",
+     "y": 100.14
+    },
+    {
+     "x": "ABD",
+     "y": 101
+    },
+    {
+     "x": "Almanya",
+     "y": 101.01
+    },
+    {
+     "x": "Japonya",
+     "y": 100.35
+    },
+    {
+     "x": "Çin",
+     "y": 97.41
+    },
+    {
+     "x": "Birleşik Krallık",
+     "y": 101.38
+    }
+   ]
+  },
+  {
+   "navn": "Aylık değişim",
+   "punkter": [
+    {
+     "x": "Türkiye",
+     "y": 0.27
+    },
+    {
+     "x": "G7",
+     "y": 0.08
+    },
+    {
+     "x": "G20",
+     "y": -0.02
+    },
+    {
+     "x": "ABD",
+     "y": 0.05
+    },
+    {
+     "x": "Almanya",
+     "y": 0.11
+    },
+    {
+     "x": "Japonya",
+     "y": 0.03
+    },
+    {
+     "x": "Çin",
+     "y": -0.23
+    },
+    {
+     "x": "Birleşik Krallık",
+     "y": 0.24
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "Türkiye"
+  ]
+ }
+}

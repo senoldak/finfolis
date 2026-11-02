@@ -1,0 +1,69 @@
+{
+ "tittel": "Brent petrolün aylık ortalaması Mart 2026'da yükseldi, Haziran 2026'da geriledi, eylülde yeniden yükseldi",
+ "under": "Europe Brent spot fiyatı, aylık ortalama, varil başına dolar",
+ "enhet": "Europe Brent spot fiyatı, aylık ortalama, varil başına dolar",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "EIA (FRED)"
+ },
+ "form": "linje",
+ "serier": [
+  {
+   "navn": "Brent",
+   "punkter": [
+    {
+     "x": "Eyl 2025",
+     "y": 67.99
+    },
+    {
+     "x": "Eki 2025",
+     "y": 64.54
+    },
+    {
+     "x": "Kas 2025",
+     "y": 63.8
+    },
+    {
+     "x": "Ara 2025",
+     "y": 62.54
+    },
+    {
+     "x": "Oca 2026",
+     "y": 66.6
+    },
+    {
+     "x": "Şub 2026",
+     "y": 70.89
+    },
+    {
+     "x": "Mar 2026",
+     "y": 103.13
+    },
+    {
+     "x": "Nis 2026",
+     "y": 117.29
+    },
+    {
+     "x": "May 2026",
+     "y": 107.14
+    },
+    {
+     "x": "Haz 2026",
+     "y": 85.4
+    },
+    {
+     "x": "Tem 2026",
+     "y": 83.76
+    },
+    {
+     "x": "Ağu 2026",
+     "y": 91.08
+    },
+    {
+     "x": "Eyl 2026",
+     "y": 114.16
+    }
+   ]
+  }
+ ]
+}

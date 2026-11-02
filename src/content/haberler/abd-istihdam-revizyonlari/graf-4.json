@@ -1,0 +1,40 @@
+{
+ "tittel": "Ocak–Ağustos 2025 artışlarının toplamı ilk açıklamalardan bugüne küçüldü",
+ "under": "Sekiz ayın aylık istihdam değişimlerinin toplamı, bin kişi",
+ "enhet": "bin kişi",
+ "desimaler": 0,
+ "kilde": {
+  "navn": "BLS"
+ },
+ "form": "nokkeltall",
+ "serier": [
+  {
+   "navn": "Fark",
+   "rol": "ana",
+   "punkter": [
+    {
+     "x": "Bugünkü toplam eksi ilk toplam",
+     "y": -924
+    }
+   ]
+  },
+  {
+   "navn": "Toplamlar",
+   "rol": "kunye",
+   "punkter": [
+    {
+     "x": "İlk",
+     "y": 1080
+    },
+    {
+     "x": "Üçüncü",
+     "y": 543
+    },
+    {
+     "x": "Bugün",
+     "y": 156
+    }
+   ]
+  }
+ ]
+}

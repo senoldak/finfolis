@@ -1,0 +1,77 @@
+{
+ "tittel": "On yılda ÖTV'nin payı küçüldü, gelir ve kurumlar vergisinin payı büyüdü",
+ "under": "Vergi türlerinin merkezi yönetim bütçe gelirleri içindeki payı, Ocak–Aralık toplamları, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "HMB (TCMB EVDS)"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "KDV",
+   "punkter": [
+    {
+     "x": "2015",
+     "y": 25.080000000000002
+    },
+    {
+     "x": "2025",
+     "y": 25.569999999999997
+    }
+   ]
+  },
+  {
+   "navn": "Gelir vergisi",
+   "punkter": [
+    {
+     "x": "2015",
+     "y": 17.76
+    },
+    {
+     "x": "2025",
+     "y": 21.93
+    }
+   ]
+  },
+  {
+   "navn": "ÖTV",
+   "punkter": [
+    {
+     "x": "2015",
+     "y": 21.94
+    },
+    {
+     "x": "2025",
+     "y": 15.78
+    }
+   ]
+  },
+  {
+   "navn": "Kurumlar vergisi",
+   "punkter": [
+    {
+     "x": "2015",
+     "y": 6.92
+    },
+    {
+     "x": "2025",
+     "y": 9.54
+    }
+   ]
+  },
+  {
+   "navn": "BSMV",
+   "punkter": [
+    {
+     "x": "2015",
+     "y": 1.9
+    },
+    {
+     "x": "2025",
+     "y": 4.3
+    }
+   ]
+  }
+ ]
+}

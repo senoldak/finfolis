@@ -1,0 +1,62 @@
+{
+ "tittel": "Enerji, C endeksinin en çok üzerinde kalan grup oldu",
+ "under": "Eylül ayı, yıllık değişim, yüzde",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TCMB"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Yıllık değişim",
+   "punkter": [
+    {
+     "x": "Enerji",
+     "y": 46.11
+    },
+    {
+     "x": "Alkollü içecekler ve tütün",
+     "y": 31.6
+    },
+    {
+     "x": "Altın",
+     "y": 31.31
+    },
+    {
+     "x": "İşlenmiş gıda",
+     "y": 30.33
+    },
+    {
+     "x": "TÜFE",
+     "y": 29.73
+    },
+    {
+     "x": "B endeksi",
+     "y": 29
+    },
+    {
+     "x": "Gıda ve alkolsüz içecekler",
+     "y": 27.62
+    },
+    {
+     "x": "İşlenmemiş gıda",
+     "y": 24.15
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": true,
+  "fremhev": [
+   "Enerji"
+  ]
+ },
+ "merknader": [
+  {
+   "type": "mal",
+   "y": 28.7,
+   "tekst": "C endeksi: %28,70"
+  }
+ ]
+}

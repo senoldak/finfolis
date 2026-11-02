@@ -1,0 +1,35 @@
+{
+ "tittel": "Ulaştırmada yakıt grubun ortalamasının çok üstünde, taşıtlar çok altında arttı",
+ "under": "Eylül 2026 yıllık değişim, yüzde, her boncuk 4 puan",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Ulaştırma",
+   "punkter": [
+    {
+     "x": "Motorlu taşıtlar",
+     "y": 12.580098
+    },
+    {
+     "x": "Ulaştırma grubu",
+     "y": 35.10598387
+    },
+    {
+     "x": "Akaryakıt ve yağlar",
+     "y": 53.76039305
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": false,
+  "fremhev": [
+   "Akaryakıt ve yağlar"
+  ]
+ }
+}

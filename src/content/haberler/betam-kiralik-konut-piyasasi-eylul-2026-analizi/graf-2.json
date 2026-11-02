@@ -1,0 +1,39 @@
+{
+ "tittel": "Cari kira artış hızı büyükşehirlerde farklılaştı",
+ "under": "Yıllık cari kira değişimi, Eylül 2026, her boncuk 5 puan",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "BETAM"
+ },
+ "tall": {
+  "verdi": "17,4 puan",
+  "etikett": "fark, artış"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Cari Kira Artışı",
+   "punkter": [
+    {
+     "x": "Ankara",
+     "y": 20.6
+    },
+    {
+     "x": "Türkiye",
+     "y": 22.4
+    },
+    {
+     "x": "İstanbul",
+     "y": 38
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": false,
+  "fremhev": [
+   "İstanbul"
+  ]
+ }
+}

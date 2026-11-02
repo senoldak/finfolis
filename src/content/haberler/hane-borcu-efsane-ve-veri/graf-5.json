@@ -1,0 +1,25 @@
+{
+ "tittel": "Hane kredilerinin çoğu kısa vadeli",
+ "under": "Hane kredilerinin vadeye göre dağılımı, yüzde; son çeyrek",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TCMB"
+ },
+ "form": "smultring",
+ "serier": [
+  {
+   "navn": "Vade",
+   "punkter": [
+    {
+     "x": "Kısa vadeli",
+     "y": 70.5
+    },
+    {
+     "x": "Uzun vadeli",
+     "y": 29.5
+    }
+   ]
+  }
+ ]
+}

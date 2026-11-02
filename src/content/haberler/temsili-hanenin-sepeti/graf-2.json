@@ -1,0 +1,50 @@
+{
+ "tittel": "Aralık 2025’in sepetindeki artışın en büyük parçası ulaştırma ve gıdadan geldi",
+ "under": "Aralık 2025 fiyatlarıyla yüz lira tutan sepetin Eylül 2026’ya kadarki artışı, TL",
+ "enhet": "Aralık 2025 fiyatlarıyla yüz lira tutan sepetin Eylül 2026’ya kadarki artışı, TL",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "bidrag",
+ "serier": [
+  {
+   "navn": "Gruplar",
+   "punkter": [
+    {
+     "x": "Ulaştırma",
+     "y": 5.44
+    },
+    {
+     "x": "Gıda",
+     "y": 5.34
+    },
+    {
+     "x": "Konut",
+     "y": 3.68
+    },
+    {
+     "x": "Lokanta ve konaklama",
+     "y": 2.76
+    },
+    {
+     "x": "Mobilya ve ev ekipmanı",
+     "y": 1.51
+    },
+    {
+     "x": "Diğer sekiz grup",
+     "y": 5.58
+    }
+   ]
+  },
+  {
+   "navn": "Toplam",
+   "punkter": [
+    {
+     "x": "Toplam artış",
+     "y": 24.31
+    }
+   ]
+  }
+ ]
+}

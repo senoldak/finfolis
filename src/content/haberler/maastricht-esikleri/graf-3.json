@@ -1,0 +1,75 @@
+{
+ "tittel": "2025 yılında en büyük açıklar Romanya ve Polonya'da",
+ "under": "Genel yönetim bütçe dengesi (net borç verme ya da borçlanma) / GSYH, 2025 yılı, yüzde; eksi değer açık",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "Eurostat"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Denge",
+   "punkter": [
+    {
+     "x": "Romanya",
+     "y": -7.8
+    },
+    {
+     "x": "Polonya",
+     "y": -7.2
+    },
+    {
+     "x": "Belçika",
+     "y": -5.2
+    },
+    {
+     "x": "Fransa",
+     "y": -5.1
+    },
+    {
+     "x": "Macaristan",
+     "y": -4.7
+    },
+    {
+     "x": "Slovakya",
+     "y": -4.4
+    },
+    {
+     "x": "Avusturya",
+     "y": -4.1
+    },
+    {
+     "x": "Finlandiya",
+     "y": -3.8
+    },
+    {
+     "x": "AB toplamı",
+     "y": -3.1
+    },
+    {
+     "x": "Almanya",
+     "y": -2.9
+    },
+    {
+     "x": "İspanya",
+     "y": -2.4
+    },
+    {
+     "x": "Yunanistan",
+     "y": 2
+    },
+    {
+     "x": "Danimarka",
+     "y": 2.9
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": true,
+  "fremhev": [
+   "AB toplamı"
+  ]
+ }
+}

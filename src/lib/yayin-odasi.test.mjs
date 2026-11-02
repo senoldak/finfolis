@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { yayinOdasiVerisi, elemeMetni, elenenSatirlari, SAYAC_BASLANGICI } from './yayin-odasi.mjs';
+import { yayinOdasiVerisi, elemeMetni, elenenSatirlari, zincirKaydi, SAYAC_BASLANGICI } from './yayin-odasi.mjs';
 
 const simdi = new Date('2026-11-10T09:00:00+03:00');
 const gun = (o = {}) => ({ tur: 1, gorulen: 10, degerlendirilen: 4, yazilan: 3, yayimlanan: 2, bulten: 1, bekleyen: 0, elenen: {}, ...o });
@@ -87,4 +87,11 @@ test('son uzun yazı: en yeni yazi-isleri yazısı, zincir kaydı yok; yoksa nul
   const yazilar = [yz('eski', { uretim: 'yazi-isleri', date: new Date('2026-11-01T00:00:00Z') }), yz('yeni', { uretim: 'yazi-isleri', date: new Date('2026-11-05T00:00:00Z') }), yz('haber')];
   assert.deepEqual(yayinOdasiVerisi({ sayac, yazilar, simdi }).sonUzunYazi, { baslik: 'Başlık yeni', url: '/haber/yeni/', zincir: null });
   assert.equal(yayinOdasiVerisi({ sayac, yazilar: [yz('haber')], simdi }).sonUzunYazi, null);
+});
+
+test('zincirKaydi: kjede pano satırlarına döner; eksik ya da biçimsiz kayıt null', () => {
+  assert.deepEqual(zincirKaydi({ runder: { yazim: 2, dogrulama: 1 }, kontrollert: 14, hentet: 3 }), { geriDonus: 3, karsilastirilan: 14, yenidenCekilen: 3 });
+  assert.deepEqual(zincirKaydi({ runder: {}, kontrollert: 0, hentet: 0 }), { geriDonus: 0, karsilastirilan: 0, yenidenCekilen: 0 });
+  assert.equal(zincirKaydi(undefined), null);
+  assert.equal(zincirKaydi({ runder: {}, kontrollert: -1, hentet: 2 }), null);
 });

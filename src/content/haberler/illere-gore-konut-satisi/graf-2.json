@@ -1,0 +1,77 @@
+{
+ "tittel": "Büyük dört ilin dışında kalan illerin payı büyüdü",
+ "under": "Yıllık konut satışında Türkiye toplamı içindeki pay, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "İstanbul",
+   "punkter": [
+    {
+     "x": "2013",
+     "y": 21.62
+    },
+    {
+     "x": "2025",
+     "y": 17.64
+    }
+   ]
+  },
+  {
+   "navn": "Ankara",
+   "punkter": [
+    {
+     "x": "2013",
+     "y": 11.940000000000001
+    },
+    {
+     "x": "2025",
+     "y": 8.72
+    }
+   ]
+  },
+  {
+   "navn": "İzmir",
+   "punkter": [
+    {
+     "x": "2013",
+     "y": 6.25
+    },
+    {
+     "x": "2025",
+     "y": 5.6899999999999995
+    }
+   ]
+  },
+  {
+   "navn": "Antalya",
+   "punkter": [
+    {
+     "x": "2013",
+     "y": 4.97
+    },
+    {
+     "x": "2025",
+     "y": 4.9799999999999995
+    }
+   ]
+  },
+  {
+   "navn": "Diğer iller",
+   "punkter": [
+    {
+     "x": "2013",
+     "y": 55.22
+    },
+    {
+     "x": "2025",
+     "y": 62.980000000000004
+    }
+   ]
+  }
+ ]
+}

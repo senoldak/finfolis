@@ -1,0 +1,46 @@
+{
+ "tittel": "Altın ve enerji hariç dengenin bir yılda en çok değiştiği altı yıl",
+ "under": "Altın ve enerji hariç cari işlemler dengesinin bir önceki yıla göre değişimi, kırılma yılları, dolar, milyar dolar",
+ "enhet": "milyar dolar",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TCMB"
+ },
+ "form": "soyle",
+ "serier": [
+  {
+   "navn": "Yıllık değişim",
+   "punkter": [
+    {
+     "x": "2010",
+     "y": -21.763
+    },
+    {
+     "x": "2012",
+     "y": 26.951
+    },
+    {
+     "x": "2018",
+     "y": 24.234
+    },
+    {
+     "x": "2019",
+     "y": 25.648
+    },
+    {
+     "x": "2020",
+     "y": -41.982
+    },
+    {
+     "x": "2021",
+     "y": 21.544
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "2012"
+  ]
+ }
+}

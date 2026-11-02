@@ -1,0 +1,50 @@
+{
+ "tittel": "İncelenen ekonomilerin çoğunda gösterge 100'ün üzerinde",
+ "under": "OECD bileşik öncü göstergesi eksi uzun dönem eğilim düzeyi, Eylül 2026",
+ "enhet": "OECD bileşik öncü göstergesi eksi uzun dönem eğilim düzeyi, Eylül 2026",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "OECD"
+ },
+ "form": "soyle",
+ "serier": [
+  {
+   "navn": "100'den uzaklık",
+   "punkter": [
+    {
+     "x": "Türkiye",
+     "y": 0.73
+    },
+    {
+     "x": "G7",
+     "y": 0.94
+    },
+    {
+     "x": "G20",
+     "y": 0.14
+    },
+    {
+     "x": "ABD",
+     "y": 1
+    },
+    {
+     "x": "Almanya",
+     "y": 1.01
+    },
+    {
+     "x": "Japonya",
+     "y": 0.35
+    },
+    {
+     "x": "Çin",
+     "y": -2.59
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "Türkiye"
+  ]
+ }
+}

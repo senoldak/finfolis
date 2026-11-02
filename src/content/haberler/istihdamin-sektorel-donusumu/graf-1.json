@@ -1,0 +1,33 @@
+{
+ "tittel": "Çalışanların yaklaşık beşte üçü hizmetlerde",
+ "under": "İstihdamın sektörlere dağılımı, on beş ve daha yukarı yaş, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "smultring",
+ "serier": [
+  {
+   "navn": "2025",
+   "punkter": [
+    {
+     "x": "Hizmetler",
+     "y": 59
+    },
+    {
+     "x": "Sanayi",
+     "y": 20.2
+    },
+    {
+     "x": "Tarım",
+     "y": 14
+    },
+    {
+     "x": "İnşaat",
+     "y": 6.8
+    }
+   ]
+  }
+ ]
+}

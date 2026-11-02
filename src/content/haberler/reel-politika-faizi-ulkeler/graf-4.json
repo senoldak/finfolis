@@ -1,0 +1,34 @@
+{
+ "tittel": "Faiz indirimi farkı daralttı, enflasyondaki gerileme bir kısmını karşıladı",
+ "under": "Türkiye, Ağustos 2025’ten Ağustos 2026’ya farktaki değişim, yüzde puanı",
+ "enhet": "Türkiye, Ağustos 2025’ten Ağustos 2026’ya farktaki değişim, yüzde puanı",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "BIS (TCMB EVDS), IMF (TCMB EVDS)"
+ },
+ "form": "bidrag",
+ "serier": [
+  {
+   "navn": "Parçalar",
+   "punkter": [
+    {
+     "x": "Politika faizindeki değişim",
+     "y": -6
+    },
+    {
+     "x": "Enflasyondaki gerilemenin katkısı",
+     "y": 1.44
+    }
+   ]
+  },
+  {
+   "navn": "Toplam",
+   "punkter": [
+    {
+     "x": "Farktaki değişim",
+     "y": -4.56
+    }
+   ]
+  }
+ ]
+}

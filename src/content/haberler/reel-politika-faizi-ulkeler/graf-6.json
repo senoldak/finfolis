@@ -1,0 +1,99 @@
+{
+ "tittel": "Yüzde ölçüsünde Türkiye listenin ortasında",
+ "under": "Ağustos 2026, politika faizinin yıllık TÜFE’yi aştığı oran, yüzde",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "IMF (TCMB EVDS), BIS (TCMB EVDS)"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Aşım",
+   "punkter": [
+    {
+     "x": "Türkiye",
+     "y": 17.43
+    },
+    {
+     "x": "ABD",
+     "y": 6.73
+    },
+    {
+     "x": "Japonya",
+     "y": -49.05
+    },
+    {
+     "x": "Kanada",
+     "y": -25.84
+    },
+    {
+     "x": "İsveç",
+     "y": 473.22
+    },
+    {
+     "x": "Norveç",
+     "y": 29.05
+    },
+    {
+     "x": "İzlanda",
+     "y": 42.8
+    },
+    {
+     "x": "Danimarka",
+     "y": -9.73
+    },
+    {
+     "x": "Çekya",
+     "y": 95.11
+    },
+    {
+     "x": "Macaristan",
+     "y": 328.82
+    },
+    {
+     "x": "Polonya",
+     "y": 16.74
+    },
+    {
+     "x": "Brezilya",
+     "y": 231.48
+    },
+    {
+     "x": "Meksika",
+     "y": 99.27
+    },
+    {
+     "x": "Şili",
+     "y": 8.9
+    },
+    {
+     "x": "Kolombiya",
+     "y": 92.26
+    },
+    {
+     "x": "Peru",
+     "y": 4.59
+    },
+    {
+     "x": "Çin",
+     "y": 274.99
+    },
+    {
+     "x": "Endonezya",
+     "y": 80.33
+    },
+    {
+     "x": "Tayland",
+     "y": -60.42
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": true,
+  "fremhev": [
+   "Türkiye"
+  ]
+ }
+}

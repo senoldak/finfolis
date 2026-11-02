@@ -1,0 +1,67 @@
+{
+ "tittel": "Küçük tabanlı illerde satış birkaç katına çıktı",
+ "under": "Son yılın konut satışı ve 2013 yılından bu yana artış, konut",
+ "enhet": "Son yılın konut satışı ve 2013 yılından bu yana artış, konut",
+ "desimaler": 0,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "minitabell",
+ "serier": [
+  {
+   "navn": "Son yıl satışı",
+   "punkter": [
+    {
+     "x": "Muş",
+     "y": 4212
+    },
+    {
+     "x": "Kars",
+     "y": 5821
+    },
+    {
+     "x": "Van",
+     "y": 13425
+    },
+    {
+     "x": "Batman",
+     "y": 11599
+    },
+    {
+     "x": "Mardin",
+     "y": 14727
+    }
+   ]
+  },
+  {
+   "navn": "Artış",
+   "punkter": [
+    {
+     "x": "Muş",
+     "y": 3689
+    },
+    {
+     "x": "Kars",
+     "y": 4549
+    },
+    {
+     "x": "Van",
+     "y": 10164
+    },
+    {
+     "x": "Batman",
+     "y": 8584
+    },
+    {
+     "x": "Mardin",
+     "y": 10815
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "Muş"
+  ]
+ }
+}

@@ -1,0 +1,34 @@
+{
+ "tittel": "GSYH artışı, borç artışının oranı yükselten etkisinden büyük çıktı",
+ "under": "AB tanımlı genel yönetim borç stoku / GSYH oranındaki değişim, 2021 yılı sonundan 2025 yılı sonuna, yıllık etkilerin toplamı, yüzde puanı",
+ "enhet": "AB tanımlı genel yönetim borç stoku / GSYH oranındaki değişim, 2021 yılı sonundan 2025 yılı sonuna, yıllık etkilerin toplamı, yüzde puanı",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK (TCMB EVDS), HMB"
+ },
+ "form": "bidrag",
+ "serier": [
+  {
+   "navn": "Etkiler",
+   "punkter": [
+    {
+     "x": "Borç stokundaki artışın etkisi",
+     "y": 62.84
+    },
+    {
+     "x": "GSYH artışının etkisi",
+     "y": -78.07
+    }
+   ]
+  },
+  {
+   "navn": "Sonuç",
+   "punkter": [
+    {
+     "x": "Orandaki toplam değişim",
+     "y": -15.23
+    }
+   ]
+  }
+ ]
+}

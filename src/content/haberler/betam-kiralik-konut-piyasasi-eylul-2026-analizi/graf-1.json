@@ -1,0 +1,38 @@
+{
+ "tittel": "İstanbul reel kira artışında diğer büyükşehirlerden ayrıştı",
+ "under": "Yıllık reel kira değişimi, Eylül 2026",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "BETAM"
+ },
+ "form": "soyle",
+ "serier": [
+  {
+   "navn": "Reel Değişim",
+   "punkter": [
+    {
+     "x": "İzmir",
+     "y": -9.5
+    },
+    {
+     "x": "Ankara",
+     "y": -7.1
+    },
+    {
+     "x": "Türkiye",
+     "y": -5.7
+    },
+    {
+     "x": "İstanbul",
+     "y": 6.4
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "İstanbul"
+  ]
+ }
+}

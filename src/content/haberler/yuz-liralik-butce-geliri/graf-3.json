@@ -1,0 +1,41 @@
+{
+ "tittel": "Harcanan her yüz liranın en büyük parçası cari transferlere gitti",
+ "under": "Merkezi yönetim bütçe giderlerinin ekonomik sınıflandırmaya göre dağılımı, Ocak–Aralık 2025, yüzde; personele SGK devlet primi, sermayeye sermaye transferleri dahil",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "HMB (TCMB EVDS)"
+ },
+ "form": "smultring",
+ "serier": [
+  {
+   "navn": "Giderler",
+   "punkter": [
+    {
+     "x": "Cari transferler",
+     "y": 36.94
+    },
+    {
+     "x": "Personel",
+     "y": 27.93
+    },
+    {
+     "x": "Faiz",
+     "y": 14.030000000000001
+    },
+    {
+     "x": "Sermaye",
+     "y": 11.65
+    },
+    {
+     "x": "Mal ve hizmet",
+     "y": 7.33
+    },
+    {
+     "x": "Borç verme",
+     "y": 2.12
+    }
+   ]
+  }
+ ]
+}

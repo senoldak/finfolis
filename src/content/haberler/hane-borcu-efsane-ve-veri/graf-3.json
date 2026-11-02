@@ -1,0 +1,31 @@
+{
+ "tittel": "2022 yılında GSYH krediden hızlı büyüdü",
+ "under": "Yıllık artış, yüzde, her boncuk 10 puan",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TCMB, TÜİK"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Artış",
+   "punkter": [
+    {
+     "x": "Hane kredileri",
+     "y": 54.48
+    },
+    {
+     "x": "Nominal GSYH",
+     "y": 106.16
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": false,
+  "fremhev": [
+   "Nominal GSYH"
+  ]
+ }
+}

@@ -1,0 +1,91 @@
+{
+ "tittel": "Türkiye’de fark artıda ama bir yılda en çok daralan ekonomi",
+ "under": "Ağustos 2026 politika faizi eksi yıllık TÜFE ve bir yıllık değişimi, yüzde puanı",
+ "enhet": "Ağustos 2026 politika faizi eksi yıllık TÜFE ve bir yıllık değişimi, yüzde puanı",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "IMF (TCMB EVDS), BIS (TCMB EVDS)"
+ },
+ "form": "minitabell",
+ "serier": [
+  {
+   "navn": "Fark",
+   "punkter": [
+    {
+     "x": "Kolombiya",
+     "y": 5.76
+    },
+    {
+     "x": "Türkiye",
+     "y": 5.49
+    },
+    {
+     "x": "Macaristan",
+     "y": 4.22
+    },
+    {
+     "x": "Meksika",
+     "y": 3.24
+    },
+    {
+     "x": "Polonya",
+     "y": 0.54
+    },
+    {
+     "x": "İzlanda",
+     "y": 2.4
+    },
+    {
+     "x": "Çin",
+     "y": 2.2
+    },
+    {
+     "x": "Çekya",
+     "y": 1.83
+    }
+   ]
+  },
+  {
+   "navn": "Bir yılda değişim",
+   "punkter": [
+    {
+     "x": "Kolombiya",
+     "y": 1.6
+    },
+    {
+     "x": "Türkiye",
+     "y": -4.56
+    },
+    {
+     "x": "Macaristan",
+     "y": 2
+    },
+    {
+     "x": "Meksika",
+     "y": -0.94
+    },
+    {
+     "x": "Polonya",
+     "y": -1.38
+    },
+    {
+     "x": "İzlanda",
+     "y": -1.35
+    },
+    {
+     "x": "Çin",
+     "y": -1.16
+    },
+    {
+     "x": "Çekya",
+     "y": 0.82
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "Türkiye"
+  ]
+ }
+}

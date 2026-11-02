@@ -1,0 +1,61 @@
+{
+ "tittel": "Büyükşehirlerde satılık konut fiyat artışları",
+ "under": "Yıllık cari artış ve reel değişim oranları, Eylül 2026",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "BETAM"
+ },
+ "form": "minitabell",
+ "serier": [
+  {
+   "navn": "Cari Artış",
+   "punkter": [
+    {
+     "x": "İstanbul",
+     "y": 24.6
+    },
+    {
+     "x": "Ankara",
+     "y": 26.5
+    },
+    {
+     "x": "Türkiye",
+     "y": 19.6
+    },
+    {
+     "x": "İzmir",
+     "y": 17.7
+    }
+   ],
+   "prosent": true
+  },
+  {
+   "navn": "Reel Değişim",
+   "punkter": [
+    {
+     "x": "İstanbul",
+     "y": -4
+    },
+    {
+     "x": "Ankara",
+     "y": -2.5
+    },
+    {
+     "x": "Türkiye",
+     "y": -7.8
+    },
+    {
+     "x": "İzmir",
+     "y": -9.3
+    }
+   ],
+   "prosent": true
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "Ankara"
+  ]
+ }
+}

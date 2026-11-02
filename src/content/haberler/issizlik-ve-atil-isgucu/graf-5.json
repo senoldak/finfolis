@@ -1,0 +1,39 @@
+{
+ "tittel": "İki ölçü arasındaki mesafe kadınlarda daha geniş",
+ "under": "İşsizlik oranı ve atıl işgücü oranı, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "manual",
+ "valg": {
+  "gruppenavn": [
+   "İşsizlik oranı",
+   "Atıl işgücü oranı"
+  ],
+  "sorter": false
+ },
+ "serier": [
+  {
+   "navn": "İki ölçü arasındaki mesafe kadınlarda daha geniş",
+   "punkter": [
+    {
+     "x": "Kadın",
+     "y": 11.3,
+     "y2": 39.1
+    },
+    {
+     "x": "Toplam",
+     "y": 8.3,
+     "y2": 29.7
+    },
+    {
+     "x": "Erkek",
+     "y": 6.8,
+     "y2": 24
+    }
+   ]
+  }
+ ]
+}

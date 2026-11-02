@@ -1,0 +1,60 @@
+{
+ "tittel": "Ortalama fonlama maliyeti ihale arasında yükseldi, ihaleler dönünce geri indi",
+ "under": "TCMB ağırlıklı ortalama fonlama maliyeti, her aydan bir iş günü gözlemi, yüzde",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TCMB"
+ },
+ "form": "linje",
+ "serier": [
+  {
+   "navn": "Ortalama fonlama maliyeti",
+   "punkter": [
+    {
+     "x": "Oca 2026",
+     "y": 37
+    },
+    {
+     "x": "Şub 2026",
+     "y": 37
+    },
+    {
+     "x": "Mar 2026",
+     "y": 40
+    },
+    {
+     "x": "Nis 2026",
+     "y": 40
+    },
+    {
+     "x": "May 2026",
+     "y": 40
+    },
+    {
+     "x": "Haz 2026",
+     "y": 40
+    },
+    {
+     "x": "Tem 2026",
+     "y": 40
+    },
+    {
+     "x": "Ağu 2026",
+     "y": 37
+    },
+    {
+     "x": "Eyl 2026",
+     "y": 37
+    },
+    {
+     "x": "Eki 2026",
+     "y": 36.04
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "trapp": true
+ }
+}

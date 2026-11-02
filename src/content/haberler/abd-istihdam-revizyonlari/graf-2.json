@@ -1,0 +1,55 @@
+{
+ "tittel": "2025'in ilk sekiz ayında her ay üçüncü tahmin ilk açıklamanın altında kaldı",
+ "under": "Üçüncü tahmin eksi ilk açıklama, aylık istihdam değişimi, bin kişi",
+ "enhet": "bin kişi",
+ "desimaler": 0,
+ "kilde": {
+  "navn": "BLS"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Revizyon",
+   "punkter": [
+    {
+     "x": "Oca 2025",
+     "y": -32
+    },
+    {
+     "x": "Şub 2025",
+     "y": -49
+    },
+    {
+     "x": "Mar 2025",
+     "y": -108
+    },
+    {
+     "x": "Nis 2025",
+     "y": -19
+    },
+    {
+     "x": "May 2025",
+     "y": -120
+    },
+    {
+     "x": "Haz 2025",
+     "y": -160
+    },
+    {
+     "x": "Tem 2025",
+     "y": -1
+    },
+    {
+     "x": "Ağu 2025",
+     "y": -48
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": false,
+  "fremhev": [
+   "Haz 2025"
+  ]
+ }
+}

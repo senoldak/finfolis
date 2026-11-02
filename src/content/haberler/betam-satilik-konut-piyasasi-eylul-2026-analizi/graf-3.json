@@ -1,0 +1,39 @@
+{
+ "tittel": "İstanbul ortalama metrekare satış fiyatında zirvede",
+ "under": "Ortalama satılık konut m² cari fiyatı, TL, Eylül 2026",
+ "enhet": "Ortalama satılık konut m² cari fiyatı, TL, Eylül 2026",
+ "desimaler": 0,
+ "kilde": {
+  "navn": "BETAM"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Metrekare Fiyatı",
+   "punkter": [
+    {
+     "x": "Ankara",
+     "y": 40417
+    },
+    {
+     "x": "Türkiye",
+     "y": 46681
+    },
+    {
+     "x": "İzmir",
+     "y": 54310
+    },
+    {
+     "x": "İstanbul",
+     "y": 67949
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": true,
+  "fremhev": [
+   "İstanbul"
+  ]
+ }
+}

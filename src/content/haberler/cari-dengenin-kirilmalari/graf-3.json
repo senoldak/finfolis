@@ -1,0 +1,64 @@
+{
+ "tittel": "En düşük yıldan tek fazla yılına iyileşmenin çoğu altın ve enerji dışındaki kalemlerde görüldü",
+ "under": "Cari dengenin parçaları, 2011 yılı ve 2019 yılı toplamları, dolar, milyar dolar",
+ "enhet": "milyar dolar",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TCMB"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "Toplam cari denge",
+   "punkter": [
+    {
+     "x": "En düşük yıl",
+     "y": -74.403
+    },
+    {
+     "x": "Tek fazla yılı",
+     "y": 15.013
+    }
+   ]
+  },
+  {
+   "navn": "Enerji net",
+   "punkter": [
+    {
+     "x": "En düşük yıl",
+     "y": -47.57847
+    },
+    {
+     "x": "Tek fazla yılı",
+     "y": -33.28379
+    }
+   ]
+  },
+  {
+   "navn": "Altın net",
+   "punkter": [
+    {
+     "x": "En düşük yıl",
+     "y": -4.778
+    },
+    {
+     "x": "Tek fazla yılı",
+     "y": -9.271
+    }
+   ]
+  },
+  {
+   "navn": "Altın ve enerji hariç",
+   "punkter": [
+    {
+     "x": "En düşük yıl",
+     "y": -22.04643
+    },
+    {
+     "x": "Tek fazla yılı",
+     "y": 57.56779
+    }
+   ]
+  }
+ ]
+}

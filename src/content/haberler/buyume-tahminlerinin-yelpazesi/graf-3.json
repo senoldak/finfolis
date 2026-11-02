@@ -1,0 +1,35 @@
+{
+ "tittel": "Yılın ilk iki çeyreğinde büyüme, bir önceki yılın büyümesinin altında kaldı",
+ "under": "Türkiye, reel GSYH büyümesi, yüzde; yıl toplamı ve çeyrekler, bir önceki yılın aynı dönemine göre, her boncuk 0,25 puan",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Büyüme",
+   "punkter": [
+    {
+     "x": "2025 yılı",
+     "y": 3.74
+    },
+    {
+     "x": "2026 yılı ilk çeyrek",
+     "y": 2.6023143
+    },
+    {
+     "x": "2026 yılı ikinci çeyrek",
+     "y": 2.32206055
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": false,
+  "fremhev": [
+   "2026 yılı ikinci çeyrek"
+  ]
+ }
+}

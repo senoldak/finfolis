@@ -1,0 +1,29 @@
+{
+ "tittel": "Bütçeye giren her yüz liranın dörtte birinden fazlası KDV'den geldi",
+ "under": "Merkezi yönetim bütçe gelirlerinin dağılımı, Ocak–Aralık 2025, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "HMB (TCMB EVDS)"
+ },
+ "form": "rutenett",
+ "serier": [
+  {
+   "navn": "Gelirler",
+   "punkter": [
+    {
+     "x": "KDV (dahilde ve ithalde)",
+     "y": 25.569999999999997
+    },
+    {
+     "x": "Diğer vergiler",
+     "y": 60.57
+    },
+    {
+     "x": "Vergi dışı gelirler",
+     "y": 13.850000000000001
+    }
+   ]
+  }
+ ]
+}

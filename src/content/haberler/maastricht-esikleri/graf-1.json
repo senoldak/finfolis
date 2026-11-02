@@ -1,0 +1,97 @@
+{
+ "tittel": "Türkiye'nin borç oranı %60 referans değerinin ve AB toplamının altında",
+ "under": "Genel yönetim borcu / GSYH, yüzde; kesik çizgi Maastricht referans değeri; Türkiye için AB tanımlı seri",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "HMB, Eurostat"
+ },
+ "form": "manual",
+ "valg": {
+  "gruppenavn": [
+   "2019",
+   "2025"
+  ],
+  "sorter": false,
+  "malnavn": "Referans değer"
+ },
+ "serier": [
+  {
+   "navn": "Türkiye'nin borç oranı %60 referans değerinin ve AB toplamının altında",
+   "punkter": [
+    {
+     "x": "Türkiye",
+     "y": 31.195,
+     "y2": 23.6788,
+     "mal": 60
+    },
+    {
+     "x": "AB toplamı",
+     "y": 77.4,
+     "y2": 81.5,
+     "mal": 60
+    },
+    {
+     "x": "Yunanistan",
+     "y": 183.2,
+     "y2": 145.4,
+     "mal": 60
+    },
+    {
+     "x": "İtalya",
+     "y": 134.2,
+     "y2": 136.7,
+     "mal": 60
+    },
+    {
+     "x": "Fransa",
+     "y": 98.2,
+     "y2": 115.7,
+     "mal": 60
+    },
+    {
+     "x": "Belçika",
+     "y": 97.7,
+     "y2": 108.1,
+     "mal": 60
+    },
+    {
+     "x": "İspanya",
+     "y": 97.7,
+     "y2": 100.5,
+     "mal": 60
+    },
+    {
+     "x": "Almanya",
+     "y": 58.3,
+     "y2": 62.8,
+     "mal": 60
+    },
+    {
+     "x": "Polonya",
+     "y": 45.2,
+     "y2": 59.6,
+     "mal": 60
+    },
+    {
+     "x": "Romanya",
+     "y": 35.4,
+     "y2": 58.9,
+     "mal": 60
+    },
+    {
+     "x": "Danimarka",
+     "y": 38.3,
+     "y2": 27.2,
+     "mal": 60
+    },
+    {
+     "x": "Estonya",
+     "y": 9,
+     "y2": 24,
+     "mal": 60
+    }
+   ]
+  }
+ ]
+}

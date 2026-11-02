@@ -1,0 +1,55 @@
+{
+ "tittel": "Gelir vergisi ve KDV, bütçe gelirlerinin en büyük iki kalemi",
+ "under": "Vergi türlerinin merkezi yönetim bütçe gelirleri içindeki payı, Ocak–Aralık 2025, yüzde",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "HMB (TCMB EVDS)"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Pay",
+   "punkter": [
+    {
+     "x": "KDV (dahilde ve ithalde)",
+     "y": 25.569999999999997
+    },
+    {
+     "x": "Gelir vergisi",
+     "y": 21.93
+    },
+    {
+     "x": "Özel tüketim vergisi",
+     "y": 15.78
+    },
+    {
+     "x": "Kurumlar vergisi",
+     "y": 9.54
+    },
+    {
+     "x": "Banka ve sigorta muameleleri vergisi",
+     "y": 4.3
+    },
+    {
+     "x": "Harçlar",
+     "y": 2.63
+    },
+    {
+     "x": "Gümrük vergileri",
+     "y": 2.48
+    },
+    {
+     "x": "Damga vergisi",
+     "y": 1.76
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": true,
+  "fremhev": [
+   "Gelir vergisi"
+  ]
+ }
+}

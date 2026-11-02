@@ -1,0 +1,64 @@
+{
+ "tittel": "Yaz aylarının ve ağustosun payı düştü, şubatın payı arttı",
+ "under": "Yıllık toplam içindeki pay, yüzde",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TCMB, TÜİK (TCMB EVDS)"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "Haziran–eylül, gelir",
+   "punkter": [
+    {
+     "x": "2003 yılı",
+     "y": 61.160000000000004
+    },
+    {
+     "x": "2025 yılı",
+     "y": 47.146
+    }
+   ]
+  },
+  {
+   "navn": "Haziran–eylül, ziyaretçi",
+   "punkter": [
+    {
+     "x": "2003 yılı",
+     "y": 55.279
+    },
+    {
+     "x": "2025 yılı",
+     "y": 47.233999999999995
+    }
+   ]
+  },
+  {
+   "navn": "Ağustos, gelir",
+   "punkter": [
+    {
+     "x": "2003 yılı",
+     "y": 21.8
+    },
+    {
+     "x": "2025 yılı",
+     "y": 13.938
+    }
+   ]
+  },
+  {
+   "navn": "Şubat, gelir",
+   "punkter": [
+    {
+     "x": "2003 yılı",
+     "y": 3.1510000000000002
+    },
+    {
+     "x": "2025 yılı",
+     "y": 4.492
+    }
+   ]
+  }
+ ]
+}

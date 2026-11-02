@@ -1,0 +1,36 @@
+{
+ "tittel": "Son on iki ayda net portföy girişi",
+ "under": "Eylül 2025–Ağustos 2026, portföy yatırımları, net yükümlülük oluşumu, ABD doları, milyar dolar",
+ "enhet": "milyar dolar",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TCMB"
+ },
+ "form": "nokkeltall",
+ "serier": [
+  {
+   "navn": "Toplam",
+   "rol": "ana",
+   "punkter": [
+    {
+     "x": "Net giriş",
+     "y": 30.533
+    }
+   ]
+  },
+  {
+   "navn": "Parçalar",
+   "rol": "kunye",
+   "punkter": [
+    {
+     "x": "Hisse ve fon payları",
+     "y": 9.184
+    },
+    {
+     "x": "Borç senetleri",
+     "y": 21.349
+    }
+   ]
+  }
+ ]
+}

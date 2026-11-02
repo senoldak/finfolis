@@ -1,0 +1,64 @@
+{
+ "tittel": "Hizmetlerin payı büyüdü, tarımın payı küçüldü",
+ "under": "İstihdamın sektörlere dağılımı, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "Hizmetler",
+   "punkter": [
+    {
+     "x": "2005",
+     "y": 47.4
+    },
+    {
+     "x": "2025",
+     "y": 59
+    }
+   ]
+  },
+  {
+   "navn": "Tarım",
+   "punkter": [
+    {
+     "x": "2005",
+     "y": 25.5
+    },
+    {
+     "x": "2025",
+     "y": 14
+    }
+   ]
+  },
+  {
+   "navn": "Sanayi",
+   "punkter": [
+    {
+     "x": "2005",
+     "y": 21.4
+    },
+    {
+     "x": "2025",
+     "y": 20.2
+    }
+   ]
+  },
+  {
+   "navn": "İnşaat",
+   "punkter": [
+    {
+     "x": "2005",
+     "y": 5.7
+    },
+    {
+     "x": "2025",
+     "y": 6.8
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "tittel": "2026 yılı sepetinde dört grup harcamanın yarısından fazlasını tutuyor",
+ "under": "TÜFE ana grup ağırlıkları, 2026 yılı, yüzde",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "smultring",
+ "serier": [
+  {
+   "navn": "Ağırlık",
+   "punkter": [
+    {
+     "x": "Gıda",
+     "y": 24.44
+    },
+    {
+     "x": "Ulaştırma",
+     "y": 16.619999999999997
+    },
+    {
+     "x": "Konut",
+     "y": 11.4
+    },
+    {
+     "x": "Lokanta",
+     "y": 11.129999999999999
+    },
+    {
+     "x": "Diğer",
+     "y": 36.38
+    }
+   ]
+  }
+ ]
+}

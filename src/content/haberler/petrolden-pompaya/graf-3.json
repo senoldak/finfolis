@@ -1,0 +1,47 @@
+{
+ "tittel": "Yıllık artış Brent ve motorinde birbirine yakın, genel TÜFE'de en düşük",
+ "under": "Eylül 2026, bir yıl öncesine göre değişim, yüzde; Brent dolar cinsinden, her boncuk 5 puan",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK, EIA (FRED)"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Yıllık değişim",
+   "punkter": [
+    {
+     "x": "Genel TÜFE",
+     "y": 29.73151825
+    },
+    {
+     "x": "Ulaştırma",
+     "y": 35.10598387
+    },
+    {
+     "x": "Enerji",
+     "y": 46.11645948
+    },
+    {
+     "x": "Benzin",
+     "y": 47.85281789
+    },
+    {
+     "x": "Motorin",
+     "y": 67.2216538
+    },
+    {
+     "x": "Brent",
+     "y": 67.907
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": false,
+  "fremhev": [
+   "Motorin"
+  ]
+ }
+}

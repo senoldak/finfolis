@@ -1,0 +1,61 @@
+{
+ "tittel": "Enerjide üretici fiyatlarının yıllık artışı Ekim 2022’deki düzeyinin çok altına indi",
+ "under": "Yİ-ÜFE sektör endekslerinin yıllık değişimi, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "minitabell",
+ "serier": [
+  {
+   "navn": "Eylül 2026",
+   "punkter": [
+    {
+     "x": "Madencilik",
+     "y": 34.14886477
+    },
+    {
+     "x": "İmalat",
+     "y": 29.09300383
+    },
+    {
+     "x": "Elektrik ve gaz",
+     "y": 8.66902282
+    },
+    {
+     "x": "Su ve atık",
+     "y": 29.70462964
+    }
+   ],
+   "prosent": true
+  },
+  {
+   "navn": "Ekim 2022",
+   "punkter": [
+    {
+     "x": "Madencilik",
+     "y": 162.05956075
+    },
+    {
+     "x": "İmalat",
+     "y": 122.97211176
+    },
+    {
+     "x": "Elektrik ve gaz",
+     "y": 554.55741968
+    },
+    {
+     "x": "Su ve atık",
+     "y": 109.45035656
+    }
+   ],
+   "prosent": true
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "Elektrik ve gaz"
+  ]
+ }
+}

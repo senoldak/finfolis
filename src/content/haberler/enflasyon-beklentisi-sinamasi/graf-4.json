@@ -1,0 +1,36 @@
+{
+ "tittel": "Son kapanan aralık eşlemesinde fark birkaç puanda kaldı",
+ "under": "Aralık 2025 yıllık TÜFE eksi Aralık 2024 anketindeki beklenti, yüzde puanı; altta önceki eşlemeler",
+ "enhet": "Aralık 2025 yıllık TÜFE eksi Aralık 2024 anketindeki beklenti, yüzde puanı; altta önceki eşlemeler",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TCMB, TÜİK"
+ },
+ "form": "nokkeltall",
+ "serier": [
+  {
+   "navn": "Fark",
+   "rol": "ana",
+   "punkter": [
+    {
+     "x": "Fark, puan",
+     "y": 3.82
+    }
+   ]
+  },
+  {
+   "navn": "Künye",
+   "rol": "kunye",
+   "punkter": [
+    {
+     "x": "Aralık 2023 anketi",
+     "y": 3.15
+    },
+    {
+     "x": "Eylül 2025 anketi",
+     "y": 7.48
+    }
+   ]
+  }
+ ]
+}

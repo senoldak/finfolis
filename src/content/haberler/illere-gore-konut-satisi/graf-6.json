@@ -1,0 +1,42 @@
+{
+ "tittel": "Yıllık konut satışı 2025 yılında serinin en yüksek düzeyine çıktı",
+ "under": "Türkiye'de yıllık toplam konut satışı, üç yılda bir",
+ "enhet": "Türkiye'de yıllık toplam konut satışı, üç yılda bir",
+ "desimaler": 0,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "soyle",
+ "serier": [
+  {
+   "navn": "Yıllık satış",
+   "punkter": [
+    {
+     "x": "2013",
+     "y": 1226989
+    },
+    {
+     "x": "2016",
+     "y": 1417035
+    },
+    {
+     "x": "2019",
+     "y": 1439063
+    },
+    {
+     "x": "2022",
+     "y": 1625774
+    },
+    {
+     "x": "2025",
+     "y": 1760292
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "2025"
+  ]
+ }
+}

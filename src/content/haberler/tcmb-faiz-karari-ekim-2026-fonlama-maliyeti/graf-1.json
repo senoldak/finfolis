@@ -1,0 +1,39 @@
+{
+ "tittel": "Kararla politika faizi ve koridorun iki ucu aynı ölçüde indi",
+ "under": "Karar öncesi ve sonrası TCMB faiz oranları, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TCMB"
+ },
+ "form": "manual",
+ "valg": {
+  "gruppenavn": [
+   "Karar öncesi",
+   "Karar sonrası"
+  ],
+  "sorter": false
+ },
+ "serier": [
+  {
+   "navn": "Kararla politika faizi ve koridorun iki ucu aynı ölçüde indi",
+   "punkter": [
+    {
+     "x": "Gecelik borçlanma",
+     "y": 35.5,
+     "y2": 34.5
+    },
+    {
+     "x": "Politika faizi",
+     "y": 37,
+     "y2": 36
+    },
+    {
+     "x": "Gecelik borç verme",
+     "y": 40,
+     "y2": 39
+    }
+   ]
+  }
+ ]
+}

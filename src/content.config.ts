@@ -62,6 +62,16 @@ const haberler = defineCollection({
       kaynakIzi: z.string().optional(),
       // Haberin ili (ör. "İzmir"); yalnız yer haberin özüyse yazılır. Varsa sayfada yer haritası çıkar (src/lib/yer-haritasi.mjs).
       yer: z.string().optional(),
+      // Yazı işleri zincirinin kaydı: aşamalara geri dönüş sayısı (runder), kaynakla karşılaştırılan rakam (kontrollert) ve
+      // yeniden çekilen rakam (hentet). Yalnız sayı; ortak zincir (mecmua onay/yerlestir.mjs kjedeKaydi) yerleştirirken yazar;
+      // alan adları dört sitede ortak. Yayın odasının "Son uzun yazı" panosu okur.
+      kjede: z
+        .object({
+          runder: z.record(z.string().regex(/^[a-z-]+$/), z.number().int().min(0)),
+          kontrollert: z.number().int().min(0),
+          hentet: z.number().int().min(0),
+        })
+        .optional(),
       why_matters: z.string().optional(),
       key_points: z.array(z.string()).optional(),
     }),

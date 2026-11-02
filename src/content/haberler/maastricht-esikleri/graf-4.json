@@ -1,0 +1,90 @@
+{
+ "tittel": "AB toplamında bütçe dengesi 2019 yılından 2025 yılına açığa kaydı",
+ "under": "Bütçe dengesi / GSYH, yüzde; AB ülkeleri genel yönetim (Eurostat), Türkiye merkezi yönetim bütçesi (HMB), tanımlar farklı",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "Eurostat, TÜİK (TCMB EVDS), HMB (TCMB EVDS)"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "AB toplamı",
+   "punkter": [
+    {
+     "x": "2019",
+     "y": -0.5
+    },
+    {
+     "x": "2025",
+     "y": -3.1
+    }
+   ]
+  },
+  {
+   "navn": "Almanya",
+   "punkter": [
+    {
+     "x": "2019",
+     "y": 1.3
+    },
+    {
+     "x": "2025",
+     "y": -2.9
+    }
+   ]
+  },
+  {
+   "navn": "Fransa",
+   "punkter": [
+    {
+     "x": "2019",
+     "y": -2.4
+    },
+    {
+     "x": "2025",
+     "y": -5.1
+    }
+   ]
+  },
+  {
+   "navn": "Polonya",
+   "punkter": [
+    {
+     "x": "2019",
+     "y": -0.7
+    },
+    {
+     "x": "2025",
+     "y": -7.2
+    }
+   ]
+  },
+  {
+   "navn": "Romanya",
+   "punkter": [
+    {
+     "x": "2019",
+     "y": -4.4
+    },
+    {
+     "x": "2025",
+     "y": -7.8
+    }
+   ]
+  },
+  {
+   "navn": "Türkiye",
+   "punkter": [
+    {
+     "x": "2019",
+     "y": -2.81
+    },
+    {
+     "x": "2025",
+     "y": -2.87
+    }
+   ]
+  }
+ ]
+}

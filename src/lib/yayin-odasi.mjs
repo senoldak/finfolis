@@ -82,6 +82,14 @@ const haberUrl = (slug) => `/haber/${slug}/`;
  * @param {{ sayac?: { gunler?: Record<string, object> }, yazilar?: Array<{ slug: string, title: string, date: Date, draft?: boolean,
  *   tur?: string, uretim?: string, yaziTuru?: string, author?: string }>, simdi?: Date }} p
  */
+/** Ön bilgideki kjede → pano satırları; kayıt yoksa ya da biçimsizse null (sayı tahmin edilmez). */
+export function zincirKaydi(kjede) {
+  const sayi = (v) => Number.isInteger(v) && v >= 0;
+  if (!kjede || !sayi(kjede.kontrollert) || !sayi(kjede.hentet)) return null;
+  const geri = Object.values(kjede.runder ?? {}).filter(sayi).reduce((t, n) => t + n, 0);
+  return { geriDonus: geri, karsilastirilan: kjede.kontrollert, yenidenCekilen: kjede.hentet };
+}
+
 export function yayinOdasiVerisi({ sayac, yazilar = [], simdi = new Date() } = {}) {
   const bugun = istanbulGunu(simdi);
   const kayitli = Object.keys(sayac?.gunler ?? {}).sort();
@@ -101,7 +109,8 @@ export function yayinOdasiVerisi({ sayac, yazilar = [], simdi = new Date() } = {
     hafta,
     elenenler: haftaToplam ? elenenSatirlari(haftaToplam.elenen).map(({ metin, adet }) => ({ metin, adet })) : [],
     sonHaberler: yayinda.filter(botHaberi).slice(0, 8).map((y) => ({ baslik: y.title, url: haberUrl(y.slug) })),
-    sonUzunYazi: uzun ? { baslik: uzun.title, url: haberUrl(uzun.slug), zincir: null } : null,
+    // Zincir kaydı (ön bilgide kjede; mecmua onay/yerlestir.mjs yazar): geri dönüş, karşılaştırılan ve yeniden çekilen rakam.
+    sonUzunYazi: uzun ? { baslik: uzun.title, url: haberUrl(uzun.slug), zincir: zincirKaydi(uzun.kjede) } : null,
     // Dünün (ya da son yedi günün) kaydı yokken gösterilen nötr satır; tarih sayacın ilk gününden.
     not: dun ? null : { baslangic: ilkGun },
   };

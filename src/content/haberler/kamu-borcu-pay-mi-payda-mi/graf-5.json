@@ -1,0 +1,38 @@
+{
+ "tittel": "İki tanımda da oran 2021 yılından 2025 yılına geriledi",
+ "under": "Borç stoku / GSYH, yıl sonları, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK (TCMB EVDS), HMB"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "AB tanımı",
+   "punkter": [
+    {
+     "x": "2021",
+     "y": 38.9095
+    },
+    {
+     "x": "2025",
+     "y": 23.6788
+    }
+   ]
+  },
+  {
+   "navn": "Merkezi yönetim",
+   "punkter": [
+    {
+     "x": "2021",
+     "y": 36.964
+    },
+    {
+     "x": "2025",
+     "y": 21.6126
+    }
+   ]
+  }
+ ]
+}

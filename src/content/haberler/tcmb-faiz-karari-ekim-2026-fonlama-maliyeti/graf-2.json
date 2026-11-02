@@ -1,0 +1,51 @@
+{
+ "tittel": "Karardan bir gün sonra fonlama arttı, sterilizasyon azaldı",
+ "under": "TCMB fonlama ve sterilizasyon tutarları, iş günü gözlemi, milyar TL",
+ "enhet": "milyar TL",
+ "desimaler": 0,
+ "kilde": {
+  "navn": "TCMB"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "Toplam fonlama",
+   "punkter": [
+    {
+     "x": "Karar günü",
+     "y": 51.265
+    },
+    {
+     "x": "Ertesi gün",
+     "y": 456.725
+    }
+   ]
+  },
+  {
+   "navn": "Toplam sterilizasyon",
+   "punkter": [
+    {
+     "x": "Karar günü",
+     "y": 1238.03539
+    },
+    {
+     "x": "Ertesi gün",
+     "y": 986.5489
+    }
+   ]
+  },
+  {
+   "navn": "Net fonlama",
+   "punkter": [
+    {
+     "x": "Karar günü",
+     "y": -1186.77039
+    },
+    {
+     "x": "Ertesi gün",
+     "y": -529.8239
+    }
+   ]
+  }
+ ]
+}

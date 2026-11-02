@@ -1,0 +1,39 @@
+{
+ "tittel": "İstanbul metrekare kira bedelinde ilk sırada yer aldı",
+ "under": "Ortalama metrekare cari kira fiyatı, TL",
+ "enhet": "Ortalama metrekare cari kira fiyatı, TL",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "BETAM"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Metrekare Fiyatı",
+   "punkter": [
+    {
+     "x": "Ankara",
+     "y": 294.7
+    },
+    {
+     "x": "Türkiye",
+     "y": 295.1
+    },
+    {
+     "x": "İzmir",
+     "y": 328.6
+    },
+    {
+     "x": "İstanbul",
+     "y": 460
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": true,
+  "fremhev": [
+   "İstanbul"
+  ]
+ }
+}

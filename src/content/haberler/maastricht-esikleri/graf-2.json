@@ -1,0 +1,40 @@
+{
+ "tittel": "Borç oranının %60 referans değerine uzaklığı, Türkiye ve seçili karşılaştırmalar",
+ "under": "2025 yılı genel yönetim borcu / GSYH eksi %60, yüzde puanı; eksi değer eşiğin altı",
+ "enhet": "2025 yılı genel yönetim borcu / GSYH eksi %60, yüzde puanı; eksi değer eşiğin altı",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "Eurostat, HMB"
+ },
+ "form": "nokkeltall",
+ "serier": [
+  {
+   "navn": "Türkiye",
+   "rol": "ana",
+   "punkter": [
+    {
+     "x": "Türkiye",
+     "y": -36.32
+    }
+   ]
+  },
+  {
+   "navn": "Karşılaştırma",
+   "rol": "kunye",
+   "punkter": [
+    {
+     "x": "AB toplamı",
+     "y": 21.5
+    },
+    {
+     "x": "Yunanistan",
+     "y": 85.4
+    },
+    {
+     "x": "Estonya",
+     "y": -36
+    }
+   ]
+  }
+ ]
+}

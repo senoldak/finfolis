@@ -1,0 +1,59 @@
+{
+ "tittel": "2026'nın ilk yedi ayında üçüncü tahmin üç ayda ilk açıklamanın altında, dört ayda üstünde",
+ "under": "ABD tarım dışı istihdamında aylık değişim, ilk açıklama ve üçüncü tahmin, mevsimsellikten arındırılmış, bin kişi",
+ "enhet": "bin kişi",
+ "desimaler": 0,
+ "kilde": {
+  "navn": "BLS"
+ },
+ "form": "manual",
+ "valg": {
+  "gruppenavn": [
+   "İlk açıklama",
+   "Üçüncü tahmin"
+  ],
+  "sorter": false
+ },
+ "serier": [
+  {
+   "navn": "2026'nın ilk yedi ayında üçüncü tahmin üç ayda ilk açıklamanın altında, dört ayda üstünde",
+   "punkter": [
+    {
+     "x": "Oca 2026",
+     "y": 130,
+     "y2": 160
+    },
+    {
+     "x": "Şub 2026",
+     "y": -92,
+     "y2": -156
+    },
+    {
+     "x": "Mar 2026",
+     "y": 178,
+     "y2": 214
+    },
+    {
+     "x": "Nis 2026",
+     "y": 115,
+     "y2": 148
+    },
+    {
+     "x": "May 2026",
+     "y": 172,
+     "y2": 63
+    },
+    {
+     "x": "Haz 2026",
+     "y": 57,
+     "y2": 31
+    },
+    {
+     "x": "Tem 2026",
+     "y": -23,
+     "y2": -10
+    }
+   ]
+  }
+ ]
+}

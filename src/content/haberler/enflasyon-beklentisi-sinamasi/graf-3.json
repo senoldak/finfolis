@@ -1,0 +1,97 @@
+{
+ "tittel": "On iki aralık anketinin sekizinde gerçekleşen enflasyon yanıtların dışında kaldı",
+ "under": "En düşük ve en yüksek katılımcı yanıtı ile bir yıl sonraki aralık ayı yıllık TÜFE, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TCMB, TÜİK"
+ },
+ "form": "manual",
+ "valg": {
+  "gruppenavn": [
+   "En düşük yanıt",
+   "En yüksek yanıt"
+  ],
+  "sorter": false,
+  "malnavn": "Bir yıl sonra gerçekleşen"
+ },
+ "serier": [
+  {
+   "navn": "On iki aralık anketinin sekizinde gerçekleşen enflasyon yanıtların dışında kaldı",
+   "punkter": [
+    {
+     "x": "Ara 2013",
+     "y": 5.4,
+     "y2": 8,
+     "mal": 8.16994891
+    },
+    {
+     "x": "Ara 2014",
+     "y": 5.75,
+     "y2": 9.5,
+     "mal": 8.80833199
+    },
+    {
+     "x": "Ara 2015",
+     "y": 6.5,
+     "y2": 8.75,
+     "mal": 8.53305632
+    },
+    {
+     "x": "Ara 2016",
+     "y": 6.5,
+     "y2": 10,
+     "mal": 11.91973747
+    },
+    {
+     "x": "Ara 2017",
+     "y": 7,
+     "y2": 12.86,
+     "mal": 20.30176232
+    },
+    {
+     "x": "Ara 2018",
+     "y": 13.8,
+     "y2": 23.35,
+     "mal": 11.83609221
+    },
+    {
+     "x": "Ara 2019",
+     "y": 8.44,
+     "y2": 12.35,
+     "mal": 14.59931896
+    },
+    {
+     "x": "Ara 2020",
+     "y": 9.08,
+     "y2": 14.7,
+     "mal": 36.08090173
+    },
+    {
+     "x": "Ara 2021",
+     "y": 11.5,
+     "y2": 40,
+     "mal": 64.2695975
+    },
+    {
+     "x": "Ara 2022",
+     "y": 20.3,
+     "y2": 55.9,
+     "mal": 64.77291861
+    },
+    {
+     "x": "Ara 2023",
+     "y": 32,
+     "y2": 50,
+     "mal": 44.37877142
+    },
+    {
+     "x": "Ara 2024",
+     "y": 21,
+     "y2": 33.77,
+     "mal": 30.89232832
+    }
+   ]
+  }
+ ]
+}

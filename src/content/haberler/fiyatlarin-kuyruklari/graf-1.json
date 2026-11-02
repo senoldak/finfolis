@@ -1,0 +1,78 @@
+{
+ "tittel": "Eylül 2026’da diğer ayakta tedavi hizmetleri en çok artan, meyveler en az artan alt sınıf oldu",
+ "under": "Bir önceki yılın aynı ayına göre değişim, yüzde; kesik çizgi genel TÜFE",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Yıllık değişim",
+   "punkter": [
+    {
+     "x": "Diğer ayakta tedavi hizmetleri",
+     "y": 116.41020449
+    },
+    {
+     "x": "Yükseköğretim",
+     "y": 57.71107497
+    },
+    {
+     "x": "Gaz",
+     "y": 55.72560317
+    },
+    {
+     "x": "Akaryakıt ve yağlar",
+     "y": 53.76039305
+    },
+    {
+     "x": "Konut bakım ve onarım hizmetleri",
+     "y": 48.86042569
+    },
+    {
+     "x": "Mobil iletişim hizmetleri",
+     "y": 46.36909373
+    },
+    {
+     "x": "Ayakkabılar",
+     "y": 5.36227575
+    },
+    {
+     "x": "Spor ve kamp ekipmanı",
+     "y": 4.93020493
+    },
+    {
+     "x": "Sağlık sigortası",
+     "y": 4.88615264
+    },
+    {
+     "x": "Balık ve su ürünleri",
+     "y": 4.83842486
+    },
+    {
+     "x": "Mobil telefon ekipmanları",
+     "y": 2.4906241
+    },
+    {
+     "x": "Meyveler",
+     "y": -0.98696462
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": true,
+  "fremhev": [
+   "Diğer ayakta tedavi hizmetleri"
+  ]
+ },
+ "merknader": [
+  {
+   "type": "mal",
+   "y": 29.73151825,
+   "tekst": "Genel TÜFE: %29,73"
+  }
+ ]
+}

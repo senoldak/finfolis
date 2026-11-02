@@ -1,0 +1,62 @@
+{
+ "tittel": "Farkın bir yılda en çok daraldığı ekonomi Türkiye",
+ "under": "Ağustos 2025’ten Ağustos 2026’ya politika faizi eksi yıllık TÜFE farkındaki değişim, yüzde puanı",
+ "enhet": "Ağustos 2025’ten Ağustos 2026’ya politika faizi eksi yıllık TÜFE farkındaki değişim, yüzde puanı",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "IMF (TCMB EVDS), BIS (TCMB EVDS)"
+ },
+ "form": "soyle",
+ "serier": [
+  {
+   "navn": "Değişim",
+   "punkter": [
+    {
+     "x": "Türkiye",
+     "y": -4.56
+    },
+    {
+     "x": "Tayland",
+     "y": -3.82
+    },
+    {
+     "x": "Peru",
+     "y": -3.14
+    },
+    {
+     "x": "Kanada",
+     "y": -1.68
+    },
+    {
+     "x": "Polonya",
+     "y": -1.38
+    },
+    {
+     "x": "ABD",
+     "y": -1.23
+    },
+    {
+     "x": "Meksika",
+     "y": -0.94
+    },
+    {
+     "x": "Macaristan",
+     "y": 2
+    },
+    {
+     "x": "Kolombiya",
+     "y": 1.6
+    },
+    {
+     "x": "Japonya",
+     "y": 1.29
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "Türkiye"
+  ]
+ }
+}

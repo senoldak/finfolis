@@ -1,0 +1,54 @@
+{
+ "tittel": "Oran 2024 yılından sonra biraz yükseldi",
+ "under": "Hane kredileri, son dört çeyreğin GSYH’sine oran, yüzde; son sütun ikinci çeyrek",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TCMB, TÜİK"
+ },
+ "form": "soyle",
+ "serier": [
+  {
+   "navn": "Oran",
+   "punkter": [
+    {
+     "x": "2013",
+     "y": 19.35
+    },
+    {
+     "x": "2020",
+     "y": 17.05
+    },
+    {
+     "x": "2021",
+     "y": 14.05
+    },
+    {
+     "x": "2022",
+     "y": 10.530000000000001
+    },
+    {
+     "x": "2023",
+     "y": 10.54
+    },
+    {
+     "x": "2024",
+     "y": 9.33
+    },
+    {
+     "x": "2025",
+     "y": 9.86
+    },
+    {
+     "x": "2026",
+     "y": 10.040000000000001
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "2026"
+  ]
+ }
+}

@@ -1,0 +1,116 @@
+{
+ "tittel": "Aralık 2013–Aralık 2025 arasında lokanta, konut ve eğitimin göreli fiyatı yükseldi, haberleşmeninki düştü",
+ "under": "Grup endeksinin genel endekse oranı, kat",
+ "enhet": "Grup endeksinin genel endekse oranı, kat",
+ "desimaler": 3,
+ "kilde": {
+  "navn": "TÜİK (TCMB EVDS)"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "Lokanta ve oteller",
+   "punkter": [
+    {
+     "x": "Aralık 2013",
+     "y": 1.348
+    },
+    {
+     "x": "Aralık 2025",
+     "y": 2.027
+    }
+   ]
+  },
+  {
+   "navn": "Alkollü içecekler ve tütün",
+   "punkter": [
+    {
+     "x": "Aralık 2013",
+     "y": 1.677
+    },
+    {
+     "x": "Aralık 2025",
+     "y": 1.535
+    }
+   ]
+  },
+  {
+   "navn": "Gıda ve alkolsüz içecekler",
+   "punkter": [
+    {
+     "x": "Aralık 2013",
+     "y": 1.056
+    },
+    {
+     "x": "Aralık 2025",
+     "y": 1.403
+    }
+   ]
+  },
+  {
+   "navn": "Konut, su, elektrik, gaz",
+   "punkter": [
+    {
+     "x": "Aralık 2013",
+     "y": 1.177
+    },
+    {
+     "x": "Aralık 2025",
+     "y": 1.247
+    }
+   ]
+  },
+  {
+   "navn": "Eğitim",
+   "punkter": [
+    {
+     "x": "Aralık 2013",
+     "y": 1.016
+    },
+    {
+     "x": "Aralık 2025",
+     "y": 1.161
+    }
+   ]
+  },
+  {
+   "navn": "Ulaştırma",
+   "punkter": [
+    {
+     "x": "Aralık 2013",
+     "y": 0.989
+    },
+    {
+     "x": "Aralık 2025",
+     "y": 0.996
+    }
+   ]
+  },
+  {
+   "navn": "Sağlık",
+   "punkter": [
+    {
+     "x": "Aralık 2013",
+     "y": 0.597
+    },
+    {
+     "x": "Aralık 2025",
+     "y": 0.6
+    }
+   ]
+  },
+  {
+   "navn": "Haberleşme",
+   "punkter": [
+    {
+     "x": "Aralık 2013",
+     "y": 0.535
+    },
+    {
+     "x": "Aralık 2025",
+     "y": 0.159
+    }
+   ]
+  }
+ ]
+}

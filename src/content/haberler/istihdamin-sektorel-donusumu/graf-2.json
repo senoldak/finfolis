@@ -1,0 +1,42 @@
+{
+ "tittel": "İstihdam artışının büyük bölümü hizmetlerden geldi, tarım eksi kaldı",
+ "under": "Sektörlere göre çalışan sayısındaki değişim, kişi, bin kişi",
+ "enhet": "bin kişi",
+ "desimaler": 0,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "bidrag",
+ "serier": [
+  {
+   "navn": "Değişim",
+   "punkter": [
+    {
+     "x": "Hizmetler",
+     "y": 10028
+    },
+    {
+     "x": "Sanayi",
+     "y": 2438
+    },
+    {
+     "x": "İnşaat",
+     "y": 1128
+    },
+    {
+     "x": "Tarım",
+     "y": -385
+    }
+   ]
+  },
+  {
+   "navn": "Toplam",
+   "punkter": [
+    {
+     "x": "Toplam istihdam",
+     "y": 13209
+    }
+   ]
+  }
+ ]
+}

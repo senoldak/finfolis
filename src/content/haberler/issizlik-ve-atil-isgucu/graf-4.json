@@ -1,0 +1,38 @@
+{
+ "tittel": "Potansiyel işgücünün TÜİK bileşenlerine göre dağılımı",
+ "under": "Potansiyel işgücünün bileşenleri, kişi, bin kişi",
+ "enhet": "bin kişi",
+ "desimaler": 0,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "bidrag",
+ "serier": [
+  {
+   "navn": "Bileşenler",
+   "punkter": [
+    {
+     "x": "İş bulma ümidi yok",
+     "y": 2608
+    },
+    {
+     "x": "Hazır, aramayanlar",
+     "y": 2348
+    },
+    {
+     "x": "Arayan, hazır olmayanlar",
+     "y": 173
+    }
+   ]
+  },
+  {
+   "navn": "Toplam",
+   "punkter": [
+    {
+     "x": "Potansiyel işgücü",
+     "y": 5129
+    }
+   ]
+  }
+ ]
+}

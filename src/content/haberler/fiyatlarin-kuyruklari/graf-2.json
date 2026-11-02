@@ -1,0 +1,116 @@
+{
+ "tittel": "Bir yıl önce genel rakamın çok üstünde artan meyveler bu yıl en alta indi",
+ "under": "Bir önceki yılın aynı ayına göre değişim, yüzde",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "helning",
+ "serier": [
+  {
+   "navn": "Ayakta tedavi (diğer)",
+   "punkter": [
+    {
+     "x": "Eylül 2025",
+     "y": 51.47983438
+    },
+    {
+     "x": "Eylül 2026",
+     "y": 116.41020449
+    }
+   ]
+  },
+  {
+   "navn": "Akaryakıt",
+   "punkter": [
+    {
+     "x": "Eylül 2025",
+     "y": 22.7984685
+    },
+    {
+     "x": "Eylül 2026",
+     "y": 53.76039305
+    }
+   ]
+  },
+  {
+   "navn": "Gaz",
+   "punkter": [
+    {
+     "x": "Eylül 2025",
+     "y": 35.44689672
+    },
+    {
+     "x": "Eylül 2026",
+     "y": 55.72560317
+    }
+   ]
+  },
+  {
+   "navn": "Kira",
+   "punkter": [
+    {
+     "x": "Eylül 2025",
+     "y": 69.09174452
+    },
+    {
+     "x": "Eylül 2026",
+     "y": 41.34057971
+    }
+   ]
+  },
+  {
+   "navn": "Sebzeler",
+   "punkter": [
+    {
+     "x": "Eylül 2025",
+     "y": 28.37498347
+    },
+    {
+     "x": "Eylül 2026",
+     "y": 39.46853435
+    }
+   ]
+  },
+  {
+   "navn": "Taşıtlar",
+   "punkter": [
+    {
+     "x": "Eylül 2025",
+     "y": 20.45402951
+    },
+    {
+     "x": "Eylül 2026",
+     "y": 12.580098
+    }
+   ]
+  },
+  {
+   "navn": "Telefon cihazı",
+   "punkter": [
+    {
+     "x": "Eylül 2025",
+     "y": 22.4997055
+    },
+    {
+     "x": "Eylül 2026",
+     "y": 2.4906241
+    }
+   ]
+  },
+  {
+   "navn": "Meyveler",
+   "punkter": [
+    {
+     "x": "Eylül 2025",
+     "y": 67.2636661
+    },
+    {
+     "x": "Eylül 2026",
+     "y": -0.98696462
+    }
+   ]
+  }
+ ]
+}

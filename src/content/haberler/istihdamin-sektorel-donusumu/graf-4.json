@@ -1,0 +1,46 @@
+{
+ "tittel": "Tarımın payı kısa kesintilerle de olsa yirmi yıl boyunca geriledi",
+ "under": "Tarımın istihdamdaki payı, yüzde, dört yılda bir",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "soyle",
+ "serier": [
+  {
+   "navn": "Tarımın payı",
+   "punkter": [
+    {
+     "x": "2005",
+     "y": 25.5
+    },
+    {
+     "x": "2009",
+     "y": 23.3
+    },
+    {
+     "x": "2013",
+     "y": 20.6
+    },
+    {
+     "x": "2017",
+     "y": 19.2
+    },
+    {
+     "x": "2021",
+     "y": 17.2
+    },
+    {
+     "x": "2025",
+     "y": 14
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "2025"
+  ]
+ }
+}

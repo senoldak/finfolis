@@ -1,0 +1,78 @@
+{
+ "tittel": "Aralık 2025’te göreli fiyatı en yüksek grup lokanta ve oteller, en düşüğü haberleşme",
+ "under": "Grup endeksinin aynı aydaki genel endekse oranı, kat; kesik çizgi genel endeks",
+ "enhet": "Grup endeksinin aynı aydaki genel endekse oranı, kat; kesik çizgi genel endeks",
+ "desimaler": 3,
+ "kilde": {
+  "navn": "TÜİK (TCMB EVDS)"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Göreli fiyat",
+   "punkter": [
+    {
+     "x": "Gıda ve alkolsüz içecekler",
+     "y": 1.403
+    },
+    {
+     "x": "Alkollü içecekler ve tütün",
+     "y": 1.535
+    },
+    {
+     "x": "Giyim ve ayakkabı",
+     "y": 0.226
+    },
+    {
+     "x": "Konut, su, elektrik, gaz",
+     "y": 1.247
+    },
+    {
+     "x": "Mobilya ve ev eşyası",
+     "y": 0.84
+    },
+    {
+     "x": "Sağlık",
+     "y": 0.6
+    },
+    {
+     "x": "Ulaştırma",
+     "y": 0.996
+    },
+    {
+     "x": "Haberleşme",
+     "y": 0.159
+    },
+    {
+     "x": "Eğlence ve kültür",
+     "y": 0.473
+    },
+    {
+     "x": "Eğitim",
+     "y": 1.161
+    },
+    {
+     "x": "Lokanta ve oteller",
+     "y": 2.027
+    },
+    {
+     "x": "Çeşitli mal ve hizmetler",
+     "y": 1.292
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": true,
+  "fremhev": [
+   "Lokanta ve oteller"
+  ]
+ },
+ "merknader": [
+  {
+   "type": "mal",
+   "y": 1,
+   "tekst": "Genel endeks: 1,000"
+  }
+ ]
+}

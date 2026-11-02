@@ -143,7 +143,15 @@ const aciklama = 'finfolis haber masasının nasıl çalıştığı ve botun dü
           R.sonUzunYazi ? (
             <>
               <p><a href={R.sonUzunYazi.url}>{R.sonUzunYazi.baslik}</a></p>
-              <p class="liten">Zincir kaydı bu yazılarda henüz tutulmuyor.</p>
+              {R.sonUzunYazi.zincir ? (
+                <ul>
+                  <li><span>Kaynakla karşılaştırılan rakam</span><b>{R.sonUzunYazi.zincir.karsilastirilan}</b></li>
+                  <li><span>Kaynaktan yeniden çekilen rakam</span><b>{R.sonUzunYazi.zincir.yenidenCekilen}</b></li>
+                  <li><span>Önceki aşamaya geri dönüş</span><b>{R.sonUzunYazi.zincir.geriDonus}</b></li>
+                </ul>
+              ) : (
+                <p class="liten">Bu yazının zincir kaydı yok; kayıt yeni yazılarda tutuluyor.</p>
+              )}
             </>
           ) : (
             <p>Uzun yazı yok.</p>

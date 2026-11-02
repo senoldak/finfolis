@@ -1,0 +1,54 @@
+{
+ "tittel": "Büyükşehirlerde cari fiyat artışı ve reel kayıp",
+ "under": "Yıllık cari ve reel değişim oranları, Eylül 2026",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "BETAM"
+ },
+ "form": "gruppert",
+ "serier": [
+  {
+   "navn": "Reel Değişim",
+   "punkter": [
+    {
+     "x": "İzmir",
+     "y": -9.3
+    },
+    {
+     "x": "Türkiye",
+     "y": -7.8
+    },
+    {
+     "x": "İstanbul",
+     "y": -4
+    },
+    {
+     "x": "Ankara",
+     "y": -2.5
+    }
+   ]
+  },
+  {
+   "navn": "Cari Artış",
+   "punkter": [
+    {
+     "x": "İzmir",
+     "y": 17.7
+    },
+    {
+     "x": "Türkiye",
+     "y": 19.6
+    },
+    {
+     "x": "İstanbul",
+     "y": 24.6
+    },
+    {
+     "x": "Ankara",
+     "y": 26.5
+    }
+   ]
+  }
+ ]
+}

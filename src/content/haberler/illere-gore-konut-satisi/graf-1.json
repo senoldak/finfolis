@@ -1,0 +1,41 @@
+{
+ "tittel": "İstanbul'un konut satışlarındaki payı on iki yılda küçüldü",
+ "under": "İstanbul'daki yıllık konut satışının Türkiye toplamına oranı, yüzde",
+ "enhet": "prosent",
+ "desimaler": 1,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "nokkeltall",
+ "serier": [
+  {
+   "navn": "Son yıl",
+   "rol": "ana",
+   "punkter": [
+    {
+     "x": "İstanbul",
+     "y": 17.64
+    }
+   ]
+  },
+  {
+   "navn": "Karşılaştırma",
+   "rol": "sammenligning",
+   "punkter": [
+    {
+     "x": "2013",
+     "y": 21.62
+    },
+    {
+     "x": "2025",
+     "y": 17.64
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "2025"
+  ]
+ }
+}

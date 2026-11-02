@@ -1,0 +1,46 @@
+{
+ "tittel": "Lokanta ve otellerin göreli fiyatı her durakta yükseldi",
+ "under": "Lokanta ve oteller endeksinin genel endekse oranı, aralık ayları, kat",
+ "enhet": "Lokanta ve oteller endeksinin genel endekse oranı, aralık ayları, kat",
+ "desimaler": 3,
+ "kilde": {
+  "navn": "TÜİK (TCMB EVDS)"
+ },
+ "form": "soyle",
+ "serier": [
+  {
+   "navn": "Lokanta ve oteller",
+   "punkter": [
+    {
+     "x": "2003",
+     "y": 1.032
+    },
+    {
+     "x": "2008",
+     "y": 1.257
+    },
+    {
+     "x": "2013",
+     "y": 1.348
+    },
+    {
+     "x": "2018",
+     "y": 1.468
+    },
+    {
+     "x": "2021",
+     "y": 1.512
+    },
+    {
+     "x": "2025",
+     "y": 2.027
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "fremhev": [
+   "2025"
+  ]
+ }
+}

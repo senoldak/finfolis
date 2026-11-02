@@ -1,0 +1,70 @@
+{
+ "tittel": "En çok satış yapılan illerde büyüklük arttıkça artış hızı düştü",
+ "under": "Yıllık konut satışında 2013–2025 değişimi, yüzde; dikey çizgi Türkiye",
+ "enhet": "prosent",
+ "desimaler": 2,
+ "kilde": {
+  "navn": "TÜİK"
+ },
+ "form": "rangering",
+ "serier": [
+  {
+   "navn": "Değişim",
+   "punkter": [
+    {
+     "x": "Gaziantep",
+     "y": 109.12
+    },
+    {
+     "x": "Mersin",
+     "y": 75.2
+    },
+    {
+     "x": "Konya",
+     "y": 62.74
+    },
+    {
+     "x": "Tekirdağ",
+     "y": 45.93
+    },
+    {
+     "x": "Antalya",
+     "y": 43.84
+    },
+    {
+     "x": "Kocaeli",
+     "y": 39.95
+    },
+    {
+     "x": "Bursa",
+     "y": 37.87
+    },
+    {
+     "x": "İzmir",
+     "y": 30.53
+    },
+    {
+     "x": "İstanbul",
+     "y": 17.01
+    },
+    {
+     "x": "Ankara",
+     "y": 4.75
+    }
+   ]
+  }
+ ],
+ "valg": {
+  "sorter": true,
+  "fremhev": [
+   "İstanbul"
+  ]
+ },
+ "merknader": [
+  {
+   "type": "mal",
+   "y": 43.46,
+   "tekst": "Türkiye: %43,46"
+  }
+ ]
+}
