@@ -1,0 +1,83 @@
+---
+// Araç satırı (künyenin altı): solda hesaplarımız, sağda Aa (yazı boyu, okuma modu, yüksek karşıtlık, yazdır), Dinle ve
+// Paylaş. Davranış src/scripts/okur-araclari.ts'te; JavaScript yoksa paylaş bağlantıları, hesaplar ve menüler çalışır,
+// Dinle, Aa düğmeleri ve "Bağlantıyı kopyala" gizli ya da etkisiz kalır. Paylaş bağlantıları düz bağlantıdır (CSP).
+import { SITE } from '../../lib/site';
+import Simge from './Simge.astro';
+
+interface Props {
+  url: string;
+  baslik: string;
+}
+const { url, baslik } = Astro.props;
+const u = encodeURIComponent(url);
+const b = encodeURIComponent(baslik);
+const paylas = [
+  { ad: 'facebook', metin: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${u}` },
+  { ad: 'whatsapp', metin: 'WhatsApp', href: `https://wa.me/?text=${b}%20${u}` },
+  { ad: 'linkedin', metin: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${u}` },
+  { ad: 'telegram', metin: 'Telegram', href: `https://t.me/share/url?url=${u}&text=${b}` },
+  { ad: 'x', metin: 'X', href: `https://x.com/intent/post?url=${u}&text=${b}` },
+  { ad: 'bluesky', metin: 'Bluesky', href: `https://bsky.app/intent/compose?text=${encodeURIComponent(`${baslik} ${url}`)}` },
+  { ad: 'eposta', metin: 'E-posta', href: `mailto:?subject=${b}&body=${encodeURIComponent(`${baslik}\n\n${url}`)}` },
+] as const;
+const hesaplar = [
+  SITE.social.telegram && { ad: 'telegram', metin: 'Telegram', href: SITE.social.telegram },
+  SITE.social.linkedin && { ad: 'linkedin', metin: 'LinkedIn', href: SITE.social.linkedin },
+  SITE.social.facebook && { ad: 'facebook', metin: 'Facebook', href: SITE.social.facebook },
+  SITE.social.x && { ad: 'x', metin: 'X', href: SITE.social.x },
+].filter(Boolean) as { ad: 'telegram' | 'linkedin' | 'facebook' | 'x'; metin: string; href: string }[];
+---
+
+<div class="ha-arac">
+  <div class="izle">
+    <span class="ha-etiket">Bizi izleyin</span>
+    {
+      hesaplar.map((h) => (
+        <a class="simge" href={h.href} target="_blank" rel="noopener noreferrer" aria-label={`${SITE.name} ${h.metin} hesabı (yeni sekmede açılır)`} title={h.metin}>
+          <Simge ad={h.ad} />
+        </a>
+      ))
+    }
+    <a class="simge" href="/rss.xml" aria-label={`${SITE.name} RSS beslemesi`} title="RSS"><Simge ad="rss" /></a>
+  </div>
+  <div class="sag">
+    <details class="aa">
+      <summary aria-label="Yazı boyu ve okuma tercihleri"><span class="aa-harf">A<small>a</small></span></summary>
+      <div class="menu">
+        <p class="ha-etiket">Yazı boyu</p>
+        <div class="olcek" role="group" aria-label="Yazı boyu">
+          <button type="button" data-olcek="0" aria-label="Küçük yazı" aria-pressed="false">A−</button>
+          <button type="button" data-olcek="1" aria-label="Olağan yazı" aria-pressed="true">A</button>
+          <button type="button" data-olcek="2" aria-label="Büyük yazı" aria-pressed="false">A+</button>
+          <button type="button" data-olcek="3" aria-label="En büyük yazı" aria-pressed="false">A++</button>
+        </div>
+        <button type="button" class="satir okuma-modu" aria-pressed="false">Okuma modu</button>
+        <button type="button" class="satir karsitlik" aria-pressed="false">Yüksek karşıtlık</button>
+        <button type="button" class="satir yazdir">Yazdır</button>
+      </div>
+    </details>
+    <button type="button" class="dinle" aria-pressed="false" aria-label="Haberi dinle" hidden>
+      <Simge ad="dinle" /><span class="metin">Dinle</span>
+    </button>
+    <details class="paylas-menu">
+      <summary aria-label="Haberi paylaş"><Simge ad="paylas" /><span>Paylaş</span></summary>
+      <div class="menu">
+        {
+          paylas.map((p) => (
+            <a href={p.href} target={p.ad === 'eposta' ? undefined : '_blank'} rel="noopener noreferrer" aria-label={`${p.metin} ile paylaş${p.ad === 'eposta' ? '' : ' (yeni sekmede açılır)'}`}>
+              <Simge ad={p.ad} />
+              <span>{p.metin}</span>
+            </a>
+          ))
+        }
+        <button type="button" class="satir kopyala" data-url={url} hidden>
+          <Simge ad="baglanti" />
+          <span>Bağlantıyı kopyala</span>
+        </button>
+      </div>
+    </details>
+  </div>
+</div>
+<span class="ha-duyuru" role="status" aria-live="polite"></span>
+<button type="button" class="okuma-modundan-cik">Okuma modundan çık ✕</button>

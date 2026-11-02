@@ -1,12 +1,20 @@
 {
-  // Cloudflare ayarı: site yalnızca statik dosyalar olarak yayınlanır (ücretsiz); Worker kodu yoktur.
+  // Cloudflare ayarı: statik site (dist/) + küçük Worker (yalnız POST /api/yararli, "Bu haber işine yaradı mı?" sayacı).
   "name": "finfolis",
+  "main": "worker/index.js",
   "compatibility_date": "2026-10-01",
   "routes": [
     { "pattern": "finfolis.com", "custom_domain": true }
   ],
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    // Yalnız /api/* Worker'dan geçer; sayfalar eskisi gibi doğrudan statik sunulur.
+    "run_worker_first": ["/api/*"],
     "not_found_handling": "404-page"
-  }
+  },
+  // Adsız günlük sayaç: gün + yazı + evet/hayır. IP ya da okur bilgisi tutulmaz.
+  "d1_databases": [
+    { "binding": "DB", "database_name": "finfolis-yararli", "database_id": "e25682ac-7f8b-4007-9b7c-b375ba979f1e" }
+  ]
 }

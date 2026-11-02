@@ -7,11 +7,19 @@ import RakamSeridi from '../../components/RakamSeridi.astro';
 import Tablo from '../../components/Tablo.astro';
 import Grafik from '../../components/Grafik.astro';
 import NewsCard from '../../components/NewsCard.astro';
-import SentezBlok from '../../components/SentezBlok.astro';
+import Kisaca from '../../components/haber/Kisaca.astro';
+import AracSatiri from '../../components/haber/AracSatiri.astro';
+import NasilHazirlandi from '../../components/haber/NasilHazirlandi.astro';
+import DahaOnce from '../../components/haber/DahaOnce.astro';
+import Degisiklikler from '../../components/haber/Degisiklikler.astro';
+import Yararli from '../../components/haber/Yararli.astro';
+import YerHaritasi from '../../components/haber/YerHaritasi.astro';
+import '../../styles/haber.css';
+import '../../styles/graf.css';
 import BultenDizini from '../../components/BultenDizini.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { SITE, category as categoryOf, categoryName, formatDate } from '../../lib/site';
-import { jsonLdMetni } from '../../lib/json-ld.mjs';
+import { haberAlanlari, jsonLdMetni } from '../../lib/json-ld.mjs';
 import { getNews, type Haber } from '../../lib/news';
 import { KAPAK_DONUSUM } from '../../lib/gorsel.mjs';
 import { ICERIK_LISANSI_URL, ORG_ID, PUBLISHER_LOGO, SITE_URL, WEBSITE_ID, kisalt, sameAs } from '../../lib/seo';
@@ -22,7 +30,10 @@ import { okumaSuresi, turEtiketi } from '../../lib/yazi-bilgisi.mjs';
 import { duzeltmeNotu } from '../../lib/duzeltme.mjs';
 import { resmiKaynaklar, adsizKaynakSatiri } from '../../lib/resmi-kaynak.mjs';
 import { YAZAR, yazarSemasi, yazarUrl, kisiYazariMi } from '../../lib/yazar.mjs';
-import { yapayZekaNotu, NASIL_BASLIK, YZ_SAYFASI } from '../../lib/yapay-zeka-notu.mjs';
+import { yapayZekaNotu, hataBildirAdresi, NASIL_BASLIK, YZ_SAYFASI } from '../../lib/yapay-zeka-notu.mjs';
+import { adimlar } from '../../lib/yayin-ekibi.mjs';
+import { dahaOnce } from '../../lib/daha-once.mjs';
+import { ilBul } from '../../lib/yer-haritasi.mjs';
 import { satirParcalari } from '../../lib/kunye.mjs';
 import { analizMi } from '../../lib/yazi-turu.mjs';
 import { ilgiliSec } from '../../lib/ilgili.mjs';
@@ -48,6 +59,8 @@ export async function getStaticPaths() {
         related: ilgiliSec(ogeler[i], ogeler).map((id) => idIle.get(id)!),
         // Yazının geçtiği ve sayfası olan konular (src/lib/konular.mjs).
         konular: await yazininKonulari(haber),
+        // Aynı konudaki eski yazılar (src/lib/daha-once.mjs); ilgili haberlerde tekrar edilmez.
+        once: dahaOnce(ogeler[i], ogeler).map((id) => idIle.get(id)!),
       },
     })),
   );
@@ -57,9 +70,11 @@ interface Props {
   haber: Haber;
   related: Haber[];
   konular: Konu[];
+  once: Haber[];
 }
 
-const { haber, related, konular } = Astro.props;
+const { haber, konular, once } = Astro.props;
+const related = Astro.props.related.filter((h) => !once.includes(h));
 const { title, description, date, category, coverAlt, rakamlar, sirada, tablo, grafik, kaynaklar } = haber.data;
 const duzeltme = duzeltmeNotu(haber.data, 'tr');
 // Resmî kaynaklı haberde kurumun bağlantısı; medya kaynaklı habere kaynak adı ya da bağlantısı yazılmaz.
@@ -86,8 +101,10 @@ const ogHeight = og ? Number(og.attributes.height) : 630;
 const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
 // Sayfa sonundaki tek yapay zekâ notu: bot yazısı ve sahip yazısı için ayrı metin (src/lib/yapay-zeka-notu.mjs).
 const yzNotu = yapayZekaNotu(haber.data, title, pageUrl);
-const share = encodeURIComponent(pageUrl);
-const shareText = encodeURIComponent(title);
+// "Bu yazı nasıl hazırlandı" kartı adımı olan yazılarda (bot, zincir, sahibin yazısı); bülten ve elle yazı eski notu alır.
+const kartVar = adimlar(haber.data).length > 0;
+// Yer haritası ve contentLocation: ön bilgide il adı varsa (yalnız yer haberin özüyse yazılır).
+const il = haber.data.yer ? ilBul(haber.data.yer) : null;
 const published = date.toISOString();
 // Değiştirilme tarihi: ön bilgide updated varsa o (yayından önceyse yok sayılır), yoksa yayın tarihi.
 const updated = haber.data.updated && haber.data.updated > date ? haber.data.updated : undefined;
@@ -127,6 +144,15 @@ const articleSchema: Record<string, any> = {
 if (entities.length > 0) {
   articleSchema.about = entities;
 }
+Object.assign(
+  articleSchema,
+  haberAlanlari({
+    kaynaklar: resmi,
+    yer: il ? { ad: il.ad, boylam: il.m[0], enlem: il.m[1] } : null,
+    duzeltme: haber.data.duzeltme,
+    guncellendi: updated,
+  }),
+);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -186,9 +212,10 @@ const jsonLd = {
             </span>
           )}
         </p>
+        <AracSatiri url={pageUrl} baslik={title} />
       </header>
 
-      <SentezBlok whyMatters={haber.data.why_matters} keyPoints={haber.data.key_points} description={description} />
+      <Kisaca whyMatters={haber.data.why_matters} keyPoints={haber.data.key_points} />
 
       <RakamSeridi rakamlar={rakamlar} bas />
 
@@ -218,6 +245,8 @@ const jsonLd = {
 
       <RakamSeridi sirada={sirada} />
 
+      {il && <YerHaritasi yer={il.ad} />}
+
       {
         konular.length > 0 && (
           <nav class="konu-etiketleri" aria-label="Konular">
@@ -229,19 +258,13 @@ const jsonLd = {
         )
       }
 
-      {
-        duzeltme && (
-          <aside class="duzeltme">
-            <p>
-              <strong>{duzeltme.etiket}</strong> {duzeltme.metin} <a href={duzeltme.baglanti}>Düzeltme Politikası</a>
-            </p>
-          </aside>
-        )
-      }
+      <Degisiklikler duzeltme={duzeltme} guncellendi={updated} />
+
+      <DahaOnce yazilar={once} baslik={title} tarih={date} />
 
       {
         resmi.length > 0 && (
-          <p class="resmi-kaynak">
+          <p class="resmi-kaynak" id="kaynaklar">
             {resmi.length > 1 ? 'Resmî kaynaklar:' : 'Resmî kaynak:'}{' '}
             {resmi.map((k, i) => (
               <>
@@ -256,7 +279,9 @@ const jsonLd = {
       {adsizKaynak && <p class="resmi-kaynak">{adsizKaynak}</p>}
 
       {
-        yzNotu.satirlar ? (
+        kartVar ? (
+          <NasilHazirlandi veri={haber.data} hataAdresi={hataBildirAdresi(title, pageUrl)} yayin={date} guncellendi={updated} kaynakSayisi={resmi.length} />
+        ) : yzNotu.satirlar ? (
           <section class="uretim-notu nasil-hazirlandi" aria-labelledby="nasil-hazirlandi">
             <h2 id="nasil-hazirlandi" class="nasil-baslik">{NASIL_BASLIK}</h2>
             <dl>
@@ -280,17 +305,8 @@ const jsonLd = {
 
       <YasalUyari />
 
-      <div class="paylas">
-        <span>Paylaş</span>
-        <a href={`https://x.com/intent/post?url=${share}&text=${shareText}`} target="_blank" rel="noopener">X</a>
-        <a href={`https://www.facebook.com/sharer/sharer.php?u=${share}`} target="_blank" rel="noopener">Facebook</a>
-        <a href={`https://wa.me/?text=${shareText}%20${share}`} target="_blank" rel="noopener">WhatsApp</a>
-        <a href={`https://t.me/share/url?url=${share}&text=${shareText}`} target="_blank" rel="noopener">Telegram</a>
-        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${share}`} target="_blank" rel="noopener">LinkedIn</a>
-        <a href={`https://bsky.app/intent/compose?text=${shareText}%20${share}`} target="_blank" rel="noopener">Bluesky</a>
-        {/* Betik (public/paylas.js) panoya erişebiliyorsa düğmeyi gösterir; yoksa gizli kalır. */}
-        <button type="button" class="kopyala" data-kopyala={pageUrl} aria-live="polite" hidden>Bağlantıyı kopyala</button>
-      </div>
+      <Yararli slug={haber.id} />
+
       {SITE.social.telegram && (
         <p class="kanal-notu">
           Yeni haberler <a href={SITE.social.telegram} rel="noopener" target="_blank">Telegram kanalımızda</a>.
@@ -311,5 +327,11 @@ const jsonLd = {
       )
     }
   </div>
-  <script is:inline src="/paylas.js" defer></script>
 </Base>
+
+<script>
+  // Okur araçları: yazı boyu, Dinle, Paylaş, sözcük açıklaması, "Bu haber işine yaradı mı?".
+  import '../../scripts/okur-araclari.ts';
+  // Yazı grafikleri (src/lib/graf/yazi-grafik.mjs): dokununca ve üzerine gelince değer.
+  import '../../scripts/graf.mjs';
+</script>

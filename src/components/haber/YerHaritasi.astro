@@ -1,0 +1,19 @@
+---
+// Yer haritası: yalnız ön bilgide `yer` (il adı) varsa, yani yer haberin özüyse (src/lib/yer-haritasi.mjs).
+import { yerHaritasi } from '../../lib/yer-haritasi.mjs';
+
+interface Props {
+  yer: string;
+}
+const { yer } = Astro.props;
+const svg = yerHaritasi(yer);
+---
+
+{
+  svg && (
+    <figure class="ha-harita">
+      <Fragment set:html={svg} />
+      <figcaption><b>{yer}</b></figcaption>
+    </figure>
+  )
+}

@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { readdirSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { aramayaAcik } from './src/lib/arama-gorunurluk.mjs';
 import { indekslenir } from './src/lib/uzunluk.mjs';
 import { ARSIV_ESIGI } from './src/lib/arsiv.mjs';
@@ -9,6 +10,21 @@ import { istanbulGunu } from './src/lib/seffaflik.mjs';
 import { onyuzMaddesiYayinda } from './src/lib/yayinda.mjs';
 import { satteri } from '@astrojs/markdown-satteri';
 import sozlukBagla from './src/lib/sozluk-bagla.mjs';
+import { satteriGraf } from './src/lib/graf/yazi-grafik.mjs';
+import { grafEtkilesimDenetle } from './src/lib/graf/etkilesim-denetim.mjs';
+
+// Grafik kartı olan her sayfa etkileşim betiğini yüklemeli; eksikse grafik sessizce statik kalır, o yüzden derleme durur.
+// ZamanGrafik gibi eski finfolis grafik bileşenleri bu denetime girmez (yalnız g-kort kartları).
+const grafEtkilesim = () => ({
+  name: 'graf-etkilesim',
+  hooks: {
+    'astro:build:done': async ({ dir, logger }) => {
+      const { sayfa, grafik, hatalar } = await grafEtkilesimDenetle(fileURLToPath(dir));
+      if (hatalar.length) throw new Error(`Etkileşimsiz grafik (${hatalar.length}):\n${hatalar.slice(0, 20).join('\n')}`);
+      logger.info(`${sayfa} sayfada ${grafik} grafik: hepsi etkileşimli.`);
+    },
+  },
+});
 
 // Site haritasındaki <lastmod> için yazı tarihleri: haber adresi → tarih, kategori → en yeni tarih.
 // Ön bilgi doğrudan dosyadan okunur (yapılandırma, içerik koleksiyonuna erişemez). Taslaklar ve tarihi gelmemiş
@@ -150,9 +166,11 @@ export default defineConfig({
         sozluk: (item) => (new URL(item.url).pathname.startsWith('/sozluk/') ? item : undefined),
       },
     }),
+    grafEtkilesim(),
   ],
-  // Haber gövdesinde ilk geçen finans terimleri /sozluk/ sayfalarına bağlanır (src/lib/sozluk-bagla.mjs).
-  markdown: { processor: satteri({ hastPlugins: [sozlukBagla] }) },
+  // Haber gövdesinde ilk geçen finans terimleri /sozluk/ sayfalarına bağlanır (src/lib/sozluk-bagla.mjs); yanında graf-N.json
+  // olan graf-N.svg resimleri etkileşimli karta döner (src/lib/graf/yazi-grafik.mjs).
+  markdown: { processor: satteri({ hastPlugins: [sozlukBagla, satteriGraf()] }) },
   // CSP (public/_headers) satır içi stile izin vermez; tüm CSS ayrı dosya olarak yüklenir.
   build: { concurrency: 1, inlineStylesheets: 'never' },
   // Aynı nedenle betikler de satır içine gömülmez (küçük betikler varsayılan olarak gömülür ve CSP'ye takılır).

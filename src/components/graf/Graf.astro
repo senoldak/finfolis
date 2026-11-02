@@ -1,0 +1,20 @@
+---
+// Grafik setinin tek kartı. HTML src/lib/graf/html.mjs'te (Forklart eklentisiyle ortak); betik (src/scripts/graf.mjs)
+// yalnız ipucu ekler, JS kapalıyken grafik ve tablo tam görünür.
+// visTittel=false: sayfanın kendi bölüm başlığı varken başlık yalnız ekran okuyucuya gider.
+// tabell=false: sayfa aynı sayıları zaten tabloyla veriyorsa "Rakamları göster" çıkmaz.
+import '../../styles/graf.css';
+import { nyId } from '../../lib/graf/index.mjs';
+import { grafHtml } from '../../lib/graf/html.mjs';
+import type { GrafData } from '../../lib/graf/sema.mjs';
+
+type Props = GrafData & { bred?: boolean; nivaa?: 2 | 3; visTittel?: boolean; tabell?: boolean };
+const { bred = false, nivaa = 3, visTittel = true, tabell = true, ...data } = Astro.props as Props;
+const html = grafHtml(data as GrafData, { id: nyId(), bred, nivaa, visTittel, tabell });
+---
+
+<Fragment set:html={html} />
+
+<script>
+  import '../../scripts/graf.mjs';
+</script>

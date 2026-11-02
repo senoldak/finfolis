@@ -28,6 +28,7 @@ import { adresiSil, anahtarVar, coz, sifrele } from './gizli.mjs';
 import { butceYukle } from './butce.mjs';
 import { TUR_TOKEN_TAVANI } from './token-tavani.mjs';
 import { kullanim } from './kullanim.mjs';
+import { sayiciSar, sayiYaz } from './gunluk-sayi.mjs';
 import { BUTCE_MS, MAKS_HABER, varsayilanKaynaklar, uyarlayiciKur, yerelTur } from './uyarlayici.mjs';
 import { turSec } from './motor-modu.mjs';
 
@@ -176,14 +177,21 @@ export async function calistir({
   // surVar yalnız süre bütçesini taşır: Gemini tur payı haber ve derleme için uyarlayıcının içinde (isBitti) uygulanır; payı bitince
   // bülten, karne ve Gemini'siz şablon haberler sürmeli (surVar'a katılırsa bunlar da durur).
   let motorHatasi = null;
+  const sayici = sayiciSar(uyarlayici); // yayın odası günlük sayacı (gunluk-sayi.mjs); motor modunda da sayar
   try {
-    await tur({ env, uyarlayici, durum, simdi, rot, yerel: (u, d) => yerelTur(u, d, { log }), surVar: () => !zamanBitti(), log });
+    await tur({ env, uyarlayici: sayici.uyarlayici, durum, simdi, rot, yerel: (u, d) => yerelTur(u, d, { log }), surVar: () => !zamanBitti(), log });
   } catch (e) {
     if (!motorModu) throw e;
     motorHatasi = e;
     console.error(`  ! motor turu hatayla bitti: ${adresiSil(e?.message ?? e)}`);
   }
   const o = uyarlayici.ozet;
+  // Sayaç yazma hatası turu düşürmez.
+  try {
+    await sayiYaz(path.join(rot, 'src/data/yayin-odasi/gunluk-sayi.json'), sayici.sayilar(o), simdi);
+  } catch (e) {
+    console.error(`  ! yayın odası sayacı yazılamadı: ${adresiSil(e?.message ?? e)}`);
+  }
   const sonuc = { adet: o.adet, adaylar: uyarlayici.ham(), hatalar: o.hatalar, bultenYazildi: o.bultenYazildi, bultenGerekli: o.bultenGerekli, yazilar: o.yazilar, konfigHatasi: o.konfigHatasi, motorHatasi };
   const hatalar = sonuc.hatalar;
   if (motorHatasi) hatalar.push(`motor turu: ${adresiSil(motorHatasi.message ?? motorHatasi)}`);

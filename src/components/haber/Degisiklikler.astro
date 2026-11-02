@@ -1,0 +1,35 @@
+---
+// "Yazıdaki değişiklikler": düzeltme notu (1 Aralık 2026'ya kadar şemada kapalı, src/content.config.ts DUZELTME_ACILIS)
+// ve güncelleme tarihi. Düzeltme notu tarihi taşıdığı için güncelleme satırı ayrıca yazılmaz. İkisi de yoksa bölüm çıkmaz.
+import { formatDate } from '../../lib/site';
+
+interface Props {
+  duzeltme?: { etiket: string; metin: string; baglanti: string } | null;
+  guncellendi?: Date;
+}
+const { duzeltme, guncellendi } = Astro.props;
+---
+
+{
+  (duzeltme || guncellendi) && (
+    <section class="ha-degisiklik" id="degisiklikler" aria-labelledby="deg-t">
+      <span class="ha-etiket" id="deg-t">Yazıdaki değişiklikler</span>
+      <ol>
+        {duzeltme ? (
+          <li>
+            <span class="merke duzeltildi">{duzeltme.etiket}</span>
+            <span>{duzeltme.metin}</span>
+          </li>
+        ) : (
+          guncellendi && (
+            <li>
+              <span class="merke">Güncellendi</span>
+              <time datetime={guncellendi.toISOString()}>{formatDate(guncellendi, true)}</time>
+            </li>
+          )
+        )}
+      </ol>
+      <a href={duzeltme?.baglanti ?? '/duzeltmeler/'}>Bütün düzeltmeler →</a>
+    </section>
+  )
+}

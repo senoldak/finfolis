@@ -1,0 +1,34 @@
+---
+// "Daha önce bu konuda": aynı konudaki eski yazılar zaman çizgisinde, en altta bu yazı (src/lib/daha-once.mjs).
+// Eski yazı yoksa bölüm çıkmaz.
+import { newsUrl, type Haber } from '../../lib/news';
+
+interface Props {
+  yazilar: Haber[];
+  baslik: string;
+  tarih: Date;
+}
+const { yazilar, baslik, tarih } = Astro.props;
+const kisaTarih = (d: Date) => new Intl.DateTimeFormat('tr-TR', { day: 'numeric', month: 'short', timeZone: 'Europe/Istanbul' }).format(d);
+---
+
+{
+  yazilar.length > 0 && (
+    <section class="ha-once" aria-labelledby="once-t">
+      <h2 id="once-t">Daha önce bu konuda</h2>
+      <ol>
+        {yazilar.map((y) => (
+          <li>
+            <time datetime={y.data.date.toISOString()}>{kisaTarih(y.data.date)}</time>
+            <a href={newsUrl(y)}>{y.data.title}</a>
+          </li>
+        ))}
+        <li class="bu" aria-current="page">
+          <time datetime={tarih.toISOString()}>{kisaTarih(tarih)}</time>
+          <span>{baslik}</span>
+          <em>Bu yazı</em>
+        </li>
+      </ol>
+    </section>
+  )
+}

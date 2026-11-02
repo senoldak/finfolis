@@ -1,0 +1,161 @@
+---
+// Yayın odası: piksel sahne. Sayılar ve başlıklar gerçek kayıtlardan (src/lib/yayin-odasi.mjs): botun günlük sayacı
+// (src/data/yayin-odasi/gunluk-sayi.json) ve yayımlanmış yazılar. Sahne betiği src/scripts/yayin-odasi.mjs; veri ona
+// #yayin-odasi-data JSON'uyla geçer (CSP: satır içi betik yok). Figürlerin hareketi temsilîdir.
+import Base from '../layouts/Base.astro';
+import { getNews } from '../lib/news';
+import { yayinOdasiVerisi } from '../lib/yayin-odasi.mjs';
+import { jsonLdMetni } from '../lib/json-ld.mjs';
+import { sayfaSemasi } from '../lib/seo';
+import sayac from '../data/yayin-odasi/gunluk-sayi.json';
+import '../styles/yayin-odasi.css';
+
+const yazilar = (await getNews()).map((h) => ({ ...h.data, slug: h.id }));
+const R = yayinOdasiVerisi({ sayac, yazilar, simdi: new Date() });
+
+const tall = (n: number) => new Intl.NumberFormat('tr-TR').format(n);
+const tarih = (d: string, yil = true) =>
+  new Intl.DateTimeFormat('tr-TR', { day: 'numeric', month: 'long', ...(yil ? { year: 'numeric' } : {}), timeZone: 'UTC' }).format(new Date(`${d}T12:00:00Z`));
+const dunSatirlari = R.dun
+  ? ([['Görülen aday', R.dun.gorulen], ['Değerlendirilen aday', R.dun.degerlendirilen], ['Yayımlanan haber', R.dun.yayimlanan], ['Bülten', R.dun.bulten]] as [string, number][])
+  : [];
+const haftaSatirlari = R.hafta
+  ? ([['Görülen aday', R.hafta.gorulen], ['Yayımlanan haber', R.hafta.yayimlanan], ['Bülten', R.hafta.bulten]] as [string, number][])
+  : [];
+const baslangic = tarih(R.not?.baslangic ?? '2026-11-03');
+const KAOS = [['serverbrann', 'Sunucu yangını'], ['strombrudd', 'Elektrik kesintisi'], ['ekstra', 'Son dakika!'], ['kaffekrise', 'Kahve krizi'], ['abakus', 'Abaküs']];
+const TEMA = [['ingen', 'Olağan'], ['republikk', 'Cumhuriyet Bayramı (29 Ekim)'], ['id', 'Ramazan Bayramı'], ['yilbasi', 'Yılbaşı']];
+const baslik = 'Yayın odası';
+const aciklama = 'finfolis haber masasının nasıl çalıştığı ve botun dünkü ve son yedi günlük gerçek sayıları.';
+---
+
+<Base title={baslik} description={aciklama}>
+  <Fragment slot="head">
+    <script
+      type="application/ld+json"
+      set:html={jsonLdMetni(sayfaSemasi({ yol: [{ ad: 'Ana sayfa', href: '/' }, { ad: baslik, href: '/yayin-odasi/' }], ad: baslik, aciklama }))}
+    />
+  </Fragment>
+
+  <div class="yo">
+    <header>
+      <h1>Yayın odası</h1>
+      <p>
+        Tek gazeteci (Şenol Dak) ve yapay zekâ ajanlarından oluşan üç ekip. Haber masası hızlı haberleri (bot), yazı işleri uzun yazıları (zincir) hazırlar. Yazar odasında Şenol Dak kendi yazılarını yazar; yapay zekâ yalnız dili düzeltir. Figürlere tıklanınca ne yaptıkları görünür.
+      </p>
+      <p class="ad">Adlar otomatik adımların adıdır, insan değildir (Şenol Dak hariç).</p>
+    </header>
+
+    {
+      R.sonHaberler.length > 0 && (
+        <nav class="serit" aria-label="Son haberler">
+          <div>
+            <span class="ek">SON HABERLER</span>
+            <div class="vindu">
+              <div class="rull">
+                {R.sonHaberler.map((s) => <a href={s.url}>{s.baslik}</a>)}
+                {R.sonHaberler.map((s) => <a href={s.url} aria-hidden="true" tabindex="-1">{s.baslik}</a>)}
+              </div>
+            </div>
+          </div>
+        </nav>
+      )
+    }
+
+    <div class="scene">
+      <svg id="rom" viewBox="0 0 1820 1200" shape-rendering="crispEdges" role="img" aria-label="Yayın odasının yukarıdan çizimi"></svg>
+    </div>
+    <div class="knapper">
+      <span>Kaos:</span>
+      {KAOS.map(([k, n]) => <button type="button" data-yo-kaos={k}>{n}</button>)}
+      <span>Tema:</span>
+      {TEMA.map(([k, n]) => <button type="button" data-yo-tema={k}>{n}</button>)}
+    </div>
+
+    <section class="kort" aria-live="polite">
+      <div id="kort">
+        <h2>Bir figür seçin</h2>
+        <p>Her figür işin bir kısmını yapar: bir haber bulunur, yazılır, denetlenir, yayımlanır.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="tavle">
+        <h2>Dünün sayıları</h2>
+        {
+          R.dun ? (
+            <>
+              <p class="dato">{tarih(R.dun.tarih)}</p>
+              <dl>
+                {dunSatirlari.map(([ad, n]) => (
+                  <div>
+                    <dt>{ad}</dt>
+                    <dd>{tall(n)}</dd>
+                  </div>
+                ))}
+              </dl>
+            </>
+          ) : (
+            <p>Sayılar {baslangic} tarihinden itibaren toplanıyor.</p>
+          )
+        }
+      </div>
+
+      <div class="tavle">
+        <h2>Son 7 gün</h2>
+        {
+          R.hafta ? (
+            <>
+              <p class="dato">{tarih(R.hafta.bas, false)} – {tarih(R.hafta.son)}</p>
+              <dl>
+                {haftaSatirlari.map(([ad, n]) => (
+                  <div>
+                    <dt>{ad}</dt>
+                    <dd>{tall(n)}</dd>
+                  </div>
+                ))}
+              </dl>
+            </>
+          ) : (
+            <p>Sayılar {baslangic} tarihinden itibaren toplanıyor.</p>
+          )
+        }
+        {
+          R.elenenler.length > 0 && (
+            <>
+              <h3>Yayın kapısında elenenler</h3>
+              <ul>
+                {R.elenenler.map((a) => (
+                  <li>
+                    <span>{a.metin}</span>
+                    <b>{tall(a.adet)}</b>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )
+        }
+      </div>
+
+      <div class="tavle">
+        <h2>Son uzun yazı</h2>
+        {
+          R.sonUzunYazi ? (
+            <>
+              <p><a href={R.sonUzunYazi.url}>{R.sonUzunYazi.baslik}</a></p>
+              <p class="liten">Zincir kaydı bu yazılarda henüz tutulmuyor.</p>
+            </>
+          ) : (
+            <p>Uzun yazı yok.</p>
+          )
+        }
+      </div>
+    </section>
+    <p class="pano-not">Sayılar botun kayıtlarından. Yapay zekâ adımları ve program adımları ayrı işaretli.</p>
+  </div>
+
+  <script type="application/json" id="yayin-odasi-data" set:html={JSON.stringify(R).replace(/</g, '\\u003c')} />
+  <script>
+    import '../scripts/yayin-odasi.mjs';
+  </script>
+</Base>

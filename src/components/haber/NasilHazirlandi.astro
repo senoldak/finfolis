@@ -1,0 +1,84 @@
+---
+// "Bu yazı nasıl hazırlandı": kapalı <details> kartı; açılınca adım adım kim ne yaptı (src/lib/yayin-ekibi.mjs), sonda
+// sorumluluk satırı ve yayın odasına giden şerit. Adlar otomatik adımların adıdır, insan değildir (Şenol Dak hariç).
+// Adımı olmayan yazıda (bülten, elle yazı) kart çıkmaz; sayfa eski notu gösterir.
+import { AJANLAR, adimlar, kartMetinleri } from '../../lib/yayin-ekibi.mjs';
+import { portre } from '../../lib/portre.mjs';
+import { formatDate } from '../../lib/site';
+
+interface Props {
+  veri: Record<string, any>;
+  hataAdresi: string;
+  yayin: Date;
+  guncellendi?: Date;
+  kaynakSayisi: number;
+}
+const { veri, hataAdresi, yayin, guncellendi, kaynakSayisi } = Astro.props;
+const liste = adimlar(veri);
+const m = kartMetinleri(veri);
+const ajan = (id: string) => AJANLAR[id as keyof typeof AJANLAR];
+const rozet = (tur: string) => (tur === 'yz' ? 'YZ' : tur === 'program' ? 'Program' : '');
+---
+
+{
+  liste.length > 0 && (
+    <details class="ha-nasil" id="nasil-hazirlandi">
+      <summary>
+        <span class="ozet-metin">
+          <span class="bas">Bu yazı nasıl hazırlandı</span>
+          <span class="ozet">{m.ozet}</span>
+        </span>
+        <span class="yigin" aria-hidden="true">
+          {liste.map((a) => (
+            <span class="mini" set:html={portre(ajan(a.id).u, ajan(a.id).tur === 'yz')} />
+          ))}
+        </span>
+        <span class="goster">
+          <span class="kapali">Nasıl olduğunu gör</span>
+          <span class="acik">Gizle</span>
+          <svg viewBox="0 0 12 12" width="12" height="12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" /></svg>
+        </span>
+      </summary>
+      <div class="ic">
+        <p class="olgular">
+          {m.insanOkumadi && <span class="hayir">Yayından önce hiçbir insan okumadı</span>}
+          <span>Yayımlandı {formatDate(yayin, true)}</span>
+          <span>{guncellendi ? `Güncellendi ${formatDate(guncellendi, true)}` : 'Değişiklik yok'}</span>
+          {kaynakSayisi > 0 && <a href="#kaynaklar">{kaynakSayisi === 1 ? 'Kaynağı gör' : `${kaynakSayisi} kaynağı gör`}</a>}
+        </p>
+        <p>{m.aciklama}</p>
+        <ol class="adimlar">
+          {liste.map((a) => {
+            const j = ajan(a.id);
+            return (
+              <li>
+                <span class:list={['portre', j.tur === 'insan' && 'insan']} set:html={portre(j.u, j.tur === 'yz')} />
+                <span class="tx">
+                  <span class="kim">
+                    <b>{j.ad}</b> <span class="rol">{j.rol}</span>
+                    {rozet(j.tur) && <span class:list={['ha-rozet', j.tur === 'program' && 'program']}>{rozet(j.tur)}</span>}
+                  </span>
+                  <span class="ne">{a.metin}</span>
+                </span>
+              </li>
+            );
+          })}
+        </ol>
+        <p class="not">Adlar otomatik adımların adıdır, insan değildir.</p>
+        <div class="sorumlu">
+          <span class="portre insan" set:html={portre(AJANLAR.senol.u, false)} />
+          <p>
+            <b>Şenol Dak</b>{m.sorumluluk} <a href={hataAdresi}>Hata bildir →</a>
+          </p>
+        </div>
+        <a class="oda" href="/yayin-odasi/">
+          <span class="t">
+            <b>Yayın odasına gir</b>
+            <span>Selin, Elif ve ekibin geri kalanını çalışırken gör.</span>
+          </span>
+          <span class="ok" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </details>
+  )
+}

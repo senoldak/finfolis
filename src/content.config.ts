@@ -60,6 +60,8 @@ const haberler = defineCollection({
       kaynaklar: z.array(z.object({ ad: z.string(), url: z.string().url() })).default([]),
       // Resmi olmayan kaynakların şifreli kaydı; sitede gösterilmez (bkz. scripts/haberler/gizli.mjs).
       kaynakIzi: z.string().optional(),
+      // Haberin ili (ör. "İzmir"); yalnız yer haberin özüyse yazılır. Varsa sayfada yer haritası çıkar (src/lib/yer-haritasi.mjs).
+      yer: z.string().optional(),
       why_matters: z.string().optional(),
       key_points: z.array(z.string()).optional(),
     }),

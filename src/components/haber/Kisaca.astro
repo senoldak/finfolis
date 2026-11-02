@@ -1,0 +1,35 @@
+---
+// "Kısaca": başlığın altında "Neden önemli" ve numaralı maddeler (eski "Hızlı çıkarım" kutusunun yerine).
+// Yazıda ne gerekçe ne madde varsa kutu çıkmaz.
+interface Props {
+  whyMatters?: string;
+  keyPoints?: string[];
+}
+const { whyMatters, keyPoints } = Astro.props;
+const neden = (whyMatters ?? '').trim();
+const maddeler = (Array.isArray(keyPoints) ? keyPoints : []).map((p) => (p ?? '').trim()).filter(Boolean);
+---
+
+{
+  (neden || maddeler.length > 0) && (
+    <section class="ha-kisaca" aria-labelledby="kisaca-t">
+      <h2 id="kisaca-t" class="ha-etiket">Kısaca</h2>
+      {neden && (
+        <div class="neden">
+          <h3>Neden önemli</h3>
+          <p>{neden}</p>
+        </div>
+      )}
+      {maddeler.length > 0 && (
+        <ol>
+          {maddeler.map((m, i) => (
+            <li>
+              <span class="nr" aria-hidden="true">{i + 1}</span>
+              <span>{m}</span>
+            </li>
+          ))}
+        </ol>
+      )}
+    </section>
+  )
+}
