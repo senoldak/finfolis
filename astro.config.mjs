@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { readdirSync, readFileSync } from 'node:fs';
 import { aramayaAcik } from './src/lib/arama-gorunurluk.mjs';
+import { indekslenir } from './src/lib/uzunluk.mjs';
 import { ARSIV_ESIGI } from './src/lib/arsiv.mjs';
 import { istanbulGunu } from './src/lib/seffaflik.mjs';
 import { onyuzMaddesiYayinda } from './src/lib/yayinda.mjs';
@@ -39,8 +40,11 @@ function tarihler() {
     const acik = aramayaAcik({ govde: md, tur: alan('tur'), icerikTuru: alan('icerikTuru'), author: alan('author'), uretim: alan('uretim') });
     if (acik) haber.set(ad, Number.isNaN(g.valueOf()) || g < d ? d : g);
     else kisa.add(ad);
+    // Kategori sayfası yalnız kısa olmayan yazıları listeler (getNews indeksli); yalnız kısa yazısı olan
+    // kategori sayfa tarafında boş ve noindex'tir, haritaya da girmemeli.
     const k = alan('category');
-    if (k && alan('tur') !== 'bulten' && (!kategori.get(k) || kategori.get(k) < d)) kategori.set(k, d);
+    const govde = md.slice(md.indexOf(on) + on.length).replace(/^\r?\n---/, '');
+    if (k && alan('tur') !== 'bulten' && indekslenir(govde) && (!kategori.get(k) || kategori.get(k) < d)) kategori.set(k, d);
     if (!enYeni || enYeni < d) enYeni = d;
     if (alan('tur') !== 'bulten') {
       const g = gun.get(istanbulGunu(d)) ?? { sayi: 0, son: d };
