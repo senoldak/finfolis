@@ -278,6 +278,20 @@ const yayimlananMetin = (y) =>
     .filter(Boolean)
     .join('\n');
 
+// ── Türkçe harf ──────────────────────────────────────────────────────────
+// 28 Ekim 2026 (kifobu, Deetken Impact): model bütün haberi ç/ğ/ı/ö/ş/ü olmadan yazdı ve hiçbir kontrol yakalamadı.
+// Arşivde bu harflerin harflere oranı en düşük %5,8; eşik %1,5. Kısa metne bakılmaz.
+const TR_HARF = /[çğıöşüÇĞİÖŞÜ]/g;
+export function turkceHarfKontrol(metin = '') {
+  const s = String(metin);
+  const harf = (s.match(/\p{L}/gu) ?? []).length;
+  if (harf < 300) return [];
+  const tr = (s.match(TR_HARF) ?? []).length;
+  return tr / harf < 0.015
+    ? ['Metin Türkçe harfler olmadan yazılmış (ç, ğ, ı, ö, ş, ü neredeyse hiç yok); aynı metni Türkçe harflerle yeniden yaz, içeriği değiştirme']
+    : [];
+}
+
 // Standartlar Faz 1: "Neden önemli" ve kısa maddeler de sayfada görünür; rakam/alıntı ve ölçek kontrolüne girer.
 const denetlenenMetin = (y) => [butunMetin(y), y.why_matters, ...(y.key_points ?? [])].filter(Boolean).join('\n');
 
@@ -287,7 +301,7 @@ export function kesinKontrol(yazi, aday) {
   const olcek = olcekKontrol(metin, aday.kaynakMetni ?? '');
   const tum = yayimlananMetin(yazi);
   const medya = [...new Set([...medyaKontrol(tum), ...adayMedyaKontrol(tum, aday.gizliKaynaklar), ...yabanciBaslikKontrol(tum)])];
-  return [...eksik.map((e) => `Kaynakta bulunmayan rakam/alıntı: ${e}`), ...olcek, ...medya];
+  return [...eksik.map((e) => `Kaynakta bulunmayan rakam/alıntı: ${e}`), ...olcek, ...medya, ...turkceHarfKontrol(butunMetin(yazi))];
 }
 
 // Kontrol masası: önce kesin kontrol, sonra Gemini. Gemini çalışamazsa onay yok.

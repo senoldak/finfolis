@@ -392,3 +392,12 @@ test('kontrol masası why_matters ve key_points içindeki kaynakta olmayan rakam
   assert.equal(olcek.onay, false);
   assert.ok(olcek.sorunlar.some((s) => s.startsWith('Ölçek hatası')), JSON.stringify(olcek.sorunlar));
 });
+
+test('turkceHarfKontrol: Türkçe harfsiz uzun metin takılır, normal ve kısa metin geçer', async () => {
+  const { turkceHarfKontrol } = await import('./yayin-kurulu.mjs');
+  const harfsiz = 'Fonun ilk kapanisina Kanada araciligiyla 75 milyon dolar katki sunulurken, Peru kalkinma bankasi 15 milyon dolar yatirim yapti. '.repeat(4);
+  const turkce = 'Fonun ilk kapanışına Kanada aracılığıyla 75 milyon dolar katkı sunulurken, Peru kalkınma bankası 15 milyon dolar yatırım yaptı. '.repeat(4);
+  assert.equal(turkceHarfKontrol(harfsiz).length, 1);
+  assert.deepEqual(turkceHarfKontrol(turkce), []);
+  assert.deepEqual(turkceHarfKontrol('Kisa bir metin'), []);
+});
