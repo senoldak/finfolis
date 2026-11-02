@@ -1,5 +1,5 @@
 ---
-title: "Piyasa bülteni · 15 Ekim"
+title: "Piyasa bülteni · 15 Ekim 2026, 15.41"
 description: "Önceki bültenden bu yana öne çıkan gelişmeler, bölge bölge."
 date: 2026-10-15T12:41:05.340Z
 category: "piyasalar"
