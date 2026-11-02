@@ -26,7 +26,7 @@ const baslangic = tarih(R.not?.baslangic ?? '2026-11-03');
 const KAOS = [['serverbrann', 'Sunucu yangını'], ['strombrudd', 'Elektrik kesintisi'], ['ekstra', 'Son dakika!'], ['kaffekrise', 'Kahve krizi'], ['abakus', 'Abaküs']];
 const TEMA = [['ingen', 'Olağan'], ['republikk', 'Cumhuriyet Bayramı (29 Ekim)'], ['id', 'Ramazan Bayramı'], ['yilbasi', 'Yılbaşı']];
 const baslik = 'Yayın odası';
-const aciklama = 'finfolis haber masasının nasıl çalıştığı ve botun dünkü ve son yedi günlük gerçek sayıları.';
+const aciklama = 'finfolis haber masası nasıl çalışıyor, bot dün ve son yedi günde ne yaptı.';
 ---
 
 <Base title={baslik} description={aciklama}>
@@ -41,9 +41,9 @@ const aciklama = 'finfolis haber masasının nasıl çalıştığı ve botun dü
     <header>
       <h1>Yayın odası</h1>
       <p>
-        Tek gazeteci (Şenol Dak) ve yapay zekâ ajanlarından oluşan üç ekip. Haber masası hızlı haberleri (bot), yazı işleri uzun yazıları (zincir) hazırlar. Yazar odasında Şenol Dak kendi yazılarını yazar; yapay zekâ yalnız dili düzeltir. Figürlere tıklanınca ne yaptıkları görünür.
+        finfolis'te bir gazeteci, Şenol Dak, ve yapay zekâ ajanlarıyla çalışan üç ekip var. Haber masası kısa haberleri, yazı işleri uzun yazıları hazırlıyor. Yazar odasında Şenol Dak kendi yazılarını yazıyor; yapay zekâ yalnız dilini düzeltiyor. Bir figüre tıklarsanız ne yaptığını görürsünüz.
       </p>
-      <p class="ad">Adlar otomatik adımların adıdır, insan değildir (Şenol Dak hariç).</p>
+      <p class="ad">Şenol Dak dışındaki adlar insan değil, otomatik adımların adı.</p>
     </header>
 
     {
@@ -75,7 +75,7 @@ const aciklama = 'finfolis haber masasının nasıl çalıştığı ve botun dü
     <section class="kort" aria-live="polite">
       <div id="kort">
         <h2>Bir figür seçin</h2>
-        <p>Her figür işin bir kısmını yapar: bir haber bulunur, yazılır, denetlenir, yayımlanır.</p>
+        <p>Her figür, haberin bulunmasından yayımlanmasına kadar yolun bir adımını yapıyor.</p>
       </div>
     </section>
 
@@ -154,7 +154,7 @@ const aciklama = 'finfolis haber masasının nasıl çalıştığı ve botun dü
               )}
             </>
           ) : (
-            <p>Uzun yazı yok.</p>
+            <p>Henüz uzun yazı yok.</p>
           )
         }
       </div>

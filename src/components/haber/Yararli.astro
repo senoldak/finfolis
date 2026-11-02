@@ -1,5 +1,5 @@
 ---
-// "Bu haber işine yaradı mı?": iki düğme, yanıt adsız sayılır (POST /api/yararli, worker/index.js; yalnız gün, yazı,
+// "Bu haber işinize yaradı mı?": iki düğme, yanıt adsız sayılır (POST /api/yararli, worker/index.js; yalnız gün, yazı,
 // evet/hayır). JavaScript yoksa gizli kalır; src/scripts/okur-araclari.ts gösterir.
 interface Props {
   slug: string;
@@ -8,8 +8,8 @@ const { slug } = Astro.props;
 ---
 
 <div class="ha-yararli" data-slug={slug} hidden>
-  <span class="soru" id="yararli-s">Bu haber işine yaradı mı?</span>
+  <span class="soru" id="yararli-s">Bu haber işinize yaradı mı?</span>
   <button type="button" data-yanit="evet" aria-describedby="yararli-s">Evet</button>
   <button type="button" data-yanit="hayir" aria-describedby="yararli-s">Hayır</button>
-  <span class="tesekkur" role="status" hidden>Teşekkürler! Yanıtın daha iyi haberler hazırlamamıza yardım ediyor.</span>
+  <span class="tesekkur" role="status" hidden>Teşekkürler, yanıtınızı aldık.</span>
 </div>

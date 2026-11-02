@@ -75,7 +75,7 @@ export function adimlar(veri, { medya = 0 } = {}) {
       adim('zeynep', 'Metindeki her rakamın ve alıntının kaynakta geçtiğini denetledi.'),
       adim('kemal', 'Olguları, atıfları ve başlığı kaynakla karşılaştırdı; yatırım tavsiyesi ya da abartı aradı, dili düzeltti.'),
       adim('toprak', 'Kapak görselini çizdi.'),
-      adim('deniz', 'Yayın kuralları süzgecinden geçen haberi yayımladı.'),
+      adim('deniz', 'Haberi yayın kurallarından geçirip yayımladı.'),
     ];
   }
   return [];
@@ -94,7 +94,7 @@ export function kartMetinleri(veri) {
   if (tur === 'sahip') {
     return {
       ozet: 'Şenol Dak yazdı. Yapay zekâ yalnız dili düzeltti.',
-      aciklama: 'Yazı Şenol Dak’ın kendi yazısı. Yapay zekâ imlayı ve dili düzeltti; içeriğe, bakış açısına ve rakamlara dokunmadı.',
+      aciklama: 'Yapay zekâ imlayı ve dili düzeltti; içeriğe, bakış açısına ve rakamlara dokunmadı.',
       sorumluluk: ', gazeteci, yayıncı ve editör, yazıyı yayından önce okudu ve onayladı.',
       insanOkumadi: false,
     };
@@ -102,7 +102,7 @@ export function kartMetinleri(veri) {
   if (tur === 'zincir') {
     return {
       ozet: `${sayiYaz(yz)} yapay zekâ adımıyla yazıldı, editör onayladı.`,
-      aciklama: 'Yazı yapay zekâ adımlarıyla hazırlandı. Rakamlar ve alıntılar resmî kaynaklarla karşılaştırıldı; yazı yayından önce editör tarafından okunup onaylandı.',
+      aciklama: 'Yazıyı yapay zekâ adımları hazırladı. Rakamlar ve alıntılar resmî kaynaklarla karşılaştırıldı.',
       sorumluluk: ', gazeteci, yayıncı ve editör, yazıyı yayından önce okudu ve onayladı.',
       insanOkumadi: false,
     };

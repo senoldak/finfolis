@@ -28,12 +28,12 @@ const STANDART_METIN = {
 const GENEL_STANDART = 'Yayın kurallarına takıldı';
 const KOD_METIN = {
   'kaynakta-yok': 'Kaynakta artık yok',
-  bayat: 'Haber bayatlamıştı',
-  'bilinen-olay': 'Aynı olay daha önce yayımlanmıştı',
-  tekrar: 'Aynı olay daha önce yayımlanmıştı',
+  bayat: 'Haber bayatladı',
+  'bilinen-olay': 'Aynı olay zaten yayımlandı',
+  tekrar: 'Aynı olay zaten yayımlandı',
   yazilamadi: 'Yazılamadı',
-  'kisa-es-yok': 'Kısa kaldı, birleştirilecek eş yok',
-  'kontrol-masasi': 'Yayın kurulu kontrolünden geçmedi',
+  'kisa-es-yok': 'Kısa kaldı, derlemeye eklenecek eş haber çıkmadı',
+  'kontrol-masasi': 'Kontrol masasından geçmedi',
   standart: GENEL_STANDART,
   diger: 'Başka bir sebep',
 };

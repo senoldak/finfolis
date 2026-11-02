@@ -1,5 +1,5 @@
 // Haber sayfasının okur araçları: yazı boyu, yüksek karşıtlık, okuma modu, yazdır, Dinle, Paylaş menüsü ("Bağlantıyı
-// kopyala"), sözcük açıklaması ve "Bu haber işine yaradı mı?". Tek paketlenmiş betik (CSP satır içi betiğe izin vermez).
+// kopyala"), sözcük açıklaması ve "Bu haber işinize yaradı mı?". Tek paketlenmiş betik (CSP satır içi betiğe izin vermez).
 // Bütün kayıtlar try/catch içinde: gizli pencerede ya da kayıt engelliyken araçlar çalışır, yalnız hatırlamaz.
 
 const kok = document.documentElement;
@@ -232,7 +232,7 @@ if (dinle && 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 
   addEventListener('resize', () => kapat());
 }
 
-// ——— "Bu haber işine yaradı mı?" (adsız sayaç; tarayıcı başına haber başına bir yanıt) ———
+// ——— "Bu haber işinize yaradı mı?" (adsız sayaç; tarayıcı başına haber başına bir yanıt) ———
 const yararli = document.querySelector<HTMLElement>('.ha-yararli[data-slug]');
 if (yararli) {
   const slug = yararli.dataset.slug as string;

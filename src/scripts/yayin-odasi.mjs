@@ -168,29 +168,29 @@ const DORF = 19.0; // yazar odası kapısı
 const forf = (x, y) => ({ x, y, ut: [[x + 0.75, y + 1.35], [DORF, y + 1.35], [DORF, 14.4], [DORF, HALL]] });
 const NYHET = [
   { id: 'speider', navn: 'Selin', rolle: 'İzci', tur: 'program', ...aapen(1.5, 19), u: { sac: 'uzun', sacRenk: '#e2c26a', ten: '#f2cfb0', ust: '#c2502b', ustGolge: '#9a4423' },
-    jobb: 'Kamuya açık kaynakları ve haber akışlarını gün boyu tarar, yeni haber adaylarını masaya koyar. Program çalışır, yapay zekâ kullanmaz.', rep: ['Yeni aday!', 'Kaynakları okuyor …'] },
+    jobb: 'Haber akışlarını ve kamuya açık kaynakları gün boyu tarar, yeni adayları masaya koyar. Bu adım bir program, yapay zekâ kullanmaz.', rep: ['Yeni aday!', 'Kaynakları okuyor …'] },
   { id: 'vekter', navn: 'Tarık', rolle: 'Değerlendirici', tur: 'yz', ...aapen(6.0, 19), u: { sac: 'kisa', sakal: true, sacRenk: '#6b4226', ten: '#e3b48f', ust: '#a0643c', ustGolge: '#86512f' },
     jobb: 'Her adayın önemini 100 üzerinden puanlar. 60 altı ayrı haber olmaz.', rep: ['Önemi puanlıyor …', '60 altı. Bültene.'] },
   { id: 'skriver', navn: 'Elif', rolle: 'Yazar', tur: 'yz', ...aapen(1.5, 14), u: { sac: 'topuz', sacRenk: '#b5482a', ten: '#f5d4ba', ust: '#c2502b', ustGolge: '#9a4423', gozluk: true },
     jobb: 'Haberi kaynaklara dayanarak Türkçe yazar; başlığı ve ilk paragrafı hazırlar.', rep: ['Giriş paragrafı …', 'Başlık oturdu!'] },
   { id: 'kontroll', navn: 'Zeynep', rolle: 'Denetçi', tur: 'program', ...aapen(6.0, 14), u: { sac: 'kivircik', sacRenk: '#1f1611', ten: '#8d5a3b', ust: '#5d5b55', ustGolge: '#474d53' },
-    jobb: 'Haberdeki her rakamın ve alıntının kaynakta bulunup bulunmadığına bakar. Program çalışır, yapay zekâ kullanmaz.', rep: ['Rakamlar kaynakla karşılaştırılıyor …', 'Alıntılar aranıyor …'] },
+    jobb: 'Haberdeki her rakamın ve alıntının kaynakta geçip geçmediğine bakar. Bu adım bir program, yapay zekâ kullanmaz.', rep: ['Rakamlar kaynakla karşılaştırılıyor …', 'Alıntılar aranıyor …'] },
   { id: 'leser', navn: 'Kemal', rolle: 'Kontrol masası', tur: 'yz', ...aapen(10.5, 14), u: { sac: 'kel', sakal: true, sacRenk: '#b8b8b0', ten: '#efc9a8', ust: '#5d6b73', ustGolge: '#4a565d', gozluk: true },
-    jobb: 'Hazır haberi bir kez daha okur: olgu, atıf, başlık, yatırım tavsiyesi ve abartı, dil.', rep: ['Başlığa bakıyorum …', 'Yatırım tavsiyesi var mı?', 'Zzz …'] },
+    jobb: 'Hazır haberi bir kez daha okur. Olguları, atıfları ve başlığı denetler, yatırım tavsiyesi ya da abartı arar, dili düzeltir.', rep: ['Başlığa bakıyorum …', 'Yatırım tavsiyesi var mı?', 'Zzz …'] },
   { id: 'tegner', navn: 'Toprak', rolle: 'Kapakçı', tur: 'program', ...aapen(1.5, 9), u: { sac: 'kakul', sacRenk: '#1b1b1b', ten: '#d2a079', ust: '#d9b88c', ustGolge: '#c9a27a', alt: '#c2502b' },
-    jobb: 'Haberin kapağını başlık ve özetle çizer. Program çalışır, yapay zekâ kullanmaz.', rep: ['Kapak çiziliyor …', 'Başlık sığdı.'] },
+    jobb: 'Haberin kapağını başlık ve kategoriyle çizer. Bu adım bir program, yapay zekâ kullanmaz.', rep: ['Kapak çiziliyor …', 'Başlık sığdı.'] },
   { id: 'deler', navn: 'Deniz', rolle: 'Yayıncı', tur: 'program', ...aapen(6.0, 9), u: { sac: 'atkuyrugu', sacRenk: '#2a1c14', ten: '#a8714e', ust: '#3b3a36', ustGolge: '#2b2a27' },
-    jobb: 'Hazır haberi sitede yayımlar. Program çalışır, yapay zekâ kullanmaz.', rep: ['Yayımlandı!'] },
+    jobb: 'Yayın kurallarından geçen haberi sitede yayımlar. Bu adım bir program, yapay zekâ kullanmaz.', rep: ['Yayımlandı!'] },
 ];
 const SKRIV = [
   { id: 'faktasjekk', navn: 'Fikret', rolle: 'Doğrulayıcı', tur: 'yz', ...rom(ROM[0]), u: { sac: 'kisa', sacRenk: '#e2c26a', ten: '#f5d4ba', ust: '#5d6b73', gozluk: true },
-    jobb: 'Her rakamı ve alıntıyı kaynaklara karşı kontrol eder.', rep: ['Rakamları kaynakla karşılaştırıyorum …', 'Kaynak kaydedildi.'] },
+    jobb: 'Her rakamı ve alıntıyı kaynaklarla karşılaştırır.', rep: ['Rakamları kaynakla karşılaştırıyorum …', 'Kaynak kaydedildi.'] },
   { id: 'sprak', navn: 'Sevgi', rolle: 'Dil editörü', tur: 'yz', ...rom(ROM[1]), u: { sac: 'atkuyrugu', sacRenk: '#b5482a', ten: '#f2cfb0', ust: '#a0643c', ustGolge: '#86512f' },
-    jobb: 'Yapay zekâ kokan cümleleri arar, yazara geri yollar. Şenol Dak’ın yazılarında yalnız dili düzeltir, içeriğe dokunmaz.', rep: ['Dile bakıyorum …', 'Daha akıcı.'] },
+    jobb: 'Dili gözden geçirir, takılan cümleleri yazara geri yollar. Şenol Dak’ın yazılarında yalnız imlayı ve dili düzeltir, içeriğe dokunmaz.', rep: ['Dile bakıyorum …', 'Daha akıcı.'] },
   { id: 'jurist', navn: 'Cem', rolle: 'Hukukçu', tur: 'yz', ...rom(ROM[2]), u: { sac: 'kisa', sacRenk: '#1b1b1b', ten: '#d2a079', ust: '#f4f3ee', ceket: '#1b1b1b', gozluk: true },
     jobb: 'Yazı ilerlemeden önce hukuki riske bakar.', rep: ['Hukuki riske bakıyorum …'] },
   { id: 'grafikk', navn: 'Gül', rolle: 'Grafikçi', tur: 'yz', ...rom(ROM[3]), u: { sac: 'topuz', sacRenk: '#1b1b1b', ten: '#8d5a3b', ust: '#d9b88c', ustGolge: '#c9a27a' },
-    jobb: 'Yazının grafiklerini finfolis çizgisinde hazırlar.', rep: ['Grafik çiziliyor …', 'Eksen sıfırdan başlamalı.'] },
+    jobb: 'Yazının grafiklerini hazırlar.', rep: ['Grafik çiziliyor …', 'Eksen sıfırdan başlamalı.'] },
   { id: 'redaktor', navn: 'Ayşe', rolle: 'Yazı işleri müdürü', tur: 'yz', ...aapen(16, 8.5), u: { sac: 'kisa', sacRenk: '#8a8a82', ten: '#f0cdb2', ust: '#3b3a36', ceket: '#3b3a36' },
     jobb: 'Uzun yazıların konusunu ve açısını seçer.', rep: ['Bugünün konusu seçiliyor …', 'Okur kim?'] },
   { id: 'research', navn: 'Burak', rolle: 'Araştırmacı', tur: 'yz', ...aapen(20.5, 8.5), u: { sac: 'kivircik', sacRenk: '#a0643c', ten: '#f2cfb0', ust: '#5d5b55', sakal: true },
@@ -209,9 +209,9 @@ const SENOL = { id: 'senol', navn: 'Şenol Dak', rolle: 'Gazeteci', menneske: tr
 const FORF = [];
 // Teknik ekip: sunucuları ve kotaları izleyen bekçilerin karşılığı
 const IT = [
-  { id: 'drift1', navn: 'Okan', rolle: 'Nöbetçi', tur: 'yz', ...aapen(6.6, 2.4), u: { sac: 'kisa', sacRenk: '#b5482a', ten: '#f2cfb0', ust: '#3d4247', ustGolge: '#2d3135', sakal: true },
+  { id: 'drift1', navn: 'Okan', rolle: 'Nöbetçi', tur: 'program', ...aapen(6.6, 2.4), u: { sac: 'kisa', sacRenk: '#b5482a', ten: '#f2cfb0', ust: '#3d4247', ustGolge: '#2d3135', sakal: true },
     jobb: 'Sunucuları ve botları ayakta tutar; bir şey durunca haber alır.', rep: ['Sistemler ayakta.', 'Fişi kim çekti?'] },
-  { id: 'drift2', navn: 'Nail', rolle: 'Sistem', tur: 'yz', ...aapen(9.4, 2.4), u: { sac: 'kivircik', sacRenk: '#1b1b1b', ten: '#a8714e', ust: '#c2502b', gozluk: true },
+  { id: 'drift2', navn: 'Nail', rolle: 'Sistem', tur: 'program', ...aapen(9.4, 2.4), u: { sac: 'kivircik', sacRenk: '#1b1b1b', ten: '#a8714e', ust: '#c2502b', gozluk: true },
     jobb: 'Kotaları ve maliyetleri izler.', rep: ['Kota iyi görünüyor.', 'Yeniden başlatıyorum …'] },
 ];
 const ALLE = [...NYHET, ...SKRIV, SENOL, ...FORF, ...IT];

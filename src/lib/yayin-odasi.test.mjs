@@ -26,7 +26,7 @@ test('elemeMetni: bilinen kodlar okura giden metin, bilinmeyen genel metin (kod 
 
 test('elenenSatirlari: aynı metne inen kodlar toplanır, çoktan aza sıralanır', () => {
   const s = elenenSatirlari({ 'standart:suc': 1, 'standart:kapi-kisi-suc': 2, 'standart:teror': 1, bayat: 5, 'standart:x': 0 });
-  assert.deepEqual(s.map(({ metin, adet }) => [metin, adet]), [['Haber bayatlamıştı', 5], ['Suç isnadı riski', 3], ['Terör haberi kuralı', 1]]);
+  assert.deepEqual(s.map(({ metin, adet }) => [metin, adet]), [['Haber bayatladı', 5], ['Suç isnadı riski', 3], ['Terör haberi kuralı', 1]]);
 });
 
 test('dün, son 7 gün ve elenenler sayaçtan; bugün dahil değil', () => {
@@ -38,7 +38,7 @@ test('dün, son 7 gün ve elenenler sayaçtan; bugün dahil değil', () => {
   assert.deepEqual(v.elenenler, [
     { metin: 'Yatırım tavsiyesi riski', adet: 3 },
     { metin: 'Suç isnadı riski', adet: 2 },
-    { metin: 'Haber bayatlamıştı', adet: 1 },
+    { metin: 'Haber bayatladı', adet: 1 },
     { metin: 'Yayın kurallarına takıldı', adet: 1 },
   ]);
   assert.equal(v.not, null);
