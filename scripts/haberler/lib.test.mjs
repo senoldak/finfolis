@@ -219,3 +219,15 @@ test('baslikBuyut: ilk harfi Türkçe kurallarla büyütür, kısaltmayı tümü
   assert.equal(baslikBuyut('Çin ekonomisi büyüdü'), 'Çin ekonomisi büyüdü');
   assert.equal(baslikBuyut('3 büyük banka'), '3 büyük banka');
 });
+
+test('htmlSok iç içe etiket silinince yeniden oluşan etiketi bırakmaz', () => {
+  for (const girdi of [
+    '<<b>meta http-equiv=refresh content="0;url=https://haber.example.com/">',
+    '<meta http-equiv="refresh" content="0;url=https://haber.example.com/"<i>>',
+    "<<b>a href='https://haber.example.com/'>x<</b>/a>",
+    '<!DOCTYPE x> <?php ?>',
+  ]) {
+    assert.doesNotMatch(htmlSok(girdi), /<[a-z/!?]/i, girdi);
+  }
+  assert.equal(htmlSok('3 < 5 ve <https://www.tcmb.gov.tr/>'), '3 < 5 ve <https://www.tcmb.gov.tr/>');
+});

@@ -29,7 +29,7 @@ import { butceYukle } from './butce.mjs';
 import { TUR_TOKEN_TAVANI } from './token-tavani.mjs';
 import { kullanim } from './kullanim.mjs';
 import { sayiciSar, sayiYaz } from './gunluk-sayi.mjs';
-import { BUTCE_MS, MAKS_HABER, varsayilanKaynaklar, uyarlayiciKur, yerelTur } from './uyarlayici.mjs';
+import { BUTCE_MS, MAKS_HABER, temiz, varsayilanKaynaklar, uyarlayiciKur, yerelTur } from './uyarlayici.mjs';
 import { turSec } from './motor-modu.mjs';
 
 export { ONCELIKLI_ONEM, MAKS_HABER, KAYNAK_BUTCE_MS, BUTCE_MS, BULTEN_PAYI_MS, TERFI_ESIGI, RSS_TERFI_ESIGI, terfiMi, terfiOzeti, varsayilanKapak } from './uyarlayici.mjs';
@@ -258,7 +258,7 @@ export async function turBaslat({ kuru = false, env = process.env, acil = acilDu
     if (env.GITHUB_OUTPUT) await appendFile(env.GITHUB_OUTPUT, `adet=${adet}\n`);
     if (s.konfigHatasi && env.GITHUB_OUTPUT) await appendFile(env.GITHUB_OUTPUT, 'konfig_hatasi=1\n');
     if (env.GITHUB_STEP_SUMMARY && s.hatalar.length)
-      await appendFile(env.GITHUB_STEP_SUMMARY, `### Haber botu\n${s.hatalar.map((h) => `- ${h}`).join('\n')}\n`);
+      await appendFile(env.GITHUB_STEP_SUMMARY, temiz(`### Haber botu\n${s.hatalar.map((h) => `- ${h}`).join('\n')}\n`));
   }
   if (!kuru && s.motorHatasi) {
     log(`Tur hatayla bitti: ${adresiSil(s.motorHatasi.message ?? s.motorHatasi)}`);
@@ -268,6 +268,11 @@ export async function turBaslat({ kuru = false, env = process.env, acil = acilDu
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
+  // Actions logları herkese açık: bütün modüllerin log satırlarında yayın adları "[yayın]", adresler "[adres]" olur.
+  for (const tur of ['log', 'warn', 'error']) {
+    const asil = console[tur].bind(console);
+    console[tur] = (...x) => asil(...x.map((p) => (typeof p === 'string' ? temiz(p) : p)));
+  }
   const r = await turBaslat({ kuru: process.argv.includes('--kuru') });
   if (r.hata) process.exitCode = 1; // durum ve yazılar yazıldı; iş kırmızı biter (Commit adımı yine çalışır)
 }

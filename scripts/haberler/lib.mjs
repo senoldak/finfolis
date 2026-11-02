@@ -71,13 +71,23 @@ export function slugla(baslik) {
 // http(s)/mailto dışında şema taşıyan bağlantılar (javascript:, data: …) düşer: otomatik bağlantı tümüyle, Markdown
 // bağlantısında metni kalır. Markdown adresteki "&#58;" gibi karakter referanslarını çözdüğü için "&" de şema sayılır.
 const guvenliAdres = (url) => /^(?:https?:\/\/|mailto:)/i.test(url) || !/^[^/?#]*[:&]/.test(url);
-export const htmlSok = (metin) =>
-  String(metin)
+const htmlSokAdim = (s) =>
+  s
     .replace(/<!--[\s\S]*?(?:-->|$)/g, '')
     .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, '')
     .replace(/<\/?[a-z][a-z0-9-]*(?:\s[^<>]*)?\/?>/gi, '')
     .replace(/\[([^\]]*)\]\(\s*<?((?:[^()\s<>]|\([^()\s]*\))*)>?[^)]*\)/g, (m, txt, url) => (guvenliAdres(url) ? m : txt))
     .replace(/<([a-z][a-z0-9+.-]*:[^\s<>]*)>/gi, (m, url) => (guvenliAdres(url) ? m : ''));
+// Tek geçiş yetmez: "<<b>meta …>" ya da '<meta …"<i>>' içindeki etiket silinince dıştaki yeniden oluşur. Metin
+// değişmeyene kadar tekrarlanır; sonra otomatik bağlantı dışında kalan her etiket başına boşluk eklenir ("< x" etiket sayılmaz).
+export const htmlSok = (metin) => {
+  let ut = String(metin);
+  for (let onceki; onceki !== ut; ) {
+    onceki = ut;
+    ut = htmlSokAdim(ut);
+  }
+  return ut.replace(/<(?![a-z][a-z0-9+.-]*:[^\s<>]*>)(?=[a-z/!?])/gi, '< ');
+};
 
 // Başlığın ilk sözcüğü büyük harfle başlar (Türkçe kurallarla: i -> İ, ı -> I). İlk sözcük bilinen bir kısaltmaysa
 // ("abd'de", "İmf'den") tümü büyütülür: "ABD'de", "IMF'den". Model bazen başlığı küçük harfle bırakıyordu.

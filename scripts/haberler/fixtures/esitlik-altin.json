@@ -2,13 +2,13 @@
   "karisik1": {
     "adet": 2,
     "hatalar": [
-      "n09 «HATA haberi»: standart denetimi çalıştırılamadı (süzgeç çöktü)",
+      "n09: standart denetimi çalıştırılamadı (süzgeç çöktü)",
       "n12: yazar çıktı vermedi",
       "n02: geçici sorun",
       "n03: günlük kota bitti",
       "n04: bozuk yanıt",
-      "n05 «DURDU haberi»: yayınlanmadı, yayın kurulu durdurdu",
-      "n07 «BEKLE haberi»: denetim çalışamadı"
+      "n05: yayınlanmadı, yayın kurulu durdurdu",
+      "n07: denetim çalışamadı"
     ],
     "bultenYazildi": true,
     "bultenGerekli": true,
@@ -86,11 +86,11 @@
   "karisik2": {
     "adet": 0,
     "hatalar": [
-      "n09 «HATA haberi»: standart denetimi çalıştırılamadı (süzgeç çöktü)",
+      "n09: standart denetimi çalıştırılamadı (süzgeç çöktü)",
       "n12: yazar çıktı vermedi",
       "n02: geçici sorun",
       "n03: günlük kota bitti",
-      "n07 «BEKLE haberi»: denetim çalışamadı"
+      "n07: denetim çalışamadı"
     ],
     "bultenYazildi": false,
     "bultenGerekli": false,
@@ -164,11 +164,11 @@
   "karisik3": {
     "adet": 0,
     "hatalar": [
-      "n09 «HATA haberi»: standart denetimi çalıştırılamadı (süzgeç çöktü)",
+      "n09: standart denetimi çalıştırılamadı (süzgeç çöktü)",
       "n12: yazar çıktı vermedi",
       "n02: geçici sorun",
       "n03: günlük kota bitti",
-      "n07 «BEKLE haberi»: denetim çalışamadı"
+      "n07: denetim çalışamadı"
     ],
     "bultenYazildi": true,
     "bultenGerekli": true,
@@ -242,9 +242,9 @@
   "karisik4": {
     "adet": 0,
     "hatalar": [
-      "n09 «HATA haberi»: standart denetimi çalıştırılamadı (süzgeç çöktü)",
+      "n09: standart denetimi çalıştırılamadı (süzgeç çöktü)",
       "n03: günlük kota bitti",
-      "n07 «BEKLE haberi»: denetim çalışamadı"
+      "n07: denetim çalışamadı"
     ],
     "bultenYazildi": false,
     "bultenGerekli": false,

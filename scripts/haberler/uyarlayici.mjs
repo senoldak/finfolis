@@ -205,7 +205,8 @@ const medyaGizle = (m) => {
   })();
   return medyaDeseni ? String(m).replace(medyaDeseni, '[yayın]') : String(m);
 };
-const temiz = (m) => adresiSil(medyaGizle(String(m)));
+// Actions logları ve özeti herkese açık: yayın adları "[yayın]", adresler "[adres]" olur (hent-haberler konsolu da bundan geçirir).
+export const temiz = (m) => adresiSil(medyaGizle(String(m)));
 
 /** Durum dosyasında karar verilmemiş (gorulen'de kalıcı olmayan) adaylar. */
 export const gorulmeyen = (adaylar, durum) => adaylar.filter((a) => !goruldu(durum, a.yuk.id));
@@ -468,7 +469,7 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
         if (r.dur && r.bekle) {
           // Denetim çalışamadı (emin değil): yayımlanmaz, görüldü sayılmaz; sonraki turda yeniden denenir.
           dislanan.add(o);
-          hatalar.push(`${o.id} «${o.baslik}»: ${r.dur}`);
+          hatalar.push(`${o.id}: ${r.dur}`);
           log(`  - ${o.id}: bekletildi (${r.dur})`);
           bekliyorO(o, r.dur);
           return;
@@ -482,7 +483,7 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
             kisaOlaylar.push(o);
             havuzdaO(o);
           } else {
-            hatalar.push(`${o.id} «${o.baslik}»: yayınlanmadı, ${r.dur}`);
+            hatalar.push(`${o.id}: yayınlanmadı, ${r.dur}`);
             elendiO(o, r.dur);
           }
           log(`  - ${o.id}: durduruldu (${r.dur})`);
@@ -493,7 +494,7 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
         const std = standartKapisi(r.yazi, o.kaynakMetni ?? '', B.standart);
         if (std.karar === 'hata') {
           dislanan.add(o);
-          hatalar.push(`${o.id} «${o.baslik}»: standart denetimi çalıştırılamadı (${std.hata})`);
+          hatalar.push(`${o.id}: standart denetimi çalıştırılamadı (${std.hata})`);
           log(`  - ${o.id}: bekletildi (standart denetimi çalıştırılamadı)`);
           bekliyorO(o, `standart denetimi çalıştırılamadı (${std.hata})`);
           return;
@@ -518,7 +519,7 @@ export function uyarlayiciKur({ durum, simdi, ayar = {}, bag = {} }) {
         }
         if (kr?.karar === 'bekle') {
           dislanan.add(o);
-          hatalar.push(`${o.id} «${o.baslik}»: yayın kapısı okuyamadı (${kr.hata ?? kr.gerekce})`);
+          hatalar.push(`${o.id}: yayın kapısı okuyamadı (${kr.hata ?? kr.gerekce})`);
           log(`  - ${o.id}: bekletildi (yayın kapısı okuyamadı)`);
           bekliyorO(o, `yayın kapısı okuyamadı (${kr.hata ?? kr.gerekce})`, { sayilmaz: true });
           return;
