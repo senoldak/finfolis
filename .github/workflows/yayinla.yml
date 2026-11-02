@@ -53,6 +53,9 @@ jobs:
           restore-keys: astro-gorsel-${{ hashFiles('package-lock.json') }}-
 
       - name: Derle
+        # Kaynak adları derlemede şifreli kaynak izinden çözülür (src/lib/kaynak-adlari.mjs); adlar repoda ve logda açık durmaz.
+        env:
+          KAYNAK_ANAHTARI: ${{ secrets.KAYNAK_ANAHTARI }}
         run: npm run build
 
       - name: Cloudflare'e gönder

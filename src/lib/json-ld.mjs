@@ -12,15 +12,17 @@ export function jsonLdMetni(veri) {
 /**
  * Haber şemasının ek alanları (tidsrost haberAlanlari): isBasedOn (yazının dayandığı resmî kaynaklar), contentLocation
  * (ön bilgideki `yer`, haritadaki ilin yazı yeri) ve correction (düzeltme notu; şema 1 Aralık 2026'ya kadar kapalı).
- * Medya kaynakları burada yazılmaz: kaynak adları sitede gösterilmeye başlayınca eklenecek.
- * @param {{ kaynaklar?: { ad: string, url: string }[], yer?: { ad: string, boylam?: number, enlem?: number } | null, duzeltme?: string, guncellendi?: Date }} p
+ * medya: haberin altında adıyla gösterilen kaynak yayınlar (src/lib/kaynak-adlari.mjs); NewsArticle olarak yazılır.
+ * @param {{ kaynaklar?: { ad: string, url: string }[], medya?: { ad: string, url: string }[], yer?: { ad: string, boylam?: number, enlem?: number } | null, duzeltme?: string, guncellendi?: Date }} p
  */
-export function haberAlanlari({ kaynaklar = [], yer = null, duzeltme, guncellendi } = {}) {
+export function haberAlanlari({ kaynaklar = [], medya = [], yer = null, duzeltme, guncellendi } = {}) {
   const ut = {};
-  const liste = kaynaklar.filter((k) => k?.ad && k?.url);
-  if (liste.length) {
-    ut.isBasedOn = liste.map((k) => ({ '@type': 'CreativeWork', url: k.url, publisher: { '@type': 'Organization', name: k.ad } }));
-  }
+  const dolu = (k) => k?.ad && k?.url;
+  const temel = [
+    ...kaynaklar.filter(dolu).map((k) => ({ '@type': 'CreativeWork', url: k.url, publisher: { '@type': 'Organization', name: k.ad } })),
+    ...medya.filter(dolu).map((k) => ({ '@type': 'NewsArticle', url: k.url, publisher: { '@type': 'NewsMediaOrganization', name: k.ad } })),
+  ];
+  if (temel.length) ut.isBasedOn = temel;
   if (yer?.ad) {
     ut.contentLocation = {
       '@type': 'Place',

@@ -39,3 +39,9 @@ test('portre: SVG, yapay zekâ yaka kartı yalnız yz=true iken', () => {
   assert.ok(s.includes('#c2502b'));
   assert.ok(!portre(AJANLAR.kemal.u, false).includes('#c2502b'));
 });
+
+test('bot haberi: adıyla gösterilen kaynak sayısı bulma adımında yazılır, ad yazılmaz', () => {
+  assert.equal(adimlar({}, { medya: 3 })[0].metin, 'Haberi üç yayında buldu.');
+  assert.equal(adimlar({}, { medya: 1 })[0].metin, 'Haberi bir yayında buldu.');
+  assert.match(adimlar({}, { medya: 0 })[0].metin, /takip ettiğimiz kaynakların/);
+});

@@ -29,6 +29,7 @@ import { akisCevirisi } from '../../lib/arama-gorunurluk.mjs';
 import { okumaSuresi, turEtiketi } from '../../lib/yazi-bilgisi.mjs';
 import { duzeltmeNotu } from '../../lib/duzeltme.mjs';
 import { resmiKaynaklar, adsizKaynakSatiri } from '../../lib/resmi-kaynak.mjs';
+import { haberKaynaklari } from '../../lib/kaynak-adlari.mjs';
 import { YAZAR, yazarSemasi, yazarUrl, kisiYazariMi } from '../../lib/yazar.mjs';
 import { yapayZekaNotu, hataBildirAdresi, NASIL_BASLIK, YZ_SAYFASI } from '../../lib/yapay-zeka-notu.mjs';
 import { adimlar } from '../../lib/yayin-ekibi.mjs';
@@ -77,9 +78,11 @@ const { haber, konular, once } = Astro.props;
 const related = Astro.props.related.filter((h) => !once.includes(h));
 const { title, description, date, category, coverAlt, rakamlar, sirada, tablo, grafik, kaynaklar } = haber.data;
 const duzeltme = duzeltmeNotu(haber.data, 'tr');
-// Resmî kaynaklı haberde kurumun bağlantısı; medya kaynaklı habere kaynak adı ya da bağlantısı yazılmaz.
+// Resmî kaynaklı haberde kurumun bağlantısı. Medya kaynaklı haberde yayının adı ve haberine bağlantı, derlemede şifreli
+// kaynak izinden (src/lib/kaynak-adlari.mjs; hukuki koşullarla); çözülemezse ya da bültende adsız satır kalır.
 const resmi = resmiKaynaklar(haber.data);
-const adsizKaynak = adsizKaynakSatiri(haber.data);
+const medya = haberKaynaklari(haber.data);
+const adsizKaynak = medya.length ? null : adsizKaynakSatiri(haber.data);
 // Kısa yazılar bütün arama motorlarına kapalı (noindex, follow). Akış çevirileri yalnız Google'a kapalı (googlebot);
 // ikisi de site haritalarında yok (src/lib/arama-gorunurluk.mjs).
 const noindex = !indekslenir(haber.body);
@@ -148,6 +151,7 @@ Object.assign(
   articleSchema,
   haberAlanlari({
     kaynaklar: resmi,
+    medya,
     yer: il ? { ad: il.ad, boylam: il.m[0], enlem: il.m[1] } : null,
     duzeltme: haber.data.duzeltme,
     guncellendi: updated,
@@ -276,11 +280,25 @@ const jsonLd = {
         )
       }
 
+      {
+        medya.length > 0 && (
+          <p class="resmi-kaynak" id="kaynaklar">
+            {medya.length > 1 ? 'Kaynaklar:' : 'Kaynak:'}{' '}
+            {medya.map((k, i) => (
+              <>
+                {i > 0 && ', '}
+                <a href={k.url} rel="nofollow noopener">{k.ad}</a>
+              </>
+            ))}
+          </p>
+        )
+      }
+
       {adsizKaynak && <p class="resmi-kaynak">{adsizKaynak}</p>}
 
       {
         kartVar ? (
-          <NasilHazirlandi veri={haber.data} hataAdresi={hataBildirAdresi(title, pageUrl)} yayin={date} guncellendi={updated} kaynakSayisi={resmi.length} />
+          <NasilHazirlandi veri={haber.data} hataAdresi={hataBildirAdresi(title, pageUrl)} yayin={date} guncellendi={updated} kaynakSayisi={resmi.length + medya.length} medya={medya.length} />
         ) : yzNotu.satirlar ? (
           <section class="uretim-notu nasil-hazirlandi" aria-labelledby="nasil-hazirlandi">
             <h2 id="nasil-hazirlandi" class="nasil-baslik">{NASIL_BASLIK}</h2>

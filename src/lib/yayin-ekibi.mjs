@@ -34,15 +34,19 @@ export function uretimTuru(veri) {
   return 'bot';
 }
 
-function bulmaMetni(icerikTuru) {
+const YAYIN_SAYISI = { 1: 'bir', 2: 'iki', 3: 'üç', 4: 'dört', 5: 'beş', 6: 'altı', 7: 'yedi', 8: 'sekiz', 9: 'dokuz' };
+
+// medya: haberin altında adıyla gösterilen kaynak yayın sayısı (src/lib/kaynak-adlari.mjs); adlar burada yazılmaz.
+function bulmaMetni(icerikTuru, medya = 0) {
+  if (medya > 0) return `Haberi ${YAYIN_SAYISI[medya] ?? medya} yayında buldu.`;
   if (icerikTuru === 'resmi') return 'Haberi resmî kurumun duyurusunda buldu.';
   if (icerikTuru === 'arastirma') return 'Haberi kurumun yayımladığı çalışmada buldu.';
   if (icerikTuru === 'veri') return 'Rakam hareketini piyasa ve istatistik verisinde buldu.';
   return 'Haberi takip ettiğimiz kaynakların akışında buldu.';
 }
 
-/** Kartın adımları; kart çıkmayacaksa boş dizi. */
-export function adimlar(veri) {
+/** Kartın adımları; kart çıkmayacaksa boş dizi. medya: adıyla gösterilen kaynak yayın sayısı. */
+export function adimlar(veri, { medya = 0 } = {}) {
   const tur = uretimTuru(veri);
   if (tur === 'sahip') {
     return [
@@ -65,7 +69,7 @@ export function adimlar(veri) {
   }
   if (tur === 'bot') {
     return [
-      adim('selin', bulmaMetni(veri?.icerikTuru)),
+      adim('selin', bulmaMetni(veri?.icerikTuru, medya)),
       adim('tarik', 'Önemini 100 üzerinden puanladı. 60’ın altındaki olaylar ayrı haber olmuyor, en çok bültende bir satır oluyor.'),
       adim('elif', 'Metni kaynağa dayanarak yazdı.'),
       adim('zeynep', 'Metindeki her rakamın ve alıntının kaynakta geçtiğini denetledi.'),

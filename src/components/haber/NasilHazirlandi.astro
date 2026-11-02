@@ -12,9 +12,11 @@ interface Props {
   yayin: Date;
   guncellendi?: Date;
   kaynakSayisi: number;
+  // Haberin altında adıyla gösterilen kaynak yayın sayısı (src/lib/kaynak-adlari.mjs).
+  medya?: number;
 }
-const { veri, hataAdresi, yayin, guncellendi, kaynakSayisi } = Astro.props;
-const liste = adimlar(veri);
+const { veri, hataAdresi, yayin, guncellendi, kaynakSayisi, medya = 0 } = Astro.props;
+const liste = adimlar(veri, { medya });
 const m = kartMetinleri(veri);
 const ajan = (id: string) => AJANLAR[id as keyof typeof AJANLAR];
 const rozet = (tur: string) => (tur === 'yz' ? 'YZ' : tur === 'program' ? 'Program' : '');

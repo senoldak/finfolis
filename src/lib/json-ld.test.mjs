@@ -30,3 +30,9 @@ test('haberAlanlari: resmî kaynaklar isBasedOn, il contentLocation olur; boş g
   assert.equal(haberAlanlari({ duzeltme: '  ' }).correction, undefined);
   assert.equal(haberAlanlari({ duzeltme: 'Rakam düzeltildi.' }).correction.text, 'Rakam düzeltildi.');
 });
+
+test('haberAlanlari: medya kaynakları NewsArticle olarak isBasedOn\'a eklenir', async () => {
+  const { haberAlanlari } = await import('./json-ld.mjs');
+  const a = haberAlanlari({ medya: [{ ad: 'Örnek Haber', url: 'https://haber.example.com/a' }] });
+  assert.deepEqual(a.isBasedOn, [{ '@type': 'NewsArticle', url: 'https://haber.example.com/a', publisher: { '@type': 'NewsMediaOrganization', name: 'Örnek Haber' } }]);
+});
