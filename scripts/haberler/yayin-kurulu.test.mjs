@@ -401,3 +401,9 @@ test('turkceHarfKontrol: Türkçe harfsiz uzun metin takılır, normal ve kısa 
   assert.deepEqual(turkceHarfKontrol(turkce), []);
   assert.deepEqual(turkceHarfKontrol('Kisa bir metin'), []);
 });
+
+test('alfabeKontrol: Latin sözcüğe karışan yabancı alfabe harfi takılır, düz metin ve ayrı yazılmış ad geçer', async () => {
+  const { alfabeKontrol } = await import('./yayin-kurulu.mjs');
+  assert.equal(alfabeKontrol('Petrol fiyatları gerileді ve 13,4 milyار dolar oldu.').length, 1);
+  assert.deepEqual(alfabeKontrol('Petrol fiyatları geriledi; α-sinüklein çalışması ve Москва adı geçti.'), []);
+});

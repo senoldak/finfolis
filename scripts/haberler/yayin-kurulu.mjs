@@ -292,6 +292,19 @@ export function turkceHarfKontrol(metin = '') {
     : [];
 }
 
+// ── Alfabe karışması ─────────────────────────────────────────────────────
+// 2 Kasım 2026 yazım taraması: model Türkçe sözcüklere Arap, Kiril, Malayalam ve Tamil harfi karıştırmıştı
+// ("milyار", "gerileді", "sistemங்கள்"); Türkçe harf kontrolü bunları yakalamaz. Latin harfli bir sözcükte Latin ve
+// Yunan dışında bir alfabeden harf varsa sorun döner. Bütünüyle başka alfabede yazılmış ad ya da alıntıya bakılmaz.
+const LATIN = /\p{Script=Latin}/u;
+const YABANCI_HARF = /[^\p{Script=Latin}\p{Script=Greek}\p{M}]/u;
+export function alfabeKontrol(metin = '') {
+  const bulunan = [...new Set((String(metin).match(/[\p{L}\p{M}]+/gu) ?? []).filter((s) => LATIN.test(s) && YABANCI_HARF.test(s)))];
+  return bulunan.length
+    ? [`Sözcüklere başka alfabeden harf karışmış (${bulunan.slice(0, 5).join(', ')}); bu sözcükleri yalnız Latin harfleriyle doğru yaz`]
+    : [];
+}
+
 // Standartlar Faz 1: "Neden önemli" ve kısa maddeler de sayfada görünür; rakam/alıntı ve ölçek kontrolüne girer.
 const denetlenenMetin = (y) => [butunMetin(y), y.why_matters, ...(y.key_points ?? [])].filter(Boolean).join('\n');
 
@@ -301,7 +314,7 @@ export function kesinKontrol(yazi, aday) {
   const olcek = olcekKontrol(metin, aday.kaynakMetni ?? '');
   const tum = yayimlananMetin(yazi);
   const medya = [...new Set([...medyaKontrol(tum), ...adayMedyaKontrol(tum, aday.gizliKaynaklar), ...yabanciBaslikKontrol(tum)])];
-  return [...eksik.map((e) => `Kaynakta bulunmayan rakam/alıntı: ${e}`), ...olcek, ...medya, ...turkceHarfKontrol(butunMetin(yazi))];
+  return [...eksik.map((e) => `Kaynakta bulunmayan rakam/alıntı: ${e}`), ...olcek, ...medya, ...turkceHarfKontrol(butunMetin(yazi)), ...alfabeKontrol(tum)];
 }
 
 // Kontrol masası: önce kesin kontrol, sonra Gemini. Gemini çalışamazsa onay yok.
