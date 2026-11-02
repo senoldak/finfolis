@@ -46,6 +46,8 @@
 /haber/yapay-zeka-odakli-sirketlerin-hisselerinde-dusus-yasandi/ /haber/yapay-zeka-bulut-hisselerinde-dusus-ve-opsiyon-hareketleri/ 301
 /haber/yapay-zeka-yatirimlari-kuresel-buyumenin-surmesini-sagliyor/ /haber/uluslararasi-para-fonu-2026-kuresel-buyume-tahminini-yukseltti/ 301
 /haber/yapay-zeka-yatirimlari-kuresel-buyumeyi-destekliyor/ /haber/uluslararasi-para-fonu-2026-kuresel-buyume-tahminini-yukseltti/ 301
+# Grafik kataloğu kapatıldı (2.11.2026): örnek kartlarda resmî kurum adıyla gerçek olmayan rakamlar vardı. Kod src/pages/veri/_grafikler.astro.
+/veri/grafikler/ /veri/ 301
 # Eski WordPress etiket ve hisse adresleri (29.10.2026). Google bu alan adında eski /tag/, /hashtag/, /ticker/
 # adreslerini taramayı sürdürüyor (Cloudflare: 3 haftada 2.400 farklı adres, hepsi 404). Kelimesi eşleşen etiket ilgili
 # konu ya da kategori sayfasına gider; eşleşmeyenler dosyanın sonundaki yedek kurallarla /konu/ ve /kategori/borsa/'ya.
