@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-03T12:03:56.056Z",
+  "guncelleme": "2026-11-03T13:58:18.846Z",
   "donemEtiketi": "BIST Sektör Performans Karnesi",
   "kaynak": {
     "ad": "Borsa İstanbul & Piyasa Verisi",
@@ -20,10 +20,10 @@
         "ISFIN"
       ],
       "dinamik": "Kredi hacimleri, faiz marjları ve ticari tahsilat risklerine en duyarlı mali alt sektördür.",
-      "deger": 7392.66,
-      "gunluk": -2.8,
+      "deger": 7317.29,
+      "gunluk": -3.8,
       "oncekiKapanis": 7609.35,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XHARZ",
@@ -39,10 +39,10 @@
         "AGROT"
       ],
       "dinamik": "Küçük ve bireysel yatırımcı ilgisinin, piyasadaki genel likidite ve risk iştahının temel barometresidir.",
-      "deger": 132487.56,
-      "gunluk": 0.7,
+      "deger": 134916.48,
+      "gunluk": 2.5,
       "oncekiKapanis": 131625.39,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XBANA",
@@ -58,10 +58,10 @@
         "PARSN"
       ],
       "dinamik": "BIST 100 dışı likidite hareketlerinden ve yerli yatırımcı spekülasyonlarından doğrudan etkilenir.",
-      "deger": 22765.23,
-      "gunluk": 1.5,
+      "deger": 23018.09,
+      "gunluk": 2.6,
       "oncekiKapanis": 22432.04,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XAKUR",
@@ -77,10 +77,10 @@
         "TERA"
       ],
       "dinamik": "Borsanın günlük toplam işlem hacmi, komisyon gelirleri ve faiz ortamı doğrudan kârlılığı belirler.",
-      "deger": 45228.87,
-      "gunluk": 1.3,
+      "deger": 45831,
+      "gunluk": 2.7,
       "oncekiKapanis": 44636.46,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XELOT",
@@ -96,10 +96,10 @@
         "AEFES"
       ],
       "dinamik": "Genişleme dönemlerinde büyük endeks hisselerine kıyasla daha yüksek büyüme ve getiri potansiyeli sunar.",
-      "deger": 5657.99,
-      "gunluk": 0.7,
+      "deger": 5706.16,
+      "gunluk": 1.6,
       "oncekiKapanis": 5618.04,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XYUZO",
@@ -115,10 +115,10 @@
         "VESBE"
       ],
       "dinamik": "Ana endeks rallilerinin genele yayılıp yayılmadığını anlamak için en çok takip edilen endekstir.",
-      "deger": 13260.11,
-      "gunluk": 1.1,
+      "deger": 13366.87,
+      "gunluk": 1.9,
       "oncekiKapanis": 13115.86,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XTUMY",
@@ -134,10 +134,10 @@
         "EUKYO"
       ],
       "dinamik": "Yerli küçük yatırımcı iştahını ve yan tahta hareketliliğini gösterir; likiditesi düşüktür.",
-      "deger": 36281.24,
-      "gunluk": 1.3,
+      "deger": 36597.64,
+      "gunluk": 2.2,
       "oncekiKapanis": 35823.59,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XINSA",
@@ -153,10 +153,10 @@
         "GESAN"
       ],
       "dinamik": "Kamu yatırımları, yurt dışı müteahhitlik ihaleleri ve faiz oranlarındaki dalgalanmalar yön verir.",
-      "deger": 13493.31,
-      "gunluk": 0,
+      "deger": 13757.8,
+      "gunluk": 1.9,
       "oncekiKapanis": 13494.91,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XGMYO",
@@ -172,10 +172,10 @@
         "SNGYO"
       ],
       "dinamik": "Konut kredisi faizleri, gayrimenkul fiyat endeksi ve enflasyon beklentileri ana tetikleyicidir.",
-      "deger": 4400.32,
-      "gunluk": 0.5,
+      "deger": 4418.85,
+      "gunluk": 0.9,
       "oncekiKapanis": 4379.75,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XK100",
@@ -191,10 +191,10 @@
         "TUPRS"
       ],
       "dinamik": "Bireysel ve kurumsal katılım fonlarının zorunlu portföy tercihi nedeniyle güçlü düzenli fon akışı alır.",
-      "deger": 12437.74,
-      "gunluk": 1.3,
+      "deger": 12502.15,
+      "gunluk": 1.8,
       "oncekiKapanis": 12276.18,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XUMAL",
@@ -210,10 +210,10 @@
         "ISCTR"
       ],
       "dinamik": "Türkiye ekonomisinin finansal nabzıdır; TCMB politika faizi ve makroekonomik istikrara en bağımlı sektördür.",
-      "deger": 12577.88,
-      "gunluk": -1,
+      "deger": 12797.39,
+      "gunluk": 0.8,
       "oncekiKapanis": 12700.78,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XUTEK",
@@ -229,10 +229,10 @@
         "ARDYZ"
       ],
       "dinamik": "Ar-Ge teşvikleri, dijitalleşme projeleri ve ihracat potansiyeliyle yüksek çarpanlarla değerlenir.",
-      "deger": 36147.89,
-      "gunluk": 1.8,
+      "deger": 35814.76,
+      "gunluk": 0.9,
       "oncekiKapanis": 35493.63,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XHOLD",
@@ -248,10 +248,10 @@
         "DOHOL"
       ],
       "dinamik": "Çeşitlendirilmiş gelir modeli sayesinde tekil sektör krizlerine karşı defansif bir yapı sergiler.",
-      "deger": 9025.09,
-      "gunluk": 0.2,
+      "deger": 9167.01,
+      "gunluk": 1.8,
       "oncekiKapanis": 9008.72,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XGIDA",
@@ -267,10 +267,10 @@
         "PNSUT"
       ],
       "dinamik": "Talep esnekliği düşük olduğu için kriz ve enflasyon dönemlerinde defansif (güvenli liman) nitelik taşır.",
-      "deger": 10985.24,
-      "gunluk": 0.9,
+      "deger": 11044.02,
+      "gunluk": 1.5,
       "oncekiKapanis": 10882.21,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:10.000Z"
     },
     {
       "kod": "XUSIN",
@@ -286,10 +286,10 @@
         "ARCLK"
       ],
       "dinamik": "Sanayi üretimi kapasite kullanım oranı, ihracat pazarları (özellikle AB) ve emtia fiyatlarına duyarlıdır.",
-      "deger": 13262.87,
-      "gunluk": 1.5,
+      "deger": 13322.1,
+      "gunluk": 2,
       "oncekiKapanis": 13066.86,
-      "zaman": "2026-11-03T11:48:56.000Z"
+      "zaman": "2026-11-03T13:43:20.000Z"
     },
     {
       "kod": "XULAS",
@@ -305,10 +305,10 @@
         "RYSAS"
       ],
       "dinamik": "Turizm sezonu, yolcu doluluk oranları, jet yakıtı maliyetleri ve küresel hava sahası jeopolitiği yönlendirir.",
-      "deger": 30188.23,
-      "gunluk": 1,
+      "deger": 31146.28,
+      "gunluk": 4.3,
       "oncekiKapanis": 29876.58,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:20.000Z"
     },
     {
       "kod": "XUHIZ",
@@ -324,10 +324,10 @@
         "PGSUS"
       ],
       "dinamik": "İç tüketim canlılığı ve hanehalkı harcamalarının doğrudan yansıdığı lokomotif çatı endekstir.",
-      "deger": 9515.38,
-      "gunluk": 0.8,
+      "deger": 9650.48,
+      "gunluk": 2.2,
       "oncekiKapanis": 9438.68,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:20.000Z"
     },
     {
       "kod": "XU100",
@@ -343,10 +343,10 @@
         "ASELS"
       ],
       "dinamik": "Yabancı sermaye giriş-çıkışları, küresel risk iştahı ve makro ekonomik göstergelerin birincil özetidir.",
-      "deger": 11009.23,
-      "gunluk": 0.4,
+      "deger": 11114.26,
+      "gunluk": 1.4,
       "oncekiKapanis": 10961.67,
-      "zaman": "2026-11-03T11:48:56.000Z"
+      "zaman": "2026-11-03T13:43:20.000Z"
     },
     {
       "kod": "XU050",
@@ -362,10 +362,10 @@
         "FROTO"
       ],
       "dinamik": "VİOP vadeli işlem kontratlarına ve varantlara dayanak oluşturan temel çekirdek şirketler grubudur.",
-      "deger": 10318.55,
-      "gunluk": 0.3,
+      "deger": 10419.75,
+      "gunluk": 1.3,
       "oncekiKapanis": 10288.31,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:20.000Z"
     },
     {
       "kod": "XTMTU",
@@ -381,10 +381,10 @@
         "ISMEN"
       ],
       "dinamik": "Uzun vadeli değer ve gelir yatırımcılarının ana sığınağıdır; temettü sezonunda (Mart-Mayıs) talep artar.",
-      "deger": 13460.36,
-      "gunluk": 0.7,
+      "deger": 13537.43,
+      "gunluk": 1.2,
       "oncekiKapanis": 13372.04,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:20.000Z"
     },
     {
       "kod": "XUGRA",
@@ -400,10 +400,10 @@
         "SISE"
       ],
       "dinamik": "Şirket yönetiminin hissesine güvendiğini ve fiyat tabanı oluşturma iradesini simgeler.",
-      "deger": 11024.75,
-      "gunluk": 0.4,
+      "deger": 11236.9,
+      "gunluk": 2.4,
       "oncekiKapanis": 10977.93,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:20.000Z"
     },
     {
       "kod": "X10XB",
@@ -419,10 +419,10 @@
         "ASELS"
       ],
       "dinamik": "Bankacılık regülasyonlarından ve faiz baskısından bağımsız reel sektör rüzgarını gösterir.",
-      "deger": 16786.34,
-      "gunluk": 1.3,
+      "deger": 16831.54,
+      "gunluk": 1.5,
       "oncekiKapanis": 16577.76,
-      "zaman": "2026-11-03T11:48:56.000Z"
+      "zaman": "2026-11-03T13:43:21.000Z"
     },
     {
       "kod": "XU030",
@@ -438,10 +438,10 @@
         "KCHOL"
       ],
       "dinamik": "Türkiye borsa toplam piyasa değerinin yaklaşık %75’ini temsil eder; en derin ve en likit pazardır.",
-      "deger": 13731.12,
-      "gunluk": 0.3,
+      "deger": 13866.55,
+      "gunluk": 1.2,
       "oncekiKapanis": 13696.64,
-      "zaman": "2026-11-03T11:48:56.000Z"
+      "zaman": "2026-11-03T13:43:20.000Z"
     },
     {
       "kod": "XBANK",
@@ -457,10 +457,10 @@
         "VAKBN"
       ],
       "dinamik": "TCMB faiz kararları, net faiz marjı, kredi büyümesi ve ülke risk primi (CDS) ile doğrudan koreledir.",
-      "deger": 14787.48,
-      "gunluk": -2.9,
+      "deger": 15164.48,
+      "gunluk": -0.4,
       "oncekiKapanis": 15227.2,
-      "zaman": "2026-11-03T11:48:57.000Z"
+      "zaman": "2026-11-03T13:43:20.000Z"
     },
     {
       "kod": "XLBNK",
@@ -475,10 +475,10 @@
         "YKBNK"
       ],
       "dinamik": "Yabancı kurumsal yatırımcıların bankacılık sektörüne giriş-çıkışlarında ilk kullandığı enstrümandır.",
-      "deger": 13408.31,
-      "gunluk": -3,
+      "deger": 13759.31,
+      "gunluk": -0.4,
       "oncekiKapanis": 13817.76,
-      "zaman": "2026-11-03T11:48:57.000Z"
+      "zaman": "2026-11-03T13:43:21.000Z"
     },
     {
       "kod": "XPTIC",
@@ -493,10 +493,10 @@
         "BIZIM"
       ],
       "dinamik": "Hızlı nakit akışı ve enflasyonu fiyatlara hızlı yansıtma kabiliyeti sayesinde enflasyonist dönemlerin lideridir.",
-      "deger": 29911.89,
-      "gunluk": 0.8,
+      "deger": 30086.13,
+      "gunluk": 1.4,
       "oncekiKapanis": 29663.37,
-      "zaman": "2026-11-03T11:48:50.000Z"
+      "zaman": "2026-11-03T13:43:20.000Z"
     }
   ]
 }
