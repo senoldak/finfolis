@@ -1,0 +1,188 @@
+---
+import RasathaneKabuk from '../../../layouts/RasathaneKabuk.astro';
+import { sayfalariOku } from '../../../lib/rasathane/veri.mjs';
+import { sayi, tarih } from '../../../lib/rasathane/bicim.mjs';
+import { join } from 'node:path';
+
+const KOK = join(process.cwd(), 'public/rasathane/veri');
+const kayit = sayfalariOku(KOK).find((s) => s.bolum === 'grafix' && s.sayfa === 'formasyonlar');
+const veri = kayit?.veri ?? null;
+const eski = kayit?.eski ?? false;
+
+const turler = veri ? [...new Set(veri.satirlar.map((r) => r.tur_ad))].sort((a, b) => a.localeCompare(b, 'tr')) : [];
+---
+
+<RasathaneKabuk baslik="Teknik tarama" aktif="grafix" aciklama={veri?.aciklama ?? 'graFİX teknik tarama sonuçları.'}>
+  <header class="baslik">
+    <h1>Teknik tarama</h1>
+    {veri ? (
+      <>
+        <p class="aciklama">
+          S&P 500 hisselerinde günlük kapanışa göre bulunan formasyonlar ve ortalama kesişimleri. Liste yalnız o gün
+          oluşanları gösterir.
+        </p>
+        <p class="meta">Son güncelleme: {tarih(veri.guncellendi)}{eski ? ' · eski veri' : ''} · {veri.satirlar.length} satır</p>
+      </>
+    ) : (
+      <p class="aciklama">Veri şu an alınamadı. Bir sonraki güncellemede yeniden denenecek.</p>
+    )}
+  </header>
+
+  {veri && (
+    <>
+      <div class="denetim">
+        <label class="alan">
+          <span class="etiket">Formasyon</span>
+          <select data-suz="tur_ad">
+            <option value="">Tümü</option>
+            {turler.map((t) => <option value={t}>{t}</option>)}
+          </select>
+        </label>
+        <label class="alan ara">
+          <span class="etiket">Ara</span>
+          <input type="search" data-ara placeholder="Hisse ya da şirket" />
+        </label>
+        <button type="button" class="sifirla" data-sifirla>Sıfırla</button>
+      </div>
+
+      <div class="tablo-kutu">
+        <table data-tablo>
+          <thead>
+            <tr>
+              {veri.sutunlar.map((s) => (
+                <th data-sirala={s.anahtar} class={s.tur === 'metin' ? 'sol' : 'sag'} aria-sort="none" tabindex="0">
+                  {s.baslik}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {veri.satirlar.map((r) => (
+              <tr data-filtre={r.tur_ad} data-metin={`${r.sembol} ${r.sirket}`.toLocaleLowerCase('tr')}>
+                {veri.sutunlar.map((s) => (
+                  <td data-v={r[s.anahtar] ?? ''} class={s.tur === 'metin' ? 'sol' : 'sag'}>
+                    {s.anahtar === 'sembol' && r.seri ? (
+                      <a href={`/rasathane/grafix/${encodeURIComponent(r.seri)}/`}>{r.sembol}</a>
+                    ) : s.tur === 'metin' ? (
+                      r[s.anahtar] ?? '–'
+                    ) : (
+                      sayi(r[s.anahtar], s.basamak)
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="bos" data-bos hidden>Eşleşen satır yok. Süzgeci sıfırlayın.</p>
+
+      <p class="uyari">Yatırım tavsiyesi değildir. Veriler gecikmelidir.</p>
+      <section class="kaynaklar">
+        <h2 class="etiket">Kaynaklar</h2>
+        <ul>
+          {veri.kaynaklar.map((k) => <li><a href={k.url}>{k.ad}</a></li>)}
+        </ul>
+      </section>
+    </>
+  )}
+</RasathaneKabuk>
+
+<style>
+  .baslik { margin: 8px 0 22px; }
+  h1 { margin: 0 0 8px; font-size: clamp(28px, 5vw, 36px); line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; }
+  .aciklama { margin: 0 0 10px; color: var(--ikincil); max-width: 62ch; }
+  .meta { margin: 0; font-size: 13px; color: var(--ikincil); }
+  .etiket { display: block; margin: 0 0 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
+  .denetim { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 14px; margin: 0 0 18px; }
+  .alan { display: flex; flex-direction: column; min-width: 160px; }
+  .alan.ara { flex: 1 1 220px; }
+  select, input[type="search"] {
+    font: inherit; font-size: 15px; height: 42px; padding: 0 12px;
+    border: 1px solid var(--cizgi); border-radius: 3px; background: var(--beyaz); color: var(--murekkep);
+  }
+  input[type="search"] { width: 100%; }
+  select:focus-visible, input:focus-visible, button:focus-visible, th:focus-visible, a:focus-visible {
+    outline: 2px solid var(--mavi); outline-offset: 2px;
+  }
+  .sifirla {
+    font: inherit; font-size: 14px; font-weight: 600; height: 42px; padding: 0 16px;
+    border: 1px solid var(--murekkep); border-radius: 3px; background: transparent; color: var(--murekkep); cursor: pointer;
+  }
+  .sifirla:hover { background: var(--murekkep); color: var(--kagit); }
+  .tablo-kutu { overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 1px solid var(--murekkep); }
+  table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 15px; font-variant-numeric: tabular-nums; }
+  th, td { padding: 13px 14px; white-space: nowrap; border-bottom: 1px solid var(--cizgi); }
+  th { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); cursor: pointer; user-select: none; background: var(--kagit); }
+  th[aria-sort="ascending"]::after { content: " ▲"; color: var(--mavi); }
+  th[aria-sort="descending"]::after { content: " ▼"; color: var(--mavi); }
+  .sol { text-align: left; }
+  .sag { text-align: right; }
+  td a { font-weight: 600; color: var(--murekkep); }
+  .bos { margin: 18px 0 0; color: var(--ikincil); }
+  .uyari { margin: 24px 0 0; font-size: 14px; color: var(--ikincil); }
+  .kaynaklar { margin-top: 28px; font-size: 14px; color: var(--ikincil); }
+  .kaynaklar ul { margin: 0; padding-left: 18px; }
+  .kaynaklar li { margin-bottom: 4px; }
+  @media (max-width: 600px) {
+    .alan { min-width: 0; flex: 1 1 140px; }
+    .sifirla { flex: none; }
+  }
+</style>
+
+<script>
+  const tablo = document.querySelector('[data-tablo]');
+  const govde = tablo.querySelector('tbody');
+  const satirlar = [...govde.querySelectorAll('tr')];
+  const bos = document.querySelector('[data-bos]');
+  const aramaKutusu = document.querySelector('[data-ara]');
+  const suz = document.querySelector('[data-suz]');
+  const sifirla = document.querySelector('[data-sifirla]');
+  let siraliIdx = -1;
+  let yon = 1;
+
+  function filtrele() {
+    const aranan = aramaKutusu.value.trim().toLocaleLowerCase('tr');
+    let gorunen = 0;
+    for (const tr of satirlar) {
+      const turTamam = !suz.value || tr.dataset.filtre === suz.value;
+      const aramaTamam = !aranan || tr.dataset.metin.includes(aranan);
+      tr.hidden = !(turTamam && aramaTamam);
+      if (!tr.hidden) gorunen++;
+    }
+    bos.hidden = gorunen !== 0;
+  }
+
+  function sirala(th, idx) {
+    yon = siraliIdx === idx ? -yon : 1;
+    siraliIdx = idx;
+    const basliklar = [...tablo.querySelectorAll('thead th')];
+    basliklar.forEach((b) => b.setAttribute('aria-sort', 'none'));
+    th.setAttribute('aria-sort', yon === 1 ? 'ascending' : 'descending');
+    const sirali = [...satirlar].sort((a, b) => {
+      const x = a.children[idx].dataset.v;
+      const y = b.children[idx].dataset.v;
+      if (x === '' && y === '') return 0;
+      if (x === '') return 1;
+      if (y === '') return -1;
+      const sx = Number(x);
+      const sy = Number(y);
+      if (Number.isNaN(sx) || Number.isNaN(sy)) return yon * x.localeCompare(y, 'tr');
+      return yon * (sx - sy);
+    });
+    sirali.forEach((tr) => govde.appendChild(tr));
+  }
+
+  tablo.querySelectorAll('thead th').forEach((th, idx) => {
+    const cevir = () => sirala(th, idx);
+    th.addEventListener('click', cevir);
+    th.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cevir(); } });
+  });
+  suz.addEventListener('change', filtrele);
+  aramaKutusu.addEventListener('input', filtrele);
+  sifirla.addEventListener('click', () => {
+    suz.value = '';
+    aramaKutusu.value = '';
+    filtrele();
+  });
+</script>

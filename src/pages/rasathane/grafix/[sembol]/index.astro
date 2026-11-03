@@ -1,0 +1,189 @@
+---
+import RasathaneKabuk from '../../../../layouts/RasathaneKabuk.astro';
+import { sayfalariOku } from '../../../../lib/rasathane/veri.mjs';
+import { sayi, tarih } from '../../../../lib/rasathane/bicim.mjs';
+import { GRAFIX_GOSTERGE, gostergeSecimi, yeterliGecmis } from '../../../../lib/rasathane/grafix.mjs';
+import { readdirSync, readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+export function getStaticPaths() {
+  // Astro getStaticPaths'i dosya kapsamından ayırır: sabitler burada tanımlanır.
+  const KOK = join(process.cwd(), 'public/rasathane/veri');
+  const SERI_KOK = join(KOK, 'grafix', 'seri');
+  if (!existsSync(SERI_KOK)) return [];
+  const formasyon = sayfalariOku(KOK).find((s) => s.bolum === 'grafix' && s.sayfa === 'formasyonlar')?.veri;
+  return readdirSync(SERI_KOK)
+    .filter((f) => f.endsWith('.json'))
+    .map((f) => {
+      const sembol = f.slice(0, -5);
+      let seri = null;
+      try {
+        seri = JSON.parse(readFileSync(join(SERI_KOK, f), 'utf8'));
+      } catch {
+        seri = null;
+      }
+      const sirket = formasyon?.satirlar.find((r) => r.sembol === sembol)?.sirket ?? seri?.ad ?? sembol;
+      return { params: { sembol }, props: { sembol, seri, sirket, formasyon } };
+    })
+    .filter((p) => p.props.seri);
+}
+
+const { sembol, seri, sirket, formasyon } = Astro.props;
+const gecmisVar = yeterliGecmis(seri);
+const bugun = (formasyon?.satirlar ?? []).filter((r) => r.sembol === sembol);
+const varsayilan = ['ema233', 'ema377'];
+// Seride bulunan göstergeler (kapanış hariç); yoksa düğmesi de gösterilmez.
+const mevcut = gostergeSecimi(seri.sutunlar, GRAFIX_GOSTERGE.map((g) => g.k));
+const gosterilenGosterge = GRAFIX_GOSTERGE.filter((g) => mevcut.includes(g.k));
+const veriJson = { tarihler: seri.tarihler, sutunlar: seri.sutunlar, gosterge: gosterilenGosterge };
+---
+
+<RasathaneKabuk baslik={`${sembol} · Teknik tarama`} aktif="grafix" aciklama={`${sembol}: son bir yıl fiyat ve göstergeler, gecikmeli veri.`}>
+  <header class="baslik">
+    <p class="ust"><a href="/rasathane/grafix/">← Teknik tarama</a></p>
+    <h1>{sembol}</h1>
+    <p class="sirket">{sirket}</p>
+    <p class="meta">Son güncelleme: {tarih(formasyon?.guncellendi ?? seri.guncellendi ?? '')}</p>
+  </header>
+
+  {bugun.length > 0 && (
+    <section class="bugun">
+      <h2 class="etiket">Bugünkü formasyonlar</h2>
+      <ul>
+        {bugun.map((r) => (
+          <li>
+            <strong>{r.tur_ad}</strong>
+            <span> · kapanış {sayi(r.kapanis)} · seviye {sayi(r.seviye)}</span>
+            {r.alt_bilgi && <span class="alt"> · {r.alt_bilgi}</span>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {gecmisVar ? (
+    <>
+      <div class="gostergeler" role="group" aria-label="Göstergeler">
+        {gosterilenGosterge.map((g) => (
+          <label class="secim">
+            <input type="checkbox" data-gosterge={g.k} checked={varsayilan.includes(g.k)} />
+            <span>{g.ad}</span>
+          </label>
+        ))}
+      </div>
+
+      <div class="grafik-kap">
+        <div data-grafik class="grafik" role="img" aria-label={`${sembol} kapanış grafiği`}></div>
+      </div>
+      <p class="ipucu">Yakınlaştırmak için fare tekerleği ya da iki parmak. Üzerine gelince değer görünür.</p>
+
+      {gosterilenGosterge.some((g) => g.pane === 'rsi') && (
+        <div class="rsi-kap" hidden data-rsi-kap>
+          <p class="etiket">RSI (14)</p>
+          <div data-rsi class="grafik kucuk"></div>
+        </div>
+      )}
+      <p class="atif">Grafikler <a href="https://www.tradingview.com/" rel="noopener">TradingView Lightweight Charts</a> ile çizilir.</p>
+    </>
+  ) : (
+    <p class="bos">Yeterli geçmiş yok: bu hisse için son bir yılın tamamı bulunamadı, grafik çizilmiyor.</p>
+  )}
+
+  <p class="uyari">Yatırım tavsiyesi değildir. Veriler gecikmelidir.</p>
+  <section class="kaynaklar">
+    <h2 class="etiket">Kaynaklar</h2>
+    <ul>
+      {(formasyon?.kaynaklar ?? []).map((k) => <li><a href={k.url}>{k.ad}</a></li>)}
+    </ul>
+  </section>
+</RasathaneKabuk>
+
+<style>
+  .baslik { margin: 8px 0 22px; }
+  .ust { margin: 0 0 10px; font-size: 14px; }
+  .ust a { color: var(--ikincil); }
+  h1 { margin: 0 0 4px; font-size: clamp(28px, 5vw, 36px); line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; }
+  .sirket { margin: 0 0 8px; color: var(--ikincil); }
+  .meta { margin: 0; font-size: 13px; color: var(--ikincil); }
+  .etiket { display: block; margin: 0 0 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
+  .bugun { margin: 0 0 22px; padding: 12px 0; border-top: 1px solid var(--cizgi); border-bottom: 1px solid var(--cizgi); }
+  .bugun ul { margin: 0; padding-left: 18px; }
+  .bugun li { margin-bottom: 4px; font-size: 15px; }
+  .alt { color: var(--ikincil); }
+  .gostergeler { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 0 0 14px; }
+  .secim { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; cursor: pointer; }
+  .secim input { width: 16px; height: 16px; accent-color: var(--murekkep); }
+  .secim input:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
+  .grafik-kap { position: relative; }
+  .grafik { height: 340px; width: 100%; }
+  .grafik.kucuk { height: 150px; }
+  .rsi-kap { margin-top: 12px; }
+  .rsi-kap .etiket { margin-bottom: 2px; }
+  .ipucu { margin: 8px 0 0; font-size: 13px; color: var(--ikincil); }
+  .atif { margin: 10px 0 0; font-size: 12px; color: var(--ikincil); }
+  .atif a { color: var(--ikincil); }
+  .bos { margin: 18px 0; padding: 14px 0; border-top: 1px solid var(--cizgi); color: var(--ikincil); }
+  .uyari { margin: 24px 0 0; font-size: 14px; color: var(--ikincil); }
+  .kaynaklar { margin-top: 28px; font-size: 14px; color: var(--ikincil); }
+  .kaynaklar ul { margin: 0; padding-left: 18px; }
+  .kaynaklar li { margin-bottom: 4px; }
+  @media (max-width: 600px) {
+    .grafik { height: 280px; }
+  }
+</style>
+
+<script type="application/json" id="grafix-veri" set:html={JSON.stringify(veriJson)} />
+
+<script>
+  import { createChart, LineSeries } from 'lightweight-charts';
+
+  const veriEl = document.getElementById('grafix-veri');
+  if (veriEl) {
+    const veri = JSON.parse(veriEl.textContent ?? '{}');
+    const gosterge = veri.gosterge ?? [];
+    const renk = Object.fromEntries(gosterge.map((g) => [g.k, g.renk]));
+    const adlar = Object.fromEntries(gosterge.map((g) => [g.k, g.ad]));
+    const tarihler = veri.tarihler;
+    const noktalar = (dizi) => dizi.map((v, i) => (v === null ? null : { time: tarihler[i], value: v })).filter(Boolean);
+
+    const kapEl = document.querySelector('[data-grafik]');
+    const ana = createChart(kapEl, { autoSize: true, height: 340, layout: { background: { color: 'transparent' }, textColor: '#2b2b2b' } });
+    const seriler = {};
+    seriler.kapanis = ana.addSeries(LineSeries, { color: '#151515', lineWidth: 2, priceLineVisible: false, title: 'Kapanış' });
+    seriler.kapanis.setData(noktalar(veri.sutunlar.kapanis ?? []));
+    for (const g of gosterge) {
+      if (g.pane === 'rsi') continue;
+      const s = ana.addSeries(LineSeries, { color: g.renk, lineWidth: 1.5, priceLineVisible: false, title: adlar[g.k] });
+      s.setData(noktalar(veri.sutunlar[g.k] ?? []));
+      seriler[g.k] = s;
+    }
+    // Kapsayıcı boyutu yerleştikten sonra sığdırılır (autoSize ilk çizimde genişliği sonradan alır).
+    requestAnimationFrame(() => ana.timeScale().fitContent());
+
+    let rsi = null;
+    const rsiKap = document.querySelector('[data-rsi-kap]');
+    const rsiEl = document.querySelector('[data-rsi]');
+    if (rsiEl && veri.sutunlar.rsi14) {
+      rsi = createChart(rsiEl, { autoSize: true, height: 150, layout: { background: { color: 'transparent' }, textColor: '#2b2b2b' } });
+      const rs = rsi.addSeries(LineSeries, { color: '#2d4fd6', lineWidth: 1.5, priceLineVisible: false, title: 'RSI (14)' });
+      rs.setData(noktalar(veri.sutunlar.rsi14));
+      rs.createPriceLine({ price: 70, color: '#b3382c', lineWidth: 1, lineStyle: 2, axisLabelVisible: false, title: '' });
+      rs.createPriceLine({ price: 30, color: '#1f7a4d', lineWidth: 1, lineStyle: 2, axisLabelVisible: false, title: '' });
+      requestAnimationFrame(() => rsi.timeScale().fitContent());
+      if (rsiKap) rsiKap.hidden = false;
+    }
+
+    for (const kutu of document.querySelectorAll('[data-gosterge]')) {
+      const k = kutu.dataset.gosterge;
+      const goster = () => {
+        if (k === 'rsi14') {
+          if (rsiKap) rsiKap.hidden = !kutu.checked;
+        } else if (seriler[k]) {
+          seriler[k].applyOptions({ visible: kutu.checked });
+        }
+      };
+      kutu.addEventListener('change', goster);
+      goster();
+    }
+  }
+</script>
