@@ -1,0 +1,84 @@
+---
+import { BOLUMLER } from '../../lib/rasathane/bolumler.mjs';
+import { sayi, tarih } from '../../lib/rasathane/bicim.mjs';
+
+interface Props {
+  bolum: string;
+  veri: any;
+  eski?: boolean;
+  ozet: { kartlar: { etiket: string; deger: number; vurgu?: boolean; tur?: string }[]; puanBantlari: any[] | null };
+}
+const { bolum, veri, eski, ozet } = Astro.props;
+const bolumAd = BOLUMLER.find((b) => b.anahtar === bolum)?.ad ?? bolum;
+const enBuyuk = Math.max(1, ...(ozet.puanBantlari ?? []).map((b) => b.deger));
+// Tutar toplamı büyük sayıdır: milyon olarak kısa yazılır; sayımlar tam sayıdır.
+const degerGoster = (k) => {
+  if (k.tur !== 'tutar') return sayi(k.deger, 0);
+  return k.deger >= 1e6 ? `$${sayi(k.deger / 1e6, 2)} mn` : `$${sayi(k.deger, 0)}`;
+};
+---
+<header class="baslik">
+  <p class="bolum-ad">{bolumAd}</p>
+  <h1>{veri.baslik}</h1>
+  <p class="aciklama">{veri.aciklama}</p>
+  <p class="meta">
+    Son güncelleme: {tarih(veri.guncellendi)}{eski ? ' · eski veri' : ''}
+    {veri.grafik === 'yok' && <span> · Grafik yok: hisse fiyat geçmişi bu sayfada yok.</span>}
+  </p>
+
+  <dl class="ozet" style={`grid-template-columns: repeat(${Math.min(ozet.kartlar.length, 4)}, minmax(0, 1fr));`}>
+    {ozet.kartlar.map((k) => (
+      <div class={`kart${k.vurgu ? ' vurgu' : ''}`}>
+        <dt>{k.etiket}</dt>
+        <dd>{degerGoster(k)}</dd>
+        {k.alt && <p class="alt">toplam ${sayi(k.alt.tutar / 1e6, 2)} mn</p>}
+      </div>
+    ))}
+  </dl>
+
+  {ozet.puanBantlari && (
+    <div class="bantlar">
+      <p class="bant-baslik">Puan dağılımı <span>· işlem sayısı</span></p>
+      {ozet.puanBantlari.map((b) => (
+        <div class="bant-satir">
+          <span class={`etiket${b.vurgu ? ' vurgu' : ''}`}>{b.etiket}</span>
+          <span class="cubuk"><span class={`dolu${b.vurgu ? ' vurgu' : ''}`} style={`width: ${(b.deger / enBuyuk) * 100}%`} /></span>
+          <span class="sayi">{b.deger}</span>
+        </div>
+      ))}
+    </div>
+  )}
+</header>
+
+<style>
+  .baslik { margin: 8px 0 22px; }
+  .bolum-ad { margin: 0 0 4px; font-size: 13px; color: var(--ikincil); }
+  h1 { margin: 0 0 8px; font-size: clamp(28px, 5vw, 36px); line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; }
+  .aciklama { margin: 0 0 10px; color: var(--ikincil); max-width: 62ch; }
+  .meta { margin: 0; font-size: 13px; color: var(--ikincil); }
+
+  .ozet { display: grid; gap: 0; margin: 18px 0 0; padding: 0; border-top: 1px solid var(--murekkep); }
+  .kart { padding: 12px 14px 12px 0; border-bottom: 1px solid var(--cizgi); }
+  .kart + .kart { border-left: 1px solid var(--cizgi); padding-left: 14px; }
+  .ozet dt { font-size: 12px; color: var(--ikincil); }
+  .ozet dd { margin: 2px 0 0; font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .kart.vurgu dt, .kart.vurgu dd { color: var(--mavi); }
+  .alt { margin: 2px 0 0; font-size: 12px; color: var(--ikincil); font-variant-numeric: tabular-nums; }
+
+  .bantlar { margin: 18px 0 0; }
+  .bant-baslik { margin: 0 0 10px; font-size: 13px; font-weight: 600; }
+  .bant-baslik span { font-weight: 400; color: var(--ikincil); }
+  .bant-satir { display: grid; grid-template-columns: 70px 1fr 36px; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 13px; }
+  .bant-satir .etiket { color: var(--ikincil); }
+  .bant-satir .etiket.vurgu { color: var(--mavi); font-weight: 600; }
+  .cubuk { display: block; height: 10px; background: var(--cizgi); }
+  .dolu { display: block; height: 10px; background: #bdb9ad; }
+  .dolu.vurgu { background: var(--mavi); }
+  .sayi { text-align: right; font-variant-numeric: tabular-nums; }
+
+  @media (max-width: 600px) {
+    .ozet { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    .kart:nth-child(odd) { border-left: 0; padding-left: 0; }
+    .kart:nth-child(even) { border-left: 1px solid var(--cizgi); padding-left: 12px; }
+  }
+</style>
