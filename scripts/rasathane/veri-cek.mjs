@@ -73,7 +73,7 @@ export async function veriCek({
   } catch (hata) {
     console.warn(`[rasathane] veri alınamadı, derleme sürüyor: ${hata?.message ?? hata}`);
     try {
-      rmSync(hedef, { recursive: true, force: true });
+      // Eski iyi veri silinmez: sayfalar "son iyi veri" ile kalır, durum yalnız işaretlenir.
       durumYaz(hedef, { durum: 'alinamadi' });
     } catch (yazmaHata) {
       console.warn(`[rasathane] _durum.json yazılamadı: ${yazmaHata?.message ?? yazmaHata}`);

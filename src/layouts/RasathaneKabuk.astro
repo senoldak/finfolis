@@ -1,0 +1,68 @@
+---
+import { BOLUMLER } from '../lib/rasathane/bolumler.mjs';
+
+interface Props {
+  baslik: string;
+  aktif?: string;
+  aciklama?: string;
+}
+const { baslik, aktif, aciklama = '' } = Astro.props;
+---
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{baslik} · Rasathane</title>
+    {aciklama && <meta name="description" content={aciklama} />}
+    <link rel="icon" href="/rasathane/isaret.svg" type="image/svg+xml" />
+    <style>
+      :root {
+        --kagit: #f6f5f0;
+        --murekkep: #151515;
+        --ikincil: #6f6b62;
+        --cizgi: #e2dfd6;
+        --mavi: #2d4fd6;
+        --yesil: #1f7a4d;
+        --kirmizi: #b3382c;
+        --beyaz: #fbfaf6;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--kagit); color: var(--murekkep); font: 15px/1.5 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; overflow-x: hidden; }
+      a { color: var(--murekkep); }
+      .sar { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+      .serit { background: var(--murekkep); color: #d9d6cc; font-size: 13px; padding: 10px 0; }
+      .serit a { color: #fff; text-decoration: none; border-bottom: 1px solid #6f6b62; }
+      .ust { display: flex; align-items: center; gap: 10px; padding: 16px 0 8px; font-weight: 700; font-size: 20px; }
+      .ust img { width: 32px; height: 32px; }
+      nav.bolum { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; border-bottom: 1px solid var(--cizgi); padding-bottom: 10px; }
+      nav.bolum a { color: var(--ikincil); text-decoration: none; }
+      nav.bolum a[aria-current="page"] { color: var(--murekkep); font-weight: 600; border-bottom: 2px solid var(--mavi); }
+      main { padding: 20px 0 8px; }
+      h1 { margin: 0 0 4px; font-size: clamp(26px, 5vw, 34px); line-height: 1.15; }
+      .not { color: var(--ikincil); font-size: 14px; margin: 0 0 12px; }
+      footer { margin-top: 32px; border-top: 1px solid var(--cizgi); padding: 20px 0 36px; font-size: 14px; color: var(--ikincil); }
+      footer strong { color: var(--murekkep); }
+      footer a { color: var(--murekkep); }
+    </style>
+  </head>
+  <body>
+    <div class="serit"><div class="sar"><a href="https://finfolis.com/">Bir finfolis yapımıdır</a></div></div>
+    <header class="sar">
+      <div class="ust"><img src="/rasathane/isaret.svg" alt="" /><a href="/rasathane/" style="text-decoration:none;color:inherit">Rasathane</a></div>
+      <nav class="bolum" aria-label="Bölümler">
+        {BOLUMLER.map((b) => (
+          <a href={`/rasathane/${b.anahtar}/`} aria-current={aktif === b.anahtar ? 'page' : undefined}>{b.ad}</a>
+        ))}
+      </nav>
+    </header>
+    <main class="sar">
+      <slot />
+    </main>
+    <footer class="sar">
+      <p style="margin:0 0 10px"><strong>Yatırım tavsiyesi değildir. Veriler gecikmelidir.</strong></p>
+      <p style="margin:0 0 6px">Bu sayfalardaki veriler kamuya açık kaynaklardan derlenir; her sayfanın kaynakları ayrıca yazılır.</p>
+      <p style="margin:0">Grafikler: <a href="https://www.tradingview.com/">TradingView Lightweight Charts</a> · <a href="https://finfolis.com/hakkimizda/">Künye</a></p>
+    </footer>
+  </body>
+</html>

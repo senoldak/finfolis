@@ -1,0 +1,191 @@
+---
+import RasathaneKabuk from '../../../layouts/RasathaneKabuk.astro';
+import { sayfalariOku } from '../../../lib/rasathane/veri.mjs';
+import { sayi, yuzde, tarih } from '../../../lib/rasathane/bicim.mjs';
+import { join } from 'node:path';
+
+export function getStaticPaths() {
+  const KOK = join(process.cwd(), 'public/rasathane/veri');
+  return sayfalariOku(KOK).map(({ bolum, sayfa, veri, eski }) => ({
+    params: { bolum, sayfa },
+    props: { veri, eski },
+  }));
+}
+
+const { veri, eski } = Astro.props;
+const bolum = Astro.params.bolum;
+
+function hucre(s, deger) {
+  if (deger === null || deger === undefined) return '–';
+  if (s.tur === 'yuzde') return yuzde(deger, s.basamak);
+  if (s.tur === 'sayi') return sayi(deger, s.basamak);
+  return String(deger);
+}
+const suzgecler = (veri.suzgecler ?? []).map((k) => ({
+  anahtar: k,
+  baslik: veri.sutunlar.find((s) => s.anahtar === k)?.baslik ?? k,
+  secenekler: [...new Set(veri.satirlar.map((r) => r[k]).filter((v) => v !== null && v !== undefined))].sort((a, b) =>
+    String(a).localeCompare(String(b), 'tr'),
+  ),
+}));
+const metinSutunlari = veri.sutunlar.filter((s) => s.tur === 'metin').map((s) => s.anahtar);
+---
+<RasathaneKabuk baslik={veri.baslik} aktif={bolum} aciklama={veri.aciklama}>
+  <h1>{veri.baslik}</h1>
+  <p class="not">{veri.aciklama}</p>
+  <p class="not">Son güncelleme: {tarih(veri.guncellendi)}{eski ? ' (eski veri)' : ''}</p>
+
+  <div class="suz" style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0">
+    {suzgecler.map((f) => (
+      <label style="display:flex;flex-direction:column;font-size:13px">
+        {f.baslik}
+        <select data-suz={f.anahtar} style="font:inherit;height:38px;padding:0 10px;border:1px solid var(--cizgi);background:var(--beyaz);border-radius:4px">
+          <option value="">Tümü</option>
+          {f.secenekler.map((o) => <option value={o}>{o}</option>)}
+        </select>
+      </label>
+    ))}
+    <label style="display:flex;flex-direction:column;font-size:13px;flex:1;min-width:180px">
+      Ara
+      <input type="search" data-ara placeholder="Ara" style="font:inherit;height:38px;padding:0 10px;border:1px solid var(--cizgi);background:var(--beyaz);border-radius:4px" />
+    </label>
+    <button type="button" data-sifirla style="font:inherit;height:38px;padding:0 14px;align-self:flex-end;border:1px solid var(--murekkep);background:transparent;border-radius:4px;cursor:pointer">Sıfırla</button>
+  </div>
+
+  <div style="border:1px solid var(--cizgi);background:var(--beyaz);border-radius:4px;overflow-x:auto;padding:8px 0">
+    <table data-tablo style="border-collapse:collapse;width:100%;min-width:620px;font-size:14px;font-variant-numeric:tabular-nums">
+      <thead>
+        <tr>
+          {veri.sutunlar.map((s) => (
+            <th data-sirala={s.anahtar} style={`padding:9px 10px;cursor:pointer;user-select:none;text-align:${s.tur === 'metin' ? 'left' : 'right'};font-size:12px;text-transform:uppercase;color:var(--ikincil);border-bottom:1px solid var(--cizgi);white-space:nowrap`}>
+              {s.baslik}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {veri.satirlar.map((r) => (
+          <tr
+            data-seri={r.seri ?? ''}
+            data-filtre={JSON.stringify(Object.fromEntries(suzgecler.map((f) => [f.anahtar, r[f.anahtar] ?? ''])))}
+            style="border-bottom:1px solid var(--cizgi);cursor:pointer"
+          >
+            {veri.sutunlar.map((s) => (
+              <td
+                data-v={r[s.anahtar] ?? ''}
+                style={`padding:9px 10px;white-space:nowrap;text-align:${s.tur === 'metin' ? 'left' : 'right'}`}
+              >
+                {hucre(s, r[s.anahtar])}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="not" data-bos hidden>Eşleşen satır yok.</p>
+
+  <section data-panel hidden style="margin-top:22px;border:1px solid var(--cizgi);background:var(--beyaz);padding:16px;border-radius:4px">
+    <h2 data-panel-baslik style="font-size:18px;margin:0 0 8px"></h2>
+    <div data-grafik style="height:340px;width:100%"></div>
+    <p class="not" style="margin:8px 0 0">Grafiği yakınlaştırmak için fare tekerleğini ya da iki parmağı kullanın. Üzerine gelince değer görünür.</p>
+  </section>
+
+  <div style="margin-top:20px;font-size:14px;color:var(--ikincil)">
+    <p style="margin:0 0 6px">Kaynaklar:</p>
+    <ul style="margin:0 0 10px;padding-left:18px">
+      {veri.kaynaklar.map((k) => <li><a href={k.url}>{k.ad}</a></li>)}
+    </ul>
+  </div>
+</RasathaneKabuk>
+
+<script>
+  import { createChart, LineSeries } from 'lightweight-charts';
+
+  const tablo = document.querySelector('[data-tablo]');
+  const govde = tablo.querySelector('tbody');
+  const satirlar = [...govde.querySelectorAll('tr')];
+  const bos = document.querySelector('[data-bos]');
+  const panel = document.querySelector('[data-panel]');
+  const panelBaslik = document.querySelector('[data-panel-baslik]');
+  const grafikKap = document.querySelector('[data-grafik]');
+  const aramaKutusu = document.querySelector('[data-ara]');
+  const suzSecimler = [...document.querySelectorAll('[data-suz]')];
+  let siraliAnahtar = null;
+  let yon = 1;
+  let grafik = null;
+
+  function filtrele() {
+    const aranan = aramaKutusu.value.trim().toLocaleLowerCase('tr');
+    const secimler = Object.fromEntries(suzSecimler.map((s) => [s.dataset.suz, s.value]));
+    let gorunen = 0;
+    for (const tr of satirlar) {
+      const f = JSON.parse(tr.dataset.filtre || '{}');
+      const secimTamam = Object.entries(secimler).every(([k, v]) => !v || String(f[k]) === v);
+      const aramaTamam = !aranan || tr.textContent.toLocaleLowerCase('tr').includes(aranan);
+      const goster = secimTamam && aramaTamam;
+      tr.hidden = !goster;
+      if (goster) gorunen++;
+    }
+    bos.hidden = gorunen !== 0;
+  }
+
+  function sirala(anahtar) {
+    yon = siraliAnahtar === anahtar ? -yon : 1;
+    siraliAnahtar = anahtar;
+    const idx = [...tablo.querySelectorAll('thead th')].findIndex((th) => th.dataset.sirala === anahtar);
+    const sirali = [...satirlar].sort((a, b) => {
+      const x = a.children[idx].dataset.v;
+      const y = b.children[idx].dataset.v;
+      const sx = x === '' ? null : Number(x);
+      const sy = y === '' ? null : Number(y);
+      if (sx === null && sy === null) return 0;
+      if (sx === null) return 1;
+      if (sy === null) return -1;
+      if (Number.isNaN(sx) || Number.isNaN(sy)) return yon * x.localeCompare(y, 'tr');
+      return yon * (sx - sy);
+    });
+    sirali.forEach((tr) => govde.appendChild(tr));
+  }
+
+  async function grafigiAc(tr) {
+    const seri = tr.dataset.seri;
+    if (!seri) return;
+    const bolum = location.pathname.split('/')[2];
+    panel.hidden = false;
+    panelBaslik.textContent = tr.children[0].textContent.trim();
+    try {
+      const yanit = await fetch(`/rasathane/veri/${bolum}/seri/${encodeURIComponent(seri)}.json`);
+      if (!yanit.ok) throw new Error(String(yanit.status));
+      const d = await yanit.json();
+      if (grafik) grafik.remove();
+      grafik = createChart(grafikKap, {
+        autoSize: true,
+        layout: { background: { color: '#fbfaf6' }, textColor: '#6f6b62', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 12 },
+        grid: { vertLines: { color: '#ece9e1' }, horzLines: { color: '#ece9e1' } },
+        rightPriceScale: { borderColor: '#e2dfd6' },
+        timeScale: { borderColor: '#e2dfd6', timeVisible: false },
+      });
+      const cizgi = grafik.addSeries(LineSeries, { color: '#2d4fd6', lineWidth: 2 });
+      cizgi.setData(d.noktalar.map(([t, v]) => ({ time: t, value: v })));
+      grafik.timeScale().fitContent();
+    } catch {
+      grafikKap.textContent = 'Grafik yüklenemedi.';
+    }
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  document.querySelectorAll('[data-sirala]').forEach((th) => {
+    th.addEventListener('click', () => sirala(th.dataset.sirala));
+  });
+  satirlar.forEach((tr) => {
+    tr.addEventListener('click', () => grafigiAc(tr));
+  });
+  suzSecimler.forEach((s) => s.addEventListener('change', filtrele));
+  aramaKutusu.addEventListener('input', filtrele);
+  document.querySelector('[data-sifirla]').addEventListener('click', () => {
+    suzSecimler.forEach((s) => (s.value = ''));
+    aramaKutusu.value = '';
+    filtrele();
+  });
+</script>

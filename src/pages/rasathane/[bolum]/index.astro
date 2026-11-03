@@ -1,0 +1,37 @@
+---
+import RasathaneKabuk from '../../../layouts/RasathaneKabuk.astro';
+import { BOLUMLER, sayfalariOku } from '../../../lib/rasathane/veri.mjs';
+import { tarih } from '../../../lib/rasathane/bicim.mjs';
+import { join } from 'node:path';
+
+export function getStaticPaths() {
+  const KOK = join(process.cwd(), 'public/rasathane/veri');
+  const sayfalar = sayfalariOku(KOK);
+  return BOLUMLER.map((b) => ({
+    params: { bolum: b.anahtar },
+    props: {
+      ad: b.ad,
+      sayfalar: sayfalar.filter((s) => s.bolum === b.anahtar),
+    },
+  }));
+}
+
+const { ad, sayfalar } = Astro.props;
+const bolum = Astro.params.bolum;
+---
+<RasathaneKabuk baslik={ad} aktif={bolum}>
+  <h1>{ad}</h1>
+  {sayfalar.length === 0 ? (
+    <p class="not">Henüz veri yok.</p>
+  ) : (
+    <ul style="margin:0;padding-left:18px">
+      {sayfalar.map((s) => (
+        <li style="margin-bottom:8px">
+          <a href={`/rasathane/${bolum}/${s.sayfa}/`}>{s.veri.baslik}</a>
+          <span class="not"> · {s.veri.aciklama}</span>
+          <div class="not" style="margin:0">Son güncelleme: {tarih(s.veri.guncellendi)}{s.eski ? ' (eski)' : ''}</div>
+        </li>
+      ))}
+    </ul>
+  )}
+</RasathaneKabuk>
