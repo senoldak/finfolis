@@ -25,7 +25,7 @@ import { KAPAK_DONUSUM } from '../../lib/gorsel.mjs';
 import { ICERIK_LISANSI_URL, ORG_ID, PUBLISHER_LOGO, SITE_URL, WEBSITE_ID, kisalt, sameAs } from '../../lib/seo';
 import { matchEntities } from '../../lib/entities';
 import { indekslenir } from '../../lib/uzunluk.mjs';
-import { akisCevirisi } from '../../lib/arama-gorunurluk.mjs';
+import { googleaKapali } from '../../lib/arama-gorunurluk.mjs';
 import { okumaSuresi, turEtiketi } from '../../lib/yazi-bilgisi.mjs';
 import { duzeltmeNotu } from '../../lib/duzeltme.mjs';
 import { resmiKaynaklar, adsizKaynakSatiri } from '../../lib/resmi-kaynak.mjs';
@@ -83,10 +83,11 @@ const duzeltme = duzeltmeNotu(haber.data, 'tr');
 const resmi = resmiKaynaklar(haber.data);
 const medya = haberKaynaklari(haber.data);
 const adsizKaynak = medya.length ? null : adsizKaynakSatiri(haber.data);
-// Kısa yazılar bütün arama motorlarına kapalı (noindex, follow). Akış çevirileri yalnız Google'a kapalı (googlebot);
+// Kısa yazılar bütün arama motorlarına kapalı (noindex, follow). Akış çevirileri, bültenler ve kalıp piyasa yazıları
+// yalnız Google'a kapalı (googlebot);
 // ikisi de site haritalarında yok (src/lib/arama-gorunurluk.mjs).
 const noindex = !indekslenir(haber.body);
-const googleNoindex = akisCevirisi({ tur: haber.data.tur, icerikTuru: haber.data.icerikTuru, author: haber.data.author, uretim: haber.data.uretim });
+const googleNoindex = googleaKapali({ tur: haber.data.tur, icerikTuru: haber.data.icerikTuru, author: haber.data.author, uretim: haber.data.uretim, kaynaklar });
 // Kapak her yaşta derlenir (dosya bütçesi: src/lib/gorsel.mjs).
 const cover = haber.data.cover;
 const { Content, headings } = await render(haber);

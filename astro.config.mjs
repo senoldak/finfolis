@@ -51,11 +51,13 @@ function tarihler() {
     if (alan('draft') === 'true' || !onyuzMaddesiYayinda(md)) continue;
     const d = new Date(alan('date') ?? '');
     if (Number.isNaN(d.valueOf())) continue;
-    // Arama motorlarına kapalı yazı (kısa ya da akış çevirisi) haritaya girmez; kural haber sayfasıyla ortak
+    // Arama motorlarına kapalı yazı (kısa, akış çevirisi, bülten, kalıp piyasa yazısı) haritaya girmez; kural haber sayfasıyla ortak
     // (src/lib/arama-gorunurluk.mjs).
     // Haberin lastmod'u: elle güncellendiyse (updated) o tarih, yoksa yayın tarihi.
     const g = new Date(alan('updated') ?? '');
-    const acik = aramayaAcik({ govde: md, tur: alan('tur'), icerikTuru: alan('icerikTuru'), author: alan('author'), uretim: alan('uretim') });
+    // Kaynak adları: ön bilgide "- ad:" satırı yalnız kaynaklar listesinde var.
+    const kaynaklar = [...on.matchAll(/^\s+- ad:\s*"?([^"\r\n]*)"?/gm)].map((m) => ({ ad: m[1].trim() }));
+    const acik = aramayaAcik({ govde: md, tur: alan('tur'), icerikTuru: alan('icerikTuru'), author: alan('author'), uretim: alan('uretim'), kaynaklar });
     if (acik) haber.set(ad, Number.isNaN(g.valueOf()) || g < d ? d : g);
     else kisa.add(ad);
     // Site haritası parçası (bkz. chunks): bülten, yazı işleri/imzalı yazı, diğer haber.

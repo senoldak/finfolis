@@ -14,7 +14,7 @@ export async function GET() {
   const simdi = Date.now();
   // Kısa (noindex) yazılar haritaya girmez; kural src/lib/uzunluk.mjs'te, haber sayfasıyla ortak.
   const news = (await getNews())
-    .filter((h) => simdi - h.data.date.valueOf() <= PENCERE_MS && aramayaAcik({ govde: h.body, tur: h.data.tur, icerikTuru: h.data.icerikTuru, author: h.data.author, uretim: h.data.uretim }))
+    .filter((h) => simdi - h.data.date.valueOf() <= PENCERE_MS && aramayaAcik({ govde: h.body, tur: h.data.tur, icerikTuru: h.data.icerikTuru, author: h.data.author, uretim: h.data.uretim, kaynaklar: h.data.kaynaklar }))
     .slice(0, 1000);
   const urls = news
     .map(
