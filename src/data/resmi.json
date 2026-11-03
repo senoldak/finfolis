@@ -3170,22 +3170,18 @@
     "alinma": "2026-11-02T13:59:50.416Z"
   },
   "rezerv": {
-    "tarih": "2026-10-30",
-    "netDovizPozisyonu": 26.21,
-    "degisimGunluk": -2.78,
+    "tarih": "2026-11-02",
+    "netDovizPozisyonu": 23.57,
+    "degisimGunluk": -2.64,
     "kalemler": {
-      "disVarliklarUSD": 160.32,
-      "dovizYukumlulukleriUSD": 127.34,
-      "netUluslararasiRezervUSD": 32.98,
+      "disVarliklarUSD": 156.94,
+      "dovizYukumlulukleriUSD": 126.74,
+      "netUluslararasiRezervUSD": 30.2,
       "swapStokuUSD": 0,
-      "hazineDoviziUSD": 6.77,
-      "netPozisyonUSD": 26.21
+      "hazineDoviziUSD": 6.63,
+      "netPozisyonUSD": 23.57
     },
     "gecmis": [
-      {
-        "tarih": "2026-06-25",
-        "deger": 36.19
-      },
       {
         "tarih": "2026-06-26",
         "deger": 35.3
@@ -3541,13 +3537,17 @@
       {
         "tarih": "2026-10-30",
         "deger": 26.21
+      },
+      {
+        "tarih": "2026-11-02",
+        "deger": 23.57
       }
     ],
     "kaynak": {
       "ad": "TCMB Analitik Bilanço (EVDS)",
       "url": "https://evds3.tcmb.gov.tr/"
     },
-    "alinma": "2026-11-02T11:59:19.818Z"
+    "alinma": "2026-11-03T12:03:48.361Z"
   },
   "piyasaFaizleri": {
     "kaynak": {
@@ -102119,23 +102119,23 @@
       }
     ],
     "son": {
-      "tarih": "2026-10-30",
-      "aktif": 12088243678,
-      "disVarlik": 7967792615,
-      "icVarlik": 5088611768,
-      "hazine": 541384310,
-      "bankaKredi": 1276775619,
-      "degerleme": -968160705,
-      "dovizYuk": 6328581197,
-      "mbParasi": 5759662481,
-      "rezervPara": 4936294927,
-      "emisyon": 1031136777,
+      "tarih": "2026-11-02",
+      "aktif": 12046517028,
+      "disVarlik": 7811461319,
+      "icVarlik": 5098470485,
+      "hazine": 546122555,
+      "bankaKredi": 1281141800,
+      "degerleme": -863414776,
+      "dovizYuk": 6308513625,
+      "mbParasi": 5738003402,
+      "rezervPara": 4828053745,
+      "emisyon": 1021787161,
       "zorunlu": 1016249044,
-      "serbest": 2880941638,
-      "api": 296815333,
-      "kamuMevduat": 526552223
+      "serbest": 2782059261,
+      "api": 346963611,
+      "kamuMevduat": 562986046
     },
-    "alinma": "2026-11-02T11:59:19.818Z"
+    "alinma": "2026-11-03T12:03:48.361Z"
   },
   "faizAyrinti": {
     "kaynak": {

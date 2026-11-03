@@ -48583,6 +48583,84 @@
     },
     "k376384:0e6c2dc62e9d0640": {
       "zaman": "2026-11-03T09:41:16.949Z"
+    },
+    "k146593:e365e93aa78f9895": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k178392:e5f6cc48dc0b1744": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k361368:69e04327d8522e5f": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "kfb116f:a37409cceec1c5b4": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "kf045f1:9f8061e67f7244ee": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "kf045f1:b54866e2b184fd54": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k2639b3:7f594c218bd97671": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "kba38ad:f45538fe3ccf5d8d": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k178392:1336cd1682387395": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k611bc3:30fa8b9421cf5604": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k318da0:b592e22982bd8a9a": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k318da0:04cbafb4129faae6": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k5bfe66:f0732c6fdff3d88c": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k1245cd:1e0d46a9d6cda41e": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "kfb116f:bff5a945dbe050a7": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "kf045f1:7cf3f0777beafafb": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k318da0:024cb92347aafe8a": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "kfb116f:ab849322aceb6943": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k95308a:362ae2e36de81cda": {
+      "zaman": "2026-11-03T11:41:16.192Z",
+      "elendi": true,
+      "gerekce": "standart:kirmizi:kaynak-benzerligi"
+    },
+    "kba38ad:25eb96a6a646d05e": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k318da0:85a6d84f91ae2af7": {
+      "zaman": "2026-11-03T11:41:16.192Z",
+      "yazildi": true,
+      "gerekce": "standart:sari:savas-konu"
+    },
+    "kf045f1:9cdf0badd0d0b738": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "k6720d3:2cf2b62eed105fc8": {
+      "zaman": "2026-11-03T11:41:16.192Z"
+    },
+    "kba38ad:9beecb04b49974d4": {
+      "zaman": "2026-11-03T11:41:16.192Z",
+      "yazildi": true,
+      "gerekce": "standart:sari:savas-konu"
     }
   },
   "sonBulten": {
@@ -48664,66 +48742,6 @@
     "veri-takvimi-haber": "2026-10-29T09:41:07.863Z"
   },
   "olaylar": [
-    {
-      "id": "k6c89da:257dafa348cf7065",
-      "zaman": "2026-10-27T11:41:09.078Z",
-      "ozetSifreli": "v1.TLEezedCskeRf22i.Ob0PJUXQRxQXrHj4zy0nZ5jJdRnLgu3VCGEpN1PX9GONg3lfXh/e8uVkL1ENEOubWc7pf7QXzeObZEzL4njIDg3eBjgXGx5FdHFbbze3dTeaoKAJobjBpNaTDyilNA7mpI0Szrd01NUQU3H67qocYbdNV/fbmgF/ZpZAzsEZc65vg8D4pfnJeA2Psw/Jnwm5B60JG625r+Po0SBlZIsXAh1kFCiodSTkZJomkFaQWCFLxjJyD8yGykbA4gVXdATDMWc08en5UOaAevZ5sT/gKwyLOwbvU1YH1by0WV9Hdn7ibH80jbltbDb2"
-    },
-    {
-      "id": "k178392:8dd414f21591b4fe",
-      "zaman": "2026-10-27T11:41:09.078Z",
-      "ozetSifreli": "v1.rf+hWWcnkXYym85k.Iw5ySeGI9b/zhYZMEMa5PgD9OckYBWR0wiAsJW4oZCeKhY5S5XelvQEgrgzSI0Aht4o/De1tQSBxjK4Sn4jj012Q4jQDLMzVfmZPLvzLSmMSCkoBaalw949oyEfVwsC23mJfSt3q+I+0+YUTfIuxfrAhBd4Kl/sjCLg4BjxtSfXe0ETGN76hC8fsiHhuR9yKKxAkhzPCPK7SjFKe+2mAH0soFyHMiSNCgmtZ7YHzd9t1PfMT9fuRSV1ZlcWdBira8liVof1gvk9ZGmLYA+jsirzNSAOh/++WsTuvJ250wZWv"
-    },
-    {
-      "id": "kf0d847:0ac129ffe3fd97c3",
-      "zaman": "2026-10-27T11:41:09.078Z",
-      "ozetSifreli": "v1.5tEcae3lbHCV9o+H.be9QKftFgk75t7E5LsvIyRulwhTil9pcSphYkVhAFykdu8dFEm/esHKXZkBBx38Zsym3tGGdYdJQCNte+QKehHk3phyXLlR5TlyIUnB1/wnb"
-    },
-    {
-      "id": "k6720d3:16041ef2a6adbe03",
-      "zaman": "2026-10-27T11:41:09.078Z",
-      "ozetSifreli": "v1.jPzwCxoh6oGaOCnD.Z3NxzIBQXoOzQ2s6TbbuVpWu4S+DcrYZ3FEGF1cWNmoBQK9XSWw9qTFWviMK8gExTtar8yg/Vr4yJ6X1XQwCodg6Z+QHO4csgRtFUJp6tNFAwdGi2MopJag1lbVsFsS0W71VWQY6XO6h5GroIhu+6BlgVlz82CAMNf5ocSxksHWA+EeY9G7COol2CRyyzepR7hiSQLDDqE1bGgwVcRO3cIPVpBN1a3QfziCHrHYua3ElFRn1EOVGwvsDV+Aw8/f74vIlveSaehK8FY3X2Cta3LuGE2Xd6gKSUTivq3mn2/AHBlONYqCB6v1NTWfhAdW1dO5ZP0GECz6lM2GUfVUkeIkR7f+rioCZXEGOXUVt9uLaia26ss+aC94+ha1C"
-    },
-    {
-      "id": "k6720d3:9d7854a1f00e76ad",
-      "zaman": "2026-10-27T11:41:09.078Z",
-      "ozetSifreli": "v1.08ZfgYBjbNRFDZ3L.lyzeIHeNc7cfV2+C2sVd9Sz7ycqOKIQM+gaVKodA+0UM6ELXZxiyMYI3xzNdRwU6uX518mOzIPU8CrurAfLBhV1M8snKNxbl6S8S7aWtTIRNQGTADLNQDHaRT5D8UYlOYPGLKd4U968iNhEZWOHi2DuFcVxng1GAn0NgMBpB7BKeunw+N2pTdGJlxj8CAl3WZfve1chQjiDaSyVp5aUuhehAyqH23KThMpPAaqGAvPwtgBdnU7G9Zw9h5OBuv+w8dyaItLKl7L9SgeYsBfbO/ai8UDZV8jUWTeKyTgYCYR+lqOD8xbrWelPkG8o4NgoRg279yo7FCfxbMM0JsgONI5pYNPGmBe6eEE+AAcNRX0WvByRvFFxvHhtx539+56emmLI8jG6FTmbIs89AMv6VB/kx6kUKjHdt2/xODw=="
-    },
-    {
-      "id": "kba38ad:e615708765d76bfa",
-      "zaman": "2026-10-27T11:41:09.078Z",
-      "ozetSifreli": "v1.KJmA9udC4RHwoZ/d.9fSWsJJ0cG2pZxt1ySoQ7Pt5eHIicJFCQcDNEKtlTEaSVxTlWNn3lKc58BhuZlGG7SNQGCUNO1bYbpvdhTYneNcnCbRBD+yn8O0kxXAJo1wJ325W1G1bYSZm2ZjOQytj9ZfoT5VYkGYXTuOPJHiErj/bQW7mT4XQ+6B5wxTxKY8uyuUb+JFNQhUH9aALDF6Ar9iYRmZqY4QYKK7vTJBtvGmUeP6FENzxgXRGW+DNp7GWr25851J+rQ2e1UpjG/i4xpmecD7UWYiaL9QKkNZdnX0K+wlcH1VsnG5NsgwmDRPhYPc0Wvk="
-    },
-    {
-      "id": "kba38ad:f5fec1eb6436b8f2",
-      "zaman": "2026-10-27T11:41:09.078Z",
-      "ozetSifreli": "v1.QigPaOS3Ka6wANp8.106CyWy3jxzVSndfaTm1vGdZTc8KwwAhvRoykxgid8BS73CgL9bg3hnh2PlczL34IHzVYfGa0apfz89Ku4w7pIHH1C799TZptyF1ZQ/1QevZYhbgV8sgUhhuD/ajcOzRB/gd5WDNjYNatMX+yCNcOKBf0OgWjmWAEM6lYqdMqZDznaiIyqTY7CR0Qk4VkE4Kp3d26MWNW5SziOoPAhzIDElKIwGpkHrHxfZubWzxIAgjo9q5uo6JC7P+QrynrHmRmSo+lp8KplN4FX6NpMeKKa+nfgBL1Nd5WmFu7beLVEbQJPCcje+2AKh4uCWWX4t+7wgILpri0utpSz9whcZjHsGa4MzY7sFSgPJiIVXFU3s="
-    },
-    {
-      "id": "k1eb283:5ca844cc41cb442b",
-      "zaman": "2026-10-27T11:41:09.078Z",
-      "ozetSifreli": "v1.RL70qp9rU0QihuI+.XYrZDZ0nOrldjPqNq64aYYVWQ3SR4qIavq+b7E9OiSJQqXdnCWgIdBF1xirCl7B1V/WdNvjaxdc15l7Yagmdge5/p8rVHiK1uSripjnBCOVctC4DknzU/aUDyY4Xc76B7XDoFDIwabhG0d9UGmqnqjFodNxc6bSThnVXv8JLNSw8KWrSDufCozdVE0E6pEaVntgnk2vf6X9HlwxUJ4e/O/H+FS+qvPeP8GQmCnf4JZPbcKk3MvhEY/OOIi7mt3damUdMXDaxT4IyqK1UQpJOvYzJ/09HKrpb6tzmkf5qpLLIWNmVtwbQTNU="
-    },
-    {
-      "id": "k6ef72e:a649add5225e03e5",
-      "zaman": "2026-10-27T11:41:09.078Z",
-      "ozetSifreli": "v1.h2RV9hG5px4X2Wvf.LYulJm1SNwZK81E4jghbkwoC6I13qdyeu5QCci/NppDpZr+Xnw05tX5NO/hg0jTOUChg4/G7ZNEkhypy9LggNkleCbHkDKuMBNMSsO2vPVt7b+vZUaQfiW8wtHMWcZv12buF3O+ljeIPPaJxoGsFNMKcMDSxp+ErLxeyfYMtC1tWmIbpjm931X8LdRCGzNQYv/KX6OacB5Vjp7fqcqa6rFncuewzCNcndM2WTG4UR9S4TdfUvTAlNolzXSRg/01RsMST8jvImHhgtye3TJrFlIZMX/aMDkV4QvjzO/m7E2PxxjlrzqvDI+Hl81CgH6SCNd0l34ZUUiLWiwqBd0pok6YK3eZcshav75XrL0dY6s40Y+XrT2YU/U8pPuH4p7jwZgxi8pFtoTuer1NgoagncySqyXP1CPE="
-    },
-    {
-      "id": "kfb116f:3f65ae84016d9106",
-      "zaman": "2026-10-27T11:41:09.078Z",
-      "ozetSifreli": "v1.liFWdnSaIkL2pzr0.dtbRaD/wQuvL2CRbrbQJ4cSFCHEQLQkRHSN3XsxKxvX5NzL9pM5FweR3eEsWI8N2Qn9oO4EHgDiMFgtj+0aZJmAtKMVG7lTjyrybNic+watbTiFSkf0JhLbeetrwUQWgkTo1t+KZxTUz/yIpVUNA/QkzcIq0SntfMMuUdA1/IW3KMY3Sy/7cYP85M00lB5cnTAxeXmK2zpUowwDB6949necLCglFEFa+EdxfRWoEtCs17Hgy8QheNEUbVZWgHqeib6QNbO6O2a2TGa8UT4kYgI1eqFgg37PuqwEsQnePiFRCc+u5/eUMniQVN31DaD3VUT4RuXIyHDCqKiuqNA7Vc4YZGt32vZBYS2YMHL4QtAQ8X/U3zgbld33ojABhf9C+GK+5eNaMCA=="
-    },
-    {
-      "id": "kfb116f:9816b1349dec4ab1",
-      "zaman": "2026-10-27T11:41:09.078Z",
-      "ozetSifreli": "v1.Tu6UAyC7EkesJdMM.m22uhMsHplj487x2G7ZEaWcganuuxJv8zQdJB294r4+PCWAQCCGnwHF7YfHFPGkZH3KcwexuL9D7k9glx8kIH/LuI8VRRgOvq8Hao2ckgGQF36Zy/5PkIArtoIOqsI8/dgL7U8CF8aYRxKcxeNrXzO87r1eOQpBkJph60bIHz9WQaTFkzc2CrfXxHD+hiKpWR8nv51ZlAVHt3T9jPrNy2DSm+HNUOy7az+bOHFu//gQlRouQlZL29gK+4jR6nNXLrO3tWbMSmECBDWonp5PVUKHCwrAk1Yhc4gPtq0tVCUNMEx/FQHIf/zZEj9rkH+EwXli8AKBaEHRl3lZbz2dkImBOD+fneWu3HPU9lrVJnuPNAiMszslVnliJiyWix6Jh7XDIiZYwEY4lUKU+"
-    },
-    {
-      "id": "kde24e1:d65fb3c0cd0254cb",
-      "zaman": "2026-10-27T11:41:09.078Z",
-      "ozetSifreli": "v1.GhbKagecQ8vMq+FX.i2CnX25Qy+SB8KCGbQgZYGeVpoaieuLqGzy1c3B1a+I8uyKEf38hoCcIvMXu3k620DnK2c/+NIx8AE802o3F7/C/pVtV4jQO9N3vgsFmIYnLiDtUJSplPTALy27lY9TLLCeHZ5pfwzATcQ1Ld3jXc0z9MNobJKVh0CqwvPx59jiBucJs202SHh3sl0E2H+/znv9JKj/0vyMsvkq1Hdi0MljtKjzaBh+/aAFF/yuYze1zTedIL724N2AXOnqo"
-    },
     {
       "id": "k6720d3:89a0fe6e6d0baf4c",
       "zaman": "2026-10-27T13:41:13.536Z",
@@ -69013,6 +69031,16 @@
       "id": "ka819b4:d4b9d94e32e579ab",
       "zaman": "2026-11-03T09:41:16.949Z",
       "ozetSifreli": "v1.vJcQrD90nrSn4vrU.WuQ40xt8vZihhbkPlZKcuv+P3GxNqaq2FAT7u+PRi72lXxp8jyLKHXH6j5QTiZ1eLREg/0VU+mQ46EfKNNwIRyZqLKOg8YgI0GXvKh5od45wJXOLphdWlj00iVK+tcmSn8Ndu9wt3dJtOWtwWu8Vhl8nJXqiPp4Bm2qT8vwejTLAv6dXgVtmQv9Wl3NK4u45JgtDzXI26pbSDLl2Sn3IV35iM1/XYAs="
+    },
+    {
+      "id": "k318da0:85a6d84f91ae2af7",
+      "zaman": "2026-11-03T11:41:16.192Z",
+      "ozetSifreli": "v1.CLJvrkTDAe5lqh3r.fWxP3eeGdpP5B2AT8jpSsRQpb9rsB4xXrevw8TWDlhTfnLydURWbUhJyCRDojPbyG42q3Gyo8bATgSbEbgj49BmD1nI2sP1pJPulxR5P9vTebsbs7FF6p8qBFAJxEqKbKwkArzo1rjcVlugBvI03ph4PvwKTXQ6iidWXrJ3MURACjT13+AUE2JDllpLWt0pTG+MyYrqoIcKBMths+BBsSgMDEGaZv4YHtResAhAWd70yp/6jKQnJ3Vu3nkZXf5EV+naXX5uqlJZtGwN6IPFAFRNVVEueY72gMxGeUtDq/GTaM/gTSfx2QyAPT3GXGFAGQyxWeW8twiAnXx/3LVJMb1EyDoaEXMC1JiVZWpffm3jBHyKjbZ3HNCE="
+    },
+    {
+      "id": "kba38ad:9beecb04b49974d4",
+      "zaman": "2026-11-03T11:41:16.192Z",
+      "ozetSifreli": "v1.jfQo9bCzTY5y1n6Y.BITSAN8rblw2+MHAd0+XTCc+6vpO3hFOmjcT0BD8Y6J4C3MH4oyp+v+hq/ypM4icvPnE2qkUeF+gjKrfUzrvWcumIM8NZ7+DI5u9lwYwLvFT19fr9UcozUYSGxO53HzJZtLGeLvyLk3yT9TADNhRtSN+fVInHNll+2NtnMBvTXrtxwpZTtWzvUt36TvPFQEnNV8ggAtcF0g9ZsaNorF8mE/lF19a/VhKhj0M/HQgDl3qOxpZwNN/LzsHb0uhyz+ub+jjWwFjYWqDLI7oyZ6DjadlEEmoZ07h2nfQp4xlUBS6AopPj+PI6u+biVWQrVHPcEleDB9PzPqRBtoPam6UQrYOA9fd+hzao/dkUk7Opg=="
     }
   ],
   "karne": {
@@ -69023,36 +69051,6 @@
     "sektorAy": "2026-10"
   },
   "yayinlar": [
-    {
-      "slug": "corning-optik-iletisim-birimi-satislarinda-artis",
-      "baslik": "Corning’s optical business jumps 44% as AI data centers demand more fiber",
-      "zaman": "2026-10-31T11:41:08.701Z",
-      "kaynaklarSifreli": "v1.loQjQDmyZ1z5PYim.vyrzGtnK6qaLlwBoTM8youb1gS+AuViA3R/7t/sXWgtAw/zltiu3prUPKOQxq2EPHrdi3h9uqlVILajkjaiZPlaaifFrzYkWisc0OBOFnMoqZy8dgC9dwsehxba3dFxpnyCx5wN7Ugt/3oGl2UaqNYJ8rl2YdOYgcBI9AeyZnZuXJjXVJerqJn/ZVW8+uzYHfj+abUEqRk98jbw5ddKMVC/CAYUlvr1rHbSTf7JNvoJsNxRTKJpnZim12v+375y+RySHxLsaQrdkyvJx1JqdtuNT+Yz4dic4yg9YLfs5l4ay9XCA1/wvJEPa3hZsotcKON/y2LihsqRY9t70Xyx4nZs8K6mU8rJ30IZZXfbV+8/mpjQhrQwHmGFN4t2DPF59qZWSObbgsY99Vp27WWdk6ShU22KAsntriTgYk26Fa+Q20Ntjwbd1iL7HBKSImJPFZ0jiSspFvAI567ItWrA49HMD2T0vh6Pm+Sd6j6PPLTVmxyHgAvuf"
-    },
-    {
-      "slug": "lloyds-finans-direktorune-gore-banka-vergi-artisi-ekonomik-buyume-hedefleriyle-c",
-      "baslik": "Bank tax hike ‘unhelpful’ to economic growth aims, Lloyds finance chief says",
-      "zaman": "2026-10-31T11:41:08.701Z",
-      "kaynaklarSifreli": "v1.km525AeQ6hswrGDh.uu4YwdcYq7qhf2OhtEsJkT53NikqHYL7ruBZQYWY1yANLVeu/TxzpkSeBPE+DMxcb2c4khGvqY+4Eq0EgO8G9vNLeybgkSC0LR4tIOyHqrVmBI+PeACayRMRtWFyhjuMdxOmhEb0zX/6HpkVt5LS/oQPrawE3XQQ+VHWTUyKIPN2cxC49DgjrOlVGi3aWEIAloBi0271HnSgVN1JpNsBFOmLHG2UtKs3yvgknWf+ilgQlzr3/XxDJ/DQIO98RP+yXH9g0ZSQgNc/6HIzdF6ZpEQ="
-    },
-    {
-      "slug": "panth-infracon-pay-fiyati-ikinci-ceyrek-sonuclarinin-ardindan-yukseldi",
-      "baslik": "Up 100% in one year! Infra stock jumps 10% after Q2 results 2026 | Will the rally continue? Target, stop-loss",
-      "zaman": "2026-10-31T11:41:08.701Z",
-      "kaynaklarSifreli": "v1.ZEX+yDuj3d880HKP.Jo84c/ru1KCGaaSBbPQJL6aAN+bCnSx9386xI6sEcQ6AXj0VnhrHK7AOniUslD6ZcfTeCv91cwy5q3PcXi1mMcEmQ43oC9J4whDvhjewaxOBEGPOy83KfS/W4Hii3sQ0A1ACgVRMepi94DCivVhSBrMKBwclzpXBZlT1+kOZdSuxNfLFq3ABY9pw0/cd9wFmFzrD1eLz/XliLMzS9c4ri2W6zEY3u+P6sTgvsLxOPZq9BcczhE/wlVjikrWkEHifneNeCPFh1o5pfOFShOFIxuABnywk1PC4OBvhrUCHzTEeL5vCDaFFSJCs1mdjWCt4rP7y2nl/f2QtEclJtIvMdgW0AIZprBHoR3g9LnVszpl7qfILRWgdKYlrgIzhnKMdVSMrtMMnkZ0OAb0="
-    },
-    {
-      "slug": "hint-yatirim-platformlari-amerika-birlesik-devletleri-hisse-senedi-yatirimina-ac",
-      "baslik": "Groww, Zerodha open US stock investing to Indians: What it means for retail investors | The risks and rewards explained",
-      "zaman": "2026-10-31T11:41:08.701Z",
-      "kaynaklarSifreli": "v1.40OuC2iBNs19bToI.pDwFEpbem4HibMLl2Enj2bAUf1ikEcIOYSI4ZcK2fGHON/Gu/RjKyjos4Zh+TrRzGJffLbX2/FK0AUwaSQiMr+QrjXAJQA8qfowTACXYn1/qly3VuDMuZAwEvTEtAXrvzVK0XP1y3jOOxp1w6wHsMnaSlqaQxm1A3//cA1Bq+UgEQalDkvvqziZSEBCoJod3PknsQzWRITfEs6VVD76E8qwCwisLzRgYnlH8P5R5CxvIPs9NUazaMyXmjt50syBxmNTReZUai/GSlh8iTCf/GMSG2A+BX6zNOyEJ6oMMwA5Gq+UIHrVKkgNeX+o7CnVQSKu4XmEsbnpftu6F3c32DPxggnO2g9ImjA/ggtQGqqyRJGafyxYeZZyvxnViuXnqvgQItYAePVNd/7iP+v3mP/Riv85RbR3CfveJDJcZgjIbH9V2y/pPumWWLMhBDpfhOul6diTjBJCycUZov3lIYZmLU2zWhCGMUpzBmrT09eFn1hZB9ZUL04wLLxbY/IzxHi/x4zBzEXoHp0j+eDeDICpk"
-    },
-    {
-      "slug": "tencent-ve-visa-cin-deki-odeme-is-birligini-genisletiyor",
-      "baslik": "Tencent, Visa deepen payments push in China after regulatory green light",
-      "zaman": "2026-10-31T11:41:08.701Z",
-      "kaynaklarSifreli": "v1.VLxjBzDR/sEuRgvz.w+bnW0tNdBGtxxHgnH2dHJYd7K7RdVdRlhQ9x8yC7prvKR3BB/p4u4XBqRthLXEZkKidnf7GBCgMp3LnC2EEIqg8/FXOn4dHmBemjkI3lOj72VpPbra2dtuv6Q7o3Ck3vh6gWbsLvn9FB26fVXZYVfNpg25Hil2pGYOFjp0+F7Rzn9YwDv6ulAR4pCBcwrdbAjF/zH2V0lCCcOqCWjm7bvNtivf09X1KO6wEh1FWy5JXm6In3dLJBbjXN4w4MbfCuV0qPNnA3uiVGG8vbLI6t5f49B97YnNJyKfjNbg7/ldF5dAyp2RS4Ydh7xczqJawAZknZnbH"
-    },
     {
       "slug": "binance-guvenlik-ihlali-ve-kripto-para-piyasalari",
       "baslik": "Binance’s $6.3 billion hack raises questions about crypto wallet safety",
@@ -69664,6 +69662,18 @@
       "baslik": "Brookfield plans for a $27 billion AI data center at UK power station",
       "zaman": "2026-11-03T09:41:16.949Z",
       "kaynaklarSifreli": "v1.k1u/oux4Pf7JL5ma.QOl0HRGO+vfKokpQ4VrJycpB6heSnCG4Kc+mofs5oUUMnLEQs73S9+XvgktTh9JWGqhv8QjmaeXurj3ZikG6xOiWJH5psj8NDqHcP72Q7YSb4Ph+n4ccCx9VCho5LmTKUTvSVbIBBnmE5qtNo3qR3zUOixFTmKVHhffEJXzwUV/FsLdeIg1JSiiDTc1Flj0LoNhdmMvXuDCgn+1wK8bQbhbdqPnEfixyVB0AIm9TakCIURhBanOlWLd4rW9+gchrzgg8K8m4+o9r8eCMJL58Wbw5n7G1usDz2tc="
+    },
+    {
+      "slug": "kuresel-yatirimcilar-dolar-kuru-koruma-oranini-2014-yilindan-bu-yana-en-dusuk-se",
+      "baslik": "Global investors slash dollar-hedging ratio to lowest since 2014",
+      "zaman": "2026-11-03T11:41:16.192Z",
+      "kaynaklarSifreli": "v1.Vm7CdPtmtXjqDa5c.v8PsA3ppVbhH6kZqXgHzwgoPFq7nAAitQ/Q2mQ1Jbm8XSrtIF7Xmi8uK1oOc/6meslVJ8wkW21T+aqQX02vfHsgfkPt5n05v4QgwBNtoia/Ytw5ChAUuqfnDvQyhEXVOci0ZX/UkNXSAvNoO45iEvn4r32cpEyMTIQZDigdVwt/4Gm583DibWz1FBTnPT2kGoifeVm4amvlTQZGvcLAE6m0LGGo8yjDXjHXtQI07QcPPLd6+WgYqbCzUgosIgxwASPeYPMCHSQJHrNc2ElhgVFgNYQNyOKzIQZJf3bYS4I8Sj6nt3BmBqjRlJy31QpI5pTmuG/olRWbtFboL7k94Tyjrm51Mv4EW8GJgWtqFEEqFjEe3HQ/VOiIe2JAaeR+QWgYQMvSO7v2sihA="
+    },
+    {
+      "slug": "enflasyon-enerji-fiyatlarindaki-artisla-birlikte-ekim-ayinda-tahmini-yuzde-4-old",
+      "baslik": "Inflation hits estimated 4% on energy price rise - CSO",
+      "zaman": "2026-11-03T11:41:16.192Z",
+      "kaynaklarSifreli": "v1.7g9XFdBExkmiPP4d.d0IoKkVovGvku0QZfZvPu5bXP5EHV+jqTiVuDEPpSKrmvmxpOMxp/j1wBpT5PUWCGFqEtCgXXd7HBAnizG8yisIEVNRTPm/CFRmhhPWLkZGXSXKQTHt3es/f44EGCC0a672aSIUsULN9RMYhHR3Fe3uEVYAoM/838hI0jSAY4k6lhiTA5ZRCn/4mBe2Fg7e0ylvKExRnM7AMpzZj9z8KB1UKJFyhZQb8kIgR4d2Fp1lDeFtCdTAzD5PK+on/Ry9q2TwdBXeWzfo0rIPCbxk9hHrUAUa9+sRm0YFoIj+OoYWqK/Gxm07rw1q5VOTkoQpg8TqVIu5JqdigfHEIYlz0+hd7chbs1LKpyzD3WzeIh0eTRyp4xM06Y+V1bkQ8C0qs/g=="
     }
   ],
   "bultenDilimleri": [
@@ -69681,6 +69691,18 @@
     "2026-11-03:ogle"
   ],
   "havuz": [
+    {
+      "id": "kf045f1:9cdf0badd0d0b738",
+      "kategori": "piyasalar",
+      "havuzaGirdi": "2026-11-03T11:41:16.192Z",
+      "sifreli": "v1.LPhrl2SgvhBK/Mvo.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"
+    },
+    {
+      "id": "k6720d3:2cf2b62eed105fc8",
+      "kategori": "piyasalar",
+      "havuzaGirdi": "2026-11-03T11:41:16.192Z",
+      "sifreli": "v1.LREmBzjHC4uYlRXz.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"
+    },
     {
       "id": "kba38ad:d52d0a9a8e16a1ca",
       "kategori": "ekonomi",
@@ -69791,31 +69813,6 @@
         "grup": "k6f19bd:6bd7333dcede8039",
         "zaman": "2026-10-31T15:41:08.908Z"
       },
-      "k069caf:22c3fc56d115f7cd": {
-        "puan": 20,
-        "grup": "k069caf:22c3fc56d115f7cd",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k069caf:e994914428fa2679": {
-        "puan": 45,
-        "grup": "k069caf:e994914428fa2679",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k318da0:700cc03103d894a8": {
-        "puan": 45,
-        "grup": "k318da0:700cc03103d894a8",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "kf045f1:009d2fb42c2e6f90": {
-        "puan": 60,
-        "grup": "kf045f1:009d2fb42c2e6f90",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k2639b3:2fa3ffd7065a72b7": {
-        "puan": 55,
-        "grup": "k2639b3:2fa3ffd7065a72b7",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
       "k6720d3:7e80876c4fa79f51": {
         "puan": 60,
         "grup": "k6720d3:7e80876c4fa79f51",
@@ -69826,20 +69823,10 @@
         "grup": "k6720d3:f02325b8f9c7b448",
         "zaman": "2026-10-31T15:41:08.908Z"
       },
-      "k6720d3:f314d371ff36381b": {
-        "puan": 65,
-        "grup": "k6720d3:f314d371ff36381b",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
       "k6720d3:05c91713e1e102c6": {
         "puan": 60,
         "grup": "k6720d3:05c91713e1e102c6",
         "zaman": "2026-10-31T13:41:15.877Z"
-      },
-      "k6720d3:54264888dcf5fe3d": {
-        "puan": 70,
-        "grup": "k6720d3:54264888dcf5fe3d",
-        "zaman": "2026-10-31T11:41:08.701Z"
       },
       "k146593:993bbffc710414d5": {
         "puan": 55,
@@ -69855,16 +69842,6 @@
         "puan": 60,
         "grup": "k146593:234aede71936924c",
         "zaman": "2026-10-31T15:41:08.908Z"
-      },
-      "k146593:a4d9d423cc300619": {
-        "puan": 60,
-        "grup": "k146593:a4d9d423cc300619",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k318da0:bfb1aee457131b16": {
-        "puan": 55,
-        "grup": "k318da0:bfb1aee457131b16",
-        "zaman": "2026-10-31T11:41:08.701Z"
       },
       "k318da0:6f1b79c20f94fa6f": {
         "puan": 50,
@@ -69885,11 +69862,6 @@
         "puan": 15,
         "grup": "k4f67e2:9e6864fc28b22f49",
         "zaman": "2026-10-31T15:41:08.908Z"
-      },
-      "k4f67e2:45e30438462fb7aa": {
-        "puan": 45,
-        "grup": "k4f67e2:45e30438462fb7aa",
-        "zaman": "2026-10-31T11:41:08.701Z"
       },
       "k4f67e2:b110477b0add94d5": {
         "puan": 15,
@@ -69916,51 +69888,6 @@
         "grup": "kfb116f:ce5fa3f50651d0c0",
         "zaman": "2026-10-31T15:41:08.908Z"
       },
-      "kfb116f:89fc2d0413390930": {
-        "puan": 55,
-        "grup": "kfb116f:89fc2d0413390930",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "kf045f1:9dd710f77960d1eb": {
-        "puan": 45,
-        "grup": "k069caf:e994914428fa2679",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k6720d3:2c75cccb6272bcc9": {
-        "puan": 75,
-        "grup": "k6720d3:2c75cccb6272bcc9",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k146593:02d793c029e5f388": {
-        "puan": 35,
-        "grup": "k146593:02d793c029e5f388",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k146593:5bb5392a62fe7232": {
-        "puan": 50,
-        "grup": "k146593:5bb5392a62fe7232",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k146593:cdcea446a959e95c": {
-        "puan": 35,
-        "grup": "k146593:cdcea446a959e95c",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k1eb283:d1ea6bfb9ac5edeb": {
-        "puan": 40,
-        "grup": "k1eb283:d1ea6bfb9ac5edeb",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k6ef72e:2af92f88b6a8cb73": {
-        "puan": 55,
-        "grup": "k6ef72e:2af92f88b6a8cb73",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "kf045f1:3a37ed85324e4869": {
-        "puan": 65,
-        "grup": "kf045f1:3a37ed85324e4869",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
       "kf045f1:48c09a3fbcd147ab": {
         "puan": 60,
         "grup": "kf045f1:48c09a3fbcd147ab",
@@ -69975,21 +69902,6 @@
         "puan": 15,
         "grup": "k5bfe66:43f4270de1a8d614",
         "zaman": "2026-10-31T15:41:08.908Z"
-      },
-      "kf0d847:b5839e9f1c604a6b": {
-        "puan": 65,
-        "grup": "kf0d847:b5839e9f1c604a6b",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k069caf:4523cc5f6b21047e": {
-        "puan": 75,
-        "grup": "k069caf:4523cc5f6b21047e",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k6720d3:00a3ad129b149376": {
-        "puan": 55,
-        "grup": "k6720d3:00a3ad129b149376",
-        "zaman": "2026-10-31T11:41:08.701Z"
       },
       "k6720d3:5fbdb49260e09b81": {
         "puan": 65,
@@ -71572,9 +71484,9 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "kfb116f:712a79f97928f35d": {
-        "puan": 62,
+        "puan": 50,
         "grup": "kfb116f:712a79f97928f35d",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:3db3750797389e0e": {
         "puan": 55,
@@ -71606,16 +71518,6 @@
         "grup": "kfb116f:1a24481a440347a4",
         "zaman": "2026-11-02T15:41:06.491Z"
       },
-      "k6f19bd:c5bee793bf5b2557": {
-        "puan": 60,
-        "grup": "k6f19bd:c5bee793bf5b2557",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
-      "k2639b3:b3275ab57ef98f22": {
-        "puan": 50,
-        "grup": "k6f19bd:c5bee793bf5b2557",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
       "kf045f1:2ef9a524b11c6154": {
         "puan": 60,
         "grup": "kf045f1:2ef9a524b11c6154",
@@ -71625,11 +71527,6 @@
         "puan": 10,
         "grup": "kf045f1:67f9ebe4a4f1006c",
         "zaman": "2026-10-31T15:41:08.908Z"
-      },
-      "ka819b4:3d67b38c2460e099": {
-        "puan": 65,
-        "grup": "ka819b4:3d67b38c2460e099",
-        "zaman": "2026-10-31T11:41:08.701Z"
       },
       "ka819b4:2c5145d0e277652a": {
         "puan": 45,
@@ -71686,11 +71583,6 @@
         "grup": "k069caf:3eeda83327ca6467",
         "zaman": "2026-10-31T15:41:08.908Z"
       },
-      "k069caf:0ac8c8f732973b78": {
-        "puan": 65,
-        "grup": "k069caf:0ac8c8f732973b78",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
       "k069caf:89abff995e90beb1": {
         "puan": 15,
         "grup": "k069caf:89abff995e90beb1",
@@ -71710,11 +71602,6 @@
         "puan": 50,
         "grup": "k1245cd:adad9967c0d8c3a8",
         "zaman": "2026-10-31T15:41:08.908Z"
-      },
-      "k1245cd:e8339dc55b1a0b6f": {
-        "puan": 85,
-        "grup": "k1245cd:e8339dc55b1a0b6f",
-        "zaman": "2026-10-31T11:41:08.701Z"
       },
       "k1245cd:4814852b213d5246": {
         "puan": 55,
@@ -71766,11 +71653,6 @@
         "grup": "k318da0:ba497c8ae0ba014d",
         "zaman": "2026-10-31T15:41:08.908Z"
       },
-      "k318da0:a80ce99678a945bd": {
-        "puan": 65,
-        "grup": "k318da0:a80ce99678a945bd",
-        "zaman": "2026-10-31T11:41:08.701Z"
-      },
       "k318da0:0a953129030574fa": {
         "puan": 45,
         "grup": "k318da0:0a953129030574fa",
@@ -71780,11 +71662,6 @@
         "puan": 45,
         "grup": "k361368:b75e5f5be92f7da0",
         "zaman": "2026-10-31T15:41:08.908Z"
-      },
-      "kfb116f:149e687848ab1c30": {
-        "puan": 65,
-        "grup": "kfb116f:149e687848ab1c30",
-        "zaman": "2026-10-31T11:41:08.701Z"
       },
       "kfb116f:b8c187038a4559ec": {
         "puan": 30,
@@ -76212,9 +76089,9 @@
         "zaman": "2026-11-02T13:41:13.360Z"
       },
       "k6720d3:be6b95b2d5163308": {
-        "puan": 60,
+        "puan": 50,
         "grup": "k6720d3:be6b95b2d5163308",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:9321063e989bbf74": {
         "puan": 58,
@@ -76257,9 +76134,9 @@
         "zaman": "2026-11-02T11:41:04.607Z"
       },
       "k318da0:85a6d84f91ae2af7": {
-        "puan": 65,
+        "puan": 70,
         "grup": "k318da0:85a6d84f91ae2af7",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k2bd8fb:1306739dd848a4ac": {
         "puan": 55,
@@ -76392,9 +76269,9 @@
         "zaman": "2026-11-03T07:41:13.952Z"
       },
       "k4f67e2:58ab5b25a4cf9897": {
-        "puan": 60,
+        "puan": 45,
         "grup": "k4f67e2:58ab5b25a4cf9897",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k4f67e2:25f4c9f393d9e55d": {
         "puan": 52,
@@ -76427,9 +76304,9 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "kfb116f:3d49a97913fc986b": {
-        "puan": 62,
+        "puan": 50,
         "grup": "kfb116f:3d49a97913fc986b",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:4c590b37e2260ab8": {
         "puan": 35,
@@ -76682,9 +76559,9 @@
         "zaman": "2026-11-02T17:41:07.004Z"
       },
       "k95308a:06b4060fcd577649": {
-        "puan": 65,
+        "puan": 60,
         "grup": "k95308a:06b4060fcd577649",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1245cd:23c278a9b3c2ad93": {
         "puan": 30,
@@ -76704,22 +76581,22 @@
       "k1245cd:e99e350bae86c6b6": {
         "puan": 65,
         "grup": "k1245cd:e99e350bae86c6b6",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1245cd:d7cd21d258a7e00b": {
-        "puan": 60,
+        "puan": 45,
         "grup": "k1245cd:d7cd21d258a7e00b",
-        "zaman": "2026-11-02T15:41:06.491Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1245cd:46497d72b1bc10da": {
-        "puan": 40,
+        "puan": 30,
         "grup": "k1245cd:46497d72b1bc10da",
-        "zaman": "2026-11-02T13:41:13.360Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1245cd:4377f33251251811": {
-        "puan": 25,
+        "puan": 15,
         "grup": "k1245cd:4377f33251251811",
-        "zaman": "2026-11-02T13:41:13.360Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6c89da:eccee3923881453f": {
         "puan": 58,
@@ -76737,9 +76614,9 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "k19040f:529a317bfbf37a44": {
-        "puan": 60,
+        "puan": 55,
         "grup": "k19040f:529a317bfbf37a44",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kc1296b:15b2c27543ffdc55": {
         "puan": 45,
@@ -76767,9 +76644,9 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "kc1296b:ea6d4f9ac25f965c": {
-        "puan": 55,
+        "puan": 50,
         "grup": "kc1296b:ea6d4f9ac25f965c",
-        "zaman": "2026-11-02T17:41:07.004Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kc1296b:8a59f666d71f261f": {
         "puan": 50,
@@ -76787,9 +76664,9 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "kc1296b:4c1bb1b7532c700f": {
-        "puan": 50,
+        "puan": 45,
         "grup": "kc1296b:4c1bb1b7532c700f",
-        "zaman": "2026-11-02T17:41:07.004Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:089695c3fd08f51d": {
         "puan": 55,
@@ -76809,7 +76686,7 @@
       "k6720d3:3e3d26bbcbf841e8": {
         "puan": 65,
         "grup": "k6720d3:3e3d26bbcbf841e8",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:ba428a76065d61a7": {
         "puan": 70,
@@ -76837,9 +76714,9 @@
         "zaman": "2026-11-02T13:41:13.360Z"
       },
       "k146593:0b9841b2ae6f6e1d": {
-        "puan": 65,
+        "puan": 50,
         "grup": "k146593:0b9841b2ae6f6e1d",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k146593:9281968324b422d4": {
         "puan": 80,
@@ -76847,9 +76724,9 @@
         "zaman": "2026-11-02T13:41:13.360Z"
       },
       "k318da0:692cb9fcc11dcd2f": {
-        "puan": 55,
-        "grup": "k6720d3:01664a938fcd3bec",
-        "zaman": "2026-11-03T03:41:19.648Z"
+        "puan": 40,
+        "grup": "k318da0:692cb9fcc11dcd2f",
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k318da0:a2128f1515bf451a": {
         "puan": 55,
@@ -76857,9 +76734,9 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "k318da0:1dd41a02ab0e6de0": {
-        "puan": 60,
+        "puan": 45,
         "grup": "k318da0:1dd41a02ab0e6de0",
-        "zaman": "2026-11-03T03:41:19.648Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k318da0:2d6f99f52afe0f3b": {
         "puan": 40,
@@ -76957,9 +76834,9 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "k6ef72e:94f8eb7da83fabb3": {
-        "puan": 65,
+        "puan": 55,
         "grup": "k6ef72e:94f8eb7da83fabb3",
-        "zaman": "2026-11-03T03:41:19.648Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k4f67e2:20d1ba8415e6ebe3": {
         "puan": 50,
@@ -76987,39 +76864,39 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "k361368:faf2fbfa3884336a": {
-        "puan": 65,
+        "puan": 55,
         "grup": "k361368:faf2fbfa3884336a",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:7af45d5d9adbcef8": {
-        "puan": 55,
+        "puan": 50,
         "grup": "kfb116f:7af45d5d9adbcef8",
-        "zaman": "2026-11-02T13:41:13.360Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:096368a2467bd122": {
         "puan": 55,
         "grup": "kfb116f:096368a2467bd122",
-        "zaman": "2026-11-02T13:41:13.360Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:f9779855fcac88bd": {
-        "puan": 45,
+        "puan": 35,
         "grup": "kfb116f:f9779855fcac88bd",
-        "zaman": "2026-11-02T13:41:13.360Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:c73e5d224cebbec5": {
-        "puan": 45,
+        "puan": 40,
         "grup": "kfb116f:c73e5d224cebbec5",
-        "zaman": "2026-11-02T13:41:13.360Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:6178decc18cb77ac": {
-        "puan": 50,
+        "puan": 45,
         "grup": "kfb116f:6178decc18cb77ac",
-        "zaman": "2026-11-02T13:41:13.360Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:60bdc71f7d2e1403": {
-        "puan": 55,
+        "puan": 50,
         "grup": "kfb116f:60bdc71f7d2e1403",
-        "zaman": "2026-11-02T13:41:13.360Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:1c3acbb1bbaa701c": {
         "puan": 60,
@@ -77032,9 +76909,9 @@
         "zaman": "2026-11-02T13:41:13.360Z"
       },
       "kfb116f:1a271852024392c7": {
-        "puan": 60,
+        "puan": 50,
         "grup": "kfb116f:1a271852024392c7",
-        "zaman": "2026-11-02T13:41:13.360Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:4bd7a5106fefd900": {
         "puan": 50,
@@ -77049,17 +76926,17 @@
       "kfb116f:f5cf8b0ddfbcded5": {
         "puan": 50,
         "grup": "kfb116f:f5cf8b0ddfbcded5",
-        "zaman": "2026-11-02T13:41:13.360Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:a3c717b9944f3e11": {
         "puan": 50,
         "grup": "kfb116f:a3c717b9944f3e11",
-        "zaman": "2026-11-02T13:41:13.360Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:a80ece3d107b3d20": {
         "puan": 55,
         "grup": "kfb116f:a80ece3d107b3d20",
-        "zaman": "2026-11-02T13:41:13.360Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "New York Fed Liberty Street Economics:https://libertystreeteconomics.newyorkfed.org/2026/11/how-do-banking-supervisors-deal-with-failing-banks/": {
         "puan": 50,
@@ -77187,14 +77064,14 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "kf0d847:8088a89a60da74d4": {
-        "puan": 65,
+        "puan": 60,
         "grup": "kf0d847:8088a89a60da74d4",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kf0d847:61f0b1ced26da0b0": {
-        "puan": 60,
+        "puan": 55,
         "grup": "kf0d847:61f0b1ced26da0b0",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kf0d847:027857f08f730108": {
         "puan": 85,
@@ -77282,14 +77159,14 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "k6720d3:75ea82ae394f51d0": {
-        "puan": 65,
+        "puan": 55,
         "grup": "k6720d3:75ea82ae394f51d0",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:7535b738b6e77fc2": {
-        "puan": 70,
+        "puan": 55,
         "grup": "k6720d3:7535b738b6e77fc2",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:2f84874dd360f8f8": {
         "puan": 55,
@@ -77297,19 +77174,19 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "k6720d3:26e84ea397ec5cbc": {
-        "puan": 55,
+        "puan": 50,
         "grup": "k6720d3:26e84ea397ec5cbc",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:a5e7f02fb229b0fc": {
-        "puan": 65,
+        "puan": 55,
         "grup": "k6720d3:a5e7f02fb229b0fc",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:c444854412e1d22c": {
-        "puan": 70,
+        "puan": 60,
         "grup": "k6720d3:c444854412e1d22c",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:205b4a94464e6a9b": {
         "puan": 70,
@@ -77317,9 +77194,9 @@
         "zaman": "2026-11-02T21:41:07.422Z"
       },
       "k6720d3:186ee9f28734f17a": {
-        "puan": 55,
+        "puan": 40,
         "grup": "k6720d3:186ee9f28734f17a",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:96d910a21f11dff1": {
         "puan": 75,
@@ -77329,17 +77206,17 @@
       "k146593:1c1cdc9c207c5dfb": {
         "puan": 65,
         "grup": "k146593:1c1cdc9c207c5dfb",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k146593:99ed57df743d09cb": {
-        "puan": 65,
+        "puan": 55,
         "grup": "k146593:99ed57df743d09cb",
-        "zaman": "2026-11-02T21:41:07.422Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k318da0:59cae65085d211a1": {
-        "puan": 55,
+        "puan": 50,
         "grup": "k318da0:59cae65085d211a1",
-        "zaman": "2026-11-03T05:41:10.827Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k318da0:f6fa9ae7c7824407": {
         "puan": 55,
@@ -77349,7 +77226,7 @@
       "k318da0:6e92fff58282a4d6": {
         "puan": 55,
         "grup": "k318da0:6e92fff58282a4d6",
-        "zaman": "2026-11-03T05:41:10.827Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k318da0:3b26fd22f5b18f26": {
         "puan": 70,
@@ -77372,9 +77249,9 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "k1eb283:990ba74160b532e1": {
-        "puan": 65,
-        "grup": "kba38ad:cfec5f0515e9c21b",
-        "zaman": "2026-11-02T17:41:07.004Z"
+        "puan": 55,
+        "grup": "k1eb283:990ba74160b532e1",
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1eb283:4e15176cd2076224": {
         "puan": 55,
@@ -77397,9 +77274,9 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "k6ef72e:05e0a8affe167b22": {
-        "puan": 65,
+        "puan": 50,
         "grup": "k6ef72e:05e0a8affe167b22",
-        "zaman": "2026-11-03T03:41:19.648Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6ef72e:1bbb70b63113a907": {
         "puan": 40,
@@ -77459,7 +77336,7 @@
       "k611bc3:5359f38a2d6ee45d": {
         "puan": 60,
         "grup": "k611bc3:5359f38a2d6ee45d",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k611bc3:e1ad8f683ba80214": {
         "puan": 55,
@@ -77492,9 +77369,9 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "kfb116f:1b708d374b94bd42": {
-        "puan": 60,
+        "puan": 50,
         "grup": "kfb116f:1b708d374b94bd42",
-        "zaman": "2026-11-02T15:41:06.491Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:c524f49365e7c293": {
         "puan": 45,
@@ -77507,14 +77384,14 @@
         "zaman": "2026-11-02T15:41:06.491Z"
       },
       "kfb116f:af26b0bbb54a6df2": {
-        "puan": 65,
+        "puan": 60,
         "grup": "kfb116f:af26b0bbb54a6df2",
-        "zaman": "2026-11-02T15:41:06.491Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:bff5a945dbe050a7": {
-        "puan": 60,
+        "puan": 55,
         "grup": "kfb116f:bff5a945dbe050a7",
-        "zaman": "2026-11-02T15:41:06.491Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:7db3717f20a46df2": {
         "puan": 55,
@@ -77757,9 +77634,9 @@
         "zaman": "2026-11-03T05:41:10.827Z"
       },
       "k6ef72e:8433a234dddfe831": {
-        "puan": 55,
+        "puan": 60,
         "grup": "k6ef72e:8433a234dddfe831",
-        "zaman": "2026-11-03T05:41:10.827Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kef23b7:767d0fcf859ac3df": {
         "puan": 75,
@@ -77877,9 +77754,9 @@
         "zaman": "2026-11-03T07:41:13.952Z"
       },
       "k6a7c8d:d9815b084b9b75c7": {
-        "puan": 62,
+        "puan": 55,
         "grup": "k6a7c8d:d9815b084b9b75c7",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1eb283:aaf771865e0cdaaf": {
         "puan": 60,
@@ -77904,7 +77781,7 @@
       "k6ef72e:970f8deef2c050bc": {
         "puan": 55,
         "grup": "k6ef72e:970f8deef2c050bc",
-        "zaman": "2026-11-03T05:41:10.827Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6ef72e:3b156d1919867779": {
         "puan": 65,
@@ -78054,12 +77931,12 @@
       "kf045f1:2d77d45ad057864c": {
         "puan": 60,
         "grup": "kf045f1:2d77d45ad057864c",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kf045f1:7400342c1936c346": {
         "puan": 45,
-        "grup": "k19040f:529a317bfbf37a44",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "grup": "kf045f1:7400342c1936c346",
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kf045f1:d9f1ecd2429ec3d9": {
         "puan": 55,
@@ -78212,9 +78089,9 @@
         "zaman": "2026-11-03T03:41:19.648Z"
       },
       "k85aeb5:4b6692a7acc8b7bb": {
-        "puan": 60,
+        "puan": 55,
         "grup": "k85aeb5:4b6692a7acc8b7bb",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:84205ea01e0b9b57": {
         "puan": 75,
@@ -78607,9 +78484,9 @@
         "zaman": "2026-11-02T21:41:07.422Z"
       },
       "k069caf:266c41828bca2468": {
-        "puan": 60,
+        "puan": 50,
         "grup": "k069caf:266c41828bca2468",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kef23b7:e7bfc239232bf0ba": {
         "puan": 30,
@@ -78674,7 +78551,7 @@
       "k178392:cca306f61261ae0a": {
         "puan": 60,
         "grup": "k178392:cca306f61261ae0a",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k361368:fca3021bc8b2892e": {
         "puan": 55,
@@ -78857,9 +78734,9 @@
         "zaman": "2026-11-03T05:41:10.827Z"
       },
       "k069caf:5eb6d7f39488c880": {
-        "puan": 20,
+        "puan": 25,
         "grup": "k069caf:5eb6d7f39488c880",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1eb283:a1735128062c26b3": {
         "puan": 15,
@@ -79192,9 +79069,9 @@
         "zaman": "2026-11-03T03:41:19.648Z"
       },
       "k2639b3:feee26900d4727c2": {
-        "puan": 60,
+        "puan": 55,
         "grup": "k2639b3:feee26900d4727c2",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k2639b3:f090be875cab3fba": {
         "puan": 55,
@@ -79217,9 +79094,9 @@
         "zaman": "2026-11-03T05:41:10.827Z"
       },
       "k95308a:8be61d8f6b774ce5": {
-        "puan": 65,
+        "puan": 60,
         "grup": "k95308a:8be61d8f6b774ce5",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1245cd:8471c09434fe6247": {
         "puan": 45,
@@ -79247,9 +79124,9 @@
         "zaman": "2026-11-03T03:41:19.648Z"
       },
       "k19040f:729775de8e2a8d29": {
-        "puan": 62,
+        "puan": 60,
         "grup": "k19040f:729775de8e2a8d29",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k19040f:e12c8c5240726551": {
         "puan": 70,
@@ -79377,9 +79254,9 @@
         "zaman": "2026-11-03T03:41:19.648Z"
       },
       "k318da0:d19c37feb8075dfa": {
-        "puan": 62,
+        "puan": 65,
         "grup": "k318da0:d19c37feb8075dfa",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k318da0:97595e4b1a2e1b52": {
         "puan": 45,
@@ -79432,9 +79309,9 @@
         "zaman": "2026-11-03T03:41:19.648Z"
       },
       "k2bd8fb:992ee69eadea6a0d": {
-        "puan": 60,
+        "puan": 45,
         "grup": "k2bd8fb:992ee69eadea6a0d",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k2bd8fb:4e0aa22634803be8": {
         "puan": 55,
@@ -79467,9 +79344,9 @@
         "zaman": "2026-11-03T03:41:19.648Z"
       },
       "k6ef72e:8d0d5073f35826f9": {
-        "puan": 55,
+        "puan": 50,
         "grup": "k6ef72e:8d0d5073f35826f9",
-        "zaman": "2026-11-03T05:41:10.827Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k531d14:5ad2b1453e9064cf": {
         "puan": 65,
@@ -79477,9 +79354,9 @@
         "zaman": "2026-11-03T07:41:13.952Z"
       },
       "k6ef72e:f97ef40d1f9ecaf0": {
-        "puan": 45,
+        "puan": 55,
         "grup": "k6ef72e:f97ef40d1f9ecaf0",
-        "zaman": "2026-11-03T05:41:10.827Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6ef72e:088262cda06f3bce": {
         "puan": 55,
@@ -79824,7 +79701,7 @@
       "k6720d3:40cbd90d8e634a23": {
         "puan": 50,
         "grup": "k6720d3:40cbd90d8e634a23",
-        "zaman": "2026-11-03T07:41:13.952Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:41761d36c00dba43": {
         "puan": 65,
@@ -79834,7 +79711,7 @@
       "k6720d3:5d585fd55568dda6": {
         "puan": 45,
         "grup": "k6720d3:5d585fd55568dda6",
-        "zaman": "2026-11-03T05:41:10.827Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:a122f0df0a8b01de": {
         "puan": 70,
@@ -79842,9 +79719,9 @@
         "zaman": "2026-11-03T05:41:10.827Z"
       },
       "k6720d3:9c794630f6379784": {
-        "puan": 65,
+        "puan": 60,
         "grup": "k6720d3:9c794630f6379784",
-        "zaman": "2026-11-03T05:41:10.827Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:d465bdb7ea288d2c": {
         "puan": 40,
@@ -79934,7 +79811,7 @@
       "k318da0:041c208579bea98c": {
         "puan": 65,
         "grup": "k318da0:041c208579bea98c",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k318da0:742922a936dd5a26": {
         "puan": 65,
@@ -79972,9 +79849,9 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k6a7c8d:0589d79cb2ba345d": {
-        "puan": 60,
+        "puan": 55,
         "grup": "k6a7c8d:0589d79cb2ba345d",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1eb283:ef10208d95a127fe": {
         "puan": 15,
@@ -80022,19 +79899,19 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k1eb283:2a4d809ac0761d4d": {
-        "puan": 10,
+        "puan": 25,
         "grup": "k1eb283:2a4d809ac0761d4d",
-        "zaman": "2026-11-03T07:41:13.952Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1eb283:63ab598b3ea96ba3": {
-        "puan": 10,
+        "puan": 15,
         "grup": "k1eb283:63ab598b3ea96ba3",
-        "zaman": "2026-11-03T07:41:13.952Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1eb283:613da4eaa4206bc9": {
-        "puan": 10,
+        "puan": 25,
         "grup": "k1eb283:613da4eaa4206bc9",
-        "zaman": "2026-11-03T07:41:13.952Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6ef72e:ce7785fe2667ce7f": {
         "puan": 30,
@@ -80079,7 +79956,7 @@
       "k6ef72e:e245612009758275": {
         "puan": 65,
         "grup": "k6ef72e:e245612009758275",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k4f67e2:f6838f72c6f126b4": {
         "puan": 45,
@@ -80137,9 +80014,9 @@
         "zaman": "2026-11-03T07:41:13.952Z"
       },
       "kfb116f:346e374b33cce170": {
-        "puan": 60,
+        "puan": 55,
         "grup": "kfb116f:346e374b33cce170",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:a5a83c71b25e07ef": {
         "puan": 52,
@@ -80147,19 +80024,19 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "kfb116f:333413be1871e4b7": {
-        "puan": 65,
+        "puan": 60,
         "grup": "kfb116f:333413be1871e4b7",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:3f2bc6fd473f5f55": {
-        "puan": 62,
+        "puan": 60,
         "grup": "kfb116f:3f2bc6fd473f5f55",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:50424ddecf04b0ca": {
         "puan": 60,
         "grup": "kfb116f:50424ddecf04b0ca",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kfb116f:4182b8e401323e50": {
         "puan": 55,
@@ -80237,9 +80114,9 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "kf0d847:62e2d51f202d4a57": {
-        "puan": 60,
+        "puan": 55,
         "grup": "kf0d847:62e2d51f202d4a57",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k9836af:5a67d4d657a03e01": {
         "puan": 78,
@@ -80322,14 +80199,14 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k19040f:08cc169f5a6d1922": {
-        "puan": 62,
+        "puan": 55,
         "grup": "k19040f:08cc169f5a6d1922",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k19040f:170e34712c5db270": {
         "puan": 60,
         "grup": "k19040f:170e34712c5db270",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k19040f:0df53b26aa7b4010": {
         "puan": 48,
@@ -80347,14 +80224,14 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k6720d3:ad7bb6dca00bff26": {
-        "puan": 62,
+        "puan": 65,
         "grup": "k6720d3:ad7bb6dca00bff26",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:de3a6ee601632472": {
-        "puan": 65,
+        "puan": 60,
         "grup": "k6720d3:de3a6ee601632472",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:c4cc5c3b3a9c5630": {
         "puan": 65,
@@ -80367,9 +80244,9 @@
         "zaman": "2026-11-03T07:41:13.952Z"
       },
       "k6720d3:1e7dc6cf670d2dee": {
-        "puan": 60,
+        "puan": 55,
         "grup": "k6720d3:1e7dc6cf670d2dee",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:9eb234a04189ee9b": {
         "puan": 65,
@@ -80427,9 +80304,9 @@
         "zaman": "2026-11-03T07:41:13.952Z"
       },
       "k318da0:14345ed3611d1fd1": {
-        "puan": 60,
+        "puan": 55,
         "grup": "k318da0:14345ed3611d1fd1",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k318da0:676c7f20524f21b5": {
         "puan": 55,
@@ -80439,7 +80316,7 @@
       "k318da0:4daf4c0e21d343ca": {
         "puan": 60,
         "grup": "k318da0:4daf4c0e21d343ca",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k318da0:39d1b2f6484d1087": {
         "puan": 65,
@@ -80447,9 +80324,9 @@
         "zaman": "2026-11-03T07:41:13.952Z"
       },
       "k318da0:a0d30faabcdd5490": {
-        "puan": 65,
+        "puan": 55,
         "grup": "k318da0:a0d30faabcdd5490",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k318da0:47da243c0af48e3c": {
         "puan": 65,
@@ -80502,9 +80379,9 @@
         "zaman": "2026-11-03T07:41:13.952Z"
       },
       "k6797d6:9140d9f0eab2436b": {
-        "puan": 62,
+        "puan": 60,
         "grup": "k6797d6:9140d9f0eab2436b",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k7adf3c:6789a0409a509481": {
         "puan": 65,
@@ -80527,9 +80404,9 @@
         "zaman": "2026-11-03T07:41:13.952Z"
       },
       "k7adf3c:60e2e89da2a06707": {
-        "puan": 65,
+        "puan": 55,
         "grup": "k7adf3c:60e2e89da2a06707",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kba38ad:8b208ad185dd6a51": {
         "puan": 70,
@@ -80543,8 +80420,8 @@
       },
       "kba38ad:66805f97b992c698": {
         "puan": 65,
-        "grup": "kba38ad:66805f97b992c698",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "grup": "k6c89da:443e2dcb4e4644ab",
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kba38ad:87d49df1c41a503f": {
         "puan": 65,
@@ -80574,7 +80451,7 @@
       "k6a7c8d:2266404554bae80b": {
         "puan": 60,
         "grup": "k6a7c8d:2266404554bae80b",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6a7c8d:24f08a42614fd9cb": {
         "puan": 50,
@@ -80597,9 +80474,9 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k1eb283:6ea09e9d11d5522c": {
-        "puan": 10,
+        "puan": 15,
         "grup": "k1eb283:6ea09e9d11d5522c",
-        "zaman": "2026-11-03T07:41:13.952Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6ef72e:abe921d946f12b54": {
         "puan": 75,
@@ -80717,14 +80594,14 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "kf0d847:147a69e8f9ee5f09": {
-        "puan": 68,
+        "puan": 65,
         "grup": "kf0d847:147a69e8f9ee5f09",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "kf0d847:6bd58cc4824a1fae": {
-        "puan": 60,
+        "puan": 55,
         "grup": "kf0d847:6bd58cc4824a1fae",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k9836af:0074ac751aa85057": {
         "puan": 65,
@@ -80767,19 +80644,19 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k069caf:dad43daead41d125": {
-        "puan": 70,
-        "grup": "k069caf:dad43daead41d125",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "puan": 65,
+        "grup": "kf0d847:147a69e8f9ee5f09",
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1eb283:34ebaadd8e8c2658": {
-        "puan": 70,
-        "grup": "k069caf:dad43daead41d125",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "puan": 60,
+        "grup": "kf0d847:147a69e8f9ee5f09",
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k531d14:409041f9cf764048": {
-        "puan": 70,
-        "grup": "k069caf:dad43daead41d125",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "puan": 60,
+        "grup": "kf0d847:147a69e8f9ee5f09",
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k069caf:95e881201bfd6e0a": {
         "puan": 55,
@@ -80817,29 +80694,29 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k2639b3:7c3015f30cfdefc0": {
-        "puan": 70,
+        "puan": 55,
         "grup": "k2639b3:7c3015f30cfdefc0",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1245cd:9e0a5b6285350b32": {
-        "puan": 60,
+        "puan": 55,
         "grup": "k1245cd:9e0a5b6285350b32",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1245cd:9a5066fe36fe2a60": {
-        "puan": 68,
+        "puan": 65,
         "grup": "k1245cd:9a5066fe36fe2a60",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k19040f:66b88bd1e3f27edd": {
-        "puan": 65,
+        "puan": 60,
         "grup": "k19040f:66b88bd1e3f27edd",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k19040f:3455c6b4a77f1436": {
         "puan": 60,
         "grup": "k19040f:3455c6b4a77f1436",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:046736a2369292f4": {
         "puan": 58,
@@ -80864,12 +80741,12 @@
       "k6720d3:2cf2b62eed105fc8": {
         "puan": 70,
         "grup": "k6720d3:2cf2b62eed105fc8",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:648b097ac35e1456": {
-        "puan": 62,
+        "puan": 60,
         "grup": "k6720d3:648b097ac35e1456",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6720d3:034a9740e071871b": {
         "puan": 82,
@@ -80892,9 +80769,9 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k146593:5874335d5d4d1ee8": {
-        "puan": 65,
+        "puan": 60,
         "grup": "k146593:5874335d5d4d1ee8",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k146593:7bd773e40dc7a77c": {
         "puan": 55,
@@ -80902,14 +80779,14 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k146593:84ddf0cb5c4d17da": {
-        "puan": 62,
+        "puan": 55,
         "grup": "k146593:84ddf0cb5c4d17da",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k146593:bfff03bc4541cc6d": {
-        "puan": 68,
+        "puan": 65,
         "grup": "k146593:bfff03bc4541cc6d",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k146593:c9111afdd51646d0": {
         "puan": 55,
@@ -80922,14 +80799,14 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k318da0:67e2d7a537ac5495": {
-        "puan": 60,
+        "puan": 55,
         "grup": "k318da0:67e2d7a537ac5495",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k318da0:2a883ec23fa358a9": {
-        "puan": 65,
+        "puan": 60,
         "grup": "k318da0:2a883ec23fa358a9",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k318da0:1904701e5057cb2d": {
         "puan": 45,
@@ -80942,9 +80819,9 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k318da0:b1d1ebcd0c14f010": {
-        "puan": 65,
+        "puan": 60,
         "grup": "k318da0:b1d1ebcd0c14f010",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6797d6:d8e7f2edf3d1c63c": {
         "puan": 70,
@@ -80982,9 +80859,9 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k1eb283:a5bef2eb26338a52": {
-        "puan": 60,
+        "puan": 55,
         "grup": "k1eb283:a5bef2eb26338a52",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k1eb283:4f4bad79c4640005": {
         "puan": 58,
@@ -80992,19 +80869,19 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "k6ef72e:c80cdb49d728ba85": {
-        "puan": 68,
-        "grup": "k6ef72e:c80cdb49d728ba85",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "puan": 60,
+        "grup": "k069caf:27bd48bc9453f89c",
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6ef72e:b4ac8cf981dc6c0d": {
-        "puan": 72,
+        "puan": 65,
         "grup": "k6ef72e:b4ac8cf981dc6c0d",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k6ef72e:673975c5cdf731f7": {
-        "puan": 68,
+        "puan": 60,
         "grup": "k6ef72e:673975c5cdf731f7",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
       },
       "k376384:6f746094514b5942": {
         "puan": 75,
@@ -81037,9 +80914,624 @@
         "zaman": "2026-11-03T09:41:16.949Z"
       },
       "kfb116f:5f75efd5ac149b01": {
-        "puan": 72,
+        "puan": 65,
         "grup": "kfb116f:5f75efd5ac149b01",
-        "zaman": "2026-11-03T09:41:16.949Z"
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "ka819b4:e350894e1de1ea57": {
+        "puan": 65,
+        "grup": "ka819b4:e350894e1de1ea57",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k069caf:6e9d341af9dadca1": {
+        "puan": 55,
+        "grup": "k069caf:6e9d341af9dadca1",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kba38ad:b1eff8cf1ee96038": {
+        "puan": 55,
+        "grup": "k069caf:6e9d341af9dadca1",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1eb283:553c5cbc63ea5a91": {
+        "puan": 50,
+        "grup": "k069caf:6e9d341af9dadca1",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kfb7f7a:1ff7d3aa74d327ea": {
+        "puan": 50,
+        "grup": "k069caf:6e9d341af9dadca1",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k2639b3:f61568054a08784f": {
+        "puan": 50,
+        "grup": "k2639b3:f61568054a08784f",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k531d14:b9e8a5a9ca9fd57b": {
+        "puan": 50,
+        "grup": "k531d14:b9e8a5a9ca9fd57b",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kde24e1:57ec3fa660f2d8f8": {
+        "puan": 45,
+        "grup": "k531d14:b9e8a5a9ca9fd57b",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6ef72e:6876e51433d16b78": {
+        "puan": 50,
+        "grup": "k531d14:b9e8a5a9ca9fd57b",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kfb116f:c6678a4edd667796": {
+        "puan": 50,
+        "grup": "kfb116f:1a271852024392c7",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "sec:0001771146-26-002195": {
+        "puan": 30,
+        "grup": "sec:0001771146-26-002195",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kf045f1:9cdf0badd0d0b738": {
+        "puan": 70,
+        "grup": "kf045f1:9cdf0badd0d0b738",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kf045f1:5531cf1f993ddc9d": {
+        "puan": 55,
+        "grup": "kf045f1:5531cf1f993ddc9d",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kf045f1:ed95e3fc06536021": {
+        "puan": 60,
+        "grup": "kf045f1:ed95e3fc06536021",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kf045f1:a9e092801a3bec6f": {
+        "puan": 35,
+        "grup": "kf045f1:a9e092801a3bec6f",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kf045f1:7cf3f0777beafafb": {
+        "puan": 55,
+        "grup": "kf045f1:7cf3f0777beafafb",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k5bfe66:58e7915c54e1042d": {
+        "puan": 55,
+        "grup": "k5bfe66:58e7915c54e1042d",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k5bfe66:cb12abfcf57e1b20": {
+        "puan": 55,
+        "grup": "k5bfe66:cb12abfcf57e1b20",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k5bfe66:9ba3148659d10909": {
+        "puan": 65,
+        "grup": "k5bfe66:9ba3148659d10909",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k5bfe66:f0732c6fdff3d88c": {
+        "puan": 65,
+        "grup": "k5bfe66:f0732c6fdff3d88c",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k5bfe66:bc899df5a6feaa7f": {
+        "puan": 15,
+        "grup": "k5bfe66:bc899df5a6feaa7f",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kf0d847:58b26585336bd306": {
+        "puan": 55,
+        "grup": "kf0d847:58b26585336bd306",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kf0d847:5f161fafee15f557": {
+        "puan": 55,
+        "grup": "kf0d847:5f161fafee15f557",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kf0d847:43bc21c6898bd366": {
+        "puan": 50,
+        "grup": "kf0d847:43bc21c6898bd366",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kf0d847:f5b740e2d314150b": {
+        "puan": 55,
+        "grup": "kf0d847:f5b740e2d314150b",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kf0d847:934f937e58b2e686": {
+        "puan": 55,
+        "grup": "kf0d847:934f937e58b2e686",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kf0d847:85ddd92e254d5b48": {
+        "puan": 55,
+        "grup": "kf0d847:85ddd92e254d5b48",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kfb7f7a:a972514702e01f6d": {
+        "puan": 60,
+        "grup": "kf0d847:147a69e8f9ee5f09",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6ef72e:e736c689d626734f": {
+        "puan": 65,
+        "grup": "kf0d847:147a69e8f9ee5f09",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k9836af:bc35554396dcfce0": {
+        "puan": 35,
+        "grup": "k9836af:bc35554396dcfce0",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k9836af:efe0be926e490aa3": {
+        "puan": 30,
+        "grup": "k9836af:efe0be926e490aa3",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k9836af:bf3c01eccec83e0e": {
+        "puan": 30,
+        "grup": "k9836af:bf3c01eccec83e0e",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k9836af:b14277ea7ef40703": {
+        "puan": 45,
+        "grup": "k9836af:b14277ea7ef40703",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k9836af:bc1e55f386fc7f3a": {
+        "puan": 55,
+        "grup": "k9836af:bc1e55f386fc7f3a",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k9836af:364adf95254ab7ef": {
+        "puan": 35,
+        "grup": "k9836af:364adf95254ab7ef",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6f19bd:de205b8bde4bc2e1": {
+        "puan": 70,
+        "grup": "k6f19bd:de205b8bde4bc2e1",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6f19bd:43f3b20b2e6f6f76": {
+        "puan": 70,
+        "grup": "k6f19bd:43f3b20b2e6f6f76",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6f19bd:5924b1249367501d": {
+        "puan": 65,
+        "grup": "k6f19bd:5924b1249367501d",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kde24e1:5b20d19fd86b9df0": {
+        "puan": 35,
+        "grup": "kde24e1:5b20d19fd86b9df0",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kde24e1:e7245b818facf164": {
+        "puan": 45,
+        "grup": "kde24e1:e7245b818facf164",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k069caf:27bd48bc9453f89c": {
+        "puan": 60,
+        "grup": "k069caf:27bd48bc9453f89c",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k531d14:66f58759272abd5b": {
+        "puan": 60,
+        "grup": "k069caf:27bd48bc9453f89c",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kef23b7:9cc004eebb3344f2": {
+        "puan": 60,
+        "grup": "kef23b7:9cc004eebb3344f2",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kef23b7:dab64a5a23152b48": {
+        "puan": 55,
+        "grup": "kef23b7:dab64a5a23152b48",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k178392:39cda6654be8917a": {
+        "puan": 55,
+        "grup": "kef23b7:dab64a5a23152b48",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kef23b7:9aefccdb9aadd51c": {
+        "puan": 55,
+        "grup": "kef23b7:9aefccdb9aadd51c",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kef23b7:093723e3958ab7b2": {
+        "puan": 60,
+        "grup": "kef23b7:093723e3958ab7b2",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k2639b3:6657f569255e0568": {
+        "puan": 55,
+        "grup": "k2639b3:6657f569255e0568",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k95308a:99f02af6f7c1fbf4": {
+        "puan": 65,
+        "grup": "k95308a:99f02af6f7c1fbf4",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k95308a:362ae2e36de81cda": {
+        "puan": 75,
+        "grup": "k95308a:362ae2e36de81cda",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1245cd:1e0d46a9d6cda41e": {
+        "puan": 60,
+        "grup": "k1245cd:1e0d46a9d6cda41e",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1245cd:fc22750323bb08b6": {
+        "puan": 60,
+        "grup": "k1245cd:fc22750323bb08b6",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1245cd:ee9a10b773217972": {
+        "puan": 45,
+        "grup": "k1245cd:ee9a10b773217972",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1245cd:52b479826ae7fa33": {
+        "puan": 50,
+        "grup": "k1245cd:52b479826ae7fa33",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6c89da:8db7bd7289a776e5": {
+        "puan": 65,
+        "grup": "k6c89da:8db7bd7289a776e5",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6c89da:443e2dcb4e4644ab": {
+        "puan": 65,
+        "grup": "k6c89da:443e2dcb4e4644ab",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k7df62b:435e43a01b09fe92": {
+        "puan": 65,
+        "grup": "k7df62b:435e43a01b09fe92",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k19040f:e394222a3b447ffa": {
+        "puan": 55,
+        "grup": "k19040f:e394222a3b447ffa",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k19040f:316b6167e1e44bfa": {
+        "puan": 55,
+        "grup": "k19040f:316b6167e1e44bfa",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6720d3:bc8d674a1e47b1d2": {
+        "puan": 55,
+        "grup": "k6720d3:bc8d674a1e47b1d2",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6720d3:135087353a0958fa": {
+        "puan": 60,
+        "grup": "k6720d3:135087353a0958fa",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6720d3:ca1dc53e3071d19e": {
+        "puan": 60,
+        "grup": "k6720d3:ca1dc53e3071d19e",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6720d3:cb62dc56682386e7": {
+        "puan": 50,
+        "grup": "k6720d3:cb62dc56682386e7",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6720d3:39055ce239437704": {
+        "puan": 65,
+        "grup": "k6720d3:39055ce239437704",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6720d3:b084070d8b1a895e": {
+        "puan": 55,
+        "grup": "k6720d3:b084070d8b1a895e",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6720d3:c03af265fb9c9012": {
+        "puan": 55,
+        "grup": "k6720d3:c03af265fb9c9012",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k146593:231ee533fcfed620": {
+        "puan": 65,
+        "grup": "k146593:231ee533fcfed620",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k146593:6d19f16bf2807808": {
+        "puan": 50,
+        "grup": "k146593:6d19f16bf2807808",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k146593:e88f7a172fa2f177": {
+        "puan": 50,
+        "grup": "k146593:e88f7a172fa2f177",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k146593:1f3818d11d4c3b93": {
+        "puan": 50,
+        "grup": "k146593:1f3818d11d4c3b93",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k146593:4359811f1ff5e7d0": {
+        "puan": 55,
+        "grup": "k146593:4359811f1ff5e7d0",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k318da0:c0cafc925eb5b4b0": {
+        "puan": 35,
+        "grup": "k318da0:c0cafc925eb5b4b0",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k318da0:58353f1357ca7763": {
+        "puan": 35,
+        "grup": "k318da0:58353f1357ca7763",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k318da0:39c86dbb70875752": {
+        "puan": 65,
+        "grup": "k318da0:39c86dbb70875752",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k318da0:04cbafb4129faae6": {
+        "puan": 70,
+        "grup": "k318da0:04cbafb4129faae6",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k318da0:024cb92347aafe8a": {
+        "puan": 55,
+        "grup": "k318da0:024cb92347aafe8a",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k318da0:b592e22982bd8a9a": {
+        "puan": 75,
+        "grup": "k318da0:b592e22982bd8a9a",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k318da0:7317f7399d72a563": {
+        "puan": 50,
+        "grup": "k318da0:7317f7399d72a563",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k5d5a03:11f238284141fbc9": {
+        "puan": 20,
+        "grup": "k5d5a03:11f238284141fbc9",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6797d6:073a430b5e365e87": {
+        "puan": 55,
+        "grup": "k6797d6:073a430b5e365e87",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6797d6:8861d6b59d9e8803": {
+        "puan": 55,
+        "grup": "k6797d6:8861d6b59d9e8803",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kba38ad:9beecb04b49974d4": {
+        "puan": 70,
+        "grup": "kba38ad:9beecb04b49974d4",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kba38ad:25eb96a6a646d05e": {
+        "puan": 75,
+        "grup": "kba38ad:25eb96a6a646d05e",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kba38ad:8e15885e57edfbeb": {
+        "puan": 70,
+        "grup": "kba38ad:8e15885e57edfbeb",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1eb283:65aa0d57518a935d": {
+        "puan": 65,
+        "grup": "k1eb283:65aa0d57518a935d",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1eb283:71092b1e62226793": {
+        "puan": 15,
+        "grup": "k1eb283:71092b1e62226793",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1eb283:3bf03cd8edcbdb7e": {
+        "puan": 15,
+        "grup": "k1eb283:3bf03cd8edcbdb7e",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1eb283:cf8e31038ad2fc9f": {
+        "puan": 15,
+        "grup": "k1eb283:cf8e31038ad2fc9f",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1eb283:c2395a5a837dae4d": {
+        "puan": 15,
+        "grup": "k1eb283:c2395a5a837dae4d",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1eb283:72eaf593df3d773c": {
+        "puan": 45,
+        "grup": "k1eb283:72eaf593df3d773c",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1eb283:51c0ed1d69086e03": {
+        "puan": 20,
+        "grup": "k1eb283:51c0ed1d69086e03",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k1eb283:556599fcd65165c7": {
+        "puan": 20,
+        "grup": "k1eb283:556599fcd65165c7",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6ef72e:dcb6ed20597ff5fb": {
+        "puan": 60,
+        "grup": "k6ef72e:dcb6ed20597ff5fb",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6ef72e:6b4c52dd7100ae60": {
+        "puan": 60,
+        "grup": "k6ef72e:6b4c52dd7100ae60",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k6ef72e:f8b950d9e5d59986": {
+        "puan": 55,
+        "grup": "k6ef72e:f8b950d9e5d59986",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:7b8e09e8340a3021": {
+        "puan": 45,
+        "grup": "k4f67e2:7b8e09e8340a3021",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:ef491fb11c0c4b3b": {
+        "puan": 50,
+        "grup": "k4f67e2:ef491fb11c0c4b3b",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:49b8e6473afd57ae": {
+        "puan": 50,
+        "grup": "k4f67e2:49b8e6473afd57ae",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:ab4414c5e9b9bbb7": {
+        "puan": 55,
+        "grup": "k4f67e2:ab4414c5e9b9bbb7",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:da05c555150ad54b": {
+        "puan": 45,
+        "grup": "k4f67e2:da05c555150ad54b",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:7d705ae06b2e06f3": {
+        "puan": 45,
+        "grup": "k4f67e2:7d705ae06b2e06f3",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:a11d759f74358678": {
+        "puan": 55,
+        "grup": "k4f67e2:a11d759f74358678",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:95bf008bb0e5ea71": {
+        "puan": 40,
+        "grup": "k4f67e2:95bf008bb0e5ea71",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:306950cc81dfad3b": {
+        "puan": 50,
+        "grup": "k4f67e2:306950cc81dfad3b",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:4b692f90e2474e13": {
+        "puan": 50,
+        "grup": "k4f67e2:4b692f90e2474e13",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:feb2b515bc7afe40": {
+        "puan": 55,
+        "grup": "k4f67e2:feb2b515bc7afe40",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:39975de24b30567d": {
+        "puan": 55,
+        "grup": "k4f67e2:39975de24b30567d",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:05650d20aa252721": {
+        "puan": 55,
+        "grup": "k4f67e2:05650d20aa252721",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:cda516bbcec4f7ef": {
+        "puan": 55,
+        "grup": "k4f67e2:cda516bbcec4f7ef",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "k4f67e2:0eed55ce112bc213": {
+        "puan": 65,
+        "grup": "k4f67e2:0eed55ce112bc213",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kfb116f:28524fdbf20d998f": {
+        "puan": 45,
+        "grup": "kfb116f:28524fdbf20d998f",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kfb116f:81f88a1d401a3d35": {
+        "puan": 45,
+        "grup": "kfb116f:81f88a1d401a3d35",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kfb116f:df2fa97e587ced20": {
+        "puan": 50,
+        "grup": "kfb116f:df2fa97e587ced20",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kfb116f:b6e88bd6486675a9": {
+        "puan": 50,
+        "grup": "kfb116f:b6e88bd6486675a9",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kfb116f:87636d8fd117f3bb": {
+        "puan": 55,
+        "grup": "kfb116f:87636d8fd117f3bb",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kfb116f:3b19caf144e559ca": {
+        "puan": 60,
+        "grup": "kfb116f:3b19caf144e559ca",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kfb116f:ab849322aceb6943": {
+        "puan": 55,
+        "grup": "kfb116f:ab849322aceb6943",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kfb116f:96eb449bd655dc0f": {
+        "puan": 65,
+        "grup": "kfb116f:96eb449bd655dc0f",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kfb116f:913165882eb6ec9b": {
+        "puan": 55,
+        "grup": "kfb116f:913165882eb6ec9b",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "kdf042e:37b8989a74ade354": {
+        "puan": 45,
+        "grup": "kdf042e:37b8989a74ade354",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "Bank of England:https://www.bankofengland.co.uk/news/2026/november/regulators-explore-credit-union-reforms-to-support-growth-innovation-and-better-outcomes-for-members": {
+        "puan": 50,
+        "grup": "Bank of England:https://www.bankofengland.co.uk/news/2026/november/regulators-explore-credit-union-reforms-to-support-growth-innovation-and-better-outcomes-for-members",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "ECB Working Papers:https://www.ecb.europa.eu//pub/pdf/scpwps/ecb.wp3306~028a82bc67.en.pdf": {
+        "puan": 50,
+        "grup": "ECB Working Papers:https://www.ecb.europa.eu//pub/pdf/scpwps/ecb.wp3306~028a82bc67.en.pdf",
+        "zaman": "2026-11-03T11:41:16.192Z"
+      },
+      "ECB Working Papers:https://www.ecb.europa.eu//pub/pdf/scpwps/ecb.wp3305~877e68c2b7.en.pdf": {
+        "puan": 55,
+        "grup": "ECB Working Papers:https://www.ecb.europa.eu//pub/pdf/scpwps/ecb.wp3305~877e68c2b7.en.pdf",
+        "zaman": "2026-11-03T11:41:16.192Z"
       }
     }
   },
@@ -81060,13 +81552,12 @@
   "grafikKapak": {
     "bitcoin": "2026-11-01T13:41:05.766Z",
     "nifty": "2026-11-02T07:41:06.937Z",
-    "stoxx50": "2026-11-01T11:41:05.395Z",
-    "altin": "2026-11-01T11:41:05.395Z",
     "sp500": "2026-11-01T21:41:03.796Z",
     "brent": "2026-11-02T05:41:05.734Z",
     "pltr": "2026-11-02T21:41:07.422Z",
     "nvda": "2026-11-03T07:41:13.952Z",
     "aapl": "2026-11-03T07:41:13.952Z",
-    "kospi": "2026-11-03T07:41:13.952Z"
+    "kospi": "2026-11-03T07:41:13.952Z",
+    "usdtry": "2026-11-03T11:41:16.192Z"
   }
 }
