@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-03T05:41:10.827Z",
+  "guncelleme": "2026-11-03T07:41:13.952Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -834,23 +834,23 @@
     {
       "id": "enflasyon",
       "ad": "Yıllık enflasyon",
-      "deger": 29.73,
-      "aylik": 1.84,
+      "deger": 29.77,
+      "aylik": 2.58,
       "ondalik": 1,
       "onEk": "%",
       "simge": "sepet",
       "renk": "red",
       "simgeDegeri": 3,
       "simgeEtiket": "3 puan",
-      "onceki": 33.29,
+      "onceki": 32.87,
       "oncekiEtiket": "Bir yıl önce",
-      "anlam": "Fiyatlar bir yılda yüzde 29,73 arttı. Bir yıl önce yıllık artış yüzde 33,29 idi.",
+      "anlam": "Fiyatlar bir yılda yüzde 29,77 arttı. Bir yıl önce yıllık artış yüzde 32,87 idi.",
       "kaynak": {
         "ad": "TÜİK, TCMB aracılığıyla",
         "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Enflasyon+Verileri/Tuketici+Fiyatlari"
       },
-      "zamanEtiket": "Eylül 2026 verisi",
-      "zaman": "2026-09-01T00:00:00+03:00",
+      "zamanEtiket": "Ekim 2026 verisi",
+      "zaman": "2026-10-01T00:00:00+03:00",
       "gecerlilik": "aciklama"
     },
     {
@@ -870,16 +870,16 @@
     {
       "id": "bist100",
       "ad": "BIST 100",
-      "deger": 10961.7002,
+      "deger": 10885.3896,
       "ondalik": 2,
       "simge": "fabrika",
       "kaynak": {
         "ad": "Piyasa kapanış verisi",
         "url": "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
       },
-      "zaman": "2026-11-02T00:00:00+03:00",
+      "zaman": "2026-11-03T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 1.9,
+      "degisim": -0.7,
       "gecmis": [
         {
           "tarih": "2026-08-05",
@@ -1132,13 +1132,17 @@
         {
           "tarih": "2026-11-02",
           "deger": 10961.7002
+        },
+        {
+          "tarih": "2026-11-03",
+          "deger": 10885.3896
         }
       ]
     },
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 3932,
+      "deger": 3920.8999,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
@@ -1147,7 +1151,7 @@
       },
       "zaman": "2026-11-03T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -0.9,
+      "degisim": -1.2,
       "gecmis": [
         {
           "tarih": "2026-08-05",
@@ -1403,7 +1407,7 @@
         },
         {
           "tarih": "2026-11-03",
-          "deger": 3932
+          "deger": 3920.8999
         }
       ],
       "onEk": "$"

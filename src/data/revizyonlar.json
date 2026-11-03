@@ -1,6 +1,71 @@
 {
   "revizyonlar": [
     {
+      "bolum": "tufeArindirilmis",
+      "alan": "aylik",
+      "donem": "2023-01",
+      "eski": 5.0764,
+      "yeni": 5.0626,
+      "fark": -0.0138,
+      "tespit": "2026-11-03T07:53:53.802Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, mevsim etkisinden arındırılmış TÜFE (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "tufeArindirilmis",
+      "alan": "aylik",
+      "donem": "2023-02",
+      "eski": 2.9022,
+      "yeni": 2.9124,
+      "fark": 0.0102,
+      "tespit": "2026-11-03T07:53:53.802Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, mevsim etkisinden arındırılmış TÜFE (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "tufeArindirilmis",
+      "alan": "aylik",
+      "donem": "2023-07",
+      "eski": 9.8596,
+      "yeni": 9.8492,
+      "fark": -0.0104,
+      "tespit": "2026-11-03T07:53:53.802Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, mevsim etkisinden arındırılmış TÜFE (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "tufeArindirilmis",
+      "alan": "aylik",
+      "donem": "2023-12",
+      "eski": 3.671,
+      "yeni": 3.6583,
+      "fark": -0.0126,
+      "tespit": "2026-11-03T07:53:53.802Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, mevsim etkisinden arındırılmış TÜFE (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "tufeArindirilmis",
+      "alan": "aylik",
+      "donem": "2024-10",
+      "eski": 2.462,
+      "yeni": 2.451,
+      "fark": -0.011,
+      "tespit": "2026-11-03T07:53:53.802Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, mevsim etkisinden arındırılmış TÜFE (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
       "bolum": "issizlik",
       "alan": "oran",
       "donem": "2024-09",
