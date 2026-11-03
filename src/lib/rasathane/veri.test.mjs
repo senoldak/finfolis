@@ -21,8 +21,9 @@ const yaz = (d, yol, icerik) => {
   writeFileSync(tam, typeof icerik === 'string' ? icerik : JSON.stringify(icerik));
 };
 
-test('BOLUMLER altı bölüm içerir', () => {
-  assert.equal(BOLUMLER.length, 6);
+test('BOLUMLER yedi bölüm içerir', () => {
+  assert.equal(BOLUMLER.length, 7);
+  assert.ok(BOLUMLER.some((b) => b.anahtar === 'varant'));
   assert.deepEqual(BOLUMLER[0], { anahtar: 'emtia', ad: 'Emtia' });
 });
 
