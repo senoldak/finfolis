@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-04T19:41:07.848Z",
+  "guncelleme": "2026-11-04T21:41:01.829Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -882,16 +882,16 @@
     {
       "id": "bist100",
       "ad": "BIST 100",
-      "deger": 11478.1299,
+      "deger": 11023.5996,
       "ondalik": 2,
       "simge": "fabrika",
       "kaynak": {
         "ad": "Piyasa kapanış verisi",
         "url": "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
       },
-      "zaman": "2026-11-04T00:00:00+03:00",
+      "zaman": "2026-11-03T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 4.1,
+      "degisim": 0.6,
       "gecmis": [
         {
           "tarih": "2026-08-06",
@@ -1144,17 +1144,13 @@
         {
           "tarih": "2026-11-03",
           "deger": 11023.5996
-        },
-        {
-          "tarih": "2026-11-04",
-          "deger": 11478.1299
         }
       ]
     },
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 4070.5,
+      "deger": 4070.3,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
@@ -1419,7 +1415,7 @@
         },
         {
           "tarih": "2026-11-04",
-          "deger": 4070.5
+          "deger": 4070.3
         }
       ],
       "onEk": "$"
