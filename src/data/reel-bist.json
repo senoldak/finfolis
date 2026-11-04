@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-10-31T03:57:15.662Z",
+  "guncelleme": "2026-11-04T03:56:42.188Z",
   "endeks": "BİST 30 (XU030)",
   "bazTarih": "2014-09",
   "kaynaklar": [
@@ -66,14 +66,14 @@
     "bazTarih": "2014-09",
     "bazBist": 989.57,
     "sonNokta": {
-      "tarih": "2026-09",
+      "tarih": "2026-10",
       "yil": 2026,
-      "ay": 9,
-      "bistKapanis": 13419.7,
-      "tufeCarpani": 17.91,
-      "tufeYillik": 29.73,
-      "tufeAylik": 1.84,
-      "reelEndeks": 75.7
+      "ay": 10,
+      "bistKapanis": 13754.5,
+      "tufeCarpani": 18.38,
+      "tufeYillik": 29.77,
+      "tufeAylik": 2.58,
+      "reelEndeks": 75.6
     },
     "zirve": {
       "tarih": "2023-06",
@@ -85,10 +85,10 @@
       "reelEndeks": 58.7,
       "bistKapanis": 1067.91
     },
-    "reelDegisimToplam": -24.3,
-    "reelDegisim1Yil": -13.4,
-    "reelDegisim5Yil": 7.2,
-    "nominalDegisimToplam": 1256.1
+    "reelDegisimToplam": -24.4,
+    "reelDegisim1Yil": -11.1,
+    "reelDegisim5Yil": -7.7,
+    "nominalDegisimToplam": 1289.9
   },
   "noktalar": [
     {
@@ -1540,6 +1540,16 @@
       "tufeYillik": 29.73,
       "tufeAylik": 1.84,
       "reelEndeks": 75.7
+    },
+    {
+      "tarih": "2026-10",
+      "yil": 2026,
+      "ay": 10,
+      "bistKapanis": 13754.5,
+      "tufeCarpani": 18.38,
+      "tufeYillik": 29.77,
+      "tufeAylik": 2.58,
+      "reelEndeks": 75.6
     }
   ]
 }
