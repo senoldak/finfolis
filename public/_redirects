@@ -767,7 +767,16 @@
 /yapay-zeka/ /yapay-zeka-kullanimi/ 301
 /yapay-zeka /yapay-zeka-kullanimi/ 301
 
+# Rasathane yönlendirmeleri (4.11.2026).
+/rasathane /rasathane/emtia/ 301
+/rasathane/ /rasathane/emtia/ 301
+/rasathane/viop /rasathane/viop/vadeli/ 301
+/rasathane/viop/ /rasathane/viop/vadeli/ 301
+/rasathane/varant /rasathane/viop/varant/ 301
+/rasathane/varant/ /rasathane/viop/varant/ 301
+
 # Eski WordPress adreslerinin yedekleri (dinamik; yukarıdaki etiket listesinde olmayanlar).
 /tag/* /konu/ 301
 /hashtag/* /konu/ 301
 /ticker/* /kategori/borsa/ 301
+

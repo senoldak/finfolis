@@ -119,6 +119,7 @@ export default defineConfig({
   redirects: {
     '/rasathane': '/rasathane/emtia/',
     '/rasathane/viop': '/rasathane/viop/vadeli/',
+    '/rasathane/varant': '/rasathane/viop/varant/',
   },
   site: 'https://finfolis.com',
   integrations: [

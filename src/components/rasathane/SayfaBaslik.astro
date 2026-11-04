@@ -23,10 +23,10 @@ const degerGoster = (k) => {
   <p class="aciklama">{veri.aciklama}</p>
   <p class="meta">
     Son güncelleme: {tarih(veri.guncellendi)}{eski ? ' · eski veri' : ''}
-    {veri.grafik === 'yok' && <span> · Grafik yok: hisse fiyat geçmişi bu sayfada yok.</span>}
+    {veri.grafik === 'yok' && <span> · Grafik yok{(bolum === 'inseeder' || bolum === 'capital') ? ': hisse fiyat geçmişi bu sayfada yok.' : ''}</span>}
   </p>
 
-  <dl class="ozet" style={`grid-template-columns: repeat(${Math.min(ozet.kartlar.length, 4)}, minmax(0, 1fr));`}>
+  <dl class="ozet" style={`grid-template-columns: repeat(${Math.max(1, Math.min(ozet.kartlar.length, 4))}, minmax(0, 1fr));`}>
     {ozet.kartlar.map((k) => (
       <div class={`kart${k.vurgu ? ' vurgu' : ''}`}>
         <dt>{k.etiket}</dt>

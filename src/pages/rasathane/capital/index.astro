@@ -156,6 +156,7 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
             <img class="marka" src="/rasathane/isaret.svg" alt="" />
           </div>
           <p class="ipucu">Yakınlaştırmak için fare tekerleği ya da iki parmak. Üzerine gelince değer görünür.</p>
+          <p class="atif">Grafikler <a href="https://www.tradingview.com/" target="_blank" rel="noopener">TradingView Lightweight Charts</a> ile çizilir.</p>
         </div>
 
         <div class="hisse-tablo">
@@ -448,6 +449,8 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
   .gun-tarih { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--murekkep); }
   .takvim-detay { margin: 10px 0 0; font-size: 14px; line-height: 1.6; color: var(--murekkep); max-width: 62ch; }
   @media (max-width: 700px) { .takvim, .takvim.takvim-4 { grid-template-columns: 1fr 1fr; } }
+  .atif { margin: 8px 0 0; font-size: 12px; color: var(--ikincil); }
+  .atif a { color: var(--ikincil); text-decoration: underline; text-underline-offset: 2px; }
 
   .kongre-bant { overflow: hidden; height: 34px; display: flex; align-items: center; background: var(--beyaz); border-top: 1px solid var(--cizgi); border-bottom: 1px solid var(--cizgi); font-size: 13px; margin: 0 0 28px; }
   .kb-iz { display: flex; gap: 40px; white-space: nowrap; padding-left: 16px; animation: kongre-kay 60s linear infinite; }
