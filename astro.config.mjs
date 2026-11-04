@@ -115,6 +115,11 @@ const V = veriTarihleri();
 export default defineConfig({
   // Astro 7 varsayılanı "jsx": satır sonundaki boşluğu etiket kenarında siler (ör. "</a>" + yeni satır + "kelime" bitişik çıkar). true: tek boşluğa indirir.
   compressHTML: true,
+  // Rasathane ana sayfası yok: giriş doğrudan emtia ekranına.
+  redirects: {
+    '/rasathane': '/rasathane/emtia/',
+    '/rasathane/viop': '/rasathane/viop/vadeli/',
+  },
   site: 'https://finfolis.com',
   integrations: [
     sitemap({

@@ -2,11 +2,15 @@
 import RasathaneKabuk from '../../../layouts/RasathaneKabuk.astro';
 import { sayfalariOku } from '../../../lib/rasathane/veri.mjs';
 import { sayi, yuzde, tarih } from '../../../lib/rasathane/bicim.mjs';
+import { ozetKartlari } from '../../../lib/rasathane/ozet.mjs';
+import SayfaBaslik from '../../../components/rasathane/SayfaBaslik.astro';
 import { join } from 'node:path';
 
 export function getStaticPaths() {
   const KOK = join(process.cwd(), 'public/rasathane/veri');
-  return sayfalariOku(KOK).map(({ bolum, sayfa, veri, eski }) => ({
+  // Emtia, grafix ve capital kendi sayfalarında yaşar; alt sayfaları buradan üretilmez.
+  const ozelBolumler = new Set(['emtia', 'grafix', 'capital']);
+  return sayfalariOku(KOK).filter((s) => !ozelBolumler.has(s.bolum)).map(({ bolum, sayfa, veri, eski }) => ({
     params: { bolum, sayfa },
     props: { veri, eski },
   }));
@@ -21,6 +25,18 @@ function hucre(s, deger) {
   if (s.tur === 'sayi') return sayi(deger, s.basamak);
   return String(deger);
 }
+// Yüzde sütunlarında işaret rengi: yükseliş ve düşüş yön okuyla da yazılır, renk tek başına bilgi taşımaz.
+function isaret(s, deger) {
+  if (s.tur !== 'yuzde' || typeof deger !== 'number' || deger === 0) return '';
+  return deger > 0 ? 'yukari' : 'asagi';
+}
+// Yön okla verilir, değer mutlak hâliyle yazılır: "▼ %1,0" (ok ile eksi işareti çift bilgi olur).
+function gosterim(s, deger) {
+  const i = isaret(s, deger);
+  if (!i) return hucre(s, deger);
+  const ok = i === 'yukari' ? '▲ ' : '▼ ';
+  return ok + yuzde(Math.abs(deger), s.basamak);
+}
 const suzgecler = (veri.suzgecler ?? []).map((k) => ({
   anahtar: k,
   baslik: veri.sutunlar.find((s) => s.anahtar === k)?.baslik ?? k,
@@ -28,36 +44,64 @@ const suzgecler = (veri.suzgecler ?? []).map((k) => ({
     String(a).localeCompare(String(b), 'tr'),
   ),
 }));
-const metinSutunlari = veri.sutunlar.filter((s) => s.tur === 'metin').map((s) => s.anahtar);
+const grafikli = veri.grafik !== 'yok' && veri.satirlar.some((r) => r.seri);
+const ozet = ozetKartlari(veri);
 ---
-<RasathaneKabuk baslik={veri.baslik} aktif={bolum} aciklama={veri.aciklama}>
-  <h1>{veri.baslik}</h1>
-  <p class="not">{veri.aciklama}</p>
-  <p class="not">Son güncelleme: {tarih(veri.guncellendi)}{eski ? ' (eski veri)' : ''}</p>
+<RasathaneKabuk baslik={veri.baslik} aktif={bolum} aciklama={veri.aciklama} bant={bolum === 'viop' ? 'viop' : undefined}>
+  <SayfaBaslik bolum={bolum} veri={veri} eski={eski} ozet={ozet} />
 
-  <div class="suz" style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0">
+  {grafikli && (
+    <aside class="sag-panel" data-panel data-baslik={veri.baslik} hidden aria-live="polite">
+      <div class="panel-baslik-satiri">
+        <h2 data-panel-baslik></h2>
+        <div class="ikonlar">
+          <button type="button" class="ikon" data-tam-ekran aria-label="Grafiği tam ekran aç" title="Tam ekran">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
+          </button>
+          <button type="button" class="ikon" data-png aria-label="Grafiği PNG olarak indir" title="PNG indir">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>
+          </button>
+        </div>
+      </div>
+      <div class="grafik-denetim" data-kontroller hidden>
+        <div class="tf" role="group" aria-label="Zaman aralığı">
+          <button type="button" data-tf="gunluk" aria-pressed="true">Günlük</button>
+          <button type="button" data-tf="hafta" aria-pressed="false">Haftalık</button>
+        </div>
+        <div class="gosterge-satiri" data-gostergeler></div>
+      </div>
+      <dl class="olcu" data-olcu></dl>
+      <div class="grafik-kap">
+        <div data-grafik class="grafik"></div>
+        <img class="marka" src="/rasathane/isaret.svg" alt="" />
+      </div>
+      <p class="ipucu">Yakınlaştırmak için fare tekerleği ya da iki parmak. Üzerine gelince değer görünür.</p>
+    </aside>
+  )}
+
+  <div class="denetim">
     {suzgecler.map((f) => (
-      <label style="display:flex;flex-direction:column;font-size:13px">
-        {f.baslik}
-        <select data-suz={f.anahtar} style="font:inherit;height:38px;padding:0 10px;border:1px solid var(--cizgi);background:var(--beyaz);border-radius:4px">
+      <label class="alan">
+        <span class="etiket">{f.baslik}</span>
+        <select data-suz={f.anahtar}>
           <option value="">Tümü</option>
           {f.secenekler.map((o) => <option value={o}>{o}</option>)}
         </select>
       </label>
     ))}
-    <label style="display:flex;flex-direction:column;font-size:13px;flex:1;min-width:180px">
-      Ara
-      <input type="search" data-ara placeholder="Ara" style="font:inherit;height:38px;padding:0 10px;border:1px solid var(--cizgi);background:var(--beyaz);border-radius:4px" />
+    <label class="alan ara">
+      <span class="etiket">Ara</span>
+      <input type="search" data-ara placeholder="Satır ara" />
     </label>
-    <button type="button" data-sifirla style="font:inherit;height:38px;padding:0 14px;align-self:flex-end;border:1px solid var(--murekkep);background:transparent;border-radius:4px;cursor:pointer">Sıfırla</button>
+    <button type="button" class="sifirla" data-sifirla>Sıfırla</button>
   </div>
 
-  <div style="border:1px solid var(--cizgi);background:var(--beyaz);border-radius:4px;overflow-x:auto;padding:8px 0">
-    <table data-tablo style="border-collapse:collapse;width:100%;min-width:620px;font-size:14px;font-variant-numeric:tabular-nums">
+  <div class="tablo-kutu">
+    <table data-tablo>
       <thead>
         <tr>
           {veri.sutunlar.map((s) => (
-            <th data-sirala={s.anahtar} style={`padding:9px 10px;cursor:pointer;user-select:none;text-align:${s.tur === 'metin' ? 'left' : 'right'};font-size:12px;text-transform:uppercase;color:var(--ikincil);border-bottom:1px solid var(--cizgi);white-space:nowrap`}>
+            <th data-sirala={s.anahtar} class={s.tur === 'metin' ? 'sol' : 'sag'} aria-sort="none" tabindex="0">
               {s.baslik}
             </th>
           ))}
@@ -68,14 +112,11 @@ const metinSutunlari = veri.sutunlar.filter((s) => s.tur === 'metin').map((s) =>
           <tr
             data-seri={r.seri ?? ''}
             data-filtre={JSON.stringify(Object.fromEntries(suzgecler.map((f) => [f.anahtar, r[f.anahtar] ?? ''])))}
-            style="border-bottom:1px solid var(--cizgi);cursor:pointer"
+            tabindex={r.seri ? 0 : undefined}
           >
             {veri.sutunlar.map((s) => (
-              <td
-                data-v={r[s.anahtar] ?? ''}
-                style={`padding:9px 10px;white-space:nowrap;text-align:${s.tur === 'metin' ? 'left' : 'right'}`}
-              >
-                {hucre(s, r[s.anahtar])}
+              <td data-v={r[s.anahtar] ?? ''} class={`${s.tur === 'metin' ? 'sol' : 'sag'} ${isaret(s, r[s.anahtar])}`}>
+                {s.tur === 'metin' ? hucre(s, r[s.anahtar]) : gosterim(s, r[s.anahtar])}
               </td>
             ))}
           </tr>
@@ -83,24 +124,102 @@ const metinSutunlari = veri.sutunlar.filter((s) => s.tur === 'metin').map((s) =>
       </tbody>
     </table>
   </div>
-  <p class="not" data-bos hidden>Eşleşen satır yok.</p>
+  <p class="bos" data-bos hidden>Eşleşen satır yok. Süzgeci sıfırlayın.</p>
 
-  <section data-panel hidden style="margin-top:22px;border:1px solid var(--cizgi);background:var(--beyaz);padding:16px;border-radius:4px">
-    <h2 data-panel-baslik style="font-size:18px;margin:0 0 8px"></h2>
-    <div data-grafik style="height:340px;width:100%"></div>
-    <p class="not" style="margin:8px 0 0">Grafiği yakınlaştırmak için fare tekerleğini ya da iki parmağı kullanın. Üzerine gelince değer görünür.</p>
-  </section>
-
-  <div style="margin-top:20px;font-size:14px;color:var(--ikincil)">
-    <p style="margin:0 0 6px">Kaynaklar:</p>
-    <ul style="margin:0 0 10px;padding-left:18px">
+  <section class="kaynaklar">
+    <h2 class="etiket">Kaynaklar</h2>
+    <ul>
       {veri.kaynaklar.map((k) => <li><a href={k.url}>{k.ad}</a></li>)}
     </ul>
-  </div>
+  </section>
 </RasathaneKabuk>
 
+<style>
+  .baslik { margin: 8px 0 22px; }
+  h1 { margin: 0 0 8px; font-size: clamp(28px, 5vw, 36px); line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; }
+  .aciklama { margin: 0 0 10px; color: var(--ikincil); max-width: 62ch; }
+  .meta { display: block; margin: 4px 0 0; font-size: 13px; color: var(--ikincil); white-space: nowrap; }
+
+  .etiket { display: block; margin: 0 0 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
+
+  .sag-panel { margin: 0 0 26px; padding-top: 14px; }
+  .sag-panel h2 { margin: 0; font-size: 22px; letter-spacing: -0.01em; }
+  .panel-ust { margin: 0 0 4px; font-size: 13px; color: var(--ikincil); }
+  .panel-baslik-satiri { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin: 0 0 10px; }
+  .olcu { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px 18px; margin: 0 0 14px; padding: 12px 0; border-top: 1px solid var(--cizgi); border-bottom: 1px solid var(--cizgi); font-size: 14px; }
+  .olcu :global(div) { display: flex; flex-direction: column; gap: 2px; }
+  .olcu :global(dt) { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); }
+  .olcu :global(dd) { margin: 0; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .grafik-kap { position: relative; }
+  .grafik { height: 340px; width: 100%; }
+  .marka { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 58%; max-width: 340px; height: auto; opacity: 0.07; filter: blur(1.5px); pointer-events: none; z-index: 0; }
+  .ipucu { margin: 8px 0 0; font-size: 13px; color: var(--ikincil); }
+
+  .ikonlar { display: flex; gap: 6px; flex-shrink: 0; }
+  .grafik-denetim { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin: 0 0 12px; }
+  .tf { display: inline-flex; border: 1px solid var(--murekkep); border-radius: 3px; overflow: hidden; }
+  .tf button { font: inherit; font-size: 14px; padding: 6px 12px; border: 0; background: transparent; color: var(--murekkep); cursor: pointer; }
+  .tf button[aria-pressed="true"] { background: var(--murekkep); color: var(--kagit); }
+  .gosterge-satiri { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; }
+  .gosterge { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .gosterge::before { content: ""; width: 12px; height: 3px; background: var(--renk, var(--murekkep)); }
+  .ikon { width: 36px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--murekkep); border-radius: 3px; background: transparent; color: var(--murekkep); cursor: pointer; padding: 0; }
+  .ikon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ikon:hover, .ikon.acik { background: var(--murekkep); color: var(--kagit); }
+  .ikon:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
+  .sag-panel:fullscreen, .sag-panel.tam-ekran { background: var(--kagit); padding: 20px; overflow: auto; }
+  .sag-panel.tam-ekran { position: fixed; inset: 0; z-index: 60; width: auto; }
+  .sag-panel:fullscreen .grafik, .sag-panel.tam-ekran .grafik { height: calc(100vh - 230px); min-height: 320px; }
+
+  .denetim { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 14px; margin: 0 0 18px; }
+  .alan { display: flex; flex-direction: column; min-width: 160px; }
+  .alan.ara { flex: 1 1 220px; }
+  select, input[type="search"] {
+    font: inherit; font-size: 15px; height: 42px; padding: 0 12px;
+    border: 1px solid var(--cizgi); border-radius: 3px; background: var(--beyaz); color: var(--murekkep);
+  }
+  input[type="search"] { width: 100%; }
+  select:focus-visible, input:focus-visible, button:focus-visible, th:focus-visible, tr:focus-visible, a:focus-visible {
+    outline: 2px solid var(--mavi); outline-offset: 2px;
+  }
+  .sifirla {
+    font: inherit; font-size: 14px; font-weight: 600; height: 42px; padding: 0 16px;
+    border: 1px solid var(--murekkep); border-radius: 3px; background: transparent; color: var(--murekkep); cursor: pointer;
+  }
+  .sifirla:hover { background: var(--murekkep); color: var(--kagit); }
+
+  .tablo-kutu { overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 1px solid var(--murekkep); }
+  table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 15px; font-variant-numeric: tabular-nums; }
+  th, td { padding: 13px 14px; white-space: nowrap; border-bottom: 1px solid var(--cizgi); }
+  th { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); cursor: pointer; user-select: none; background: var(--kagit); position: sticky; top: 0; }
+  th[aria-sort="ascending"]::after { content: " ▲"; color: var(--mavi); }
+  th[aria-sort="descending"]::after { content: " ▼"; color: var(--mavi); }
+  .sol { text-align: left; }
+  .sag { text-align: right; }
+  td:first-child { font-weight: 600; }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover { background: #efeee7; }
+  tbody tr:focus-visible { background: #e7ebfa; }
+  tbody tr.secili { background: #e7ebfa; }
+  td.yukari { color: var(--yesil); }
+  td.asagi { color: var(--kirmizi); }
+
+  .bos { margin: 18px 0 0; color: var(--ikincil); }
+
+  .kaynaklar { margin-top: 32px; font-size: 14px; color: var(--ikincil); }
+  .kaynaklar ul { margin: 0; padding-left: 18px; }
+  .kaynaklar li { margin-bottom: 4px; }
+
+  @media (max-width: 600px) {
+    .alan { min-width: 0; flex: 1 1 140px; }
+    .sifirla { flex: none; }
+    .grafik { height: 280px; }
+  }
+</style>
+
 <script>
-  import { createChart, LineSeries } from 'lightweight-charts';
+  import { createChart, LineSeries, createSeriesMarkers } from 'lightweight-charts';
+  import { GOSTERGE } from '../../../lib/rasathane/gostergeler.mjs';
 
   const tablo = document.querySelector('[data-tablo]');
   const govde = tablo.querySelector('tbody');
@@ -108,12 +227,14 @@ const metinSutunlari = veri.sutunlar.filter((s) => s.tur === 'metin').map((s) =>
   const bos = document.querySelector('[data-bos]');
   const panel = document.querySelector('[data-panel]');
   const panelBaslik = document.querySelector('[data-panel-baslik]');
+  const olcu = document.querySelector('[data-olcu]');
   const grafikKap = document.querySelector('[data-grafik]');
   const aramaKutusu = document.querySelector('[data-ara]');
   const suzSecimler = [...document.querySelectorAll('[data-suz]')];
   let siraliAnahtar = null;
   let yon = 1;
   let grafik = null;
+  let secili = null;
 
   function filtrele() {
     const aranan = aramaKutusu.value.trim().toLocaleLowerCase('tr');
@@ -133,7 +254,10 @@ const metinSutunlari = veri.sutunlar.filter((s) => s.tur === 'metin').map((s) =>
   function sirala(anahtar) {
     yon = siraliAnahtar === anahtar ? -yon : 1;
     siraliAnahtar = anahtar;
-    const idx = [...tablo.querySelectorAll('thead th')].findIndex((th) => th.dataset.sirala === anahtar);
+    const basliklar = [...tablo.querySelectorAll('thead th')];
+    const idx = basliklar.findIndex((th) => th.dataset.sirala === anahtar);
+    basliklar.forEach((th) => th.setAttribute('aria-sort', 'none'));
+    basliklar[idx].setAttribute('aria-sort', yon === 1 ? 'ascending' : 'descending');
     const sirali = [...satirlar].sort((a, b) => {
       const x = a.children[idx].dataset.v;
       const y = b.children[idx].dataset.v;
@@ -148,38 +272,218 @@ const metinSutunlari = veri.sutunlar.filter((s) => s.tur === 'metin').map((s) =>
     sirali.forEach((tr) => govde.appendChild(tr));
   }
 
+  // Seçilen satırın ölçüleri panelde ayrı kutularda durur; yükseliş yeşil, düşüş kırmızı (yön okuyla birlikte).
+  function olculeriYaz(tr) {
+    const basliklar = [...tablo.querySelectorAll('thead th')].map((th) => th.textContent.trim());
+    olcu.innerHTML = '';
+    [...tr.children].slice(1).forEach((td, i) => {
+      const etiket = basliklar[i + 1];
+      if (!etiket) return;
+      const div = document.createElement('div');
+      const dt = document.createElement('dt');
+      dt.textContent = etiket;
+      const dd = document.createElement('dd');
+      dd.textContent = td.textContent.trim();
+      if (dd.textContent.includes('▲')) dd.style.color = '#1f7a4d';
+      else if (dd.textContent.includes('▼')) dd.style.color = '#b3382c';
+      div.append(dt, dd);
+      olcu.append(div);
+    });
+  }
+
+  // 1,2 mlr / 3,4 mn gibi kısa biçim; küçük değerler tam yazılır.
+  const tamSayi = new Intl.NumberFormat('tr-TR', { maximumFractionDigits: 2 });
+  function kisalt(v) {
+    const a = Math.abs(v);
+    if (a >= 1e9) return `${tamSayi.format(v / 1e9)} mlr`;
+    if (a >= 1e6) return `${tamSayi.format(v / 1e6)} mn`;
+    return tamSayi.format(v);
+  }
+
+  // Grafik durumu: zaman aralığı, açık göstergeler ve önbellek. Göstergeler ortak tanımdan (gostergeler.mjs).
+  const tfDugmeleri = [...document.querySelectorAll('[data-tf]')];
+  const gostergeKap = document.querySelector('[data-gostergeler]');
+  const kontrol = document.querySelector('[data-kontroller]');
+  const onbellek = new Map();
+  const acikGostergeler = new Set(['ema144', 'ema233']);
+  let tf = 'gunluk';
+  let aktifSeri = null;
+  let aktifVeri = null;
+
+  function listeyi() {
+    return GOSTERGE[tf === 'hafta' ? 'hafta' : 'gunluk'];
+  }
+
+  function gostergeKutulariniYaz() {
+    gostergeKap.innerHTML = '';
+    for (const g of listeyi()) {
+      const etiket = document.createElement('label');
+      etiket.className = 'gosterge';
+      etiket.style.setProperty('--renk', g.renk);
+      const kutu = document.createElement('input');
+      kutu.type = 'checkbox';
+      kutu.checked = acikGostergeler.has(g.k);
+      kutu.addEventListener('change', () => {
+        if (kutu.checked) acikGostergeler.add(g.k);
+        else acikGostergeler.delete(g.k);
+        if (aktifVeri) cizVeri(aktifVeri);
+      });
+      etiket.append(kutu, ` ${g.ad}`);
+      gostergeKap.append(etiket);
+    }
+  }
+
+  async function seriAl(seri, zaman) {
+    const anahtar = `${seri}|${zaman}`;
+    if (!onbellek.has(anahtar)) {
+      const bolum = location.pathname.split('/')[2];
+      const dosya = zaman === 'hafta' ? `${seri}-hafta` : seri;
+      // Seri adı yalnız [A-Za-z0-9=._^-] içerir (ortak yazıcının kuralı); kodlamadan da yol olarak geçerli.
+      const yanit = await fetch(`/rasathane/veri/${bolum}/seri/${dosya}.json`);
+      if (!yanit.ok) throw new Error(String(yanit.status));
+      onbellek.set(anahtar, await yanit.json());
+    }
+    return onbellek.get(anahtar);
+  }
+
+  // Sütunlu seride kapanış ana çizgidir; açık göstergeler kendi panelinde (RSI alt panelde).
+  // Yalnız noktalar içeren eski seri tek çizgidir.
+  function cizVeri(d) {
+    if (grafik) grafik.remove();
+    grafik = createChart(grafikKap, {
+      autoSize: true,
+      layout: { background: { color: '#f4f3ee' }, textColor: '#5d5b55', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 12 },
+      grid: { vertLines: { color: '#e9e7df' }, horzLines: { color: '#e9e7df' } },
+      rightPriceScale: { borderColor: '#cfccc2' },
+      timeScale: { borderColor: '#cfccc2', timeVisible: false },
+      localization: { priceFormatter: kisalt },
+    });
+    const bicim = { type: 'custom', formatter: kisalt };
+    const sutunlu = Boolean(d.sutunlar);
+    const kapanis = sutunlu
+      ? d.tarihler.map((t, i) => ({ time: t, value: d.sutunlar.kapanis[i] })).filter((p) => p.value != null)
+      : d.noktalar.map(([t, v]) => ({ time: t, value: v }));
+    const cizgi = grafik.addSeries(LineSeries, { color: '#2d4fd6', lineWidth: 2, priceFormat: bicim });
+    cizgi.setData(kapanis);
+    if (sutunlu) {
+      for (const g of listeyi()) {
+        const sutun = d.sutunlar[g.k];
+        if (!acikGostergeler.has(g.k) || !sutun) continue;
+        const dizi = d.tarihler.map((t, i) => ({ time: t, value: sutun[i] })).filter((p) => p.value != null);
+        const s = grafik.addSeries(LineSeries, { color: g.renk, lineWidth: 1.5, priceFormat: bicim }, g.pane ?? 0);
+        s.setData(dizi);
+      }
+    }
+    // Olay günleri (sert hareket, 52 hafta zirve/dip) çizgide işaretlenir; metin imleçte görünür.
+    const isaretler = (d.isaretler ?? []).map(([t, m]) => ({ time: t, position: 'aboveBar', shape: 'circle', color: '#b3382c', text: m }));
+    if (isaretler.length) createSeriesMarkers(cizgi, isaretler);
+    grafik.timeScale().fitContent();
+  }
+
+  async function seriGoster() {
+    try {
+      aktifVeri = await seriAl(aktifSeri, tf);
+      cizVeri(aktifVeri);
+    } catch {
+      grafikKap.textContent = tf === 'hafta' ? 'Bu seri için haftalık veri yok.' : 'Grafik yüklenemedi.';
+    }
+  }
+
   async function grafigiAc(tr) {
     const seri = tr.dataset.seri;
-    if (!seri) return;
-    const bolum = location.pathname.split('/')[2];
+    if (!seri || !panel) return;
+    secili?.classList.remove('secili');
+    secili = tr;
+    tr.classList.add('secili');
     panel.hidden = false;
+    kontrol.hidden = false;
     panelBaslik.textContent = tr.children[0].textContent.trim();
-    try {
-      const yanit = await fetch(`/rasathane/veri/${bolum}/seri/${encodeURIComponent(seri)}.json`);
-      if (!yanit.ok) throw new Error(String(yanit.status));
-      const d = await yanit.json();
-      if (grafik) grafik.remove();
-      grafik = createChart(grafikKap, {
-        autoSize: true,
-        layout: { background: { color: '#fbfaf6' }, textColor: '#6f6b62', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 12 },
-        grid: { vertLines: { color: '#ece9e1' }, horzLines: { color: '#ece9e1' } },
-        rightPriceScale: { borderColor: '#e2dfd6' },
-        timeScale: { borderColor: '#e2dfd6', timeVisible: false },
-      });
-      const cizgi = grafik.addSeries(LineSeries, { color: '#2d4fd6', lineWidth: 2 });
-      cizgi.setData(d.noktalar.map(([t, v]) => ({ time: t, value: v })));
-      grafik.timeScale().fitContent();
-    } catch {
-      grafikKap.textContent = 'Grafik yüklenemedi.';
-    }
+    olculeriYaz(tr);
+    aktifSeri = seri;
+    gostergeKutulariniYaz();
+    await seriGoster();
     panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
+  // Tam ekran: tarayıcı API'si varsa onu kullanır, yoksa sayfa üstü katman.
+  const tamDugme = document.querySelector('[data-tam-ekran]');
+  const tamMetni = () => {
+    if (!tamDugme || !panel) return;
+    const acik = panel.classList.contains('tam-ekran') || document.fullscreenElement === panel;
+    tamDugme.setAttribute('aria-label', acik ? 'Tam ekrandan çık' : 'Grafiği tam ekran aç');
+    tamDugme.title = acik ? 'Kapat' : 'Tam ekran';
+    tamDugme.classList.toggle('acik', acik);
+  };
+  tamDugme?.addEventListener('click', async () => {
+    if (panel.classList.contains('tam-ekran')) {
+      panel.classList.remove('tam-ekran');
+    } else if (document.fullscreenElement === panel) {
+      await document.exitFullscreen();
+    } else {
+      let tamamlandi = false;
+      if (document.fullscreenEnabled) {
+        try {
+          await panel.requestFullscreen();
+          tamamlandi = true;
+        } catch {}
+      }
+      if (!tamamlandi) panel.classList.add('tam-ekran');
+    }
+    tamMetni();
+  });
+  document.addEventListener('fullscreenchange', tamMetni);
+
+  // Grafiği PNG olarak indir: çizgiler ve işaretler dahil; başlık, tarih notu ve künye eklenir.
+  document.querySelector('[data-png]')?.addEventListener('click', async () => {
+    if (!grafik) return;
+    const ekran = grafik.takeScreenshot();
+    const ust = 64;
+    const tuval = document.createElement('canvas');
+    tuval.width = ekran.width;
+    tuval.height = ekran.height + ust;
+    const g = tuval.getContext('2d');
+    g.fillStyle = '#f4f3ee';
+    g.fillRect(0, 0, tuval.width, tuval.height);
+    g.fillStyle = '#151515';
+    g.font = '600 20px Inter, system-ui, sans-serif';
+    g.fillText(`${panelBaslik.textContent.trim()} · ${tf === 'hafta' ? 'Haftalık' : 'Günlük'}`, 20, 32);
+    g.fillStyle = '#6f6b62';
+    g.font = '13px Inter, system-ui, sans-serif';
+    g.fillText([panel.dataset.baslik, document.querySelector('.marka-metin small')?.textContent].filter(Boolean).join(' · '), 20, 52);
+    try {
+      const isaret = new Image();
+      isaret.src = '/rasathane/isaret.svg';
+      await isaret.decode();
+      g.drawImage(isaret, tuval.width - 46, 14, 30, 30);
+    } catch {}
+    try {
+      const filigran = new Image();
+      filigran.src = '/rasathane/isaret.svg';
+      await filigran.decode();
+      const en = Math.min(tuval.width * 0.5, 340);
+      g.globalAlpha = 0.07;
+      g.drawImage(filigran, (tuval.width - en) / 2, ust + (ekran.height - en) / 2, en, en);
+      g.globalAlpha = 1;
+    } catch {}
+    g.drawImage(ekran, 0, ust);
+    tuval.toBlob((blob) => {
+      if (!blob) return;
+      const ad = panelBaslik.textContent.trim().toLocaleLowerCase('tr').replace(/\s+/g, '-');
+      const baglanti = document.createElement('a');
+      baglanti.download = `rasathane-${ad}-${tf}.png`;
+      baglanti.href = URL.createObjectURL(blob);
+      baglanti.click();
+      setTimeout(() => URL.revokeObjectURL(baglanti.href), 1000);
+    }, 'image/png');
+  });
+
   document.querySelectorAll('[data-sirala]').forEach((th) => {
     th.addEventListener('click', () => sirala(th.dataset.sirala));
+    th.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sirala(th.dataset.sirala); } });
   });
   satirlar.forEach((tr) => {
     tr.addEventListener('click', () => grafigiAc(tr));
+    tr.addEventListener('keydown', (e) => { if (e.key === 'Enter') grafigiAc(tr); });
   });
   suzSecimler.forEach((s) => s.addEventListener('change', filtrele));
   aramaKutusu.addEventListener('input', filtrele);

@@ -1,0 +1,208 @@
+---
+import RasathaneKabuk from '../../../../layouts/RasathaneKabuk.astro';
+import { readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+// Üye sayfası: yalnızca arşivdeki beyanlar (beyanlar.json). Sayfalar derleme sırasında üretilir.
+export function getStaticPaths() {
+  const yol = join(process.cwd(), 'public/rasathane/veri/capital/beyanlar.json');
+  if (!existsSync(yol)) return [];
+  const veri = JSON.parse(readFileSync(yol, 'utf8'));
+  const uyeler = [
+    { ad: 'Rohit Khanna', slug: 'rohit-khanna' },
+    { ad: 'Nancy Pelosi', slug: 'nancy-pelosi' },
+    { ad: 'Michael T. McCaul', slug: 'michael-t-mccaul' },
+    { ad: 'Richard Blumenthal', slug: 'richard-blumenthal' },
+    { ad: 'Josh Gottheimer', slug: 'josh-gottheimer' },
+    { ad: 'Thomas H Tuberville', slug: 'thomas-h-tuberville' },
+  ];
+  return uyeler
+    .filter((u) => veri.satirlar.some((r) => r.uye === u.ad))
+    .map((u) => ({
+      params: { slug: u.slug },
+      props: {
+        ad: u.ad,
+        satirlar: veri.satirlar.filter((r) => r.uye === u.ad),
+        kaynaklar: veri.kaynaklar,
+        guncellendi: veri.guncellendi,
+      },
+    }));
+}
+
+const { ad, satirlar, kaynaklar, guncellendi } = Astro.props;
+const sayi = new Intl.NumberFormat('tr-TR');
+const AYAD = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+const gunAdi = (iso) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${d} ${AYAD[m - 1]} ${y}`;
+};
+const HISSE_KODU = /^[A-Z][A-Z.]{0,5}$/;
+const parti = { D: 'Demokrat', R: 'Cumhuriyetçi', I: 'Bağımsız' }[satirlar[0].parti] ?? satirlar[0].parti;
+const meclis = satirlar[0].meclis;
+const alis = satirlar.filter((r) => r.islem === 'Alış').length;
+const satis = satirlar.filter((r) => r.islem === 'Satış').length;
+const sonBildirim = satirlar.map((r) => r.bildirim).sort().at(-1);
+const sirali = [...satirlar].sort((a, b) => b.bildirim.localeCompare(a.bildirim) || b.islem_tarihi.localeCompare(a.islem_tarihi));
+
+// En çok işlem yapılan hisseler (yalnız hisse kodu biçimli varlıklar).
+const hisseHarita = new Map();
+for (const r of satirlar) {
+  if (!HISSE_KODU.test(r.varlik)) continue;
+  const k = hisseHarita.get(r.varlik) ?? { kod: r.varlik, alis: 0, satis: 0 };
+  if (r.islem === 'Alış') k.alis += 1;
+  if (r.islem === 'Satış') k.satis += 1;
+  hisseHarita.set(r.varlik, k);
+}
+const hisseler = [...hisseHarita.values()]
+  .map((k) => ({ ...k, toplam: k.alis + k.satis }))
+  .sort((a, b) => b.toplam - a.toplam || a.kod.localeCompare(b.kod))
+  .slice(0, 8);
+const enBuyuk = Math.max(1, ...hisseler.map((h) => h.toplam));
+
+// Yıllara göre beyan dağılımı (bildirim yılı).
+const yilHarita = new Map();
+for (const r of satirlar) {
+  const y = r.bildirim.slice(0, 4);
+  const k = yilHarita.get(y) ?? { yil: y, toplam: 0, alis: 0, satis: 0 };
+  k.toplam += 1;
+  if (r.islem === 'Alış') k.alis += 1;
+  if (r.islem === 'Satış') k.satis += 1;
+  yilHarita.set(y, k);
+}
+const yillar = [...yilHarita.values()].sort((a, b) => b.yil.localeCompare(a.yil));
+---
+<RasathaneKabuk baslik={ad} aktif="capital" aciklama={`${ad}: Kongre beyanlarının kayıt özeti. Bilgi amaçlıdır; yatırım tavsiyesi değildir.`}>
+  <div class="uye">
+    <nav class="geri" aria-label="Sayfa yolu"><a href="/rasathane/capital/">← Kongre işlemleri</a></nav>
+
+    <header class="baslik">
+      <h1>{ad}</h1>
+      <p class="meta">{parti} · {meclis} · {sayi.format(satirlar.length)} beyan · son bildirim {gunAdi(sonBildirim)}</p>
+    </header>
+
+    <section class="blok" aria-labelledby="ozet-baslik">
+      <h2 id="ozet-baslik" class="sr-only">Özet</h2>
+      <details class="takvim-ac">
+        <summary>
+          <span class="takvim-ozet">
+            <span>{sayi.format(satirlar.length)} beyan</span><span class="ayrac">|</span>
+            <span>{sayi.format(alis)} alış</span><span class="ayrac">|</span>
+            <span>{sayi.format(satis)} satış</span><span class="ayrac">|</span>
+            <span>Son bildirim {gunAdi(sonBildirim)}</span>
+          </span>
+        </summary>
+        <div class="takvim">
+          <div class="takvim-gun"><span class="gun-ad">Beyan</span><span class="gun-tarih">{sayi.format(satirlar.length)}</span></div>
+          <div class="takvim-gun"><span class="gun-ad">Alış</span><span class="gun-tarih">{sayi.format(alis)}</span></div>
+          <div class="takvim-gun"><span class="gun-ad">Satış</span><span class="gun-tarih">{sayi.format(satis)}</span></div>
+          <div class="takvim-gun"><span class="gun-ad">Hisse</span><span class="gun-tarih">{sayi.format(hisseHarita.size)}</span></div>
+        </div>
+        <p class="takvim-detay">Bu sayfa beyanların kaydını gösterir. Bir beyan tek başına hukuki ihlal ya da yatırım kararı anlamına gelmez. Yatırım tavsiyesi değildir.</p>
+      </details>
+    </section>
+
+    {hisseler.length > 0 && (
+      <section class="blok" aria-labelledby="hisse-baslik">
+        <h2 id="hisse-baslik">En çok işlem yapılan hisseler</h2>
+        <ol class="cubuklar">
+          {hisseler.map((h) => (
+            <li>
+              <span class="kod">{h.kod}</span>
+              <span class="cubuk" style={`width:${(h.toplam / enBuyuk) * 100}%`} aria-hidden="true" />
+              <span class="sayi-hucre">{sayi.format(h.alis)} alış · {sayi.format(h.satis)} satış</span>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    <section class="blok" aria-labelledby="yil-baslik">
+      <h2 id="yil-baslik">Yıllara göre</h2>
+      <div class="tablo-kutu">
+        <table class="cizgi-tablo">
+          <thead><tr><th>Yıl</th><th class="sag">Beyan</th><th class="sag">Alış</th><th class="sag">Satış</th></tr></thead>
+          <tbody>
+            {yillar.map((y) => (
+              <tr><td>{y.yil}</td><td class="sag">{sayi.format(y.toplam)}</td><td class="sag">{sayi.format(y.alis)}</td><td class="sag">{sayi.format(y.satis)}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="blok" aria-labelledby="beyan-baslik">
+      <h2 id="beyan-baslik">Beyanlar</h2>
+      <p class="alt">En yeni 40 beyan gösteriliyor ({sayi.format(satirlar.length)} kaydın tamamı için Kongre işlemleri tablosunu kullanın).</p>
+      <div class="tablo-kutu">
+        <table class="cizgi-tablo">
+          <thead><tr><th>Hisse</th><th>İşlem</th><th>İşlem tarihi</th><th>Bildirim</th><th>Tutar aralığı</th><th>Süre uyumu</th><th>Belge</th></tr></thead>
+          <tbody>
+            {sirali.slice(0, 40).map((r) => (
+              <tr>
+                <td>{r.varlik}</td>
+                <td>{r.islem}</td>
+                <td>{gunAdi(r.islem_tarihi)}</td>
+                <td>{gunAdi(r.bildirim)}</td>
+                <td>{r.tutar}</td>
+                <td>{r.uyum}</td>
+                <td>{r.belge ? <a href={r.belge} rel="noopener noreferrer">Belge</a> : '–'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="kaynak">
+      Veriler {gunAdi(guncellendi.slice(0, 10))} itibarıyla. Kaynaklar: {kaynaklar.map((k, i) => <>{i > 0 && ' · '}<a href={k.url} rel="noopener noreferrer">{k.ad}</a></>)}
+    </p>
+  </div>
+</RasathaneKabuk>
+
+<style>
+  .uye { display: grid; gap: 40px; padding-top: 4px; }
+  .geri { font-size: 14px; }
+  .geri a { color: var(--ikincil); text-decoration: none; }
+  .geri a:hover { color: var(--murekkep); text-decoration: underline; text-underline-offset: 3px; }
+  .baslik { display: grid; gap: 8px; }
+  h1 { margin: 0; font-size: clamp(28px, 5vw, 36px); line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; }
+  .meta { margin: 0; font-size: 14px; color: var(--ikincil); font-variant-numeric: tabular-nums; }
+  .blok { display: grid; gap: 0; }
+  h2 { margin: 0 0 12px; font-size: 18px; font-weight: 650; letter-spacing: -0.01em; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  .takvim-ac > summary { list-style: none; display: flex; align-items: center; gap: 8px; padding: 8px 0; font-size: 13px; color: var(--murekkep); cursor: pointer; border-bottom: 1px solid var(--cizgi); }
+  .takvim-ac > summary::-webkit-details-marker { display: none; }
+  .takvim-ac > summary::before { content: '▸'; color: var(--ikincil); }
+  .takvim-ac[open] > summary::before { content: '▾'; }
+  .takvim-ozet { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+  .ayrac { color: var(--ikincil); }
+  .takvim { margin-top: 10px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .takvim-gun { display: flex; flex-direction: column; gap: 3px; min-height: 58px; padding: 7px 9px; border: 1px solid var(--cizgi); background: var(--beyaz); }
+  .gun-ad { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); }
+  .gun-tarih { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .takvim-detay { margin: 10px 0 0; font-size: 14px; line-height: 1.6; max-width: 62ch; }
+  @media (max-width: 700px) { .takvim { grid-template-columns: 1fr 1fr; } }
+
+  .cubuklar { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--cizgi); }
+  .cubuklar li { display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--cizgi); }
+  .cubuklar .kod { font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums; }
+  .cubuk { display: block; height: 14px; min-width: 2px; background: var(--mavi); }
+  .sayi-hucre { font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ikincil); }
+
+  .tablo-kutu { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  table.cizgi-tablo { width: 100%; min-width: 620px; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+  table.cizgi-tablo th, table.cizgi-tablo td { padding: 11px 14px 11px 0; border-bottom: 1px solid var(--cizgi); text-align: left; white-space: nowrap; vertical-align: top; }
+  table.cizgi-tablo thead th { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); }
+  table.cizgi-tablo tbody tr:hover { background: #efeee7; }
+  .sag { text-align: right !important; }
+  table.cizgi-tablo td a { color: var(--mavi); text-decoration: underline; text-underline-offset: 3px; }
+
+  .alt { margin: -4px 0 12px; font-size: 14px; color: var(--ikincil); }
+  .kaynak { margin: 0; font-size: 13px; color: var(--ikincil); }
+  .kaynak a { color: var(--ikincil); }
+
+  ::selection { background: #d6dcf6; color: var(--murekkep); }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
+  @media (max-width: 600px) { .cubuklar li { grid-template-columns: 56px minmax(0, 1fr); } .sayi-hucre { grid-column: 1 / -1; } }
+</style>

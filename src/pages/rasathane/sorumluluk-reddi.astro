@@ -1,0 +1,33 @@
+---
+import RasathaneKabuk from '../../layouts/RasathaneKabuk.astro';
+---
+<RasathaneKabuk baslik="Sorumluluk reddi" aciklama="Sorumluluk reddi · Rasathane">
+  <div class="metin">
+    <h1>Sorumluluk reddi</h1>
+  <p class="tarih">Son güncelleme: 4 Kasım 2026</p>
+  <p>Rasathane'deki içerikler yalnızca bilgilendirme amaçlıdır. Yatırım tavsiyesi, yatırım danışmanlığı, alım veya satım önerisi değildir.</p>
+  <h2>Veriler</h2>
+  <ul>
+    <li>Veriler kamuya açık kaynaklardan (Yahoo Finance, EIA, CFTC ve diğerleri) derlenir. Veriler gecikmelidir ve eksik ya da hatalı olabilir.</li>
+    <li>Her sayfada verinin güncelleme tarihi ve kaynağı yazılır.</li>
+  </ul>
+  <h2>Göstergeler ve geçmiş sonuçlar</h2>
+  <ul>
+    <li>EMA, SMA, Kijun-sen ve RSI gibi göstergeler geçmiş fiyatlardan yapılan hesaplardır; gelecekteki fiyatları garanti etmez.</li>
+    <li>Hareket listeleri ve geçmiş isabet bilgileri geçmiş sonuçları gösterir; gelecek sonuçların göstergesi değildir.</li>
+  </ul>
+  <h2>Sorumluluk</h2>
+  <p>Kararlarınızı vermeden önce bağımsız bir yatırım danışmanına başvurmanızı öneririz. Rasathane içeriklerine dayanılarak yapılan işlemlerden doğan zararlardan sorumluluk kabul edilmez.</p>
+
+  </div>
+</RasathaneKabuk>
+
+<style>
+  .metin { max-width: 70ch; }
+  .metin h1 { margin: 6px 0 14px; font-size: clamp(26px, 5vw, 34px); }
+  .metin h2 { margin: 26px 0 8px; font-size: 18px; }
+  .metin p, .metin li { color: var(--murekkep); }
+  .metin ul { padding-left: 20px; }
+  .metin li { margin-bottom: 6px; }
+  .metin .tarih { font-size: 13px; color: var(--ikincil); }
+</style>

@@ -1,0 +1,31 @@
+---
+import RasathaneKabuk from '../../layouts/RasathaneKabuk.astro';
+---
+<RasathaneKabuk baslik="Yasal uyarı" aciklama="Yasal uyarı · Rasathane">
+  <div class="metin">
+    <h1>Yasal uyarı</h1>
+  <p class="tarih">Son güncelleme: 4 Kasım 2026</p>
+  <h2>Kimlik</h2>
+  <p>Rasathane, finfolis'in bir yapımıdır.</p>
+  <h2>Fikri mülkiyet</h2>
+  <ul>
+    <li>Sayfalardaki metin, tablo düzeni ve tasarım sahibine aittir. Alıntı yaparken kaynak olarak Rasathane'yi ve ilgili sayfa bağlantısını gösterin.</li>
+    <li>Grafikler TradingView Lightweight Charts kütüphanesiyle çizilir; kütüphanenin lisans atfı sayfalarda yer alır.</li>
+  </ul>
+  <h2>Üçüncü taraf verileri</h2>
+  <p>Veri sağlayıcıların (Yahoo Finance, EIA, CFTC) kendi kullanım koşulları ayrıca geçerlidir.</p>
+  <h2>Kişisel veriler</h2>
+  <p>Kişisel verilerin işlenmesi hakkında bilgi için <a href="https://finfolis.com/gizlilik/">Gizlilik</a> sayfasına bakın.</p>
+
+  </div>
+</RasathaneKabuk>
+
+<style>
+  .metin { max-width: 70ch; }
+  .metin h1 { margin: 6px 0 14px; font-size: clamp(26px, 5vw, 34px); }
+  .metin h2 { margin: 26px 0 8px; font-size: 18px; }
+  .metin p, .metin li { color: var(--murekkep); }
+  .metin ul { padding-left: 20px; }
+  .metin li { margin-bottom: 6px; }
+  .metin .tarih { font-size: 13px; color: var(--ikincil); }
+</style>

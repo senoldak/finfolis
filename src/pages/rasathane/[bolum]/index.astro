@@ -7,7 +7,8 @@ import { join } from 'node:path';
 export function getStaticPaths() {
   const KOK = join(process.cwd(), 'public/rasathane/veri');
   const sayfalar = sayfalariOku(KOK);
-  return BOLUMLER.map((b) => ({
+  const ozelBolumler = new Set(['emtia', 'capital', 'grafix', 'viop']);
+  return BOLUMLER.filter((b) => !ozelBolumler.has(b.anahtar)).map((b) => ({
     params: { bolum: b.anahtar },
     props: {
       ad: b.ad,

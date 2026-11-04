@@ -1,12 +1,41 @@
 ---
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { BOLUMLER } from '../lib/rasathane/bolumler.mjs';
+import { sayi, yuzde } from '../lib/rasathane/bicim.mjs';
 
 interface Props {
   baslik: string;
   aktif?: string;
   aciklama?: string;
+  bilgi?: string;
+  // Kayan bant: hangi bölümün verisi akacak (emtia panosu ya da VİOP vadelileri). Boşsa bant yok.
+  bant?: 'emtia' | 'viop';
 }
-const { baslik, aktif, aciklama = '' } = Astro.props;
+const { baslik, aktif, aciklama = '', bilgi, bant } = Astro.props;
+// Bant öğeleri ortak biçime çevrilir: ad, fiyat, günlük değişim (yüzde). Veri yoksa bant gösterilmez.
+function bantOgeleri(kaynak: 'emtia' | 'viop'): { ad: string; fiyat: number; degisim: number | null }[] {
+  try {
+    const d = JSON.parse(readFileSync(join(process.cwd(), 'public/rasathane/veri', kaynak === 'emtia' ? 'emtia/pano.json' : 'viop/vadeli.json'), 'utf8'));
+    if (kaynak === 'emtia') {
+      return d.satirlar
+        .filter((r) => typeof r.kapanis === 'number')
+        .slice(0, 12)
+        .map((r) => ({ ad: r.ad, fiyat: r.kapanis, degisim: typeof r.gunluk === 'number' ? r.gunluk : null }));
+    }
+    // VİOP: hacme göre en çok işlem gören 12 vadeli; ad dayanak ve vade ayıyla (ör. XU030 12/26).
+    return d.satirlar
+      .filter((r) => typeof r.uzlasma === 'number')
+      .slice(0, 12)
+      .map((r) => {
+        const [y, a] = String(r.vade).split('-');
+        return { ad: `${r.dayanak} ${a}/${y.slice(2)}`, fiyat: r.uzlasma, degisim: typeof r.degisim === 'number' ? r.degisim : null };
+      });
+  } catch {
+    return [];
+  }
+}
+const bantVeri = bant ? bantOgeleri(bant) : [];
 ---
 <!doctype html>
 <html lang="tr">
@@ -16,7 +45,7 @@ const { baslik, aktif, aciklama = '' } = Astro.props;
     <title>{baslik} · Rasathane</title>
     {aciklama && <meta name="description" content={aciklama} />}
     <link rel="icon" href="/rasathane/isaret.svg" type="image/svg+xml" />
-    <style>
+    <style is:global>
       :root {
         --kagit: #f6f5f0;
         --murekkep: #151515;
@@ -29,40 +58,111 @@ const { baslik, aktif, aciklama = '' } = Astro.props;
       }
       * { box-sizing: border-box; }
       body { margin: 0; background: var(--kagit); color: var(--murekkep); font: 15px/1.5 Inter, system-ui, -apple-system, "Segoe UI", sans-serif; overflow-x: hidden; }
-      a { color: var(--murekkep); }
+      a { color: var(--mavi); text-decoration: none; text-underline-offset: 3px; }
+      a:hover { text-decoration: underline; }
+      ::selection { background: #d6dcf6; color: var(--murekkep); }
+      body { -webkit-font-smoothing: antialiased; }
       .sar { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
-      .serit { background: var(--murekkep); color: #d9d6cc; font-size: 13px; padding: 10px 0; }
-      .serit a { color: #fff; text-decoration: none; border-bottom: 1px solid #6f6b62; }
-      .ust { display: flex; align-items: center; gap: 10px; padding: 16px 0 8px; font-weight: 700; font-size: 20px; }
-      .ust img { width: 32px; height: 32px; }
-      nav.bolum { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; border-bottom: 1px solid var(--cizgi); padding-bottom: 10px; }
-      nav.bolum a { color: var(--ikincil); text-decoration: none; }
-      nav.bolum a[aria-current="page"] { color: var(--murekkep); font-weight: 600; border-bottom: 2px solid var(--mavi); }
       main { padding: 20px 0 8px; }
       h1 { margin: 0 0 4px; font-size: clamp(26px, 5vw, 34px); line-height: 1.15; }
       .not { color: var(--ikincil); font-size: 14px; margin: 0 0 12px; }
-      footer { margin-top: 32px; border-top: 1px solid var(--cizgi); padding: 20px 0 36px; font-size: 14px; color: var(--ikincil); }
-      footer strong { color: var(--murekkep); }
-      footer a { color: var(--murekkep); }
+      .altbilgi { margin-top: 48px; border-top: 1px solid var(--cizgi); padding: 32px 0 20px; font-size: 14px; color: var(--ikincil); }
+      .fgrid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 28px; }
+      .fgrid h3 { margin: 0 0 10px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
+      .fgrid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+      .fgrid a { color: var(--murekkep); text-decoration: none; }
+      .fgrid a:hover { text-decoration: underline; text-underline-offset: 3px; }
+      .marka-kol .marka-satir { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px; color: var(--murekkep); margin-bottom: 10px; }
+      .marka-kol .marka-satir img { width: 26px; height: 26px; }
+      .marka-kol p { margin: 0 0 8px; max-width: 36ch; }
+      .marka-kol .slogan { font-size: 17px; font-weight: 600; color: var(--murekkep); margin-bottom: 12px; }
+      .finfolis { font-size: 13px; }
+      .uyari { margin: 26px auto 0; font-size: 13px; text-align: center; }
+      @media (max-width: 700px) { .fgrid { grid-template-columns: 1fr 1fr; } }
+      .bant { overflow: hidden; height: 34px; display: flex; align-items: center; background: var(--beyaz); border-bottom: 1px solid var(--cizgi); font-size: 13px; }
+      .bant-iz { display: flex; gap: 40px; white-space: nowrap; padding-left: 16px; animation: bant-kay 70s linear infinite; }
+      .bant:hover .bant-iz { animation-play-state: paused; }
+      .bant-oge b { font-weight: 600; }
+      .yukari { color: var(--yesil); }
+      .asagi { color: var(--kirmizi); }
+      @keyframes bant-kay { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+      @media (prefers-reduced-motion: reduce) { .bant-iz { animation: none; } }
+      .ust-cubuk-sayfa { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 28px; padding: 18px 0 14px; border-bottom: 1px solid var(--cizgi); }
+      .marka { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 19px; color: var(--murekkep); text-decoration: none; }
+      .marka img { width: 28px; height: 28px; }
+      .marka:hover { text-decoration: none; }
+      .marka:hover .marka-metin span { text-decoration: none; }
+      .marka-metin { display: flex; flex-direction: column; gap: 2px; line-height: 1.2; }
+      .marka-metin small { font-size: 12px; font-weight: 400; color: var(--ikincil); }
+      nav.bolum { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 14px; }
+      nav.bolum a { color: var(--ikincil); text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; }
+      nav.bolum a:hover { color: var(--murekkep); }
+      nav.bolum a[aria-current="page"] { color: var(--murekkep); font-weight: 600; border-bottom-color: var(--mavi); }
+      .serit { background: var(--murekkep); color: #d9d6cc; font-size: 13px; padding: 7px 0; }
+      .serit a { color: #fff; text-decoration: none; border-bottom: 1px solid #6f6b62; }
+      .serit a:hover { border-bottom-color: #fff; text-decoration: none; }
     </style>
   </head>
   <body>
     <div class="serit"><div class="sar"><a href="https://finfolis.com/">Bir finfolis yapımıdır</a></div></div>
-    <header class="sar">
-      <div class="ust"><img src="/rasathane/isaret.svg" alt="" /><a href="/rasathane/" style="text-decoration:none;color:inherit">Rasathane</a></div>
+    <header class="ust-cubuk-sayfa sar">
+      <a class="marka" href="/rasathane/"><img src="/rasathane/isaret.svg" alt="" /><span class="marka-metin"><span>Rasathane</span>{bilgi && <small>{bilgi}</small>}</span></a>
       <nav class="bolum" aria-label="Bölümler">
         {BOLUMLER.map((b) => (
           <a href={`/rasathane/${b.anahtar}/`} aria-current={aktif === b.anahtar ? 'page' : undefined}>{b.ad}</a>
         ))}
       </nav>
     </header>
+    {bantVeri.length > 0 && (
+      <div class="bant" aria-label="Son kapanışlar">
+        <div class="bant-iz">
+          {[...bantVeri, ...bantVeri].map((r, i) => (
+            <span class="bant-oge" aria-hidden={i >= bantVeri.length ? 'true' : undefined}>
+              <b>{r.ad}</b> {sayi(r.fiyat, 2)}{' '}
+              {r.degisim !== null && (
+                <span class={r.degisim > 0 ? 'yukari' : r.degisim < 0 ? 'asagi' : ''}>
+                  {r.degisim > 0 ? '▲' : r.degisim < 0 ? '▼' : ''} {yuzde(Math.abs(r.degisim), 1)}
+                </span>
+              )}
+            </span>
+          ))}
+        </div>
+      </div>
+    )}
     <main class="sar">
       <slot />
     </main>
-    <footer class="sar">
-      <p style="margin:0 0 10px"><strong>Yatırım tavsiyesi değildir. Veriler gecikmelidir.</strong></p>
-      <p style="margin:0 0 6px">Bu sayfalardaki veriler kamuya açık kaynaklardan derlenir; her sayfanın kaynakları ayrıca yazılır.</p>
-      <p style="margin:0">Grafikler: <a href="https://www.tradingview.com/">TradingView Lightweight Charts</a> · <a href="https://finfolis.com/hakkimizda/">Künye</a></p>
+    <footer class="altbilgi">
+      <div class="sar fgrid">
+        <div class="marka-kol">
+          <div class="marka-satir"><img src="/rasathane/isaret.svg" alt="" /><span>Rasathane</span></div>
+          <p class="slogan">Gözünüz rakamlarda olsun.</p>
+        </div>
+        <nav aria-label="Bölümler">
+          <h3>Bölümler</h3>
+          <ul>
+            {BOLUMLER.map((b) => <li><a href={`/rasathane/${b.anahtar}/`}>{b.ad}</a></li>)}
+          </ul>
+        </nav>
+        <div>
+          <h3>Kaynaklar</h3>
+          <ul>
+            <li><a href="https://finance.yahoo.com/">Yahoo Finance</a></li>
+            <li><a href="https://www.eia.gov/">EIA</a></li>
+            <li><a href="https://www.cftc.gov/">CFTC</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Künye</h3>
+          <ul>
+            <li><a href="https://finfolis.com/hakkimizda/">Hakkımızda</a></li>
+            <li><a href="https://finfolis.com/gizlilik/">Gizlilik</a></li>
+            <li><a href="/rasathane/sorumluluk-reddi/">Sorumluluk reddi</a></li>
+            <li><a href="/rasathane/yasal-uyari/">Yasal uyarı</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="sar uyari">Yatırım tavsiyesi değildir. Veriler gecikmelidir.</p>
     </footer>
   </body>
 </html>
