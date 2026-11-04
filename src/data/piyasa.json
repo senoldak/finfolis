@@ -1,10 +1,10 @@
 {
-  "guncelleme": "2026-11-04T13:41:03.585Z",
+  "guncelleme": "2026-11-04T15:41:20.349Z",
   "gostergeler": [
     {
       "id": "dolar",
       "ad": "Dolar / TL",
-      "deger": 49.997,
+      "deger": 50.022,
       "ondalik": 2,
       "simge": "lira",
       "onceki": 42.087,
@@ -13,7 +13,7 @@
         "ad": "Avrupa Merkez Bankası referans kuru",
         "url": "https://www.frankfurter.dev/"
       },
-      "zaman": "2026-11-03T00:00:00+03:00",
+      "zaman": "2026-11-04T00:00:00+03:00",
       "gecerlilik": "kur",
       "degisim": 0.1,
       "gecmis": [
@@ -272,6 +272,10 @@
         {
           "tarih": "2026-11-03",
           "deger": 49.997
+        },
+        {
+          "tarih": "2026-11-04",
+          "deger": 50.022
         }
       ],
       "renk": "blue",
@@ -282,7 +286,7 @@
     {
       "id": "euro",
       "ad": "Euro / TL",
-      "deger": 55.8921,
+      "deger": 56.3598,
       "ondalik": 2,
       "simge": "lira",
       "onceki": 48.3616,
@@ -291,9 +295,9 @@
         "ad": "Avrupa Merkez Bankası referans kuru",
         "url": "https://www.frankfurter.dev/"
       },
-      "zaman": "2026-11-03T00:00:00+03:00",
+      "zaman": "2026-11-04T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -0.3,
+      "degisim": 0.8,
       "gecmis": [
         {
           "tarih": "2026-08-06",
@@ -550,17 +554,21 @@
         {
           "tarih": "2026-11-03",
           "deger": 55.8921
+        },
+        {
+          "tarih": "2026-11-04",
+          "deger": 56.3598
         }
       ],
       "renk": "ochre",
       "simgeDegeri": 2,
       "simgeEtiket": "2 TL",
-      "anlam": "Euronun fiyatı bir yılda yüzde 16 arttı."
+      "anlam": "Euronun fiyatı bir yılda yüzde 17 arttı."
     },
     {
       "id": "yen",
       "ad": "100 Japon yeni / TL",
-      "deger": 31.586,
+      "deger": 31.61,
       "ondalik": 2,
       "simge": "lira",
       "onceki": 27.418,
@@ -569,9 +577,9 @@
         "ad": "Avrupa Merkez Bankası referans kuru",
         "url": "https://www.frankfurter.dev/"
       },
-      "zaman": "2026-11-03T00:00:00+03:00",
+      "zaman": "2026-11-04T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -0.2,
+      "degisim": 0.1,
       "gecmis": [
         {
           "tarih": "2026-08-06",
@@ -828,6 +836,10 @@
         {
           "tarih": "2026-11-03",
           "deger": 31.586
+        },
+        {
+          "tarih": "2026-11-04",
+          "deger": 31.61
         }
       ]
     },
@@ -870,7 +882,7 @@
     {
       "id": "bist100",
       "ad": "BIST 100",
-      "deger": 11495.8496,
+      "deger": 11478.1299,
       "ondalik": 2,
       "simge": "fabrika",
       "kaynak": {
@@ -879,7 +891,7 @@
       },
       "zaman": "2026-11-04T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 4.3,
+      "degisim": 4.1,
       "gecmis": [
         {
           "tarih": "2026-08-06",
@@ -1135,14 +1147,14 @@
         },
         {
           "tarih": "2026-11-04",
-          "deger": 11495.8496
+          "deger": 11478.1299
         }
       ]
     },
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 4045,
+      "deger": 4040.8,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
@@ -1151,7 +1163,7 @@
       },
       "zaman": "2026-11-04T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 2.7,
+      "degisim": 2.5,
       "gecmis": [
         {
           "tarih": "2026-08-06",
@@ -1407,7 +1419,7 @@
         },
         {
           "tarih": "2026-11-04",
-          "deger": 4045
+          "deger": 4040.8
         }
       ],
       "onEk": "$"
