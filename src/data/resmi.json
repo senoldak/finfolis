@@ -3170,22 +3170,18 @@
     "alinma": "2026-11-02T13:59:50.416Z"
   },
   "rezerv": {
-    "tarih": "2026-11-02",
-    "netDovizPozisyonu": 23.57,
-    "degisimGunluk": -2.64,
+    "tarih": "2026-11-03",
+    "netDovizPozisyonu": 26.92,
+    "degisimGunluk": 3.35,
     "kalemler": {
-      "disVarliklarUSD": 156.94,
-      "dovizYukumlulukleriUSD": 126.74,
-      "netUluslararasiRezervUSD": 30.2,
+      "disVarliklarUSD": 159.82,
+      "dovizYukumlulukleriUSD": 126.29,
+      "netUluslararasiRezervUSD": 33.53,
       "swapStokuUSD": 0,
-      "hazineDoviziUSD": 6.63,
-      "netPozisyonUSD": 23.57
+      "hazineDoviziUSD": 6.61,
+      "netPozisyonUSD": 26.92
     },
     "gecmis": [
-      {
-        "tarih": "2026-06-26",
-        "deger": 35.3
-      },
       {
         "tarih": "2026-06-29",
         "deger": 37.09
@@ -3541,13 +3537,17 @@
       {
         "tarih": "2026-11-02",
         "deger": 23.57
+      },
+      {
+        "tarih": "2026-11-03",
+        "deger": 26.92
       }
     ],
     "kaynak": {
       "ad": "TCMB Analitik Bilanço (EVDS)",
       "url": "https://evds3.tcmb.gov.tr/"
     },
-    "alinma": "2026-11-03T12:03:48.361Z"
+    "alinma": "2026-11-04T12:00:16.494Z"
   },
   "piyasaFaizleri": {
     "kaynak": {
@@ -16791,7 +16791,7 @@
       {
         "yil": 2003,
         "ay": 1,
-        "genel": 124.67,
+        "genel": 124.68,
         "gelismekte": 138.02,
         "gelismis": 119.68
       },
@@ -16799,20 +16799,20 @@
         "yil": 2003,
         "ay": 2,
         "genel": 127.76,
-        "gelismekte": 142.62,
+        "gelismekte": 142.63,
         "gelismis": 122.16
       },
       {
         "yil": 2003,
         "ay": 3,
         "genel": 127.53,
-        "gelismekte": 142.16,
+        "gelismekte": 142.17,
         "gelismis": 122.03
       },
       {
         "yil": 2003,
         "ay": 4,
-        "genel": 130.77,
+        "genel": 130.78,
         "gelismekte": 145.47,
         "gelismis": 125.25
       },
@@ -16820,7 +16820,7 @@
         "yil": 2003,
         "ay": 5,
         "genel": 138.32,
-        "gelismekte": 156.81,
+        "gelismekte": 156.82,
         "gelismis": 131.31
       },
       {
@@ -16848,7 +16848,7 @@
         "yil": 2003,
         "ay": 9,
         "genel": 153.49,
-        "gelismekte": 171.42,
+        "gelismekte": 171.43,
         "gelismis": 146.74
       },
       {
@@ -16861,14 +16861,14 @@
       {
         "yil": 2003,
         "ay": 11,
-        "genel": 141.11,
+        "genel": 141.12,
         "gelismekte": 159.09,
         "gelismis": 134.31
       },
       {
         "yil": 2003,
         "ay": 12,
-        "genel": 140.9,
+        "genel": 140.91,
         "gelismekte": 161.6,
         "gelismis": 133.04
       },
@@ -16883,21 +16883,21 @@
         "yil": 2004,
         "ay": 2,
         "genel": 149.59,
-        "gelismekte": 173.15,
+        "gelismekte": 173.16,
         "gelismis": 140.64
       },
       {
         "yil": 2004,
         "ay": 3,
         "genel": 154.53,
-        "gelismekte": 175.76,
+        "gelismekte": 175.77,
         "gelismis": 146.48
       },
       {
         "yil": 2004,
         "ay": 4,
         "genel": 152.69,
-        "gelismekte": 171.93,
+        "gelismekte": 171.94,
         "gelismis": 145.41
       },
       {
@@ -16918,14 +16918,14 @@
         "yil": 2004,
         "ay": 7,
         "genel": 140.49,
-        "gelismekte": 158.63,
+        "gelismekte": 158.64,
         "gelismis": 133.62
       },
       {
         "yil": 2004,
         "ay": 8,
         "genel": 140.07,
-        "gelismekte": 157.36,
+        "gelismekte": 157.37,
         "gelismis": 133.53
       },
       {
@@ -16939,7 +16939,7 @@
         "yil": 2004,
         "ay": 10,
         "genel": 139.75,
-        "gelismekte": 157.18,
+        "gelismekte": 157.19,
         "gelismis": 133.16
       },
       {
@@ -16966,7 +16966,7 @@
       {
         "yil": 2005,
         "ay": 2,
-        "genel": 153.93,
+        "genel": 153.94,
         "gelismekte": 172.13,
         "gelismis": 147.08
       },
@@ -16981,14 +16981,14 @@
         "yil": 2005,
         "ay": 4,
         "genel": 149.85,
-        "gelismekte": 165.91,
+        "gelismekte": 165.92,
         "gelismis": 143.84
       },
       {
         "yil": 2005,
         "ay": 5,
         "genel": 151.32,
-        "gelismekte": 166.34,
+        "gelismekte": 166.35,
         "gelismis": 145.73
       },
       {
@@ -17009,7 +17009,7 @@
         "yil": 2005,
         "ay": 8,
         "genel": 157.29,
-        "gelismekte": 168.88,
+        "gelismekte": 168.89,
         "gelismis": 153.16
       },
       {
@@ -17023,7 +17023,7 @@
         "yil": 2005,
         "ay": 10,
         "genel": 161.58,
-        "gelismekte": 171.53,
+        "gelismekte": 171.54,
         "gelismis": 158.18
       },
       {
@@ -17037,20 +17037,20 @@
         "yil": 2005,
         "ay": 12,
         "genel": 166.25,
-        "gelismekte": 174.98,
+        "gelismekte": 174.99,
         "gelismis": 163.4
       },
       {
         "yil": 2006,
         "ay": 1,
         "genel": 166.66,
-        "gelismekte": 175.98,
+        "gelismekte": 175.99,
         "gelismis": 163.48
       },
       {
         "yil": 2006,
         "ay": 2,
-        "genel": 168.33,
+        "genel": 168.34,
         "gelismekte": 175.97,
         "gelismis": 166.18
       },
@@ -17093,7 +17093,7 @@
         "yil": 2006,
         "ay": 8,
         "genel": 148.62,
-        "gelismekte": 157.32,
+        "gelismekte": 157.33,
         "gelismis": 145.54
       },
       {
@@ -17121,7 +17121,7 @@
         "yil": 2006,
         "ay": 12,
         "genel": 152.88,
-        "gelismekte": 160.17,
+        "gelismekte": 160.18,
         "gelismis": 150.71
       },
       {
@@ -17141,15 +17141,15 @@
       {
         "yil": 2007,
         "ay": 3,
-        "genel": 157.38,
-        "gelismekte": 162.94,
+        "genel": 157.39,
+        "gelismekte": 162.95,
         "gelismis": 156.33
       },
       {
         "yil": 2007,
         "ay": 4,
         "genel": 161.89,
-        "gelismekte": 167.77,
+        "gelismekte": 167.78,
         "gelismis": 160.71
       },
       {
@@ -17162,8 +17162,8 @@
       {
         "yil": 2007,
         "ay": 6,
-        "genel": 166.39,
-        "gelismekte": 170.23,
+        "genel": 166.4,
+        "gelismekte": 170.24,
         "gelismis": 166.54
       },
       {
@@ -17176,7 +17176,7 @@
       {
         "yil": 2007,
         "ay": 8,
-        "genel": 162.67,
+        "genel": 162.68,
         "gelismekte": 165.43,
         "gelismis": 163.44
       },
@@ -17191,7 +17191,7 @@
         "yil": 2007,
         "ay": 10,
         "genel": 175.64,
-        "gelismekte": 179.41,
+        "gelismekte": 179.42,
         "gelismis": 175.96
       },
       {
@@ -17212,13 +17212,13 @@
         "yil": 2008,
         "ay": 1,
         "genel": 177.32,
-        "gelismekte": 180.72,
+        "gelismekte": 180.73,
         "gelismis": 177.91
       },
       {
         "yil": 2008,
         "ay": 2,
-        "genel": 175.14,
+        "genel": 175.15,
         "gelismekte": 177.07,
         "gelismis": 176.63
       },
@@ -17226,14 +17226,14 @@
         "yil": 2008,
         "ay": 3,
         "genel": 163.86,
-        "gelismekte": 167.1,
+        "gelismekte": 167.11,
         "gelismis": 164.33
       },
       {
         "yil": 2008,
         "ay": 4,
-        "genel": 155.74,
-        "gelismekte": 157.71,
+        "genel": 155.75,
+        "gelismekte": 157.72,
         "gelismis": 156.9
       },
       {
@@ -17268,21 +17268,21 @@
         "yil": 2008,
         "ay": 9,
         "genel": 173.88,
-        "gelismekte": 167.71,
+        "gelismekte": 167.72,
         "gelismis": 180.7
       },
       {
         "yil": 2008,
         "ay": 10,
         "genel": 157.54,
-        "gelismekte": 148.88,
+        "gelismekte": 148.89,
         "gelismis": 165.86
       },
       {
         "yil": 2008,
         "ay": 11,
         "genel": 153.8,
-        "gelismekte": 144.07,
+        "gelismekte": 144.08,
         "gelismis": 162.84
       },
       {
@@ -17310,13 +17310,13 @@
         "yil": 2009,
         "ay": 3,
         "genel": 147.22,
-        "gelismekte": 143.09,
+        "gelismekte": 143.1,
         "gelismis": 152.16
       },
       {
         "yil": 2009,
         "ay": 4,
-        "genel": 154.11,
+        "genel": 154.12,
         "gelismekte": 150.47,
         "gelismis": 158.7
       },
@@ -17331,7 +17331,7 @@
         "yil": 2009,
         "ay": 6,
         "genel": 154.14,
-        "gelismekte": 152.78,
+        "gelismekte": 152.79,
         "gelismis": 156.73
       },
       {
@@ -17352,7 +17352,7 @@
         "yil": 2009,
         "ay": 9,
         "genel": 155.79,
-        "gelismekte": 155.72,
+        "gelismekte": 155.73,
         "gelismis": 157.3
       },
       {
@@ -17372,8 +17372,8 @@
       {
         "yil": 2009,
         "ay": 12,
-        "genel": 158.15,
-        "gelismekte": 157.41,
+        "genel": 158.16,
+        "gelismekte": 157.42,
         "gelismis": 160.26
       },
       {
@@ -17387,7 +17387,7 @@
         "yil": 2010,
         "ay": 2,
         "genel": 167.02,
-        "gelismekte": 162.4,
+        "gelismekte": 162.41,
         "gelismis": 172.57
       },
       {
@@ -17401,13 +17401,13 @@
         "yil": 2010,
         "ay": 4,
         "genel": 171.32,
-        "gelismekte": 165.16,
+        "gelismekte": 165.17,
         "gelismis": 178.29
       },
       {
         "yil": 2010,
         "ay": 5,
-        "genel": 171.03,
+        "genel": 171.04,
         "gelismekte": 161.75,
         "gelismis": 180.86
       },
@@ -17421,7 +17421,7 @@
       {
         "yil": 2010,
         "ay": 7,
-        "genel": 167.57,
+        "genel": 167.58,
         "gelismekte": 158.63,
         "gelismis": 177.07
       },
@@ -17429,14 +17429,14 @@
         "yil": 2010,
         "ay": 8,
         "genel": 169.59,
-        "gelismekte": 161.22,
+        "gelismekte": 161.23,
         "gelismis": 178.56
       },
       {
         "yil": 2010,
         "ay": 9,
-        "genel": 171.43,
-        "gelismekte": 163.07,
+        "genel": 171.44,
+        "gelismekte": 163.08,
         "gelismis": 180.41
       },
       {
@@ -17464,20 +17464,20 @@
         "yil": 2011,
         "ay": 1,
         "genel": 161.22,
-        "gelismekte": 152.89,
+        "gelismekte": 152.9,
         "gelismis": 170.08
       },
       {
         "yil": 2011,
         "ay": 2,
         "genel": 156.87,
-        "gelismekte": 149.34,
+        "gelismekte": 149.35,
         "gelismis": 164.96
       },
       {
         "yil": 2011,
         "ay": 3,
-        "genel": 155.37,
+        "genel": 155.38,
         "gelismekte": 148.59,
         "gelismis": 162.78
       },
@@ -17492,7 +17492,7 @@
         "yil": 2011,
         "ay": 5,
         "genel": 157.15,
-        "gelismekte": 150.5,
+        "gelismekte": 150.51,
         "gelismis": 164.43
       },
       {
@@ -17519,8 +17519,8 @@
       {
         "yil": 2011,
         "ay": 9,
-        "genel": 138.73,
-        "gelismekte": 130.53,
+        "genel": 138.74,
+        "gelismekte": 130.54,
         "gelismis": 147.34
       },
       {
@@ -17541,7 +17541,7 @@
         "yil": 2011,
         "ay": 12,
         "genel": 144.95,
-        "gelismekte": 135.88,
+        "gelismekte": 135.89,
         "gelismis": 154.42
       },
       {
@@ -17555,21 +17555,21 @@
         "yil": 2012,
         "ay": 2,
         "genel": 154.33,
-        "gelismekte": 145.08,
+        "gelismekte": 145.09,
         "gelismis": 164
       },
       {
         "yil": 2012,
         "ay": 3,
         "genel": 152.1,
-        "gelismekte": 142.58,
+        "gelismekte": 142.59,
         "gelismis": 162.02
       },
       {
         "yil": 2012,
         "ay": 4,
         "genel": 154.29,
-        "gelismekte": 144.53,
+        "gelismekte": 144.54,
         "gelismis": 164.46
       },
       {
@@ -17590,7 +17590,7 @@
         "yil": 2012,
         "ay": 7,
         "genel": 156,
-        "gelismekte": 143.79,
+        "gelismekte": 143.8,
         "gelismis": 168.62
       },
       {
@@ -17611,7 +17611,7 @@
         "yil": 2012,
         "ay": 10,
         "genel": 157.4,
-        "gelismekte": 148.69,
+        "gelismekte": 148.7,
         "gelismis": 166.57
       },
       {
@@ -17625,13 +17625,13 @@
         "yil": 2012,
         "ay": 12,
         "genel": 157.67,
-        "gelismekte": 148.48,
+        "gelismekte": 148.49,
         "gelismis": 167.31
       },
       {
         "yil": 2013,
         "ay": 1,
-        "genel": 161.12,
+        "genel": 161.13,
         "gelismekte": 152.34,
         "gelismis": 170.39
       },
@@ -17646,28 +17646,28 @@
         "yil": 2013,
         "ay": 3,
         "genel": 160.47,
-        "gelismekte": 149.88,
+        "gelismekte": 149.89,
         "gelismis": 171.49
       },
       {
         "yil": 2013,
         "ay": 4,
         "genel": 161.94,
-        "gelismekte": 150.8,
+        "gelismekte": 150.81,
         "gelismis": 173.5
       },
       {
         "yil": 2013,
         "ay": 5,
         "genel": 159.69,
-        "gelismekte": 148.36,
+        "gelismekte": 148.37,
         "gelismis": 171.44
       },
       {
         "yil": 2013,
         "ay": 6,
         "genel": 153.72,
-        "gelismekte": 143.8,
+        "gelismekte": 143.81,
         "gelismis": 164.04
       },
       {
@@ -17688,7 +17688,7 @@
         "yil": 2013,
         "ay": 9,
         "genel": 144,
-        "gelismekte": 135.2,
+        "gelismekte": 135.21,
         "gelismis": 153.19
       },
       {
@@ -17716,7 +17716,7 @@
         "yil": 2014,
         "ay": 1,
         "genel": 134.12,
-        "gelismekte": 126.06,
+        "gelismekte": 126.07,
         "gelismis": 142.55
       },
       {
@@ -17764,7 +17764,7 @@
       {
         "yil": 2014,
         "ay": 8,
-        "genel": 145.47,
+        "genel": 145.48,
         "gelismekte": 137.09,
         "gelismis": 154.27
       },
@@ -17772,7 +17772,7 @@
         "yil": 2014,
         "ay": 9,
         "genel": 144.95,
-        "gelismekte": 134.97,
+        "gelismekte": 134.98,
         "gelismis": 155.3
       },
       {
@@ -17786,20 +17786,20 @@
         "yil": 2014,
         "ay": 11,
         "genel": 150.06,
-        "gelismekte": 138.34,
+        "gelismekte": 138.35,
         "gelismis": 162.18
       },
       {
         "yil": 2014,
         "ay": 12,
-        "genel": 148.32,
-        "gelismekte": 137.17,
+        "genel": 148.33,
+        "gelismekte": 137.18,
         "gelismis": 159.86
       },
       {
         "yil": 2015,
         "ay": 1,
-        "genel": 152.35,
+        "genel": 152.36,
         "gelismekte": 139.03,
         "gelismis": 166.18
       },
@@ -17814,7 +17814,7 @@
         "yil": 2015,
         "ay": 3,
         "genel": 146.6,
-        "gelismekte": 132.96,
+        "gelismekte": 132.97,
         "gelismis": 160.77
       },
       {
@@ -17835,14 +17835,14 @@
         "yil": 2015,
         "ay": 6,
         "genel": 138.69,
-        "gelismekte": 126.35,
+        "gelismekte": 126.36,
         "gelismis": 151.49
       },
       {
         "yil": 2015,
         "ay": 7,
         "genel": 140.43,
-        "gelismekte": 127.34,
+        "gelismekte": 127.35,
         "gelismis": 154.04
       },
       {
@@ -17890,28 +17890,28 @@
       {
         "yil": 2016,
         "ay": 2,
-        "genel": 142.03,
-        "gelismekte": 133.85,
+        "genel": 142.04,
+        "gelismekte": 133.86,
         "gelismis": 150.54
       },
       {
         "yil": 2016,
         "ay": 3,
-        "genel": 143.45,
+        "genel": 143.46,
         "gelismekte": 134.88,
         "gelismis": 152.35
       },
       {
         "yil": 2016,
         "ay": 4,
-        "genel": 144.64,
+        "genel": 144.65,
         "gelismekte": 136.24,
         "gelismis": 153.38
       },
       {
         "yil": 2016,
         "ay": 5,
-        "genel": 140.79,
+        "genel": 140.8,
         "gelismekte": 132.62,
         "gelismis": 149.28
       },
@@ -17925,8 +17925,8 @@
       {
         "yil": 2016,
         "ay": 7,
-        "genel": 143.48,
-        "gelismekte": 134.18,
+        "genel": 143.49,
+        "gelismekte": 134.19,
         "gelismis": 153.12
       },
       {
@@ -17954,7 +17954,7 @@
         "yil": 2016,
         "ay": 11,
         "genel": 135.27,
-        "gelismekte": 127.06,
+        "gelismekte": 127.07,
         "gelismis": 143.78
       },
       {
@@ -17982,7 +17982,7 @@
         "yil": 2017,
         "ay": 3,
         "genel": 127.19,
-        "gelismekte": 118.8,
+        "gelismekte": 118.81,
         "gelismis": 135.88
       },
       {
@@ -18010,7 +18010,7 @@
         "yil": 2017,
         "ay": 7,
         "genel": 126.89,
-        "gelismekte": 120.48,
+        "gelismekte": 120.49,
         "gelismis": 133.58
       },
       {
@@ -18031,14 +18031,14 @@
         "yil": 2017,
         "ay": 10,
         "genel": 125.04,
-        "gelismekte": 119.27,
+        "gelismekte": 119.28,
         "gelismis": 131.09
       },
       {
         "yil": 2017,
         "ay": 11,
         "genel": 119.7,
-        "gelismekte": 114.13,
+        "gelismekte": 114.14,
         "gelismis": 125.55
       },
       {
@@ -18052,7 +18052,7 @@
         "yil": 2018,
         "ay": 1,
         "genel": 121.79,
-        "gelismekte": 117.38,
+        "gelismekte": 117.39,
         "gelismis": 126.45
       },
       {
@@ -18072,8 +18072,8 @@
       {
         "yil": 2018,
         "ay": 4,
-        "genel": 116.96,
-        "gelismekte": 113.44,
+        "genel": 116.97,
+        "gelismekte": 113.45,
         "gelismis": 120.7
       },
       {
@@ -18107,8 +18107,8 @@
       {
         "yil": 2018,
         "ay": 9,
-        "genel": 90,
-        "gelismekte": 89.22,
+        "genel": 90.01,
+        "gelismekte": 89.23,
         "gelismis": 90.92
       },
       {
@@ -18129,7 +18129,7 @@
         "yil": 2018,
         "ay": 12,
         "genel": 108.94,
-        "gelismekte": 105.62,
+        "gelismekte": 105.63,
         "gelismis": 112.45
       },
       {
@@ -18142,8 +18142,8 @@
       {
         "yil": 2019,
         "ay": 2,
-        "genel": 110.77,
-        "gelismekte": 107.2,
+        "genel": 110.78,
+        "gelismekte": 107.21,
         "gelismis": 114.56
       },
       {
@@ -18170,7 +18170,7 @@
       {
         "yil": 2019,
         "ay": 6,
-        "genel": 103.6,
+        "genel": 103.61,
         "gelismekte": 99.69,
         "gelismis": 107.74
       },
@@ -18192,7 +18192,7 @@
         "yil": 2019,
         "ay": 9,
         "genel": 109.78,
-        "gelismekte": 104.75,
+        "gelismekte": 104.76,
         "gelismis": 115.1
       },
       {
@@ -18220,13 +18220,13 @@
         "yil": 2020,
         "ay": 1,
         "genel": 108.68,
-        "gelismekte": 103.39,
+        "gelismekte": 103.4,
         "gelismis": 114.28
       },
       {
         "yil": 2020,
         "ay": 2,
-        "genel": 108.2,
+        "genel": 108.21,
         "gelismekte": 102.69,
         "gelismis": 114.06
       },
@@ -18261,7 +18261,7 @@
       {
         "yil": 2020,
         "ay": 7,
-        "genel": 99.6,
+        "genel": 99.61,
         "gelismekte": 97.28,
         "gelismis": 102.1
       },
@@ -18282,7 +18282,7 @@
       {
         "yil": 2020,
         "ay": 10,
-        "genel": 88.72,
+        "genel": 88.73,
         "gelismekte": 87.58,
         "gelismis": 90
       },
@@ -18332,7 +18332,7 @@
         "yil": 2021,
         "ay": 5,
         "genel": 87.24,
-        "gelismekte": 85.7,
+        "gelismekte": 85.71,
         "gelismis": 88.97
       },
       {
@@ -18353,14 +18353,14 @@
         "yil": 2021,
         "ay": 8,
         "genel": 91.05,
-        "gelismekte": 88.85,
+        "gelismekte": 88.86,
         "gelismis": 93.54
       },
       {
         "yil": 2021,
         "ay": 9,
         "genel": 91.27,
-        "gelismekte": 89.01,
+        "gelismekte": 89.02,
         "gelismis": 93.83
       },
       {
@@ -18381,21 +18381,21 @@
         "yil": 2021,
         "ay": 12,
         "genel": 69.99,
-        "gelismekte": 68.16,
+        "gelismekte": 68.17,
         "gelismis": 72.06
       },
       {
         "yil": 2022,
         "ay": 1,
         "genel": 76.28,
-        "gelismekte": 73.82,
+        "gelismekte": 73.83,
         "gelismis": 79.1
       },
       {
         "yil": 2022,
         "ay": 2,
         "genel": 78.77,
-        "gelismekte": 76.08,
+        "gelismekte": 76.09,
         "gelismis": 81.86
       },
       {
@@ -18416,28 +18416,28 @@
         "yil": 2022,
         "ay": 5,
         "genel": 81.86,
-        "gelismekte": 78.06,
+        "gelismekte": 78.07,
         "gelismis": 86.28
       },
       {
         "yil": 2022,
         "ay": 6,
         "genel": 78.45,
-        "gelismekte": 74.67,
+        "gelismekte": 74.68,
         "gelismis": 82.85
       },
       {
         "yil": 2022,
         "ay": 7,
         "genel": 79.6,
-        "gelismekte": 75.19,
+        "gelismekte": 75.2,
         "gelismis": 84.78
       },
       {
         "yil": 2022,
         "ay": 8,
-        "genel": 78.01,
-        "gelismekte": 73.82,
+        "genel": 78.02,
+        "gelismekte": 73.83,
         "gelismis": 82.93
       },
       {
@@ -18480,7 +18480,7 @@
         "ay": 2,
         "genel": 87.62,
         "gelismekte": 85.61,
-        "gelismis": 89.91
+        "gelismis": 89.9
       },
       {
         "yil": 2023,
@@ -18492,36 +18492,36 @@
       {
         "yil": 2023,
         "ay": 4,
-        "genel": 88.12,
-        "gelismekte": 86.49,
+        "genel": 88.13,
+        "gelismekte": 86.5,
         "gelismis": 89.96
       },
       {
         "yil": 2023,
         "ay": 5,
         "genel": 86.67,
-        "gelismekte": 84.9,
+        "gelismekte": 84.92,
         "gelismis": 88.66
       },
       {
         "yil": 2023,
         "ay": 6,
-        "genel": 77.01,
-        "gelismekte": 75.43,
-        "gelismis": 78.79
+        "genel": 77.02,
+        "gelismekte": 75.45,
+        "gelismis": 78.8
       },
       {
         "yil": 2023,
         "ay": 7,
-        "genel": 72.79,
+        "genel": 72.78,
         "gelismekte": 71.89,
         "gelismis": 73.78
       },
       {
         "yil": 2023,
         "ay": 8,
-        "genel": 78.31,
-        "gelismekte": 77.15,
+        "genel": 78.32,
+        "gelismekte": 77.17,
         "gelismis": 79.6
       },
       {
@@ -18541,8 +18541,8 @@
       {
         "yil": 2023,
         "ay": 11,
-        "genel": 82.73,
-        "gelismekte": 80.94,
+        "genel": 82.74,
+        "gelismekte": 80.97,
         "gelismis": 84.75
       },
       {
@@ -18556,20 +18556,20 @@
         "yil": 2024,
         "ay": 1,
         "genel": 85.54,
-        "gelismekte": 84.13,
-        "gelismis": 87.13
+        "gelismekte": 84.14,
+        "gelismis": 87.12
       },
       {
         "yil": 2024,
         "ay": 2,
         "genel": 87.66,
-        "gelismekte": 85.88,
+        "gelismekte": 85.87,
         "gelismis": 89.68
       },
       {
         "yil": 2024,
         "ay": 3,
-        "genel": 87.22,
+        "genel": 87.23,
         "gelismekte": 86.23,
         "gelismis": 88.33
       },
@@ -18583,8 +18583,8 @@
       {
         "yil": 2024,
         "ay": 5,
-        "genel": 92.36,
-        "gelismekte": 91.04,
+        "genel": 92.37,
+        "gelismekte": 91.06,
         "gelismis": 93.83
       },
       {
@@ -18597,36 +18597,36 @@
       {
         "yil": 2024,
         "ay": 7,
-        "genel": 94.38,
-        "gelismekte": 93.02,
+        "genel": 94.37,
+        "gelismekte": 93.01,
         "gelismis": 95.89
       },
       {
         "yil": 2024,
         "ay": 8,
-        "genel": 93.35,
-        "gelismekte": 92.22,
-        "gelismis": 94.61
+        "genel": 93.36,
+        "gelismekte": 92.25,
+        "gelismis": 94.6
       },
       {
         "yil": 2024,
         "ay": 9,
-        "genel": 94.09,
-        "gelismekte": 93.1,
-        "gelismis": 95.2
+        "genel": 94.1,
+        "gelismekte": 93.09,
+        "gelismis": 95.21
       },
       {
         "yil": 2024,
         "ay": 10,
         "genel": 97.1,
         "gelismekte": 95.75,
-        "gelismis": 98.61
+        "gelismis": 98.62
       },
       {
         "yil": 2024,
         "ay": 11,
-        "genel": 100.38,
-        "gelismekte": 98.57,
+        "genel": 100.39,
+        "gelismekte": 98.58,
         "gelismis": 102.42
       },
       {
@@ -18641,20 +18641,20 @@
         "ay": 1,
         "genel": 104.74,
         "gelismekte": 102.59,
-        "gelismis": 107.18
+        "gelismis": 107.17
       },
       {
         "yil": 2025,
         "ay": 2,
         "genel": 104.52,
-        "gelismekte": 102.55,
+        "gelismekte": 102.54,
         "gelismis": 106.74
       },
       {
         "yil": 2025,
         "ay": 3,
-        "genel": 102.55,
-        "gelismekte": 101.47,
+        "genel": 102.56,
+        "gelismekte": 101.48,
         "gelismis": 103.75
       },
       {
@@ -18667,37 +18667,37 @@
       {
         "yil": 2025,
         "ay": 5,
-        "genel": 99.15,
-        "gelismekte": 99.1,
-        "gelismis": 99.18
+        "genel": 99.16,
+        "gelismekte": 99.12,
+        "gelismis": 99.19
       },
       {
         "yil": 2025,
         "ay": 6,
-        "genel": 97.42,
+        "genel": 97.43,
         "gelismekte": 97.9,
-        "gelismis": 96.88
+        "gelismis": 96.89
       },
       {
         "yil": 2025,
         "ay": 7,
         "genel": 96.5,
         "gelismekte": 97.44,
-        "gelismis": 95.46
+        "gelismis": 95.45
       },
       {
         "yil": 2025,
         "ay": 8,
-        "genel": 97.29,
-        "gelismekte": 98.04,
-        "gelismis": 96.45
+        "genel": 97.3,
+        "gelismekte": 98.07,
+        "gelismis": 96.43
       },
       {
         "yil": 2025,
         "ay": 9,
         "genel": 98.54,
-        "gelismekte": 99.62,
-        "gelismis": 97.34
+        "gelismekte": 99.61,
+        "gelismis": 97.36
       },
       {
         "yil": 2025,
@@ -18716,75 +18716,82 @@
       {
         "yil": 2025,
         "ay": 12,
-        "genel": 98.93,
-        "gelismekte": 99.67,
+        "genel": 98.91,
+        "gelismekte": 99.63,
         "gelismis": 98.1
       },
       {
         "yil": 2026,
         "ay": 1,
-        "genel": 102.07,
-        "gelismekte": 102.89,
+        "genel": 102.03,
+        "gelismekte": 102.82,
         "gelismis": 101.15
       },
       {
         "yil": 2026,
         "ay": 2,
-        "genel": 102.75,
-        "gelismekte": 103.62,
-        "gelismis": 101.79
+        "genel": 102.74,
+        "gelismekte": 103.6,
+        "gelismis": 101.78
       },
       {
         "yil": 2026,
         "ay": 3,
-        "genel": 104.43,
-        "gelismekte": 104.66,
+        "genel": 104.39,
+        "gelismekte": 104.58,
         "gelismis": 104.16
       },
       {
         "yil": 2026,
         "ay": 4,
-        "genel": 106.09,
-        "gelismekte": 106.3,
+        "genel": 106.07,
+        "gelismekte": 106.25,
         "gelismis": 105.85
       },
       {
         "yil": 2026,
         "ay": 5,
-        "genel": 105.89,
-        "gelismekte": 106.26,
+        "genel": 105.87,
+        "gelismekte": 106.22,
         "gelismis": 105.47
       },
       {
         "yil": 2026,
         "ay": 6,
-        "genel": 105.51,
-        "gelismekte": 104.97,
+        "genel": 105.48,
+        "gelismekte": 104.91,
         "gelismis": 106.1
       },
       {
         "yil": 2026,
         "ay": 7,
-        "genel": 106.18,
-        "gelismekte": 105.64,
-        "gelismis": 106.77
+        "genel": 106.14,
+        "gelismekte": 105.58,
+        "gelismis": 106.75
       },
       {
         "yil": 2026,
         "ay": 8,
-        "genel": 105,
-        "gelismekte": 105.04,
-        "gelismis": 104.93
+        "genel": 105.01,
+        "gelismekte": 105.08,
+        "gelismis": 104.91
       },
       {
         "yil": 2026,
         "ay": 9,
-        "genel": 105.45,
-        "gelismekte": 105.61,
-        "gelismis": 105.25
+        "genel": 105.1,
+        "gelismekte": 105.24,
+        "gelismis": 104.94
+      },
+      {
+        "yil": 2026,
+        "ay": 10,
+        "genel": 107.76,
+        "gelismekte": 107.5,
+        "gelismis": 108.04
       }
     ],
-    "alinma": "2026-10-27T19:00:02.421Z"
+    "alinma": "2026-11-04T12:00:16.494Z"
   },
   "brutRezerv": {
     "kaynak": {
@@ -102070,23 +102077,23 @@
       }
     ],
     "son": {
-      "tarih": "2026-11-02",
-      "aktif": 12046517028,
-      "disVarlik": 7811461319,
-      "icVarlik": 5098470485,
-      "hazine": 546122555,
-      "bankaKredi": 1281141800,
-      "degerleme": -863414776,
-      "dovizYuk": 6308513625,
-      "mbParasi": 5738003402,
-      "rezervPara": 4828053745,
-      "emisyon": 1021787161,
+      "tarih": "2026-11-03",
+      "aktif": 12204592719,
+      "disVarlik": 7972160425,
+      "icVarlik": 5102615127,
+      "hazine": 546018733,
+      "bankaKredi": 1286137837,
+      "degerleme": -870182833,
+      "dovizYuk": 6299613425,
+      "mbParasi": 5904979293,
+      "rezervPara": 4825027898,
+      "emisyon": 1017535782,
       "zorunlu": 1016249044,
-      "serbest": 2782059261,
-      "api": 346963611,
-      "kamuMevduat": 562986046
+      "serbest": 2783277943,
+      "api": 361598252,
+      "kamuMevduat": 718353144
     },
-    "alinma": "2026-11-03T12:03:48.361Z"
+    "alinma": "2026-11-04T12:00:16.494Z"
   },
   "faizAyrinti": {
     "kaynak": {
@@ -117973,9 +117980,15 @@
         "ay": 8,
         "ticari": 54.72,
         "tuketici": 64.74
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "ticari": 54.16,
+        "tuketici": 66.46
       }
     ],
-    "alinma": "2026-11-02T15:58:09.272Z"
+    "alinma": "2026-11-04T12:00:16.494Z"
   },
   "dovizHacmi": {
     "kaynak": {
