@@ -1,5 +1,5 @@
 {
-  "alinma": "2026-11-05T20:00:48.690Z",
+  "alinma": "2026-11-05T22:00:40.093Z",
   "kaynaklar": [
     {
       "ad": "TÜİK ulusal veri yayımlama takvimi (Resmi İstatistik Portalı)",
@@ -15,15 +15,6 @@
     }
   ],
   "olaylar": [
-    {
-      "tarih": "2026-10-06",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Reel Efektif Döviz Kuru",
-      "donem": "Eylül 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Doviz+Kurlari/Reel+Efektif+Doviz+Kuruu/",
-      "kaynak": "tcmb-api"
-    },
     {
       "tarih": "2026-10-08",
       "saat": "10:00",
