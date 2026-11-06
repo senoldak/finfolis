@@ -3170,22 +3170,18 @@
     "alinma": "2026-11-02T13:59:50.416Z"
   },
   "rezerv": {
-    "tarih": "2026-11-04",
-    "netDovizPozisyonu": 27.65,
-    "degisimGunluk": 0.73,
+    "tarih": "2026-11-05",
+    "netDovizPozisyonu": 33.36,
+    "degisimGunluk": 5.71,
     "kalemler": {
-      "disVarliklarUSD": 162.72,
-      "dovizYukumlulukleriUSD": 128.33,
-      "netUluslararasiRezervUSD": 34.38,
+      "disVarliklarUSD": 167.8,
+      "dovizYukumlulukleriUSD": 127.67,
+      "netUluslararasiRezervUSD": 40.13,
       "swapStokuUSD": 0,
-      "hazineDoviziUSD": 6.73,
-      "netPozisyonUSD": 27.65
+      "hazineDoviziUSD": 6.77,
+      "netPozisyonUSD": 33.36
     },
     "gecmis": [
-      {
-        "tarih": "2026-06-30",
-        "deger": 36.82
-      },
       {
         "tarih": "2026-07-01",
         "deger": 36.82
@@ -3541,13 +3537,17 @@
       {
         "tarih": "2026-11-04",
         "deger": 27.65
+      },
+      {
+        "tarih": "2026-11-05",
+        "deger": 33.36
       }
     ],
     "kaynak": {
       "ad": "TCMB Analitik Bilanço (EVDS)",
       "url": "https://evds3.tcmb.gov.tr/"
     },
-    "alinma": "2026-11-05T11:59:31.012Z"
+    "alinma": "2026-11-06T12:00:39.163Z"
   },
   "piyasaFaizleri": {
     "kaynak": {
@@ -102183,40 +102183,40 @@
       },
       {
         "tarih": "2026-11-06",
-        "aktif": 12234550232,
-        "disVarlik": 8121066544,
-        "icVarlik": 5094239969,
-        "hazine": 536402236,
-        "bankaKredi": 1284962305,
-        "degerleme": -980756280,
-        "dovizYuk": 6405103305,
-        "mbParasi": 5829446927,
-        "rezervPara": 4817530617,
-        "emisyon": 1011578828,
+        "aktif": 12441762457,
+        "disVarlik": 8379109676,
+        "icVarlik": 5100292629,
+        "hazine": 536239312,
+        "bankaKredi": 1289645138,
+        "degerleme": -1037639848,
+        "dovizYuk": 6375374442,
+        "mbParasi": 6066388015,
+        "rezervPara": 4788063113,
+        "emisyon": 1012788250,
         "zorunlu": 1016249044,
-        "serbest": 2780201398,
-        "api": 256169568,
-        "kamuMevduat": 755746742
+        "serbest": 2749546292,
+        "api": 525955871,
+        "kamuMevduat": 752369030
       }
     ],
     "son": {
-      "tarih": "2026-11-04",
-      "aktif": 12234550232,
-      "disVarlik": 8121066544,
-      "icVarlik": 5094239969,
-      "hazine": 536402236,
-      "bankaKredi": 1284962305,
-      "degerleme": -980756280,
-      "dovizYuk": 6405103305,
-      "mbParasi": 5829446927,
-      "rezervPara": 4817530617,
-      "emisyon": 1011578828,
+      "tarih": "2026-11-05",
+      "aktif": 12441762457,
+      "disVarlik": 8379109676,
+      "icVarlik": 5100292629,
+      "hazine": 536239312,
+      "bankaKredi": 1289645138,
+      "degerleme": -1037639848,
+      "dovizYuk": 6375374442,
+      "mbParasi": 6066388015,
+      "rezervPara": 4788063113,
+      "emisyon": 1012788250,
       "zorunlu": 1016249044,
-      "serbest": 2780201398,
-      "api": 256169568,
-      "kamuMevduat": 755746742
+      "serbest": 2749546292,
+      "api": 525955871,
+      "kamuMevduat": 752369030
     },
-    "alinma": "2026-11-06T03:59:11.298Z"
+    "alinma": "2026-11-06T12:00:39.163Z"
   },
   "faizAyrinti": {
     "kaynak": {
