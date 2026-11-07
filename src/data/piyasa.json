@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-06T21:41:04.903Z",
+  "guncelleme": "2026-11-07T03:41:00.554Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -7,7 +7,7 @@
       "deger": 50.153,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 42.121,
+      "onceki": 42.212,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -293,7 +293,7 @@
       "deger": 55.9957,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 48.5775,
+      "onceki": 48.8007,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -579,7 +579,7 @@
       "deger": 31.677,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 27.422,
+      "onceki": 27.573,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -894,16 +894,16 @@
     {
       "id": "bist100",
       "ad": "BIST 100",
-      "deger": 11333.2998,
+      "deger": 11482.5996,
       "ondalik": 2,
       "simge": "fabrika",
       "kaynak": {
         "ad": "Piyasa kapanış verisi",
         "url": "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
       },
-      "zaman": "2026-11-05T00:00:00+03:00",
+      "zaman": "2026-11-06T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -1.3,
+      "degisim": 1.3,
       "gecmis": [
         {
           "tarih": "2026-08-10",
@@ -1156,13 +1156,17 @@
         {
           "tarih": "2026-11-05",
           "deger": 11333.2998
+        },
+        {
+          "tarih": "2026-11-06",
+          "deger": 11482.5996
         }
       ]
     },
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 4072.5,
+      "deger": 4079.5,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
@@ -1171,7 +1175,7 @@
       },
       "zaman": "2026-11-06T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -1,
+      "degisim": -0.8,
       "gecmis": [
         {
           "tarih": "2026-08-10",
@@ -1427,7 +1431,7 @@
         },
         {
           "tarih": "2026-11-06",
-          "deger": 4072.5
+          "deger": 4079.5
         }
       ],
       "onEk": "$"
