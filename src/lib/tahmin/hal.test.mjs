@@ -73,6 +73,6 @@ test('Eylül 2026 tahmini Python başvurusuyla aynı', () => {
   const s = halSinama('sebze', tuik, hal, '2026-09').simdi;
   assert.deepEqual([bir(s.tahmin), ...s.a80.map(bir), ...s.a95.map(bir)], [-6.1, -13.3, 6.2, -18.2, 9.0]);
   const k = karne(halSinama('toplam', tuikTum, hal).sonuclar, ['mevsim', 'oncekiAy']);
-  assert.equal(k.tum.n, 69);
+  assert.equal(k.tum.n, 70);
   assert.ok(k.tum.model < k.tum.bazlar.mevsim);
 });

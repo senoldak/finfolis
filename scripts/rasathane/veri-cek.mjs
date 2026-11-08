@@ -89,7 +89,8 @@ export async function veriCek({
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const sonuc = await veriCek({ hedef: 'public/rasathane/veri' });
+  const yerelFallback = process.env.RASATHANE_VERI_DIZINI || (existsSync(path.resolve('../../para/rasathane/site-veri')) ? path.resolve('../../para/rasathane/site-veri') : undefined);
+  const sonuc = await veriCek({ hedef: 'public/rasathane/veri', yerel: yerelFallback });
   console.log(`[rasathane] veri: ${sonuc.durum}, ${sonuc.dosya} dosya`);
   process.exit(0);
 }

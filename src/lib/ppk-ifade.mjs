@@ -114,7 +114,7 @@ export function degisimSayisi(bit) {
 }
 
 // Dolgu ve kalıp ifadeler: her kararda zaten var olan ya da yalnız kalıp bağlaçlardan oluşan ifadeleri eler.
-const DURAK = new Set(
+export const DURAK = new Set(
   ['ve', 'ile', 'bir', 'bu', 'için', 'olan', 'da', 'de', 'ki', 'ise', 'ayrıca', 'ya', 'veya', 'gibi', 'kadar', 'daha', 'çok', 'en', 'olarak', 'üzerinde', 'karşı', 'ancak', 'ama', 'olması', 'olduğu', 'diğer', 'her', 'şekilde', 'biçimde'].map((s) => kokBul(s)),
 );
 const DOLGU = [
@@ -139,12 +139,12 @@ const DOLGU = [
 
 const hepsiDurak = (k) => k.every((x) => DURAK.has(x));
 
-// Bir ifade (kök dizisi) kalıp ya da dolgu mu?
-function elenir(kokler) {
+// Bir ifade (kök dizisi) kalıp ya da dolgu mu? En az 3 içerik sözcüğü gerekir.
+export function elenir(kokler) {
   if (kokler.some((k) => /\d/.test(k))) return true; // sayılı ifadeler oran değişimidir, ifade değil
   if (DURAK.has(kokler[0]) || DURAK.has(kokler.at(-1))) return true;
   if (hepsiDurak(kokler)) return true;
-  if (kokler.filter((k) => !DURAK.has(k)).length < 2) return true;
+  if (kokler.filter((k) => !DURAK.has(k)).length < 3) return true;
   const m = kokler.join(' ');
   return DOLGU.some((r) => r.test(m));
 }
@@ -152,9 +152,9 @@ function elenir(kokler) {
 const altDizi = (kisa, uzun) => diziBul(uzun, kisa) >= 0;
 
 // Otomatik keşif. kararlar: [{tarih, cumleler}] eskiden yeniye.
-// opts: { enAz: 3, enFazla: 25, minN: 3, maxN: 6 }
+// opts: { enAz: 4, enFazla: 25, minN: 3, maxN: 6 }
 export function kesfet(kararlar, opts = {}) {
-  const { enAz = 3, enFazla = 25, minN = 3, maxN = 6 } = opts;
+  const { enAz = 4, enFazla = 25, minN = 3, maxN = 6 } = opts;
   const N = kararlar.length;
   const belirtec = kararlar.map((k) => k.cumleler.map((c) => belirteclestir(c)));
 

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { belirteclestir, ifadeKokleri, diziBul, kararda, bloklar, degisimSayisi, kesfet, izle, ifadeleriIzle, sonKararDegisimi, ifadeIziHesapla, vurgula } from './ppk-ifade.mjs';
+import { belirteclestir, ifadeKokleri, diziBul, kararda, bloklar, degisimSayisi, kesfet, izle, ifadeleriIzle, sonKararDegisimi, ifadeIziHesapla, vurgula, DURAK, elenir } from './ppk-ifade.mjs';
 
 test('küçük harf, kesme işareti ve noktalama temizlenir', () => {
   const t = belirteclestir('Para Politikası Kurulu (Kurul), Rapor’daki 37’den yüzde 36’ya, İNDİRİLMESİNE.');
@@ -102,10 +102,27 @@ test('gerçek veri: kısa sürede çalışır, en çok 25 ifade, hiçbiri her ka
   assert.ok(r.izler.length > 5 && r.izler.length <= 25);
   for (const i of r.izler) {
     assert.equal(i.bit.length, k.length);
-    assert.ok(i.sayi >= 3 && i.sayi < k.length);
+    assert.ok(i.sayi >= 4 && i.sayi < k.length, `sayı en az 4 olmalı: ${i.ifade} (${i.sayi})`);
+    const icerik = i.kokler.filter((x) => !DURAK.has(x)).length;
+    assert.ok(icerik >= 3, `içerik sözcüğü en az 3 olmalı: ${i.ifade} (${icerik})`);
     // her ifade gerçekten ilk görüldüğü kararda cümle olarak var
     assert.equal(kararda(k[i.bit.indexOf(1)].cumleler, i.kokler).var, true);
   }
+});
+
+test('eşik sıkılaştırması: 3 içerik sözcüğünden az ifadeler elenir, varsayılan enAz 4 karardır', () => {
+  // 2 içerik sözcüğü olan ifade elenir
+  assert.equal(elenir(ifadeKokleri('enflasyon görünümü')), true);
+  // 3 içerik sözcüğü olan ifade elenmez
+  assert.equal(elenir(ifadeKokleri('sıkı para politikası')), false);
+
+  // enAz varsayılanı 4'tür: 3 kararda geçen ifade varsayılan keşifte elenir
+  const { ifadeler } = kesfet(SAHTE);
+  assert.equal(ifadeler.length, 0);
+
+  // enAz: 3 verilirse keşfedilir
+  const { ifadeler: ucKarar } = kesfet(SAHTE, { enAz: 3 });
+  assert.equal(ucKarar.length, 1);
 });
 
 test('vurgula: ifadeyi birebir metinden ayırır', () => {

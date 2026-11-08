@@ -6,19 +6,30 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // 1. EVDS API Anahtarını Yükle
-let apiKey = process.env.EVDS_API_KEY;
-if (!apiKey) {
-  try {
-    const configPath = resolve(homedir(), '.evds-mcp.json');
-    const conf = JSON.parse(readFileSync(configPath, 'utf8'));
-    apiKey = conf.api_key;
-  } catch (e) {
-    console.error('Hata: EVDS API anahtarı bulunamadı (~/.evds-mcp.json veya EVDS_API_KEY)');
-    process.exit(1);
+export function evdsAnahtariAl() {
+  let key = process.env.EVDS_API_KEY;
+  if (!key) {
+    try {
+      const configPath = resolve(homedir(), '.evds-mcp.json');
+      const conf = JSON.parse(readFileSync(configPath, 'utf8').replace(/^\uFEFF+/, ''));
+      key = conf.api_key;
+    } catch {}
   }
+  return key ? String(key).replace(/^[\uFEFF\s]+|[\uFEFF\s]+$/g, '') : null;
 }
 
-async function evdsCek(seri, baslangic = '01-05-2021', bitis = '01-10-2026') {
+export function formatTarihEvds(d = new Date()) {
+  const gun = String(d.getDate()).padStart(2, '0');
+  const ay = String(d.getMonth() + 1).padStart(2, '0');
+  const yil = d.getFullYear();
+  return `${gun}-${ay}-${yil}`;
+}
+
+async function evdsCek(seri, baslangic = '01-05-2021', bitis = formatTarihEvds()) {
+  const apiKey = evdsAnahtariAl();
+  if (!apiKey) {
+    throw new Error('EVDS API anahtarı bulunamadı (~/.evds-mcp.json veya EVDS_API_KEY)');
+  }
   const url = `https://evds3.tcmb.gov.tr/igmevdsms-dis/series=${seri}&startDate=${baslangic}&endDate=${bitis}&type=json`;
   const res = await fetch(url, { headers: { key: apiKey } });
   if (!res.ok) {
@@ -132,7 +143,7 @@ function svgUret(veriler) {
 async function main() {
   console.log('--- TCMB Rezerv ve Swap Verisi Çekiliyor ---');
   const baslangic = '01-05-2021';
-  const bitis = '01-10-2026';
+  const bitis = formatTarihEvds(new Date());
 
   // Seriler:
   // TP.REZVARPD.K1: 1.1 Resmi Rezerv Varliklari (Milyon USD)
@@ -214,7 +225,10 @@ async function main() {
   })));
 }
 
-main().catch(err => {
-  console.error('Hata oluştu:', err);
-  process.exit(1);
-});
+const buDosyaMi = process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1]);
+if (buDosyaMi) {
+  main().catch((err) => {
+    console.error('Hata oluştu:', err);
+    process.exit(1);
+  });
+}

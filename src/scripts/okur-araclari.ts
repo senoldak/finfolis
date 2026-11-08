@@ -2,22 +2,13 @@
 // kopyala"), sözcük açıklaması ve "Bu haber işinize yaradı mı?". Tek paketlenmiş betik (CSP satır içi betiğe izin vermez).
 // Bütün kayıtlar try/catch içinde: gizli pencerede ya da kayıt engelliyken araçlar çalışır, yalnız hatırlamaz.
 
+import { safeStorage } from '../lib/safe-storage.ts';
+
 const kok = document.documentElement;
 
-const oku = (anahtar: string): string | null => {
-  try {
-    return localStorage.getItem(anahtar);
-  } catch {
-    return null;
-  }
-};
-const yaz = (anahtar: string, deger: string) => {
-  try {
-    localStorage.setItem(anahtar, deger);
-  } catch {
-    /* kayıt engelli */
-  }
-};
+const oku = (anahtar: string): string | null => safeStorage.getItem(anahtar);
+const yaz = (anahtar: string, deger: string) => safeStorage.setItem(anahtar, deger);
+
 
 // ——— Yazı boyu ———
 const OLCEKLER = ['0', '1', '2', '3'];

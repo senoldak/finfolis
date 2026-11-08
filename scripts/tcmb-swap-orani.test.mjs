@@ -6,6 +6,26 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+import { formatTarihEvds, evdsAnahtariAl } from './tcmb-swap-orani.mjs';
+
+test('tcmb-swap-orani formatTarihEvds güncel tarihi DD-MM-YYYY biçiminde döndürür', () => {
+  const d = new Date('2026-11-08T12:00:00Z');
+  assert.equal(formatTarihEvds(d), '08-11-2026');
+  const simdi = formatTarihEvds();
+  assert.match(simdi, /^\d{2}-\d{2}-\d{4}$/);
+});
+
+test('EVDS anahtarından BOM (\\uFEFF) ve boşluklar temizlenir', () => {
+  const gercek = process.env.EVDS_API_KEY;
+  try {
+    process.env.EVDS_API_KEY = '\uFEFF\uFEFFmy-secret-key\uFEFF   ';
+    assert.equal(evdsAnahtariAl(), 'my-secret-key');
+  } finally {
+    if (gercek !== undefined) process.env.EVDS_API_KEY = gercek;
+    else delete process.env.EVDS_API_KEY;
+  }
+});
+
 test('tcmb-swap-orani json ve svg çıktı dosyaları mevcut ve geçerli', () => {
   const jsonPath = resolve(__dirname, '../public/data/tcmb-swap-orani.json');
   const svgPath = resolve(__dirname, '../public/grafikler/tcmb-swap-orani.svg');
