@@ -1,0 +1,511 @@
+---
+// What-If & Makro Stres Testi Simülatörü
+// Petrol, asgari ücret, kur ve faiz şoklarının enflasyon, cari denge ve Taylor kuralına duyarlılığı
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import DogrudanYanit from '../../components/DogrudanYanit.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import { sayfaSemasi } from '../../lib/seo';
+import { VARSAYILAN_PARAMETRELER } from '../../lib/hesap/stres-testi.mjs';
+
+const baslik = 'What-If & Makro Stres Testi Simülatörü';
+const aciklama = 'Brent petrol şoku, asgari ücret artışı, kur geçişkenliği ve politika faizi adımlarını kaydırarak enflasyon, cari denge ve Taylor kuralı patikasını anlık simüle edin.';
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Stres Testi Simülatörü', href: '/veri/senaryolar/' },
+];
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama
+});
+---
+
+<Base baslik={baslik} aciklama={aciklama} jsonLd={jsonLd}>
+  <div class="senaryo-sayfasi">
+    <Breadcrumb yol={yol} />
+
+    <header class="sayfa-baslik">
+      <div class="etiket-satir">
+        <span class="etiket">Duyarlılık Laboratuvarı</span>
+        <span class="etiket vurgu">Makro Simülasyon</span>
+      </div>
+      <h1>What-If &amp; Makro Stres Testi Simülatörü</h1>
+      <p class="ozet">
+        Ekonomide bir parametre değiştiğinde diğer dengeler nasıl etkilenir? 
+        Petrol, ücret, döviz kuru ve faiz şoklarını interaktif kaydırarak TÜFE patikası sapmasını, cari açığa net yansımayı 
+        ve Taylor kuralı politika faizi hedef bandını anlık olarak inceleyin.
+      </p>
+    </header>
+
+    <DogrudanYanit
+      baslik="Simülasyon Modeli Nasıl Çalışır?"
+      ozet="Bu araç kesin bir gelecek tahmini değil, akademik literatür ve TCMB ampirik ekonometrik esneklik katsayılarına dayalı bir duyarlılık matrisidir. Her bir şokun enflasyon ve dış ticaret üzerindeki geçişkenlik çarpanları kümülatif olarak toplanır."
+      maddeler={[
+        'Petrol Etkisi: Brent petroldeki her 10$\'lık kalıcı şok, yıllık enflasyona ~1.4 puan, cari açığa ~4.2 milyar dolar ek yük getirir.',
+        'Kur Geçişkenliği: 12 aylık kümülatif kur geçişkenliği katsayısı %28 (0.28) olarak modellenmiştir.',
+        'Ücret İntibakı: %25 baz artışın üzerindeki her ilave ücret zammı, maliyet yönlü baskıyla TÜFE\'yi yukarı çeker.',
+        'Taylor Kuralı: Enflasyon yükseldikçe, kuralın tavsiye ettiği dengeli politika faiz bandı otomatik olarak yukarı kayar.'
+      ]}
+    />
+
+    <section class="laboratuvar-alani">
+      <div class="lab-grid">
+        <!-- Kontrol Çubukları -->
+        <div class="kontrol-paneli">
+          <h2>Makro Şok Parametreleri</h2>
+
+          <div class="kaydirici-grup">
+            <div class="ayar-baslik">
+              <label for="sl-petrol">Brent Petrol Şoku</label>
+              <strong id="val-petrol">0 $</strong>
+            </div>
+            <input type="range" id="sl-petrol" min="-30" max="50" step="5" value="0" />
+            <div class="aralik-etiketler">
+              <span>-30 $ (Düşüş)</span>
+              <span>Baz (0 $)</span>
+              <span>+50 $ (Kriz)</span>
+            </div>
+          </div>
+
+          <div class="kaydirici-grup">
+            <div class="ayar-baslik">
+              <label for="sl-ucret">Asgari Ücret / Maaş Artış Oranı</label>
+              <strong id="val-ucret">%25</strong>
+            </div>
+            <input type="range" id="sl-ucret" min="15" max="55" step="1" value={VARSAYILAN_PARAMETRELER.bazAsgariUcretZammı} />
+            <div class="aralik-etiketler">
+              <span>%15 (Kısıtlı)</span>
+              <span>%25 (Baz)</span>
+              <span>%55 (Yüksek İntibak)</span>
+            </div>
+          </div>
+
+          <div class="kaydirici-grup">
+            <div class="ayar-baslik">
+              <label for="sl-kur">Yıllık İlave Kur Artışı / Şoku</label>
+              <strong id="val-kur">%0</strong>
+            </div>
+            <input type="range" id="sl-kur" min="0" max="40" step="2" value="0" />
+            <div class="aralik-etiketler">
+              <span>%0 (Yatay)</span>
+              <span>%20 (Ilımlı)</span>
+              <span>%40 (Sert Şok)</span>
+            </div>
+          </div>
+
+          <div class="kaydirici-grup">
+            <div class="ayar-baslik">
+              <label for="sl-faiz">TCMB Politika Faizi Adımı</label>
+              <strong id="val-faiz">0 puan</strong>
+            </div>
+            <input type="range" id="sl-faiz" min="-10" max="10" step="1" value="0" />
+            <div class="aralik-etiketler">
+              <span>-10 puan (-1000 bp)</span>
+              <span>Sabit (0)</span>
+              <span>+10 puan (+1000 bp)</span>
+            </div>
+          </div>
+
+          <button type="button" class="sifirla-btn" id="btn-sifirla">
+            Parametreleri Sıfırla
+          </button>
+        </div>
+
+        <!-- Canlı Gösterge Paneli -->
+        <div class="sonuc-paneli">
+          <h2>Simüle Edilen Makro Göstergeler</h2>
+
+          <!-- 1. Enflasyon Kartı -->
+          <div class="makro-kart">
+            <div class="kart-ust">
+              <span class="kart-etiket">Simüle Edilen Yıllık TÜFE</span>
+              <span class="fark-rozet" id="rozet-tufe-fark">+0.0 puan</span>
+            </div>
+            <div class="kart-deger" id="sonuc-tufe">%38.5</div>
+            <p class="kart-alt" id="metin-tufe-detay">Baz enflasyon beklentisi: %38.5</p>
+          </div>
+
+          <!-- 2. Cari Denge Kartı -->
+          <div class="makro-kart">
+            <div class="kart-ust">
+              <span class="kart-etiket">Simüle Edilen Yıllık Cari Denge</span>
+              <span class="fark-rozet cari" id="rozet-cari-fark">+0.0 mlr $</span>
+            </div>
+            <div class="kart-deger" id="sonuc-cari">-20.0 mlr $</div>
+            <p class="kart-alt" id="metin-cari-detay">Baz yıllık açık: -20.0 milyar $</p>
+          </div>
+
+          <!-- 3. Taylor Kuralı Hedef Bandı -->
+          <div class="makro-kart taylor">
+            <div class="kart-ust">
+              <span class="kart-etiket">Taylor Kuralı Tavsiye Faizi</span>
+              <span class="fark-rozet taylor" id="rozet-taylor-uyum">Uyumlu</span>
+            </div>
+            <div class="kart-deger" id="sonuc-taylor">%45.0 - %52.0</div>
+            <p class="kart-alt" id="metin-taylor-detay">Simüle Politika Faizi: %45.0</p>
+          </div>
+
+          <!-- Şok Ayrıştırma Tablosu -->
+          <div class="ayristirma-kutusu">
+            <h3>Enflasyon Şok Ayrıştırması</h3>
+            <div class="ayristirma-satir">
+              <span>Petrol Şoku Etkisi</span>
+              <strong id="katki-petrol">+0.0 puan</strong>
+            </div>
+            <div class="ayristirma-satir">
+              <span>Ücret İntibakı Etkisi</span>
+              <strong id="katki-ucret">+0.0 puan</strong>
+            </div>
+            <div class="ayristirma-satir">
+              <span>Kur Geçişkenliği Etkisi</span>
+              <strong id="katki-kur">+0.0 puan</strong>
+            </div>
+            <div class="ayristirma-satir">
+              <span>Faiz Soğutma Etkisi</span>
+              <strong id="katki-faiz">0.0 puan</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <YasalUyari />
+  </div>
+</Base>
+
+<script>
+  import { makroStresTestiHesapla, VARSAYILAN_PARAMETRELER } from '../../lib/hesap/stres-testi.mjs';
+
+  function init() {
+    const slPetrol = document.getElementById('sl-petrol') as HTMLInputElement | null;
+    const slUcret = document.getElementById('sl-ucret') as HTMLInputElement | null;
+    const slKur = document.getElementById('sl-kur') as HTMLInputElement | null;
+    const slFaiz = document.getElementById('sl-faiz') as HTMLInputElement | null;
+    const btnSifirla = document.getElementById('btn-sifirla');
+
+    const valPetrol = document.getElementById('val-petrol');
+    const valUcret = document.getElementById('val-ucret');
+    const valKur = document.getElementById('val-kur');
+    const valFaiz = document.getElementById('val-faiz');
+
+    const sonucTufe = document.getElementById('sonuc-tufe');
+    const rozetTufeFark = document.getElementById('rozet-tufe-fark');
+    const metinTufeDetay = document.getElementById('metin-tufe-detay');
+
+    const sonucCari = document.getElementById('sonuc-cari');
+    const rozetCariFark = document.getElementById('rozet-cari-fark');
+    const metinCariDetay = document.getElementById('metin-cari-detay');
+
+    const sonucTaylor = document.getElementById('sonuc-taylor');
+    const rozetTaylorUyum = document.getElementById('rozet-taylor-uyum');
+    const metinTaylorDetay = document.getElementById('metin-taylor-detay');
+
+    const katkiPetrol = document.getElementById('katki-petrol');
+    const katkiUcret = document.getElementById('katki-ucret');
+    const katkiKur = document.getElementById('katki-kur');
+    const katkiFaiz = document.getElementById('katki-faiz');
+
+    if (!slPetrol || !slUcret || !slKur || !slFaiz) return;
+
+    function guncelle() {
+      const brentSoku = parseFloat(slPetrol.value) || 0;
+      const asgariUcret = parseFloat(slUcret.value) || 25;
+      const kurArtisi = parseFloat(slKur.value) || 0;
+      const faizAdimi = parseFloat(slFaiz.value) || 0;
+
+      if (valPetrol) valPetrol.textContent = (brentSoku > 0 ? '+' : '') + brentSoku + ' $';
+      if (valUcret) valUcret.textContent = '%' + asgariUcret;
+      if (valKur) valKur.textContent = '%' + kurArtisi;
+      if (valFaiz) valFaiz.textContent = (faizAdimi > 0 ? '+' : '') + faizAdimi + ' puan';
+
+      const res = makroStresTestiHesapla({
+        brentSokuUsd: brentSoku,
+        asgariUcretArtisiYuzde: asgariUcret,
+        kurArtisiYuzde: kurArtisi,
+        faizDegisimiPuan: faizAdimi
+      });
+
+      // TÜFE
+      if (sonucTufe) sonucTufe.textContent = '%' + res.simuleTufe.toFixed(1);
+      if (rozetTufeFark) {
+        rozetTufeFark.textContent = (res.tufeSapmasiPuan >= 0 ? '+' : '') + res.tufeSapmasiPuan.toFixed(1) + ' puan';
+        rozetTufeFark.className = res.tufeSapmasiPuan > 0 ? 'fark-rozet eksi' : (res.tufeSapmasiPuan < 0 ? 'fark-rozet arti' : 'fark-rozet');
+      }
+      if (metinTufeDetay) {
+        metinTufeDetay.textContent = `Baz TÜFE: %${res.bazTufe} | Toplam Net Şok: ${res.tufeSapmasiPuan >= 0 ? '+' : ''}${res.tufeSapmasiPuan.toFixed(1)} puan`;
+      }
+
+      // Cari Denge
+      if (sonucCari) sonucCari.textContent = res.simuleCariAcik.toFixed(1) + ' mlr $';
+      if (rozetCariFark) {
+        rozetCariFark.textContent = (res.cariSapmaMilyarUsd >= 0 ? '+' : '') + res.cariSapmaMilyarUsd.toFixed(1) + ' mlr $';
+        rozetCariFark.className = res.cariSapmaMilyarUsd < 0 ? 'fark-rozet eksi' : (res.cariSapmaMilyarUsd > 0 ? 'fark-rozet arti' : 'fark-rozet');
+      }
+      if (metinCariDetay) {
+        metinCariDetay.textContent = `Baz Yıllık Açık: ${res.bazCariAcik} mlr $ | Şok Etkisi: ${res.cariSapmaMilyarUsd >= 0 ? '+' : ''}${res.cariSapmaMilyarUsd.toFixed(1)} mlr $`;
+      }
+
+      // Taylor Kuralı
+      if (sonucTaylor) {
+        sonucTaylor.textContent = `%${res.taylorBand.alt.toFixed(1)} - %${res.taylorBand.ust.toFixed(1)}`;
+      }
+      if (rozetTaylorUyum) {
+        if (res.simulePolitikaFaizi < res.taylorBand.alt) {
+          rozetTaylorUyum.textContent = 'Gevşek Kalıyor';
+          rozetTaylorUyum.className = 'fark-rozet eksi';
+        } else if (res.simulePolitikaFaizi > res.taylorBand.ust) {
+          rozetTaylorUyum.textContent = 'Aşırı Sıkı';
+          rozetTaylorUyum.className = 'fark-rozet arti';
+        } else {
+          rozetTaylorUyum.textContent = 'Kural Bandında';
+          rozetTaylorUyum.className = 'fark-rozet notr';
+        }
+      }
+      if (metinTaylorDetay) {
+        metinTaylorDetay.textContent = `Simüle Politika Faizi: %${res.simulePolitikaFaizi.toFixed(1)} (Orta Hedef: %${res.taylorBand.orta.toFixed(1)})`;
+      }
+
+      // Ayrıştırma
+      if (katkiPetrol) katkiPetrol.textContent = (res.bilesenler.petrolTufe >= 0 ? '+' : '') + res.bilesenler.petrolTufe.toFixed(1) + ' puan';
+      if (katkiUcret) katkiUcret.textContent = (res.bilesenler.ucretTufe >= 0 ? '+' : '') + res.bilesenler.ucretTufe.toFixed(1) + ' puan';
+      if (katkiKur) katkiKur.textContent = (res.bilesenler.kurTufe >= 0 ? '+' : '') + res.bilesenler.kurTufe.toFixed(1) + ' puan';
+      if (katkiFaiz) katkiFaiz.textContent = (res.bilesenler.faizTufe >= 0 ? '+' : '') + res.bilesenler.faizTufe.toFixed(1) + ' puan';
+    }
+
+    [slPetrol, slUcret, slKur, slFaiz].forEach((el) => {
+      el.addEventListener('input', guncelle);
+    });
+
+    btnSifirla?.addEventListener('click', () => {
+      slPetrol.value = '0';
+      slUcret.value = String(VARSAYILAN_PARAMETRELER.bazAsgariUcretZammı);
+      slKur.value = '0';
+      slFaiz.value = '0';
+      guncelle();
+    });
+
+    guncelle();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+</script>
+
+<style>
+  .senaryo-sayfasi {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  .sayfa-baslik {
+    margin: 1.5rem 0 2rem;
+  }
+
+  .etiket-satir {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .etiket {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background: #f1f5f9;
+    color: #475569;
+  }
+
+  .etiket.vurgu {
+    background: #eff6ff;
+    color: #1d4ed8;
+  }
+
+  .sayfa-baslik h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .sayfa-baslik .ozet {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0;
+  }
+
+  .laboratuvar-alani {
+    margin: 2.5rem 0;
+  }
+
+  .lab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .kontrol-paneli,
+  .sonuc-paneli {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .kontrol-paneli h2,
+  .sonuc-paneli h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 1.25rem;
+    color: #0f172a;
+  }
+
+  .kaydirici-grup {
+    margin-bottom: 1.5rem;
+  }
+
+  .ayar-baslik {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .ayar-baslik label {
+    font-weight: 600;
+    color: #334155;
+  }
+
+  .ayar-baslik strong {
+    color: #0f172a;
+  }
+
+  .kaydirici-grup input[type="range"] {
+    width: 100%;
+    accent-color: #2563eb;
+  }
+
+  .aralik-etiketler {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6875rem;
+    color: #94a3b8;
+    margin-top: 0.25rem;
+  }
+
+  .sifirla-btn {
+    width: 100%;
+    padding: 0.625rem;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .sifirla-btn:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+  }
+
+  .makro-kart {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .kart-ust {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .kart-etiket {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #64748b;
+  }
+
+  .fark-rozet {
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    background: #e2e8f0;
+    color: #475569;
+  }
+
+  .fark-rozet.eksi {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+
+  .fark-rozet.arti {
+    background: #dcfce7;
+    color: #15803d;
+  }
+
+  .fark-rozet.notr {
+    background: #e0f2fe;
+    color: #0369a1;
+  }
+
+  .kart-deger {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0.25rem 0;
+  }
+
+  .kart-alt {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin: 0;
+  }
+
+  .ayristirma-kutusu {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+  }
+
+  .ayristirma-kutusu h3 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #334155;
+    margin: 0 0 0.75rem;
+  }
+
+  .ayristirma-satir {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: #475569;
+    padding: 0.25rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .lab-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

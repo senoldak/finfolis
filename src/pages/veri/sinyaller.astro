@@ -1,0 +1,394 @@
+---
+// Sessiz Sinyal & Anomali Avcısı (Erken Uyarı Radarı)
+// 12 haftalık ortalamadan +/- 2 sigma standart sapma aşımı gösteren anomali fişleri
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import DogrudanYanit from '../../components/DogrudanYanit.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import { RESMI } from '../../lib/resmi';
+import { anomaliFisleriUret } from '../../lib/sinyaller/anomali.mjs';
+import { sayfaSemasi } from '../../lib/seo';
+
+const baslik = 'Erken Uyarı Radarı & Anomali Sinyalleri';
+const aciklama = 'TCMB likiditesi, rezervler, kartlı harcamalar ve yabancı portföy akımlarında 12 haftalık ortalamadan ±2σ standart sapma aşımı gösteren objektif anomali fişleri.';
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Anomali Radarı', href: '/veri/sinyaller/' },
+];
+
+const tumFisler = anomaliFisleriUret(RESMI);
+const sonFisler = tumFisler.slice(0, 30);
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama
+});
+---
+
+<Base baslik={baslik} aciklama={aciklama} jsonLd={jsonLd}>
+  <div class="sinyaller-sayfasi">
+    <Breadcrumb yol={yol} />
+
+    <header class="sayfa-baslik">
+      <div class="etiket-satir">
+        <span class="etiket">İstatistiki Denetçi</span>
+        <span class="etiket radar">Canlı Radar (&plusmn;2&sigma;)</span>
+      </div>
+      <h1>Erken Uyarı Radarı ve Anomali Sinyalleri</h1>
+      <p class="ozet">
+        Piyasa gürültüsü ve sübjektif yorumlardan arındırılmış; EVDS öncü serilerinde 12 haftalık ortalamadan 
+        en az 2 standart sapma (&plusmn;2&sigma;) sapan göstergelerin otomatik üretilmiş kanıt fişleri.
+      </p>
+    </header>
+
+    <DogrudanYanit
+      baslik="Sinyal Radarı Nasıl Çalışır?"
+      ozet="Normal dağılım kuralına göre bir zaman serisindeki verilerin %95.4'ü ortalamanın ±2 standart sapma bandında kalır. Bu bandın dışına taşan her gözlem istatistiksel bir anomalidir ve trend kırılmalarının, likidite sıkışmalarının veya ani sermaye hareketlerinin erken öncüsüdür."
+      maddeler={[
+        'Süreç İçi Filtre: Son 12 haftalık kayan pencere baz alınarak hareketli ortalama ve standart sapma hesaplanır.',
+        'Anomali Eşiği: |Z| ≥ 2.0 olan noktalar sarı anomali fişi, |Z| ≥ 3.0 olan uç değerler kırmızı ekstrem sapma fişi alır.',
+        'Yorumsuz Veri: Sinyaller haber başlığı ya da spekülasyon içermez; doğrudan resmi verinin matematiksel kanıtını sunar.'
+      ]}
+    />
+
+    <section class="radar-paneli">
+      <div class="panel-ust">
+        <h2>Tespit Edilen Son Anomali Fişleri</h2>
+        <span class="sinyal-sayisi">{sonFisler.length} Aktif Kayıt</span>
+      </div>
+
+      {sonFisler.length === 0 ? (
+        <div class="bos-sinyal">
+          <p>Şu anda incelenen öncü serilerde &plusmn;2&sigma; eşiğini aşan bir anomali bulunmuyor. Piyasa dinamikleri 12 haftalık normal bant dahilinde seyrediyor.</p>
+        </div>
+      ) : (
+        <div class="fis-listesi">
+          {sonFisler.map((f) => (
+            <article class={`fis-kart ${f.seviye}`}>
+              <div class="fis-ust">
+                <div class="gosterge-bilgi">
+                  <span class="tarih">{f.tarih}</span>
+                  <a href={f.baglanti} class="gosterge-ad">{f.gostergeAdi}</a>
+                </div>
+                <div class="rozet-sarmal">
+                  <span class={`rozet-z ${f.yon}`}>
+                    {f.yon === 'yukari' ? '▲' : '▼'} {Math.abs(f.zSkor)}&sigma;
+                  </span>
+                  <span class={`rozet-seviye ${f.seviye}`}>
+                    {f.seviye === 'ekstrem' ? 'Ekstrem Sapma' : 'Anomali'}
+                  </span>
+                </div>
+              </div>
+
+              <p class="kanit-metni">{f.kanitMetni}</p>
+
+              <div class="metrik-tablo">
+                <div class="metrik">
+                  <span class="m-ad">Gözlenen Değer</span>
+                  <strong class="m-val">{f.deger.toLocaleString('tr-TR')} {f.birim}</strong>
+                </div>
+                <div class="metrik">
+                  <span class="m-ad">12 Haftalık Ortalama</span>
+                  <span class="m-val">{f.ortalama.toLocaleString('tr-TR')} {f.birim}</span>
+                </div>
+                <div class="metrik">
+                  <span class="m-ad">Standart Sapma (&sigma;)</span>
+                  <span class="m-val">{f.standartSapma.toLocaleString('tr-TR')}</span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+    </section>
+
+    <section class="metodoloji-alani">
+      <h2>İstatistiki Metodoloji: Z-Skoru Neden Önemli?</h2>
+      <div class="metod-kartlar">
+        <div class="metod-kart">
+          <h3>Normal Dağılım ve &plusmn;2&sigma; Eşiği</h3>
+          <p>
+            Finansal serilerde olağan dalgalanmalar &plusmn;1&sigma; aralığında kalır.
+            Bir verinin 2 standart sapmanın üzerine çıkması, o hareketin rastgele bir dalgalanma olma olasılığının
+            %5'in altına indiğini gösterir. Bu durum, piyasa rejiminde ya da likidite dengesinde yapısal bir değişim yaşandığına işaret eder.
+          </p>
+        </div>
+        <div class="metod-kart">
+          <h3>Hangi Seriler Taranır?</h3>
+          <p>
+            TCMB Açık Piyasa ve Para Piyasası Fonlama hacmi, Yabancı DİBS ve Hisse haftalık net akımları,
+            TCMB Brüt ve Net Döviz Rezervleri ile haftalık Kredi Kartı harcama hacmi gibi sistemsel stres taşıyan
+            ana makro göstergeler günlük/haftalık periyotlarla taranır.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <YasalUyari />
+  </div>
+</Base>
+
+<style>
+  .sinyaller-sayfasi {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  .sayfa-baslik {
+    margin: 1.5rem 0 2rem;
+  }
+
+  .etiket-satir {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .etiket {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background: #f1f5f9;
+    color: #475569;
+  }
+
+  .etiket.radar {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+
+  .sayfa-baslik h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .sayfa-baslik .ozet {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0;
+  }
+
+  .radar-paneli {
+    margin: 2.5rem 0;
+  }
+
+  .panel-ust {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.75rem;
+  }
+
+  .panel-ust h2 {
+    font-size: 1.375rem;
+    font-weight: 700;
+    margin: 0;
+    color: #0f172a;
+  }
+
+  .sinyal-sayisi {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .fis-listesi {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .fis-kart {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .fis-kart:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  }
+
+  .fis-kart.anomali {
+    border-left: 4px solid #f59e0b;
+  }
+
+  .fis-kart.ekstrem {
+    border-left: 4px solid #ef4444;
+    background: #fffafa;
+  }
+
+  .fis-ust {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .gosterge-bilgi {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gosterge-bilgi .tarih {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .gosterge-ad {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #0f172a;
+    text-decoration: none;
+    margin-top: 0.125rem;
+  }
+
+  .gosterge-ad:hover {
+    color: #2563eb;
+    text-decoration: underline;
+  }
+
+  .rozet-sarmal {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .rozet-z {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background: #f1f5f9;
+  }
+
+  .rozet-z.yukari {
+    color: #15803d;
+    background: #dcfce7;
+  }
+
+  .rozet-z.asagi {
+    color: #b91c1c;
+    background: #fee2e2;
+  }
+
+  .rozet-seviye {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+  }
+
+  .rozet-seviye.anomali {
+    background: #fef3c7;
+    color: #b45309;
+  }
+
+  .rozet-seviye.ekstrem {
+    background: #fee2e2;
+    color: #991b1b;
+  }
+
+  .kanit-metni {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: #334155;
+    margin: 0 0 1rem;
+  }
+
+  .metrik-tablo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+  }
+
+  .metrik {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .m-ad {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #64748b;
+  }
+
+  .m-val {
+    font-size: 0.875rem;
+    color: #0f172a;
+    margin-top: 0.125rem;
+  }
+
+  .bos-sinyal {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+    color: #64748b;
+  }
+
+  .metodoloji-alani {
+    margin-top: 3.5rem;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 2rem;
+  }
+
+  .metodoloji-alani h2 {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1.25rem;
+  }
+
+  .metod-kartlar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .metod-kart {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+
+  .metod-kart h3 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+  }
+
+  .metod-kart p {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0;
+  }
+</style>
