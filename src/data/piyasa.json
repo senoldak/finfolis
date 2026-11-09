@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-09T11:41:15.775Z",
+  "guncelleme": "2026-11-09T13:41:03.648Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -870,7 +870,7 @@
     {
       "id": "bist100",
       "ad": "BIST 100",
-      "deger": 11651.2402,
+      "deger": 11687.2305,
       "ondalik": 2,
       "simge": "fabrika",
       "kaynak": {
@@ -879,7 +879,7 @@
       },
       "zaman": "2026-11-09T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 1.5,
+      "degisim": 1.8,
       "gecmis": [
         {
           "tarih": "2026-08-11",
@@ -1135,14 +1135,14 @@
         },
         {
           "tarih": "2026-11-09",
-          "deger": 11651.2402
+          "deger": 11687.2305
         }
       ]
     },
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 4116.6001,
+      "deger": 4135.5,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
@@ -1151,7 +1151,7 @@
       },
       "zaman": "2026-11-09T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 1,
+      "degisim": 1.5,
       "gecmis": [
         {
           "tarih": "2026-08-11",
@@ -1407,7 +1407,7 @@
         },
         {
           "tarih": "2026-11-09",
-          "deger": 4116.6001
+          "deger": 4135.5
         }
       ],
       "onEk": "$"
