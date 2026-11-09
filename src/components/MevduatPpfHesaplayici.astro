@@ -1,0 +1,529 @@
+---
+interface Props {
+  varsayilanTutar?: number;
+  varsayilanMevduatFaizi?: number;
+  varsayilanPpfGetirisi?: number;
+  varsayilanGun?: number;
+}
+
+const {
+  varsayilanTutar = 100_000,
+  varsayilanMevduatFaizi = 48.0,
+  varsayilanPpfGetirisi = 47.0,
+  varsayilanGun = 32,
+} = Astro.props;
+---
+
+<div class="hesaplayici-kutu" id="mevduat-ppf-araci">
+  <div class="girdi-paneli">
+    <div class="girdi-grubu">
+      <label for="hesap-anapara" class="girdi-etiket">Yatırım Tutarı (TL)</label>
+      <div class="girdi-sarma">
+        <input
+          type="number"
+          id="hesap-anapara"
+          class="girdi-alan"
+          value={varsayilanTutar}
+          min="1000"
+          step="5000"
+          aria-describedby="anapara-ipucu"
+        />
+        <span class="girdi-birim">₺</span>
+      </div>
+      <span id="anapara-ipucu" class="girdi-alt-not">Hesaplama için temel anapara tutarı</span>
+    </div>
+
+    <div class="girdi-grubu">
+      <label for="hesap-gun" class="girdi-etiket">Vade Süresi (Gün)</label>
+      <div class="girdi-sarma">
+        <input
+          type="number"
+          id="hesap-gun"
+          class="girdi-alan"
+          value={varsayilanGun}
+          min="1"
+          max="1095"
+          step="1"
+        />
+        <span class="girdi-birim">gün</span>
+      </div>
+      <div class="hizli-gunler" role="group" aria-label="Popüler vade süreleri">
+        <button type="button" class="gun-buton aktif" data-gun="32">32 Gün</button>
+        <button type="button" class="gun-buton" data-gun="46">46 Gün</button>
+        <button type="button" class="gun-buton" data-gun="92">92 Gün</button>
+        <button type="button" class="gun-buton" data-gun="180">180 Gün</button>
+        <button type="button" class="gun-buton" data-gun="365">1 Yıl</button>
+      </div>
+    </div>
+
+    <div class="girdi-ikili">
+      <div class="girdi-grubu">
+        <label for="hesap-mevduat-faiz" class="girdi-etiket">Mevduat Faizi (Brüt %)</label>
+        <div class="girdi-sarma">
+          <input
+            type="number"
+            id="hesap-mevduat-faiz"
+            class="girdi-alan"
+            value={varsayilanMevduatFaizi}
+            min="1"
+            max="120"
+            step="0.5"
+          />
+          <span class="girdi-birim">%</span>
+        </div>
+      </div>
+
+      <div class="girdi-grubu">
+        <label for="hesap-ppf-getiri" class="girdi-etiket">PPF Yıllık Getiri (Brüt %)</label>
+        <div class="girdi-sarma">
+          <input
+            type="number"
+            id="hesap-ppf-getiri"
+            class="girdi-alan"
+            value={varsayilanPpfGetirisi}
+            min="1"
+            max="120"
+            step="0.5"
+          />
+          <span class="girdi-birim">%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sonuc-karsilastirma" id="karsilastirma-ozet">
+    <div class="karsilastirma-banner" id="banner-kazanan">
+      <div class="banner-ikon" id="banner-ikon" aria-hidden="true">⚖️</div>
+      <div class="banner-metinler">
+        <strong class="banner-baslik" id="banner-baslik">Getiri Karşılaştırması</strong>
+        <p class="banner-aciklama" id="banner-aciklama">Hesaplanıyor...</p>
+      </div>
+    </div>
+
+    <div class="sonuc-kartlari">
+      <!-- Mevduat Kartı -->
+      <article class="sonuc-kart" id="kart-mevduat">
+        <header class="kart-baslik">
+          <span class="kart-tur">Vadeli Mevduat</span>
+          <span class="kart-stopaj-rozet" id="mevduat-stopaj-rozet">%10 Stopaj</span>
+        </header>
+
+        <div class="kart-ana-sonuc">
+          <span class="sonuc-etiket">Net Kazanç</span>
+          <span class="sonuc-deger" id="mevduat-net-kazanc">₺0</span>
+        </div>
+
+        <ul class="kart-detaylar">
+          <li class="detay-satir">
+            <span>Brüt Faiz Geliri</span>
+            <strong id="mevduat-brut-kazanc">₺0</strong>
+          </li>
+          <li class="detay-satir">
+            <span>Kesilen Stopaj Vergisi</span>
+            <strong class="eksi-deger" id="mevduat-kesilen-stopaj">-₺0</strong>
+          </li>
+          <li class="detay-satir">
+            <span>Vade Sonu Toplam Bakiye</span>
+            <strong id="mevduat-toplam-bakiye">₺0</strong>
+          </li>
+          <li class="detay-satir">
+            <span>Yıllıklandırılmış Net Getiri</span>
+            <strong id="mevduat-net-oran">%0</strong>
+          </li>
+        </ul>
+
+        <footer class="kart-dipnot">
+          <span>⚠️ Vade bozulursa kural olarak getiri hakkı kaybolur.</span>
+        </footer>
+      </article>
+
+      <!-- PPF Kartı -->
+      <article class="sonuc-kart" id="kart-ppf">
+        <header class="kart-baslik">
+          <span class="kart-tur">Para Piyasası Fonu (PPF)</span>
+          <span class="kart-stopaj-rozet">%10 Stopaj</span>
+        </header>
+
+        <div class="kart-ana-sonuc">
+          <span class="sonuc-etiket">Net Kazanç (Bileşik)</span>
+          <span class="sonuc-deger" id="ppf-net-kazanc">₺0</span>
+        </div>
+
+        <ul class="kart-detaylar">
+          <li class="detay-satir">
+            <span>Brüt Fon Kazancı</span>
+            <strong id="ppf-brut-kazanc">₺0</strong>
+          </li>
+          <li class="detay-satir">
+            <span>Kesilen Stopaj Vergisi</span>
+            <strong class="eksi-deger" id="ppf-kesilen-stopaj">-₺0</strong>
+          </li>
+          <li class="detay-satir">
+            <span>Vade Sonu Toplam Bakiye</span>
+            <strong id="ppf-toplam-bakiye">₺0</strong>
+          </li>
+          <li class="detay-satir">
+            <span>Efektif Bileşik Net Getiri</span>
+            <strong id="ppf-net-oran">%0</strong>
+          </li>
+        </ul>
+
+        <footer class="kart-dipnot">
+          <span>⚡ Hafta içi 13:30'a kadar getiri kaybı olmadan nakde döner.</span>
+        </footer>
+      </article>
+    </div>
+  </div>
+</div>
+
+<script>
+  function formatPara(sayi) {
+    return '₺' + sayi.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function formatYuzde(sayi) {
+    return '%' + sayi.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function stopajOrani(gun) {
+    if (gun <= 180) return 0.10;
+    if (gun <= 365) return 0.075;
+    return 0.05;
+  }
+
+  function hesapla() {
+    const anapara = parseFloat(document.getElementById('hesap-anapara').value) || 0;
+    const gun = parseInt(document.getElementById('hesap-gun').value, 10) || 1;
+    const mevFaiz = parseFloat(document.getElementById('hesap-mevduat-faiz').value) || 0;
+    const ppfGetiri = parseFloat(document.getElementById('hesap-ppf-getiri').value) || 0;
+
+    // Mevduat hesabı
+    const mevStopaj = stopajOrani(gun);
+    const mevBrut = anapara * (mevFaiz / 100) * (gun / 365);
+    const mevKesinti = mevBrut * mevStopaj;
+    const mevNet = mevBrut - mevKesinti;
+    const mevBakiye = anapara + mevNet;
+    const mevNetOran = mevFaiz * (1 - mevStopaj);
+
+    // PPF hesabı (günlük bileşik nemalanma)
+    const ppfGunluk = (ppfGetiri / 100) / 365;
+    const ppfSonBrut = anapara * Math.pow(1 + ppfGunluk, gun);
+    const ppfBrut = ppfSonBrut - anapara;
+    const ppfKesinti = ppfBrut * 0.10;
+    const ppfNet = ppfBrut - ppfKesinti;
+    const ppfBakiye = anapara + ppfNet;
+    const ppfEfektifBrut = (Math.pow(1 + ppfGunluk, 365) - 1) * 100;
+    const ppfNetOran = ppfEfektifBrut * 0.90;
+
+    // DOM Güncelle
+    document.getElementById('mevduat-stopaj-rozet').textContent = '%' + (mevStopaj * 100) + ' Stopaj';
+    document.getElementById('mevduat-net-kazanc').textContent = formatPara(mevNet);
+    document.getElementById('mevduat-brut-kazanc').textContent = formatPara(mevBrut);
+    document.getElementById('mevduat-kesilen-stopaj').textContent = '-' + formatPara(mevKesinti);
+    document.getElementById('mevduat-toplam-bakiye').textContent = formatPara(mevBakiye);
+    document.getElementById('mevduat-net-oran').textContent = formatYuzde(mevNetOran);
+
+    document.getElementById('ppf-net-kazanc').textContent = formatPara(ppfNet);
+    document.getElementById('ppf-brut-kazanc').textContent = formatPara(ppfBrut);
+    document.getElementById('ppf-kesilen-stopaj').textContent = '-' + formatPara(ppfKesinti);
+    document.getElementById('ppf-toplam-bakiye').textContent = formatPara(ppfBakiye);
+    document.getElementById('ppf-net-oran').textContent = formatYuzde(ppfNetOran);
+
+    // Banner ve Karşılaştırma Özeti
+    const fark = Math.abs(ppfNet - mevNet);
+    const banner = document.getElementById('banner-kazanan');
+    const baslik = document.getElementById('banner-baslik');
+    const aciklama = document.getElementById('banner-aciklama');
+    const ikon = document.getElementById('banner-ikon');
+
+    if (fark < 1.0) {
+      ikon.textContent = '⚖️';
+      baslik.textContent = 'Net Getiriler Birbirine Eşit';
+      aciklama.textContent = `${gun} günün sonunda her iki enstrüman da yaklaşık aynı net getiriyi sağlıyor. Ancak PPF, vade bekleme şartı olmaksızın günlük likidite sağlar.`;
+      banner.className = 'karsilastirma-banner esit';
+    } else if (ppfNet > mevNet) {
+      ikon.textContent = '🏆';
+      baslik.textContent = `Para Piyasası Fonu ${formatPara(fark)} Daha Fazla Kazandırıyor`;
+      aciklama.textContent = `Günlük bileşik getiri mekanizması sayesinde PPF, ${gun} günlük vadede vadeli mevduata kıyasla daha yüksek net getiri ve anlık likidite sunuyor.`;
+      banner.className = 'karsilastirma-banner ppf-onde';
+    } else {
+      ikon.textContent = '🏦';
+      baslik.textContent = `Vadeli Mevduat ${formatPara(fark)} Daha Fazla Kazandırıyor`;
+      aciklama.textContent = `Banka mevduat faizinin yüksekliği, ${gun} günlük vadede PPF'nin bileşik faiz avantajının önüne geçerek net getiride mevduatı avantajlı kılıyor.`;
+      banner.className = 'karsilastirma-banner mevduat-onde';
+    }
+  }
+
+  // Dinleyiciler
+  ['hesap-anapara', 'hesap-gun', 'hesap-mevduat-faiz', 'hesap-ppf-getiri'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', hesapla);
+    }
+  });
+
+  document.querySelectorAll('.gun-buton').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.gun-buton').forEach((b) => b.classList.remove('aktif'));
+      btn.classList.add('aktif');
+      document.getElementById('hesap-gun').value = btn.getAttribute('data-gun');
+      hesapla();
+    });
+  });
+
+  // Sayfa açılışında çalıştır
+  hesapla();
+</script>
+
+<style>
+  .hesaplayici-kutu {
+    margin: 28px 0 36px;
+    padding: 24px;
+    background: #fffdfa;
+    border: 1px solid var(--cizgi, #e5e0d4);
+    border-radius: 6px;
+    font-family: var(--yazi, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  }
+
+  .girdi-paneli {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+
+  @media (min-width: 640px) {
+    .girdi-paneli {
+      grid-template-columns: 1fr 1fr;
+    }
+    .girdi-ikili {
+      grid-column: span 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+  }
+
+  .girdi-grubu {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .girdi-etiket {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--murekkep, #1d211e);
+  }
+
+  .girdi-sarma {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .girdi-alan {
+    width: 100%;
+    padding: 10px 36px 10px 12px;
+    font-size: 1.05rem;
+    font-family: var(--yazi-mono, monospace);
+    color: var(--murekkep, #1d211e);
+    background: #fff;
+    border: 1px solid var(--cizgi, #e5e0d4);
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+
+  .girdi-alan:focus {
+    border-color: var(--toprak-text, #aa3a18);
+    box-shadow: 0 0 0 2px rgba(170, 58, 24, 0.12);
+  }
+
+  .girdi-birim {
+    position: absolute;
+    right: 12px;
+    font-size: 0.9rem;
+    color: var(--gri, #6c726d);
+    font-weight: 600;
+    pointer-events: none;
+  }
+
+  .girdi-alt-not {
+    font-size: 0.75rem;
+    color: var(--gri, #6c726d);
+  }
+
+  .hizli-gunler {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  .gun-buton {
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid var(--cizgi, #e5e0d4);
+    background: #fbf9f4;
+    color: var(--murekkep, #1d211e);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .gun-buton:hover {
+    background: #f3efe6;
+  }
+
+  .gun-buton.aktif {
+    background: var(--toprak-text, #aa3a18);
+    color: #fff;
+    border-color: var(--toprak-text, #aa3a18);
+  }
+
+  .karsilastirma-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+    border: 1px solid var(--cizgi, #e5e0d4);
+    background: #fcfbf7;
+  }
+
+  .karsilastirma-banner.ppf-onde {
+    background: #f4faf6;
+    border-color: #cce8d7;
+    border-left: 5px solid #2d8a4e;
+  }
+
+  .karsilastirma-banner.mevduat-onde {
+    background: #fdf8f4;
+    border-color: #f3dfd2;
+    border-left: 5px solid var(--toprak-text, #aa3a18);
+  }
+
+  .banner-ikon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+
+  .banner-baslik {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--murekkep, #1d211e);
+    margin-bottom: 3px;
+  }
+
+  .banner-aciklama {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.45;
+    color: var(--murekkep-orta, #3c423e);
+  }
+
+  .sonuc-kartlari {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  @media (min-width: 640px) {
+    .sonuc-kartlari {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .sonuc-kart {
+    padding: 18px;
+    background: #fff;
+    border: 1px solid var(--cizgi, #e5e0d4);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .kart-baslik {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--cizgi, #e5e0d4);
+  }
+
+  .kart-tur {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--murekkep, #1d211e);
+  }
+
+  .kart-stopaj-rozet {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 2px 6px;
+    background: #f0ede4;
+    border-radius: 3px;
+    color: var(--murekkep, #1d211e);
+  }
+
+  .kart-ana-sonuc {
+    margin-bottom: 16px;
+  }
+
+  .sonuc-etiket {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--gri, #6c726d);
+    margin-bottom: 2px;
+  }
+
+  .sonuc-deger {
+    font-size: 1.6rem;
+    font-weight: 800;
+    font-family: var(--yazi-mono, monospace);
+    color: var(--murekkep, #1d211e);
+  }
+
+  .kart-detaylar {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    flex-grow: 1;
+  }
+
+  .detay-satir {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--cizgi, #e5e0d4);
+    color: var(--murekkep-orta, #3c423e);
+  }
+
+  .detay-satir strong {
+    font-family: var(--yazi-mono, monospace);
+    color: var(--murekkep, #1d211e);
+  }
+
+  .eksi-deger {
+    color: #b91c1c !important;
+  }
+
+  .kart-dipnot {
+    margin-top: auto;
+    font-size: 0.75rem;
+    line-height: 1.35;
+    color: var(--gri, #6c726d);
+    padding-top: 10px;
+    border-top: 1px solid var(--cizgi, #e5e0d4);
+  }
+</style>

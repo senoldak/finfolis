@@ -1,0 +1,312 @@
+---
+// Mevduat vs. Para Piyasası Fonu (PPF) Net Getiri ve Stopaj Hesaplayıcısı
+// Günlük bileşik getiri, vade dilimli stopaj kesintisi ve likidite karşılaştırması
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import DogrudanYanit from '../../components/DogrudanYanit.astro';
+import MevduatPpfHesaplayici from '../../components/MevduatPpfHesaplayici.astro';
+import YasalUyari from '../../components/YasalUyari.astro';
+import { sayfaSemasi } from '../../lib/seo';
+import { faqPageSemasi } from '../../lib/json-ld.mjs';
+
+const baslik = 'Mevduat vs. Para Piyasası Fonu (PPF) Getiri Hesaplayıcı';
+const aciklama = 'Vadeli mevduat ile Para Piyasası Fonlarının (PPF) net getirisini stopaj kesintileri ve günlük bileşik faiz etkisiyle anlık karşılaştırın.';
+
+const yol = [
+  { ad: 'Anasayfa', href: '/' },
+  { ad: 'Veriler', href: '/veri/' },
+  { ad: 'Mevduat vs. PPF Hesaplayıcı', href: '/veri/mevduat-ppf-hesaplayici/' },
+];
+
+const sssSorulari = [
+  {
+    soru: 'Mevduat faizi mi, Para Piyasası Fonu (PPF) mu daha çok kazandırır?',
+    cevap: 'Mevduat vade sonuna kadar sabit brüt faiz garantisi sunar. PPF ise günlük bileşik getiri ve T+0 anlık likidite sağlar. Kısa vadede günlük bileşik faiz etkisiyle PPF öne çıkarken, faiz indirim döngülerinde uzun vadeli mevduat faiz oranını sabitleyerek avantaj sağlayabilir.'
+  },
+  {
+    soru: 'Mevduat ve Para Piyasası Fonlarında stopaj oranları ne kadardır?',
+    cevap: 'TL mevduatlarda güncel stopaj: 6 aya kadar (180 gün dahil) vadede %10, 1 yıla kadar (365 gün dahil) %7.5, 1 yıldan uzun vadede ise %5 olarak uygulanır. TL Para Piyasası Fonlarında (PPF) ise stopaj oranı sabittir ve %10 kesinti yapılır.'
+  },
+  {
+    soru: 'Para Piyasası Fonları hafta sonları ve tatillerde getiri sağlar mı?',
+    cevap: 'Evet. PPF portföyündeki ters repo, Takasbank Para Piyasası (TPP) ve vadeli mevduat kıymetleri hafta sonu ve resmî tatil günlerinde de faiz tahakkuk ettirdiği için kümülatif getiri fon pay değerine yansır.'
+  },
+  {
+    soru: 'PPF satışında nakit ne zaman hesaba geçer?',
+    cevap: 'Para Piyasası Fonları T+0 valörlü fonlardır. TEFAS işlem saatleri dahilinde (genellikle 09:00 - 13:30 arası) verilen satış talimatları anında hesaba geçer; mesai sonrası veya hafta sonu emirlerinde ise bankaların belirlediği günlük limitler dahilinde anlık nakde çevrilebilir.'
+  }
+];
+
+const faqSemasi = faqPageSemasi(sssSorulari);
+
+const jsonLd = sayfaSemasi({
+  yol,
+  ad: baslik,
+  aciklama,
+  ekler: faqSemasi ? [faqSemasi] : []
+});
+---
+
+<Base baslik={baslik} aciklama={aciklama} jsonLd={jsonLd}>
+  <div class="hesap-sayfasi">
+    <Breadcrumb yol={yol} />
+
+    <header class="sayfa-baslik">
+      <div class="etiket-satir">
+        <span class="etiket">Etkileşimli Araç</span>
+        <span class="etiket vurgu">2026 Güncel Stopaj</span>
+      </div>
+      <h1>Mevduat vs. Para Piyasası Fonu Getiri Hesaplayıcı</h1>
+      <p class="ozet">
+        Paranızı vadeli mevduatta bağlamak mı, yoksa T+0 likiditeye sahip Para Piyasası Fonunda (PPF) tutmak mı daha kârlı?
+        Günlük bileşik faiz çarpanı ve güncel stopaj dilimleriyle net getiriyi hesaplayın.
+      </p>
+    </header>
+
+    <DogrudanYanit
+      baslik="Hızlı Karar Özeti: Hangisini Seçmelisiniz?"
+      ozet="Acil nakit ihtiyacı olasılığı olan veya faizlerin yükseliş trendinde olduğu dönemlerde T+0 valörlü PPF günlük bileşik faiziyle öne çıkar. Faiz indirimlerinin beklendiği dönemlerde ise 3-6 aylık veya 1 yıllık vadeli mevduat, faiz oranını sabitleyerek ve daha düşük stopaj diliminden (%7.5 veya %5) yararlanarak üstünlük sağlar."
+      maddeler={[
+        'Likidite: PPF T+0 valörle gün içinde anında bozulabilir, vadeli mevduatta ise vade bozulduğunda tüm faiz getirisi sıfırlanır.',
+        'Bileşik Getiri: PPF her gün elde edilen net faizi ana paraya ekleyerek yeniden nemalandırır.',
+        'Stopaj Farkı: 6 aydan uzun vadelerde mevduat stopajı %7.5 ve %5\'e düşerken PPF her zaman %10 stopaja tabidir.'
+      ]}
+      sorular={sssSorulari}
+    />
+
+    <section class="hesaplayici-alani">
+      <MevduatPpfHesaplayici />
+    </section>
+
+    <section class="bilgi-bolumu">
+      <h2>Mevduat ile Para Piyasası Fonu Arasındaki Temel Farklar</h2>
+      
+      <div class="karsilastirma-tablo-sarmal">
+        <table class="karsilastirma-tablo">
+          <thead>
+            <tr>
+              <th>Özellik</th>
+              <th>Vadeli Mevduat (TL)</th>
+              <th>Para Piyasası Fonu (PPF)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Nakit Çıkışı / Valör</strong></td>
+              <td>Vade sonu beklenir (erken çıkışta faiz yanar)</td>
+              <td><strong>T+0 (Aynı gün anında nakit)</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Faiz Garantisi</strong></td>
+              <td>Vade boyunca sabit brüt faiz garantisi</td>
+              <td>Piyasa koşullarına göre günlük değişken</td>
+            </tr>
+            <tr>
+              <td><strong>Bileşik Faiz</strong></td>
+              <td>Yalnızca vade yenilenmesinde</td>
+              <td><strong>Her gün otomatik bileşik</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Stopaj Oranı (&le;180 gün)</strong></td>
+              <td>%10</td>
+              <td>%10</td>
+            </tr>
+            <tr>
+              <td><strong>Stopaj Oranı (181-365 gün)</strong></td>
+              <td><strong>%7.5 (Vergi Avantajı)</strong></td>
+              <td>%10</td>
+            </tr>
+            <tr>
+              <td><strong>Stopaj Oranı (&gt;365 gün)</strong></td>
+              <td><strong>%5 (Yüksek Vergi Avantajı)</strong></td>
+              <td>%10</td>
+            </tr>
+            <tr>
+              <td><strong>Hafta Sonu Kazancı</strong></td>
+              <td>Vade gün sayısına dahildir</td>
+              <td>Hafta sonu kümülatif yansır</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bilgi-kutulari">
+        <article class="bilgi-kutu">
+          <h3>Günlük Bileşik Faizin Matematiksel Gücü</h3>
+          <p>
+            Para Piyasası Fonlarında elde edilen faiz ertesi gün fon portföyünün yeni baz büyüklüğünü oluşturur.
+            Yıllık brüt getiri oranı <em>r</em> olduğunda, <em>N</em> günlük fon birikimi şu formülle çalışır:
+          </p>
+          <code>Ana Para &times; (1 + r / 365)<sup>N</sup></code>
+          <p>
+            Özellikle yüksek faiz ortamında günlük bileşik faiz, basit faize kıyasla ilave getiri farkı yaratır.
+          </p>
+        </article>
+
+        <article class="bilgi-kutu">
+          <h3>Stopaj Dilimleri Neden Önemli?</h3>
+          <p>
+            Mevduatta vade uzadıkça Gelir Vergisi stopajı %10'dan %7.5 ve %5'e düşer.
+            Uzun vadeli bir yatırım planlıyorsanız ve faiz oranlarının düşeceği bir konjonktürdeyseniz,
+            mevduatın düşük stopajı PPF'nin bileşik getiri avantajını nötralize edebilir ve mevduatı daha kazançlı kılabilir.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <YasalUyari />
+  </div>
+</Base>
+
+<style>
+  .hesap-sayfasi {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  .sayfa-baslik {
+    margin: 1.5rem 0 2rem;
+  }
+
+  .etiket-satir {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .etiket {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    background: #f1f5f9;
+    color: #475569;
+  }
+
+  .etiket.vurgu {
+    background: #eff6ff;
+    color: #1d4ed8;
+  }
+
+  .sayfa-baslik h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #0f172a;
+    margin: 0 0 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .sayfa-baslik .ozet {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0;
+  }
+
+  .hesaplayici-alani {
+    margin: 2.5rem 0;
+  }
+
+  .bilgi-bolumu {
+    margin-top: 3.5rem;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 2.5rem;
+  }
+
+  .bilgi-bolumu h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1.5rem;
+  }
+
+  .karsilastirma-tablo-sarmal {
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+
+  .karsilastirma-tablo {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    text-align: left;
+  }
+
+  .karsilastirma-tablo th,
+  .karsilastirma-tablo td {
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+  }
+
+  .karsilastirma-tablo th {
+    background: #f8fafc;
+    font-weight: 600;
+    color: #334155;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .karsilastirma-tablo tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .karsilastirma-tablo tbody tr:hover {
+    background: #f8fafc;
+  }
+
+  .bilgi-kutulari {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .bilgi-kutu {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+
+  .bilgi-kutu h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .bilgi-kutu p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 0.75rem;
+  }
+
+  .bilgi-kutu code {
+    display: block;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    color: #0f172a;
+    margin: 0.75rem 0;
+    text-align: center;
+  }
+
+  @media (max-width: 640px) {
+    .sayfa-baslik h1 {
+      font-size: 1.5rem;
+    }
+    .hesap-sayfasi {
+      padding: 1.25rem 0.75rem 3rem;
+    }
+  }
+</style>

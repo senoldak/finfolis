@@ -6,3 +6,4 @@ export function haberAlanlari(p?: {
   duzeltme?: string;
   guncellendi?: Date;
 }): Record<string, unknown>;
+export function faqPageSemasi(sorular?: { soru: string; cevap: string }[]): Record<string, unknown> | null;

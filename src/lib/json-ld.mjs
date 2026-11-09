@@ -36,3 +36,23 @@ export function haberAlanlari({ kaynaklar = [], medya = [], yer = null, duzeltme
   }
   return ut;
 }
+
+/**
+ * Google Rich Snippets uyumlu FAQPage JSON-LD düğümü üretir.
+ * @param {{ soru: string, cevap: string }[]} sorular
+ */
+export function faqPageSemasi(sorular = []) {
+  const gecerli = (sorular || []).filter((s) => s?.soru && s?.cevap);
+  if (!gecerli.length) return null;
+  return {
+    '@type': 'FAQPage',
+    mainEntity: gecerli.map((s) => ({
+      '@type': 'Question',
+      name: s.soru.trim(),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: s.cevap.trim(),
+      },
+    })),
+  };
+}

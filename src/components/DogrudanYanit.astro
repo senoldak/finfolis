@@ -1,0 +1,200 @@
+---
+import { faqPageSemasi, jsonLdMetni } from '../lib/json-ld.mjs';
+
+interface SoruCevap {
+  soru: string;
+  cevap: string;
+}
+
+interface Nokta {
+  etiket: string;
+  deger: string;
+}
+
+interface Props {
+  baslik?: string;
+  ozet: string;
+  noktalar?: Nokta[];
+  sorular?: SoruCevap[];
+  kaynak?: string;
+  guncelleme?: string;
+}
+
+const {
+  baslik = 'Doğrudan Yanıt',
+  ozet,
+  noktalar = [],
+  sorular = [],
+  kaynak,
+  guncelleme,
+} = Astro.props;
+
+const faqJsonLd = sorular.length ? faqPageSemasi(sorular) : null;
+---
+
+<section class="dogrudan-yanit" aria-label={baslik}>
+  <div class="yanit-baslik-satiri">
+    <span class="yanit-rozet">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+      </svg>
+      {baslik}
+    </span>
+    {guncelleme && <span class="yanit-tarih">{guncelleme}</span>}
+  </div>
+
+  <p class="yanit-metin">{ozet}</p>
+
+  {
+    noktalar.length > 0 && (
+      <div class="yanit-noktalar">
+        {noktalar.map((n) => (
+          <div class="yanit-nokta">
+            <span class="nokta-etiket">{n.etiket}</span>
+            <strong class="nokta-deger">{n.deger}</strong>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  {
+    sorular.length > 0 && (
+      <div class="yanit-sss">
+        <h4 class="sss-baslik">Sık Sorulan Sorular</h4>
+        <dl class="sss-liste">
+          {sorular.map((s) => (
+            <div class="sss-oge">
+              <dt class="sss-soru">{s.soru}</dt>
+              <dd class="sss-cevap">{s.cevap}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    )
+  }
+
+  {kaynak && <div class="yanit-kaynak">Dayanak / Kaynak: {kaynak}</div>}
+
+  {faqJsonLd && <script type="application/ld+json" set:html={jsonLdMetni(faqJsonLd)} />}
+</section>
+
+<style>
+  .dogrudan-yanit {
+    margin: 24px 0 32px;
+    padding: 20px 22px;
+    background: #fbf9f4;
+    border: 1px solid var(--cizgi, #e5e0d4);
+    border-left: 4px solid var(--toprak-text, #aa3a18);
+    border-radius: 4px;
+    font-family: var(--yazi, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  }
+
+  .yanit-baslik-satiri {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .yanit-rozet {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--toprak-text, #aa3a18);
+  }
+
+  .yanit-tarih {
+    font-size: 0.8rem;
+    color: var(--gri, #6c726d);
+  }
+
+  .yanit-metin {
+    margin: 0 0 16px;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--murekkep, #1d211e);
+    font-weight: 500;
+  }
+
+  .yanit-noktalar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+    padding: 12px 14px;
+    background: #fff;
+    border: 1px solid var(--cizgi, #e5e0d4);
+    border-radius: 4px;
+  }
+
+  .yanit-nokta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .nokta-etiket {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gri, #6c726d);
+  }
+
+  .nokta-deger {
+    font-size: 1.05rem;
+    font-family: var(--yazi-mono, monospace);
+    color: var(--murekkep, #1d211e);
+  }
+
+  .yanit-sss {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--cizgi, #e5e0d4);
+  }
+
+  .sss-baslik {
+    margin: 0 0 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--murekkep, #1d211e);
+  }
+
+  .sss-liste {
+    margin: 0;
+    padding: 0;
+  }
+
+  .sss-oge {
+    margin-bottom: 12px;
+  }
+
+  .sss-soru {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--murekkep, #1d211e);
+    margin-bottom: 4px;
+  }
+
+  .sss-cevap {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--murekkep-orta, #3c423e);
+  }
+
+  .yanit-kaynak {
+    margin-top: 12px;
+    font-size: 0.75rem;
+    color: var(--gri, #6c726d);
+    font-style: italic;
+  }
+</style>
