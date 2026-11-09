@@ -1,0 +1,759 @@
+---
+import RasathaneKabuk from '../../../layouts/RasathaneKabuk.astro';
+import { sayfalariOku } from '../../../lib/rasathane/veri.mjs';
+import { sayi, yuzde, tarih } from '../../../lib/rasathane/bicim.mjs';
+import { join } from 'node:path';
+import { readFileSync, existsSync } from 'node:fs';
+
+const KOK = join(process.cwd(), 'public/rasathane/veri');
+const sayfalar = sayfalariOku(KOK).filter((s) => s.bolum === 'viop');
+const bul = (ad) => sayfalar.find((s) => s.sayfa === ad);
+
+const onVade = bul('on-vade');
+const vadeli = bul('vadeli');
+const takvim = bul('takvim');
+const varant = bul('varant');
+
+const guncel = vadeli ? tarih(vadeli.veri.guncellendi) : '';
+
+function hucre(s, deger) {
+  if (deger === null || deger === undefined || deger === '') return '–';
+  if (typeof deger === 'boolean') return deger ? 'Evet' : 'Hayır';
+  if (s.tur === 'yuzde') return yuzde(deger, s.basamak ?? 2);
+  if (s.tur === 'sayi') return sayi(deger, s.basamak ?? 2);
+  return String(deger);
+}
+
+function isaret(s, deger) {
+  if (s.tur !== 'yuzde' || typeof deger !== 'number' || deger === 0) return '';
+  return deger > 0 ? 'yukari' : 'asagi';
+}
+
+function gosterim(s, deger) {
+  const i = isaret(s, deger);
+  if (!i) return hucre(s, deger);
+  return (i === 'yukari' ? '▲ ' : '▼ ') + yuzde(Math.abs(deger), s.basamak ?? 2);
+}
+
+const onVadeSatirlar = onVade?.veri.satirlar ?? [];
+const vadeliSatirlar = vadeli?.veri.satirlar ?? [];
+const takvimSatirlar = takvim?.veri.satirlar ?? [];
+const varantSatirlar = varant?.veri.satirlar ?? [];
+const varantDayanaklar = [...new Set(varantSatirlar.map((r) => r.dayanak).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'tr'));
+
+const vitrinDayanaklar = ['XU030', 'USDTRY', 'ONS ALTIN', 'ONS GUMUS', 'ASELS', 'THYAO'];
+const vitrinVadeliler = vitrinDayanaklar.map((d) => onVadeSatirlar.find((r) => r.dayanak === d)).filter(Boolean);
+
+// İlk açılışta seçilecek sözleşme
+const ilkSeri = onVadeSatirlar[0]?.seri ?? 'fiyat-xu030';
+---
+<RasathaneKabuk
+  baslik="VİOP & Varantlar"
+  aktif="viop"
+  bant="viop"
+  aciklama="Borsa İstanbul VİOP vadelileri, ön vade sözleşmeleri, vade takas takvimi ve varantlar. Veriler gecikmelidir."
+  bilgi={guncel ? `Son güncelleme: ${guncel} · Gecikmeli veri` : undefined}
+>
+  {!vadeli ? (
+    <p class="bos-tum">VİOP verisi henüz yok.</p>
+  ) : (
+    <>
+      {vitrinVadeliler.length > 0 && (
+        <section class="blok vitrin-serit" aria-label="Öne çıkan vadeliler">
+          <div class="vitrin-iz">
+            {vitrinVadeliler.map((k) => (
+              <div class="vitrin-kart">
+                <span class="vitrin-kod">{k.dayanak}</span>
+                <span class="vitrin-fiyat">{sayi(k.fiyat, k.fiyat >= 100 ? 2 : 4)}</span>
+                <span class={`vitrin-degisim ${k.yuzde > 0 ? 'yukari' : k.yuzde < 0 ? 'asagi' : ''}`}>
+                  {k.yuzde > 0 ? '▲' : k.yuzde < 0 ? '▼' : ''} {yuzde(Math.abs(k.yuzde), 2)}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <header class="ust-satir">
+        <h1 class="gizli-baslik">VİOP & Varantlar</h1>
+      </header>
+
+      <aside class="sag-panel" data-panel hidden aria-live="polite">
+        <p class="panel-ust" data-panel-ust></p>
+        <h2 data-panel-baslik></h2>
+        <div class="kontroller">
+          <div class="ust-cubuk">
+            <div class="emtia-sec">
+              <span class="sr-only">Sözleşme seç</span>
+              <input type="text" data-emtia-sec placeholder="Sözleşme ara ve seç" autocomplete="off" role="combobox" aria-controls="sec-liste" aria-autocomplete="list" />
+              <ul class="sec-liste" id="sec-liste" data-sec-liste role="listbox" hidden>
+                {onVadeSatirlar.filter((r) => r.seri).map((r) => (
+                  <li role="option" data-seri={r.seri} data-ad={`${r.dayanak} · Ön Vade`}>
+                    <span>{r.dayanak}</span><span class="kod">{sayi(r.fiyat, 2)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="tf" role="group" aria-label="Zaman aralığı">
+              <button type="button" data-tf="gunluk" aria-pressed="true">Günlük</button>
+              <button type="button" data-tf="hafta" aria-pressed="false">Haftalık</button>
+            </div>
+            <div class="ikonlar">
+              <button type="button" class="ikon" data-tam-ekran aria-label="Grafiği tam ekran aç" title="Tam ekran">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
+              </button>
+              <button type="button" class="ikon" data-png aria-label="Grafiği PNG olarak indir" title="PNG indir">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <dl class="olcu" data-olcu></dl>
+        <div class="grafik-kap">
+          <div data-grafik class="grafik"></div>
+          <img class="marka" src="/rasathane/isaret.svg" alt="" />
+        </div>
+        <p class="ipucu">Yakınlaştırmak için fare tekerleği ya da iki parmak. Üzerine gelince değer görünür.</p>
+        <p class="atif">Grafikler <a href="https://www.tradingview.com/" target="_blank" rel="noopener">TradingView Lightweight Charts</a> ile çizilir.</p>
+      </aside>
+
+      <div class="ana-sekmeler" role="tablist" aria-label="Görünüm sekmeleri">
+        <button type="button" role="tab" data-ana-sekme="on-vade" aria-selected="true">Ön Vade Sözleşmeleri</button>
+        <button type="button" role="tab" data-ana-sekme="vadeli" aria-selected="false">Tüm Vadeliler ({vadeliSatirlar.length})</button>
+        <button type="button" role="tab" data-ana-sekme="takvim" aria-selected="false">Vade Takvimi</button>
+        <button type="button" role="tab" data-ana-sekme="varant" aria-selected="false">Varantlar</button>
+      </div>
+
+      <div class="calisma">
+        <!-- 1. Ön Vade Sözleşmeleri -->
+        <section class="sol" data-ana-panel="on-vade" aria-label="Ön Vade Panosu">
+          <div class="denetim">
+            <label class="alan ara">
+              <span class="etiket">Ara</span>
+              <input type="search" data-ara-onvade placeholder="Dayanak varlık ara (XU030, USDTRY, THYAO...)" />
+            </label>
+            <button type="button" class="sifirla" data-sifirla-onvade>Sıfırla</button>
+          </div>
+          <div class="tablo-kutu">
+            <table data-tablo-onvade>
+              <thead>
+                <tr>
+                  <th class="sol" data-sirala="dayanak">Dayanak Varlık</th>
+                  <th class="sag" data-sirala="fiyat">Ön Vade Fiyatı</th>
+                  <th class="sag" data-sirala="yuzde">Günlük Değişim</th>
+                  <th class="sag" data-sirala="acik">Açık Pozisyon</th>
+                  <th class="sag" data-sirala="hacim">Hacim (TL)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {onVadeSatirlar.map((r) => (
+                  <tr data-seri={r.seri ?? ''} tabindex={r.seri ? 0 : undefined}>
+                    <td class="sol"><b>{r.dayanak}</b></td>
+                    <td class="sag" data-v={r.fiyat}>{sayi(r.fiyat, r.fiyat >= 100 ? 2 : 4)}</td>
+                    <td data-v={r.yuzde} class={`sag ${isaret({ tur: 'yuzde' }, r.yuzde)}`}>{gosterim({ tur: 'yuzde', basamak: 2 }, r.yuzde)}</td>
+                    <td class="sag" data-v={r.acik}>{sayi(r.acik, 0)}</td>
+                    <td class="sag" data-v={r.hacim}>{sayi(r.hacim, 0)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 2. Tüm Vadeli Sözleşmeler -->
+        <section class="sol" data-ana-panel="vadeli" aria-label="Tüm Vadeliler" hidden>
+          <div class="denetim">
+            <label class="alan ara">
+              <span class="etiket">Ara</span>
+              <input type="search" data-ara-vadeli placeholder="Sözleşme kodu veya dayanak ara" />
+            </label>
+            <button type="button" class="sifirla" data-sifirla-vadeli>Sıfırla</button>
+          </div>
+          <div class="tablo-kutu">
+            <table data-tablo-vadeli>
+              <thead>
+                <tr>
+                  <th class="sol" data-sirala="kod">Sözleşme</th>
+                  <th class="sol" data-sirala="dayanak">Dayanak</th>
+                  <th class="sol" data-sirala="vade">Vade</th>
+                  <th class="sag" data-sirala="uzlasma">Uzlaşma Fiyatı</th>
+                  <th class="sag" data-sirala="degisim">Günlük Değişim</th>
+                  <th class="sag" data-sirala="acik">Açık Pozisyon</th>
+                  <th class="sag" data-sirala="acik_degisim">Pozisyon Değişimi</th>
+                  <th class="sag" data-sirala="hacim">Hacim (TL)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {vadeliSatirlar.map((r) => (
+                  <tr>
+                    <td class="sol"><b>{r.kod}</b></td>
+                    <td class="sol">{r.dayanak}</td>
+                    <td class="sol">{r.vade}</td>
+                    <td class="sag" data-v={r.uzlasma}>{sayi(r.uzlasma, r.uzlasma >= 100 ? 2 : 4)}</td>
+                    <td data-v={r.degisim} class={`sag ${isaret({ tur: 'yuzde' }, r.degisim)}`}>{gosterim({ tur: 'yuzde', basamak: 2 }, r.degisim)}</td>
+                    <td class="sag" data-v={r.acik}>{sayi(r.acik, 0)}</td>
+                    <td class={`sag ${r.acik_degisim > 0 ? 'yukari' : r.acik_degisim < 0 ? 'asagi' : ''}`} data-v={r.acik_degisim}>
+                      {r.acik_degisim ? `${r.acik_degisim > 0 ? '+' : ''}${sayi(r.acik_degisim, 0)}` : '–'}
+                    </td>
+                    <td class="sag" data-v={r.hacim}>{sayi(r.hacim, 0)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 3. Vade Takvimi -->
+        <section class="sol" data-ana-panel="takvim" aria-label="Vade Takvimi" hidden>
+          <div class="tablo-kutu">
+            <table>
+              <thead>
+                <tr>
+                  <th class="sol">Vade Tarihi</th>
+                  <th class="sag">Aktif Sözleşme Sayısı</th>
+                  <th class="sag">Toplam Hacim (TL)</th>
+                  <th class="sag">Toplam Açık Pozisyon</th>
+                </tr>
+              </thead>
+              <tbody>
+                {takvimSatirlar.filter((r) => r.sozlesme > 0 || r.hacim > 0).map((r) => (
+                  <tr>
+                    <td class="sol"><b>{r.vade}</b></td>
+                    <td class="sag">{sayi(r.sozlesme, 0)}</td>
+                    <td class="sag">{sayi(r.hacim, 0)}</td>
+                    <td class="sag">{sayi(r.acik, 0)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 4. Varantlar -->
+        <section class="sol" data-ana-panel="varant" aria-label="Varantlar" hidden>
+          <div class="denetim">
+            <label class="alan">
+              <span class="etiket">Dayanak Varlık</span>
+              <select data-suz-varant-dayanak>
+                <option value="">Tümü ({varantDayanaklar.length})</option>
+                {varantDayanaklar.map((d) => <option value={d}>{d}</option>)}
+              </select>
+            </label>
+            <label class="alan">
+              <span class="etiket">Tür</span>
+              <select data-suz-varant>
+                <option value="">Tümü</option>
+                <option value="Alım">Alım (Call)</option>
+                <option value="Satım">Satım (Put)</option>
+              </select>
+            </label>
+            <label class="alan ara">
+              <span class="etiket">Ara</span>
+              <input type="search" data-ara-varant placeholder="Dayanak veya varant kodu ara (ör. THYAO, EREGL, AFABB...)" />
+            </label>
+            <button type="button" class="sifirla" data-sifirla-varant>Sıfırla</button>
+          </div>
+          <div class="tablo-kutu">
+            <table data-tablo-varant>
+              <thead>
+                <tr>
+                  <th class="sol" data-sirala="kod">Varant Kodu</th>
+                  <th class="sol" data-sirala="dayanak">Dayanak</th>
+                  <th class="sol" data-sirala="tur">Tür</th>
+                  <th class="sag" data-sirala="kullanim">Kullanım Fiyatı</th>
+                  <th class="sol" data-sirala="vade">Vade</th>
+                  <th class="sag" data-sirala="kapanis">Kapanış</th>
+                  <th class="sag" data-sirala="hacim">Hacim (TL)</th>
+                  <th class="sag" data-sirala="kaldirac">Etkin Kaldıraç</th>
+                </tr>
+              </thead>
+              <tbody>
+                {varantSatirlar.slice(0, 150).map((r) => (
+                  <tr data-tur={r.tur} data-dayanak={r.dayanak} data-ara={`${r.kod} ${r.dayanak}`.toLocaleLowerCase('tr')}>
+                    <td class="sol" data-v={r.kod}><b>{r.kod}</b></td>
+                    <td class="sol" data-v={r.dayanak}>{r.dayanak}</td>
+                    <td class="sol" data-v={r.tur}><span class={`tur-rozet ${r.tur === 'Alım' ? 'alim' : 'satim'}`}>{r.tur}</span></td>
+                    <td class="sag" data-v={r.kullanim}>{sayi(r.kullanim, 2)}</td>
+                    <td class="sol" data-v={r.vade}>{r.vade}</td>
+                    <td class="sag" data-v={r.kapanis}>{sayi(r.kapanis, 2)}</td>
+                    <td class="sag" data-v={r.hacim}>{sayi(r.hacim, 0)}</td>
+                    <td class="sag" data-v={r.kaldirac ?? ''}>{r.kaldirac ? sayi(r.kaldirac, 2) : '–'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="bos" data-bos-varant hidden>Eşleşen varant bulunamadı.</p>
+        </section>
+      </div>
+    </>
+  )}
+</RasathaneKabuk>
+
+<style>
+  .ust-satir { margin: 14px 0 20px; }
+  .gizli-baslik { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  h1 { margin: 0 0 6px; font-size: clamp(28px, 5vw, 36px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 700; }
+  .meta { margin: 0; font-size: 13px; color: var(--ikincil); }
+  .yukari { color: var(--yesil); }
+  .asagi { color: var(--kirmizi); }
+
+  .vitrin-serit { margin: 14px 0 20px; padding: 12px 14px; background: var(--beyaz); border: 1px solid var(--cizgi); border-radius: 4px; overflow-x: auto; }
+  .vitrin-iz { display: flex; gap: 24px; min-width: max-content; }
+  .vitrin-kart { display: flex; align-items: baseline; gap: 8px; font-size: 14px; }
+  .vitrin-kod { font-weight: 700; color: var(--murekkep); }
+  .vitrin-fiyat { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .vitrin-degisim { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+  .ana-sekmeler { display: flex; flex-wrap: wrap; gap: 6px; border-bottom: 2px solid var(--cizgi); margin: 0 0 20px; }
+  .ana-sekmeler button { font: inherit; font-size: 15px; font-weight: 600; padding: 10px 16px; border: 0; border-bottom: 2px solid transparent; margin-bottom: -2px; background: transparent; color: var(--ikincil); cursor: pointer; white-space: nowrap; }
+  .ana-sekmeler button:hover { color: var(--murekkep); }
+  .ana-sekmeler button[aria-selected="true"] { color: var(--mavi); border-bottom-color: var(--mavi); }
+
+  .tur-rozet { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 12px; font-weight: 600; }
+  .tur-rozet.alim { background: #e6f4ea; color: var(--yesil); }
+  .tur-rozet.satim { background: #fce8e6; color: var(--kirmizi); }
+
+  .etiket { display: block; margin: 0 0 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
+  .denetim { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 12px; margin: 0 0 14px; }
+  .alan { display: flex; flex-direction: column; min-width: 150px; }
+  .alan.ara { flex: 1 1 200px; }
+  select, input[type="search"] { font: inherit; font-size: 15px; height: 40px; padding: 0 12px; border: 1px solid var(--cizgi); border-radius: 3px; background: var(--beyaz); color: var(--murekkep); }
+  input[type="search"] { width: 100%; }
+  select:focus-visible, input:focus-visible, button:focus-visible, th:focus-visible, tr:focus-visible, a:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
+  .sifirla { font: inherit; font-size: 14px; font-weight: 600; height: 40px; padding: 0 16px; border: 1px solid var(--murekkep); border-radius: 3px; background: transparent; color: var(--murekkep); cursor: pointer; }
+  .sifirla:hover { background: var(--murekkep); color: var(--kagit); }
+
+  .calisma { display: block; }
+  .sol { min-width: 0; }
+  .tablo-kutu { overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 0; }
+  table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 14px; font-variant-numeric: tabular-nums; }
+  th, td { padding: 10px 12px; white-space: nowrap; border-bottom: 1px solid var(--cizgi); }
+  th { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); cursor: pointer; user-select: none; background: var(--kagit); position: sticky; top: 0; }
+  th[aria-sort="ascending"]::after { content: " ▲"; color: var(--mavi); }
+  th[aria-sort="descending"]::after { content: " ▼"; color: var(--mavi); }
+  .sol { text-align: left; }
+  .sag { text-align: right; }
+  td:first-child { font-weight: 600; }
+  tbody tr[data-seri] { cursor: pointer; }
+  tbody tr:hover { background: #efeee7; }
+  tbody tr.secili { background: #e7ebfa; }
+  td.yukari { color: var(--yesil); }
+  td.asagi { color: var(--kirmizi); }
+  .bos-tum { color: var(--ikincil); }
+
+  .sag-panel { margin: 0 0 26px; padding-top: 14px; }
+  .panel-ust { margin: 0 0 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
+  .sag-panel h2 { margin: 0 0 10px; font-size: 22px; letter-spacing: -0.01em; }
+  .olcu { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px 18px; margin: 0 0 14px; padding: 12px 0; border-top: 1px solid var(--cizgi); border-bottom: 1px solid var(--cizgi); font-size: 14px; }
+  .olcu :global(div) { display: flex; flex-direction: column; gap: 2px; }
+  .olcu :global(dt) { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); }
+  .olcu :global(dd) { margin: 0; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .grafik { height: 400px; width: 100%; }
+  .grafik-kap { position: relative; }
+  .grafik { position: relative; z-index: 1; }
+  .marka { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 58%; max-width: 340px; height: auto; opacity: 0.07; filter: blur(1.5px); pointer-events: none; z-index: 0; }
+  .ipucu { margin: 8px 0 0; font-size: 13px; color: var(--ikincil); }
+  .atif { margin: 8px 0 0; font-size: 12px; color: var(--ikincil); }
+  .atif a { color: var(--ikincil); text-decoration: underline; text-underline-offset: 2px; }
+  .kontroller { display: flex; flex-direction: column; gap: 10px; margin: 0 0 12px; }
+  .emtia-sec { position: relative; }
+  .sec-liste { position: absolute; top: 100%; left: 0; z-index: 30; width: 280px; max-height: 300px; overflow-y: auto; margin: 4px 0 0; padding: 4px 0; list-style: none; background: var(--beyaz); border: 1px solid var(--cizgi); border-radius: 3px; }
+  .sec-liste li { display: flex; justify-content: space-between; gap: 12px; padding: 7px 12px; font-size: 13px; cursor: pointer; color: var(--murekkep); }
+  .sec-liste li:hover, .sec-liste li.aktif { background: #efeee7; }
+  .sec-liste .kod { color: var(--ikincil); }
+  .emtia-sec input { width: 220px; height: 34px; padding: 0 10px; font: inherit; font-size: 13px; border: 1px solid var(--cizgi); border-radius: 3px; background: var(--beyaz); color: var(--murekkep); }
+  .emtia-sec input:focus-visible { outline: 2px solid var(--mavi); outline-offset: 1px; }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .ust-cubuk { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ikonlar { display: flex; gap: 6px; flex-shrink: 0; margin-left: auto; }
+  .ikon { width: 36px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--murekkep); border-radius: 3px; background: transparent; color: var(--murekkep); cursor: pointer; padding: 0; }
+  .ikon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ikon:hover, .ikon.acik { background: var(--murekkep); color: var(--kagit); }
+  .ikon:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
+  .tf { display: inline-flex; border: 1px solid var(--murekkep); border-radius: 3px; overflow: hidden; }
+  .tf button { font: inherit; font-size: 13px; font-weight: 600; height: 32px; padding: 0 12px; border: 0; background: transparent; color: var(--murekkep); cursor: pointer; }
+  .tf button[aria-pressed="true"] { background: var(--murekkep); color: var(--kagit); }
+  .tf button:focus-visible { outline: 2px solid var(--mavi); outline-offset: -2px; }
+
+  .sag-panel:fullscreen, .sag-panel.tam-ekran { background: var(--kagit); padding: 20px; overflow: auto; }
+  .sag-panel.tam-ekran { position: fixed; inset: 0; z-index: 60; width: auto; }
+  .sag-panel:fullscreen .grafik, .sag-panel.tam-ekran .grafik { height: calc(100vh - 230px); min-height: 320px; }
+
+  @media (max-width: 1024px) {
+    .grafik { height: 260px; }
+  }
+</style>
+
+<script>
+  import { createChart, LineSeries } from 'lightweight-charts';
+
+  const panel = document.querySelector('[data-panel]');
+  const panelUst = document.querySelector('[data-panel-ust]');
+  const panelBaslik = document.querySelector('[data-panel-baslik]');
+  const olcu = document.querySelector('[data-olcu]');
+  const grafikKap = document.querySelector('[data-grafik]');
+  let grafik = null;
+  let secili = null;
+  let tf = 'gunluk';
+  let aktifSatir = null;
+  const onbellek = new Map();
+
+  function ayrintiyiAc(tr) {
+    const tbl = tr.closest('table');
+    const basliklar = [...tbl.querySelectorAll('thead th')].map((th) => th.textContent.trim());
+    const hucreler = [...tr.children];
+    const ad = hucreler[0]?.textContent.trim() ?? '';
+    secili?.classList.remove('secili');
+    secili = tr;
+    tr.classList.add('secili');
+
+    panel.hidden = false;
+    panelBaslik.textContent = ad;
+    olcu.innerHTML = '';
+    hucreler.slice(1).forEach((td, i) => {
+      const etiket = basliklar[i + 1];
+      if (!etiket) return;
+      const div = document.createElement('div');
+      const dt = document.createElement('dt');
+      dt.textContent = etiket;
+      const dd = document.createElement('dd');
+      dd.textContent = td.textContent.trim();
+      if (dd.textContent.includes('▲')) dd.style.color = '#1f7a4d';
+      else if (dd.textContent.includes('▼')) dd.style.color = '#b3382c';
+      div.append(dt, dd);
+      olcu.append(div);
+    });
+    panelUst.textContent = 'Borsa İstanbul · Ön Vade Fiyatı';
+    aktifSatir = tr;
+    ciz();
+  }
+
+  async function veriAl(seri, zaman = tf) {
+    const dosya = zaman === 'hafta' ? `${seri}-hafta` : seri;
+    if (!onbellek.has(dosya)) {
+      const yanit = await fetch(`/rasathane/veri/viop/seri/${dosya}.json`);
+      if (!yanit.ok) throw new Error(String(yanit.status));
+      onbellek.set(dosya, await yanit.json());
+    }
+    return onbellek.get(dosya);
+  }
+
+  function bicimle(d) {
+    if (d.noktalar) return { tarihler: d.noktalar.map((p) => p[0]), sutunlar: { kapanis: d.noktalar.map((p) => p[1]) } };
+    return { tarihler: d.tarihler, sutunlar: d.sutunlar };
+  }
+  const nokta = (tarihler, degerler) =>
+    tarihler.map((t, i) => ({ time: t, value: degerler[i] })).filter((p) => p.value !== null && p.value !== undefined);
+
+  async function ciz() {
+    if (!aktifSatir) return;
+    const seri = aktifSatir.dataset.seri;
+    if (grafik) { grafik.remove(); grafik = null; }
+    grafikKap.textContent = '';
+    if (!seri) { grafikKap.textContent = 'Bu sözleşme için grafik bulunamadı.'; return; }
+    try {
+      const ham = await veriAl(seri, tf);
+      const { tarihler, sutunlar } = bicimle(ham);
+      grafik = createChart(grafikKap, {
+        autoSize: true,
+        layout: { background: { color: 'rgba(0, 0, 0, 0)' }, textColor: '#5d5b55', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 12 },
+        grid: { vertLines: { color: '#e9e7df' }, horzLines: { color: '#e9e7df' } },
+        rightPriceScale: { borderColor: '#cfccc2' },
+        timeScale: { borderColor: '#cfccc2', timeVisible: false },
+      });
+      const kapanis = grafik.addSeries(LineSeries, { color: '#151515', lineWidth: 2, title: 'Kapanış' });
+      kapanis.setData(nokta(tarihler, sutunlar.kapanis));
+      grafik.timeScale().fitContent();
+    } catch {
+      grafikKap.textContent = 'Grafik yüklenemedi.';
+    }
+  }
+
+  document.querySelectorAll('[data-tf]').forEach((dugme) => {
+    dugme.addEventListener('click', () => {
+      tf = dugme.dataset.tf;
+      document.querySelectorAll('[data-tf]').forEach((d) => d.setAttribute('aria-pressed', String(d === dugme)));
+      ciz();
+    });
+  });
+
+  const tamDugme = document.querySelector('[data-tam-ekran]');
+  const tamMetni = () => {
+    const acik = panel.classList.contains('tam-ekran') || document.fullscreenElement === panel;
+    tamDugme.setAttribute('aria-label', acik ? 'Tam ekrandan çık' : 'Grafiği tam ekran aç');
+    tamDugme.title = acik ? 'Kapat' : 'Tam ekran';
+    tamDugme.classList.toggle('acik', acik);
+  };
+  tamDugme.addEventListener('click', async () => {
+    if (panel.classList.contains('tam-ekran')) {
+      panel.classList.remove('tam-ekran');
+    } else if (document.fullscreenElement === panel) {
+      await document.exitFullscreen();
+    } else {
+      let tamamlandi = false;
+      if (document.fullscreenEnabled) {
+        try {
+          await panel.requestFullscreen();
+          tamamlandi = true;
+        } catch {}
+      }
+      if (!tamamlandi) panel.classList.add('tam-ekran');
+    }
+    tamMetni();
+  });
+  document.addEventListener('fullscreenchange', tamMetni);
+
+  document.querySelector('[data-png]').addEventListener('click', async () => {
+    if (!grafik) return;
+    const ekran = grafik.takeScreenshot();
+    const ust = 64;
+    const tuval = document.createElement('canvas');
+    tuval.width = ekran.width;
+    tuval.height = ekran.height + ust;
+    const g = tuval.getContext('2d');
+    g.fillStyle = '#f4f3ee';
+    g.fillRect(0, 0, tuval.width, tuval.height);
+    g.fillStyle = '#151515';
+    g.font = '600 20px Inter, system-ui, sans-serif';
+    g.fillText(`${panelBaslik.textContent.trim()} · ${tf === 'hafta' ? 'Haftalık' : 'Günlük'}`, 20, 32);
+    g.fillStyle = '#6f6b62';
+    g.font = '13px Inter, system-ui, sans-serif';
+    g.fillText([panelUst.textContent, 'VİOP · finfolis'].filter(Boolean).join(' · '), 20, 52);
+    try {
+      const isaret = new Image();
+      isaret.src = '/rasathane/isaret.svg';
+      await isaret.decode();
+      g.drawImage(isaret, tuval.width - 46, 14, 30, 30);
+    } catch {}
+    g.drawImage(ekran, 0, ust);
+    tuval.toBlob((blob) => {
+      if (!blob) return;
+      const ad = panelBaslik.textContent.trim().toLocaleLowerCase('tr').replace(/\s+/g, '-');
+      const baglanti = document.createElement('a');
+      baglanti.download = `rasathane-viop-${ad}-${tf}.png`;
+      baglanti.href = URL.createObjectURL(blob);
+      baglanti.click();
+      setTimeout(() => URL.revokeObjectURL(baglanti.href), 1000);
+    }, 'image/png');
+  });
+
+  // Görünüm sekmeleri (Ön Vade, Vadeli, Takvim, Varant)
+  document.querySelectorAll('[data-ana-sekme]').forEach((sekme) => {
+    sekme.addEventListener('click', () => {
+      const hedef = sekme.dataset.anaSekme;
+      document.querySelectorAll('[data-ana-sekme]').forEach((s) => s.setAttribute('aria-selected', String(s === sekme)));
+      document.querySelectorAll('[data-ana-panel]').forEach((p) => (p.hidden = p.dataset.anaPanel !== hedef));
+    });
+  });
+
+  // Satır tıklama
+  document.querySelectorAll('tbody tr[data-seri]').forEach((tr) => {
+    tr.addEventListener('click', () => {
+      ayrintiyiAc(tr);
+      panel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    tr.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        ayrintiyiAc(tr);
+        panel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Sözleşme seçici (grafik paneli içi)
+  const secKutu = document.querySelector('[data-emtia-sec]');
+  const secListe = document.querySelector('[data-sec-liste]');
+  const secSecenekler = secListe ? [...secListe.querySelectorAll('li')] : [];
+  const secAc = (acik) => { if (secListe) secListe.hidden = !acik; };
+  const secSec = (li) => {
+    if (secKutu) secKutu.value = li.dataset.ad;
+    secAc(false);
+    const satir = document.querySelector(`[data-tablo-onvade] tbody tr[data-seri="${li.dataset.seri}"]`);
+    if (satir) ayrintiyiAc(satir);
+  };
+  const secFiltre = () => {
+    const aranan = (secKutu?.value ?? '').trim().toLocaleLowerCase('tr');
+    let gorunen = 0;
+    for (const li of secSecenekler) {
+      li.classList.remove('aktif');
+      const goster = !aranan || li.dataset.ad.toLocaleLowerCase('tr').includes(aranan);
+      li.hidden = !goster;
+      if (goster) gorunen++;
+    }
+    secAc(gorunen > 0);
+  };
+  secKutu?.addEventListener('focus', secFiltre);
+  secKutu?.addEventListener('input', secFiltre);
+  secKutu?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const ilkGorunen = secSecenekler.find((li) => !li.hidden);
+      if (ilkGorunen) {
+        e.preventDefault();
+        secSec(ilkGorunen);
+      }
+    }
+  });
+  secListe?.addEventListener('mousedown', (e) => {
+    const li = e.target.closest('li');
+    if (li) {
+      e.preventDefault();
+      secSec(li);
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.emtia-sec')) secAc(false);
+  });
+
+  // Evrensel tablo sıralama (Ön Vade, Vadeli, Varant)
+  function tabloSirala(th) {
+    const tbl = th.closest('table');
+    if (!tbl) return;
+    const ths = [...tbl.querySelectorAll('thead th')];
+    const idx = ths.indexOf(th);
+    const oncekiYon = th.getAttribute('aria-sort');
+    const yeniYon = oncekiYon === 'ascending' ? 'descending' : 'ascending';
+    ths.forEach((h) => h.setAttribute('aria-sort', 'none'));
+    th.setAttribute('aria-sort', yeniYon);
+    const yonSayisi = yeniYon === 'ascending' ? 1 : -1;
+    const tbody = tbl.querySelector('tbody');
+    const trler = [...tbody.querySelectorAll('tr')];
+    trler.sort((a, b) => {
+      const cA = a.children[idx];
+      const cB = b.children[idx];
+      const vA = cA?.dataset?.v ?? cA?.textContent.trim() ?? '';
+      const vB = cB?.dataset?.v ?? cB?.textContent.trim() ?? '';
+      const numA = vA === '' ? null : Number(vA);
+      const numB = vB === '' ? null : Number(vB);
+      if (numA === null && numB === null) return 0;
+      if (numA === null) return 1;
+      if (numB === null) return -1;
+      if (Number.isNaN(numA) || Number.isNaN(numB)) {
+        return yonSayisi * String(vA).localeCompare(String(vB), 'tr');
+      }
+      return yonSayisi * (numA - numB);
+    });
+    trler.forEach((tr) => tbody.appendChild(tr));
+  }
+
+  document.querySelectorAll('th[data-sirala]').forEach((th) => {
+    th.setAttribute('tabindex', '0');
+    if (!th.hasAttribute('aria-sort')) th.setAttribute('aria-sort', 'none');
+    th.addEventListener('click', () => tabloSirala(th));
+    th.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        tabloSirala(th);
+      }
+    });
+  });
+
+  // Arama filtreleri - Ön Vade
+  const araOnvade = document.querySelector('[data-ara-onvade]');
+  const satirlarOnvade = [...document.querySelectorAll('[data-tablo-onvade] tbody tr')];
+  araOnvade?.addEventListener('input', () => {
+    const q = araOnvade.value.trim().toLocaleLowerCase('tr');
+    satirlarOnvade.forEach((tr) => {
+      tr.hidden = Boolean(q && !tr.textContent.toLocaleLowerCase('tr').includes(q));
+    });
+  });
+  document.querySelector('[data-sifirla-onvade]')?.addEventListener('click', () => {
+    if (araOnvade) araOnvade.value = '';
+    satirlarOnvade.forEach((tr) => (tr.hidden = false));
+  });
+
+  // Arama filtreleri - Vadeli
+  const araVadeli = document.querySelector('[data-ara-vadeli]');
+  const satirlarVadeli = [...document.querySelectorAll('[data-tablo-vadeli] tbody tr')];
+  araVadeli?.addEventListener('input', () => {
+    const q = araVadeli.value.trim().toLocaleLowerCase('tr');
+    satirlarVadeli.forEach((tr) => {
+      tr.hidden = Boolean(q && !tr.textContent.toLocaleLowerCase('tr').includes(q));
+    });
+  });
+  document.querySelector('[data-sifirla-vadeli]')?.addEventListener('click', () => {
+    if (araVadeli) araVadeli.value = '';
+    satirlarVadeli.forEach((tr) => (tr.hidden = false));
+  });
+
+  // Arama filtreleri - Varant (Dinamik tüm katalog araması)
+  const araVarant = document.querySelector('[data-ara-varant]');
+  const suzVarant = document.querySelector('[data-suz-varant]');
+  const suzVarantDayanak = document.querySelector('[data-suz-varant-dayanak]');
+  const varantGovde = document.querySelector('[data-tablo-varant] tbody');
+  const bosVarant = document.querySelector('[data-bos-varant]');
+  const baslangicVarantHtml = varantGovde ? varantGovde.innerHTML : '';
+  let tumVarantlar = null;
+
+  async function varantVeriYukle() {
+    if (!tumVarantlar) {
+      try {
+        const r = await fetch('/rasathane/veri/viop/varant.json');
+        const d = await r.json();
+        tumVarantlar = d.satirlar ?? [];
+      } catch {
+        tumVarantlar = [];
+      }
+    }
+    return tumVarantlar;
+  }
+
+  function varantSatirHtml(r) {
+    const sayiFmt = (n, b = 2) => typeof n === 'number' ? n.toLocaleString('tr-TR', { minimumFractionDigits: b, maximumFractionDigits: b }) : '–';
+    return `<tr data-tur="${r.tur}" data-dayanak="${r.dayanak}" data-ara="${(r.kod + ' ' + r.dayanak).toLocaleLowerCase('tr')}">
+      <td class="sol" data-v="${r.kod}"><b>${r.kod}</b></td>
+      <td class="sol" data-v="${r.dayanak}">${r.dayanak}</td>
+      <td class="sol" data-v="${r.tur}"><span class="tur-rozet ${r.tur === 'Alım' ? 'alim' : 'satim'}">${r.tur}</span></td>
+      <td class="sag" data-v="${r.kullanim}">${sayiFmt(r.kullanim, 2)}</td>
+      <td class="sol" data-v="${r.vade}">${r.vade}</td>
+      <td class="sag" data-v="${r.kapanis}">${sayiFmt(r.kapanis, 2)}</td>
+      <td class="sag" data-v="${r.hacim}">${sayiFmt(r.hacim, 0)}</td>
+      <td class="sag" data-v="${r.kaldirac ?? ''}">${r.kaldirac ? sayiFmt(r.kaldirac, 2) : '–'}</td>
+    </tr>`;
+  }
+
+  async function filtreleVarant() {
+    if (!varantGovde) return;
+    const q = (araVarant?.value ?? '').trim().toLocaleLowerCase('tr');
+    const tur = suzVarant?.value ?? '';
+    const dayanak = suzVarantDayanak?.value ?? '';
+
+    if (!q && !tur && !dayanak) {
+      varantGovde.innerHTML = baslangicVarantHtml;
+      if (bosVarant) bosVarant.hidden = true;
+      return;
+    }
+
+    const hepsi = await varantVeriYukle();
+    const eslesenler = hepsi.filter((r) => {
+      const turOk = !tur || r.tur === tur;
+      const dayanakOk = !dayanak || r.dayanak === dayanak;
+      const qOk = !q || (r.kod + ' ' + r.dayanak).toLocaleLowerCase('tr').includes(q);
+      return turOk && dayanakOk && qOk;
+    });
+
+    if (eslesenler.length === 0) {
+      varantGovde.innerHTML = '';
+      if (bosVarant) bosVarant.hidden = false;
+    } else {
+      if (bosVarant) bosVarant.hidden = true;
+      varantGovde.innerHTML = eslesenler.slice(0, 150).map(varantSatirHtml).join('');
+    }
+  }
+
+  araVarant?.addEventListener('input', filtreleVarant);
+  suzVarant?.addEventListener('change', filtreleVarant);
+  suzVarantDayanak?.addEventListener('change', filtreleVarant);
+  document.querySelector('[data-sifirla-varant]')?.addEventListener('click', () => {
+    if (araVarant) araVarant.value = '';
+    if (suzVarant) suzVarant.value = '';
+    if (suzVarantDayanak) suzVarantDayanak.value = '';
+    if (varantGovde) varantGovde.innerHTML = baslangicVarantHtml;
+    if (bosVarant) bosVarant.hidden = true;
+  });
+
+  // İlk açılışta ilk satırı aç
+  const ilkTr = document.querySelector('[data-tablo-onvade] tbody tr[data-seri="fiyat-xu030"]') ?? satirlarOnvade[0];
+  if (ilkTr) ayrintiyiAc(ilkTr);
+</script>

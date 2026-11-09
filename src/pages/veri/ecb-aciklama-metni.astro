@@ -10,7 +10,16 @@ import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { sayfaSemasi } from '../../lib/seo';
 import { cumleFarki } from '../../lib/ppk-fark.mjs';
 import { ecbKarari } from '../../lib/ecb-metin.mjs';
-import ecb from '../../data/ecb-metinler.json';
+import { readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const DOSYA = [
+  fileURLToPath(new URL('../../data/ecb-metinler.json', import.meta.url)),
+  join(process.cwd(), 'src/data/ecb-metinler.json'),
+  join(process.cwd(), 'finfolis/src/data/ecb-metinler.json'),
+].find(existsSync);
+const ecb = DOSYA ? JSON.parse(readFileSync(DOSYA, 'utf8')) : {};
 
 const belgeler: any[] = (ecb as any).belgeler ?? [];
 const sirala = (tur: string) => belgeler.filter((b) => b.tur === tur).sort((a, b) => a.tarih.localeCompare(b.tarih));

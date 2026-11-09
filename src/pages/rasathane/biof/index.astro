@@ -1,0 +1,557 @@
+---
+import RasathaneKabuk from '../../../layouts/RasathaneKabuk.astro';
+import { readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { sayi, tarih } from '../../../lib/rasathane/bicim.mjs';
+
+const KOK = join(process.cwd(), 'public/rasathane/veri/biof');
+const dosyaYol = join(KOK, 'takvim.json');
+const veri = existsSync(dosyaYol) ? JSON.parse(readFileSync(dosyaYol, 'utf8')) : null;
+const satirlar = veri?.satirlar ?? [];
+
+const guncel = veri?.guncellendi ? tarih(veri.guncellendi) : '';
+
+const faz3 = satirlar.filter((r) => r.faz === '3');
+const faz2 = satirlar.filter((r) => r.faz === '2');
+const sirketSayisi = new Set(satirlar.map((r) => r.ticker)).size;
+
+// İlk açılışta seçili olan şirket
+const ilkKayit = satirlar[0] ?? null;
+---
+<RasathaneKabuk
+  baslik="Biyoteknoloji Takvimi"
+  aktif="biof"
+  aciklama="Önümüzdeki 60 gün içinde sonuçlanması beklenen Faz 2 ve Faz 3 klinik çalışmaları ve FDA kararları. Veriler gecikmelidir."
+  bilgi={guncel ? `Son güncelleme: ${guncel} · Gecikmeli veri` : undefined}
+>
+  {!veri || satirlar.length === 0 ? (
+    <p class="bos-tum">Biyoteknoloji takvimi verisi henüz yok.</p>
+  ) : (
+    <>
+      <header class="ust-satir">
+        <h1 class="gizli-baslik">Biyoteknoloji Takvimi</h1>
+      </header>
+
+      <!-- Özet Göstergeler -->
+      <section class="ozet-kartlar" aria-label="Genel özet">
+        <div class="ozet-kutu">
+          <span class="ozet-etiket">Yaklaşan Klinik Çalışma</span>
+          <span class="ozet-deger">{sayi(satirlar.length, 0)}</span>
+          <span class="ozet-alt">Önümüzdeki 60 gün içinde</span>
+        </div>
+        <div class="ozet-kutu">
+          <span class="ozet-etiket">Faz 3 Çalışmaları</span>
+          <span class="ozet-deger vurgu-yesil">{sayi(faz3.length, 0)}</span>
+          <span class="ozet-alt">Ruhsat/FDA öncesi son aşama</span>
+        </div>
+        <div class="ozet-kutu">
+          <span class="ozet-etiket">Faz 2 Çalışmaları</span>
+          <span class="ozet-deger">{sayi(faz2.length, 0)}</span>
+          <span class="ozet-alt">Etkinlik ve doz belirleme</span>
+        </div>
+        <div class="ozet-kutu">
+          <span class="ozet-etiket">İzlenen Biyoteknoloji Şirketi</span>
+          <span class="ozet-deger">{sayi(sirketSayisi, 0)}</span>
+          <span class="ozet-alt">Nasdaq ve NYSE listeli</span>
+        </div>
+      </section>
+
+      <!-- İnteraktif Şirket Fiyat Grafiği ve İlaç Bilgi Paneli -->
+      <aside class="sag-panel" id="biof-panel" data-panel aria-live="polite">
+        <p class="panel-ust" data-panel-ust>Klinik Aşama & Fiyat Seyri</p>
+        <div class="baslik-satir">
+          <h2 data-panel-baslik>{ilkKayit?.ticker}</h2>
+          <span class="faz-etiket" data-panel-faz>Faz {ilkKayit?.faz}</span>
+        </div>
+        <div class="kontroller">
+          <div class="ust-cubuk">
+            <div class="emtia-sec">
+              <span class="sr-only">Şirket seç</span>
+              <input type="text" data-biof-sec value={ilkKayit?.ticker} placeholder="Şirket ara ve seç" autocomplete="off" role="combobox" aria-controls="sec-liste" aria-autocomplete="list" />
+              <ul class="sec-liste" id="sec-liste" data-sec-liste role="listbox" hidden>
+                {satirlar.filter((r) => r.seri).map((r) => (
+                  <li role="option" data-seri={r.seri} data-ad={`${r.ticker} · ${r.ilac}`}>
+                    <span>{r.ticker}</span><span class="kod">Faz {r.faz}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="tf" role="group" aria-label="Zaman aralığı">
+              <button type="button" data-tf="gunluk" aria-pressed="true">Günlük</button>
+              <button type="button" data-tf="hafta" aria-pressed="false">Haftalık</button>
+            </div>
+            <div class="ikonlar">
+              <button type="button" class="ikon" data-tam-ekran aria-label="Grafiği tam ekran aç" title="Tam ekran">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
+              </button>
+              <button type="button" class="ikon" data-png aria-label="Grafiği PNG olarak indir" title="PNG indir">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="ilac-ayrinti-karti">
+          <div class="ayrinti-madde">
+            <span class="kucuk-etiket">İlaç / Tedavi Adayı</span>
+            <span class="buyuk-deger" data-panel-ilac>{ilkKayit?.ilac}</span>
+          </div>
+          <div class="ayrinti-madde">
+            <span class="kucuk-etiket">Hedeflenen Hastalık / Endikasyon</span>
+            <span class="buyuk-deger" data-panel-hastalik>{ilkKayit?.hastalik}</span>
+          </div>
+          <div class="ayrinti-madde">
+            <span class="kucuk-etiket">Beklenen Bitiş Dönemi</span>
+            <span class="buyuk-deger" data-panel-bitis>{ilkKayit?.bitis}</span>
+          </div>
+        </div>
+
+        <div class="grafik-kap">
+          <div data-grafik class="grafik"><p class="not">Fiyat yükleniyor…</p></div>
+          <img class="marka" src="/rasathane/isaret.svg" alt="" />
+        </div>
+        <p class="ipucu">Yakınlaştırmak için fare tekerleği ya da iki parmak. Tablodan satıra tıklayarak ilgili şirketin grafiğini inceleyebilirsiniz.</p>
+        <p class="atif">Grafikler <a href="https://www.tradingview.com/" target="_blank" rel="noopener">TradingView Lightweight Charts</a> ile çizilir.</p>
+      </aside>
+
+      <!-- Tablo ve Filtreler -->
+      <section class="blok" aria-label="Klinik takvim tablosu">
+        <h2 class="blok-baslik">Klinik Gelişme Takvimi</h2>
+        <div class="denetim">
+          <label class="alan">
+            <span class="etiket">Klinik Faz</span>
+            <select data-suz-faz>
+              <option value="">Tümü</option>
+              <option value="3">Faz 3 (Ruhsat Öncesi)</option>
+              <option value="2">Faz 2 (Etkinlik/Doz)</option>
+            </select>
+          </label>
+          <label class="alan ara">
+            <span class="etiket">Ara</span>
+            <input type="search" data-ara placeholder="Şirket, ilaç veya hastalık ara (Cancer, Atopic, ABBV...)" />
+          </label>
+          <button type="button" class="sifirla" data-sifirla>Sıfırla</button>
+        </div>
+
+        <div class="tablo-kutu">
+          <table data-tablo>
+            <thead>
+              <tr>
+                <th class="sol" data-sirala="bitis">Tahmini Dönem</th>
+                <th class="sol" data-sirala="ticker">Hisse Kodu</th>
+                <th class="sol" data-sirala="ilac">İlaç / Tedavi</th>
+                <th class="sol" data-sirala="hastalik">Hastalık / Endikasyon</th>
+                <th class="sol" data-sirala="faz">Klinik Aşama</th>
+              </tr>
+            </thead>
+            <tbody>
+              {satirlar.map((r, i) => (
+                <tr
+                  class={i === 0 ? 'secili' : ''}
+                  data-seri={r.seri}
+                  data-ticker={r.ticker}
+                  data-ilac={r.ilac}
+                  data-hastalik={r.hastalik}
+                  data-faz={r.faz}
+                  data-bitis={r.bitis}
+                  tabindex={0}
+                >
+                  <td class="sol" data-v={r.bitis}><b>{r.bitis}</b></td>
+                  <td class="sol" data-v={r.ticker}><span class="hisse-kod">{r.ticker}</span></td>
+                  <td class="sol" data-v={r.ilac}>{r.ilac}</td>
+                  <td class="sol" data-v={r.hastalik}>{r.hastalik}</td>
+                  <td class="sol" data-v={r.faz}><span class={`faz-rozet ${r.faz === '3' ? 'faz-3' : 'faz-2'}`}>Faz {r.faz}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="bos" data-bos hidden>Eşleşen klinik çalışma yok.</p>
+      </section>
+
+      <!-- Bilgilendirme Notu -->
+      <section class="blok model-notu" aria-labelledby="h-not">
+        <h2 id="h-not" class="blok-baslik">Klinik Faz Aşamaları Ne Anlama Gelir?</h2>
+        <p>
+          <b>Faz 2:</b> İlacın hedeflenen hasta grubunda etkinliğini ve güvenli dozaj aralığını test eder. Başarılı sonuçlar genellikle şirketin değerlemesinde sıçrama yaratır.<br />
+          <b>Faz 3:</b> İlacın geniş kitlelerde standart mevcut tedavilerle karşılaştırıldığı, FDA onayı ve ticari satış izni (PDUFA) öncesindeki en kritik nihai aşamadır.
+        </p>
+        <p class="dipnot">
+          Kaynak: ClinicalTrials.gov ve Yahoo Finance. Tarihler şirketin ClinicalTrials.gov sistemine bildirdiği tahmini çalışma tamamlanma tarihidir; basın bülteni veya FDA karar tarihi şirket tarafından öne çekilebilir veya ertelenebilir.
+        </p>
+      </section>
+    </>
+  )}
+</RasathaneKabuk>
+
+<style>
+  .ust-satir { margin: 14px 0 20px; }
+  .gizli-baslik { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .vurgu-yesil { color: var(--yesil) !important; }
+
+  /* Özet Kartlar */
+  .ozet-kartlar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 0 0 24px; }
+  .ozet-kutu { padding: 14px 16px; background: var(--beyaz); border: 1px solid var(--cizgi); border-radius: 4px; display: flex; flex-direction: column; gap: 4px; }
+  .ozet-etiket { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); }
+  .ozet-deger { font-size: 22px; font-weight: 700; color: var(--murekkep); font-variant-numeric: tabular-nums; line-height: 1.2; }
+  .ozet-alt { font-size: 12px; color: var(--ikincil); }
+  @media (max-width: 800px) { .ozet-kartlar { grid-template-columns: 1fr 1fr; } }
+
+  .blok-baslik { margin: 0 0 6px; font-size: 19px; letter-spacing: -0.01em; font-weight: 700; }
+  .hisse-kod { font-weight: 700; color: var(--mavi); }
+
+  /* Rozetler */
+  .faz-etiket { font-size: 14px; font-weight: 700; background: var(--murekkep); color: var(--kagit); padding: 3px 8px; border-radius: 3px; }
+  .faz-rozet { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 12px; font-weight: 700; }
+  .faz-3 { background: #e6f4ea; color: var(--yesil); }
+  .faz-2 { background: #e8f0fe; color: var(--mavi); }
+
+  /* Panel */
+  .sag-panel { margin: 0 0 28px; padding-top: 14px; }
+  .panel-ust { margin: 0 0 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
+  .baslik-satir { display: flex; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .sag-panel h2 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
+
+  .ilac-ayrinti-karti { display: grid; grid-template-columns: 1.5fr 2fr 1fr; gap: 16px; padding: 14px 16px; background: var(--beyaz); border: 1px solid var(--cizgi); border-radius: 4px; margin: 0 0 14px; }
+  .kucuk-etiket { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); margin-bottom: 3px; }
+  .buyuk-deger { font-size: 15px; font-weight: 700; color: var(--murekkep); line-height: 1.3; }
+  @media (max-width: 800px) { .ilac-ayrinti-karti { grid-template-columns: 1fr; gap: 10px; } }
+
+  .grafik { height: 380px; width: 100%; }
+  .grafik-kap { position: relative; }
+  .grafik { position: relative; z-index: 1; }
+  .marka { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 58%; max-width: 340px; height: auto; opacity: 0.07; filter: blur(1.5px); pointer-events: none; z-index: 0; }
+  .ipucu { margin: 8px 0 0; font-size: 13px; color: var(--ikincil); }
+  .atif { margin: 8px 0 0; font-size: 12px; color: var(--ikincil); }
+  .atif a { color: var(--ikincil); text-decoration: underline; text-underline-offset: 2px; }
+
+  .kontroller { display: flex; flex-direction: column; gap: 10px; margin: 0 0 12px; }
+  .ust-cubuk { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+  .emtia-sec { position: relative; }
+  .sec-liste { position: absolute; top: 100%; left: 0; z-index: 30; width: 280px; max-height: 300px; overflow-y: auto; margin: 4px 0 0; padding: 4px 0; list-style: none; background: var(--beyaz); border: 1px solid var(--cizgi); border-radius: 3px; }
+  .sec-liste li { display: flex; justify-content: space-between; gap: 12px; padding: 7px 12px; font-size: 13px; cursor: pointer; color: var(--murekkep); }
+  .sec-liste li:hover, .sec-liste li.aktif { background: #efeee7; }
+  .sec-liste .kod { color: var(--ikincil); font-weight: 600; }
+  .emtia-sec input { width: 220px; height: 36px; padding: 0 12px; font: inherit; font-size: 14px; font-weight: 600; border: 1px solid var(--cizgi); border-radius: 3px; background: var(--beyaz); color: var(--murekkep); }
+  .emtia-sec input:focus-visible { outline: 2px solid var(--mavi); outline-offset: 1px; }
+
+  .ikonlar { display: flex; gap: 6px; flex-shrink: 0; margin-left: auto; }
+  .ikon { width: 36px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--murekkep); border-radius: 3px; background: transparent; color: var(--murekkep); cursor: pointer; padding: 0; }
+  .ikon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ikon:hover, .ikon.acik { background: var(--murekkep); color: var(--kagit); }
+  .ikon:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
+  .tf { display: inline-flex; border: 1px solid var(--murekkep); border-radius: 3px; overflow: hidden; }
+  .tf button { font: inherit; font-size: 13px; font-weight: 600; height: 32px; padding: 0 12px; border: 0; background: transparent; color: var(--murekkep); cursor: pointer; }
+  .tf button[aria-pressed="true"] { background: var(--murekkep); color: var(--kagit); }
+  .tf button:focus-visible { outline: 2px solid var(--mavi); outline-offset: -2px; }
+
+  .etiket { display: block; margin: 0 0 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
+  .denetim { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 12px; margin: 0 0 14px; }
+  .alan { display: flex; flex-direction: column; min-width: 140px; }
+  .alan.ara { flex: 1 1 200px; }
+  select, input[type="search"] { font: inherit; font-size: 14px; height: 38px; padding: 0 10px; border: 1px solid var(--cizgi); border-radius: 3px; background: var(--beyaz); color: var(--murekkep); }
+  input[type="search"] { width: 100%; }
+  select:focus-visible, input:focus-visible, button:focus-visible, th:focus-visible, tr:focus-visible, a:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
+  .sifirla { font: inherit; font-size: 13px; font-weight: 600; height: 38px; padding: 0 14px; border: 1px solid var(--murekkep); border-radius: 3px; background: transparent; color: var(--murekkep); cursor: pointer; }
+  .sifirla:hover { background: var(--murekkep); color: var(--kagit); }
+
+  .tablo-kutu { overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 0; }
+  table { border-collapse: collapse; width: 100%; min-width: 600px; font-size: 14px; font-variant-numeric: tabular-nums; }
+  th, td { padding: 10px 12px; white-space: nowrap; border-bottom: 1px solid var(--cizgi); }
+  th { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); cursor: pointer; user-select: none; background: var(--kagit); position: sticky; top: 0; }
+  .sol { text-align: left; }
+  .sag { text-align: right; }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover { background: #efeee7; }
+  tbody tr.secili { background: #e7ebfa; }
+  .bos { margin: 14px 0 0; color: var(--ikincil); }
+  .bos-tum { color: var(--ikincil); }
+
+  .model-notu { margin-top: 36px; padding: 18px 20px; background: var(--beyaz); border: 1px solid var(--cizgi); border-radius: 4px; font-size: 14px; line-height: 1.6; color: var(--ikincil); }
+  .model-notu p { margin: 6px 0 0; }
+  .dipnot { font-size: 12px; margin-top: 10px !important; color: #8c887d; }
+
+  .sag-panel:fullscreen, .sag-panel.tam-ekran { background: var(--kagit); padding: 20px; overflow: auto; }
+  .sag-panel.tam-ekran { position: fixed; inset: 0; z-index: 60; width: auto; }
+  .sag-panel:fullscreen .grafik, .sag-panel.tam-ekran .grafik { height: calc(100vh - 230px); min-height: 320px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  @media (max-width: 1024px) { .grafik { height: 260px; } }
+</style>
+
+<script>
+  import { createChart, LineSeries } from 'lightweight-charts';
+
+  const panel = document.getElementById('biof-panel');
+  const panelBaslik = document.querySelector('[data-panel-baslik]');
+  const panelFaz = document.querySelector('[data-panel-faz]');
+  const panelIlac = document.querySelector('[data-panel-ilac]');
+  const panelHastalik = document.querySelector('[data-panel-hastalik]');
+  const panelBitis = document.querySelector('[data-panel-bitis]');
+  const grafikKap = document.querySelector('[data-grafik]');
+  const giris = document.querySelector('[data-biof-sec]');
+  const secListe = document.querySelector('[data-sec-liste]');
+  const secSecenekler = [...secListe.querySelectorAll('li')];
+
+  const satirlar = [...document.querySelectorAll('[data-tablo] tbody tr')];
+  const araKutusu = document.querySelector('[data-ara]');
+  const suzFaz = document.querySelector('[data-suz-faz]');
+  const bos = document.querySelector('[data-bos]');
+
+  let grafik = null;
+  let aktifSeri = '';
+  let tf = 'gunluk';
+  let seciliTr = satirlar[0];
+  const onbellek = new Map();
+
+  async function veriAl(seri, zaman = tf) {
+    const dosya = zaman === 'hafta' ? `${seri}-hafta` : seri;
+    if (!onbellek.has(dosya)) {
+      const yanit = await fetch(`/rasathane/veri/biof/seri/${dosya}.json`);
+      if (!yanit.ok) throw new Error(String(yanit.status));
+      onbellek.set(dosya, await yanit.json());
+    }
+    return onbellek.get(dosya);
+  }
+
+  function bicimle(d) {
+    if (d.noktalar) return { tarihler: d.noktalar.map((p) => p[0]), sutunlar: { kapanis: d.noktalar.map((p) => p[1]) } };
+    return { tarihler: d.tarihler, sutunlar: d.sutunlar };
+  }
+  const nokta = (tarihler, degerler) =>
+    tarihler.map((t, i) => ({ time: t, value: degerler[i] })).filter((p) => p.value !== null && p.value !== undefined);
+
+  async function ciz() {
+    if (!aktifSeri) return;
+    if (grafik) { grafik.remove(); grafik = null; }
+    grafikKap.textContent = '';
+    try {
+      const ham = await veriAl(aktifSeri, tf);
+      const { tarihler, sutunlar } = bicimle(ham);
+      grafik = createChart(grafikKap, {
+        autoSize: true,
+        layout: { background: { color: 'rgba(0, 0, 0, 0)' }, textColor: '#5d5b55', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 12 },
+        grid: { vertLines: { color: '#e9e7df' }, horzLines: { color: '#e9e7df' } },
+        rightPriceScale: { borderColor: '#cfccc2' },
+        timeScale: { borderColor: '#cfccc2', timeVisible: false },
+      });
+      const kapanis = grafik.addSeries(LineSeries, { color: '#151515', lineWidth: 2, title: 'Kapanış' });
+      kapanis.setData(nokta(tarihler, sutunlar.kapanis));
+      grafik.timeScale().fitContent();
+    } catch {
+      grafikKap.innerHTML = '<p class="not">Bu hisse için fiyat grafiği bulunamadı.</p>';
+    }
+  }
+
+  function sec(tr) {
+    seciliTr?.classList.remove('secili');
+    seciliTr = tr;
+    tr.classList.add('secili');
+
+    aktifSeri = tr.dataset.seri || tr.dataset.ticker;
+    panelBaslik.textContent = tr.dataset.ticker;
+    panelFaz.textContent = `Faz ${tr.dataset.faz}`;
+    panelIlac.textContent = tr.dataset.ilac;
+    panelHastalik.textContent = tr.dataset.hastalik;
+    panelBitis.textContent = tr.dataset.bitis;
+    if (giris) giris.value = tr.dataset.ticker;
+
+    ciz();
+  }
+
+  satirlar.forEach((tr) => {
+    tr.addEventListener('click', () => {
+      sec(tr);
+      panel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    tr.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        sec(tr);
+        panel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-tf]').forEach((dugme) => {
+    dugme.addEventListener('click', () => {
+      tf = dugme.dataset.tf;
+      document.querySelectorAll('[data-tf]').forEach((d) => d.setAttribute('aria-pressed', String(d === dugme)));
+      ciz();
+    });
+  });
+
+  const tamDugme = document.querySelector('[data-tam-ekran]');
+  const tamMetni = () => {
+    const acik = panel.classList.contains('tam-ekran') || document.fullscreenElement === panel;
+    tamDugme.setAttribute('aria-label', acik ? 'Tam ekrandan çık' : 'Grafiği tam ekran aç');
+    tamDugme.title = acik ? 'Kapat' : 'Tam ekran';
+    tamDugme.classList.toggle('acik', acik);
+  };
+  tamDugme?.addEventListener('click', async () => {
+    if (panel.classList.contains('tam-ekran')) {
+      panel.classList.remove('tam-ekran');
+    } else if (document.fullscreenElement === panel) {
+      await document.exitFullscreen();
+    } else {
+      let tamamlandi = false;
+      if (document.fullscreenEnabled) {
+        try { await panel.requestFullscreen(); tamamlandi = true; } catch {}
+      }
+      if (!tamamlandi) panel.classList.add('tam-ekran');
+    }
+    tamMetni();
+  });
+  document.addEventListener('fullscreenchange', tamMetni);
+
+  document.querySelector('[data-png]')?.addEventListener('click', async () => {
+    if (!grafik) return;
+    const ekran = grafik.takeScreenshot();
+    const ust = 64;
+    const tuval = document.createElement('canvas');
+    tuval.width = ekran.width;
+    tuval.height = ekran.height + ust;
+    const g = tuval.getContext('2d');
+    g.fillStyle = '#f4f3ee';
+    g.fillRect(0, 0, tuval.width, tuval.height);
+    g.fillStyle = '#151515';
+    g.font = '600 20px Inter, system-ui, sans-serif';
+    g.fillText(`${panelBaslik.textContent.trim()} · ${panelFaz.textContent} · ${tf === 'hafta' ? 'Haftalık' : 'Günlük'}`, 20, 32);
+    g.fillStyle = '#6f6b62';
+    g.font = '13px Inter, system-ui, sans-serif';
+    g.fillText([panelIlac.textContent, panelHastalik.textContent].filter(Boolean).join(' · '), 20, 52);
+    try {
+      const isaret = new Image();
+      isaret.src = '/rasathane/isaret.svg';
+      await isaret.decode();
+      g.drawImage(isaret, tuval.width - 46, 14, 30, 30);
+    } catch {}
+    g.drawImage(ekran, 0, ust);
+    tuval.toBlob((blob) => {
+      if (!blob) return;
+      const ad = panelBaslik.textContent.trim().toLowerCase().replace(/\s+/g, '-');
+      const baglanti = document.createElement('a');
+      baglanti.download = `rasathane-biof-${ad}-${tf}.png`;
+      baglanti.href = URL.createObjectURL(blob);
+      baglanti.click();
+      setTimeout(() => URL.revokeObjectURL(baglanti.href), 1000);
+    }, 'image/png');
+  });
+
+  const secAc = (acik) => { secListe.hidden = !acik; };
+  const secSec = (li) => {
+    secAc(false);
+    const seri = li.dataset.seri;
+    const tr = satirlar.find((r) => r.dataset.seri === seri || r.dataset.ticker === seri);
+    if (tr) {
+      sec(tr);
+      panel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+  const secFiltre = () => {
+    const aranan = (giris.value || '').trim().toLocaleLowerCase('tr');
+    let gorunen = 0;
+    for (const li of secSecenekler) {
+      li.classList.remove('aktif');
+      const goster = !aranan || li.dataset.ad.toLocaleLowerCase('tr').includes(aranan);
+      li.hidden = !goster;
+      if (goster) gorunen++;
+    }
+    secAc(gorunen > 0);
+  };
+  giris?.addEventListener('focus', secFiltre);
+  giris?.addEventListener('input', secFiltre);
+  giris?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const aday = (giris.value || '').trim().toUpperCase();
+      const ilkGorunen = secSecenekler.find((li) => !li.hidden);
+      if (ilkGorunen) {
+        e.preventDefault();
+        secSec(ilkGorunen);
+      } else if (aday) {
+        const tr = satirlar.find((r) => r.dataset.ticker === aday || r.dataset.seri === aday);
+        if (tr) {
+          e.preventDefault();
+          sec(tr);
+          panel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+  });
+  secListe?.addEventListener('mousedown', (e) => {
+    const li = e.target.closest('li');
+    if (li) { e.preventDefault(); secSec(li); }
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.emtia-sec')) secAc(false);
+  });
+
+  // Tablo sıralama
+  const tumTablo = document.querySelector('[data-tablo]');
+  const tumGovde = tumTablo?.querySelector('tbody');
+
+  function tabloSirala(th) {
+    if (!tumTablo || !tumGovde) return;
+    const ths = [...tumTablo.querySelectorAll('thead th')];
+    const idx = ths.indexOf(th);
+    const oncekiYon = th.getAttribute('aria-sort');
+    const yeniYon = oncekiYon === 'ascending' ? 'descending' : 'ascending';
+    ths.forEach((h) => h.setAttribute('aria-sort', 'none'));
+    th.setAttribute('aria-sort', yeniYon);
+    const yonSayisi = yeniYon === 'ascending' ? 1 : -1;
+    const trler = [...tumGovde.querySelectorAll('tr')];
+    trler.sort((a, b) => {
+      const cA = a.children[idx];
+      const cB = b.children[idx];
+      const vA = cA?.dataset?.v ?? cA?.textContent.trim() ?? '';
+      const vB = cB?.dataset?.v ?? cB?.textContent.trim() ?? '';
+      const numA = vA === '' ? null : Number(vA);
+      const numB = vB === '' ? null : Number(vB);
+      if (numA === null && numB === null) return 0;
+      if (numA === null) return 1;
+      if (numB === null) return -1;
+      if (Number.isNaN(numA) || Number.isNaN(numB)) {
+        return yonSayisi * String(vA).localeCompare(String(vB), 'tr');
+      }
+      return yonSayisi * (numA - numB);
+    });
+    trler.forEach((tr) => tumGovde.appendChild(tr));
+  }
+
+  document.querySelectorAll('[data-tablo] th[data-sirala]').forEach((th) => {
+    th.setAttribute('tabindex', '0');
+    if (!th.hasAttribute('aria-sort')) th.setAttribute('aria-sort', 'none');
+    th.addEventListener('click', () => tabloSirala(th));
+    th.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        tabloSirala(th);
+      }
+    });
+  });
+
+  function filtrele() {
+    const q = araKutusu.value.trim().toLocaleLowerCase('tr');
+    const faz = suzFaz.value;
+    let gorunen = 0;
+    for (const tr of satirlar) {
+      const qOk = !q || tr.textContent.toLocaleLowerCase('tr').includes(q);
+      const fazOk = !faz || tr.dataset.faz === faz;
+      const goster = qOk && fazOk;
+      tr.hidden = !goster;
+      if (goster) gorunen++;
+    }
+    bos.hidden = gorunen !== 0;
+  }
+
+  araKutusu?.addEventListener('input', filtrele);
+  suzFaz?.addEventListener('change', filtrele);
+  document.querySelector('[data-sifirla]')?.addEventListener('click', () => {
+    if (araKutusu) araKutusu.value = '';
+    if (suzFaz) suzFaz.value = '';
+    satirlar.forEach((tr) => (tr.hidden = false));
+    bos.hidden = true;
+  });
+
+  // İlk açılış
+  if (satirlar[0]) sec(satirlar[0]);
+</script>

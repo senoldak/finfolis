@@ -2,9 +2,7 @@
 import RasathaneKabuk from '../../../layouts/RasathaneKabuk.astro';
 import { readFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { GOSTERGE } from '../../../lib/rasathane/gostergeler.mjs';
 
-// Veri derlemede okunur. Fiyat dosyaları (seri/hisse-KOD.json) seçilen hisseye göre tarayıcıdan istenir.
 const KOK = join(process.cwd(), 'public/rasathane/veri/capital');
 const oku = (yol) => (existsSync(yol) ? JSON.parse(readFileSync(yol, 'utf8')) : null);
 const veri = oku(join(KOK, 'beyanlar.json'));
@@ -15,14 +13,11 @@ const haftalik = oku(join(KOK, 'seri', 'ozet-haftalik.json'));
 const sayi = new Intl.NumberFormat('tr-TR');
 const AYAD = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
 const gunAdi = (iso) => {
+  if (!iso) return '–';
   const [y, m, d] = iso.split('-').map(Number);
   return `${d} ${AYAD[m - 1]} ${y}`;
 };
-const yuzdeTr = (v) => `${v >= 0 ? '+' : '−'}%${Math.abs(v).toFixed(1).replace('.', ',')}`;
-const puanTr = (v) => `${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(1).replace('.', ',')}`;
-const hucre = (s, v) => (v === null || v === undefined || v === '' ? '–' : s.tur === 'sayi' ? sayi.format(v) : String(v));
 
-// Hisse kodu biçimli varlıklar: her biri için beyan satırları (tarayıcıya gider).
 const HISSE_KODU = /^[A-Z][A-Z.]{0,5}$/;
 const hisseVeri = {};
 for (const r of satirlar) {
@@ -37,7 +32,6 @@ const kodlar = Object.entries(hisseVeri)
   .sort((a, b) => b.adet - a.adet || a.kod.localeCompare(b.kod));
 const hisseVeriJson = JSON.stringify(hisseVeri).replace(/</g, '\\u003c');
 
-// Son 90 gün: hisse bazında alış ve satış sayısı, üye sayısı.
 const sonBildirim = satirlar.map((r) => r.bildirim).sort().at(-1) ?? '';
 const pencere = sonBildirim
   ? new Date(new Date(`${sonBildirim}T00:00:00Z`).getTime() - 90 * 86400000).toISOString().slice(0, 10)
@@ -52,191 +46,178 @@ for (const r of satirlar) {
   sayim.set(r.varlik, k);
 }
 const liste = [...sayim.values()].map((k) => ({ kod: k.kod, alis: k.alis, satis: k.satis, uye: k.uyeler.size }));
-const enCokAlinan = liste.filter((k) => k.alis > 0).sort((a, b) => b.alis - a.alis || b.uye - a.uye || a.kod.localeCompare(b.kod)).slice(0, 10);
-const enCokSatilan = liste.filter((k) => k.satis > 0).sort((a, b) => b.satis - a.satis || b.uye - a.uye || a.kod.localeCompare(b.kod)).slice(0, 10);
-// Bant: son 90 günün en çok alınan ve en çok satılan hisseleri, sırayla (arama bölümüyle aynı liste).
-const bantOgeleri = [];
-for (let i = 0; i < 10; i++) {
-  if (enCokAlinan[i]) bantOgeleri.push({ kod: enCokAlinan[i].kod, tur: 'alis', adet: enCokAlinan[i].alis });
-  if (enCokSatilan[i]) bantOgeleri.push({ kod: enCokSatilan[i].kod, tur: 'satis', adet: enCokSatilan[i].satis });
-}
+const enCokAlinan = liste.filter((k) => k.alis > 0).sort((a, b) => b.alis - a.alis || b.uye - a.uye || a.kod.localeCompare(b.kod)).slice(0, 8);
+const enCokSatilan = liste.filter((k) => k.satis > 0).sort((a, b) => b.satis - a.satis || b.uye - a.uye || a.kod.localeCompare(b.kod)).slice(0, 8);
+
 const enBuyukAlis = Math.max(1, ...enCokAlinan.map((k) => k.alis));
 const enBuyukSatis = Math.max(1, ...enCokSatilan.map((k) => k.satis));
 const uyeSayisi = new Set(satirlar.map((r) => r.uye)).size;
+
 const sonBeyanlar = satirlar
   .filter((r) => HISSE_KODU.test(r.varlik))
   .sort((a, b) => b.bildirim.localeCompare(a.bildirim) || b.islem_tarihi.localeCompare(a.islem_tarihi))
-  .slice(0, 25);
-// Açılışta seçili hisse: son 90 günde en çok alınan; yoksa en çok beyan edilen.
-const seciliKod = enCokAlinan[0]?.kod ?? kodlar[0]?.kod ?? '';
+  .slice(0, 120);
 
-const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
-  anahtar: k,
-  baslik: sutunlar.find((s) => s.anahtar === k)?.baslik ?? k,
-  secenekler: [...new Set(satirlar.map((r) => r[k]).filter((v) => v !== null && v !== undefined && v !== ''))].sort((a, b) =>
-    String(a).localeCompare(String(b), 'tr'),
-  ),
-}));
+const seciliKod = enCokAlinan[0]?.kod ?? kodlar[0]?.kod ?? '';
 ---
-<RasathaneKabuk baslik={veri?.baslik ?? 'Kongre işlemleri'} aktif="capital" aciklama="Kongre üyelerinin bildirdiği hisse işlemleri: hisse seçin, son beyanları ve fiyat seyrini görün. Veriler gecikmelidir.">
+<RasathaneKabuk
+  baslik={veri?.baslik ?? 'Kongre İşlemleri'}
+  aktif="capital"
+  aciklama="ABD Kongre üyelerinin bildirdiği hisse senedi işlemleri: hisse seçin, alım/satım noktalarını ve fiyat seyrini görün. Veriler gecikmelidir."
+  bilgi={sonBildirim ? `Son bildirim: ${gunAdi(sonBildirim)} · Gecikmeli veri` : undefined}
+>
   {!veri || satirlar.length === 0 ? (
-    <p class="bos">Henüz veri yok.</p>
+    <p class="bos-tum">Kongre işlemleri verisi henüz yok.</p>
   ) : (
-    <div class="kongre-bant" aria-label="Son 90 günün en çok alınan ve satılan hisseleri">
-      <div class="kb-iz">
-        {[...bantOgeleri, ...bantOgeleri].map((r, i) => (
-          <span class="kb-oge" aria-hidden={i >= bantOgeleri.length ? 'true' : undefined}>
-            <b>{r.kod}</b>{' '}
-            <span class={r.tur === 'alis' ? 'alis-yazi' : 'satis-yazi'}>{r.tur === 'alis' ? 'Alış' : 'Satış'} {sayi.format(r.adet)}</span>
-          </span>
-        ))}
-      </div>
-    </div>
-    <div class="sayfa">
-      <section class="blok" aria-labelledby="giris-baslik">
-        <h2 id="giris-baslik" class="sr-only">Sayfa bilgisi</h2>
-        <details class="takvim-ac">
-          <summary>
-            <span class="takvim-ozet">
-              <span>Son beyan {gunAdi(sonBildirim)}</span><span class="ayrac">|</span>
-              <span>{sayi.format(satirlar.length)} beyan</span><span class="ayrac">|</span>
-              <span>{sayi.format(kodlar.length)} hisse</span><span class="ayrac">|</span>
-              <span>Gecikmeli veri</span>
-            </span>
-          </summary>
-          <div class="takvim takvim-4">
-            <div class="takvim-gun"><span class="gun-ad">Beyan</span><span class="gun-tarih">{sayi.format(satirlar.length)}</span></div>
-            <div class="takvim-gun"><span class="gun-ad">Hisse</span><span class="gun-tarih">{sayi.format(kodlar.length)}</span></div>
-            <div class="takvim-gun"><span class="gun-ad">Üye</span><span class="gun-tarih">{sayi.format(uyeSayisi)}</span></div>
-            <div class="takvim-gun"><span class="gun-ad">Son bildirim</span><span class="gun-tarih">{gunAdi(sonBildirim)}</span></div>
-          </div>
-          <p class="takvim-detay">
-            Kongre üyelerinin bildirdiği hisse ve tahvil işlemleri. Bir beyan tek başına hukuki ihlal ya da yatırım kararı anlamına gelmez. Yatırım tavsiyesi değildir.
-          </p>
-        </details>
+    <>
+      <!-- Özet Bant -->
+      <section class="ozet-kartlar" aria-label="Genel özet">
+        <div class="ozet-kutu">
+          <span class="ozet-etiket">Toplam Beyan</span>
+          <span class="ozet-deger">{sayi.format(satirlar.length)}</span>
+          <span class="ozet-alt">İncelenen işlem kaydı</span>
+        </div>
+        <div class="ozet-kutu">
+          <span class="ozet-etiket">İşlem Gören Hisse</span>
+          <span class="ozet-deger">{sayi.format(kodlar.length)}</span>
+          <span class="ozet-alt">Farklı şirket hissesi</span>
+        </div>
+        <div class="ozet-kutu">
+          <span class="ozet-etiket">Aktif Kongre Üyesi</span>
+          <span class="ozet-deger">{sayi.format(uyeSayisi)}</span>
+          <span class="ozet-alt">Senato ve Temsilciler Meclisi</span>
+        </div>
+        <div class="ozet-kutu">
+          <span class="ozet-etiket">Son Bildirim</span>
+          <span class="ozet-deger">{gunAdi(sonBildirim)}</span>
+          <span class="ozet-alt">En güncel bildirim tarihi</span>
+        </div>
       </section>
 
-      <section class="hisse" aria-labelledby="hisse-baslik">
-        <h2 id="hisse-baslik" class="sr-only">Hisse seç</h2>
+      <header class="ust-satir">
+        <h1 class="gizli-baslik">Kongre İşlemleri</h1>
+      </header>
 
-        <div class="sag-panel" id="hisse-panel" data-panel aria-live="polite">
-          <p class="panel-ust">Kongre işlemleri · Hisse</p>
-          <h2 data-hisse-baslik>{seciliKod}</h2>
-          <div class="kontroller">
-            <div class="ust-cubuk">
-              <div class="hisse-sec">
-                <span class="sr-only">Hisse seç</span>
-                <input type="text" data-hisse-giris value={seciliKod} placeholder="Hisse ara ve seç" autocomplete="off" role="combobox" aria-controls="sec-liste" aria-autocomplete="list" />
-                <ul class="sec-liste" id="sec-liste" data-sec-liste role="listbox" hidden>
-                  {kodlar.map((k) => (
-                    <li role="option" data-kod={k.kod} data-ad={`${k.kod} · ${sayi.format(k.adet)} beyan`}>
-                      <span>{k.kod}</span><span class="kod">{sayi.format(k.adet)} beyan</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div class="tf" role="group" aria-label="Zaman aralığı">
-                <button type="button" data-tf="gunluk" aria-pressed="true">Günlük</button>
-                <button type="button" data-tf="hafta" aria-pressed="false">Haftalık</button>
-              </div>
-              <div class="gosterge-satiri" data-gostergeler></div>
-              <div class="ikonlar">
-                <button type="button" class="ikon" data-tam-ekran aria-label="Grafiği tam ekran aç" title="Tam ekran">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
-                </button>
-                <button type="button" class="ikon" data-png aria-label="Grafiği PNG olarak indir" title="PNG indir">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>
-                </button>
-              </div>
+      <!-- Grafik ve Hisse Paneli -->
+      <aside class="sag-panel" id="hisse-panel" data-panel aria-live="polite">
+        <p class="panel-ust">Kongre İşlemleri · Fiyat ve İşlem Noktaları</p>
+        <h2 data-hisse-baslik>{seciliKod}</h2>
+        <div class="kontroller">
+          <div class="ust-cubuk">
+            <div class="hisse-sec">
+              <span class="sr-only">Hisse seç</span>
+              <input type="text" data-hisse-giris value={seciliKod} placeholder="Hisse ara ve seç" autocomplete="off" role="combobox" aria-controls="sec-liste" aria-autocomplete="list" />
+              <ul class="sec-liste" id="sec-liste" data-sec-liste role="listbox" hidden>
+                {kodlar.map((k) => (
+                  <li role="option" data-kod={k.kod} data-ad={`${k.kod} · ${sayi.format(k.adet)} beyan`}>
+                    <span>{k.kod}</span><span class="kod">{sayi.format(k.adet)} beyan</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="tf" role="group" aria-label="Zaman aralığı">
+              <button type="button" data-tf="gunluk" aria-pressed="true">Günlük</button>
+              <button type="button" data-tf="hafta" aria-pressed="false">Haftalık</button>
+            </div>
+            <div class="isaret-aciklama">
+              <span class="nokta-aciklama mavi">● Alış İşlemi</span>
+              <span class="nokta-aciklama gri">● Satış İşlemi</span>
+            </div>
+            <div class="ikonlar">
+              <button type="button" class="ikon" data-tam-ekran aria-label="Grafiği tam ekran aç" title="Tam ekran">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" /></svg>
+              </button>
+              <button type="button" class="ikon" data-png aria-label="Grafiği PNG olarak indir" title="PNG indir">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" /></svg>
+              </button>
             </div>
           </div>
-          <dl class="olcu" data-olcu></dl>
-          <div class="grafik-kap">
-            <div data-grafik class="grafik"><p class="not">Fiyat yükleniyor…</p></div>
-            <img class="marka" src="/rasathane/isaret.svg" alt="" />
-          </div>
-          <p class="ipucu">Yakınlaştırmak için fare tekerleği ya da iki parmak. Üzerine gelince değer görünür.</p>
-          <p class="atif">Grafikler <a href="https://www.tradingview.com/" target="_blank" rel="noopener">TradingView Lightweight Charts</a> ile çizilir.</p>
         </div>
+        <dl class="olcu" data-olcu></dl>
+        <div class="grafik-kap">
+          <div data-grafik class="grafik"><p class="not">Fiyat yükleniyor…</p></div>
+          <img class="marka" src="/rasathane/isaret.svg" alt="" />
+        </div>
+        <p class="ipucu">Yakınlaştırmak için fare tekerleği ya da iki parmak. Çizgideki noktalar Kongre üyelerinin alım/satım tarihleridir.</p>
+        <p class="atif">Grafikler <a href="https://www.tradingview.com/" target="_blank" rel="noopener">TradingView Lightweight Charts</a> ile çizilir.</p>
 
-        <div class="hisse-tablo">
-          <h3 class="alt-baslik">Bu hissenin beyanları</h3>
+        <!-- Bu Hissenin Beyanları -->
+        <div class="hisse-tablo-kapsayici">
+          <h3 class="alt-baslik">Bu Hissenin Bildirilen İşlemleri</h3>
           <div class="tablo-kutu">
-            <table class="cizgi-tablo">
-              <thead><tr><th>Bildirim</th><th>İşlem tarihi</th><th>Üye</th><th>Parti</th><th>İşlem</th><th>Tutar aralığı</th><th>Süre uyumu</th><th>Belge</th></tr></thead>
+            <table>
+              <thead><tr>
+                <th class="sol">Bildirim</th>
+                <th class="sol">İşlem Tarihi</th>
+                <th class="sol">Üye</th>
+                <th class="sol">Parti</th>
+                <th class="sol">İşlem</th>
+                <th class="sol">Tutar Aralığı</th>
+                <th class="sol">Süre Uyumu</th>
+                <th class="sol">Belge</th>
+              </tr></thead>
               <tbody data-hisse-tablo></tbody>
             </table>
           </div>
         </div>
-      </section>
+      </aside>
 
+      <!-- Sıralamalar: Son 90 Günde En Çok Alınan & Satılan -->
       <div class="sira">
         <section class="siralama" aria-labelledby="alinan-baslik">
-          <h2 id="alinan-baslik">Son 90 günde en çok alınan</h2>
-          <p class="alt">Alış beyanı sayısına göre. Hisse koduna tıklayınca yukarıda açılır.</p>
+          <h2 id="alinan-baslik" class="blok-baslik">Son 90 Günde En Çok Alınanlar</h2>
+          <p class="alt-aciklama">Alış beyanı sayısına göre. Hisse koduna tıklayarak grafiğini açabilirsiniz.</p>
           <ol class="cubuklar">
             {enCokAlinan.map((k) => (
               <li>
-                <button type="button" class="kod" data-kod-sec={k.kod}>{k.kod}</button>
+                <button type="button" class="kod-link" data-kod-sec={k.kod}>{k.kod}</button>
                 <span class="cubuk alis-cubuk" style={`width:${(k.alis / enBuyukAlis) * 100}%`} aria-hidden="true" />
-                <span class="sayi-hucre">{sayi.format(k.alis)}<span class="altyazi"> · {sayi.format(k.uye)} üye</span></span>
+                <span class="sayi-hucre">{sayi.format(k.alis)} alış <span class="altyazi">· {sayi.format(k.uye)} üye</span></span>
               </li>
             ))}
           </ol>
         </section>
 
         <section class="siralama" aria-labelledby="satilan-baslik">
-          <h2 id="satilan-baslik">Son 90 günde en çok satılan</h2>
-          <p class="alt">Satış beyanı sayısına göre. Hisse koduna tıklayınca yukarıda açılır.</p>
+          <h2 id="satilan-baslik" class="blok-baslik">Son 90 Günde En Çok Satılanlar</h2>
+          <p class="alt-aciklama">Satış beyanı sayısına göre. Hisse koduna tıklayarak grafiğini açabilirsiniz.</p>
           <ol class="cubuklar">
             {enCokSatilan.map((k) => (
               <li>
-                <button type="button" class="kod" data-kod-sec={k.kod}>{k.kod}</button>
+                <button type="button" class="kod-link" data-kod-sec={k.kod}>{k.kod}</button>
                 <span class="cubuk satis-cubuk" style={`width:${(k.satis / enBuyukSatis) * 100}%`} aria-hidden="true" />
-                <span class="sayi-hucre">{sayi.format(k.satis)}<span class="altyazi"> · {sayi.format(k.uye)} üye</span></span>
+                <span class="sayi-hucre">{sayi.format(k.satis)} satış <span class="altyazi">· {sayi.format(k.uye)} üye</span></span>
               </li>
             ))}
           </ol>
         </section>
       </div>
 
-      <section class="bolum" aria-labelledby="son-baslik">
-        <h2 id="son-baslik">Son beyanlar</h2>
-        <p class="alt">En yeni bildirimler üstte. Hisse kodu, işlem türü ve tutar aralığı önde; üye ikinci planda.</p>
-        <div class="tablo-kutu">
-          <table class="cizgi-tablo">
-            <thead><tr><th>Hisse</th><th>İşlem</th><th>Bildirim</th><th>Üye</th><th>Parti</th><th>Tutar aralığı</th></tr></thead>
-            <tbody>
-              {sonBeyanlar.map((r) => (
-                <tr>
-                  <td><button type="button" class="kod" data-kod-sec={r.varlik}>{r.varlik}</button></td>
-                  <td>{r.islem}</td>
-                  <td>{gunAdi(r.bildirim)}</td>
-                  <td>{r.uye}</td>
-                  <td>{r.parti}</td>
-                  <td>{r.tutar}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
+      <!-- Haftalık Öne Çıkanlar (İki Partili İşlemler) -->
       {haftalik && (
-        <section class="bolum" aria-labelledby="hafta-baslik">
-          <h2 id="hafta-baslik">Bu hafta: {gunAdi(haftalik.baslangic)} – {gunAdi(haftalik.bitis)}</h2>
-          <p class="alt">Üyelerin en çok işlem yaptığı hisseler. Alan ve satan, işlem yapan üye sayısıdır.</p>
+        <section class="blok" aria-labelledby="hafta-baslik">
+          <h2 id="hafta-baslik" class="blok-baslik">Bu Hafta Öne Çıkanlar ({gunAdi(haftalik.baslangic)} – {gunAdi(haftalik.bitis)})</h2>
+          <p class="alt-aciklama">Kongre üyelerinin bu hafta en yoğun işlem yaptığı hisseler.</p>
           <div class="tablo-kutu">
-            <table class="cizgi-tablo">
-              <thead><tr><th>Hisse</th><th>Partiler</th><th class="sag">Alan</th><th class="sag">Satan</th><th>Tutar aralığı</th></tr></thead>
+            <table>
+              <thead><tr>
+                <th class="sol">Hisse</th>
+                <th class="sol">Parti Dağılımı</th>
+                <th class="sag">Alım Yapan</th>
+                <th class="sag">Satım Yapan</th>
+                <th class="sol">Tutar Aralığı</th>
+              </tr></thead>
               <tbody>
                 {haftalik.satirlar.map((r) => (
                   <tr>
-                    <td><button type="button" class="kod" data-kod-sec={r.ticker}>{r.ticker}</button> <span class="altyazi">{r.varlik}</span></td>
-                    <td>{r.partiler}{r.iki_parti ? ' · iki parti' : ''}</td>
-                    <td class="sag">{r.alan}</td>
-                    <td class="sag">{r.satan}</td>
-                    <td>{r.tutar}</td>
+                    <td class="sol">
+                      <button type="button" class="kod-link" data-kod-sec={r.ticker}><b>{r.ticker}</b></button>
+                      <span class="altyazi"> · {r.varlik}</span>
+                    </td>
+                    <td class="sol">{r.partiler}{r.iki_parti ? ' · İki parti birlikte' : ''}</td>
+                    <td class="sag">{r.alan} üye</td>
+                    <td class="sag">{r.satan} üye</td>
+                    <td class="sol">{r.tutar}</td>
                   </tr>
                 ))}
               </tbody>
@@ -245,255 +226,195 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
         </section>
       )}
 
-      <section class="bolum" aria-labelledby="tum-baslik">
-        <h2 id="tum-baslik">Tüm beyanlar</h2>
-        <p class="alt">Parti, işlem ve süre uyumuna göre süzün; arama her sütunda çalışır. Başlığa tıklayarak sıralayın.</p>
-        <form class="suz" role="search" onsubmit="return false">
-          {suzgecler.map((f) => (
-            <label class="alan">
-              <span class="etiket">{f.baslik}</span>
-              <select data-suz={f.anahtar}>
-                <option value="">Tümü</option>
-                {f.secenekler.map((o) => <option value={o}>{o}</option>)}
-              </select>
-            </label>
-          ))}
+      <!-- Son Beyanlar Tablosu -->
+      <section class="blok" aria-labelledby="son-baslik">
+        <h2 id="son-baslik" class="blok-baslik">Son Bildirilen Beyanlar</h2>
+        <div class="denetim">
+          <label class="alan">
+            <span class="etiket">Parti</span>
+            <select data-suz-parti>
+              <option value="">Tümü</option>
+              <option value="D">Demokrat (D)</option>
+              <option value="R">Cumhuriyetçi (R)</option>
+            </select>
+          </label>
+          <label class="alan">
+            <span class="etiket">İşlem</span>
+            <select data-suz-islem>
+              <option value="">Tümü</option>
+              <option value="Alış">Alış</option>
+              <option value="Satış">Satış</option>
+            </select>
+          </label>
           <label class="alan ara">
             <span class="etiket">Ara</span>
-            <input type="search" data-ara placeholder="Hisse, üye ya da tutar" autocomplete="off" />
+            <input type="search" data-ara placeholder="Hisse, üye adı veya tutar ara" />
           </label>
-          <button type="button" class="sifirla" data-sifirla>Temizle</button>
-        </form>
-        <p class="sayac" aria-live="polite" data-sayac>{sayi.format(satirlar.length)} satır gösteriliyor</p>
+          <button type="button" class="sifirla" data-sifirla>Sıfırla</button>
+        </div>
+
         <div class="tablo-kutu">
-          <table class="cizgi-tablo tum" data-tablo>
+          <table data-tablo>
             <thead>
               <tr>
-                {sutunlar.map((s) => (
-                  <th scope="col" data-sirala={s.anahtar} class={s.tur === 'sayi' ? 'sag' : 'sol'} aria-sort="none">
-                    <button type="button" class="baslik-dugme">{s.baslik}</button>
-                  </th>
-                ))}
+                <th class="sol" data-sirala="varlik">Hisse</th>
+                <th class="sol" data-sirala="islem">İşlem</th>
+                <th class="sol" data-sirala="bildirim">Bildirim Tarihi</th>
+                <th class="sol" data-sirala="uye">Kongre Üyesi</th>
+                <th class="sol" data-sirala="parti">Parti</th>
+                <th class="sol" data-sirala="tutar">Tutar Aralığı</th>
               </tr>
             </thead>
             <tbody>
-              {satirlar.map((r) => (
-                <tr data-filtre={JSON.stringify(Object.fromEntries(suzgecler.map((f) => [f.anahtar, r[f.anahtar] ?? ''])))}>
-                  {sutunlar.map((s) => (
-                    <td data-v={r[s.anahtar] ?? ''} class={s.tur === 'sayi' ? 'sag' : 'sol'}>
-                      {s.anahtar === 'belge' && r.belge ? <a href={r.belge} rel="noopener noreferrer">Belge</a> : hucre(s, r[s.anahtar])}
-                    </td>
-                  ))}
+              {sonBeyanlar.map((r) => (
+                <tr data-parti={r.parti} data-islem={r.islem}>
+                  <td class="sol" data-v={r.varlik}><button type="button" class="kod-link" data-kod-sec={r.varlik}><b>{r.varlik}</b></button></td>
+                  <td class="sol" data-v={r.islem}><span class={`tur-rozet ${r.islem === 'Alış' ? 'alim' : 'satim'}`}>{r.islem}</span></td>
+                  <td class="sol" data-v={r.bildirim}>{gunAdi(r.bildirim)}</td>
+                  <td class="sol" data-v={r.uye}>
+                    {['Rohit Khanna', 'Nancy Pelosi', 'Michael T. McCaul', 'Richard Blumenthal', 'Josh Gottheimer', 'Thomas H Tuberville'].includes(r.uye) ? (
+                      <a href={`/rasathane/capital/uye/${r.uye.toLowerCase().replace(/[^a-z0-9]+/g, '-')}/`} class="uye-link">{r.uye}</a>
+                    ) : (
+                      r.uye
+                    )}
+                  </td>
+                  <td class="sol" data-v={r.parti}>{r.parti === 'D' ? 'Demokrat' : r.parti === 'R' ? 'Cumhuriyetçi' : r.parti}</td>
+                  <td class="sol" data-v={r.tutar}>{r.tutar}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <p class="bos-satir" data-bos hidden>Eşleşen satır yok.</p>
       </section>
-
-      <p class="kaynak">Kaynaklar: {veri.kaynaklar.map((k, i) => <>{i > 0 && ' · '}<a href={k.url} rel="noopener noreferrer">{k.ad}</a></>)}</p>
-    </div>
+    </>
   )}
 </RasathaneKabuk>
 
-<style is:global>
-  .bos { color: var(--ikincil); }
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .sayfa { display: grid; gap: 40px; padding-top: 4px; }
-  #hisse-panel { padding-top: 0; }
+<style>
+  .ust-satir { margin: 14px 0 20px; }
+  .gizli-baslik { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .yukari { color: var(--yesil); }
+  .asagi { color: var(--kirmizi); }
 
-  /* Giriş: tek bir okuma bloğu, büyük ama sakin. */
-  .giris { display: grid; gap: 10px; max-width: 58ch; }
-  .giris-metin { margin: 0; font-size: 19px; line-height: 1.5; color: var(--murekkep); }
-  .meta { margin: 0; font-size: 13px; color: var(--ikincil); font-variant-numeric: tabular-nums; }
+  /* Özet Kartlar */
+  .ozet-kartlar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 0 0 24px; }
+  .ozet-kutu { padding: 14px 16px; background: var(--beyaz); border: 1px solid var(--cizgi); border-radius: 4px; display: flex; flex-direction: column; gap: 4px; }
+  .ozet-etiket { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); }
+  .ozet-deger { font-size: 22px; font-weight: 700; color: var(--murekkep); font-variant-numeric: tabular-nums; line-height: 1.2; }
+  .ozet-alt { font-size: 12px; color: var(--ikincil); }
+  @media (max-width: 800px) { .ozet-kartlar { grid-template-columns: 1fr 1fr; } }
 
-  /* Hisse seçici: sayfanın ana eylemi, büyük giriş alanı. */
-  .hisse { display: grid; gap: 28px; }
-  .arama { display: grid; gap: 8px; }
-  .arama-etiket { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
-  .arama-kutu input {
-    width: 100%; font: inherit; font-size: 26px; font-weight: 600; letter-spacing: 0.02em; height: 64px; padding: 0 18px;
-    border: 1px solid var(--cizgi); border-radius: 0; background: var(--beyaz); color: var(--murekkep);
-  }
-  .arama-kutu input::placeholder { color: #a6a296; font-weight: 400; }
-  .arama-kutu input:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
+  .blok-baslik { margin: 0 0 6px; font-size: 19px; letter-spacing: -0.01em; font-weight: 700; }
+  .alt-aciklama { margin: 0 0 14px; font-size: 13px; color: var(--ikincil); }
+  .alt-baslik { margin: 20px 0 10px; font-size: 16px; font-weight: 700; }
 
-
-
-  .alt-baslik { margin: 0 0 10px; font-size: 16px; font-weight: 650; }
-  .hisse-tablo { display: grid; gap: 0; }
-
-  /* Sıralamalar: yan yana iki çubuk listesi. */
-  .sira { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; }
-  .siralama { min-width: 0; }
-  .sayfa h2 { margin: 0 0 6px; font-size: 20px; font-weight: 650; letter-spacing: -0.01em; }
-  .alt { margin: 0 0 16px; font-size: 14px; line-height: 1.55; color: var(--ikincil); max-width: 62ch; }
-  .cubuklar { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--cizgi); }
-  .cubuklar li { display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--cizgi); }
-  .cubuk { display: block; height: 14px; min-width: 2px; }
-  .alis-cubuk { background: var(--mavi); }
-  .satis-cubuk { background: #8c887d; }
-  .sayi-hucre { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .altyazi { font-size: 12px; font-weight: 400; color: var(--ikincil); }
-
-  .kod { all: unset; cursor: pointer; font-weight: 700; font-size: 15px; color: var(--murekkep); font-variant-numeric: tabular-nums; }
-  .kod:hover { color: var(--mavi); text-decoration: underline; text-underline-offset: 3px; }
-  .kod:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
-
-  .sayfa .bolum { display: grid; gap: 0; }
-  .sayfa .bolum > h2 { margin-bottom: 6px; }
-  .tablo-kutu { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  table.cizgi-tablo { width: 100%; min-width: 680px; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
-  table.cizgi-tablo th, table.cizgi-tablo td { padding: 11px 14px 11px 0; border-bottom: 1px solid var(--cizgi); text-align: left; white-space: nowrap; vertical-align: top; }
-  table.cizgi-tablo thead th { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); }
-  table.cizgi-tablo tbody tr:hover { background: #efeee7; }
-  .sag { text-align: right !important; }
-
-  /* Tüm beyanlar: süzgeç bandı ve sıralanabilir başlıklar. */
-  .suz { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px 12px; align-items: end; margin: 0 0 14px; }
-  .suz > * { grid-column: span 2; min-width: 0; }
-  .suz .alan { display: flex; flex-direction: column; }
-  .suz .alan.ara { grid-column: span 4; }
-  .suz .sifirla { grid-column: span 2; width: 100%; }
-  .etiket { display: block; margin: 0 0 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
-  .suz select, .suz input[type="search"] {
-    font: inherit; font-size: 15px; height: 42px; padding: 0 12px; width: 100%;
-    border: 1px solid var(--cizgi); border-radius: 0; background: var(--beyaz); color: var(--murekkep);
-  }
-  .sifirla {
-    font: inherit; font-size: 14px; font-weight: 600; height: 42px; padding: 0 16px;
-    border: 1px solid var(--cizgi); border-radius: 0; background: var(--beyaz); color: var(--murekkep); cursor: pointer; white-space: nowrap;
-  }
-  .sifirla:hover { background: var(--murekkep); color: var(--kagit); }
-  .sayac { margin: 0 0 10px; font-size: 13px; color: var(--ikincil); font-variant-numeric: tabular-nums; }
-  .bos-satir { margin: 16px 0 0; color: var(--ikincil); }
-  table.tum th { position: sticky; top: 0; background: var(--kagit); }
-  .baslik-dugme {
-    all: unset; box-sizing: border-box; cursor: pointer; display: block; width: 100%;
-    font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil);
-  }
-  .baslik-dugme:hover { color: var(--murekkep); }
-  .baslik-dugme:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
-  th[aria-sort="ascending"] .baslik-dugme::after { content: " ▲"; color: var(--mavi); }
-  th[aria-sort="descending"] .baslik-dugme::after { content: " ▼"; color: var(--mavi); }
-  .sol { text-align: left; }
-  table.tum td a, .kartlar a { color: var(--mavi); text-decoration: underline; text-underline-offset: 3px; }
-
-  .kartlar { gap: 40px; }
-  .kart-blok { display: grid; gap: 0; }
-  .kucuk-baslik { margin: 0 0 8px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
-  .iki-sutun { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px; }
-
-  .kaynak { margin: 0; font-size: 13px; color: var(--ikincil); }
-  .kaynak a { color: var(--ikincil); }
-
-  .sag-panel { margin: 0 0 8px; padding-top: 14px; }
-  .sag-panel:fullscreen, .sag-panel.tam-ekran { background: var(--kagit); padding: 20px; overflow: auto; }
-  .sag-panel.tam-ekran { position: fixed; inset: 0; z-index: 60; width: auto; }
-  .sag-panel:fullscreen .grafik, .sag-panel.tam-ekran .grafik { height: calc(100vh - 230px); min-height: 320px; }
-  .panel-baslik-satiri { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin: 0 0 10px; }
+  /* Panel */
+  .sag-panel { margin: 0 0 28px; padding-top: 14px; }
   .panel-ust { margin: 0 0 4px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
-  .sag-panel h2 { margin: 0; font-size: 22px; letter-spacing: -0.01em; }
+  .sag-panel h2 { margin: 0 0 10px; font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
   .olcu { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px 18px; margin: 0 0 14px; padding: 12px 0; border-top: 1px solid var(--cizgi); border-bottom: 1px solid var(--cizgi); font-size: 14px; }
-  .olcu div { display: flex; flex-direction: column; gap: 2px; }
-  .olcu dt { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); }
-  .olcu dd { margin: 0; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .olcu .yukari { color: var(--yesil); }
-  .olcu .asagi { color: var(--kirmizi); }
-  .grafik { height: 420px; width: 100%; }
+  .olcu :global(div) { display: flex; flex-direction: column; gap: 2px; }
+  .olcu :global(dt) { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); }
+  .olcu :global(dd) { margin: 0; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .grafik { height: 400px; width: 100%; }
   .grafik-kap { position: relative; }
   .grafik { position: relative; z-index: 1; }
-  .grafik-kap .not { margin: 0; padding: 12px 0; font-size: 14px; color: var(--ikincil); }
-  .sag-panel .marka { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 58%; max-width: 340px; height: auto; opacity: 0.07; filter: blur(1.5px); pointer-events: none; z-index: 0; }
+  .marka { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 58%; max-width: 340px; height: auto; opacity: 0.07; filter: blur(1.5px); pointer-events: none; z-index: 0; }
   .ipucu { margin: 8px 0 0; font-size: 13px; color: var(--ikincil); }
-  .ikonlar { display: flex; gap: 6px; flex-shrink: 0; }
-  .ikon { width: 36px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--cizgi); border-radius: 3px; background: transparent; color: var(--murekkep); cursor: pointer; padding: 0; }
-  .ikon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  .ikon:hover, .ikon.acik { background: var(--murekkep); color: var(--kagit); }
-  .ikon:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
-  @media (max-width: 1024px) {
-    .grafik { height: 260px; }
-  }
+  .atif { margin: 8px 0 0; font-size: 12px; color: var(--ikincil); }
+  .atif a { color: var(--ikincil); text-decoration: underline; text-underline-offset: 2px; }
+
   .kontroller { display: flex; flex-direction: column; gap: 10px; margin: 0 0 12px; }
-  .ust-cubuk { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .ust-cubuk { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
   .hisse-sec { position: relative; }
   .sec-liste { position: absolute; top: 100%; left: 0; z-index: 30; width: 280px; max-height: 300px; overflow-y: auto; margin: 4px 0 0; padding: 4px 0; list-style: none; background: var(--beyaz); border: 1px solid var(--cizgi); border-radius: 3px; }
   .sec-liste li { display: flex; justify-content: space-between; gap: 12px; padding: 7px 12px; font-size: 13px; cursor: pointer; color: var(--murekkep); }
   .sec-liste li:hover, .sec-liste li.aktif { background: #efeee7; }
   .sec-liste .kod { color: var(--ikincil); }
-  .hisse-sec input { width: 220px; height: 34px; padding: 0 10px; font: inherit; font-size: 13px; border: 1px solid var(--cizgi); border-radius: 3px; background: var(--beyaz); color: var(--murekkep); }
+  .hisse-sec input { width: 220px; height: 36px; padding: 0 12px; font: inherit; font-size: 14px; font-weight: 600; border: 1px solid var(--cizgi); border-radius: 3px; background: var(--beyaz); color: var(--murekkep); }
   .hisse-sec input:focus-visible { outline: 2px solid var(--mavi); outline-offset: 1px; }
-  .tf { display: inline-flex; border: 1px solid var(--cizgi); border-radius: 3px; overflow: hidden; }
+
+  .isaret-aciklama { display: flex; gap: 14px; font-size: 13px; font-weight: 600; }
+  .nokta-aciklama.mavi { color: var(--mavi); }
+  .nokta-aciklama.gri { color: #6f6b62; }
+
+  .ikonlar { display: flex; gap: 6px; flex-shrink: 0; margin-left: auto; }
+  .ikon { width: 36px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--murekkep); border-radius: 3px; background: transparent; color: var(--murekkep); cursor: pointer; padding: 0; }
+  .ikon svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ikon:hover, .ikon.acik { background: var(--murekkep); color: var(--kagit); }
+  .ikon:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
+  .tf { display: inline-flex; border: 1px solid var(--murekkep); border-radius: 3px; overflow: hidden; }
   .tf button { font: inherit; font-size: 13px; font-weight: 600; height: 32px; padding: 0 12px; border: 0; background: transparent; color: var(--murekkep); cursor: pointer; }
   .tf button[aria-pressed="true"] { background: var(--murekkep); color: var(--kagit); }
   .tf button:focus-visible { outline: 2px solid var(--mavi); outline-offset: -2px; }
-  .gosterge-satiri { display: flex; flex: 1 1 320px; flex-wrap: wrap; gap: 6px; font-size: 12px; color: var(--ikincil); }
-  .gosterge-satiri label { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border: 1px solid var(--cizgi); border-radius: 999px; cursor: pointer; color: var(--murekkep); white-space: nowrap; }
-  .gosterge-satiri i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
-  @media (max-width: 700px) {
-    .hisse-sec input { width: 100%; }
-    .sec-liste { width: 100%; }
-  }
-  .takvim-ac > summary { list-style: none; display: flex; align-items: center; gap: 8px; padding: 8px 0; font-size: 13px; color: var(--murekkep); cursor: pointer; border-bottom: 1px solid var(--cizgi); }
-  .takvim-ac > summary::-webkit-details-marker { display: none; }
-  .takvim-ac > summary::before { content: '▸'; color: var(--ikincil); }
-  .takvim-ac[open] > summary::before { content: '▾'; }
-  .takvim-ozet { display: flex; flex-wrap: wrap; gap: 4px 10px; }
-  .ayrac { color: var(--ikincil); }
-  .takvim-ac .takvim { margin-top: 10px; }
-  .takvim { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
-  .takvim.takvim-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .takvim-gun { display: flex; flex-direction: column; gap: 3px; min-height: 58px; padding: 7px 9px; border: 1px solid var(--cizgi); border-radius: 0; background: var(--beyaz); }
-  .gun-ad { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); }
-  .gun-tarih { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--murekkep); }
-  .takvim-detay { margin: 10px 0 0; font-size: 14px; line-height: 1.6; color: var(--murekkep); max-width: 62ch; }
-  @media (max-width: 700px) { .takvim, .takvim.takvim-4 { grid-template-columns: 1fr 1fr; } }
-  .atif { margin: 8px 0 0; font-size: 12px; color: var(--ikincil); }
-  .atif a { color: var(--ikincil); text-decoration: underline; text-underline-offset: 2px; }
 
-  .kongre-bant { overflow: hidden; height: 34px; display: flex; align-items: center; background: var(--beyaz); border-top: 1px solid var(--cizgi); border-bottom: 1px solid var(--cizgi); font-size: 13px; margin: 0 0 28px; }
-  .kb-iz { display: flex; gap: 40px; white-space: nowrap; padding-left: 16px; animation: kongre-kay 60s linear infinite; }
-  .kongre-bant:hover .kb-iz { animation-play-state: paused; }
-  .kb-oge b { font-weight: 600; }
-  .kb-oge .alis-yazi { color: var(--mavi); }
-  .kb-oge .satis-yazi { color: var(--ikincil); }
-  @keyframes kongre-kay { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .kb-iz { animation: none; } }
-  ::selection { background: #d6dcf6; color: var(--murekkep); }
-  a:focus-visible, select:focus-visible, input:focus-visible, button:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
+  /* Sıralama Çubukları */
+  .sira { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin: 34px 0; }
+  .siralama { min-width: 0; }
+  .cubuklar { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--cizgi); }
+  .cubuklar li { display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--cizgi); }
+  .cubuk { display: block; height: 12px; min-width: 2px; border-radius: 2px; }
+  .alis-cubuk { background: var(--mavi); }
+  .satis-cubuk { background: #8c887d; }
+  .sayi-hucre { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .altyazi { font-size: 12px; font-weight: 400; color: var(--ikincil); }
+  @media (max-width: 800px) { .sira { grid-template-columns: 1fr; gap: 24px; } }
 
-  @media (max-width: 960px) {
-    }
-  @media (max-width: 600px) {
-    .giris-metin { font-size: 17px; }
-    .arama-kutu input { font-size: 22px; height: 56px; }
-    .suz { grid-template-columns: minmax(0, 1fr); }
-    .suz > *, .suz .alan.ara, .suz .sifirla { grid-column: auto; }
-    .cubuklar li { grid-template-columns: 60px minmax(0, 1fr) auto; }
-  }
+  .kod-link { all: unset; cursor: pointer; font-weight: 700; font-size: 14px; color: var(--murekkep); }
+  .kod-link:hover { color: var(--mavi); text-decoration: underline; text-underline-offset: 2px; }
+  .uye-link { color: var(--murekkep); text-decoration: underline; text-underline-offset: 2px; }
+  .uye-link:hover { color: var(--mavi); }
+
+  .tur-rozet { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 12px; font-weight: 600; }
+  .tur-rozet.alim { background: #e6f4ea; color: var(--yesil); }
+  .tur-rozet.satim { background: #fce8e6; color: var(--kirmizi); }
+
+  .etiket { display: block; margin: 0 0 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
+  .denetim { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 12px; margin: 0 0 14px; }
+  .alan { display: flex; flex-direction: column; min-width: 140px; }
+  .alan.ara { flex: 1 1 200px; }
+  select, input[type="search"] { font: inherit; font-size: 14px; height: 38px; padding: 0 10px; border: 1px solid var(--cizgi); border-radius: 3px; background: var(--beyaz); color: var(--murekkep); }
+  input[type="search"] { width: 100%; }
+  select:focus-visible, input:focus-visible, button:focus-visible, th:focus-visible, tr:focus-visible, a:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
+  .sifirla { font: inherit; font-size: 13px; font-weight: 600; height: 38px; padding: 0 14px; border: 1px solid var(--murekkep); border-radius: 3px; background: transparent; color: var(--murekkep); cursor: pointer; }
+  .sifirla:hover { background: var(--murekkep); color: var(--kagit); }
+
+  .tablo-kutu { overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 0; }
+  table { border-collapse: collapse; width: 100%; min-width: 600px; font-size: 14px; font-variant-numeric: tabular-nums; }
+  th, td { padding: 10px 12px; white-space: nowrap; border-bottom: 1px solid var(--cizgi); }
+  th { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); cursor: pointer; user-select: none; background: var(--kagit); position: sticky; top: 0; }
+  .sol { text-align: left; }
+  .sag { text-align: right; }
+  tbody tr:hover { background: #efeee7; }
+
+  .sag-panel:fullscreen, .sag-panel.tam-ekran { background: var(--kagit); padding: 20px; overflow: auto; }
+  .sag-panel.tam-ekran { position: fixed; inset: 0; z-index: 60; width: auto; }
+  .sag-panel:fullscreen .grafik, .sag-panel.tam-ekran .grafik { height: calc(100vh - 230px); min-height: 320px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  @media (max-width: 1024px) { .grafik { height: 260px; } }
 </style>
 
 <script type="application/json" id="hisse-veri" set:html={hisseVeriJson}></script>
 
 <script>
   import { createChart, LineSeries, createSeriesMarkers } from 'lightweight-charts';
-  import { GOSTERGE } from '../../../lib/rasathane/gostergeler.mjs';
 
   const veri = JSON.parse(document.getElementById('hisse-veri')?.textContent || '{}');
   const giris = document.querySelector('[data-hisse-giris]');
   const secListe = document.querySelector('[data-sec-liste]');
   const secSecenekler = [...secListe.querySelectorAll('li')];
-  const gostergeKap = document.querySelector('[data-gostergeler]');
   const panel = document.getElementById('hisse-panel');
   const baslik = document.querySelector('[data-hisse-baslik]');
   const olcu = document.querySelector('[data-olcu]');
   const grafikKap = document.querySelector('[data-grafik]');
   const govde = document.querySelector('[data-hisse-tablo]');
   const sayiTr = new Intl.NumberFormat('tr-TR');
-  const usd = new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'USD' });
-  const gunAd = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
-  const kacis = (metin) => String(metin ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const gunAd = (iso) => {
+    if (!iso) return '–';
+    return new Date(`${iso}T00:00:00`).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+  };
+  const kacis = (m) => String(m ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const yuzdeTr = (v) => `${v >= 0 ? '+' : '−'}%${Math.abs(v).toFixed(1).replace('.', ',')}`;
 
   let grafik = null;
@@ -501,9 +422,7 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
   let aktifFiyat = null;
   let aktifSatirlar = [];
   let tf = 'gunluk';
-  const secilenGosterge = new Set();
   const fiyatOnbellek = new Map();
-  const seriOnbellek = new Map();
 
   async function fiyatAl(kod) {
     if (!fiyatOnbellek.has(kod)) {
@@ -516,89 +435,42 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
     return fiyatOnbellek.get(kod);
   }
 
-  // Göstergeler kapanıştan hesaplanır (yalnız kapanış var): EMA ilk değerle başlar, RSI Wilder yumuşatması.
-  function ema(v, n) {
-    const a = 2 / (n + 1);
-    const cikti = [];
-    let p = v[0];
-    v.forEach((x, i) => {
-      p = i === 0 ? x : a * x + (1 - a) * p;
-      cikti.push(p);
-    });
-    return cikti;
-  }
-  function rsi(v, n = 14) {
-    const a = 1 / n;
-    const cikti = v.map(() => null);
-    let ag = null;
-    let al = null;
-    for (let i = 1; i < v.length; i++) {
-      const d = v[i] - v[i - 1];
-      const g = Math.max(d, 0);
-      const l = Math.max(-d, 0);
-      if (ag === null) { ag = g; al = l; } else { ag = a * g + (1 - a) * ag; al = a * l + (1 - a) * al; }
-      cikti[i] = al === 0 ? 100 : 100 - 100 / (1 + ag / al);
-    }
-    return cikti;
-  }
-  // Haftanın pazartesisi anahtar olur; her haftanın son işlem günü haftalık kapanıştır.
   function haftaAnahtari(iso) {
     const d = new Date(`${iso}T00:00:00Z`);
     d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7));
     return d.toISOString().slice(0, 10);
   }
-  function seriHesapla(f) {
-    const gunluk = {
-      tarihler: f.tarihler, kapanis: f.kapanis,
-      ema144: ema(f.kapanis, 144), ema233: ema(f.kapanis, 233), ema377: ema(f.kapanis, 377), rsi14: rsi(f.kapanis),
-    };
+
+  function haftalikHesapla(f) {
     const son = new Map();
     f.tarihler.forEach((t, i) => son.set(haftaAnahtari(t), { t, v: f.kapanis[i] }));
     const hafta = [...son.values()];
-    const hk = hafta.map((x) => x.v);
-    const haftalik = {
-      tarihler: hafta.map((x) => x.t), kapanis: hk,
-      ema144: ema(hk, 144), ema233: ema(hk, 233), rsi14: rsi(hk),
-    };
-    return { gunluk, hafta: haftalik };
+    return { tarihler: hafta.map((x) => x.t), kapanis: hafta.map((x) => x.v) };
   }
 
-  // Alış ve satış noktaları işlem gününden sonraki ilk seri gününe konur.
   function isaretler(s, satirlar) {
     const liste = [];
     for (const r of satirlar) {
       const t = s.tarihler.find((d) => d >= r.islem_tarihi);
       if (!t) continue;
       const alis = r.islem === 'Alış';
-      liste.push({ time: t, position: alis ? 'belowBar' : 'aboveBar', shape: 'circle', color: alis ? '#2d4fd6' : '#8c887d', text: r.islem });
+      liste.push({
+        time: t,
+        position: alis ? 'belowBar' : 'aboveBar',
+        shape: 'circle',
+        color: alis ? '#2d4fd6' : '#8c887d',
+        text: `${r.islem} (${r.uye})`
+      });
     }
     return liste.sort((x, y) => (x.time < y.time ? -1 : x.time > y.time ? 1 : 0));
-  }
-
-  function gostergeleriYaz() {
-    gostergeKap.innerHTML = '';
-    for (const g of GOSTERGE[tf]) {
-      const etiket = document.createElement('label');
-      const kutu = document.createElement('input');
-      kutu.type = 'checkbox';
-      kutu.checked = secilenGosterge.has(g.k);
-      kutu.addEventListener('change', () => {
-        if (kutu.checked) secilenGosterge.add(g.k);
-        else secilenGosterge.delete(g.k);
-        grafikCiz();
-      });
-      const renk = document.createElement('i');
-      renk.style.background = g.renk;
-      etiket.append(kutu, renk, document.createTextNode(' ' + g.ad));
-      gostergeKap.append(etiket);
-    }
   }
 
   function grafikCiz() {
     if (grafik) { grafik.remove(); grafik = null; }
     grafikKap.textContent = '';
     if (!aktifFiyat) return;
-    const s = seriOnbellek.get(aktifKod)[tf];
+
+    const s = tf === 'hafta' ? haftalikHesapla(aktifFiyat) : aktifFiyat;
     grafik = createChart(grafikKap, {
       autoSize: true,
       layout: { background: { color: 'rgba(0, 0, 0, 0)' }, textColor: '#5d5b55', fontFamily: 'Inter, system-ui, sans-serif', fontSize: 12 },
@@ -608,17 +480,9 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
     });
     const kapanis = grafik.addSeries(LineSeries, { color: '#151515', lineWidth: 2, title: 'Kapanış' });
     kapanis.setData(s.tarihler.map((t, i) => ({ time: t, value: s.kapanis[i] })));
+
     const isaret = isaretler(s, aktifSatirlar);
     if (isaret.length) createSeriesMarkers(kapanis, isaret);
-    for (const g of GOSTERGE[tf]) {
-      if (!secilenGosterge.has(g.k)) continue;
-      const cizgi = grafik.addSeries(
-        LineSeries,
-        { color: g.renk, lineWidth: 1, title: g.ad, priceLineVisible: false, lastValueVisible: false },
-        g.pane ?? 0,
-      );
-      cizgi.setData(s[g.k].map((v, i) => ({ time: s.tarihler[i], value: v })).filter((p) => p.value !== null && p.value !== undefined));
-    }
     grafik.timeScale().fitContent();
   }
 
@@ -635,12 +499,12 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
       sinif = d >= 0 ? 'yukari' : 'asagi';
     }
     const satirlarO = [
-      ['Beyan', sayiTr.format(satirlar.length)],
-      ['Alış', sayiTr.format(alis)],
-      ['Satış', sayiTr.format(satis)],
-      ['Üye', sayiTr.format(uyeler)],
-      ['Son bildirim', gunAd(son)],
-      ['Grafik aralığında', degisim, sinif],
+      ['Toplam Beyan', sayiTr.format(satirlar.length)],
+      ['Alış İşlemi', sayiTr.format(alis)],
+      ['Satış İşlemi', sayiTr.format(satis)],
+      ['İşlem Yapan Üye', sayiTr.format(uyeler)],
+      ['Son Bildirim', gunAd(son)],
+      ['Fiyat Değişimi', degisim, sinif],
     ];
     olcu.innerHTML = satirlarO
       .map(([etiket, deger, s]) => `<div><dt>${kacis(etiket)}</dt><dd class="${s ?? ''}">${kacis(deger)}</dd></div>`)
@@ -663,21 +527,17 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
     baslik.textContent = kod;
     const sirali = [...satirlar].sort((a, b) => b.islem_tarihi.localeCompare(a.islem_tarihi));
     govde.innerHTML = sirali
-      .map((r) => `<tr><td>${kacis(gunAd(r.bildirim))}</td><td>${kacis(gunAd(r.islem_tarihi))}</td><td>${kacis(r.uye)}</td><td>${kacis(r.parti)}</td><td>${kacis(r.islem)}</td><td>${kacis(r.tutar)}</td><td>${kacis(r.uyum)}</td><td>${r.belge ? `<a href="${kacis(r.belge)}" rel="noopener noreferrer">Belge</a>` : '–'}</td></tr>`)
+      .map((r) => `<tr><td class="sol">${kacis(gunAd(r.bildirim))}</td><td class="sol">${kacis(gunAd(r.islem_tarihi))}</td><td class="sol"><b>${kacis(r.uye)}</b></td><td class="sol">${kacis(r.parti === 'D' ? 'Demokrat' : r.parti === 'R' ? 'Cumhuriyetçi' : r.parti)}</td><td class="sol"><span class="tur-rozet ${r.islem === 'Alış' ? 'alim' : 'satim'}">${kacis(r.islem)}</span></td><td class="sol">${kacis(r.tutar)}</td><td class="sol">${kacis(r.uyum)}</td><td class="sol">${r.belge ? `<a href="${kacis(r.belge)}" rel="noopener noreferrer" target="_blank">Belge</a>` : '–'}</td></tr>`)
       .join('');
-    let f = null;
     try {
-      f = await fiyatAl(kod);
-      aktifFiyat = f;
-      if (!seriOnbellek.has(kod)) seriOnbellek.set(kod, seriHesapla(f));
-      gostergeleriYaz();
+      aktifFiyat = await fiyatAl(kod);
       grafikCiz();
     } catch {
       aktifFiyat = null;
       if (grafik) { grafik.remove(); grafik = null; }
       grafikKap.innerHTML = '<p class="not">Bu hisse için fiyat geçmişi yok; grafik gösterilmiyor.</p>';
     }
-    olcuYaz(satirlar, f);
+    olcuYaz(satirlar, aktifFiyat);
   }
 
   function hisseSec(kod) {
@@ -686,7 +546,6 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
     goster(aday);
   }
 
-  // Hisse seçici (emtia ile aynı davranış): filtre, ok tuşları, Enter ve dış tıklamada kapanış.
   const secAc = (acik) => { secListe.hidden = !acik; };
   const secSec = (li) => {
     secAc(false);
@@ -704,35 +563,29 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
     }
     secAc(gorunen > 0);
   };
-  giris.addEventListener('focus', secFiltre);
-  giris.addEventListener('input', secFiltre);
-  secListe.addEventListener('mousedown', (e) => {
+  giris?.addEventListener('focus', secFiltre);
+  giris?.addEventListener('input', secFiltre);
+  giris?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      const aday = (giris.value || '').trim().toUpperCase();
+      const ilkGorunen = secSecenekler.find((li) => !li.hidden);
+      if (aday) {
+        e.preventDefault();
+        hisseSec(aday);
+      } else if (ilkGorunen) {
+        e.preventDefault();
+        secSec(ilkGorunen);
+      }
+    }
+  });
+  secListe?.addEventListener('mousedown', (e) => {
     const li = e.target.closest('li');
     if (li) { e.preventDefault(); secSec(li); }
-  });
-  giris.addEventListener('keydown', (e) => {
-    const gorunenler = secSecenekler.filter((li) => !li.hidden);
-    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (!gorunenler.length) return;
-      const i = gorunenler.findIndex((li) => li.classList.contains('aktif'));
-      const yeni = e.key === 'ArrowDown' ? (i + 1) % gorunenler.length : i <= 0 ? gorunenler.length - 1 : i - 1;
-      gorunenler.forEach((li) => li.classList.remove('aktif'));
-      gorunenler[yeni].classList.add('aktif');
-      gorunenler[yeni].scrollIntoView({ block: 'nearest' });
-      secAc(true);
-    }
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      const hedef = gorunenler.find((li) => li.classList.contains('aktif')) ?? gorunenler[0];
-      if (hedef) secSec(hedef);
-      else hisseSec(giris.value);
-    }
-    if (e.key === 'Escape') secAc(false);
   });
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.hisse-sec')) secAc(false);
   });
+
   document.querySelectorAll('[data-kod-sec]').forEach((b) =>
     b.addEventListener('click', () => {
       hisseSec(b.dataset.kodSec);
@@ -740,17 +593,14 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
     }),
   );
 
-  // Zaman aralığı: günlük ve haftalık seri aynı grafikte; göstergeler seçili aralığa göre yeniden yazılır.
   document.querySelectorAll('[data-tf]').forEach((dugme) => {
     dugme.addEventListener('click', () => {
       tf = dugme.dataset.tf;
       document.querySelectorAll('[data-tf]').forEach((d) => d.setAttribute('aria-pressed', String(d === dugme)));
-      gostergeleriYaz();
       grafikCiz();
     });
   });
 
-  // Tam ekran: önce açık katman kapanır; tarayıcı API'si varsa onu kullanır, yoksa sayfa üstü katman.
   const tamDugme = document.querySelector('[data-tam-ekran]');
   const tamMetni = () => {
     const acik = panel.classList.contains('tam-ekran') || document.fullscreenElement === panel;
@@ -774,7 +624,6 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
   });
   document.addEventListener('fullscreenchange', tamMetni);
 
-  // Grafiği PNG olarak indir: çizgiler ve işaretler dahil; başlık, künye ve filigran eklenir.
   document.querySelector('[data-png]')?.addEventListener('click', async () => {
     if (!grafik) return;
     const ekran = grafik.takeScreenshot();
@@ -790,94 +639,98 @@ const suzgecler = (veri?.suzgecler ?? []).map((k) => ({
     g.fillText(`${aktifKod} · ${tf === 'hafta' ? 'Haftalık' : 'Günlük'}`, 20, 32);
     g.fillStyle = '#6f6b62';
     g.font = '13px Inter, system-ui, sans-serif';
-    g.fillText(['Kongre işlemleri', document.querySelector('.marka-metin small')?.textContent].filter(Boolean).join(' · '), 20, 52);
+    g.fillText(['Kongre İşlemleri', 'finfolis'].join(' · '), 20, 52);
     try {
       const isaret = new Image();
       isaret.src = '/rasathane/isaret.svg';
       await isaret.decode();
       g.drawImage(isaret, tuval.width - 46, 14, 30, 30);
     } catch {}
-    try {
-      const filigran = new Image();
-      filigran.src = '/rasathane/isaret.svg';
-      await filigran.decode();
-      const en = Math.min(tuval.width * 0.5, 340);
-      g.globalAlpha = 0.07;
-      g.drawImage(filigran, (tuval.width - en) / 2, ust + (ekran.height - en) / 2, en, en);
-      g.globalAlpha = 1;
-    } catch {}
     g.drawImage(ekran, 0, ust);
     tuval.toBlob((blob) => {
       if (!blob) return;
+      const ad = aktifKod.toLowerCase().replace(/\s+/g, '-');
       const baglanti = document.createElement('a');
-      baglanti.download = `rasathane-${aktifKod.toLocaleLowerCase('tr')}-${tf === 'hafta' ? 'hafta' : 'gunluk'}.png`;
+      baglanti.download = `rasathane-kongre-${ad}-${tf}.png`;
       baglanti.href = URL.createObjectURL(blob);
       baglanti.click();
       setTimeout(() => URL.revokeObjectURL(baglanti.href), 1000);
     }, 'image/png');
   });
 
-  // Tüm beyanlar: süzgeç, arama ve sıralama.
-  const tablo = document.querySelector('[data-tablo]');
-  const tumGovde = tablo?.querySelector('tbody');
-  const satirlarT = tumGovde ? [...tumGovde.querySelectorAll('tr')] : [];
-  const bos = document.querySelector('[data-bos]');
-  const sayac = document.querySelector('[data-sayac]');
-  const aramaKutusu = document.querySelector('[data-ara]');
-  const suzSecimler = [...document.querySelectorAll('[data-suz]')];
-  let siraliAnahtar = null;
-  let yon = 1;
+  // Tablo sıralama
+  const tumTablo = document.querySelector('[data-tablo]');
+  const tumGovde = tumTablo?.querySelector('tbody');
 
-  function filtrele() {
-    const aranan = (aramaKutusu?.value ?? '').trim().toLocaleLowerCase('tr');
-    const secimler = Object.fromEntries(suzSecimler.map((s) => [s.dataset.suz, s.value]));
-    let gorunen = 0;
-    for (const tr of satirlarT) {
-      const f = JSON.parse(tr.dataset.filtre || '{}');
-      const secimTamam = Object.entries(secimler).every(([k, v]) => !v || String(f[k]) === v);
-      const aramaTamam = !aranan || tr.textContent.toLocaleLowerCase('tr').includes(aranan);
-      const goster = secimTamam && aramaTamam;
-      tr.hidden = !goster;
-      if (goster) gorunen++;
-    }
-    if (bos) bos.hidden = gorunen !== 0;
-    if (sayac) sayac.textContent = `${gorunen.toLocaleString('tr-TR')} satır gösteriliyor`;
-  }
-
-  function sirala(th) {
-    const anahtar = th.dataset.sirala;
-    const basliklar = [...tablo.querySelectorAll('thead th')];
-    const idx = basliklar.indexOf(th);
-    yon = siraliAnahtar === anahtar ? -yon : 1;
-    siraliAnahtar = anahtar;
-    basliklar.forEach((b) => b.setAttribute('aria-sort', 'none'));
-    th.setAttribute('aria-sort', yon === 1 ? 'ascending' : 'descending');
-    const sirali = [...satirlarT].sort((a, b) => {
-      const x = a.children[idx].dataset.v;
-      const y = b.children[idx].dataset.v;
-      const sx = x === '' ? null : Number(x);
-      const sy = y === '' ? null : Number(y);
-      if (sx === null && sy === null) return 0;
-      if (sx === null) return 1;
-      if (sy === null) return -1;
-      if (Number.isNaN(sx) || Number.isNaN(sy)) return yon * x.localeCompare(y, 'tr');
-      return yon * (sx - sy);
+  function tabloSirala(th) {
+    if (!tumTablo || !tumGovde) return;
+    const ths = [...tumTablo.querySelectorAll('thead th')];
+    const idx = ths.indexOf(th);
+    const oncekiYon = th.getAttribute('aria-sort');
+    const yeniYon = oncekiYon === 'ascending' ? 'descending' : 'ascending';
+    ths.forEach((h) => h.setAttribute('aria-sort', 'none'));
+    th.setAttribute('aria-sort', yeniYon);
+    const yonSayisi = yeniYon === 'ascending' ? 1 : -1;
+    const trler = [...tumGovde.querySelectorAll('tr')];
+    trler.sort((a, b) => {
+      const cA = a.children[idx];
+      const cB = b.children[idx];
+      const vA = cA?.dataset?.v ?? cA?.textContent.trim() ?? '';
+      const vB = cB?.dataset?.v ?? cB?.textContent.trim() ?? '';
+      const numA = vA === '' ? null : Number(vA);
+      const numB = vB === '' ? null : Number(vB);
+      if (numA === null && numB === null) return 0;
+      if (numA === null) return 1;
+      if (numB === null) return -1;
+      if (Number.isNaN(numA) || Number.isNaN(numB)) {
+        return yonSayisi * String(vA).localeCompare(String(vB), 'tr');
+      }
+      return yonSayisi * (numA - numB);
     });
-    sirali.forEach((tr) => tumGovde.appendChild(tr));
+    trler.forEach((tr) => tumGovde.appendChild(tr));
   }
 
-  filtrele();
-  suzSecimler.forEach((s) => s.addEventListener('change', filtrele));
-  aramaKutusu?.addEventListener('input', filtrele);
-  document.querySelector('[data-sifirla]')?.addEventListener('click', () => {
-    suzSecimler.forEach((s) => (s.value = ''));
-    if (aramaKutusu) aramaKutusu.value = '';
-    filtrele();
-  });
-  document.querySelectorAll('[data-sirala]').forEach((th) => {
-    th.querySelector('button')?.addEventListener('click', () => sirala(th));
+  document.querySelectorAll('[data-tablo] th[data-sirala]').forEach((th) => {
+    th.setAttribute('tabindex', '0');
+    if (!th.hasAttribute('aria-sort')) th.setAttribute('aria-sort', 'none');
+    th.addEventListener('click', () => tabloSirala(th));
+    th.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        tabloSirala(th);
+      }
+    });
   });
 
-  // İlk açılış: seçili hisse (son 90 günde en çok alınan).
-  hisseSec(giris.value || '');
+  // Tablo filtreleri
+  const araKutusu = document.querySelector('[data-ara]');
+  const suzParti = document.querySelector('[data-suz-parti]');
+  const suzIslem = document.querySelector('[data-suz-islem]');
+  const satirlar = [...document.querySelectorAll('[data-tablo] tbody tr')];
+
+  function tabloFiltrele() {
+    const q = araKutusu.value.trim().toLocaleLowerCase('tr');
+    const parti = suzParti.value;
+    const islem = suzIslem.value;
+
+    satirlar.forEach((tr) => {
+      const qOk = !q || tr.textContent.toLocaleLowerCase('tr').includes(q);
+      const partiOk = !parti || tr.dataset.parti === parti;
+      const islemOk = !islem || tr.dataset.islem === islem;
+      tr.hidden = !(qOk && partiOk && islemOk);
+    });
+  }
+
+  araKutusu?.addEventListener('input', tabloFiltrele);
+  suzParti?.addEventListener('change', tabloFiltrele);
+  suzIslem?.addEventListener('change', tabloFiltrele);
+  document.querySelector('[data-sifirla]')?.addEventListener('click', () => {
+    if (araKutusu) araKutusu.value = '';
+    if (suzParti) suzParti.value = '';
+    if (suzIslem) suzIslem.value = '';
+    satirlar.forEach((tr) => (tr.hidden = false));
+  });
+
+  // Açılış hissesini yükle
+  if (giris?.value) goster(giris.value);
 </script>

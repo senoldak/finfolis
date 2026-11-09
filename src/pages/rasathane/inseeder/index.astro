@@ -1,0 +1,428 @@
+---
+import RasathaneKabuk from '../../../layouts/RasathaneKabuk.astro';
+import { readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { sayi, tarih } from '../../../lib/rasathane/bicim.mjs';
+
+const KOK = join(process.cwd(), 'public/rasathane/veri/inseeder');
+const dosyaYol = join(KOK, 'islemler.json');
+const veri = existsSync(dosyaYol) ? JSON.parse(readFileSync(dosyaYol, 'utf8')) : null;
+const satirlar = veri?.satirlar ?? [];
+
+const guncel = veri?.guncellendi ? tarih(veri.guncellendi) : '';
+const usdFmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+
+const alimlar = satirlar.filter((r) => r.islem === 'Alım');
+const satislar = satirlar.filter((r) => r.islem === 'Satış');
+const toplamAlimTutar = alimlar.reduce((top, r) => top + (r.tutar ?? 0), 0);
+const toplamSatisTutar = satislar.reduce((top, r) => top + (r.tutar ?? 0), 0);
+const yuksekPuanliAlimlar = alimlar.filter((r) => (r.puan ?? 0) >= 80);
+
+// En çok alım yapılan şirketler (küme)
+const sirketAlimlari = new Map();
+for (const r of alimlar) {
+  const k = sirketAlimlari.get(r.hisse) ?? { hisse: r.hisse, sirket: r.sirket, adet: 0, tutar: 0, maxPuan: 0 };
+  k.adet += 1;
+  k.tutar += r.tutar ?? 0;
+  k.maxPuan = Math.max(k.maxPuan, r.puan ?? 0);
+  sirketAlimlari.set(r.hisse, k);
+}
+const enCokAlinanlar = [...sirketAlimlari.values()]
+  .sort((a, b) => b.tutar - a.tutar || b.adet - a.adet)
+  .slice(0, 8);
+
+const roller = [...new Set(satirlar.map((r) => r.rol).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'tr'));
+---
+<RasathaneKabuk
+  baslik="Yönetici Alımları"
+  aktif="inseeder"
+  aciklama="SEC Form 4 yönetici açık piyasa alımları ve üst düzey yönetici satışları. Veriler gecikmelidir."
+  bilgi={guncel ? `Son güncelleme: ${guncel} · Gecikmeli veri` : undefined}
+>
+  {!veri || satirlar.length === 0 ? (
+    <p class="bos-tum">Yönetici işlemleri verisi henüz yok.</p>
+  ) : (
+    <>
+      <header class="ust-satir">
+        <h1 class="gizli-baslik">Yönetici Alımları</h1>
+      </header>
+
+      <!-- Özet Gösterge Kartları -->
+      <section class="ozet-kartlar" aria-label="Genel özet">
+        <div class="ozet-kutu">
+          <span class="ozet-etiket">Toplam Bildirim</span>
+          <span class="ozet-deger">{sayi(satirlar.length, 0)}</span>
+          <span class="ozet-alt">{sayi(alimlar.length, 0)} Alım · {sayi(satislar.length, 0)} Satış</span>
+        </div>
+        <div class="ozet-kutu">
+          <span class="ozet-etiket">Yüksek Güvenli Alımlar</span>
+          <span class="ozet-deger vurgu-yesil">{sayi(yuksekPuanliAlimlar.length, 0)}</span>
+          <span class="ozet-alt">80 ve üzeri puan alan</span>
+        </div>
+        <div class="ozet-kutu">
+          <span class="ozet-etiket">Toplam Alım Hacmi</span>
+          <span class="ozet-deger">{usdFmt.format(toplamAlimTutar)}</span>
+          <span class="ozet-alt">Açık piyasa alımları</span>
+        </div>
+        <div class="ozet-kutu">
+          <span class="ozet-etiket">Toplam Satış Hacmi</span>
+          <span class="ozet-deger">{usdFmt.format(toplamSatisTutar)}</span>
+          <span class="ozet-alt">Büyük CEO/CFO satışları</span>
+        </div>
+      </section>
+
+      <!-- Seçilen İşlem Ayrıntı Paneli -->
+      <aside class="ayrinti-kutu" data-detay-panel aria-live="polite">
+        <div class="ayrinti-ust">
+          <span class="ayrinti-etiket" data-detay-etiket>Yönetici İşlemi</span>
+          <span class="ayrinti-tarih" data-detay-tarih>{satirlar[0].tarih}</span>
+        </div>
+        <div class="ayrinti-baslik-satir">
+          <h2 data-detay-sirket>{satirlar[0].sirket}</h2>
+          <span class="hisse-etiket" data-detay-hisse>{satirlar[0].hisse}</span>
+        </div>
+        <div class="ayrinti-grid">
+          <div>
+            <span class="kucuk-etiket">İşlem Türü</span>
+            <span class="buyuk-deger" data-detay-islem>{satirlar[0].islem}</span>
+          </div>
+          <div>
+            <span class="kucuk-etiket">Yönetici Rolü</span>
+            <span class="buyuk-deger" data-detay-rol>{satirlar[0].rol}</span>
+          </div>
+          <div>
+            <span class="kucuk-etiket">İşlem Tutarı</span>
+            <span class="buyuk-deger" data-detay-tutar>{usdFmt.format(satirlar[0].tutar)}</span>
+          </div>
+          <div>
+            <span class="kucuk-etiket">Güven Puanı</span>
+            <div class="puan-sarmal">
+              <span class="puan-rakam" data-detay-puan>{satirlar[0].puan}</span>
+              <div class="puan-cubuk-kap"><div class="puan-cubuk" data-detay-bar style={`width:${satirlar[0].puan}%`}></div></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- En Çok Alınan Şirketler -->
+      {enCokAlinanlar.length > 0 && (
+        <section class="blok sirket-blok" aria-labelledby="h-sirket">
+          <h2 id="h-sirket" class="blok-baslik">En Çok Alım Yapılan Şirketler</h2>
+          <p class="alt-aciklama">Yöneticilerin en yüksek tutarda ve çoklu alım yaptığı şirketler.</p>
+          <div class="sirket-grid">
+            {enCokAlinanlar.map((s) => (
+              <div class="sirket-kart" data-filtre-hisse={s.hisse}>
+                <div class="sirket-kart-ust">
+                  <span class="sirket-kod">{s.hisse}</span>
+                  <span class="sirket-puan">{s.maxPuan} puan</span>
+                </div>
+                <div class="sirket-ad">{s.sirket}</div>
+                <div class="sirket-tutar">{usdFmt.format(s.tutar)}</div>
+                <div class="sirket-adet">{s.adet} yönetici işlemi</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <!-- Tablo ve Filtreler -->
+      <section class="blok" aria-label="Tüm işlemler tablosu">
+        <h2 class="blok-baslik">Tüm Bildirimler</h2>
+        <div class="denetim">
+          <label class="alan">
+            <span class="etiket">İşlem</span>
+            <select data-suz-islem>
+              <option value="">Tümü</option>
+              <option value="Alım">Alım</option>
+              <option value="Satış">Satış</option>
+            </select>
+          </label>
+          <label class="alan">
+            <span class="etiket">Rol</span>
+            <select data-suz-rol>
+              <option value="">Tümü</option>
+              {roller.map((r) => <option value={r}>{r}</option>)}
+            </select>
+          </label>
+          <label class="alan">
+            <span class="etiket">Puan Eşiği</span>
+            <select data-suz-puan>
+              <option value="0">Tümü</option>
+              <option value="60">60+ Puan (Güçlü)</option>
+              <option value="80">80+ Puan (Yüksek Güven)</option>
+            </select>
+          </label>
+          <label class="alan ara">
+            <span class="etiket">Ara</span>
+            <input type="search" data-ara placeholder="Hisse veya şirket adı ara" />
+          </label>
+          <button type="button" class="sifirla" data-sifirla>Sıfırla</button>
+        </div>
+
+        <div class="tablo-kutu">
+          <table data-tablo>
+            <thead>
+              <tr>
+                <th class="sol" data-sirala="tarih">Bildirim Tarihi</th>
+                <th class="sol" data-sirala="hisse">Hisse</th>
+                <th class="sol" data-sirala="sirket">Şirket</th>
+                <th class="sol" data-sirala="rol">Yönetici Rolü</th>
+                <th class="sol" data-sirala="islem">İşlem</th>
+                <th class="sag" data-sirala="tutar">Tutar ($)</th>
+                <th class="sag" data-sirala="puan">Güven Puanı</th>
+              </tr>
+            </thead>
+            <tbody>
+              {satirlar.map((r, i) => (
+                <tr
+                  class={i === 0 ? 'secili' : ''}
+                  data-hisse={r.hisse}
+                  data-sirket={r.sirket}
+                  data-rol={r.rol}
+                  data-islem={r.islem}
+                  data-tutar={r.tutar}
+                  data-tarih={r.tarih}
+                  data-puan={r.puan}
+                  tabindex={0}
+                >
+                  <td class="sol" data-v={r.tarih}>{r.tarih}</td>
+                  <td class="sol" data-v={r.hisse}><b>{r.hisse}</b></td>
+                  <td class="sol" data-v={r.sirket}>{r.sirket}</td>
+                  <td class="sol" data-v={r.rol}>{r.rol}</td>
+                  <td class="sol" data-v={r.islem}><span class={`tur-rozet ${r.islem === 'Alım' ? 'alim' : 'satim'}`}>{r.islem}</span></td>
+                  <td class="sag" data-v={r.tutar}>{usdFmt.format(r.tutar)}</td>
+                  <td class="sag" data-v={r.puan}>
+                    <span class={`puan-rozet ${r.puan >= 80 ? 'puan-yuksek' : r.puan >= 60 ? 'puan-orta' : 'puan-dusuk'}`}>
+                      {r.puan}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="bos" data-bos hidden>Eşleşen yönetici işlemi yok.</p>
+      </section>
+
+      <!-- Güven Puanı Bilgi Notu -->
+      <section class="blok model-notu" aria-labelledby="h-not">
+        <h2 id="h-not" class="blok-baslik">Güven Puanı Nasıl Hesaplanır?</h2>
+        <p>
+          0–100 arası hesaplanan Güven Puanı; yöneticinin şirket içi rolü (CEO, CFO, %10 ortak), işlem tutarının büyüklüğü, mevcut pozisyon artış oranı, son 7 gün içinde aynı şirkette başka yöneticilerin de alım yapıp yapmadığı (kümelenme) ve işlemin 10b5-1 önceden planlanmış otomatik satış planı dışındaki doğrudan açık piyasa alımı olup olmadığını değerlendirir.
+        </p>
+      </section>
+    </>
+  )}
+</RasathaneKabuk>
+
+<style>
+  .ust-satir { margin: 14px 0 20px; }
+  .gizli-baslik { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .yukari { color: var(--yesil); }
+  .asagi { color: var(--kirmizi); }
+  .vurgu-yesil { color: var(--yesil) !important; }
+
+  /* Özet Gösterge Kartları */
+  .ozet-kartlar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 0 0 24px; }
+  .ozet-kutu { padding: 14px 16px; background: var(--beyaz); border: 1px solid var(--cizgi); border-radius: 4px; display: flex; flex-direction: column; gap: 4px; }
+  .ozet-etiket { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); }
+  .ozet-deger { font-size: 22px; font-weight: 700; color: var(--murekkep); font-variant-numeric: tabular-nums; line-height: 1.2; }
+  .ozet-alt { font-size: 12px; color: var(--ikincil); }
+  @media (max-width: 800px) { .ozet-kartlar { grid-template-columns: 1fr 1fr; } }
+
+  /* Ayrıntı Paneli */
+  .ayrinti-kutu { padding: 18px 20px; background: var(--beyaz); border: 1px solid var(--cizgi); border-radius: 4px; margin: 0 0 28px; }
+  .ayrinti-ust { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); margin-bottom: 6px; }
+  .ayrinti-baslik-satir { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+  .ayrinti-baslik-satir h2 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
+  .hisse-etiket { font-size: 14px; font-weight: 700; background: var(--murekkep); color: var(--kagit); padding: 3px 8px; border-radius: 3px; }
+  .ayrinti-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; padding-top: 14px; border-top: 1px solid var(--cizgi); }
+  .kucuk-etiket { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); margin-bottom: 3px; }
+  .buyuk-deger { font-size: 17px; font-weight: 700; color: var(--murekkep); font-variant-numeric: tabular-nums; }
+  .puan-sarmal { display: flex; align-items: center; gap: 8px; }
+  .puan-rakam { font-size: 18px; font-weight: 700; color: var(--mavi); }
+  .puan-cubuk-kap { flex: 1; height: 8px; background: #e2dfd6; border-radius: 999px; overflow: hidden; }
+  .puan-cubuk { height: 100%; background: var(--mavi); border-radius: 999px; transition: width 0.3s ease; }
+  @media (max-width: 800px) { .ayrinti-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* Şirket Kartları */
+  .sirket-blok { margin-bottom: 28px; }
+  .sirket-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 10px; }
+  .sirket-kart { padding: 12px 14px; background: var(--beyaz); border: 1px solid var(--cizgi); border-radius: 4px; cursor: pointer; transition: border-color 0.15s ease; }
+  .sirket-kart:hover { border-color: var(--mavi); background: #efeee7; }
+  .sirket-kart-ust { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .sirket-kod { font-weight: 700; font-size: 15px; color: var(--murekkep); }
+  .sirket-puan { font-size: 12px; font-weight: 600; color: var(--mavi); }
+  .sirket-ad { font-size: 13px; color: var(--ikincil); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 6px; }
+  .sirket-tutar { font-size: 16px; font-weight: 700; color: var(--murekkep); font-variant-numeric: tabular-nums; }
+  .sirket-adet { font-size: 12px; color: var(--ikincil); margin-top: 2px; }
+  @media (max-width: 900px) { .sirket-grid { grid-template-columns: 1fr 1fr; } }
+
+  /* Rozetler */
+  .tur-rozet { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 12px; font-weight: 600; }
+  .tur-rozet.alim { background: #e6f4ea; color: var(--yesil); }
+  .tur-rozet.satim { background: #fce8e6; color: var(--kirmizi); }
+  .puan-rozet { display: inline-block; padding: 2px 8px; border-radius: 3px; font-size: 12px; font-weight: 700; }
+  .puan-yuksek { background: #e6f4ea; color: var(--yesil); }
+  .puan-orta { background: #e8f0fe; color: var(--mavi); }
+  .puan-dusuk { background: #f1f0eb; color: var(--ikincil); }
+
+  .etiket { display: block; margin: 0 0 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ikincil); }
+  .denetim { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 12px; margin: 0 0 14px; }
+  .alan { display: flex; flex-direction: column; min-width: 140px; }
+  .alan.ara { flex: 1 1 200px; }
+  select, input[type="search"] { font: inherit; font-size: 14px; height: 38px; padding: 0 10px; border: 1px solid var(--cizgi); border-radius: 3px; background: var(--beyaz); color: var(--murekkep); }
+  input[type="search"] { width: 100%; }
+  select:focus-visible, input:focus-visible, button:focus-visible, th:focus-visible, tr:focus-visible { outline: 2px solid var(--mavi); outline-offset: 2px; }
+  .sifirla { font: inherit; font-size: 13px; font-weight: 600; height: 38px; padding: 0 14px; border: 1px solid var(--murekkep); border-radius: 3px; background: transparent; color: var(--murekkep); cursor: pointer; }
+  .sifirla:hover { background: var(--murekkep); color: var(--kagit); }
+
+  .tablo-kutu { overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 0; }
+  table { border-collapse: collapse; width: 100%; min-width: 600px; font-size: 14px; font-variant-numeric: tabular-nums; }
+  th, td { padding: 10px 12px; white-space: nowrap; border-bottom: 1px solid var(--cizgi); }
+  th { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ikincil); cursor: pointer; user-select: none; background: var(--kagit); position: sticky; top: 0; }
+  th[aria-sort="ascending"]::after { content: " ▲"; color: var(--mavi); }
+  th[aria-sort="descending"]::after { content: " ▼"; color: var(--mavi); }
+  .sol { text-align: left; }
+  .sag { text-align: right; }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover { background: #efeee7; }
+  tbody tr.secili { background: #e7ebfa; }
+  .bos { margin: 14px 0 0; color: var(--ikincil); }
+  .bos-tum { color: var(--ikincil); }
+
+  .blok-baslik { margin: 0 0 6px; font-size: 19px; letter-spacing: -0.01em; font-weight: 700; }
+  .alt-aciklama { margin: 0 0 12px; font-size: 13px; color: var(--ikincil); }
+  .model-notu { margin-top: 36px; padding: 18px 20px; background: var(--beyaz); border: 1px solid var(--cizgi); border-radius: 4px; font-size: 14px; line-height: 1.6; color: var(--ikincil); }
+  .model-notu p { margin: 6px 0 0; }
+</style>
+
+<script>
+  const usdFmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+  const detaySirket = document.querySelector('[data-detay-sirket]');
+  const detayHisse = document.querySelector('[data-detay-hisse]');
+  const detayTarih = document.querySelector('[data-detay-tarih]');
+  const detayIslem = document.querySelector('[data-detay-islem]');
+  const detayRol = document.querySelector('[data-detay-rol]');
+  const detayTutar = document.querySelector('[data-detay-tutar]');
+  const detayPuan = document.querySelector('[data-detay-puan]');
+  const detayBar = document.querySelector('[data-detay-bar]');
+
+  const tablo = document.querySelector('[data-tablo]');
+  const govde = tablo.querySelector('tbody');
+  const satirlar = [...govde.querySelectorAll('tr')];
+  const bos = document.querySelector('[data-bos]');
+
+  const araKutusu = document.querySelector('[data-ara]');
+  const suzIslem = document.querySelector('[data-suz-islem]');
+  const suzRol = document.querySelector('[data-suz-rol]');
+  const suzPuan = document.querySelector('[data-suz-puan]');
+  let seciliTr = satirlar[0];
+
+  function sec(tr) {
+    seciliTr?.classList.remove('secili');
+    seciliTr = tr;
+    tr.classList.add('secili');
+
+    detaySirket.textContent = tr.dataset.sirket;
+    detayHisse.textContent = tr.dataset.hisse;
+    detayTarih.textContent = tr.dataset.tarih;
+    detayIslem.textContent = tr.dataset.islem;
+    detayRol.textContent = tr.dataset.rol;
+    detayTutar.textContent = usdFmt.format(Number(tr.dataset.tutar));
+    detayPuan.textContent = tr.dataset.puan;
+    detayBar.style.width = `${tr.dataset.puan}%`;
+  }
+
+  function filtrele() {
+    const q = araKutusu.value.trim().toLocaleLowerCase('tr');
+    const islem = suzIslem.value;
+    const rol = suzRol.value;
+    const minPuan = Number(suzPuan.value || 0);
+
+    let gorunen = 0;
+    for (const tr of satirlar) {
+      const qOk = !q || tr.textContent.toLocaleLowerCase('tr').includes(q);
+      const islemOk = !islem || tr.dataset.islem === islem;
+      const rolOk = !rol || tr.dataset.rol === rol;
+      const puanOk = Number(tr.dataset.puan) >= minPuan;
+
+      const goster = qOk && islemOk && rolOk && puanOk;
+      tr.hidden = !goster;
+      if (goster) gorunen++;
+    }
+    bos.hidden = gorunen !== 0;
+  }
+
+  function tabloSirala(th) {
+    const ths = [...tablo.querySelectorAll('thead th')];
+    const idx = ths.indexOf(th);
+    const oncekiYon = th.getAttribute('aria-sort');
+    const yeniYon = oncekiYon === 'ascending' ? 'descending' : 'ascending';
+    ths.forEach((h) => h.setAttribute('aria-sort', 'none'));
+    th.setAttribute('aria-sort', yeniYon);
+    const yonSayisi = yeniYon === 'ascending' ? 1 : -1;
+    const trler = [...govde.querySelectorAll('tr')];
+    trler.sort((a, b) => {
+      const cA = a.children[idx];
+      const cB = b.children[idx];
+      const vA = cA?.dataset?.v ?? cA?.textContent.trim() ?? '';
+      const vB = cB?.dataset?.v ?? cB?.textContent.trim() ?? '';
+      const numA = vA === '' ? null : Number(vA);
+      const numB = vB === '' ? null : Number(vB);
+      if (numA === null && numB === null) return 0;
+      if (numA === null) return 1;
+      if (numB === null) return -1;
+      if (Number.isNaN(numA) || Number.isNaN(numB)) {
+        return yonSayisi * String(vA).localeCompare(String(vB), 'tr');
+      }
+      return yonSayisi * (numA - numB);
+    });
+    trler.forEach((tr) => govde.appendChild(tr));
+  }
+
+  document.querySelectorAll('th[data-sirala]').forEach((th) => {
+    th.setAttribute('tabindex', '0');
+    if (!th.hasAttribute('aria-sort')) th.setAttribute('aria-sort', 'none');
+    th.addEventListener('click', () => tabloSirala(th));
+    th.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        tabloSirala(th);
+      }
+    });
+  });
+
+  satirlar.forEach((tr) => {
+    tr.addEventListener('click', () => sec(tr));
+    tr.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') sec(tr);
+    });
+  });
+
+  document.querySelectorAll('[data-filtre-hisse]').forEach((kart) => {
+    kart.addEventListener('click', () => {
+      const hisse = kart.dataset.filtreHisse;
+      araKutusu.value = hisse;
+      filtrele();
+      const ilkUyan = satirlar.find((tr) => !tr.hidden && tr.dataset.hisse === hisse);
+      if (ilkUyan) {
+        sec(ilkUyan);
+        ilkUyan.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+  });
+
+  araKutusu?.addEventListener('input', filtrele);
+  suzIslem?.addEventListener('change', filtrele);
+  suzRol?.addEventListener('change', filtrele);
+  suzPuan?.addEventListener('change', filtrele);
+
+  document.querySelector('[data-sifirla]')?.addEventListener('click', () => {
+    araKutusu.value = '';
+    suzIslem.value = '';
+    suzRol.value = '';
+    suzPuan.value = '0';
+    filtrele();
+  });
+</script>

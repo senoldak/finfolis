@@ -67,7 +67,7 @@ Diğer gruplarda da yön belli. Ev eşyası 6,89 liradan 7,67 liraya, 0,78 lira 
 Değişimlerin nedenini ağırlık tablosu tek başına söylemiyor. Bir grubun payı, o gruptaki fiyatlar diğerlerinden hızlı arttığı için de, haneler o gruptan daha çok aldığı için de büyüyebilir. Ağırlıklar fiyatların ve miktarların birlikte değişmesinden çıkıyor; hangisinin ne kadar etkili olduğu bu tabloda görünmüyor.
 
 ![Eğim grafiği: Eski sınıflamada ulaştırmanın payı büyüdü, gıdanınki küçüldü: 2006 yılında: Gıda: 27,68, Konut: 16,29, Ulaştırma: 10,48, Lokanta ve oteller: 6,74, Giyim: 8,28, Alkol ve tütün: 5,62, Haberleşme: 4,55, Sağlık: 2,54; 2025 yılında: Gıda: 24,97, Konut: 15,22, Ulaştırma: 15,34, Lokanta ve oteller: 8,32, Giyim: 7,16, Alkol ve tütün: 3,52, Haberleşme: 3,62, Sağlık: 4,09.](./graf-3.svg)
-*TÜFE ana grup ağırlığı, yüz liralık harcamanın lira karşılığı. Kaynak: TÜİK.*
+*TÜFE ana grup ağırlığı, yüzde. Kaynak: TÜİK.*
 
 ## Son on yıl, yeni sınıflamayla
 
@@ -80,7 +80,7 @@ Bu değişimlerin büyük bir kısmı tek bir yılda, 2025 yılından 2026 yıl�
 Lokanta ve konaklamanın ağırlığı bu on yılda düz bir çizgi izlemedi. 2017 yılında 8,05, 2020 yılında 8,67 liraydı. 2021 yılında 5,91 liraya indi, 2025 yılında 8,32 liraya döndü ve 2026 yılında 11,13 liraya çıktı. Seri, tek bir yönde ilerleyen bir eğilimden çok, yıldan yıla iniş çıkışlar gösteriyor.
 
 ![Sütun grafik: Lokanta ve konaklamanın ağırlığı en çok 2026 yılında arttı: Lokanta ve konaklama: 2016 yılında 7,47, 2017 yılında 8,05, 2018 yılında 7,27, 2019 yılında 7,86, 2020 yılında 8,67, 2021 yılında 5,91, 2022 yılında 7,11, 2023 yılında 7,82, 2024 yılında 8,17, 2025 yılında 8,32, 2026 yılında 11,13.](./graf-4.svg)
-*Yeni sınıflamada ağırlık, yüz liralık harcamanın lira karşılığı. Kaynak: TÜİK.*
+*Yeni sınıflamada ağırlık, yüzde. Kaynak: TÜİK.*
 
 ## Temsilî sepeti okumak
 

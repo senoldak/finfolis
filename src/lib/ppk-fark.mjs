@@ -76,6 +76,13 @@ export function sozcukFarki(eski, yeni) {
   return parcalar;
 }
 
+const tokenize = (s) => kelimeler(s).map(kelimeAnahtar).filter(Boolean);
+const wordCounts = (tokens) => {
+  const map = new Map();
+  for (const t of tokens) map.set(t, (map.get(t) ?? 0) + 1);
+  return map;
+};
+
 // Sıra korunarak hizalama: birebir aynı çift 2 puan, benzerlik eşiğini geçen çift benzerlik kadar puan alır.
 export function cumleFarki(eskiCumleler, yeniCumleler, { esik = 0.5 } = {}) {
   const a = eskiCumleler.map(String);
@@ -84,12 +91,44 @@ export function cumleFarki(eskiCumleler, yeniCumleler, { esik = 0.5 } = {}) {
   const bn = b.map(norm);
   const n = a.length;
   const m = b.length;
-  const puan = (i, j) => {
-    if (an[i] === bn[j]) return 2;
-    const s = benzerlik(a[i], b[j]);
-    return s >= esik ? s : 0;
-  };
-  const p = Array.from({ length: n }, (_, i) => Float64Array.from({ length: m }, (_, j) => puan(i, j)));
+
+  const aTokens = a.map(tokenize);
+  const bTokens = b.map(tokenize);
+  const aMaps = aTokens.map(wordCounts);
+  const bMaps = bTokens.map(wordCounts);
+
+  const p = Array.from({ length: n }, () => new Float64Array(m));
+  for (let i = 0; i < n; i++) {
+    const ani = an[i];
+    const tokA = aTokens[i];
+    const mapA = aMaps[i];
+    const la = tokA.length;
+    for (let j = 0; j < m; j++) {
+      if (ani === bn[j]) {
+        p[i][j] = 2;
+        continue;
+      }
+      const tokB = bTokens[j];
+      const lb = tokB.length;
+      if (!la || !lb || (2 * Math.min(la, lb)) / (la + lb) < esik) {
+        continue;
+      }
+      const mapB = bMaps[j];
+      const [kucuk, buyuk] = mapA.size <= mapB.size ? [mapA, mapB] : [mapB, mapA];
+      let ortak = 0;
+      for (const [k, countK] of kucuk) {
+        const countB = buyuk.get(k);
+        if (countB) {
+          ortak += countK < countB ? countK : countB;
+        }
+      }
+      const sim = (2 * ortak) / (la + lb);
+      if (sim >= esik) {
+        p[i][j] = sim;
+      }
+    }
+  }
+
   const t = Array.from({ length: n + 1 }, () => new Float64Array(m + 1));
   for (let i = n - 1; i >= 0; i--)
     for (let j = m - 1; j >= 0; j--) {

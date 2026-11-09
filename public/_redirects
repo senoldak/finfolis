@@ -767,13 +767,38 @@
 /yapay-zeka/ /yapay-zeka-kullanimi/ 301
 /yapay-zeka /yapay-zeka-kullanimi/ 301
 
-# Rasathane yönlendirmeleri (4.11.2026).
+# Rasathane yönlendirmeleri
 /rasathane /rasathane/emtia/ 301
 /rasathane/ /rasathane/emtia/ 301
-/rasathane/viop /rasathane/viop/vadeli/ 301
-/rasathane/viop/ /rasathane/viop/vadeli/ 301
-/rasathane/varant /rasathane/viop/varant/ 301
-/rasathane/varant/ /rasathane/viop/varant/ 301
+/rasathane/viop/vadeli /rasathane/viop/ 301
+/rasathane/viop/vadeli/ /rasathane/viop/ 301
+/rasathane/viop/varant /rasathane/viop/ 301
+/rasathane/viop/varant/ /rasathane/viop/ 301
+/rasathane/viop/on-vade /rasathane/viop/ 301
+/rasathane/viop/on-vade/ /rasathane/viop/ 301
+/rasathane/viop/takvim /rasathane/viop/ 301
+/rasathane/viop/takvim/ /rasathane/viop/ 301
+/rasathane/varant /rasathane/viop/ 301
+/rasathane/varant/ /rasathane/viop/ 301
+/rasathane/opsi /rasathane/viop/ 301
+/rasathane/opsi/ /rasathane/viop/ 301
+/rasathane/grafix /rasathane/emtia/ 301
+/rasathane/grafix/ /rasathane/emtia/ 301
+/rasathane/fx/pano /rasathane/fx/ 301
+/rasathane/fx/pano/ /rasathane/fx/ 301
+/rasathane/fx/fed /rasathane/fx/ 301
+/rasathane/fx/fed/ /rasathane/fx/ 301
+/rasathane/fx/politika /rasathane/fx/ 301
+/rasathane/fx/politika/ /rasathane/fx/ 301
+/rasathane/fx/risk /rasathane/fx/ 301
+/rasathane/fx/risk/ /rasathane/fx/ 301
+/rasathane/fx/fonlar /rasathane/fx/ 301
+/rasathane/fx/fonlar/ /rasathane/fx/ 301
+/rasathane/inseeder/islemler /rasathane/inseeder/ 301
+/rasathane/inseeder/islemler/ /rasathane/inseeder/ 301
+/rasathane/biof/takvim /rasathane/biof/ 301
+/rasathane/biof/takvim/ /rasathane/biof/ 301
+
 
 # Eski WordPress adreslerinin yedekleri (dinamik; yukarıdaki etiket listesinde olmayanlar).
 /tag/* /konu/ 301

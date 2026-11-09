@@ -1,7 +1,7 @@
 ---
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { BOLUMLER } from '../lib/rasathane/bolumler.mjs';
+import { BOLUMLER, MENU_BOLUMLER } from '../lib/rasathane/bolumler.mjs';
 import { sayi, yuzde } from '../lib/rasathane/bicim.mjs';
 
 interface Props {
@@ -9,15 +9,18 @@ interface Props {
   aktif?: string;
   aciklama?: string;
   bilgi?: string;
-  // Kayan bant: hangi bölümün verisi akacak (emtia panosu ya da VİOP vadelileri). Boşsa bant yok.
-  bant?: 'emtia' | 'viop';
+  // Kayan bant: hangi bölümün verisi akacak (emtia panosu, Kur veya VİOP vadelileri). Boşsa bant yok.
+  bant?: 'emtia' | 'viop' | 'fx';
 }
 const { baslik, aktif, aciklama = '', bilgi, bant } = Astro.props;
+
+
 // Bant öğeleri ortak biçime çevrilir: ad, fiyat, günlük değişim (yüzde). Veri yoksa bant gösterilmez.
-function bantOgeleri(kaynak: 'emtia' | 'viop'): { ad: string; fiyat: number; degisim: number | null }[] {
+function bantOgeleri(kaynak: 'emtia' | 'viop' | 'fx'): { ad: string; fiyat: number; degisim: number | null }[] {
   try {
-    const d = JSON.parse(readFileSync(join(process.cwd(), 'public/rasathane/veri', kaynak === 'emtia' ? 'emtia/pano.json' : 'viop/vadeli.json'), 'utf8'));
-    if (kaynak === 'emtia') {
+    const dosya = kaynak === 'emtia' ? 'emtia/pano.json' : kaynak === 'fx' ? 'fx/pano.json' : 'viop/vadeli.json';
+    const d = JSON.parse(readFileSync(join(process.cwd(), 'public/rasathane/veri', dosya), 'utf8'));
+    if (kaynak === 'emtia' || kaynak === 'fx') {
       return d.satirlar
         .filter((r) => typeof r.kapanis === 'number')
         .slice(0, 12)
@@ -108,7 +111,7 @@ const bantVeri = bant ? bantOgeleri(bant) : [];
     <header class="ust-cubuk-sayfa sar">
       <a class="marka" href="/rasathane/"><img src="/rasathane/isaret.svg" alt="" /><span class="marka-metin"><span>Rasathane</span>{bilgi && <small>{bilgi}</small>}</span></a>
       <nav class="bolum" aria-label="Bölümler">
-        {BOLUMLER.map((b) => (
+        {MENU_BOLUMLER.map((b) => (
           <a href={`/rasathane/${b.anahtar}/`} aria-current={aktif === b.anahtar ? 'page' : undefined}>{b.ad}</a>
         ))}
       </nav>
@@ -141,7 +144,7 @@ const bantVeri = bant ? bantOgeleri(bant) : [];
         <nav aria-label="Bölümler">
           <h3>Bölümler</h3>
           <ul>
-            {BOLUMLER.map((b) => <li><a href={`/rasathane/${b.anahtar}/`}>{b.ad}</a></li>)}
+            {MENU_BOLUMLER.map((b) => <li><a href={`/rasathane/${b.anahtar}/`}>{b.ad}</a></li>)}
           </ul>
         </nav>
         <div>

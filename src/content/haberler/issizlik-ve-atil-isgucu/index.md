@@ -108,4 +108,4 @@ Yıllık oranları TÜİK'in 2025 yılı İşgücü İstatistikleri bülteni eki
 - [TÜİK: İşgücü İstatistikleri, 2025 yılı (tamamlayıcı göstergeler, temel göstergeler ve işgücüne dahil olmama nedenleri tabloları)](https://veriportali.tuik.gov.tr/tr/press/57996)
 - [TÜİK: İşgücü İstatistikleri, Ağustos 2026](https://veriportali.tuik.gov.tr/tr/press/57987)
 - [TÜİK: İşgücü İstatistikleri, Ocak 2021](https://veriportali.tuik.gov.tr/tr/press/37486)
-- [TÜİK: İşgücüne ilişkin tamamlayıcı göstergeler, metaveri (tanımlar)](https://veriportali.tuik.gov.tr/tr/databrowser/tuik/TR,DF_ISGUCU_AYLIK_TAMAMLAYICI_GOSTERGE_C,1.0)
+- [TÜİK: İşgücüne ilişkin tamamlayıcı göstergeler, metaveri (tanımlar)](https://veriportali.tuik.gov.tr/tr/press/57996)

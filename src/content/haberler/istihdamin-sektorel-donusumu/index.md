@@ -113,4 +113,4 @@ Bütün rakamları TÜİK'in 2025 yılı İşgücü İstatistikleri bülteni eki
 - [TÜİK: İşgücü İstatistikleri, 2020 yılı (eski tanımlarla yıllık sonuçlar)](https://veriportali.tuik.gov.tr/tr/press/37484)
 - [TÜİK: Hanehalkı İşgücü İstatistikleri, Şubat 2014](https://veriportali.tuik.gov.tr/tr/press/16007)
 - [TÜİK: İşgücü İstatistikleri, Ocak 2021](https://veriportali.tuik.gov.tr/tr/press/37486)
-- [TÜİK: Sektöre göre istihdam edilenler, metaveri](https://veriportali.tuik.gov.tr/tr/databrowser/tuik/TR,DF_ISGUCU_CEYREK_SEKTOR_ISTIHDAM_C,1.0)
+- [TÜİK: Sektöre göre istihdam edilenler, metaveri](https://veriportali.tuik.gov.tr/tr/press/57996)

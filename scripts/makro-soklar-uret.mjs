@@ -3,12 +3,30 @@ import { homedir } from 'node:os';
 import { resolve } from 'node:path';
 
 // 1. Read EVDS key
-const evdsConfig = JSON.parse(readFileSync(resolve(homedir(), '.evds-mcp.json'), 'utf8'));
-const key = evdsConfig.api_key;
+export function evdsAnahtariAl() {
+  let key = process.env.EVDS_API_KEY;
+  if (!key) {
+    try {
+      const configPath = resolve(homedir(), '.evds-mcp.json');
+      const conf = JSON.parse(readFileSync(configPath, 'utf8').replace(/^\uFEFF+/, ''));
+      key = conf.api_key;
+    } catch {}
+  }
+  return key ? String(key).replace(/^[\uFEFF\s]+|[\uFEFF\s]+$/g, '') : null;
+}
 
-async function fetchEvds(series, start = '01-01-2004', end = '01-11-2026') {
+export function formatTarihEvds(d = new Date()) {
+  const gun = String(d.getDate()).padStart(2, '0');
+  const ay = String(d.getMonth() + 1).padStart(2, '0');
+  const yil = d.getFullYear();
+  return `${gun}-${ay}-${yil}`;
+}
+
+async function fetchEvds(series, start = '01-01-2004', end = formatTarihEvds()) {
+  const apiKey = evdsAnahtariAl();
+  if (!apiKey) throw new Error('EVDS API anahtarı bulunamadı (~/.evds-mcp.json veya EVDS_API_KEY)');
   const url = `https://evds3.tcmb.gov.tr/igmevdsms-dis/series=${series}&startDate=${start}&endDate=${end}&type=json`;
-  const res = await fetch(url, { headers: { key } });
+  const res = await fetch(url, { headers: { key: apiKey } });
   if (!res.ok) throw new Error(`EVDS error ${res.status} for ${series}`);
   const data = await res.json();
   return data.items || [];
@@ -78,11 +96,12 @@ async function run() {
   const bist = await fetchBist100();
 
   console.log('2. EVDS serileri çekiliyor...');
+  const bugun = formatTarihEvds();
   const tgeArc = await fetchEvds('TP.TG.EN', '01-01-2004', '31-12-2012');
-  const tgeCur = await fetchEvds('TP.TG2.Y01', '01-01-2012', '01-11-2026');
-  const rkgeItems = await fetchEvds('TP.GY1.N2.MA', '01-01-2005', '01-11-2026');
-  const sanayiItems = await fetchEvds('TP.TSANAYMT2021.BCD', '01-01-2005', '01-11-2026');
-  const rekItems = await fetchEvds('TP.RK.T1.Y', '01-01-2004', '01-11-2026');
+  const tgeCur = await fetchEvds('TP.TG2.Y01', '01-01-2012', bugun);
+  const rkgeItems = await fetchEvds('TP.GY1.N2.MA', '01-01-2005', bugun);
+  const sanayiItems = await fetchEvds('TP.TSANAYMT2021.BCD', '01-01-2005', bugun);
+  const rekItems = await fetchEvds('TP.RK.T1.Y', '01-01-2004', bugun);
 
   function parseSeries(items, keyName) {
     const map = {};

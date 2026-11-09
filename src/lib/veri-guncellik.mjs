@@ -45,11 +45,14 @@ export function siklikBul(satirlar) {
   return 'ceyreklik';
 }
 
-export function durumHesapla({ son, siklik, esik }, bugun = new Date()) {
+export function durumHesapla({ son, siklik, esik, id, ad }, bugun = new Date(), { onDurmus } = {}) {
   if (!son || !siklik) return { yas: null, esik: null, durum: 'bilinmiyor' };
   const e = esik ?? ESIKLER[siklik];
   const yas = Math.max(0, Math.floor((bugun - son) / GUN));
   const durum = yas > 3 * e ? 'durmus' : yas > e ? 'gecikmis' : 'guncel';
+  if (durum === 'durmus' && typeof onDurmus === 'function') {
+    onDurmus({ id, ad, yas, esik: e, durum });
+  }
   return { yas, esik: e, durum };
 }
 
@@ -156,7 +159,7 @@ export const DOSYALAR = {
 const satirliMi = (b) => Array.isArray(b?.satirlar) && b.satirlar.length > 0;
 
 // Bütün veri setlerinin güncellik satırları; en kötü durum önce, sonra eşiğe oranla en yaşlı.
-export function guncellikListesi({ resmi = {}, dosyalar = {} }, bugun = new Date()) {
+export function guncellikListesi({ resmi = {}, dosyalar = {} }, bugun = new Date(), { onDurmus } = {}) {
   const liste = [];
   for (const [id, b] of Object.entries(resmi)) {
     if (!b || typeof b !== 'object') continue;
@@ -179,7 +182,7 @@ export function guncellikListesi({ resmi = {}, dosyalar = {} }, bugun = new Date
       alinma: b.alinma ?? null,
       gerekce: tek?.gerekce ?? null,
       ozelEsik: false,
-      ...durumHesapla({ son, siklik }, bugun),
+      ...durumHesapla({ son, siklik, id, ad: b.kaynak?.ad ?? id }, bugun, { onDurmus }),
     });
   }
   for (const [id, tanim] of Object.entries(DOSYALAR)) {
@@ -199,9 +202,37 @@ export function guncellikListesi({ resmi = {}, dosyalar = {} }, bugun = new Date
       alinma: d.alinma ?? d.guncelleme ?? d.guncellenme ?? null,
       gerekce: tanim.gerekce ?? null,
       ozelEsik: tanim.esik != null,
-      ...durumHesapla({ son, siklik, esik: tanim.esik }, bugun),
+      ...durumHesapla({ son, siklik, esik: tanim.esik, id, ad: tanim.ad }, bugun, { onDurmus }),
     });
   }
   const sira = { durmus: 0, gecikmis: 1, bilinmiyor: 2, guncel: 3 };
   return liste.sort((a, b) => sira[a.durum] - sira[b.durum] || (b.yas ?? 0) / (b.esik ?? 1) - (a.yas ?? 0) / (a.esik ?? 1));
+}
+
+/**
+ * Güncellik listesindeki serilerden 'durmus' durumunda olanları döner.
+ * Opsiyonel `onDurmus` kancası (alert callback hook) verilirse her durmuş seri için çağrılır.
+ * @param {{ resmi?: object, dosyalar?: object }} [veri]
+ * @param {{ bugun?: Date, onDurmus?: (seri: object) => void }} [secenekler]
+ */
+export function durmusSeriler({ resmi = {}, dosyalar = {} } = {}, { bugun = new Date(), onDurmus } = {}) {
+  const liste = guncellikListesi({ resmi, dosyalar }, bugun, { onDurmus });
+  return liste.filter((s) => s.durum === 'durmus');
+}
+
+/**
+ * Bot ve yazı işleri denetimleri için durmuş serilerin uyarı metinlerini üretir.
+ * @param {{ resmi?: object, dosyalar?: object }} [veri]
+ * @param {{ bugun?: Date, onDurmus?: (seri: object) => void }} [secenekler]
+ * @returns {Array<{ id: string, ad: string, mesaj: string, yas: number, esik: number }>}
+ */
+export function durmusUyarilari(veri, secenekler = {}) {
+  const duranlar = durmusSeriler(veri, secenekler);
+  return duranlar.map((s) => ({
+    id: s.id,
+    ad: s.ad,
+    yas: s.yas,
+    esik: s.esik,
+    mesaj: `[veri-guncellik] "${s.ad}" (${s.id}) veri serisi ${s.yas} gündür güncellenmedi (eşik: ${s.esik} gün, 3 kat aşıldı: durmuş).`,
+  }));
 }

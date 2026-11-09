@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { donemSonu, metindenTarih, siklikBul, durumHesapla, guncellikListesi } from './veri-guncellik.mjs';
+import { donemSonu, metindenTarih, siklikBul, durumHesapla, guncellikListesi, durmusSeriler, durmusUyarilari } from './veri-guncellik.mjs';
 
 const g = (t) => new Date(`${t}T00:00:00Z`);
 
@@ -57,4 +57,28 @@ test('liste: RESMI bölümleri, ayrı dosyalar, sıralama', () => {
   assert.equal(abd.ozelEsik, true);
   assert.equal(abd.durum, 'guncel');
   assert.ok(!liste.some((x) => x.id === 'bos'));
+});
+
+test('durmusSeriler ve durmusUyarilari: eşiği 3 kat aşan seriler durmus listesine girer ve uyarı üretir', () => {
+  const bugun = g('2026-10-28');
+  const uyarilar = [];
+  const veri = {
+    resmi: {
+      kur: { tarih: '2026-10-27', kaynak: { ad: 'Kurlar' } },
+      eskiSeri: { kaynak: { ad: 'Eski Seri' }, satirlar: [{ yil: 2025, ay: 1 }] },
+    },
+  };
+  const duranlar = durmusSeriler(veri, {
+    bugun,
+    onDurmus: (s) => uyarilar.push(s.id),
+  });
+  assert.equal(duranlar.length, 1);
+  assert.equal(duranlar[0].id, 'eskiSeri');
+  assert.equal(duranlar[0].durum, 'durmus');
+  assert.deepEqual(uyarilar, ['eskiSeri']);
+
+  const metinler = durmusUyarilari(veri, { bugun });
+  assert.equal(metinler.length, 1);
+  assert.equal(metinler[0].id, 'eskiSeri');
+  assert.match(metinler[0].mesaj, /durmuş/);
 });

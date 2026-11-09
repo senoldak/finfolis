@@ -23,7 +23,10 @@ export function portfoyAdayi(bolum, simdi = new Date()) {
   const son = s.at(-1);
   if (!son) return null;
   const yayin = new Date(`${son.tarih}T14:30:00+03:00`).getTime() + YAYIN_GUN * GUN_MS;
-  if (simdi.getTime() < yayin || simdi.getTime() > yayin + TAZE_GUN * GUN_MS) return null;
+  const kayitli = bolum?.alinma ?? bolum?.tarih;
+  const alinma = kayitli ? new Date(kayitli).getTime() : null;
+  const dayanak = alinma && !Number.isNaN(alinma) && alinma > yayin ? alinma : yayin;
+  if (simdi.getTime() < dayanak || simdi.getTime() > dayanak + TAZE_GUN * GUN_MS) return null;
   const yil = son.tarih.slice(0, 4);
   const yilSatirlari = s.filter((x) => x.tarih.startsWith(yil));
   const toplam = (alan) => yilSatirlari.reduce((t, x) => t + x[alan], 0);
@@ -39,11 +42,12 @@ export function portfoyAdayi(bolum, simdi = new Date()) {
   return {
     id: `portfoy:${son.tarih}`,
     baslik: `Yabancılar ${gunAdi(son.tarih)} haftasında ${trSayi(Math.abs(son.hisse).toFixed(1))} milyon dolarlık net hisse ${yon}`,
-    tarih: new Date(yayin),
+    tarih: new Date(dayanak),
     onem: 65,
     kategori: 'ekonomi',
     bolge: 'turkiye',
     ucretli: false,
+    veriSayfasi: '/veri/yabanci-portfoy-akimlari/',
     kaynakMetni,
     kaynaklar: [KAYNAK],
   };

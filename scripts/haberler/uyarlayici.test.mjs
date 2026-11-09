@@ -666,3 +666,14 @@ test('kapı: ayar hatası turu durdurur (sonuçlarla fırlatılır, deneme sayı
   assert.equal(k.durum.gorulen.a1, undefined);
   assert.equal(k.u.ozet.konfigHatasi, true);
 });
+
+test('adayYuku ve adayiKur: veriSayfasi alanını taşır', () => {
+  const o = aday('portfoy:2026-10-16', 'Yabancı portföy', 65, {
+    _kaynak: 'A',
+    veriSayfasi: '/veri/yabanci-portfoy-akimlari/',
+  });
+  const yuk = adayYuku(o);
+  assert.equal(yuk.veriSayfasi, '/veri/yabanci-portfoy-akimlari/');
+  const kurulan = adayiKur(yuk, [{ ad: 'A' }]);
+  assert.equal(kurulan.veriSayfasi, '/veri/yabanci-portfoy-akimlari/');
+});

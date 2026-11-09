@@ -118,8 +118,20 @@ export default defineConfig({
   // Rasathane ana sayfası yok: giriş doğrudan emtia ekranına.
   redirects: {
     '/rasathane': '/rasathane/emtia/',
-    '/rasathane/viop': '/rasathane/viop/vadeli/',
-    '/rasathane/varant': '/rasathane/viop/varant/',
+    '/rasathane/viop/vadeli': '/rasathane/viop/',
+    '/rasathane/viop/varant': '/rasathane/viop/',
+    '/rasathane/viop/on-vade': '/rasathane/viop/',
+    '/rasathane/viop/takvim': '/rasathane/viop/',
+    '/rasathane/varant': '/rasathane/viop/',
+    '/rasathane/opsi': '/rasathane/viop/',
+    '/rasathane/grafix': '/rasathane/emtia/',
+    '/rasathane/fx/pano': '/rasathane/fx/',
+    '/rasathane/fx/fed': '/rasathane/fx/',
+    '/rasathane/fx/politika': '/rasathane/fx/',
+    '/rasathane/fx/risk': '/rasathane/fx/',
+    '/rasathane/fx/fonlar': '/rasathane/fx/',
+    '/rasathane/inseeder/islemler': '/rasathane/inseeder/',
+    '/rasathane/biof/takvim': '/rasathane/biof/',
   },
   site: 'https://finfolis.com',
   integrations: [

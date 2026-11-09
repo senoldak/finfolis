@@ -8,8 +8,8 @@ import { join } from 'node:path';
 
 export function getStaticPaths() {
   const KOK = join(process.cwd(), 'public/rasathane/veri');
-  // Emtia, grafix ve capital kendi sayfalarında yaşar; alt sayfaları buradan üretilmez.
-  const ozelBolumler = new Set(['emtia', 'grafix', 'capital']);
+  // Tüm bölümler özel konsolide pano sayfalarında yaşar; alt sayfaları buradan üretilmez.
+  const ozelBolumler = new Set(['emtia', 'capital', 'grafix', 'viop', 'varant', 'fx', 'inseeder', 'biof', 'opsi']);
   return sayfalariOku(KOK).filter((s) => !ozelBolumler.has(s.bolum)).map(({ bolum, sayfa, veri, eski }) => ({
     params: { bolum, sayfa },
     props: { veri, eski },

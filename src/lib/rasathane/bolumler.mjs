@@ -9,3 +9,13 @@ export const BOLUMLER = [
   { anahtar: 'biof', ad: 'Biyoteknoloji Takvimi' },
   { anahtar: 'grafix', ad: 'Teknik Tarama' },
 ];
+
+export const MENU_BOLUMLER = [
+  { anahtar: 'emtia', ad: 'Emtia' },
+  { anahtar: 'fx', ad: 'Kur' },
+  { anahtar: 'viop', ad: 'VİOP' },
+  { anahtar: 'inseeder', ad: 'Yönetici Alımları' },
+  { anahtar: 'capital', ad: 'Kongre İşlemleri' },
+  { anahtar: 'biof', ad: 'Biyoteknoloji' },
+];
+

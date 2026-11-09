@@ -10,6 +10,7 @@ test('perşembe 14:30 yayından sonraki iki gün içinde son hafta aday olur', (
   assert.equal(a.id, 'portfoy:2026-10-16');
   assert.equal(a.baslik, 'Yabancılar 16 Ekim haftasında 88,8 milyon dolarlık net hisse sattı');
   assert.equal(a.kategori, 'ekonomi');
+  assert.equal(a.veriSayfasi, '/veri/yabanci-portfoy-akimlari/');
   assert.match(a.kaynakMetni, /equities -88,8 million USD/);
   // Yılbaşından: 2026 haftaları (100 − 248,2 − 88,75), 2025'in son haftası sayılmaz.
   assert.match(a.kaynakMetni, /Since the start of 2026 \(3 weeks.*equities -236,9 million USD/);
@@ -20,4 +21,22 @@ test('yayından önce ve iki günden sonra aday yok', () => {
   assert.equal(portfoyAdayi(bolum, new Date('2026-10-22T11:00:00Z')), null);
   assert.equal(portfoyAdayi(bolum, new Date('2026-10-24T12:00:00Z')), null);
   assert.equal(portfoyAdayi({ satirlar: [] }, new Date('2026-10-22T12:00:00Z')), null);
+});
+
+test('resmi tatil gecikmesi: alinma tarihi yayından sonraysa pencere alinma tarihine dayanır', () => {
+  const gecikenBolum = { ...bolum, alinma: '2026-10-23T11:30:00Z' };
+  // Gecikmeli yayından önce (perşembe günü) henüz veri gelmediği için aday üretilmez
+  assert.equal(portfoyAdayi(gecikenBolum, new Date('2026-10-22T12:00:00Z')), null);
+  const a = portfoyAdayi(gecikenBolum, new Date('2026-10-24T12:00:00Z'));
+  assert.ok(a);
+  assert.equal(a.id, 'portfoy:2026-10-16');
+  assert.equal(a.veriSayfasi, '/veri/yabanci-portfoy-akimlari/');
+  assert.equal(a.tarih.toISOString(), '2026-10-23T11:30:00.000Z');
+  assert.equal(portfoyAdayi(gecikenBolum, new Date('2026-10-25T12:00:00Z')), null);
+
+  // bolum.tarih alanı da dayanak olarak geçerlidir
+  const tarihliBolum = { ...bolum, tarih: '2026-10-23T11:30:00Z' };
+  const aTarihli = portfoyAdayi(tarihliBolum, new Date('2026-10-24T12:00:00Z'));
+  assert.ok(aTarihli);
+  assert.equal(aTarihli.tarih.toISOString(), '2026-10-23T11:30:00.000Z');
 });
