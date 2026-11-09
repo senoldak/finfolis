@@ -161,3 +161,22 @@ test('şirket+olay: milliyet ve genel sıfatla başlayan farklı şirketlerin bi
   const ayni = olay('m', aday('Indian Hotels shares fall after Q2 results', 'Indian Hotels reported quarterly earnings.'));
   assert.equal(tekrarBul(ayni, [kayit('hotels', eski, 5)], simdi)?.slug, 'hotels');
 });
+test('tohum kaydı: standart başlık eşleşmesi ve cümle başı şirket adı tohumda da tekrar sayılır', () => {
+  const tohumKayit = {
+    slug: 'easyjet-genel-merkez',
+    tohum: true,
+    kaynaklar: [{
+      baslik: 'EasyJet genel merkezinde işten çıkarma planlıyor',
+      ozet: 'EasyJet, 5,7 milyar sterlinlik devralma süreci öncesinde 50 pozisyonu azaltmayı planlıyor.',
+    }],
+    zaman: new Date(simdi.getTime() - 2 * 3600 * 1000).toISOString(),
+  };
+
+  // 1. Aynı başlıkla gelen aday (Türkçe veya eşleşen)
+  const adayAyniBaslik = olay('e1', aday('EasyJet genel merkezinde işten çıkarma planlıyor', 'Luton merkezli hava yolu 50 pozisyonu kapatıyor.'));
+  assert.equal(tekrarBul(adayAyniBaslik, [tohumKayit], simdi)?.slug, 'easyjet-genel-merkez');
+
+  // 2. İngilizce kaynak adayı (ortak şirket EasyJet + birimli rakam 5.7 billion)
+  const adayIngilizce = olay('e2', aday('EasyJet to cut 50 head office roles ahead of Apollo takeover', 'EasyJet is in talks over 50 jobs ahead of £5.7 billion takeover.'));
+  assert.equal(tekrarBul(adayIngilizce, [tohumKayit], simdi)?.slug, 'easyjet-genel-merkez');
+});

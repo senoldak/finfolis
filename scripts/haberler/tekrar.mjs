@@ -158,10 +158,6 @@ export function iz({ baslik = '', ozet = '' }) {
 //  (d) yalnızca dil ayrıysa (Türkçe tohum kaydı, bkz. hafizaTohumla): kelimeler karşılaştırılamaz; ortak ad +
 //      ortak birimli rakam (milyar, milyon, yüzde) yeter. Daha gevşek olduğundan yalnızca tohum kayıtlarında kullanılır.
 export function ayniOlay(x, y, { dilAyri = false } = {}) {
-  if (dilAyri) {
-    const birimli = [...x.rakamlar].filter((r) => r.includes(' ') && y.rakamlar.has(r)).length;
-    return ortak(x.adlar, y.adlar) >= 1 && birimli >= 1 ? 'ad+rakam (tohum)' : null;
-  }
   const rakamCelisir = x.baslikRakam.size && y.baslikRakam.size && !ortak(x.baslikRakam, y.baslikRakam);
   if (x.ilk === y.ilk && !rakamCelisir && ortak(x.baslik, y.baslik) >= 3 && jaccard(x.baslik, y.baslik) >= 0.6) return 'başlık';
   const ortakAdlar = [...x.adlar].filter((a) => y.adlar.has(a));
@@ -174,6 +170,12 @@ export function ayniOlay(x, y, { dilAyri = false } = {}) {
   const baslikDisi = ortaklik(suz(x.baslik), suz(y.baslik));
   if (ad >= 1 && ortak(x.rakamlar, y.rakamlar) >= 1 && metin >= 0.3 && baslikDisi >= 0.2) return 'ad+rakam';
   if (ad >= 2 && metin >= 0.3 && ortaklik(x.baslik, y.baslik) >= 0.25) return 'adlar';
+
+  if (dilAyri) {
+    const birimli = [...x.rakamlar].filter((r) => r.includes(' ') && y.rakamlar.has(r)).length;
+    const ortakSirket = ortak(x.sirketler, y.sirketler);
+    return (ad >= 1 || ortakSirket >= 1) && birimli >= 1 ? 'ad+rakam (tohum)' : null;
+  }
   return null;
 }
 
