@@ -1,6 +1,58 @@
 {
   "revizyonlar": [
     {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2021-05",
+      "eski": 42.6648,
+      "yeni": 42.6515,
+      "fark": -0.0132,
+      "tespit": "2026-11-09T07:59:54.299Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2022-07",
+      "eski": 1.8235,
+      "yeni": 1.8057,
+      "fark": -0.0178,
+      "tespit": "2026-11-09T07:59:54.299Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2023-07",
+      "eski": 8.2579,
+      "yeni": 8.2721,
+      "fark": 0.0142,
+      "tespit": "2026-11-09T07:59:54.299Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2026-07",
+      "eski": -0.3234,
+      "yeni": -0.2289,
+      "fark": 0.0945,
+      "tespit": "2026-11-09T07:59:54.299Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
       "bolum": "tufeArindirilmis",
       "alan": "aylik",
       "donem": "2023-01",
