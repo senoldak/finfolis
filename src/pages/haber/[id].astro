@@ -248,6 +248,16 @@ const jsonLd = {
       {tablo && <Tablo tablo={tablo} kaynak={kaynaklar[0]} tarih={date} />}
       {!tablo && grafik && <Grafik grafik={grafik} kaynak={kaynaklar[0]} tarih={date} />}
 
+      {haber.data.veriSayfasi && (
+        <aside class="veri-kopru-karti" aria-label="Canlı Veri ve Analiz">
+          <div class="veri-kopru-govde">
+            <span class="veri-kopru-rozet">Canlı Veri & Analiz</span>
+            <p class="veri-kopru-metin">Bu konudaki güncel zaman serisini ve geçmiş verileri inceleyin.</p>
+          </div>
+          <a href={haber.data.veriSayfasi} class="veri-kopru-link">Veri Sayfasına Git →</a>
+        </aside>
+      )}
+
       <RakamSeridi sirada={sirada} />
 
       {il && <YerHaritasi yer={il.ad} />}

@@ -150,6 +150,7 @@ export async function yaziYaz(rot, yazi) {
   if (yazi.tablo) fm.push(`tablo: ${JSON.stringify(yazi.tablo)}`);
   if (yazi.grafik) fm.push(`grafik: ${JSON.stringify(yazi.grafik)}`);
   if (yazi.why_matters) fm.push(`why_matters: ${y(yazi.why_matters)}`);
+  if (yazi.veriSayfasi) fm.push(`veriSayfasi: ${y(yazi.veriSayfasi)}`);
   if (yazi.key_points?.length) {
     fm.push('key_points:');
     for (const p of yazi.key_points) fm.push(`  - ${y(p)}`);

@@ -74,6 +74,7 @@ const haberler = defineCollection({
         .optional(),
       why_matters: z.string().optional(),
       key_points: z.array(z.string()).optional(),
+      veriSayfasi: z.string().optional(),
     }),
 });
 
