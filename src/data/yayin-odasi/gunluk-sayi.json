@@ -1,5 +1,5 @@
 {
- "guncellendi": "2026-11-09T15:41:14.808Z",
+ "guncellendi": "2026-11-09T17:41:07.269Z",
  "gunler": {
   "2026-11-02": {
    "tur": 4,
@@ -116,22 +116,22 @@
    "bekleyen": 89
   },
   "2026-11-09": {
-   "tur": 8,
-   "gorulen": 1217,
-   "degerlendirilen": 692,
+   "tur": 9,
+   "gorulen": 1350,
+   "degerlendirilen": 723,
    "elenen": {
     "bilinen-olay": 19,
-    "tekrar": 72,
+    "tekrar": 87,
     "standart:kurum-degerlendirme": 1,
-    "kontrol-masasi": 3,
-    "standart:yatirim-tavsiyesi": 4,
+    "kontrol-masasi": 4,
+    "standart:yatirim-tavsiyesi": 5,
     "yazilamadi": 1,
     "standart:turkiye-devlet": 1
    },
-   "yazilan": 41,
-   "yayimlanan": 38,
+   "yazilan": 54,
+   "yayimlanan": 51,
    "bulten": 3,
-   "bekleyen": 100
+   "bekleyen": 118
   }
  }
 }
