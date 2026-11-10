@@ -11,7 +11,11 @@ import { KAPAK_DONUSUM } from '../lib/gorsel.mjs';
 
 const news = await getNews({ tur: 'haber', indeksli: true });
 const bulten = (await getNews({ tur: 'bulten', indeksli: true }))[0];
-const breaking = news.filter((h) => h.data.breaking).slice(0, 5);
+// Son dakika yalnız 24 saat görünür; bayrak haberde kalsa da şerit kendiliğinden boşalır.
+const SON_DAKIKA_MS = 24 * 60 * 60 * 1000;
+const breaking = news
+  .filter((h) => h.data.breaking && Date.now() - new Date(h.data.date).getTime() < SON_DAKIKA_MS)
+  .slice(0, 5);
 const hero = news.find((h) => h.data.featured) ?? news[0];
 const rest = news.filter((h) => h !== hero);
 const side = rest.slice(0, 4);
