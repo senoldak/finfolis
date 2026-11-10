@@ -4,6 +4,84 @@
       "bolum": "sanayi",
       "alan": "yillik",
       "donem": "2021-05",
+      "eski": 42.6515,
+      "yeni": 42.6648,
+      "fark": 0.0132,
+      "tespit": "2026-11-10T08:00:23.275Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2023-06",
+      "eski": 0.8707,
+      "yeni": 0.8807,
+      "fark": 0.0101,
+      "tespit": "2026-11-10T08:00:23.275Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2024-03",
+      "eski": 4.3401,
+      "yeni": 4.3514,
+      "fark": 0.0113,
+      "tespit": "2026-11-10T08:00:23.275Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2026-05",
+      "eski": -0.0958,
+      "yeni": -0.081,
+      "fark": 0.0148,
+      "tespit": "2026-11-10T08:00:23.275Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2026-06",
+      "eski": -1.2746,
+      "yeni": -1.2962,
+      "fark": -0.0216,
+      "tespit": "2026-11-10T08:00:23.275Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2026-08",
+      "eski": -1.8618,
+      "yeni": -1.7493,
+      "fark": 0.1124,
+      "tespit": "2026-11-10T08:00:23.275Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2021-05",
       "eski": 42.6648,
       "yeni": 42.6515,
       "fark": -0.0132,
