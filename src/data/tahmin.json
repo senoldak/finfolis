@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-10T08:01:53.359Z",
+  "guncelleme": "2026-11-11T07:57:29.994Z",
   "kapiP": 0.1,
   "modeller": {
     "tufe": {
@@ -545,31 +545,31 @@
           "n": 117,
           "ilk": "2017-01",
           "son": "2026-09",
-          "model": 6.328,
+          "model": 6.3292,
           "bazlar": {
-            "ar1": 7.2702,
-            "gecenAy": 7.6085
+            "ar1": 7.2712,
+            "gecenAy": 7.6096
           },
-          "kapsama80": 0.7692,
+          "kapsama80": 0.7607,
           "kapsama95": 0.9402
         },
         "son": {
           "n": 24,
           "ilk": "2024-10",
           "son": "2026-09",
-          "model": 3.6981,
+          "model": 3.7056,
           "bazlar": {
-            "ar1": 3.2637,
-            "gecenAy": 3.6713
+            "ar1": 3.2705,
+            "gecenAy": 3.679
           },
-          "kapsama80": 0.9583,
+          "kapsama80": 0.9167,
           "kapsama95": 1
         },
         "enIyiBaz": "ar1",
         "dm": {
           "ar1": {
             "n": 117,
-            "istatistik": 0.9267,
+            "istatistik": 0.9266,
             "p": 0.1771
           },
           "gecenAy": {
@@ -1571,9 +1571,9 @@
       },
       "bilgi": {
         "ay": "2026-11",
-        "bultenGunu": 7,
+        "bultenGunu": 8,
         "ilkGun": "2026-11-02",
-        "sonGun": "2026-11-10",
+        "sonGun": "2026-11-11",
         "urun": {
           "toplam": 80,
           "meyve": 25,

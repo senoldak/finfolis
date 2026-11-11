@@ -3,6 +3,84 @@
     {
       "bolum": "sanayi",
       "alan": "yillik",
+      "donem": "2023-03",
+      "eski": 0.357,
+      "yeni": 0.3678,
+      "fark": 0.0108,
+      "tespit": "2026-11-11T07:56:02.378Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2024-03",
+      "eski": 4.3514,
+      "yeni": 4.3401,
+      "fark": -0.0113,
+      "tespit": "2026-11-11T07:56:02.378Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2024-06",
+      "eski": -5.0151,
+      "yeni": -5.0335,
+      "fark": -0.0183,
+      "tespit": "2026-11-11T07:56:02.378Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2025-04",
+      "eski": 2.9405,
+      "yeni": 2.9529,
+      "fark": 0.0124,
+      "tespit": "2026-11-11T07:56:02.378Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2026-06",
+      "eski": -1.2962,
+      "yeni": -1.2746,
+      "fark": 0.0216,
+      "tespit": "2026-11-11T07:56:02.378Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
+      "donem": "2026-08",
+      "eski": -1.7493,
+      "yeni": -1.8618,
+      "fark": -0.1124,
+      "tespit": "2026-11-11T07:56:02.378Z",
+      "kaynak": {
+        "ad": "TÜİK verisi, sanayi üretim endeksi, 2021=100 (TCMB EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "sanayi",
+      "alan": "yillik",
       "donem": "2021-05",
       "eski": 42.6515,
       "yeni": 42.6648,
