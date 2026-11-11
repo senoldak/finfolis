@@ -1,5 +1,5 @@
 {
- "guncellendi": "2026-11-11T19:41:15.148Z",
+ "guncellendi": "2026-11-11T21:41:19.135Z",
  "gunler": {
   "2026-11-02": {
    "tur": 4,
@@ -168,6 +168,20 @@
    "yayimlanan": 45,
    "bulten": 3,
    "bekleyen": 91
+  },
+  "2026-11-12": {
+   "tur": 1,
+   "gorulen": 129,
+   "degerlendirilen": 13,
+   "elenen": {
+    "bilinen-olay": 2,
+    "tekrar": 7,
+    "kontrol-masasi": 1
+   },
+   "yazilan": 3,
+   "yayimlanan": 3,
+   "bulten": 0,
+   "bekleyen": 9
   }
  }
 }
