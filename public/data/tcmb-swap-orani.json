@@ -1,7 +1,7 @@
 {
-  "guncellenme": "2026-11-12T09:57:01.827Z",
+  "guncellenme": "2026-11-12T12:00:03.931Z",
   "kaynak": "TCMB EVDS - Uluslararası Rezervler ve Döviz Likiditesi Tablosu",
-  "kayit_sayisi": 65,
+  "kayit_sayisi": 66,
   "seri": [
     {
       "tarih": "2021-5",
@@ -652,6 +652,16 @@
       "swap_stoku_milyar_usd": 20.15,
       "swap_payi_toplam_yuzde": 12.1,
       "swap_payi_doviz_yuzde": 39.3
+    },
+    {
+      "tarih": "2026-10",
+      "etiket": "Ekim 26",
+      "toplam_rezerv_milyar_usd": 158.11,
+      "doviz_rezervi_milyar_usd": 48.47,
+      "altin_rezervi_milyar_usd": 102.02,
+      "swap_stoku_milyar_usd": 16.55,
+      "swap_payi_toplam_yuzde": 10.5,
+      "swap_payi_doviz_yuzde": 34.2
     }
   ]
 }
