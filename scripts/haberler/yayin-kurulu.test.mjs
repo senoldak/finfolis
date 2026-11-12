@@ -3,7 +3,10 @@ import assert from 'node:assert/strict';
 import { yayinKurulu } from './yayin-kurulu.mjs';
 
 const aday = { id: 'x', baslik: 'Fed', kaynakMetni: 'The Federal Reserve kept the target range at 4.25 percent to 4.5 percent.', kaynaklar: [] };
-const iyi = { baslik: 'Fed faizi sabit tuttu', spot: 'Fed, hedef aralığı yüzde 4,25-4,5 olarak korudu.', govde: 'Fed’e göre aralık yüzde 4,25 ile 4,5 arasında kaldı.\n\n## Neden önemli?\n\nKredi maliyetlerini etkiler.' };
+const iyi = { baslik: 'Fed faizi sabit tuttu', spot: 'Fed, hedef aralığı yüzde 4,25-4,5 olarak korudu.', govde: "Fed'e göre aralık yüzde 4,25 ile 4,5 arasında kaldı.\n\n## Neden önemli?\n\nKredi maliyetlerini etkiler.." };
+// Dil kapısı tekrar eden cümleyi yakalar; çoğaltılan fixture cümleleri farklı sözcükle başlar.
+const ADLAR = ['Alfa', 'Beta', 'Gama', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Teta', 'Iota', 'Kappa', 'Lambda', 'Mu', 'Nu', 'Ksi', 'Omikron', 'Pi', 'Ro', 'Sigma', 'Tau', 'Upsilon', 'Fi', 'Ki', 'Psi', 'Omega', 'Birinci', 'İkinci', 'Üçüncü', 'Dördüncü', 'Beşinci', 'Altıncı', 'Yedinci', 'Sekizinci'];
+const cogalt = (cumle, n, ofs = 0) => Array.from({ length: n }, (_, i) => `${ADLAR[i + ofs]}: ${cumle.trim()}`).join(' ');
 const kotu = { ...iyi, govde: iyi.govde + '\n\nEnflasyon yüzde 7,9 oldu.' };
 
 // Şema türüne göre yanıt veren sahte Gemini
@@ -20,8 +23,8 @@ function sahte({ duzelt }) {
 
 test('uydurma rakam düzeltilir ve geçer', async () => {
   const { gemini } = sahte({ duzelt: () => iyi });
-  const r = await yayinKurulu(kotu, aday, { enAzKelime: 0, gemini });
-  assert.deepEqual(r, { yazi: iyi });
+  const r = await yayinKurulu(kotu, aday, { enAzKelime: 0, gemini, log: () => {} });
+  assert.deepEqual(r.yazi, iyi);
 });
 
 test('2 turdan sonra hâlâ yanlışsa dur', async () => {
@@ -42,28 +45,13 @@ test('Gemini yoksa dur', async () => {
   assert.ok(r.dur);
 });
 
-// Redaksiyon artık kontrol masası çağrısının (şemada duzeltilmis olan) çıktısıdır; ikinci kontrol düzenlemesizdir.
+// Dil redaksiyonu ayrı çağrıdır (yazı şemalı: baslik/spot/govde); olgu denetimi onay şemalıdır.
 function redStub(redCikti, masa = () => ({ onay: true, sorunlar: [] })) {
   return async ({ sema, istem }) => {
-    if (sema.properties.onay) {
-      const r = masa(istem);
-      return sema.properties.duzeltilmis && redCikti && r.onay ? { ...r, duzeltilmis: redCikti } : r;
-    }
-    return iyi;
+    if (sema.properties.onay) return masa(istem);
+    return redCikti ?? iyi;
   };
 }
-
-test('redaksiyon uydurma rakam eklerse önceki metin yayınlanır', async () => {
-  const r = await yayinKurulu(iyi, aday, { enAzKelime: 0, gemini: redStub({ ...iyi, spot: iyi.spot + ' Oran 9,9 oldu.' }) });
-  assert.deepEqual(r, { yazi: iyi });
-});
-
-test('redaksiyon nedensellik ekler, masa reddederse önceki metin yayınlanır', async () => {
-  const ekli = { ...iyi, govde: iyi.govde + ' Bu yüzden borsa yükseldi.' };
-  const masa = (istem) => (istem.includes('Bu yüzden') ? { onay: false, sorunlar: ['Kaynaksız neden-sonuç'] } : { onay: true, sorunlar: [] });
-  const r = await yayinKurulu(iyi, aday, { enAzKelime: 0, gemini: redStub(ekli, masa) });
-  assert.deepEqual(r, { yazi: iyi });
-});
 
 test('masa önce reddeder, bir düzeltmeden sonra onaylar', async () => {
   let n = 0;
@@ -174,13 +162,13 @@ test('yayinKurulu: göreli zaman yerelde düzelir, Gemini düzeltme çağrılmaz
 });
 
 // En az uzunluk: kısa taslak bir kez kaynaktan genişletilir; yine kısaysa durur.
-const uzunGovde = Array.from({ length: 6 }, () => 'Fed’e göre aralık yüzde 4,25 ile 4,5 arasında kaldı ve kurul kararını oy birliğiyle verdi, toplantı tutanağı da üç hafta sonra yayımlanacak.').join(' ')
-  .concat(' ', 'Kurul enflasyonun hedefin üzerinde kaldığını, istihdamın ise güçlü seyrettiğini belirtti. '.repeat(8));
+const uzunGovde = cogalt("Fed'e göre aralık yüzde 4,25 ile 4,5 arasında kaldı ve kurul kararını oy birliğiyle verdi, toplantı tutanağı da üç hafta sonra yayımlanacak.", 6)
+  .concat(' ', cogalt('Kurul enflasyonun hedefin üzerinde kaldığını, istihdamın ise güçlü seyrettiğini belirtti.', 8, 10));
 
 // 150-199 kelimelik taslak (Katman 2: uzatma yalnız bu aralıkta denenir).
 const ortaGovde = `${iyi.govde}
 
-${'Kurul kararını açıkladı ve piyasalar bunu bekliyordu. '.repeat(22)}`.trim();
+${cogalt('Kurul kararını açıkladı ve piyasalar bunu bekliyordu.', 22)}`.trim();
 
 test('150-199 kelimelik taslak genişletilir; genişletme yeterliyse yayınlanır', async () => {
   const istemler = [];
@@ -228,7 +216,7 @@ test('kontrol masası denetim çağrısı olarak gider', async () => {
 test('yayinKurulu: kısa derleme eşik altında da derleme uzatmasıyla genişler, ara başlıklar korunur', async () => {
   const derlemeAday = { ...aday, haberler: [{ baslik: 'Fed', kategori: 'Ekonomi', kaynakMetni: aday.kaynakMetni }] };
   const kisa = { ...iyi, govde: '## Ekonomi\n\nFed aralığı korudu.' };
-  const uzun = { ...iyi, govde: '## Ekonomi\n\n' +'Fed aralığı yüzde 4,25 ile 4,5 arasında korudu. '.repeat(30) };
+  const uzun = { ...iyi, govde: '## Ekonomi\n\n' +cogalt('Fed aralığı yüzde 4,25 ile 4,5 arasında korudu.', 30) };
   const istemler = [];
   const gemini = async ({ sema, istem }) => {
     istemler.push(istem);
@@ -250,7 +238,7 @@ test('derlemeEnAz: haber başına 20 kelime, 150 ile EN_AZ_KELIME arası', async
 
 test('yayinKurulu: 8 haberlik derleme 168 kelimeyle yayımlanır (tek haberin 200 sınırı uygulanmaz)', async () => {
   const haberler = Array.from({ length: 8 }, (_, i) => ({ baslik: `Haber ${i}`, kategori: 'Ekonomi', kaynakMetni: aday.kaynakMetni }));
-  const govde = '## Ekonomi\n\n' + 'Fed aralığı yüzde 4,25 ile 4,5 arasında korudu ve kararını açıkladı. '.repeat(16);
+  const govde = '## Ekonomi\n\n' + cogalt('Fed aralığı yüzde 4,25 ile 4,5 arasında korudu ve kararını açıkladı.', 16);
   const r = await yayinKurulu({ ...iyi, govde }, { ...aday, haberler }, { gemini: async ({ sema }) => (sema.properties.onay ? { onay: true, sorunlar: [] } : null) });
   assert.ok(r.yazi, r.dur);
 });
@@ -283,50 +271,154 @@ test('kontrol masası yayın kuruluşu adını why_matters, key_points ve tablod
   }
 });
 
-// Katman 2.4: redaksiyon kontrol masası çağrısına katıldı.
-test('birleşik redaksiyon: ilk çağrı duzeltilmis ister, düzenlenmiş metin bir kez daha denetlenir (2 çağrı, ayrı redaksiyon yok)', async () => {
-  const duzenli = { ...iyi, spot: 'Fed, hedef aralığı yüzde 4,25-4,5 düzeyinde korudu.' };
+// ── Dil redaksiyonu (ayrı çağrı) ve dil kapısı ──────────────────────────────
+const sessiz = () => {};
+// Dil kusurlu ama olgusu doğru taslak: "oranında" dolgusu ve Duvar Sokağı çevirisi.
+const ham = { ...iyi, govde: "Duvar Sokağı analistlerine göre Fed, aralığı yüzde 4,25 oranında korudu ve ikinci bir değişiklik yapmadı.\n\nFed'e göre aralık yüzde 4,25 ile 4,5 arasında kaldı.\n\nKredi maliyetlerini etkiler." };
+const duzgun = { ...iyi, govde: "Wall Street analistlerine göre Fed, aralığı yüzde 4,25 düzeyinde korudu ve ikinci bir değişiklik yapmadı.\n\nFed'e göre aralık yüzde 4,25 ile 4,5 arasında kaldı.\n\nKredi maliyetlerini etkiler." };
+
+// Olgu denetimi (onay şemalı) hep onaylar; redaksiyon çağrıları (baslik şemalı) sırayla cevaplardan yanıt alır.
+function dilStub(cevaplar) {
   const cagrilar = [];
+  let n = 0;
   const gemini = async (x) => {
     cagrilar.push(x);
-    if (x.sema.properties.duzeltilmis) return { onay: true, sorunlar: [], duzeltilmis: duzenli };
-    return { onay: true, sorunlar: [] };
+    if (x.sema.properties.onay) return { onay: true, sorunlar: [] };
+    const c = cevaplar[Math.min(n++, cevaplar.length - 1)];
+    return typeof c === 'function' ? c(x) : c;
   };
-  const r = await yayinKurulu(iyi, aday, { enAzKelime: 0, gemini });
-  assert.deepEqual(r, { yazi: duzenli });
-  assert.equal(cagrilar.length, 2);
-  assert.equal(cagrilar[0].denetim, true);
-  assert.match(cagrilar[0].istem, /TDK yazım kuralları/);
-  assert.ok(!cagrilar[1].sema.properties.duzeltilmis);
-  assert.ok(!cagrilar.some((c) => c.sema.properties.baslik)); // ayrı redaksiyon (yazı şemalı) çağrısı yok
+  return { gemini, cagrilar, redCagrilari: () => cagrilar.filter((c) => c.sema.properties.baslik) };
+}
+
+test('dil redaksiyonu: olgu denetiminden sonra ayrı çağrıyla gider (medium düşünme, sıcaklık 0,2, denetim değil, kaynak ve sorun listesi istemde)', async () => {
+  const { gemini, cagrilar, redCagrilari } = dilStub([duzgun]);
+  const r = await yayinKurulu(ham, aday, { enAzKelime: 0, gemini, log: sessiz });
+  assert.deepEqual(r, { yazi: duzgun });
+  assert.equal(cagrilar.length, 2); // 1 olgu denetimi + 1 redaksiyon; ikinci kontrol masası yok
+  assert.ok(cagrilar[0].sema.properties.onay);
+  const red = redCagrilari();
+  assert.equal(red.length, 1);
+  assert.notEqual(red[0].denetim, true);
+  assert.equal(red[0].dusunme, 'medium');
+  assert.equal(red[0].sicaklik, 0.2);
+  assert.match(red[0].sistem, /kıdemli redaktör/);
+  assert.match(red[0].istem, /Federal Reserve kept/); // kaynak
+  assert.match(red[0].istem, /yanlış çeviri/); // sorun listesi
+  assert.ok(!red[0].istem.includes('SORUNLAR')); // yazar düzeltme çağrısıyla karışmaz
 });
 
-test('birleşik redaksiyon: düzenleme yoksa ya da aynıysa ikinci kontrol çağrılmaz (1 çağrı)', async () => {
-  for (const duzeltilmis of [undefined, { ...iyi }]) {
-    let n = 0;
-    const gemini = async () => (n++, { onay: true, sorunlar: [], ...(duzeltilmis ? { duzeltilmis } : {}) });
-    const r = await yayinKurulu(iyi, aday, { enAzKelime: 0, gemini });
-    assert.deepEqual(r, { yazi: iyi });
-    assert.equal(n, 1);
+test('dil redaksiyonu: uydurma rakam eklerse reddedilir, nedenle bir kez yeniden denenir, olmazsa önceki metin kalır ve log düşer', async () => {
+  const kotu2 = { ...iyi, spot: iyi.spot + ' Oran 9,9 oldu.' };
+  const { gemini, redCagrilari } = dilStub([kotu2]);
+  const loglar = [];
+  const r = await yayinKurulu(iyi, aday, { enAzKelime: 0, gemini, log: (m) => loglar.push(m) });
+  assert.deepEqual(r.yazi, iyi);
+  const red = redCagrilari();
+  assert.equal(red.length, 2); // ilk deneme + tek yeniden deneme
+  assert.ok(!red[0].istem.includes('reddedildi'));
+  assert.match(red[1].istem, /reddedildi/);
+  assert.match(red[1].istem, /9,9/);
+  assert.equal(r.dilNotlari.length, 1);
+  assert.match(r.dilNotlari[0], /^dil redaksiyonu atıldı: .*9,9/);
+  assert.ok(loglar.some((l) => l.includes('dil redaksiyonu atıldı')));
+});
+
+test('dil redaksiyonu: ilk deneme reddedilir, nedenle yapılan ikinci deneme kabul edilir', async () => {
+  const kotu2 = { ...duzgun, spot: duzgun.spot + ' Oran 9,9 oldu.' };
+  const { gemini, redCagrilari } = dilStub([kotu2, duzgun]);
+  const r = await yayinKurulu(ham, aday, { enAzKelime: 0, gemini, log: sessiz });
+  assert.deepEqual(r, { yazi: duzgun });
+  assert.equal(redCagrilari().length, 2);
+});
+
+test('dil redaksiyonu: gövde %90-115 dışına çıkarsa (kısaltma ya da şişirme) reddedilir', async () => {
+  const uzunHam = { ...iyi, govde: [iyi.govde, 'Kurul kararını oy birliğiyle verdi ve toplantı tutanağını açıkladı.', 'Piyasalar kararı bekliyordu ve işlemler sakin geçti.'].join('\n\n') };
+  const kisaltilmis = { ...uzunHam, govde: iyi.govde };
+  const sisirilmis = { ...uzunHam, govde: uzunHam.govde + '\n\nKurul toplantısı sırasında ek bir değişiklik gündeme gelmedi ve görüşmeler sakin geçti. Bütün üyeler aynı görüşte birleşti.' };
+  for (const cikti of [kisaltilmis, sisirilmis]) {
+    const { gemini } = dilStub([cikti]);
+    const r = await yayinKurulu(uzunHam, aday, { enAzKelime: 0, gemini, log: sessiz });
+    assert.equal(r.yazi.govde, uzunHam.govde);
+    assert.match(r.dilNotlari[0], /kelime/);
   }
 });
 
-test('birleşik redaksiyon: onay vermeyen çağrının duzeltilmis çıktısı kullanılmaz', async () => {
-  const r = await yayinKurulu(iyi, aday, {
-    enAzKelime: 0,
-    gemini: async ({ sema, istem }) => (sema.properties.onay ? { onay: false, sorunlar: ['x'], duzeltilmis: { ...iyi, spot: 'Başka spot.' } } : istem.includes('SORUNLAR') ? iyi : null),
-  });
-  assert.match(r.dur, /onaylamadı/);
+test('dil redaksiyonu: yanıt yok ya da bozuksa yeniden denenmez, metin kalır ve log düşer', async () => {
+  const { gemini, redCagrilari } = dilStub([null]);
+  const r = await yayinKurulu(iyi, aday, { enAzKelime: 0, gemini, log: sessiz });
+  assert.deepEqual(r.yazi, iyi);
+  assert.equal(redCagrilari().length, 1);
+  assert.match(r.dilNotlari[0], /dil redaksiyonu atıldı: yanıt yok/);
 });
 
-test('birleşik redaksiyon: düzenlenmiş metin en az uzunluğun altına düşerse onaylı metin kalır', async () => {
-  const uzun = { ...iyi, govde: uzunGovde };
-  const kisaltilmis = { ...iyi, govde: 'Fed’e göre aralık yüzde 4,25 ile 4,5 arasında kaldı.\n\n## Neden önemli?\n\nEtkiler.' };
-  let n = 0;
-  const gemini = async ({ sema }) => (n++, sema.properties.duzeltilmis ? { onay: true, sorunlar: [], duzeltilmis: kisaltilmis } : { onay: true, sorunlar: [] });
-  const r = await yayinKurulu(uzun, aday, { gemini });
-  assert.deepEqual(r, { yazi: uzun });
-  assert.equal(n, 1);
+test('dil redaksiyonu: özel adı küçültürse biçim kontrolü reddeder', async () => {
+  const buyuk = { ...iyi, baslik: 'Trex Bio faizi sabit tuttu', spot: 'Trex Bio, aralığı korudu.' };
+  const { gemini } = dilStub([{ ...buyuk, baslik: 'Trex bio faizi sabit tuttu' }]);
+  const r = await yayinKurulu(buyuk, aday, { enAzKelime: 0, gemini, log: sessiz });
+  assert.equal(r.yazi.baslik, 'Trex Bio faizi sabit tuttu');
+  assert.match(r.dilNotlari[0], /biçim/);
+});
+
+test('dil kapısı: redaksiyondan sonra kalan kesin sorun (Duvar Sokağı) haberi durdurur, sebep "dil:" ile başlar', async () => {
+  const { gemini, redCagrilari } = dilStub([ham]); // redaksiyon düzeltmez
+  const r = await yayinKurulu(ham, aday, { enAzKelime: 0, gemini, log: sessiz });
+  assert.match(r.dur, /^dil: /);
+  assert.match(r.dur, /Duvar Sokağı/);
+  assert.equal(r.yazi, undefined);
+  assert.ok(redCagrilari().length >= 2); // ilk redaksiyon + kapı turu
+});
+
+test('dil kapısı: yazıyla yazılmış sayı kalırsa haber durur', async () => {
+  const yazili = { ...iyi, govde: iyi.govde.replace('Kredi maliyetlerini etkiler.', 'Fed otuz dört milyon dolarlık bir fon açtı.') };
+  const { gemini } = dilStub([yazili]);
+  const r = await yayinKurulu(yazili, aday, { enAzKelime: 0, gemini, log: sessiz });
+  assert.match(r.dur, /^dil: .*yazıyla/);
+});
+
+test('dil kapısı: ilk redaksiyon atılırsa kapı turu yalnız kesin sorunlarla çalışır ve düzeltirse haber yayımlanır', async () => {
+  const { gemini, redCagrilari } = dilStub([null, duzgun]);
+  const r = await yayinKurulu(ham, aday, { enAzKelime: 0, gemini, log: sessiz });
+  assert.deepEqual(r.yazi, duzgun);
+  const red = redCagrilari();
+  assert.equal(red.length, 2);
+  assert.match(red[0].istem, /dolgu/); // ilk tur: kesin olmayan "oranında" da listede
+  assert.doesNotMatch(red[1].istem, /dolgu/); // kapı turu: yalnız kesin
+  assert.match(red[1].istem, /yanlış çeviri/);
+  assert.equal(r.dilNotlari.length, 1);
+});
+
+test('dilDuzeltTr son metne uygulanır: %, kıvrık kesme, İngilizce ondalık', async () => {
+  const kaynakli = { ...aday, kaynakMetni: 'The Federal Reserve kept the target range at 4.25 percent. It sold 3.5 billion dollars.' };
+  const taslak = { baslik: 'Fed faizi sabit tuttu', spot: 'Fed oranı %4,25 olarak korudu.', govde: 'Fed’in faiz kararı %4,25 düzeyinde kaldı ve kurul 3.5 milyar dolar sattı.\n\nKararın ardından piyasalar sakin kaldı.' };
+  const { gemini } = dilStub([null]); // redaksiyon çıktı vermese de yerel düzeltme uygulanır
+  const r = await yayinKurulu(taslak, kaynakli, { enAzKelime: 0, gemini, log: sessiz });
+  assert.ok(r.yazi, r.dur);
+  assert.equal(r.yazi.spot, 'Fed oranı yüzde 4,25 olarak korudu.');
+  assert.match(r.yazi.govde, /^Fed'in faiz kararı yüzde 4,25 düzeyinde kaldı ve kurul 3,5 milyar dolar sattı\./);
+});
+
+test('dilDuzeltTr redaksiyon çıktısına da uygulanır', async () => {
+  const kaynakli = { ...aday, kaynakMetni: 'The Federal Reserve kept the target range at 4.25 percent.' };
+  const taslak = { baslik: 'Fed faizi sabit tuttu', spot: 'Fed oranı korudu.', govde: 'Fed oranı yüzde 4,25 düzeyinde korudu.\n\nPiyasalar sakin kaldı.' };
+  const { gemini } = dilStub([{ ...taslak, govde: 'Fed oranı %4,25 düzeyinde korudu.\n\nPiyasalar sakin kaldı.' }]);
+  const r = await yayinKurulu(taslak, kaynakli, { enAzKelime: 0, gemini, log: sessiz });
+  assert.equal(r.yazi.govde, 'Fed oranı yüzde 4,25 düzeyinde korudu.\n\nPiyasalar sakin kaldı.');
+});
+
+test('derleme: temiz derlemede redaksiyon çağrısı yok; kesin sorun varsa kapı turu çalışır, ara başlıklar sorun sayılmaz', async () => {
+  const haberler = Array.from({ length: 8 }, (_, i) => ({ baslik: `Haber ${i}`, kategori: 'Ekonomi', kaynakMetni: aday.kaynakMetni }));
+  const govde = '## Ekonomi\n\n' + cogalt('Fed aralığı yüzde 4,25 ile 4,5 arasında korudu ve kararını açıkladı.', 16);
+  const temiz = dilStub([null]);
+  const r1 = await yayinKurulu({ ...iyi, govde }, { ...aday, haberler }, { gemini: temiz.gemini, log: sessiz });
+  assert.ok(r1.yazi, r1.dur);
+  assert.equal(temiz.redCagrilari().length, 0);
+
+  const kusurlu = { ...iyi, govde: govde.replace('Alfa: Fed', 'Alfa: Duvar Sokağı için Fed') };
+  const { gemini, redCagrilari } = dilStub([{ ...kusurlu, govde: kusurlu.govde.replace('Duvar Sokağı', 'Wall Street') }]);
+  const r2 = await yayinKurulu(kusurlu, { ...aday, haberler }, { gemini, log: sessiz });
+  assert.ok(r2.yazi, r2.dur);
+  assert.match(r2.yazi.govde, /Wall Street/);
+  assert.equal(redCagrilari().length, 1);
 });
 
 test('kontrolMasasi: duzenle olmadan şema duzeltilmis taşımaz ve sonuç düzenleme döndürmez', async () => {
@@ -339,8 +431,8 @@ test('kontrolMasasi: duzenle olmadan şema duzeltilmis taşımaz ve sonuç düze
 test('yayinKurulu: düzeltme derlemeyi alt sınırın altına indirirse derleme bir kez yeniden uzatılır', async () => {
   const haberler = Array.from({ length: 8 }, (_, i) => ({ baslik: `Haber ${i}`, kategori: 'Ekonomi', kaynakMetni: aday.kaynakMetni }));
   const cumle = 'Fed aralığı yüzde 4,25 ile 4,5 arasında korudu ve kararını açıkladı. ';
-  const uzun = { ...iyi, govde: '## Ekonomi\n\n' + cumle.repeat(18) };
-  const kisalmis = { ...iyi, govde: '## Ekonomi\n\n' + cumle.repeat(10) };
+  const uzun = { ...iyi, govde: '## Ekonomi\n\n' + cogalt(cumle, 18) };
+  const kisalmis = { ...iyi, govde: '## Ekonomi\n\n' + cogalt(cumle, 10) };
   let kontrol = 0;
   const istemler = [];
   const gemini = async ({ sema, istem }) => {

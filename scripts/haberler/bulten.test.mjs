@@ -180,3 +180,45 @@ test('dilimDolu / dilimKaydet: aynı dilimde ikinci bülten yok, hafıza sınır
   for (let i = 0; i < 20; i++) dilimKaydet(durum, new Date(t.getTime() + i * 6 * 3600e3));
   assert.equal(durum.bultenDilimleri.length, DILIM_HAFIZA);
 });
+
+// ── Dil kapısı (madde başına) ───────────────────────────────────────────────
+const sessiz = () => {};
+// Redaksiyon çağrısı (metin şemalı) sırayla cevaplardan yanıt alır.
+const dilGemini = (metinler, cevaplar, cagrilar = []) => async (x) => {
+  if (x.sema.properties.metin && !x.sema.properties.maddeler) {
+    cagrilar.push(x);
+    return cevaplar.shift() ?? null;
+  }
+  return sahteGemini(metinler)(x);
+};
+
+test('dil kapısı: dilDuzeltTr madde metnine uygulanır (%, kıvrık kesme)', async () => {
+  const metinler = { ...iyi, a: 'Fed faizi %4,25 düzeyinde tuttu.' };
+  const r = await bultenYaz([olay('a', 'abd'), olay('b', 'abd'), olay('c', 'abd')], piyasa, { gemini: sahteGemini(metinler), simdi, log: sessiz });
+  assert.match(r.yazi.govde, /\*\*Olay a:\*\* Fed faizi yüzde 4,25 düzeyinde tuttu\./);
+});
+
+test('dil kapısı: Duvar Sokağı gibi kesin sorun tek redaksiyonla düzelir (medium düşünme, yalnız o sorun istemde)', async () => {
+  const metinler = { ...iyi, a: 'Duvar Sokağı Fed faizi yüzde 4,25 düzeyinde tuttu diye yazdı.' };
+  const cagrilar = [];
+  const gemini = dilGemini(metinler, [{ metin: 'Wall Street Fed faizi yüzde 4,25 düzeyinde tuttu diye yazdı.' }], cagrilar);
+  const r = await bultenYaz([olay('a', 'abd'), olay('b', 'abd'), olay('c', 'abd')], piyasa, { gemini, simdi, log: sessiz });
+  assert.match(r.yazi.govde, /Wall Street Fed faizi/);
+  assert.doesNotMatch(r.yazi.govde, /Duvar Sokağı/);
+  assert.equal(cagrilar.length, 1);
+  assert.equal(cagrilar[0].dusunme, 'medium');
+  assert.match(cagrilar[0].istem, /yanlış çeviri/);
+});
+
+test('dil kapısı: redaksiyon sorunu gidermezse ya da rakam uydurursa madde düşer, bülten kalanlarla yayımlanır; log düşer', async () => {
+  const metinler = { ...iyi, d: 'Fed otuz dört milyon dolar fon açtı ve faizi yüzde 4,25 düzeyinde tuttu.' };
+  const loglar = [];
+  for (const cevap of [{ metin: metinler.d }, { metin: 'Fed 34 milyon dolar fon açtı ve faizi yüzde 4,25 düzeyinde tuttu.' }, null]) {
+    const gemini = dilGemini(metinler, [cevap]);
+    const r = await bultenYaz([olay('a', 'abd'), olay('b', 'abd'), olay('c', 'abd'), olay('d', 'abd')], piyasa, { gemini, simdi, log: (m) => loglar.push(m) });
+    assert.doesNotMatch(r.yazi.govde, /Olay d/);
+    assert.match(r.yazi.govde, /Olay c/);
+  }
+  assert.equal(loglar.length, 3);
+  assert.match(loglar[0], /dil kapısında düştü/);
+});

@@ -7,6 +7,8 @@ import { bultenKapagi } from '../kapak/kapak.mjs';
 import { kaynakIzi } from './gizli.mjs';
 import { standartKapisi } from './standart-kapi.mjs';
 import { standartDenetle } from './standart.mjs';
+import { dilDuzeltTr, dilSorunlariTr, kesinSorunlar, sorunListesi, REDAKSIYON_KURALLARI_TR } from './dil-tr.mjs';
+import { kelimeSay } from '../../src/lib/uzunluk.mjs';
 
 const TZ = 'Europe/Istanbul';
 export const EN_AZ_MADDE = 3;
@@ -114,13 +116,44 @@ const kontrolTaslagi = (metinler) => ({ baslik: 'Piyasa bülteni', spot: '', gov
 
 const satirMetni = (m) => `${m.etiket}: ${m.metin}`;
 
+const MADDE_DIL_SEMASI = { type: 'object', properties: { metin: { type: 'string' } }, required: ['metin'] };
+const NESIR = { yuzde: 'yuzde' };
+const maddeDuzelt = (m) => ({ ...m, etiket: dilDuzeltTr(m.etiket, NESIR), metin: dilDuzeltTr(m.metin, NESIR) });
+const maddeKesin = (m) => kesinSorunlar([...dilSorunlariTr(m.etiket), ...dilSorunlariTr(m.metin)]);
+
+// Dil kapısı (madde başına): güvenli yerel düzeltme, kesin sorun kalırsa tek redaksiyon denemesi (yalnız o sorunlarla);
+// yine kalırsa ya da redaksiyon rakam/uzunluk kontrolünden geçmezse madde düşer (null). Bülten göstergeleri koddan gelir, buraya girmez.
+async function maddeDilKapisi(madde, gemini, log) {
+  const m = maddeDuzelt(madde);
+  const kesin = maddeKesin(m);
+  if (!kesin.length) return m;
+  let aday = null;
+  try {
+    const r = await gemini({
+      sistem: REDAKSIYON_KURALLARI_TR,
+      istem: `Aşağıdaki bülten maddesinin dilini düzelt; yalnız "metin" alanını döndür. Kaynakta olmayan hiçbir bilgi, rakam ya da alıntı ekleme.\n\nOtomatik denetimin bulduğu kusurlar (hepsini gider):\n${sorunListesi(kesin)}\n\nKAYNAK:\n${String(m.olay.kaynakMetni ?? '').slice(0, 2500)}\n\nMADDE:\n${m.etiket}: ${m.metin}`,
+      sema: MADDE_DIL_SEMASI,
+      dusunme: 'medium',
+      sicaklik: 0.2,
+    });
+    if (typeof r?.metin === 'string' && r.metin.trim()) aday = maddeDuzelt({ ...m, metin: r.metin.trim() });
+  } catch {
+    /* redaksiyon çalışmadı: madde düşer */
+  }
+  const once = kelimeSay(m.metin);
+  const sonra = aday ? kelimeSay(aday.metin) : 0;
+  const tamam = aday && !maddeKesin(aday).length && dogrula(satirMetni(aday), [m.olay.kaynakMetni ?? '']).tamam && sonra >= once * 0.9 && sonra <= once * 1.15;
+  if (!tamam) log(`  ! bülten maddesi dil kapısında düştü (${m.olay.id}): ${sorunListesi(kesin).replaceAll('\n', ' ')}`);
+  return tamam ? aday : null;
+}
+
 // Döner: {yazi, anlik, olaylar} ya da null (3'ten az doğrulanmış madde kalırsa).
 // En fazla BULTEN_AZAMI olay (önem, sonra tarih sırasıyla) işlenir; olaylar = bültene seçilenler.
 // butceBitti() doğruysa tek tek kontrol masası turu yapılmaz (toplu red = null).
 export async function bultenYaz(
   olaylar,
   piyasa,
-  { gemini = varsayilanGemini, simdi = new Date(), butceBitti = () => false, kapakYap = bultenKapagi, standart = standartDenetle, izleyici = {} } = {},
+  { gemini = varsayilanGemini, log = console.log, simdi = new Date(), butceBitti = () => false, kapakYap = bultenKapagi, standart = standartDenetle, izleyici = {} } = {},
 ) {
   if (!bultenGerekli(olaylar.length)) return null;
   const secilen = [...olaylar]
@@ -129,9 +162,10 @@ export async function bultenYaz(
   const yazilar = await maddeleriYaz(secilen, gemini).catch(() => new Map());
 
   // Her madde (etiket + metin) kendi olayının kaynağına karşı doğrulanır; tutmayan düşer.
-  let maddeler = secilen
-    .map((o) => ({ olay: o, ...yazilar.get(o.id) }))
-    .filter((m) => m.metin && dogrula(satirMetni(m), [m.olay.kaynakMetni ?? '']).tamam);
+  const yazilanlar = secilen.map((o) => ({ olay: o, ...yazilar.get(o.id) })).filter((m) => m.metin);
+  const dilli = [];
+  for (const m of yazilanlar) dilli.push(await maddeDilKapisi(m, gemini, log));
+  let maddeler = dilli.filter((m) => m && dogrula(satirMetni(m), [m.olay.kaynakMetni ?? '']).tamam);
   if (maddeler.length < EN_AZ_MADDE) return null;
 
   // Standartlar: her madde kırmızı süzgeçten geçer. Kırmızı madde tek başına atılır (olay elendi sayılır, gerekçesiyle);
