@@ -1,5 +1,5 @@
 {
-  "alinma": "2026-11-12T20:00:15.529Z",
+  "alinma": "2026-11-12T22:03:50.091Z",
   "kaynaklar": [
     {
       "ad": "TÜİK ulusal veri yayımlama takvimi (Resmi İstatistik Portalı)",
@@ -15,42 +15,6 @@
     }
   ],
   "olaylar": [
-    {
-      "tarih": "2026-10-13",
-      "saat": "10:00",
-      "kurum": "TCMB",
-      "baslik": "Ödemeler Dengesi İstatistikleri",
-      "donem": "Ağustos 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Odemeler+Dengesi+Istatistikleri/",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-13",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "Dış Ticaret Endeksleri",
-      "donem": "Ağustos 2026",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Dış-Ticaret-Endeksleri-Ağustos-2026-58257&dil=1",
-      "kaynak": "tuik"
-    },
-    {
-      "tarih": "2026-10-13",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "Kümes Hayvancılığı Üretimi",
-      "donem": "Ağustos 2026",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Kümes-Hayvancılığı-Üretimi-Ağustos-2026-58058&dil=1",
-      "kaynak": "tuik"
-    },
-    {
-      "tarih": "2026-10-13",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "Süt ve Süt Ürünleri Üretimi",
-      "donem": "Ağustos 2026",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Süt-ve-Süt-Ürünleri-Üretimi-Ağustos-2026-58073&dil=1",
-      "kaynak": "tuik"
-    },
     {
       "tarih": "2026-10-14",
       "saat": "10:00",
