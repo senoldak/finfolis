@@ -1,6 +1,6 @@
 {
  "surum": 2,
- "alinma": "2026-10-28T23:39:00.574Z",
+ "alinma": "2026-11-12T09:58:13.889Z",
  "kaynak": {
   "ad": "TCMB Enflasyon Raporu, 3. Orta Vadeli Öngörüler",
   "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Yayinlar/Raporlar/Enflasyon+Raporu"
@@ -468,6 +468,30 @@
      "alt": null,
      "ust": null,
      "araHedef": 9
+    }
+   ]
+  },
+  {
+   "id": "er_2026-IV",
+   "donem": "2026-IV",
+   "tarih": "2026-11-12",
+   "baslik": "Enflasyon Raporu 2026 - IV (12 Kasım 2026)",
+   "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Yayinlar/Raporlar/Enflasyon+Raporu/2026/Enflasyon+Raporu+2026+-+IV",
+   "bolumUrl": "https://www.tcmb.gov.tr/wps/wcm/connect/38548189-f3f6-4b81-84cf-83c8158cf999/3b26_iv.pdf?MOD=AJPERES&CACHEID=ROOTWORKSPACE-38548189-f3f6-4b81-84cf-83c8158cf999-q7eWBel",
+   "tahminler": [
+    {
+     "yil": 2026,
+     "nokta": 29.5,
+     "alt": null,
+     "ust": null,
+     "araHedef": null
+    },
+    {
+     "yil": 2027,
+     "nokta": 21,
+     "alt": null,
+     "ust": null,
+     "araHedef": null
     }
    ]
   }
