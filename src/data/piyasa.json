@@ -1,10 +1,10 @@
 {
-  "guncelleme": "2026-11-12T13:41:02.846Z",
+  "guncelleme": "2026-11-12T15:41:17.186Z",
   "gostergeler": [
     {
       "id": "dolar",
       "ad": "Dolar / TL",
-      "deger": 50.229,
+      "deger": 50.258,
       "ondalik": 2,
       "simge": "lira",
       "onceki": 42.244,
@@ -13,9 +13,9 @@
         "ad": "Avrupa Merkez Bankası referans kuru",
         "url": "https://www.frankfurter.dev/"
       },
-      "zaman": "2026-11-11T00:00:00+03:00",
+      "zaman": "2026-11-12T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 0,
+      "degisim": 0.1,
       "gecmis": [
         {
           "tarih": "2026-08-14",
@@ -272,6 +272,10 @@
         {
           "tarih": "2026-11-11",
           "deger": 50.229
+        },
+        {
+          "tarih": "2026-11-12",
+          "deger": 50.258
         }
       ],
       "renk": "blue",
@@ -282,7 +286,7 @@
     {
       "id": "euro",
       "ad": "Euro / TL",
-      "deger": 55.8897,
+      "deger": 55.6906,
       "ondalik": 2,
       "simge": "lira",
       "onceki": 48.9021,
@@ -291,9 +295,9 @@
         "ad": "Avrupa Merkez Bankası referans kuru",
         "url": "https://www.frankfurter.dev/"
       },
-      "zaman": "2026-11-11T00:00:00+03:00",
+      "zaman": "2026-11-12T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -0.8,
+      "degisim": -0.4,
       "gecmis": [
         {
           "tarih": "2026-08-14",
@@ -550,6 +554,10 @@
         {
           "tarih": "2026-11-11",
           "deger": 55.8897
+        },
+        {
+          "tarih": "2026-11-12",
+          "deger": 55.6906
         }
       ],
       "renk": "ochre",
@@ -560,7 +568,7 @@
     {
       "id": "yen",
       "ad": "100 Japon yeni / TL",
-      "deger": 31.544,
+      "deger": 31.471,
       "ondalik": 2,
       "simge": "lira",
       "onceki": 27.291,
@@ -569,9 +577,9 @@
         "ad": "Avrupa Merkez Bankası referans kuru",
         "url": "https://www.frankfurter.dev/"
       },
-      "zaman": "2026-11-11T00:00:00+03:00",
+      "zaman": "2026-11-12T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -0.7,
+      "degisim": -0.2,
       "gecmis": [
         {
           "tarih": "2026-08-14",
@@ -828,6 +836,10 @@
         {
           "tarih": "2026-11-11",
           "deger": 31.544
+        },
+        {
+          "tarih": "2026-11-12",
+          "deger": 31.471
         }
       ]
     },
@@ -870,7 +882,7 @@
     {
       "id": "bist100",
       "ad": "BIST 100",
-      "deger": 11812.3701,
+      "deger": 11811.1904,
       "ondalik": 2,
       "simge": "fabrika",
       "kaynak": {
@@ -879,7 +891,7 @@
       },
       "zaman": "2026-11-12T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 1.3,
+      "degisim": 1.2,
       "gecmis": [
         {
           "tarih": "2026-08-14",
@@ -1135,14 +1147,14 @@
         },
         {
           "tarih": "2026-11-12",
-          "deger": 11812.3701
+          "deger": 11811.1904
         }
       ]
     },
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 3918.8,
+      "deger": 3870.1001,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
@@ -1151,7 +1163,7 @@
       },
       "zaman": "2026-11-12T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -2,
+      "degisim": -3.3,
       "gecmis": [
         {
           "tarih": "2026-08-14",
@@ -1407,7 +1419,7 @@
         },
         {
           "tarih": "2026-11-12",
-          "deger": 3918.8
+          "deger": 3870.1001
         }
       ],
       "onEk": "$"

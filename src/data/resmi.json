@@ -3556,14 +3556,6 @@
     },
     "satirlar": [
       {
-        "tarih": "2025-11-07",
-        "ihtiyac": 62.66,
-        "tasit": 36.62,
-        "konut": 37.78,
-        "mevduat": 48.1,
-        "politika": 39.5
-      },
-      {
         "tarih": "2025-11-14",
         "ihtiyac": 61.03,
         "tasit": 35.37,
@@ -3970,9 +3962,17 @@
         "konut": 41.49,
         "mevduat": 42.23,
         "politika": 36
+      },
+      {
+        "tarih": "2026-11-06",
+        "ihtiyac": 59.2,
+        "tasit": 39.16,
+        "konut": 41.33,
+        "mevduat": 42.47,
+        "politika": 36
       }
     ],
-    "alinma": "2026-11-05T15:56:14.150Z"
+    "alinma": "2026-11-12T16:00:09.472Z"
   },
   "mevduat": {
     "kaynak": {
@@ -26912,9 +26912,16 @@
         "tasit": 44.68,
         "konut": 41.49,
         "mevduat": 42.23
+      },
+      {
+        "tarih": "2026-11-06",
+        "ihtiyac": 59.2,
+        "tasit": 39.16,
+        "konut": 41.33,
+        "mevduat": 42.47
       }
     ],
-    "alinma": "2026-11-05T15:56:14.150Z"
+    "alinma": "2026-11-12T16:00:09.472Z"
   },
   "birimFiyat": {
     "kaynak": {
@@ -75246,17 +75253,17 @@
       }
     ],
     "son": {
-      "tarih": "2026-11-11",
+      "tarih": "2026-11-12",
       "borcVerme": 39,
       "borcAlma": 34.5,
       "repo": 36,
       "bankalararasi": 34.5,
       "aofm": 36,
-      "fonlama": 970000,
-      "sterilizasyon": 1428482.14,
-      "net": -458482.14
+      "fonlama": 770000,
+      "sterilizasyon": 1449688.02,
+      "net": -679688.02
     },
-    "alinma": "2026-11-11T16:06:45.247Z"
+    "alinma": "2026-11-12T16:00:09.472Z"
   },
   "paraArzi": {
     "kaynak": {
@@ -117238,6 +117245,26 @@
         "ticariKmhHaric": 44.91,
         "ticariUsd": 8.44,
         "ticariEur": 7.44
+      },
+      {
+        "tarih": "2026-11-06",
+        "tl1a": 41.87,
+        "tl3a": 42.47,
+        "tl6a": 41.64,
+        "tl1y": 40.24,
+        "tlUzun": 38.12,
+        "tlToplam": 42.04,
+        "tlTasarruf": 42.65,
+        "tlTicari": 41.93,
+        "usd": 2.9,
+        "eur": 1.74,
+        "tuketici": 57.79,
+        "tuketiciKmh": 61.75,
+        "ihtiyacKmh": 62.29,
+        "ticari": 53.07,
+        "ticariKmhHaric": 46.25,
+        "ticariUsd": 8.19,
+        "ticariEur": 7.17
       }
     ],
     "finansman": [
@@ -118166,7 +118193,7 @@
         "tuketici": 66.46
       }
     ],
-    "alinma": "2026-11-05T15:56:14.150Z"
+    "alinma": "2026-11-12T16:00:09.472Z"
   },
   "dovizHacmi": {
     "kaynak": {
@@ -126114,15 +126141,15 @@
       }
     ],
     "son": {
-      "tarih": "2026-11-04",
-      "spot": 18714.64,
-      "swap": 7177.27,
-      "vadeli": 1240.96,
-      "yurtDisiSwap": 2629,
-      "musteriSpot": 4179.01,
-      "efektif": 53.46
+      "tarih": "2026-11-05",
+      "spot": 19966.21,
+      "swap": 9072.08,
+      "vadeli": 2387.28,
+      "yurtDisiSwap": 3452,
+      "musteriSpot": 4455.33,
+      "efektif": 25.97
     },
-    "alinma": "2026-11-11T16:06:45.247Z"
+    "alinma": "2026-11-12T16:00:09.472Z"
   },
   "elektrik": {
     "kaynak": {
