@@ -5124,9 +5124,15 @@
         "ay": 10,
         "ay12": 23.89,
         "ay24": 17.94
+      },
+      {
+        "yil": 2026,
+        "ay": 11,
+        "ay12": 24.04,
+        "ay24": 18.02
       }
     ],
-    "alinma": "2026-11-01T03:59:34.787Z"
+    "alinma": "2026-11-13T07:59:32.839Z"
   },
   "kira": {
     "kaynak": {
@@ -33835,9 +33841,15 @@
         "ay": 8,
         "hisse": 482,
         "dibs": 77
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "hisse": -47,
+        "dibs": -495
       }
     ],
-    "alinma": "2026-10-28T22:19:30.188Z"
+    "alinma": "2026-11-13T07:59:32.839Z"
   },
   "cari": {
     "kaynak": {
@@ -37707,10 +37719,10 @@
       {
         "yil": 2025,
         "ay": 1,
-        "cari": -3989,
-        "altinHaric": -2897,
-        "enerjiHaric": 1107.43,
-        "cekirdek": 2199.43,
+        "cari": -3998,
+        "altinHaric": -2906,
+        "enerjiHaric": 1098.43,
+        "cekirdek": 2190.43,
         "altin": -1092,
         "enerji": -5096.43,
         "seyahat": 3251
@@ -37795,10 +37807,10 @@
       {
         "yil": 2025,
         "ay": 9,
-        "cari": 588,
-        "altinHaric": 2917,
-        "enerjiHaric": 3952.34,
-        "cekirdek": 6281.34,
+        "cari": 585,
+        "altinHaric": 2914,
+        "enerjiHaric": 3949.34,
+        "cekirdek": 6278.34,
         "altin": -2329,
         "enerji": -3364.34,
         "seyahat": 6976
@@ -37839,10 +37851,10 @@
       {
         "yil": 2026,
         "ay": 1,
-        "cari": -6758,
-        "altinHaric": -5387,
-        "enerjiHaric": -2582.06,
-        "cekirdek": -1211.06,
+        "cari": -6755,
+        "altinHaric": -5384,
+        "enerjiHaric": -2579.06,
+        "cekirdek": -1208.06,
         "altin": -1371,
         "enerji": -4175.93,
         "seyahat": 3582
@@ -37850,10 +37862,10 @@
       {
         "yil": 2026,
         "ay": 2,
-        "cari": -7495,
-        "altinHaric": -5549,
-        "enerjiHaric": -3459.2,
-        "cekirdek": -1513.2,
+        "cari": -7492,
+        "altinHaric": -5546,
+        "enerjiHaric": -3456.2,
+        "cekirdek": -1510.2,
         "altin": -1946,
         "enerji": -4035.79,
         "seyahat": 2743
@@ -37861,10 +37873,10 @@
       {
         "yil": 2026,
         "ay": 3,
-        "cari": -9749,
-        "altinHaric": -8146,
-        "enerjiHaric": -5629.63,
-        "cekirdek": -4026.63,
+        "cari": -9747,
+        "altinHaric": -8144,
+        "enerjiHaric": -5627.63,
+        "cekirdek": -4024.63,
         "altin": -1603,
         "enerji": -4119.36,
         "seyahat": 2900
@@ -37872,60 +37884,71 @@
       {
         "yil": 2026,
         "ay": 4,
-        "cari": -5621,
-        "altinHaric": -4797,
-        "enerjiHaric": -437.25,
-        "cekirdek": 386.74,
+        "cari": -5617,
+        "altinHaric": -4793,
+        "enerjiHaric": -433.24,
+        "cekirdek": 390.75,
         "altin": -824,
-        "enerji": -5183.74,
-        "seyahat": 3884
+        "enerji": -5183.75,
+        "seyahat": 3885
       },
       {
         "yil": 2026,
         "ay": 5,
-        "cari": -1367,
-        "altinHaric": -804,
-        "enerjiHaric": 3191.4,
-        "cekirdek": 3754.4,
+        "cari": -1368,
+        "altinHaric": -805,
+        "enerjiHaric": 3190.4,
+        "cekirdek": 3753.4,
         "altin": -563,
         "enerji": -4558.4,
-        "seyahat": 5129
+        "seyahat": 5131
       },
       {
         "yil": 2026,
         "ay": 6,
-        "cari": -4472,
-        "altinHaric": -3312,
-        "enerjiHaric": 32.05,
-        "cekirdek": 1192.05,
+        "cari": -4477,
+        "altinHaric": -3317,
+        "enerjiHaric": 33.94,
+        "cekirdek": 1193.94,
         "altin": -1160,
-        "enerji": -4504.05,
-        "seyahat": 5799
+        "enerji": -4510.94,
+        "seyahat": 5801
       },
       {
         "yil": 2026,
         "ay": 7,
-        "cari": -89,
-        "altinHaric": 373,
-        "enerjiHaric": 4374.83,
-        "cekirdek": 4836.83,
+        "cari": 201,
+        "altinHaric": 663,
+        "enerjiHaric": 4662.05,
+        "cekirdek": 5124.05,
         "altin": -462,
-        "enerji": -4463.83,
-        "seyahat": 6964
+        "enerji": -4461.05,
+        "seyahat": 7353
       },
       {
         "yil": 2026,
         "ay": 8,
-        "cari": 4053,
-        "altinHaric": 3227,
-        "enerjiHaric": 9030.59,
-        "cekirdek": 8204.59,
+        "cari": 4578,
+        "altinHaric": 3752,
+        "enerjiHaric": 9542.97,
+        "cekirdek": 8716.97,
         "altin": 826,
-        "enerji": -4977.59,
-        "seyahat": 8197
+        "enerji": -4964.97,
+        "seyahat": 8848
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "cari": 2720,
+        "altinHaric": 2095,
+        "enerjiHaric": 7966.96,
+        "cekirdek": 7341.96,
+        "altin": 625,
+        "enerji": -5246.96,
+        "seyahat": 7426
       }
     ],
-    "alinma": "2026-10-28T22:19:30.188Z"
+    "alinma": "2026-11-13T07:59:32.839Z"
   },
   "disBorc": {
     "kaynak": {
@@ -65609,7 +65632,7 @@
     ],
     "dagilim": {
       "yil": 2026,
-      "ay": 10,
+      "ay": 11,
       "ay12": {
         "gozlem": 38,
         "kutular": [
@@ -65696,77 +65719,77 @@
           {
             "alt": 18,
             "ust": 18.99,
-            "pay": 0.0526
+            "pay": 0.1289
           },
           {
             "alt": 19,
             "ust": 19.99,
-            "pay": 1.1526
+            "pay": 0.7789
           },
           {
             "alt": 20,
             "ust": 20.99,
-            "pay": 4.3552
+            "pay": 4.7789
           },
           {
             "alt": 21,
             "ust": 21.99,
-            "pay": 12.7184
+            "pay": 13.55
           },
           {
             "alt": 22,
             "ust": 22.99,
-            "pay": 19.1815
+            "pay": 11.7184
           },
           {
             "alt": 23,
             "ust": 23.99,
-            "pay": 16.0578
+            "pay": 15.7394
           },
           {
             "alt": 24,
             "ust": 24.99,
-            "pay": 18.5052
+            "pay": 22.5131
           },
           {
             "alt": 25,
             "ust": 25.99,
-            "pay": 12.1026
+            "pay": 11.1763
           },
           {
             "alt": 26,
             "ust": 26.99,
-            "pay": 5.7842
+            "pay": 8.1157
           },
           {
             "alt": 27,
             "ust": 27.99,
-            "pay": 4.3394
+            "pay": 6
           },
           {
             "alt": 28,
             "ust": 28.99,
-            "pay": 2.5684
+            "pay": 2.1973
           },
           {
             "alt": 29,
             "ust": 29.99,
-            "pay": 1.5631
+            "pay": 1.6947
           },
           {
             "alt": 30,
             "ust": 30.99,
-            "pay": 0.9815
+            "pay": 1.4736
           },
           {
             "alt": 31,
             "ust": 31.99,
-            "pay": 0.5552
+            "pay": 0.1342
           },
           {
             "alt": 32,
             "ust": 32.99,
-            "pay": 0.0815
+            "pay": 0
           },
           {
             "alt": 33,
@@ -65911,7 +65934,7 @@
         ]
       },
       "ay24": {
-        "gozlem": 36,
+        "gozlem": 34,
         "kutular": [
           {
             "alt": 0,
@@ -65961,112 +65984,112 @@
           {
             "alt": 11,
             "ust": 11.99,
-            "pay": 0.075
+            "pay": 0
           },
           {
             "alt": 12,
             "ust": 12.99,
-            "pay": 0.3638
+            "pay": 0.5529
           },
           {
             "alt": 13,
             "ust": 13.99,
-            "pay": 3.6166
+            "pay": 5.1352
           },
           {
             "alt": 14,
             "ust": 14.99,
-            "pay": 5.8361
+            "pay": 6.2588
           },
           {
             "alt": 15,
             "ust": 15.99,
-            "pay": 7.4333
+            "pay": 6.9147
           },
           {
             "alt": 16,
             "ust": 16.99,
-            "pay": 13.1027
+            "pay": 11.297
           },
           {
             "alt": 17,
             "ust": 17.99,
-            "pay": 13.6722
+            "pay": 14.4323
           },
           {
             "alt": 18,
             "ust": 18.99,
-            "pay": 11.45
+            "pay": 14.2382
           },
           {
             "alt": 19,
             "ust": 19.99,
-            "pay": 9.1555
+            "pay": 7.1794
           },
           {
             "alt": 20,
             "ust": 20.99,
-            "pay": 8.9555
+            "pay": 8.9529
           },
           {
             "alt": 21,
             "ust": 21.99,
-            "pay": 7.7833
+            "pay": 7.2705
           },
           {
             "alt": 22,
             "ust": 22.99,
-            "pay": 5.2833
+            "pay": 3.4264
           },
           {
             "alt": 23,
             "ust": 23.99,
-            "pay": 2.3305
+            "pay": 1.6382
           },
           {
             "alt": 24,
             "ust": 24.99,
-            "pay": 1.875
+            "pay": 1.6176
           },
           {
             "alt": 25,
             "ust": 25.99,
-            "pay": 2.1277
+            "pay": 2.7529
           },
           {
             "alt": 26,
             "ust": 26.99,
-            "pay": 1.6444
+            "pay": 1.9941
           },
           {
             "alt": 27,
             "ust": 27.99,
-            "pay": 1.25
+            "pay": 3.45
           },
           {
             "alt": 28,
             "ust": 28.99,
-            "pay": 1.1444
+            "pay": 0.4117
           },
           {
             "alt": 29,
             "ust": 29.99,
-            "pay": 0.9694
+            "pay": 0.7588
           },
           {
             "alt": 30,
             "ust": 30.99,
-            "pay": 1.1472
+            "pay": 1.0058
           },
           {
             "alt": 31,
             "ust": 31.99,
-            "pay": 0.5305
+            "pay": 0.5029
           },
           {
             "alt": 32,
             "ust": 32.99,
-            "pay": 0.2527
+            "pay": 0.2088
           },
           {
             "alt": 33,
@@ -66111,7 +66134,7 @@
         ]
       }
     },
-    "alinma": "2026-10-29T16:16:18.425Z"
+    "alinma": "2026-11-13T07:59:32.839Z"
   },
   "paraPiyasasi": {
     "kaynak": {
@@ -144861,10 +144884,10 @@
       {
         "yil": 2026,
         "ay": 8,
-        "toplam": 7594387.42,
-        "toplamYillik": -1.19579746,
+        "toplam": 7594387,
+        "toplamYillik": -1.19580292,
         "avrupa": 5464839,
-        "asya": 1681892.42,
+        "asya": 1681892,
         "amerika": 239872,
         "afrika": 170679,
         "okyanusya": 30879,
@@ -144872,6 +144895,21 @@
         "rusya": 1074351,
         "ingiltere": 627427,
         "iran": 374619
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "toplam": 6272256,
+        "toplamYillik": 0.18502806,
+        "avrupa": 4385390,
+        "asya": 1398385,
+        "amerika": 284891,
+        "afrika": 156864,
+        "okyanusya": 40507,
+        "almanya": 893515,
+        "rusya": 945784,
+        "ingiltere": 508851,
+        "iran": 392394
       }
     ],
     "gelir": [
@@ -145904,461 +145942,461 @@
     ],
     "ulkeTablosu": {
       "yil": 2026,
-      "ay": 8,
+      "ay": 9,
       "ulkeler": [
         {
           "ad": "Almanya",
-          "sayi": 1116066,
-          "yillik": 0.28988893
+          "sayi": 893515,
+          "yillik": -3.80395931
         },
         {
           "ad": "Arnavutluk",
-          "sayi": 23823,
-          "yillik": -6.26770538
+          "sayi": 19085,
+          "yillik": 2.97291464
         },
         {
           "ad": "Avusturya",
-          "sayi": 133866,
-          "yillik": -4.92606639
+          "sayi": 76442,
+          "yillik": 10.55638315
         },
         {
           "ad": "Belarus (Beyaz Rusya)",
-          "sayi": 46082,
-          "yillik": -2.3003371
+          "sayi": 44353,
+          "yillik": -4.36010782
         },
         {
           "ad": "Belçika",
-          "sayi": 126506,
-          "yillik": -8.0484667
+          "sayi": 61696,
+          "yillik": -5.96555403
         },
         {
           "ad": "Bosna Hersek",
-          "sayi": 24756,
-          "yillik": -6.69028683
+          "sayi": 22165,
+          "yillik": -3.20538015
         },
         {
           "ad": "Bulgaristan",
-          "sayi": 232777,
-          "yillik": -7.38008555
+          "sayi": 263074,
+          "yillik": -8.71413353
         },
         {
           "ad": "Çek Cumhuriyeti",
-          "sayi": 76782,
-          "yillik": -4.48336775
+          "sayi": 69102,
+          "yillik": -0.62842434
         },
         {
           "ad": "Danimarka",
-          "sayi": 45647,
-          "yillik": -7.43789922
+          "sayi": 37497,
+          "yillik": -5.81246389
         },
         {
           "ad": "Estonya",
-          "sayi": 9311,
-          "yillik": -0.79906243
+          "sayi": 12037,
+          "yillik": -4.74042418
         },
         {
           "ad": "Finlandiya",
-          "sayi": 12048,
-          "yillik": -4.64582509
+          "sayi": 12969,
+          "yillik": 0.84758942
         },
         {
           "ad": "Fransa",
-          "sayi": 244000,
-          "yillik": -5.78641317
+          "sayi": 95234,
+          "yillik": -7.03799149
         },
         {
           "ad": "Güney Kıbrıs",
-          "sayi": 2738,
-          "yillik": -3.07964602
+          "sayi": 1300,
+          "yillik": 4.66988728
         },
         {
           "ad": "Hırvatistan",
-          "sayi": 6583,
-          "yillik": -12.92328042
+          "sayi": 6963,
+          "yillik": -11.05007665
         },
         {
           "ad": "Hollanda",
-          "sayi": 269686,
-          "yillik": -6.58672264
+          "sayi": 130385,
+          "yillik": -1.66524628
         },
         {
           "ad": "İngiltere",
-          "sayi": 627427,
-          "yillik": -8.01350563
+          "sayi": 508851,
+          "yillik": -10.05742809
         },
         {
           "ad": "İrlanda",
-          "sayi": 27582,
-          "yillik": -10.05380727
+          "sayi": 24785,
+          "yillik": 0.13332256
         },
         {
           "ad": "İspanya",
-          "sayi": 63916,
-          "yillik": -6.15079656
+          "sayi": 47058,
+          "yillik": 3.9289737
         },
         {
           "ad": "İsveç",
-          "sayi": 70598,
-          "yillik": 1.96571197
+          "sayi": 38726,
+          "yillik": -0.65161621
         },
         {
           "ad": "İsviçre",
-          "sayi": 47984,
-          "yillik": -7.26116619
+          "sayi": 37738,
+          "yillik": -7.84821254
         },
         {
           "ad": "İtalya",
-          "sayi": 122402,
-          "yillik": -1.98744435
+          "sayi": 94587,
+          "yillik": 14.64674012
         },
         {
           "ad": "İzlanda",
-          "sayi": 533,
-          "yillik": -1.2962963
+          "sayi": 664,
+          "yillik": -27.03296703
         },
         {
           "ad": "Karadağ",
-          "sayi": 2379,
-          "yillik": 1.19098256
+          "sayi": 2584,
+          "yillik": -7.64832023
         },
         {
           "ad": "Kosova",
-          "sayi": 20265,
-          "yillik": -5.17967434
+          "sayi": 25622,
+          "yillik": -5.1458611
         },
         {
           "ad": "Letonya",
-          "sayi": 12116,
-          "yillik": -3.18043791
+          "sayi": 16847,
+          "yillik": 5.91600654
         },
         {
           "ad": "Litvanya",
-          "sayi": 26876,
-          "yillik": -5.14910888
+          "sayi": 33948,
+          "yillik": 0.87659347
         },
         {
           "ad": "Lüksemburg",
-          "sayi": 2726,
-          "yillik": -11.95090439
+          "sayi": 3361,
+          "yillik": -4.29954442
         },
         {
           "ad": "Macaristan",
-          "sayi": 54886,
-          "yillik": 18.37808692
+          "sayi": 43064,
+          "yillik": 10.94965734
         },
         {
           "ad": "Kuzey Makedonya",
-          "sayi": 29517,
-          "yillik": -3.44139488
+          "sayi": 27981,
+          "yillik": -7.25247771
         },
         {
           "ad": "Malta",
-          "sayi": 1818,
-          "yillik": -18.36551414
+          "sayi": 2290,
+          "yillik": -2.4286323
         },
         {
           "ad": "Moldova",
-          "sayi": 46695,
-          "yillik": -15.99654595
+          "sayi": 40661,
+          "yillik": -9.70242061
         },
         {
           "ad": "Norveç",
-          "sayi": 32238,
-          "yillik": 0.77209215
+          "sayi": 19727,
+          "yillik": -1.68452529
         },
         {
           "ad": "Polonya",
-          "sayi": 328909,
-          "yillik": -0.96831012
+          "sayi": 300858,
+          "yillik": -0.18446389
         },
         {
           "ad": "Portekiz",
-          "sayi": 16744,
-          "yillik": -6.57292713
+          "sayi": 13525,
+          "yillik": -3.1784666
         },
         {
           "ad": "Romanya",
-          "sayi": 177279,
-          "yillik": -8.11131614
+          "sayi": 142794,
+          "yillik": -9.10630172
         },
         {
           "ad": "Rusya",
-          "sayi": 1074351,
-          "yillik": 6.87390512
+          "sayi": 945784,
+          "yillik": 1.7045314
         },
         {
           "ad": "Sırbistan",
-          "sayi": 43996,
-          "yillik": -7.62382682
+          "sayi": 34967,
+          "yillik": -13.05418107
         },
         {
           "ad": "Slovakya",
-          "sayi": 57143,
-          "yillik": -5.92196246
+          "sayi": 43174,
+          "yillik": -9.44290628
         },
         {
           "ad": "Slovenya",
-          "sayi": 5197,
-          "yillik": -11.34425111
+          "sayi": 5444,
+          "yillik": -4.95810056
         },
         {
           "ad": "Ukrayna",
-          "sayi": 146576,
-          "yillik": 6.25607122
+          "sayi": 138826,
+          "yillik": 9.62428339
         },
         {
           "ad": "Yunanistan",
-          "sayi": 53501,
-          "yillik": -10.31147321
+          "sayi": 45357,
+          "yillik": -8.43074314
         },
         {
           "ad": "ABD",
-          "sayi": 154106,
-          "yillik": -17.27850989
+          "sayi": 175624,
+          "yillik": -5.55767669
         },
         {
           "ad": "Arjantin",
-          "sayi": 4312,
-          "yillik": -31.64235891
+          "sayi": 7587,
+          "yillik": -21.98457584
         },
         {
           "ad": "Brezilya",
-          "sayi": 11364,
-          "yillik": 2.84162896
+          "sayi": 16645,
+          "yillik": 21.85212299
         },
         {
           "ad": "Kanada",
-          "sayi": 37209,
-          "yillik": -9.56177235
+          "sayi": 42727,
+          "yillik": 16.45724877
         },
         {
           "ad": "Kolombiya",
-          "sayi": 6527,
-          "yillik": -14.47851153
+          "sayi": 9011,
+          "yillik": -1.50836157
         },
         {
           "ad": "Meksika",
-          "sayi": 11483,
-          "yillik": -23.73140276
+          "sayi": 14776,
+          "yillik": 4.95809064
         },
         {
           "ad": "Şili",
-          "sayi": 2055,
-          "yillik": -21.32465544
+          "sayi": 3297,
+          "yillik": -14.54121306
         },
         {
           "ad": "Venezüella",
-          "sayi": 1712,
-          "yillik": -42.0642978
+          "sayi": 1911,
+          "yillik": -40.46728972
         },
         {
           "ad": "Cezayir",
-          "sayi": 41782,
-          "yillik": 7.4916388
+          "sayi": 45453,
+          "yillik": 16.59099654
         },
         {
           "ad": "Fas",
-          "sayi": 34974,
-          "yillik": 8.85154062
+          "sayi": 23945,
+          "yillik": 9.55300361
         },
         {
           "ad": "Güney Afrika",
-          "sayi": 5722,
-          "yillik": -17.40762125
+          "sayi": 8035,
+          "yillik": -0.4090233
         },
         {
           "ad": "Libya",
-          "sayi": 14737,
-          "yillik": -22.70128508
+          "sayi": 16552,
+          "yillik": -23.22463936
         },
         {
           "ad": "Mısır",
-          "sayi": 30564,
-          "yillik": 43.78998871
+          "sayi": 26219,
+          "yillik": 25.98625727
         },
         {
           "ad": "Sudan",
-          "sayi": 2343,
-          "yillik": 7.32936326
+          "sayi": 1467,
+          "yillik": 11.30500759
         },
         {
           "ad": "Tunus",
-          "sayi": 20169,
-          "yillik": 11.74580309
+          "sayi": 16232,
+          "yillik": 7.76789271
         },
         {
           "ad": "Azerbaycan",
-          "sayi": 125306,
-          "yillik": -2.0151232
+          "sayi": 85847,
+          "yillik": 4.93973547
         },
         {
           "ad": "Birleşik Arap Emirlikleri",
-          "sayi": 17749,
-          "yillik": -10.96563832
+          "sayi": 4391,
+          "yillik": -2.27019809
         },
         {
           "ad": "Bahreyn",
-          "sayi": 6055,
-          "yillik": -18.8772776
+          "sayi": 4645,
+          "yillik": 1.95346795
         },
         {
           "ad": "Bangladeş",
-          "sayi": 2239,
-          "yillik": -20.68721219
+          "sayi": 2208,
+          "yillik": -21.08649035
         },
         {
           "ad": "Çin",
-          "sayi": 64914,
-          "yillik": 60.17865074
+          "sayi": 57054,
+          "yillik": 55.27010478
         },
         {
           "ad": "Endonezya",
-          "sayi": 8367,
-          "yillik": -28.92456677
+          "sayi": 11641,
+          "yillik": -9.50011661
         },
         {
           "ad": "Ermenistan",
-          "sayi": 4401,
-          "yillik": 24.49787836
+          "sayi": 3921,
+          "yillik": 30.91819699
         },
         {
           "ad": "Filipinler",
-          "sayi": 12813,
-          "yillik": -21.72877214
+          "sayi": 10934,
+          "yillik": -14.67811159
         },
         {
           "ad": "Gürcistan",
-          "sayi": 134454,
-          "yillik": -0.0876854
+          "sayi": 124110,
+          "yillik": -0.29563457
         },
         {
           "ad": "Güney Kore",
-          "sayi": 13233,
-          "yillik": -27.30718523
+          "sayi": 15636,
+          "yillik": -29.6942446
         },
         {
           "ad": "Hindistan",
-          "sayi": 18796,
-          "yillik": 5.91682633
+          "sayi": 21001,
+          "yillik": 8.8191098
         },
         {
           "ad": "Irak",
-          "sayi": 145932,
-          "yillik": 0.20118238
+          "sayi": 144833,
+          "yillik": 8.18767181
         },
         {
           "ad": "İran",
-          "sayi": 374619,
-          "yillik": 14.51510844
+          "sayi": 392394,
+          "yillik": 15.24323626
         },
         {
           "ad": "İsrail",
-          "sayi": 27823,
-          "yillik": 34.90593483
+          "sayi": 14312,
+          "yillik": 33.5572975
         },
         {
           "ad": "Japonya",
-          "sayi": 12631,
-          "yillik": -27.49555135
+          "sayi": 16454,
+          "yillik": -10.2982064
         },
         {
           "ad": "Katar",
-          "sayi": 10444,
-          "yillik": -12.38990018
+          "sayi": 2597,
+          "yillik": 14.50617284
         },
         {
           "ad": "Kazakistan",
-          "sayi": 136075,
-          "yillik": 11.59359675
+          "sayi": 86009,
+          "yillik": 16.71416165
         },
         {
           "ad": "Kırgızistan",
-          "sayi": 17135,
-          "yillik": -3.26314007
+          "sayi": 21959,
+          "yillik": 13.10909653
         },
         {
           "ad": "Kuveyt",
-          "sayi": 29301,
-          "yillik": -37.33478763
+          "sayi": 22030,
+          "yillik": -24.63222716
         },
         {
           "ad": "Kuzey Kıbrıs Türk Cumhuriyeti",
-          "sayi": 39342,
-          "yillik": 2.77429467
+          "sayi": 28138,
+          "yillik": 0.4247118
         },
         {
           "ad": "Lübnan",
-          "sayi": 39093,
-          "yillik": 10.13353617
+          "sayi": 34360,
+          "yillik": 10.16704607
         },
         {
           "ad": "Malezya",
-          "sayi": 3987,
-          "yillik": 5.81210191
+          "sayi": 9249,
+          "yillik": -14.33731592
         },
         {
           "ad": "Özbekistan",
-          "sayi": 93575,
-          "yillik": 10.55386215
+          "sayi": 76570,
+          "yillik": 12.48218824
         },
         {
           "ad": "Pakistan",
-          "sayi": 16218,
-          "yillik": 0.8833043
+          "sayi": 13467,
+          "yillik": 3.77591123
         },
         {
           "ad": "Singapur",
-          "sayi": 1746,
-          "yillik": 8.37988827
+          "sayi": 2651,
+          "yillik": 0.15111447
         },
         {
           "ad": "Suriye",
-          "sayi": 17564.42,
-          "yillik": -11.69220714
+          "sayi": 14296,
+          "yillik": -9.60480556
         },
         {
           "ad": "Suudi Arabistan",
-          "sayi": 187287,
-          "yillik": -4.48585548
+          "sayi": 85991,
+          "yillik": 27.27528381
         },
         {
           "ad": "Tacikistan",
-          "sayi": 2986,
-          "yillik": 2.33036326
+          "sayi": 2609,
+          "yillik": 21.34883721
         },
         {
           "ad": "Türkmenistan",
-          "sayi": 16978,
-          "yillik": 21.81087674
+          "sayi": 13166,
+          "yillik": 22.38334263
         },
         {
           "ad": "Tayland",
-          "sayi": 2786,
-          "yillik": -11.30213308
+          "sayi": 3172,
+          "yillik": -16.12903226
         },
         {
           "ad": "Ürdün",
-          "sayi": 47635,
-          "yillik": 1.82552746
+          "sayi": 33623,
+          "yillik": 5.18034223
         },
         {
           "ad": "Yemen",
-          "sayi": 3964,
-          "yillik": -8.09181544
+          "sayi": 2560,
+          "yillik": 2.60521042
         },
         {
           "ad": "Avustralya",
-          "sayi": 26214,
-          "yillik": -8.00814149
+          "sayi": 34949,
+          "yillik": 20.26083067
         },
         {
           "ad": "Yeni Zellanda",
-          "sayi": 4559,
-          "yillik": -10.20287571
+          "sayi": 5468,
+          "yillik": -16.64634146
         }
       ]
     },
-    "alinma": "2026-10-29T18:13:58.158Z"
+    "alinma": "2026-11-13T07:59:32.839Z"
   },
   "uyp": {
     "kaynak": {
@@ -163030,49 +163068,49 @@
         "yil": 2025,
         "ay": 1,
         "banka": 125.86,
-        "diger": 132.84,
+        "diger": 132.01,
         "bankaTahvil": 133.93,
-        "digerTahvil": 156.77
+        "digerTahvil": 155.88
       },
       {
         "yil": 2025,
         "ay": 2,
         "banka": 127.6,
-        "diger": 137.14,
+        "diger": 136.32,
         "bankaTahvil": 133.46,
-        "digerTahvil": 161.37
+        "digerTahvil": 160.49
       },
       {
         "yil": 2025,
         "ay": 3,
         "banka": 129.04,
-        "diger": 141.81,
+        "diger": 141.03,
         "bankaTahvil": 133.72,
-        "digerTahvil": 156.58
+        "digerTahvil": 155.81
       },
       {
         "yil": 2025,
         "ay": 4,
         "banka": 114.88,
-        "diger": 151.32,
+        "diger": 150.48,
         "bankaTahvil": 119.77,
-        "digerTahvil": 157.76
+        "digerTahvil": 156.94
       },
       {
         "yil": 2025,
         "ay": 5,
         "banka": 116.42,
-        "diger": 160.84,
+        "diger": 159.93,
         "bankaTahvil": 123.48,
-        "digerTahvil": 165.74
+        "digerTahvil": 164.87
       },
       {
         "yil": 2025,
         "ay": 6,
         "banka": 113.3,
-        "diger": 150.79,
+        "diger": 149.97,
         "bankaTahvil": 120.58,
-        "digerTahvil": 155.52
+        "digerTahvil": 154.73
       },
       {
         "yil": 2025,
@@ -163086,108 +163124,116 @@
         "yil": 2025,
         "ay": 8,
         "banka": 109.81,
-        "diger": 156.69,
+        "diger": 156.68,
         "bankaTahvil": 123.21,
-        "digerTahvil": 152.01
+        "digerTahvil": 151.99
       },
       {
         "yil": 2025,
         "ay": 9,
-        "banka": 103,
-        "diger": 154.67,
+        "banka": 103.13,
+        "diger": 154.18,
         "bankaTahvil": 116.38,
-        "digerTahvil": 163.96
+        "digerTahvil": 163.44
       },
       {
         "yil": 2025,
         "ay": 10,
-        "banka": 110.33,
-        "diger": 171.02,
+        "banka": 110.47,
+        "diger": 170.45,
         "bankaTahvil": 124.59,
-        "digerTahvil": 182.19
+        "digerTahvil": 181.61
       },
       {
         "yil": 2025,
         "ay": 11,
-        "banka": 109.55,
-        "diger": 175.8,
+        "banka": 109.68,
+        "diger": 175.22,
         "bankaTahvil": 122.17,
-        "digerTahvil": 184.26
+        "digerTahvil": 183.68
       },
       {
         "yil": 2025,
         "ay": 12,
-        "banka": 108.39,
-        "diger": 197.05,
+        "banka": 108.51,
+        "diger": 196.45,
         "bankaTahvil": 120.11,
-        "digerTahvil": 197.91
+        "digerTahvil": 197.34
       },
       {
         "yil": 2026,
         "ay": 1,
-        "banka": 108.08,
-        "diger": 193.79,
+        "banka": 108.19,
+        "diger": 193.2,
         "bankaTahvil": 116.57,
-        "digerTahvil": 197.83
+        "digerTahvil": 197.27
       },
       {
         "yil": 2026,
         "ay": 2,
-        "banka": 104.69,
-        "diger": 192.4,
+        "banka": 104.8,
+        "diger": 191.76,
         "bankaTahvil": 111.19,
-        "digerTahvil": 196.23
+        "digerTahvil": 195.63
       },
       {
         "yil": 2026,
         "ay": 3,
         "banka": 107.69,
-        "diger": 182.74,
+        "diger": 182.67,
         "bankaTahvil": 111.48,
-        "digerTahvil": 186.7
+        "digerTahvil": 186.64
       },
       {
         "yil": 2026,
         "ay": 4,
         "banka": 109,
-        "diger": 183.02,
+        "diger": 182.95,
         "bankaTahvil": 110.79,
-        "digerTahvil": 186
+        "digerTahvil": 185.93
       },
       {
         "yil": 2026,
         "ay": 5,
         "banka": 110.82,
-        "diger": 172.08,
+        "diger": 171.84,
         "bankaTahvil": 111.5,
-        "digerTahvil": 176.54
+        "digerTahvil": 176.32
       },
       {
         "yil": 2026,
         "ay": 6,
         "banka": 114.3,
-        "diger": 161.75,
+        "diger": 161.5,
         "bankaTahvil": 111.78,
-        "digerTahvil": 175.46
+        "digerTahvil": 175.21
       },
       {
         "yil": 2026,
         "ay": 7,
         "banka": 114.43,
-        "diger": 160.75,
+        "diger": 160.42,
         "bankaTahvil": 112.35,
-        "digerTahvil": 165.71
+        "digerTahvil": 165.39
       },
       {
         "yil": 2026,
         "ay": 8,
         "banka": 117.22,
-        "diger": 154.74,
+        "diger": 154.45,
         "bankaTahvil": 114.2,
-        "digerTahvil": 159.4
+        "digerTahvil": 159.12
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "banka": 114.32,
+        "diger": 160.38,
+        "bankaTahvil": 113.24,
+        "digerTahvil": 160.02
       }
     ],
-    "alinma": "2026-10-29T19:01:08.709Z"
+    "alinma": "2026-11-13T07:59:32.839Z"
   },
   "butceAyrinti": {
     "kaynak": {
