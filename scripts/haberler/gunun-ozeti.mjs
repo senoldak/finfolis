@@ -123,18 +123,26 @@ export function listeSigdir({ basliklar, toplam, satirla, sigar, azamiSatir = 2,
   return { ogeler, kalan: Math.max(0, toplam - ogeler.length) };
 }
 
-/** Gün sayfasını mecmua-saat dağıtım kuyruğuna bildirir. Hata fırlatmaz; başarıda true. */
-export async function ozetBildir({ url, anahtar, site, sayfaUrl, simdi = new Date(), fetchFn = fetch }) {
+/**
+ * Gün sayfasını mecmua-saat dağıtım kuyruğuna bildirir; geçici hatada üç kez dener (tek bir ağ hatası o günün
+ * iletisini kaybettirmesin). Hata fırlatmaz; başarıda true.
+ */
+export async function ozetBildir({ url, anahtar, site, sayfaUrl, simdi = new Date(), fetchFn = fetch, bekle = (ms) => new Promise((r) => setTimeout(r, ms)) }) {
   if (!url || !anahtar) return false;
-  try {
-    const res = await fetchFn(`${url.replace(/\/$/, '')}/motor/${site}/kaydet`, {
-      method: 'POST',
-      headers: { 'content-type': 'application/json', Authorization: `Bearer ${anahtar}` },
-      body: JSON.stringify({ yazilar: [{ slug: ozetSlug(istanbulGunu(simdi)), url: sayfaUrl, tarih: simdi.toISOString() }] }),
-      signal: AbortSignal.timeout(10_000),
-    });
-    return res.ok;
-  } catch {
-    return false;
+  const govde = JSON.stringify({ yazilar: [{ slug: ozetSlug(istanbulGunu(simdi)), url: sayfaUrl, tarih: simdi.toISOString() }] });
+  for (let deneme = 1; deneme <= 3; deneme++) {
+    try {
+      const res = await fetchFn(`${url.replace(/\/$/, '')}/motor/${site}/kaydet`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', Authorization: `Bearer ${anahtar}` },
+        body: govde,
+        signal: AbortSignal.timeout(10_000),
+      });
+      if (res.ok) return true;
+    } catch {
+      // ağ hatası: yeniden dene
+    }
+    if (deneme < 3) await bekle(deneme * 5_000);
   }
+  return false;
 }

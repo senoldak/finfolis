@@ -12,7 +12,7 @@ permissions:
   actions: write
 
 concurrency:
-  group: haber-botu
+  group: gunun-ozeti
   cancel-in-progress: false
 
 jobs:

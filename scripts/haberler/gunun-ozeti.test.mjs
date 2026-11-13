@@ -113,3 +113,13 @@ test('ozetBildir: ağ hatası ya da 4xx false, fırlatmaz', async () => {
   assert.equal(await ozetBildir({ url: 'https://saat.example', anahtar: 'k', site: 'kifobu', sayfaUrl: 'x', fetchFn: async () => new Response('{}', { status: 400 }) }), false);
   assert.equal(await ozetBildir({ url: '', anahtar: 'k', site: 'kifobu', sayfaUrl: 'x', fetchFn: async () => new Response('{}') }), false);
 });
+
+test('ozetBildir: geçici hata üç kez denenir', async () => {
+  let n = 0;
+  const f = async () => (++n < 3 ? new Response('{}', { status: 503 }) : new Response('{}'));
+  assert.equal(await ozetBildir({ url: 'https://saat.example', anahtar: 'k', site: 'kifobu', sayfaUrl: 'x', fetchFn: f, bekle: async () => {} }), true);
+  assert.equal(n, 3);
+  let m = 0;
+  assert.equal(await ozetBildir({ url: 'https://saat.example', anahtar: 'k', site: 'kifobu', sayfaUrl: 'x', fetchFn: async () => (m++, new Response('{}', { status: 500 })), bekle: async () => {} }), false);
+  assert.equal(m, 3);
+});
