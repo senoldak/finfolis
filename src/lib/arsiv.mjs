@@ -1,6 +1,8 @@
 // Takvimli arşiv: haberler İstanbul gününe göre gruplanır. Günün özeti, o günün son bülteninin spotudur
 // (bülteni bot zaten yazar; arşiv için ayrıca Gemini çağrısı yapılmaz).
 import { istanbulGunu } from './seffaflik.mjs';
+import { existsSync, readFileSync } from 'node:fs';
+import path from 'node:path';
 
 // Bu sayının altında haberi olan gün sayfası arama motoruna kapalıdır (noindex, follow) ve site haritasına girmez.
 export const ARSIV_ESIGI = 3;
@@ -121,4 +123,20 @@ export function haftalaraAyir(gunler) {
       sayi: h.gunler.reduce((t, g) => t + g.haberler.length, 0),
     }))
     .sort((a, b) => (a.anahtar < b.anahtar ? 1 : -1));
+}
+
+/**
+ * Telegram Günün Özeti kaydı (20:45 işi yazar: src/data/gunun-ozeti/<gun>.json). Yoksa ya da okunamazsa null.
+ * Kayıt varsa gün sayfası paragrafı, Günün Özeti kapağını (public/gunun-ozeti/<gun>.png) ve kuyruğun okuduğu meta
+ * etiketlerini gösterir.
+ */
+export function ozetKaydi(gun, dizin = path.join(process.cwd(), 'src/data/gunun-ozeti')) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(gun)) return null;
+  const dosya = path.join(dizin, `${gun}.json`);
+  if (!existsSync(dosya)) return null;
+  try {
+    return JSON.parse(readFileSync(dosya, 'utf8'));
+  } catch {
+    return null;
+  }
 }

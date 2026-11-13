@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { ayTakvimi, gunBasligi, gunlereAyir } from './arsiv.mjs';
+import { ayTakvimi, gunBasligi, gunlereAyir, ozetKaydi } from './arsiv.mjs';
 
 const h = (id, iso, tur = 'haber') => ({ id, data: { date: new Date(iso), tur } });
 
@@ -72,4 +72,18 @@ test('haftalaraAyir: yeni hafta önce, gün aralığı ve haber sayısı', async
     ['2026-42', '2026-10-12', '2026-10-16', 5],
     ['2026-41', '2026-10-09', '2026-10-09', 1],
   ]);
+});
+
+test('ozetKaydi: günün Günün Özeti kaydı; yoksa ya da bozuksa null', async () => {
+  const { mkdtemp, writeFile } = await import('node:fs/promises');
+  const os = await import('node:os');
+  const path = await import('node:path');
+  const dizin = await mkdtemp(path.join(os.tmpdir(), 'ozet-'));
+  const kayit = { tarih: '2026-11-13', paragraf: 'P.', kimlikler: ['a'], yazan: 'gemini', olusturma: '2026-11-13T17:45:00.000Z' };
+  await writeFile(path.join(dizin, '2026-11-13.json'), JSON.stringify(kayit));
+  await writeFile(path.join(dizin, '2026-11-12.json'), '{bozuk');
+  assert.deepEqual(ozetKaydi('2026-11-13', dizin), kayit);
+  assert.equal(ozetKaydi('2026-11-12', dizin), null);
+  assert.equal(ozetKaydi('2026-11-11', dizin), null);
+  assert.equal(ozetKaydi('../etc', dizin), null);
 });

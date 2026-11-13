@@ -1,10 +1,12 @@
 ---
-// Günlük arşiv sayfası: günün özeti (o günün son bülteni) ve o gün yayımlanan haberler.
+// Günlük arşiv sayfası: günün özeti (o günün son bülteni) ve o gün yayımlanan haberler. Telegram Günün Özeti
+// kaydı olan günde (src/data/gunun-ozeti/<gun>.json) üstte günün paragrafı, paylaşım görseli Günün Özeti kapağı ve
+// mecmua-saat kuyruğunun okuduğu gunun-ozeti / gunun-ozeti-paragraf meta etiketleri de olur.
 import Base from '../../layouts/Base.astro';
 import NewsCard from '../../components/NewsCard.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import { getNews, newsUrl } from '../../lib/news';
-import { ARSIV_ESIGI, ayBasligi, bultenMaddeleri, gunBasligi, gunlereAyir } from '../../lib/arsiv.mjs';
+import { ARSIV_ESIGI, ayBasligi, bultenMaddeleri, gunBasligi, gunlereAyir, ozetKaydi } from '../../lib/arsiv.mjs';
 
 export async function getStaticPaths() {
   const gunler = gunlereAyir(await getNews());
@@ -21,6 +23,7 @@ const ay = g.gun.slice(0, 7);
 const noindex = g.haberler.length < ARSIV_ESIGI;
 // Günün özeti: o günün son bülteninin maddeleri (bölge bölge kalın başlık + tek cümle).
 const maddeler = bultenMaddeleri(g.bulten?.body);
+const kayit = ozetKaydi(g.gun);
 const ozet = maddeler.length ? maddeler.slice(0, 2).map((m) => `${m.baslik}: ${m.metin}`).join(' ') : undefined;
 // "Piyasa bülteni · 15 Ekim 2026, öğle" → "öğle"; gece yayımlanan önceki günün kapanışı tarihiyle kalır.
 const bultenEtiketi = (t: string) => {
@@ -31,9 +34,21 @@ const bultenEtiketi = (t: string) => {
 
 <Base
   title={`${baslik} haberleri`}
-  description={ozet ?? `${baslik} tarihinde finfolis'te yayımlanan ${g.haberler.length} haber.`}
+  description={kayit?.paragraf ?? ozet ?? `${baslik} tarihinde finfolis'te yayımlanan ${g.haberler.length} haber.`}
+  image={kayit ? `/gunun-ozeti/${g.gun}.png` : undefined}
+  imageWidth={kayit ? 1200 : undefined}
+  imageHeight={kayit ? 675 : undefined}
+  imageAlt={kayit ? `Günün Özeti · ${baslik}: günün öne çıkan haber başlıkları` : undefined}
   noindex={noindex}
 >
+  {
+    kayit && (
+      <Fragment slot="head">
+        <meta name="gunun-ozeti" content={g.gun} />
+        <meta name="gunun-ozeti-paragraf" content={kayit.paragraf} />
+      </Fragment>
+    )
+  }
   <div class="container">
     <article class="makale">
       <Breadcrumb yol={[{ ad: 'Anasayfa', href: '/' }, { ad: 'Arşiv', href: `/arsiv/#ay-${ay}` }, { ad: baslik }]} />
@@ -44,6 +59,9 @@ const bultenEtiketi = (t: string) => {
           <a href={`/arsiv/#ay-${ay}`}>{ayBasligi(ay)} takvimi</a>
         </p>
       </header>
+
+      {kayit && <p class="gun-paragraf">{kayit.paragraf}</p>}
+      {kayit?.yazan === 'gemini' && <p class="gun-paragraf-not">Bu paragraf o günün haberlerinden yapay zekâ ile yazıldı.</p>}
 
       {
         maddeler.length > 0 && (
@@ -88,6 +106,18 @@ const bultenEtiketi = (t: string) => {
 </Base>
 
 <style>
+  .gun-paragraf {
+    margin: 8px 0 4px;
+    font-family: var(--serif);
+    font-size: 1.12rem;
+    line-height: 1.55;
+  }
+  .gun-paragraf-not {
+    margin: 0 0 20px;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
   .gunun-ozeti {
     margin: 8px 0 24px;
     padding: 16px 0;

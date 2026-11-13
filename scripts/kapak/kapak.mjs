@@ -10,6 +10,7 @@ import sharp from 'sharp';
 import { create } from 'fontkitten';
 import { CATEGORIES } from '../../src/lib/kategoriler.js';
 import { KIMLIK, abakusSvg } from '../../src/lib/kimlik.js';
+import { listeSigdir } from '../haberler/gunun-ozeti.mjs';
 
 const B = 1200;
 const H = 675;
@@ -181,20 +182,21 @@ const ALT_BANT = 130; // altta "finfolis" satırının ayırdığı yükseklik
 const ABAKUS_X = 820; // büyük abaküsün sol kenarı; başlık bunun solunda kalır
 const YAZI_GEN = ABAKUS_X - 64 - 40;
 
-async function cerceve(kat, { ornek, buyukAbakus = true } = {}) {
+async function cerceve(kat, { ornek, buyukAbakus = true, etiketsiz = false } = {}) {
   await fontlariDenetle();
   let svg = `<rect width="${B}" height="${H}" fill="${R.kagit}"/>`;
   if (buyukAbakus) svg += abakusSvg({ boyut: 470, zemin: 'soluk', vurgu: true, ekler: `x="${ABAKUS_X}" y="-30"` });
   const ad = await yazi('finfolis', { boyut: 44, kalinlik: 600, renk: R.murekkep, aralik: -0.03 });
   const ka = await yazi(kat.name, { boyut: 28, kalinlik: 600, renk: KIMLIK.toprak, aralik: 0.1, buyukHarf: true });
   const katmanlar = [{ ...ad, left: 64, top: Math.round(H - 66 - ad.yukseklik / 2) }];
-  if (buyukAbakus) katmanlar.push({ ...ka, left: 64, top: 64 });
+  if (etiketsiz) { /* Günün Özeti: kategori etiketi yok, tek başlık */ }
+  else if (buyukAbakus) katmanlar.push({ ...ka, left: 64, top: 64 });
   else katmanlar.push({ ...ka, left: B - 64 - ka.genislik, top: Math.round(H - 66 - ka.yukseklik / 2) });
   if (ornek) {
     const o = await yazi('Örnek veri', { boyut: 20, kalinlik: 600, renk: R.murekkep, alfa: 70 });
     katmanlar.push({ ...o, left: Math.round((B - o.genislik) / 2), top: Math.round(H - 66 - o.yukseklik / 2) });
   }
-  const ustBosluk = buyukAbakus ? 64 + ka.yukseklik + 24 : 48;
+  const ustBosluk = etiketsiz ? 64 : buyukAbakus ? 64 + ka.yukseklik + 24 : 48;
   return { svg, katmanlar, renk: R.murekkep, vurgu: R.murekkep, veri: R.murekkep, zemin: R.kagit, ustBosluk };
 }
 
@@ -231,32 +233,93 @@ export function kaynakKapagi({ kategori: slug, konu, alt, ornek }) {
   return async () => baslikKapagi(kategori(slug), konu, { ornek, alt });
 }
 
+// Liste kartı (piyasa bülteni ve Günün Özeti): üstte tarih, büyük başlık, altında "— " imleçli maddeler.
+// Madde en çok iki satır olur; sığmayan madde kesilmez ("…" yok), kapağa girmez, yerine sıradaki geçer.
+// Dönüşte meta: { maddeler (çizilen başlıklar), kalan } (testler ve gün sayfası için).
+const MADDE_ARA = 14;
+const yaziYuksekligi = (boyut, satir) => {
+  const f = font(500, boyut);
+  const tek = (f.ascent - f.descent) * (boyut / f.unitsPerEm);
+  return Math.ceil(tek * 1.02 * (satir - 1) + tek) + 2;
+};
+// asili: imleç ("—") ayrı katman, ikinci satır imlecin değil yazının altından başlar (Günün Özeti). Bülten kartı
+// onaylı görünümünde kalır (imleç yazının parçası). tavan: listenin inebileceği en alt nokta (üst boşluk dahil).
+async function listeKarti({ tarih, baslik, basliklar, toplam, azamiOge, boyutlar, dahaGoster, asili = false }) {
+  const c = await cerceve(kategori('piyasalar'), { etiketsiz: asili });
+  const u = tarih && !asili ? await yazi(tarih, { boyut: 30, kalinlik: 700, renk: c.renk, aralik: 0.1, buyukHarf: true }) : null;
+  const t = await yazi(baslik, { boyut: 84, kalinlik: 700, renk: c.renk, genislik: YAZI_GEN, satirAraligi: -6 });
+  const ustH = (u ? u.yukseklik + 18 : 0) + t.yukseklik + (basliklar.length ? 24 : 0);
+  const dahaH = yaziYuksekligi(24, 1) + MADDE_ARA;
+  // Günün Özeti: liste üst boşluktan başlar; en alt nokta "finfolis" yazısının (merkez H-66) 20 px üstü.
+  const tavan = asili ? H - 66 - 22 - 20 - c.ustBosluk : ALAN_H - 70;
+  let sec;
+  let boyut;
+  let imlecG = 0;
+  for (boyut of boyutlar) {
+    const f = font(500, boyut);
+    imlecG = asili ? olc(f, '—  ', boyut, 0) : 0;
+    sec = listeSigdir({
+      basliklar,
+      toplam,
+      azamiOge,
+      satirla: (b) => (asili ? satirla(b, f, boyut, 0, YAZI_GEN - imlecG) : satirla(`—  ${b}`, f, boyut, 0, YAZI_GEN)),
+      sigar: (o) => {
+        const h = o.reduce((n, m) => n + yaziYuksekligi(boyut, m.satirlar.length) + MADDE_ARA, -MADDE_ARA);
+        return ustH + h + (dahaGoster && toplam > o.length ? dahaH : 0) <= tavan;
+      },
+    });
+    if (sec.ogeler.length === Math.min(azamiOge, basliklar.length)) break;
+  }
+  const ms = [];
+  const imlec = asili ? await yazi('—', { boyut, kalinlik: 500, renk: c.renk }) : null;
+  for (const m of sec.ogeler) {
+    ms.push(asili
+      ? await yazi(m.baslik, { boyut, kalinlik: 500, renk: c.renk, genislik: Math.floor(YAZI_GEN - imlecG) })
+      : await yazi(`—  ${m.baslik}`, { boyut, kalinlik: 500, renk: c.renk, genislik: YAZI_GEN }));
+  }
+  const daha = dahaGoster && sec.kalan > 0 ? await yazi(`+${sec.kalan} haber daha`, { boyut: 24, kalinlik: 500, renk: R.soluk }) : null;
+  const blokH = ustH + ms.reduce((n, m) => n + m.yukseklik + MADDE_ARA, -MADDE_ARA) + (daha ? dahaH : 0);
+  let y = Math.max(c.ustBosluk, Math.round((ALAN_H - blokH) / 2));
+  const katmanlar = [...c.katmanlar];
+  if (u) { katmanlar.push({ ...u, left: 64, top: y }); y += u.yukseklik + 18; }
+  katmanlar.push({ ...t, left: 64, top: y });
+  y += t.yukseklik + 24;
+  for (const m of ms) {
+    if (imlec) katmanlar.push({ ...imlec, left: 64, top: y });
+    katmanlar.push({ ...m, left: 64 + Math.round(imlecG), top: y });
+    y += m.yukseklik + MADDE_ARA;
+  }
+  if (daha) katmanlar.push({ ...daha, left: 64 + Math.round(imlecG), top: y });
+  // Günün Özeti: tarih sağ altta (kifobu kartı gibi), altında pişmiş toprak çizgi.
+  let svg = c.svg;
+  if (asili && tarih) {
+    const ta = await yazi(tarih, { boyut: 24, kalinlik: 700, renk: R.murekkep, aralik: 0.06, buyukHarf: true });
+    const ust = Math.round(H - 66 - ta.yukseklik / 2);
+    const sol = B - 64 - ta.genislik;
+    katmanlar.push({ ...ta, left: sol, top: ust });
+    svg += `<rect x="${sol}" y="${ust + ta.yukseklik + 4}" width="${ta.genislik}" height="4" fill="${KIMLIK.toprak}"/>`;
+  }
+  return { svg, katmanlar, meta: { maddeler: sec.ogeler.map((m) => m.baslik), kalan: sec.kalan } };
+}
+
 // Bülten kartı: üstte tarih, "Piyasa bülteni" (saat verilirse "14:00 bülteni") başlık, altında en çok 3 madde.
+// Punto 36'dan 26'ya kadar ikişer küçülür; maddeler sığınca durur.
 export function bultenKapagi({ saat, tarih, basliklar = [] }) {
-  return async () => {
-    const kat = kategori('piyasalar');
-    const c = await cerceve(kat);
-    const u = tarih ? await yazi(tarih, { boyut: 30, kalinlik: 700, renk: c.renk, aralik: 0.1, buyukHarf: true }) : null;
-    const t = await yazi(saat ? `${saat} bülteni` : 'Piyasa bülteni', { boyut: 84, kalinlik: 700, renk: c.renk, genislik: YAZI_GEN, satirAraligi: -6 });
-    const maddeler = basliklar.slice(0, 3).map((b) => `—  ${b.length > 80 ? `${b.slice(0, 77)}…` : b}`);
-    let ms = [];
-    const ara = 14;
-    const ustH = (u ? u.yukseklik + 18 : 0) + t.yukseklik + (maddeler.length ? 24 : 0);
-    for (let boyut = 36; ; boyut -= 2) {
-      ms = [];
-      for (const m of maddeler) ms.push(await yazi(m, { boyut, kalinlik: 500, renk: c.renk, genislik: YAZI_GEN }));
-      const toplam = ms.reduce((n, m) => n + m.yukseklik + ara, -ara);
-      if (!maddeler.length || ustH + toplam <= ALAN_H - 70 || boyut <= 26) break;
-    }
-    const blokH = ustH + ms.reduce((n, m) => n + m.yukseklik + ara, -ara);
-    let y = Math.max(c.ustBosluk, Math.round((ALAN_H - blokH) / 2));
-    const katmanlar = [...c.katmanlar];
-    if (u) { katmanlar.push({ ...u, left: 64, top: y }); y += u.yukseklik + 18; }
-    katmanlar.push({ ...t, left: 64, top: y });
-    y += t.yukseklik + 24;
-    for (const m of ms) { katmanlar.push({ ...m, left: 64, top: y }); y += m.yukseklik + ara; }
-    return { svg: c.svg, katmanlar };
-  };
+  return () => listeKarti({
+    tarih,
+    baslik: saat ? `${saat} bülteni` : 'Piyasa bülteni',
+    basliklar,
+    toplam: basliklar.length,
+    azamiOge: 3,
+    boyutlar: [36, 34, 32, 30, 28, 26],
+    dahaGoster: false,
+  });
+}
+
+// Telegram Günün Özeti kartı (kifobu kartı örnek): tek başlık "Günün Özeti", en çok 4 haber başlığı (30 px),
+// "+N haber daha", sağ altta tarih ("13 Kasım 2026", büyük harfle).
+export function ozetKapagi({ tarih, basliklar = [], toplam = basliklar.length }) {
+  return () => listeKarti({ tarih, baslik: 'Günün Özeti', basliklar, toplam, azamiOge: 4, boyutlar: [30], dahaGoster: true, asili: true });
 }
 
 // Rakam kartı: rakam kahramandır (Bricolage 700, genişliğe sığana dek küçülür); üstünde etiket, altında kısa satır.

@@ -261,3 +261,39 @@ test('ajandaKapagi: 6 göstergeli tam ajanda ve 7+ göstergeli önceliklendirme 
   assert.ok(pngYedi.length > 5000);
 });
 
+
+// --- Günün Özeti ve kesmesiz bülten maddeleri (2026-11-14) ---
+const GUN = [
+  "Nvidia CEO'su Jensen Huang İstifa Etti",
+  'Nvidia hisselerinde altı haftalık düşüş ve piyasa değerinde gerileme',
+  'Bitcoin 12 haftanın en düşük seviyesine geriledi',
+  'Anthropic halka arz sürecini başlattı',
+  'TÜFE sepetinde her 100 liranın 24,44 lirası gıdaya ayrılıyor',
+];
+
+test('bultenKapagi: uzun madde "…" ile kesilmez; ya tam ya hiç', async () => {
+  const uzun = 'Çok uzun bir madde '.repeat(8).trim();
+  const r = await bultenKapagi({ tarih: '13 Ekim', basliklar: [uzun, 'İkinci', 'Üçüncü', 'Dördüncü (çizilmez)'] })();
+  assert.ok(r.meta.maddeler.length <= 3);
+  // Sığmayan madde atlanınca yerine sıradaki geçer (kifobu bülten kapağıyla aynı kural).
+  assert.deepEqual(r.meta.maddeler, ['İkinci', 'Üçüncü', 'Dördüncü (çizilmez)']);
+  assert.ok(!r.meta.maddeler.includes(uzun), 'iki satıra sığmayan madde girmez');
+});
+
+test('ozetKapagi: en çok 4 madde, kalan sayılır, kesme yok, geçerli PNG', async () => {
+  const { ozetKapagi } = await import('./kapak.mjs');
+  const r = await ozetKapagi({ tarih: '13 Kasım', basliklar: GUN, toplam: 28 })();
+  assert.ok(r.meta.maddeler.length >= 2 && r.meta.maddeler.length <= 4, String(r.meta.maddeler.length));
+  for (const m of r.meta.maddeler) assert.ok(GUN.includes(m), m);
+  assert.equal(r.meta.kalan, 28 - r.meta.maddeler.length);
+  const png = await kapakCiz(ozetKapagi({ tarih: '13 Kasım', basliklar: GUN, toplam: 28 }));
+  assert.ok(Buffer.isBuffer(png) && png.length > 3000);
+});
+
+test('ozetKapagi: iki satıra sığmayan başlık atlanır', async () => {
+  const { ozetKapagi } = await import('./kapak.mjs');
+  const dev = 'Çok uzun bir başlık '.repeat(10).trim();
+  const r = await ozetKapagi({ tarih: '13 Kasım', basliklar: [dev, GUN[3]], toplam: 2 })();
+  assert.deepEqual(r.meta.maddeler, [GUN[3]]);
+  assert.equal(r.meta.kalan, 1);
+});
