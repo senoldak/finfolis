@@ -250,6 +250,9 @@ async function listeKarti({ tarih, baslik, basliklar, toplam, azamiOge, boyutlar
   const t = await yazi(baslik, { boyut: 84, kalinlik: 700, renk: c.renk, genislik: YAZI_GEN, satirAraligi: -6 });
   const ustH = (u ? u.yukseklik + 18 : 0) + t.yukseklik + (basliklar.length ? 24 : 0);
   const dahaH = yaziYuksekligi(24, 1) + MADDE_ARA;
+  // Günün Özeti: maddeler arasında ince çizgi (kifobu kartı gibi); her maddenin üstünde ve altında ara/2 boşluk.
+  const ara = asili ? 26 : MADDE_ARA;
+  const listeH = (yukseklikler) => yukseklikler.reduce((n, h) => n + h + ara, asili ? 0 : -ara);
   // Günün Özeti: liste üst boşluktan başlar; en alt nokta "finfolis" yazısının (merkez H-66) 20 px üstü.
   const tavan = asili ? H - 66 - 22 - 20 - c.ustBosluk : ALAN_H - 70;
   let sec;
@@ -264,7 +267,7 @@ async function listeKarti({ tarih, baslik, basliklar, toplam, azamiOge, boyutlar
       azamiOge,
       satirla: (b) => (asili ? satirla(b, f, boyut, 0, YAZI_GEN - imlecG) : satirla(`—  ${b}`, f, boyut, 0, YAZI_GEN)),
       sigar: (o) => {
-        const h = o.reduce((n, m) => n + yaziYuksekligi(boyut, m.satirlar.length) + MADDE_ARA, -MADDE_ARA);
+        const h = listeH(o.map((m) => yaziYuksekligi(boyut, m.satirlar.length)));
         return ustH + h + (dahaGoster && toplam > o.length ? dahaH : 0) <= tavan;
       },
     });
@@ -278,20 +281,31 @@ async function listeKarti({ tarih, baslik, basliklar, toplam, azamiOge, boyutlar
       : await yazi(`—  ${m.baslik}`, { boyut, kalinlik: 500, renk: c.renk, genislik: YAZI_GEN }));
   }
   const daha = dahaGoster && sec.kalan > 0 ? await yazi(`+${sec.kalan} haber daha`, { boyut: 24, kalinlik: 500, renk: R.soluk }) : null;
-  const blokH = ustH + ms.reduce((n, m) => n + m.yukseklik + MADDE_ARA, -MADDE_ARA) + (daha ? dahaH : 0);
+  const blokH = ustH + listeH(ms.map((m) => m.yukseklik)) + (daha ? dahaH : 0);
   let y = Math.max(c.ustBosluk, Math.round((ALAN_H - blokH) / 2));
   const katmanlar = [...c.katmanlar];
   if (u) { katmanlar.push({ ...u, left: 64, top: y }); y += u.yukseklik + 18; }
   katmanlar.push({ ...t, left: 64, top: y });
   y += t.yukseklik + 24;
+  let cizgiler = '';
+  const cizgi = (cy) => `<rect x="64" y="${Math.round(cy)}" width="${YAZI_GEN}" height="1.5" fill="#dedbd2"/>`;
+  if (asili && ms.length) {
+    cizgiler += cizgi(y);
+    y += ara / 2;
+  }
   for (const m of ms) {
     if (imlec) katmanlar.push({ ...imlec, left: 64, top: y });
     katmanlar.push({ ...m, left: 64 + Math.round(imlecG), top: y });
-    y += m.yukseklik + MADDE_ARA;
+    y += m.yukseklik;
+    if (asili) {
+      y += ara / 2;
+      cizgiler += cizgi(y);
+      y += ara / 2;
+    } else y += ara;
   }
   if (daha) katmanlar.push({ ...daha, left: 64 + Math.round(imlecG), top: y });
   // Günün Özeti: tarih sağ altta (kifobu kartı gibi), altında pişmiş toprak çizgi.
-  let svg = c.svg;
+  let svg = c.svg + cizgiler;
   if (asili && tarih) {
     const ta = await yazi(tarih, { boyut: 24, kalinlik: 700, renk: R.murekkep, aralik: 0.06, buyukHarf: true });
     const ust = Math.round(H - 66 - ta.yukseklik / 2);
