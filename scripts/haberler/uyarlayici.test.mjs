@@ -304,7 +304,7 @@ test('isle: kısa kalan olay havuza alınır (bekliyor, havuzda); sonraki dilimd
   assert.equal(sonucu(s2, 'a2'), undefined);
   assert.equal(durum.havuz.length, 2);
   // Öğle dilimi: iki kısa haber tek derleme olur, her üye yazildi + aynı slug.
-  const k3 = await kur({ liste: [], durum, bag: kisa, simdi: new Date(SIMDI.getTime() + 2 * SAAT) });
+  const k3 = await kur({ liste: [], durum, bag: kisa, simdi: new Date(SIMDI.getTime() + 4 * SAAT) }); // öğle 14:00
   const s3 = await turla(k3);
   assert.equal(sonucu(s3, 'a1').durum, 'yazildi');
   assert.equal(sonucu(s3, 'a1').slug, sonucu(s3, 'a2').slug);

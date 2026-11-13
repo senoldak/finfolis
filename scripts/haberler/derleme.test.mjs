@@ -10,8 +10,10 @@ import { dilimGruplari, derlemeAdayi, DERLEME_AZAMI } from './derleme.mjs';
 import { derlemeIstemi, derlemeHedefi } from './yazar.mjs';
 import { havuzAc, havuzKapat, SON_SAAT } from './havuz.mjs';
 
-const simdi = new Date('2026-10-12T07:00:00Z'); // İstanbul 10:00, açılış dilimi; öğle 09:00Z'de başlar
-const GIRIS = '2026-10-12T06:30:00Z'; // açılış dilimi
+// Dilimler (İstanbul, 14 Kasım 2026'dan beri): açılış 10-14, öğle 14-18, kapanış 18-10. Bu yüzden "bir sonraki dilim"
+// simdi'den 4 saat, "aynı dilim içinde sonraki tur" 6 saat sonradır.
+const simdi = new Date('2026-10-12T07:00:00Z'); // İstanbul 10:00, açılış dilimi; öğle 11:00Z'de başlar
+const GIRIS = '2026-10-12T07:00:00Z'; // açılış dilimi
 const olay = (id, kategori, onem = 80, havuzaGirdi = GIRIS) => ({
   id,
   baslik: `Başlık ${id}`,
@@ -28,7 +30,7 @@ test('dilimGruplari: kategori aramadan aynı dilimin kısa haberlerini tek grup 
     olay('a', 'piyasalar'),
     olay('b', 'ekonomi'),
     olay('c', 'borsa'),
-    olay('d', 'kripto', 4, '2026-10-12T10:00:00Z'), // öğle dilimi: tek
+    olay('d', 'kripto', 4, '2026-10-12T12:00:00Z'), // öğle dilimi: tek
   ]);
   assert.deepEqual(gruplar.map((g) => g.map((o) => o.id)), [['a', 'b', 'c']]);
   assert.deepEqual(artan.map((o) => o.id), ['d']);
@@ -112,7 +114,7 @@ test('kısa haberler dilim boyunca havuzda bekler; dilim bitince tek derleme olu
   assert.equal(s.durum.havuz.length, 3);
   assert.equal((await calistir({ ...s, simdi: saatSonra(1), kaynaklar: tekKaynak(s) })).adet, 0); // dilim sürüyor
 
-  const r = await calistir({ ...s, simdi: saatSonra(2), kaynaklar: tekKaynak(s) }); // öğle dilimi
+  const r = await calistir({ ...s, simdi: saatSonra(4), kaynaklar: tekKaynak(s) }); // öğle dilimi
   assert.equal(r.adet, 1);
   const dosyalar = await readdir(path.join(s.rot, 'src/content/haberler'));
   assert.equal(dosyalar.length, 1);
@@ -130,7 +132,7 @@ test('dilimde tek kalan kısa haber dilim bitince bülten satırı olur ve havuz
   await calistir(s);
   await calistir({ ...s, simdi: saatSonra(1), kaynaklar: tekKaynak(s) });
   assert.deepEqual(bultendekiler, []); // dilim bitmeden bültene girmez
-  const r = await calistir({ ...s, simdi: saatSonra(2), kaynaklar: tekKaynak(s) });
+  const r = await calistir({ ...s, simdi: saatSonra(4), kaynaklar: tekKaynak(s) });
   assert.equal(r.adet, 0);
   assert.equal(r.bultenYazildi, true);
   assert.deepEqual(bultendekiler, ['a1']);
@@ -144,9 +146,9 @@ test('derleme yayın kurulundan geçemezse haberler bülten satırı bekler, der
     derlemeYaz: async () => (denemeler++, { baslik: 'D', spot: 's', govde: 'g', rakamlar: [] }),
   });
   await calistir(s);
-  await calistir({ ...s, simdi: saatSonra(2), kaynaklar: tekKaynak(s) }); // derleme denenir, durur; bülten yazılmaz
+  await calistir({ ...s, simdi: saatSonra(4), kaynaklar: tekKaynak(s) }); // derleme denenir, durur; bülten yazılmaz
   assert.equal(denemeler, 1);
-  await calistir({ ...s, simdi: saatSonra(4), kaynaklar: tekKaynak(s) });
+  await calistir({ ...s, simdi: saatSonra(6), kaynaklar: tekKaynak(s) });
   assert.equal(denemeler, 1);
   const acik = havuzAc(havuzKapat(s.durum.havuz));
   assert.equal(acik.length, 3);
@@ -162,11 +164,11 @@ test('derlemede geçici Gemini hatası: kısa haberler havuzda kalır, sonraki t
     },
   });
   await calistir(s);
-  assert.equal((await calistir({ ...s, simdi: saatSonra(2), kaynaklar: tekKaynak(s) })).adet, 0);
+  assert.equal((await calistir({ ...s, simdi: saatSonra(4), kaynaklar: tekKaynak(s) })).adet, 0);
   const acik = havuzAc(havuzKapat(s.durum.havuz));
   assert.equal(acik.length, 3);
   assert.ok(acik.every((o) => !o.derlemeDenendi));
-  assert.equal((await calistir({ ...s, simdi: saatSonra(4), kaynaklar: tekKaynak(s) })).adet, 1);
+  assert.equal((await calistir({ ...s, simdi: saatSonra(6), kaynaklar: tekKaynak(s) })).adet, 1);
   assert.deepEqual(s.durum.havuz, []);
 });
 
@@ -187,7 +189,7 @@ test('havuz: bültene de giremeyen kısa haber SON_SAAT sonra düşer', async ()
   const s = await ortam();
   s.kaynaklar = tekKaynak(s, ['a1', 'Copper prices climb']);
   await calistir(s);
-  await calistir({ ...s, simdi: saatSonra(2), kaynaklar: tekKaynak(s) });
+  await calistir({ ...s, simdi: saatSonra(4), kaynaklar: tekKaynak(s) });
   assert.deepEqual(s.durum.havuz.map((o) => o.id), ['a1']); // bülten yazılmadı: bekler
   await calistir({ ...s, simdi: saatSonra(SON_SAAT), kaynaklar: tekKaynak(s) });
   assert.deepEqual(s.durum.havuz, []);
@@ -215,7 +217,7 @@ test('öncelik: derleme, önem 60-69 haberlerden önce yazılır; 70+ haber derl
   await calistir(s); // a1-a3 kısa kalır, havuza girer
   sira.length = 0;
   const yeni = (id, onem) => ({ ...s.aday(id, `Baslik ${id}`), onem });
-  const r = await calistir({ ...s, simdi: saatSonra(2), kaynaklar: [{ ad: 'A', hent: async () => [yeni('d1', 65), yeni('y1', 90), yeni('d2', 62)] }] });
+  const r = await calistir({ ...s, simdi: saatSonra(4), kaynaklar: [{ ad: 'A', hent: async () => [yeni('d1', 65), yeni('y1', 90), yeni('d2', 62)] }] });
   assert.equal(r.adet, 4);
   assert.deepEqual(sira, ['haber:y1', 'derleme', 'haber:d1', 'haber:d2']);
 });
@@ -233,7 +235,7 @@ test('öncelik: tur payı derleme sonrası bitince önem 60-69 haber yazılmaz, 
   const yeni = (id, onem) => ({ ...s.aday(id, `Baslik ${id}`), onem });
   // derleme yazıldıktan sonra Gemini payı dolmuş sayılır: harcananToken derleme sayısına bağlı
   const r = await calistir({
-    ...s, simdi: saatSonra(2), tokenTavani: 100_000, harcananToken: () => (yazilanSayi ? 99_999 : 0),
+    ...s, simdi: saatSonra(4), tokenTavani: 100_000, harcananToken: () => (yazilanSayi ? 99_999 : 0),
     kaynaklar: [{ ad: 'A', hent: async () => [yeni('d1', 65), yeni('y1', 90)] }],
   });
   assert.deepEqual(sira, ['haber:y1', 'derleme']);
@@ -242,7 +244,7 @@ test('öncelik: tur payı derleme sonrası bitince önem 60-69 haber yazılmaz, 
 });
 
 test('dilimGruplari: aynı günün dilimleri gün içi sırayla gelir (öğle kapanıştan önce)', () => {
-  // 18 Ekim 2026 İstanbul: 13:00 öğle, 19:00 kapanış (UTC+3)
+  // 18 Ekim 2026 İstanbul: 13:00 açılış, 19:00 kapanış (UTC+3)
   const { gruplar } = dilimGruplari([
     olay('k1', 'piyasalar', 80, '2026-10-18T16:00:00Z'),
     olay('k2', 'piyasalar', 80, '2026-10-18T16:30:00Z'),
@@ -257,7 +259,8 @@ test('oncekiDilimAnahtari: şu andan önce biten dilim (gece yarısı sonrası d
   assert.equal(oncekiDilimAnahtari(new Date('2026-10-12T11:40:00Z')), '2026-10-12:acilis'); // İstanbul 14:40
   assert.equal(oncekiDilimAnahtari(new Date('2026-10-12T16:40:00Z')), '2026-10-12:ogle'); // 19:40
   assert.equal(oncekiDilimAnahtari(new Date('2026-10-12T22:40:00Z')), '2026-10-12:ogle'); // 01:40, hâlâ dünün kapanışı
-  assert.equal(oncekiDilimAnahtari(new Date('2026-10-12T05:40:00Z')), '2026-10-11:kapanis'); // 08:40
+  assert.equal(oncekiDilimAnahtari(new Date('2026-10-12T05:40:00Z')), '2026-10-11:ogle'); // 08:40, hâlâ dünün kapanışı
+  assert.equal(oncekiDilimAnahtari(new Date('2026-10-12T07:40:00Z')), '2026-10-11:kapanis'); // 10:40, açılış
 });
 
 test('derleme yalnız dilim biter bitmez yazılır; iki dilim sonra kalan grup bülten satırı olur', async () => {
@@ -278,8 +281,8 @@ test('bir dilimin tek derlemesi olur: fazlası sonraki turda ikinci derleme olma
   const s = await ortam({ derlemeYaz: async () => (derlemeler++, { baslik: 'Faiz ve emtia gündemi', spot: 's', govde: 'g', rakamlar: [] }) });
   s.kaynaklar = tekKaynak(s, ...Array.from({ length: DERLEME_AZAMI + 3 }, (_, i) => [`a${i}`, `Haber ${i} fiyatlar`]));
   await calistir(s);
-  assert.equal((await calistir({ ...s, simdi: saatSonra(2), kaynaklar: tekKaynak(s) })).adet, 1);
-  assert.equal((await calistir({ ...s, simdi: saatSonra(4), kaynaklar: tekKaynak(s) })).adet, 0); // hâlâ öğle
+  assert.equal((await calistir({ ...s, simdi: saatSonra(4), kaynaklar: tekKaynak(s) })).adet, 1);
+  assert.equal((await calistir({ ...s, simdi: saatSonra(6), kaynaklar: tekKaynak(s) })).adet, 0); // hâlâ öğle
   assert.equal(derlemeler, 1);
   assert.deepEqual(s.durum.derlemeDilimleri, ['2026-10-12:acilis']);
 });

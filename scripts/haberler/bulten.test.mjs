@@ -159,10 +159,13 @@ test('bütçe bittiyse tek tek kontrol yapılmaz, bülten null', async () => {
   assert.equal(kontrol, 1);
 });
 
-test('bultenDilimi: İstanbul saatine göre açılış, öğle, kapanış; gece önceki günün kapanışı', async () => {
+test('bultenDilimi: İstanbul saatine göre açılış 10–14, öğle 14–18, kapanış 18–10; 10:00 öncesi önceki günün kapanışı', async () => {
   const { bultenDilimi } = await import('./bulten.mjs');
-  assert.equal(bultenDilimi(new Date('2026-10-14T06:40:00Z')).anahtar, '2026-10-14:acilis'); // 09:40
-  assert.equal(bultenDilimi(new Date('2026-10-14T10:40:00Z')).anahtar, '2026-10-14:ogle'); // 13:40
+  assert.equal(bultenDilimi(new Date('2026-10-14T06:40:00Z')).anahtar, '2026-10-13:kapanis'); // 09:40
+  assert.equal(bultenDilimi(new Date('2026-10-14T07:40:00Z')).anahtar, '2026-10-14:acilis'); // 10:40
+  assert.equal(bultenDilimi(new Date('2026-10-14T10:40:00Z')).anahtar, '2026-10-14:acilis'); // 13:40
+  assert.equal(bultenDilimi(new Date('2026-10-14T11:40:00Z')).anahtar, '2026-10-14:ogle'); // 14:40
+  assert.equal(bultenDilimi(new Date('2026-10-14T15:40:00Z')).anahtar, '2026-10-14:kapanis'); // 18:40
   assert.equal(bultenDilimi(new Date('2026-10-14T16:40:00Z')).anahtar, '2026-10-14:kapanis'); // 19:40
   const gece = bultenDilimi(new Date('2026-10-14T22:40:00Z')); // 15 Ekim 01:40
   assert.equal(gece.anahtar, '2026-10-14:kapanis');
@@ -172,11 +175,11 @@ test('bultenDilimi: İstanbul saatine göre açılış, öğle, kapanış; gece 
 test('dilimDolu / dilimKaydet: aynı dilimde ikinci bülten yok, hafıza sınırlı', async () => {
   const { dilimDolu, dilimKaydet, DILIM_HAFIZA } = await import('./bulten.mjs');
   const durum = {};
-  const t = new Date('2026-10-14T06:40:00Z');
+  const t = new Date('2026-10-14T07:40:00Z'); // 10:40, açılış
   assert.equal(dilimDolu(durum, t), false);
   dilimKaydet(durum, t);
-  assert.equal(dilimDolu(durum, new Date('2026-10-14T08:40:00Z')), true); // 11:40, yine açılış
-  assert.equal(dilimDolu(durum, new Date('2026-10-14T10:40:00Z')), false); // öğle
+  assert.equal(dilimDolu(durum, new Date('2026-10-14T09:40:00Z')), true); // 12:40, yine açılış
+  assert.equal(dilimDolu(durum, new Date('2026-10-14T11:40:00Z')), false); // 14:40, öğle
   for (let i = 0; i < 20; i++) dilimKaydet(durum, new Date(t.getTime() + i * 6 * 3600e3));
   assert.equal(durum.bultenDilimleri.length, DILIM_HAFIZA);
 });

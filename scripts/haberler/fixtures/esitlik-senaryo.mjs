@@ -1,11 +1,13 @@
 // Bölme öncesi ve sonrası calistir'in aynı enjekte bağımlılıklarla aynı yazıları ve aynı gorulen farkını ürettiğini sınayan
 // senaryolar. Altın dosya (esitlik-altin.json) bölmeden önceki kodla üretildi; uyarlayici.test.mjs bugünkü kodu onunla karşılaştırır.
+// 14 Kasım 2026: bülten dilimleri 10/14/18'e alındı, senaryo saatleri kaydırıldı ve altın dosya yeniden üretildi; eskisiyle
+// tek fark bülten slug'ındaki saat damgasıydı (davranış aynı).
 // Yalnız uydurma adlar: haber.example.com, K, A.
 import { mkdtemp, mkdir, readdir } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 
-const SIMDI = new Date('2026-10-12T07:00:00Z'); // İstanbul 10:00, açılış dilimi
+const SIMDI = new Date('2026-10-12T07:00:00Z'); // İstanbul 10:00, açılış dilimi (10-14; öğle 14:00'te, simdi+4 saat)
 const saatSonra = (h) => new Date(SIMDI.getTime() + h * 3600e3);
 const aday = (id, baslik, onem, ek = {}) => ({
   id,
@@ -130,9 +132,9 @@ export async function senaryolar(calistir) {
     sonuc.karisik1 = await gorunum(calistir, sec, rot, kayit);
     sec.simdi = saatSonra(1);
     sonuc.karisik2 = await gorunum(calistir, sec, rot, kayit);
-    sec.simdi = saatSonra(2); // öğle dilimi: havuz işlenir
+    sec.simdi = saatSonra(4); // öğle dilimi: havuz işlenir
     sonuc.karisik3 = await gorunum(calistir, sec, rot, kayit);
-    sec.simdi = saatSonra(3);
+    sec.simdi = saatSonra(5);
     sonuc.karisik4 = await gorunum(calistir, sec, rot, kayit); // 3. deneme
   }
 
@@ -146,7 +148,7 @@ export async function senaryolar(calistir) {
     });
     sonuc.derleme1 = await gorunum(calistir, sec, rot, kayit);
     sec.kaynaklar = [{ ad: 'A', hent: async () => [] }];
-    sec.simdi = saatSonra(2);
+    sec.simdi = saatSonra(4);
     sonuc.derleme2 = await gorunum(calistir, sec, rot, kayit);
   }
 
@@ -158,7 +160,7 @@ export async function senaryolar(calistir) {
     });
     sonuc.tek1 = await gorunum(calistir, sec, rot, kayit);
     sec.kaynaklar = [{ ad: 'A', hent: async () => [] }];
-    sec.simdi = saatSonra(2);
+    sec.simdi = saatSonra(4);
     sonuc.tek2 = await gorunum(calistir, sec, rot, kayit);
   }
 

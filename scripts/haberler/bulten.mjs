@@ -67,14 +67,14 @@ const istanbul = (t) =>
       .map((x) => [x.type, Number(x.value)]),
   );
 
-// Günde en fazla üç bülten (İstanbul saatiyle): açılış 06-12, öğle 12-18, kapanış 18-06.
-// Gece yarısından sonraki çalıştırmalar bir önceki günün kapanış dilimine düşer. Her dilimde ilk uygun
+// Günde en fazla üç bülten (İstanbul saatiyle): açılış 10-14, öğle 14-18, kapanış 18-10 (14 Kasım 2026, sahibi:
+// bültenler dört saatte bir 10, 14, 18; Günün Özeti 22:00). 10:00'dan önceki çalıştırmalar bir önceki günün kapanış dilimine düşer. Her dilimde ilk uygun
 // çalıştırma bülteni yazar; yazılan dilimler durum.bultenDilimleri'nde tutulur (bkz. hent-haberler.mjs).
 export const DILIM_ADLARI = { acilis: 'açılış', ogle: 'öğle', kapanis: 'kapanış' };
 export function bultenDilimi(simdi) {
   const { hour: saat } = istanbul(simdi);
-  const dilim = saat >= 6 && saat < 12 ? 'acilis' : saat >= 12 && saat < 18 ? 'ogle' : 'kapanis';
-  const p = istanbul(saat < 6 ? new Date(simdi.getTime() - 6 * 3600 * 1000) : simdi);
+  const dilim = saat >= 10 && saat < 14 ? 'acilis' : saat >= 14 && saat < 18 ? 'ogle' : 'kapanis';
+  const p = istanbul(saat < 10 ? new Date(simdi.getTime() - 10 * 3600 * 1000) : simdi);
   const iso = `${p.year}-${String(p.month).padStart(2, '0')}-${String(p.day).padStart(2, '0')}`;
   return { anahtar: `${iso}:${dilim}`, dilim, ad: DILIM_ADLARI[dilim], gun: p.day, ay: TR_AY[p.month - 1], yil: p.year };
 }
