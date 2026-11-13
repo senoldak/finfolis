@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   istanbulGunu, ozetSlug, trTarih, OZET_SEMASI, ozetIstemi, paragrafDenetle, paragrafKisalt, yedekParagraf,
-  kapakSirasi, listeSigdir, ozetBildir,
+  kapakSirasi, listeSigdir, ozetBildir, osloGunu, siteDili,
 } from './gunun-ozeti.mjs';
 
 const H = [
@@ -27,7 +27,7 @@ test('ozetIstemi: konu siteye göre, haberler bloklar hâlinde', () => {
   assert.match(sistem, /Konu: yapay zekâ\./);
   assert.match(sistem, /yatırım tavsiyesi verme/);
   assert.equal(istem, `kimlik: mirendil\nbaşlık: ${H[0].baslik}\nözet: ${H[0].ozet}`);
-  assert.throws(() => ozetIstemi({ site: 'tidsrost', haberler: H }), /site/);
+  assert.throws(() => ozetIstemi({ site: 'bilinmeyen', haberler: H }), /site/);
 });
 
 test('paragrafDenetle: kaynaktaki rakam ve adlar geçerli', () => {
@@ -122,4 +122,49 @@ test('ozetBildir: geçici hata üç kez denenir', async () => {
   let m = 0;
   assert.equal(await ozetBildir({ url: 'https://saat.example', anahtar: 'k', site: 'kifobu', sayfaUrl: 'x', fetchFn: async () => (m++, new Response('{}', { status: 500 })), bekle: async () => {} }), false);
   assert.equal(m, 3);
+});
+
+// tidsrost: Dagens oppsummering (Norveççe).
+const NB = [
+  { id: 'trafikk', baslik: '106 omkom i trafikken i 2025 – 19 flere enn året før', ozet: 'Antall drepte i trafikken økte fra 87 til 106 i 2025, viser SSB.' },
+  { id: 'oslos', baslik: 'Oslo S rammet av jordfeil og togavsporing', ozet: 'Togtrafikken ved Oslo S ble stanset fredag morgen etter en jordfeil.' },
+  { id: 'kronen', baslik: 'Kronen svekket seg denne uken', ozet: 'En euro kostet 10,57 kroner, 4 øre mer enn en uke tidligere.' },
+];
+const NB_GECERLI = 'Antall drepte i trafikken økte fra 87 til 106 i 2025, viser SSB. Togtrafikken ved Oslo S ble stanset fredag morgen etter en jordfeil. Kronen svekket seg denne uken, og en euro kostet 10,57 kroner.';
+
+test('osloGunu ve siteDili', () => {
+  assert.equal(osloGunu(new Date('2026-11-13T23:30:00Z')), '2026-11-14');
+  assert.equal(osloGunu(new Date('2026-11-13T22:30:00Z')), '2026-11-13');
+  assert.equal(siteDili('tidsrost'), 'nb');
+  assert.equal(siteDili('kifobu'), 'tr');
+});
+
+test('ozetIstemi: tidsrost istemi bokmål, alanlar id/tittel/ingress', () => {
+  const { sistem, istem } = ozetIstemi({ site: 'tidsrost', haberler: NB.slice(0, 1) });
+  assert.match(sistem, /bokmål/);
+  assert.match(istem, /^id: trafikk\ntittel: 106 omkom/);
+});
+
+test('paragrafDenetle nb: geçerli paragraf; uydurma ad ve rakam, du-hitabı reddedilir', () => {
+  const k = ['trafikk', 'oslos', 'kronen'];
+  assert.deepEqual(paragrafDenetle({ paragraf: NB_GECERLI, kimlikler: k, haberler: NB, dil: 'nb' }), { gecerli: true, sorunlar: [] });
+  const uydurma = paragrafDenetle({ paragraf: NB_GECERLI.replace('Oslo S', 'Bergen stasjon').replace('10,57', '11,20'), kimlikler: k, haberler: NB, dil: 'nb' });
+  assert.ok(uydurma.sorunlar.includes('ad: Bergen'));
+  assert.ok(uydurma.sorunlar.includes('rakam: 11,20'));
+  assert.ok(paragrafDenetle({ paragraf: `${NB_GECERLI} Dette bør du vite om trafikken.`, kimlikler: k, haberler: NB, dil: 'nb' }).sorunlar.includes('okura hitap'));
+});
+
+test('paragrafDenetle nb: Æ/Ø/Å ile başlayan uydurma ad da yakalanır', () => {
+  const r = paragrafDenetle({ paragraf: NB_GECERLI.replace('Oslo S', 'Ålesund'), kimlikler: ['trafikk', 'oslos', 'kronen'], haberler: NB, dil: 'nb' });
+  assert.ok(r.sorunlar.includes('ad: Ålesund'));
+});
+
+test('yedekParagraf nb', () => {
+  assert.match(yedekParagraf(NB, 'nb').paragraf, /^Dagens viktigste saker: 106 omkom/);
+});
+
+test('ozetBildir: verilen slug gövdeye gider', async () => {
+  let govde;
+  await ozetBildir({ url: 'https://saat.example', anahtar: 'a', site: 'tidsrost', sayfaUrl: 'https://tidsrost.com/oversikt/2026-11-13/morgen/', slug: 'oversikt-2026-11-13-morgen', fetchFn: async (_, i) => ((govde = JSON.parse(i.body)), new Response('{}')) });
+  assert.equal(govde.yazilar[0].slug, 'oversikt-2026-11-13-morgen');
 });
