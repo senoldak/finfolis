@@ -14,6 +14,8 @@ import { listeSigdir } from '../haberler/gunun-ozeti.mjs';
 
 const B = 1200;
 const H = 675;
+// Liste kartının iki biçimi: kapak 1200×675 (site, Telegram) ve dikey 1080×1350 (LinkedIn akışı, tam genişlik liste).
+export const OLCULER = { kapak: { B, H, yaziGen: 820 - 64 - 40 }, dikey: { B: 1080, H: 1350, yaziGen: 1080 - 128 } };
 const KENAR = 72;
 const FONT = path.join(path.dirname(fileURLToPath(import.meta.url)), 'fonts', 'BricolageGrotesque.ttf');
 
@@ -182,10 +184,14 @@ const ALT_BANT = 130; // altta "finfolis" satırının ayırdığı yükseklik
 const ABAKUS_X = 820; // büyük abaküsün sol kenarı; başlık bunun solunda kalır
 const YAZI_GEN = ABAKUS_X - 64 - 40;
 
-async function cerceve(kat, { ornek, buyukAbakus = true, etiketsiz = false } = {}) {
+async function cerceve(kat, { ornek, buyukAbakus = true, etiketsiz = false, olcu = OLCULER.kapak } = {}) {
+  const { B, H } = olcu;
+  const ABAKUS_X = B - 380;
   await fontlariDenetle();
   let svg = `<rect width="${B}" height="${H}" fill="${R.kagit}"/>`;
-  if (buyukAbakus) svg += abakusSvg({ boyut: 470, zemin: 'soluk', vurgu: true, ekler: `x="${ABAKUS_X}" y="-30"` });
+  // Dikeyde abaküs küçülür ve sağ üst köşeye çekilir: liste tam genişliği kullanır.
+  const dikey = H > B;
+  if (buyukAbakus) svg += abakusSvg({ boyut: dikey ? 280 : 470, zemin: 'soluk', vurgu: true, ekler: dikey ? `x="${B - 250}" y="-60"` : `x="${ABAKUS_X}" y="-30"` });
   const ad = await yazi('finfolis', { boyut: 44, kalinlik: 600, renk: R.murekkep, aralik: -0.03 });
   const ka = await yazi(kat.name, { boyut: 28, kalinlik: 600, renk: KIMLIK.toprak, aralik: 0.1, buyukHarf: true });
   const katmanlar = [{ ...ad, left: 64, top: Math.round(H - 66 - ad.yukseklik / 2) }];
@@ -244,14 +250,18 @@ const yaziYuksekligi = (boyut, satir) => {
 };
 // asili: imleç ("—") ayrı katman, ikinci satır imlecin değil yazının altından başlar (Günün Özeti). Bülten kartı
 // onaylı görünümünde kalır (imleç yazının parçası). tavan: listenin inebileceği en alt nokta (üst boşluk dahil).
-async function listeKarti({ tarih, baslik, basliklar, toplam, azamiOge, boyutlar, dahaGoster, asili = false }) {
-  const c = await cerceve(kategori('piyasalar'), { etiketsiz: asili });
+async function listeKarti({ tarih, baslik, basliklar, toplam, azamiOge, boyutlar, dahaGoster, asili = false, olcu = OLCULER.kapak, azamiSatir = 2 }) {
+  const { B, H, yaziGen: YAZI_GEN } = olcu;
+  const ALAN_H = H - ALT_BANT;
+  const dikey = H > B;
+  const c = await cerceve(kategori('piyasalar'), { etiketsiz: asili, olcu });
   const u = tarih && !asili ? await yazi(tarih, { boyut: 30, kalinlik: 700, renk: c.renk, aralik: 0.1, buyukHarf: true }) : null;
-  const t = await yazi(baslik, { boyut: 84, kalinlik: 700, renk: c.renk, genislik: YAZI_GEN, satirAraligi: -6 });
+  const t = await yazi(baslik, { boyut: dikey ? 104 : 84, kalinlik: 700, renk: c.renk, genislik: YAZI_GEN, satirAraligi: -6 });
   const ustH = (u ? u.yukseklik + 18 : 0) + t.yukseklik + (basliklar.length ? 24 : 0);
-  const dahaH = yaziYuksekligi(24, 1) + MADDE_ARA;
+  const dahaB = dikey ? 30 : 24;
+  const dahaH = yaziYuksekligi(dahaB, 1) + MADDE_ARA;
   // Günün Özeti: maddeler arasında ince çizgi (kifobu kartı gibi); her maddenin üstünde ve altında ara/2 boşluk.
-  const ara = asili ? 26 : MADDE_ARA;
+  const ara = asili ? (dikey ? 40 : 26) : MADDE_ARA;
   const listeH = (yukseklikler) => yukseklikler.reduce((n, h) => n + h + ara, asili ? 0 : -ara);
   // Günün Özeti: liste üst boşluktan başlar; en alt nokta "finfolis" yazısının (merkez H-66) 20 px üstü.
   const tavan = asili ? H - 66 - 22 - 20 - c.ustBosluk : ALAN_H - 70;
@@ -265,6 +275,7 @@ async function listeKarti({ tarih, baslik, basliklar, toplam, azamiOge, boyutlar
       basliklar,
       toplam,
       azamiOge,
+      azamiSatir,
       satirla: (b) => (asili ? satirla(b, f, boyut, 0, YAZI_GEN - imlecG) : satirla(`—  ${b}`, f, boyut, 0, YAZI_GEN)),
       sigar: (o) => {
         const h = listeH(o.map((m) => yaziYuksekligi(boyut, m.satirlar.length)));
@@ -280,9 +291,10 @@ async function listeKarti({ tarih, baslik, basliklar, toplam, azamiOge, boyutlar
       ? await yazi(m.baslik, { boyut, kalinlik: 500, renk: c.renk, genislik: Math.floor(YAZI_GEN - imlecG) })
       : await yazi(`—  ${m.baslik}`, { boyut, kalinlik: 500, renk: c.renk, genislik: YAZI_GEN }));
   }
-  const daha = dahaGoster && sec.kalan > 0 ? await yazi(`+${sec.kalan} haber daha`, { boyut: 24, kalinlik: 500, renk: R.soluk }) : null;
+  const daha = dahaGoster && sec.kalan > 0 ? await yazi(`+${sec.kalan} haber daha`, { boyut: dahaB, kalinlik: 500, renk: R.soluk }) : null;
   const blokH = ustH + listeH(ms.map((m) => m.yukseklik)) + (daha ? dahaH : 0);
-  let y = Math.max(c.ustBosluk, Math.round((ALAN_H - blokH) / 2));
+  // Dikeyde blok yukarıdan başlar (ortalanınca başlık ortaya düşüyor).
+  let y = dikey ? c.ustBosluk + 40 : Math.max(c.ustBosluk, Math.round((ALAN_H - blokH) / 2));
   const katmanlar = [...c.katmanlar];
   if (u) { katmanlar.push({ ...u, left: 64, top: y }); y += u.yukseklik + 18; }
   katmanlar.push({ ...t, left: 64, top: y });
@@ -307,18 +319,22 @@ async function listeKarti({ tarih, baslik, basliklar, toplam, azamiOge, boyutlar
   // Günün Özeti: tarih sağ altta (kifobu kartı gibi), altında pişmiş toprak çizgi.
   let svg = c.svg + cizgiler;
   if (asili && tarih) {
-    const ta = await yazi(tarih, { boyut: 24, kalinlik: 700, renk: R.murekkep, aralik: 0.06, buyukHarf: true });
+    const ta = await yazi(tarih, { boyut: dikey ? 30 : 24, kalinlik: 700, renk: R.murekkep, aralik: 0.06, buyukHarf: true });
     const ust = Math.round(H - 66 - ta.yukseklik / 2);
     const sol = B - 64 - ta.genislik;
     katmanlar.push({ ...ta, left: sol, top: ust });
     svg += `<rect x="${sol}" y="${ust + ta.yukseklik + 4}" width="${ta.genislik}" height="4" fill="${KIMLIK.toprak}"/>`;
   }
-  return { svg, katmanlar, meta: { maddeler: sec.ogeler.map((m) => m.baslik), kalan: sec.kalan } };
+  return { svg, katmanlar, olcu, meta: { maddeler: sec.ogeler.map((m) => m.baslik), kalan: sec.kalan } };
 }
 
 // Bülten kartı: üstte tarih, "Piyasa bülteni" (saat verilirse "14:00 bülteni") başlık, altında en çok 3 madde.
 // Punto 36'dan 26'ya kadar ikişer küçülür; maddeler sığınca durur.
-export function bultenKapagi({ saat, tarih, basliklar = [] }) {
+// bicim 'dikey': 1080×1350 LinkedIn kartı (en çok 7 madde, 40'tan 34'e küçülür, üç satıra kadar).
+export function bultenKapagi({ saat, tarih, basliklar = [], bicim = 'kapak' }) {
+  if (bicim === 'dikey') {
+    return () => listeKarti({ tarih, baslik: saat ? `${saat} bülteni` : 'Piyasa bülteni', basliklar, toplam: basliklar.length, azamiOge: 7, boyutlar: [40, 38, 36, 34], dahaGoster: false, olcu: OLCULER.dikey, azamiSatir: 3 });
+  }
   return () => listeKarti({
     tarih,
     baslik: saat ? `${saat} bülteni` : 'Piyasa bülteni',
@@ -332,8 +348,10 @@ export function bultenKapagi({ saat, tarih, basliklar = [] }) {
 
 // Telegram Günün Özeti kartı (kifobu kartı örnek): tek başlık "Günün Özeti", en çok 4 haber başlığı (30 px),
 // "+N haber daha", sağ altta tarih ("13 Kasım 2026", büyük harfle).
-export function ozetKapagi({ tarih, basliklar = [], toplam = basliklar.length }) {
-  return () => listeKarti({ tarih, baslik: 'Günün Özeti', basliklar, toplam, azamiOge: 4, boyutlar: [30], dahaGoster: true, asili: true });
+// bicim 'dikey': 1080×1350 LinkedIn kartı (en çok 7 başlık, 38 px, üç satıra kadar).
+export function ozetKapagi({ tarih, basliklar = [], toplam = basliklar.length, bicim = 'kapak' }) {
+  const dikey = bicim === 'dikey';
+  return () => listeKarti({ tarih, baslik: 'Günün Özeti', basliklar, toplam, azamiOge: dikey ? 7 : 4, boyutlar: dikey ? [38] : [30], dahaGoster: true, asili: true, olcu: OLCULER[bicim], azamiSatir: dikey ? 3 : 2 });
 }
 
 // Rakam kartı: rakam kahramandır (Bricolage 700, genişliğe sığana dek küçülür); üstünde etiket, altında kısa satır.
@@ -809,7 +827,7 @@ export function ajandaKapagi({
 
 // Uzun bir şirket adı ya da büyük bir rakam görselden taşarsa katman, oranı korunarak
 // kalan alana sığacak şekilde küçültülür (sharp taşan katmanı reddeder).
-async function sigdir({ input, left, top, genislik, yukseklik }) {
+async function sigdir({ input, left, top, genislik, yukseklik }, { B, H } = OLCULER.kapak) {
   const x = Math.max(0, Math.round(left));
   const y = Math.max(0, Math.round(top));
   const enFazlaG = B - KENAR / 2 - x;
@@ -821,10 +839,11 @@ async function sigdir({ input, left, top, genislik, yukseklik }) {
 
 export async function kapakCiz(tur) {
   await fontlariDenetle();
-  const { svg, katmanlar } = await tur();
+  const { svg, katmanlar, olcu = OLCULER.kapak } = await tur();
+  const { B, H } = olcu;
   const taban = `<svg xmlns="http://www.w3.org/2000/svg" width="${B}" height="${H}" viewBox="0 0 ${B} ${H}">${svg}</svg>`;
   return sharp(Buffer.from(taban))
-    .composite(await Promise.all(katmanlar.map(sigdir)))
+    .composite(await Promise.all(katmanlar.map((k) => sigdir(k, olcu))))
     .png({ compressionLevel: 9, palette: true, quality: 90 })
     .toBuffer();
 }

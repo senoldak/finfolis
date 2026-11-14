@@ -46,6 +46,7 @@ const bultenEtiketi = (t: string) => {
       <Fragment slot="head">
         <meta name="gunun-ozeti" content={g.gun} />
         <meta name="gunun-ozeti-paragraf" content={kayit.paragraf} />
+        <meta name="linkedin-gorsel" content={new URL(`/gunun-ozeti/${g.gun}-dikey.png`, Astro.site).href} />
       </Fragment>
     )
   }

@@ -187,6 +187,7 @@ const jsonLd = {
   googleNoindex={googleNoindex}
 >
   <Fragment slot="head">
+    {haber.data.tur === 'bulten' && <meta name="linkedin-gorsel" content={`${SITE_URL}/linkedin/${haber.id}.png`} />}
     <meta name="author" content={kisiYazariMi(haber.data) ? YAZAR.ad : SITE.name} />
     {kisiYazariMi(haber.data) && <meta property="article:author" content={yazarUrl(SITE_URL)} />}
     <meta property="article:published_time" content={published} />

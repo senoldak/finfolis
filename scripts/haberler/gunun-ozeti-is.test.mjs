@@ -43,19 +43,24 @@ test('ozetYaz: haber yoksa null', async () => {
 test('ozetYaz: geçerli paragraf → kayıt ve kapak PNG (paragraftaki haberler önce)', async () => {
   const kok = await kur(GUN);
   let istem;
-  let kapakGirdi;
+  const kapakGirdi = [];
   const r = await ozetYaz({
     simdi: SIMDI, kok, log: sessiz,
     geminiFn: async (a) => ((istem = a), { paragraf: GECERLI, kimlikler: ['huang', 'anthropic', 'bitcoin'] }),
-    kapakFn: async (g) => ((kapakGirdi = g), Buffer.from('\x89PNG sahte')),
+    kapakFn: async (g) => (kapakGirdi.push(g), Buffer.from('\x89PNG sahte')),
   });
   assert.deepEqual(r, { tarih: '2026-11-13', yazan: 'gemini' });
   assert.match(istem.sistem, /ekonomi ve finansal piyasalar/);
   assert.match(istem.istem, /kimlik: huang/);
   assert.ok(istem.sema.required.includes('kimlikler'));
-  assert.deepEqual(kapakGirdi, { tarih: '13 Kasım 2026', basliklar: [GUN.huang.title, GUN.anthropic.title, GUN.bitcoin.title], toplam: 3 });
+  const basliklar = [GUN.huang.title, GUN.anthropic.title, GUN.bitcoin.title];
+  assert.deepEqual(kapakGirdi, [
+    { tarih: '13 Kasım 2026', basliklar, toplam: 3 },
+    { tarih: '13 Kasım 2026', basliklar, toplam: 3, bicim: 'dikey' },
+  ]);
   assert.equal((await oku(kok)).yazan, 'gemini');
   await access(path.join(kok, 'public/gunun-ozeti/2026-11-13.png'));
+  await access(path.join(kok, 'public/gunun-ozeti/2026-11-13-dikey.png'));
 });
 
 test('ozetYaz: gerçek kapak çizimi PNG üretir', async () => {

@@ -165,6 +165,12 @@ export async function yaziYaz(rot, yazi) {
     // Başlığı tekrar eden metin kartı: sitede gösterilmez, og:image ve Telegram'da kullanılır.
     if (yazi.kapakSitede === false) fm.push('coverSitede: false');
   }
+  // LinkedIn dikey kartı (bülten): public/linkedin/<slug>.png; haber sayfası linkedin-gorsel ile gösterir.
+  if (yazi.kapakDikey) {
+    const dikey = await kapakPng(yazi.kapakDikey);
+    await mkdir(path.join(rot, 'public/linkedin'), { recursive: true });
+    await writeFile(path.join(rot, 'public/linkedin', `${slug}.png`), dikey);
+  }
   fm.push('---');
   await writeFile(path.join(taban, slug, 'index.md'), `${fm.join('\n')}\n\n${htmlSok(yazi.govde).trim()}\n`, 'utf8');
   return slug;

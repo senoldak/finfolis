@@ -101,6 +101,9 @@ export async function ozetYaz({ simdi = new Date(), kok = KOK, geminiFn = gemini
   const kapakDosyasi = path.join(kok, 'public/gunun-ozeti', `${tarih}.png`);
   await mkdir(path.dirname(kapakDosyasi), { recursive: true });
   await writeFile(kapakDosyasi, png);
+  // LinkedIn dikey kartı (1080×1350, linkedin-gorsel).
+  const dikey = await kapakFn({ tarih: trTarih(tarih), basliklar: kapakSirasi(haberler, sonuc.kimlikler).map((h) => h.baslik), toplam: haberler.length, bicim: 'dikey' });
+  await writeFile(path.join(kok, 'public/gunun-ozeti', `${tarih}-dikey.png`), dikey);
 
   await mkdir(path.dirname(dosya), { recursive: true });
   const kayit = { tarih, paragraf: sonuc.paragraf, kimlikler: sonuc.kimlikler, yazan: sonuc.yazan, olusturma: simdi.toISOString() };

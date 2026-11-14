@@ -219,7 +219,10 @@ export async function bultenYaz(
   for (const k of [...gostergeler.map((g) => g.kaynak), ...maddeler.flatMap((m) => m.olay.kaynaklar ?? [])]) {
     if (k?.url && !kaynaklar.some((x) => x.url === k.url)) kaynaklar.push({ ad: k.ad, url: k.url });
   }
-  const ilk3 = [...maddeler].sort((a, b) => (b.olay.onem ?? 0) - (a.olay.onem ?? 0)).slice(0, 3).map((m) => m.etiket);
+  const onemli = [...maddeler].sort((a, b) => (b.olay.onem ?? 0) - (a.olay.onem ?? 0)).map((m) => m.etiket);
+  const ilk3 = onemli.slice(0, 3);
+  // LinkedIn dikey kartı (public/linkedin/<slug>.png, linkedin-gorsel): en önemli yedi madde.
+  const kapakDikey = kapakYap({ tarih: `${gun} ${ay}`, basliklar: onemli.slice(0, 7), bicim: 'dikey' });
 
   const yazi = {
     baslik: `Piyasa bülteni · ${gun} ${ay} ${yil}, ${dilimAdi}`,
@@ -230,6 +233,7 @@ export async function bultenYaz(
     tur: 'bulten',
     kaynaklar,
     kaynakIzi: kaynakIzi(maddeler.flatMap((m) => m.olay.gizliKaynaklar ?? [])),
+    kapakDikey,
     kapak: kapakYap({ tarih: `${gun} ${ay}`, basliklar: ilk3 }),
     kapakAlt: 'Piyasa bülteninin öne çıkan başlıkları',
   };
