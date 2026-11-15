@@ -1,5 +1,5 @@
 {
-  "alinma": "2026-11-15T19:44:58.416Z",
+  "alinma": "2026-11-15T21:45:41.071Z",
   "kaynaklar": [
     {
       "ad": "TÜİK ulusal veri yayımlama takvimi (Resmi İstatistik Portalı)",
@@ -15,42 +15,6 @@
     }
   ],
   "olaylar": [
-    {
-      "tarih": "2026-10-16",
-      "saat": "10:00",
-      "kurum": "TCMB",
-      "baslik": "Konut Fiyat Endeksi",
-      "donem": "Eylül 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Reel+Sektor+Istatistikleri/Konut+Fiyat+Endeksi/",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-16",
-      "saat": "10:00",
-      "kurum": "TCMB",
-      "baslik": "Piyasa Katılımcıları Anketi",
-      "donem": "Ekim 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Piyasa+Katilimcilari+Anketi/",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-16",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "Hanehalkı Tüketim Harcaması (Bölgesel)",
-      "donem": "2025",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Hanehalkı-Tüketim-Harcaması-(Bölgesel)-2025-53958&dil=1",
-      "kaynak": "tuik"
-    },
-    {
-      "tarih": "2026-10-16",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "Konut ve İş Yeri Satış İstatistikleri",
-      "donem": "Eylül 2026",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Konut-ve-İş-Yeri-Satış-İstatistikleri-Eylül-2026-58347&dil=1",
-      "kaynak": "tuik"
-    },
     {
       "tarih": "2026-10-19",
       "saat": "10:00",
