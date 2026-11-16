@@ -5,24 +5,24 @@ cover: ./cover.png
 coverAlt: "TÜFE sepetinde her 100 liranın 24,44 lirası gıdaya ayrılıyor"
 coverSitede: false
 uretim: yazi-isleri
-title: "TÜFE sepetinde her 100 liranın 24,44 lirası gıdaya ayrılıyor"
-description: "Ağırlıkları yüz liralık bir harcama gibi okuyup Aralık 2025'in sepetini Eylül 2026 fiyatlarıyla yeniden fiyatladık. 2006'dan bu yana sepetin hangi kısmının büyüyüp hangisinin küçüldüğüne de baktık."
+title: "TÜFE sepetinde her 100 liranın 24,44 lirası gıdaya gidiyor"
+description: "TÜFE ağırlıklarını 100 liralık bir harcama gibi okuyup Aralık 2025 sepetini Eylül 2026 fiyatlarıyla yeniden hesapladık; 2006'dan bu yana sepetin içinde hangi kalemlerin büyüyüp hangilerinin küçüldüğünü izledik."
 category: ekonomi
-why_matters: "Enflasyon rakamı, ülke genelindeki ortalama bir harcama sepetinin fiyatıdır. Sepetin neyden oluştuğunu bilmek, kendi harcamanızın bu ortalamaya ne kadar benzediğini düşünmeye yardım eder."
+why_matters: "Enflasyon verisi, ülke genelindeki ortalama bir harcama sepetinin fiyatını ölçüyor. Sepetin ağırlıklarını bilmek, kendi bütçenizin bu ortalamayla ne kadar örtüştüğünü görmenize yardımcı olur."
 key_points:
-  - "2026 yılı TÜFE ağırlıklarına göre 100 liralık harcamanın 24,44 lirası gıda ve alkolsüz içeceklere, 16,62 lirası ulaştırmaya, 11,40 lirası konuta gidiyor."
-  - "Aralık 2025 fiyatlarıyla 100 lira tutan sepet, Eylül 2026'da 124,31 liraya çıktı; artışın 5,44 lirası ulaştırmadan, 5,34 lirası gıdadan geldi."
-  - "Eski sınıflamada gıdanın payı 2006'da 27,68 iken 2025'te 24,97'ye indi; ulaştırmanınki 10,48'den 15,34'e çıktı."
-  - "Yeni sınıflamada konutun ağırlığı 2016'daki 15,97'den 2026'da 11,40'a, lokanta ve konaklamanınki 7,47'den 11,13'e değişti."
+  - "2026 yılı TÜFE ağırlıklarına göre 100 liralık harcamanın 24,44 lirası gıda ve alkolsüz içeceklere, 16,62 lirası ulaştırmaya, 11,40 lirası konuta ayrılıyor."
+  - "Aralık 2025 fiyatlarıyla 100 lira tutan sepet Eylül 2026'da 124,31 liraya çıktı; artışın 5,44 lirası ulaştırmadan, 5,34 lirası gıdadan geldi."
+  - "Eski sınıflamada gıdanın payı 2006'da 27,68 iken 2025'te 24,97'ye geriledi; ulaştırmanınki ise 10,48'den 15,34'e yükseldi."
+  - "Yeni sınıflamada konutun ağırlığı 2016'daki 15,97'den 2026'da 11,40'a inerken lokanta ve konaklamanın payı 7,47'den 11,13'e çıktı."
 ---
 
-24,44. Türkiye İstatistik Kurumu'nun (TÜİK) tüketici fiyat endeksinde (TÜFE) gıda ve alkolsüz içecekler grubunun 2026 yılı ağırlığı bu. Ağırlık, bir grubun toplam tüketim harcaması içindeki payıdır ve bütün gruplar toplandığında yüz eder. Bu yüzden onu basit bir dille okumak mümkün: ülke genelinde harcanan her 100 liranın 24,44 lirası gıdaya gidiyor.
+24,44. Türkiye İstatistik Kurumu'nun (TÜİK) tüketici fiyat endeksinde (TÜFE) gıda ve alkolsüz içecekler grubunun 2026 yılı ağırlığı bu. Bir grubun toplam tüketim harcaması içindeki payını gösteren ağırlıklar toplandığında 100 ediyor. Bu da veriyi basit bir bütçe gibi okumayı mümkün kılıyor: ülke genelinde harcanan her 100 liranın 24,44 lirası gıdaya gidiyor.
 
-Rakamdan yola çıkarak üç soru sorduk. Birincisi: 2026'nın 100 liralık temsilî sepetinde geri kalan para nereye gidiyor? İkincisi: bu sepet, Aralık 2025'ten Eylül 2026'ya kadar ne kadar pahalandı ve pahalanmanın hangi kısmı hangi gruptan geldi? Üçüncüsü: sepetin bileşimi geçmişten bugüne nasıl değişti?
+Bu rakamdan yola çıkarak üç sorunun peşine düştük: 2026'nın 100 liralık temsilî sepetinde geri kalan para nereye dağılıyor? Bu sepet Aralık 2025'ten Eylül 2026'ya ne kadar pahalandı ve artışı hangi gruplar taşıdı? Sepetin bileşimi yıllar içinde nasıl değişti?
 
-Cevaplar kısaca şöyle. Gıdadan sonra en büyük pay 16,62 lira ile ulaştırmada, 11,40 lira ile konutta ve 11,13 lira ile lokanta ve konaklamada. Aralık 2025'te 100 lira tutan sepet Eylül 2026'da 124,31 liraya çıktı. Uzun dönemde ise gıdanın payı küçülürken ulaştırmanın ve lokantaların payı büyüdü.
+Özet tablo net: Gıdadan sonra en büyük pay 16,62 lira ile ulaştırmada, 11,40 lira ile konutta ve 11,13 lira ile lokanta ve konaklamada. Aralık 2025'te 100 lira tutan sepet Eylül 2026'da 124,31 liraya çıktı. Uzun vadede ise gıdanın payı daralırken ulaştırma ve lokanta harcamalarının ağırlığı arttı.
 
-Okur için anlamı şu: TÜFE, ülke genelindeki toplam tüketim harcamasının dağılımına göre ağırlıklandırılır. Ağırlıkları bilmek, genel endeksin hangi harcama gruplarından oluştuğunu ve hangi grubun genel rakamı ne ölçüde taşıdığını görmeyi sağlar.
+TÜFE, ülke genelindeki toplam tüketim harcamasının dağılımına göre ağırlıklandırılıyor. Bu yapıyı bilmek, genel endeksin hangi kalemlerden oluştuğunu ve hangi grubun manşet rakamı ne ölçüde yukarı çektiğini görmeyi sağlıyor.
 
 ![Pay grafiği: 2026 yılı sepetinde dört grup harcamanın yarısından fazlasını tutuyor: Ağırlık: Gıda: %24,44, Ulaştırma: %16,62, Konut: %11,40, Lokanta: %11,13, Diğer: %36,38.](./graf-1.svg)
 *TÜFE ana grup ağırlıkları, 2026 yılı, yüzde. Kaynak: TÜİK.*
@@ -48,9 +48,9 @@ Artışın gruplara dağılımı şöyle. En büyük pay 5,44 lira ile ulaştır
 
 ## Ağırlık büyük, artış küçük olabilir
 
-Burada sepetin işleyişine dair önemli bir nokta saklı. Bir grubun artıştaki payı, yalnız ağırlığına değil, fiyatının ne kadar arttığına da bağlı.
+Bir grubun enflasyona katkısı, yalnızca sepetteki ağırlığına değil, fiyatının ne kadar arttığına da bağlı.
 
-Konut bunu iyi gösteriyor. 2026 yılı ağırlığı 11,40 lira, yani gıdanın yarısından az. Ama Aralık 2025'ten Eylül 2026'ya konut endeksi 115,00'ten 152,10'a yükseldi. Bu yüzden konutun 11,40 liralık payı Eylül 2026'da 15,08 liraya çıktı ve 3,68 liralık artış getirdi. Gıdanın 24,44 liralık payı ise 29,78 liraya çıktı; ağırlığı iki katından fazla olduğu halde artışa katkısı 5,34 lirada kaldı.
+Konut bunun çarpıcı bir örneği. 2026 yılı ağırlığı 11,40 lira, yani gıdanın yarısından az. Ama Aralık 2025'ten Eylül 2026'ya konut endeksi 115,00'ten 152,10'a sıçradı. Bu yüzden konutun 11,40 liralık payı Eylül 2026'da 15,08 liraya çıktı ve 3,68 liralık artış getirdi. Gıdanın 24,44 liralık payı ise 29,78 liraya yükseldi; ağırlığı iki katından fazla olduğu halde artışa katkısı 5,34 lirada kaldı.
 
 Giyim ise tersini gösteriyor. 7,90 liralık ağırlığıyla sepetin önemli bir kalemi, ama endeksi Aralık 2025'teki 108,73'ten Eylül 2026'da 112,06'ya çıktı. Bu yüzden giyimin payı yalnız 8,14 liraya yükseldi; artışa katkısı 0,24 lira. Eğitimde durum farklı: ağırlığı yalnız 2,02 lira, ama endeksi 118,79'dan 175,66'ya çıktığı için payı 2,99 liraya ulaştı ve artışa 0,97 lira ekledi.
 
@@ -58,7 +58,7 @@ Yani en büyük grubun sepeti en çok pahalandıracağı beklentisi her zaman tu
 
 ## Uzun iz: 2006–2025
 
-Şimdi geçmişe dönelim. TÜİK'in eski sınıflamasındaki on iki grubun ağırlıklarını, ulaşabildiğimiz en eski aralık bülteni olan Aralık 2006 bülteninden ve Aralık 2025 bülteninden aldık. İki yıl da aynı sınıflamayla ölçüldüğü için karşılaştırılabilir.
+Geçmişe dönüp baktığımızda, TÜİK'in eski sınıflamasındaki on iki grubun ağırlıklarını ulaşabildiğimiz en eski aralık bülteni olan Aralık 2006 bülteninden ve Aralık 2025 bülteninden aldık. İki yıl da aynı sınıflamayla ölçüldüğü için doğrudan karşılaştırılabiliyor.
 
 En belirgin değişim gıdada ve ulaştırmada. 2006 yılında her 100 liranın 27,68 lirası gıda ve alkolsüz içeceklere gidiyordu; 2025'te bu pay 24,97 liraya indi, 2,71 liralık bir azalış. Ulaştırmanın payı aynı dönemde 10,48 liradan 15,34 liraya çıktı; 4,86 liralık bir artış. Bu iki hareket, sepetteki en büyük yer değiştirme.
 

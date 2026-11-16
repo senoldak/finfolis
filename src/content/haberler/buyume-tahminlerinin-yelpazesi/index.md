@@ -20,11 +20,11 @@ Uluslararası Para Fonu (IMF) Nisan 2025'te yayımladığı Dünya Ekonomik Gör
 
 Tek bir örnek, bir büyüme tahmininin ne olduğunu da ne olmadığını da gösteriyor. Tahmin, yayımlandığı gün eldeki bilgiyle kurulmuş bir hesap. Ekonomi yol aldıkça kurumlar tahminlerini yeniliyor ve aynı yıl için birkaç farklı rakam ortaya çıkıyor. Okur için asıl bilgi çoğu zaman tek bir rakamda değil, rakamların hangi aralıkta durduğunda ve zaman içinde nasıl kaydığında.
 
-Yazı, Türkiye'nin 2026 yılı ve 2027 yılı büyümesi için üç uluslararası kurumun, IMF, Ekonomik İşbirliği ve Kalkınma Örgütü (OECD) ve Dünya Bankası'nın yayımladığı tahminleri yan yana koyuyor. Kendi tahminimizi yapmıyoruz, hangi kurumun rakamının daha yakın çıkacağını da söylemiyoruz. Sorduğumuz şu: tahminler turdan tura nasıl değişti ve son turda birbirinden ne kadar uzaklar?
+Türkiye'nin 2026 ve 2027 büyüme görünümü için üç uluslararası kurumun —IMF, Ekonomik İşbirliği ve Kalkınma Örgütü (OECD) ve Dünya Bankası— yayımladığı tahminleri yan yana koyduğumuzda dikkat çekici bir tablo ortaya çıkıyor. Kendi tahminimizi yapmadan ya da hangi kurumun haklı çıkacağını tartışmadan şu soruya odaklanıyoruz: Tahminler turdan tura nasıl değişti ve son turda birbirinden ne kadar uzaklar?
 
 Üç kurumun yayım takvimi farklı. IMF Dünya Ekonomik Görünüm raporunu nisan ve ekim aylarında, OECD Ekonomik Görünüm raporunu haziran ve aralık aylarında, ara dönem raporlarını mart ve eylül aylarında yayımlıyor. Dünya Bankası Küresel Ekonomik Beklentiler raporunu ocak ve haziran aylarında çıkarıyor. Bu yüzden bir yıl için yapılan tahminler aynı günde değil, birkaç ay arayla birbirini izleyen turlar hâlinde geliyor. Bu yazıda her kurumun elimizdeki ilk ve son turunu, arada bulunanları da yayım sırasıyla kullanıyoruz.
 
-Kısa cevap: 2026 yılı için tahminler ilk turlardan bu yana aşağı kaydı ve birbirine yaklaştı. Son turda üç kurumun 2026 yılı tahminleri arasındaki fark yalnız 0,15 puan.
+Özetle 2026 yılı tahminleri ilk turlardan bu yana aşağı kaydı ve birbirine yaklaştı. Son turda üç kurumun 2026 öngörüleri arasındaki fark yalnızca 0,15 puan.
 
 ## Geride kalan yılın sınaması
 

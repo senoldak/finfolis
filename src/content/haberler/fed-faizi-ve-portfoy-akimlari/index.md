@@ -16,7 +16,7 @@ key_points:
   - "Eylül 2025–Ağustos 2026 döneminde net portföy girişi 30,53 milyar dolar; bunun %69,9'u borç senetlerinden."
 ---
 
-ABD Merkez Bankası (Fed) faiz artırdığında Türkiye'ye gelen portföy yatırımları azalır mı? Bu soruyu iki resmî seriyi aynı yıllar için yan yana koyarak sorduk. Çıkan cevap düz bir evet ya da hayır değil.
+ABD Merkez Bankası (Fed) faiz artırdığında Türkiye'ye gelen portföy yatırımları azalır mı? İki resmî seriyi aynı yıllar için yan yana koyduğumuzda, ortaya düz bir evet ya da hayır çıkmıyor.
 
 Fed'in politika faizi hedefini yıl sonuna göre yükselttiği dokuz yıl var: 2004–2006, 2015–2018 ve 2022–2023 yılları. Bu yılların altısında Türkiye'ye net portföy girişi oldu, üçünde net akım eksiye döndü. Dokuz yılın toplamı 45,41 milyar dolar. Fed'in hedefi düşürdüğü altı yılda toplam 26,48 milyar dolar, hedefin değişmediği yedi yılda ise 117,37 milyar dolar.
 
@@ -50,7 +50,7 @@ Hedefin yükseldiği dokuz yıla tek tek bakınca tablo daha da karışıyor.
 
 Son artış dönemi en hızlısıydı. 2022 yılında hedef 4,25 puan yükseldi; bu, incelediğimiz yılların en büyük artışı. Aynı yıl Türkiye'den eksi 17,04 milyar dolarlık net akım, yani dönemin en büyük çıkışı görüldü. 2023 yılında hedef 1 puan daha yükseldi, ama net akım 8,36 milyar dolarla artıya döndü.
 
-Dokuz yıldan çıkan sonuç şu: Fed'in faiz artırdığı yılların çoğunda Türkiye'ye net giriş oldu, ama artışın en büyük olduğu yıl en büyük çıkışla aynı yıla denk geldi. Artışın büyüklüğü ile akımın yönü arasında düzenli bir sıra da yok. 2015 yılında küçük bir artışla büyük bir çıkış, 2017 yılında daha büyük bir artışla büyük bir giriş aynı dönemin içinde yer alıyor.
+Dokuz yıldan çıkan tablo şöyle: Fed'in faiz artırdığı yılların çoğunda Türkiye'ye net giriş oldu, ancak artışın en büyük olduğu yıl en büyük çıkışla aynı yıla denk geldi. Artışın büyüklüğü ile akımın yönü arasında düzenli bir sıra da yok. 2015 yılında küçük bir artışla büyük bir çıkış, 2017 yılında daha büyük bir artışla büyük bir giriş aynı dönemin içinde yer alıyor.
 
 ## İndirim yılları ve sıfıra yakın faiz
 
@@ -96,19 +96,19 @@ Not Türkiye'ye özel değil ve portföy akımlarını tek başına ölçmüyor.
 
 ## Yıllık toplamların sakladıkları
 
-Karşılaştırmanın birkaç sınırı var.
+Bu karşılaştırmada verinin doğasından kaynaklanan birkaç sınır var.
 
-Birincisi zaman birimi. Fed'in kararları yılın herhangi bir ayında alınıyor; biz ise takvim yılı toplamlarına ve yıl sonu hedeflerine baktık. Yılın son günlerinde alınan bir karar ile yılın başında alınan bir karar, bu yöntemde aynı yılın değişimi olarak görünüyor. Yıllık toplam, yıl içindeki aylık dalgalanmayı da gizliyor.
+İlk sınır zaman birimi. Fed'in kararları yılın herhangi bir ayında alınıyor; biz ise takvim yılı toplamlarına ve yıl sonu hedeflerine baktık. Yılın son günlerinde alınan bir karar ile yılın başında alınan bir karar, bu yöntemde aynı yılın değişimi olarak görünüyor. Yıllık toplam, yıl içindeki aylık dalgalanmayı da gizliyor.
 
-İkincisi seri tanımı. Fed, Aralık 2008'den bu yana tek bir oran değil bir hedef aralığı açıklıyor. Bu yazıda 2007 yılına kadar hedef oranı, sonrasında hedef aralığının üst sınırını kullandık. Yıllık değişim hesabında bu geçiş 2008 yılına düşüyor.
+İkinci olarak seri tanımı değişiyor. Fed, Aralık 2008'den bu yana tek bir oran değil bir hedef aralığı açıklıyor. Bu analizde 2007 yılına kadar hedef oranı, sonrasında hedef aralığının üst sınırını kullandık. Yıllık değişim hesabında bu geçiş 2008 yılına düşüyor.
 
-Üçüncüsü kalemin kapsamı. Net yükümlülük oluşumu, yurt dışında yerleşik yatırımcıların alım ve satımları ile Türkiye'deki kurumların yurt dışı borç senedi ihraçlarını ve geri ödemelerini bir arada içeriyor. Bir yıllık eksi değer, yatırımcıların alım satım dengesinden de, borç senedi ihraçları ile geri ödemeler arasındaki dengeden de gelebilir; bu toplam kalem ikisini ayırmıyor.
+Üçüncü nokta kalemin kapsamı. Net yükümlülük oluşumu, yurt dışında yerleşik yatırımcıların alım ve satımları ile Türkiye'deki kurumların yurt dışı borç senedi ihraçlarını ve geri ödemelerini bir arada içeriyor. Bir yıllık eksi değer, yatırımcıların alım satım dengesinden de, borç senedi ihraçları ile geri ödemeler arasındaki dengeden de gelebilir; bu toplam kalem ikisini ayırmıyor.
 
-Dördüncüsü tek değişkenle bakmanın kendisi. Bu yazı yalnız Fed'in hedefini ele aldı. Oysa aynı yıllarda başka merkez bankalarının kararları, küresel piyasalardaki genel eğilimler ve Türkiye'nin kendi ekonomik göstergeleri de değişiyordu. Tabloda bunların hiçbiri ayrıştırılmadı. İki seri arasında görülen ya da görülmeyen her eşleşme, bu öbür değişkenlerin de içinde olduğu bir ortamda oluştu.
+Ayrıca bu analiz yalnızca Fed'in hedefini ele aldı. Oysa aynı yıllarda başka merkez bankalarının kararları, küresel piyasalardaki genel eğilimler ve Türkiye'nin kendi ekonomik göstergeleri de değişiyordu. Tabloda bunların hiçbiri ayrıştırılmadı. İki seri arasında görülen ya da görülmeyen her eşleşme, bu öbür değişkenlerin de içinde olduğu bir ortamda oluştu.
 
-Beşincisi net akımın kendisi. Yıllık net rakam brüt alım ve satımları birbirinden düşüyor. Aynı net giriş, çok büyük ama birbirini götüren alım satımlarla da, küçük ve tek yönlü akımlarla da oluşabilir.
+Son olarak, yıllık net rakam brüt alım ve satımları birbirinden düşüyor. Aynı net giriş, çok büyük ama birbirini götüren alım satımlarla da, küçük ve tek yönlü akımlarla da oluşabilir.
 
-Son olarak ödemeler dengesi verileri sonradan güncellenebiliyor. Burada kullanılan rakamlar Ekim 2026'da EVDS'den çekilen son hâlleri. Ayrıca Eylül 2026'daki Fed kararından sonraki ayların ödemeler dengesi verisi henüz yayımlanmadı; o dönem bu tabloda yok.
+Ödemeler dengesi verileri sonradan güncellenebiliyor. Burada kullanılan rakamlar Ekim 2026'da EVDS'den çekilen son hâlleri. Ayrıca Eylül 2026'daki Fed kararından sonraki ayların ödemeler dengesi verisi henüz yayımlanmadığı için o dönem tabloda yer almıyor.
 
 ## Nasıl hesapladık
 

@@ -20,9 +20,9 @@ Eylül 2026'da pazara uğrayan biri meyve tezgâhında, fiyatları bir yıl önc
 
 Genel rakam ise %29,73'tü. Eylül 2026'da TÜFE bir yıl önceye göre bu kadar arttı. Genel endeks, bütün kalemlerin ağırlıklı ortalamasıdır; tek tek kalemler bu ortalamadan uzaklaşabilir. Ortalamanın altında, bir yıl içinde fiyatı düşen kalemlerle fiyatı iki katından fazla artan kalemler yan yana durur.
 
-Yazının odağı ortalama değil, uçlar. TÜİK'in 2025 yılını temel alan yeni TÜFE serisinde, ana grupların altında yayımlanan alt sınıfların Eylül 2026'daki yıllık değişimlerini sıraladık. Sonra aynı kalemlerin bir yıl önceki, Eylül 2025'teki yıllık değişimine geri döndük. Soru şu: uçlarda hep aynı kalemler mi duruyor, yoksa uçlar yıldan yıla yer mi değiştiriyor?
+Bu incelemenin odağı ortalama değil, uçlar. TÜİK'in 2025 yılını temel alan yeni TÜFE serisinde, ana grupların altında yayımlanan alt sınıfların Eylül 2026'daki yıllık değişimlerini sıraladık. Ardından aynı kalemlerin bir yıl önceki, Eylül 2025'teki yıllık değişimine geri döndük. Uçlarda hep aynı kalemler mi duruyor, yoksa yıldan yıla yer mi değiştiriyorlar?
 
-Kısa cevap: yer değiştiriyor. Eylül 2025'te genel TÜFE'nin iki katından fazla artan meyveler, Eylül 2026'da listenin en altına indi.
+Cevap net: yer değiştiriyorlar. Eylül 2025'te genel TÜFE'nin iki katından fazla artan meyveler, Eylül 2026'da listenin en altına indi.
 
 ![Çubuk grafik: Eylül 2026’da diğer ayakta tedavi hizmetleri en çok artan, meyveler en az artan alt sınıf oldu: Yıllık değişim: Diğer ayakta tedavi hizmetleri: %116,41, Yükseköğretim: %57,71, Gaz: %55,73, Akaryakıt ve yağlar: %53,76, Konut bakım ve onarım hizmetleri: %48,86, Mobil iletişim hizmetleri: %46,37, Ayakkabılar: %5,36, Spor ve kamp ekipmanı: %4,93, Sağlık sigortası: %4,89, Balık ve su ürünleri: %4,84, Mobil telefon ekipmanları: %2,49, Meyveler: %−0,99, Genel TÜFE: %29,73.](./graf-1.svg)
 *Bir önceki yılın aynı ayına göre değişim, yüzde; kesik çizgi genel TÜFE. Kaynak: TÜİK.*
@@ -94,15 +94,15 @@ Tabloyu okumanın tek yolu hangi kalemin pahalandığını sormak değil. İki f
 
 ## Bu sıralamanın sınırları
 
-Birincisi tek bir ay. Yıllık değişim, Eylül 2026'yı Eylül 2025 ile karşılaştırıyor. Mevsime duyarlı kalemlerde başka bir ay seçmek sıralamayı değiştirebilir. Meyve ve sebze gibi taze ürünler bu açıdan en hassas kalemler. Eylül, hasat döneminin içinde bir ay; aynı karşılaştırmayı kış aylarından biriyle yapmak taze ürünlerin sırasını değiştirebilir. Bu yüzden meyvelerin dipte, sebzelerin üst sıralarda olmasını Eylül 2026'nın fotoğrafı olarak okumak, bütün yıla genellememek gerekir.
+Yıllık değişim, Eylül 2026'yı Eylül 2025 ile karşılaştırıyor. Mevsime duyarlı kalemlerde başka bir ay seçmek sıralamayı değiştirebilir. Meyve ve sebze gibi taze ürünler bu açıdan en hassas kalemler. Eylül, hasat döneminin içinde bir ay; aynı karşılaştırmayı kış aylarından biriyle yapmak taze ürünlerin sırasını değiştirebilir. Bu yüzden meyvelerin dipte, sebzelerin üst sıralarda olmasını Eylül 2026'nın fotoğrafı olarak okumak, bütün yıla genellememek gerekiyor.
 
-İkincisi alt sınıfların içi. Her alt sınıf, kendi içinde birçok maddeyi topluyor. Diğer ayakta tedavi hizmetleri gibi bir başlık, içinde tek tek hizmetlerin farklı hareketlerini saklayabilir. Bu yazıda EVDS'de yayımlanan alt sınıf düzeyinde kaldık; daha ince kırılıma inmedik.
+Her alt sınıf kendi içinde birçok maddeyi topluyor. Diğer ayakta tedavi hizmetleri gibi bir başlık, içinde tek tek hizmetlerin farklı hareketlerini saklayabilir. Burada EVDS'de yayımlanan alt sınıf düzeyinde kaldık; daha ince kırılıma inmedik.
 
-Üçüncüsü yeni seri. TÜİK, Ocak 2026'dan itibaren TÜFE'yi 2025 yılını temel alan yeni bir endeks ve yeni bir sınıflamayla yayımlıyor. Bu yazıdaki alt sınıfların hepsi bu yeni seriden. Eylül 2025 karşılaştırması da aynı serinin geriye doğru yayımlanmış değerlerine dayanıyor. Eski seriyle doğrudan karşılaştırma yapmadık, çünkü kalemlerin sınırları değişti.
+TÜİK, Ocak 2026'dan itibaren TÜFE'yi 2025 yılını temel alan yeni bir endeks ve yeni bir sınıflamayla yayımlıyor. Bu analizdeki alt sınıfların hepsi bu yeni seriden. Eylül 2025 karşılaştırması da aynı serinin geriye doğru yayımlanmış değerlerine dayanıyor. Eski seriyle doğrudan karşılaştırma yapmadık, çünkü kalemlerin sınırları değişti.
 
-Dördüncüsü EVDS'de bazı alt sınıflar için Eylül 2026 değeri bulunmuyor. Bu kalemleri sıralamaya katmadık; dolayısıyla uçlarda yer alabilecek ama verisi yayımlanmamış bir kalem olabilir.
+Ayrıca EVDS'de bazı alt sınıflar için Eylül 2026 değeri bulunmuyor. Bu kalemleri sıralamaya katmadık; dolayısıyla uçlarda yer alabilecek ama verisi yayımlanmamış bir kalem olabilir.
 
-Beşincisi değişim ile düzey arasındaki fark. Bu yazı yalnız yıllık yüzde değişimlere bakıyor; kalemlerin fiyat düzeyleri hakkında bir şey söylemiyor. Bir yılda az artan bir kalem uzun dönemde çok pahalanmış olabilir, çok artan bir kalem ise önceki yıllarda geride kalmış olabilir. Uçlardaki bir kalemin yerini yorumlarken bu yüzden tek bir yılın değişimiyle yetinmemek gerekiyor.
+Son olarak bu tablo yalnız yıllık yüzde değişimlere bakıyor; kalemlerin fiyat düzeyleri hakkında bir şey söylemiyor. Bir yılda az artan bir kalem uzun dönemde çok pahalanmış olabilir, çok artan bir kalem ise önceki yıllarda geride kalmış olabilir. Uçlardaki bir kalemin yerini yorumlarken bu yüzden tek bir yılın değişimiyle yetinmemek gerekiyor.
 
 ## Nasıl hesapladık
 

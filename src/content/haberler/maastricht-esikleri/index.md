@@ -8,7 +8,7 @@ uretim: yazi-isleri
 title: "Türkiye'nin AB tanımlı borç oranı %23,68, referans değer %60"
 description: "AB üyelerinin on ikisinde borç oranı %60'ı, onunda bütçe açığı %3'ü aştı; AB toplamında borç %81,5, bütçe dengesi %-3,1. Türkiye'nin merkezi yönetim bütçe dengesi GSYH'nin %-2,87'si, ama bu rakam AB'nin açık ölçüsüyle aynı tanımda değil."
 category: ekonomi
-why_matters: "AB'nin %60 ve %3 eşikleri kamu borcu haberlerinde sık anılan karşılaştırma ölçüleri. Bu yazı Türkiye'nin rakamlarını bu ölçülerle yan yana koyuyor ve hangi rakamın gerçekten karşılaştırılabilir olduğunu ayırıyor."
+why_matters: "AB'nin %60 ve %3 eşikleri kamu maliyesi tartışmalarında sık anılan ölçütler. Türkiye'nin verilerini bu eşiklerle yan yana koyarken hangi rakamın gerçekten karşılaştırılabilir olduğunu ayırmak gerekiyor."
 key_points:
   - "HMB'nin AB tanımlı genel yönetim borç stoku 2025 yılı sonunda GSYH'nin %23,68'i; %60 referans değerinin -36,32 puan uzağında."
   - "Eurostat'a göre 2025 yılında AB toplamında borç oranı %81,5, en yüksek Yunanistan'da %145,4, en düşük Estonya'da %24."
@@ -20,7 +20,7 @@ Avrupa Birliği'nin kamu maliyesi için koyduğu iki eşik, borç için GSYH'nin
 
 Borç tarafında cevap net: Hazine ve Maliye Bakanlığı'nın (HMB) AB tanımlı genel yönetim borç stokuna göre Türkiye'nin borcu 2025 yılı sonunda GSYH'nin %23,68'i. Oranla %60 referans değeri arasındaki fark -36,32 puan. Aynı yıl Eurostat'ın verisinde AB toplamında borç oranı %81,5 ve üyelerin on ikisi eşiğin üstünde.
 
-Açık tarafında cevap daha az net. Eurostat'ın açık ölçüsü genel yönetimin ulusal hesaplardaki net borç verme ya da borçlanma rakamı. Türkiye için aynı tanımla yayımlanmış bir seriyi bu yazıda kullanamadık; elimizdeki en yakın resmî rakam merkezi yönetim bütçe dengesi. O rakam 2025 yılında GSYH'nin %-2,87'si. Bu rakam %3 eşiğiyle aynı ölçüde değil. Bu yazı iki ipucunu ayrı ayrı izliyor ve hangisinin ne kadar karşılaştırılabilir olduğunu gösteriyor. Ölçütler burada yalnız bir istatistik karşılaştırma ölçüsü olarak kullanılıyor.
+Açık tarafında tablo daha az net. Eurostat'ın açık ölçüsü genel yönetimin ulusal hesaplardaki net borç verme ya da borçlanma rakamı. Türkiye için aynı tanımla yayımlanmış bir seriyi burada kullanamadık; elimizdeki en yakın resmî rakam merkezi yönetim bütçe dengesi. O rakam 2025 yılında GSYH'nin %-2,87'si, ancak %3 eşiğiyle aynı ölçüde değil. Ölçütler burada yalnız bir istatistik karşılaştırma ölçüsü olarak kullanılıyor.
 
 ## İki eşik nereden geliyor?
 
@@ -65,7 +65,7 @@ Elimizdeki Türkiye rakamı farklı bir ölçü. HMB'nin merkezi yönetim bütç
 
 ## Türkiye'nin açık rakamı neden aynı cetvel değil?
 
-Burada dedektifin dikkatli olması gereken yer geliyor. Merkezi yönetim bütçesi, merkezi yönetimin bütçe kanunu çerçevesindeki gelir ve giderlerini izler. Eurostat'ın açık ölçüsü ise bütün genel yönetimi, yani yerel yönetimleri ve sosyal güvenlik kurumlarını da kapsar ve ulusal hesaplar kurallarıyla kaydedilir.
+Asıl dikkat edilmesi gereken nokta da burası. Merkezi yönetim bütçesi, merkezi yönetimin bütçe kanunu çerçevesindeki gelir ve giderlerini izler. Eurostat'ın açık ölçüsü ise bütün genel yönetimi, yani yerel yönetimleri ve sosyal güvenlik kurumlarını da kapsar ve ulusal hesaplar kurallarıyla kaydedilir.
 
 Kapsam farkı tek başına sonucu değiştirebilir. Genel yönetimin iki büyük parçası daha var: belediyeler ve il özel idareleri gibi yerel yönetimler ile emeklilik ve sağlık harcamalarını yürüten sosyal güvenlik kurumları. Bunların her birinin kendi geliri, gideri ve dengesi var. Merkezi yönetim bütçesinin dengesi, bu kurumların dengesinin toplamı değildir. Merkezi yönetimin yerel yönetimlere ve sosyal güvenlik kurumlarına yaptığı aktarımlar merkezi bütçede gider olarak görünür; genel yönetim konsolide edildiğinde bu aktarımlar alt sektörler arasında birbirini götürür ve yerine o kurumların kendi gelir ve giderleri girer. Kayıt anı ve kalemlerin sınıflandırılması da farklı olabilir.
 

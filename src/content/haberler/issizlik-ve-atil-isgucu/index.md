@@ -20,7 +20,7 @@ key_points:
 
 Bu fark ilk bakışta kafa karıştırabilir: işgücü piyasasının durumunu gösteren iki resmî rakam neden bu kadar ayrışıyor? Yanıt, iki oranın farklı soruları yanıtlamasında. İşsizlik oranı, iş arayan ve hemen başlayabilecek durumdaki işsizlerin işgücüne oranıdır. Atıl işgücü oranı ise bu kişilere iki grup daha ekler: istediğinden az saat çalışanlar ve çalışmak isteyip de işsizlik tanımına girmeyenler.
 
-Okur için bunun anlamı şu: işsizlik oranı iş arayıp bulamayanları ölçer. Atıl işgücü oranı ise çalışma kapasitesinin ne kadarının kullanılmadığına daha geniş bir açıdan bakar. İkisi birbirinin yerine geçmez; biri ötekini düzeltmez. TÜİK ikisini de yayımlıyor ve bu yazıda ikisini yan yana koyup aradaki farkın nereden geldiğini sınıyoruz.
+Bu ayrım önemli: işsizlik oranı iş arayıp bulamayanları ölçer. Atıl işgücü oranı ise çalışma kapasitesinin ne kadarının kullanılmadığına daha geniş bir açıdan bakar. İkisi birbirinin yerine geçmez; biri ötekini düzeltmez. TÜİK ikisini de yayımlıyor ve bu incelemede ikisini yan yana koyup aradaki farkın nereden geldiğini ele alıyoruz.
 
 ![Eğim grafiği: Atıl işgücü oranı yükselirken işsizlik oranı geriledi: 2014 yılında: İşsizlik oranı: %9,9, Eksik istihdam ve işsizler: %11,9, İşsizler ve potansiyel işgücü: %15,5, Atıl işgücü oranı: %17,4; 2025 yılında: İşsizlik oranı: %8,3, Eksik istihdam ve işsizler: %19,6, İşsizler ve potansiyel işgücü: %19,9, Atıl işgücü oranı: %29,7.](./graf-1.svg)
 *TÜİK'in temel ve tamamlayıcı işgücü göstergeleri, yüzde. Kaynak: TÜİK.*
@@ -91,11 +91,11 @@ En güncel aylık veriler de aynı tabloyu veriyor. TÜİK'in Ağustos 2026 bül
 
 ## Ölçümün sınırları
 
-İlk sınır zaman serisinin kendisi. Tamamlayıcı göstergeler 2021 yılından bu yana yayımlanıyor. TÜİK'in tablosundaki nota göre “2014-2020 dönem sonuçları model ile tahmin edilmiştir.” Yani 2014–2020 rakamları o yıllarda sahada bu tanımlarla ölçülmüş değerler değil, sonradan yeni tanımlara göre geriye doğru tahmin edilmiş değerler. 2020 yılı sıçramasını ve 2014 yılı ile yapılan karşılaştırmaları bu yüzden temkinle okumak gerekiyor.
+Tamamlayıcı göstergeler 2021 yılından bu yana yayımlanıyor. TÜİK'in tablosundaki nota göre “2014-2020 dönem sonuçları model ile tahmin edilmiştir.” Yani 2014–2020 rakamları o yıllarda sahada bu tanımlarla ölçülmüş değerler değil, sonradan yeni tanımlara göre geriye doğru tahmin edilmiş değerler. 2020 yılı sıçramasını ve 2014 yılı ile yapılan karşılaştırmaları bu yüzden temkinle okumak gerekiyor.
 
-İkinci sınır tanımların doğası. Zamana bağlı eksik istihdam, kişinin daha fazla çalışmak istediğini belirtmesine ve mümkün olduğunda başlayabilecek olmasına dayanıyor. Potansiyel işgücü de çalışma isteğine ve hazır olma durumuna bakıyor. Bu, kişilerin kendi beyanına dayalı bir ölçüm; tanımın sınırları, örneğin haftalık 40 saat eşiği, kimin bu gruplara girdiğini doğrudan belirliyor.
+Tanımların doğası da bir başka sınır. Zamana bağlı eksik istihdam, kişinin daha fazla çalışmak istediğini belirtmesine ve mümkün olduğunda başlayabilecek olmasına dayanıyor. Potansiyel işgücü de çalışma isteğine ve hazır olma durumuna bakıyor. Bu, kişilerin kendi beyanına dayalı bir ölçüm; tanımın sınırları, örneğin haftalık 40 saat eşiği, kimin bu gruplara girdiğini doğrudan belirliyor.
 
-Üçüncüsü, rakamlar bir örneklem araştırmasından gelen tahminlerdir. Küçük gruplarda, örneğin iş arayıp işbaşı yapamayacak olanlarda, tahminin belirsizliği görece büyüktür. Son olarak yıllık rakamlar mevsimsellik içerir; aylık bültenlerdeki mevsim etkisinden arındırılmış rakamlar ise her ay yeniden hesaplanabilir. Bu yazıdaki karşılaştırmaların çoğu yıllık rakamlara dayanıyor.
+Ayrıca rakamlar bir örneklem araştırmasından gelen tahminlerdir. Küçük gruplarda, örneğin iş arayıp işbaşı yapamayacak olanlarda, tahminin belirsizliği görece büyüktür. Yıllık rakamlar mevsimsellik içerir; aylık bültenlerdeki mevsim etkisinden arındırılmış rakamlar ise her ay yeniden hesaplanabilir. Buradaki karşılaştırmaların çoğu yıllık rakamlara dayanıyor.
 
 Kendi hesaplarımızın da sınırları var. Potansiyel işgücünün bileşenlerine ait sayıları yalnız 2021–2025 için kullandık; bu yüzden potansiyel işgücündeki artışı daha önceki yıllarla karşılaştırmadık. Zamana bağlı eksik istihdamdaki kişi sayısını doğrudan veren bir tablo da kullanmadık; bu grubun büyüklüğünü yalnız işgücüne oranı olarak, iki TÜİK oranının farkından okuduk. Bu fark, bir ondalık basamağa yuvarlanmış iki oranın farkı olduğu için küçük bir yuvarlama payı taşıyor.
 

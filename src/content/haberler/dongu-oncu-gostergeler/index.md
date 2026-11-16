@@ -20,7 +20,7 @@ key_points:
 
 İki gösterge farklı tanımlarla hesaplanıyor. Aynı yöntem ailesinden geliyorlar, ama farklı veri setleri ve farklı referans serileri kullanıyorlar. Aralarındaki küçük fark, öncü göstergelerin nasıl okunması gerektiğine dair iyi bir başlangıç noktası.
 
-Okur için bunun anlamı şu: öncü gösterge bir büyüme rakamı değil, bir yön işaretidir. 100,73 bir büyüme oranı değildir. Gösterge, ekonomik faaliyetin uzun dönem eğilimine göre nerede durduğuna ve bu konumun hangi yöne değiştiğine dair bir işaret verir. Bu yazıda iki göstergeyi yalnız kurumların kendi okuma kurallarıyla yorumluyoruz ve büyük ekonomilerle karşılaştırıyoruz. Gelecek için kendi çıkarımımızı eklemiyoruz.
+Okur açısından bunun anlamı net: Öncü gösterge bir büyüme rakamı değil, bir yön işaretidir. 100,73 bir büyüme oranı anlamına gelmez; ekonomik faaliyetin uzun dönem eğilimine göre nerede durduğunu ve bu konumun hangi yöne kaydığını gösterir. İki göstergeyi kurumların kendi okuma kurallarıyla yorumlayıp büyük ekonomilerle karşılaştırdığımızda ortaya çıkan tablo şöyle:
 
 ![Sütun grafik: İncelenen ekonomilerin çoğunda gösterge 100'ün üzerinde: 100'den uzaklık: Türkiye: 0,73, G7: 0,94, G20: 0,14, ABD: 1,00, Almanya: 1,01, Japonya: 0,35, Çin: −2,59.](./graf-1.svg)
 *OECD bileşik öncü göstergesi eksi uzun dönem eğilim düzeyi, Eylül 2026. Kaynak: OECD.*
@@ -54,7 +54,7 @@ OECD göstergesi Ekim 2025'te 99,86'ydı; Kasım 2025'te 100,11 ile 100'ün üze
 
 Ardından yön değişti. Gösterge Şubat 2026'da 100,26'ya, Nisan 2026'da 99,92'ye indi ve yeniden 100'ün altına geçti. Mayıs 2026'daki 99,87, bu düşüşün en alt noktası oldu. Toplamda 100'ün üzerinde ve yükselen bölgede geçen süre birkaç ayla sınırlı kaldı. Merkez Bankası endeksinde de benzer bir hareket var: endeks Aralık 2025'te 100,71'e çıktı, Mayıs 2026'da 99,61'e indi.
 
-Bu bir tahmin değil, bir olgu: göstergenin bölgeler arasında birkaç ay içinde yer değiştirebildiğini gösteriyor. OECD'nin değişimin büyüklüğü yerine yönüne bakılmasını önermesi ve dönüş noktalarını ortalama bir gecikmeyle tarif etmesi, bu tür kısa salınımlar düşünüldüğünde daha anlaşılır hâle geliyor.
+Bu bir tahmin değil, doğrudan gözlemlenen bir olgu: Gösterge bölgeler arasında birkaç ay içinde yer değiştirebiliyor. OECD'nin değişimin büyüklüğü yerine yönüne bakılmasını önermesi ve dönüş noktalarını ortalama bir gecikmeyle tarif etmesi, bu tür kısa salınımlar düşünüldüğünde daha anlaşılır hâle geliyor.
 
 ## Büyük ekonomilerle karşılaştırma
 

@@ -5,22 +5,22 @@ cover: ./cover.png
 coverAlt: "Üretici fiyatları 2003'ten bu yana tüketici fiyatlarını geçti"
 coverSitede: false
 uretim: yazi-isleri
-title: "Üretici fiyatları 2003'ten bu yana tüketici fiyatlarını geçti"
-description: "Yİ-ÜFE ile TÜFE on üç yıl birlikte yürüdü, sonra iki dalgada ayrıştı. Ekim 2022'deki en geniş açıklığın yaklaşık yarısı Eylül 2026'ya kadar geri kapandı."
+title: "Üretici ve tüketici fiyatları 2003'ten bu yana nasıl ayrıştı?"
+description: "Yİ-ÜFE ile TÜFE on üç yıl boyunca başa baş yürüdü, ardından iki büyük dalgada birbirinden koptu. Ekim 2022'deki rekor makasın yaklaşık yarısı Eylül 2026'ya kadar kapandı."
 category: ekonomi
-why_matters: "Üretici fiyatları fabrikanın, madenin ve santralin sattığı malın fiyatıdır; tüketici fiyatları ise hanenin ödediği. İkisinin ne zaman ayrıştığını bilmek, enflasyon rakamlarını okurken hangi tarafın hangi dönemde öne geçtiğini görmeyi sağlar."
+why_matters: "Üretici fiyatları fabrikanın, madenin ve santralin çıkış fiyatını; tüketici fiyatları ise hanenin kasada ödediği bedeli yansıtıyor. İki serinin ne zaman ayrıştığını bilmek, enflasyon verilerinde hangi tarafın öne geçtiğini görmeyi sağlıyor."
 key_points:
-  - "Ekim 2022'de yurt içi üretici fiyatları yıllık %157,69, tüketici fiyatları %85,51 arttı; fark 72,17 puandı."
-  - "İki endeksin düzeyleri oranı Aralık 2016'da 0,937 iken Ekim 2022'de 1,855'e çıktı, Eylül 2026'da 1,351'e indi."
-  - "Aralık 2003'ten Eylül 2026'ya üretici fiyatları 57,98 kat, tüketici fiyatları 41,95 kat yükseldi."
-  - "Temmuz 2023'ten bu yana tüketici fiyatlarının yıllık artışı her ay üretici fiyatlarınınkinden yüksek; Eylül 2026'da fark 2,35 puan."
+  - "Ekim 2022'de yurt içi üretici fiyatları yıllık %157,69, tüketici fiyatları %85,51 arttı; aradaki makas 72,17 puana ulaştı."
+  - "İki endeksin düzeyleri oranı Aralık 2016'da 0,937 iken Ekim 2022'de 1,855'e tırmandı, Eylül 2026'da 1,351'e geriledi."
+  - "Aralık 2003'ten Eylül 2026'ya üretici fiyatları 57,98 kat, tüketici fiyatları 41,95 kat artış kaydetti."
+  - "Temmuz 2023'ten bu yana tüketici fiyatlarının yıllık artışı her ay üretici fiyatlarının üzerinde seyrediyor; Eylül 2026'da fark 2,35 puan."
 ---
 
 %157,69 ve %85,51. Ekim 2022'de Türkiye'de iki fiyat endeksinin bir yıl öncesine göre artışı bunlardı. İlki, Türkiye İstatistik Kurumu'nun (TÜİK) yurt içi üretici fiyat endeksi (Yİ-ÜFE): madenlerin, fabrikaların, elektrik santrallerinin ve su kuruluşlarının ürettikleri malları satarken aldıkları fiyatlar. İkincisi tüketici fiyat endeksi (TÜFE): hanelerin markette, kasada, faturada ödediği fiyatlar. İki rakam arasında 72,17 puan vardı.
 
 Böyle bir fark, iki serinin uzun tarihinde istisnadır. Aralık 2003'ten Aralık 2016'ya kadar iki endeks birbirine yakın yürüdü. Sonra iki dalga halinde ayrıştılar: önce 2017–2019 arasında küçük, sonra 2020–2023 arasında büyük bir dalga. Temmuz 2023'ten Eylül 2026'ya kadar ise yön tersine döndü; bu dönemde tüketici fiyatlarının yıllık artışı her ay üretici fiyatlarınınkinden yüksek kaldı.
 
-Okur için anlamı şu: aynı ekonomide iki taraf aynı enflasyonu yaşamaz. Bir dönem üretenin sattığı malın fiyatı hızla yükselirken tüketicinin ödediği fiyat daha yavaş gelebilir; başka bir dönem tersi olur. Aşağıda iki endeksi aynı ölçekte yan yana koyup ne zaman ayrıştıklarını, aradaki farkın nasıl daraldığını ve hangi üretici sektörünün öne çıktığını inceliyoruz.
+Aynı ekonomide iki taraf aynı enflasyonu yaşamıyor. Bir dönem üretenin sattığı malın fiyatı hızla tırmanırken tüketicinin ödediği fiyat daha yavaş gelebiliyor; başka bir dönem ise tablo tersine dönüyor. İki endeksi aynı ölçekte yan yana koyarak ne zaman ayrıştıklarını, makasın nasıl daraldığını ve hangi üretici sektörünün öne çıktığını inceledik.
 
 ![Küçük çoklu grafik: İki endeksin yıllık artışı on üç yıl yakın yürüdü, sonra iki dalgada ayrıştı: Tüketici fiyatları (TÜFE): 2004 yılında %9,35, 2005 yılında %7,72, 2006 yılında %9,65, 2007 yılında %8,39, 2008 yılında %10,06, 2009 yılında %6,53, 2010 yılında %6,40, 2011 yılında %10,45, 2012 yılında %6,16, 2013 yılında %7,40, 2014 yılında %8,17, 2015 yılında %8,81, 2016 yılında %8,53, 2017 yılında %11,92, 2018 yılında %20,30, 2019 yılında %11,84, 2020 yılında %14,60, 2021 yılında %36,08, 2022 yılında %64,27, 2023 yılında %64,77, 2024 yılında %44,38, 2025 yılında %30,89, Eyl 2026: %29,73; Yurt içi üretici fiyatları (Yİ-ÜFE): 2004 yılında %13,84, 2005 yılında %4,54, 2006 yılında %11,58, 2007 yılında %5,94, 2008 yılında %8,11, 2009 yılında %5,93, 2010 yılında %8,87, 2011 yılında %13,33, 2012 yılında %2,45, 2013 yılında %6,97, 2014 yılında %6,36, 2015 yılında %5,71, 2016 yılında %9,94, 2017 yılında %15,47, 2018 yılında %33,64, 2019 yılında %7,36, 2020 yılında %25,15, 2021 yılında %79,89, 2022 yılında %97,72, 2023 yılında %44,22, 2024 yılında %28,52, 2025 yılında %27,67, Eyl 2026: %27,38.](./graf-1.svg)
 *Aralık aylarında bir önceki yılın aynı ayına göre değişim, yüzde; son nokta Eylül 2026. Kaynak: TÜİK.*
@@ -70,7 +70,7 @@ Aynı süreçte düzeylerin oranı adım adım indi: Aralık 2022'de 1,791, Aral
 
 İki dalganın süresi birbirine yakın: ilki Aralık 2016'dan Temmuz 2019'a, ikincisi Eylül 2020'den Haziran 2023'e uzandı. Aradaki asıl fark derinlikte. İlk dalga oranı birin biraz üstüne taşıdı; ikinci dalga oranı bir buçuk katın da üstüne çıkardı ve bu yükseklik, dalga bittikten sonra da tümüyle geri alınmadı.
 
-Hesabı tamamlayalım. Ekim 2022'deki tepeyle Eylül 2026 arasında oran 0,504 geriledi. Tepedeki oranın birin üstünde kalan kısmının yarısından biraz fazlası böylece kapandı; geri kalanı hâlâ duruyor.
+Ekim 2022'deki tepeyle Eylül 2026 arasında oran 0,504 geriledi. Böylece tepedeki oranın 1'in üzerinde kalan kısmının yarısından biraz fazlası kapanmış oldu; geri kalanı ise hâlâ duruyor.
 
 Uzun yolun toplamı da bu kalan farkı gösteriyor. Aralık 2003'ten Eylül 2026'ya Yİ-ÜFE 57,98 kat, TÜFE 41,95 kat yükseldi.
 

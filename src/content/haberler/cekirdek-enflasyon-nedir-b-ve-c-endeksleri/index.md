@@ -19,7 +19,7 @@ updated: 2026-11-10T01:40:37+03:00
 
 Çekirdek enflasyon, tüketici fiyat endeksinden (TÜFE) belirli kalem gruplarının çıkarılmasıyla hesaplanan enflasyon göstergesidir. Türkiye Cumhuriyet Merkez Bankası (TCMB) raporlarında bu göstergelerin başında B ve C endeksleri gelir. Ekim 2026'da yıllık TÜFE %29,77, B endeksi %28,46, C endeksi %28,28 oldu; manşet enflasyon C'nin 1,49 puan, B'nin 1,31 puan üzerinde kaldı.
 
-Fark küçük görünse de dışarıda bırakılan kalemler Ekim 2026'da birbirinden farklı yönlere sapmış durumda.
+Fark küçük görünse de dışarıda bırakılan kalemler Ekim 2026'da birbirinden oldukça farklı yönlere sapmış durumda.
 
 ## B ve C endeksleri neyi ölçer?
 

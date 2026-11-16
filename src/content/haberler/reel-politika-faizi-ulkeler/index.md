@@ -22,7 +22,7 @@ Bu farka çoğu zaman "reel politika faizi" denir. Kabaca şunu söyler: merkez 
 
 Sitede daha önce Türkiye kendi geçmişiyle karşılaştırılmıştı. Bu yazıda soru başka: aynı ayda, aynı kaynaktan, aynı tanımla bakıldığında Türkiye başka ekonomilerin arasında nerede duruyor? Sıralamanın ilginç bir yanı var. Listede hem en yüksek politika faizi hem en yüksek enflasyon Türkiye'de. İki büyük sayının farkı ise üçüncü sıraya düşüyor. Bir yıl önce aynı hesapta Türkiye birinci sıradaydı.
 
-Okur için anlamı şu: Türkiye'deki faiz düzeyi tek başına bakıldığında başka örneklerin çok üstünde görünür. Enflasyon da o kadar yüksek olduğu için fark, Latin Amerika'daki iki ekonominin gerisinde kalıyor. Yüzde olarak bakıldığında ise tablo bir kez daha değişiyor.
+Türkiye'deki faiz düzeyi tek başına bakıldığında başka örneklerin çok üstünde görünüyor. Enflasyon da o kadar yüksek olduğu için fark, Latin Amerika'daki iki ekonominin gerisinde kalıyor. Yüzde olarak bakıldığında ise tablo bir kez daha değişiyor.
 
 ## Listenin üst ve alt ucu
 
@@ -83,7 +83,7 @@ Aynı ayrıştırma, Türkiye'nin bir yıllık faiz değişimini başka ekonomil
 ![Çubuk grafik: Bir yıldaki en büyük politika faizi değişimi Türkiye’de: Değişim: Türkiye: −6,00, Polonya: −1,25, Meksika: −1,25, Brezilya: −1,00, Macaristan: −1,00, ABD: −0,75, Norveç: 0,00, Çin: 0,00, Japonya: 0,50, Endonezya: 0,75, Kolombiya: 2,75.](./graf-5.svg)
 *Ağustos 2025’ten Ağustos 2026’ya politika faizindeki değişim, yüzde puanı. Kaynak: BIS (TCMB EVDS).*
 
-Bu yazı faiz kararlarının gerekçesini ya da etkisini tartışmıyor. Her merkez bankası kararını kendi belgesinde açıklıyor. Burada yalnız iki resmî serinin aynı aydaki farkı ve bu farkın bir yılda nasıl değiştiği var.
+Burada faiz kararlarının gerekçesini ya da etkisini tartışmıyoruz. Her merkez bankası kararını kendi belgesinde açıklıyor. Yalnız iki resmî serinin aynı aydaki farkına ve bu farkın bir yılda nasıl değiştiğine bakıyoruz.
 
 ## Yüzde ölçüsüyle başka bir sıra
 

@@ -20,7 +20,7 @@ Mart 2026'da Brent petrolün aylık ortalama fiyatı varil başına 103,13 dolar
 
 Üç rakam, dünya piyasasında belirlenen bir fiyatın evdeki faturaya nasıl ulaştığı sorusunun ilk ipuçları. Petrolün fiyatı pompada, pompadaki fiyat enerji kaleminde, enerji kalemi de ulaşım ücretlerinde görülüyor mu? Görülüyorsa hangi aylarda?
 
-Zinciri halka halka kurduk, ama bir kuralla. İki halka arasındaki bağı yalnız Türkiye Cumhuriyet Merkez Bankası (TCMB) kendi Enflasyon Raporu'nda ya da Para Politikası Kurulu (PPK) metninde kurmuşsa, o bağı kurumun cümlesine atfederek aktardık. Bağın kurulmadığı yerde yalnız aynı dönemde ne görüldüğünü yazdık ve bunu her seferinde söyledik. Okur için anlamı şu: akaryakıttaki aylık değişim, enerji grubunda, ulaştırma hizmetlerinde ve genel endekste aynı büyüklükte görülmüyor; kalemler farklı aylarda ve farklı ölçüde hareket ediyor.
+Zinciri halka halka kurduk, ama tek bir kuralla: iki halka arasındaki bağı yalnız Türkiye Cumhuriyet Merkez Bankası (TCMB) kendi Enflasyon Raporu'nda ya da Para Politikası Kurulu (PPK) metninde kurmuşsa, o bağı kurumun cümlesine atfederek aktardık. Bağın kurulmadığı yerde yalnız aynı dönemde ne görüldüğünü yazdık. Akaryakıttaki aylık değişim, enerji grubunda, ulaştırma hizmetlerinde ve genel endekste aynı büyüklükte görülmüyor; kalemler farklı aylarda ve farklı ölçüde hareket ediyor.
 
 ## Zincirin ilk halkası: varilden pompaya
 
@@ -95,7 +95,7 @@ Kullandığımız petrol rakamları günlük spot fiyatların aylık ortalaması
 
 Temmuz 2026 bunun bir örneği. Brent'in aylık ortalaması %1,9 geriledi, ama motorin %7,16, benzin %2,38 arttı. Haziran 2026'daki 85,4 dolarlık ortalamadan Eylül 2026'daki 114,16 dolara artış %33,7 oldu. Bu bir ölçüm notu: aylık ortalama, ayın sonundaki fiyat düzeyini göstermez; bir ayın ortalaması gerilerken o ayın içinde fiyat yönünü değiştirmiş olabilir. Temmuz rakamlarının neden ters yönde göründüğüne dair alıntıladığımız belgelerden bir açıklama aktarmıyoruz.
 
-Son olarak TCMB'nin model hesabı bir tahmindir. %11'lik petrol artışının 0,2 puanlık etkisi geçmiş verinin ortalama ilişkisidir ve her dönemde aynı büyüklükte gerçekleşmek zorunda değildir. Petrol fiyatının bundan sonraki seyri hakkında bu yazı bir şey söylemiyor.
+Son olarak TCMB'nin model hesabı bir tahmindir. %11'lik petrol artışının 0,2 puanlık etkisi geçmiş verinin ortalama ilişkisidir ve her dönemde aynı büyüklükte gerçekleşmek zorunda değildir. Petrol fiyatının bundan sonraki seyrine dair bir öngörüde bulunmuyoruz.
 
 ## Nasıl hesapladık
 

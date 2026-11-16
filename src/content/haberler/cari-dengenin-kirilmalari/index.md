@@ -20,7 +20,7 @@ key_points:
 
 Ama aynı seriyi iki kalemden ayırınca başka bir tarih çıkıyor. Türkiye Cumhuriyet Merkez Bankası (TCMB), ödemeler dengesi istatistikleri içinde cari dengeyi enerji ticareti ve parasal olmayan altın ticareti hariç olarak da yayımlıyor. Bu iki kalem dışarıda bırakıldığında kalan denge 2012 yılından bu yana her yıl fazla verdi; 2025 yılında bu fazla 37,1 milyar dolardı. Aynı yıl toplam cari denge eksi 30,3 milyar dolardı.
 
-Okur için bu ayrım şunu söylüyor: manşette okunan cari açık, tek bir bütün değil. İçinde petrol, doğal gaz ve kömür gibi enerji ürünlerinin dış ticareti, altın ticareti ve geri kalan bütün mal ve hizmet alışverişi var. Bu yazıda yirmi üç yıllık seride bu parçaların hangi yıllarda yön ya da büyüklük değiştirdiğini, yalnız rakamların kendisinden giderek izledik. Kırılmanın nedenini değil, nerede olduğunu arıyoruz.
+Okur açısından bu ayrım önemli bir gerçeğe işaret ediyor: Manşette okunan cari açık tek bir bütün değil. İçinde petrol, doğal gaz ve kömür gibi enerji ürünlerinin dış ticareti, altın ticareti ve geri kalan tüm mal ve hizmet alışverişi var. 23 yıllık seride bu parçaların hangi yıllarda yön ya da büyüklük değiştirdiğini yalnızca rakamlara bakarak izlediğimizde, kırılmanın nerede yaşandığı netleşiyor.
 
 ## Üç kalem, bir denge
 

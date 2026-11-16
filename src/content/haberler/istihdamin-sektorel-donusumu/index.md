@@ -6,9 +6,9 @@ coverAlt: "Tarımın istihdamdaki payı 2005–2025'te %25,5'ten %14,0'a indi"
 coverSitede: false
 uretim: yazi-isleri
 title: "Tarımın istihdamdaki payı 2005–2025'te %25,5'ten %14,0'a indi"
-description: "Aynı dönemde hizmetlerin payı %47,4'ten %59,0'a çıktı; tarımdaki kişi sayısı ise çok daha az düştü, çünkü payı asıl değiştiren toplam istihdamın büyümesiydi."
+description: "Aynı dönemde hizmetlerin payı %47,4'ten %59,0'a çıktı. Tarımdaki çalışan sayısı ise yalnız %7,8 azaldı; paydaki düşüşü asıl belirleyen toplam istihdamın büyümesiydi."
 category: ekonomi
-why_matters: "Bir ülkede insanların hangi işlerde çalıştığı, gelirin nereden kazanıldığını ve işgücü piyasasındaki değişimin hangi kesimleri daha çok etkilediğini gösterir."
+why_matters: "İnsanların hangi işlerde çalıştığı, gelirin nereden kazanıldığını ve işgücü piyasasındaki dalgalanmaların hangi kesimleri daha çok etkileyeceğini belirler."
 key_points:
   - "TÜİK'in yeniden hesaplanmış serisine göre tarımın istihdamdaki payı 2005 yılında %25,5 iken 2025 yılında %14,0 oldu."
   - "Toplam istihdam 2005–2025 arasında 13,21 milyon kişi arttı; bu artışın %75,9'u hizmetlerden geldi."
@@ -16,11 +16,11 @@ key_points:
   - "Kadın istihdamında tarımın payı %46,7'den %17,4'e indi, yani 29,3 puan düştü."
 ---
 
-2005 yılında Türkiye'de çalışan dört kişiden biri tarımdaydı. Türkiye İstatistik Kurumu'nun (TÜİK) bugün yayımladığı seriye göre o yıl istihdamın %25,5'i tarım sektöründeydi. Yirmi yıl sonra, 2025 yılında bu oran %14,0'a inmişti. Aynı dönemde hizmetlerin payı %47,4'ten %59,0'a çıktı.
+2005 yılında Türkiye'de çalışan her dört kişiden biri tarımdaydı. Türkiye İstatistik Kurumu'nun (TÜİK) yayımladığı seriye göre o yıl istihdamın %25,5'i tarım sektöründeydi. Yirmi yıl sonra, 2025'te bu oran %14,0'a indi; hizmetlerin payı ise %47,4'ten %59,0'a çıktı.
 
-İlk bakışta tablo açık görünüyor: insanlar tarladan ayrılıp hizmet işlerine geçti. Ama bir payın düşmesi, o sektörde çalışan sayısının da aynı ölçüde düştüğü anlamına gelmez. Pay, bir bölmenin sonucudur; hem pay hem payda değişebilir. Bu yazıda sorulacak soru şu: tarımın payı neden düştü, kim kazandı ve bu yirmi yıllık değişimin ne kadarı ölçümün kendisiyle ilgili?
+Rakamlar ilk bakışta tarladan kente, tarımdan hizmetlere büyük bir göçü düşündürüyor. Oysa bir sektörün istihdamdaki payının düşmesi, orada çalışanların aynı ölçüde azaldığı anlamına gelmez. Pay bir bölme işlemidir; hem pay hem payda hareket eder. Tarımda çalışan sayısı azalırken öteki sektörler çok daha hızlı büyüdüyse, paydaki erimenin asıl nedeni bu büyüme farkı olabilir.
 
-Okur için bu değişimin anlamı, ülkede gelirin kazanıldığı işlerin bileşiminin değişmesidir. Tarımda çalışanların payı küçüldükçe, istihdamdaki dalgalanmalar daha çok hizmetlerdeki gelişmelere bağlı hâle geliyor. Bu yazı bir sektör için değerlendirme yapmıyor; yalnız TÜİK'in Hanehalkı İşgücü Araştırması'ndan gelen rakamları yan yana koyuyor.
+Üstelik bu kayma, ülkede gelirin kazanıldığı alanların da değişmesi demek. Tarımın ağırlığı azaldıkça, istihdamdaki genel seyir giderek daha fazla hizmet sektöründeki gelişmelere bağlanıyor. Hanehalkı İşgücü Araştırması'nın yirmi yıllık verileri, bu dönüşümün ardındaki mekanizmayı net biçimde ortaya koyuyor.
 
 ![Pay grafiği: Çalışanların yaklaşık beşte üçü hizmetlerde: 2025 yılında: Hizmetler: %59,0, Sanayi: %20,2, Tarım: %14,0, İnşaat: %6,8.](./graf-1.svg)
 *İstihdamın sektörlere dağılımı, on beş ve daha yukarı yaş, yüzde. Kaynak: TÜİK.*
@@ -79,7 +79,7 @@ Erkeklerde tablo farklı bir mekanizmayla oluştu. Tarımda çalışan erkek say
 
 Aradaki fark, toplam tablodaki kaymanın önemli bir kısmının kadın istihdamının yapısındaki değişimden kaynaklandığını gösteriyor. Tarımda çalışan kadın sayısı 2,23 milyondan 1,87 milyona, yani %16,0 azaldı. Hizmetlerde çalışan kadın sayısı ise 1,73 milyondan 7,11 milyona çıktı.
 
-## Karşı okuma: iş değiştirme mi, büyüme mi
+## İş değiştirme mi, yeni işler mi?
 
 Tarımın payındaki düşüş çoğu zaman insanların tarımı bırakıp başka işlere geçtiği biçiminde anlatılır. Veri bu anlatıyı tümüyle desteklemiyor. Tarımda çalışan sayısı yirmi yılda 385 bin kişi azaldı; bu, toplam istihdamdaki 13,21 milyonluk artışın yanında küçük bir hareket. Payın düşüşünün büyük kısmı, tarıma ek olarak öteki sektörlerde açılan işlerden geliyor.
 

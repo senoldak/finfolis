@@ -16,11 +16,11 @@ key_points:
   - "Giyim ve ayakkabı grubunun oranı aynı dönemde 0,46'dan 0,23'e geriledi."
 ---
 
-7.123,56. Türkiye İstatistik Kurumu (TÜİK) tüketici fiyat endeksinde (TÜFE) lokanta ve oteller grubunun Aralık 2025'teki değeri bu. Endeks, 2003'ün ortalama fiyatlarını yüze eşitleyerek kuruluyor. Aynı ayda bütün harcamaları kapsayan genel endeks 3.513,87'deydi. İkisini birbirine böldüğümüzde 2,03 çıkıyor: yemek dışarıda yenen, oda kiralanan hizmetlerin fiyatı, 2003'ten bu yana, ortalama bir mal ya da hizmetin fiyatının iki katından fazla yükselmiş.
+7.123,56. Türkiye İstatistik Kurumu (TÜİK) tüketici fiyat endeksinde (TÜFE) lokanta ve oteller grubunun Aralık 2025'teki değeri bu. Endeks, 2003'ün ortalama fiyatlarını yüze eşitleyerek kuruluyor. Aynı ayda bütün harcamaları kapsayan genel endeks 3.513,87'deydi. İkisini birbirine böldüğümüzde 2,03 çıkıyor: dışarıda yenilen yemeklerin ve otel konaklamalarının fiyatı, 2003'ten bu yana ortalama bir mal ya da hizmetin fiyatının iki katından fazla yükselmiş.
 
-Yazının sorusu tek: TÜFE'nin on iki ana harcama grubu, Aralık 2003'ten Aralık 2025'e kadar genel endekse göre ne kadar farklı yol aldı? Her grubun endeksini aynı aydaki genel endekse böldük. Çıkan sayıya göreli fiyat adını veriyoruz. Bir ise grup genel fiyat düzeyiyle aynı hızda pahalanmış demektir. Birin üstü daha hızlı, altı daha yavaş.
+TÜFE'nin on iki ana harcama grubu, Aralık 2003'ten Aralık 2025'e kadar genel endekse göre nasıl bir seyir izledi? Her grubun endeksini aynı aydaki genel endekse bölerek "göreli fiyat" değerini hesapladık. Bir değeri, grubun genel fiyat düzeyiyle aynı hızda pahalandığını; birin üstü daha hızlı, altı ise daha yavaş arttığını gösteriyor.
 
-Okur için anlamı şu: genel endeks, bütün harcama gruplarının ağırlıklı ortalamasıdır ve tek tek gruplar uzun dönemde bu ortalamadan belirgin biçimde uzaklaşabiliyor. Hangi grubun ortalamanın üstünde, hangisinin altında kaldığını bilmek, fiyat rakamlarını grup düzeyinde okumayı mümkün kılıyor. Aşağıda bu yolculuğu aralık aylarında izliyoruz: Aralık 2003, Aralık 2008, Aralık 2013, Aralık 2018, Aralık 2021 ve Aralık 2025.
+Genel endeks bütün harcama gruplarının ağırlıklı ortalaması olduğu için, tek tek gruplar uzun dönemde bu ortalamadan belirgin biçimde ayrışabiliyor. Hangi grubun ortalamanın üstünde, hangisinin altında kaldığını görmek, fiyat hareketlerini grup düzeyinde okumayı kolaylaştırıyor. Aşağıda bu ayrışmayı aralık ayları üzerinden izliyoruz: Aralık 2003, Aralık 2008, Aralık 2013, Aralık 2018, Aralık 2021 ve Aralık 2025.
 
 ![Çubuk grafik: Aralık 2025’te göreli fiyatı en yüksek grup lokanta ve oteller, en düşüğü haberleşme: Göreli fiyat: Gıda ve alkolsüz içecekler: 1,403, Alkollü içecekler ve tütün: 1,535, Giyim ve ayakkabı: 0,226, Konut, su, elektrik, gaz: 1,247, Mobilya ve ev eşyası: 0,840, Sağlık: 0,600, Ulaştırma: 0,996, Haberleşme: 0,159, Eğlence ve kültür: 0,473, Eğitim: 1,161, Lokanta ve oteller: 2,027, Çeşitli mal ve hizmetler: 1,292, Genel endeks: 1,000.](./graf-1.svg)
 *Grup endeksinin aynı aydaki genel endekse oranı, kat; kesik çizgi genel endeks. Kaynak: TÜİK (TCMB EVDS).*
@@ -84,15 +84,15 @@ Tepedeki grubun değişmesi de yolculuğun bir parçası. Aralık 2003'te en yü
 
 ## Aynı tablonun öbür yüzü
 
-Tablo kolayca yanlış okunabilir; bu yüzden onu başka bir açıdan da sınamak gerekiyor.
+Veriler ilk bakışta farklı yorumlara açık; bu yüzden birkaç temel noktayı ayırmak gerekiyor.
 
-İlk itiraz: göreli fiyatı düşen bir grup "ucuzlamış" değildir. Haberleşme endeksi Aralık 2003'ten Aralık 2025'e 102,36'dan 560,04'e çıktı; bu grupta da fiyatlar belirgin biçimde arttı. Göreli fiyatın 0,16'ya inmesi, bu artışın genel fiyat düzeyindeki artışın çok gerisinde kaldığını söylüyor, fiyatın düştüğünü değil.
+Göreli fiyatı düşen bir grup "ucuzlamış" değildir. Haberleşme endeksi Aralık 2003'ten Aralık 2025'e 102,36'dan 560,04'e çıktı; yani bu grupta da fiyatlar belirgin biçimde arttı. Göreli fiyatın 0,16'ya inmesi, yalnızca bu artışın genel fiyat düzeyindeki yükselişin çok gerisinde kaldığını gösteriyor.
 
-İkinci itiraz: göreli fiyatı yükselen grup, hanenin bütçesinde otomatik olarak büyümüş değildir. Bir grubun bütçedeki payı fiyatla birlikte tüketilen miktara da bağlıdır. Fiyatı hızlı artan bir hizmetten daha az alınıyorsa harcama payı aynı kalabilir, hatta küçülebilir. Bu yazıdaki oranlar fiyatların yolunu gösteriyor; hanelerin parayı nasıl böldüğü ayrı bir sorudur ve TÜİK'in her yıl güncellediği sepet ağırlıklarıyla ölçülür.
+Göreli fiyatı yükselen bir grup da hanenin bütçesinde otomatik olarak büyümez. Bir grubun bütçedeki payı fiyatla birlikte tüketilen miktara da bağlıdır. Fiyatı hızlı artan bir hizmetten daha az alınıyorsa harcama payı aynı kalabilir, hatta küçülebilir. Buradaki oranlar fiyatların seyrini gösteriyor; hanelerin bütçeyi nasıl böldüğü ise TÜİK'in her yıl güncellediği sepet ağırlıklarıyla ölçülüyor.
 
-Üçüncü itiraz zamanlamayla ilgili. Tek tek duraklara bakınca bir grup bir dönemde öne, sonra geriye geçebiliyor. Alkollü içecekler ve tütün Aralık 2013'te 1,68 ile tepedeydi; Aralık 2025'te 1,535'e inmişti. Ulaştırma Aralık 2021'de 1,15'e çıkmış, sonra 1,00'e dönmüştü. Hangi yılın başlangıç alındığı sonucu değiştirebilir. Bu yüzden tek bir durağı değil, bütün durakları gösterdik.
+Zamanlama da önemli bir etken. Tek tek duraklara bakınca bir grup bir dönemde öne, sonra geriye geçebiliyor. Alkollü içecekler ve tütün Aralık 2013'te 1,68 ile tepedeydi; Aralık 2025'te 1,535'e inmişti. Ulaştırma Aralık 2021'de 1,15'e çıkmış, sonra 1,00'e dönmüştü. Hangi yılın başlangıç alındığı sonucu değiştirebileceği için tek bir durağı değil, bütün durakları gösterdik.
 
-Dördüncü itiraz nedenle ilgili. Veri, bir grubun neden öne geçtiğini söylemiyor. Maliyetler, teknoloji ya da talep değişiklikleri birer olası açıklamadır; ama bu yazıdaki seriler bunlardan hiçbirini tek başına kanıtlamıyor. Burada yalnız fiyatların hangi yolu izlediğini ve bunun aynı dönemde olduğunu yazıyoruz.
+Son olarak, veri bir grubun neden öne geçtiğini açıklamıyor. Maliyetler, teknoloji ya da talep değişiklikleri birer olası etken; ancak bu seriler bunlardan hiçbirini tek başına kanıtlamıyor. Burada yalnızca fiyatların hangi yolu izlediğini aktarıyoruz.
 
 ## Endeksin göremedikleri
 

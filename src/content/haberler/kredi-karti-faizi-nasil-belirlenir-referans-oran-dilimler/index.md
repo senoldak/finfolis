@@ -21,7 +21,7 @@ Kredi kartı borcuna uygulanabilecek faizin üst sınırını Türkiye Cumhuriye
 
 Bu oranların hepsi aynı yerden başlıyor: aylık %3,11'lik referans oran. Üzerine, kartın dönem borcunun girdiği dilime göre sabit bir ek konuyor ve azami akdi faiz çıkıyor. Azami gecikme faizi de bu akdi faizin üstüne sabit bir ekle bulunuyor.
 
-Tablodaki rakamlar bir tavandır. TCMB'nin sayfasındaki ifadeyle “bankalar söz konusu oranları aşmamak koşuluyla kredi kartı işlemlerinde uygulayacakları faiz oranlarını serbestçe belirlemektedir”.
+Tablodaki oranlar birer üst sınır. TCMB'nin sayfasındaki ifadeyle “bankalar söz konusu oranları aşmamak koşuluyla kredi kartı işlemlerinde uygulayacakları faiz oranlarını serbestçe belirlemektedir”.
 
 ## Oranları kim, ne zaman ilan ediyor?
 

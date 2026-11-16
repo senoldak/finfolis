@@ -20,7 +20,7 @@ Türkiye'nin AB tanımlı genel yönetim borç stoku 2021 yılı sonunda 2,89 tr
 
 İlk bakışta iki rakam çelişiyor gibi duruyor. Borç bu kadar büyürken oran nasıl küçülür? Cevap oranın öbür ucunda, paydada. Borç/GSYH bir kesir; payı da paydası da aynı anda değişir. Paydadaki nominal GSYH 2021 yılında 7,43 trilyon TL'ydi, 2025 yılında 63,24 trilyon TL oldu: 8,5 kat. Borç hızlı büyüdü, milli gelir daha hızlı büyüdü.
 
-Yazı, oranın değişimini iki parçaya ayırıyor: borç stokundaki değişimin etkisi (pay etkisi) ve GSYH'deki değişimin etkisi (payda etkisi). Hesabı Hazine ve Maliye Bakanlığı (HMB) ile Türkiye İstatistik Kurumu (TÜİK) verileriyle 2001 yılından 2025 yılına kadar her yıl için yaptık ve dönemlere göre topladık. Okur için anlamı basit: oran düştüğünde borcun azaldığı, yükseldiğinde borcun arttığı sonucu tek başına çıkmaz; iki ucun hızına bakmak gerekir.
+Hazine ve Maliye Bakanlığı (HMB) ile Türkiye İstatistik Kurumu (TÜİK) verileriyle 2001'den 2025'e kadar her yıl için borç stokundaki değişimin etkisini (pay etkisi) ve GSYH'deki değişimin etkisini (payda etkisi) ayrı ayrı hesapladık. Oran düştüğünde borcun azaldığı, yükseldiğinde borcun arttığı sonucu tek başına çıkmıyor; iki ucun hızına birlikte bakmak gerekiyor.
 
 ## Bir oranın iki ucu
 

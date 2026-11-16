@@ -20,7 +20,7 @@ Muş'ta 2013 yılında yalnız 523 konut el değiştirdi. On iki yıl sonra, 202
 
 Türkiye İstatistik Kurumu'nun (TÜİK) il bazında yayımladığı konut satış istatistikleri bu soruyu sınamaya imkân veriyor. Ülke genelinde yıllık konut satışı 2013 yılında 1.226.989, 2025 yılında 1.760.292 oldu; artış %43,5. Aynı dönemde İstanbul'un bu toplamdaki payı %21,6'dan %17,6'ya indi. Ankara'nın payı da %11,9'dan %8,7'ye geriledi.
 
-Okur için bunun anlamı şu: konut satışı denince akla gelen iki büyük şehir, ülke toplamında eskisinden daha küçük bir yer tutuyor. Bu, o şehirlerde satışın azaldığı anlamına gelmiyor; İstanbul'da da satış arttı. Değişen, artışın nerede yoğunlaştığı. Bu yazıda büyük illerin payını, küçük tabanlı illerdeki hızlı artışı ve satışı nüfusa oranladığımızda ortaya çıkan tabloyu yan yana koyuyoruz. Bir konut ya da il için değer, fiyat ya da yön yorumu yapmıyoruz; yalnız satış adedinin dağılımına bakıyoruz.
+Bu tablo konut satışı denince akla gelen iki büyük şehrin, ülke toplamında eskisinden daha küçük bir yer tuttuğunu gösteriyor. Bu, o şehirlerde satışın azaldığı anlamına gelmiyor; İstanbul'da da satış arttı. Değişen, artışın nerede yoğunlaştığı. Aşağıda büyük illerin payını, küçük tabanlı illerdeki hızlı artışı ve satışı nüfusa oranladığımızda ortaya çıkan resmi yan yana koyuyoruz. Bir konut ya da il için değer, fiyat veya yön yorumu yapmıyoruz; yalnızca satış adedinin dağılımına bakıyoruz.
 
 ![Rakam kutusu: İstanbul'un konut satışlarındaki payı on iki yılda küçüldü: Son yıl: İstanbul: %17,6; Karşılaştırma: 2013 yılında %21,6, 2025 yılında %17,6.](./graf-1.svg)
 *İstanbul'daki yıllık konut satışının Türkiye toplamına oranı, yüzde. Kaynak: TÜİK.*

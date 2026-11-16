@@ -46,7 +46,7 @@ Enflasyonun yükseldiği aylarda fark daraldı, gerilediği aylarda açıldı. M
 
 ## Fark nasıl hesaplandı?
 
-Bu yazıda en sade hesap kullanıldı: politika faizinden yıllık TÜFE (tüketici fiyat endeksindeki yıllık değişim) çıkarılır, sonuç puan olarak okunur. Politika faizi, Para Politikası Kurulu'nun duyurularında bir hafta vadeli repo ihale faiz oranı olarak geçiyor.
+Burada en sade hesabı kullandık: politika faizinden yıllık TÜFE (tüketici fiyat endeksindeki yıllık değişim) çıkarılır, sonuç puan olarak okunur. Politika faizi, Para Politikası Kurulu'nun duyurularında bir hafta vadeli repo ihale faiz oranı olarak geçiyor.
 
 Aynı çıkarma bir de TCMB'nin Piyasa Katılımcıları Anketi'ndeki bir yıl sonrası enflasyon beklentisiyle yapıldı. Ekim 2026 anketinde 71 katılımcının bir yıl sonrası için yıllık TÜFE beklentisi %23,89; Eylül anketinde %23,7'ydi. Aynı ankette yıl sonu TÜFE beklentisi %29,63.
 
@@ -91,7 +91,7 @@ Kurul 22 Ekim duyurusunda gecelik borç verme faizini %40'tan %39'a, borçlanma 
 
 ## Rakamlar neyi ölçüyor?
 
-Bu yazıdaki fark yalnız politika faizi ile yıllık TÜFE arasındaki mesafedir. Okurun mevduat getirisini ya da kredi maliyetini ölçmez; onlar için ayrı bir hesap gerekir. Bu yazı bir yatırım önerisi değildir.
+Bu fark yalnız politika faizi ile yıllık TÜFE arasındaki mesafeyi gösterir; mevduat getirisini ya da kredi maliyetini ölçmez. Onlar için ayrı bir hesap gerekir.
 
 ## Kaynaklar
 

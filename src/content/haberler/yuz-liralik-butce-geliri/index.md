@@ -5,22 +5,22 @@ cover: ./cover.png
 coverAlt: "2025'te bütçe gelirlerinin %25,6'sı KDV'den geldi"
 coverSitede: false
 uretim: yazi-isleri
-title: "2025'te bütçe gelirlerinin %25,6'sı KDV'den geldi"
-description: "Merkezi yönetim bütçesinin Ocak–Aralık 2025 gerçekleşmesinde gelir vergisi %21,9, ÖTV %15,8 pay aldı. Gelirler giderlerin %87,6'sını karşıladı; bu oran 2015 yılında %95,35'ti."
+title: "Bütçeye giren her 100 liranın 25,6 lirası KDV'den geldi"
+description: "Merkezi yönetim bütçesinin Ocak–Aralık 2025 gerçekleşmelerinde gelir vergisi %21,9, ÖTV ise %15,8 pay aldı. Gelirler giderlerin %87,6'sını karşıladı; on yıl önce bu oran %95,35 düzeyindeydi."
 category: ekonomi
-why_matters: "Market fişindeki KDV'den maaş bordrosundaki gelir vergisine kadar ödenen vergiler aynı bütçede toplanıyor. Bu yazı o paranın hangi kalemlerden geldiğini ve hangi kalemlere harcandığını, on yıl önceki tabloyla yan yana gösteriyor."
+why_matters: "Market fişindeki KDV'den maaş bordrosundaki gelir vergisine kadar ödenen tüm vergiler aynı hazinede toplanıyor. Bu veriler, devletin kasasına giren paranın hangi kalemlerden geldiğini ve nereye harcandığını on yıl önceki tabloyla yan yana koyuyor."
 key_points:
-  - "Merkezi yönetim bütçe gelirleri 2025 yılında 12,83 trilyon TL oldu; bunun %25,6'sı dahilde ve ithalde alınan KDV'den geldi."
-  - "Gelir vergisi %21,9, özel tüketim vergisi %15,8, kurumlar vergisi %9,5 pay aldı; vergi dışı gelirlerin payı %13,85'te kaldı."
-  - "14,64 trilyon TL'lik giderin %36,9'u cari transferlere, %27,9'u personel ve SGK primine ayrıldı; faiz giderlerinin payı %14 oldu."
-  - "Gelirler 2025 yılında giderlerin %87,6'sını karşıladı; 2015 yılında bu oran %95,35'ti."
+  - "Merkezi yönetim bütçe gelirleri 2025 yılında 12,83 trilyon TL'ye ulaştı; bunun %25,6'sı dahilde ve ithalde alınan KDV'den sağlandı."
+  - "Gelir vergisi %21,9, özel tüketim vergisi %15,8, kurumlar vergisi %9,5 pay alırken vergi dışı gelirler %13,85'te kaldı."
+  - "14,64 trilyon TL'lik harcamanın %36,9'u cari transferlere, %27,9'u personel ve SGK primine ayrıldı; faiz giderlerinin payı %14 oldu."
+  - "Gelirler 2025 yılında giderlerin %87,6'sını karşılayabildi; 2015 yılında bu oran %95,35'ti."
 ---
 
 Bir markette alışveriş yapıp fişe baktığınızda en altta KDV satırını görürsünüz. Ay sonunda bordroda gelir vergisi kesintisi vardır; benzin, sigara ya da otomobil fiyatının içinde özel tüketim vergisi (ÖTV) durur. Bu kalemlerin her biri aynı yere, merkezi yönetim bütçesine akar. Peki bütçeye giren paranın ne kadarı hangi vergiden geliyor ve bu para nereye harcanıyor?
 
 Hazine ve Maliye Bakanlığı'nın (HMB) aylık bütçe gerçekleşmelerini 2025 yılı için on iki ay boyunca topladığımızda tablo şöyle: merkezi yönetim bütçe gelirleri 12,83 trilyon TL, giderleri 14,64 trilyon TL. Gelirin %25,6'sı KDV'den geldi; yani bütçeye giren her yüz liranın dörtte birinden fazlası alışverişte ödenen bu vergiden. Gider tarafında en büyük parça %36,9 ile cari transferler, ardından %27,9 ile personel ve sosyal güvenlik primi geliyor. Faiz giderleri harcamanın %14'ünü tuttu.
 
-İki tarafı yan yana koyduğumuzda bir fark daha görünüyor: gelirler giderlerin %87,6'sını karşıladı. Kalan kısım borçlanmayla finanse edilen bütçe açığı. Yazının geri kalanı yüz liralık bir birimi önce gelir tarafında, sonra gider tarafında izliyor ve aynı hesabı 2015 yılı için tekrarlıyor.
+İki tarafı yan yana koyduğumuzda bir fark daha öne çıkıyor: gelirler giderlerin %87,6'sını karşıladı. Kalan kısım borçlanmayla finanse edilen bütçe açığı. Aşağıda 100 liralık bir birimi önce gelir, sonra gider tarafında izliyor ve aynı hesabı 2015 yılı için tekrarlıyoruz.
 
 ## Yüz liranın geldiği yerler
 
@@ -99,7 +99,7 @@ Harcama tarafında da benzer bir durum var. Personel giderine devlet primini ekl
 
 ## Tablonun sınırları
 
-Yazıdaki bütün 2025 yılı rakamları HMB'nin aylık bütçe gerçekleşmelerinin Ocak–Aralık toplamıdır. Kesin hesap belgesi kullanılmadı; aylık gerçekleşme verisi ile kesin hesap ayrı belgelerdir. 2026 yılı için veri Eylül 2026'ya kadar yayımlandığından yıl tamamlanmadı ve hesaba alınmadı.
+2025 yılına dair tüm rakamlar HMB'nin aylık bütçe gerçekleşmelerinin Ocak–Aralık toplamından oluşuyor. Kesin hesap belgesi kullanılmadı; aylık gerçekleşme verisi ile kesin hesap ayrı belgelerdir. 2026 yılı için veri Eylül 2026'ya kadar yayımlandığından yıl tamamlanmadı ve hesaba katılmadı.
 
 Kapsam merkezi yönetimle sınırlı. Belediyelerin ve sosyal güvenlik kurumlarının kendi gelir ve giderleri bu tabloda yok; onlara yapılan aktarımlar ise gider olarak görünüyor. Genel yönetimin bütününe bakan bir hesap farklı paylar verir.
 

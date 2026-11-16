@@ -5,14 +5,14 @@ cover: ./cover.png
 coverAlt: "TCMB faiz kararı Ekim 2026: üç faiz ve fonlama maliyeti indi"
 coverSitede: false
 uretim: yazi-isleri
-title: "TCMB faiz kararı Ekim 2026: üç faiz ve fonlama maliyeti indi"
-description: "Politika faizi %37'den %36'ya, koridorun iki ucu da 1 puan indi. Bankaların TCMB'den aldığı fonun ortalama maliyeti 23 Ekim 2026'da %36,04 oldu; 6 Mart–21 Ağustos 2026 arasındaki gözlemlerde ise politika faizi %37 iken bu maliyet %40'taydı."
+title: "TCMB'den üçlü faiz indirimi: Politika faizi %36'ya, fonlama maliyeti %36,04'e indi"
+description: "Merkez Bankası politika faizini %37'den %36'ya çekerken koridorun iki ucunu da 1 puan indirdi. Bankaların TCMB'den aldığı paranın ortalama maliyeti ertesi gün %36,04'e geriledi; oysa yılın büyük bölümünde politika faizi %37 iken bu maliyet %40'ta seyretmişti."
 category: piyasalar
-why_matters: "Kararla açıklanan faiz ile TCMB'nin fiilî fonlamasının ortalama maliyeti her zaman aynı değil; 31 Mart 2026'da aradaki fark 3 puandı. Bir faiz kararının bankacılık sistemine nasıl ulaştığını anlamak için iki rakama birlikte bakmak gerekiyor."
+why_matters: "PPK toplantısında açıklanan politika faizi ile bankaların TCMB'den fiilen borçlandığı ortalama maliyet her zaman örtüşmüyor; 31 Mart 2026'da aradaki makas 3 puana çıkmıştı. Kararın piyasaya nasıl yansıdığını görmek için iki orana birlikte bakmak gerekiyor."
 key_points:
-  - "TCMB Para Politikası Kurulu 22 Ekim 2026'da politika faizini %37'den %36'ya, gecelik borç verme faizini %40'tan %39'a, gecelik borçlanma faizini %35,5'ten %34,5'e indirdi."
-  - "Yeni koridorun genişliği 4,5 puan; politika faizi üst sınırın 3 puan altında, alt sınırın 1,5 puan üstünde duruyor."
-  - "TCMB'nin ağırlıklı ortalama fonlama maliyeti 23 Ekim 2026'da %37'den %36,04'e indi ve politika faizinin 0,04 puan üzerinde kaldı."
+  - "TCMB Para Politikası Kurulu 22 Ekim 2026'da politika faizini %37'den %36'ya, gecelik borç verme faizini %40'tan %39'a, gecelik borçlanma faizini ise %35,5'ten %34,5'e çekti."
+  - "4,5 puan genişliğindeki yeni koridorda politika faizi üst sınırın 3 puan altında, alt sınırın 1,5 puan üzerinde konumlanıyor."
+  - "Ağırlıklı ortalama fonlama maliyeti 23 Ekim 2026'da %37'den %36,04'e inerek politika faizinin yalnızca 0,04 puan üzerinde oluştu."
   - "Bir hafta vadeli repo ihalelerine ara verilen dönemde, 31 Mart 2026'da ortalama fonlama maliyeti %40 ile politika faizinin 3 puan üzerindeydi."
 ---
 
@@ -20,11 +20,11 @@ Türkiye Cumhuriyet Merkez Bankası (TCMB) 22 Ekim 2026'da tek bir faizi değil,
 
 Bu iki rakam her zaman bu kadar yakın durmuyor. 6 Mart–21 Ağustos 2026 arasındaki gözlemlerde politika faizi %37'yken bu ortalama maliyet %40'tı. Aradaki farkı belirleyen, TCMB'nin parayı hangi kanaldan verdiği.
 
-## Kararda hangi üç faiz indi?
+## Kararda üç faiz birden değişti
 
-Para Politikası Kurulu (PPK) kararını şu cümleyle duyurdu: “Para Politikası Kurulu (Kurul), politika faizi olan bir hafta vadeli repo ihale faiz oranının yüzde 37’den yüzde 36’ya indirilmesine karar vermiştir.” TCMB'nin 2026 yılı para politikası metninde de aynı tanım var: “TCMB’nin temel politika aracı bir hafta vadeli repo ihale faiz oranıdır.”
+Para Politikası Kurulu (PPK) kararını şu cümleyle duyurdu: “Para Politikası Kurulu (Kurul), politika faizi olan bir hafta vadeli repo ihale faiz oranının yüzde 37’den yüzde 36’ya indirilmesine karar vermiştir.” TCMB'nin 2026 yılı para politikası metninde de aynı tanım yer alıyor: “TCMB’nin temel politika aracı bir hafta vadeli repo ihale faiz oranıdır.”
 
-Politika faizi, TCMB'nin bir hafta vadeli repo ihalelerinde uyguladığı faiz. Bunun yanında gecelik vadeli iki faiz daha var: gecelik borç verme faizi TCMB'nin gecelik vadede borç verdiği oran, gecelik borçlanma faizi ise gecelik vadede borçlandığı oran. 22 Ekim 2026'da üçünün her biri 1 puan indi.
+Politika faizi, TCMB'nin bir hafta vadeli repo ihalelerinde uyguladığı oran. Bunun yanında gecelik vadede iki faiz daha bulunuyor: TCMB'nin gecelik borç verdiği oranı gösteren gecelik borç verme faizi ve gecelik borçlandığı oranı gösteren gecelik borçlanma faizi. 22 Ekim 2026'da bu üç oranın her biri 1 puan aşağı çekildi.
 
 ![Halter grafik: Kararla politika faizi ve koridorun iki ucu aynı ölçüde indi: Karar öncesi: Gecelik borçlanma: %35,5, Politika faizi: %37,0, Gecelik borç verme: %40,0; Karar sonrası: Gecelik borçlanma: %34,5, Politika faizi: %36,0, Gecelik borç verme: %39,0.](./graf-1.svg)
 *Karar öncesi ve sonrası TCMB faiz oranları, yüzde. Kaynak: TCMB.*
@@ -88,9 +88,9 @@ Aşağıdaki tablo ay sonu gözlemlerini ve karar dönemini bir arada veriyor:
 
 Tablodaki net fonlama sütunu 31 Mart–31 Temmuz 2026 satırlarında bazı tarihlerde artı, bazılarında eksi; ortalama maliyet ise bu tarihlerin hepsinde %40. İhalelerin yeniden başladığı ağustos sonundan sonraki tarihlerde net fonlama eksi tarafta, ortalama maliyet ise politika faiziyle aynı düzeyde.
 
-## Bu ne demek?
+## Piyasa için anlamı
 
-Faiz kararı duyurusundaki politika faizi, bir hafta vadeli ihalenin faizidir. Bankaların TCMB'ye fiilen ödediği ortalama faiz ise o gün paranın hangi kanaldan verildiğine bağlıdır. Fonun neredeyse tamamı ihaleden verildiğinde iki rakam birbirine çok yakın durur; 23 Ekim 2026'daki fark 0,04 puandı. İhalelere ara verilen dönemde, 31 Mart 2026'da ortalama maliyet politika faizinin 3 puan üzerindeydi.
+Faiz kararı duyurusundaki politika faizi, bir hafta vadeli ihalenin faizini ifade ediyor. Bankaların TCMB'ye fiilen ödediği ortalama faiz ise o gün paranın hangi kanaldan verildiğine bağlı. Fonun neredeyse tamamı ihaleden sağlandığında iki rakam birbirine çok yakın duruyor; 23 Ekim 2026'daki fark 0,04 puandı. İhalelere ara verilen dönemde, 31 Mart 2026'da ortalama maliyet politika faizinin 3 puan üzerindeydi.
 
 Bu yüzden bir faiz kararını okurken iki soruya birlikte bakılabilir: Kurul hangi oranı değiştirdi ve TCMB fonu hangi kanaldan veriyor? Politika faizinin enflasyona göre nerede durduğunu ise [politika faizi ile enflasyon arasındaki farkı anlatan yazıda](/haber/politika-faizi-ile-enflasyon-farki-eylul-2026/) ayrıntılı bulabilirsiniz; karar gününün piyasa kapanışı da [22 Ekim 2026 kapanış bülteninde](/haber/piyasa-bulteni-22-ekim-2026-kapanis/) yer alıyor.
 

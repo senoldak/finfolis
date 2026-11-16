@@ -5,14 +5,14 @@ cover: ./cover.png
 coverAlt: "Seyahat gelirinde yaz aylarının payı %61,2'den %47,1'e indi"
 coverSitede: false
 uretim: yazi-isleri
-title: "Seyahat gelirinde yaz aylarının payı %61,2'den %47,1'e indi"
-description: "Ödemeler dengesindeki seyahat gelirini ve ülkeden çıkış yapan ziyaretçi sayısını ay ay açtık. Yaz ayları hâlâ en kalabalık dönem, ama yılın geri kalanı daha fazla ağırlık taşıyor."
+title: "Turizm geliri dört mevsimin takvimine yayılıyor: Yazın payı %61,2'den %47,1'e indi"
+description: "Ödemeler dengesindeki seyahat gelirini ve çıkış yapan ziyaretçi sayısını ay ay inceledik. Yaz ayları hâlâ en yoğun dönem olsa da yılın geri kalanı artık daha büyük bir ağırlık taşıyor."
 category: ekonomi
-why_matters: "Turizm geliri ülkenin dışarıdan kazandığı dövizin önemli bir kaynağı ve kıyı bölgelerinde birçok işin takvimini belirliyor; gelirin aylara nasıl dağıldığı, bu işlerin yılın kaç ayına yayıldığını da gösteriyor."
+why_matters: "Turizm geliri ülkenin döviz kaynaklarından biri ve kıyı kentlerinde birçok işin çalışma takvimini belirliyor. Gelirin aylara nasıl dağıldığı, sektördeki hareketliliğin yılın kaç ayına yayıldığını da gösteriyor."
 key_points:
-  - "Haziran–eylül dönemi 2003 yılında yıllık seyahat gelirinin %61,2'sini oluşturuyordu, 2025 yılında %47,1'ini."
-  - "Ağustos ayının yıllık gelirdeki payı %21,8'den %13,9'a indi; ocak ayının payı %2,9'dan %5,4'e çıktı."
-  - "Ağustos gelirinin şubat gelirine oranı 2003 yılında 6,9 iken 2025 yılında 3,1 oldu."
+  - "Haziran–eylül dönemi 2003 yılında yıllık seyahat gelirinin %61,2'sini oluştururken 2025 yılında bu oran %47,1'e geriledi."
+  - "Ağustos ayının yıllık gelirdeki payı %21,8'den %13,9'a inerken ocak ayının payı %2,9'dan %5,4'e yükseldi."
+  - "Ağustos gelirinin şubat gelirine oranı 2003 yılında 6,9 iken 2025 yılında 3,1'e düştü."
   - "Yıllık seyahat geliri 2003 yılında 13.298 milyon dolardı, 2025 yılında 59.995 milyon dolara ulaştı."
 ---
 
@@ -20,7 +20,7 @@ Tatil planı yapan herkes yaz ile kış arasındaki farkı bilir: ağustosta yer
 
 2003 yılında haziran, temmuz, ağustos ve eylül ayları yıllık seyahat gelirinin %61,2'sini oluşturuyordu. 2025 yılında bu dört ayın payı %47,1'e indi. Yani 2025 yılında seyahat gelirinin yarısından fazlası, %52,9'u, yaz dışındaki sekiz aydan geldi. En kalabalık ay hâlâ ağustos, ama ağustosun yıllık gelirdeki payı %21,8'den %13,9'a geriledi.
 
-Okur için anlamı şu: turizmin ekonomideki ağırlığı yalnız yıllık toplamla ölçülmüyor. Gelirin hangi aylara düştüğü, otelden lokantaya, ulaşımdan küçük esnafa kadar bu harcamaya bağlı işlerin yılın kaç ayında çalıştığını da belirliyor. Bu yazıda seyahat gelirini ve ülkeden çıkış yapan ziyaretçi sayısını dört yıl üzerinden izledik: 2003 yılı, 2010 yılı, 2019 yılı ve 2025 yılı.
+Turizmin ekonomideki ağırlığı yalnızca yıllık toplamla ölçülmüyor. Gelirin hangi aylara dağıldığı, otelden lokantaya, ulaşımdan küçük esnafa kadar bu harcamaya bağlı işlerin yılın kaç ayında aktif kaldığını da belirliyor. Seyahat gelirini ve çıkış yapan ziyaretçi sayısını dört dönüm noktası üzerinden izledik: 2003, 2010, 2019 ve 2025.
 
 ## Seyahat geliri neyi sayar
 
@@ -31,9 +31,9 @@ Rakamlar ABD doları cinsinden ve cari fiyatlarla. Yıllık seyahat geliri 2003 
 ![Küçük çoklu grafik: Ağustosun tepesi 2003 yılından 2025 yılına alçaldı, kış ayları yükseldi: 2003 yılı: Oca: %2,85, Şub: %3,15, Mar: %3,07, Nis: %3,35, May: %5,86, Haz: %7,92, Tem: %13,72, Ağu: %21,80, Eyl: %17,72, Eki: %11,04, Kas: %5,82, Ara: %3,71; 2010 yılı: Oca: %3,44, Şub: %3,37, Mar: %4,48, Nis: %5,00, May: %7,80, Haz: %9,35, Tem: %13,15, Ağu: %15,30, Eyl: %12,63, Eki: %13,19, Kas: %7,26, Ara: %5,03; 2019 yılı: Oca: %3,89, Şub: %3,32, Mar: %4,09, Nis: %5,45, May: %7,19, Haz: %9,14, Tem: %14,17, Ağu: %17,17, Eyl: %14,23, Eki: %11,17, Kas: %5,78, Ara: %4,43; 2025 yılı: Oca: %5,42, Şub: %4,49, Mar: %4,74, Nis: %6,53, May: %8,52, Haz: %9,92, Tem: %11,68, Ağu: %13,94, Eyl: %11,60, Eki: %11,25, Kas: %6,68, Ara: %5,24.](./graf-1.svg)
 *Her ayın yıllık seyahat gelirindeki payı, yüzde. Kaynak: TCMB.*
 
-## 2003 yılı: dört ayın taşıdığı yıl
+## 2003: Dört ayın taşıdığı yıl
 
-Yolculuğa 2003 yılından başlıyoruz. O yıl ağustos ayının seyahat geliri 2.899 milyon dolardı, şubatın 419 milyon dolar. Ağustos, şubatın 6,9 katı gelir getirdi. Ağustos tek başına yıllık gelirin %21,8'ini, eylül %17,7'sini, temmuz %13,7'sini oluşturuyordu. Ocak ayının payı %2,9, şubatın %3,2'ydi.
+2003 yılında ağustos ayının seyahat geliri 2.899 milyon dolar, şubatın ise 419 milyon dolardı; ağustos tek başına şubatın 6,9 katı gelir getirdi. Ağustos yıllık gelirin %21,8'ini, eylül %17,7'sini, temmuz %13,7'sini oluşturuyordu. Ocak ayının payı %2,9, şubatın payı ise %3,2'ydi.
 
 Ziyaretçi sayısında mevsimsellik biraz daha hafifti. Haziran–eylül dönemi 2003 yılında ziyaretçilerin %55,3'ünü, gelirin ise %61,2'sini kapsıyordu. Ağustosta 3.063.383 ziyaretçi çıkış yaptı, şubatta 574.047; oran 5,3. Gelirin ziyaretçi sayısından daha mevsimsel olması, yaz aylarında gelen ziyaretçilerin kişi başına daha fazla harcama bıraktığıyla uyumlu. TCMB'nin verisinde 2003 yılında kişi başı ortalama harcama şubatta 731 dolar, ağustosta 946 dolardı.
 

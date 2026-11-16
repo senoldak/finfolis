@@ -5,10 +5,10 @@ cover: ./cover.png
 coverAlt: "ABD istihdam revizyonu 2025 yılında aşağı, 2026 yılında karışık"
 coverSitede: false
 uretim: yazi-isleri
-title: "ABD istihdam revizyonu 2025 yılında aşağı, 2026 yılında karışık"
-description: "2026'nın ilk yedi ayında üçüncü tahmin ile ilk açıklama arasındaki aylık fark -109 bin kişi ile 36 bin kişi arasında değişti; toplam fark -87 bin kişi. Mart 2025 düzeyindeki yıllık benchmark revizyonu -898 bin kişi oldu."
+title: "ABD istihdam revizyonları: 2025'te aşağı, 2026'da karışık seyir"
+description: "2026'nın ilk yedi ayında üçüncü tahmin ile ilk açıklama arasındaki aylık fark -109 bin ile 36 bin kişi arasında değişti; toplam fark -87 bin kişi. Mart 2025 düzeyindeki yıllık benchmark revizyonu ise -898 bin kişi oldu."
 category: ekonomi
-why_matters: "ABD'nin aylık istihdam rakamı, Fed'in faiz kararlarını anlatan haberlerde en sık anılan verilerden biri. Aynı rakamın sonraki aylarda ve yıllık revizyonda değişebildiğini bilmek, ilk gün açıklanan sayıyı okurken neyin nihai, neyin geçici olduğunu ayırmaya yardım ediyor."
+why_matters: "ABD'nin aylık istihdam verisi, Fed'in faiz kararlarını belirleyen en kritik göstergelerden biri. İlk gün açıklanan sayının sonraki aylarda ve yıllık revizyonda ne kadar değişebildiğini bilmek, manşet rakamı okurken geçici olanla kalıcı olanı ayırmayı sağlar."
 key_points:
   - "BLS'nin tablosuna göre Mart 2025 için ilk açıklanan aylık artış 228 bin kişi, üçüncü tahmin 120 bin kişiydi; bugünkü seride bu ayın artışı 67 bin kişi."
   - "Mart 2025 düzeyindeki yıllık benchmark revizyonu ön tahminde -911 bin kişi, nihai rakamda mevsimsellikten arındırılmış olarak -898 bin kişi oldu."
@@ -16,17 +16,17 @@ key_points:
   - "Mart 2026 için açıklanan ön benchmark revizyonu -79 bin kişi (%-0,1); nihai rakam BLS'ye göre Şubat 2027'de yayımlanacak."
 ---
 
-ABD Çalışma İstatistikleri Bürosu (BLS) her ay açıkladığı tarım dışı istihdam artışını sonraki iki ayın raporlarında yeniden yayımlıyor ve yılda bir kez de bütün seriyi idari kayıtlardan gelen sayımlarla hizalıyor. Bu revizyonlar BLS'nin yöntem notunda anlatılan olağan bir pratik. 2026'nın ilk yedi ayında üçüncü tahmin dört ayda ilk açıklamanın üstünde, üç ayda altında kaldı; aylık farklar -109 bin kişi ile 36 bin kişi arasında değişti. Mart 2025 için ilk açıklanan 228 bin kişilik artış ise bugünkü seride 67 bin kişi.
+ABD Çalışma İstatistikleri Bürosu (BLS), her ay açıkladığı tarım dışı istihdam artışını sonraki iki ayın raporlarında yeniden yayımlıyor; yılda bir kez de tüm seriyi idari kayıtlardan gelen sayımlarla hizalıyor. Yöntem notunda olağan bir pratik olarak tanımlanan bu revizyonlarda, 2026'nın ilk yedi ayında üçüncü tahmin dört ayda ilk açıklamanın üstünde, üç ayda altında kaldı. Aylık farklar -109 bin kişi ile 36 bin kişi arasında değişti. Mart 2025 için ilk açıklanan 228 bin kişilik artış ise bugünkü seride 67 bin kişiye inmiş durumda.
 
-Yazı tek bir ayın değil, 2025–2026 aylarının izini sürüyor: ilk açıklanan rakam, ikinci ve üçüncü tahmin, yıllık benchmark revizyonu ve bugün seride duran değer. Sonuç kısaca şu: aylık istihdam rakamı ilk açıklandığı gün bir tahmindir ve BLS onu kendi takvimiyle, kendi yöntem belgelerinde anlattığı biçimde düzeltir. 2025'in ilk sekiz ayında bu düzeltmelerin hepsi aşağı yönlü oldu; 2026'da ise yönler karışık.
+2025–2026 dönemindeki bu düzeltmelerin izini sürdüğümüzde ortaya net bir tablo çıkıyor: Aylık istihdam rakamı ilk açıklandığı gün yalnızca bir tahmindir ve BLS onu kendi takvimiyle düzeltir. 2025'in ilk sekiz ayında bu düzeltmelerin tamamı aşağı yönlüydü; 2026'da ise yönler karışık.
 
-Türkiye'deki okur için konu uzak değil. ABD'nin para politikası kurumu Fed, kendi tanımına göre azami istihdam ve fiyat istikrarı hedefleri için çalışıyor ve karar metinlerinde istihdam verisine yer veriyor.
+Türkiye'deki okur açısından da konu doğrudan önem taşıyor. Fed, azami istihdam ve fiyat istikrarı hedefleri doğrultusunda hareket ederken faiz kararlarında bu istihdam verilerini temel alıyor.
 
 ## Bir rakamın üç hâli
 
 BLS her ay, işyerlerinden toplanan anketin sonuçlarıyla bir önceki ayın tarım dışı istihdam değişimini açıklıyor. Bu ilk açıklama. BLS'nin yöntem notuna göre önceki iki ayın rakamları, sonradan gelen ek anket cevaplarını katmak ve mevsimsellik etkenlerini yeniden hesaplamak için her ay düzenli olarak revize ediliyor; bir aylık tahmin ancak iki revizyondan sonra nihai sayılıyor. Böylece aynı ayın rakamı ertesi ay ikinci tahmin olarak, bir ay sonra da üçüncü tahmin olarak yeniden yayımlanıyor. BLS'nin revizyon tablosu her ay için bu üç rakamı ve aralarındaki farkı yan yana gösteriyor.
 
-Tablo bize iki şey söylüyor. Birincisi, BLS ilk rakamı tek başına bırakmıyor; düzeltmeyi kendisi, açık bir tabloyla yayımlıyor. İkincisi, düzeltmenin yönü önceden belli değil. Bazı aylarda rakam yukarı, bazı aylarda aşağı gidiyor.
+Burada iki nokta öne çıkıyor. İlk olarak BLS ilk rakamı tek başına bırakmıyor; düzeltmeyi açık bir tabloyla yayımlıyor. İkinci olarak düzeltmenin yönü önceden belli değil; bazı aylarda yukarı, bazı aylarda aşağı gidiyor.
 
 ![Halter grafik: 2026'nın ilk yedi ayında üçüncü tahmin üç ayda ilk açıklamanın altında, dört ayda üstünde: İlk açıklama: Oca 2026: 130 bin kişi, Şub 2026: −92 bin kişi, Mar 2026: 178 bin kişi, Nis 2026: 115 bin kişi, May 2026: 172 bin kişi, Haz 2026: 57 bin kişi, Tem 2026: −23 bin kişi; Üçüncü tahmin: Oca 2026: 160 bin kişi, Şub 2026: −156 bin kişi, Mar 2026: 214 bin kişi, Nis 2026: 148 bin kişi, May 2026: 63 bin kişi, Haz 2026: 31 bin kişi, Tem 2026: −10 bin kişi.](./graf-1.svg)
 *ABD tarım dışı istihdamında aylık değişim, ilk açıklama ve üçüncü tahmin, mevsimsellikten arındırılmış. Kaynak: BLS.*
@@ -80,15 +80,15 @@ Tablonun geri kalanı da aynı çeşitliliği taşıyor. Mart 2015 düzeyinde re
 
 Yani benchmark revizyonunun büyüklüğü yıldan yıla değişiyor. Mart 2025 düzeyindeki -862 bin kişilik arındırılmamış düzeltme, tablodaki 2015–2025 yıllarının en büyüğü. Mart 2026 düzeyi için Ağustos 2026'da açıklanan ön benchmark revizyonu ise -79 bin kişi (%-0,1). BLS'ye göre nihai revizyon Şubat 2027'de, Ocak 2027 istihdam raporuyla birlikte yayımlanacak; bu tarih kurumun kendi takvimi.
 
-Burada karşı okumayı da yazmak gerekiyor. BLS'nin yöntem notu, aylık revizyonları ek anket cevaplarının katılması, benchmark'ı da anket tahminlerinin işsizlik sigortası kayıtlarından gelen sayımlarla hizalanması olarak tanımlıyor. İlk açıklama o güne kadar gelen cevaplarla yapılan tahmin; sonraki tahminler ve benchmark aynı ölçümü daha fazla bilgiyle tamamlıyor. 2026'nın ilk yedi ayında ilk ve üçüncü tahminler arasındaki toplam fark ilk toplamın %-16,2'si kadardı ve aylık farkların yönü karışıktı. 2025'te ise düzeltmelerin aynı yöne yığılması öne çıktı. İki yılın tablosu farklı; tek bir yıldan genel bir kural çıkmıyor.
+Karşı okumayı da gözden kaçırmamak gerekiyor. BLS'nin yöntem notu, aylık revizyonları ek anket cevaplarının katılması, benchmark'ı da anket tahminlerinin işsizlik sigortası kayıtlarından gelen sayımlarla hizalanması olarak tanımlıyor. İlk açıklama o güne kadar gelen cevaplarla yapılan tahmin; sonraki tahminler ve benchmark aynı ölçümü daha fazla bilgiyle tamamlıyor. 2026'nın ilk yedi ayında ilk ve üçüncü tahminler arasındaki toplam fark ilk toplamın %-16,2'si kadardı ve aylık farkların yönü karışıktı. 2025'te ise düzeltmelerin aynı yöne yığılması öne çıktı. İki yılın tablosu farklı; tek bir yıldan genel bir kural çıkmıyor.
 
 ## Fed'in karar metninde istihdam
 
 Fed'in para politikası sayfası, kurumun Kongre'nin kendisine verdiği azami istihdam, istikrarlı fiyatlar ve ılımlı uzun vadeli faiz hedefleri için çalıştığını yazıyor. Federal Açık Piyasa Komitesi'nin (FOMC) 16 Eylül 2026 tarihli açıklaması da kararı bu çifte görev çerçevesinde anlatıyor. Komite o toplantıda politika faizi hedef aralığını 0,25 puan artırarak %3,75–4'e çıkardı. Açıklamadaki ekonomik değerlendirmede istihdam artışının işgücüyle aynı hızda gittiği ve işsizlik oranının pek değişmediği belirtiliyor.
 
-Yazı Fed'in kararını değerlendirmiyor; kararla istihdam rakamı arasında bir neden-sonuç ilişkisi de kurmuyor. Yalnız bir olguyu not ediyor: Fed'in açıkladığı metinde istihdam koşulları anılıyor.
+Fed'in karar metninde istihdam koşullarının bu şekilde anılması, verinin politika yapıcılar açısından ağırlığını gösteriyor.
 
-Türkiye'den bakan okur için pratik sonuç ölçüyle ilgili. Bir istihdam raporunun açıklandığı gün yazılan rakam, o ayın son sözü değil. Aynı ayın ikinci ve üçüncü tahmini sonraki iki raporda geliyor; yıllık benchmark ise ön tahminiyle Ağustos ya da Eylül'de, nihai hâliyle Şubat'ta açıklanıyor. Haberde geçen rakamın hangi tahmin olduğunu bilmek, iki farklı haberdeki iki farklı rakamın neden aynı ayı anlattığını açıklayabiliyor.
+Türkiye'den bakan okur için pratik sonuç ise ölçüyle ilgili. Bir istihdam raporunun açıklandığı gün yazılan rakam, o ayın son sözü değil. Aynı ayın ikinci ve üçüncü tahmini sonraki iki raporda geliyor; yıllık benchmark ise ön tahminiyle Ağustos ya da Eylül'de, nihai hâliyle Şubat'ta açıklanıyor. Haberde geçen rakamın hangi tahmin olduğunu bilmek, iki farklı haberdeki iki farklı rakamın neden aynı ayı anlattığını açıklayabiliyor.
 
 ## Rakamın oynadığı alanlar
 
