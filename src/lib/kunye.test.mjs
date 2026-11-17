@@ -13,6 +13,11 @@ test('kunyeParcalari: dört yayın adı bağlanır, gerisi düz metin', () => {
   assert.equal(p.map((x) => x.metin).join(''), 'kifobu, finfolis, JEN DUME ve tidsrøst aracılığıyla');
 });
 
+test('kunyeParcalari: jenDume yazımı da bağlanır', () => {
+  const p = kunyeParcalari('jenDume ve JEN DUME');
+  assert.deepEqual(p.filter((x) => x.adres).map((x) => x.metin), ['jenDume', 'JEN DUME']);
+});
+
 test('satirParcalari: parça bağlanır; parça yoksa tek düz metin', () => {
   const p = satirParcalari('Yazı, yayın ilkelerimize göre hazırlandı.', { parca: 'yayın ilkelerimize', adres: '/yayin-ilkeleri/' });
   assert.deepEqual(p, [

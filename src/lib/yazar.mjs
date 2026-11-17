@@ -1,15 +1,18 @@
 import { aciklayiciMi } from './yazi-turu.mjs';
 
-// Künye (sahibinin onayladığı metin; dört sitede aynı kişi, aynı dört yayın).
+// Künye (sahibinin onayladığı metin; dört sitede aynı kişi, aynı dört yayın). İlk paragraf kısa kalır: meta açıklaması ve JSON-LD onu kullanır.
 const KUNYE = [
-  'Türkçe ve yapay zekâ öğretmeniyim; yazılım sektöründe üretken yapay zekâ sistemleri üzerinde çalışıyorum. 10 Ağustos 2022’de kifobu’nun ilk bültenini yayımladım ve o günden beri gazetecilik yapıyorum.',
-  'kifobu, finfolis, JEN DUME ve tidsrøst aracılığıyla girişimlerden ve kitle fonlamasından finans piyasalarına, yapay zekâdan bilime, Norveç’ten dünya gündemine uzanan konuları ele alıyorum. Farklı alanlarda çalışsam da merakım aynı: Bilginin ötesine geçmek, bağlantıları görmek ve olup bitenin neden önemli olduğunu anlamak.',
+  'Şenol Dak gazeteci ve yayıncıdır. kifobu, finfolis, jenDume ve tidsrøst haber sitelerini kurdu; tidsrøst’ün yayın yönetmenidir. Gazetecilik çalışmaları 2022’de kifobu’nun ilk bülteniyle başladı.',
+  'Girişimcilik ve kitle fonlaması, finans piyasaları ve ekonomi, yapay zekâ, bilim ve teknoloji ile Norveç ve dünyadan güncel konular üzerine yazıyor. Çalışmaları haberlerden, analizlerden ve bir gelişmenin arka planını ve sonuçlarını anlatan açıklayıcı yazılardan oluşuyor. Kaynağa dayalı araştırmaya, veri analizine ve karmaşık konuları anlaşılır kılmaya önem veriyor.',
+  'Gazeteciliğin yanında Türkçe ve yapay zekâ öğretmenliği yapıyor, yazılım sektöründe üretken yapay zekâ sistemleri üzerinde çalışıyor. Bu teknik birikimi veri araştırmasında ve dijital gazetecilikte de kullanıyor.',
+  'Üretken yapay zekânın gazetecilikte nasıl kullanılabileceği ve teknolojinin haber araştırmasını, üretimini ve yayıncılığı nasıl değiştirdiği özellikle ilgisini çekiyor. tidsrøst’te yapay zekâyla otomatik bir haber üretimi kurdu. Hangi tür haberlerin otomatik yayımlanacağına ve yayından önce kaynakların ve olguların nasıl denetleneceğine o karar veriyor.',
 ];
 
 // Analiz, açıklayıcı/referans ve köşe yazılarının görünen yazarı. Rutin haber ve bültenlerde site adı kullanılır.
 export const YAZAR = {
   ad: 'Şenol Dak',
   unvan: 'Gazeteci',
+  rol: 'Gazeteci · öğretmen · üretken yapay zekâ sistemleri · veri analizi ve araştırma',
   slug: 'senol-dak',
   yol: '/yazar/senol-dak/',
   aciklama: KUNYE[0],

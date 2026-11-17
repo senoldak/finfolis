@@ -5,7 +5,7 @@ import { YAZAR, yazarSemasi, yazarUrl } from './yazar.mjs';
 test('yazar sabiti: ad, unvan ve sayfa yolu', () => {
   assert.equal(YAZAR.ad, 'Şenol Dak');
   assert.equal(YAZAR.unvan, 'Gazeteci');
-  assert.equal(YAZAR.kunye.length, 2);
+  assert.equal(YAZAR.kunye.length, 4);
   assert.equal(YAZAR.aciklama, YAZAR.kunye[0]);
   assert.equal(YAZAR.yol, '/yazar/senol-dak/');
   assert.equal(yazarUrl('https://finfolis.com'), 'https://finfolis.com/yazar/senol-dak/');

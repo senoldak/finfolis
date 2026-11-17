@@ -1,15 +1,94 @@
 ---
-// Yazar sayfası: analiz, açıklayıcı ve köşe yazılarının görünen yazarı (haber ve bültenlerde site adı görünür). Künye sahibinin onayladığı metindir (YAZAR.kunye); biyografi uydurulmaz.
+// Yazar sayfası ("portre bandı"): üstte fotoğraf, ad ve künye; altında dört sitenin imzalı yazılarını gösteren gün ızgarası
+// (her gün 2x2 kutu, her site kendi renginde); sonra finfolis'in imzalı yazıları ay ay iki sütunlu dizin.
+// Künye sahibinin onayladığı metindir (YAZAR.kunye); biyografi uydurulmaz. Satır içi stil yok (CSP style-src 'self').
 import Base from '../../layouts/Base.astro';
-import NewsCard from '../../components/NewsCard.astro';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
 import { YAZAR, yazarUrl, kisiYazariMi } from '../../lib/yazar.mjs';
 import { getNews, newsUrl } from '../../lib/news';
+import { formatDate } from '../../lib/site';
 import { ORG_ID, SITE_URL, WEBSITE_ID } from '../../lib/seo';
 import { kunyeParcalari } from '../../lib/kunye.mjs';
+import { turEtiketi } from '../../lib/yazi-bilgisi.mjs';
+import { aarsRutenett } from '../../lib/aktivitet.mjs';
+import yazarAktivite from '../../data/yazar-aktivite.json';
 
 const haberler = (await getNews({ indeksli: true })).filter((h) => kisiYazariMi(h.data));
 const pageUrl = yazarUrl(SITE_URL);
+const foto = '/yazar-foto/senol-dak.jpg';
+const EPOSTA = 'contact@finfolis.com';
+
+const tur = (h: (typeof haberler)[number]) => {
+  const t = h.data.yaziTuru;
+  if (t === 'aciklayici') return 'Açıklayıcı';
+  if (t === 'referans') return 'Referans';
+  if (t === 'kose' || t === 'kose-yazisi') return 'Köşe yazısı';
+  return turEtiketi(h.data) ?? 'Yazı';
+};
+
+const ayFmt = new Intl.DateTimeFormat('tr-TR', { month: 'long', year: 'numeric', timeZone: 'Europe/Istanbul' });
+const ayKisa = new Intl.DateTimeFormat('tr-TR', { month: 'short', timeZone: 'UTC' });
+const gunUzun = new Intl.DateTimeFormat('tr-TR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const bas = (s: string) => s.charAt(0).toLocaleUpperCase('tr-TR') + s.slice(1);
+const utc = (key: string) => new Date(`${key}T12:00:00Z`);
+
+const aylar: [string, typeof haberler][] = [];
+for (const h of haberler) {
+  const k = ayFmt.format(h.data.date);
+  const son = aylar.at(-1);
+  if (son && son[0] === k) son[1].push(h);
+  else aylar.push([k, [h]]);
+}
+
+// Dört sitenin imzalı yazıları. Her site kendi renginde; kare dörde bölünür (konumlar sabit).
+const SITELER = [
+  { id: 'tidsrost', ad: 'tidsrøst' },
+  { id: 'jendume', ad: 'jenDume' },
+  { id: 'finfolis', ad: 'finfolis' },
+  { id: 'kifobu', ad: 'kifobu' },
+];
+// Bu sitenin yazıları içerikten; diğer üç site derlemede çekilen listeden (scripts/yazar-aktivite.mjs, prebuild).
+const kendi = haberler.map((h) => ({ site: 'finfolis', date: h.data.date.toISOString() }));
+const digerleri = Object.entries((yazarAktivite as { sider?: Record<string, string[]> }).sider ?? {})
+  .filter(([site]) => site !== 'finfolis')
+  .flatMap(([site, tarihler]) => tarihler.map((date) => ({ site, date })))
+  .filter((x) => new Date(x.date) <= new Date());
+const kayitlar = [...kendi, ...digerleri];
+// 10.08.2022 (ilk kifobu bülteni) – 13.10.2026: gün gün kayıt yok; bu dönemde üç sitede her gün yazı (sahibinin anlatımı).
+// Bu günler aynı kutularla açık tonda gösterilir; sahibinin kararıyla sayfada bu dönemle ilgili hiçbir not yok.
+const EGEN = { fra: '2022-08-10', til: '2026-10-13', sider: ['jendume', 'finfolis', 'kifobu'] };
+const yillar = aarsRutenett(kayitlar, EGEN);
+// Egen günlerinde her gün aynı üç site dolu; yalnız parçaların yeri tarihe bağlı karışır (dama deseni olmasın).
+// Derleme her seferinde aynı sonucu verir.
+function karisik(key: string): (string | null)[] {
+  let t = 2166136261;
+  for (const ch of key) t = Math.imul(t ^ ch.charCodeAt(0), 16777619);
+  const kutular: (string | null)[] = [...EGEN.sider, null];
+  for (let i = kutular.length - 1; i > 0; i--) {
+    t = Math.imul(t ^ (t >>> 15), 2246822507) >>> 0;
+    const j = t % (i + 1);
+    [kutular[i], kutular[j]] = [kutular[j], kutular[i]];
+  }
+  return kutular;
+}
+// Yıl iki yarıya bölünür (ocak–haziran, temmuz–aralık): geniş ekranda yan yana, dar ekranda alt alta.
+type Yil = ReturnType<typeof aarsRutenett>[number];
+function yarilar(r: Yil) {
+  const i = r.uker.findIndex((u) => (u.find(Boolean)?.key.slice(5, 7) ?? '00') >= '07');
+  const kes = i <= 0 ? (i === 0 ? 0 : r.uker.length) : i;
+  return [
+    { uker: r.uker.slice(0, kes), maaneder: r.maaneder.filter((m) => m.kol < kes) },
+    { uker: r.uker.slice(kes), maaneder: r.maaneder.filter((m) => m.kol >= kes).map((m) => ({ ...m, kol: m.kol - kes })) },
+  ].filter((h) => h.uker.length > 0);
+}
+// Ay etiketi: her hafta sütununa bir hücre, ayın ilk haftasında ad (satır içi grid-column yok, CSP).
+const ayAdi = (mnd: string) => bas(ayKisa.format(utc(`${mnd}-15`))).replace('.', '');
+const ayEtiketi = (h: { maaneder: { kol: number; mnd: string }[] }, kol: number) => {
+  const m = h.maaneder.find((x) => x.kol === kol);
+  return m ? ayAdi(m.mnd) : '';
+};
+const gunBasligi = (c: { key: string; siter: string[] }) =>
+  `${gunUzun.format(utc(c.key))}${c.siter.length ? `: ${SITELER.filter((x) => c.siter.includes(x.id)).map((x) => x.ad).join(', ')}` : ''}`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -29,8 +108,8 @@ const jsonLd = {
         jobTitle: YAZAR.unvan,
         description: YAZAR.aciklama,
         url: pageUrl,
-        email: 'contact@finfolis.com',
-        image: `${SITE_URL}/yazar-foto/senol-dak.jpg`,
+        email: EPOSTA,
+        image: `${SITE_URL}${foto}`,
         worksFor: { '@id': ORG_ID },
       },
       hasPart: haberler.slice(0, 50).map((h) => ({ '@type': 'NewsArticle', url: new URL(newsUrl(h), SITE_URL).href, headline: h.data.title })),
@@ -48,20 +127,447 @@ const jsonLd = {
 
 <Base title={`${YAZAR.ad} – ${YAZAR.unvan}`} description={YAZAR.aciklama}>
   <script slot="head" type="application/ld+json" set:html={jsonLdMetni(jsonLd)} />
-  <div class="container">
-    <article class="makale">
-      <header class="makale-bas">
-        <img class="yazar-foto" src="/yazar-foto/senol-dak.jpg" width="96" height="96" alt="Şenol Dak" />
-        <h1>{YAZAR.ad}</h1>
-        <p class="makale-spot">{YAZAR.unvan}</p>
-      </header>
-      <div class="prose">
-        {YAZAR.kunye.map((p) => <p>{kunyeParcalari(p).map((x) => (x.adres ? <a href={x.adres}>{x.metin}</a> : x.metin))}</p>)}
-        <p>İletişim: <a href="mailto:contact@finfolis.com">contact@finfolis.com</a></p>
-        <p>Yapay zekâ kullanımı hakkında ayrıntı için <a href="/yapay-zeka-kullanimi/">Yapay zekâ kullanımı</a> sayfasına bakın.</p>
-        <h2>Son yazılar</h2>
+
+  <section class="yz-band" aria-labelledby="yz-ad">
+    <div class="yz-in">
+      <img class="yz-foto" src={foto} width="480" height="480" alt={YAZAR.ad} />
+      <div class="yz-metin">
+        <h1 class="yz-ad" id="yz-ad">{YAZAR.ad}</h1>
+        <p class="yz-rol">{YAZAR.rol}</p>
+        <div class="yz-bio">
+          {YAZAR.kunye.map((p, i) => (
+            <p class={i === 0 ? 'yz-giris' : undefined}>{kunyeParcalari(p).map((x) => (x.adres ? <a href={x.adres}>{x.metin}</a> : x.metin))}</p>
+          ))}
+        </div>
+        <a class="yz-eposta" href={`mailto:${EPOSTA}`}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M20.61 9.17a.25.25 0 0 1 .39.21v9.37a.25.25 0 0 1-.25.25H3.25a.25.25 0 0 1-.25-.25V9.38a.25.25 0 0 1 .39-.21l8.47 5.49a.25.25 0 0 0 .28 0l8.47-5.49Z" />
+            <path d="M20.75 5a.25.25 0 0 1 .25.25v.78a.25.25 0 0 1-.11.21l-8.75 5.67a.25.25 0 0 1-.28 0L3.11 6.24A.25.25 0 0 1 3 6.03v-.78A.25.25 0 0 1 3.25 5h17.5Z" />
+          </svg>
+          Şenol'a e-posta gönder
+        </a>
       </div>
-      {haberler.slice(0, 30).map((h) => <NewsCard haber={h} />)}
-    </article>
+    </div>
+  </section>
+
+  <div class="container">
+    {
+      yillar.length > 0 && (
+        <section class="yz-akt" aria-labelledby="yz-akt-baslik">
+          <h2 class="bolum-baslik" id="yz-akt-baslik">Dört sitede yayımlanan yazılar</h2>
+          {/* Yıl seçimi GitHub gibi: düğmeye basınca o yıl açılır, varsayılan en yeni yıl. JS yok; radyo + :has. */}
+          <fieldset class="yz-yil-sec">
+            <legend class="sr-only">Yıl seçin</legend>
+            {[...yillar].reverse().map((r) => (
+              <label>
+                <input type="radio" name="yz-yil" value={String(r.aar)} checked={r.aar === yillar[0].aar} />
+                <span>{r.aar}</span>
+              </label>
+            ))}
+          </fieldset>
+          {/* CSP style-src 'self': satır içi stil yok. Yıl satırları düğmelerle aynı sırada; eşleşme nth-of-type ile (CSS'te). */}
+          <div class="yz-yillar" role="img" aria-label="Dört sitede yayımlanan yazıların gün gün dağılımı.">
+            {[...yillar].reverse().map((r) => (
+              <div class="yz-yil" data-yil={r.aar} aria-hidden="true">
+                <div class="yz-cerceve">
+                  {yarilar(r).map((h) => (
+                    <div class="yz-yari">
+                      <div class="yz-ay-satir">
+                        {h.uker.map((_, kol) => <span>{ayEtiketi(h, kol)}</span>)}
+                      </div>
+                      <div class="yz-gunler">
+                        {h.uker.map((uke) =>
+                          uke.map((c) =>
+                            !c ? (
+                              <span class="d x" />
+                            ) : c.fremtid ? (
+                              <span class="d f" />
+                            ) : c.egen ? (
+                              <span class="d h e">{karisik(c.key).map((id) => <i class={id ? `s-${id}` : undefined} />)}</span>
+                            ) : c.siter.length ? (
+                              <span class="d h" title={gunBasligi(c)}>
+                                {SITELER.map((x) => <i class={c.siter.includes(x.id) ? `s-${x.id}` : undefined} />)}
+                              </span>
+                            ) : (
+                              <span class="d" title={gunBasligi(c)} />
+                            ),
+                          ),
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <ul class="yz-siteler">
+            {SITELER.map((x, i) => (
+              <li>
+                <span class="yz-mini" aria-hidden="true">{SITELER.map((y, j) => <i class={j === i ? `s-${y.id}` : undefined} />)}</span>
+                {x.ad}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <section class="yz-liste" aria-label="finfolis'teki yazıları">
+      {
+        aylar.map(([ay, liste]) => (
+          <section class="yz-ay">
+            <h2 class="bolum-baslik">{ay}</h2>
+            <div class="yz-izgara">
+              {liste.map((h) => (
+                <article class="yz-yazi">
+                  <h3>
+                    <a href={newsUrl(h)}>{h.data.title}</a>
+                  </h3>
+                  <p class="yz-ozet">{h.data.description}</p>
+                  <p class="yz-meta">
+                    <span class="yz-tur">{tur(h)}</span>
+                    <time datetime={h.data.date.toISOString()}>{formatDate(h.data.date)}</time>
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </section>
   </div>
 </Base>
+
+<style>
+  /* Portre bandı: kâğıt-2 zemin, üst ve alt mürekkep çizgisi; yuvarlak köşe, gölge ve degrade yok. */
+  .yz-band {
+    background: var(--paper-2);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    margin-top: 40px;
+  }
+  .yz-in {
+    display: grid;
+    grid-template-columns: minmax(200px, 360px) minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 64px);
+    padding-inline: var(--gutter);
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  /* Fotoğraf kendi kare oranında, kaynağından büyük çizilmez; bandın yüksekliğine gerilmez. */
+  .yz-foto {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    align-self: start;
+    margin: clamp(32px, 5vw, 56px) 0;
+    border: 1px solid var(--ink);
+  }
+  .yz-metin {
+    align-self: center;
+    padding: clamp(32px, 5vw, 56px) 0;
+  }
+  .yz-ad {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 5.4vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin: 0 0 14px;
+  }
+  .yz-rol {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    color: var(--toprak-text);
+    margin: 0 0 24px;
+  }
+  .yz-bio p {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink-2);
+    margin: 0 0 16px;
+    max-width: 62ch;
+  }
+  .yz-bio .yz-giris {
+    font-size: clamp(1.125rem, 1.6vw, 1.3125rem);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .yz-bio a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+  }
+  .yz-bio a:hover {
+    color: var(--toprak-text);
+  }
+  .yz-eposta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    margin-top: 8px;
+    padding: 0 22px;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1;
+  }
+  .yz-eposta:hover {
+    background: var(--toprak-text);
+    color: var(--paper);
+    text-decoration: none;
+  }
+
+  /* Gün ızgarası: GitHub katkı ızgarası gibi. Site renkleri: tidsrøst sol üst, jenDume sağ üst, finfolis sol alt, kifobu sağ alt. */
+  .yz-akt {
+    --c-tidsrost: #1f5f99;
+    --c-jendume: #00924a;
+    --c-finfolis: #c2502b;
+    --c-kifobu: #e8b40c;
+    --rute: 16px;
+    --aralik: 3px;
+    --bos: var(--soluk);
+    margin-top: 56px;
+  }
+  .yz-yil-sec {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 18px 0 24px;
+    padding: 0;
+    border: 0;
+  }
+  .yz-yil-sec label {
+    position: relative;
+    cursor: pointer;
+  }
+  .yz-yil-sec input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+  .yz-yil-sec span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 18px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1;
+    font-variant-numeric: lining-nums tabular-nums;
+    color: var(--ink-2);
+    box-shadow: inset 0 -1px 0 var(--hair);
+  }
+  .yz-yil-sec label:hover span {
+    color: var(--ink);
+    box-shadow: inset 0 -3px 0 var(--hair);
+  }
+  .yz-yil-sec input:checked + span {
+    color: var(--toprak-text);
+    box-shadow: inset 0 -3px 0 var(--toprak);
+  }
+  .yz-yil-sec input:focus-visible + span {
+    outline: 2px solid var(--ink);
+    outline-offset: -2px;
+  }
+  /* Yıl seçimi: düğme k seçiliyse k. yıl satırı görünür (en fazla 12 yıl; satır içi stil yok, CSP). */
+  @supports selector(:has(*)) {
+    .yz-yillar .yz-yil {
+      display: none;
+    }
+    .yz-akt:has(.yz-yil-sec label:nth-of-type(1) input:checked) .yz-yil:nth-of-type(1) { display: block; }
+    .yz-akt:has(.yz-yil-sec label:nth-of-type(2) input:checked) .yz-yil:nth-of-type(2) { display: block; }
+    .yz-akt:has(.yz-yil-sec label:nth-of-type(3) input:checked) .yz-yil:nth-of-type(3) { display: block; }
+    .yz-akt:has(.yz-yil-sec label:nth-of-type(4) input:checked) .yz-yil:nth-of-type(4) { display: block; }
+    .yz-akt:has(.yz-yil-sec label:nth-of-type(5) input:checked) .yz-yil:nth-of-type(5) { display: block; }
+    .yz-akt:has(.yz-yil-sec label:nth-of-type(6) input:checked) .yz-yil:nth-of-type(6) { display: block; }
+    .yz-akt:has(.yz-yil-sec label:nth-of-type(7) input:checked) .yz-yil:nth-of-type(7) { display: block; }
+    .yz-akt:has(.yz-yil-sec label:nth-of-type(8) input:checked) .yz-yil:nth-of-type(8) { display: block; }
+    .yz-akt:has(.yz-yil-sec label:nth-of-type(9) input:checked) .yz-yil:nth-of-type(9) { display: block; }
+    .yz-akt:has(.yz-yil-sec label:nth-of-type(10) input:checked) .yz-yil:nth-of-type(10) { display: block; }
+    .yz-akt:has(.yz-yil-sec label:nth-of-type(11) input:checked) .yz-yil:nth-of-type(11) { display: block; }
+    .yz-akt:has(.yz-yil-sec label:nth-of-type(12) input:checked) .yz-yil:nth-of-type(12) { display: block; }
+  }
+  @supports not selector(:has(*)) {
+    .yz-yil-sec {
+      display: none;
+    }
+    .yz-yil {
+      margin-bottom: 24px;
+    }
+  }
+  /* İki yarı: geniş ekranda yan yana (tek satır gibi), dar ekranda alt alta. Yatay kaydırma yok. */
+  .yz-cerceve {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--aralik);
+    row-gap: 24px;
+  }
+  .yz-yari {
+    width: max-content;
+    max-width: 100%;
+  }
+  .yz-ay-satir {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--rute);
+    column-gap: var(--aralik);
+    height: 18px;
+  }
+  .yz-ay-satir span {
+    overflow: visible;
+    font-weight: 600;
+    font-size: 0.6875rem;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .yz-gunler {
+    display: grid;
+    grid-template-rows: repeat(7, var(--rute));
+    grid-auto-flow: column;
+    grid-auto-columns: var(--rute);
+    gap: var(--aralik);
+  }
+  .d {
+    display: block;
+    width: var(--rute);
+    height: var(--rute);
+    background: var(--bos);
+  }
+  .d.x {
+    background: none;
+  }
+  /* Bugünden sonraki günler: boş kutu, biraz daha soluk. */
+  .d.f {
+    opacity: 0.55;
+  }
+  .d.h {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1px;
+    background: var(--bos);
+  }
+  .d.h i,
+  .yz-mini i {
+    display: block;
+  }
+  .s-tidsrost { background: var(--c-tidsrost); }
+  .s-jendume { background: var(--c-jendume); }
+  .s-finfolis { background: var(--c-finfolis); }
+  .s-kifobu { background: var(--c-kifobu); }
+  /* Kayıtsız dönem: üç site her gün dolu, açık tonda (renk %52 kâğıtla karışık); parçaların yeri günden güne karışık. */
+  .d.e .s-jendume { background: color-mix(in srgb, var(--c-jendume) 52%, var(--paper)); }
+  .d.e .s-finfolis { background: color-mix(in srgb, var(--c-finfolis) 52%, var(--paper)); }
+  .d.e .s-kifobu { background: color-mix(in srgb, var(--c-kifobu) 52%, var(--paper)); }
+  .yz-siteler {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    margin: 24px 0 0;
+    padding: 0;
+  }
+  .yz-siteler li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    line-height: 1;
+  }
+  .yz-mini {
+    display: grid;
+    grid-template-columns: 7px 7px;
+    grid-template-rows: 7px 7px;
+    gap: 1px;
+    background: var(--bos);
+  }
+
+  /* Yazılar: ay ay, iki sütunlu dizin. */
+  .yz-liste {
+    margin-top: 56px;
+    padding-bottom: 24px;
+  }
+  .yz-ay {
+    margin-bottom: 40px;
+  }
+  .yz-izgara {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 48px;
+  }
+  .yz-yazi {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  .yz-yazi h3 {
+    font-weight: 600;
+    font-size: 1.1875rem;
+    line-height: 1.28;
+    margin: 0 0 6px;
+    text-wrap: pretty;
+  }
+  .yz-ozet {
+    margin: 0 0 10px;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--ink-2);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .yz-meta {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    margin: 0;
+    font-weight: 500;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+  .yz-tur {
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--toprak-text);
+  }
+
+  @media (max-width: 760px) {
+    /* Telefonda fotoğraf ile ad arası tek dar boşluk: sütun boşluğu ve fotoğrafın alt payı sıfır. */
+    .yz-in {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 0;
+    }
+    .yz-foto {
+      width: min(100%, 280px);
+      margin: 24px 0 0;
+    }
+    .yz-metin {
+      padding-top: 20px;
+    }
+    .yz-akt {
+      /* Yarım yıl (27 hafta) ekrana sığar: kutu boyu ekran genişliğinden. */
+      --aralik: 2px;
+      --rute: clamp(7px, calc((100vw - 2 * var(--gutter) - 26 * var(--aralik)) / 27), 12px);
+    }
+    .yz-yil-sec span {
+      padding: 0 11px;
+    }
+    .yz-izgara {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>
