@@ -1,0 +1,27 @@
+---
+title: "Küresel Piyasalar ve Yapay Zekâ Gelişmeleri · 17 Kasım, öğle"
+description: "Küresel piyasalar ve teknoloji sektöründeki gelişmeler, yeni düzenlemeler ve şirket hamleleriyle şekilleniyor. Yetkililer riskleri değerlendiriyor."
+date: 2026-11-17T13:35:55.000Z
+category: "piyasalar"
+tur: "haber"
+uretim: "bot"
+kaynaklar:
+  - ad: "SEC EDGAR"
+    url: "https://www.sec.gov/Archives/edgar/data/1894954/000190359626000437/0001903596-26-000437-index.htm"
+kaynakIzi: "v1.QrdRwWff2qwU+ic/.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"
+sirada:
+  tarih: "17 Kasım 2026"
+  olay: "Nvidia üçüncü çeyrek kazanç raporunu açıklayacak."
+why_matters: "Teknoloji sektöründeki ihracat kontrolleri ve yapay zekâ düzenlemeleri, küresel güvenlik ve ticaret politikaları açısından kritik bir öneme sahip."
+key_points:
+  - "ABD kurumları, Nvidia ortağı Megaspeed hakkında 2024 yılında soruşturma başlattı."
+  - "Senatör Hickenlooper, yapay zekâ modellerinin nükleer silahlar gibi düzenlenmesini önerdi."
+  - "Nvidia, ulusal güvenlik ve ihracat kontrollerini denetlemek için yeni bir komite kurdu."
+cover: kapak.png
+coverAlt: "Küresel · Küresel Piyasalar ve Yapay Zekâ Gelişmeleri · 17 Kasım, öğle"
+coverSitede: false
+---
+
+Amerika Birleşik Devletleri Ticaret ve Adalet Bakanlıkları, çip devi Nvidia'nın iş ortağı olan Singapur merkezli Megaspeed hakkında 2024 yılında soruşturma başlattıklarını ortak bir açıklama ile duyurdu. Söz konusu incelemelerin, potansiyel ihracat kontrolü ihlallerini ele almak ve kamuoyundaki yanlış bilgileri düzeltmek amacıyla başlatıldığı belirtildi. Haziran 2025 tarihinde ise ABD'li yetkililer ve Singapur polisi, Megaspeed tesislerinde yerinde denetim gerçekleştirerek Alice Huang ile görüşmeler yaptı. Şirket, Güneydoğu Asya genelinde veri merkezleri işleten bir bulut bilişim firması olarak faaliyet gösteriyor ve Nvidia'nın satış yapılamaz listesinde yer alıyor.
+
+Nvidia, ulusal güvenlik politikaları, ihracat kontrolleri ve küresel ticaret risklerini denetlemek amacıyla yeni bir yönetim kurulu komitesi kurduğunu 17 Kasım 2026 tarihinde açıkladı. Suzanne Nora Johnson'ın başkanlık edeceği komitede Stephen Neal ve John Dabiri de yer alıyor. Bu yeni kurul, şirketin ulusal güvenlik ve ticaret uyum programlarını denetleyerek bağımsız uzmanlarla iş birliği yapacak. Söz konusu adım, geçici üst yönetici Colette Kress yönetiminde, şirketin ihracat süreçlerine yönelik artan denetim ihtiyacı kapsamında atıldı. Komitenin en az üç ayda bir toplanması ve yönetimle bir araya gelmesi planlanıyor.
