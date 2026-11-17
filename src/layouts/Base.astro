@@ -9,6 +9,7 @@ import Logo from '../components/Logo.astro';
 import VeriAtif from '../components/VeriAtif.astro';
 import { kisalt, siteJsonLd } from '../lib/seo';
 import '../styles/global.css';
+import '../styles/baslik.css';
 
 interface Props {
   title?: string;
@@ -58,13 +59,8 @@ const xHandle = SITE.social.x ? `@${SITE.social.x.replace(/\/+$/, '').split('/')
 const current = Astro.url.pathname;
 // Veri sayfalarına (ana sayfa hariç) atıf düğmesi.
 const veriSayfasi = current.startsWith('/veri/') && current !== '/veri/';
-const today = new Date().toLocaleDateString(SITE.locale, {
-  weekday: 'long',
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-  timeZone: 'Europe/Istanbul',
-});
+const gunAdi = new Date().toLocaleDateString(SITE.locale, { weekday: 'long', timeZone: 'Europe/Istanbul' });
+const tarihKisa = new Date().toLocaleDateString(SITE.locale, { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Istanbul' });
 ---
 
 <!doctype html>
@@ -119,98 +115,76 @@ const today = new Date().toLocaleDateString(SITE.locale, {
     <Pictograms />
     <script src="/meny.js" defer></script>
     <a class="skip" href="#icerik">İçeriğe geç</a>
-    <header class="masthead">
-      <div class="container masthead-ic">
-        <div class="masthead-sol">
-          <a href="/" class="wordmark" aria-label={`${SITE.name} anasayfa`}>
-            <Logo class="wordmark-isaret" />
-            <span class="wordmark-metin">{SITE.name}</span>
+    <header class="masthead kb">
+      <span class="kb-zemin" aria-hidden="true"><span class="kb-abakus"><Logo zemin="soluk" /></span></span>
+      <div class="container kb-bas">
+        <div class="kb-marka">
+          <a href="/" class="kb-logo" aria-label={`${SITE.name} anasayfa`}>
+            <Logo class="kb-logo-isaret" />
+            <span>{SITE.name}</span>
           </a>
-          <span class="wordmark-ayrac" aria-hidden="true">|</span>
-          <span class="wordmark-slogan">Karmaşadan uzakta.</span>
+          <p class="kb-slogan">Karmaşadan uzakta.</p>
         </div>
-
-        <nav class="nav" aria-label="Ana Menü">
-          {
-            menuKategorileri.map((c) => (
-              <a
-                href={`/kategori/${c.slug}/`}
-                class={`ink-${c.ink}`}
-                aria-current={current.startsWith(`/kategori/${c.slug}`) ? 'page' : undefined}
-              >
-                {c.name}
-              </a>
-            ))
-          }
-          {
-            harAnaliz && (
-              <a href="/analiz/" class="ink-black" aria-current={current.startsWith('/analiz') ? 'page' : undefined}>
-                Analiz
-              </a>
-            )
-          }
-          <span class="nav-bolucu" aria-hidden="true"></span>
-          <a href="/veri/" class="nav-vurgu" aria-current={current.startsWith('/veri') ? 'page' : undefined}>
-            Veriler
+        <div class="kb-sag">
+          <p class="kb-tarih"><span class="kb-gun">{gunAdi}</span><b>{tarihKisa}</b></p>
+          <a href="/arama/" class="kb-ara" aria-label="Ara" aria-current={current.startsWith('/arama') ? 'page' : undefined}>
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
           </a>
-          <a href="/hesapla/" class="nav-ikincil" aria-current={current.startsWith('/hesapla') ? 'page' : undefined}>
-            Hesapla
-          </a>
-          <a href="/sozluk/" class="nav-ikincil" aria-current={current.startsWith('/sozluk') ? 'page' : undefined}>
-            Sözlük
-          </a>
-        </nav>
-
-        <div class="masthead-sag">
-          <p class="masthead-tarih">{today}</p>
-          <a href="/arama/" class="masthead-ara" aria-current={current.startsWith('/arama') ? 'page' : undefined}>
-            <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
-            Ara
-          </a>
-          {/* Tablet ve telefon (≤ 1080 px): hamburger menü; açılınca altbilgideki gibi sütunlar. Masaüstünde yok. */}
-          <details class="nav-meny">
-            <summary aria-label="Menü">
-              <svg class="ikon-ac" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
-              <svg class="ikon-kapat" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
-              <span class="nav-meny-metin">Menü</span>
-            </summary>
-            <div class="nav-meny-panel">
-              <div class="container nav-meny-sutunlar">
-                <section aria-labelledby="menu-yayin">
-                  <h2 id="menu-yayin">Yayınlar</h2>
-                  <ul>
-                    <li><a href="/">Ana sayfa</a></li>
-                    {menuKategorileri.map((c) => <li><a href={`/kategori/${c.slug}/`} aria-current={current.startsWith(`/kategori/${c.slug}`) ? 'page' : undefined}>{c.name}</a></li>)}
-                    {harAnaliz && <li><a href="/analiz/">Analiz</a></li>}
-                    <li><a href="/konu/">Konular</a></li>
-                    <li><a href="/arsiv/">Arşiv</a></li>
-                  </ul>
-                </section>
-                <section aria-labelledby="menu-veri">
-                  <h2 id="menu-veri">Veri &amp; Araçlar</h2>
-                  <ul>
-                    <li><a href="/veri/">Veriler</a></li>
-                    <li><a href="/veri/enflasyon/">Yıllık enflasyon</a></li>
-                    <li><a href="/veri/politika-faizi/">Politika faizi</a></li>
-                    <li><a href="/veri/doviz-kurlari/">Döviz kurları</a></li>
-                    <li><a href="/hesapla/">Hesapla</a></li>
-                    <li><a href="/sozluk/">Sözlük</a></li>
-                  </ul>
-                </section>
-                <section aria-labelledby="menu-kurum">
-                  <h2 id="menu-kurum">Kurumsal</h2>
-                  <ul>
-                    <li><a href="/hakkimizda/">Hakkımızda</a></li>
-                    <li><a href="/yayin-ilkeleri/">Yayın İlkeleri</a></li>
-                    <li><a href="/yapay-zeka-kullanimi/">Yapay Zekâ Kullanımı</a></li>
-                    <li><a href="/yayin-odasi/">Yayın Odası</a></li>
-                  </ul>
-                </section>
+            {/* Tablet ve telefon (≤ 1080 px): hamburger menü; açılınca altbilgideki gibi sütunlar. Masaüstünde yok. */}
+            <details class="nav-meny">
+              <summary aria-label="Menü">
+                <svg class="ikon-ac" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+                <svg class="ikon-kapat" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+                <span class="nav-meny-metin">Menü</span>
+              </summary>
+              <div class="nav-meny-panel">
+                <div class="container nav-meny-sutunlar">
+                  <section aria-labelledby="menu-yayin">
+                    <h2 id="menu-yayin">Yayınlar</h2>
+                    <ul>
+                      <li><a href="/">Ana sayfa</a></li>
+                      {menuKategorileri.map((c) => <li><a href={`/kategori/${c.slug}/`} aria-current={current.startsWith(`/kategori/${c.slug}`) ? 'page' : undefined}>{c.name}</a></li>)}
+                      {harAnaliz && <li><a href="/analiz/">Analiz</a></li>}
+                      <li><a href="/konu/">Konular</a></li>
+                      <li><a href="/arsiv/">Arşiv</a></li>
+                    </ul>
+                  </section>
+                  <section aria-labelledby="menu-veri">
+                    <h2 id="menu-veri">Veri &amp; Araçlar</h2>
+                    <ul>
+                      <li><a href="/veri/">Veriler</a></li>
+                      <li><a href="/veri/enflasyon/">Yıllık enflasyon</a></li>
+                      <li><a href="/veri/politika-faizi/">Politika faizi</a></li>
+                      <li><a href="/veri/doviz-kurlari/">Döviz kurları</a></li>
+                      <li><a href="/hesapla/">Hesapla</a></li>
+                      <li><a href="/sozluk/">Sözlük</a></li>
+                    </ul>
+                  </section>
+                  <section aria-labelledby="menu-kurum">
+                    <h2 id="menu-kurum">Kurumsal</h2>
+                    <ul>
+                      <li><a href="/hakkimizda/">Hakkımızda</a></li>
+                      <li><a href="/yayin-ilkeleri/">Yayın İlkeleri</a></li>
+                      <li><a href="/yapay-zeka-kullanimi/">Yapay Zekâ Kullanımı</a></li>
+                      <li><a href="/yayin-odasi/">Yayın Odası</a></li>
+                    </ul>
+                  </section>
+                </div>
               </div>
-            </div>
-          </details>
+            </details>
         </div>
       </div>
+      <nav class="container kb-menu" aria-label="Ana Menü">
+        <div class="kb-menu-sol">
+          {menuKategorileri.map((c) => <a href={`/kategori/${c.slug}/`} aria-current={current.startsWith(`/kategori/${c.slug}`) ? 'page' : undefined}>{c.name}</a>)}
+          {harAnaliz && <a href="/analiz/" aria-current={current.startsWith('/analiz') ? 'page' : undefined}>Analiz</a>}
+        </div>
+        <div class="kb-menu-sag">
+          <a href="/veri/" class="kb-menu-vurgu" aria-current={current.startsWith('/veri') ? 'page' : undefined}>Veriler</a>
+          <a href="/hesapla/" aria-current={current.startsWith('/hesapla') ? 'page' : undefined}>Hesapla</a>
+          <a href="/sozluk/" aria-current={current.startsWith('/sozluk') ? 'page' : undefined}>Sözlük</a>
+        </div>
+      </nav>
     </header>
 
     <main id="icerik">

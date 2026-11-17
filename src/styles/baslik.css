@@ -1,0 +1,225 @@
+/* Başlık (18.11.2026): altbilginin dili. Büyük abaküs + slogan, sağda gün etiketi ve tarih, arkada kapaklardaki gibi
+   sağdan taşan soluk abaküs; altta tek satır menü. Tablet ve telefonda (≤ 1080 px) menü hamburgerde. */
+
+.kb {
+  position: relative;
+}
+
+/* Soluk abaküs kendi katmanında kırpılır; başlığın kendisi kırpılmaz (hamburger paneli dışarı taşar). */
+.kb-zemin {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.kb-abakus {
+  position: absolute;
+  top: -62%;
+  right: -3%;
+  width: clamp(240px, 26vw, 400px);
+  aspect-ratio: 1;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.kb-abakus svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.kb-bas {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 28px;
+  padding-bottom: 22px;
+}
+
+.kb-logo,
+.kb-logo:hover {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 4.2vw, 3.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.kb-logo-isaret {
+  width: 0.95em;
+  height: 0.95em;
+  flex: none;
+}
+
+.kb-slogan {
+  margin: 10px 0 0;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--muted);
+}
+
+.kb-sag {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.kb-tarih {
+  margin: 0;
+  text-align: right;
+}
+
+.kb-gun {
+  position: relative;
+  display: block;
+  margin-bottom: 9px;
+  padding-bottom: 9px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.kb-gun::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 32px;
+  height: 2px;
+  background: var(--toprak);
+}
+
+.kb-tarih b {
+  display: block;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.1;
+  white-space: nowrap;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.kb-ara {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--hair);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+}
+
+.kb-ara:hover,
+.kb-ara[aria-current='page'] {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.kb .nav-meny summary {
+  min-height: 42px;
+}
+
+/* Menü satırı */
+.kb-menu {
+  position: relative;
+  z-index: 1;
+  /* Menü satırı düz kâğıt zemin, soluk abaküs arkada kalır; zemin kenardan kenara (box-shadow + clip-path). */
+  background: var(--paper);
+  box-shadow: 0 0 0 100vmax var(--paper), 0 -1px 0 100vmax var(--hair);
+  clip-path: inset(-1px -100vmax 0 -100vmax);
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.kb-menu-sol,
+.kb-menu-sag {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 1.8vw, 28px);
+}
+
+.kb-menu a {
+  padding: 13px 0 12px;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--ink-2);
+  text-decoration: none;
+  box-shadow: inset 0 -2px 0 transparent;
+  transition: color 0.15s, box-shadow 0.15s;
+}
+
+.kb-menu a:hover {
+  color: var(--ink);
+  box-shadow: inset 0 -2px 0 var(--hair);
+}
+
+.kb-menu a[aria-current='page'] {
+  color: var(--ink);
+  box-shadow: inset 0 -2px 0 var(--toprak);
+}
+
+.kb-menu-sag {
+  padding-left: 24px;
+  border-left: 1px solid var(--hair);
+}
+
+.kb-menu .kb-menu-vurgu {
+  color: var(--toprak-text);
+  font-weight: 600;
+}
+
+@media (max-width: 1080px) {
+  .kb-menu {
+    display: none;
+  }
+
+  .kb-bas {
+    align-items: center;
+  }
+
+  .kb-sag {
+    align-items: center;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .kb-abakus {
+    display: none;
+  }
+
+  .kb-bas {
+    padding-top: 18px;
+    padding-bottom: 16px;
+  }
+
+  .kb-slogan {
+    margin-top: 6px;
+    font-size: 0.875rem;
+  }
+
+  .kb-tarih {
+    display: none;
+  }
+
+  .kb-sag {
+    gap: 10px;
+  }
+}
