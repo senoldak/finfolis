@@ -1600,164 +1600,7 @@ main {
 }
 
 /* Alt bilgi (Footer): 4 sütunlu zengin ızgara */
-.site-footer {
-  border-top: 4px solid var(--ink);
-  background: var(--paper-2);
-  padding: 48px 0 28px;
-  font-family: var(--sans);
-  font-size: 0.92rem;
-}
-
-.footer-izgara {
-  display: grid;
-  grid-template-columns: 1.3fr 1fr 1.2fr 1.1fr;
-  gap: 36px 32px;
-}
-
-.footer-kolon {
-  display: flex;
-  flex-direction: column;
-}
-
-.footer-baslik {
-  margin: 0 0 16px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--toprak-text);
-  border-bottom: 1px solid var(--hair);
-  padding-bottom: 6px;
-}
-
-.footer-slogan {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--ink);
-  margin: 8px 0 4px;
-}
-
-.footer-tanim {
-  font-size: 0.88rem;
-  line-height: 1.55;
-  color: var(--muted);
-  margin: 0 0 16px;
-}
-
-.footer-kunye {
-  font-size: 0.85rem;
-  margin: 0 0 16px;
-}
-
-.footer-kunye dt {
-  color: var(--muted);
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 2px;
-}
-
-.footer-kunye dd {
-  margin: 0;
-  font-weight: 600;
-}
-
-.footer-kunye dd a {
-  color: var(--ink);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.footer-sosyal {
-  display: flex;
-  gap: 14px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-top: auto;
-  padding-top: 12px;
-}
-
-.footer-sosyal a {
-  color: var(--ink-2);
-  text-decoration: none;
-}
-
-.footer-sosyal a:hover {
-  color: var(--toprak-text);
-  text-decoration: underline;
-}
-
-.footer-liste {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 0.88rem;
-}
-
-.footer-liste a {
-  color: var(--ink-2);
-  text-decoration: none;
-  line-height: 1.4;
-  transition: color 0.15s;
-}
-
-.footer-liste a:hover {
-  color: var(--toprak-text);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.footer-boncuk-notu {
-  margin-top: 36px;
-  padding: 14px 18px;
-  background: var(--paper);
-  border: 1px solid var(--hair);
-  font-size: 0.85rem;
-  color: var(--ink-2);
-  line-height: 1.5;
-}
-
-.footer-boncuk-notu p {
-  margin: 0;
-}
-
-.boncuk-isaret {
-  color: var(--toprak);
-  font-size: 0.95rem;
-  margin-right: 4px;
-}
-
-.footer-alt {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 8px 32px;
-  margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px solid var(--hair);
-  color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.5;
-}
-
-.footer-alt p {
-  margin: 0;
-}
-
-.footer-alt .uyari {
-  max-width: 80ch;
-}
-
-.footer-alt strong {
-  color: var(--ink);
-}
-
 @media (max-width: 1024px) {
-  .footer-izgara {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-  }
-
   .masthead-ic {
     gap: 12px 20px;
   }
@@ -1771,11 +1614,6 @@ main {
 
   .masthead-tarih {
     display: none;
-  }
-
-  .footer-izgara {
-    grid-template-columns: 1fr;
-    gap: 28px;
   }
 
   .nav {
@@ -1833,9 +1671,6 @@ main {
     grid-row: auto;
   }
 
-  .footer-izgara {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 700px) {
@@ -1870,6 +1705,411 @@ main {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ——— Altbilgi: koyu pişmiş toprak zemin, altta Haliç gravürü (maske; renk CSS'ten) — 17.11.2026 ——— */
+:root {
+  --fot-bg: #7a2e18;
+  --fot-yazi: #f4f3ee;
+  --fot-soluk: rgba(244, 243, 238, 0.74);
+  --fot-cizgi: rgba(244, 243, 238, 0.26);
+  --fot-kara: #f4f3ee;
+  --fot-vurgu: #f6b89c;
+}
+
+.site-footer {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--fot-bg);
+  color: var(--fot-soluk);
+  padding: 80px 0 0;
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.fot-korn {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.site-footer a {
+  color: var(--fot-yazi);
+}
+
+.site-footer a:hover {
+  color: var(--fot-vurgu);
+  text-decoration: none;
+}
+
+.fot-bas {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: end;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--fot-cizgi);
+}
+
+.site-footer .fot-logo,
+.site-footer .fot-logo:hover {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22em;
+  font-weight: 700;
+  font-size: clamp(3rem, 7vw, 5.75rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--fot-yazi);
+}
+
+.fot-logo-isaret {
+  width: 0.95em;
+  height: 0.95em;
+  flex: none;
+}
+
+.fot-slogan {
+  margin: 18px 0 0;
+  font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--fot-yazi);
+}
+
+.fot-kunye {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+}
+
+.fot-kunye dt {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--fot-soluk);
+}
+
+.fot-kunye dd {
+  margin: 6px 0 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--fot-yazi);
+}
+
+.fot-sosyal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.fot-sosyal a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--fot-cizgi);
+  border-radius: 50%;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.site-footer .fot-sosyal a:hover {
+  background: var(--fot-yazi);
+  border-color: var(--fot-yazi);
+  color: var(--fot-bg);
+}
+
+.fot-lenkler {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 40px;
+  padding: 48px 0;
+}
+
+.fot-lenkler h2 {
+  position: relative;
+  margin: 0 0 20px;
+  padding-bottom: 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fot-yazi);
+}
+
+.fot-lenkler h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 32px;
+  height: 1px;
+  background: var(--fot-vurgu);
+}
+
+.fot-lenkler ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fot-lenkler li a {
+  font-size: 1rem;
+  font-weight: 450;
+  line-height: 1.3;
+}
+
+.fot-notlar {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px;
+  padding: 24px 0;
+  border-top: 1px solid var(--fot-cizgi);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.fot-notlar p {
+  margin: 0;
+  max-width: 64ch;
+}
+
+.fot-notlar strong,
+.fot-uyari strong {
+  font-weight: 600;
+  color: var(--fot-yazi);
+}
+
+.fot-notlar a,
+.fot-uyari a {
+  text-decoration: underline;
+  text-decoration-color: var(--fot-cizgi);
+  text-underline-offset: 0.2em;
+}
+
+.fot-uyari {
+  margin: 0;
+  padding: 20px 0;
+  border-top: 1px solid var(--fot-cizgi);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.fot-alt {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding: 16px 0;
+  border-top: 1px solid var(--fot-cizgi);
+  font-size: 0.8125rem;
+}
+
+.fot-alt nav {
+  display: flex;
+}
+
+.fot-alt nav a + a::before {
+  content: '|';
+  margin: 0 0.9em;
+  color: var(--fot-cizgi);
+}
+
+.fot-landskap {
+  position: relative;
+  z-index: 1;
+  margin-top: 24px;
+  aspect-ratio: 2400 / 1079;
+  background: var(--fot-kara);
+  -webkit-mask: url('/gravur/halic-v1.png') center bottom / 100% 100% no-repeat;
+  mask: url('/gravur/halic-v1.png') center bottom / 100% 100% no-repeat;
+}
+
+.fot-kaynak {
+  margin: 0 auto;
+  padding: 12px var(--gutter);
+  font-size: 0.75rem;
+  text-align: right;
+  color: var(--fot-soluk);
+}
+
+/* ——— Başlık menüsü: masaüstünde tek satır; tablet ve telefonda (≤ 1080 px) hamburger ——— */
+.nav-meny {
+  display: none;
+}
+
+.nav-meny summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.nav-meny summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-meny .ikon-kapat,
+.nav-meny[open] .ikon-ac {
+  display: none;
+}
+
+.nav-meny[open] .ikon-kapat {
+  display: block;
+}
+
+.nav-meny-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 30;
+  max-height: calc(100dvh - 80px);
+  overflow-y: auto;
+  background: var(--paper);
+  border-top: 1px solid var(--hair);
+  border-bottom: 3px solid var(--toprak);
+  box-shadow: 0 16px 28px rgb(0 0 0 / 0.1);
+}
+
+.masthead .nav-meny-sutunlar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  padding-top: 32px;
+  padding-bottom: 40px;
+}
+
+.nav-meny-sutunlar h2 {
+  position: relative;
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.nav-meny-sutunlar h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 32px;
+  height: 1px;
+  background: var(--toprak);
+}
+
+.nav-meny-sutunlar ul {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-meny-sutunlar a {
+  display: block;
+  padding: 6px 0;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.nav-meny-sutunlar a:hover,
+.nav-meny-sutunlar a[aria-current='page'] {
+  color: var(--toprak-text);
+  text-decoration: none;
+}
+
+@media (max-width: 1080px) {
+  .masthead {
+    position: relative;
+  }
+
+  .masthead .nav {
+    display: none;
+  }
+
+  .nav-meny {
+    display: block;
+  }
+
+  .fot-lenkler {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .site-footer {
+    padding-top: 56px;
+  }
+
+  .fot-bas {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    padding-bottom: 32px;
+  }
+
+  .fot-lenkler {
+    gap: 32px 24px;
+    padding: 32px 0;
+  }
+
+  .fot-notlar {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .fot-alt {
+    flex-direction: column;
+  }
+
+  .fot-landskap {
+    -webkit-mask-image: url('/gravur/halic-v1-1200.png');
+    mask-image: url('/gravur/halic-v1-1200.png');
+  }
+
+  .fot-kaynak {
+    text-align: left;
+  }
+
+  .fot-kaynak-uzun {
+    display: none;
+  }
+
+  .masthead .nav-meny-sutunlar {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding-top: 24px;
+  }
+
+  .nav-meny-metin {
+    display: none;
   }
 }
 

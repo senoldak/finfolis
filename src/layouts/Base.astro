@@ -117,6 +117,7 @@ const today = new Date().toLocaleDateString(SITE.locale, {
   </head>
   <body>
     <Pictograms />
+    <script src="/meny.js" defer></script>
     <a class="skip" href="#icerik">İçeriğe geç</a>
     <header class="masthead">
       <div class="container masthead-ic">
@@ -166,6 +167,48 @@ const today = new Date().toLocaleDateString(SITE.locale, {
             <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2" /><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
             Ara
           </a>
+          {/* Tablet ve telefon (≤ 1080 px): hamburger menü; açılınca altbilgideki gibi sütunlar. Masaüstünde yok. */}
+          <details class="nav-meny">
+            <summary aria-label="Menü">
+              <svg class="ikon-ac" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="M3.5 6.5h17M3.5 12h17M3.5 17.5h17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+              <svg class="ikon-kapat" aria-hidden="true" viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+              <span class="nav-meny-metin">Menü</span>
+            </summary>
+            <div class="nav-meny-panel">
+              <div class="container nav-meny-sutunlar">
+                <section aria-labelledby="menu-yayin">
+                  <h2 id="menu-yayin">Yayınlar</h2>
+                  <ul>
+                    <li><a href="/">Ana sayfa</a></li>
+                    {menuKategorileri.map((c) => <li><a href={`/kategori/${c.slug}/`} aria-current={current.startsWith(`/kategori/${c.slug}`) ? 'page' : undefined}>{c.name}</a></li>)}
+                    {harAnaliz && <li><a href="/analiz/">Analiz</a></li>}
+                    <li><a href="/konu/">Konular</a></li>
+                    <li><a href="/arsiv/">Arşiv</a></li>
+                  </ul>
+                </section>
+                <section aria-labelledby="menu-veri">
+                  <h2 id="menu-veri">Veri &amp; Araçlar</h2>
+                  <ul>
+                    <li><a href="/veri/">Veriler</a></li>
+                    <li><a href="/veri/enflasyon/">Yıllık enflasyon</a></li>
+                    <li><a href="/veri/politika-faizi/">Politika faizi</a></li>
+                    <li><a href="/veri/doviz-kurlari/">Döviz kurları</a></li>
+                    <li><a href="/hesapla/">Hesapla</a></li>
+                    <li><a href="/sozluk/">Sözlük</a></li>
+                  </ul>
+                </section>
+                <section aria-labelledby="menu-kurum">
+                  <h2 id="menu-kurum">Kurumsal</h2>
+                  <ul>
+                    <li><a href="/hakkimizda/">Hakkımızda</a></li>
+                    <li><a href="/yayin-ilkeleri/">Yayın İlkeleri</a></li>
+                    <li><a href="/yapay-zeka-kullanimi/">Yapay Zekâ Kullanımı</a></li>
+                    <li><a href="/yayin-odasi/">Yayın Odası</a></li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+          </details>
         </div>
       </div>
     </header>
@@ -176,95 +219,109 @@ const today = new Date().toLocaleDateString(SITE.locale, {
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-izgara">
-        <!-- 1. Sütun: Marka & Künye -->
-        <div class="footer-kolon footer-marka-kolon">
-          <a href="/" class="wordmark wordmark-sm">
-            <Logo class="wordmark-isaret" />
-            <span>{SITE.name}</span>
-          </a>
-          <p class="footer-slogan">Karmaşadan uzakta.</p>
-          <p class="footer-tanim">
-            Finansal piyasaların karmaşıklığını çözen, yatırım kararlarını veriye dayalı içgörülerle güçlendiren bağımsız analiz platformu.
-          </p>
-          <dl class="footer-kunye">
+      <svg class="fot-korn" aria-hidden="true" focusable="false">
+        <filter id="fot-korn"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" /><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0" /></filter>
+        <rect width="100%" height="100%" filter="url(#fot-korn)" />
+      </svg>
+      <div class="container">
+        <div class="fot-bas">
+          <div>
+            <a href="/" class="fot-logo">
+              <Logo class="fot-logo-isaret" zemin="toprak" />
+              <span>{SITE.name}</span>
+            </a>
+            <p class="fot-slogan">Karmaşadan uzakta.</p>
+          </div>
+          <dl class="fot-kunye">
             <div>
-              <dt>Yayın Yönetmeni ve Editör</dt>
+              <dt>Yayın yönetmeni ve editör</dt>
               <dd><a href={YAZAR.yol}>{YAZAR.ad}</a></dd>
             </div>
+            <div>
+              <dt>Takip edin</dt>
+              <dd>
+                <nav class="fot-sosyal" aria-label={`${SITE.name} sosyal hesapları`}>
+                  {SITE.social.telegram && <a href={SITE.social.telegram} rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.7 4.3 3.4 11c-1.2.5-1.2 1.2-.2 1.5l4.4 1.4 1.7 5.2c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.1-2 4.4 3.2c.8.5 1.4.2 1.6-.8l2.9-13.6c.3-1.2-.4-1.7-1.3-1.3Zm-3.9 3.2-7.7 7-.3 3.2-1.4-4.6 9.4-5.9Z" /></svg></a>}
+                  {SITE.social.linkedin && <a href={SITE.social.linkedin} rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M5 3.8a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM3.3 9.3h3.4V20H3.3V9.3Zm5.6 0h3.3v1.5c.5-.9 1.6-1.8 3.3-1.8 3.5 0 4.2 2.3 4.2 5.3V20h-3.4v-5c0-1.2 0-2.7-1.7-2.7s-1.9 1.3-1.9 2.6V20H8.9V9.3Z" /></svg></a>}
+                  {SITE.social.x && <a href={SITE.social.x} rel="noopener noreferrer" aria-label="X"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M17.6 3.5h3l-6.6 7.5 7.7 10.1h-6l-4.7-6.2-5.4 6.2h-3l7-8L2.3 3.5h6.2l4.3 5.7 4.8-5.7Zm-1 15.8h1.7L7.5 5.2H5.7l10.9 14.1Z" /></svg></a>}
+                  <a href="/rss.xml" aria-label="RSS"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M5 11a8 8 0 0 1 8 8" /><path d="M5 5a14 14 0 0 1 14 14" /><circle cx="6" cy="18" r="1.4" fill="currentColor" stroke="none" /></g></svg></a>
+                </nav>
+              </dd>
+            </div>
           </dl>
-          <div class="footer-sosyal">
-            {SITE.social.telegram && <a href={SITE.social.telegram} rel="noopener" target="_blank" aria-label="Telegram kanalı">Telegram</a>}
-            {SITE.social.linkedin && <a href={SITE.social.linkedin} rel="noopener noreferrer" target="_blank" aria-label="LinkedIn">LinkedIn</a>}
-            {SITE.social.x && <a href={SITE.social.x} rel="noopener noreferrer" target="_blank" aria-label="X">X</a>}
-            <a href="/rss.xml">RSS</a>
-          </div>
         </div>
 
-        <!-- 2. Sütun: Yayınlar & Analiz -->
-        <div class="footer-kolon">
-          <h2 class="footer-baslik">Yayınlar & Analiz</h2>
-          <nav class="footer-liste" aria-label="Yayınlar">
-            {menuKategorileri.map((c) => <a href={`/kategori/${c.slug}/`}>{c.name}</a>)}
-            {harAnaliz && <a href="/analiz/"><strong>Analiz Dosyaları</strong></a>}
-            <a href="/konu/">Konular Dizini</a>
-            <a href="/arsiv/">Haber Arşivi</a>
-            <a href={YAZAR.yol}>Yazar Sayfası</a>
-          </nav>
+        <div class="fot-lenkler">
+          <section class="fot-yayin" aria-labelledby="fot-yayin">
+            <h2 id="fot-yayin">Yayınlar</h2>
+            <ul>
+              {menuKategorileri.map((c) => <li><a href={`/kategori/${c.slug}/`}>{c.name}</a></li>)}
+              {harAnaliz && <li><a href="/analiz/">Analiz Dosyaları</a></li>}
+              <li><a href="/konu/">Konular Dizini</a></li>
+              <li><a href="/arsiv/">Haber Arşivi</a></li>
+              <li><a href={YAZAR.yol}>Yazar Sayfası</a></li>
+            </ul>
+          </section>
+          <section aria-labelledby="fot-veri">
+            <h2 id="fot-veri">Veri &amp; Araçlar</h2>
+            <ul>
+              <li><a href="/veri/makro-soklar/">Makro Şoklar &amp; Borsa</a></li>
+              <li><a href="/veri/bist-100-tufe/">BİST 100 / TÜFE (Reel Borsa)</a></li>
+              <li><a href="/veri/reel-bist-30/">TÜFE'den Arındırılmış BİST 30</a></li>
+              <li><a href="/veri/politika-faizi/">Politika Faizi (TCMB)</a></li>
+              <li><a href="/veri/enflasyon/">Yıllık Enflasyon (TÜİK)</a></li>
+              <li><a href="/veri/doviz-kurlari/">Döviz Kurları</a></li>
+              <li><a href="/veri/">Tüm Veri Sayfaları</a></li>
+              <li><a href="/hesapla/">Hesaplayıcılar</a></li>
+              <li><a href="/sozluk/">Finans Sözlüğü</a></li>
+            </ul>
+          </section>
+          <section aria-labelledby="fot-kurum">
+            <h2 id="fot-kurum">Kurumsal</h2>
+            <ul>
+              <li><a href="/hakkimizda/">Hakkımızda</a></li>
+              <li><a href="/yayin-ilkeleri/">Yayın İlkeleri</a></li>
+              <li><a href="/yapay-zeka-kullanimi/">Yapay Zekâ Kullanımı</a></li>
+              <li><a href="/yayin-odasi/">Yayın Odası</a></li>
+            </ul>
+          </section>
+          <section aria-labelledby="fot-seffaf">
+            <h2 id="fot-seffaf">Şeffaflık</h2>
+            <ul>
+              <li><a href="/seffaflik/">Şeffaflık</a></li>
+              <li><a href="/standartlar-raporu/">Standartlar Raporu</a></li>
+              <li><a href="/duzeltme-politikasi/">Düzeltme Politikası</a></li>
+              <li><a href="/duzeltmeler/">Düzeltmeler</a></li>
+              <li><a href="/sikayet/">Şikâyet Bildirimi</a></li>
+            </ul>
+          </section>
         </div>
 
-        <!-- 3. Sütun: Veriler & Araçlar -->
-        <div class="footer-kolon">
-          <h2 class="footer-baslik">Veri & Araçlar</h2>
-          <nav class="footer-liste" aria-label="Veriler ve Araçlar">
-            <a href="/veri/makro-soklar/"><strong>Makro Şoklar & Borsa</strong></a>
-            <a href="/veri/bist-100-tufe/">BİST 100 / TÜFE (Reel Borsa)</a>
-            <a href="/veri/reel-bist-30/">TÜFE'den Arındırılmış BİST 30</a>
-            <a href="/veri/politika-faizi/">Politika Faizi (TCMB)</a>
-            <a href="/veri/enflasyon/">Yıllık Enflasyon (TÜİK)</a>
-            <a href="/veri/doviz-kurlari/">Döviz Kurları</a>
-            <a href="/veri/">Tüm Veri Sayfaları</a>
-            <a href="/hesapla/">Hesaplayıcılar</a>
-            <a href="/sozluk/">Finans Sözlüğü</a>
-          </nav>
+        <div class="fot-notlar">
+          <p>
+            <strong>Boncuklar nasıl okunur?</strong> Rakamları abaküs boncuklarıyla gösteriyoruz. Her boncuk, yanındaki açıklamada yazan miktara eşittir; miktar arttıkça boncuk büyümez, sayısı artar. Her tel on boncuktur. Gri boncuklar karşılaştırma içindir.
+          </p>
+          <p>
+            İçerik <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.tr" rel="license noopener">CC BY-NC 4.0</a>: {SITE.name} kaynak gösterilerek ticari olmayan amaçlarla serbestçe kullanılabilir.
+          </p>
         </div>
 
-        <!-- 4. Sütun: Kurumsal & İlkeler -->
-        <div class="footer-kolon">
-          <h2 class="footer-baslik">Kurumsal & İlkeler</h2>
-          <nav class="footer-liste" aria-label="Kurumsal">
-            <a href="/hakkimizda/">Hakkımızda</a>
-            <a href="/yayin-ilkeleri/">Yayın İlkeleri</a>
-            <a href="/standartlar-raporu/">Standartlar Raporu</a>
-            <a href="/seffaflik/">Şeffaflık</a>
-            <a href="/yapay-zeka-kullanimi/">Yapay Zekâ Kullanımı</a>
-            <a href="/yayin-odasi/">Yayın Odası</a>
-            <a href="/duzeltme-politikasi/">Düzeltme Politikası</a>
-            <a href="/duzeltmeler/">Düzeltmeler</a>
-            <a href="/sikayet/">Şikâyet Bildirimi</a>
+        <p class="fot-uyari">
+          <strong>{YASAL_UYARI_BASLIK}:</strong> {YASAL_UYARI} {YASAL_UYARI_EK}
+        </p>
+
+        <div class="fot-alt">
+          <span>© {new Date().getFullYear()} {SITE.name}</span>
+          <nav aria-label="Yasal">
             <a href="/yasal/">Yasal Bilgilendirme</a>
             <a href="/gizlilik/">Gizlilik Politikası</a>
           </nav>
         </div>
       </div>
-
-      <!-- Boncuk Okuma Notu -->
-      <div class="container footer-boncuk-notu">
-        <p>
-          <span class="boncuk-isaret" aria-hidden="true">●</span>
-          <strong>Boncuklar nasıl okunur?</strong> Rakamları abaküs boncuklarıyla gösteriyoruz. Her boncuk, yanındaki açıklamada yazan miktara eşittir; miktar arttıkça boncuk büyümez, sayısı artar. Her tel on boncuktur. Gri boncuklar karşılaştırma içindir.
-        </p>
-      </div>
-
-      <div class="container footer-alt">
-        <p class="uyari">
-          <strong>{YASAL_UYARI_BASLIK}:</strong> {YASAL_UYARI} {YASAL_UYARI_EK}
-        </p>
-        <p>
-          İçerik <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.tr" rel="license noopener">CC BY-NC 4.0</a>: {SITE.name} kaynak gösterilerek ticari olmayan amaçlarla serbestçe kullanılabilir.
-        </p>
-        <p>© {new Date().getFullYear()} {SITE.name}</p>
-      </div>
+      <div class="fot-landskap" aria-hidden="true"></div>
+      <p class="container fot-kaynak">
+        Gravür: İstanbul, Haliç girişinden<span class="fot-kaynak-uzun">; Thomas Allom'un çiziminden, <i>Constantinople and the Scenery of the Seven Churches of Asia Minor</i></span> (1839).<span class="fot-kaynak-uzun"> Telif hakkı yoktur.</span>
+      </p>
     </footer>
   </body>
 </html>
