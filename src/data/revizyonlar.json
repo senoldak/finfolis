@@ -1,6 +1,32 @@
 {
   "revizyonlar": [
     {
+      "bolum": "konut",
+      "alan": "bolgeler.TR.yillik",
+      "donem": "2026-09",
+      "eski": 22.3449,
+      "yeni": 22.2427,
+      "fark": -0.1022,
+      "tespit": "2026-11-17T07:56:18.499Z",
+      "kaynak": {
+        "ad": "TCMB, Konut Fiyat Endeksi (EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
+      "bolum": "kira",
+      "alan": "bolgeler.TR.yillik",
+      "donem": "2026-09",
+      "eski": 26.6051,
+      "yeni": 26.6605,
+      "fark": 0.0554,
+      "tespit": "2026-11-17T07:56:18.499Z",
+      "kaynak": {
+        "ad": "TCMB, Yeni Kiracı Kira Endeksi ve Konut Fiyat Endeksi (EVDS)",
+        "url": "https://evds3.tcmb.gov.tr/"
+      }
+    },
+    {
       "bolum": "cari",
       "alan": "cari",
       "donem": "2025-01",

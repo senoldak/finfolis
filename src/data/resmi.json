@@ -2506,28 +2506,6 @@
     "satirlar": [
       {
         "yil": 2024,
-        "ay": 10,
-        "bolgeler": {
-          "TR": {
-            "endeks": 151.08,
-            "yillik": 26.76623595
-          },
-          "TR10": {
-            "endeks": 141.15,
-            "yillik": 21.37759051
-          },
-          "TR51": {
-            "endeks": 158.5,
-            "yillik": 32.74706868
-          },
-          "TR31": {
-            "endeks": 148.98,
-            "yillik": 28.65284974
-          }
-        }
-      },
-      {
-        "yil": 2024,
         "ay": 11,
         "bolgeler": {
           "TR": {
@@ -3015,25 +2993,47 @@
         "ay": 9,
         "bolgeler": {
           "TR": {
-            "endeks": 239.38,
-            "yillik": 22.34488398
+            "endeks": 239.18,
+            "yillik": 22.24266585
           },
           "TR10": {
-            "endeks": 230.85,
-            "yillik": 26.79189323
+            "endeks": 230.51,
+            "yillik": 26.60515186
           },
           "TR51": {
-            "endeks": 265.17,
-            "yillik": 22.02945237
+            "endeks": 264.9,
+            "yillik": 21.90520018
           },
           "TR31": {
-            "endeks": 231.42,
-            "yillik": 20.97229482
+            "endeks": 231.28,
+            "yillik": 20.89911134
+          }
+        }
+      },
+      {
+        "yil": 2026,
+        "ay": 10,
+        "bolgeler": {
+          "TR": {
+            "endeks": 240.93,
+            "yillik": 21.14949464
+          },
+          "TR10": {
+            "endeks": 233.13,
+            "yillik": 24.7551774
+          },
+          "TR51": {
+            "endeks": 269.18,
+            "yillik": 22.70593062
+          },
+          "TR31": {
+            "endeks": 229.87,
+            "yillik": 17.9122852
           }
         }
       }
     ],
-    "alinma": "2026-10-22T11:01:24.257Z"
+    "alinma": "2026-11-17T07:56:09.239Z"
   },
   "issizlik": {
     "kaynak": {
@@ -7555,130 +7555,156 @@
         "ay": 9,
         "bolgeler": {
           "TR": {
-            "endeks": 342.91,
-            "yillik": 26.60513199,
-            "konutYillik": 22.34488398
+            "endeks": 343.06,
+            "yillik": 26.6605132,
+            "konutYillik": 22.24266585
           },
           "TR10": {
-            "endeks": 336.53,
-            "yillik": 35.52817043,
-            "konutYillik": 26.79189323
+            "endeks": 336.72,
+            "yillik": 35.60468769,
+            "konutYillik": 26.60515186
           },
           "TR51": {
-            "endeks": 371.54,
-            "yillik": 25.10606775,
-            "konutYillik": 22.02945237
+            "endeks": 371.27,
+            "yillik": 25.01515254,
+            "konutYillik": 21.90520018
           },
           "TR31": {
-            "endeks": 337.42,
-            "yillik": 23.7148933,
-            "konutYillik": 20.97229482
+            "endeks": 337.21,
+            "yillik": 23.6378969,
+            "konutYillik": 20.89911134
+          }
+        }
+      },
+      {
+        "yil": 2026,
+        "ay": 10,
+        "bolgeler": {
+          "TR": {
+            "endeks": 343.47,
+            "yillik": 24.49978251,
+            "konutYillik": 21.14949464
+          },
+          "TR10": {
+            "endeks": 334.98,
+            "yillik": 30.96410978,
+            "konutYillik": 24.7551774
+          },
+          "TR51": {
+            "endeks": 376.21,
+            "yillik": 26.62739818,
+            "konutYillik": 22.70593062
+          },
+          "TR31": {
+            "endeks": 332.98,
+            "yillik": 19.98846888,
+            "konutYillik": 17.9122852
           }
         }
       }
     ],
     "bolgeTablosu": {
       "yil": 2026,
-      "ay": 9,
+      "ay": 10,
       "bolgeler": [
         {
           "kod": "TR10",
           "ad": "İstanbul",
-          "yillik": 35.52817043
+          "yillik": 30.96410978
         },
         {
           "kod": "TR21",
           "ad": "Edirne, Kırklareli, Tekirdağ",
-          "yillik": 18.8314133
+          "yillik": 17.06180571
         },
         {
           "kod": "TR22",
           "ad": "Balıkesir, Çanakkale",
-          "yillik": 19.45702985
+          "yillik": 17.85851797
         },
         {
           "kod": "TR31",
           "ad": "İzmir",
-          "yillik": 23.7148933
+          "yillik": 19.98846888
         },
         {
           "kod": "TR32",
           "ad": "Aydın, Denizli, Muğla",
-          "yillik": 23.58718646
+          "yillik": 24.23816933
         },
         {
           "kod": "TR33",
           "ad": "Afyonkarahisar, Kütahya, Manisa, Uşak",
-          "yillik": 20.20890246
+          "yillik": 22.13973091
         },
         {
           "kod": "TR41",
           "ad": "Bursa, Eskişehir, Bilecik",
-          "yillik": 22.98758663
+          "yillik": 22.86510591
         },
         {
           "kod": "TR42",
           "ad": "Bolu, Kocaeli, Sakarya, Yalova, Düzce",
-          "yillik": 26.70194254
+          "yillik": 22.04993611
         },
         {
           "kod": "TR51",
           "ad": "Ankara",
-          "yillik": 25.10606775
+          "yillik": 26.62739818
         },
         {
           "kod": "TR52",
           "ad": "Konya, Karaman",
-          "yillik": 22.78692696
+          "yillik": 19.07623253
         },
         {
           "kod": "TR61",
           "ad": "Antalya, Burdur, Isparta",
-          "yillik": 23.5616811
+          "yillik": 25.16088099
         },
         {
           "kod": "TR62",
           "ad": "Adana, Mersin",
-          "yillik": 22.493897
+          "yillik": 16.22480239
         },
         {
           "kod": "TR63",
           "ad": "Hatay, Kahramanmaraş, Osmaniye",
-          "yillik": 28.25774916
+          "yillik": 22.42244102
         },
         {
           "kod": "TR7",
           "ad": "Nevşehir, Niğde, Kırıkkale, Kırşehir, Aksaray, Kayseri, Sivas, Yozgat",
-          "yillik": 26.16322133
+          "yillik": 27.08646679
         },
         {
           "kod": "TR8",
           "ad": "Zonguldak, Karabük, Bartın, Kastamonu, Çankırı, Sinop, Samsun, Tokat, Çorum, Amasya",
-          "yillik": 22.83775048
+          "yillik": 21.80950273
         },
         {
           "kod": "TR9",
           "ad": "Trabzon, Ordu, Giresun, Rize, Artvin, Gümüşhane",
-          "yillik": 28.17857975
+          "yillik": 25.94301571
         },
         {
           "kod": "TRA",
           "ad": "Erzurum, Erzincan, Bayburt, Ağrı, Kars, Iğdır, Ardahan",
-          "yillik": 18.88320928
+          "yillik": 22.98963839
         },
         {
           "kod": "TRB",
           "ad": "Malatya, Elazığ, Bingöl, Tunceli, Van, Muş, Bitlis, Hakkari",
-          "yillik": 30.01587153
+          "yillik": 23.90995619
         },
         {
           "kod": "TRC",
           "ad": "Gaziantep, Adıyaman, Kilis, Şanlıurfa, Diyarbakır, Mardin, Batman, Şırnak, Siirt",
-          "yillik": 22.35021346
+          "yillik": 21.32644956
         }
       ]
     },
-    "alinma": "2026-10-27T19:00:02.421Z"
+    "alinma": "2026-11-17T07:56:09.239Z"
   },
   "kart": {
     "kaynak": {
@@ -27688,20 +27714,20 @@
         "ceyrek": 3,
         "iller": {
           "Türkiye": {
-            "fiyat": 53886.9,
-            "kira": 275.37
+            "fiyat": 53847.6,
+            "kira": 275.23
           },
           "İstanbul": {
-            "fiyat": 90843.5,
-            "kira": 475.2
+            "fiyat": 90739.7,
+            "kira": 475.23
           },
           "Ankara": {
-            "fiyat": 49244.3,
-            "kira": 254.62
+            "fiyat": 49194.6,
+            "kira": 254.07
           },
           "İzmir": {
-            "fiyat": 57588.9,
-            "kira": 296.46
+            "fiyat": 57561.9,
+            "kira": 295.58
           }
         }
       }
@@ -27712,28 +27738,28 @@
       "iller": [
         {
           "ad": "Türkiye",
-          "fiyat": 53886.9,
-          "kira": 275.37
+          "fiyat": 53847.6,
+          "kira": 275.23
         },
         {
           "ad": "İstanbul",
-          "fiyat": 90843.5,
-          "kira": 475.2
+          "fiyat": 90739.7,
+          "kira": 475.23
         },
         {
           "ad": "Ankara",
-          "fiyat": 49244.3,
-          "kira": 254.62
+          "fiyat": 49194.6,
+          "kira": 254.07
         },
         {
           "ad": "İzmir",
-          "fiyat": 57588.9,
-          "kira": 296.46
+          "fiyat": 57561.9,
+          "kira": 295.58
         },
         {
           "ad": "Adana",
-          "fiyat": 42893.8,
-          "kira": 215.22
+          "fiyat": 42872.2,
+          "kira": 215.15
         },
         {
           "ad": "Adıyaman",
@@ -27742,8 +27768,8 @@
         },
         {
           "ad": "Afyonkarahisar",
-          "fiyat": 36337,
-          "kira": 178.22
+          "fiyat": 35856,
+          "kira": 177
         },
         {
           "ad": "Ağrı",
@@ -27757,23 +27783,23 @@
         },
         {
           "ad": "Antalya",
-          "fiyat": 59437.7,
-          "kira": 282.65
+          "fiyat": 59312.7,
+          "kira": 281.36
         },
         {
           "ad": "Artvin",
-          "fiyat": 33273.5,
-          "kira": 172.41
+          "fiyat": 33333,
+          "kira": 170.95
         },
         {
           "ad": "Aydın",
-          "fiyat": 51638.9,
-          "kira": 256.15
+          "fiyat": 51654.8,
+          "kira": 257.21
         },
         {
           "ad": "Balıkesir",
-          "fiyat": 49915.5,
-          "kira": 243.28
+          "fiyat": 49835.9,
+          "kira": 243.96
         },
         {
           "ad": "Bilecik",
@@ -27797,12 +27823,12 @@
         },
         {
           "ad": "Bursa",
-          "fiyat": 42674.7,
-          "kira": 220.8
+          "fiyat": 42655.9,
+          "kira": 220.42
         },
         {
           "ad": "Çanakkale",
-          "fiyat": 54269,
+          "fiyat": 54334.5,
           "kira": 266.67
         },
         {
@@ -27813,12 +27839,12 @@
         {
           "ad": "Çorum",
           "fiyat": 31429,
-          "kira": 163.78
+          "kira": 163.93
         },
         {
           "ad": "Denizli",
-          "fiyat": 45367.1,
-          "kira": 219.63
+          "fiyat": 45303.1,
+          "kira": 219.33
         },
         {
           "ad": "Diyarbakır",
@@ -27827,12 +27853,12 @@
         },
         {
           "ad": "Edirne",
-          "fiyat": 45903.3,
-          "kira": 235.08
+          "fiyat": 45882.2,
+          "kira": 234.56
         },
         {
           "ad": "Elazığ",
-          "fiyat": 30639.5,
+          "fiyat": 30544,
           "kira": 143.5
         },
         {
@@ -27842,13 +27868,13 @@
         },
         {
           "ad": "Erzurum",
-          "fiyat": 28363,
-          "kira": 151.26
+          "fiyat": 28220.5,
+          "kira": 151
         },
         {
           "ad": "Eskişehir",
-          "fiyat": 42519.3,
-          "kira": 220.1
+          "fiyat": 42527.8,
+          "kira": 220.14
         },
         {
           "ad": "Gaziantep",
@@ -27858,42 +27884,42 @@
         {
           "ad": "Giresun",
           "fiyat": 32727,
-          "kira": 166.83
+          "kira": 167
         },
         {
           "ad": "Hatay",
           "fiyat": 30435,
-          "kira": 161.29
+          "kira": 161.14
         },
         {
           "ad": "Isparta",
-          "fiyat": 41886,
-          "kira": 183.43
+          "fiyat": 41912,
+          "kira": 184
         },
         {
           "ad": "Mersin",
-          "fiyat": 40860.3,
-          "kira": 202.9
+          "fiyat": 40856.4,
+          "kira": 202.53
         },
         {
           "ad": "Kars",
           "fiyat": 27397,
-          "kira": 141
+          "kira": 142.86
         },
         {
           "ad": "Kastamonu",
-          "fiyat": 40000,
-          "kira": 175
+          "fiyat": 39892.5,
+          "kira": 173
         },
         {
           "ad": "Kayseri",
-          "fiyat": 30845.6,
-          "kira": 150.82
+          "fiyat": 30835.2,
+          "kira": 151.19
         },
         {
           "ad": "Kırklareli",
-          "fiyat": 43885.6,
-          "kira": 231.04
+          "fiyat": 44009.1,
+          "kira": 231.85
         },
         {
           "ad": "Kırşehir",
@@ -27902,47 +27928,47 @@
         },
         {
           "ad": "Kocaeli",
-          "fiyat": 46798.6,
-          "kira": 252.42
+          "fiyat": 46780.2,
+          "kira": 252.4
         },
         {
           "ad": "Konya",
-          "fiyat": 36895.6,
-          "kira": 190.2
+          "fiyat": 36997,
+          "kira": 190.89
         },
         {
           "ad": "Kütahya",
-          "fiyat": 35242,
+          "fiyat": 35246,
           "kira": 166.67
         },
         {
           "ad": "Malatya",
-          "fiyat": 25263,
-          "kira": 139
+          "fiyat": 25132,
+          "kira": 138.5
         },
         {
           "ad": "Manisa",
-          "fiyat": 43074.3,
-          "kira": 217.43
+          "fiyat": 43018.7,
+          "kira": 217.9
         },
         {
           "ad": "Kahramanmaraş",
           "fiyat": 30000,
-          "kira": 151.76
+          "kira": 151.52
         },
         {
           "ad": "Mardin",
-          "fiyat": 23173.5,
+          "fiyat": 23215,
           "kira": 115.5
         },
         {
           "ad": "Muğla",
-          "fiyat": 85830.2,
-          "kira": 383.02
+          "fiyat": 85869.2,
+          "kira": 383.36
         },
         {
           "ad": "Muş",
-          "fiyat": 27542,
+          "fiyat": 27569.5,
           "kira": 119.23
         },
         {
@@ -27952,13 +27978,13 @@
         },
         {
           "ad": "Niğde",
-          "fiyat": 32837.5,
+          "fiyat": 32732.5,
           "kira": 158.14
         },
         {
           "ad": "Ordu",
-          "fiyat": 42786.3,
-          "kira": 196.61
+          "fiyat": 42715.2,
+          "kira": 196.65
         },
         {
           "ad": "Rize",
@@ -27967,18 +27993,18 @@
         },
         {
           "ad": "Sakarya",
-          "fiyat": 42670,
+          "fiyat": 42608.5,
           "kira": 221
         },
         {
           "ad": "Samsun",
-          "fiyat": 38075.5,
-          "kira": 198.67
+          "fiyat": 38074.1,
+          "kira": 198.59
         },
         {
           "ad": "Siirt",
           "fiyat": 28155,
-          "kira": 138.94
+          "kira": 138.89
         },
         {
           "ad": "Sinop",
@@ -27992,23 +28018,23 @@
         },
         {
           "ad": "Tekirdağ",
-          "fiyat": 43446.1,
-          "kira": 235.81
+          "fiyat": 43368.5,
+          "kira": 235.12
         },
         {
           "ad": "Tokat",
-          "fiyat": 36364,
-          "kira": 176.99
+          "fiyat": 36388.5,
+          "kira": 177
         },
         {
           "ad": "Trabzon",
           "fiyat": 37500,
-          "kira": 176.5
+          "kira": 176.99
         },
         {
           "ad": "Şanlıurfa",
-          "fiyat": 27042.2,
-          "kira": 157.83
+          "fiyat": 27010.4,
+          "kira": 157.54
         },
         {
           "ad": "Uşak",
@@ -28017,8 +28043,8 @@
         },
         {
           "ad": "Van",
-          "fiyat": 35556,
-          "kira": 176.47
+          "fiyat": 35714,
+          "kira": 176.74
         },
         {
           "ad": "Yozgat",
@@ -28027,7 +28053,7 @@
         },
         {
           "ad": "Zonguldak",
-          "fiyat": 41064,
+          "fiyat": 41111,
           "kira": 215
         },
         {
@@ -28037,12 +28063,12 @@
         },
         {
           "ad": "Karaman",
-          "fiyat": 32437.5,
-          "kira": 157.48
+          "fiyat": 32432,
+          "kira": 156.38
         },
         {
           "ad": "Kırıkkale",
-          "fiyat": 29375,
+          "fiyat": 29412,
           "kira": 156.25
         },
         {
@@ -28052,8 +28078,8 @@
         },
         {
           "ad": "Bartın",
-          "fiyat": 49456.5,
-          "kira": 232.78
+          "fiyat": 49567.5,
+          "kira": 233
         },
         {
           "ad": "Iğdır",
@@ -28062,32 +28088,32 @@
         },
         {
           "ad": "Yalova",
-          "fiyat": 43831.5,
+          "fiyat": 43942,
           "kira": 222.22
         },
         {
           "ad": "Karabük",
-          "fiyat": 37750,
-          "kira": 194.4
+          "fiyat": 38000,
+          "kira": 194.81
         },
         {
           "ad": "Kilis",
-          "fiyat": 26879.5,
-          "kira": 145.63
+          "fiyat": 27092,
+          "kira": 146.89
         },
         {
           "ad": "Osmaniye",
-          "fiyat": 26111,
-          "kira": 135.25
+          "fiyat": 26147.5,
+          "kira": 135.2
         },
         {
           "ad": "Düzce",
-          "fiyat": 32847,
-          "kira": 186.74
+          "fiyat": 32738,
+          "kira": 186.14
         }
       ]
     },
-    "alinma": "2026-10-27T19:51:40.224Z"
+    "alinma": "2026-11-17T07:56:09.239Z"
   },
   "tufeArindirilmis": {
     "kaynak": {
@@ -51640,7 +51666,7 @@
         "ay": 1,
         "toplam": 102927,
         "toplamYillik": 10.53394618,
-        "arindirilmis": 125969,
+        "arindirilmis": 125926,
         "ilkEl": 29924,
         "ikinciEl": 73003,
         "ipotekli": 17159,
@@ -51651,7 +51677,7 @@
         "ay": 2,
         "toplam": 84396,
         "toplamYillik": -18.40830651,
-        "arindirilmis": 106545,
+        "arindirilmis": 106428,
         "ilkEl": 25348,
         "ikinciEl": 59048,
         "ipotekli": 18329,
@@ -51662,7 +51688,7 @@
         "ay": 3,
         "toplam": 111322,
         "toplamYillik": -23.59400953,
-        "arindirilmis": 108939,
+        "arindirilmis": 108716,
         "ilkEl": 35737,
         "ikinciEl": 75585,
         "ipotekli": 26732,
@@ -51673,7 +51699,7 @@
         "ay": 4,
         "toplam": 92607,
         "toplamYillik": -38.6070285,
-        "arindirilmis": 116696,
+        "arindirilmis": 116504,
         "ilkEl": 31102,
         "ikinciEl": 61505,
         "ipotekli": 22961,
@@ -51684,7 +51710,7 @@
         "ay": 5,
         "toplam": 133287,
         "toplamYillik": 0.65473493,
-        "arindirilmis": 128477,
+        "arindirilmis": 128341,
         "ilkEl": 48810,
         "ikinciEl": 84477,
         "ipotekli": 31033,
@@ -51695,7 +51721,7 @@
         "ay": 6,
         "toplam": 90118,
         "toplamYillik": -44.26288315,
-        "arindirilmis": 112827,
+        "arindirilmis": 112802,
         "ilkEl": 29656,
         "ikinciEl": 60462,
         "ipotekli": 14354,
@@ -51706,7 +51732,7 @@
         "ay": 7,
         "toplam": 117058,
         "toplamYillik": 17.47385746,
-        "arindirilmis": 114023,
+        "arindirilmis": 114029,
         "ilkEl": 35763,
         "ikinciEl": 81295,
         "ipotekli": 15363,
@@ -51717,7 +51743,7 @@
         "ay": 8,
         "toplam": 132124,
         "toplamYillik": 0.31204209,
-        "arindirilmis": 115342,
+        "arindirilmis": 115307,
         "ilkEl": 40713,
         "ikinciEl": 91411,
         "ipotekli": 17486,
@@ -51728,7 +51754,7 @@
         "ay": 9,
         "toplam": 110810,
         "toplamYillik": -10.6587116,
-        "arindirilmis": 105154,
+        "arindirilmis": 105197,
         "ilkEl": 35186,
         "ikinciEl": 75624,
         "ipotekli": 9030,
@@ -51739,7 +51765,7 @@
         "ay": 10,
         "toplam": 106183,
         "toplamYillik": -16.4235846,
-        "arindirilmis": 93893,
+        "arindirilmis": 93874,
         "ilkEl": 37799,
         "ikinciEl": 68384,
         "ipotekli": 6132,
@@ -51750,7 +51776,7 @@
         "ay": 11,
         "toplam": 100579,
         "toplamYillik": -22.93564626,
-        "arindirilmis": 93592,
+        "arindirilmis": 93458,
         "ilkEl": 35047,
         "ikinciEl": 65532,
         "ipotekli": 5668,
@@ -51761,7 +51787,7 @@
         "ay": 12,
         "toplam": 148724,
         "toplamYillik": -34.0829614,
-        "arindirilmis": 97617,
+        "arindirilmis": 97511,
         "ilkEl": 57399,
         "ikinciEl": 91325,
         "ipotekli": 6593,
@@ -51772,7 +51798,7 @@
         "ay": 1,
         "toplam": 84801,
         "toplamYillik": -17.61053951,
-        "arindirilmis": 105085,
+        "arindirilmis": 105046,
         "ilkEl": 27350,
         "ikinciEl": 57451,
         "ipotekli": 6255,
@@ -51783,7 +51809,7 @@
         "ay": 2,
         "toplam": 99558,
         "toplamYillik": 17.96530641,
-        "arindirilmis": 115008,
+        "arindirilmis": 114847,
         "ilkEl": 31549,
         "ikinciEl": 68009,
         "ipotekli": 9387,
@@ -51794,7 +51820,7 @@
         "ay": 3,
         "toplam": 111345,
         "toplamYillik": 0.02066079,
-        "arindirilmis": 124282,
+        "arindirilmis": 124157,
         "ilkEl": 37308,
         "ikinciEl": 74037,
         "ipotekli": 13671,
@@ -51805,7 +51831,7 @@
         "ay": 4,
         "toplam": 80276,
         "toplamYillik": -13.31540812,
-        "arindirilmis": 110927,
+        "arindirilmis": 110892,
         "ilkEl": 26237,
         "ikinciEl": 54039,
         "ipotekli": 7482,
@@ -51816,7 +51842,7 @@
         "ay": 5,
         "toplam": 118926,
         "toplamYillik": -10.77449414,
-        "arindirilmis": 113109,
+        "arindirilmis": 112996,
         "ilkEl": 40024,
         "ikinciEl": 78902,
         "ipotekli": 10828,
@@ -51827,7 +51853,7 @@
         "ay": 6,
         "toplam": 82924,
         "toplamYillik": -7.98286691,
-        "arindirilmis": 116405,
+        "arindirilmis": 116456,
         "ilkEl": 26958,
         "ikinciEl": 55966,
         "ipotekli": 7150,
@@ -51838,7 +51864,7 @@
         "ay": 7,
         "toplam": 132426,
         "toplamYillik": 13.12853457,
-        "arindirilmis": 124436,
+        "arindirilmis": 124533,
         "ilkEl": 43049,
         "ikinciEl": 89377,
         "ipotekli": 11990,
@@ -51849,7 +51875,7 @@
         "ay": 8,
         "toplam": 139411,
         "toplamYillik": 5.51527353,
-        "arindirilmis": 130557,
+        "arindirilmis": 130637,
         "ilkEl": 44080,
         "ikinciEl": 95331,
         "ipotekli": 14117,
@@ -51860,7 +51886,7 @@
         "ay": 9,
         "toplam": 146557,
         "toplamYillik": 32.25972385,
-        "arindirilmis": 137297,
+        "arindirilmis": 137485,
         "ilkEl": 47145,
         "ikinciEl": 99412,
         "ipotekli": 16507,
@@ -51871,7 +51897,7 @@
         "ay": 10,
         "toplam": 171619,
         "toplamYillik": 61.62568396,
-        "arindirilmis": 149778,
+        "arindirilmis": 150251,
         "ilkEl": 60513,
         "ikinciEl": 111106,
         "ipotekli": 21979,
@@ -51882,7 +51908,7 @@
         "ay": 11,
         "toplam": 159805,
         "toplamYillik": 58.88505553,
-        "arindirilmis": 152498,
+        "arindirilmis": 152456,
         "ilkEl": 52168,
         "ikinciEl": 107637,
         "ipotekli": 22789,
@@ -51893,7 +51919,7 @@
         "ay": 12,
         "toplam": 222112,
         "toplamYillik": 49.34509561,
-        "arindirilmis": 140756,
+        "arindirilmis": 140607,
         "ilkEl": 81219,
         "ikinciEl": 140893,
         "ipotekli": 24480,
@@ -51904,7 +51930,7 @@
         "ay": 1,
         "toplam": 117025,
         "toplamYillik": 37.99955189,
-        "arindirilmis": 143817,
+        "arindirilmis": 143815,
         "ilkEl": 34783,
         "ikinciEl": 82242,
         "ipotekli": 17516,
@@ -51915,7 +51941,7 @@
         "ay": 2,
         "toplam": 117586,
         "toplamYillik": 18.10803753,
-        "arindirilmis": 140084,
+        "arindirilmis": 139942,
         "ilkEl": 35695,
         "ikinciEl": 81891,
         "ipotekli": 17593,
@@ -51926,7 +51952,7 @@
         "ay": 3,
         "toplam": 115788,
         "toplamYillik": 3.99030042,
-        "arindirilmis": 139046,
+        "arindirilmis": 138847,
         "ilkEl": 35281,
         "ikinciEl": 80507,
         "ipotekli": 19109,
@@ -51937,7 +51963,7 @@
         "ay": 4,
         "toplam": 123569,
         "toplamYillik": 53.93019084,
-        "arindirilmis": 142475,
+        "arindirilmis": 142209,
         "ilkEl": 36775,
         "ikinciEl": 86794,
         "ipotekli": 18340,
@@ -51948,7 +51974,7 @@
         "ay": 5,
         "toplam": 135664,
         "toplamYillik": 14.0742983,
-        "arindirilmis": 145152,
+        "arindirilmis": 144747,
         "ilkEl": 41860,
         "ikinciEl": 93804,
         "ipotekli": 20325,
@@ -51959,7 +51985,7 @@
         "ay": 6,
         "toplam": 112196,
         "toplamYillik": 35.29979258,
-        "arindirilmis": 143273,
+        "arindirilmis": 142968,
         "ilkEl": 35267,
         "ikinciEl": 76929,
         "ipotekli": 15101,
@@ -51970,7 +51996,7 @@
         "ay": 7,
         "toplam": 148939,
         "toplamYillik": 12.46960567,
-        "arindirilmis": 146061,
+        "arindirilmis": 145625,
         "ilkEl": 46514,
         "ikinciEl": 102425,
         "ipotekli": 19315,
@@ -51981,7 +52007,7 @@
         "ay": 8,
         "toplam": 149440,
         "toplamYillik": 7.19383693,
-        "arindirilmis": 145277,
+        "arindirilmis": 144681,
         "ilkEl": 46459,
         "ikinciEl": 102981,
         "ipotekli": 20646,
@@ -51992,7 +52018,7 @@
         "ay": 9,
         "toplam": 156918,
         "toplamYillik": 7.06960432,
-        "arindirilmis": 141558,
+        "arindirilmis": 140769,
         "ilkEl": 49608,
         "ikinciEl": 107310,
         "ipotekli": 22264,
@@ -52003,7 +52029,7 @@
         "ay": 10,
         "toplam": 170955,
         "toplamYillik": -0.38690355,
-        "arindirilmis": 146699,
+        "arindirilmis": 149657,
         "ilkEl": 57675,
         "ikinciEl": 113280,
         "ipotekli": 24684,
@@ -52014,7 +52040,7 @@
         "ay": 11,
         "toplam": 146989,
         "toplamYillik": -8.0197741,
-        "arindirilmis": 145609,
+        "arindirilmis": 147274,
         "ilkEl": 49174,
         "ikinciEl": 97815,
         "ipotekli": 22523,
@@ -52025,7 +52051,7 @@
         "ay": 12,
         "toplam": 265223,
         "toplamYillik": 19.40957715,
-        "arindirilmis": 151535,
+        "arindirilmis": 152414,
         "ilkEl": 101721,
         "ikinciEl": 163502,
         "ipotekli": 30604,
@@ -52036,7 +52062,7 @@
         "ay": 1,
         "toplam": 111480,
         "toplamYillik": -4.73830378,
-        "arindirilmis": 142671,
+        "arindirilmis": 142666,
         "ilkEl": 34069,
         "ikinciEl": 77411,
         "ipotekli": 20263,
@@ -52047,7 +52073,7 @@
         "ay": 2,
         "toplam": 124549,
         "toplamYillik": 5.92162332,
-        "arindirilmis": 144133,
+        "arindirilmis": 143750,
         "ilkEl": 37785,
         "ikinciEl": 86764,
         "ipotekli": 25035,
@@ -52058,7 +52084,7 @@
         "ay": 3,
         "toplam": 113367,
         "toplamYillik": -2.09089025,
-        "arindirilmis": 133140,
+        "arindirilmis": 132288,
         "ilkEl": 35725,
         "ikinciEl": 77642,
         "ipotekli": 25978,
@@ -52069,7 +52095,7 @@
         "ay": 4,
         "toplam": 126808,
         "toplamYillik": 2.62120758,
-        "arindirilmis": 134974,
+        "arindirilmis": 134006,
         "ilkEl": 40306,
         "ikinciEl": 86502,
         "ipotekli": 25771,
@@ -52080,7 +52106,7 @@
         "ay": 5,
         "toplam": 93333,
         "toplamYillik": -31.20282463,
-        "arindirilmis": 132378,
+        "arindirilmis": 131062,
         "ilkEl": 30196,
         "ikinciEl": 63137,
         "ipotekli": 19754,
@@ -52091,7 +52117,7 @@
         "ay": 6,
         "toplam": 129979,
         "toplamYillik": 15.84994117,
-        "arindirilmis": 133566,
+        "arindirilmis": 132010,
         "ilkEl": 43406,
         "ikinciEl": 86573,
         "ipotekli": 25993,
@@ -52102,7 +52128,7 @@
         "ay": 7,
         "toplam": 123603,
         "toplamYillik": -17.01099108,
-        "arindirilmis": 126442,
+        "arindirilmis": 124495,
         "ilkEl": 42529,
         "ikinciEl": 81074,
         "ipotekli": 23888,
@@ -52113,7 +52139,7 @@
         "ay": 8,
         "toplam": 127410,
         "toplamYillik": -14.74170236,
-        "arindirilmis": 128515,
+        "arindirilmis": 126039,
         "ilkEl": 44378,
         "ikinciEl": 83032,
         "ipotekli": 22131,
@@ -52124,506 +52150,517 @@
         "ay": 9,
         "toplam": 142390,
         "toplamYillik": -9.25833875,
-        "arindirilmis": 130939,
+        "arindirilmis": 128503,
         "ilkEl": 51519,
         "ikinciEl": 90871,
         "ipotekli": 23397,
         "isyeri": 17345
+      },
+      {
+        "yil": 2026,
+        "ay": 10,
+        "toplam": 131072,
+        "toplamYillik": -23.32953116,
+        "arindirilmis": 125093,
+        "ilkEl": 50105,
+        "ikinciEl": 80967,
+        "ipotekli": 23286,
+        "isyeri": 16489
       }
     ],
     "ilTablosu": {
       "yil": 2026,
-      "ay": 9,
+      "ay": 10,
       "iller": [
         {
           "ad": "Adana",
-          "toplam": 2943,
-          "yillik": -12.43677477,
-          "ipotekli": 563
+          "toplam": 2752,
+          "yillik": -26.20005363,
+          "ipotekli": 555
         },
         {
           "ad": "Adıyaman",
-          "toplam": 767,
-          "yillik": 20.97791798,
-          "ipotekli": 82
+          "toplam": 485,
+          "yillik": -30.11527378,
+          "ipotekli": 49
         },
         {
           "ad": "Afyonkarahisar",
-          "toplam": 1035,
-          "yillik": -10.54451167,
-          "ipotekli": 141
+          "toplam": 1116,
+          "yillik": -9.19446705,
+          "ipotekli": 139
         },
         {
           "ad": "Ağrı",
-          "toplam": 490,
-          "yillik": 15.8392435,
-          "ipotekli": 37
+          "toplam": 447,
+          "yillik": -14.20345489,
+          "ipotekli": 48
         },
         {
           "ad": "Aksaray",
-          "toplam": 921,
-          "yillik": -11.01449275,
-          "ipotekli": 75
+          "toplam": 758,
+          "yillik": -35.97972973,
+          "ipotekli": 93
         },
         {
           "ad": "Amasya",
-          "toplam": 765,
-          "yillik": 5.51724138,
-          "ipotekli": 106
+          "toplam": 601,
+          "yillik": -27.76442308,
+          "ipotekli": 102
         },
         {
           "ad": "Ankara",
-          "toplam": 12406,
-          "yillik": -8.02876418,
-          "ipotekli": 2508
+          "toplam": 11515,
+          "yillik": -22.12227783,
+          "ipotekli": 2445
         },
         {
           "ad": "Antalya",
-          "toplam": 6704,
-          "yillik": -8.7642896,
-          "ipotekli": 933
+          "toplam": 6230,
+          "yillik": -19.26914604,
+          "ipotekli": 876
         },
         {
           "ad": "Ardahan",
-          "toplam": 67,
-          "yillik": -30.92783505,
-          "ipotekli": 3
+          "toplam": 136,
+          "yillik": -1.44927536,
+          "ipotekli": 12
         },
         {
           "ad": "Artvin",
-          "toplam": 143,
-          "yillik": -33.48837209,
+          "toplam": 147,
+          "yillik": -20.54054054,
           "ipotekli": 26
         },
         {
           "ad": "Aydın",
-          "toplam": 2702,
-          "yillik": -5.32585844,
-          "ipotekli": 312
+          "toplam": 2256,
+          "yillik": -21.28401954,
+          "ipotekli": 297
         },
         {
           "ad": "Balıkesir",
-          "toplam": 3086,
-          "yillik": -9.31531002,
-          "ipotekli": 314
+          "toplam": 2626,
+          "yillik": -27.81748213,
+          "ipotekli": 329
         },
         {
           "ad": "Bartın",
-          "toplam": 209,
-          "yillik": -27.93103448,
-          "ipotekli": 31
+          "toplam": 217,
+          "yillik": -3.98230088,
+          "ipotekli": 49
         },
         {
           "ad": "Batman",
-          "toplam": 876,
-          "yillik": -18.43575419,
-          "ipotekli": 158
+          "toplam": 807,
+          "yillik": -32.97342193,
+          "ipotekli": 141
         },
         {
           "ad": "Bayburt",
-          "toplam": 165,
-          "yillik": 38.65546218,
-          "ipotekli": 14
-        },
-        {
-          "ad": "Bilecik",
-          "toplam": 315,
-          "yillik": -27.91762014,
-          "ipotekli": 54
-        },
-        {
-          "ad": "Bingöl",
-          "toplam": 396,
-          "yillik": 30.26315789,
-          "ipotekli": 17
-        },
-        {
-          "ad": "Bitlis",
-          "toplam": 701,
-          "yillik": 13.98373984,
-          "ipotekli": 84
-        },
-        {
-          "ad": "Bolu",
-          "toplam": 649,
-          "yillik": -7.28571429,
-          "ipotekli": 76
-        },
-        {
-          "ad": "Burdur",
-          "toplam": 331,
-          "yillik": -9.80926431,
-          "ipotekli": 54
-        },
-        {
-          "ad": "Bursa",
-          "toplam": 4534,
-          "yillik": -16.34686347,
-          "ipotekli": 991
-        },
-        {
-          "ad": "Çanakkale",
-          "toplam": 1143,
-          "yillik": -16.93313953,
-          "ipotekli": 142
-        },
-        {
-          "ad": "Çankırı",
-          "toplam": 251,
-          "yillik": -25.51928783,
-          "ipotekli": 33
-        },
-        {
-          "ad": "Çorum",
-          "toplam": 862,
-          "yillik": -4.22222222,
-          "ipotekli": 134
-        },
-        {
-          "ad": "Denizli",
-          "toplam": 1701,
-          "yillik": -11.08207005,
-          "ipotekli": 387
-        },
-        {
-          "ad": "Diyarbakır",
-          "toplam": 2380,
-          "yillik": -16.04938272,
-          "ipotekli": 370
-        },
-        {
-          "ad": "Düzce",
-          "toplam": 754,
-          "yillik": -1.17955439,
-          "ipotekli": 122
-        },
-        {
-          "ad": "Edirne",
-          "toplam": 632,
-          "yillik": -16.4021164,
-          "ipotekli": 102
-        },
-        {
-          "ad": "Elazığ",
-          "toplam": 1622,
-          "yillik": 29.96794872,
-          "ipotekli": 97
-        },
-        {
-          "ad": "Erzincan",
-          "toplam": 469,
-          "yillik": 6.83371298,
-          "ipotekli": 53
-        },
-        {
-          "ad": "Erzurum",
-          "toplam": 1195,
-          "yillik": 9.13242009,
-          "ipotekli": 134
-        },
-        {
-          "ad": "Eskişehir",
-          "toplam": 2439,
-          "yillik": -4.57746479,
-          "ipotekli": 450
-        },
-        {
-          "ad": "Gaziantep",
-          "toplam": 4096,
-          "yillik": -0.91920658,
-          "ipotekli": 722
-        },
-        {
-          "ad": "Giresun",
-          "toplam": 695,
-          "yillik": -20.57142857,
-          "ipotekli": 88
-        },
-        {
-          "ad": "Gümüşhane",
-          "toplam": 193,
-          "yillik": -2.03045685,
-          "ipotekli": 14
-        },
-        {
-          "ad": "Hakkari",
-          "toplam": 82,
-          "yillik": -45.69536424,
-          "ipotekli": 10
-        },
-        {
-          "ad": "Hatay",
-          "toplam": 1506,
-          "yillik": 12.64023934,
-          "ipotekli": 190
-        },
-        {
-          "ad": "Iğdır",
-          "toplam": 271,
-          "yillik": 16.81034483,
-          "ipotekli": 37
-        },
-        {
-          "ad": "Isparta",
-          "toplam": 682,
-          "yillik": -3.94366197,
-          "ipotekli": 108
-        },
-        {
-          "ad": "İstanbul",
-          "toplam": 22212,
-          "yillik": -16.85569905,
-          "ipotekli": 4629
-        },
-        {
-          "ad": "İzmir",
-          "toplam": 7535,
-          "yillik": -14.92604719,
-          "ipotekli": 1392
-        },
-        {
-          "ad": "Kahramanmaraş",
-          "toplam": 1220,
-          "yillik": -7.71558245,
-          "ipotekli": 187
-        },
-        {
-          "ad": "Karabük",
-          "toplam": 364,
-          "yillik": -17.46031746,
-          "ipotekli": 50
-        },
-        {
-          "ad": "Karaman",
-          "toplam": 358,
-          "yillik": -13.73493976,
-          "ipotekli": 52
-        },
-        {
-          "ad": "Kars",
-          "toplam": 598,
-          "yillik": 9.52380952,
-          "ipotekli": 56
-        },
-        {
-          "ad": "Kastamonu",
-          "toplam": 646,
-          "yillik": 3.19488818,
-          "ipotekli": 87
-        },
-        {
-          "ad": "Kayseri",
-          "toplam": 3055,
-          "yillik": -10.59408838,
-          "ipotekli": 477
-        },
-        {
-          "ad": "Kırıkkale",
-          "toplam": 666,
-          "yillik": 0.45248869,
-          "ipotekli": 117
-        },
-        {
-          "ad": "Kırklareli",
-          "toplam": 575,
-          "yillik": -10.71428571,
-          "ipotekli": 93
-        },
-        {
-          "ad": "Kırşehir",
-          "toplam": 604,
-          "yillik": -0.82101806,
-          "ipotekli": 52
-        },
-        {
-          "ad": "Kilis",
-          "toplam": 265,
-          "yillik": -0.74906367,
-          "ipotekli": 29
-        },
-        {
-          "ad": "Kocaeli",
-          "toplam": 3869,
-          "yillik": -6.68113845,
-          "ipotekli": 882
-        },
-        {
-          "ad": "Konya",
-          "toplam": 3904,
-          "yillik": -7.44428639,
-          "ipotekli": 515
-        },
-        {
-          "ad": "Kütahya",
-          "toplam": 791,
-          "yillik": -16.56118143,
-          "ipotekli": 114
-        },
-        {
-          "ad": "Malatya",
-          "toplam": 899,
-          "yillik": 2.62557078,
-          "ipotekli": 97
-        },
-        {
-          "ad": "Manisa",
-          "toplam": 1920,
-          "yillik": -20.23265476,
-          "ipotekli": 360
-        },
-        {
-          "ad": "Mardin",
-          "toplam": 1188,
-          "yillik": -9.65779468,
-          "ipotekli": 103
-        },
-        {
-          "ad": "Mersin",
-          "toplam": 4425,
-          "yillik": -17.90352505,
-          "ipotekli": 654
-        },
-        {
-          "ad": "Muğla",
-          "toplam": 1952,
-          "yillik": -2.59481038,
-          "ipotekli": 239
-        },
-        {
-          "ad": "Muş",
-          "toplam": 508,
-          "yillik": 23.90243902,
-          "ipotekli": 33
-        },
-        {
-          "ad": "Nevşehir",
-          "toplam": 523,
-          "yillik": -4.90909091,
-          "ipotekli": 58
-        },
-        {
-          "ad": "Niğde",
-          "toplam": 668,
-          "yillik": 11.14808652,
-          "ipotekli": 85
-        },
-        {
-          "ad": "Ordu",
-          "toplam": 982,
-          "yillik": -17.4789916,
-          "ipotekli": 173
-        },
-        {
-          "ad": "Osmaniye",
-          "toplam": 523,
-          "yillik": -10.2915952,
-          "ipotekli": 100
-        },
-        {
-          "ad": "Rize",
-          "toplam": 229,
-          "yillik": -21.84300341,
-          "ipotekli": 37
-        },
-        {
-          "ad": "Sakarya",
-          "toplam": 2479,
-          "yillik": -0.76060849,
-          "ipotekli": 289
-        },
-        {
-          "ad": "Samsun",
-          "toplam": 2912,
-          "yillik": -5.23917995,
-          "ipotekli": 427
-        },
-        {
-          "ad": "Siirt",
-          "toplam": 324,
-          "yillik": -27.35426009,
-          "ipotekli": 52
-        },
-        {
-          "ad": "Sinop",
-          "toplam": 299,
-          "yillik": -14.32664756,
-          "ipotekli": 51
-        },
-        {
-          "ad": "Sivas",
-          "toplam": 1139,
-          "yillik": 8.1671415,
-          "ipotekli": 161
-        },
-        {
-          "ad": "Şanlıurfa",
-          "toplam": 2867,
-          "yillik": -13.43599034,
-          "ipotekli": 330
-        },
-        {
-          "ad": "Şırnak",
-          "toplam": 289,
-          "yillik": 20.92050209,
+          "toplam": 139,
+          "yillik": -1.41843972,
           "ipotekli": 16
         },
         {
-          "ad": "Tekirdağ",
-          "toplam": 3943,
-          "yillik": 1.91263892,
-          "ipotekli": 757
+          "ad": "Bilecik",
+          "toplam": 313,
+          "yillik": -23.65853659,
+          "ipotekli": 62
         },
         {
-          "ad": "Tokat",
-          "toplam": 658,
-          "yillik": -12.84768212,
-          "ipotekli": 109
-        },
-        {
-          "ad": "Trabzon",
-          "toplam": 886,
-          "yillik": -11.57684631,
-          "ipotekli": 126
-        },
-        {
-          "ad": "Tunceli",
-          "toplam": 115,
-          "yillik": -19.01408451,
+          "ad": "Bingöl",
+          "toplam": 288,
+          "yillik": -23.2,
           "ipotekli": 12
         },
         {
-          "ad": "Uşak",
-          "toplam": 770,
-          "yillik": 7.24233983,
-          "ipotekli": 112
-        },
-        {
-          "ad": "Van",
-          "toplam": 1237,
-          "yillik": 4.83050847,
-          "ipotekli": 187
-        },
-        {
-          "ad": "Yalova",
-          "toplam": 1266,
-          "yillik": -16.65569454,
-          "ipotekli": 129
-        },
-        {
-          "ad": "Yozgat",
-          "toplam": 709,
-          "yillik": 1.43061516,
+          "ad": "Bitlis",
+          "toplam": 613,
+          "yillik": -4.21875,
           "ipotekli": 66
         },
         {
+          "ad": "Bolu",
+          "toplam": 638,
+          "yillik": -35.49039434,
+          "ipotekli": 93
+        },
+        {
+          "ad": "Burdur",
+          "toplam": 310,
+          "yillik": -18.20580475,
+          "ipotekli": 42
+        },
+        {
+          "ad": "Bursa",
+          "toplam": 4263,
+          "yillik": -31.00825376,
+          "ipotekli": 948
+        },
+        {
+          "ad": "Çanakkale",
+          "toplam": 894,
+          "yillik": -41.14549045,
+          "ipotekli": 149
+        },
+        {
+          "ad": "Çankırı",
+          "toplam": 257,
+          "yillik": -19.18238994,
+          "ipotekli": 29
+        },
+        {
+          "ad": "Çorum",
+          "toplam": 698,
+          "yillik": -27.29166667,
+          "ipotekli": 111
+        },
+        {
+          "ad": "Denizli",
+          "toplam": 1625,
+          "yillik": -23.24043458,
+          "ipotekli": 363
+        },
+        {
+          "ad": "Diyarbakır",
+          "toplam": 2100,
+          "yillik": -31.640625,
+          "ipotekli": 399
+        },
+        {
+          "ad": "Düzce",
+          "toplam": 718,
+          "yillik": -26.43442623,
+          "ipotekli": 111
+        },
+        {
+          "ad": "Edirne",
+          "toplam": 641,
+          "yillik": -22.3030303,
+          "ipotekli": 89
+        },
+        {
+          "ad": "Elazığ",
+          "toplam": 1173,
+          "yillik": -13.17542561,
+          "ipotekli": 135
+        },
+        {
+          "ad": "Erzincan",
+          "toplam": 435,
+          "yillik": -33.89057751,
+          "ipotekli": 56
+        },
+        {
+          "ad": "Erzurum",
+          "toplam": 1156,
+          "yillik": -20.27586207,
+          "ipotekli": 152
+        },
+        {
+          "ad": "Eskişehir",
+          "toplam": 2195,
+          "yillik": -12.79300755,
+          "ipotekli": 418
+        },
+        {
+          "ad": "Gaziantep",
+          "toplam": 3677,
+          "yillik": -24.16993194,
+          "ipotekli": 662
+        },
+        {
+          "ad": "Giresun",
+          "toplam": 782,
+          "yillik": -28.05887764,
+          "ipotekli": 104
+        },
+        {
+          "ad": "Gümüşhane",
+          "toplam": 191,
+          "yillik": 11.04651163,
+          "ipotekli": 11
+        },
+        {
+          "ad": "Hakkari",
+          "toplam": 78,
+          "yillik": -55.68181818,
+          "ipotekli": 14
+        },
+        {
+          "ad": "Hatay",
+          "toplam": 1172,
+          "yillik": -20.64996615,
+          "ipotekli": 160
+        },
+        {
+          "ad": "Iğdır",
+          "toplam": 275,
+          "yillik": 22.76785714,
+          "ipotekli": 44
+        },
+        {
+          "ad": "Isparta",
+          "toplam": 559,
+          "yillik": -28.51662404,
+          "ipotekli": 83
+        },
+        {
+          "ad": "İstanbul",
+          "toplam": 22753,
+          "yillik": -21.54949488,
+          "ipotekli": 4760
+        },
+        {
+          "ad": "İzmir",
+          "toplam": 6803,
+          "yillik": -24.2933452,
+          "ipotekli": 1263
+        },
+        {
+          "ad": "Kahramanmaraş",
+          "toplam": 1109,
+          "yillik": -9.91064175,
+          "ipotekli": 186
+        },
+        {
+          "ad": "Karabük",
+          "toplam": 278,
+          "yillik": -53.27731092,
+          "ipotekli": 62
+        },
+        {
+          "ad": "Karaman",
+          "toplam": 318,
+          "yillik": -35.23421589,
+          "ipotekli": 54
+        },
+        {
+          "ad": "Kars",
+          "toplam": 595,
+          "yillik": -1.49006623,
+          "ipotekli": 60
+        },
+        {
+          "ad": "Kastamonu",
+          "toplam": 549,
+          "yillik": -13.81475667,
+          "ipotekli": 83
+        },
+        {
+          "ad": "Kayseri",
+          "toplam": 2739,
+          "yillik": -23.72598162,
+          "ipotekli": 444
+        },
+        {
+          "ad": "Kırıkkale",
+          "toplam": 610,
+          "yillik": -26.41737033,
+          "ipotekli": 111
+        },
+        {
+          "ad": "Kırklareli",
+          "toplam": 438,
+          "yillik": -34.7242921,
+          "ipotekli": 85
+        },
+        {
+          "ad": "Kırşehir",
+          "toplam": 499,
+          "yillik": -15.99326599,
+          "ipotekli": 59
+        },
+        {
+          "ad": "Kilis",
+          "toplam": 268,
+          "yillik": 4.6875,
+          "ipotekli": 38
+        },
+        {
+          "ad": "Kocaeli",
+          "toplam": 3747,
+          "yillik": -15.64610536,
+          "ipotekli": 936
+        },
+        {
+          "ad": "Konya",
+          "toplam": 3505,
+          "yillik": -24.97859589,
+          "ipotekli": 530
+        },
+        {
+          "ad": "Kütahya",
+          "toplam": 819,
+          "yillik": -24.72426471,
+          "ipotekli": 139
+        },
+        {
+          "ad": "Malatya",
+          "toplam": 814,
+          "yillik": -19.64461994,
+          "ipotekli": 102
+        },
+        {
+          "ad": "Manisa",
+          "toplam": 1952,
+          "yillik": -30.82919915,
+          "ipotekli": 393
+        },
+        {
+          "ad": "Mardin",
+          "toplam": 1050,
+          "yillik": -24.02315485,
+          "ipotekli": 114
+        },
+        {
+          "ad": "Mersin",
+          "toplam": 3816,
+          "yillik": -34.08187943,
+          "ipotekli": 633
+        },
+        {
+          "ad": "Muğla",
+          "toplam": 1596,
+          "yillik": -33.13782991,
+          "ipotekli": 261
+        },
+        {
+          "ad": "Muş",
+          "toplam": 376,
+          "yillik": -27.41312741,
+          "ipotekli": 30
+        },
+        {
+          "ad": "Nevşehir",
+          "toplam": 398,
+          "yillik": -33.88704319,
+          "ipotekli": 43
+        },
+        {
+          "ad": "Niğde",
+          "toplam": 523,
+          "yillik": -28.64938608,
+          "ipotekli": 74
+        },
+        {
+          "ad": "Ordu",
+          "toplam": 1027,
+          "yillik": -22.07890744,
+          "ipotekli": 169
+        },
+        {
+          "ad": "Osmaniye",
+          "toplam": 564,
+          "yillik": -12.42236025,
+          "ipotekli": 122
+        },
+        {
+          "ad": "Rize",
+          "toplam": 272,
+          "yillik": -21.83908046,
+          "ipotekli": 39
+        },
+        {
+          "ad": "Sakarya",
+          "toplam": 2198,
+          "yillik": -17.49249249,
+          "ipotekli": 319
+        },
+        {
+          "ad": "Samsun",
+          "toplam": 2502,
+          "yillik": -22.44265344,
+          "ipotekli": 437
+        },
+        {
+          "ad": "Siirt",
+          "toplam": 321,
+          "yillik": -37.66990291,
+          "ipotekli": 47
+        },
+        {
+          "ad": "Sinop",
+          "toplam": 243,
+          "yillik": -24.53416149,
+          "ipotekli": 34
+        },
+        {
+          "ad": "Sivas",
+          "toplam": 1030,
+          "yillik": -15.78086672,
+          "ipotekli": 156
+        },
+        {
+          "ad": "Şanlıurfa",
+          "toplam": 2779,
+          "yillik": -21.91626861,
+          "ipotekli": 325
+        },
+        {
+          "ad": "Şırnak",
+          "toplam": 168,
+          "yillik": -37.5464684,
+          "ipotekli": 19
+        },
+        {
+          "ad": "Tekirdağ",
+          "toplam": 3444,
+          "yillik": -15.42239686,
+          "ipotekli": 800
+        },
+        {
+          "ad": "Tokat",
+          "toplam": 560,
+          "yillik": -32.77310924,
+          "ipotekli": 93
+        },
+        {
+          "ad": "Trabzon",
+          "toplam": 754,
+          "yillik": -33.15602837,
+          "ipotekli": 132
+        },
+        {
+          "ad": "Tunceli",
+          "toplam": 120,
+          "yillik": -16.08391608,
+          "ipotekli": 13
+        },
+        {
+          "ad": "Uşak",
+          "toplam": 589,
+          "yillik": -16.8079096,
+          "ipotekli": 90
+        },
+        {
+          "ad": "Van",
+          "toplam": 1189,
+          "yillik": -16.26760563,
+          "ipotekli": 195
+        },
+        {
+          "ad": "Yalova",
+          "toplam": 1201,
+          "yillik": -16.36490251,
+          "ipotekli": 131
+        },
+        {
+          "ad": "Yozgat",
+          "toplam": 592,
+          "yillik": -24.1025641,
+          "ipotekli": 77
+        },
+        {
           "ad": "Zonguldak",
-          "toplam": 840,
-          "yillik": 21.73913043,
-          "ipotekli": 130
+          "toplam": 681,
+          "yillik": -16.84981685,
+          "ipotekli": 138
         }
       ]
     },
-    "alinma": "2026-10-29T09:37:53.174Z"
+    "alinma": "2026-11-17T07:56:09.239Z"
   },
   "ufe": {
     "kaynak": {
@@ -155209,13 +155246,21 @@
       {
         "yil": 2026,
         "ay": 9,
-        "yeni": 246.91,
-        "yeniYillik": 24.51964295,
-        "eski": 237.51,
-        "eskiYillik": 21.84373878
+        "yeni": 246.16,
+        "yeniYillik": 24.14140905,
+        "eski": 237.2,
+        "eskiYillik": 21.68470733
+      },
+      {
+        "yil": 2026,
+        "ay": 10,
+        "yeni": 246.37,
+        "yeniYillik": 21.59814422,
+        "eski": 239.21,
+        "eskiYillik": 21.01482268
       }
     ],
-    "alinma": "2026-11-16T07:57:09.795Z"
+    "alinma": "2026-11-17T07:56:09.239Z"
   },
   "krediEgilim": {
     "kaynak": {
