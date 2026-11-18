@@ -1661,7 +1661,7 @@ main {
 
 @media (max-width: 900px) {
   .ust {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: none;
     gap: 28px;
   }

@@ -149,4 +149,21 @@ import { cizelge, deger, kaynakSatiri, notCizelgede, DEGISIM_NOTU } from '../lib
     width: 148px;
     padding-inline: 16px 12px;
   }
+
+  /* Telefonda tablo kutuya sığsın: küçük grafik sütunu daralır. */
+  @media (max-width: 480px) {
+    .cizelge-grafik-baslik,
+    .cizelge-grafik {
+      width: 84px;
+      padding-inline: 10px 4px;
+    }
+
+    .cizelge-grafik :global(.spark) {
+      width: 70px;
+    }
+
+    .cizelge-deger {
+      padding-left: 10px;
+    }
+  }
 </style>
