@@ -1,9 +1,9 @@
 {
-  "guncellenme": "2026-11-18T20:05:40.280Z",
-  "sonDonem": "2026-08",
-  "sonEtiket": "Ağustos 2026",
-  "sonNetAkimMilyonUsd": 1270,
-  "sonToplamStokMilyonUsd": 5731,
+  "guncellenme": "2026-11-18T21:59:30.553Z",
+  "sonDonem": "2026-09",
+  "sonEtiket": "Eylül 2026",
+  "sonNetAkimMilyonUsd": 3257,
+  "sonToplamStokMilyonUsd": 8975,
   "sonTcmbMenkulStokMilyonUsd": null,
   "son4AyDonem": "Nisan - Ağustos 2026",
   "son4AyTicNetAlimMilyonUsd": 3957,
@@ -844,6 +844,14 @@
       "etiket": "Ağustos 2026",
       "netAkim": 1270,
       "stok": 5731,
+      "tcmbStok": null,
+      "tcmbAylikFark": null
+    },
+    {
+      "donem": "2026-09",
+      "etiket": "Eylül 2026",
+      "netAkim": 3257,
+      "stok": 8975,
       "tcmbStok": null,
       "tcmbAylikFark": null
     }

@@ -1,5 +1,5 @@
 {
-  "alinma": "2026-11-18T20:06:16.198Z",
+  "alinma": "2026-11-18T22:00:21.392Z",
   "kaynaklar": [
     {
       "ad": "TÜİK ulusal veri yayımlama takvimi (Resmi İstatistik Portalı)",
@@ -15,24 +15,6 @@
     }
   ],
   "olaylar": [
-    {
-      "tarih": "2026-10-19",
-      "saat": "10:00",
-      "kurum": "TCMB",
-      "baslik": "Kısa Vadeli Dış Borç İstatistikleri",
-      "donem": "Ağustos 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Kisa+Vadeli+Dis+Borc+Istatistiklerii/",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-19",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "Tarımsal Girdi Fiyat Endeksi",
-      "donem": "Ağustos 2026",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Tarımsal-Girdi-Fiyat-Endeksi-Ağustos-2026-58085&dil=1",
-      "kaynak": "tuik"
-    },
     {
       "tarih": "2026-10-20",
       "saat": "10:00",

@@ -1,6 +1,14 @@
 {
-  "guncelleme": "2026-11-18T20:05:40.782Z",
+  "guncelleme": "2026-11-18T21:59:31.284Z",
   "sonNokta": {
+    "tarih": "2026-09-01",
+    "uzunUSD": 1660,
+    "kisaUSD": 7315,
+    "toplamUSD": 8975,
+    "kisaOran": 81.5,
+    "uzunOran": 18.5
+  },
+  "oncekiNokta": {
     "tarih": "2026-08-01",
     "uzunUSD": 1622,
     "kisaUSD": 4109,
@@ -8,16 +16,8 @@
     "kisaOran": 71.7,
     "uzunOran": 28.3
   },
-  "oncekiNokta": {
-    "tarih": "2026-07-01",
-    "uzunUSD": 1611,
-    "kisaUSD": 2848,
-    "toplamUSD": 4459,
-    "kisaOran": 63.9,
-    "uzunOran": 36.1
-  },
-  "aylikDegisimUSD": 1272,
-  "aylikDegisimYuzde": 28.5,
+  "aylikDegisimUSD": 3244,
+  "aylikDegisimYuzde": 56.6,
   "tarihselZirve": {
     "tarih": "2015-01-01",
     "toplamUSD": 82431
@@ -26,7 +26,7 @@
     "tarih": "2022-01-01",
     "toplamUSD": 1510
   },
-  "zirvedenFarkYuzde": -93,
+  "zirvedenFarkYuzde": -89.1,
   "noktalar": [
     {
       "tarih": "2011-01-01",
@@ -1531,6 +1531,14 @@
       "toplamUSD": 5731,
       "kisaOran": 71.7,
       "uzunOran": 28.3
+    },
+    {
+      "tarih": "2026-09-01",
+      "uzunUSD": 1660,
+      "kisaUSD": 7315,
+      "toplamUSD": 8975,
+      "kisaOran": 81.5,
+      "uzunOran": 18.5
     }
   ]
 }
