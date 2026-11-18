@@ -2,7 +2,7 @@
 title: "Çin teknoloji sektörü küresel yapay zeka ticaretindeki yavaşlamadan olumsuz etkileniyor"
 description: "Küresel yapay zeka ticaretinin ivme kaybetmesiyle birlikte Çin'in teknoloji ve inovasyon hisselerinin takip edildiği Star 50 endeksi 2026 yılında yüzde 40'a yakın düştü. Yurt dışı pazarlara satış yapan Çinli şirketler büyümesini sürdürürken, iç pazara odaklanan şirketler değer kaybetti."
 date: 2026-10-17T01:35:50.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "Meta kırk iki milyar dolarlık yasal yükle karşı karşıya"
 description: "Meta, son dönemde karşılaştığı ceza ve uzlaşmalar nedeniyle yaklaşık 42 milyar dolarlık bir yasal yükle karşı karşıya bulunuyor. Bu tutar, New Mexico eyaletindeki 25 milyar dolarlık ceza ve çok eyaletli 18 milyar dolarlık uzlaşmadan kaynaklanıyor."
 date: 2026-10-26T09:24:58.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

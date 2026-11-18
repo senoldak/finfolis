@@ -1,5 +1,5 @@
 ---
-title: "Patriot Mobile Halka Arz İçin Başvurdu"
+title: "Patriot Mobile halka arz için başvurdu"
 description: "Patriot Mobile Inc., halka arz süreci için 9 Ekim 2026 tarihinde ABD Menkul Kıymetler ve Borsa Komisyonu'na (SEC) S-1 Formu ile kayıt başvurusunda bulundu."
 date: 2026-10-09T21:08:19.000Z
 category: "borsa"

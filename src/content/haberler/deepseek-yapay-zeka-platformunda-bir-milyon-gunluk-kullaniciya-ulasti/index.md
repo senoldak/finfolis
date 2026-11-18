@@ -2,7 +2,7 @@
 title: "DeepSeek yapay zeka platformunda bir milyon günlük kullanıcıya ulaştı"
 description: "Çin merkezli yapay zeka şirketi DeepSeek, yapay zeka temsilcisi platformunun günlük bir milyon kullanıcıya ulaştığını duyurdu. Bu gelişme, şirketin OpenAI ve Anthropic gibi rakipleriyle olan rekabetinde önemli bir aşama olarak değerlendiriliyor."
 date: 2026-11-08T18:11:48.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

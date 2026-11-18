@@ -2,7 +2,7 @@
 title: "PayPal hisse sayısını geri alımlarla yüzde 9 azalttı"
 description: "Ödeme şirketi PayPal, hisse başına kazançları desteklemek amacıyla piyasadaki hisse sayısını dokuz ayda yaklaşık yüzde 9 oranında düşürdü. Şirket, bu dönemde kendi hisselerini geri alarak toplam hisse adedini 837 milyona çekti."
 date: 2026-11-07T13:37:54.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

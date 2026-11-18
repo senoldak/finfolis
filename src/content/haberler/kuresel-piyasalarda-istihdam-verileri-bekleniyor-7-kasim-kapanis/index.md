@@ -2,7 +2,7 @@
 title: "Küresel piyasalarda istihdam verileri bekleniyor · 7 Kasım, kapanış"
 description: "Küresel piyasalar ABD istihdam raporunu bekliyor. Kanada'da borçlanma planları öne çıkıyor."
 date: 2026-11-07T20:34:25.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

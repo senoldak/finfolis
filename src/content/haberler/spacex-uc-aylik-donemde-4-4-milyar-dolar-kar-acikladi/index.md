@@ -2,7 +2,7 @@
 title: "SpaceX üç aylık dönemde 4,4 milyar dolar kâr açıkladı"
 description: "SpaceX, 2026 yılının üçüncü çeyreğinde 4,4 milyar dolar net kâr elde etti. Şirketin yapay zeka gelirleri roket gelirlerini geride bıraktı."
 date: 2026-10-20T20:38:30.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

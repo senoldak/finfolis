@@ -2,7 +2,7 @@
 title: "İleri teknoloji sektöründe borçlanma hacmi 680 milyar doları aştı"
 description: "İleri teknoloji ve yapay zekâ altyapı yatırımları için yapılan borçlanmalar, 2026 yılı Ekim ayı itibarıyla 680 milyar dolar seviyesini geçti. Bu rakam, 2023 yılındaki seviyenin beş katına denk geliyor."
 date: 2026-11-13T21:07:07.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

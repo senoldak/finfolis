@@ -1,5 +1,6 @@
 # Kalıcı yönlendirmeler (Cloudflare Workers statik varlıkları _redirects biçimi).
 # Birleştirilen mükerrer haberler ve aynı dilimdeki fazla bültenler korunan yazıya yönlenir (15.10.2026).
+/haber/home-depot-da-ust-yonetim-degisikligi/ /haber/home-depot-yonetici-degisikliklerini-duyurdu-ve-beklentileri-asti/ 301
 /haber/amazon-yapay-zeka-girisimi-decart-i-satin-almak-icin-gorusmeler-yurutuyor/ /haber/amazon-yapay-zeka-girisimi-decart-i-satin-almak-icin-gorusuyor/ 301
 /haber/bank-of-america-ya-kara-para-aklama-ihlalleri-nedeniyle-ceza/ /haber/bank-of-america-ya-kara-para-aklama-cezasi/ 301
 /haber/bank-of-america-ya-para-aklama-cezasi/ /haber/bank-of-america-ya-kara-para-aklama-cezasi/ 301
@@ -753,6 +754,8 @@
 # onay/ayrılma bağlantıları) ana sayfaya yönlenir (17.10.2026). Saatlik piyasa bültenleri /haber/ altındadır, etkilenmez.
 /bulten / 301
 /bulten/ / 301
+# Ekonomik ajanda sayfası kaldırıldı (18.11.2026: tek seferlik, güncellenmeyen veri); gerçek takvim /veri/takvim/.
+/veri/ajanda/ /veri/takvim/ 301
 /bulten/* / 301
 /api/bulten/* / 301
 /haber/piyasalarda-one-cikan-gelismeler-ve-borsa-hareketleri-18-ekim-kapanis/ /kategori/borsa/ 301

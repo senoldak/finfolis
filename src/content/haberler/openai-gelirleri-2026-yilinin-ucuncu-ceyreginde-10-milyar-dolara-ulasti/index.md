@@ -2,7 +2,7 @@
 title: "OpenAI gelirleri 2026 yılının üçüncü çeyreğinde 10 milyar dolara ulaştı"
 description: "OpenAI, 2026 yılının üçüncü çeyreğinde 10 milyar dolar gelir elde etti. Şirket, önceki çeyreğe göre yaklaşık yüzde 50 oranında büyüme kaydetti."
 date: 2026-11-10T21:35:12.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

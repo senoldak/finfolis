@@ -2,7 +2,7 @@
 title: "AMD, Nvidia karşısında beş günlük işlem döneminde rekor fark attı"
 description: "Çip üreticisi AMD, beş işlem günü içerisinde Nvidia'yı 53,2 puan geride bıraktı. Bu fark, Nvidia'nın 1999 yılındaki halka arzından bu yana iki şirket arasında görülen en geniş ayrışma olarak kaydedildi."
 date: 2026-11-13T15:00:31.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

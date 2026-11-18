@@ -2,7 +2,7 @@
 title: "Asya çip hisselerinde Nvidia bilançosu öncesi hareketlilik"
 description: "Asya borsalarında işlem gören çip üreticisi şirketlerin hisseleri, Nvidia'nın üçüncü çeyrek finansal sonuçlarının açıklanması öncesinde değer kaybetti. Bölgesel piyasalardaki genel satış eğilimi de bu dönemde öne çıktı."
 date: 2026-11-16T04:42:07.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

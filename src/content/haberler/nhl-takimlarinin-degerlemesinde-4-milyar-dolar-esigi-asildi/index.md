@@ -1,5 +1,5 @@
 ---
-title: "NHL Takımlarının Değerlemesinde 4 Milyar Dolar Eşiği Aşıldı"
+title: "NHL takımlarının değerlemesinde 4 milyar dolar eşiği aşıldı"
 description: "Profesyonel buz hokeyi ligi NHL'de, en değerli takımların piyasa değerleri ilk kez 4 milyar dolar seviyesini geçti. Ligdeki takımların ortalama değeri ise geçen yıla göre yüzde 23 artışla 2,71 milyar dolara ulaştı."
 date: 2026-11-13T11:07:04.000Z
 category: "piyasalar"

@@ -1,5 +1,5 @@
 ---
-title: "Fed Başkanı Warsh'tan Yapay Zekâ Değerlendirmesi ve Kanada Enflasyon Verileri · 16 Kasım, kapanış"
+title: "Fed Başkanı Warsh'tan yapay zekâ değerlendirmesi ve Kanada enflasyon verileri · 16 Kasım, kapanış"
 description: "Fed Başkanı Kevin Warsh yapay zekânın ekonomi üzerindeki potansiyel etkilerine dikkat çekerken, Kanada'da Ekim ayı enflasyonu yüzde 3,1 ile beklentilerin altında kaldı."
 date: 2026-11-17T05:29:11.000Z
 category: "piyasalar"

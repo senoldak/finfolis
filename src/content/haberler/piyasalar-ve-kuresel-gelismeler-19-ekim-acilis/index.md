@@ -1,5 +1,5 @@
 ---
-title: "Piyasalar ve Küresel Gelişmeler · 19 Ekim, açılış"
+title: "Piyasalar ve küresel gelişmeler · 19 Ekim, açılış"
 description: "Küresel piyasalar bilanço dönemi ve ekonomik verilerle hareketli bir hafta geçiriyor. Şirket sonuçları ve ticaret hamleleri yatırımcıların gündeminde yer alıyor."
 date: 2026-10-19T05:41:03.644Z
 category: "piyasalar"

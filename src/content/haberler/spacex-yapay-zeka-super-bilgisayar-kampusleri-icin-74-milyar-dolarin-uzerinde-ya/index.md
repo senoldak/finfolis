@@ -2,7 +2,7 @@
 title: "SpaceX, yapay zekâ süper bilgisayar kampüsleri için 74 milyar doların üzerinde yatırım planlıyor"
 description: "SpaceX, yapay zekâ çalışmaları kapsamında Teksas ve Arizona'da iki yeni süper bilgisayar kampüsü kurmayı planlıyor. Şirketin bu projeler için ayırdığı toplam yatırım tutarı 74 milyar doları aşıyor."
 date: 2026-11-14T14:30:52.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "Microsoft 365 hizmetlerinde küresel kesinti"
 description: "Microsoft 365 altyapısında yaşanan teknik sorunlar nedeniyle Outlook ve Teams gibi platformlarda erişim aksaklıkları meydana geldi. Perşembe günü başlayan kesinti, cuma günü itibarıyla bazı sunucularda iyileştirme çalışmalarıyla devam etti."
 date: 2026-11-13T09:34:38.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

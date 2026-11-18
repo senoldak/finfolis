@@ -1,5 +1,5 @@
 ---
-title: "Federal Açık Piyasa Komitesi 15-16 Eylül 2026 Toplantı Tutanakları Yayımlandı"
+title: "Federal Açık Piyasa Komitesi 15-16 Eylül 2026 toplantı tutanakları yayımlandı"
 description: "Federal Reserve, 15-16 Eylül 2026 tarihlerinde yapılan Federal Açık Piyasa Komitesi toplantısının tutanaklarını yayımladı. Tutanaklarda, toplam kişisel tüketim harcamaları fiyat endeksi enflasyonunun ağustos ayında yüzde 3,8 olarak tahmin edildiği belirtildi."
 date: 2026-10-07T18:00:00.000Z
 category: "ekonomi"

@@ -1,5 +1,5 @@
 ---
-title: "Nebraska'da Medicaid Çalışma Zorunluluğu Kanser Hastasının Güvencesini Kaybetmesine Yol Açtı"
+title: "Nebraska'da Medicaid çalışma zorunluluğu kanser hastasının güvencesini kaybetmesine yol açtı"
 description: "Nebraska eyaletinde hızlıca hayata geçirilen Medicaid çalışma kuralları, böbrek kanseri teşhisi konulan Eli McCreary'nin sağlık güvencesini kaybetmesine neden oldu. Hasta hakları savunucuları süreçte büyük karmaşa yaşandığını belirtiyor."
 date: 2026-11-15T10:45:00.000Z
 category: "ekonomi"

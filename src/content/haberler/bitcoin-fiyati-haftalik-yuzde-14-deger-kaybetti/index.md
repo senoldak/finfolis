@@ -1,5 +1,5 @@
 ---
-title: "Bitcoin Fiyatı Haftalık Yüzde 14 Değer Kaybetti"
+title: "Bitcoin fiyatı haftalık yüzde 14 değer kaybetti"
 description: "Bitcoin fiyatı, hafta sonu yaşanan satışlarla yaklaşık 65.000 dolar seviyesine geriledi. Bu düşüşle birlikte kripto para birimi, son bir haftada yüzde 14 civarında değer kaybetti."
 date: 2026-11-14T15:27:33.000Z
 category: "kripto"

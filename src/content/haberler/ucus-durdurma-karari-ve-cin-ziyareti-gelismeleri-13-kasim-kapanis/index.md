@@ -1,5 +1,5 @@
 ---
-title: "Uçuş Durdurma Kararı ve Çin Ziyareti Gelişmeleri · 13 Kasım, kapanış"
+title: "Uçuş durdurma kararı ve Çin ziyareti gelişmeleri · 13 Kasım, kapanış"
 description: "Amerika Birleşik Devletleri'nde havacılık iletişim sorunları nedeniyle uçuşlar geçici olarak durduruldu. ABD Başkanı Donald Trump'ın Çin ziyaretinde Nvidia konusunu gündeme getirmesi beklenmiyor."
 date: 2026-11-14T05:03:57.000Z
 category: "piyasalar"

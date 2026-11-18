@@ -2,7 +2,7 @@
 title: "Oracle bulut platformunda Google işlemcilerine yer verecek"
 description: "Oracle Cloud Infrastructure, Google'ın Tensor Processing Units işlemcilerini 2027 yılında sunmaya başlayacak. Bu adım, Oracle'ı Google dışında bu çipleri sunan ilk büyük bulut sağlayıcısı yapıyor."
 date: 2026-10-27T16:58:29.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

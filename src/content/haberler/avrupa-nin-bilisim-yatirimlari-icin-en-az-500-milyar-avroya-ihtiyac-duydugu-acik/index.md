@@ -2,7 +2,7 @@
 title: "Avrupa'nın bilişim yatırımları için en az 500 milyar avroya ihtiyaç duyduğu açıklandı"
 description: "Avrupa Komisyonu Başkanı Ursula von der Leyen, kıtanın bilişim yatırımları için en az 500 milyar avroya ihtiyaç duyduğunu belirtti. Mevcut fonlar ve programlar bu hedefin gerisinde kalıyor."
 date: 2026-11-13T17:47:30.000Z
-category: "kripto"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

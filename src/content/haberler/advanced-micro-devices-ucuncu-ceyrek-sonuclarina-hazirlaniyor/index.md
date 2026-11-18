@@ -2,7 +2,7 @@
 title: "Advanced Micro Devices üçüncü çeyrek sonuçlarına hazırlanıyor"
 description: "Advanced Micro Devices, yapay zeka ekosistemindeki gerilimlerin ortasında 2026 mali yılı üçüncü çeyrek sonuçlarını açıklamaya hazırlanıyor. Analistler, şirketin gelirinin yaklaşık 13,08 milyar dolar olmasını bekliyor."
 date: 2026-10-26T19:47:47.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

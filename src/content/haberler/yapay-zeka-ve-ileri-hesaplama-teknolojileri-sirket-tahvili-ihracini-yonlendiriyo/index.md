@@ -2,7 +2,7 @@
 title: "Yapay zekâ ve ileri hesaplama teknolojileri şirket tahvili ihracını yönlendiriyor"
 description: "St. Louis Fed raporuna göre, yapay zekâ ve ileri hesaplama teknolojilerine yönelik yatırımlar, ABD'deki finans dışı şirketlerin yatırım yapılabilir seviyedeki tahvil ihraçlarının yüzde 31'ini oluşturuyor. Büyük teknoloji şirketleri, veri merkezi ve altyapı harcamalarını finanse etmek için borçlanmaya daha fazla başvuruyor."
 date: 2026-11-13T21:06:07.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

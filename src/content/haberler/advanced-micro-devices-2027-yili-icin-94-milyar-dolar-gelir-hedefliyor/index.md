@@ -2,7 +2,7 @@
 title: "Advanced Micro Devices 2027 yılı için 94 milyar dolar gelir hedefliyor"
 description: "Advanced Micro Devices (AMD), 2027 yılı gelir beklentisini yaklaşık 94 milyar dolara yükseltti. Şirket, yapay zeka odaklı veri merkezi iş kolundaki büyüme sayesinde bu hedefe üç yıl erken ulaşmayı planlıyor."
 date: 2026-11-09T06:14:53.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "Amazon yapay zeka birimi 25 milyar dolarlık yıllık gelir oranına ulaştı"
 description: "Amazon'un yapay zeka birimi 25 milyar dolarlık yıllık gelir oranını yakalarken, üst yönetici Andy Jassy bu birimin ilk dönemindeki AWS'den yüzlerce kat daha hızlı büyüdüğünü belirtti. Şirket, 2026 yılı sermaye harcaması tahminini yaklaşık 220 milyar dolara yükseltti."
 date: 2026-10-24T15:20:36.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "Kevin Warsh kredi koşullarının eylül ayı faiz artışından sonra sıkılaştığını belirtti"
 description: "Kevin Warsh, eylül ayındaki faiz artışının ardından kredi koşullarının sıkılaştığını ifade etti. Bu hamleyle faiz hedef aralığı yüzde 3,75 ile yüzde 4,00 seviyesine yükseldi."
 date: 2026-10-28T18:42:26.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -1,5 +1,5 @@
 ---
-title: "Japonya Merkez Bankası Üyesi Koeda Kumamoto'da Konuştu"
+title: "Japonya Merkez Bankası üyesi Koeda Kumamoto'da konuştu"
 description: "Japonya Merkez Bankası Politika Kurulu Üyesi Junko Koeda, 15 Ekim 2026 tarihinde Kumamoto'da yerel liderlerle buluştu. Konuşmada ekonomik aktivite, fiyatlar ve para politikası ele alındı."
 date: 2026-10-15T01:30:00.000Z
 category: "ekonomi"

@@ -2,7 +2,7 @@
 title: "Allegro MicroSystems'in ikinci çeyrek satışları 276,9 milyon dolara ulaştı"
 description: "Allegro MicroSystems, 2027 mali yılının ikinci çeyreğinde satışlarını yıllık bazda yüzde 29 artırarak 276,9 milyon dolara çıkardı. Şirket, bu dönemde yapay zekâ veri merkezleri ve otomotiv sektöründen gelen talebin etkili olduğunu bildirdi."
 date: 2026-11-14T18:51:07.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

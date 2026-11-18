@@ -2,7 +2,7 @@
 title: "Intuitive Machines üçüncü çeyrekte 269,3 milyon dolar gelirle rekor kırdı"
 description: "Uzay teknolojileri şirketi Intuitive Machines, üçüncü çeyrek gelirlerini bir önceki yılın aynı dönemine göre beş katından fazla artırarak 269,3 milyon dolara taşıdı. Şirketin sipariş bekleyen iş hacmi de 1,9 milyar dolar ile rekor seviyeye ulaştı."
 date: 2026-11-12T19:10:43.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

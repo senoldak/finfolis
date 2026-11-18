@@ -2,7 +2,7 @@
 title: "İngiltere siber güvenlik ajansından yapay zeka uyarısı"
 description: "İngiltere Ulusal Siber Güvenlik Merkezi, yapay zeka destekli fidye yazılımlarının 2028 yılına kadar kritik altyapıları hedef almasının yüksek ihtimalle gerçekleşeceğini açıkladı. Kötü amaçlı siber faaliyetlerin İngiltere'deki kuruluşlara yıllık maliyetinin 14,7 milyar sterlin olduğu belirtildi."
 date: 2026-11-03T13:22:59.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

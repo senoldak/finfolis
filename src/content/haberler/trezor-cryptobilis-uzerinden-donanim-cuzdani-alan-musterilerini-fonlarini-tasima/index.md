@@ -2,7 +2,7 @@
 title: "Trezor, CryptoBilis üzerinden donanım cüzdanı alan müşterilerini fonlarını taşımaları konusunda uyardı"
 description: "Trezor, şüpheli bir donanım müdahalesi raporunun ardından mart ayından bu yana CryptoBilis'ten cihaz satın alan müşterilerine varlıklarını taşıma çağrısı yaptı. Açıklama 30 Ekim 2026 tarihinde yayımlandı."
 date: 2026-10-30T09:26:45.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

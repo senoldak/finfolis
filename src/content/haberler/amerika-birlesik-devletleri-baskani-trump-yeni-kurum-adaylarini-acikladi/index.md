@@ -2,7 +2,7 @@
 title: "Amerika Birleşik Devletleri Başkanı Trump yeni kurum adaylarını açıkladı"
 description: "Amerika Birleşik Devletleri Başkanı Donald Trump, Menkul Kıymetler ve Borsa Komisyonu ile Emtia Vadeli İşlemler Ticaret Komisyonu için yeni üyeler aday gösterdi. Açıklanan isimler arasında iki Demokrat ve iki Cumhuriyetçi yer alıyor."
 date: 2026-11-13T14:45:00.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

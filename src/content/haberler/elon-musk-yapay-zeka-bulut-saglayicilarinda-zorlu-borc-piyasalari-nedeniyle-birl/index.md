@@ -2,7 +2,7 @@
 title: "Elon Musk yapay zeka bulut sağlayıcılarında zorlu borç piyasaları nedeniyle birleşmeler bekliyor"
 description: "Elon Musk, borç piyasalarındaki sıkı koşulların yapay zeka bulut sağlayıcılarının birçoğunu zorlayacağını belirtti. En büyük beş halka açık sağlayıcının toplam borcu 61 milyar dolara ulaştı."
 date: 2026-10-25T19:36:43.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

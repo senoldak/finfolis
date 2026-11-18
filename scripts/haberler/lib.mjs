@@ -3,6 +3,8 @@ import { mkdir, writeFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import { geminiCagir } from './istemci.mjs';
 import { kapakCiz } from '../kapak/kapak.mjs';
+import { kategoriDuzelt } from './kategori-duzelt.mjs';
+import { cumleDuzeni } from './baslik-duzeni.mjs';
 
 export const USER_AGENT = 'finfolis-haber-botu (+https://finfolis.com)';
 
@@ -108,7 +110,8 @@ const y = (s) => JSON.stringify(String(s));
 // Haberi src/content/haberler/<slug>/index.md olarak yazar, slug'ı döner.
 export async function yaziYaz(rot, yazi) {
   const taban = path.join(rot, 'src/content/haberler');
-  const baslik = baslikBuyut(yazi.baslik);
+  // "Her Kelimesi Büyük" başlık cümle düzenine iner; özel adlar metinden okunur (bkz. baslik-duzeni.mjs).
+  const baslik = cumleDuzeni(baslikBuyut(yazi.baslik), `${yazi.spot ?? ''}\n${yazi.govde ?? ''}`);
   const temel = slugla(yazi.baslik) || 'haber';
   let slug = temel;
   for (let i = 2; ; i++) {
@@ -124,7 +127,8 @@ export async function yaziYaz(rot, yazi) {
     `title: ${y(baslik)}`,
     `description: ${y(yazi.spot)}`,
     `date: ${yazi.tarih.toISOString()}`,
-    `category: ${y(yazi.kategori)}`,
+    // Beslemenin sabit kategorisi konuyla uyuşmazsa (kripto/doviz) düzeltilir: bkz. kategori-duzelt.mjs.
+    `category: ${y(kategoriDuzelt(yazi.kategori, { baslik: yazi.baslik, ozet: yazi.spot, govde: yazi.govde }))}`,
     `tur: ${y(yazi.tur ?? 'haber')}`,
     // İçerik türü (veri | arastirma | resmi): okura yazının neye dayandığını söyler (bkz. icerik-turu.mjs).
     ...(yazi.icerikTuru ? [`icerikTuru: ${y(yazi.icerikTuru)}`] : []),

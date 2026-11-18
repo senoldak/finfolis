@@ -1,5 +1,5 @@
 ---
-title: "Küresel Piyasalar ve Şirket Gelişmeleri Derlemesi · 5 Kasım, kapanış"
+title: "Küresel piyasalar ve şirket gelişmeleri derlemesi · 5 Kasım, kapanış"
 description: "Küresel piyasalarda işsizlik başvurularından şirket satın almalarına kadar pek çok önemli gelişme takip ediliyor. Artan maliyetler ve ekonomik gelişmeler piyasaları etkiliyor."
 date: 2026-11-05T21:37:13.000Z
 category: "piyasalar"

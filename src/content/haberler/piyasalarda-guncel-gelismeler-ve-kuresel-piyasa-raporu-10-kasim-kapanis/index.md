@@ -1,5 +1,5 @@
 ---
-title: "Piyasalarda Güncel Gelişmeler ve Küresel Piyasa Raporu · 10 Kasım, kapanış"
+title: "Piyasalarda güncel gelişmeler ve küresel piyasa raporu · 10 Kasım, kapanış"
 description: "Küresel piyasalarda şirketlerin halka arz süreçleri, yönetim soruşturmaları ve merkez bankası politikaları öne çıkıyor. Çeşitli sektörlerden gelen veriler ve şirket hareketleri yatırımcıların odak noktasında yer alıyor."
 date: 2026-11-10T21:21:50.000Z
 category: "piyasalar"

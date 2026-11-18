@@ -2,7 +2,7 @@
 title: "Affirm büyüme hedefini yüzde 30 seviyesine çıkardı"
 description: "Şimdi al, sonra öde hizmeti sunan Affirm, 2027 mali yılı için büyüme beklentisini en az yüzde 30'a yükseltirken yeni bir yapay zeka kredi onay modeli tanıttı. Şirketin toplam işlem hacmi ilk çeyrekte geçen yılın aynı dönemine göre yüzde 34 artış gösterdi."
 date: 2026-11-07T13:23:17.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "Nvidia üst yöneticisi Jensen Huang yapay zeka talebinin yüksek olduğunu ancak finansmanın geride kaldığını belirtti"
 description: "Nvidia üst yöneticisi Jensen Huang, yapay zeka bulut sağlayıcılarına talebin çok yüksek olduğunu ancak bu projeler için gereken sermayenin aynı hızı izlemediğini söyledi. Açıklamanın yapıldığı gün Philadelphia Yarı İletken Endeksi yaklaşık yüzde 6,7 oranında geriledi."
 date: 2026-10-24T11:10:51.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

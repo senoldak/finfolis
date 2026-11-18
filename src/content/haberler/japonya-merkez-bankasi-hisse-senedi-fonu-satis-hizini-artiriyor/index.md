@@ -2,7 +2,7 @@
 title: "Japonya merkez bankası hisse senedi fonu satış hızını artırıyor"
 description: "Japonya merkez bankası hisse senedi fonu satışlarını yaklaşık 2,6 kat hızlandırma kararı aldı. Bu adımla fonların elden çıkarılma süresinin 112 yıldan 43 yıla düşmesi öngörülüyor."
 date: 2026-11-01T15:30:12.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

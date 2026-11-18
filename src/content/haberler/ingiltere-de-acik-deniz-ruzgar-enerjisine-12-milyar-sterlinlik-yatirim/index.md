@@ -1,5 +1,5 @@
 ---
-title: "İngiltere'de Açık Deniz Rüzgar Enerjisine 12 Milyar Sterlinlik Yatırım"
+title: "İngiltere'de açık deniz rüzgar enerjisine 12 milyar sterlinlik yatırım"
 description: "Alman RWE ve ABD'li KKR, Norfolk kıyılarında kurulacak iki rüzgar santrali için 12 milyar sterlinlik ortaklık kurdu. Projenin 2030 yılına kadar enerji sağlamaya başlaması hedefleniyor."
 date: 2026-11-11T09:46:18.000Z
 category: "ekonomi"

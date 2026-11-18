@@ -1,5 +1,5 @@
 ---
-title: "Japonya Ekonomisi Daraldı, Piyasa Şirket Gelişmelerine Odaklandı · 15 Kasım, kapanış"
+title: "Japonya ekonomisi daraldı, piyasa şirket gelişmelerine odaklandı · 15 Kasım, kapanış"
 description: "Japonya ekonomisi Temmuz-Eylül döneminde yıllıklandırılmış bazda yüzde 0,1 oranında daralma kaydetti. ABD piyasalarında ise Nvidia'nın bilançosu ve Anthropic'in halka arz planları takip ediliyor."
 date: 2026-11-16T04:34:00.000Z
 category: "piyasalar"

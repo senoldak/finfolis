@@ -1,5 +1,5 @@
 ---
-title: "İngiltere Merkez Bankası'nın Faiz Politikasına Yönelik Değerlendirmeler"
+title: "İngiltere Merkez Bankası'nın faiz politikasına yönelik değerlendirmeler"
 description: "Ulusal Ekonomik ve Sosyal Araştırmalar Enstitüsü, İngiltere Merkez Bankası'nın enflasyonla mücadele adımlarının yetersiz kalabileceğini belirtti. Enstitü, bu durumun faiz oranlarının daha uzun süre yüksek kalmasına yol açabileceği uyarısında bulundu."
 date: 2026-11-11T00:01:23.000Z
 category: "ekonomi"

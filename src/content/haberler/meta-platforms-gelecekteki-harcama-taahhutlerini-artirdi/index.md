@@ -2,7 +2,7 @@
 title: "Meta Platforms gelecekteki harcama taahhütlerini artırdı"
 description: "Meta Platforms gelecekteki harcama taahhütlerini 825 milyar dolara çıkardı. Bu artış, yapay zeka veri merkezleri ve bulut bilişim gibi alanlara yapılan yatırımlarla gerçekleşti."
 date: 2026-10-22T11:42:19.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

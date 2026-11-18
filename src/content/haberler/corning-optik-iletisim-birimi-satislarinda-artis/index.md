@@ -2,7 +2,7 @@
 title: "Corning optik iletişim birimi satışlarında artış"
 description: "Yapay zeka veri merkezlerinin fiber kablo talebiyle Corning'in optik iletişim birimi satışları üçüncü çeyrekte yüzde 44 oranında arttı. Şirket, döneme ilişkin finansal sonuçlarını açıkladı."
 date: 2026-10-31T11:13:26.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

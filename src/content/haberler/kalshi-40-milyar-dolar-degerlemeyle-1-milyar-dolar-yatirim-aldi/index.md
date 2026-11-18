@@ -2,7 +2,7 @@
 title: "Kalshi 40 milyar dolar değerlemeyle 1 milyar dolar yatırım aldı"
 description: "Tahmin piyasası platformu Kalshi, 40 milyar dolar değerleme üzerinden 1 milyar dolar tutarında bir finansman turunu tamamladı. Şirket, spor dışı piyasalarının yıllık 1 milyar doların üzerinde gelir ürettiğini açıkladı."
 date: 2026-10-29T15:52:43.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

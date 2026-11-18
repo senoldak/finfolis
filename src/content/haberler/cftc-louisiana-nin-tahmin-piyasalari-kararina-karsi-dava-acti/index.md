@@ -2,7 +2,7 @@
 title: "CFTC, Louisiana'nın tahmin piyasaları kararına karşı dava açtı"
 description: "ABD Emtia Vadeli İşlemler Ticaret Komisyonu (CFTC) ve Adalet Bakanlığı, Louisiana eyaletinin tahmin piyasası platformlarına getirdiği kısıtlamaları iptal ettirmek için federal mahkemeye başvurdu. Eyalet yönetimi ise kumar düzenleme yetkisinin kendisinde olduğunu savunuyor."
 date: 2026-11-14T19:11:19.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

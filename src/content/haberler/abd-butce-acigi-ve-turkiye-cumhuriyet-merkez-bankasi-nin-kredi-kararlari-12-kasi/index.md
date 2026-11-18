@@ -1,5 +1,5 @@
 ---
-title: "ABD Bütçe Açığı ve Türkiye Cumhuriyet Merkez Bankası'nın Kredi Kararları · 12 Kasım, kapanış"
+title: "ABD bütçe açığı ve Türkiye Cumhuriyet Merkez Bankası'nın kredi kararları · 12 Kasım, kapanış"
 description: "ABD'de ekim ayı bütçe açığı verileri ve Türkiye Cumhuriyet Merkez Bankası'nın kredi büyüme sınırlarına ilişkin güncellemeleri öne çıkıyor. Ayrıca ABD tahvil ihaleleri ve teknoloji şirketlerinin finansal sonuçları piyasaların takibinde."
 date: 2026-11-12T21:33:44.000Z
 category: "ekonomi"

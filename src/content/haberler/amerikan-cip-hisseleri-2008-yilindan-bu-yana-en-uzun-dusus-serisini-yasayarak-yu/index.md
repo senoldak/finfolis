@@ -2,7 +2,7 @@
 title: "Amerikan çip hisseleri 2008 yılından bu yana en uzun düşüş serisini yaşayarak yüzde 16 değer kaybetti"
 description: "Philadelphia Yarı İletken Endeksi sekiz seans üst üste düşerek 2008 Ekim ayından bu yana en uzun kayıp serisini kaydetti. Yapay zeka harcamaları, borç ve enflasyon endişeleri piyasaları etkiledi."
 date: 2026-10-18T04:54:12.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

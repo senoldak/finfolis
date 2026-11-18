@@ -2,7 +2,7 @@
 title: "Küresel hisse senedi fonlarına hazirandan bu yana en yüksek giriş gerçekleşti"
 description: "Küresel hisse senedi fonları, yaklaşık 98,3 milyar dolarlık net girişle haziran ayından bu yana en yüksek seviyesine ulaştı. Teknoloji, sağlık ve finans sektörleri yatırımcıların en çok ilgi gösterdiği alanlar oldu."
 date: 2026-11-14T11:28:10.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

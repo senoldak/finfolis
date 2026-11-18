@@ -2,7 +2,7 @@
 title: "Nscale halka arz değerleme hedefi konusunda yatırımcı direnişiyle karşılaşıyor"
 description: "Londra merkezli yapay zeka bulut firması Nscale, New York Borsası'nda 35 milyar dolara kadar değerleme hedefliyor ancak bazı yatırımcılar bu rakama mesafeli yaklaşıyor. Şirket, 18 Eylül 2026 tarihinde ABD Menkul Kıymetler ve Borsa Komisyonu'na S-1 kayıt beyanını sundu."
 date: 2026-10-18T21:38:51.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

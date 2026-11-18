@@ -2,7 +2,7 @@
 title: "Galaxy Digital yılın üçüncü çeyreğinde kar açıkladı"
 description: "Galaxy Digital, 2026 yılının ikinci çeyreğindeki zararının ardından üçüncü çeyrekte 323 milyon dolar net kar bildirdi. Şirket yönetimi ayrıca 200 milyon dolarlık hisse geri alım programını onayladı."
 date: 2026-10-27T13:12:40.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

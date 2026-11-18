@@ -2,7 +2,7 @@
 title: "Nebius 2027 yılı için 40 milyar dolar ile 45 milyar dolar arası yatırım planlıyor"
 description: "Amsterdam merkezli yapay zekâ bulut sağlayıcısı Nebius, 2027 yılında kapasitesini artırmak için 40 milyar dolar ile 45 milyar dolar arasında sermaye harcaması öngörüyor. Şirket, bu büyük yatırımı finanse etmek için müşterilerinden aldığı ön ödemelere ağırlık veriyor."
 date: 2026-11-12T13:07:20.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

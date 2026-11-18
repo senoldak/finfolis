@@ -1,5 +1,5 @@
 ---
-title: "İstihdam Verileri Fed Faiz Beklentilerini Yükseltti · 7 Kasım, öğle"
+title: "İstihdam verileri Fed faiz beklentilerini yükseltti · 7 Kasım, öğle"
 description: "ABD'de ekim ayı istihdam verilerinin beklentileri aşmasıyla aralık ayında faiz artırımı ihtimali arttı. Teknoloji hisselerinde yaşanan sert satışların ardından piyasalarda kısmi toparlanma görüldü."
 date: 2026-11-07T13:21:07.000Z
 category: "piyasalar"

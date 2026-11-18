@@ -2,7 +2,7 @@
 title: "Anthropic'in yıllıklandırılmış gelir oranı 80 milyar doları aştı"
 description: "Yapay zeka şirketi Anthropic'in yıllıklandırılmış gelir oranı Ekim ayında 80 milyar dolar seviyesini geçti. Şirketin halka arz planlarında ise küçülme ve gecikme ihtimali gündeme geldi."
 date: 2026-11-06T06:22:44.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

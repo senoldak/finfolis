@@ -1,5 +1,5 @@
 ---
-title: "Fed Üyesi Bowman'dan Yapay Zeka Yatırımları ve Enflasyon Uyarısı"
+title: "Fed üyesi Bowman'dan yapay zeka yatırımları ve enflasyon uyarısı"
 description: "Fed Yönetim Kurulu Üyesi Michelle Bowman, yapay zeka yatırımlarından beklenen getirilerin sağlanamaması durumunda hisse senedi piyasalarında düşüş yaşanabileceğini belirtti. Bowman ayrıca, devam eden enflasyon baskıları nedeniyle yılın son toplantısında faiz artışını destekleyebileceğinin sinyalini verdi."
 date: 2026-11-10T20:50:08.000Z
 category: "piyasalar"

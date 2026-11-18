@@ -2,7 +2,7 @@
 title: "Goldman Sachs petrol fiyatlarında düşüş bekliyor"
 description: "Goldman Sachs, 2027 yılında petrol piyasasında önemli bir arz fazlası oluşabileceği ve fiyatların gerileyebileceği uyarısında bulundu. Kurum, Brent petrolün 2027 yılı sonunda varil başına 78 dolara kadar düşebileceğini öngörüyor."
 date: 2026-11-16T11:28:27.000Z
-category: "kripto"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

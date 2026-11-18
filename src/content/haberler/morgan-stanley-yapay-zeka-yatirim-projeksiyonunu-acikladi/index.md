@@ -2,7 +2,7 @@
 title: "Morgan Stanley yapay zeka yatırım projeksiyonunu açıkladı"
 description: "Morgan Stanley'nin yeni raporuna göre küresel yapay zeka bilgi işlem yatırımlarının 2027 yılında yaklaşık 1,58 trilyon dolara ulaşması bekleniyor. Bu harcamanın S&P 500 satış büyümesinin yaklaşık yüzde 25'ini destekleyeceği öngörülüyor."
 date: 2026-10-18T14:39:40.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

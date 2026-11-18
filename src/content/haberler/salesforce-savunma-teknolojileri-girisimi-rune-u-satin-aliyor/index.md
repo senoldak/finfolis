@@ -2,7 +2,7 @@
 title: "Salesforce savunma teknolojileri girişimi Rune'u satın alıyor"
 description: "Yazılım devi Salesforce, askeri lojistik alanında yapay zeka çözümleri geliştiren Rune Technologies şirketini 375 milyon dolara bünyesine katmak üzere anlaştı. Bu satın alma ile Salesforce, ulusal güvenlik ve savunma birimi Missionforce'u büyütmeyi hedefliyor."
 date: 2026-10-30T23:24:40.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -1,5 +1,5 @@
 ---
-title: "Piyasalarda Fed Beklentileri ve Şirket Gelişmeleri · 27 Ekim, kapanış"
+title: "Piyasalarda Fed beklentileri ve şirket gelişmeleri · 27 Ekim, kapanış"
 description: "Küresel piyasalarda yatırımcılar ABD Merkez Bankasının faiz kararını beklerken, yapay zeka odaklı hisseler ve şirket gelişmeleri öne çıktı. Çeşitli sektörlerde bilanço ve satın alma haberleri takip edildi."
 date: 2026-10-27T21:13:08.000Z
 category: "piyasalar"

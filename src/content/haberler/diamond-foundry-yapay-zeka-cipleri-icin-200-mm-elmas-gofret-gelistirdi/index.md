@@ -2,7 +2,7 @@
 title: "Diamond Foundry yapay zeka çipleri için 200 mm elmas gofret geliştirdi"
 description: "San Francisco merkezli Diamond Foundry, yapay zeka çiplerinin soğutulmasında kullanılmak üzere tasarlanan 200 mm boyutundaki tek kristal elmas gofretini tanıttı. Yeni geliştirilen elmas, şirketin Kasım 2023'te duyurduğu 100 mm'lik önceki rekorunu ikiye katladı."
 date: 2026-11-08T15:30:53.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

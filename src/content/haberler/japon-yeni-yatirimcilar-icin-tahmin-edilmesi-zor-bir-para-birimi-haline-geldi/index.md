@@ -1,5 +1,5 @@
 ---
-title: "Japon Yeni Yatırımcılar İçin Tahmin Edilmesi Zor Bir Para Birimi Haline Geldi"
+title: "Japon yeni yatırımcılar için tahmin edilmesi zor bir para birimi haline geldi"
 description: "Japon yeni, son aylarda dolar karşısında 158 seviyesinde seyrettikten sonra 11 Kasım'da 160 seviyesine doğru beklenmedik şekilde geriledi. Bu hareket, para biriminde işlem yapmanın zorluğunu ve piyasadaki belirsizliği gösteriyor."
 date: 2026-11-12T21:47:43.000Z
 category: "piyasalar"

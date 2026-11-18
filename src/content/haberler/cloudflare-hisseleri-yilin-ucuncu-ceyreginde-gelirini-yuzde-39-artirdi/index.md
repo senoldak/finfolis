@@ -2,7 +2,7 @@
 title: "Cloudflare hisseleri yılın üçüncü çeyreğinde gelirini yüzde 39 artırdı"
 description: "Bulut altyapı şirketi Cloudflare'in üçüncü çeyrek geliri 782,5 milyon dolara ulaştı. Şirketin hisseleri mesai saatleri sonrasında yüzde 17'den fazla değer kazandı."
 date: 2026-11-05T21:23:41.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

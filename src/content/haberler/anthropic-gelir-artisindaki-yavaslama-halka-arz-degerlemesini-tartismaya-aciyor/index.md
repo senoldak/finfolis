@@ -2,7 +2,7 @@
 title: "Anthropic gelir artışındaki yavaşlama halka arz değerlemesini tartışmaya açıyor"
 description: "Anthropic gelir artışındaki yavaşlama, 2 trilyon dolarlık halka arz değerlemesi üzerinde soru işaretleri yaratıyor. Üçüncü çeyrekte 16,8 milyar dolar gelir elde eden şirket, düzeltilmiş kârlılığa ulaştı."
 date: 2026-10-17T20:33:46.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -1,5 +1,5 @@
 ---
-title: "Japonya Merkez Bankası Başkanı Ueda'dan Enflasyon Açıklaması"
+title: "Japonya Merkez Bankası Başkanı Ueda'dan enflasyon açıklaması"
 description: "Japonya Merkez Bankası Başkanı Kazuo Ueda, çekirdek enflasyonun bankanın yüzde 2 hedefine oldukça yakın olduğunu belirtti. Ueda, küresel yapay zeka talebinin de fiyat baskısını artırdığını ifade etti."
 date: 2026-10-19T00:16:56.000Z
 category: "ekonomi"

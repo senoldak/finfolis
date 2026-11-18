@@ -1,5 +1,5 @@
 ---
-title: "Piyasalardan Yapay Zekaya Küresel Gelişmeler · 19 Ekim, açılış"
+title: "Piyasalardan yapay zekaya küresel gelişmeler · 19 Ekim, açılış"
 description: "Çin borsalarındaki düşüşler ve devlet fonlarının adımları piyasaların odağında yer alıyor. Yapay zeka teknolojileri ve yeni idari atamalar da gündemi şekillendiriyor."
 date: 2026-10-19T07:00:00.000Z
 category: "piyasalar"

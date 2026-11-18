@@ -2,7 +2,7 @@
 title: "Innio üç aylık gelirinde 1 milyar dolar sınırını aştı"
 description: "Enerji ekipmanları üreticisi Innio, 2026 yılının üçüncü çeyreğinde gelirini yüzde 57 artırarak 1,2 milyar dolara taşıdı. Şirketin büyümesinde yapay zeka veri merkezlerinin kendi enerjilerini üretmek için yaptığı yatırımlar etkili oldu."
 date: 2026-11-05T09:00:00.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

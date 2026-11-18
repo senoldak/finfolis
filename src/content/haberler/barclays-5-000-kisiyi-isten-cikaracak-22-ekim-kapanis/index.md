@@ -1,5 +1,5 @@
 ---
-title: "Barclays 5.000 Kişiyi İşten Çıkaracak · 22 Ekim, kapanış"
+title: "Barclays 5.000 kişiyi işten çıkaracak · 22 Ekim, kapanış"
 description: "Barclays, yapay zeka verimlilik artışlarını gerekçe göstererek küresel iş gücünün yüzde 5'ine denk gelen 5.000 çalışanla yollarını ayıracağını duyurdu. TS Lombard ise yapay zeka patlamasının sekteye uğraması durumunda büyük bir piyasa düşüşü yaşanabileceği senaryosunu paylaştı."
 date: 2026-10-22T20:39:43.000Z
 category: "piyasalar"

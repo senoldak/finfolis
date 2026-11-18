@@ -2,7 +2,7 @@
 title: "Nvidia üst yöneticisi Jensen Huang hakkında soruşturma çağrısı"
 description: "ABD'li milletvekilleri, Nvidia CEO'su Jensen Huang hakkında bir teknoloji yöneticisiyle yaşadığı iddia edilen ilişki nedeniyle kongre soruşturması açılmasını talep etti. Nvidia yönetim kurulu iddialar üzerine bağımsız bir inceleme başlattı."
 date: 2026-11-11T09:21:46.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

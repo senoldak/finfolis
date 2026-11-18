@@ -1,5 +1,5 @@
 ---
-title: "Küresel Piyasalar ve Enerji Gündemi · 6 Kasım, açılış"
+title: "Küresel piyasalar ve enerji gündemi · 6 Kasım, açılış"
 description: "Ara seçimlerin ardından küresel hisse senetlerinde sert düşüşler yaşanırken, Orta Doğu'daki gelişmeler enerji piyasalarını etkilemeye devam ediyor. Yatırımcılar artan jeopolitik riskleri ve olası politika değişikliklerini izliyor."
 date: 2026-11-06T07:24:04.000Z
 category: "piyasalar"

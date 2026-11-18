@@ -2,7 +2,7 @@
 title: "Samsung SDS Gumi'de yapay zeka veri merkezi inşaatına başladı"
 description: "Samsung SDS, Güney Kore'nin Gumi şehrinde 60 megavat kapasiteli yeni bir yapay zeka veri merkezi için temel attı. 427,3 milyar KRW değerindeki bu tesis, Samsung Grubu'nun bölgesel yatırım planının ilk somut adımı olma özelliğini taşıyor."
 date: 2026-11-05T23:40:36.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

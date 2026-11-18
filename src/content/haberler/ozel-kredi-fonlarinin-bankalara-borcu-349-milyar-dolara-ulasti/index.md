@@ -2,7 +2,7 @@
 title: "Özel kredi fonlarının bankalara borcu 349 milyar dolara ulaştı"
 description: "Amerika Birleşik Devletleri merkezli özel kredi araçlarının 2025 yıl sonu itibarıyla bankalara 349 milyar dolar borcu bulunduğu açıklandı. Federal Rezerv verilerine göre, borç ödemelerindeki artış gelir ile nakit arasında uyumsuzluk yaratıyor."
 date: 2026-10-31T18:10:29.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

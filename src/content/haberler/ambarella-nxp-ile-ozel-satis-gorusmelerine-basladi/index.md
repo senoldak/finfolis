@@ -2,7 +2,7 @@
 title: "Ambarella NXP ile özel satış görüşmelerine başladı"
 description: "Kamera ve araçlar için yapay zeka işlemcileri üreten Ambarella, NXP Semiconductors ile özel satış görüşmelerine girdi. Görüşmelerin ardından Ambarella hisseleri 30 Ekim 2026 tarihinde yüzde 2 ile yüzde 3,6 arasında geriledi."
 date: 2026-10-31T04:13:58.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

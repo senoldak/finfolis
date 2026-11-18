@@ -2,7 +2,7 @@
 title: "OpenAI yeni yapay zeka modeli GPT-6.1 Terra'yı duyurdu"
 description: "OpenAI, standart API fiyatlarında yüzde 50 indirim sağlayan GPT-6.1 Terra modelini 26 Ekim 2026 tarihinde kullanıcıların erişimine sundu. Yeni model, ekranlardaki işlemleri bir insan gibi gerçekleştirebiliyor."
 date: 2026-10-26T21:46:02.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

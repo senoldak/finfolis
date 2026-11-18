@@ -2,7 +2,7 @@
 title: "Nvidia yapay zeka harcamalarının büyük kısmını alacak"
 description: "Morgan Stanley raporuna göre küresel yapay zeka harcamaları 2027 yılına kadar 1,58 trilyon dolara ulaşacak. Bu harcamaların yaklaşık 690 milyar dolarlık kısmının Nvidia tarafından toplanması bekleniyor."
 date: 2026-10-18T14:42:50.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

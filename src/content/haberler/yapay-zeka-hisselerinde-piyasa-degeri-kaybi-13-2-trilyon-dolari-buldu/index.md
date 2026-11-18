@@ -2,7 +2,7 @@
 title: "Yapay zeka hisselerinde piyasa değeri kaybı 13,2 trilyon doları buldu"
 description: "Yapay zeka teknolojilerine odaklanan şirketler, 2026 yılındaki zirve seviyelerinden bu yana toplam 13,2 trilyon dolarlık piyasa değeri kaybetti. Satış dalgası, özellikle ABD ara seçimlerinin ardından sektördeki düzenleme endişeleriyle hız kazandı."
 date: 2026-11-07T20:36:00.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

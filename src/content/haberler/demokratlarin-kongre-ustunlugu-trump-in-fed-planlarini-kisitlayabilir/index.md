@@ -2,7 +2,7 @@
 title: "Demokratların kongre üstünlüğü trump'ın fed planlarını kısıtlayabilir"
 description: "Demokratların Kongre'yi ele geçirmesi Trump'ın Fed üzerindeki etkisini sınırlayabilir ancak güçlü istihdam verileri faiz indirimi beklentilerini zayıflatıyor. Bitunix analistlerine göre faiz indirimleri belirsizliğini koruyor."
 date: 2026-11-05T17:37:28.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "TE Connectivity yapay zekâ veri merkezi iş hacmini 3 milyar doların üzerine taşıdı"
 description: "Bağlantı teknolojileri üreticisi TE Connectivity, 2026 mali yılında 19,9 milyar dolarlık rekor satış rakamına ulaştı. Şirketin yapay zekâ veri merkezlerine hizmet veren birimi ise 3 milyar doları aşan bir gelir elde etti."
 date: 2026-11-13T17:51:19.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

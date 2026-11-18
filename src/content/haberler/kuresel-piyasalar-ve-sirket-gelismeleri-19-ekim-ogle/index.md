@@ -1,5 +1,5 @@
 ---
-title: "Küresel Piyasalar ve Şirket Gelişmeleri · 19 Ekim, öğle"
+title: "Küresel piyasalar ve şirket gelişmeleri · 19 Ekim, öğle"
 description: "Küresel piyasalarda şirketlerin yeniden yapılanma hamleleri, borç azaltma ortaklıkları ve döviz hareketleri takip ediliyor. Yatırımcılar artan enerji fiyatları ve siyasi gelişmeleri izliyor."
 date: 2026-10-19T10:31:26.000Z
 category: "piyasalar"

@@ -1,8 +1,8 @@
 ---
-title: "CFTC Başkanı Selig, Tahmin Piyasaları Davasını Yüksek Mahkeme'ye Taşımaya Hazırlanıyor"
+title: "CFTC Başkanı Selig, tahmin piyasaları davasını Yüksek Mahkeme'ye taşımaya hazırlanıyor"
 description: "Emtia Vadeli İşlemler Ticaret Komisyonu Başkanı Michael Selig, kurumun türev piyasaları üzerindeki münhasır otoritesini korumak için mücadeleyi Yüksek Mahkeme'ye götürmeye hazır olduklarını belirtti. Kurum şimdiye kadar en az 10 eyalete karşı yasal işlem başlattı."
 date: 2026-10-31T18:03:59.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -1,5 +1,5 @@
 ---
-title: "Piyasalarda Yoğun Gündem ve Şirket Gelişmeleri · 23 Ekim, öğle"
+title: "Piyasalarda yoğun gündem ve şirket gelişmeleri · 23 Ekim, öğle"
 description: "Küresel piyasalarda halka arz rekorları ve borç endişeleri öne çıkarken, şirketlerin finansal sonuçları yakından takip ediliyor. Yatırımcılar artan mali baskılar ve sektördeki gelişmeler karşısında temkinli bir duruş sergiliyor."
 date: 2026-10-23T11:56:48.000Z
 category: "piyasalar"

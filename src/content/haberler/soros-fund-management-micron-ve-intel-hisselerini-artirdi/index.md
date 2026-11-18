@@ -2,7 +2,7 @@
 title: "Soros Fund Management Micron ve Intel hisselerini artırdı"
 description: "Soros Fund Management, 2026 yılının üçüncü çeyreğinde Micron ve Intel hisselerindeki payını önemli ölçüde yükseltti. Fonun Intel'deki hisse miktarı 27 katın üzerinde artış gösterdi."
 date: 2026-11-13T21:25:04.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

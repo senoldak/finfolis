@@ -1,5 +1,5 @@
 ---
-title: "Green Circle Decarbonize Technology SEC'e F-1 Başvurusu Yaptı"
+title: "Green Circle Decarbonize Technology SEC'e F-1 başvurusu yaptı"
 description: "Green Circle Decarbonize Technology Limited, 14 Ekim 2026 tarihinde ABD Menkul Kıymetler ve Borsa Komisyonu'na F-1 kayıt beyannamesi sundu. İlgili dokümanda 57.506.538 adet A sınıfı olağan hisse senedi yer aldı."
 date: 2026-10-14T21:10:57.000Z
 category: "borsa"

@@ -1,5 +1,5 @@
 ---
-title: "ABD Seçim Sonuçları ve Şirketlerde Stratejik Değişimler · 4 Kasım, öğle"
+title: "ABD seçim sonuçları ve şirketlerde stratejik değişimler · 4 Kasım, öğle"
 description: "ABD ara seçimlerinde Demokratlar Kongre'nin kontrolünü ele geçirirken, iş gücü piyasası ve büyük şirketlerde önemli gelişmeler yaşanıyor. Teknoloji ve sağlık sektörlerinde ise finansal veriler ve yeniden yapılanma planları öne çıkıyor."
 date: 2026-11-04T13:40:48.000Z
 category: "piyasalar"

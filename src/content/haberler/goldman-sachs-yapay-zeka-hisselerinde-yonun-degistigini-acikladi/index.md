@@ -2,7 +2,7 @@
 title: "Goldman Sachs yapay zekâ hisselerinde yönün değiştiğini açıkladı"
 description: "Goldman Sachs'a göre yapay zekâ hisseleri ivme ticaretinde kısa tarafa geçti. Bankanın yapay zekâ sepeti zirvesinden yüzde 45'e yakın geriledi."
 date: 2026-11-16T00:29:58.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

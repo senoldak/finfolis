@@ -2,7 +2,7 @@
 title: "Tiger Global, Meta, TSMC, Lam Research, Reddit ve GE Vernova hisselerindeki payını azalttı"
 description: "Yatırım fonu, son çeyreğe ait 13F bildirgesine göre beş büyük şirkette çift haneli oranlarda pay azaltımına gitti. Açıklama 16 Kasım 2026 tarihinde yayımlandı."
 date: 2026-11-16T19:27:32.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -1,5 +1,5 @@
 ---
-title: "Berkshire Hathaway Bending Spoons'a 330 Milyon Dolarlık Yatırım Yaptı"
+title: "Berkshire Hathaway Bending Spoons'a 330 milyon dolarlık yatırım yaptı"
 description: "Berkshire Hathaway şirketinin 330 milyon dolar tutarındaki yeni yatırımının ardından Bending Spoons hisseleri yüzde 35 oranında değer kazandı. Bu adım, şirketteki toplam payın yüzde 4 seviyesine ulaşmasını sağladı."
 date: 2026-10-14T15:32:00.000Z
 category: "piyasalar"

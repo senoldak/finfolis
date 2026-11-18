@@ -1,5 +1,5 @@
 ---
-title: "Avustralya'da Faiz 18 Yılın Zirvesinde, Anthropic Halka Arza Hazırlanıyor · 3 Kasım, öğle"
+title: "Avustralya'da faiz 18 yılın zirvesinde, Anthropic halka arza hazırlanıyor · 3 Kasım, öğle"
 description: "Avustralya Merkez Bankası politika faizini yüzde 4,85'e yükseltirken, yapay zeka girişimi Anthropic Nasdaq borsasında halka arz için başvuru yaptı."
 date: 2026-11-03T13:29:10.000Z
 category: "piyasalar"

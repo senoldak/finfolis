@@ -2,7 +2,7 @@
 title: "Silicon Motion şirketinden rekor çeyrek ve 2027 için büyüme tahmini"
 description: "Depolama kontrolcüsü üreticisi Silicon Motion, üçüncü çeyrekte 560,2 milyon dolar gelirle tarihinin en yüksek çeyrek dönemini yaşadı. Şirket, 2027 yılı için en az yüzde 40 oranında büyüme öngörüyor."
 date: 2026-11-14T19:06:12.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

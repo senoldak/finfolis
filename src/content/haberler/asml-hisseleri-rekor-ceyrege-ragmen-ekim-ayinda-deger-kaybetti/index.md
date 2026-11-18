@@ -2,7 +2,7 @@
 title: "ASML hisseleri rekor çeyreğe rağmen ekim ayında değer kaybetti"
 description: "Hollandalı çip ekipmanı üreticisi ASML, üçüncü çeyrekte beklentileri aşan finansal sonuçlar açıklamasına rağmen ekim ayında yüzde 12 değer kaybetti. Şirket hisselerindeki düşüş, yapay zeka ve yarı iletken sektörüne yönelik genel satış eğiliminin yaşandığı bir dönemde gerçekleşti."
 date: 2026-11-08T21:15:28.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

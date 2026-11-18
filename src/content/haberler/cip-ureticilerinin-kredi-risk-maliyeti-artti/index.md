@@ -2,7 +2,7 @@
 title: "Çip üreticilerinin kredi risk maliyeti arttı"
 description: "Yapay zeka sektöründeki kredi riskleri, çip üreticilerini sigortalama maliyetini ilk kez büyük bulut bilişim şirketlerinin üzerine çıkardı. Kredi piyasalarındaki bu değişim, sektördeki risk algısının yön değiştirdiğine işaret ediyor."
 date: 2026-11-09T03:51:34.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

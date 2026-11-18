@@ -1,8 +1,8 @@
 ---
-title: "San Francisco Federal Reserve Başkanı Mary Daly Enflasyon Endişeleriyle Ek Para Politikası Sıkılaşmasına İşaret Etti"
+title: "San Francisco Federal Reserve Başkanı Mary Daly enflasyon endişeleriyle ek para politikası sıkılaşmasına işaret etti"
 description: "San Francisco Federal Reserve Başkanı Mary Daly, enflasyon endişeleriyle birlikte politika sıkılaşmasının devam etmesi gerekeceğini belirtti. Mevcut politika faizi yüzde 3,75 ile yüzde 4,00 arasında bulunuyor."
 date: 2026-11-06T18:13:34.000Z
-category: "kripto"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

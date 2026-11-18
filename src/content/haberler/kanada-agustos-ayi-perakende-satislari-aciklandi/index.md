@@ -2,7 +2,7 @@
 title: "Kanada ağustos ayı perakende satışları açıklandı"
 description: "Kanada'da ağustos ayında perakende satışlar yüzde 1,2 arttı. Eylül ayı öncü okuması ise yüzde 0,7 olarak gerçekleşti."
 date: 2026-10-23T12:30:06.000Z
-category: "doviz"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

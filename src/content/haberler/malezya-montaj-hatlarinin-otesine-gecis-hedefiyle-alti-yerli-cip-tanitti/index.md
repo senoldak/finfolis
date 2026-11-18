@@ -2,7 +2,7 @@
 title: "Malezya montaj hatlarının ötesine geçiş hedefiyle altı yerli çip tanıttı"
 description: "Malezya, yarı iletken değer zincirinde yükselmek amacıyla Selangor Yapay Zeka ve Yarı İletken Zirvesi'nde altı yerli çip tasarımı sergiledi. Bu çip tasarımlarının yıllık birleştirilmiş tahmini satış potansiyeli 300 milyon ringgit olarak açıklandı."
 date: 2026-10-17T01:49:48.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

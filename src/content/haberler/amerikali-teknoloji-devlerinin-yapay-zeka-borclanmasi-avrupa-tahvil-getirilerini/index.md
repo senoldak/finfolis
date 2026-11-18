@@ -2,7 +2,7 @@
 title: "Amerikalı teknoloji devlerinin yapay zeka borçlanması Avrupa tahvil getirilerini yükseltebilir"
 description: "Yapay zeka yatırımlarını finanse etmek için borçlanmaya yönelen Amerikalı teknoloji devleri, Avrupa piyasalarındaki borçlanma maliyetlerini artırabilir. Goldman Sachs, gelecek yıl toplam yapay zeka odaklı dev şirket tahvil satışlarının 420 milyar dolara ulaşacağını öngörüyor."
 date: 2026-11-03T14:32:13.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

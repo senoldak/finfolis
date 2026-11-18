@@ -2,7 +2,7 @@
 title: "Anthropic Kanada'daki ilk veri merkezi anlaşmasını imzaladı"
 description: "Yapay zeka şirketi Anthropic, Nova Scotia'daki yeni veri merkezi kampüsü için EverWind Fuels ile en az 20 yıllık uzun vadeli bir sözleşme imzaladı. Projenin ilk aşamasının 95 MW kapasiteyle 2027 yılının sonuna doğru faaliyete geçmesi hedefleniyor."
 date: 2026-10-17T01:25:02.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

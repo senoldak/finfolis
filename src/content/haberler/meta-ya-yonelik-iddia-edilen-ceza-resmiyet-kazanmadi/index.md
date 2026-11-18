@@ -2,7 +2,7 @@
 title: "Meta'ya yönelik iddia edilen ceza resmiyet kazanmadı"
 description: "İtalya'nın Meta'ya 805 milyon avro ceza kestiği yönündeki iddialar henüz resmi makamlarca doğrulanmadı. 14 Kasım 2026 itibarıyla konuyla ilgili herhangi bir resmi açıklama veya belge bulunmuyor."
 date: 2026-11-14T12:24:30.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

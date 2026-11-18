@@ -1,8 +1,8 @@
 ---
-title: "Tesla, Federal Soruşturmaya Rağmen Cybercab Robotaksi Satış Hedefini Sürdürüyor"
+title: "Tesla, federal soruşturmaya rağmen Cybercab robotaksi satış hedefini sürdürüyor"
 description: "Tesla, direksiyonsuz Cybercab robotaksilerini 2026 yılının sonunda müşterilerle buluşturmayı planlıyor. Bu süreçte Amerikan Ulusal Karayolu Trafik Güvenliği İdaresi, aracın federal güvenlik standartlarına uyumunu incelemek üzere bir soruşturma başlattı."
 date: 2026-10-22T07:44:10.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -1,5 +1,5 @@
 ---
-title: "Piyasalarda Yasal Riskler ve Küresel Gelişmeler Takip Ediliyor · 17 Kasım, açılış"
+title: "Piyasalarda yasal riskler ve küresel gelişmeler takip ediliyor · 17 Kasım, açılış"
 description: "Küresel piyasalarda çip üreticilerine yönelik yasal riskler, petrol fiyatlarındaki değişimler ve değerli metallerdeki hareketlilik izleniyor. Yatırımcılar artan düzenlemeler ve döviz kurlarındaki değişimler karşısında temkinli duruşunu sürdürüyor."
 date: 2026-11-17T07:29:46.000Z
 category: "piyasalar"

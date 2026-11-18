@@ -1,8 +1,8 @@
 ---
-title: "Home depot yönetici değişikliklerini duyurdu ve beklentileri aştı"
+title: "Home Depot yönetici değişikliklerini duyurdu ve beklentileri aştı"
 description: "Home Depot, finans direktörü Richard McPhail'in yeni üst yönetici olacağını duyururken üçüncü çeyrekte beklentileri aşan finansal sonuçlar açıkladı."
 date: 2026-11-17T11:33:44.000Z
-category: "piyasalar"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

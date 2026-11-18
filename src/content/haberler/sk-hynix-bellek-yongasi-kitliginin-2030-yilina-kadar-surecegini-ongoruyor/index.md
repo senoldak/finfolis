@@ -2,7 +2,7 @@
 title: "SK Hynix bellek yongası kıtlığının 2030 yılına kadar süreceğini öngörüyor"
 description: "Güney Koreli çip üreticisi SK Hynix, yapay zeka talebinin arzı aşmaya devam edeceğini belirterek bellek yongası kıtlığının 2030 yılına kadar süreceğini açıkladı. Şirket, 2026 yılının üçüncü çeyreğinde 104,6155 trilyon won gelir bildirdi."
 date: 2026-11-01T23:24:31.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -1,5 +1,5 @@
 ---
-title: "Avrupa'da Elektrik Fiyatları 2022 Yılının En Yüksek Seviyesine Ulaştı"
+title: "Avrupa'da elektrik fiyatları 2022 yılının en yüksek seviyesine ulaştı"
 description: "Avrupa'da rüzgar ve güneş enerjisi üretiminin azalmasıyla elektrik fiyatları 2022 yılından bu yana görülen en yüksek seviyelere çıktı. Fransa'da bir günlük elektrik fiyatları megavatsaat başına 374 dolar (334 euro) olarak belirlendi."
 date: 2026-11-09T16:30:00.000Z
 category: "piyasalar"

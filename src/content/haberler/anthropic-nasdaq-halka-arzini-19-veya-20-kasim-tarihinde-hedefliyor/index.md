@@ -2,7 +2,7 @@
 title: "Anthropic Nasdaq halka arzını 19 veya 20 Kasım tarihinde hedefliyor"
 description: "Claude'un üreticisi Anthropic, 1,1 trilyon dolar ile 1,75 trilyon dolar arasındaki bir değerlemeyle Nasdaq'ta işlem görmeyi planlıyor. Şirket, halka arz fiyat aralığını bu hafta başında açıklamayı bekliyor."
 date: 2026-11-09T21:24:39.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

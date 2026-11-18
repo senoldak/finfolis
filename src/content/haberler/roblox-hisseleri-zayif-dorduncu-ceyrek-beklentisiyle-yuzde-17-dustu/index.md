@@ -2,7 +2,7 @@
 title: "Roblox hisseleri zayıf dördüncü çeyrek beklentisiyle yüzde 17 düştü"
 description: "Oyun platformu üçüncü çeyrekte beklentileri aşmasına rağmen, dördüncü çeyrek için zayıf öngörüler ve yapay zeka maliyetleri hisselerde düşüşe neden oldu."
 date: 2026-10-30T12:29:20.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

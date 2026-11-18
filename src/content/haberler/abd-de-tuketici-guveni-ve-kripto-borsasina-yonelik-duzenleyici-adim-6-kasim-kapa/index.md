@@ -1,5 +1,5 @@
 ---
-title: "ABD'de Tüketici Güveni ve Kripto Borsasına Yönelik Düzenleyici Adım · 6 Kasım, kapanış"
+title: "ABD'de tüketici güveni ve kripto borsasına yönelik düzenleyici adım · 6 Kasım, kapanış"
 description: "ABD'de tüketici güveni Kasım ayında beklentilerin üzerinde gerçekleşti. ABD Hazine Bakanlığı ise yasa dışı işlem iddiaları nedeniyle bir kripto borsasının finansal sistemle bağını kesti."
 date: 2026-11-06T21:28:56.000Z
 category: "ekonomi"

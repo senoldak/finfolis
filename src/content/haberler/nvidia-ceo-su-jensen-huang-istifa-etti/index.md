@@ -1,5 +1,5 @@
 ---
-title: "Nvidia CEO'su Jensen Huang İstifa Etti"
+title: "Nvidia CEO'su Jensen Huang istifa etti"
 description: "Nvidia'nın kurucusu Jensen Huang, 12 Kasım 2026'da görevinden ayrıldı. Analistler, bu gelişmenin şirketin yapay zekâ faaliyetleri üzerinde kısa vadede etkisinin sınırlı kalacağını öngörüyor."
 date: 2026-11-13T14:00:00.000Z
 category: "ekonomi"

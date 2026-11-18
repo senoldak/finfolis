@@ -1,8 +1,8 @@
 ---
-title: "Team Group Üst Yöneticisi: Bellek Çipi Kıtlığı 2027 Ortasına Kadar Sürebilir"
+title: "Team Group üst yöneticisi: Bellek çipi kıtlığı 2027 ortasına kadar sürebilir"
 description: "Team Group Üst Yöneticisi Gerry Chen, küresel bellek çipi kıtlığının 2027 yılının ikinci çeyreğine kadar şiddetlenebileceğini belirtti. Chen, piyasadaki arz ve talep dengesinin ise en erken 2028 yılının ikinci yarısında sağlanabileceğini öngörüyor."
 date: 2026-11-10T17:09:09.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

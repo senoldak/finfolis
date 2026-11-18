@@ -2,7 +2,7 @@
 title: "Yapay zeka çip hisseleri düşüş sonrası toparlanıyor"
 description: "Yapay zeka odaklı çip üreticilerinin hisseleri, küresel çapta yaşanan sert satışların ardından cuma günü kısmi bir toparlanma gösterdi. Yatırımcılar, bu hareketin geçici bir düzeltme mi yoksa daha büyük bir balonun başlangıcı mı olduğunu değerlendiriyor."
 date: 2026-11-07T16:01:02.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "Meta hisseleri yapay zeka potansiyeliyle yükseldi"
 description: "Meta Platforms, üçüncü çeyrekte 64,6 milyar dolar gelir elde ederken, hisseleri mesai sonrası işlemlerde yüzde 4'ten fazla değer kazandı. Şirketin yapay zeka ajanı Muse ise 10 milyondan fazla hesaba ulaştı."
 date: 2026-10-21T23:16:49.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

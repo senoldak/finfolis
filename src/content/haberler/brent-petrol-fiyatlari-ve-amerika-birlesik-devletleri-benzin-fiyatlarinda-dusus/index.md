@@ -2,7 +2,7 @@
 title: "Brent petrol fiyatları ve Amerika Birleşik Devletleri benzin fiyatlarında düşüş görüldü"
 description: "Brent petrol fiyatı varil başına 96,67 dolara gerilerken haftalık düşüşünü sürdürdü. Amerika Birleşik Devletleri benzin fiyatları ise galon başına 4 dolar seviyesine yaklaştı."
 date: 2026-11-09T14:21:54.000Z
-category: "kripto"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

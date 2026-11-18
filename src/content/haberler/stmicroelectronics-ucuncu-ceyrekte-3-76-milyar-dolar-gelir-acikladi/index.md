@@ -2,7 +2,7 @@
 title: "Stmicroelectronics üçüncü çeyrekte 3,76 milyar dolar gelir açıkladı"
 description: "Avrupalı çip üreticisi yapay zeka ve uydu talebiyle üçüncü çeyrekte 3,76 milyar dolar net gelir elde etti. Şirket bu sonuçla yıl sonu beklentisini yukarı yönlü revize etti."
 date: 2026-10-30T03:07:28.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

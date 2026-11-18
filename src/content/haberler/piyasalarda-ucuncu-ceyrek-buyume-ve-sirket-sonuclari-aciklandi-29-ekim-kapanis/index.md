@@ -1,5 +1,5 @@
 ---
-title: "Piyasalarda Üçüncü Çeyrek Büyüme ve Şirket Sonuçları Açıklandı · 29 Ekim, kapanış"
+title: "Piyasalarda üçüncü çeyrek büyüme ve şirket sonuçları açıklandı · 29 Ekim, kapanış"
 description: "Amerika Birleşik Devletleri ekonomisi üçüncü çeyrekte yıllıklandırılmış yüzde 3,4 oranında büyüdü. Teknoloji şirketleri ve çip üreticileri finansal sonuçlarını duyurdu."
 date: 2026-10-29T21:38:16.000Z
 category: "ekonomi"

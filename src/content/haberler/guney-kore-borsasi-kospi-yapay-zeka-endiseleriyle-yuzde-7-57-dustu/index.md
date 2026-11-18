@@ -2,7 +2,7 @@
 title: "Güney Kore borsası KOSPI yapay zeka endişeleriyle yüzde 7,57 düştü"
 description: "Güney Kore'nin KOSPI endeksi yapay zeka yatırımlarına yönelik kuşkular nedeniyle 15 Ekim 2026 tarihinde yüzde 7,57 geriledi."
 date: 2026-10-20T10:23:21.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

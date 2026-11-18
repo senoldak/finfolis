@@ -2,7 +2,7 @@
 title: "Cathie Wood yaklaşık 100 milyon dolar değerinde Nvidia ve SpaceX hissesi aldı"
 description: "ARK Invest, yapay zeka ve uzay yatırımları kapsamında yaklaşık 100 milyon dolar değerinde Nvidia ve SpaceX hissesi satın aldı. Şirket, SpaceX hisselerindeki siyasi kaynaklı düşüşü fırsat bildi."
 date: 2026-11-06T02:08:50.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

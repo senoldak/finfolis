@@ -2,7 +2,7 @@
 title: "Microchip technology ikinci çeyrek beklentilerini aştı"
 description: "Microchip Technology, mali ikinci çeyrekte kazanç ve gelir tahminlerini geride bıraktı. Hisse başına düzeltilmiş kazanç yıllık bazda yüzde 177 oranında arttı."
 date: 2026-11-05T21:26:06.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

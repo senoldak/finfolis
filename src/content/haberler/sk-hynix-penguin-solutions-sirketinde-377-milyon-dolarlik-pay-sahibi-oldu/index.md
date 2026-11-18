@@ -2,7 +2,7 @@
 title: "SK hynix, Penguin Solutions şirketinde 377 milyon dolarlık pay sahibi oldu"
 description: "Güney Koreli bellek üreticisi SK hynix, yapay zeka altyapı şirketi Penguin Solutions'ın yüzde 9,1 oranında hissedarı haline geldi. Söz konusu hisse devri, SK Group bünyesindeki şirketler arasında gerçekleşti."
 date: 2026-11-03T13:25:00.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

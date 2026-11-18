@@ -2,7 +2,7 @@
 title: "Nvidia yeni bellek standardı için TSMC teknolojisini seçti"
 description: "Nvidia, yeni NVHBM bellek standardı için Samsung, SK Hynix ve Micron'u TSMC'nin 3nm sürecine yönlendiriyor. Düzenleme, bellek yongası üretiminde yeni bir iş bölümüne işaret ediyor."
 date: 2026-10-18T15:12:13.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

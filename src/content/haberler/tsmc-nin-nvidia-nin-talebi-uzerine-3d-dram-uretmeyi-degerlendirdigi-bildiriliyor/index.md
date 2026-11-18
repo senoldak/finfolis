@@ -2,7 +2,7 @@
 title: "TSMC'nin Nvidia'nın talebi üzerine 3D DRAM üretmeyi değerlendirdiği bildiriliyor"
 description: "TSMC, Nvidia'nın talebi doğrultusunda gelişmiş 3D DRAM bellek çipleri üretmek için iç planlamaya başladı. Proje henüz erken aşamada bulunuyor."
 date: 2026-11-07T04:05:32.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "Kerç Köprüsü'ne yönelik saldırı sonrası ulaşım durduruldu"
 description: "Ukrayna, Rusya ile Kırım'ı birbirine bağlayan Kerç Köprüsü'ne iki gün üst üste saldırı düzenledi. Saldırıların ardından stratejik öneme sahip köprüde trafik akışı askıya alındı."
 date: 2026-11-17T11:27:33.000Z
-category: "piyasalar"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

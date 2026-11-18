@@ -2,7 +2,7 @@
 title: "DRAM üreticilerine yönelik kartel davası devam edecek"
 description: "San Jose'deki bir federal yargıç, Samsung, SK Hynix ve Micron'a karşı açılan DRAM fiyat sabitleme davasının düşürülmesi talebini reddetti. Bu kararla birlikte dava, şirket içi yazışmaların inceleneceği keşif aşamasına geçiyor."
 date: 2026-11-16T03:00:17.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

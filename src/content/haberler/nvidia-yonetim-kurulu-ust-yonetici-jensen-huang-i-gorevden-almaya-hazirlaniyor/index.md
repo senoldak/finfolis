@@ -2,7 +2,7 @@
 title: "Nvidia yönetim kurulu, üst yönetici Jensen Huang'ı görevden almaya hazırlanıyor"
 description: "Nvidia yönetim kurulu, üst yönetici Jensen Huang hakkında çıkan ilişkiler haberlerinin ardından onu görevden almaya hazırlanıyor. Şirket hisseleri piyasa öncesi işlemlerde düşüş yaşadı."
 date: 2026-11-12T09:47:18.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

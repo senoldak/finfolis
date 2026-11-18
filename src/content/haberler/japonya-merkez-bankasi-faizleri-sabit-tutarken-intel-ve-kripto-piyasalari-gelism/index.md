@@ -1,5 +1,5 @@
 ---
-title: "Japonya Merkez Bankası Faizleri Sabit Tutarken Intel ve Kripto Piyasaları Gelişmeleri Takip Ediliyor · 30 Ekim, açılış"
+title: "Japonya Merkez Bankası faizleri sabit tutarken Intel ve kripto piyasaları gelişmeleri takip ediliyor · 30 Ekim, açılış"
 description: "Japonya Merkez Bankası temel enflasyonun yüzde 2'lik hedefle uyumlu olduğunu açıklayarak faizi yüzde 1,25'te tuttu. Binance ve Intel cephesindeki gelişmeler piyasaların gündeminde yer alıyor."
 date: 2026-10-30T07:33:15.000Z
 category: "ekonomi"

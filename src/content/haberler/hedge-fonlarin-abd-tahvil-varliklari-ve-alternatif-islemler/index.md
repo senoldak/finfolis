@@ -2,7 +2,7 @@
 title: "Hedge fonların ABD tahvil varlıkları ve alternatif işlemler"
 description: "Hedge fonlar 2025 yılının sonunda tahmini 2 trilyon dolar tutarında ABD Hazine tahviline sahipken, yeni ticaret stratejileri daha az tahvil gerektirebilir. Dallas Fed araştırmasına göre alternatif işlemler aynı risk bütçesiyle daha az tahvil pozisyonu oluşturabiliyor."
 date: 2026-10-25T13:00:52.000Z
-category: "kripto"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "Hazine yetkilisi Scott Bessent'ten Fed'e faiz artırımı konusunda temkinli olma çağrısı"
 description: "ABD Hazine yetkilisi Scott Bessent, enerji arzı kaynaklı enflasyon baskısının geçici olduğunu belirterek Fed'i faiz artırımlarında temkinli olmaya davet etti. Mevcut federal fon faiz oranı yüzde 3,75 ile yüzde 4,00 aralığında bulunuyor."
 date: 2026-11-13T13:24:32.000Z
-category: "kripto"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

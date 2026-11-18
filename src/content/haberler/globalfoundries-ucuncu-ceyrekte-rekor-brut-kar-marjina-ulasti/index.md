@@ -2,7 +2,7 @@
 title: "GlobalFoundries üçüncü çeyrekte rekor brüt kâr marjına ulaştı"
 description: "Şirket, üçüncü çeyrekte yüzde 31,4 oranında UFRS dışı brüt kâr marjı açıkladı. Bu artışta yapay zekâ veri merkezlerindeki optik ağ bileşenlerine olan talep etkili oldu."
 date: 2026-11-14T02:19:57.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

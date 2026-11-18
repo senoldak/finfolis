@@ -2,7 +2,7 @@
 title: "Meta'nın yeni hisse sınıfı Zuckerberg'e kontrolü kaybetmeden nakit imkânı sağlıyor"
 description: "Meta Platforms, oy hakkı olmayan yeni bir C sınıfı hisse senedi planını duyurdu. Bu plan, kurucu Mark Zuckerberg'in oy gücünü korurken varlığının bir kısmını nakde çevirmesine olanak tanıyor."
 date: 2026-10-22T18:06:32.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

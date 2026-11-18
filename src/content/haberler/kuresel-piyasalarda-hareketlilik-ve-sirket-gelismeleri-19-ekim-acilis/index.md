@@ -1,5 +1,5 @@
 ---
-title: "Kuresel Piyasalarda Hareketlilik ve Sirket Gelismeleri · 19 Ekim, açılış"
+title: "Küresel piyasalarda hareketlilik ve şirket gelişmeleri · 19 Ekim, açılış"
 description: "Kuresel piyasalarda borsa ve kripto varliklar yukselirken, bazi sirketler kar artislarıyla gundeme geldi. Fransa'daki olaylar ekonomi üzerindeki baskıları artırdı."
 date: 2026-10-19T05:12:40.000Z
 category: "piyasalar"

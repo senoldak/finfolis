@@ -1,5 +1,5 @@
 ---
-title: "Küresel Piyasalar ve Yapay Zeka Borçlanmalarındaki Gelişmeler · 19 Ekim, açılış"
+title: "Küresel piyasalar ve yapay zeka borçlanmalarındaki gelişmeler · 19 Ekim, açılış"
 description: "Küresel piyasalarda çip üreticisi CXMT'nin kâr tahminleri ve yapay zeka borçlanmalarındaki riskler öne çıkıyor. Umman ekonomisinin büyümesi ve borç oranındaki düşüş de dikkat çeken gelişmeler arasında yer alıyor."
 date: 2026-10-19T04:14:03.000Z
 category: "piyasalar"

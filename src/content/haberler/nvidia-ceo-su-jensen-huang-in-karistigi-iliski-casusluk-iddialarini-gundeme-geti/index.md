@@ -2,7 +2,7 @@
 title: "Nvidia CEO'su Jensen Huang'ın karıştığı ilişki casusluk iddialarını gündeme getirdi"
 description: "Nvidia CEO'su Jensen Huang'ın Çin adına casusluk yaptığı şüphelenilen bir kadınla yaşadığı ilişkiyi kabul etmesi, teknoloji dünyasında güvenlik tartışmalarını başlattı. Şirket hisseleri haberin ardından değer kaybetti."
 date: 2026-11-11T16:20:08.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

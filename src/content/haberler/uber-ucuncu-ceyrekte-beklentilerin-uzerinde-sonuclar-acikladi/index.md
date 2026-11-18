@@ -2,7 +2,7 @@
 title: "Uber üçüncü çeyrekte beklentilerin üzerinde sonuçlar açıkladı"
 description: "Uber, 2026 yılının üçüncü çeyreğinde brüt rezervasyonlarını yıllık bazda yüzde 20 artırarak 59,82 milyar dolara ulaştırdı. Şirket, yıl sonuna kadar yaklaşık 700 sürücüsüz aracı platformuna dahil etmeyi hedefliyor."
 date: 2026-11-04T12:10:29.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

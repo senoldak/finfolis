@@ -2,7 +2,7 @@
 title: "Dow Jones, 2022'den bu yana ilk kez Nasdaq'ı geride bıraktı"
 description: "Enerji ve finans sektörlerinin desteğiyle geleneksel endeks, teknoloji ağırlıklı rakibinin önüne geçti. Dow Jones yıl başından temmuz sonuna kadar yüzde 9,1 getiri sağladı."
 date: 2026-11-06T19:37:47.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

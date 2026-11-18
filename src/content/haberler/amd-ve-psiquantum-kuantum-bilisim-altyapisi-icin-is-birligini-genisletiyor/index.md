@@ -2,7 +2,7 @@
 title: "AMD ve PsiQuantum kuantum bilişim altyapısı için iş birliğini genişletiyor"
 description: "Çip üreticisi AMD, PsiQuantum ile olan stratejik ortaklığını kuantum bilgisayar altyapısı geliştirmek üzere büyütüyor. Şirket, bu iş birliği kapsamında PsiQuantum'a sermaye yatırımı yapmayı da planlıyor."
 date: 2026-11-12T13:08:30.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "Monolithic Power 1 milyar dolar gelir barajını aştı"
 description: "Monolithic Power, yapay zekâ veri merkezlerine yönelik artan taleple üçüncü çeyrekte 1,202 milyar dolar gelir elde etti. Şirket, bu rakamla tarihinde ilk kez bir çeyrekte 1 milyar dolar barajını geçmiş oldu."
 date: 2026-11-14T19:34:36.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

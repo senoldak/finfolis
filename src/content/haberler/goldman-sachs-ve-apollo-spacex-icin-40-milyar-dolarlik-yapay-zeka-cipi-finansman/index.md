@@ -2,7 +2,7 @@
 title: "Goldman Sachs ve Apollo, SpaceX için 40 milyar dolarlık yapay zekâ çipi finansmanı arıyor"
 description: "Goldman Sachs ve Apollo Global Management, SpaceX'in yapay zekâ çipi yatırımları için yaklaşık 40 milyar dolarlık bir finansman paketi üzerinde çalışıyor. Söz konusu yapı, donanımların doğrudan satın alınması yerine kiralama yöntemiyle finanse edilmesini öngörüyor."
 date: 2026-11-05T05:12:22.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

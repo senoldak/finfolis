@@ -1,5 +1,5 @@
 ---
-title: "Küresel Piyasalarda Son Gelişmeler · 22 Ekim, açılış"
+title: "Küresel piyasalarda son gelişmeler · 22 Ekim, açılış"
 description: "Fransa'nın borçlanma maliyetleri artarken, Çin'in CSI 300 endeksi ayı piyasasına girdi. Kripto para piyasalarında ise yapay zeka harcamalarına yönelik şüpheler etkili oluyor."
 date: 2026-10-22T08:00:10.000Z
 category: "ekonomi"

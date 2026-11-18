@@ -2,7 +2,7 @@
 title: "S&P 500 endeksinde 4 trilyon dolarlık değer kaybı"
 description: "S&P 500 endeksi, 6 Ekim 2026 tarihinde ulaştığı rekor seviyeden bu yana piyasa değerinde 4 trilyon dolarlık bir azalma yaşadı. Teknoloji sektöründeki 25'ten fazla hisse senedi, zirve seviyelerinden yüzde 20'den fazla değer kaybederek ayı piyasasına girdi."
 date: 2026-11-05T17:25:19.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

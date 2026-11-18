@@ -1,5 +1,5 @@
 ---
-title: "Piyasalarda Haftalık Gelişmeler ve Bütçe Beklentileri · 25 Ekim, açılış"
+title: "Piyasalarda haftalık gelişmeler ve bütçe beklentileri · 25 Ekim, açılış"
 description: "Küresel piyasalar merkez bankası kararlarını ve bütçe gelişmelerini takip ederken şirket kazançları ve yeni yatırımlar öne çıktı. Yatırımcılar güvenli limanlara yöneldi."
 date: 2026-10-25T07:00:56.000Z
 category: "ekonomi"

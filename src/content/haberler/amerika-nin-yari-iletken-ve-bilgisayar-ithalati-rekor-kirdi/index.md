@@ -2,7 +2,7 @@
 title: "Amerika'nın yarı iletken ve bilgisayar ithalatı rekor kırdı"
 description: "Amerika Birleşik Devletleri'nin yarı iletken ve bilgisayar ekipmanı ithalatı Ağustos 2026 döneminde 74,8 milyar dolara ulaştı. Bu artış, yapay zeka veri merkezi yatırımlarının dış ticaret verilerine yansıdığını gösteriyor."
 date: 2026-10-28T10:49:01.000Z
-category: "kripto"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "Yapay zeka veri merkezi kiracıları günlük 5 milyon dolardan fazla gecikme cezası talep ediyor"
 description: "Yapay zeka veri merkezi kiracıları, elektrik veya tesislerin zamanında teslim edilmemesi durumunda günlük 5 milyon dolardan fazla ceza talep etmeye başladı. Yıl başında bu rakam günlük yaklaşık 1 milyon dolar seviyesindeydi."
 date: 2026-10-25T15:47:23.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

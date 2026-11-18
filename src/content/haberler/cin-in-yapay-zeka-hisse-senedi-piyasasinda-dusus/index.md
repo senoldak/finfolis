@@ -2,7 +2,7 @@
 title: "Çin'in yapay zeka hisse senedi piyasasında düşüş"
 description: "Çin'in yapay zeka balonu patladı ve piyasadan 480 milyar dolar silindi. STAR50 endeksi Temmuz ayındaki zirvesinden yaklaşık yüzde 40 oranında düştü."
 date: 2026-10-26T20:45:30.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

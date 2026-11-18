@@ -1,5 +1,5 @@
 ---
-title: "Küresel Piyasalar ve Yapay Zekâ Gelişmeleri · 17 Kasım, öğle"
+title: "Küresel piyasalar ve yapay zekâ gelişmeleri · 17 Kasım, öğle"
 description: "Küresel piyasalar ve teknoloji sektöründeki gelişmeler, yeni düzenlemeler ve şirket hamleleriyle şekilleniyor. Yetkililer riskleri değerlendiriyor."
 date: 2026-11-17T13:35:55.000Z
 category: "piyasalar"

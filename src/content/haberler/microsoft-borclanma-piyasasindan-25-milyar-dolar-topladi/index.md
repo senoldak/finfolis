@@ -2,7 +2,7 @@
 title: "Microsoft borçlanma piyasasından 25 milyar dolar topladı"
 description: "Microsoft, on ayrı dilimde gerçekleştirdiği 25 milyar dolarlık tahvil ihracıyla ABD borçlanma piyasasına döndü. Şirketin bu hamlesi yapay zeka altyapı yatırımlarını finanse etmeyi amaçlıyor."
 date: 2026-11-04T21:08:55.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

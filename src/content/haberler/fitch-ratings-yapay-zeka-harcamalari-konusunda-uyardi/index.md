@@ -2,7 +2,7 @@
 title: "Fitch Ratings yapay zeka harcamaları konusunda uyardı"
 description: "Fitch Ratings, Orta Doğu riskleri ve sıkılaşan finansman koşullarının yapay zeka harcama patlamasını tehdit ettiğini bildirdi. Kuruluş, ABD'li büyük teknoloji şirketlerinin 2026 yılı sermaye harcamalarının yüzde 75'ten fazla artarak yaklaşık 700 milyar dolara ulaşacağını öngörüyor."
 date: 2026-10-28T18:16:01.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -1,5 +1,5 @@
 ---
-title: "ABD Seçim Sonuçları ve Finansal Düzenlemelerde Yeni Gelişmeler · 4 Kasım, kapanış"
+title: "ABD seçim sonuçları ve finansal düzenlemelerde yeni gelişmeler · 4 Kasım, kapanış"
 description: "ABD'de seçimlerin ardından piyasalarda hareketlilik gözlenirken, düzenleyici kurumlar hisse senedi bağlantılı vadeli işlemler için yeni bir çerçeve oluşturdu. Şirket birleşmeleri ve kripto varlık piyasalarındaki gelişmeler yatırımcıların takibinde yer alıyor."
 date: 2026-11-04T21:36:59.000Z
 category: "piyasalar"

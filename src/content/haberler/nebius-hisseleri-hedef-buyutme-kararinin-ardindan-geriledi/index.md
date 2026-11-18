@@ -2,7 +2,7 @@
 title: "Nebius hisseleri hedef büyütme kararının ardından geriledi"
 description: "Nebius hisseleri ekim ayında yaklaşık yüzde 30 düşüş yaşadı. Şirket, yapay zeka altyapısı için milyarlarca dolarlık harcama planı açıklarken yatırımcılar maliyetleri sorguluyor."
 date: 2026-11-03T21:37:50.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

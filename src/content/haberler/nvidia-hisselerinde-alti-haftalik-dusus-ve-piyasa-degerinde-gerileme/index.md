@@ -2,7 +2,7 @@
 title: "Nvidia hisselerinde altı haftalık düşüş ve piyasa değerinde gerileme"
 description: "Nvidia hisseleri üst üste altıncı haftasında da değer kaybederek 2012'den bu yana en uzun süreli düşüş serisini yaşadı. Şirketin piyasa değeri yaklaşık 1,6 trilyon dolar azaldı."
 date: 2026-11-13T06:21:16.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

@@ -2,7 +2,7 @@
 title: "CoreWeave borç yükü ve iflas endişeleriyle karşı karşıya"
 description: "Yapay zeka altyapı şirketi CoreWeave, üç aylık 640 milyon dolarlık faiz ödemesiyle finansal zorluk yaşıyor. Piyasa verileri, şirketin iflas ihtimaline dair beklentilerin yükseldiğini gösteriyor."
 date: 2026-11-09T07:04:35.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

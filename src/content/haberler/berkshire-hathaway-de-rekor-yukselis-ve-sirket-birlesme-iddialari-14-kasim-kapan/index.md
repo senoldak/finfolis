@@ -1,5 +1,5 @@
 ---
-title: "Berkshire Hathaway'de Rekor Yükseliş ve Şirket Birleşme İddiaları · 14 Kasım, kapanış"
+title: "Berkshire Hathaway'de rekor yükseliş ve şirket birleşme iddiaları · 14 Kasım, kapanış"
 description: "Berkshire Hathaway hisseleri dördüncü çeyrekte değer kazanarak rekor seviyelere ulaştı. Piyasalarda ayrıca Elon Musk'ın SpaceX ve Tesla'yı birleştirme önerisi takip ediliyor."
 date: 2026-11-15T05:29:42.000Z
 category: "kripto"

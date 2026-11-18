@@ -1,5 +1,5 @@
 ---
-title: "Teknoloji ve Tarım Sektöründe Kritik Yatırım ve Tedarik Gelişmeleri · 15 Kasım, öğle"
+title: "Teknoloji ve tarım sektöründe kritik yatırım ve tedarik gelişmeleri · 15 Kasım, öğle"
 description: "Yapay zekâ girişimi Anthropic'in beklenen halka arzı teknoloji dünyasında yeni bir dönemi işaret ederken, Brezilya'nın gübre ithalatına bağımlılığı küresel gıda güvenliği için risk oluşturmaya devam ediyor."
 date: 2026-11-15T12:00:01.000Z
 category: "piyasalar"

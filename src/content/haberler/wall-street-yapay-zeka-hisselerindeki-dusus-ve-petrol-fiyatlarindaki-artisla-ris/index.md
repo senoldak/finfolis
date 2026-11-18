@@ -2,7 +2,7 @@
 title: "Wall Street, yapay zeka hisselerindeki düşüş ve petrol fiyatlarındaki artışla risklerle karşı karşıya"
 description: "Yapay zeka hisselerindeki sert düşüş ve ham petrol fiyatlarındaki artış, teknoloji piyasasından 1 trilyon dolardan fazla değer silinmesine yol açtı. Yaşanan gelişmeler piyasalarda enflasyon ve faiz beklentilerini etkiledi."
 date: 2026-10-16T23:14:14.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

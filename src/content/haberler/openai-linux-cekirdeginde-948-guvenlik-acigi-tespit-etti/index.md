@@ -2,7 +2,7 @@
 title: "OpenAI, Linux çekirdeğinde 948 güvenlik açığı tespit etti"
 description: "OpenAI tarafından geliştirilen otonom siber güvenlik sistemi, Linux çekirdeğinde 948 farklı güvenlik açığı bularak bu açıklar için çalışan istismar kodları geliştirdi. Çalışmanın toplam maliyeti 1,21 milyon dolar olarak açıklandı."
 date: 2026-11-05T19:16:03.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

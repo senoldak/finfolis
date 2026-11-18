@@ -2,7 +2,7 @@
 title: "Petrol fiyatları Trump'ın İran açıklaması sonrası 10 haftanın en düşüğüne geriledi"
 description: "Eski ABD Başkanı Donald Trump'ın İran'a yönelik askeri adımların yenilenmeyeceğine dair açıklamalarının ardından petrol fiyatları 10 haftanın en düşük seviyesine indi. Bu gelişme, piyasalardaki jeopolitik risk algısında düşüşe yol açtı."
 date: 2026-11-09T17:23:23.000Z
-category: "kripto"
+category: "ekonomi"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

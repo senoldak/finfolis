@@ -2,7 +2,7 @@
 title: "Micron teknoloji şirketinin gelirleri yapay zekâ talebiyle rekor seviyeye ulaştı"
 description: "Micron Technology, 2026 mali yılının dördüncü çeyreğinde gelirini bir önceki yılın aynı dönemine göre yüzde 379 artırarak 54,23 milyar dolara çıkardı. Şirketin DRAM geliri ise ilk kez 100 milyar dolar sınırını aştı."
 date: 2026-11-13T12:23:31.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

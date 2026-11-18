@@ -2,7 +2,7 @@
 title: "SpaceX yapay zeka biriminin kar elde etmesi"
 description: "SpaceX yapay zeka birimi kar elde etti ve bu başarıda en büyük pay sahibi Anthropic oldu. Şirket genelinde ise 2026 yılının haziran ayından bu yana ilk kez net kar açıklandı."
 date: 2026-10-29T23:01:04.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

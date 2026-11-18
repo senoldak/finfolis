@@ -1,5 +1,5 @@
 ---
-title: "Salesforce Braze'i Satın Alıyor, Ryanair Bilet Fiyatlarında Artış Bekliyor · 20 Ekim, öğle"
+title: "Salesforce Braze'i satın alıyor, Ryanair bilet fiyatlarında artış bekliyor · 20 Ekim, öğle"
 description: "Salesforce, Braze'i 5,66 milyar dolara satın alacağını duyururken Ryanair gelecek yıl Avrupa'da uçak bileti fiyatlarının yüzde 20'ye kadar artabileceğini açıkladı. Fransa parlamentosu ise kripto varlık takaslarına yüzde 31,4 oranında sermaye kazancı vergisi getirilmesini onayladı."
 date: 2026-10-20T13:41:30.000Z
 category: "piyasalar"

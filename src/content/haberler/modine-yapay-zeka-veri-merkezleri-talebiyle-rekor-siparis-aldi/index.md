@@ -2,7 +2,7 @@
 title: "Modine yapay zeka veri merkezleri talebiyle rekor sipariş aldı"
 description: "İklimlendirme ve ısı yönetimi çözümleri sunan Modine, yapay zeka veri merkezlerine yönelik talep sayesinde bir çeyrekte 1 milyar doları aşan rekor sipariş tutarına ulaştı. Şirket, bu gelişmeyle birlikte 2027 mali yılına ilişkin gelir beklentisini yukarı yönlü revize etti."
 date: 2026-11-05T10:46:01.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

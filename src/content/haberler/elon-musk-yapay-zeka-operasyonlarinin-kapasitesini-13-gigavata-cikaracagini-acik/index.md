@@ -2,7 +2,7 @@
 title: "Elon Musk yapay zeka operasyonlarının kapasitesini 13 gigavata çıkaracağını açıkladı"
 description: "Elon Musk, yapay zeka operasyonlarının önümüzdeki yılın sonunda en az 13 gigavatlık bilgi işlem gücüne ulaşacağını belirtti. Mevcut kapasite ise 1,7 gigavat seviyesinde bulunuyor."
 date: 2026-10-20T20:55:18.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []

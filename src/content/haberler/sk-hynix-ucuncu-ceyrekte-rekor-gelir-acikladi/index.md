@@ -2,7 +2,7 @@
 title: "SK Hynix üçüncü çeyrekte rekor gelir açıkladı"
 description: "Güney Koreli bellek çipi üreticisi SK Hynix, üçüncü çeyrekte 104,6 trilyon won gelir bildirdi. Şirket, bellek talebinin 2030 yılına kadar arzı aşmasını bekliyor."
 date: 2026-10-28T21:16:03.000Z
-category: "kripto"
+category: "borsa"
 tur: "haber"
 uretim: "bot"
 kaynaklar: []
