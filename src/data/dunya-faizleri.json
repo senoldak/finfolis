@@ -1,6 +1,6 @@
 {
-  "alinma": "2026-11-19T07:57:26.002Z",
-  "referansTarih": "2026-11-10",
+  "alinma": "2026-11-19T10:00:10.509Z",
+  "referansTarih": "2026-11-17",
   "tufeCogunluk": "2026-09",
   "kaynaklar": [
     {
@@ -19,7 +19,7 @@
       "banka": "TCMB",
       "faiz": 36,
       "aralik": null,
-      "tarih": "2026-11-06",
+      "tarih": "2026-11-13",
       "sonHareket": {
         "yon": "indirim",
         "bp": 100,
@@ -42,7 +42,7 @@
         "alt": 3.75,
         "ust": 4
       },
-      "tarih": "2026-11-10",
+      "tarih": "2026-11-17",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -62,7 +62,7 @@
       "banka": "ECB",
       "faiz": 2.5,
       "aralik": null,
-      "tarih": "2026-11-10",
+      "tarih": "2026-11-17",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -82,7 +82,7 @@
       "banka": "Japonya Merkez Bankası",
       "faiz": 1.25,
       "aralik": null,
-      "tarih": "2026-11-10",
+      "tarih": "2026-11-17",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -102,7 +102,7 @@
       "banka": "İngiltere Merkez Bankası",
       "faiz": 4,
       "aralik": null,
-      "tarih": "2026-11-09",
+      "tarih": "2026-11-16",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -122,7 +122,7 @@
       "banka": "İsviçre Ulusal Bankası",
       "faiz": 0,
       "aralik": null,
-      "tarih": "2026-11-10",
+      "tarih": "2026-11-17",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -142,7 +142,7 @@
       "banka": "Kanada Merkez Bankası",
       "faiz": 2.5,
       "aralik": null,
-      "tarih": "2026-11-09",
+      "tarih": "2026-11-16",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -162,7 +162,7 @@
       "banka": "Avustralya Merkez Bankası",
       "faiz": 4.85,
       "aralik": null,
-      "tarih": "2026-11-05",
+      "tarih": "2026-11-12",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -182,7 +182,7 @@
       "banka": "Yeni Zelanda Merkez Bankası",
       "faiz": 2.75,
       "aralik": null,
-      "tarih": "2026-11-06",
+      "tarih": "2026-11-13",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -202,7 +202,7 @@
       "banka": "Norveç Merkez Bankası",
       "faiz": 4.5,
       "aralik": null,
-      "tarih": "2026-11-05",
+      "tarih": "2026-11-16",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -220,21 +220,21 @@
       "kod": "SWE",
       "ad": "İsveç",
       "banka": "İsveç Merkez Bankası",
-      "faiz": 1.75,
+      "faiz": 2,
       "aralik": null,
-      "tarih": "2026-11-10",
+      "tarih": "2026-11-17",
       "sonHareket": {
-        "yon": "indirim",
+        "yon": "artırım",
         "bp": 25,
-        "tarih": "2025-10-01"
+        "tarih": "2026-11-11"
       },
-      "degisim12Ay": 0,
-      "faz": "Beklemede",
+      "degisim12Ay": 25,
+      "faz": "Sıkılaştırma",
       "tufe": {
         "donem": "2026-09",
         "deger": 1.15
       },
-      "reel": 0.6
+      "reel": 0.85
     },
     {
       "kod": "CZE",
@@ -242,7 +242,7 @@
       "banka": "Çek Ulusal Bankası",
       "faiz": 4,
       "aralik": null,
-      "tarih": "2026-11-09",
+      "tarih": "2026-11-12",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -282,7 +282,7 @@
       "banka": "Brezilya Merkez Bankası",
       "faiz": 13.75,
       "aralik": null,
-      "tarih": "2026-11-10",
+      "tarih": "2026-11-17",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -302,7 +302,7 @@
       "banka": "Meksika Merkez Bankası",
       "faiz": 6.25,
       "aralik": null,
-      "tarih": "2026-11-10",
+      "tarih": "2026-11-17",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -322,7 +322,7 @@
       "banka": "Şili Merkez Bankası",
       "faiz": 4.5,
       "aralik": null,
-      "tarih": "2026-11-10",
+      "tarih": "2026-11-17",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -342,7 +342,7 @@
       "banka": "Kolombiya Merkez Bankası",
       "faiz": 12.25,
       "aralik": null,
-      "tarih": "2026-11-03",
+      "tarih": "2026-11-12",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -362,7 +362,7 @@
       "banka": "Polonya Ulusal Bankası",
       "faiz": 3.75,
       "aralik": null,
-      "tarih": "2026-11-10",
+      "tarih": "2026-11-17",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -382,7 +382,7 @@
       "banka": "Macaristan Merkez Bankası",
       "faiz": 5.5,
       "aralik": null,
-      "tarih": "2026-11-04",
+      "tarih": "2026-11-11",
       "sonHareket": {
         "yon": "indirim",
         "bp": 25,
@@ -402,7 +402,7 @@
       "banka": "Güney Afrika Merkez Bankası",
       "faiz": 7.25,
       "aralik": null,
-      "tarih": "2026-11-10",
+      "tarih": "2026-11-16",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -442,7 +442,7 @@
       "banka": "Endonezya Merkez Bankası",
       "faiz": 5.75,
       "aralik": null,
-      "tarih": "2026-11-06",
+      "tarih": "2026-11-16",
       "sonHareket": {
         "yon": "artırım",
         "bp": 25,
@@ -462,7 +462,7 @@
       "banka": "Çin Halk Bankası",
       "faiz": 3,
       "aralik": null,
-      "tarih": "2026-11-10",
+      "tarih": "2026-11-17",
       "sonHareket": {
         "yon": "indirim",
         "bp": 10,
@@ -927,7 +927,7 @@
       "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Temel+Faaliyetler/Para+Politikasi/Merkez+Bankasi+Faiz+Oranlari/1+Hafta+Repo"
     },
     "bisOran": 36,
-    "bisTarih": "2026-11-06",
+    "bisTarih": "2026-11-13",
     "uzatildi": false,
     "farkli": false
   }
