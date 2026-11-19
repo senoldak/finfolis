@@ -1,5 +1,5 @@
 {
-  "alinma": "2026-11-19T20:00:51.501Z",
+  "alinma": "2026-11-19T22:03:13.826Z",
   "kaynaklar": [
     {
       "ad": "TÜİK ulusal veri yayımlama takvimi (Resmi İstatistik Portalı)",
@@ -15,24 +15,6 @@
     }
   ],
   "olaylar": [
-    {
-      "tarih": "2026-10-20",
-      "saat": "10:00",
-      "kurum": "TCMB",
-      "baslik": "Uluslararası Yatırım Pozisyonu (Aylık)",
-      "donem": "Ağustos 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Uluslararasi+Yatirim+Pozisyonu/",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-20",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "Yurt Dışı Üretici Fiyat Endeksi",
-      "donem": "Eylül 2026",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=Yurt-Dışı-Üretici-Fiyat-Endeksi-Eylül-2026-58116&dil=1",
-      "kaynak": "tuik"
-    },
     {
       "tarih": "2026-10-21",
       "saat": "10:00",
