@@ -51,7 +51,8 @@ function duzeltmeIsareti(metin) {
  */
 export function dilDuzeltTr(metin, ayar = {}) {
   if (typeof metin !== 'string' || !metin) return metin;
-  let s = duzeltmeIsareti(metin);
+  // Modelin JSON'da kaçışsız bıraktığı satır sonu ("...hedefliyor.\n\nUzay...") metne yazı olarak girmesin (19 Kasım 2026).
+  let s = duzeltmeIsareti(metin.replace(/\\n/g, '\n'));
   // Kesme işareti: harf’harf → harf'harf (sitelerde düz kesme çoğunlukta; karışık yazım tutarsız görünüyor).
   s = s.replace(new RegExp(`([${HARF}0-9])’(?=[${HARF}])`, 'g'), "$1'");
   // İngilizce ondalık nokta ölçek sözcüğünden önce: "3.5 milyar" → "3,5 milyar" (binlik grup 3 hane olduğu için 1–2 hane ondalıktır).
@@ -108,6 +109,21 @@ const KALIPLAR = [
   {
     re: /(?<![a-zçğıöşü])(pazartesi|salı|çarşamba|perşembe|cuma|cumartesi|pazar) günü(?![a-zçğıöşü])/gi,
     mesaj: 'Haftanın günü göreli zamandır: tarih yaz ya da çıkar',
+  },
+  // Yapay zekâ yazı kalıpları (19 Kasım 2026; humanizer ve stop-slop ilkeleri, imzalı zincirin yasak-tr.json listesi).
+  // Hiçbiri kesin değil: haber düşürülmez, sorun redaksiyona gider.
+  { re: /—|―|(?<=\S)\s–\s(?=\S)/g, mesaj: 'Cümle içinde tire var: virgül, nokta, iki nokta ya da parantez kullan (bitişik "2015–2025" aralığı kalır)' },
+  {
+    re: /(?<![a-zçğıöşü])(sadece|yalnızca|salt)\s[^.!?\n]{1,80}?\sdeğil[,;]?\s|(mak|mek)la kalma(dı|yıp|yacak|z)/gi,
+    mesaj: 'Olası sahte karşıtlık ("sadece X değil, aynı zamanda Y"; "X\'le kalmayıp Y"): iki bilgiyi anlamı koruyarak düz cümleyle ver',
+  },
+  {
+    re: /(önemli|yeni|büyük|tarihî|tarihi) bir (adım|dönem|eşik|kilometre taşı)|dönüm noktası|kapılarını arala|damgasını vur|oyunun kurallarını değiştir|büyük önem taşı|kritik öneme sahip|önemli (bir )?rol oyna|altını çiz|göz ardı edilmemeli|merakla bekleniyor|(?<![a-zçğıöşü])sonuç olarak|(?<![a-zçğıöşü])özetle|(?<![a-zçğıöşü])günümüzde/gi,
+    mesaj: 'Önem şişirme ya da dolgu kalıbı: kalıbı kaldır, yerine kaynaktaki somut olguyu (rakam, tarih, ad) yaz',
+  },
+  {
+    re: /(^|[.!?]\s+)Bu (gelişme|adım|hamle|karar|durum|yatırım)[^.!?\n]{0,120}(gösteriyor|ortaya koyuyor|işaret ediyor|yansıtıyor)/g,
+    mesaj: 'Olası yorum cümlesi ("Bu gelişme ... gösteriyor"): cümle kaynaktaki bir olguyu aktarıyorsa koru; kaynağın söylemediği bir yorum katıyorsa kaynaktaki somut bilgiye çevir',
   },
 ];
 
@@ -199,6 +215,28 @@ export function sorunListesi(sorunlar) {
   return sorunlar.map((s) => `- ${s.mesaj}${s.ornek ? ` (örnek: «${s.ornek}»)` : ''}`).join('\n');
 }
 
+// Yapay zekâ yazı kalıpları (19 Kasım 2026): humanizer ve stop-slop ilkelerinin Türkçe haber diline uyarlanmışı.
+// Haber dilinde edilgen çatı ("açıklandı") ve resmî kaynağa dayanan anlatım olağandır; bu bölüm onlara dokunmaz.
+// Redaksiyon istemine ve Günün Özeti istemine eklenir.
+export const YZ_KALIPLARI_TR = `Yapay zekâ yazı kalıplarını temizle:
+- Sahte karşıtlık kurma. "Sadece X değil, aynı zamanda Y" ya da "X'le kalmayıp Y" yerine iki bilgiyi düz cümleyle ver.
+- Önemi sıfatla büyütme. "Önemli bir adım", "yeni bir dönem", "dönüm noktası", "kritik öneme sahip", "büyük önem taşıyor", "damgasını vurdu", "dikkat çekiyor" gibi kalıpların yerine olgunun kendisini (rakam, tarih, ad) yaz.
+- Paragrafı ya da haberi yorumla kapatma. "Bu gelişme ... gösteriyor", "merakla bekleniyor", "zaman gösterecek" türü cümleler kaynağın söylemediği bir yorum katıyorsa yerine kaynaktaki somut bir bilgiyi yaz. Kaynaktaki bir olguyu aktaran cümleye ("Bu durum, zararın kâra döndüğünü gösteriyor") dokunma.
+- Bu kuralların hiçbiri anlamı, olguyu ya da kaynağın vurgusunu değiştirme gerekçesi değildir. Emin olmadığın cümleyi olduğu gibi bırak.
+- Üçlü sıralamayı alışkanlık hâline getirme. Kaynakta iki öğe varsa iki öğe yaz; liste uydurma.
+- Cümle içinde tire kullanma (— ya da boşluklu –). Virgül, nokta, iki nokta ya da parantez kullan. Bitişik yazılan aralık tiresi (2015–2025) kalır.
+- Art arda gelen cümleleri aynı sözcükle ya da aynı adla başlatma. Cümle uzunluklarını çeşitlendir; aynı kalıpta kurulmuş kısa cümleleri arka arkaya dizme.
+- Okura hitap etme, soru sorma, ders verir gibi yazma.
+- Bir kalıbı kaldırdığında yerine eş anlamlı ya da boş bir ifade ("bulunuyor", "işlev kazanıyor", "öne çıkıyor") koyma. Metinde ilgili somut bilgi varsa cümleyi onunla kur; yoksa kalıbı taşıyan yan cümleyi sil ya da cümleyi komşu cümleyle birleştir. Yeni olgu eklenmez.
+- Doğrudan alıntıya (tırnak içindeki Türkçe söz) dokunma; tırnağı kaldırıp dolaylı anlatıma çevirme.
+
+Örnekler:
+❌ Şirket yalnızca yatırım almakla kalmadı, aynı zamanda iki yeni pazara açıldı.   ✅ Şirket yatırım aldı ve iki yeni pazara açıldı.
+❌ Bu yatırım, sektör için önemli bir dönüm noktası niteliğinde.   ✅ (cümleyi sil ya da yatırım tutarını ve tarihini yaz)
+❌ Şirket — kuruluşundan bu yana — 3 tur tamamladı.   ✅ Şirket kuruluşundan bu yana 3 tur tamamladı.
+❌ Brezilya'nın tarımsal üretimindeki dışa bağımlılık dikkat çekiyor. Brezilya tarımı, gübrede yüzde 90 dışa bağımlı.   ✅ Brezilya tarımı, gübre tedarikinde yüzde 90 dışa bağımlı.
+❌ Bu yetenek, veri hacminin arttığı günümüzde kritik bir öneme sahip.   ✅ (kaynakta somut bir bilgi yoksa cümleyi sil; "işlev kazanıyor" gibi boş bir yüklemle değiştirme)`;
+
 // Redaksiyon istemi (dil masası). Kötü/iyi çift örnekler, son haftanın gerçek hatalarından. Olgu, rakam, ad ve alıntı
 // değiştirilmez; metin kısaltılmaz.
 export const REDAKSIYON_KURALLARI_TR = `Sen bir Türk haber ajansında kıdemli redaktörsün. Sana verilen haberin dilini düzeltirsin; haberi yeniden yazmazsın.
@@ -215,6 +253,8 @@ Düzelt:
 - Aynı bilgiyi iki kez veren cümleyi birleştir; dolgu cümlesini (bilgi taşımayan genel yargı) sil ya da kaynaktaki somut bilgiyle değiştir.
 - Kipler tutarlı olsun: haber dili "-dı/-di" ve "-iyor"; "-mektedir/-maktadır" kullanma.
 - Şirketin adını eş anlamlı sözcüklerle ("kuruluş", "işletme", "teşebbüs") değiştirip durma; adı ya da "şirket" yeter.
+
+${YZ_KALIPLARI_TR}
 
 Örnekler:
 ❌ Duvar Sokağı analistlerine göre        ✅ Wall Street analistlerine göre

@@ -82,3 +82,24 @@ test('sorun listesi biçimi', () => {
   assert.equal(sorunListesi([]), '');
   assert.match(sorunListesi(dilSorunlariTr('Duvar Sokağı açıldı.')), /^- "Duvar Sokağı".*örnek: «Duvar Sokağı»/);
 });
+
+test('yapay zekâ kalıpları: redaksiyona gider, haberi düşürmez', () => {
+  const sorun = (m) => dilSorunlariTr(m).filter((s) => s.kod === 'kalip');
+  for (const m of [
+    'Şirket — kuruluşundan bu yana — 3 tur tamamladı.',
+    'Şirket sadece yatırım almadı değil, iki pazara açıldı.',
+    'Şirket yatırım almakla kalmadı, iki pazara açıldı.',
+    'Bu yatırım sektör için önemli bir adım oldu.',
+    'Kampanya dönüm noktası sayılıyor.',
+    'Şirket 2 milyon dolar topladı. Bu gelişme sektörün büyüdüğünü gösteriyor.',
+  ]) {
+    assert.ok(sorun(m).length, m);
+    assert.equal(kesinSorunlar(dilSorunlariTr(m)).length, 0, m);
+  }
+  assert.equal(sorun('Şirket 2015–2025 arasında 3 tur tamamladı.').length, 0);
+  assert.equal(sorun('Şirket 9 Nisan ile 5 Ekim 2026 arasında satış yapmadı.').length, 0);
+});
+
+test('modelin yazı olarak bıraktığı satır sonu gerçek satır sonuna döner', () => {
+  assert.equal(dilDuzeltTr('Birinci paragraf.\n\nİkinci paragraf.'), 'Birinci paragraf.\n\nİkinci paragraf.');
+});
