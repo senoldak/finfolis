@@ -227,7 +227,7 @@ export const YZ_KALIPLARI_TR = `Yapay zekâ yazı kalıplarını temizle:
 - Cümle içinde tire kullanma (— ya da boşluklu –). Virgül, nokta, iki nokta ya da parantez kullan. Bitişik yazılan aralık tiresi (2015–2025) kalır.
 - Art arda gelen cümleleri aynı sözcükle ya da aynı adla başlatma. Cümle uzunluklarını çeşitlendir; aynı kalıpta kurulmuş kısa cümleleri arka arkaya dizme.
 - Okura hitap etme, soru sorma, ders verir gibi yazma.
-- Bir kalıbı kaldırdığında yerine eş anlamlı ya da boş bir ifade ("bulunuyor", "işlev kazanıyor", "öne çıkıyor") koyma. Metinde ilgili somut bilgi varsa cümleyi onunla kur; yoksa kalıbı taşıyan yan cümleyi sil ya da cümleyi komşu cümleyle birleştir. Yeni olgu eklenmez.
+- Bir kalıbı kaldırdığında yerine eş anlamlı ya da boş bir ifade ("bulunuyor", "işlev kazanıyor", "öne çıkıyor") koyma. Metinde ilgili somut bilgi varsa cümleyi onunla kur; yoksa yalnız kalıbın kendisini (birkaç sözcük) çıkar, cümlenin geri kalanını koru. Cümle ya da paragraf silme: metin kısalmamalı. Yeni olgu eklenmez.
 - Doğrudan alıntıya (tırnak içindeki Türkçe söz) dokunma; tırnağı kaldırıp dolaylı anlatıma çevirme.
 
 Örnekler:
