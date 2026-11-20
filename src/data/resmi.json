@@ -22635,9 +22635,18 @@
         "tuketim": 72.3,
         "ara": 74.4,
         "yatirim": 73.4
+      },
+      {
+        "yil": 2026,
+        "ay": 11,
+        "arindirilmis": 74.1,
+        "ham": 74.4,
+        "tuketim": 72.6,
+        "ara": 74.5,
+        "yatirim": 72.5
       }
     ],
-    "alinma": "2026-10-27T19:00:02.421Z"
+    "alinma": "2026-11-20T07:56:22.637Z"
   },
   "kurHaftalik": {
     "kaynak": {
@@ -39296,6 +39305,13 @@
         "kalanVade": 243276,
         "orijinalVade": 176664,
         "rezerv": 186695
+      },
+      {
+        "yil": 2026,
+        "ay": 9,
+        "kalanVade": 240221,
+        "orijinalVade": 173088,
+        "rezerv": 166069
       }
     ],
     "ceyrekler": [
@@ -39518,287 +39534,293 @@
       {
         "yil": 2014,
         "ceyrek": 4,
-        "brut": 455218,
-        "net": 240770
+        "brut": 455242,
+        "net": 240794
       },
       {
         "yil": 2015,
         "ceyrek": 1,
-        "brut": 436072,
-        "net": 230698
+        "brut": 436094,
+        "net": 230720
       },
       {
         "yil": 2015,
         "ceyrek": 2,
-        "brut": 438067,
-        "net": 229424
+        "brut": 438090,
+        "net": 229447
       },
       {
         "yil": 2015,
         "ceyrek": 3,
-        "brut": 424415,
-        "net": 212995
+        "brut": 424418,
+        "net": 212998
       },
       {
         "yil": 2015,
         "ceyrek": 4,
-        "brut": 413574,
-        "net": 213950
+        "brut": 413568,
+        "net": 213944
       },
       {
         "yil": 2016,
         "ceyrek": 1,
-        "brut": 427909,
-        "net": 222528
+        "brut": 427814,
+        "net": 222433
       },
       {
         "yil": 2016,
         "ceyrek": 2,
-        "brut": 439595,
-        "net": 228319
+        "brut": 439082,
+        "net": 227806
       },
       {
         "yil": 2016,
         "ceyrek": 3,
-        "brut": 434044,
-        "net": 228976
+        "brut": 433518,
+        "net": 228450
       },
       {
         "yil": 2016,
         "ceyrek": 4,
-        "brut": 402646,
-        "net": 199915
+        "brut": 402113,
+        "net": 199382
       },
       {
         "yil": 2017,
         "ceyrek": 1,
-        "brut": 412193,
-        "net": 212238
+        "brut": 411655,
+        "net": 211700
       },
       {
         "yil": 2017,
         "ceyrek": 2,
-        "brut": 439981,
-        "net": 233236
+        "brut": 439688,
+        "net": 232943
       },
       {
         "yil": 2017,
         "ceyrek": 3,
-        "brut": 453541,
-        "net": 247933
+        "brut": 453256,
+        "net": 247648
       },
       {
         "yil": 2017,
         "ceyrek": 4,
-        "brut": 460245,
-        "net": 250458
+        "brut": 459960,
+        "net": 250173
       },
       {
         "yil": 2018,
         "ceyrek": 1,
-        "brut": 461289,
-        "net": 253644
+        "brut": 461006,
+        "net": 253361
       },
       {
         "yil": 2018,
         "ceyrek": 2,
-        "brut": 439895,
-        "net": 241089
+        "brut": 439625,
+        "net": 240819
       },
       {
         "yil": 2018,
         "ceyrek": 3,
-        "brut": 414576,
-        "net": 215529
+        "brut": 414313,
+        "net": 215266
       },
       {
         "yil": 2018,
         "ceyrek": 4,
-        "brut": 412049,
-        "net": 204914
+        "brut": 411793,
+        "net": 204658
       },
       {
         "yil": 2019,
         "ceyrek": 1,
-        "brut": 412705,
-        "net": 195648
+        "brut": 412459,
+        "net": 195402
       },
       {
         "yil": 2019,
         "ceyrek": 2,
-        "brut": 404665,
-        "net": 191377
+        "brut": 404422,
+        "net": 191134
       },
       {
         "yil": 2019,
         "ceyrek": 3,
-        "brut": 398524,
-        "net": 177381
+        "brut": 398291,
+        "net": 177148
       },
       {
         "yil": 2019,
         "ceyrek": 4,
-        "brut": 398506,
-        "net": 172409
+        "brut": 398275,
+        "net": 172178
       },
       {
         "yil": 2020,
         "ceyrek": 1,
-        "brut": 374610,
-        "net": 168290
+        "brut": 374379,
+        "net": 168059
       },
       {
         "yil": 2020,
         "ceyrek": 2,
-        "brut": 372965,
-        "net": 178595
+        "brut": 372720,
+        "net": 178350
       },
       {
         "yil": 2020,
         "ceyrek": 3,
-        "brut": 371656,
-        "net": 176671
+        "brut": 371410,
+        "net": 176425
       },
       {
         "yil": 2020,
         "ceyrek": 4,
-        "brut": 390820,
-        "net": 182009
+        "brut": 390520,
+        "net": 181709
       },
       {
         "yil": 2021,
         "ceyrek": 1,
-        "brut": 382379,
-        "net": 170154
+        "brut": 382106,
+        "net": 169881
       },
       {
         "yil": 2021,
         "ceyrek": 2,
-        "brut": 393436,
-        "net": 166035
+        "brut": 393148,
+        "net": 165747
       },
       {
         "yil": 2021,
         "ceyrek": 3,
-        "brut": 398359,
-        "net": 144159
+        "brut": 398085,
+        "net": 143889
       },
       {
         "yil": 2021,
         "ceyrek": 4,
-        "brut": 378522,
-        "net": 140239
+        "brut": 378076,
+        "net": 139767
       },
       {
         "yil": 2022,
         "ceyrek": 1,
-        "brut": 380512,
-        "net": 145153
+        "brut": 380093,
+        "net": 144661
       },
       {
         "yil": 2022,
         "ceyrek": 2,
-        "brut": 367943,
-        "net": 137228
+        "brut": 367537,
+        "net": 136755
       },
       {
         "yil": 2022,
         "ceyrek": 3,
-        "brut": 367227,
-        "net": 129517
+        "brut": 366995,
+        "net": 129229
       },
       {
         "yil": 2022,
         "ceyrek": 4,
-        "brut": 388639,
-        "net": 134241
+        "brut": 388199,
+        "net": 133427
       },
       {
         "yil": 2023,
         "ceyrek": 1,
-        "brut": 404343,
-        "net": 152014
+        "brut": 404344,
+        "net": 151649
       },
       {
         "yil": 2023,
         "ceyrek": 2,
-        "brut": 404070,
-        "net": 164858
+        "brut": 404249,
+        "net": 164803
       },
       {
         "yil": 2023,
         "ceyrek": 3,
-        "brut": 409344,
-        "net": 159587
+        "brut": 410182,
+        "net": 160184
       },
       {
         "yil": 2023,
         "ceyrek": 4,
-        "brut": 432551,
-        "net": 157572
+        "brut": 433910,
+        "net": 158719
       },
       {
         "yil": 2024,
         "ceyrek": 1,
-        "brut": 429068,
-        "net": 168334
+        "brut": 430665,
+        "net": 169722
       },
       {
         "yil": 2024,
         "ceyrek": 2,
-        "brut": 450951,
-        "net": 163960
+        "brut": 452649,
+        "net": 165359
       },
       {
         "yil": 2024,
         "ceyrek": 3,
-        "brut": 460061,
-        "net": 157449
+        "brut": 462622,
+        "net": 159525
       },
       {
         "yil": 2024,
         "ceyrek": 4,
-        "brut": 461237,
-        "net": 161280
+        "brut": 463249,
+        "net": 162871
       },
       {
         "yil": 2025,
         "ceyrek": 1,
-        "brut": 469225,
-        "net": 161559
+        "brut": 470686,
+        "net": 162530
       },
       {
         "yil": 2025,
         "ceyrek": 2,
-        "brut": 485293,
-        "net": 177377
+        "brut": 486220,
+        "net": 177889
       },
       {
         "yil": 2025,
         "ceyrek": 3,
-        "brut": 501364,
-        "net": 158799
+        "brut": 503138,
+        "net": 160114
       },
       {
         "yil": 2025,
         "ceyrek": 4,
-        "brut": 522732,
-        "net": 173229
+        "brut": 523591,
+        "net": 173864
       },
       {
         "yil": 2026,
         "ceyrek": 1,
-        "brut": 520874,
-        "net": 191472
+        "brut": 524568,
+        "net": 194866
       },
       {
         "yil": 2026,
         "ceyrek": 2,
-        "brut": 538956,
-        "net": 218787
+        "brut": 541397,
+        "net": 224277
+      },
+      {
+        "yil": 2026,
+        "ceyrek": 3,
+        "brut": 549225,
+        "net": 206731
       }
     ],
-    "alinma": "2026-11-19T07:57:14.546Z"
+    "alinma": "2026-11-20T07:56:22.637Z"
   },
   "disTicaret": {
     "kaynak": {
@@ -146650,12 +146672,12 @@
         "vTurev": 0,
         "vDiger": 53139,
         "rezerv": 60448,
-        "yDogrudan": 76479,
+        "yDogrudan": 76480,
         "yPortfoy": 79539,
         "yHisse": 36690,
         "yBorcSenedi": 42849,
         "yTurev": 0,
-        "yDiger": 154263
+        "yDiger": 154262
       },
       {
         "yil": 2006,
@@ -146668,12 +146690,12 @@
         "vTurev": 0,
         "vDiger": 60246,
         "rezerv": 59018,
-        "yDogrudan": 63040,
+        "yDogrudan": 63041,
         "yPortfoy": 62798,
         "yHisse": 26075,
         "yBorcSenedi": 36723,
         "yTurev": 0,
-        "yDiger": 163085
+        "yDiger": 163084
       },
       {
         "yil": 2006,
@@ -146686,19 +146708,19 @@
         "vTurev": 0,
         "vDiger": 65855,
         "rezerv": 60793,
-        "yDogrudan": 73461,
+        "yDogrudan": 73462,
         "yPortfoy": 71722,
         "yHisse": 30188,
         "yBorcSenedi": 41534,
         "yTurev": 0,
-        "yDiger": 167238
+        "yDiger": 167237
       },
       {
         "yil": 2006,
         "ceyrek": 4,
-        "net": -203274,
+        "net": -203273,
         "varlik": 153385,
-        "yukumluluk": 356659,
+        "yukumluluk": 356658,
         "vDogrudan": 8866,
         "vPortfoy": 3111,
         "vTurev": 0,
@@ -146709,7 +146731,7 @@
         "yHisse": 33816,
         "yBorcSenedi": 50594,
         "yTurev": 0,
-        "yDiger": 176745
+        "yDiger": 176744
       },
       {
         "yil": 2007,
@@ -146722,12 +146744,12 @@
         "vTurev": 0,
         "vDiger": 78078,
         "rezerv": 69936,
-        "yDogrudan": 112869,
+        "yDogrudan": 112870,
         "yPortfoy": 91880,
         "yHisse": 37654,
         "yBorcSenedi": 54226,
         "yTurev": 0,
-        "yDiger": 177313
+        "yDiger": 177312
       },
       {
         "yil": 2007,
@@ -146740,12 +146762,12 @@
         "vTurev": 0,
         "vDiger": 87120,
         "rezerv": 70656,
-        "yDogrudan": 126979,
+        "yDogrudan": 126980,
         "yPortfoy": 101695,
         "yHisse": 44482,
         "yBorcSenedi": 57213,
         "yTurev": 0,
-        "yDiger": 190401
+        "yDiger": 190400
       },
       {
         "yil": 2007,
@@ -146758,12 +146780,12 @@
         "vTurev": 0,
         "vDiger": 86929,
         "rezerv": 74465,
-        "yDogrudan": 147841,
+        "yDogrudan": 147842,
         "yPortfoy": 117279,
         "yHisse": 59010,
         "yBorcSenedi": 58269,
         "yTurev": 0,
-        "yDiger": 200671
+        "yDiger": 200670
       },
       {
         "yil": 2007,
@@ -146776,12 +146798,12 @@
         "vTurev": 0,
         "vDiger": 92573,
         "rezerv": 76415,
-        "yDogrudan": 155711,
+        "yDogrudan": 155712,
         "yPortfoy": 120629,
         "yHisse": 64201,
         "yBorcSenedi": 56428,
         "yTurev": 0,
-        "yDiger": 216735
+        "yDiger": 216734
       },
       {
         "yil": 2008,
@@ -146794,25 +146816,25 @@
         "vTurev": 0,
         "vDiger": 101351,
         "rezerv": 80032,
-        "yDogrudan": 114731,
+        "yDogrudan": 114732,
         "yPortfoy": 93900,
         "yHisse": 40787,
         "yBorcSenedi": 53113,
         "yTurev": 0,
-        "yDiger": 230815
+        "yDiger": 230814
       },
       {
         "yil": 2008,
         "ceyrek": 2,
-        "net": -253194,
+        "net": -253195,
         "varlik": 208110,
-        "yukumluluk": 461304,
+        "yukumluluk": 461305,
         "vDogrudan": 13415,
         "vPortfoy": 2047,
         "vTurev": 0,
         "vDiger": 113225,
         "rezerv": 79423,
-        "yDogrudan": 115374,
+        "yDogrudan": 115375,
         "yPortfoy": 94121,
         "yHisse": 39145,
         "yBorcSenedi": 54976,
@@ -146822,15 +146844,15 @@
       {
         "yil": 2008,
         "ceyrek": 3,
-        "net": -255436,
+        "net": -255437,
         "varlik": 212008,
-        "yukumluluk": 467444,
+        "yukumluluk": 467445,
         "vDogrudan": 13774,
         "vPortfoy": 2012,
         "vTurev": 0,
         "vDiger": 115360,
         "rezerv": 80862,
-        "yDogrudan": 118251,
+        "yDogrudan": 118252,
         "yPortfoy": 93394,
         "yHisse": 39294,
         "yBorcSenedi": 54100,
@@ -146848,12 +146870,12 @@
         "vTurev": 0,
         "vDiger": 104122,
         "rezerv": 74254,
-        "yDogrudan": 81360,
+        "yDogrudan": 81361,
         "yPortfoy": 68726,
         "yHisse": 23120,
         "yBorcSenedi": 45606,
         "yTurev": 0,
-        "yDiger": 239926
+        "yDiger": 239925
       },
       {
         "yil": 2009,
@@ -146866,12 +146888,12 @@
         "vTurev": 0,
         "vDiger": 99230,
         "rezerv": 70588,
-        "yDogrudan": 77161,
+        "yDogrudan": 77162,
         "yPortfoy": 58954,
         "yHisse": 19025,
         "yBorcSenedi": 39929,
         "yTurev": 0,
-        "yDiger": 224596
+        "yDiger": 224595
       },
       {
         "yil": 2009,
@@ -146884,12 +146906,12 @@
         "vTurev": 0,
         "vDiger": 102252,
         "rezerv": 69382,
-        "yDogrudan": 114723,
+        "yDogrudan": 114724,
         "yPortfoy": 75205,
         "yHisse": 31690,
         "yBorcSenedi": 43515,
         "yTurev": 0,
-        "yDiger": 227847
+        "yDiger": 227846
       },
       {
         "yil": 2009,
@@ -146902,19 +146924,19 @@
         "vTurev": 0,
         "vDiger": 99893,
         "rezerv": 74647,
-        "yDogrudan": 137758,
+        "yDogrudan": 137759,
         "yPortfoy": 88332,
         "yHisse": 43025,
         "yBorcSenedi": 45307,
         "yTurev": 0,
-        "yDiger": 229638
+        "yDiger": 229637
       },
       {
         "yil": 2009,
         "ceyrek": 4,
-        "net": -269730,
+        "net": -269729,
         "varlik": 195464,
-        "yukumluluk": 465194,
+        "yukumluluk": 465193,
         "vDogrudan": 23314,
         "vPortfoy": 1907,
         "vTurev": 0,
@@ -146925,7 +146947,7 @@
         "yHisse": 47080,
         "yBorcSenedi": 43938,
         "yTurev": 0,
-        "yDiger": 228381
+        "yDiger": 228380
       },
       {
         "yil": 2010,
@@ -146938,19 +146960,19 @@
         "vTurev": 0,
         "vDiger": 88104,
         "rezerv": 73609,
-        "yDogrudan": 159683,
+        "yDogrudan": 159684,
         "yPortfoy": 96310,
         "yHisse": 50760,
         "yBorcSenedi": 45550,
         "yTurev": 0,
-        "yDiger": 225302
+        "yDiger": 225301
       },
       {
         "yil": 2010,
         "ceyrek": 2,
-        "net": -289151,
+        "net": -289150,
         "varlik": 187158,
-        "yukumluluk": 476309,
+        "yukumluluk": 476308,
         "vDogrudan": 24263,
         "vPortfoy": 1835,
         "vTurev": 0,
@@ -146961,7 +146983,7 @@
         "yHisse": 47884,
         "yBorcSenedi": 48884,
         "yTurev": 0,
-        "yDiger": 227632
+        "yDiger": 227631
       },
       {
         "yil": 2010,
@@ -146974,19 +146996,19 @@
         "vTurev": 0,
         "vDiger": 88043,
         "rezerv": 82524,
-        "yDogrudan": 192925,
+        "yDogrudan": 192926,
         "yPortfoy": 120527,
         "yHisse": 64149,
         "yBorcSenedi": 56378,
         "yTurev": 0,
-        "yDiger": 243515
+        "yDiger": 243514
       },
       {
         "yil": 2010,
         "ceyrek": 4,
-        "net": -362954,
+        "net": -362953,
         "varlik": 199974,
-        "yukumluluk": 562928,
+        "yukumluluk": 562927,
         "vDogrudan": 23962,
         "vPortfoy": 2230,
         "vTurev": 0,
@@ -146997,7 +147019,7 @@
         "yHisse": 61311,
         "yBorcSenedi": 56684,
         "yTurev": 0,
-        "yDiger": 255118
+        "yDiger": 255117
       },
       {
         "yil": 2011,
@@ -147028,12 +147050,12 @@
         "vTurev": 0,
         "vDiger": 76784,
         "rezerv": 99379,
-        "yDogrudan": 181755,
+        "yDogrudan": 181756,
         "yPortfoy": 126909,
         "yHisse": 55062,
         "yBorcSenedi": 71847,
         "yTurev": 0,
-        "yDiger": 273759
+        "yDiger": 273758
       },
       {
         "yil": 2011,
@@ -147046,12 +147068,12 @@
         "vTurev": 0,
         "vDiger": 76065,
         "rezerv": 93612,
-        "yDogrudan": 150577,
+        "yDogrudan": 150578,
         "yPortfoy": 111632,
         "yHisse": 45851,
         "yBorcSenedi": 65781,
         "yTurev": 0,
-        "yDiger": 269863
+        "yDiger": 269862
       },
       {
         "yil": 2011,
@@ -147064,19 +147086,19 @@
         "vTurev": 0,
         "vDiger": 77001,
         "rezerv": 88340,
-        "yDogrudan": 138620,
+        "yDogrudan": 138621,
         "yPortfoy": 112923,
         "yHisse": 39055,
         "yBorcSenedi": 73868,
         "yTurev": 0,
-        "yDiger": 262286
+        "yDiger": 262285
       },
       {
         "yil": 2012,
         "ceyrek": 1,
-        "net": -378624,
+        "net": -378623,
         "varlik": 200356,
-        "yukumluluk": 578980,
+        "yukumluluk": 578979,
         "vDogrudan": 30581,
         "vPortfoy": 1365,
         "vTurev": 0,
@@ -147087,7 +147109,7 @@
         "yHisse": 50833,
         "yBorcSenedi": 82053,
         "yTurev": 0,
-        "yDiger": 269360
+        "yDiger": 269359
       },
       {
         "yil": 2012,
@@ -147100,12 +147122,12 @@
         "vTurev": 0,
         "vDiger": 76754,
         "rezerv": 95500,
-        "yDogrudan": 166048,
+        "yDogrudan": 166049,
         "yPortfoy": 137774,
         "yHisse": 50294,
         "yBorcSenedi": 87480,
         "yTurev": 0,
-        "yDiger": 274333
+        "yDiger": 274332
       },
       {
         "yil": 2012,
@@ -147118,25 +147140,25 @@
         "vTurev": 0,
         "vDiger": 76148,
         "rezerv": 112086,
-        "yDogrudan": 174940,
+        "yDogrudan": 174941,
         "yPortfoy": 160343,
         "yHisse": 56971,
         "yBorcSenedi": 103372,
         "yTurev": 0,
-        "yDiger": 276483
+        "yDiger": 276482
       },
       {
         "yil": 2012,
         "ceyrek": 4,
-        "net": -435111,
+        "net": -435112,
         "varlik": 231042,
-        "yukumluluk": 666153,
+        "yukumluluk": 666154,
         "vDogrudan": 31378,
         "vPortfoy": 1320,
         "vTurev": 0,
         "vDiger": 79177,
         "rezerv": 119167,
-        "yDogrudan": 192637,
+        "yDogrudan": 192638,
         "yPortfoy": 190842,
         "yHisse": 70501,
         "yBorcSenedi": 120341,
@@ -147146,15 +147168,15 @@
       {
         "yil": 2013,
         "ceyrek": 1,
-        "net": -449071,
+        "net": -449072,
         "varlik": 236567,
-        "yukumluluk": 685638,
+        "yukumluluk": 685639,
         "vDogrudan": 32066,
         "vPortfoy": 894,
         "vTurev": 0,
         "vDiger": 76912,
         "rezerv": 126695,
-        "yDogrudan": 198108,
+        "yDogrudan": 198109,
         "yPortfoy": 198504,
         "yHisse": 76276,
         "yBorcSenedi": 122228,
@@ -147172,25 +147194,25 @@
         "vTurev": 0,
         "vDiger": 79614,
         "rezerv": 122617,
-        "yDogrudan": 174917,
+        "yDogrudan": 174918,
         "yPortfoy": 187039,
         "yHisse": 63174,
         "yBorcSenedi": 123865,
         "yTurev": 0,
-        "yDiger": 298983
+        "yDiger": 298982
       },
       {
         "yil": 2013,
         "ceyrek": 3,
-        "net": -407312,
+        "net": -407313,
         "varlik": 242217,
-        "yukumluluk": 649529,
+        "yukumluluk": 649530,
         "vDogrudan": 33251,
         "vPortfoy": 845,
         "vTurev": 0,
         "vDiger": 77359,
         "rezerv": 130762,
-        "yDogrudan": 165673,
+        "yDogrudan": 165674,
         "yPortfoy": 178388,
         "yHisse": 58334,
         "yBorcSenedi": 120054,
@@ -147200,15 +147222,15 @@
       {
         "yil": 2013,
         "ceyrek": 4,
-        "net": -392130,
+        "net": -392131,
         "varlik": 244629,
-        "yukumluluk": 636759,
+        "yukumluluk": 636760,
         "vDogrudan": 33660,
         "vPortfoy": 1003,
         "vTurev": 0,
         "vDiger": 78931,
         "rezerv": 131035,
-        "yDogrudan": 152747,
+        "yDogrudan": 152748,
         "yPortfoy": 170489,
         "yHisse": 52248,
         "yBorcSenedi": 118241,
@@ -147362,9 +147384,9 @@
       {
         "yil": 2016,
         "ceyrek": 1,
-        "net": -398780,
+        "net": -398781,
         "varlik": 239689,
-        "yukumluluk": 638469,
+        "yukumluluk": 638470,
         "vDogrudan": 37013,
         "vPortfoy": 1380,
         "vTurev": 3833,
@@ -147375,14 +147397,14 @@
         "yHisse": 48328,
         "yBorcSenedi": 111846,
         "yTurev": 3077,
-        "yDiger": 303599
+        "yDiger": 303600
       },
       {
         "yil": 2016,
         "ceyrek": 2,
-        "net": -385732,
+        "net": -385734,
         "varlik": 246103,
-        "yukumluluk": 631835,
+        "yukumluluk": 631837,
         "vDogrudan": 37843,
         "vPortfoy": 1426,
         "vTurev": 3593,
@@ -147393,14 +147415,14 @@
         "yHisse": 43162,
         "yBorcSenedi": 118884,
         "yTurev": 2880,
-        "yDiger": 307162
+        "yDiger": 307164
       },
       {
         "yil": 2016,
         "ceyrek": 3,
-        "net": -382695,
+        "net": -382696,
         "varlik": 240265,
-        "yukumluluk": 622960,
+        "yukumluluk": 622961,
         "vDogrudan": 38492,
         "vPortfoy": 1503,
         "vTurev": 3360,
@@ -147411,14 +147433,14 @@
         "yHisse": 41128,
         "yBorcSenedi": 117054,
         "yTurev": 1643,
-        "yDiger": 302296
+        "yDiger": 302297
       },
       {
         "yil": 2016,
         "ceyrek": 4,
-        "net": -335934,
+        "net": -335935,
         "varlik": 240982,
-        "yukumluluk": 576916,
+        "yukumluluk": 576917,
         "vDogrudan": 39463,
         "vPortfoy": 1284,
         "vTurev": 5286,
@@ -147429,14 +147451,14 @@
         "yHisse": 35505,
         "yBorcSenedi": 99696,
         "yTurev": 2864,
-        "yDiger": 288565
+        "yDiger": 288566
       },
       {
         "yil": 2017,
         "ceyrek": 1,
-        "net": -370164,
+        "net": -370165,
         "varlik": 239005,
-        "yukumluluk": 609169,
+        "yukumluluk": 609170,
         "vDogrudan": 40300,
         "vPortfoy": 1385,
         "vTurev": 5197,
@@ -147447,14 +147469,14 @@
         "yHisse": 40564,
         "yBorcSenedi": 105379,
         "yTurev": 3079,
-        "yDiger": 292834
+        "yDiger": 292835
       },
       {
         "yil": 2017,
         "ceyrek": 2,
-        "net": -412816,
+        "net": -412823,
         "varlik": 246344,
-        "yukumluluk": 659160,
+        "yukumluluk": 659167,
         "vDogrudan": 41162,
         "vPortfoy": 1343,
         "vTurev": 4915,
@@ -147465,14 +147487,14 @@
         "yHisse": 49101,
         "yBorcSenedi": 121939,
         "yTurev": 3506,
-        "yDiger": 303492
+        "yDiger": 303499
       },
       {
         "yil": 2017,
         "ceyrek": 3,
-        "net": -432414,
+        "net": -432425,
         "varlik": 245803,
-        "yukumluluk": 678217,
+        "yukumluluk": 678228,
         "vDogrudan": 41288,
         "vPortfoy": 1136,
         "vTurev": 5402,
@@ -147483,14 +147505,14 @@
         "yHisse": 49815,
         "yBorcSenedi": 129824,
         "yTurev": 2975,
-        "yDiger": 308556
+        "yDiger": 308567
       },
       {
         "yil": 2017,
         "ceyrek": 4,
-        "net": -444127,
+        "net": -444139,
         "varlik": 254401,
-        "yukumluluk": 698528,
+        "yukumluluk": 698540,
         "vDogrudan": 46999,
         "vPortfoy": 1153,
         "vTurev": 4875,
@@ -147501,14 +147523,14 @@
         "yHisse": 51984,
         "yBorcSenedi": 127837,
         "yTurev": 3890,
-        "yDiger": 316977
+        "yDiger": 316989
       },
       {
         "yil": 2018,
         "ceyrek": 1,
-        "net": -422287,
+        "net": -422299,
         "varlik": 253319,
-        "yukumluluk": 675606,
+        "yukumluluk": 675618,
         "vDogrudan": 48157,
         "vPortfoy": 1072,
         "vTurev": 4707,
@@ -147519,68 +147541,68 @@
         "yHisse": 49440,
         "yBorcSenedi": 125906,
         "yTurev": 2966,
-        "yDiger": 320283
+        "yDiger": 320295
       },
       {
         "yil": 2018,
         "ceyrek": 2,
-        "net": -370376,
+        "net": -370387,
         "varlik": 247100,
-        "yukumluluk": 617476,
+        "yukumluluk": 617487,
         "vDogrudan": 48961,
         "vPortfoy": 1622,
         "vTurev": 6461,
         "vDiger": 91671,
         "rezerv": 98385,
-        "yDogrudan": 150545,
+        "yDogrudan": 150544,
         "yPortfoy": 147475,
         "yHisse": 36122,
         "yBorcSenedi": 111353,
         "yTurev": 5431,
-        "yDiger": 314025
+        "yDiger": 314037
       },
       {
         "yil": 2018,
         "ceyrek": 3,
-        "net": -301105,
+        "net": -301115,
         "varlik": 248627,
-        "yukumluluk": 549732,
+        "yukumluluk": 549742,
         "vDogrudan": 49750,
         "vPortfoy": 1147,
         "vTurev": 7250,
         "vDiger": 105765,
         "rezerv": 84715,
-        "yDogrudan": 112869,
+        "yDogrudan": 112868,
         "yPortfoy": 125886,
         "yHisse": 27573,
         "yBorcSenedi": 98313,
         "yTurev": 8837,
-        "yDiger": 302140
+        "yDiger": 302151
       },
       {
         "yil": 2018,
         "ceyrek": 4,
-        "net": -327070,
+        "net": -327080,
         "varlik": 253052,
-        "yukumluluk": 580122,
+        "yukumluluk": 580132,
         "vDogrudan": 46188,
         "vPortfoy": 1142,
         "vTurev": 5378,
         "vDiger": 107316,
         "rezerv": 93028,
-        "yDogrudan": 146104,
+        "yDogrudan": 146103,
         "yPortfoy": 134672,
         "yHisse": 29487,
         "yBorcSenedi": 105185,
         "yTurev": 6683,
-        "yDiger": 292663
+        "yDiger": 292674
       },
       {
         "yil": 2019,
         "ceyrek": 1,
-        "net": -297954,
+        "net": -297964,
         "varlik": 263774,
-        "yukumluluk": 561728,
+        "yukumluluk": 561738,
         "vDogrudan": 46683,
         "vPortfoy": 1592,
         "vTurev": 5608,
@@ -147591,32 +147613,32 @@
         "yHisse": 29135,
         "yBorcSenedi": 108756,
         "yTurev": 4670,
-        "yDiger": 290264
+        "yDiger": 290274
       },
       {
         "yil": 2019,
         "ceyrek": 2,
-        "net": -298983,
+        "net": -298992,
         "varlik": 258809,
-        "yukumluluk": 557792,
+        "yukumluluk": 557801,
         "vDogrudan": 47681,
         "vPortfoy": 1563,
         "vTurev": 3405,
         "vDiger": 109834,
         "rezerv": 96326,
-        "yDogrudan": 133116,
+        "yDogrudan": 133115,
         "yPortfoy": 132521,
         "yHisse": 28825,
         "yBorcSenedi": 103696,
         "yTurev": 4630,
-        "yDiger": 287525
+        "yDiger": 287535
       },
       {
         "yil": 2019,
         "ceyrek": 3,
-        "net": -310786,
+        "net": -310797,
         "varlik": 268184,
-        "yukumluluk": 578970,
+        "yukumluluk": 578981,
         "vDogrudan": 48265,
         "vPortfoy": 1422,
         "vTurev": 4469,
@@ -147627,14 +147649,14 @@
         "yHisse": 31885,
         "yBorcSenedi": 106494,
         "yTurev": 4076,
-        "yDiger": 279357
+        "yDiger": 279368
       },
       {
         "yil": 2019,
         "ceyrek": 4,
-        "net": -308823,
+        "net": -308834,
         "varlik": 273261,
-        "yukumluluk": 582084,
+        "yukumluluk": 582095,
         "vDogrudan": 50564,
         "vPortfoy": 1594,
         "vTurev": 3132,
@@ -147645,14 +147667,14 @@
         "yHisse": 32576,
         "yBorcSenedi": 106776,
         "yTurev": 2444,
-        "yDiger": 278971
+        "yDiger": 278982
       },
       {
         "yil": 2020,
         "ceyrek": 1,
-        "net": -260778,
+        "net": -260789,
         "varlik": 254648,
-        "yukumluluk": 515426,
+        "yukumluluk": 515437,
         "vDogrudan": 51127,
         "vPortfoy": 1514,
         "vTurev": 3788,
@@ -147663,14 +147685,14 @@
         "yHisse": 21863,
         "yBorcSenedi": 91190,
         "yTurev": 2275,
-        "yDiger": 270838
+        "yDiger": 270849
       },
       {
         "yil": 2020,
         "ceyrek": 2,
-        "net": -308689,
+        "net": -308700,
         "varlik": 242342,
-        "yukumluluk": 551031,
+        "yukumluluk": 551042,
         "vDogrudan": 51511,
         "vPortfoy": 1371,
         "vTurev": 3081,
@@ -147681,14 +147703,14 @@
         "yHisse": 24672,
         "yBorcSenedi": 87579,
         "yTurev": 2026,
-        "yDiger": 273214
+        "yDiger": 273225
       },
       {
         "yil": 2020,
         "ceyrek": 3,
-        "net": -322000,
+        "net": -322011,
         "varlik": 244169,
-        "yukumluluk": 566169,
+        "yukumluluk": 566180,
         "vDogrudan": 52588,
         "vPortfoy": 1674,
         "vTurev": 2913,
@@ -147699,14 +147721,14 @@
         "yHisse": 20435,
         "yBorcSenedi": 79303,
         "yTurev": 2627,
-        "yDiger": 280722
+        "yDiger": 280733
       },
       {
         "yil": 2020,
         "ceyrek": 4,
-        "net": -383338,
+        "net": -383349,
         "varlik": 258617,
-        "yukumluluk": 641955,
+        "yukumluluk": 641966,
         "vDogrudan": 51064,
         "vPortfoy": 1893,
         "vTurev": 3697,
@@ -147717,14 +147739,14 @@
         "yHisse": 29168,
         "yBorcSenedi": 91251,
         "yTurev": 3677,
-        "yDiger": 288162
+        "yDiger": 288173
       },
       {
         "yil": 2021,
         "ceyrek": 1,
-        "net": -296062,
+        "net": -296076,
         "varlik": 264427,
-        "yukumluluk": 560489,
+        "yukumluluk": 560503,
         "vDogrudan": 51846,
         "vPortfoy": 2383,
         "vTurev": 5158,
@@ -147735,14 +147757,14 @@
         "yHisse": 22597,
         "yBorcSenedi": 85544,
         "yTurev": 2488,
-        "yDiger": 286064
+        "yDiger": 286078
       },
       {
         "yil": 2021,
         "ceyrek": 2,
-        "net": -267243,
+        "net": -267254,
         "varlik": 279135,
-        "yukumluluk": 546378,
+        "yukumluluk": 546389,
         "vDogrudan": 52923,
         "vPortfoy": 2685,
         "vTurev": 3945,
@@ -147753,370 +147775,388 @@
         "yHisse": 20511,
         "yBorcSenedi": 89536,
         "yTurev": 1993,
-        "yDiger": 292966
+        "yDiger": 292977
       },
       {
         "yil": 2021,
         "ceyrek": 3,
-        "net": -263251,
-        "varlik": 306985,
-        "yukumluluk": 570236,
+        "net": -263266,
+        "varlik": 306981,
+        "yukumluluk": 570247,
         "vDogrudan": 55292,
         "vPortfoy": 2314,
         "vTurev": 4006,
-        "vDiger": 124117,
+        "vDiger": 124113,
         "rezerv": 121256,
         "yDogrudan": 159165,
         "yPortfoy": 110022,
         "yHisse": 21443,
         "yBorcSenedi": 88579,
         "yTurev": 1994,
-        "yDiger": 299055
+        "yDiger": 299066
       },
       {
         "yil": 2021,
         "ceyrek": 4,
-        "net": -236672,
-        "varlik": 291599,
-        "yukumluluk": 528271,
+        "net": -236658,
+        "varlik": 291625,
+        "yukumluluk": 528283,
         "vDogrudan": 52682,
         "vPortfoy": 2313,
         "vTurev": 3727,
-        "vDiger": 121696,
+        "vDiger": 121722,
         "rezerv": 111181,
         "yDogrudan": 139284,
         "yPortfoy": 93144,
         "yHisse": 18435,
         "yBorcSenedi": 74709,
         "yTurev": 2697,
-        "yDiger": 293146
+        "yDiger": 293158
       },
       {
         "yil": 2022,
         "ceyrek": 1,
-        "net": -217587,
-        "varlik": 289290,
-        "yukumluluk": 506877,
+        "net": -217525,
+        "varlik": 289363,
+        "yukumluluk": 506888,
         "vDogrudan": 53911,
         "vPortfoy": 2279,
         "vTurev": 3089,
-        "vDiger": 124093,
+        "vDiger": 124166,
         "rezerv": 105918,
         "yDogrudan": 115319,
         "yPortfoy": 87255,
         "yHisse": 18864,
         "yBorcSenedi": 68391,
         "yTurev": 2618,
-        "yDiger": 301685
+        "yDiger": 301696
       },
       {
         "yil": 2022,
         "ceyrek": 2,
-        "net": -193599,
-        "varlik": 285532,
-        "yukumluluk": 479131,
+        "net": -193544,
+        "varlik": 285599,
+        "yukumluluk": 479143,
         "vDogrudan": 55198,
         "vPortfoy": 2493,
         "vTurev": 3076,
-        "vDiger": 126422,
+        "vDiger": 126489,
         "rezerv": 98343,
         "yDogrudan": 104439,
         "yPortfoy": 72251,
         "yHisse": 15587,
         "yBorcSenedi": 56664,
         "yTurev": 2580,
-        "yDiger": 299861
+        "yDiger": 299873
       },
       {
         "yil": 2022,
         "ceyrek": 3,
-        "net": -196376,
-        "varlik": 293443,
-        "yukumluluk": 489819,
+        "net": -196330,
+        "varlik": 293499,
+        "yukumluluk": 489829,
         "vDogrudan": 56388,
         "vPortfoy": 2729,
         "vTurev": 3152,
-        "vDiger": 124132,
+        "vDiger": 124188,
         "rezerv": 107042,
         "yDogrudan": 113173,
         "yPortfoy": 71371,
         "yHisse": 18088,
         "yBorcSenedi": 53283,
         "yTurev": 2435,
-        "yDiger": 302840
+        "yDiger": 302850
       },
       {
         "yil": 2022,
         "ceyrek": 4,
-        "net": -341471,
-        "varlik": 310705,
-        "yukumluluk": 652176,
+        "net": -341109,
+        "varlik": 311079,
+        "yukumluluk": 652188,
         "vDogrudan": 55573,
         "vPortfoy": 2760,
         "vTurev": 2694,
-        "vDiger": 120942,
+        "vDiger": 121316,
         "rezerv": 128736,
         "yDogrudan": 244593,
         "yPortfoy": 87979,
         "yHisse": 29598,
         "yBorcSenedi": 58381,
         "yTurev": 1945,
-        "yDiger": 317659
+        "yDiger": 317671
       },
       {
         "yil": 2023,
         "ceyrek": 1,
-        "net": -277566,
-        "varlik": 310439,
-        "yukumluluk": 588005,
+        "net": -277210,
+        "varlik": 310807,
+        "yukumluluk": 588017,
         "vDogrudan": 56995,
         "vPortfoy": 3506,
         "vTurev": 2808,
-        "vDiger": 124714,
+        "vDiger": 125082,
         "rezerv": 122416,
         "yDogrudan": 169254,
         "yPortfoy": 84261,
         "yHisse": 25383,
         "yBorcSenedi": 58878,
         "yTurev": 1507,
-        "yDiger": 332983
+        "yDiger": 332995
       },
       {
         "yil": 2023,
         "ceyrek": 2,
-        "net": -269571,
-        "varlik": 297394,
-        "yukumluluk": 566965,
+        "net": -269346,
+        "varlik": 297631,
+        "yukumluluk": 566977,
         "vDogrudan": 58288,
         "vPortfoy": 3318,
         "vTurev": 1617,
-        "vDiger": 125591,
+        "vDiger": 125828,
         "rezerv": 108580,
         "yDogrudan": 150012,
         "yPortfoy": 79560,
         "yHisse": 23413,
         "yBorcSenedi": 56147,
         "yTurev": 1234,
-        "yDiger": 336159
+        "yDiger": 336171
       },
       {
         "yil": 2023,
         "ceyrek": 3,
-        "net": -308174,
-        "varlik": 310296,
-        "yukumluluk": 618470,
+        "net": -307955,
+        "varlik": 310543,
+        "yukumluluk": 618498,
         "vDogrudan": 60054,
         "vPortfoy": 2560,
         "vTurev": 2489,
-        "vDiger": 122997,
+        "vDiger": 123244,
         "rezerv": 122196,
         "yDogrudan": 185827,
         "yPortfoy": 92263,
         "yHisse": 33117,
         "yBorcSenedi": 59146,
         "yTurev": 1113,
-        "yDiger": 339267
+        "yDiger": 339295
       },
       {
         "yil": 2023,
         "ceyrek": 4,
-        "net": -308387,
-        "varlik": 339296,
-        "yukumluluk": 647683,
+        "net": -308196,
+        "varlik": 339515,
+        "yukumluluk": 647711,
         "vDogrudan": 64584,
         "vPortfoy": 3450,
         "vTurev": 2450,
-        "vDiger": 127928,
+        "vDiger": 128147,
         "rezerv": 140884,
         "yDogrudan": 194364,
         "yPortfoy": 98751,
         "yHisse": 30747,
         "yBorcSenedi": 68004,
         "yTurev": 1381,
-        "yDiger": 353187
+        "yDiger": 353215
       },
       {
         "yil": 2024,
         "ceyrek": 1,
-        "net": -352447,
-        "varlik": 326922,
-        "yukumluluk": 679369,
+        "net": -352259,
+        "varlik": 327138,
+        "yukumluluk": 679397,
         "vDogrudan": 65778,
         "vPortfoy": 4251,
         "vTurev": 2875,
-        "vDiger": 130899,
+        "vDiger": 131115,
         "rezerv": 123119,
         "yDogrudan": 223957,
         "yPortfoy": 105753,
         "yHisse": 35532,
         "yBorcSenedi": 70221,
         "yTurev": 1431,
-        "yDiger": 348228
+        "yDiger": 348256
       },
       {
         "yil": 2024,
         "ceyrek": 2,
-        "net": -367447,
-        "varlik": 353951,
-        "yukumluluk": 721398,
+        "net": -367166,
+        "varlik": 354259,
+        "yukumluluk": 721425,
         "vDogrudan": 67309,
         "vPortfoy": 4386,
         "vTurev": 2090,
-        "vDiger": 137256,
+        "vDiger": 137564,
         "rezerv": 142910,
-        "yDogrudan": 237577,
+        "yDogrudan": 237576,
         "yPortfoy": 124540,
         "yHisse": 41556,
         "yBorcSenedi": 82984,
         "yTurev": 2758,
-        "yDiger": 356523
+        "yDiger": 356551
       },
       {
         "yil": 2024,
         "ceyrek": 3,
-        "net": -315041,
-        "varlik": 371196,
-        "yukumluluk": 686237,
+        "net": -314573,
+        "varlik": 371691,
+        "yukumluluk": 686264,
         "vDogrudan": 68817,
         "vPortfoy": 4544,
         "vTurev": 2273,
-        "vDiger": 143495,
+        "vDiger": 143990,
         "rezerv": 152067,
-        "yDogrudan": 198790,
+        "yDogrudan": 198789,
         "yPortfoy": 124489,
         "yHisse": 36044,
         "yBorcSenedi": 88445,
         "yTurev": 2753,
-        "yDiger": 360205
+        "yDiger": 360233
       },
       {
         "yil": 2024,
         "ceyrek": 4,
-        "net": -353256,
-        "varlik": 365996,
-        "yukumluluk": 719252,
+        "net": -352852,
+        "varlik": 366428,
+        "yukumluluk": 719280,
         "vDogrudan": 65358,
         "vPortfoy": 3966,
         "vTurev": 2232,
-        "vDiger": 139208,
+        "vDiger": 139640,
         "rezerv": 155232,
         "yDogrudan": 231907,
         "yPortfoy": 127443,
         "yHisse": 36412,
         "yBorcSenedi": 91031,
         "yTurev": 2550,
-        "yDiger": 357352
+        "yDiger": 357380
       },
       {
         "yil": 2025,
         "ceyrek": 1,
-        "net": -330791,
-        "varlik": 376804,
-        "yukumluluk": 707595,
+        "net": -333271,
+        "varlik": 377306,
+        "yukumluluk": 710577,
         "vDogrudan": 67507,
         "vPortfoy": 4776,
         "vTurev": 2790,
-        "vDiger": 145220,
+        "vDiger": 145722,
         "rezerv": 156511,
-        "yDogrudan": 218313.51,
+        "yDogrudan": 221302,
         "yPortfoy": 122950,
         "yHisse": 32421,
         "yBorcSenedi": 90529,
         "yTurev": 1777,
-        "yDiger": 364554.48
+        "yDiger": 364548
       },
       {
         "yil": 2025,
         "ceyrek": 2,
-        "net": -345330,
-        "varlik": 378599,
-        "yukumluluk": 723929,
+        "net": -333784,
+        "varlik": 379028,
+        "yukumluluk": 712812,
         "vDogrudan": 69809,
         "vPortfoy": 5016,
         "vTurev": 2362,
-        "vDiger": 151515,
+        "vDiger": 151944,
         "rezerv": 149897,
-        "yDogrudan": 217448.7,
+        "yDogrudan": 206342,
         "yPortfoy": 121060,
         "yHisse": 34089,
         "yBorcSenedi": 86971,
         "yTurev": 3495,
-        "yDiger": 381925.29
+        "yDiger": 381915
       },
       {
         "yil": 2025,
         "ceyrek": 3,
-        "net": -333429,
-        "varlik": 417310,
-        "yukumluluk": 750739,
+        "net": -320512,
+        "varlik": 417785,
+        "yukumluluk": 738297,
         "vDogrudan": 72489,
         "vPortfoy": 6446,
         "vTurev": 3406,
-        "vDiger": 154848,
+        "vDiger": 155323,
         "rezerv": 180121,
-        "yDogrudan": 223511.03,
+        "yDogrudan": 210891,
         "yPortfoy": 137466,
         "yHisse": 38956,
         "yBorcSenedi": 98510,
         "yTurev": 2898,
-        "yDiger": 386863.96
+        "yDiger": 387042
       },
       {
         "yil": 2025,
         "ceyrek": 4,
-        "net": -349966,
-        "varlik": 428507,
-        "yukumluluk": 778473,
+        "net": -341088,
+        "varlik": 428746,
+        "yukumluluk": 769834,
         "vDogrudan": 75841,
         "vPortfoy": 6733,
         "vTurev": 3080,
-        "vDiger": 158832,
+        "vDiger": 159071,
         "rezerv": 184021,
-        "yDogrudan": 230032.37,
+        "yDogrudan": 221209,
         "yPortfoy": 142503,
         "yHisse": 40697,
         "yBorcSenedi": 101806,
         "yTurev": 3483,
-        "yDiger": 402454.62
+        "yDiger": 402639
       },
       {
         "yil": 2026,
         "ceyrek": 1,
-        "net": -377021,
-        "varlik": 410939,
-        "yukumluluk": 787960,
+        "net": -362101,
+        "varlik": 411256,
+        "yukumluluk": 773357,
         "vDogrudan": 78681,
         "vPortfoy": 10228,
         "vTurev": 3093,
-        "vDiger": 168163,
+        "vDiger": 168480,
         "rezerv": 150774,
-        "yDogrudan": 233801.65,
-        "yPortfoy": 142486,
+        "yDogrudan": 219110,
+        "yPortfoy": 142154,
         "yHisse": 43330,
-        "yBorcSenedi": 99156,
+        "yBorcSenedi": 98824,
         "yTurev": 6627,
-        "yDiger": 405045.34
+        "yDiger": 405466
       },
       {
         "yil": 2026,
         "ceyrek": 2,
-        "net": -407373,
-        "varlik": 402737,
-        "yukumluluk": 810110,
+        "net": -389768,
+        "varlik": 400751,
+        "yukumluluk": 790519,
         "vDogrudan": 81181,
         "vPortfoy": 9102,
         "vTurev": 2462,
-        "vDiger": 162566,
+        "vDiger": 160580,
         "rezerv": 147426,
-        "yDogrudan": 233122.17,
-        "yPortfoy": 154868,
+        "yDogrudan": 212991,
+        "yPortfoy": 154519,
         "yHisse": 49661,
-        "yBorcSenedi": 105207,
+        "yBorcSenedi": 104858,
         "yTurev": 6984,
-        "yDiger": 415135.82
+        "yDiger": 416025
+      },
+      {
+        "yil": 2026,
+        "ceyrek": 3,
+        "net": -320399,
+        "varlik": 428490,
+        "yukumluluk": 748889,
+        "vDogrudan": 83048,
+        "vPortfoy": 9188,
+        "vTurev": 3054,
+        "vDiger": 167131,
+        "rezerv": 166069,
+        "yDogrudan": 175172,
+        "yPortfoy": 149451,
+        "yHisse": 41398,
+        "yBorcSenedi": 108053,
+        "yTurev": 4071,
+        "yDiger": 420195
       }
     ],
-    "alinma": "2026-10-29T18:21:41.218Z"
+    "alinma": "2026-11-20T07:56:22.637Z"
   },
   "reelGuven": {
     "kaynak": {
@@ -151515,6 +151555,20 @@
         "ihracat": 113.4,
         "yatirim": 107.2,
         "gidisat": 83.9
+      },
+      {
+        "yil": 2026,
+        "ay": 11,
+        "endeks": 101.3,
+        "ham": 99.2,
+        "siparis": 85.4,
+        "stok": 101.1,
+        "uretim": 117,
+        "istihdam": 102.4,
+        "siparisSon3": 103.7,
+        "ihracat": 115.2,
+        "yatirim": 99.8,
+        "gidisat": 85.6
       }
     ],
     "finans": [
@@ -152911,7 +152965,7 @@
         "talepGelecek3": 179
       }
     ],
-    "alinma": "2026-10-29T18:26:23.749Z"
+    "alinma": "2026-11-20T07:56:22.637Z"
   },
   "ticariGayrimenkul": {
     "kaynak": {
