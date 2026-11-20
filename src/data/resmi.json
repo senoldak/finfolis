@@ -75386,23 +75386,23 @@
         "repo": 36,
         "bankalararasi": 34.5,
         "aofm": 36,
-        "fonlama": 622500,
-        "sterilizasyon": 1348064.515,
-        "net": -725564.515
+        "fonlama": 768200,
+        "sterilizasyon": 1311853.148,
+        "net": -543653.148
       }
     ],
     "son": {
-      "tarih": "2026-11-19",
+      "tarih": "2026-11-20",
       "borcVerme": 39,
       "borcAlma": 34.5,
       "repo": 36,
       "bankalararasi": 34.5,
       "aofm": 36,
-      "fonlama": 900000,
-      "sterilizasyon": 1474673.49,
-      "net": -574673.49
+      "fonlama": 1351000,
+      "sterilizasyon": 1167007.68,
+      "net": 183992.32
     },
-    "alinma": "2026-11-20T03:59:08.153Z"
+    "alinma": "2026-11-20T16:01:21.754Z"
   },
   "paraArzi": {
     "kaynak": {
@@ -126357,18 +126357,27 @@
         "yurtDisiSwap": 2899.294,
         "musteriSpot": 4407.69,
         "efektif": 53.882
+      },
+      {
+        "tarih": "2026-11-13",
+        "spot": 16804.904,
+        "swap": 6801.208,
+        "vadeli": 1776.21,
+        "yurtDisiSwap": 2282.14,
+        "musteriSpot": 3871.196,
+        "efektif": 33.378
       }
     ],
     "son": {
-      "tarih": "2026-11-12",
-      "spot": 18101.73,
-      "swap": 7598.88,
-      "vadeli": 1975.52,
-      "yurtDisiSwap": 2587.63,
-      "musteriSpot": 4182.59,
-      "efektif": 39.92
+      "tarih": "2026-11-13",
+      "spot": 18556.76,
+      "swap": 6411.46,
+      "vadeli": 2003.51,
+      "yurtDisiSwap": 2423.44,
+      "musteriSpot": 3868.22,
+      "efektif": 49.43
     },
-    "alinma": "2026-11-19T16:05:45.470Z"
+    "alinma": "2026-11-20T16:01:21.754Z"
   },
   "elektrik": {
     "kaynak": {
