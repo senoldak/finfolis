@@ -1,5 +1,5 @@
 {
-  "alinma": "2026-11-20T20:00:22.259Z",
+  "alinma": "2026-11-20T22:01:33.384Z",
   "kaynaklar": [
     {
       "ad": "TÜİK ulusal veri yayımlama takvimi (Resmi İstatistik Portalı)",
@@ -15,33 +15,6 @@
     }
   ],
   "olaylar": [
-    {
-      "tarih": "2026-10-21",
-      "saat": "10:00",
-      "kurum": "TCMB",
-      "baslik": "İktisadi Yönelim İstatistikleri ve Reel Kesim Güven Endeksi",
-      "donem": "Ekim 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Egilim+Anketleri/Iktisadi+Yonelim+Istatistikleri+ve+Reel+Kesim+Guven+Endeksi/",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-21",
-      "saat": "10:00",
-      "kurum": "TCMB",
-      "baslik": "İmalat Sanayi Kapasite Kullanım Oranı",
-      "donem": "Ekim 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Reel+Sektor+Istatistikleri/Imalat+Sanayi+Kapasite+Kullanim+Orani/",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-21",
-      "saat": "14:30",
-      "kurum": "TCMB",
-      "baslik": "Finansal Hesaplar",
-      "donem": "2. Çeyrek 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Parasal+ve+Finansal+Istatistikler/Finansal+Hesaplar/",
-      "kaynak": "tcmb-api"
-    },
     {
       "tarih": "2026-10-22",
       "saat": "10:00",

@@ -48,6 +48,38 @@
         20.0829
       ],
       "birim": "yuzde"
+    },
+    {
+      "model": "hal-toplam",
+      "surum": "hal-toplam-v1",
+      "hedef": "2026-11",
+      "yapildi": "2026-11-21",
+      "tahmin": 2.4041,
+      "a80": [
+        -3.9565,
+        14.0704
+      ],
+      "a95": [
+        -13.226,
+        17.0935
+      ],
+      "birim": "yuzde"
+    },
+    {
+      "model": "hal-sebze",
+      "surum": "hal-sebze-v1",
+      "hedef": "2026-11",
+      "yapildi": "2026-11-21",
+      "tahmin": 6.8294,
+      "a80": [
+        -1.4079,
+        21.0782
+      ],
+      "a95": [
+        -6.941,
+        23.9149
+      ],
+      "birim": "yuzde"
     }
   ]
 }
