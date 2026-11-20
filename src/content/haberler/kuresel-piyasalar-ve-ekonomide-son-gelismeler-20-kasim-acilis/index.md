@@ -1,0 +1,33 @@
+---
+title: "Küresel piyasalar ve ekonomide son gelişmeler · 20 Kasım, açılış"
+description: "Anthropic tarihin en büyük halka arzlarından birini gerçekleştirirken, GTA VI ise yüksek satış beklentileriyle öne çıkıyor. Volkswagen ise maliyet kesintileri nedeniyle sendikalarla sert bir sürece giriyor."
+date: 2026-11-20T09:28:57.000Z
+category: "ekonomi"
+tur: "haber"
+uretim: "bot"
+kaynaklar: []
+kaynakIzi: "v1.nQ2wK5US7bOAvfJj.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"
+rakamlar:
+  - etiket: "İngiltere Perakende Satış Artışı"
+    deger: "yüzde 0,7"
+  - etiket: "Enflasyon Oranı"
+    deger: "yüzde 3,6"
+  - etiket: "Senato Oylaması"
+    deger: "62-33"
+why_matters: "Küresel piyasalardaki bu büyük şirket hamleleri ve yasal düzenlemeler, teknoloji, oyun ve enerji sektörlerindeki ekonomik dengeleri doğrudan etkiliyor."
+key_points:
+  - "Anthropic ilk işlem gününü 1,7 trilyon dolar değerlemeyle kapattı."
+  - "GTA VI oyununun ilk gün satışlarında 2 milyar doların üzerinde gelir getirmesi öngörülüyor."
+  - "ABD Senatosu enerji izin reformu tasarısını 33'e karşı 62 oyla kabul etti."
+cover: kapak.png
+coverAlt: "İngiltere Perakende Satış Artışı %0,7"
+coverSitede: false
+---
+
+Yapay zekâ girişimi Anthropic, tarihin en büyük halka arzlarından birini gerçekleştirerek ilk işlem gününü 1,7 trilyon dolar değerlemeyle kapattı. İlk işlem gününde hisseler yüzde 17 civarında artışla 97 doların üzerinde işlem görürken, uzmanlar geniş piyasa istikrarına ve küresel rüzgârlara dikkat çekti. Hisseler açılışta yüzde 34 oranında yükselmişti.
+
+Grand Theft Auto VI oyununun, yayıncı kuruluş Take-Two Interactive'e ilk gün satışlarında 2 milyar doların üzerinde gelir getirmesi öngörülüyor. Sensor Tower verilerine göre, 24,58 milyon adet satışla şirkete 2,36 milyar dolar gelir sağlaması beklenen oyunun yapım maliyetleri 1 milyar doları aştı. Take-Two CEO'su Strauss Zelnick ise erken başarı ilan etmekten kaçındıklarını belirterek talebin çok yüksek olduğunu ifade etti.
+
+Almanya'da otomotiv devi Volkswagen, 2030 yılına kadar 120.000 kişiyi işten çıkarma planı duyururken daha derin maliyet kesintileri talep etti. Sendika IG Metall bu önlemlere karşı direnç göstereceğini belirtirken, kıdemli sendika yetkilisi Thorsten Groeger sürecin şirket üzerinde derin izler bırakacak çetin bir çatışma olacağını ifade etti. Öte yandan geçen ay Volkswagen, 5,8 milyar euro (6,5 milyar dolar) tutarında üç aylık zarar açıkladığını duyurmuştu.
+
+Öte yandan ABD Senatosu, enerji izin reformuna ilişkin kapsamlı yasa tasarısını 33'e karşı 62 oyla kabul etti.
