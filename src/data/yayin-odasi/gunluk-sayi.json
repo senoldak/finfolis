@@ -1,5 +1,5 @@
 {
- "guncellendi": "2026-11-22T07:41:03.647Z",
+ "guncellendi": "2026-11-22T09:41:05.935Z",
  "gunler": {
   "2026-11-02": {
    "tur": 4,
@@ -342,19 +342,20 @@
    "bekleyen": 103
   },
   "2026-11-22": {
-   "tur": 4,
-   "gorulen": 305,
-   "degerlendirilen": 207,
+   "tur": 5,
+   "gorulen": 332,
+   "degerlendirilen": 226,
    "elenen": {
-    "tekrar": 13,
+    "tekrar": 16,
     "kontrol-masasi": 5,
     "diger": 2,
-    "bilinen-olay": 2
+    "bilinen-olay": 8,
+    "standart:yatirim-tavsiyesi": 1
    },
-   "yazilan": 17,
-   "yayimlanan": 16,
+   "yazilan": 26,
+   "yayimlanan": 25,
    "bulten": 1,
-   "bekleyen": 22
+   "bekleyen": 29
   }
  }
 }
