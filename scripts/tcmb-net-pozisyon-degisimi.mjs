@@ -6,11 +6,12 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // 1. EVDS API Anahtarını Yükle
-let apiKey = process.env.EVDS_API_KEY;
+// Secret başında/sonunda BOM (U+FEFF) veya boşluk olursa fetch başlığı düşer; temizlenir.
+let apiKey = process.env.EVDS_API_KEY?.replace(/^[\uFEFF\s]+|[\uFEFF\s]+$/g, '');
 if (!apiKey) {
   try {
     const configPath = resolve(homedir(), '.evds-mcp.json');
-    const conf = JSON.parse(readFileSync(configPath, 'utf8'));
+    const conf = JSON.parse(readFileSync(configPath, 'utf8').replace(/^\uFEFF+/, ''));
     apiKey = conf.api_key;
   } catch (e) {
     console.warn('Uyarı: EVDS API anahtarı bulunamadı (~/.evds-mcp.json veya EVDS_API_KEY). Mevcut veriler korunuyor.');

@@ -31,11 +31,12 @@ async function fredCsvCek(seriesId) {
 
 // 2. EVDS TCMB Verisi İndirici (Rezervdeki Menkul Kıymetler - TP.REZVARPD.K3)
 async function evdsMenkulKiymetCek() {
-  let apiKey = process.env.EVDS_API_KEY;
+  // Secret başında/sonunda BOM (U+FEFF) veya boşluk olursa fetch başlığı düşer; temizlenir.
+  let apiKey = process.env.EVDS_API_KEY?.replace(/^[\uFEFF\s]+|[\uFEFF\s]+$/g, '');
   if (!apiKey) {
     try {
       const configPath = resolve(homedir(), '.evds-mcp.json');
-      const conf = JSON.parse(readFileSync(configPath, 'utf8'));
+      const conf = JSON.parse(readFileSync(configPath, 'utf8').replace(/^\uFEFF+/, ''));
       apiKey = conf.api_key;
     } catch {
       console.warn('Uyarı: EVDS API anahtarı bulunamadı, TCMB serisi atlanıyor.');
