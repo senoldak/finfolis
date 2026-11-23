@@ -65511,6 +65511,13 @@
         "piyasa": 23.89,
         "reel": 31.8,
         "hanehalki": 43.75
+      },
+      {
+        "yil": 2026,
+        "ay": 11,
+        "piyasa": 24.04,
+        "reel": 31.7,
+        "hanehalki": 43.24
       }
     ],
     "hane": [
@@ -65723,6 +65730,27 @@
         "gelecekDayanikli": 5.13,
         "gelecekEgitim": 4.59,
         "gelecekDiger": 0.24
+      },
+      {
+        "yil": 2026,
+        "ay": 11,
+        "altinda": 16.06,
+        "ayni": 16.93,
+        "uzerinde": 67.01,
+        "gecmisGida": 37.66,
+        "gecmisEnerji": 38.32,
+        "gecmisLokanta": 1.95,
+        "gecmisKira": 13.24,
+        "gecmisDayanikli": 4.41,
+        "gecmisEgitim": 4.15,
+        "gecmisDiger": 0.27,
+        "gelecekGida": 36.97,
+        "gelecekEnerji": 35.88,
+        "gelecekLokanta": 2.38,
+        "gelecekKira": 14.51,
+        "gelecekDayanikli": 5.25,
+        "gelecekEgitim": 4.75,
+        "gelecekDiger": 0.27
       }
     ],
     "dagilim": {
@@ -66229,7 +66257,7 @@
         ]
       }
     },
-    "alinma": "2026-11-13T07:59:32.839Z"
+    "alinma": "2026-11-23T07:55:26.764Z"
   },
   "paraPiyasasi": {
     "kaynak": {
@@ -152959,9 +152987,17 @@
         "isDurumu": 138.9,
         "talepSon3": 147.7,
         "talepGelecek3": 179
+      },
+      {
+        "yil": 2026,
+        "ay": 11,
+        "endeks": 155,
+        "isDurumu": 142.8,
+        "talepSon3": 143.5,
+        "talepGelecek3": 178.6
       }
     ],
-    "alinma": "2026-11-20T07:56:22.637Z"
+    "alinma": "2026-11-23T07:55:26.764Z"
   },
   "ticariGayrimenkul": {
     "kaynak": {
