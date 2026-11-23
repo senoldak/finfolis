@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-23T03:41:02.722Z",
+  "guncelleme": "2026-11-23T05:41:06.412Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -1138,16 +1138,16 @@
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 3602.8,
+      "deger": 3620.1001,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
         "ad": "Piyasa kapanış verisi",
         "url": "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
       },
-      "zaman": "2026-11-22T00:00:00+03:00",
+      "zaman": "2026-11-23T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 2.5,
+      "degisim": 3,
       "gecmis": [
         {
           "tarih": "2026-08-25",
@@ -1402,8 +1402,8 @@
           "deger": 3515.3999
         },
         {
-          "tarih": "2026-11-22",
-          "deger": 3602.8
+          "tarih": "2026-11-23",
+          "deger": 3620.1001
         }
       ],
       "onEk": "$"
