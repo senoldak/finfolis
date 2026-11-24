@@ -1,8 +1,8 @@
 {
-  "guncellenme": "2026-11-24T10:01:06.341Z",
+  "guncellenme": "2026-11-24T11:58:59.653Z",
   "kaynak": "TCMB Analitik Bilanço, EVDS & BİST Kıymetli Madenler Piyasası",
   "birim": "milyar USD",
-  "kayit_sayisi": 241,
+  "kayit_sayisi": 242,
   "seri": [
     {
       "tarih": "25-11-2025",
@@ -2654,6 +2654,17 @@
       "net_rezerv_milyar_usd": 19.83,
       "ham_degisim_milyar_usd": -6.35,
       "degisim_altin_arindirilmis_milyar_usd": -6.5
+    },
+    {
+      "tarih": "23-11-2026",
+      "etiket": "23.11",
+      "usd_kuru": 50.4028,
+      "altin_ons_usd": 3720,
+      "altin_fiyat_farki_usd": 22,
+      "altin_degerleme_etkisi_milyar_usd": 0.46,
+      "net_rezerv_milyar_usd": 14.47,
+      "ham_degisim_milyar_usd": -5.35,
+      "degisim_altin_arindirilmis_milyar_usd": -5.8
     }
   ],
   "haftalik_ozet": [
@@ -3228,6 +3239,17 @@
       "alis_gunleri": 1,
       "satis_gunleri": 4,
       "kapanis_net_rezerv": 19.83
+    },
+    {
+      "haftaKey": "2026-W48",
+      "etiket": "48. Hafta (2026)",
+      "tarih_son": "23-11-2026",
+      "toplam_net_degisim_milyar_usd": -5.8,
+      "toplam_ham_degisim_milyar_usd": -5.35,
+      "is_gunu_sayisi": 1,
+      "alis_gunleri": 0,
+      "satis_gunleri": 1,
+      "kapanis_net_rezerv": 14.47
     }
   ],
   "aylik_ozet": [
@@ -3404,14 +3426,14 @@
       "ay": 11,
       "ayKey": "2026-11",
       "etiket": "Kasım 2026",
-      "toplam_net_degisim_milyar_usd": -7.8,
-      "toplam_ham_degisim_milyar_usd": -13.17,
-      "toplam_altin_etkisi_milyar_usd": -5.53,
-      "is_gunu_sayisi": 15,
+      "toplam_net_degisim_milyar_usd": -13.6,
+      "toplam_ham_degisim_milyar_usd": -18.52,
+      "toplam_altin_etkisi_milyar_usd": -5.07,
+      "is_gunu_sayisi": 16,
       "alis_gunleri": 5,
-      "satis_gunleri": 10,
-      "kapanis_net_rezerv": 19.83,
-      "kapanis_usd_kuru": 50.3786
+      "satis_gunleri": 11,
+      "kapanis_net_rezerv": 14.47,
+      "kapanis_usd_kuru": 50.4028
     }
   ]
 }
