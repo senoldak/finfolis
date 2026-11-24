@@ -300,7 +300,7 @@ test('dil redaksiyonu: olgu denetiminden sonra ayrı çağrıyla gider (medium d
   assert.equal(red.length, 1);
   assert.notEqual(red[0].denetim, true);
   assert.equal(red[0].dusunme, 'medium');
-  assert.equal(red[0].sicaklik, 0.2);
+  assert.equal(red[0].sicaklik, null); // sıcaklık gönderilmez (24 Kasım 2026)
   assert.match(red[0].sistem, /kıdemli redaktör/);
   assert.match(red[0].istem, /Federal Reserve kept/); // kaynak
   assert.match(red[0].istem, /yanlış çeviri/); // sorun listesi

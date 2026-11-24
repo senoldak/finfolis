@@ -63,7 +63,7 @@ Gövde:
 ${yazi.govde}`;
     let r;
     try {
-      r = await gemini({ sistem: REDAKSIYON_KURALLARI_TR, istem, sema: REDAKSIYON_SEMASI, dusunme: 'medium', sicaklik: 0.2 });
+      r = await gemini({ sistem: REDAKSIYON_KURALLARI_TR, istem, sema: REDAKSIYON_SEMASI, dusunme: 'medium', sicaklik: null /* Gemini 3 varsayılanı: 0,2 kaçak yanıt üretiyordu (24 Kasım 2026) */ });
     } catch (e) {
       return { atildi: `çağrı başarısız: ${String(e?.message ?? e).slice(0, 120)}` };
     }

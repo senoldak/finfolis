@@ -134,7 +134,7 @@ async function maddeDilKapisi(madde, gemini, log) {
       istem: `Aşağıdaki bülten maddesinin dilini düzelt; yalnız "metin" alanını döndür. Kaynakta olmayan hiçbir bilgi, rakam ya da alıntı ekleme.\n\nOtomatik denetimin bulduğu kusurlar (hepsini gider):\n${sorunListesi(kesin)}\n\nKAYNAK:\n${String(m.olay.kaynakMetni ?? '').slice(0, 2500)}\n\nMADDE:\n${m.etiket}: ${m.metin}`,
       sema: MADDE_DIL_SEMASI,
       dusunme: 'medium',
-      sicaklik: 0.2,
+      sicaklik: null, // Sıcaklık gönderilmez (null): Gemini 3'te düşük sıcaklık redaksiyonu kaçak yanıta sokuyordu (24 Kasım 2026).
     });
     if (typeof r?.metin === 'string' && r.metin.trim()) aday = maddeDuzelt({ ...m, metin: r.metin.trim() });
   } catch {
