@@ -1,5 +1,5 @@
 {
-  "alinma": "2026-11-24T20:00:57.109Z",
+  "alinma": "2026-11-24T22:00:39.557Z",
   "kaynaklar": [
     {
       "ad": "TÜİK ulusal veri yayımlama takvimi (Resmi İstatistik Portalı)",
@@ -2289,6 +2289,15 @@
       "saat": null,
       "kurum": "TCMB",
       "baslik": "PPK toplantı kararı",
+      "donem": null,
+      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Takvim",
+      "kaynak": "tcmb-takvim"
+    },
+    {
+      "tarih": "2027-03-25",
+      "saat": null,
+      "kurum": "TCMB",
+      "baslik": "PPK toplantı özeti",
       "donem": null,
       "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Takvim",
       "kaynak": "tcmb-takvim"
