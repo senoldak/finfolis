@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from '../../components/KaynakMetni.astro';
 // Seri gezgini & Makroekonomik Terminal: Sitenin resmi zaman serileri tek terminal arayüzünde.
 // - Gösterge ızgarası (trend sparkline'ları, anlık değerler, değişim oranları, çoklu seçim)
 // - Sabit yüzen seçim dock'u (alt bant: seçili chipler, karşılaştır, temizle)
@@ -230,7 +231,7 @@ const ornekler = [
     <section class="sg-bolum sg-not" aria-labelledby="sg-nasil-baslik">
       <h2 id="sg-nasil-baslik" class="sg-baslik">Terminal Yöntem ve Hesaplama Notları</h2>
       <p>
-        <strong>Veri Kaynakları:</strong> Seriler TCMB, TÜİK, Hazine ve Maliye Bakanlığı ile BIS resmi veri tabanlarından alınır.
+        <strong>Veri Kaynakları:</strong> <KaynakMetni metin="Seriler TCMB, TÜİK, Hazine ve Maliye Bakanlığı ile BIS resmi veri tabanlarından alınır." />
         Finfolis ayrı bir sentetik veri üretmez; kaynakta yayımlanan rakamları doğrudan sunar.
       </p>
       <p>

@@ -30,3 +30,8 @@ test('bilinmeyen ad ve boş metin', () => {
   assert.deepEqual(kaynakParcalari(''), []);
   assert.deepEqual(kaynakParcalari(undefined), []);
 });
+
+test('Borsa İstanbul, ABD Hazine Bakanlığı ve LBMA; Yahoo bağlanmaz', () => {
+  const p = kaynakParcalari('Kaynak: ABD Hazine Bakanlığı (TIC) & TCMB EVDS; Borsa İstanbul (Yahoo Finance verisiyle), LBMA.');
+  assert.deepEqual(baglar(p).map((x) => x[0]), ['ABD Hazine Bakanlığı', 'TCMB EVDS', 'Borsa İstanbul', 'LBMA']);
+});

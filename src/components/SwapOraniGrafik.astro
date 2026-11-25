@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from './KaynakMetni.astro';
 // TCMB Rezervlerinde Swap Payı İnteraktif Grafiği
 // Finfolis tasarım dili: Kâğıt zemin, mürekkep & pişmiş toprak, Bricolage Grotesque, sıfır harici bağımlılık.
 interface Nokta {
@@ -210,7 +211,7 @@ const sonNoktaY = yPos(sonNokta.swap_payi_toplam_yuzde);
   </div>
 
   <div class="grafik-dip-not">
-    <span>● Kaynak: TCMB Uluslararası Rezervler ve Döviz Likiditesi (IMF SDDS Şablonu) &amp; EVDS</span>
+    <span>● <KaynakMetni metin="Kaynak: TCMB Uluslararası Rezervler ve Döviz Likiditesi (IMF SDDS Şablonu) & EVDS" /></span>
     <span>Hesaplama: (Toplam Swap Açık Pozisyonu / Toplam Resmi Rezervler) × 100</span>
   </div>
 </div>

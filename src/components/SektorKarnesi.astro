@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from './KaynakMetni.astro';
 import Change from './Change.astro';
 import { sektorler, sayi, SEKTOR_VERISI } from '../lib/sektorler';
 
@@ -162,7 +163,7 @@ const enDusen = siraliGunluk[siraliGunluk.length - 1];
 
   <footer class="sektor-dipnot">
     <p class="veri-notu">
-      Kaynak: {SEKTOR_VERISI.kaynak.ad} · Son güncelleme: {new Date(SEKTOR_VERISI.guncelleme).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}.
+      Kaynak: <KaynakMetni metin={SEKTOR_VERISI.kaynak.ad} /> · Son güncelleme: {new Date(SEKTOR_VERISI.guncelleme).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}.
       Son puan ve günlük değişim bir önceki kapanışa göredir; veri alınamayan endekste son alınan değer kalır. Detayları görmek
       için herhangi bir satıra tıklayabilirsiniz.
     </p>

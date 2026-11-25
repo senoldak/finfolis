@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from '../../components/KaynakMetni.astro';
 // BİST 100 / TÜFE: Borsa İstanbul'un enflasyondan arındırılmış reel değeri ve standart sapma analizi.
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
@@ -158,7 +159,7 @@ const sonNoktalar = [...veri.noktalar].slice(-20).reverse();
         <div class="metin-blok" style="margin-top: 24px;">
           <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;">Veri Kaynakları ve Güncelleme</h3>
           <p class="veri-notu">
-            BİST 100 kapanış verisi Borsa İstanbul (Yahoo Finance verisiyle), enflasyon endeksi TÜİK Tüketici Fiyat Endeksi resmi verileriyle oluşturulmuştur. 
+            <KaynakMetni metin="BİST 100 kapanış verisi Borsa İstanbul (Yahoo Finance verisiyle), enflasyon endeksi TÜİK Tüketici Fiyat Endeksi resmi verileriyle oluşturulmuştur." />
             Her iş günü kapanışından sonra otomatik olarak güncellenir.
           </p>
         </div>

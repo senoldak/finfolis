@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from './KaynakMetni.astro';
 // BİST 100 / TÜFE Reel Endeks ve Standart Sapma Bantları Grafiği (İnteraktif).
 // Finfolis tasarım dili: Kâğıt & mürekkep, Bricolage Grotesque, tam etkileşimli, sıfır harici kütüphane.
 interface Props {
@@ -199,7 +200,7 @@ const sonY = yPos(sonNokta.deger);
   </div>
 
   <div class="grafik-alt-bilgi">
-    <span class="kaynak-notu">Kaynak: Yahoo Finance (XU100.IS), TÜİK (TÜFE), Finfolis Analizi</span>
+    <span class="kaynak-notu"><KaynakMetni metin="Kaynak: Yahoo Finance (XU100.IS), TÜİK (TÜFE), Finfolis Analizi" /></span>
     <span class="ipucu-notu">👆 Parmağınızı veya farenizi grafiğin üzerinde kaydırarak geçmiş günleri inceleyin</span>
   </div>
 </div>

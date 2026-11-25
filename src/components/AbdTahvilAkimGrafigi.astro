@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from './KaynakMetni.astro';
 // Türkiye'nin Aylık ABD Hazine Tahvili Net Alım-Satımları (TIC) İnteraktif Grafiği
 // finfolis kurumsal dili: Kâğıt (#f4f3ee), Mürekkep (#1b1b1b), Pişmiş toprak (#c2502b),
 // Yükseliş (#3f7350), Düşüş (#a3243b), Bricolage Grotesque, sıfır harici JS kütüphanesi, tam CSP uyumlu.
@@ -242,7 +243,7 @@ const sonNokta = varsayilanSeri.at(-1) ?? {
       </span>
     </div>
     <div class="grafik-kaynak-notu">
-      <span>● Kaynak: ABD Hazine Bakanlığı (TIC System - Series: FORTREASNET12807) &amp; TCMB EVDS (IMF SDDS: TP.REZVARPD.K3)</span>
+      <span>● <KaynakMetni metin="Kaynak: ABD Hazine Bakanlığı (TIC System - Series: FORTREASNET12807) & TCMB EVDS (IMF SDDS: TP.REZVARPD.K3)" /></span>
       <span>● Veri gecikmesi: T+45 gün · Ay sonu resmî takas verileri</span>
     </div>
   </div>

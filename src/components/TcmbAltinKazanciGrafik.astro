@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from './KaynakMetni.astro';
 // TCMB Altın Rezervi Değerleme Kazancı (P/L) İnteraktif Grafiği
 // finfolis tasarım dili: Kâğıt zemin (#f4f3ee), mürekkep (#1b1b1b), yükseliş yeşili (#3f7350), Bricolage Grotesque, sıfır harici kütüphane.
 interface Nokta {
@@ -249,7 +250,7 @@ const zirveY = yPos(zirveNokta.kazanc_milyar_usd);
 
   <!-- Dipnot Bilgisi -->
   <div class="grafik-dip-not">
-    <span>● Kaynak: TCMB Analitik Bilanço, Uluslararası Rezervler &amp; Spot XAU/USD (LBMA)</span>
+    <span>● <KaynakMetni metin="Kaynak: TCMB Analitik Bilanço, Uluslararası Rezervler & Spot XAU/USD (LBMA)" /></span>
     <span>Hesaplama: (Ons Fiyatı<sub>t</sub> − $3.044) × 20,75M ons (Gerçekleşmemiş MTM P/L)</span>
   </div>
 </div>

@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from '../../components/KaynakMetni.astro';
 // Makro Şoklar ve Borsa: Tüketici Güveni, Reel Kesim, Sanayi Üretimi ve Reel Kur şoklarının BIST 100 karnesi.
 import Base from '../../layouts/Base.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
@@ -347,9 +348,9 @@ const g = data.gostergeler;
         <h2 class="bolum-baslik">Resmî Kaynaklar</h2>
         <div class="metin-blok">
           <ul class="metodoloji-liste">
-            <li><strong>TCMB EVDS:</strong> TP.TG2.Y01, TP.TG.EN, TP.GY1.N2.MA, TP.RK.T1.Y</li>
-            <li><strong>TÜİK:</strong> Tüketici Eğilim Anketi, Sanayi Üretim İstatistikleri</li>
-            <li><strong>Borsa İstanbul:</strong> BİST 100 (XU100) Aylık Kapanış Verileri</li>
+            <li><strong><KaynakMetni metin="TCMB EVDS" />:</strong> TP.TG2.Y01, TP.TG.EN, TP.GY1.N2.MA, TP.RK.T1.Y</li>
+            <li><strong><KaynakMetni metin="TÜİK" />:</strong> Tüketici Eğilim Anketi, Sanayi Üretim İstatistikleri</li>
+            <li><strong><KaynakMetni metin="Borsa İstanbul" />:</strong> BİST 100 (XU100) Aylık Kapanış Verileri</li>
           </ul>
         </div>
       </section>

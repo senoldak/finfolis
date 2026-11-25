@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from './KaynakMetni.astro';
 // TCMB Net Döviz Pozisyonu & Çok Periyotlu (Günlük, Haftalık, Aylık) İnteraktif Grafiği
 // finfolis tasarım dili: Kâğıt zemin (#f4f3ee), mürekkep (#1b1b1b), pişmiş toprak (#c2502b),
 // yükseliş (#3f7350), düşüş (#a3243b), 0px yuvarlak köşe, Bricolage Grotesque, sıfır harici kütüphane.
@@ -322,7 +323,7 @@ const isSonPos = sonDegisim >= 0;
       </span>
     </div>
     <div class="grafik-kaynak-notu">
-      <span>● Kaynak: TCMB Analitik Bilanço, EVDS &amp; Borsa İstanbul Kıymetli Madenler Piyasası</span>
+      <span>● <KaynakMetni metin="Kaynak: TCMB Analitik Bilanço, EVDS & Borsa İstanbul Kıymetli Madenler Piyasası" /></span>
       <span>Arındırma Formülü: Ham ΔNet Rezerv − [(Ons Fiyatı<sub>t</sub> − Ons Fiyatı<sub>t-1</sub>) × ~21M ons]</span>
     </div>
   </div>

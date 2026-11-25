@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from '../../components/KaynakMetni.astro';
 // Sessiz Sinyal & Anomali Avcısı (Erken Uyarı Radarı)
 // 12 haftalık ortalamadan +/- 2 sigma standart sapma aşımı gösteren anomali fişleri
 import Base from '../../layouts/Base.astro';
@@ -119,9 +120,7 @@ const jsonLd = sayfaSemasi({
         <div class="metod-kart">
           <h3>Hangi Seriler Taranır?</h3>
           <p>
-            TCMB Açık Piyasa ve Para Piyasası Fonlama hacmi, Yabancı DİBS ve Hisse haftalık net akımları,
-            TCMB Brüt ve Net Döviz Rezervleri ile haftalık Kredi Kartı harcama hacmi gibi sistemsel stres taşıyan
-            ana makro göstergeler günlük/haftalık periyotlarla taranır.
+            <KaynakMetni metin="TCMB Açık Piyasa ve Para Piyasası Fonlama hacmi, Yabancı DİBS ve Hisse haftalık net akımları, TCMB Brüt ve Net Döviz Rezervleri ile haftalık Kredi Kartı harcama hacmi gibi sistemsel stres taşıyan ana makro göstergeler günlük/haftalık periyotlarla taranır (TCMB EVDS)." />
           </p>
         </div>
       </div>
