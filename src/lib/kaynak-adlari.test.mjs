@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { haberKaynaklari, kaynakSec, konuTutar } from './kaynak-adlari.mjs';
+import { govdeTutar, haberKaynaklari, kaynakSec, konuTutar, ozelAdlar } from './kaynak-adlari.mjs';
 
 // Uydurma yayınlar (gerçek kaynak adı testlere yazılmaz).
 const LISTE = [
@@ -47,4 +47,30 @@ test('haberKaynaklari: bülten, izsiz ve çözülemeyen iz boş döner', () => {
   assert.deepEqual(haberKaynaklari({ tur: 'bulten', kaynakIzi: 'v1.x' }), []);
   assert.deepEqual(haberKaynaklari({}), []);
   assert.deepEqual(haberKaynaklari({ kaynakIzi: 'bozuk' }), []);
+});
+
+test('ozelAdlar: büyük harfle başlayan sözcükler, küçük harfe ve aksansız biçime çevrilir', () => {
+  assert.deepEqual([...ozelAdlar("Lloyds Bank'a göre İngiltere'de fiyatlar arttı; ZEW endeksi")], ['lloyds', 'bank', 'ingiltere', 'zew']);
+});
+
+test('govdeTutar: iki ortak özel ad ya da bir nadir ad gerekir', () => {
+  const adlar = ozelAdlar('Hindistan borsasında Sensex ve Nifty düştü; Fed kararı bekleniyor. ZEW verisi açıklandı.');
+  assert.equal(govdeTutar('https://haber.example.com/markets/sensex-nifty-fall', adlar), true);
+  assert.equal(govdeTutar('https://haber.example.com/markets/fed-holds-rates', adlar), false);
+  assert.equal(govdeTutar('https://haber.example.com/markets/fed-holds-rates', adlar, (w) => w === 'fed'), true);
+  assert.equal(govdeTutar('https://haber.example.com/markets/oil-prices', adlar, () => true), false);
+  assert.equal(govdeTutar('https://haber.example.com/x', undefined), false);
+});
+
+test('kaynakSec: başlık tutmayan İngilizce adres gövdedeki özel adlarla kurtulur; ilgisiz kaynak yine düşer', () => {
+  const haber = { title: 'Almanya’da ekonomik güven kasımda beklentileri aştı', description: 'Yatırımcı güveni yükseldi.' };
+  const iz = [
+    { ad: 'Örnek Haber Business', url: 'https://haber.example.com/economy/germany-zew-investor-sentiment' },
+    { ad: 'Deneme Gazete', url: 'https://deneme.example.org/sport/football-results' },
+  ];
+  const govdeAdlari = ozelAdlar('Mannheim merkezli ZEW enstitüsünün endeksi kasımda yükseldi.');
+  assert.deepEqual(kaynakSec(iz, LISTE, haber), []);
+  assert.deepEqual(kaynakSec(iz, LISTE, haber, { govdeAdlari, nadirMi: (w) => w === 'zew' }), [
+    { ad: 'Örnek Haber', url: 'https://haber.example.com/economy/germany-zew-investor-sentiment' },
+  ]);
 });

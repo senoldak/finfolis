@@ -81,7 +81,7 @@ const duzeltme = duzeltmeNotu(haber.data, 'tr');
 // Resmî kaynaklı haberde kurumun bağlantısı. Medya kaynaklı haberde yayının adı ve haberine bağlantı, derlemede şifreli
 // kaynak izinden (src/lib/kaynak-adlari.mjs; hukuki koşullarla); çözülemezse ya da bültende adsız satır kalır.
 const resmi = resmiKaynaklar(haber.data);
-const medya = haberKaynaklari(haber.data);
+const medya = haberKaynaklari({ ...haber.data, govde: haber.body });
 const adsizKaynak = medya.length ? null : adsizKaynakSatiri(haber.data);
 // Kısa yazılar bütün arama motorlarına kapalı (noindex, follow). Akış çevirileri, bültenler ve kalıp piyasa yazıları
 // yalnız Google'a kapalı (googlebot);
