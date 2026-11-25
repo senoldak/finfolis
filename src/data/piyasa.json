@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-24T21:41:05.850Z",
+  "guncelleme": "2026-11-25T03:41:09.119Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -7,7 +7,7 @@
       "deger": 50.628,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 42.348,
+      "onceki": 42.427,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -17,10 +17,6 @@
       "gecerlilik": "kur",
       "degisim": 0.1,
       "gecmis": [
-        {
-          "tarih": "2026-08-26",
-          "deger": 48.117
-        },
         {
           "tarih": "2026-08-27",
           "deger": 48.131
@@ -281,7 +277,7 @@
       "renk": "blue",
       "simgeDegeri": 2,
       "simgeEtiket": "2 TL",
-      "anlam": "Doların fiyatı bir yılda yüzde 20 arttı."
+      "anlam": "Doların fiyatı bir yılda yüzde 19 arttı."
     },
     {
       "id": "euro",
@@ -289,7 +285,7 @@
       "deger": 55.5029,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 48.8857,
+      "onceki": 49.0072,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -299,10 +295,6 @@
       "gecerlilik": "kur",
       "degisim": 0.3,
       "gecmis": [
-        {
-          "tarih": "2026-08-26",
-          "deger": 56.1481
-        },
         {
           "tarih": "2026-08-27",
           "deger": 56.0483
@@ -563,7 +555,7 @@
       "renk": "ochre",
       "simgeDegeri": 2,
       "simgeEtiket": "2 TL",
-      "anlam": "Euronun fiyatı bir yılda yüzde 14 arttı."
+      "anlam": "Euronun fiyatı bir yılda yüzde 13 arttı."
     },
     {
       "id": "yen",
@@ -571,7 +563,7 @@
       "deger": 31.827,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 26.976,
+      "onceki": 27.163,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -581,10 +573,6 @@
       "gecerlilik": "kur",
       "degisim": 0.1,
       "gecmis": [
-        {
-          "tarih": "2026-08-26",
-          "deger": 30.249
-        },
         {
           "tarih": "2026-08-27",
           "deger": 30.197
@@ -882,21 +870,17 @@
     {
       "id": "bist100",
       "ad": "BIST 100",
-      "deger": 11104.4004,
+      "deger": 10965.9004,
       "ondalik": 2,
       "simge": "fabrika",
       "kaynak": {
         "ad": "Piyasa kapanış verisi",
         "url": "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
       },
-      "zaman": "2026-11-23T00:00:00+03:00",
+      "zaman": "2026-11-24T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -0.2,
+      "degisim": -1.2,
       "gecmis": [
-        {
-          "tarih": "2026-08-26",
-          "deger": 14610.9004
-        },
         {
           "tarih": "2026-08-27",
           "deger": 14575.5
@@ -1144,13 +1128,17 @@
         {
           "tarih": "2026-11-23",
           "deger": 11104.4004
+        },
+        {
+          "tarih": "2026-11-24",
+          "deger": 10965.9004
         }
       ]
     },
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 3552.1001,
+      "deger": 3552,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
@@ -1159,12 +1147,8 @@
       },
       "zaman": "2026-11-24T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -2.7,
+      "degisim": -0.3,
       "gecmis": [
-        {
-          "tarih": "2026-08-26",
-          "deger": 4653.2998
-        },
         {
           "tarih": "2026-08-27",
           "deger": 4664
@@ -1415,7 +1399,11 @@
         },
         {
           "tarih": "2026-11-24",
-          "deger": 3552.1001
+          "deger": 3561.8999
+        },
+        {
+          "tarih": "2026-11-24",
+          "deger": 3552
         }
       ],
       "onEk": "$"

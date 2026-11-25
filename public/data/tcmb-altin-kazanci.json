@@ -1,11 +1,11 @@
 {
-  "guncellenme": "2026-11-24T21:59:40.665Z",
+  "guncellenme": "2026-11-25T03:59:50.830Z",
   "baz_tarih": "2025-03-20",
   "baz_fiyat_usd": 3043.8,
   "rezerv_ons": 20750000,
   "rezerv_ton_esdegeri": 645398,
   "kaynak": "TCMB Bilanço Rezervleri & Spot Ons Altın (XAU/USD)",
-  "kayit_sayisi": 425,
+  "kayit_sayisi": 426,
   "seri": [
     {
       "tarih": "2025-03-20",
@@ -2977,10 +2977,17 @@
     },
     {
       "tarih": "2026-11-24",
-      "ons_fiyat_usd": 3553,
+      "ons_fiyat_usd": 3561.9,
       "baz_fiyat_usd": 3043.8,
-      "ons_fark_usd": 509.2,
-      "kazanc_milyar_usd": 10.57
+      "ons_fark_usd": 518.1,
+      "kazanc_milyar_usd": 10.75
+    },
+    {
+      "tarih": "2026-11-25",
+      "ons_fiyat_usd": 3547.7,
+      "baz_fiyat_usd": 3043.8,
+      "ons_fark_usd": 503.9,
+      "kazanc_milyar_usd": 10.46
     }
   ]
 }
