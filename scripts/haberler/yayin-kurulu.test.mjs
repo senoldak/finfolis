@@ -9,6 +9,23 @@ const ADLAR = ['Alfa', 'Beta', 'Gama', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Teta'
 const cogalt = (cumle, n, ofs = 0) => Array.from({ length: n }, (_, i) => `${ADLAR[i + ofs]}: ${cumle.trim()}`).join(' ');
 const kotu = { ...iyi, govde: iyi.govde + '\n\nEnflasyon yüzde 7,9 oldu.' };
 
+// Cümle düzeltmeli redaksiyon (25 Kasım 2026): sahte cevaplar okunaklı kalsın diye tam yazı olarak verilir; redaksiyon
+// çağrısına (düzeltme şemalı) giderken değişen her alan tek bir { alan, eski, yeni } düzeltmesine çevrilir.
+function yamaya(cikti, x) {
+  if (!cikti || !x?.sema?.properties?.duzeltmeler || cikti.duzeltmeler) return cikti;
+  const m = /HABER ALANLARI \(JSON\):\r?\n([\s\S]*?)\r?\n\r?\n/.exec(x.istem);
+  const once = m ? JSON.parse(m[1]) : {};
+  // Kısa alan tek düzeltme; uzun alan (düzeltme sınırı 700 karakter) cümle cümle eşlenir, cümle sayısı tutmazsa tek düzeltme.
+  const cumleler = (t) => t.split(/(?<=[.!?:])\s+/);
+  return {
+    duzeltmeler: ['baslik', 'spot', 'govde'].filter((k) => typeof cikti[k] === 'string' && cikti[k] !== once[k]).flatMap((k) => {
+      const a = cumleler(once[k] ?? ''), b = cumleler(cikti[k]);
+      if (String(once[k]).length <= 600 || a.length !== b.length) return [{ alan: k, eski: once[k], yeni: cikti[k] }];
+      return a.map((x, i) => [x, b[i]]).filter(([x, y]) => x !== y).map(([x, y]) => ({ alan: k, eski: x, yeni: y }));
+    }),
+  };
+}
+
 // Şema türüne göre yanıt veren sahte Gemini
 function sahte({ duzelt }) {
   const cagrilar = [];
@@ -49,7 +66,7 @@ test('Gemini yoksa dur', async () => {
 function redStub(redCikti, masa = () => ({ onay: true, sorunlar: [] })) {
   return async ({ sema, istem }) => {
     if (sema.properties.onay) return masa(istem);
-    return redCikti ?? iyi;
+    return yamaya(redCikti ?? iyi, { sema, istem });
   };
 }
 
@@ -285,9 +302,9 @@ function dilStub(cevaplar) {
     cagrilar.push(x);
     if (x.sema.properties.onay) return { onay: true, sorunlar: [] };
     const c = cevaplar[Math.min(n++, cevaplar.length - 1)];
-    return typeof c === 'function' ? c(x) : c;
+    return yamaya(typeof c === 'function' ? c(x) : c, x);
   };
-  return { gemini, cagrilar, redCagrilari: () => cagrilar.filter((c) => c.sema.properties.baslik) };
+  return { gemini, cagrilar, redCagrilari: () => cagrilar.filter((c) => c.sema.properties.duzeltmeler) };
 }
 
 test('dil redaksiyonu: olgu denetiminden sonra ayrı çağrıyla gider (medium düşünme, sıcaklık 0,2, denetim değil, kaynak ve sorun listesi istemde)', async () => {
@@ -335,12 +352,13 @@ test('dil redaksiyonu: gövde %90-115 dışına çıkarsa (kısaltma ya da şiş
   const uzunHam = { ...iyi, govde: [iyi.govde, 'Kurul kararını oy birliğiyle verdi ve toplantı tutanağını açıkladı.', 'Piyasalar kararı bekliyordu ve işlemler sakin geçti.'].join('\n\n') };
   const kisaltilmis = { ...uzunHam, govde: iyi.govde };
   const sisirilmis = { ...uzunHam, govde: uzunHam.govde + '\n\nKurul toplantısı sırasında ek bir değişiklik gündeme gelmedi ve görüşmeler sakin geçti. Bütün üyeler aynı görüşte birleşti.' };
-  for (const cikti of [kisaltilmis, sisirilmis]) {
-    const { gemini } = dilStub([cikti]);
-    const r = await yayinKurulu(uzunHam, aday, { enAzKelime: 0, gemini, log: sessiz });
-    assert.equal(r.yazi.govde, uzunHam.govde);
-    assert.match(r.dilNotlari[0], /kelime/);
-  }
+  // Şişiren düzeltme uygulanır ama uzunluk kapısı reddeder; kısaltan düzeltme hiç uygulanmaz (duzeltme.mjs: cümle
+  // yarıya indirilemez), metin olduğu gibi kalır.
+  const sis = await yayinKurulu(uzunHam, aday, { enAzKelime: 0, gemini: dilStub([sisirilmis]).gemini, log: sessiz });
+  assert.equal(sis.yazi.govde, uzunHam.govde);
+  assert.match(sis.dilNotlari[0], /kelime/);
+  const kis = await yayinKurulu(uzunHam, aday, { enAzKelime: 0, gemini: dilStub([kisaltilmis]).gemini, log: sessiz });
+  assert.equal(kis.yazi.govde, uzunHam.govde);
 });
 
 test('dil redaksiyonu: yanıt yok ya da bozuksa yeniden denenmez, metin kalır ve log düşer', async () => {

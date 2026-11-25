@@ -7,6 +7,7 @@ import { gemini as varsayilanGemini } from './lib.mjs';
 import { ilgiliKisim } from './kaynak-kirp.mjs';
 import { kelimeSay } from '../../src/lib/uzunluk.mjs';
 import { dilDuzeltTr, dilSorunlariTr, REDAKSIYON_KURALLARI_TR } from './dil-tr.mjs';
+import { DUZELTME_SEMASI, duzeltmeBicimi, duzeltmeleriUygula } from './duzeltme.mjs';
 
 export const REDAKSIYON_SEMASI = {
   type: 'object',
@@ -35,7 +36,6 @@ export function dilSorunlari(yazi, { derleme = false } = {}) {
   ];
 }
 
-const bosDegil = (s) => typeof s === 'string' && s.trim() !== '';
 
 /**
  * @param yazi   onaylı taslak (baslik/spot/govde + şerit alanları)
@@ -50,26 +50,28 @@ export async function dilRedaksiyonu(yazi, aday, { gemini = varsayilanGemini, so
   const kaynak = ilgiliKisim(aday.kaynakMetni, [yazi.baslik, yazi.spot, yazi.govde].join('\n'), 20000);
   let neden = [];
   for (let deneme = 1; deneme <= 2; deneme++) {
-    const istem = `Aşağıdaki haberin dilini düzelt; başlık, spot ve gövdeyi aynı alanlarla döndür. Kaynakta olmayan hiçbir bilgi, rakam ya da alıntı ekleme.
+    const istem = `Aşağıdaki haberin dilini düzelt. Kaynakta olmayan hiçbir bilgi, rakam ya da alıntı ekleme; metni kısaltma.
 ${sorunMetni ? `\nOtomatik denetimin bulduğu kusurlar (hepsini gider):\n${sorunMetni}\n` : ''}${neden.length ? `\nÖnceki denemen şu nedenlerle reddedildi, bu kez bunları yapma:\n${neden.map((n) => `- ${n}`).join('\n')}\n` : ''}
 KAYNAK (olgu doğrulaması için):
 ${kaynak}
 
-HABER:
-Başlık: ${yazi.baslik}
-Spot: ${yazi.spot}
+HABER ALANLARI (JSON):
+${JSON.stringify({ baslik: yazi.baslik, spot: yazi.spot, govde: yazi.govde }, null, 2)}
 
-Gövde:
-${yazi.govde}`;
+${duzeltmeBicimi('tr')}`;
     let r;
     try {
-      r = await gemini({ sistem: REDAKSIYON_KURALLARI_TR, istem, sema: REDAKSIYON_SEMASI, dusunme: 'medium', sicaklik: null /* Gemini 3 varsayılanı: 0,2 kaçak yanıt üretiyordu (24 Kasım 2026) */ });
+      // Cümle düzeltmeli çıktı (25 Kasım 2026): model alanları baştan yazmaz, yalnız değişen cümleleri döndürür (duzeltme.mjs).
+      r = await gemini({ sistem: REDAKSIYON_KURALLARI_TR, istem, sema: DUZELTME_SEMASI, dusunme: 'medium', sicaklik: null /* Gemini 3 varsayılanı: 0,2 kaçak yanıt üretiyordu (24 Kasım 2026) */ });
     } catch (e) {
       return { atildi: `çağrı başarısız: ${String(e?.message ?? e).slice(0, 120)}` };
     }
     // Yanıt yok ya da bozuk: geri bildirilecek bir neden yok, yeniden denenmez.
-    if (!r || !bosDegil(r.baslik) || !bosDegil(r.spot) || !bosDegil(r.govde)) return { atildi: 'yanıt yok ya da bozuk' };
-    const sonra = isle({ ...yazi, baslik: r.baslik.trim(), spot: r.spot.trim(), govde: r.govde.trim() });
+    if (!r || !Array.isArray(r.duzeltmeler)) return { atildi: 'yanıt yok ya da bozuk' };
+    const u = duzeltmeleriUygula({ baslik: yazi.baslik ?? '', spot: yazi.spot ?? '', govde: yazi.govde ?? '' }, r.duzeltmeler);
+    // Uygulanabilir düzeltme yoksa metin olduğu gibi kalır (redaksiyon atılmaz; değişiklik yok).
+    if (!u.uygulanan) return { yazi: isle(yazi) };
+    const sonra = isle({ ...yazi, baslik: u.alanlar.baslik.trim(), spot: u.alanlar.spot.trim(), govde: u.alanlar.govde.trim() });
     neden = [...kontrol(sonra, yazi)];
     const kelime = kelimeSay(sonra.govde);
     if (kelime < onceKelime * UZUNLUK_ALT || kelime > onceKelime * UZUNLUK_UST) {

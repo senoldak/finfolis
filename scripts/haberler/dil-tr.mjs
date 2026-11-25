@@ -249,7 +249,7 @@ Düzelt:
 - Yazım TDK'ya göre: zekâ, hâlâ, imkân, kâğıt, rüzgâr, hikâye, şikâyet, gayrisafi; özel adlara gelen ek kesmeyle ayrılır (OpenAI'ın, Fed'in).
 - İngilizceden kelimesi kelimesine çeviri kokan ifadeyi Türk basınında kullanılan karşılığıyla değiştir.
 - Çevrilmemiş İngilizce sözcük ya da cümle kalmasın. İngilizce alıntıyı dolaylı anlatımla Türkçeye aktar ("... dedi" yerine "...ğını söyledi").
-- Sayılar rakamla yazılır: 34 milyon dolar, 2011. Ondalık virgülle: 3,5 milyar. Yüzde yazımını ("%10" ya da "yüzde 10") metinde nasılsa öyle bırak; kod sitenin biçimine çevirir.
+- Sayılar rakamla yazılır: 34 milyon dolar, 2011. Kesirler ve oran sözleri yazıyla kalır: dörtte bir, yarısı, üçte iki ("4'te 1" yazma). Ondalık virgülle: 3,5 milyar. Yüzde yazımını ("%10" ya da "yüzde 10") metinde nasılsa öyle bırak; kod sitenin biçimine çevirir.
 - Aynı bilgiyi iki kez veren cümleyi birleştir; dolgu cümlesini (bilgi taşımayan genel yargı) sil ya da kaynaktaki somut bilgiyle değiştir.
 - Kipler tutarlı olsun: haber dili "-dı/-di" ve "-iyor"; "-mektedir/-maktadır" kullanma.
 - Şirketin adını eş anlamlı sözcüklerle ("kuruluş", "işletme", "teşebbüs") değiştirip durma; adı ya da "şirket" yeter.
