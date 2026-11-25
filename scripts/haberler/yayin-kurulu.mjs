@@ -389,7 +389,7 @@ export async function yayinKurulu(taslak, aday, { gemini = varsayilanGemini, enA
     ...kesinKontrol(sonra, aday),
   ];
   const redakte = async (sorunMetni) => {
-    const r = await dilRedaksiyonu(yazi, aday, { gemini, sorunMetni, isle, kontrol: dilKontrol });
+    const r = await dilRedaksiyonu(yazi, aday, { gemini, sorunMetni, isle, kontrol: dilKontrol, enAz: enAzKelime });
     if (r.yazi) yazi = { ...r.yazi, ...serit };
     else not(`dil redaksiyonu atıldı: ${r.atildi}`);
   };

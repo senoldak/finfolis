@@ -7,7 +7,7 @@ import { gemini as varsayilanGemini } from './lib.mjs';
 import { ilgiliKisim } from './kaynak-kirp.mjs';
 import { kelimeSay } from '../../src/lib/uzunluk.mjs';
 import { dilDuzeltTr, dilSorunlariTr, REDAKSIYON_KURALLARI_TR } from './dil-tr.mjs';
-import { DUZELTME_SEMASI, duzeltmeBicimi, duzeltmeleriUygula } from './duzeltme.mjs';
+import { DUZELTME_SEMASI, duzeltmeBicimi, duzeltmeleriUygula, govdeSiniri } from './duzeltme.mjs';
 
 export const REDAKSIYON_SEMASI = {
   type: 'object',
@@ -45,7 +45,7 @@ export function dilSorunlari(yazi, { derleme = false } = {}) {
  * @param opts.kontrol     (sonra, once) => string[]: kesin kontrol, biçim vb. nedenleri
  * @returns {{yazi}} kabul edilen metin (değişmemiş olabilir) ya da {atildi: neden}
  */
-export async function dilRedaksiyonu(yazi, aday, { gemini = varsayilanGemini, sorunMetni = '', isle = (y) => y, kontrol = () => [] } = {}) {
+export async function dilRedaksiyonu(yazi, aday, { gemini = varsayilanGemini, sorunMetni = '', isle = (y) => y, kontrol = () => [], enAz = 0 } = {}) {
   const onceKelime = kelimeSay(yazi.govde);
   const kaynak = ilgiliKisim(aday.kaynakMetni, [yazi.baslik, yazi.spot, yazi.govde].join('\n'), 20000);
   let neden = [];
@@ -68,7 +68,7 @@ ${duzeltmeBicimi('tr')}`;
     }
     // Yanıt yok ya da bozuk: geri bildirilecek bir neden yok, yeniden denenmez.
     if (!r || !Array.isArray(r.duzeltmeler)) return { atildi: 'yanıt yok ya da bozuk' };
-    const u = duzeltmeleriUygula({ baslik: yazi.baslik ?? '', spot: yazi.spot ?? '', govde: yazi.govde ?? '' }, r.duzeltmeler);
+    const u = duzeltmeleriUygula({ baslik: yazi.baslik ?? '', spot: yazi.spot ?? '', govde: yazi.govde ?? '' }, r.duzeltmeler, { sinirlar: { govde: govdeSiniri(yazi.govde, enAz) } });
     // Uygulanabilir düzeltme yoksa metin olduğu gibi kalır (redaksiyon atılmaz; değişiklik yok).
     if (!u.uygulanan) return { yazi: isle(yazi) };
     const sonra = isle({ ...yazi, baslik: u.alanlar.baslik.trim(), spot: u.alanlar.spot.trim(), govde: u.alanlar.govde.trim() });

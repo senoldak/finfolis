@@ -352,11 +352,11 @@ test('dil redaksiyonu: gövde %90-115 dışına çıkarsa (kısaltma ya da şiş
   const uzunHam = { ...iyi, govde: [iyi.govde, 'Kurul kararını oy birliğiyle verdi ve toplantı tutanağını açıkladı.', 'Piyasalar kararı bekliyordu ve işlemler sakin geçti.'].join('\n\n') };
   const kisaltilmis = { ...uzunHam, govde: iyi.govde };
   const sisirilmis = { ...uzunHam, govde: uzunHam.govde + '\n\nKurul toplantısı sırasında ek bir değişiklik gündeme gelmedi ve görüşmeler sakin geçti. Bütün üyeler aynı görüşte birleşti.' };
-  // Şişiren düzeltme uygulanır ama uzunluk kapısı reddeder; kısaltan düzeltme hiç uygulanmaz (duzeltme.mjs: cümle
-  // yarıya indirilemez), metin olduğu gibi kalır.
+  // Şişiren ve kısaltan düzeltme uzunluk bütçesini (duzeltme.mjs govdeSiniri, 26 Kasım) aşar, uygulanmaz: metin olduğu
+  // gibi kalır, redaksiyon atılmaz (kapı reddi yok).
   const sis = await yayinKurulu(uzunHam, aday, { enAzKelime: 0, gemini: dilStub([sisirilmis]).gemini, log: sessiz });
   assert.equal(sis.yazi.govde, uzunHam.govde);
-  assert.match(sis.dilNotlari[0], /kelime/);
+  assert.ok(!(sis.dilNotlari ?? []).some((n) => /kelime/.test(n)));
   const kis = await yayinKurulu(uzunHam, aday, { enAzKelime: 0, gemini: dilStub([kisaltilmis]).gemini, log: sessiz });
   assert.equal(kis.yazi.govde, uzunHam.govde);
 });
