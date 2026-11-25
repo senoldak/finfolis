@@ -14,7 +14,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { hentMetin, sleep } from '../haberler/lib.mjs';
-import { ULKELER, faizSatiri, tcmbIleUzat } from '../../src/lib/dunya-faizleri.mjs';
+import { ULKELER, faizSatiri, tcmbIleUzat, reelFaiz } from '../../src/lib/dunya-faizleri.mjs';
 import { csvAyristir, emsalSatiri, baslikDonemleri } from '../../src/lib/emsal-ulkeler.mjs';
 import { bisFaizSerileri } from './dunya-faizleri.mjs';
 
@@ -63,7 +63,37 @@ export async function emsalUlkelerUret() {
   await sleep(20000);
   const fiyat2018 = await oecdCek(`OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/.M.N+HICP.CPI.PA._T+_TXCP01_NRG.N.GY?startPeriod=${bas}`);
   await sleep(20000);
-  const fiyat1999 = await oecdCek(`OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL/.M.N+HICP.CPI.PA._T+_TXCP01_NRG.N.GY?startPeriod=${bas}`);
+  // Eski COICOP 1999 akışı: yalnız 2018 akışında TÜFE ya da çekirdek TÜFE'si olmayan ülkeler sorulur.
+  // Bütün ülkeleri isteyen geniş sorgu bu akışta zaman aşımıyla 500 veriyordu (28 Ekim–25 Kasım).
+  const var2018 = new Set(fiyat2018.filter((r) => r.MEASURE === 'CPI').map((r) => `${r.REF_AREA}|${r.EXPENDITURE}`));
+  // Ülke başına: kodlarından hiçbiri iki seriyi birden vermiyorsa sorulur. EA21/EA19 eski akışta yok (404), sorulmaz.
+  const tam = (k) => var2018.has(`${k}|_T`) && var2018.has(`${k}|_TXCP01_NRG`);
+  const eksik = [
+    ...new Set(ULKELER.filter((u) => !(u.oecd ?? []).some(tam)).flatMap((u) => (u.oecd ?? []).filter((k) => k !== 'EA21' && k !== 'EA19'))),
+  ];
+  // Bu akış kararsız (aynı sorgu bir kez 200, bir kez 500); dörder ülkelik parçalar, aralarında 20 sn.
+  // Düşen parçanın ülkelerinde TÜFE/çekirdek önceki dosyadan, kendi dönem tarihiyle korunur; tablo her değerin dönemini gösterir.
+  const fiyat1999 = [];
+  const dusen = new Set();
+  for (let i = 0; i < eksik.length; i += 4) {
+    if (i) await sleep(20000);
+    const parca = eksik.slice(i, i + 4);
+    try {
+      fiyat1999.push(...(await oecdCek(`OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL/${parca.join('+')}.M.N+HICP.CPI.PA._T+_TXCP01_NRG.N.GY?startPeriod=${bas}`)));
+    } catch (e) {
+      console.warn(`OECD eski fiyat akışı düştü (${parca.join('+')}): ${e?.message ?? e}`);
+      parca.forEach((k) => dusen.add(k));
+    }
+  }
+  let onceki = {};
+  if (dusen.size) {
+    try {
+      const eski = JSON.parse(await readFile(HEDEF_DOSYA, 'utf8'));
+      onceki = Object.fromEntries((eski.satirlar ?? []).map((s) => [s.kod, s]));
+    } catch {
+      // Önceki dosya yoksa o ülkelerin TÜFE'si boş kalır.
+    }
+  }
   const seriler = await bisFaizSerileri();
   // Türkiye: BIS'in son gözleminden sonraki TCMB kararları finfolis'in TCMB verisinden (dunya-faizleri.mjs ile aynı).
   try {
@@ -78,7 +108,16 @@ export async function emsalUlkelerUret() {
   const ref = ULKELER.map((u) => seriler[u.bis]?.at(-1)?.t).filter(Boolean).sort().at(-1);
   const satirlar = ULKELER.map((u) => {
     const faiz = seriler[u.bis]?.length ? faizSatiri({ ulke: u, seri: seriler[u.bis], tufe: null, ref, bugun }) : null;
-    return emsalSatiri({ ulke: u, kei, fiyat, faiz, bugun });
+    const satir = emsalSatiri({ ulke: u, kei, fiyat, faiz, bugun });
+    const eski = onceki[u.kod];
+    if (eski && (u.oecd ?? []).some((k) => dusen.has(k))) {
+      satir.tufe ??= eski.tufe ?? null;
+      satir.cekirdek ??= eski.cekirdek ?? null;
+      if (!satir.reel && satir.faiz && satir.tufe) {
+        satir.reel = { deger: reelFaiz(satir.faiz.deger, satir.tufe.deger), tufeDonem: satir.tufe.donem };
+      }
+    }
+    return satir;
   });
 
   const donemler = baslikDonemleri(satirlar);

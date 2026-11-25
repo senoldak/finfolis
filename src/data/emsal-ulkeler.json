@@ -1,6 +1,6 @@
 {
-  "alinma": "2026-10-28T22:38:09.665Z",
-  "referansTarih": "2026-10-23",
+  "alinma": "2026-11-25T13:29:46.265Z",
+  "referansTarih": "2026-11-17",
   "kaynaklar": [
     {
       "ad": "OECD Veri Gezgini, sdmx.oecd.org",
@@ -70,14 +70,14 @@
     }
   ],
   "baslikDonemleri": {
-    "gsyhCeyrek": "2026-Q2",
-    "gsyhYillik": "2026-Q2",
-    "tufe": "2026-09",
-    "cekirdek": "2026-09",
-    "issizlik": "2026-08",
-    "faiz": "2026-10",
-    "tahvil": "2026-09",
-    "reel": "2026-09"
+    "gsyhCeyrek": "2026-Q3",
+    "gsyhYillik": "2026-Q3",
+    "tufe": "2026-10",
+    "cekirdek": "2026-10",
+    "issizlik": "2026-09",
+    "faiz": "2026-11",
+    "tahvil": "2026-10",
+    "reel": "2026-10"
   },
   "satirlar": [
     {
@@ -93,26 +93,26 @@
         "deger": 2.56
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 29.73
+        "donem": "2026-10",
+        "deger": 29.7
       },
       "cekirdek": {
         "donem": "2026-09",
         "deger": 28.83
       },
       "issizlik": {
-        "donem": "2026-08",
-        "deger": 7.8
+        "donem": "2026-09",
+        "deger": 8.4
       },
       "faiz": {
         "deger": 36,
-        "tarih": "2026-10-23",
+        "tarih": "2026-11-13",
         "aralik": null
       },
       "tahvil": null,
       "reel": {
-        "deger": 6.27,
-        "tufeDonem": "2026-09"
+        "deger": 6.3,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -120,12 +120,12 @@
       "ad": "ABD",
       "grup": "gelismis",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 0.55
+        "donem": "2026-Q3",
+        "deger": 0.83
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 2.19
+        "donem": "2026-Q3",
+        "deger": 2.07
       },
       "tufe": {
         "donem": "2026-09",
@@ -136,20 +136,20 @@
         "deger": 2.45
       },
       "issizlik": {
-        "donem": "2026-09",
-        "deger": 4.2
+        "donem": "2026-10",
+        "deger": 4.1
       },
       "faiz": {
         "deger": 3.875,
-        "tarih": "2026-10-20",
+        "tarih": "2026-11-17",
         "aralik": {
           "alt": 3.75,
           "ust": 4
         }
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 4.99
+        "donem": "2026-10",
+        "deger": 5.13
       },
       "reel": {
         "deger": 0.13,
@@ -161,37 +161,37 @@
       "ad": "Euro Bölgesi",
       "grup": "gelismis",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 0.64
+        "donem": "2026-Q3",
+        "deger": 0.41
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 1.2
+        "donem": "2026-Q3",
+        "deger": 1.3
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 3.8
+        "donem": "2026-10",
+        "deger": 4
       },
       "cekirdek": {
-        "donem": "2026-09",
-        "deger": 2.5
+        "donem": "2026-10",
+        "deger": 2.6
       },
       "issizlik": {
-        "donem": "2026-08",
-        "deger": 6.4
+        "donem": "2026-09",
+        "deger": 6.5
       },
       "faiz": {
         "deger": 2.5,
-        "tarih": "2026-10-20",
+        "tarih": "2026-11-17",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 4.03
+        "donem": "2026-10",
+        "deger": 4.17
       },
       "reel": {
-        "deger": -1.3,
-        "tufeDonem": "2026-09"
+        "deger": -1.5,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -199,37 +199,37 @@
       "ad": "Japonya",
       "grup": "gelismis",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 0.36
+        "donem": "2026-Q3",
+        "deger": -0.02
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 0.73
+        "donem": "2026-Q3",
+        "deger": 1.16
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 2.1
+        "donem": "2026-10",
+        "deger": 2.3
       },
       "cekirdek": {
-        "donem": "2026-09",
+        "donem": "2026-10",
         "deger": 2.2
       },
       "issizlik": {
-        "donem": "2026-08",
-        "deger": 2.5
+        "donem": "2026-09",
+        "deger": 2.4
       },
       "faiz": {
         "deger": 1.25,
-        "tarih": "2026-10-20",
+        "tarih": "2026-11-17",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 3.05
+        "donem": "2026-10",
+        "deger": 2.76
       },
       "reel": {
-        "deger": -0.85,
-        "tufeDonem": "2026-09"
+        "deger": -1.05,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -237,37 +237,37 @@
       "ad": "Birleşik Krallık",
       "grup": "gelismis",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 0.53
+        "donem": "2026-Q3",
+        "deger": 0.74
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 1.37
+        "donem": "2026-Q3",
+        "deger": 1.94
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 3.6
+        "donem": "2026-10",
+        "deger": 3.7
       },
       "cekirdek": {
-        "donem": "2026-09",
+        "donem": "2026-10",
         "deger": 3.1
       },
       "issizlik": {
-        "donem": "2026-07",
-        "deger": 4.7
+        "donem": "2026-Q3",
+        "deger": 4.6
       },
       "faiz": {
-        "deger": 3.75,
-        "tarih": "2026-10-19",
+        "deger": 4,
+        "tarih": "2026-11-16",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 5.24
+        "donem": "2026-10",
+        "deger": 5.34
       },
       "reel": {
-        "deger": 0.15,
-        "tufeDonem": "2026-09"
+        "deger": 0.3,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -275,20 +275,20 @@
       "ad": "İsviçre",
       "grup": "gelismis",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 1.88
+        "donem": "2026-Q3",
+        "deger": -0.02
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 2.63
+        "donem": "2026-Q3",
+        "deger": 3.04
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 0.99
+        "donem": "2026-10",
+        "deger": 1.46
       },
       "cekirdek": {
-        "donem": "2026-09",
-        "deger": 0.6
+        "donem": "2026-10",
+        "deger": 0.8
       },
       "issizlik": {
         "donem": "2026-Q2",
@@ -296,16 +296,16 @@
       },
       "faiz": {
         "deger": 0,
-        "tarih": "2026-10-20",
+        "tarih": "2026-11-17",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 0.59
+        "donem": "2026-10",
+        "deger": 0.51
       },
       "reel": {
-        "deger": -0.99,
-        "tufeDonem": "2026-09"
+        "deger": -1.46,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -313,37 +313,37 @@
       "ad": "Kanada",
       "grup": "gelismis",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 0.82
+        "donem": "2026-Q3",
+        "deger": 0.3
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 1.13
+        "donem": "2026-Q3",
+        "deger": 0.95
       },
       "tufe": {
-        "donem": "2026-09",
+        "donem": "2026-10",
         "deger": 3.09
       },
       "cekirdek": {
-        "donem": "2026-09",
-        "deger": 1.77
+        "donem": "2026-10",
+        "deger": 1.62
       },
       "issizlik": {
-        "donem": "2026-09",
-        "deger": 6.5
+        "donem": "2026-10",
+        "deger": 6.7
       },
       "faiz": {
-        "deger": 2.25,
-        "tarih": "2026-10-19",
+        "deger": 2.5,
+        "tarih": "2026-11-16",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 3.88
+        "donem": "2026-10",
+        "deger": 3.87
       },
       "reel": {
-        "deger": -0.84,
-        "tufeDonem": "2026-09"
+        "deger": -0.59,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -359,29 +359,29 @@
         "deger": 2.14
       },
       "tufe": {
-        "donem": "2026-08",
-        "deger": 3.97
+        "donem": "2026-09",
+        "deger": 4.34
       },
       "cekirdek": {
-        "donem": "2026-08",
-        "deger": 3.53
+        "donem": "2026-09",
+        "deger": 3.58
       },
       "issizlik": {
-        "donem": "2026-09",
-        "deger": 4.72
+        "donem": "2026-10",
+        "deger": 4.86
       },
       "faiz": {
-        "deger": 4.6,
-        "tarih": "2026-10-15",
+        "deger": 4.85,
+        "tarih": "2026-11-12",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 5.28
+        "donem": "2026-10",
+        "deger": 5.27
       },
       "reel": {
-        "deger": 0.63,
-        "tufeDonem": "2026-08"
+        "deger": 0.51,
+        "tufeDonem": "2026-09"
       }
     },
     {
@@ -399,17 +399,17 @@
       "tufe": null,
       "cekirdek": null,
       "issizlik": {
-        "donem": "2026-Q2",
-        "deger": 5.6
+        "donem": "2026-Q3",
+        "deger": 5.7
       },
       "faiz": {
         "deger": 2.75,
-        "tarih": "2026-10-16",
+        "tarih": "2026-11-13",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 4.94
+        "donem": "2026-10",
+        "deger": 5.01
       },
       "reel": null
     },
@@ -426,29 +426,29 @@
         "deger": 1.6
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 3.38
+        "donem": "2026-10",
+        "deger": 3.57
       },
       "cekirdek": {
-        "donem": "2026-09",
-        "deger": 3.17
+        "donem": "2026-10",
+        "deger": 3.1
       },
       "issizlik": {
-        "donem": "2026-08",
-        "deger": 4.5
+        "donem": "2026-09",
+        "deger": 5
       },
       "faiz": {
         "deger": 4.5,
-        "tarih": "2026-10-13",
+        "tarih": "2026-11-16",
         "aralik": null
       },
       "tahvil": {
         "donem": "2026-10",
-        "deger": 4.47
+        "deger": 4.43
       },
       "reel": {
-        "deger": 1.12,
-        "tufeDonem": "2026-09"
+        "deger": 0.93,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -456,37 +456,37 @@
       "ad": "İsveç",
       "grup": "gelismis",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 1.56
+        "donem": "2026-Q3",
+        "deger": 0.44
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 3.21
+        "donem": "2026-Q3",
+        "deger": 2.82
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 1.15
+        "donem": "2026-10",
+        "deger": 0.91
       },
       "cekirdek": {
-        "donem": "2026-09",
-        "deger": 1.37
+        "donem": "2026-10",
+        "deger": 1.08
       },
       "issizlik": {
-        "donem": "2026-08",
-        "deger": 8.9
+        "donem": "2026-09",
+        "deger": 8.6
       },
       "faiz": {
-        "deger": 1.75,
-        "tarih": "2026-10-20",
+        "deger": 2,
+        "tarih": "2026-11-17",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 3.19
+        "donem": "2026-10",
+        "deger": 3.17
       },
       "reel": {
-        "deger": 0.6,
-        "tufeDonem": "2026-09"
+        "deger": 1.09,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -494,37 +494,37 @@
       "ad": "Çekya",
       "grup": "gelismis",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 0.28
+        "donem": "2026-Q3",
+        "deger": 0.5
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 1.79
+        "donem": "2026-Q3",
+        "deger": 1.59
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 2.5
+        "donem": "2026-10",
+        "deger": 2.39
       },
       "cekirdek": {
-        "donem": "2026-09",
-        "deger": 3.49
+        "donem": "2026-10",
+        "deger": 3.37
       },
       "issizlik": {
-        "donem": "2026-08",
-        "deger": 3.2
+        "donem": "2026-09",
+        "deger": 2.8
       },
       "faiz": {
-        "deger": 3.75,
-        "tarih": "2026-10-19",
+        "deger": 4,
+        "tarih": "2026-11-12",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 5.24
+        "donem": "2026-10",
+        "deger": 5.37
       },
       "reel": {
-        "deger": 1.25,
-        "tufeDonem": "2026-09"
+        "deger": 1.61,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -548,17 +548,17 @@
         "deger": 2.8
       },
       "issizlik": {
-        "donem": "2026-09",
-        "deger": 2.6
+        "donem": "2026-10",
+        "deger": 2.5
       },
       "faiz": {
         "deger": 3,
-        "tarih": "2026-10-08",
+        "tarih": "2026-11-02",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 4.45
+        "donem": "2026-10",
+        "deger": 4.21
       },
       "reel": {
         "deger": 0.12,
@@ -585,12 +585,12 @@
       "issizlik": null,
       "faiz": {
         "deger": 13.75,
-        "tarih": "2026-10-20",
+        "tarih": "2026-11-17",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 9.14
+        "donem": "2026-10",
+        "deger": 9.29
       },
       "reel": {
         "deger": 9.17,
@@ -602,37 +602,37 @@
       "ad": "Meksika",
       "grup": "gelismekte",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 1.42
+        "donem": "2026-Q3",
+        "deger": 0.9
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 1.93
+        "donem": "2026-Q3",
+        "deger": 2.95
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 3.45
+        "donem": "2026-10",
+        "deger": 3.75
       },
       "cekirdek": {
-        "donem": "2026-09",
-        "deger": 3.95
+        "donem": "2026-10",
+        "deger": 3.97
       },
       "issizlik": {
         "donem": "2026-09",
         "deger": 2.63
       },
       "faiz": {
-        "deger": 6.5,
-        "tarih": "2026-10-20",
+        "deger": 6.25,
+        "tarih": "2026-11-17",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 9.35
+        "donem": "2026-10",
+        "deger": 9.25
       },
       "reel": {
-        "deger": 3.05,
-        "tufeDonem": "2026-09"
+        "deger": 2.5,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -640,37 +640,37 @@
       "ad": "Şili",
       "grup": "gelismekte",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": -0.02
+        "donem": "2026-Q3",
+        "deger": -1.8
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": -0.33
+        "donem": "2026-Q3",
+        "deger": -2.15
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 4.08
+        "donem": "2026-10",
+        "deger": 4.52
       },
       "cekirdek": {
-        "donem": "2026-09",
-        "deger": 3.16
+        "donem": "2026-10",
+        "deger": 3.27
       },
       "issizlik": {
-        "donem": "2026-07",
-        "deger": 9.36
+        "donem": "2026-Q3",
+        "deger": 9.57
       },
       "faiz": {
         "deger": 4.5,
-        "tarih": "2026-10-20",
+        "tarih": "2026-11-17",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 6.01
+        "donem": "2026-10",
+        "deger": 6.05
       },
       "reel": {
-        "deger": 0.42,
-        "tufeDonem": "2026-09"
+        "deger": -0.02,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -678,12 +678,12 @@
       "ad": "Kolombiya",
       "grup": "gelismekte",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 1.29
+        "donem": "2026-Q3",
+        "deger": -0.78
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 3.37
+        "donem": "2026-Q3",
+        "deger": 0.49
       },
       "tufe": {
         "donem": "2026-09",
@@ -694,17 +694,17 @@
         "deger": 6.48
       },
       "issizlik": {
-        "donem": "2026-08",
-        "deger": 9.51
+        "donem": "2026-09",
+        "deger": 8.5
       },
       "faiz": {
         "deger": 12.25,
-        "tarih": "2026-10-16",
+        "tarih": "2026-11-12",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 12.73
+        "donem": "2026-10",
+        "deger": 13.25
       },
       "reel": {
         "deger": 5.96,
@@ -716,37 +716,37 @@
       "ad": "Polonya",
       "grup": "gelismekte",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 1.1
+        "donem": "2026-Q3",
+        "deger": 0.82
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 4
+        "donem": "2026-Q3",
+        "deger": 3.59
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 4.1
+        "donem": "2026-10",
+        "deger": 3.5
       },
       "cekirdek": {
         "donem": "2025-12",
         "deger": 2.7
       },
       "issizlik": {
-        "donem": "2026-08",
+        "donem": "2026-09",
         "deger": 3.4
       },
       "faiz": {
         "deger": 3.75,
-        "tarih": "2026-10-20",
+        "tarih": "2026-11-17",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 6.23
+        "donem": "2026-10",
+        "deger": 6.32
       },
       "reel": {
-        "deger": -0.35,
-        "tufeDonem": "2026-09"
+        "deger": 0.25,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -754,37 +754,37 @@
       "ad": "Macaristan",
       "grup": "gelismekte",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 0.6
+        "donem": "2026-Q3",
+        "deger": 0.12
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 1.7
+        "donem": "2026-Q3",
+        "deger": 1.46
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 1.54
+        "donem": "2026-10",
+        "deger": 1.97
       },
       "cekirdek": {
-        "donem": "2026-09",
-        "deger": 3.32
+        "donem": "2026-10",
+        "deger": 3.4
       },
       "issizlik": {
-        "donem": "2026-08",
-        "deger": 4.7
+        "donem": "2026-09",
+        "deger": 4.6
       },
       "faiz": {
         "deger": 5.5,
-        "tarih": "2026-10-14",
+        "tarih": "2026-11-11",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 5.69
+        "donem": "2026-10",
+        "deger": 5.57
       },
       "reel": {
-        "deger": 3.96,
-        "tufeDonem": "2026-09"
+        "deger": 3.53,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -800,23 +800,23 @@
         "deger": 0.85
       },
       "tufe": {
-        "donem": "2026-09",
-        "deger": 4.35
+        "donem": "2026-10",
+        "deger": 5.02
       },
       "cekirdek": null,
       "issizlik": null,
       "faiz": {
         "deger": 7.25,
-        "tarih": "2026-10-19",
+        "tarih": "2026-11-16",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 8.95
+        "donem": "2026-10",
+        "deger": 8.94
       },
       "reel": {
-        "deger": 2.9,
-        "tufeDonem": "2026-09"
+        "deger": 2.23,
+        "tufeDonem": "2026-10"
       }
     },
     {
@@ -843,8 +843,8 @@
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-09",
-        "deger": 7.06
+        "donem": "2026-10",
+        "deger": 7.38
       },
       "reel": {
         "deger": 0.54,
@@ -856,12 +856,12 @@
       "ad": "Endonezya",
       "grup": "gelismekte",
       "gsyhCeyrek": {
-        "donem": "2026-Q2",
-        "deger": 1.28
+        "donem": "2026-Q3",
+        "deger": 1.39
       },
       "gsyhYillik": {
-        "donem": "2026-Q2",
-        "deger": 5.3
+        "donem": "2026-Q3",
+        "deger": 5.55
       },
       "tufe": {
         "donem": "2026-09",
@@ -871,7 +871,7 @@
       "issizlik": null,
       "faiz": {
         "deger": 5.75,
-        "tarih": "2026-10-19",
+        "tarih": "2026-11-16",
         "aralik": null
       },
       "tahvil": null,
@@ -900,12 +900,12 @@
       "issizlik": null,
       "faiz": {
         "deger": 3,
-        "tarih": "2026-10-19",
+        "tarih": "2026-11-17",
         "aralik": null
       },
       "tahvil": {
-        "donem": "2026-08",
-        "deger": 1.69
+        "donem": "2026-09",
+        "deger": 1.68
       },
       "reel": {
         "deger": 2.1,
