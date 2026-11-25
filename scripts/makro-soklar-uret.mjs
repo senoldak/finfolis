@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // 1. Read EVDS key
 export function evdsAnahtariAl() {
@@ -271,7 +272,7 @@ async function run() {
     }
   };
 
-  const outPath = resolve('finfolis/src/data/makro-soklar.json');
+  const outPath = fileURLToPath(new URL('../src/data/makro-soklar.json', import.meta.url));
   writeFileSync(outPath, JSON.stringify(sonuclar, null, 2), 'utf8');
   console.log('4. Başarıyla kaydedildi:', outPath);
 }

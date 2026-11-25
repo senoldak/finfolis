@@ -193,14 +193,18 @@ async function main() {
   mkdirSync(grafDir, { recursive: true });
 
   // JSON Kaydet
+  // Sayfalar src/data'dan okur; public/data indirme kopyasıdır. İkisi de yazılır.
   const jsonYolu = resolve(dataDir, 'tcmb-swap-orani.json');
-  writeFileSync(jsonYolu, JSON.stringify({
+  const srcJsonYolu = resolve(__dirname, '../src/data/tcmb-swap-orani.json');
+  const veriIcerik = JSON.stringify({
     guncellenme: new Date().toISOString(),
     kaynak: 'TCMB EVDS - Uluslararası Rezervler ve Döviz Likiditesi Tablosu',
     kayit_sayisi: sonuclar.length,
     seri: sonuclar
-  }, null, 2));
-  console.log(`JSON yazıldı: ${jsonYolu}`);
+  }, null, 2);
+  writeFileSync(jsonYolu, veriIcerik);
+  writeFileSync(srcJsonYolu, veriIcerik);
+  console.log(`JSON yazıldı: ${jsonYolu} & ${srcJsonYolu}`);
 
   // SVG Kaydet
   const svgYolu = resolve(grafDir, 'tcmb-swap-orani.svg');
