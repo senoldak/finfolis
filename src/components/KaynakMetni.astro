@@ -1,0 +1,10 @@
+---
+// Grafik/tablo altındaki kaynak yazısı: resmî kurum adları bağlantılı (src/lib/kaynak-bagla.mjs). Metin aynen kalır.
+import { kaynakParcalari } from '../lib/kaynak-bagla.mjs';
+interface Props {
+  metin: string;
+}
+const parcalar = kaynakParcalari(Astro.props.metin);
+---
+
+{parcalar.map((p) => (p.url ? <a href={p.url} rel="noopener" class="kaynak-bag">{p.metin}</a> : p.metin))}

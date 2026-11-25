@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from './KaynakMetni.astro';
 // Enflasyon beklentisi ile gerçekleşen yıllık TÜFE aynı grafikte. İki görünüm: beklenti anket ayında ya da ait olduğu ayda
 // (12 ay beklentisi 12 ay, 24 ay beklentisi 24 ay ileri kaydırılır). Hedef görünüm yalnız gerçekleşmiş aylarla sınırlıdır;
 // grafik geleceğe çizgi uzatmaz. Değerler TCMB/TÜİK'in yayımladığı rakamlardır, burada hesaplanan tek şey kaydırma ve farktır.
@@ -58,7 +59,7 @@ const veri = {
     </svg>
     <div class="ipucu" data-ipucu hidden></div>
   </div>
-  <p class="kart-alt">Kaynak: TCMB Piyasa Katılımcıları Anketi; TÜİK tüketici fiyat endeksi (TCMB EVDS ve TCMB enflasyon tablosu).</p>
+  <p class="kart-alt"><KaynakMetni metin="Kaynak: TCMB Piyasa Katılımcıları Anketi; TÜİK tüketici fiyat endeksi (TCMB EVDS ve TCMB enflasyon tablosu)." /></p>
 
   <script type="application/json" data-beklenti-veri set:html={JSON.stringify(veri)} />
 </section>

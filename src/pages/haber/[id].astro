@@ -294,7 +294,7 @@ const jsonLd = {
 
       {
         medya.length > 0 && (
-          <p class="resmi-kaynak" id="kaynaklar">
+          <p class="resmi-kaynak" id={resmi.length ? undefined : 'kaynaklar'}>
             {medya.length > 1 ? 'Kaynaklar:' : 'Kaynak:'}{' '}
             {medya.map((k, i) => (
               <>

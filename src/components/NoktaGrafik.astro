@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from './KaynakMetni.astro';
 // Fed nokta grafiği (dot plot): her yıl için katılımcıların federal fon oranı tercihlerinin dağılımı. Her nokta bir
 // katılımcıdır; yatay eksen yıl, dikey eksen hedef aralığın orta noktası. Turuncu elmas, SEP Tablo 1'deki yayımlanmış
 // medyandır. Değerler sayfanın verdiği resmi rakamlardır; burada yalnız çizilir. Aynı veri <details> içindeki tabloda da var.
@@ -83,7 +84,7 @@ const oranYaz = (n: number) => n.toLocaleString('tr-TR', { minimumFractionDigits
     </div>
   </details>
 
-  <p class="kart-alt">{kaynak}</p>
+  <p class="kart-alt"><KaynakMetni metin={kaynak} /></p>
   <script type="application/json" data-ng-veri set:html={JSON.stringify(sirali)} />
 </section>
 

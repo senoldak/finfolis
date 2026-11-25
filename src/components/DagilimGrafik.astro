@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from './KaynakMetni.astro';
 // Geçmiş değişimlerin dağılımı (histogram): her çubuk bir yüzde aralığındaki değişimlerin payı. Dikey çizgiler %10/%90
 // (düz) ve %2,5/%97,5 (kesik) dilimleri. Grup (seri) ve dönem seçici, imleç ve bilgi kutusu ZamanGrafik'le aynı
 // görünümde. Değerler sayfanın verdiği hesaplanmış rakamlardır; burada yalnız çizilir. İlk ve son çubuk uç değerleri de
@@ -72,7 +73,7 @@ const kimlik = `dg-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-'
     <svg viewBox="0 0 880 380" role="img" aria-label={`${baslik} histogramı`} data-svg></svg>
     <div class="ipucu" data-ipucu hidden></div>
   </div>
-  <p class="kart-alt">{kaynak}</p>
+  <p class="kart-alt"><KaynakMetni metin={kaynak} /></p>
 
   <script type="application/json" data-dg-veri set:html={JSON.stringify(gruplar)} />
 </section>

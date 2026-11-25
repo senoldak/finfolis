@@ -1,6 +1,7 @@
 // Haberin altındaki "Resmî kaynak" satırı. Yalnız resmî kurumların kendi alan adlarındaki bağlantılar gösterilir
-// (izin listesi; bilinmeyen alan adı gösterilmez). Medya kaynağı izi (kaynakIzi) taşıyan haberde resmî satır çıkmaz;
-// onun yerine adsız kaynak satırı (adsizKaynakSatiri) gösterilir: kaynak bağlantısı ve adı eklenmez.
+// (izin listesi; bilinmeyen alan adı gösterilmez). Resmî kaynak her haberde anılır: medya kaynağı izi (kaynakIzi)
+// taşıyan karma haberde ve bültende de resmî satır çıkar, medya kaynakları ayrıca src/lib/kaynak-adlari.mjs'ten
+// (25 Kasım 2026; önce karma haberde resmî satır gizleniyordu).
 const RESMI_ALANLAR = [
   'tcmb.gov.tr', 'tuik.gov.tr', 'spk.gov.tr', 'bddk.org.tr', 'kap.org.tr', 'hmb.gov.tr', 'resmigazete.gov.tr',
   'sec.gov', 'federalreserve.gov', 'newyorkfed.org', 'treasury.gov', 'bls.gov', 'bea.gov',
@@ -13,7 +14,6 @@ const ARACI = { 'frankfurter.dev': 'https://www.ecb.europa.eu/stats/policy_and_e
 const alanEslesir = (host, alan) => host === alan || host.endsWith(`.${alan}`);
 
 export function resmiKaynaklar(veri) {
-  if (typeof veri?.kaynakIzi === 'string' && veri.kaynakIzi.trim()) return [];
   const sonuc = [];
   for (const k of Array.isArray(veri?.kaynaklar) ? veri.kaynaklar : []) {
     let u;

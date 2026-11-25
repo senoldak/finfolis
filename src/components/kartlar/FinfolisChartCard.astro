@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from '../KaynakMetni.astro';
 import type { FinfolisGrafikTanimi } from '../../lib/finfolis-charts-data';
 import FinfolisChartRenderer from './FinfolisChartRenderer.astro';
 
@@ -79,7 +80,7 @@ const zamanSerisiMi = ['alan', 'sutun', 'coklu-karma', 'ayrisan-cubuk'].includes
   <!-- Kart Altı: Kaynak, Tarih ve Yasal Hatırlatma -->
   <footer class="kart-alt">
     <div class="kaynak-satiri">
-      <span class="kaynak-metin">Kaynak: <strong>{grafik.kaynak}</strong></span>
+      <span class="kaynak-metin">Kaynak: <strong><KaynakMetni metin={grafik.kaynak} /></strong></span>
       <span class="tarih-metin">{grafik.tarih}</span>
     </div>
     <div class="spk-notu">Yatırım tavsiyesi değildir.</div>

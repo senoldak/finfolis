@@ -10,8 +10,11 @@ test('resmî kurum bağlantısı gösterilir', () => {
   assert.equal(resmiKaynaklar({ kaynaklar: [{ ad: 'BoJ', url: 'http://www.boj.or.jp/en/' }] })[0].url, 'https://www.boj.or.jp/en/');
 });
 
-test('medya izi taşıyan (karma) haberde satır yok', () => {
-  assert.deepEqual(resmiKaynaklar({ kaynakIzi: 'v1.abc', kaynaklar: [{ ad: 'TCMB', url: 'https://www.tcmb.gov.tr/' }] }), []);
+test('medya izi taşıyan (karma) haberde ve bültende resmî satır yine çıkar', () => {
+  assert.deepEqual(resmiKaynaklar({ kaynakIzi: 'v1.abc', kaynaklar: [{ ad: 'TCMB', url: 'https://www.tcmb.gov.tr/' }] }), [
+    { ad: 'TCMB', url: 'https://www.tcmb.gov.tr/' },
+  ]);
+  assert.equal(resmiKaynaklar({ tur: 'bulten', kaynakIzi: 'v1.abc', kaynaklar: [{ ad: 'TCMB', url: 'https://www.tcmb.gov.tr/' }] }).length, 1);
 });
 
 test('izin listesinde olmayan alan adı ve site içi bağlantı gösterilmez', () => {

@@ -1,4 +1,5 @@
 ---
+import KaynakMetni from './KaynakMetni.astro';
 // Veri sayfaları için ortak zaman serisi çizgi grafiği: tek eksen, en çok dört seri, isteğe bağlı grup seçici (bölge,
 // sektör), dönem düğmeleri, seri aç/kapat, imleç ve bilgi kutusu. Değerler sayfanın verdiği resmi rakamlardır; burada
 // yalnız çizilir. Renkler dataviz doğrulayıcısından geçti (kâğıt zeminde, renk körlüğü dahil).
@@ -119,7 +120,7 @@ const kimlik = `zg-${baslik.toLowerCase().replace(/[^a-z0-9ğüşıöç]+/g, '-'
     <svg viewBox="0 0 880 420" role="img" aria-label={`${baslik} çizgi grafiği`} data-svg></svg>
     <div class="ipucu" data-ipucu hidden></div>
   </div>
-  <p class="kart-alt">{kaynak}{olaylar.length > 0 && olayNotu && <> {olayNotu}</>}</p>
+  <p class="kart-alt"><KaynakMetni metin={kaynak} />{olaylar.length > 0 && olayNotu && <> {olayNotu}</>}</p>
 
   <script type="application/json" data-zg-veri set:html={JSON.stringify(veri)} />
 </section>
