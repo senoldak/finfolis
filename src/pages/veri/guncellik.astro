@@ -12,6 +12,7 @@ import altin from '../../data/tcmb-altin-kazanci.json';
 import swap from '../../data/tcmb-swap-orani.json';
 import netPozisyon from '../../data/tcmb-net-pozisyon-degisimi.json';
 import dunyaFaizleri from '../../data/dunya-faizleri.json';
+import emsalUlkeler from '../../data/emsal-ulkeler.json';
 import { guncellikListesi, ESIKLER, SIKLIK_ADI } from '../../lib/veri-guncellik.mjs';
 import { gunYaz, zamanYaz } from '../../lib/resmi';
 import { jsonLdMetni } from '../../lib/json-ld.mjs';
@@ -28,6 +29,7 @@ const liste = guncellikListesi({
     'tcmb-swap-orani': swap,
     'tcmb-net-pozisyon-degisimi': netPozisyon,
     'dunya-faizleri': dunyaFaizleri,
+    'emsal-ulkeler': emsalUlkeler,
   },
 });
 const DURUM_ADI: Record<string, string> = { guncel: 'Güncel', gecikmis: 'Gecikmiş', durmus: 'Durmuş', bilinmiyor: 'Bilinmiyor' };

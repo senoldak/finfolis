@@ -40,7 +40,8 @@ export const GOSTERGELER = [
   { anahtar: 'reel', ad: 'Reel faiz (puan)', kaynak: 'Hesaplama', uc: 'politika faizi (BIS) − TÜFE (OECD)', olcu: 'aynı satırdaki iki değerin farkı' },
 ];
 
-// OECD, eşleşme bulamayınca 404 döner; bu hata değil, boş sonuçtur. Aralıklı 5xx / 429 yanıtları için 4 kez denenir.
+// OECD, eşleşme bulamayınca 404 döner; bu hata değil, boş sonuçtur. Aralıklı 5xx / 429 yanıtları için 4 kez denenir;
+// OECD'nin istek sınırı kısa bekleme ile açılmadığı için denemeler arası 15/30/45 sn.
 async function oecdCek(yol) {
   let son;
   for (let deneme = 1; deneme <= 4; deneme++) {
@@ -49,7 +50,7 @@ async function oecdCek(yol) {
     } catch (e) {
       if (String(e?.message).startsWith('404')) return [];
       son = e;
-      await sleep(1500 * deneme);
+      if (deneme < 4) await sleep(15000 * deneme);
     }
   }
   throw son;

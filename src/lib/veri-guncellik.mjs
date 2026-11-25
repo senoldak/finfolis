@@ -145,6 +145,12 @@ export const DOSYALAR = {
     son: (d) => ({ tarih: d.referansTarih }),
     siklik: 'gunluk',
   },
+  'emsal-ulkeler': {
+    ad: 'Emsal ülkeler (OECD, BIS)',
+    sayfa: '/veri/emsal-ulkeler/',
+    son: (d) => ({ tarih: d.alinma?.slice(0, 10) }),
+    siklik: 'gunluk',
+  },
   'reel-bist': { ad: 'Reel BIST 30', sayfa: '/veri/reel-bist-30/', son: (d) => d.noktalar?.at(-1), siklik: 'aylik' },
   'tcmb-altin-kazanci': { ad: 'TCMB altın kazancı', sayfa: '/veri/altin-kazanci/', son: (d) => d.seri?.at(-1), siklik: 'gunluk' },
   'tcmb-swap-orani': { ad: 'Rezervlerde swap payı', sayfa: '/veri/swap-payi/', son: (d) => d.seri?.at(-1), siklik: 'aylik' },
