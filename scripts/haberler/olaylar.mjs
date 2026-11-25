@@ -35,7 +35,7 @@ const SEMA = {
 
 const SISTEM = `Sen bir haber editörüsün. Aynı olayı anlatan haber adaylarını gruplar, ayrıca daha önce işlenmiş olaylarla eşleştirirsin.
 Kural: aynı kurumun yeni bir belgesi ya da yeni bir rakamı (karar -> tutanak, veri -> revizyon) YENİ olaydır; aynı konuyla ilgili olsa bile eski olayla eşleştirme ve aynı gruba koyma.
-Yalnızca aynı gelişmeyi anlatan adayları grupla.
+Yalnızca aynı gelişmeyi anlatan adayları grupla. Benzer konu aynı olay değildir: farklı ülkede, farklı şirkette ya da farklı kurumda yaşanan gelişmeler (ör. ABD'de tatil harcamaları ile İngiltere'de enerji faturaları) ayrı olaylardır. Emin değilsen gruplama.
 Her adaya finfolis'in (Türk okura dünya piyasalarını anlatan finans sitesi) okuru için 1–100 arası haber değeri puanı ver (onem).
 Ölçüt piyasa ve ekonomi etkisidir: piyasalarla, şirket finansıyla, makro ekonomiyle ya da yatırımcıyla ilgisi zayıf haberler (tüketici ürünü tanıtımı, otomobil modeli, kültür, banknot tasarımı, tatbikat, genel siyaset) en fazla 20 alır.
 90–100 = piyasayı oynatan büyük gelişme (faiz kararı, enflasyon/istihdam verisi, büyük kriz);
@@ -243,6 +243,36 @@ function olcumYaz(r, adaylar, hafiza, v, log) {
   for (const [i, j] of farkli.slice(0, 20)) yaz(v.a[i], v.a[j], 'aday', 'farkli', adaylar[i].id);
 }
 
+// Grup tutarlılığı (26 Kasım 2026): Gemini (düşük düşünme) bazen yalnız konusu benzeyen haberleri aynı olaya koyuyor;
+// o zaman ilgisiz haberlerin metni yazım istemine, adresleri de haberin kaynak izine giriyor. Gölge ölçümde (60 tur,
+// 25 Kasım) Gemini'nin "aynı" dediği çiftlerin ortancası 0,81, rastgele farklı çiftlerin 0,63; "aynı" çiftlerin %3'ü
+// 0,65'in altındaydı. Vektör varsa, grubundaki hiçbir adaya en az bu kadar benzemeyen aday gruptan çıkar ve tek başına
+// olay olur. Vektörü olmayan aday grubunda kalır.
+export const GRUP_BENZERLIK_ALT = 0.65;
+export function tutarsizlariAyir(gruplar, vektorler, esik = GRUP_BENZERLIK_ALT) {
+  let cikan = 0;
+  const yeni = (Array.isArray(gruplar) ? gruplar : []).map((g) => {
+    if (!Array.isArray(g)) return g;
+    let kalan = g.filter((i) => Number.isInteger(i));
+    for (let degisti = true; degisti && kalan.length > 1; ) {
+      degisti = false;
+      const tut = kalan.filter((i) => {
+        if (!vektorler?.[i]) return true;
+        const komsu = kalan.filter((j) => j !== i && vektorler[j]);
+        if (!komsu.length) return true;
+        return Math.max(...komsu.map((j) => benzerlik(vektorler[i], vektorler[j]))) >= esik;
+      });
+      if (tut.length !== kalan.length) {
+        cikan += kalan.length - tut.length;
+        kalan = tut;
+        degisti = true;
+      }
+    }
+    return kalan;
+  });
+  return { gruplar: yeni, cikan };
+}
+
 // gomme: { kip, alt, vektorle, onbellek, log } (Gemini Faz 2); yoksa bugünkü yol.
 export async function olaylariGrupla(adaylar, hafiza = [], { gemini = varsayilanGemini, onbellek, surumEki = '', simdi = new Date(), gomme = null } = {}) {
   if (!adaylar.length) return { yeni: [], bilinen: [] };
@@ -275,6 +305,11 @@ export async function olaylariGrupla(adaylar, hafiza = [], { gemini = varsayilan
     r = await gruplamaSor(adaylar, ilgili, gemini);
   }
   if (v && gomme.kip === 'golge' && r) olcumYaz(r, adaylar, gHafiza, v, gomme.log ?? console.log);
+  if (v && r) {
+    const t = tutarsizlariAyir(r.gruplar, v.a);
+    if (t.cikan) (gomme.log ?? console.log)(`[olaylar] grup tutarlılığı: ${t.cikan} aday grubundan ayrıldı`);
+    r = { ...r, gruplar: t.gruplar };
+  }
   const hafizaIdleri = new Set(hafiza.map((h) => h.id));
   const bilinenIdx = new Set();
   for (const e of Array.isArray(r?.eslesen) ? r.eslesen : []) {

@@ -360,3 +360,28 @@ test('gömme gölge: hafızadan yalnız istemdeki (sözcükle eşleşen) kayıtl
   await olaylariGrupla([aday('a', { ozet: 'özet ortak kelimeler' })], hafiza, { gemini: async () => ({ gruplar: [[0]] }), gomme: gomme('golge', { vektorle }) });
   assert.equal(gonderilen, 2);
 });
+
+// Grup tutarlılığı (26 Kasım 2026): gömmeye göre grubuna benzemeyen aday ayrılır.
+import { tutarsizlariAyir } from './olaylar.mjs';
+
+test('tutarsizlariAyir: grubundaki hiçbir adaya benzemeyen aday çıkar; vektörsüz aday kalır', () => {
+  const v = [[1, 0, 0], [0.95, 0.31, 0], [0, 0, 1], null];
+  const r = tutarsizlariAyir([[0, 1, 2, 3]], v, 0.65);
+  assert.deepEqual(r.gruplar, [[0, 1, 3]]);
+  assert.equal(r.cikan, 1);
+  assert.deepEqual(tutarsizlariAyir([[0, 2]], v, 0.65).gruplar, [[]]);
+  assert.deepEqual(tutarsizlariAyir([[0]], v).gruplar, [[0]]);
+  assert.deepEqual(tutarsizlariAyir(undefined, v).gruplar, []);
+});
+
+test('gömme varken Gemini ilgisiz adayı gruba koysa da ayrı olay olur', async () => {
+  // a ve b aynı konu, c ilgisiz; Gemini üçünü gruplar.
+  const satirlar = [];
+  const { yeni } = await olaylariGrupla([aday('a'), aday('b'), aday('c')], [], {
+    gemini: async () => ({ gruplar: [[0, 1, 2]] }),
+    gomme: gomme('golge', { log: (s) => satirlar.push(s) }),
+  });
+  assert.deepEqual(yeni.map((o) => o.adaylar.map((a) => a.id)), [['a', 'b'], ['c']]);
+  assert.deepEqual(yeni[0].kaynaklar.map((k) => k.url), ['https://x/a', 'https://x/b']);
+  assert.ok(satirlar.some((s) => s.includes('1 aday grubundan ayrıldı')));
+});
