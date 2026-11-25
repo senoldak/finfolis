@@ -20,7 +20,7 @@ why_matters: "Bilişim sektöründeki şirketlerin bilançoları ve aracı kurum
 key_points:
   - "Nifty IT endeksi yüzde 2,6 artışla 32.348,25 seviyesine çıktı."
   - "L&T Technology Services hisseleri yüzde 15 oranında yükseldi."
-  - "L&T Technology Services net kârı 548,2 crore rupi oldu."
+  - "L&T Technology Services net kârı 5,482 milyar rupi oldu."
 cover: kapak.png
 coverAlt: "Nifty IT artış %2,6"
 coverSitede: false
@@ -30,4 +30,4 @@ Hint bilişim sektörü hisseleri, L&T Technology Services şirketinin ikinci ç
 
 L&T Technology Services hisseleri yüzde 15 oranında yükselirken Wipro yüzde 4 değer kazandı. Infosys, Tata Consultancy Services, Tech Mahindra, HCL Technologies ve Mphasis hisseleri ise yüzde 2 ile yüzde 3,5 arasında artış kaydetti. İkinci çeyrek bilanço sezonunun olumlu başlaması, yatırımcıların beklentileri aşan sonuçlara ve iş koşullarındaki istikrar sinyallerine tepki vermesini sağladı. TCS ve HCL Technologies de beklentilerin üzerinde kazançlar bildirdi.
 
-L&T Technology Services şirketi, eylül çeyreğinde gelirini ve kârlılığını artırdı. Şirketin gelirleri çeyreklik bazda yüzde 3,4, yıllık bazda ise yüzde 12,1 artarak 3.040,4 crore rupiye ulaştı. Net kâr ise çeyreklik bazda yüzde 53,7, yıllık bazda yüzde 66,8 artışla 548,2 crore rupi olarak açıklandı. Jefferies, Infosys ve TCS gibi büyük ölçekli şirketlerde yeniden değerlendirme potansiyeli bulunduğunu belirtirken, yapay zekâ kaynaklı riskler ve makroekonomik baskılar nedeniyle toparlanmanın kesin olmadığını vurguladı.
+L&T Technology Services şirketi, eylül çeyreğinde gelirini ve kârlılığını artırdı. Şirketin gelirleri çeyreklik bazda yüzde 3,4, yıllık bazda ise yüzde 12,1 artarak 30,404 milyar rupiye ulaştı. Net kâr ise çeyreklik bazda yüzde 53,7, yıllık bazda yüzde 66,8 artışla 5,482 milyar rupi olarak açıklandı. Jefferies, Infosys ve TCS gibi büyük ölçekli şirketlerde yeniden değerlendirme potansiyeli bulunduğunu belirtirken, yapay zekâ kaynaklı riskler ve makroekonomik baskılar nedeniyle toparlanmanın kesin olmadığını vurguladı.

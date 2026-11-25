@@ -19,8 +19,8 @@ rakamlar:
 why_matters: "Küresel tahvil getirilerindeki hareketlilik ve şirketlerin çeyrek dönem sonuçları, piyasalardaki risk iştahını ve borçlanma maliyetlerini doğrudan etkiliyor."
 key_points:
   - "Nifty 50 endeksi yüzde 1,11 düşüşle 22.888,95 puandan kapandı."
-  - "HFCL Limited konsolide geliri yüzde 143,62 artışla 2.541,79 crore rupi oldu."
-  - "Union Bank of India net karı 5.537 crore rupi olarak açıklandı."
+  - "HFCL Limited konsolide geliri yüzde 143,62 artışla 25,4179 milyar rupi oldu."
+  - "Union Bank of India net karı 55,37 milyar rupi olarak açıklandı."
 cover: kapak.png
 coverAlt: "Küresel · Piyasalarda dalgalı seyir ve şirket sonuçları takip ediliyor · 19 Ekim, öğle"
 coverSitede: false
@@ -30,4 +30,4 @@ Avrupa Merkez Bankası Başkanı Christine Lagarde, küresel tahvil satışını
 
 Borsa endeksleri dalgalı bir seansın ardından gerilerken, Nifty 50 endeksi yüzde 1,11 düşüşle 22.888,95 puandan kapandı. BSE Sensex endeksi ise yüzde 1,17 gerileyerek 73.852,90 puandan kapandı. Kar realizasyonu, zayıf küresel ipuçları, yabancı fon çıkışları ve ham petrol fiyatlarındaki endişeler piyasa duyarlılığını etkiledi. Özel bankalar ve bilgi teknolojisi hisseleri düşüş yaşarken, ham petrol fiyatlarındaki yükseklik ithalat faturası endişelerini artırdı.
 
-HFCL Limited hisseleri, şirketin 30 Eylül 2026 ile sona eren ikinci çeyrekte en iyi finansal sonuçlarını açıklamasıyla yüzde 5 üst devre bandına ulaştı. Konsolide gelir, geçen yılın aynı dönemine göre yüzde 143,62 artışla 2.541,79 crore rupiye yükseldi. Vergi sonrası kar ise 394,22 crore rupiye ulaştı. Union Bank of India ise net karının geçen yılın aynı dönemine göre yüzde 30 artarak 5.537 crore rupi olduğunu açıkladı.
+HFCL Limited hisseleri, şirketin 30 Eylül 2026 ile sona eren ikinci çeyrekte en iyi finansal sonuçlarını açıklamasıyla yüzde 5 üst devre bandına ulaştı. Konsolide gelir, geçen yılın aynı dönemine göre yüzde 143,62 artışla 25,4179 milyar rupiye yükseldi. Vergi sonrası kar ise 3,9422 milyar rupiye ulaştı. Union Bank of India ise net karının geçen yılın aynı dönemine göre yüzde 30 artarak 55,37 milyar rupi olduğunu açıkladı.

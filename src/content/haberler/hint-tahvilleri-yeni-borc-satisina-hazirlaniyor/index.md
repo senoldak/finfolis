@@ -13,9 +13,9 @@ rakamlar:
   - etiket: "Eylül Tüketici Enflasyonu"
     deger: "yüzde 5,54"
   - etiket: "Borç Satışı"
-    deger: "34.000 crore"
+    deger: "340 milyar"
   - etiket: "Toplam İhraç Büyüklüğü"
-    deger: "2,38 lakh crore"
+    deger: "2,38 trilyon"
 sirada:
   tarih: "17 Ekim 2026"
   olay: "Haftalık ihale ile yeni borç arzı gerçekleştirilecek"
@@ -26,6 +26,6 @@ coverSitede: false
 
 Hint devlet tahvilleri, haftalık ihale yoluyla yapılacak yeni arz öncesinde satış baskısıyla karşı karşıya kalmaya hazırlanıyor. Bu durum, yerel merkez bankasının faiz oranları görünümüne yönelik temkinli yaklaşımını artırıyor. Bir birincil bayilikteki tüccara göre, yüzde 6,94'lük 2036 vadeli gösterge tahvil getirisi yüzde 7,38 ile yüzde 7,42 arasında işlem görebilir; önceki seans kapanışı yüzde 7,3921 seviyesindeydi. Fiyatlar düştüğünde tahvil getirileri yükseliyor.
 
-Yeni Delhi yönetimi gün içinde 34.000 crore tutarında gösterge kağıt satışı gerçekleştirecek. Bu satışla birlikte menkul kıymetin toplam ihraç büyüklüğü 2,38 lakh crore seviyesine ulaşacak. Piyasanın ağır bir düşüş baskısı altında olduğunu belirten tüccar, kesinti getirisinin yüzde 7,40 seviyelerinin üzerine çıkabileceğini ifade etti. Ekonomistlerin çoğunluğuna göre, Hindistan'ın Eylül ayı tüketici enflasyonu yüzde 5,54'e yükseldi ve Ekim ayında merkez bankasının yüzde 6'lık üst tolerans bandını aşması bekleniyor.
+Yeni Delhi yönetimi gün içinde 340 milyar tutarında gösterge kağıt satışı gerçekleştirecek. Bu satışla birlikte menkul kıymetin toplam ihraç büyüklüğü 2,38 trilyon seviyesine ulaşacak. Piyasanın ağır bir düşüş baskısı altında olduğunu belirten tüccar, kesinti getirisinin yüzde 7,40 seviyelerinin üzerine çıkabileceğini ifade etti. Ekonomistlerin çoğunluğuna göre, Hindistan'ın Eylül ayı tüketici enflasyonu yüzde 5,54'e yükseldi ve Ekim ayında merkez bankasının yüzde 6'lık üst tolerans bandını aşması bekleniyor.
 
 Reserve Bank of India Başkanı Sanjay Malhotra 14 Ekim 2026 Salı günü yaptığı medya röportajında, merkez bankasının finansal istikrarı korumak için genellikle para politikası kullanmadığını, ancak ikisinin tamamen ayrılamayacağını belirtti. Yüksek enflasyon ve merkez bankasının döviz istikrarına verdiği önemin artması, Aralık ayında daha büyük ölçekli bir faiz artırımı beklentilerini güçlendirerek kısa vadeli tahvil getirilerini ve gecelik endeksli takas oranlarını yukarı çekti. Ayrıca merkez bankasının nakit rezerv oranının günlük bakımına ilişkin katı kurallarının Cuma günü yürürlüğe girecek olması, özellikle kısa vadeli tarafta baskıyı artırabilecek unsurlar arasında yer alıyor.

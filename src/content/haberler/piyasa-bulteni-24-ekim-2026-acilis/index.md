@@ -29,9 +29,9 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 ## Asya
 
 - **ABD Borsalarındaki Düşüş:** Yapay zeka odaklı hisselerdeki satışların sürmesiyle ABD hisseleri geriledi ve Dow Jones Endeksi 700 puandan fazla düştü. SpaceX rekabetine dair endişeler ise AT&T ve Verizon gibi büyük telekom hisselerinde düşüşe yol açtı.
-- **EAAA India Alternatives Halka Arzı:** EAAA India Alternatives, halka arz öncesinde çapa yatırımcılardan yaklaşık 360 crore rupi topladı. Şirketin halka arzı 26 Ekim tarihinde halka açılacak.
-- **Supreme Petrochem Finansalları:** Supreme Petrochem, 2027 mali yılı için hisse başına 2,50 rupi tutarında ilk ara temettü açıkladı ve 30 Ekim tarihini kayıt tarihi olarak belirledi. Şirketin eylül çeyreğindeki geliri geçen yılın aynı dönemine göre yüzde 77,8 artarak 1.956,7 crore rupiye yükselirken net kârı 94,9 crore rupiye çıktı.
-- **Jindal Steel Finansal Sonuçları:** Jindal Steel'in 2026 mali yılı ikinci çeyreğindeki kârı geçen yılın aynı dönemine göre yüzde 21 artarak 771 crore rupiye ulaştı. Şirketin geliri ise yüzde 44 artışla 19.448 crore rupi rekor seviyesine yükseldi.
+- **EAAA India Alternatives Halka Arzı:** EAAA India Alternatives, halka arz öncesinde çapa yatırımcılardan yaklaşık 3,6 milyar rupi topladı. Şirketin halka arzı 26 Ekim tarihinde halka açılacak.
+- **Supreme Petrochem Finansalları:** Supreme Petrochem, 2027 mali yılı için hisse başına 2,50 rupi tutarında ilk ara temettü açıkladı ve 30 Ekim tarihini kayıt tarihi olarak belirledi. Şirketin eylül çeyreğindeki geliri geçen yılın aynı dönemine göre yüzde 77,8 artarak 19,567 milyar rupiye yükselirken net kârı 949 milyon rupiye çıktı.
+- **Jindal Steel Finansal Sonuçları:** Jindal Steel'in 2026 mali yılı ikinci çeyreğindeki kârı geçen yılın aynı dönemine göre yüzde 21 artarak 7,71 milyar rupiye ulaştı. Şirketin geliri ise yüzde 44 artışla 194,48 milyar rupi rekor seviyesine yükseldi.
 
 ## Küresel
 

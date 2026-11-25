@@ -27,11 +27,11 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 ## Asya
 
 - **Jio Halka Arzı:** Jio halka arzı fon toplama, kurumsal yatırımcı talebi ve başvuru süreçlerinde çeşitli rekorlar kırdı.
-- **Jio Halka Arz Talebi:** Jio Platforms halka arzı yaklaşık 7,41 lakh crore tutarında teklif aldı ve talep 22,19 katına ulaştı. Şirket paylarının 28 Ekim 2026 tarihinde işlem görmeye başlaması planlanıyor.
+- **Jio Halka Arz Talebi:** Jio Platforms halka arzı yaklaşık 7,41 trilyon tutarında teklif aldı ve talep 22,19 katına ulaştı. Şirket paylarının 28 Ekim 2026 tarihinde işlem görmeye başlaması planlanıyor.
 - **ABD Tüketici Güveni:** ABD'de tüketici güveni ekim ayında artan fiyatlar ve Orta Doğu'daki çatışmaların etkisiyle 48,0 seviyesine geriledi.
 - **Piyasa ve Petrol:** Hisse senetleri düşerken teknoloji payları satış dalgasının ardından yatay seyretti ve petrol fiyatları yaklaşık altı ayın en yüksek seviyesine çıktı.
 - **Kripto Para Piyasası:** Makroekonomik belirsizlikler ve zayıf kurumsal akışların etkisiyle Bitcoin 80.000 dolar sınırında, Ethereum ise 2.370 dolar seviyesinde seyrediyor.
-- **EAAA India Halka Arzı:** EAAA India Alternatives, halka arzı öncesinde çapa yatırımcılardan yaklaşık 360 crore tutarında kaynak sağladı. Şirket, 1.200 crore büyüklüğündeki halka arz için 26 Ekim 2026 ile 28 Ekim 2026 tarihleri arasında talep toplayacak.
+- **EAAA India Halka Arzı:** EAAA India Alternatives, halka arzı öncesinde çapa yatırımcılardan yaklaşık 3,6 milyar tutarında kaynak sağladı. Şirket, 12 milyar büyüklüğündeki halka arz için 26 Ekim 2026 ile 28 Ekim 2026 tarihleri arasında talep toplayacak.
 - **Küçük ve Orta Ölçekli Endeksler:** Hindistan'daki küçük ve orta ölçekli hisse senetleri, artan petrol fiyatları ve bütçe açığı endişelerinin ortasında son iki yılın en kötü haftalık düşüşünü yaşadı. ([Ayrıntı](https://finfolis.com/haber/kucuk-ve-orta-olcekli-sirket-endeksleri-iki-yilin-en-sert-haftalik-dususunu-yasa/))
 
 ## Göstergeler

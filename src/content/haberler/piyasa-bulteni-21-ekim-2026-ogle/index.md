@@ -21,8 +21,8 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## Asya
 
-- **Şirket Hisselerinin Borsaya Girişi:** HD Fire Protect hisseleri yaklaşık yüzde 24 primle işlem görmeye başladı. İşlem sonrasında şirketin piyasa değeri Ulusal Borsada 5.284,06 crore rupi, Bombay Borsasında ise 5.276,18 crore rupi oldu.
-- **Finans Şirketinin Kâr Artışı:** Bajaj Finance hisseleri, şirketin ikinci çeyrek net kârının geçen yılın aynı dönemine göre yüzde 29 artarak 6.367 crore rupiye ulaştığını açıklamasının ardından çarşamba günü geriledi.
+- **Şirket Hisselerinin Borsaya Girişi:** HD Fire Protect hisseleri yaklaşık yüzde 24 primle işlem görmeye başladı. İşlem sonrasında şirketin piyasa değeri Ulusal Borsada 52,8406 milyar rupi, Bombay Borsasında ise 52,7618 milyar rupi oldu.
+- **Finans Şirketinin Kâr Artışı:** Bajaj Finance hisseleri, şirketin ikinci çeyrek net kârının geçen yılın aynı dönemine göre yüzde 29 artarak 63,67 milyar rupiye ulaştığını açıklamasının ardından çarşamba günü geriledi.
 - **Altın Fiyatlarında Sınırlı Düşüş:** Yatırımcıların ABD Merkez Bankasının faiz kararını beklediği süreçte altın fiyatları hafif bir düşüş yaşadı. Ekonomistler, bankanın enflasyon endişelerini vurgulayarak faiz oranlarını sabit tutmasını bekliyor.
 - **Veri Merkezi Hisselerinde Düşüş:** Veri merkezi işletmecisi NextDC'nin hisseleri, alım satım işlemlerine yeniden başlamasının ardından yüzde 40'tan fazla değer kaybetti. Buna karşın ASX200 endeksi günü artıda tamamladı.
 

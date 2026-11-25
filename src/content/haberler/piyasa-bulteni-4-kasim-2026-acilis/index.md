@@ -31,7 +31,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## Asya
 
-- **NSE Q2 Finansal Sonuçları:** Ulusal Menkul Kıymetler Borsası, Q2 FY27 döneminde konsolide net kârının yıllık yüzde 23 artışla 2.578 crore rupiye yükseldiğini açıkladı.
+- **NSE Q2 Finansal Sonuçları:** Ulusal Menkul Kıymetler Borsası, Q2 FY27 döneminde konsolide net kârının yıllık yüzde 23 artışla 25,78 milyar rupiye yükseldiğini açıkladı.
 - **ABD Hazine Tahvilleri:** Güçlü istihdam verileri ve ara seçim beklentilerinin etkisiyle ABD Hazine tahvil getirileri yükselirken, 10 yıllık tahvil getirisi yüzde 5 seviyesine yaklaştı.
 - **LNG Canada Yatırımı:** Blackstone ve Kanada emeklilik fonları, Mitsubishi'nin hissesi için LNG Canada'ya 3,1 milyar dolar yatırım yapacak.
 

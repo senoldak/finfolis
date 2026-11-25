@@ -32,7 +32,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## Asya
 
-- **Sensex ve Nifty Düşüşte:** Sensex ve Nifty, ham petrol fiyatlarındaki artış ve yabancı yatırımcı satışlarının yeniden başlamasıyla Cuma günü kayıplarını artırdı. Satış dalgası piyasa değerinden yaklaşık 10 lakh crore rupi sildi; küçük ve orta ölçekli hisseler düşüşe öncülük etti.
+- **Sensex ve Nifty Düşüşte:** Sensex ve Nifty, ham petrol fiyatlarındaki artış ve yabancı yatırımcı satışlarının yeniden başlamasıyla Cuma günü kayıplarını artırdı. Satış dalgası piyasa değerinden yaklaşık 10 trilyon rupi sildi; küçük ve orta ölçekli hisseler düşüşe öncülük etti.
 - **Altın Fiyatlarında Haftalık Düşüş:** Altın fiyatları, ABD ekonomik büyümesine işaret eden güçlü veriler ve tırmanan petrol fiyatları doğrultusunda Cuma günü düşüş yaşadı. Spot altın Ağustos ayından bu yana en düşük seviyesine gerilerken, ABD altın vadeli işlemleri de bu düşüşü takip etti.
 - **Infosys Gelir Tahminini Düşürdü:** Infosys, yıllık gelir büyüme tahminini aşağı yönlü revize etmesinin ardından ABD pre-market işlemlerinde yüzde 7,5 değer kaybetti. Şirket, mart ayında sona erecek mali yıl için gelir büyüme tahminini yüzde 1 ile yüzde 2 aralığına çekti.
 

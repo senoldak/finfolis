@@ -30,10 +30,10 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## Asya
 
-- **Reliance Jio Halka Arzı:** Reliance Jio Platforms, 1.065 ila 1.119 rupi aralığında hisse başına fiyatla 27 crore adet hisse sunarak 30.213 crore rupi tutarında halka arz planlıyor. Halka arzın 21 Ekim 2026 tarihinde açılması bekleniyor.
-- **ICICI Bank İkinci Çeyrek:** Özel kredi kuruluşu ICICI Bank, 2027 mali yılının ikinci çeyreğinde geçen yılın aynı dönemine göre yüzde 20,1 artışla 14.843 crore rupi net kâr bildirdi.
-- **HDFC Bank İkinci Çeyrek:** Hindistan'ın en büyük özel kredi kuruluşu HDFC Bank, FY27’nin ikinci çeyreğinde geçen yılın aynı dönemine göre yüzde 4,6 artışla 19.509 crore rupi net kâr açıkladı.
-- **Axis Bank İkinci Çeyrek:** Özel kredi kuruluşu Axis Bank, FY27’nin ikinci çeyreğinde 7.003 crore rupi net kâr bildirdi; bu rakam bir önceki mali yılın aynı çeyreğine göre yüzde 38 artış gösterdi.
+- **Reliance Jio Halka Arzı:** Reliance Jio Platforms, 1.065 ila 1.119 rupi aralığında hisse başına fiyatla 270 milyon adet hisse sunarak 302,13 milyar rupi tutarında halka arz planlıyor. Halka arzın 21 Ekim 2026 tarihinde açılması bekleniyor.
+- **ICICI Bank İkinci Çeyrek:** Özel kredi kuruluşu ICICI Bank, 2027 mali yılının ikinci çeyreğinde geçen yılın aynı dönemine göre yüzde 20,1 artışla 148,43 milyar rupi net kâr bildirdi.
+- **HDFC Bank İkinci Çeyrek:** Hindistan'ın en büyük özel kredi kuruluşu HDFC Bank, FY27’nin ikinci çeyreğinde geçen yılın aynı dönemine göre yüzde 4,6 artışla 195,09 milyar rupi net kâr açıkladı.
+- **Axis Bank İkinci Çeyrek:** Özel kredi kuruluşu Axis Bank, FY27’nin ikinci çeyreğinde 70,03 milyar rupi net kâr bildirdi; bu rakam bir önceki mali yılın aynı çeyreğine göre yüzde 38 artış gösterdi.
 - **Anthropic ve Blackstone Anlaşması:** Anthropic, çip finansmanı anlaşmasında Blackstone'a çift haneli getiri teklif etti.
 - **Swiggy Hissesi:** Swiggy, büyümenin karlılığa karşı bir ödün olduğu aşamadan geçiş yapıyor.
 

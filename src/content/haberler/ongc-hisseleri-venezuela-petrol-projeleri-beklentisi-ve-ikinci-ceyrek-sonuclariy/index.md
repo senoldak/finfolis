@@ -11,9 +11,9 @@ rakamlar:
   - etiket: "Kâr Artışı"
     deger: "yüzde 57,3"
   - etiket: "Eylül Çeyreği Net Kârı"
-    deger: "15.488,64 crore"
+    deger: "154,8864 milyar"
   - etiket: "Önceki Yıl Net Kârı"
-    deger: "9.847,97 crore"
+    deger: "98,4797 milyar"
   - etiket: "Hisse Kapanış Fiyatı"
     deger: "232 rupi"
 sirada:
@@ -21,7 +21,7 @@ sirada:
   olay: "Özel Diwali Muhurat Ticaret seansı gerçekleştirilecek"
 why_matters: "Şirketin Venezuela projelerinde işletme hakkı kazanma beklentisi ve yüksek çeyrek kârı takip edilirken, aracı kurumların üretim düşüşlerine yönelik uyarıları piyasadaki temkinli duruşu yansıtıyor."
 key_points:
-  - "Eylül çeyreğinde net kâr yüzde 57,3 artarak 15.488,64 crore rupi oldu."
+  - "Eylül çeyreğinde net kâr yüzde 57,3 artarak 154,8864 milyar rupi oldu."
   - "Şirket, Venezuela projelerinde operatörlük hakları almayı bekliyor."
   - "Nuvama Institutional Equities, kurum için azaltım notunu korudu."
 cover: kapak.png
@@ -33,4 +33,4 @@ Petrol ve Doğalgaz Kurumu hisseleri, şirketin finans direktörü Anupam Agarwa
 
 Şirketin denizaşırı yatırım kolu olan ONGC Videsh, San Cristobal petrol sahası ve Carabobo 1 sahasındaki hisselerinden kaynaklanan 500 milyon dolardan fazla biriken temettü alacağına sahip bulunuyor. Agarwal, yeni operatörlük anlaşmaları kesinleştiğinde bu beklenen temettülerin ayarlanacağını belirtti. Önerilen düzenleme kapsamında kurum, yatırımcı rolünün ötesine geçerek projeleri işletmeyi ve çıktıklarını satmayı hedefliyor. Kurum ayrıca, San Cristobal projesinde yüzde 40 hisseye sahip olarak tam operatörlük elde etmeyi bekliyor.
 
-Eylül çeyreğini kapsayan dönemde, devlet kontrollü kurumun konsolide olmayan net kârı, üretimdeki düşüşe rağmen ham petrol ve doğalgaz tahsilatlarındaki artışın etkisiyle geçen yılın aynı dönemine kıyasla yüzde 57,3 artarak 15.488,64 crore rupi seviyesine ulaştı. Şirket, geçen yılın aynı çeyreğinde 9.847,97 crore rupi net kâr bildirdiğini açıkladı. Öte yandan Nuvama Institutional Equities, şirketin üretim görünümüne ilişkin temkinli duruşunu sürdürerek 'AZALTIM' notunu korudu ve üretim düşüşlerine dikkat çekti.
+Eylül çeyreğini kapsayan dönemde, devlet kontrollü kurumun konsolide olmayan net kârı, üretimdeki düşüşe rağmen ham petrol ve doğalgaz tahsilatlarındaki artışın etkisiyle geçen yılın aynı dönemine kıyasla yüzde 57,3 artarak 154,8864 milyar rupi seviyesine ulaştı. Şirket, geçen yılın aynı çeyreğinde 98,4797 milyar rupi net kâr bildirdiğini açıkladı. Öte yandan Nuvama Institutional Equities, şirketin üretim görünümüne ilişkin temkinli duruşunu sürdürerek 'AZALTIM' notunu korudu ve üretim düşüşlerine dikkat çekti.

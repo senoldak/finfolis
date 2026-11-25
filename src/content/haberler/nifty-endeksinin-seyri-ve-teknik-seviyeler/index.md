@@ -13,7 +13,7 @@ rakamlar:
   - etiket: "Nifty hedef"
     deger: "23.650"
   - etiket: "Yabancı alımı"
-    deger: "1.166 crore"
+    deger: "11,66 milyar"
 cover: kapak.png
 coverAlt: "Nifty direnç 23.450"
 coverSitede: false

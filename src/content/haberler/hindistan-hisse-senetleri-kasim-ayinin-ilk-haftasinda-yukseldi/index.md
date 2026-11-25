@@ -18,17 +18,17 @@ sirada:
 why_matters: "Yabancı yatırımcı girişleri ve gerileyen ham petrol fiyatları, küresel çalkantılar ortasında Hindistan piyasalarının son altı yılın en güçlü haftalık yükselişini kaydetmesini sağladı."
 key_points:
   - "Nifty50 endeksi haftayı yüzde 8,58 artışla tamamladı."
-  - "Ralli piyasa değerine yaklaşık 28 lakh crore ekledi."
+  - "Ralli piyasa değerine yaklaşık 28 trilyon ekledi."
   - "Brent ham petrolü varil başına yaklaşık 98 dolar seviyesine geriledi."
 cover: kapak.png
 coverAlt: "Nifty 50 Haftalık Artış %8,58"
 coverSitede: false
 ---
 
-Hindistan hisse senetleri, art arda yedi seans boyunca yükseliş göstererek kasım ayının ilk haftasında güçlü bir performans sergiledi. Bu hareketlilik, ABD ara seçim sonuçları, yabancı kurumsal yatırımcı girişleri, gerileyen ham petrol fiyatları ve ikinci çeyrek kurumsal bilançoları ile desteklendi. Yaşanan ralli, piyasa değerine yaklaşık 28 lakh crore lira eklenmesini sağladı.
+Hindistan hisse senetleri, art arda yedi seans boyunca yükseliş göstererek kasım ayının ilk haftasında güçlü bir performans sergiledi. Bu hareketlilik, ABD ara seçim sonuçları, yabancı kurumsal yatırımcı girişleri, gerileyen ham petrol fiyatları ve ikinci çeyrek kurumsal bilançoları ile desteklendi. Yaşanan ralli, piyasa değerine yaklaşık 28 trilyon lira eklenmesini sağladı.
 
 Nifty50 endeksi haftayı yüzde 8,58 oranında bir artışla, yaklaşık 1.978 puan kazanç sağlayarak tamamladı ve 25.000 puan sınırını yeniden aştı. Bu oran, yaklaşık altı yılın en yüksek haftalık yüzdesel kazancı olarak kayda geçti. Sensex endeksi ise yüzde 9'a yakın bir yükselişle 81.000 puanın üzerinde kapandı. Küresel piyasalardaki yapay zeka bağlantılı hisse satışlarına ve genel satış baskısına rağmen Hindistan piyasaları olumlu bir ayrışma yaşadı.
 
 Geojit Investments Araştırma Başkanı Vinod Nair, yatırımcıların yurt içi piyasayı yurt dışındaki çalkantılar karşısında göreceli bir güvenli liman olarak değerlendirdiğini belirtti. Nair, ham petrol fiyatlarındaki haftalık düşüşün, ABD Hazine tahvili getirilerinin gevşemesinin ve güçlenen rupinin Hindistan'ın cazibesini artırdığını ifade etti.
 
-Brent ham petrolü, Batı Asya'daki çatışmalara ve arz kesintisi endişelerinin hafiflemesine ilişkin gelişmelerle hafta boyunca yüzde 16'ya yakın bir düşüşle varil başına yaklaşık 98 dolar seviyesine geriledi. Ham petrol ithalatı gereksiniminin yüzde 85 kadarını dışarıdan karşılayan Hindistan için bu düşüş rahatlama sağladı. Yabancı kurumsal yatırımcılar pazartesi ve perşembe günleri arasında ulusal borsa üzerinden yaklaşık 31.000 crore tutarında hisse senedi alımı gerçekleştirerek eylül ve ekim aylarındaki çıkışları tersine çevirdi.
+Brent ham petrolü, Batı Asya'daki çatışmalara ve arz kesintisi endişelerinin hafiflemesine ilişkin gelişmelerle hafta boyunca yüzde 16'ya yakın bir düşüşle varil başına yaklaşık 98 dolar seviyesine geriledi. Ham petrol ithalatı gereksiniminin yüzde 85 kadarını dışarıdan karşılayan Hindistan için bu düşüş rahatlama sağladı. Yabancı kurumsal yatırımcılar pazartesi ve perşembe günleri arasında ulusal borsa üzerinden yaklaşık 310 milyar tutarında hisse senedi alımı gerçekleştirerek eylül ve ekim aylarındaki çıkışları tersine çevirdi.

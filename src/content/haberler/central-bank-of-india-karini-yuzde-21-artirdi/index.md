@@ -1,6 +1,6 @@
 ---
 title: "Central Bank of India karını yüzde 21 artırdı"
-description: "Central Bank of India, eylül 2026 döneminde net kârını yüzde 21 artırarak 1.469 crore rupiye çıkardı. Bankanın bu dönemde net faiz gelirleri ve kredi hacmi de büyüdü."
+description: "Central Bank of India, eylül 2026 döneminde net kârını yüzde 21 artırarak 14,69 milyar rupiye çıkardı. Bankanın bu dönemde net faiz gelirleri ve kredi hacmi de büyüdü."
 date: 2026-10-17T12:49:14.000Z
 category: "piyasalar"
 tur: "haber"
@@ -21,8 +21,8 @@ coverAlt: "Net Kâr Artışı %21"
 coverSitede: false
 ---
 
-Central Bank of India, eylül 2026 çeyreğinde net kârını bir önceki yılın aynı dönemine göre yüzde 21 artırarak 1.469 crore rupiye yükseltti. Bir önceki yılın aynı döneminde net kâr 1.213 crore rupi seviyesindeydi. Bankanın aktardığı bilgilere göre, güçlü kredi büyümesi net faiz gelirlerini artırdı, operasyonel verimlilik iyileşti ve net takipteki alacaklar geriledi.
+Central Bank of India, eylül 2026 çeyreğinde net kârını bir önceki yılın aynı dönemine göre yüzde 21 artırarak 14,69 milyar rupiye yükseltti. Bir önceki yılın aynı döneminde net kâr 12,13 milyar rupi seviyesindeydi. Bankanın aktardığı bilgilere göre, güçlü kredi büyümesi net faiz gelirlerini artırdı, operasyonel verimlilik iyileşti ve net takipteki alacaklar geriledi.
 
-Eylül 2026 çeyreğinde net faiz geliri yıllık bazda yüzde 26 artışla 4.146 crore rupiye ulaştı; bu rakam bir önceki yıl 3.283 crore rupi idi. Ücretler ve hazine gelirlerini içeren diğer gelirler yıllık bazda yüzde 6 düşüşle 1.380 crore rupiye geriledi. Faiz geliri ile faiz dışı geliri kapsayan toplam gelir 11.737 crore rupiye çıktı. Toplam avanslar yüzde 30 büyüyerek 3,81 lakh crore rupiye ulaştı; bu kalem bir önceki yıl 2,93 lakh crore rupi olarak kaydedilmişti. Kredi büyümesinde, perakende, tarım ve KOBİ iş kolundaki yüzde 21'lik artış etkili olurken, yalnızca perakende krediler yüzde 24,49 artarak 1,12 lakh crore rupiye yükseldi.
+Eylül 2026 çeyreğinde net faiz geliri yıllık bazda yüzde 26 artışla 41,46 milyar rupiye ulaştı; bu rakam bir önceki yıl 32,83 milyar rupi idi. Ücretler ve hazine gelirlerini içeren diğer gelirler yıllık bazda yüzde 6 düşüşle 13,8 milyar rupiye geriledi. Faiz geliri ile faiz dışı geliri kapsayan toplam gelir 117,37 milyar rupiye çıktı. Toplam avanslar yüzde 30 büyüyerek 3,81 trilyon rupiye ulaştı; bu kalem bir önceki yıl 2,93 trilyon rupi olarak kaydedilmişti. Kredi büyümesinde, perakende, tarım ve KOBİ iş kolundaki yüzde 21'lik artış etkili olurken, yalnızca perakende krediler yüzde 24,49 artarak 1,12 trilyon rupiye yükseldi.
 
 Banka tarafından paylaşılan verilere göre, eylül 2026 döneminde net takipteki alacaklar oranı yüzde 0,31 seviyesine geriledi. Bu oran bir önceki yıla göre 17 baz puan düşüş gösterdi; bir önceki yıl bu oran yüzde 0,48 seviyesindeydi. Maliyet gelir oranı ise yüzde 58,95 oranına indi; bir önceki yıl bu oran yüzde 62,42 idi.

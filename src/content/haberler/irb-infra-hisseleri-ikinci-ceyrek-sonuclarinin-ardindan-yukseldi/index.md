@@ -1,6 +1,6 @@
 ---
 title: "Irb Infra hisseleri ikinci çeyrek sonuçlarının ardından yükseldi"
-description: "Irb Infrastructure hisseleri, şirketin ikinci çeyrekte net kârını yüzde 84,85 artırarak 260,15 crore rupiye ulaştırmasının ardından 9 Kasım 2026 tarihinde yüzde 6'dan fazla değer kazandı. Artışta yüksek geçiş ücreti gelirleri ile altyapı yatırım fonu dağıtımları etkili oldu."
+description: "Irb Infrastructure hisseleri, şirketin ikinci çeyrekte net kârını yüzde 84,85 artırarak 2,6015 milyar rupiye ulaştırmasının ardından 9 Kasım 2026 tarihinde yüzde 6'dan fazla değer kazandı. Artışta yüksek geçiş ücreti gelirleri ile altyapı yatırım fonu dağıtımları etkili oldu."
 date: 2026-11-09T06:23:06.000Z
 category: "piyasalar"
 tur: "haber"
@@ -11,9 +11,9 @@ rakamlar:
   - etiket: "Net Kâr Artışı"
     deger: "yüzde 84,85"
   - etiket: "Net Kâr"
-    deger: "260,15 crore rupi"
+    deger: "2,6015 milyar rupi"
   - etiket: "Toplam Gelir"
-    deger: "18.970,8 crore rupi"
+    deger: "189,708 milyar rupi"
   - etiket: "Hisse Artışı"
     deger: "yüzde 6"
 sirada:
@@ -21,16 +21,16 @@ sirada:
   olay: "Irb Infrastructure hisseleri ikinci çeyrek sonuçlarının ardından yüzde 6'dan fazla değer kazandı."
 why_matters: "Şirketin artan kârı ve gelirleri, altyapı yatırımları ile geçiş ücreti gelirlerinin piyasa gelişmeleri bağlamındaki seyrini gösteriyor."
 key_points:
-  - "Irb Infrastructure net kârı yüzde 84,85 artarak 260,15 crore rupi oldu."
-  - "Toplam gelir 18.970,8 crore rupiye yükseldi."
+  - "Irb Infrastructure net kârı yüzde 84,85 artarak 2,6015 milyar rupi oldu."
+  - "Toplam gelir 189,708 milyar rupiye yükseldi."
   - "Hisseler 9 Kasım 2026 tarihinde yüzde 6'dan fazla değer kazandı."
 cover: kapak.png
 coverAlt: "Net Kâr Artışı %84,85"
 coverSitede: false
 ---
 
-Irb Infrastructure Developers hisseleri, şirketin ikinci çeyrek finansal sonuçlarını açıklamasının ardından 9 Kasım 2026 tarihinde yüzde 6'dan fazla yükseliş kaydetti. Altyapı şirketi, Eylül çeyreğinde konsolide net kârını geçen yılın aynı dönemine göre yüzde 84,85 artırarak 260,15 crore rupiye çıkardı; geçen yıl aynı dönemde bu rakam 141 crore rupi seviyesindeydi. Şirketin düzenleyici kurum bildirimine göre bu büyüme, güçlü geçiş ücreti gelirleri ve altyapı yatırım fonu dağıtımları sayesinde gerçekleşti. Temmuz-Eylül döneminde toplam gelir, bir önceki yılın aynı dönemindeki 17.510,16 crore rupiden 18.970,8 crore rupiye yükseldi.
+Irb Infrastructure Developers hisseleri, şirketin ikinci çeyrek finansal sonuçlarını açıklamasının ardından 9 Kasım 2026 tarihinde yüzde 6'dan fazla yükseliş kaydetti. Altyapı şirketi, Eylül çeyreğinde konsolide net kârını geçen yılın aynı dönemine göre yüzde 84,85 artırarak 2,6015 milyar rupiye çıkardı; geçen yıl aynı dönemde bu rakam 1,41 milyar rupi seviyesindeydi. Şirketin düzenleyici kurum bildirimine göre bu büyüme, güçlü geçiş ücreti gelirleri ve altyapı yatırım fonu dağıtımları sayesinde gerçekleşti. Temmuz-Eylül döneminde toplam gelir, bir önceki yılın aynı dönemindeki 175,1016 milyar rupiden 189,708 milyar rupiye yükseldi.
 
-Şirketin Yönetim Kurulu Başkanı ve Genel Müdürü Virendra D Mhaiskar, ikinci çeyrek sonuçlarının küresel ekonomik yavaşlamaya, tedarik zinciri bölünmelerine ve jeopolitik dalgalanmalara rağmen iş modelinin yapısal direncini gösterdiğini belirtti. Mhaiskar, geçiş ücreti gelirlerinin trafik talebi ve tarifeye bağlama mekanizmalarıyla yıllık bazda yaklaşık yüzde 15 arttığını ifade etti. Bu durum, nakit akışı yaratılmasını ve altyapı yatırım fonu dağıtımlarını destekledi. Irb Group, 13 eyalette yaklaşık 94.000 crore rupi değerinde 27 gelir getiren otoyol varlığı portföyüne sahip bulunuyor.
+Şirketin Yönetim Kurulu Başkanı ve Genel Müdürü Virendra D Mhaiskar, ikinci çeyrek sonuçlarının küresel ekonomik yavaşlamaya, tedarik zinciri bölünmelerine ve jeopolitik dalgalanmalara rağmen iş modelinin yapısal direncini gösterdiğini belirtti. Mhaiskar, geçiş ücreti gelirlerinin trafik talebi ve tarifeye bağlama mekanizmalarıyla yıllık bazda yaklaşık yüzde 15 arttığını ifade etti. Bu durum, nakit akışı yaratılmasını ve altyapı yatırım fonu dağıtımlarını destekledi. Irb Group, 13 eyalette yaklaşık 940 milyar rupi değerinde 27 gelir getiren otoyol varlığı portföyüne sahip bulunuyor.
 
 Piyasalardaki gelişmeler kapsamında hisse senedi Bombay Menkul Kıymetler Borsası'nda 17,45 rupiden açıldı ve gün içinde en yüksek 18,47 rupiyi, en düşük ise 17,19 rupiyi gördü. My Advisor Alpha teknik analisti Rajesh Bhosale, hissenin güçlü bir alım ilgisi gördüğünü, eylül ayı zirvesi ile 89 günlük üssel hareketli ortalamanın üzerine çıktığını aktardı.

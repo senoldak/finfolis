@@ -20,7 +20,7 @@ grafik: {"baslik":"Çin'de Enflasyon Göstergeleri (Ekim 2026)","simge":"sepet",
 why_matters: "Açıklanan veriler, küresel ekonomideki maliyet baskılarını, şirketlerin finansal performanslarını ve teknoloji yatırımlarının ekonomik büyümeye etkisini göstermesi açısından önem taşıyor."
 key_points:
   - "Çin'de üretici enflasyonu ekim ayında yüzde 5,7'ye yükseldi."
-  - "Nuvama Wealth Management net kârı 303,5 crore rupiye ulaştı."
+  - "Nuvama Wealth Management net kârı 3,035 milyar rupiye ulaştı."
   - "Yapay zeka harcamaları ABD GSYH büyümesine 0,9 yüzde puanı katkı sağladı."
 cover: kapak.png
 coverAlt: "Üretici Enflasyonu %5,7"
@@ -29,7 +29,7 @@ coverSitede: false
 
 Çin'de üretici fiyat endeksi, ekim ayında bir önceki yılın aynı dönemine göre yüzde 5,7 oranında artış gösterdi. Bu oran, yaklaşık dört buçuk yılın en hızlı yükselişi olarak kaydedildi. Veriler, yüksek petrol fiyatlarının enerji yoğun sektörlerdeki maliyetleri artırdığını ortaya koyarken, tüketici enflasyonu ise yüzde 0,7 seviyesinde kalarak zayıf iç talebi yansıttı. Çinli yetkililer, dış şokların etkisinin arttığına ve arz ile iç talep arasındaki dengesizliğin sürdüğüne dikkat çekti.
 
-Finansal hizmetler sektöründe ise Nuvama Wealth Management, 2027 mali yılının ikinci çeyreğine ilişkin sonuçlarını açıkladı. Şirketin konsolide net kârı, varlık yönetimi ve sermaye piyasalarındaki büyümenin etkisiyle yüzde 19,5 artarak 303,5 crore rupiye ulaştı. Aynı dönemde operasyonel gelirler ise yüzde 20,35 artışla 1.366 crore rupi olarak gerçekleşti.
+Finansal hizmetler sektöründe ise Nuvama Wealth Management, 2027 mali yılının ikinci çeyreğine ilişkin sonuçlarını açıkladı. Şirketin konsolide net kârı, varlık yönetimi ve sermaye piyasalarındaki büyümenin etkisiyle yüzde 19,5 artarak 3,035 milyar rupiye ulaştı. Aynı dönemde operasyonel gelirler ise yüzde 20,35 artışla 13,66 milyar rupi olarak gerçekleşti.
 
 Diğer yandan, Çin Merkez Bankası'nın Solana'nın ana karadaki faaliyetlerine yönelik soruşturma başlatma kararı, kripto para piyasalarına yönelik düzenleyici adımların devam edeceği beklentisini güçlendirdi. Banka, söz konusu platformun çevrim dışı etkinliklerini durdurduğunu duyurdu.
 

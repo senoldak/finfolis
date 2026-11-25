@@ -13,14 +13,14 @@ rakamlar:
   - etiket: "Nifty 50 düşüş"
     deger: "22.845"
   - etiket: "Yatırımcı kaybı"
-    deger: "4 lakh crore rupi"
+    deger: "4 trilyon rupi"
   - etiket: "Yabancı hisse satışı"
-    deger: "52.100 crore rupi"
+    deger: "521 milyar rupi"
 why_matters: "Piyasalardaki bu gerileme, yüksek petrol fiyatları ve küresel sermaye çıkışlarının şirket kârlılıkları ile ekonomik büyüme üzerindeki baskısını gösteriyor."
 key_points:
   - "Sensex endeksi 73.709 seviyesine geriledi"
-  - "Yatırımcılar tek bir seansta 4 lakh crore rupi kaybetti"
-  - "Yabancı portföy yatırımcıları ekim ayında 52.100 crore rupi tutarında hisse sattı"
+  - "Yatırımcılar tek bir seansta 4 trilyon rupi kaybetti"
+  - "Yabancı portföy yatırımcıları ekim ayında 521 milyar rupi tutarında hisse sattı"
 cover: kapak.png
 coverAlt: "Sensex düşüş 73.709"
 coverSitede: false
@@ -28,6 +28,6 @@ coverSitede: false
 
 Hint hisse senedi piyasaları, pazartesi günü gerçekleşen gün içi işlemlerde genel bir satış dalgasıyla karşılaştı ve temel endeksler gerileme kaydetti. Sensex endeksi 1.000 puandan fazla düşüş yaşayarak yüzde 1,4 oranında geriledi ve 73.709 seviyesindeki gün içi en düşük noktasına indi. Benzer şekilde Nifty 50 endeksi de 300 puandan fazla düşerek yüzde 1,3 oranında gerilemeyle 22.845 seviyesindeki günün en düşük değerini gördü. BSE 150 Midcap endeksi yüzde 0,80 oranında gerilerken, BSE 250 Smallcap endeksi yüzde 1 oranında düşüş kaydetti.
 
-Uzmanlar piyasalardaki bu düşüşün arkasındaki etkenler arasında yüksek petrol fiyatları, özel bankacılık hisselerindeki satışlar ve yabancı sermaye çıkışlarını gösterdi. Brent ham petrol fiyatları varil başına 108 dolar seviyelerinde seyretmeye devam ederken, bu durum enflasyonu artırarak ABD Merkez Bankası, Japonya Merkez Bankası ve Hindistan Merkez Bankası gibi büyük küresel merkez bankalarının para politikası sıkılaştırma adımlarını tetikledi. Geojit Investments Baş Yatırım Stratejisti V. K. Vijayakumar, Hürmüz'deki gerilimlerin tırmanmasının ve Brent petroldeki artışın piyasa için güçlü bir rüzgar oluşturduğunu belirtti. Ayrıca yabancı portföy yatırımcılarının ekim ayında şu ana kadar 52.100 crore rupi tutarında Hint hissesi sattığı bildirildi.
+Uzmanlar piyasalardaki bu düşüşün arkasındaki etkenler arasında yüksek petrol fiyatları, özel bankacılık hisselerindeki satışlar ve yabancı sermaye çıkışlarını gösterdi. Brent ham petrol fiyatları varil başına 108 dolar seviyelerinde seyretmeye devam ederken, bu durum enflasyonu artırarak ABD Merkez Bankası, Japonya Merkez Bankası ve Hindistan Merkez Bankası gibi büyük küresel merkez bankalarının para politikası sıkılaştırma adımlarını tetikledi. Geojit Investments Baş Yatırım Stratejisti V. K. Vijayakumar, Hürmüz'deki gerilimlerin tırmanmasının ve Brent petroldeki artışın piyasa için güçlü bir rüzgar oluşturduğunu belirtti. Ayrıca yabancı portföy yatırımcılarının ekim ayında şu ana kadar 521 milyar rupi tutarında Hint hissesi sattığı bildirildi.
 
-Yaşanan genel piyasa düşüşü sonucunda yatırımcılar tek bir seansta 4 lakh crore rupi kaybetti. BSE'ye kayıtlı firmaların toplam piyasa değeri bir önceki seansta bulunan 472,6 lakh crore rupiden 469 lakh crore rupiye geriledi. Religare Broking Araştırma Kıdemli Başkan Yardımcısı Ajit Mishra, özel bankaların ikinci çeyrek sonuçlarının beklentileri karşılamadığını ve karışık sonuçların piyasa duyarlılığını olumsuz etkilediğini ifade etti.
+Yaşanan genel piyasa düşüşü sonucunda yatırımcılar tek bir seansta 4 trilyon rupi kaybetti. BSE'ye kayıtlı firmaların toplam piyasa değeri bir önceki seansta bulunan 472,6 trilyon rupiden 469 trilyon rupiye geriledi. Religare Broking Araştırma Kıdemli Başkan Yardımcısı Ajit Mishra, özel bankaların ikinci çeyrek sonuçlarının beklentileri karşılamadığını ve karışık sonuçların piyasa duyarlılığını olumsuz etkilediğini ifade etti.

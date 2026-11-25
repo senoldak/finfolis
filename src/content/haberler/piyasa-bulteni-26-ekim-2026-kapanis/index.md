@@ -30,7 +30,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## Asya
 
-- **Indian Overseas Bank Kredisi:** Indian Overseas Bank, ikinci çeyrek net kârının yüzde 56 artışla 1.912 crore rupiye yükselmesinin ardından harici ticari borçlanma yoluyla 500 milyon dolar toplamayı planlıyor. ([Ayrıntı](https://finfolis.com/haber/indian-overseas-bank-dis-borclanma-planliyor-ve-karini-artirdi/))
+- **Indian Overseas Bank Kredisi:** Indian Overseas Bank, ikinci çeyrek net kârının yüzde 56 artışla 19,12 milyar rupiye yükselmesinin ardından harici ticari borçlanma yoluyla 500 milyon dolar toplamayı planlıyor. ([Ayrıntı](https://finfolis.com/haber/indian-overseas-bank-dis-borclanma-planliyor-ve-karini-artirdi/))
 - **Itau'nun NeoSpace Satın Alımı:** Brezilya'dan Itau, yapay zeka girişim şirketi NeoSpace'i 589 milyon dolara satın almak üzere anlaşmaya vardı.
 - **HSBC Küresel Hisse Görünümü:** HSBC, jeopolitik gelişmeler ve yapay zekaya yönelik olası düzenleyici etkiler nedeniyle küresel hisse senetleri görünümünü 'maksimum ağırlık artır' seviyesinden 'nötr' konuma indirdi.
 - **SK Hynix Temettü İncelemesi:** SK Hynix, Kioxia hisse satışından elde edilen kazançlarla finanse edilmesi değerlendirilen özel temettü iddialarının ardından üç aylık sonuçlarla birlikte hissedar getiri önlemlerini duyuracağını açıkladı.

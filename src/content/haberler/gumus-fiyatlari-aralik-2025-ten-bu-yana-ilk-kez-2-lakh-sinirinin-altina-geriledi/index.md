@@ -1,6 +1,6 @@
 ---
-title: "Gümüş fiyatları Aralık 2025'ten bu yana ilk kez 2 lakh sınırının altına geriledi"
-description: "Gümüş fiyatları, artan enerji maliyetleri ve ABD para politikasında sıkılaşma beklentileriyle Aralık 2025'ten bu yana ilk kez kilogram başına 2 lakh seviyesinin altına düştü. Yaşanan sert satış dalgası, metalin yıl başından bu yana elde ettiği kazançları sildi."
+title: "Gümüş fiyatları Aralık 2025'ten bu yana ilk kez 200 bin sınırının altına geriledi"
+description: "Gümüş fiyatları, artan enerji maliyetleri ve ABD para politikasında sıkılaşma beklentileriyle Aralık 2025'ten bu yana ilk kez kilogram başına 200 bin seviyesinin altına düştü. Yaşanan sert satış dalgası, metalin yıl başından bu yana elde ettiği kazançları sildi."
 date: 2026-10-24T12:05:14.000Z
 category: "piyasalar"
 tur: "haber"
@@ -28,7 +28,7 @@ cover: kapak.png
 coverAlt: "Ons gümüş son altı ay günlük kapanış grafiği: altı ayda −%29,7, son kapanış $53,71"
 ---
 
-Gümüş fiyatları, Multi Commodity Exchange borsasında kilogram başına 1.92.800 seviyesine gerileyerek Aralık 2025'ten bu yana ilk kez 2 lakh sınırının altına indi. Tek bir seans içerisinde yaklaşık 6.800 düşüş yaşayan beyaz metal, artan ham petrol fiyatları, enflasyon endişeleri ve ABD Merkez Bankası'nın para politikasına yönelik beklentiler doğrultusunda gerilemesini sürdürdü. Yaşanan düzeltme hareketiyle gümüş, Ağustos 2026'daki zirvesinden yüzde 22,5 oranında gerilerken, Ocak ayındaki rekor seviyesinin de yüzde 50'den fazla altına indi. Son 10 işlem gününde fiyatlar yüzde 14'ten fazla düşüş kaydetti.
+Gümüş fiyatları, Multi Commodity Exchange borsasında kilogram başına 1.92.800 seviyesine gerileyerek Aralık 2025'ten bu yana ilk kez 200 bin sınırının altına indi. Tek bir seans içerisinde yaklaşık 6.800 düşüş yaşayan beyaz metal, artan ham petrol fiyatları, enflasyon endişeleri ve ABD Merkez Bankası'nın para politikasına yönelik beklentiler doğrultusunda gerilemesini sürdürdü. Yaşanan düzeltme hareketiyle gümüş, Ağustos 2026'daki zirvesinden yüzde 22,5 oranında gerilerken, Ocak ayındaki rekor seviyesinin de yüzde 50'den fazla altına indi. Son 10 işlem gününde fiyatlar yüzde 14'ten fazla düşüş kaydetti.
 
 Artan enerji maliyetleri ve faiz artırımı beklentilerinin kıymetli madenler üzerinde baskı yarattığını belirten Brickwork Ratings Araştırma Başkanı Rajeev Sharan, gümüşün endüstriyel kullanım alanları nedeniyle ek baskıyla karşı karşıya kaldığını ifade etti. Sharan, yükselen borçlanma maliyetlerinin endüstriyel talebi de olumsuz etkilediğini vurguladı. Augmont Baş Araştırma Sorumlusu Renisha Chainani ise gümüşün teknik olarak 2.00.000 seviyesinin altına gerilediğini belirterek, önümüzdeki 10 ile 15 gün içinde 1.80.000 ile 1.85.000 aralığına doğru olası bir düşüş ihtimaline dikkat çekti. Chainani, orta vadede madenlerin bir taban oluşturma çabasına girebileceğini ve önümüzdeki haftalarda yüzde 10 ile 15 oranında bir toparlanma yaşanabileceğini öngördü.
 

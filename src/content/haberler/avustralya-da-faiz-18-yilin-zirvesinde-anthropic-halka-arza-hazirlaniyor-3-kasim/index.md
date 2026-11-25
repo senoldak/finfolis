@@ -13,7 +13,7 @@ rakamlar:
   - etiket: "Anthropic Değerleme Tahmini"
     deger: "2 trilyon dolar"
   - etiket: "SBI Net Kâr"
-    deger: "23.038 crore rupi"
+    deger: "230,38 milyar rupi"
   - etiket: "CVR Energy Teklifi"
     deger: "4 milyar dolar"
 sirada:
@@ -42,4 +42,4 @@ Yapay zeka alanında faaliyet gösteren Anthropic firması, Nasdaq Global Select
 
 ## Şirket Bilançoları ve Satın Almalar
 
-Hindistan'ın en büyük kamu bankası olan State Bank of India (SBI), ikinci çeyrek net kârının yüzde 14 artışla 23.038 crore rupiye ulaştığını açıkladı. Diğer yandan, Carl Icahn'ın kontrolündeki CVR Energy şirketinin, Marathon rafinerilerini satın almak için 4 milyar doları aşan bir anlaşmaya yakın olduğu belirtildi. Küresel piyasalarda ayrıca Bajaj Finserv, Pfizer ve Emcure Pharma gibi şirketlerin de kâr artışları bildirdiği kaydedildi.
+Hindistan'ın en büyük kamu bankası olan State Bank of India (SBI), ikinci çeyrek net kârının yüzde 14 artışla 230,38 milyar rupiye ulaştığını açıkladı. Diğer yandan, Carl Icahn'ın kontrolündeki CVR Energy şirketinin, Marathon rafinerilerini satın almak için 4 milyar doları aşan bir anlaşmaya yakın olduğu belirtildi. Küresel piyasalarda ayrıca Bajaj Finserv, Pfizer ve Emcure Pharma gibi şirketlerin de kâr artışları bildirdiği kaydedildi.

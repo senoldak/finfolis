@@ -26,7 +26,7 @@ coverAlt: "Reliance Net Kâr Artışı %41"
 coverSitede: false
 ---
 
-Reliance Industries hisseleri, güçlü ikinci çeyrek sonuçlarının ardından pazartesi günü yüzde 7,5'e yakın bir artış kaydetti. Mukesh Ambani yönetimindeki şirketin net kârı yıllık bazda yüzde 41 artarak 25.548 crore rupiye ulaştı ve gelirleri yüzde 29 artışla 3,32 lakh crore rupi oldu. Bu gelişmelerle birlikte şirketin piyasa değerine yaklaşık 1,2 lakh crore rupi eklendiği açıklandı. Birçok uluslararası aracı kurum, hisse için olumlu görünümü koruyor.
+Reliance Industries hisseleri, güçlü ikinci çeyrek sonuçlarının ardından pazartesi günü yüzde 7,5'e yakın bir artış kaydetti. Mukesh Ambani yönetimindeki şirketin net kârı yıllık bazda yüzde 41 artarak 255,48 milyar rupiye ulaştı ve gelirleri yüzde 29 artışla 3,32 trilyon rupi oldu. Bu gelişmelerle birlikte şirketin piyasa değerine yaklaşık 1,2 trilyon rupi eklendiği açıklandı. Birçok uluslararası aracı kurum, hisse için olumlu görünümü koruyor.
 
 Amerika Merkez Bankası'nın faiz kararının ardından Bitcoin fiyatında düşüş görüldü. Andjela Radmilac, Fed'in faizleri yüzde 3,75 ila yüzde 4 aralığında sabit tuttuğunu ve iki üyenin çeyrek puanlık artış istediğini aktardı. Fed kararının ardından Binance borsasında yaşanan 6 milyar dolarlık güvenlik ihlalinin yatırımcılarda fonlara erişim endişesi yarattığı ifade edildi. Bu olay kaldıraçlı işlemlerdeki tasfiyeleri artırdı.
 

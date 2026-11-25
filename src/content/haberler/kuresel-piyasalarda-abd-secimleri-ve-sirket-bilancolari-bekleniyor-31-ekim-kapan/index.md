@@ -19,12 +19,12 @@ rakamlar:
 sirada:
   tarih: "4 Kasım 2026"
   olay: "ABD ara seçimleri yapılacak."
-tablo: {"baslik":"Q2 Sonuçları Karşılaştırması","sutunlar":["Şirket","Net Kâr","Yıllık Artış"],"satirlar":[["NTPC Limited","7.029,56 crore rupi","yüzde 38,7"],["NTPC Green Energy","137,50 crore rupi","yüzde 59"]]}
+tablo: {"baslik":"Q2 Sonuçları Karşılaştırması","sutunlar":["Şirket","Net Kâr","Yıllık Artış"],"satirlar":[["NTPC Limited","70,2956 milyar rupi","yüzde 38,7"],["NTPC Green Energy","1,375 milyar rupi","yüzde 59"]]}
 why_matters: "ABD seçimleri, istihdam verileri ve teknoloji şirketlerinin fonlama turu gelişmeleri küresel piyasalardaki yön arayışını ve yatırımcı kararlarını şekillendiriyor."
 key_points:
   - "S&P 500 endeksi cuma günü 140,32 puan düşüşle 7.580,07 puana geriledi."
   - "OpenAI, yeni fonlama turunda hedefliğini 20 milyar dolara indirdi."
-  - "NTPC Limited net kârı Q2 döneminde yüzde 38,7 artarak 7.029,56 crore rupi oldu."
+  - "NTPC Limited net kârı Q2 döneminde yüzde 38,7 artarak 70,2956 milyar rupi oldu."
 cover: kapak.png
 coverAlt: "S&P 500 Düşüş 140,32"
 coverSitede: false
@@ -34,6 +34,6 @@ Wall Street'in gündeminde ABD ara seçimleri, ekim ayı istihdam raporu ve büy
 
 Ekonomi cephesinde, cuma günü açıklanacak ekim ayı istihdam raporunun iş gücü piyasasının sağlığı hakkında önemli ipuçları vermesi bekleniyor. Perşembe günü açıklanan veriler, ABD ekonomisinin yılın üçüncü çeyreğinde tüketici harcamaları ve yapay zeka yatırımlarının desteğiyle son bir yılın en hızlı büyümesini kaydettiğini gösterdi. Federal Rezerv de değerlendirmesini güncelledi.
 
-Öte yandan şirket sonuçları da yakından izleniyor. NTPC Limited, 2026-27 mali yılı ikinci çeyreğinde net kârının yüzde 38,7 artışla 7.029,56 crore rupiye ulaştığını bildirdi. Şirketin bağlı ortaklığı NTPC Green Energy'nin kârı ise yıllık yüzde 59 artışla 137,50 crore rupi oldu. Ana şirketin net konsolide geliri yıllık yüzde 21,2 artışla 54.269,95 crore rupiye yükseldi.
+Öte yandan şirket sonuçları da yakından izleniyor. NTPC Limited, 2026-27 mali yılı ikinci çeyreğinde net kârının yüzde 38,7 artışla 70,2956 milyar rupiye ulaştığını bildirdi. Şirketin bağlı ortaklığı NTPC Green Energy'nin kârı ise yıllık yüzde 59 artışla 1,375 milyar rupi oldu. Ana şirketin net konsolide geliri yıllık yüzde 21,2 artışla 542,6995 milyar rupiye yükseldi.
 
 Teknoloji sektöründe ise OpenAI, yeni bir fonlama turunda 20 milyar dolara kadar sermaye arayışında olduğunu duyurdu. Şirket daha önceki yaklaşık 30 milyar dolarlık hedefinden vazgeçti. Bu tur, OpenAI'a 1,25 trilyon dolar değer biçiyor. Yapay zeka harcamalarına yönelik yatırımcı incelemeleri artarken, çip üreticisi Intel hisseleri zayıf gelir beklentisiyle yüzde 25 düşüş kaydetti.

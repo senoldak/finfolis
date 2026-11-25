@@ -18,13 +18,13 @@ why_matters: "Ham petrol fiyatlarındaki gerileme ve ABD seçim sonuçları, kü
 key_points:
   - "Nifty 50 endeksi 24.360,70 seviyesine yükseldi."
   - "Brent ham petrol varil başına 94 dolar seviyelerine geriledi."
-  - "Yabancı yatırımcılar dört günde 20.834 crore tutarında hisse aldı."
+  - "Yabancı yatırımcılar dört günde 208,34 milyar tutarında hisse aldı."
 cover: kapak.png
 coverAlt: "Hindistan Nifty 50 son altı ay günlük kapanış grafiği: altı ayda −%1,5, son kapanış 23.960,60"
 ---
 
 Perşembe günü açılışta gösterge endeksler yukarı yönlü bir seyir izledi. Nifty 50 endeksi 400 puanlık artışla 24.360,70 seviyesine çıkarken Sensex ise yüzde 1,84 oranında değer kazanarak 78.719,96 seviyesine ulaştı. Yaşanan bu gelişmelerde, ham petrol fiyatlarında yüzde 10'a yakın düşüş yaşanması ve ABD ara seçim sonuçları etkili oldu. Önceki seans Sensex 77.301,40 seviyesinden kapanırken 78.910,94 seviyesinden açılmış, Nifty ise 23.960,60 seviyesinden kapanıp 24.378,05 seviyesinden açılış yaparak art arda altıncı seansında da kazanç serisini sürdürmüştü.
 
-Brent türü ham petrol fiyatları, ABD ara seçimlerinde Demokratların kazandığı başarı sonrası varil başına 94 dolar seviyelerine geriledi. Geojit Investments Baş Yatırım Stratejisti Dr. V. K. Vijayakumar, petrol fiyatlarındaki düşüşün Hindistan ekonomisinin direnç gösterdiği ve şirket karlarının iyileştiği bir dönemde gerçekleştiğini belirtti. Bu durumun yabancı kurumsal yatırımcıların tutumunu tamamen değiştirdiği ve son dört işlem gününde nakit piyasada 20.834 crore tutarında hisse alımı yaptıkları ifade edildi. Yabancı kurumsal yatırımcılar önceki seans tek başına 7.284 crore tutarında net alım gerçekleştirirken, yerli kurumsal yatırımcılar 3.712 crore tutarında satış yaptı.
+Brent türü ham petrol fiyatları, ABD ara seçimlerinde Demokratların kazandığı başarı sonrası varil başına 94 dolar seviyelerine geriledi. Geojit Investments Baş Yatırım Stratejisti Dr. V. K. Vijayakumar, petrol fiyatlarındaki düşüşün Hindistan ekonomisinin direnç gösterdiği ve şirket karlarının iyileştiği bir dönemde gerçekleştiğini belirtti. Bu durumun yabancı kurumsal yatırımcıların tutumunu tamamen değiştirdiği ve son dört işlem gününde nakit piyasada 208,34 milyar tutarında hisse alımı yaptıkları ifade edildi. Yabancı kurumsal yatırımcılar önceki seans tek başına 72,84 milyar tutarında net alım gerçekleştirirken, yerli kurumsal yatırımcılar 37,12 milyar tutarında satış yaptı.
 
 Söz konusu piyasa hareketleri kapsamında Nifty 50 hisseleri arasında Shriram Finance yüzde 6,35 artışla 966,45 rupiye yükselirken, IndiGo 5.418,10 rupi seviyesine çıktı ve yüzde 5,39 değer kazandı. Asian Paints yüzde 4,56 artarak 2.528,50 rupiye ulaştı. Öte yandan Apollo Hospitals yüzde 2,19 düşüşle 8.411 rupiye gerileyerek endeks ağırlıklı hisseler arasında en sert düşüşü kaydetti. HST Wealth Kurucusu ve CEO'su Hariselvan Radhakrishnan, petrol fiyatlarındaki düşüşün tam bir anlaşmadan ziyade beklentilere dayandığını ve müzakerelerdeki olumsuzluklara karşı savunmasız kaldığını vurguladı.

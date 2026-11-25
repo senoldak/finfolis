@@ -13,7 +13,7 @@ rakamlar:
   - etiket: "Net kâr düşüşü"
     deger: "yüzde 40"
   - etiket: "Eylül çeyreği net kâr"
-    deger: "45,6 crore rupi"
+    deger: "456 milyon rupi"
   - etiket: "İşletme geliri artışı"
     deger: "yüzde 13"
 sirada:
@@ -23,7 +23,7 @@ why_matters: "Şirket yönetiminin yatırımcı endişelerini gidermek için ger
 key_points:
   - "Zee Entertainment hisseleri Muhurat seansında yüzde 11,1 oranında yükseldi."
   - "Yönetim kurulu geri alım ve temettü görüşmek üzere 12 Kasım 2026 tarihinde toplanacak."
-  - "Eylül çeyreğinde net kâr yüzde 40 düşüşle 45,6 crore rupiye geriledi."
+  - "Eylül çeyreğinde net kâr yüzde 40 düşüşle 456 milyon rupiye geriledi."
 cover: kapak.png
 coverAlt: "Hisse artışı %11,1"
 coverSitede: false
@@ -33,4 +33,4 @@ Zee Entertainment Enterprises hisseleri, 8 Kasım 2026 tarihinde yapılan özel 
 
 Şirket, 6 Kasım 2026 tarihli borsa bildiriminde, yönetim kurulu toplantısının yatırımcıların görüş ve endişelerini inceleyeceğini belirtti. Ancak bildirimin yapıldığı tarih itibarıyla bu tekliflerden herhangi biri hakkında alınmış kesin bir karar bulunmuyor. Öneriler, yürürlükteki kanunlara uygun olarak yönetim kurulunun değerlendirme ve onayına tabi tutulmaya devam ediyor. Şirket ayrıca, sermaye piyasası düzenlemeleri ve şirket etik kuralları çerçevesinde, belirlenen kişiler ve birinci dereceden yakınları için ticaret penceresinin toplantı sonucunun açıklanmasından sonraki 48 saate kadar kapalı kalacağını duyurdu.
 
-Öte yandan Zee Entertainment Enterprises, Eylül çeyreğinde net kârının geçen yılın aynı dönemine göre yüzde 40 oranında düşüşle 45,6 crore rupiye gerilediğini bildirdi. Bu düşüş, düz reklam geliri büyümesi ve daha düşük satış ile hizmet gelirleri ortasında gerçekleşti. İşletme geliri ise abonelik gelirlerinin desteğiyle yüzde 13 oranında artarak 2.224,6 crore rupiye ulaştı. Şirket yöneticisi Punit Goenka, şirketin jeopolitik dalgalanmaları ve makroekonomik zorlukları girişimci yaklaşımıyla yönettiğini belirtti. Goenka, abonelik gelirlerindeki artışa ve küresel spor içeriklerine dikkat çekti.
+Öte yandan Zee Entertainment Enterprises, Eylül çeyreğinde net kârının geçen yılın aynı dönemine göre yüzde 40 oranında düşüşle 456 milyon rupiye gerilediğini bildirdi. Bu düşüş, düz reklam geliri büyümesi ve daha düşük satış ile hizmet gelirleri ortasında gerçekleşti. İşletme geliri ise abonelik gelirlerinin desteğiyle yüzde 13 oranında artarak 22,246 milyar rupiye ulaştı. Şirket yöneticisi Punit Goenka, şirketin jeopolitik dalgalanmaları ve makroekonomik zorlukları girişimci yaklaşımıyla yönettiğini belirtti. Goenka, abonelik gelirlerindeki artışa ve küresel spor içeriklerine dikkat çekti.

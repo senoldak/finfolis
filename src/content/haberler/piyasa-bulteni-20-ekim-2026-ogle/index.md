@@ -34,7 +34,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## Asya
 
-- **Jio IPO Kurumsal Talebi:** Jio Platforms’un 30.188 crore rupi büyüklüğündeki halka arzı, çapa yatırımcı rezervasyon boyutunun 30 katından fazla olarak yaklaşık 2,5 lak crore rupi kurumsal teklif çekti. 21 Ekim'deki açılış öncesinde küresel varlık yöneticileri ve emeklilik fonları dahil 70'ten fazla yatırımcı ilgi gösterdi.
+- **Jio IPO Kurumsal Talebi:** Jio Platforms’un 301,88 milyar rupi büyüklüğündeki halka arzı, çapa yatırımcı rezervasyon boyutunun 30 katından fazla olarak yaklaşık 2,5 trilyon rupi kurumsal teklif çekti. 21 Ekim'deki açılış öncesinde küresel varlık yöneticileri ve emeklilik fonları dahil 70'ten fazla yatırımcı ilgi gösterdi.
 - **Brent Petrol Seviyesi:** Brent ham petrol vadeli işlemleri 20 Ekim 2026 tarihinde 55 sent ya da yüzde 0,50 artışla varil başına 110,10 dolar seviyesinde tutundu.
 
 ## Küresel

@@ -32,11 +32,11 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## Asya
 
-- **ESAF Small Finance Bank kâr açıkladı:** ESAF Small Finance Bank, ikinci çeyrekte 160 crore rupi net kâr bildirdi. Banka geçen yılın aynı döneminde zarar açıklamıştı. ([Ayrıntı](https://finfolis.com/haber/esaf-small-finance-bank-mali-yilin-ikinci-ceyreginde-kar-acikladi/))
+- **ESAF Small Finance Bank kâr açıkladı:** ESAF Small Finance Bank, ikinci çeyrekte 1,6 milyar rupi net kâr bildirdi. Banka geçen yılın aynı döneminde zarar açıklamıştı. ([Ayrıntı](https://finfolis.com/haber/esaf-small-finance-bank-mali-yilin-ikinci-ceyreginde-kar-acikladi/))
 - **Yatırımcılar yapay zekada getiri arıyor:** Microsoft ve Oracle güçlü nakit akışı beklentileriyle yükselirken, artan sermaye harcamaları ve yavaşlayan arama büyümesi nedeniyle Alphabet hisseleri düştü. ([Ayrıntı](https://finfolis.com/haber/yatirimcilarin-yapay-zeka-yatirimlarindan-getiri-talebi-teknoloji-sirketlerinin/))
 - **Hyundai Motor kârını yükseltti:** Hyundai Motor, üçüncü çeyrek faaliyet kârında yüzde 5,5 artış bildirdi ve tahminleri geride bıraktı.
 - **Hong Kong'da faizler değişmedi:** Hong Kong Para Otoritesi, ABD Merkez Bankasının adımını takip ederek faiz oranlarını sabit bıraktı.
-- **Indus Towers kârında sınırlı düşüş:** Indus Towers, 30 Eylül itibarıyla sona eren ikinci çeyrekte konsolide net kârının yüzde 2,5 oranında azalarak 1.793 crore rupi olduğunu bildirdi.
+- **Indus Towers kârında sınırlı düşüş:** Indus Towers, 30 Eylül itibarıyla sona eren ikinci çeyrekte konsolide net kârının yüzde 2,5 oranında azalarak 17,93 milyar rupi olduğunu bildirdi.
 
 ## Küresel
 

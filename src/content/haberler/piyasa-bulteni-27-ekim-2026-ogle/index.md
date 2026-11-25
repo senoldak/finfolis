@@ -25,7 +25,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## Asya
 
-- **Mankind Pharma Kârı Arttı:** Mankind Pharma hisseleri, şirketin ikinci çeyrek kârının yüzde 38 artarak 716 crore rupiye ulaştığını açıklamasının ardından yüzde 8'e yakın yükseldi. Şirketin gelirleri ise yüzde 17 oranında büyüdü.
+- **Mankind Pharma Kârı Arttı:** Mankind Pharma hisseleri, şirketin ikinci çeyrek kârının yüzde 38 artarak 7,16 milyar rupiye ulaştığını açıklamasının ardından yüzde 8'e yakın yükseldi. Şirketin gelirleri ise yüzde 17 oranında büyüdü.
 
 ## Küresel
 

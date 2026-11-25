@@ -18,16 +18,16 @@ rakamlar:
     deger: "yüzde 89,9"
 why_matters: "Şirketin açıkladığı güçlü finansal sonuçlar ve artan kârlılık, hisse senedi fiyatlarındaki hareketliliği ve piyasa ilgisini şekillendiriyor."
 key_points:
-  - "Tamilnadu Petroproducts gelirleri ikinci çeyrekte yüzde 104,9 artarak 934,37 crore rupiye ulaştı."
-  - "Vergi sonrası kâr yüzde 89,9 artışla 65,03 crore rupi oldu."
+  - "Tamilnadu Petroproducts gelirleri ikinci çeyrekte yüzde 104,9 artarak 9,3437 milyar rupiye ulaştı."
+  - "Vergi sonrası kâr yüzde 89,9 artışla 650,3 milyon rupi oldu."
   - "Hisse senedi 2026 yılı genelinde yüzde 37 oranında artış kaydetti."
 cover: kapak.png
 coverAlt: "Hisse Artışı %7"
 coverSitede: false
 ---
 
-Tamilnadu Petroproducts hisseleri, 3 Kasım 2026 Salı günü şirket tarafından açıklanan ikinci çeyrek sonuçlarının ardından yüzde 7 oranında yükseliş gösterdi. Şirketin konsolide faaliyet gelirleri geçen yılın aynı dönemine kıyasla yüzde 104,9 artarak 934,37 crore rupiye ulaştı. Bir önceki yılın aynı çeyreğinde gelirler 456,09 crore rupi seviyesindeydi. Şirketin vergi öncesi kârı yüzde 94,4 artışla 87,86 crore rupi olurken, geçen yıl bu rakam 45,19 crore rupi olarak kaydedilmişti. Vergi sonrası kâr ise yüzde 89,9 oranında artarak 65,03 crore rupiye yükseldi; geçen yılın aynı döneminde net kâr 34,24 crore rupi düzeyindeydi.
+Tamilnadu Petroproducts hisseleri, 3 Kasım 2026 Salı günü şirket tarafından açıklanan ikinci çeyrek sonuçlarının ardından yüzde 7 oranında yükseliş gösterdi. Şirketin konsolide faaliyet gelirleri geçen yılın aynı dönemine kıyasla yüzde 104,9 artarak 9,3437 milyar rupiye ulaştı. Bir önceki yılın aynı çeyreğinde gelirler 4,5609 milyar rupi seviyesindeydi. Şirketin vergi öncesi kârı yüzde 94,4 artışla 878,6 milyon rupi olurken, geçen yıl bu rakam 451,9 milyon rupi olarak kaydedilmişti. Vergi sonrası kâr ise yüzde 89,9 oranında artarak 650,3 milyon rupiye yükseldi; geçen yılın aynı döneminde net kâr 342,4 milyon rupi düzeyindeydi.
 
-İlk yarıda konsolide faaliyet gelirleri yüzde 86,3 artarak 1.712,29 crore rupiye çıktı. Geçen yılın aynı döneminde gelirler 918,92 crore rupi olarak gerçekleşmişti. İlk yarıda konsolide vergi öncesi kâr yüzde 109,5 artışla 193,93 crore rupiye, vergi sonrası kâr ise yüzde 108,9 artarak 145,14 crore rupiye ulaştı. Tamilnadu Petroproducts Ltd Yönetim Kurulu Başkan Vekili ve AM International Kurucu Başkanı Ashwin Muthiah, başarılı dönemin operasyonel iyileştirmeler, maliyet disiplini ve müşteri odaklı yaklaşımla sağlandığını ifade etti.
+İlk yarıda konsolide faaliyet gelirleri yüzde 86,3 artarak 17,1229 milyar rupiye çıktı. Geçen yılın aynı döneminde gelirler 9,1892 milyar rupi olarak gerçekleşmişti. İlk yarıda konsolide vergi öncesi kâr yüzde 109,5 artışla 1,9393 milyar rupiye, vergi sonrası kâr ise yüzde 108,9 artarak 1,4514 milyar rupiye ulaştı. Tamilnadu Petroproducts Ltd Yönetim Kurulu Başkan Vekili ve AM International Kurucu Başkanı Ashwin Muthiah, başarılı dönemin operasyonel iyileştirmeler, maliyet disiplini ve müşteri odaklı yaklaşımla sağlandığını ifade etti.
 
 Piyasa analistleri ve uzmanlar finansal sonuçların ardından teknik seviyelere ilişkin değerlendirmelerde bulundu. SAHI Araştırma Başkanı Gaurav Arora, ikinci çeyrek sonuçları sonrasında hisselerde volatilitenin arttığını belirtti. Hissenin BSE'de 122,60 rupiden açılış yaptığını ve gün içinde en yüksek 129,10 rupi ile en düşük 115,90 rupi seviyelerini gördüğünü aktaran Arora, 118 rupi seviyesinin yakın destek noktası olduğunu, bu seviyenin altına gerilen hareketlerin 112,50 rupi seviyesindeki bir sonraki desteğe doğru olabileceğini kaydetti. Şirket hisseleri 2026 yılı genelinde yüzde 37 oranında değer kazandı.

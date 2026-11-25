@@ -18,16 +18,16 @@ rakamlar:
     deger: "yüzde 14"
 why_matters: "Şirketin kârını ve gelirlerini artırmasına rağmen kâr marjında daralma yaşaması, maliyet ve takvim unsurlarının perakende sektöründeki karlılık üzerindeki etkilerini göstermesi açısından takip ediliyor."
 key_points:
-  - "Net kâr yıllık yüzde 3,7 artışla 157,9 crore rupi oldu."
-  - "Gelirler yüzde 14 artarak 3.398,5 crore rupiye ulaştı."
+  - "Net kâr yıllık yüzde 3,7 artışla 1,579 milyar rupi oldu."
+  - "Gelirler yüzde 14 artarak 33,985 milyar rupiye ulaştı."
   - "FAVÖK marjı 110 baz puan daralarak yüzde 12,1'e geriledi."
 cover: kapak.png
 coverAlt: "Hisse düşüşü %8"
 coverSitede: false
 ---
 
-Vishal Mega Mart hisseleri, ikinci çeyrek finansal sonuçlarının açıklanmasının ardından 21 Ekim 2026 Çarşamba günü gün içinde yüzde 8'in üzerinde düşüş kaydetti. Şirket tarafından yapılan açıklamaya göre, mali yılın ikinci çeyreğinde net kâr geçen yılın aynı dönemine kıyasla yüzde 3,7 oranında artarak 157,9 crore rupiye yükseldi; geçen yıl aynı dönemde bu rakam 152,3 crore rupi düzeyindeydi. Operasyonlardan elde edilen gelir ise yüzde 14 artışla 3.398,5 crore rupi oldu. Çalışan hisse senedi opsiyon planı hariç tutulduğunda düzeltilmiş net kâr yıllık bazda yüzde 6,4 artarak 172 crore rupiye çıktı.
+Vishal Mega Mart hisseleri, ikinci çeyrek finansal sonuçlarının açıklanmasının ardından 21 Ekim 2026 Çarşamba günü gün içinde yüzde 8'in üzerinde düşüş kaydetti. Şirket tarafından yapılan açıklamaya göre, mali yılın ikinci çeyreğinde net kâr geçen yılın aynı dönemine kıyasla yüzde 3,7 oranında artarak 1,579 milyar rupiye yükseldi; geçen yıl aynı dönemde bu rakam 1,523 milyar rupi düzeyindeydi. Operasyonlardan elde edilen gelir ise yüzde 14 artışla 33,985 milyar rupi oldu. Çalışan hisse senedi opsiyon planı hariç tutulduğunda düzeltilmiş net kâr yıllık bazda yüzde 6,4 artarak 1,72 milyar rupiye çıktı.
 
-Kâr ve gelirdeki artışa rağmen, şirketin FAVÖK marjı geçen yılın aynı dönemindeki yüzde 13,2 seviyesinden yüzde 12,1 oranına geriledi. Bu durum, yıllık bazda 110 baz puanlık bir daralmaya işaret etti. Şirket, marj üzerindeki baskının festival takvimindeki değişimden kaynaklanan operasyonel verimsizlikten ileri geldiğini belirtti. Açıklanan verilere göre raporlanan FAVÖK yüzde 4,4 artışla 412 crore rupiye yükseldi.
+Kâr ve gelirdeki artışa rağmen, şirketin FAVÖK marjı geçen yılın aynı dönemindeki yüzde 13,2 seviyesinden yüzde 12,1 oranına geriledi. Bu durum, yıllık bazda 110 baz puanlık bir daralmaya işaret etti. Şirket, marj üzerindeki baskının festival takvimindeki değişimden kaynaklanan operasyonel verimsizlikten ileri geldiğini belirtti. Açıklanan verilere göre raporlanan FAVÖK yüzde 4,4 artışla 4,12 milyar rupiye yükseldi.
 
-Vishal Mega Mart kurucusu, icra kurulu başkanı ve genel müdürü Gunender Kapur, kendi markalı ürün teklifleri, müşteri odaklı yaklaşım ve disiplinli uygulama sayesinde güçlü bir çeyrek geçirdiklerini ifade etti. Kapur, hammadde kategorilerindeki enflasyon baskıları ve düzensiz muson yağmurlarına rağmen talep koşullarının istikrarlı kaldığını belirtti. Şirket, 30 Eylül 2026 itibarıyla 582 şehirde 844 mağazayla faaliyet gösterdiğini ve toplam perakende alanının yaklaşık 1,41 crore feet kare olduğunu kaydetti. İlk yarıda kıyafet gelirlerin yüzde 44,1'ini oluştururken, tüketici tabanı yaklaşık 18,1 crore olarak açıklandı.
+Vishal Mega Mart kurucusu, icra kurulu başkanı ve genel müdürü Gunender Kapur, kendi markalı ürün teklifleri, müşteri odaklı yaklaşım ve disiplinli uygulama sayesinde güçlü bir çeyrek geçirdiklerini ifade etti. Kapur, hammadde kategorilerindeki enflasyon baskıları ve düzensiz muson yağmurlarına rağmen talep koşullarının istikrarlı kaldığını belirtti. Şirket, 30 Eylül 2026 itibarıyla 582 şehirde 844 mağazayla faaliyet gösterdiğini ve toplam perakende alanının yaklaşık 14,1 milyon feet kare olduğunu kaydetti. İlk yarıda kıyafet gelirlerin yüzde 44,1'ini oluştururken, tüketici tabanı yaklaşık 181 milyon olarak açıklandı.

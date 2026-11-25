@@ -29,7 +29,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 - **Çin'in Brezilya Çimento Girişimi:** Huaxin Building Materials, Brezilya'nın ikinci büyük çimento üreticisi CSN Cimentos'un yüzde 99,99 hissesini 1,64 milyar ABD doları karşılığında satın almak üzere anlaşmaya vardı. Bu işlem, Çinli bir şirketin Brezilya çimento pazarına ilk girişi olma özelliğini taşıyor.
 - **Hindistan Borsasında Muhurat İşlemleri:** Hindistan borsasında gerçekleştirilen özel Muhurat işlem seansında Sensex endeksi 81.380 puanın üzerine çıkarak 350 puan yükseldi, Nifty endeksi ise 25.100 puanı aştı. Her iki endeks de yedi günlük yükseliş serisini sürdürdü.
-- **Hindistan'a Yabancı Yatırım Girişi:** Yabancı portföy yatırımcıları, kasım ayında Hindistan borsasına 45.970 crore rupi tutarında giriş yaptı. Bu yatırım akışı, Nifty 50 endeksinin haftalık bazda yüzde 8,6 oranında değer kazanmasına katkı sağladı.
+- **Hindistan'a Yabancı Yatırım Girişi:** Yabancı portföy yatırımcıları, kasım ayında Hindistan borsasına 459,7 milyar rupi tutarında giriş yaptı. Bu yatırım akışı, Nifty 50 endeksinin haftalık bazda yüzde 8,6 oranında değer kazanmasına katkı sağladı.
 
 ## Küresel
 

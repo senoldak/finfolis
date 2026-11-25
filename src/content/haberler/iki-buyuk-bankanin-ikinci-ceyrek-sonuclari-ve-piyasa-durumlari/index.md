@@ -21,7 +21,7 @@ sirada:
   olay: "Şirket bilançolarının son açıklama dönemi ve piyasa değerlendirmeleri"
 why_matters: "Hindistan'ın en büyük iki özel bankasının finansal performansı ve büyüme farkları, ülkedeki bankacılık sektörünün genel durumu ve yatırımcı eğilimleri açısından önem taşıyor."
 key_points:
-  - "ICICI Bank kârını yüzde 20 artırarak 14.800 crore rupiye ulaştırdı."
+  - "ICICI Bank kârını yüzde 20 artırarak 148 milyar rupiye ulaştırdı."
   - "HDFC Bank hisseleri 2026 yılında yüzde 28 oranında değer kaybetti."
   - "HDFC Bank'ın net kârı yüzde 5 arttı."
 cover: kapak.png
@@ -31,7 +31,7 @@ coverSitede: false
 
 Hindistan'ın iki büyük özel sektör bankası olan ICICI Bank ve HDFC Bank, piyasalarda farklı performanslar sergiliyor. ICICI Bank, 2026 yılında yüzde 3,5 oranında getiri sağlarken, HDFC Bank yüzde 28 oranında düşüş yaşadı. İkinci çeyrek sonuçlarına göre ICICI Bank, kredi büyümesi, mevduat, kârlılık ve getirilerde daha güçlü bir performans ortaya koydu.
 
-ICICI Bank'ın ikinci çeyrek kârı yüzde 20 artarak 14.800 crore rupiye ulaştı. Bankanın kredileri yüzde 30, mevduatları ise yüzde 27 oranında arttı. HDFC Bank'ın kârı ise yüzde 5 arttı. HDFC Bank'ın kredi büyümesi yüzde 16,4 olarak gerçekleşirken, mevduatları yüzde 18,8 oranında arttı.
+ICICI Bank'ın ikinci çeyrek kârı yüzde 20 artarak 148 milyar rupiye ulaştı. Bankanın kredileri yüzde 30, mevduatları ise yüzde 27 oranında arttı. HDFC Bank'ın kârı ise yüzde 5 arttı. HDFC Bank'ın kredi büyümesi yüzde 16,4 olarak gerçekleşirken, mevduatları yüzde 18,8 oranında arttı.
 
 ICICI Bank ve HDFC Bank ikinci çeyrekte kârlarını artırdı.
 

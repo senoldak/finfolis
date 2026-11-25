@@ -26,10 +26,10 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## Asya
 
-- **Hindistan Birincil Piyasası:** Reliance Jio Platforms'un 30.213 crore rupi değerindeki halka arzı ve Paras Healthcare'in 1.450 crore rupi tutarındaki ihracı 21 Ekim 2026 tarihinde açılıyor.
-- **Değerli Firmaların Değeri:** En değerli on firmadan dokuzunun piyasa değeri geçen hafta 3,65 lakh crore rupi arttı. Bu artışta TCS, Bharti Airtel ve Infosys gibi büyük firmalar öncülük etti.
-- **YES Bank'ın Kârı:** YES Bank'ın ikinci çeyrek net kârı, artan gelirlerin etkisiyle yüzde 65 oranında artarak 1.080 crore rupiye yükseldi. Ancak Yüksek Mahkeme'nin AT1 tahvillerine ilişkin kararı, bankaya 5.217 crore rupi tutarında vergi sonrası risk getirebilir.
-- **IDBI Bank'ın Kârı:** IDBI Bank'ın eylül çeyreğindeki net kârı, faiz dışı gelirlerdeki düşüş nedeniyle yüzde 39 oranında azalarak 2.205 crore rupiye geriledi. Buna karşın net faiz geliri yıllık bazda yüzde 29 artış gösterdi.
+- **Hindistan Birincil Piyasası:** Reliance Jio Platforms'un 302,13 milyar rupi değerindeki halka arzı ve Paras Healthcare'in 14,5 milyar rupi tutarındaki ihracı 21 Ekim 2026 tarihinde açılıyor.
+- **Değerli Firmaların Değeri:** En değerli on firmadan dokuzunun piyasa değeri geçen hafta 3,65 trilyon rupi arttı. Bu artışta TCS, Bharti Airtel ve Infosys gibi büyük firmalar öncülük etti.
+- **YES Bank'ın Kârı:** YES Bank'ın ikinci çeyrek net kârı, artan gelirlerin etkisiyle yüzde 65 oranında artarak 10,8 milyar rupiye yükseldi. Ancak Yüksek Mahkeme'nin AT1 tahvillerine ilişkin kararı, bankaya 52,17 milyar rupi tutarında vergi sonrası risk getirebilir.
+- **IDBI Bank'ın Kârı:** IDBI Bank'ın eylül çeyreğindeki net kârı, faiz dışı gelirlerdeki düşüş nedeniyle yüzde 39 oranında azalarak 22,05 milyar rupiye geriledi. Buna karşın net faiz geliri yıllık bazda yüzde 29 artış gösterdi.
 - **Borsa Endekslerinin Seyri:** Sensex ve Nifty endeksleri, teknoloji hisselerinin öncülüğünde cuma günü üst üste ikinci seansında da kazançlarını artırdı. Otomotiv, metal ve kamu bankacılığı hisselerinde de alımlar görüldü.
 
 ## Küresel

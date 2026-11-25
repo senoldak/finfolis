@@ -1,6 +1,6 @@
 ---
 title: "Subros hisseleri Maruti Suzuki siparişinin ardından yüzde 10 yükseldi"
-description: "Subros hisseleri, Maruti Suzuki'den alınan 1.225 crore rupi değerindeki siparişin ardından yüzde 10 oranında artış gösterdi. Şirket ayrıca Noida'da yeni bir inovasyon merkezi kurdu."
+description: "Subros hisseleri, Maruti Suzuki'den alınan 12,25 milyar rupi değerindeki siparişin ardından yüzde 10 oranında artış gösterdi. Şirket ayrıca Noida'da yeni bir inovasyon merkezi kurdu."
 date: 2026-10-28T04:26:04.000Z
 category: "piyasalar"
 tur: "haber"
@@ -11,7 +11,7 @@ rakamlar:
   - etiket: "Hisse Artışı"
     deger: "yüzde 10"
   - etiket: "Sipariş Değeri"
-    deger: "1.225 crore rupi"
+    deger: "12,25 milyar rupi"
   - etiket: "Açılış Fiyatı"
     deger: "642,10 rupi"
   - etiket: "En Yüksek Fiyat"
@@ -22,14 +22,14 @@ sirada:
 why_matters: "Bu gelişme, büyük bir otomotiv üreticisinden alınan yüksek değerdeki siparişin şirket faaliyetlerine ve hisse hareketlerine yansımasını göstermesi açısından takip ediliyor."
 key_points:
   - "Subros hisseleri Maruti Suzuki siparişi sonrası yüzde 10 yükseldi"
-  - "Siparişin toplam değeri yaklaşık 1.225 crore rupi"
+  - "Siparişin toplam değeri yaklaşık 12,25 milyar rupi"
   - "Yönetim kurulu toplantısı 3 Kasım 2026 tarihinde yapılacak"
 cover: kapak.png
 coverAlt: "Hisse Artışı %10"
 coverSitede: false
 ---
 
-Subros hisseleri, şirketin YM3 ve YU0 modelleri için HVAC montaj parçaları tedarik etmek üzere Maruti Suzuki'den yaklaşık 1.225 crore rupi değerinde yeni bir iş ödülü aldığını duyurmasının ardından çarşamba günü yüzde 10 oranında yükseldi. Söz konusu işin değeri, modellerin yaklaşık yedi yıllık toplam yaşam döngüsü boyunca yayılacak. Şirket, bu ödülün batı bölgesindeki varlığını güçlendireceğini ve büyümesini destekleyeceğini, ayrıca Maruti Suzuki ile uzun süreli ilişkisini pekiştireceğini bildirdi. Şirket; binek araçlar, otobüsler, kamyonlar ve demir yolları gibi çeşitli segmentlerde faaliyet gösteriyor.
+Subros hisseleri, şirketin YM3 ve YU0 modelleri için HVAC montaj parçaları tedarik etmek üzere Maruti Suzuki'den yaklaşık 12,25 milyar rupi değerinde yeni bir iş ödülü aldığını duyurmasının ardından çarşamba günü yüzde 10 oranında yükseldi. Söz konusu işin değeri, modellerin yaklaşık yedi yıllık toplam yaşam döngüsü boyunca yayılacak. Şirket, bu ödülün batı bölgesindeki varlığını güçlendireceğini ve büyümesini destekleyeceğini, ayrıca Maruti Suzuki ile uzun süreli ilişkisini pekiştireceğini bildirdi. Şirket; binek araçlar, otobüsler, kamyonlar ve demir yolları gibi çeşitli segmentlerde faaliyet gösteriyor.
 
 Bunun yanı sıra Subros, mevcut araştırma ve geliştirme merkezinin bir uzantısı olarak Noida Sector 136'da Subros Advanced Technologies and Innovation Centre tesisini kurdu. Bu merkez, şirketin teknolojik yeteneklerini güçlendirmeyi ve yenilik hedeflerini desteklemeyi amaçlıyor. Diğer taraftan, SAHI Araştırma Başkanı Gaurav Arora, hissenin 568 ile 570 rupi bölgesinde destek gördüğünü, ancak mevcut hareketin onaylanmış bir trend dönüşünden ziyade bir geri çekilme gibi göründüğünü belirtti. Arora, 700 ve 750 rupi seviyelerinin yukarı yönlü hareketlerde izlenmesi gereken direnç seviyeleri olduğunu kaydetti.
 

@@ -30,7 +30,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 - **BSE Sensex ve Nifty Hareketi:** BSE Sensex 75.692 puandan, Nifty50 ise 23.440,80 seviyesinden günü tamamlarken piyasalarda artış görüldü.
 - **Cin Merkez Bankasi Varlik Takasi:** Çin merkez bankası, yerel hisse senedi piyasasını desteklemek amacıyla yaklaşık 15 milyar dolar büyüklüğünde bir takas kolaylığı programı başlatacağını açıkladı.
 - **Oracle Finansman Plani:** Oracle, tahvil ve hisse senedi satışları yoluyla 20 milyar dolar finansman sağlamayı planlıyor.
-- **Engineers India Hisse Artisi:** Engineers India hisseleri, eylül çeyreği net kârının çeyreklik bazda yüzde 66 artarak 180 crore rupiye yükselmesinin ardından yüzde 15 artış kaydetti.
+- **Engineers India Hisse Artisi:** Engineers India hisseleri, eylül çeyreği net kârının çeyreklik bazda yüzde 66 artarak 1,8 milyar rupiye yükselmesinin ardından yüzde 15 artış kaydetti.
 
 ## Küresel
 

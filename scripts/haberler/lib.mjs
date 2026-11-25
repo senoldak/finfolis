@@ -5,6 +5,7 @@ import { geminiCagir } from './istemci.mjs';
 import { kapakCiz } from '../kapak/kapak.mjs';
 import { kategoriDuzelt } from './kategori-duzelt.mjs';
 import { cumleDuzeni } from './baslik-duzeni.mjs';
+import { hintBirimleriniCevir } from './hint-birimleri.mjs';
 
 export const USER_AGENT = 'finfolis-haber-botu (+https://finfolis.com)';
 
@@ -107,8 +108,20 @@ export function baslikBuyut(baslik) {
 // YAML'da güvenli çift tırnaklı metin (JSON dizgesi geçerli YAML'dır).
 const y = (s) => JSON.stringify(String(s));
 
+// Hint sayı birimleri (crore, lakh) okura görünen her alanda Türkçe büyüklüğe çevrilir (bkz. hint-birimleri.mjs).
+const ALANLAR = ['baslik', 'spot', 'govde', 'why_matters', 'kapakAlt'];
+export function hintBirimleriYazida(yazi) {
+  const c = (s) => (typeof s === 'string' ? hintBirimleriniCevir(s).metin : s);
+  const derin = (v) => (v == null ? v : JSON.parse(hintBirimleriniCevir(JSON.stringify(v)).metin));
+  const yeni = { ...yazi };
+  for (const a of ALANLAR) if (a in yeni) yeni[a] = c(yeni[a]);
+  for (const a of ['rakamlar', 'key_points', 'tablo', 'grafik', 'sirada']) if (yeni[a]) yeni[a] = derin(yeni[a]);
+  return yeni;
+}
+
 // Haberi src/content/haberler/<slug>/index.md olarak yazar, slug'ı döner.
 export async function yaziYaz(rot, yazi) {
+  yazi = hintBirimleriYazida(yazi);
   const taban = path.join(rot, 'src/content/haberler');
   // "Her Kelimesi Büyük" başlık cümle düzenine iner; özel adlar metinden okunur (bkz. baslik-duzeni.mjs).
   const baslik = cumleDuzeni(baslikBuyut(yazi.baslik), `${yazi.spot ?? ''}\n${yazi.govde ?? ''}`);

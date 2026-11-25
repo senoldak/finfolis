@@ -15,7 +15,7 @@ rakamlar:
   - etiket: "FAVÖK Artışı"
     deger: "yüzde 8"
   - etiket: "FAVÖK Değeri"
-    deger: "4.090 crore rupi"
+    deger: "40,9 milyar rupi"
 sirada:
   tarih: "29 Ekim 2026"
   olay: "Nomura raporunun yayımlanması"
@@ -23,7 +23,7 @@ why_matters: "Artan hammadde maliyetlerinin şirket marjlarını baskılaması, 
 key_points:
   - "Gelir büyümesi 14 çeyreğin en yüksek seviyesi olan yüzde 14,8'e ulaştı."
   - "Konsolide brüt marj yıllık bazda 397 baz puan düşerek yüzde 47,6 oldu."
-  - "FAVÖK yüzde 8 artışla 4.090 crore rupiye yükseldi."
+  - "FAVÖK yüzde 8 artışla 40,9 milyar rupiye yükseldi."
 cover: kapak.png
 coverAlt: "Brüt Marj %47,6"
 coverSitede: false
@@ -31,7 +31,7 @@ coverSitede: false
 
 Hindustan Unilever Ltd (HUL) şirketinin eylül ayında sona eren üç aylık dönemde elde ettiği gelir büyümesi yatırımcılar arasında büyük bir heyecan yaratmadı. Artan hammadde fiyatları şirketin marjlarının çok çeyrekli düşük seviyelere gerilemesine neden oldu. Batı Asya savaşının tetiklediği yüksek hammadde fiyatları konsolide brüt marjının yıllık bazda 397 baz puan ve çeyreksel bazda 195 baz puan düşerek yüzde 47,6 seviyesine gerilemesine yol açtı.
 
-Hızlı tüketim malları devinin toplam hammadde maliyetleri yıllık bazda yüzde 24 artış gösterdi. Bu oran 14 çeyreğin en yüksek seviyesi olan yüzde 14,8'lik faaliyet geliri büyümesinin oldukça üzerinde gerçekleşti. Karlılığı korumak amacıyla şirket fiyatlama adımları attı ve operasyonel kaldıraç ile reklam ve promosyon giderlerinde yüzde 9 düşüş sağladı. Bu önlemler FAVÖK marjındaki düşüşün yıllık bazda 134 baz puanla yüzde 22,4 seviyesinde sınırlı kalmasına yardımcı oldu. Şirketin FAVÖK değeri ise yüzde 8 artışla 4.090 crore rupiye ulaştı.
+Hızlı tüketim malları devinin toplam hammadde maliyetleri yıllık bazda yüzde 24 artış gösterdi. Bu oran 14 çeyreğin en yüksek seviyesi olan yüzde 14,8'lik faaliyet geliri büyümesinin oldukça üzerinde gerçekleşti. Karlılığı korumak amacıyla şirket fiyatlama adımları attı ve operasyonel kaldıraç ile reklam ve promosyon giderlerinde yüzde 9 düşüş sağladı. Bu önlemler FAVÖK marjındaki düşüşün yıllık bazda 134 baz puanla yüzde 22,4 seviyesinde sınırlı kalmasına yardımcı oldu. Şirketin FAVÖK değeri ise yüzde 8 artışla 40,9 milyar rupiye ulaştı.
 
 Şirket kısa vadede emtia enflasyonunun devam etmesini beklerken orta vadede konsolide FAVÖK marjı için yüzde 22 ile yüzde 24 arasında bir öngörüde bulundu. HUL, portföy ve kanal dönüşümünün etkisiyle FY27 talep görünümünün FY26'dan daha iyi olmasını bekliyor. Q2FY27 döneminde fiyatlama büyümesi yüzde 8 civarında gerçekleşirken, temel hacim büyümesi yüzde 7 oldu.
 

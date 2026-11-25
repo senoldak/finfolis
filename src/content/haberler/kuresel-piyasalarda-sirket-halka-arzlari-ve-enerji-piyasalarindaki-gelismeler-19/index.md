@@ -15,7 +15,7 @@ rakamlar:
   - etiket: "Veri merkezi karbon emisyonu artış tahmini"
     deger: "yüzde 70"
   - etiket: "Hindistan kamu bankaları toplam iş hacmi"
-    deger: "300 lakh crore rupi"
+    deger: "300 trilyon rupi"
 sirada:
   tarih: "Ocak 2027"
   olay: "Ofgem enerji fiyat tavanının üç aylık dönem için yeniden belirlenmesi."

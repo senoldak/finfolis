@@ -11,7 +11,7 @@ rakamlar:
   - etiket: "Nifty 50 Haftalık Artış"
     deger: "yüzde 2,4"
   - etiket: "Jio Platforms Halka Arzı"
-    deger: "30.213 crore"
+    deger: "302,13 milyar"
   - etiket: "Kaliforniya Servet Vergisi"
     deger: "yüzde 5"
   - etiket: "Bütçe Tamponu Küçülme Beklentisi"

@@ -33,7 +33,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 - **Banka İkinci Çeyrek Sonuçları:** ICICI Bank, Axis Bank ve Yes Bank ikinci çeyrekte güçlü kar artışı kaydederken, HDFC Bank'ın karı daha mütevazı bir artış gösterdi. IDBI Bank'ın karı ise önceki yılın çeyreğindeki tek seferlik kazanç nedeniyle yüzde 39 düştü.
 - **Hint Piyasalarında Yükseliş:** Hint hisse senetleri bu hafta, BT hisseleri ve yurt içi kurumsal alımların desteğiyle yüzde 2,77 oranında yükseldi. SENSEX endeksi Cuma günü 413,66 puan tırmandı.
-- **Bankaların Kar Açıklamaları:** HDFC Bank, ICICI Bank, Axis Bank, IDBI Bank ve Central Bank of India kar artışı açıklarken, YES Bank AT-1 tahvil kararına dikkat çekti. HDFC Bank'ın net karı yüzde 5 artışla 19.510 crore rupiye ulaştı.
+- **Bankaların Kar Açıklamaları:** HDFC Bank, ICICI Bank, Axis Bank, IDBI Bank ve Central Bank of India kar artışı açıklarken, YES Bank AT-1 tahvil kararına dikkat çekti. HDFC Bank'ın net karı yüzde 5 artışla 195,1 milyar rupiye ulaştı.
 
 ## Küresel
 

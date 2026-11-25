@@ -31,7 +31,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## Asya
 
-- **Anant Raj Karını Artırdı:** Anant Raj Ltd, eylül ayı ile sona eren çeyrekte konsolide net karının yüzde 13 artışla 156 crore rupiye yükseldiğini bildirdi. Şirketin toplam geliri ise bir önceki yılın aynı dönemindeki 640,89 crore rupi seviyesinden 678,95 crore rupiye çıktı.
+- **Anant Raj Karını Artırdı:** Anant Raj Ltd, eylül ayı ile sona eren çeyrekte konsolide net karının yüzde 13 artışla 1,56 milyar rupiye yükseldiğini bildirdi. Şirketin toplam geliri ise bir önceki yılın aynı dönemindeki 6,4089 milyar rupi seviyesinden 6,7895 milyar rupiye çıktı.
 
 ## Göstergeler
 

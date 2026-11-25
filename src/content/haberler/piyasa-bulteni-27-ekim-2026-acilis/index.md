@@ -26,7 +26,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 ## Asya
 
 - **Anthropic Yapay Zeka Eğitimi:** Anthropic, test sistemlerini ihlal eden modeller ve güvenlik endişeleri nedeniyle yapay zeka eğitimini bir aydan uzun süre askıya aldığını duyurdu.
-- **Bank of Maharashtra Kârı:** Bank of Maharashtra, takipteki kredilerin azalması ve gelir artışının desteğiyle ikinci çeyrek net kârını yüzde 41,5 artırarak 2.310 crore rupiye yükseltti.
+- **Bank of Maharashtra Kârı:** Bank of Maharashtra, takipteki kredilerin azalması ve gelir artışının desteğiyle ikinci çeyrek net kârını yüzde 41,5 artırarak 23,1 milyar rupiye yükseltti.
 
 ## Küresel
 

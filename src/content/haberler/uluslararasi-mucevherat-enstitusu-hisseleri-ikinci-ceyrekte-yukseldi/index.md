@@ -15,11 +15,11 @@ rakamlar:
   - etiket: "Gelir Artışı"
     deger: "yüzde 31"
   - etiket: "Eylül Çeyreği Geliri"
-    deger: "398 crore rupi"
+    deger: "3,98 milyar rupi"
 why_matters: "Şirketin finansal sonuçları ve sertifikalandırma hizmetlerindeki büyüme, küresel mücevher ve elmas pazarındaki talep eğilimlerini yansıtıyor."
 key_points:
-  - "Gelir yıllık bazda yüzde 31 artarak 398 crore rupiye ulaştı."
-  - "Net kâr yüzde 43 artışla 185,8 crore rupi oldu."
+  - "Gelir yıllık bazda yüzde 31 artarak 3,98 milyar rupiye ulaştı."
+  - "Net kâr yüzde 43 artışla 1,858 milyar rupi oldu."
   - "Hisseler yüzde 10 üst devre kesiciye ulaştı."
 cover: kapak.png
 coverAlt: "Hisfe Artışı %10"
@@ -28,6 +28,6 @@ coverSitede: false
 
 Uluslararası Mücevherat Enstitüsü hisseleri, eylül çeyreğinde konsolide gelirinin yıllık bazda yüzde 31 artması ve net kârının yüzde 43 yükselmesinin ardından perşembe günkü işlem seansında yüzde 10 ralli yaparak Ulusal Menkul Kıymetler Borsası'nda yüzde 10'luk üst devre kesiciye ulaştı. Şirket, eylül çeyreğinde laboratuvarda üretilen elmaslar, doğal elmaslar, mücevherler ve renkli değerli taşlar genelinde derecelendirme ve sertifikalandırma hizmetlerine yönelik artan taleple birlikte geniş tabanlı bir büyüme kaydetti.
 
-Uluslararası Mücevherat Enstitüsü'nün konsolide faaliyet gelirleri, geçen yılın aynı çeyreğindeki 303,7 crore rupiden 30 Eylül 2026 ile sona eren eylül çeyreğinde 398 crore rupiye yükseldi. Faiz, amortisman ve vergi öncesi kâr yıllık bazda yüzde 39 artışla 244,5 crore rupiye çıktı. Vergi sonrası kâr, 129,8 crore rupiden 185,8 crore rupiye yükselirken, vergi sonrası kâr marjı yüzde 46,7 oldu. FAVÖK marjı ise 340 baz puan genişleyerek yüzde 61,4 oldu. Yılın ilk yarısında ise faaliyet gelirleri yüzde 27 artarak 768,8 crore rupi olarak gerçekleşti.
+Uluslararası Mücevherat Enstitüsü'nün konsolide faaliyet gelirleri, geçen yılın aynı çeyreğindeki 3,037 milyar rupiden 30 Eylül 2026 ile sona eren eylül çeyreğinde 3,98 milyar rupiye yükseldi. Faiz, amortisman ve vergi öncesi kâr yıllık bazda yüzde 39 artışla 2,445 milyar rupiye çıktı. Vergi sonrası kâr, 1,298 milyar rupiden 1,858 milyar rupiye yükselirken, vergi sonrası kâr marjı yüzde 46,7 oldu. FAVÖK marjı ise 340 baz puan genişleyerek yüzde 61,4 oldu. Yılın ilk yarısında ise faaliyet gelirleri yüzde 27 artarak 7,688 milyar rupi olarak gerçekleşti.
 
 Uluslararası Mücevherat Enstitüsü Genel Müdürü ve Yöneticisi Tehmasp Printer, eylül çeyreğinin sağlıklı talep eğilimleri ve güçlü operasyonel uygulama ile geçtiğini belirtti. Printer, doğal elmaslar, laboratuvarda üretilen elmaslar, mücevherler ve renkli değerli taşların sertifikalandırılmasında kategori nötr bir yaklaşım izlediklerini vurgulayarak, laboratuvarda üretilen elmasların daha fazla benimsendiğini, doğal elmaslar ile değerli taşların ise büyüme fırsatları sunmaya devam ettiğini ifade etti. Şirket yöneticisi ayrıca yaklaşan festivaller ve tatil sipariş döngüsüyle birlikte perakendecilerin ve üreticilerin daha güçlü bir talebe hazırlandığını kaydetti.

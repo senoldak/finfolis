@@ -16,10 +16,10 @@ rakamlar:
     deger: "2,1 milyar avro"
   - etiket: "Binance saldırısı"
     deger: "6,3 milyar dolar"
-tablo: {"baslik":"PhysicsWallah Finansal Performans","sutunlar":["Kalem","2025 (crore rupi)","2026 (crore rupi)"],"satirlar":[["Net Kâr","70","143,63"],["Toplam Gelir","1.051,24","1.242,26"]]}
+tablo: {"baslik":"PhysicsWallah Finansal Performans","sutunlar":["Kalem","2025 (milyon rupi)","2026 (milyon rupi)"],"satirlar":[["Net Kâr","700","1.436,3"],["Toplam Gelir","10.512,4","12.422,6"]]}
 why_matters: "Şirketlerin kârlılık verileri ve teknoloji sektöründeki regülasyon kaynaklı anlaşma iptalleri, piyasalardaki yatırımcı eğilimlerini ve risk algısını doğrudan etkiliyor."
 key_points:
-  - "PhysicsWallah net kârı 143,63 crore rupiye yükseldi."
+  - "PhysicsWallah net kârı 1,4363 milyar rupiye yükseldi."
   - "Oracle, 7 milyar dolarlık çip anlaşmasını iptal etti."
   - "Binance saldırısı sonrası 1,68 milyar dolarlık tasfiye gerçekleşti."
 cover: kapak.png
@@ -27,7 +27,7 @@ coverAlt: "Endonezya GSYH büyümesi %5,47"
 coverSitede: false
 ---
 
-PhysicsWallah hisseleri, 5 Kasım 2026 tarihinde şirketin ikinci çeyrek kârını iki katından fazla artırmasıyla yüzde 10 değer kazandı. Şirket, 30 Eylül 2026 tarihinde sona eren çeyrekte 143,63 crore rupi net kâr açıkladı; geçen yılın aynı döneminde bu rakam 70 crore rupi seviyesindeydi. Konsolide gelirler ise yıllık bazda yüzde 18 artışla 1.242,26 crore rupiye yükseldi. Şirketin çevrim içi operasyonlarından elde ettiği gelir yüzde 26,4 artarak 694 crore rupiye ulaşırken, çevrim dışı operasyonların geliri yüzde 9 artışla 541 crore rupi olarak kaydedildi.
+PhysicsWallah hisseleri, 5 Kasım 2026 tarihinde şirketin ikinci çeyrek kârını iki katından fazla artırmasıyla yüzde 10 değer kazandı. Şirket, 30 Eylül 2026 tarihinde sona eren çeyrekte 1,4363 milyar rupi net kâr açıkladı; geçen yılın aynı döneminde bu rakam 700 milyon rupi seviyesindeydi. Konsolide gelirler ise yıllık bazda yüzde 18 artışla 12,4226 milyar rupiye yükseldi. Şirketin çevrim içi operasyonlarından elde ettiği gelir yüzde 26,4 artarak 6,94 milyar rupiye ulaşırken, çevrim dışı operasyonların geliri yüzde 9 artışla 5,41 milyar rupi olarak kaydedildi.
 
 Oracle, Tencent Holdings ile yaptığı 7 milyar dolarlık çip kiralama anlaşmasını iptal etti. Beş yıllık anlaşma 100.000 çipi kapsıyordu. ABD'li yetkililerin anlaşmaya ilişkin endişelerini dile getirmesinin ardından bu karar alındı.
 

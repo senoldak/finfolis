@@ -27,7 +27,7 @@ why_matters: "Küresel piyasalardaki yapay zeka odaklı dalgalanmalar ve enerji 
 key_points:
   - "Lycia Therapeutics halka arz fiyatı hisse başına 18,00 dolar olarak belirlendi."
   - "Dow Jones endeksi 652,82 puan düşerek 52.215,16 seviyesine geriledi."
-  - "Jio Platforms halka arzı 4,5 lakh crore rupinin üzerinde teklif çekti."
+  - "Jio Platforms halka arzı 4,5 trilyon rupinin üzerinde teklif çekti."
 cover: kapak.png
 coverAlt: "Küresel · Küresel piyasalarda dalgalı seyir ve enerji fiyatlarındaki hareketlilik · 23 Ekim, kapanış"
 coverSitede: false
@@ -35,6 +35,6 @@ coverSitede: false
 
 Wall Street endeksleri, yapay zeka yatırımlarının maliyetlerine yönelik endişelerle hareketli bir haftayı 23 Ekim 2026 tarihinde düşüşle tamamladı. Dow Jones endeksi 652,82 puan düşerek 52.215,16 seviyesine gerilerken, S&P 500 endeksi 39,75 puan azalarak 7.623,68 puana, Nasdaq Composite ise 53,52 puan düşüşle 25.955,34 seviyesine indi. Man Group baş piyasa stratejisti Kristina Hooper, yapay zeka veri merkezi yatırımlarında öngörülenden daha az harcama yapılabileceğini belirtti. Enerji sektörü ise Orta Doğu'daki enerji arzına ilişkin endişelerle yüzde 2,5 artış kaydederek rekor seviyeye ulaştı. Brent petrol, Nisan ayı sonundan bu yana en yüksek seviyesini gördü.
 
-Diğer taraftan, Mukesh Ambani'nin sahibi olduğu Jio Platforms halka arzı, 4,5 lakh crore rupinin üzerinde teklif çekerek 12 rekor kırdı. Hindistan pazarındaki bu halka arz, 1,25 crore adetten fazla başvuru alarak küresel rekorları geride bıraktı ve 30.213 crore rupi büyüklüğe ulaştı. Safal Capital verilerine göre hisselerin 26 Ekim 2026 tarihinde tahsis edilmesinin beklendiği ifade edildi.
+Diğer taraftan, Mukesh Ambani'nin sahibi olduğu Jio Platforms halka arzı, 4,5 trilyon rupinin üzerinde teklif çekerek 12 rekor kırdı. Hindistan pazarındaki bu halka arz, 12,5 milyon adetten fazla başvuru alarak küresel rekorları geride bıraktı ve 302,13 milyar rupi büyüklüğe ulaştı. Safal Capital verilerine göre hisselerin 26 Ekim 2026 tarihinde tahsis edilmesinin beklendiği ifade edildi.
 
 Lycia Therapeutics, Inc., halka arzı için Menkul Kıymetler ve Borsa Komisyonuna başvurdu. Şirket, her biri 18,00 dolar fiyatla 17.640.000 adet adi hisse senedi sunmayı planlıyor. Halka arzdan elde edilecek brüt gelirlerin 317.520.000 dolar olması beklenen hisselerin Nasdaq Global Select Market borsasında "LYCA" koduyla işlem görmesi onaylandı. Hisselerin teslimatının 26 Ekim 2026 tarihinde veya bu tarihe yakın bir zamanda yapılması bekleniyor.

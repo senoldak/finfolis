@@ -30,4 +30,4 @@ Alman otomobil üreticisi Audi, Amerika Birleşik Devletleri'ndeki ilk fabrikas�
 
 Birleşik Krallık Maliye Bakanı John Healey'nin ilk bütçesinde artan borç ve sosyal yardım maliyetlerini karşılamak için 70 milyar sterlin ek borçlanma planı açıklaması bekleniyor. Şehir uzmanları, bütçede bankalar için sınırlı vergi artışları yer almasının öngörüldüğünü kaydetti. Mali dengeler ve borçlanma maliyetleri ülkenin ekonomik gündeminde öncelikli yer tutuyor.
 
-Kotak Mahindra Bank, eylül çeyreğinde konsolide net kârının yüzde 26 artarak 5.645 crore rupiye ulaştığını bildirdi. Üst yönetici Ashok Vaswani, bankanın net faiz marjlarını korumayı beklediğini ifade etti. Bankanın açıkladığı finansal sonuçlar sektördeki genel karlılık eğilimleri hakkında ipuçları veriyor.
+Kotak Mahindra Bank, eylül çeyreğinde konsolide net kârının yüzde 26 artarak 56,45 milyar rupiye ulaştığını bildirdi. Üst yönetici Ashok Vaswani, bankanın net faiz marjlarını korumayı beklediğini ifade etti. Bankanın açıkladığı finansal sonuçlar sektördeki genel karlılık eğilimleri hakkında ipuçları veriyor.

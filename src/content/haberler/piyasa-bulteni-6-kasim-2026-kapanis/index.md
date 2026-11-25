@@ -33,7 +33,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 ## Asya
 
 - **Anthropic Halka Arz Tartışması:** Yapay zeka girişimi Anthropic'in 1,5 trilyon dolar değerleme üzerinden kasım ayında gerçekleştirmeyi planladığı halka arz, teknoloji hisselerindeki satış dalgası nedeniyle yatırımcıların tepkisiyle karşılaştı. Şirketin değerlemesini yüksek bulan kurumsal yatırımcılar, sürecin ertelenmesi olasılığını gündeme getiriyor.
-- **HDFC Bank Değer Artışı:** HDFC Bank hisseleri son dört işlem gününde yüzde 16 oranında değer kazanarak piyasa değerinde 12 lakh crore rupi eşiğini aştı. Şirket hisselerindeki işlem hacmi bu süreçte keskin bir artış kaydetti.
+- **HDFC Bank Değer Artışı:** HDFC Bank hisseleri son dört işlem gününde yüzde 16 oranında değer kazanarak piyasa değerinde 12 trilyon rupi eşiğini aştı. Şirket hisselerindeki işlem hacmi bu süreçte keskin bir artış kaydetti.
 
 ## Küresel
 

@@ -32,7 +32,7 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 ## Asya
 
 - **Hindistan Halka Arz Planları:** Küresel içecek devlerinden Carlsberg Hindistan'daki olası halka arz için taslak izahname sunarken, Pernod Ricard hazırlıklarını sürdürüyor ve Coca-Cola da şişeleme operasyonları için halka arzı değerlendiriyor.
-- **Akaryakıt Şirketlerinin Kârı:** Hindistan'ın üç büyük kamu akaryakıt perakendecisi temmuz-eylül aylarını kapsayan üçüncü çeyrekte 30.106 crore rupi kombine net kâr açıkladı.
+- **Akaryakıt Şirketlerinin Kârı:** Hindistan'ın üç büyük kamu akaryakıt perakendecisi temmuz-eylül aylarını kapsayan üçüncü çeyrekte 301,06 milyar rupi kombine net kâr açıkladı.
 
 ## Küresel
 

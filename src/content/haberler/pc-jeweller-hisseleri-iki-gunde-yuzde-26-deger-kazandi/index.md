@@ -11,21 +11,21 @@ rakamlar:
   - etiket: "Hisse Artışı"
     deger: "yüzde 26"
   - etiket: "Hisse Miktarı"
-    deger: "5,10 crore"
+    deger: "51 milyon"
   - etiket: "Yatırım Tutarı"
-    deger: "73,60 crore Rupisi"
+    deger: "736 milyon Rupisi"
   - etiket: "Günlük Yüksek"
     deger: "18,21 Rupisi"
 why_matters: "Şirketin borçsuz yapıya kavuşması ve büyük ortaklık işlemleri, hisse değerinde hızlı bir artışa yol açtı."
 key_points:
   - "PC Jeweller hisseleri iki günde yüzde 26 değer kazandı."
-  - "Aditya Kumar Halwasiya 5,10 crore adet hisseyi toplam 73,60 crore Rupisi karşılığında satın aldı."
+  - "Aditya Kumar Halwasiya 51 milyon adet hisseyi toplam 736 milyon Rupisi karşılığında satın aldı."
   - "Şirket, 14 bankaya olan borçlarını kapatarak borçsuz statüye ulaştı."
 cover: kapak.png
 coverAlt: "Hisse Artışı %26"
 coverSitede: false
 ---
 
-PC Jeweller hisseleri, Cupid Limited yöneticisi Aditya Kumar Halwasiya'nın şirketten hisse alımının ardından iki günlük süreçte yüzde 26 oranında değer kazandı. Borsada gerçekleşen işlemler sonucunda hisseler yükseliş eğilimini sürdürürken, bu gelişme piyasalarda dikkat çekti. Şirket, daha önceki dönemde borçlarını yapılandırma sürecine gitmiş ve 14 bankadan oluşan konsorsiyuma olan borçlarını vade tarihinden önce kapatarak borçsuz bir yapıya kavuştuğunu duyurmuştu. New Delhi merkezli kuyumcu, Eylül 2024 tarihinde imzalanan yapılandırma anlaşması öncesinde yaklaşık 3.000 crore Rupisi borç taşıyordu. State Bank of India liderliğindeki 14 bankalık konsorsiyumla Mart 2024 itibarıyla yaklaşık 4.100 crore Rupisi seviyesinde bulunan sorunlu kredi defterinin çözülmesi amaçlanmıştı.
+PC Jeweller hisseleri, Cupid Limited yöneticisi Aditya Kumar Halwasiya'nın şirketten hisse alımının ardından iki günlük süreçte yüzde 26 oranında değer kazandı. Borsada gerçekleşen işlemler sonucunda hisseler yükseliş eğilimini sürdürürken, bu gelişme piyasalarda dikkat çekti. Şirket, daha önceki dönemde borçlarını yapılandırma sürecine gitmiş ve 14 bankadan oluşan konsorsiyuma olan borçlarını vade tarihinden önce kapatarak borçsuz bir yapıya kavuştuğunu duyurmuştu. New Delhi merkezli kuyumcu, Eylül 2024 tarihinde imzalanan yapılandırma anlaşması öncesinde yaklaşık 30 milyar Rupisi borç taşıyordu. State Bank of India liderliğindeki 14 bankalık konsorsiyumla Mart 2024 itibarıyla yaklaşık 41 milyar Rupisi seviyesinde bulunan sorunlu kredi defterinin çözülmesi amaçlanmıştı.
 
-Sektör analistleri, yaklaşan festival ve düğün sezonuyla birlikte kuyumculuk sektöründe talebin canlı kalmasını bekliyor. PC Jeweller hisselerindeki hareketliliği tetikleyen işlemler kapsamında, Cupid Limited Yönetim Kurulu Başkanı Aditya Kumar Halwasiya 5,10 crore adet hisseyi hisse başına 14,43 Rupisi işlem fiyatıyla satın aldı ve toplam yatırım tutarı 73,60 crore Rupisi oldu. Veriler, işlemlerin gerçekleştiği gün hisselerin 18,21 Rupisi seviyesine kadar çıktığını ortaya koydu.
+Sektör analistleri, yaklaşan festival ve düğün sezonuyla birlikte kuyumculuk sektöründe talebin canlı kalmasını bekliyor. PC Jeweller hisselerindeki hareketliliği tetikleyen işlemler kapsamında, Cupid Limited Yönetim Kurulu Başkanı Aditya Kumar Halwasiya 51 milyon adet hisseyi hisse başına 14,43 Rupisi işlem fiyatıyla satın aldı ve toplam yatırım tutarı 736 milyon Rupisi oldu. Veriler, işlemlerin gerçekleştiği gün hisselerin 18,21 Rupisi seviyesine kadar çıktığını ortaya koydu.

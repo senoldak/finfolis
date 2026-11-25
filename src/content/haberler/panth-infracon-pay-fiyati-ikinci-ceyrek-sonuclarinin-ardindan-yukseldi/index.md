@@ -19,8 +19,8 @@ rakamlar:
 why_matters: "Şirketin ikinci çeyrek finansal sonuçları ve piyasadaki pay fiyatı hareketleri, altyapı sektöründeki maliyet ve gelir değişimlerini göstermesi açısından takip ediliyor."
 key_points:
   - "Hisse senedi perşembe günü yüzde 10'un üzerinde değer kazandı"
-  - "Faaliyet gelirleri yıllık bazda yüzde 34,79 azalarak 9.493,97 lak rupiye geriledi"
-  - "Net kâr yüzde 54,61 düşüşle 347,30 lak rupi oldu"
+  - "Faaliyet gelirleri yıllık bazda yüzde 34,79 azalarak 949,397 milyon rupiye geriledi"
+  - "Net kâr yüzde 54,61 düşüşle 34,73 milyon rupi oldu"
 cover: kapak.png
 coverAlt: "Hisse Artışı %10"
 coverSitede: false
@@ -28,8 +28,8 @@ coverSitede: false
 
 Panth Infracon payları, perşembe günkü işlem seansında yüzde 10'un üzerinde bir artış kaydetti. Eski adıyla Panth Infinity olan şirketin hisse senedi BSE'de çarşamba günkü 12,72 rupilik kapanışa kıyasla 13,74 rupiden güne başladı ve gün içinde en yüksek 13,99 rupiyi gördü.
 
-Şirket, 30 Eylül 2026 tarihinde sona eren ikinci çeyreğe ilişkin finansal sonuçlarını 27 Ekim tarihinde kamuoyuyla paylaştı. Açıklanan verilere göre, faaliyet gelirleri geçen yılın aynı dönemine kıyasla yüzde 34,79 azalarak 14.559,30 lak rupiden 9.493,97 lak rupiye indi. Dönem net kârı ise yıllık bazda yüzde 54,61 düşüşle 765,10 lak rupiden 347,30 lak rupiye geriledi.
+Şirket, 30 Eylül 2026 tarihinde sona eren ikinci çeyreğe ilişkin finansal sonuçlarını 27 Ekim tarihinde kamuoyuyla paylaştı. Açıklanan verilere göre, faaliyet gelirleri geçen yılın aynı dönemine kıyasla yüzde 34,79 azalarak 1,45593 milyar rupiden 949,397 milyon rupiye indi. Dönem net kârı ise yıllık bazda yüzde 54,61 düşüşle 76,51 milyon rupiden 34,73 milyon rupiye geriledi.
 
-Maliyet tarafında ise toplam giderler geçen yılın aynı dönemindeki 13.794,29 lak rupiden yüzde 33,69 oranında azalarak 9.146,68 lak rupiye indi. Şirketin solo toplam geliri eylül çeyreğinde 145,59 crore rupiden 94,94 crore rupiye düşerken, vergi öncesi kâr ve dönem kârı da 7,65 crore rupiden 3,47 crore rupiye geriledi. Öte yandan, 30 Eylül 2026 itibarıyla solo varlıklar 212,09 crore rupiye yükseldi; duran borçlar ise 75,20 crore rupiden 63,57 crore rupiye geriledi.
+Maliyet tarafında ise toplam giderler geçen yılın aynı dönemindeki 1,379429 milyar rupiden yüzde 33,69 oranında azalarak 914,668 milyon rupiye indi. Şirketin solo toplam geliri eylül çeyreğinde 1,4559 milyar rupiden 949,4 milyon rupiye düşerken, vergi öncesi kâr ve dönem kârı da 76,5 milyon rupiden 34,7 milyon rupiye geriledi. Öte yandan, 30 Eylül 2026 itibarıyla solo varlıklar 2,1209 milyar rupiye yükseldi; duran borçlar ise 752 milyon rupiden 635,7 milyon rupiye geriledi.
 
 Hisse senedi fiyat performansı incelendiğinde, Panth Infracon paylarının son bir haftada yüzde 21,64 ve son bir ayda yüzde 25,13 oranında kazanç sağladığı görüldü. Son üç aylık dönemde yüzde 34,04 artış kaydeden hissenin altı aylık getirisi yüzde 20,59 seviyesinde gerçekleşti. Uzun vadeli performansta ise yılbaşından bu yana yüzde 60,41 oranında bir artış yaşandı.

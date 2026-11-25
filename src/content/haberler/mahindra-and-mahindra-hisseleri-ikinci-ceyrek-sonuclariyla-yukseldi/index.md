@@ -1,6 +1,6 @@
 ---
 title: "Mahindra and Mahindra hisseleri ikinci çeyrek sonuçlarıyla yükseldi"
-description: "Mahindra and Mahindra, güçlü eylül çeyreği sonuçlarının ardından son iki işlem gününde yüzde 10 değer kazandı. Şirketin tek başına geliri yıllık bazda yüzde 26 artışla 42.477 crore rupiye ulaştı."
+description: "Mahindra and Mahindra, güçlü eylül çeyreği sonuçlarının ardından son iki işlem gününde yüzde 10 değer kazandı. Şirketin tek başına geliri yıllık bazda yüzde 26 artışla 424,77 milyar rupiye ulaştı."
 date: 2026-11-06T06:42:59.000Z
 category: "piyasalar"
 tur: "haber"
@@ -13,20 +13,20 @@ rakamlar:
   - etiket: "Gelir Artışı"
     deger: "yüzde 26"
   - etiket: "Tek Başına Gelir"
-    deger: "42.477 crore rupi"
+    deger: "424,77 milyar rupi"
   - etiket: "SUV Hacim Artışı"
     deger: "yüzde 26"
 why_matters: "Güçlü SUV talebi ve gelir artışı yatırımcıların ilgisini çekerken, emtia enflasyonu ve traktör satışlarındaki zayıflama karlılık üzerindeki baskıları sürdürüyor."
 key_points:
   - "Hisse senedi son iki işlem gününde yüzde 10 değer kazandı"
-  - "Tek başına gelir yıllık bazda yüzde 26 artarak 42.477 crore rupi oldu"
+  - "Tek başına gelir yıllık bazda yüzde 26 artarak 424,77 milyar rupi oldu"
   - "Tek başına brüt marj 360 baz puan daralarak yüzde 20,8'e geriledi"
 cover: kapak.png
 coverAlt: "Hisse Artışı %10"
 coverSitede: false
 ---
 
-Mahindra and Mahindra yatırımcıları karlılık endişelerini ve traktör endüstrisi için FY27 rehberliğindeki aşağı yönlü revizyonu göz ardı etmeyi tercih etti. Yatırımcılar, şirketin güçlü eylül çeyreği (Q2FY27) sonuçlarından ve hafif ticari araç endüstrisi rehberliğinin yüksek tek haneli rakamlardan çift haneli rakamlara yükseltilmesinden memnuniyet duydu. Perşembe günü açıklanan ikinci çeyrek bilançosunun ardından hisse senedi son iki işlem gününde yüzde 10 oranında değer kazandı. Bu dönemde şirketin tek başına geliri yıllık bazda yüzde 26 artarak 42.477 crore rupi oldu ve beklentileri yaklaşık yüzde 8 oranında aştı.
+Mahindra and Mahindra yatırımcıları karlılık endişelerini ve traktör endüstrisi için FY27 rehberliğindeki aşağı yönlü revizyonu göz ardı etmeyi tercih etti. Yatırımcılar, şirketin güçlü eylül çeyreği (Q2FY27) sonuçlarından ve hafif ticari araç endüstrisi rehberliğinin yüksek tek haneli rakamlardan çift haneli rakamlara yükseltilmesinden memnuniyet duydu. Perşembe günü açıklanan ikinci çeyrek bilançosunun ardından hisse senedi son iki işlem gününde yüzde 10 oranında değer kazandı. Bu dönemde şirketin tek başına geliri yıllık bazda yüzde 26 artarak 424,77 milyar rupi oldu ve beklentileri yaklaşık yüzde 8 oranında aştı.
 
 Otomotiv sektörü, binek ve ticari araçlar ile elektrikli araçlar ve mobilite ürünleri üretimiyle büyümenin en büyük katkı sağlayıcısı oldu ve gelirler yüzde 36 arttı. Bu artışta yüzde 26 yükselen SUV hacminin 183.000 adede ulaşması etkili oldu. Şirket, yüzde 24,3 gelir pazar payı ile SUV segmentindeki liderliğini korudu. Buna karşılık, tarım ekipmanları geliri ikinci çeyrekte yüzde 1 artış göstererek zayıf bir performans sergiledi. Bayram takvimi kayması ve Maharashtra ile Karnataka'daki zayıf yağışlar nedeniyle traktör hacimleri yüzde 6 geriledi. Yönetim, yurt içi traktör endüstrisi büyüme beklentisini yüzde 5 büyüme beklentisinden yatay seviyeye revize etti.
 

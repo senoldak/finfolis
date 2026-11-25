@@ -18,15 +18,15 @@ rakamlar:
     deger: "yüzde 0,5"
 why_matters: "Meesho'nun finansal sonuçları, şirketin marjlarını ve kullanıcı tabanını büyütürken karşılaştığı rekabet ve maliyet baskılarının e-ticaret pazarındaki dengeler açısından izlendiğini göstermektedir."
 key_points:
-  - "Faaliyet geliri yıllık yüzde 34 artışla 4.132 crore rupi oldu"
-  - "Net zarar 411 crore rupiden 132 crore rupiye geriledi"
+  - "Faaliyet geliri yıllık yüzde 34 artışla 41,32 milyar rupi oldu"
+  - "Net zarar 4,11 milyar rupiden 1,32 milyar rupiye geriledi"
   - "Yıllık işlem yapan kullanıcı sayısı 284 milyona ulaştı"
 cover: kapak.png
 coverAlt: "Faaliyet Geliri Artışı %34"
 coverSitede: false
 ---
 
-Meesho Ltd şirketinin eylül çeyreği kazançları, operasyonel verimliliğin sonuçlara yansıdığını gösterirken, rekabet ve olası bir talep yavaşlaması yatırımcıları temkinli tutmaya devam etti. Şirketin hisseleri perşembe günü yüzde 0,5 oranında geriledi. Dönem içinde faaliyet geliri yıllık bazda yüzde 34 artışla 4.132 crore rupiye yükselirken, net zarar 411 crore rupiden 132 crore rupiye geriledi. Net mal değeri (NMV) yıllık bazda yüzde 23 artarak 12.911 crore rupiye ulaştı. Büyüme, bu yıl ve geçen yıl Dussehra'dan önceki 90 gün üzerinden ölçüldüğünde yüzde 33 ile daha da yüksek gerçekleşti. Meesho'nun geçen yıl ikinci çeyrekte gerçekleşen büyük satış dönemi bu yıl üçüncü çeyreğe kaydı.
+Meesho Ltd şirketinin eylül çeyreği kazançları, operasyonel verimliliğin sonuçlara yansıdığını gösterirken, rekabet ve olası bir talep yavaşlaması yatırımcıları temkinli tutmaya devam etti. Şirketin hisseleri perşembe günü yüzde 0,5 oranında geriledi. Dönem içinde faaliyet geliri yıllık bazda yüzde 34 artışla 41,32 milyar rupiye yükselirken, net zarar 4,11 milyar rupiden 1,32 milyar rupiye geriledi. Net mal değeri (NMV) yıllık bazda yüzde 23 artarak 129,11 milyar rupiye ulaştı. Büyüme, bu yıl ve geçen yıl Dussehra'dan önceki 90 gün üzerinden ölçüldüğünde yüzde 33 ile daha da yüksek gerçekleşti. Meesho'nun geçen yıl ikinci çeyrekte gerçekleşen büyük satış dönemi bu yıl üçüncü çeyreğe kaydı.
 
 Katkı marjı NMV'nin yüzde 6'sına yükseldi; bu oran birinci çeyrekte yüzde 4,6 ve bir önceki yıl yüzde 3,3 seviyesindeydi. İki temel marj unsurundan biri olan lojistik verimlilikleri ikinci çeyrekteki iyileşmeyi sağladı. Ağ yoğunluğunun artmasıyla teslimatlar yıllık bazda yüzde 15 daha hızlı gerçekleşti. Yapay zeka ise sahte siparişlerin, teslimat yeniden denemelerinin, iptallerin ve iadelerin azalmasına yardımcı oldu. Yönetim, ikinci çeyrek katkı marjının yakın vadede dışa extrapole edilmemesi konusunda uyardı.
 

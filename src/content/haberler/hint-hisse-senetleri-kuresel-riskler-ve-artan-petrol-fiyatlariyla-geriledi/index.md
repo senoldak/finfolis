@@ -13,9 +13,9 @@ rakamlar:
   - etiket: "BSE Sensex Düşüşü"
     deger: "yüzde 2,15"
   - etiket: "Yabancı Yatırımcı Çıkışı"
-    deger: "51.465 crore rupi"
+    deger: "514,65 milyar rupi"
   - etiket: "Yurt İçi Kurumsal Alım"
-    deger: "59.110 crore rupi"
+    deger: "591,1 milyar rupi"
 sirada:
   tarih: "27 Ekim 2026"
   olay: "ABD Merkez Bankası politika toplantısının başlaması"
@@ -23,7 +23,7 @@ why_matters: "Artan enerji maliyetleri ve küresel piyasalardaki risk iştahı, 
 key_points:
   - "Nifty 50 endeksi yüzde 2,36 oranında geriledi"
   - "BSE Sensex endeksi yaklaşık yüzde 2,15 düştü"
-  - "Ekim ayı kümülatif yabancı yatırımcı çıkışları yaklaşık 51.465 crore rupi oldu"
+  - "Ekim ayı kümülatif yabancı yatırımcı çıkışları yaklaşık 514,65 milyar rupi oldu"
 cover: kapak.png
 coverAlt: "Hindistan Nifty 50 son altı ay günlük kapanış grafiği: altı ayda −%5,4, son kapanış 22.600,00"
 ---
@@ -32,4 +32,4 @@ Hint hisse senetleri, artan ham petrol fiyatları, süregelen yabancı yatırım
 
 Orta Doğu'daki gerilimler ve enerji arzında kesinti endişeleriyle Brent ham petrolünün varil fiyatı 117 doların üzerine çıktı. Yüksek ABD Hazine tahvil faizleri, yabancı kurumsal yatırımcı satışları ve Reliance Jio halka arzının getirdiği likidite koşulları piyasa duyarlılığını etkileyen diğer unsurlar arasında yer aldı. ABD Merkez Bankasının (Fed) 27–28 Ekim 2026 tarihlerindeki politika toplantısı, yurt içi sanayi üretimi verileri ve eylül çeyreği bilançoları yatırımcıların odağında bulunuyor.
 
-Ekim ayında kümülatif yabancı yatırımcı çıkışlarının yaklaşık 51.465 crore rupi seviyesinde gerçekleştiğini belirten Enrich Money üst yöneticisi Ponmudi R, yurt içi kurumsal yatırımcıların ise ay başından bu yana yaklaşık 59.110 crore rupi tutarında net alım yaptığını kaydetti. Master Capital Services Ltd baş araştırma görevlisi Ravi Singh, Nifty 50 endeksinin haftayı 200 haftalık üstel hareketli ortalamasına yakın bir seviyede kapattığını ifade etti.
+Ekim ayında kümülatif yabancı yatırımcı çıkışlarının yaklaşık 514,65 milyar rupi seviyesinde gerçekleştiğini belirten Enrich Money üst yöneticisi Ponmudi R, yurt içi kurumsal yatırımcıların ise ay başından bu yana yaklaşık 591,1 milyar rupi tutarında net alım yaptığını kaydetti. Master Capital Services Ltd baş araştırma görevlisi Ravi Singh, Nifty 50 endeksinin haftayı 200 haftalık üstel hareketli ortalamasına yakın bir seviyede kapattığını ifade etti.

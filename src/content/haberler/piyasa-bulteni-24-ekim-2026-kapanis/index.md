@@ -25,8 +25,8 @@ coverAlt: "Piyasa bülteninin öne çıkan başlıkları"
 
 ## Asya
 
-- **Kotak Mahindra Kârı:** Kotak Mahindra Bank, ikinci çeyrekte konsolide vergi sonrası kârının geçen yılın aynı dönemine göre yüzde 26 artarak 5.645 crore rupiye ulaştığını açıkladı.
-- **IndusInd Bank Kârı:** IndusInd Bank, eylül çeyreğinde 1.242 crore rupi konsolide net kâr bildirdi. Bu sonuç, önceki yılki 437 crore rupilik zararın ardından düşen karşılıklar ve artan komisyon gelirleriyle sağlandı.
+- **Kotak Mahindra Kârı:** Kotak Mahindra Bank, ikinci çeyrekte konsolide vergi sonrası kârının geçen yılın aynı dönemine göre yüzde 26 artarak 56,45 milyar rupiye ulaştığını açıkladı.
+- **IndusInd Bank Kârı:** IndusInd Bank, eylül çeyreğinde 12,42 milyar rupi konsolide net kâr bildirdi. Bu sonuç, önceki yılki 4,37 milyar rupilik zararın ardından düşen karşılıklar ve artan komisyon gelirleriyle sağlandı.
 - **Japonya Çekirdek Enflasyonu:** Japonya'da eylül ayında çekirdek enflasyon yüzde 2,1 seviyesine yükselerek dokuz ayda ilk kez Japonya Merkez Bankası'nın yüzde 2 hedefinin üzerine çıktı.
 - **Çin Borsasında Düşüş:** Çin hisse senetleri ayı piyasasına girerken, mayıs ayındaki zirvesinden bu yana toplam 2,4 trilyon dolar kaybetti. Yatırımcılar yapay zeka şirketlerinin kârlılığından ve zayıf iç talepden endişe duyuyor.
 - **Swiggy Hisselerinde Düşüş:** Swiggy hisseleri, hızlı ticaret segmentindeki artan zararların nakit yakma ve kârlılığa ulaşma endişelerini artırmasıyla yüzde 16,4 düşerek 176,70 rupi ile rekor düşük seviyeye geriledi.

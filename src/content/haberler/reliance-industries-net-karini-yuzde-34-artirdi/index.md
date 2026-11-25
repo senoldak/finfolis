@@ -1,6 +1,6 @@
 ---
 title: "Reliance Industries net kârını yüzde 34 artırdı"
-description: "Reliance Industries, Eylül çeyreğinde net kârını 29.550 crore rupiye yükseltti. Artışta petrol-kimya ve dijital segmentler etkili oldu."
+description: "Reliance Industries, Eylül çeyreğinde net kârını 295,5 milyar rupiye yükseltti. Artışta petrol-kimya ve dijital segmentler etkili oldu."
 date: 2026-10-31T00:00:00.000Z
 category: "piyasalar"
 tur: "haber"
@@ -11,7 +11,7 @@ rakamlar:
   - etiket: "Net Kâr Artışı"
     deger: "yüzde 34"
   - etiket: "Eylül Çeyreği Net Kârı"
-    deger: "29.550 crore rupi"
+    deger: "295,5 milyar rupi"
   - etiket: "Gelir Artışı"
     deger: "yüzde 28,5"
   - etiket: "FAVÖK Artışı"
@@ -21,16 +21,16 @@ sirada:
   olay: "Veri açıklamasının yapıldığı tarih"
 why_matters: "Reliance Industries'in rekor kârı, enerji piyasalarındaki dalgalanmaların ve arz sıkıntılarının büyük bir entegre şirketin finansal sonuçlarını nasıl etkilediğini göstermesi açısından önem taşıyor."
 key_points:
-  - "Net kâr yüzde 34 artarak 29.550 crore rupiye ulaştı."
-  - "Gelirler yüzde 28,5 artışla 3,38 lakh crore rupi oldu."
-  - "O2C FAVÖK'ü yüzde 68 artışla 25.203 crore rupiye yükseldi."
+  - "Net kâr yüzde 34 artarak 295,5 milyar rupiye ulaştı."
+  - "Gelirler yüzde 28,5 artışla 3,38 trilyon rupi oldu."
+  - "O2C FAVÖK'ü yüzde 68 artışla 252,03 milyar rupiye yükseldi."
 cover: kapak.png
 coverAlt: "Net Kâr Artışı %34"
 coverSitede: false
 ---
 
-Mukesh Ambani yönetimindeki Reliance Industries Ltd, 31 Ekim 2026 tarihinde açıkladığı verilere göre, eylül çeyreğinde konsolide net kârını geçen yılın aynı dönemine göre yüzde 34 artırarak 29.550 crore rupiye çıkardı. Şirket bir önceki yılın aynı çeyreğinde 22.092 crore rupi net kâr açıklamıştı. Operasyonlardan elde edilen gelir ise yıllık bazda yüzde 28,5 artışla 3,38 lakh crore rupiye ulaştı. Şirket başkanı ve üst yöneticisi Mukesh Ambani, bu dönemde karmaşık bir faaliyet ortamına rağmen güçlü bir performans sergilendiğini ve iç portföyün yapısının dış dalgalanmaların aşılmasına yardımcı olduğunu belirtti.
+Mukesh Ambani yönetimindeki Reliance Industries Ltd, 31 Ekim 2026 tarihinde açıkladığı verilere göre, eylül çeyreğinde konsolide net kârını geçen yılın aynı dönemine göre yüzde 34 artırarak 295,5 milyar rupiye çıkardı. Şirket bir önceki yılın aynı çeyreğinde 220,92 milyar rupi net kâr açıklamıştı. Operasyonlardan elde edilen gelir ise yıllık bazda yüzde 28,5 artışla 3,38 trilyon rupiye ulaştı. Şirket başkanı ve üst yöneticisi Mukesh Ambani, bu dönemde karmaşık bir faaliyet ortamına rağmen güçlü bir performans sergilendiğini ve iç portföyün yapısının dış dalgalanmaların aşılmasına yardımcı olduğunu belirtti.
 
-Büyümenin arkasındaki en büyük etken, petrol-kimya ve dijital işletmelerdeki güçlü performans oldu. O2C bölümünün FAVÖK'ü yüzde 68 artarak 25.203 crore rupiye yükseldi; bu rakam bir önceki yıl aynı dönemde 15.008 crore rupi seviyesindeydi. Mukesh Ambani, enerji piyasalarındaki darlık, iyileşen petrokimya marjları ve sağlam iç talebin bu başarıyı getirdiğini ifade etti. Buna karşın, konsolide FAVÖK kâr marjı geçen yılki yüzde 17,8 seviyesinden yüzde 17,2'ye geriledi, ancak bir önceki çeyrekteki yüzde 15,9 oranının üzerinde gerçekleşti.
+Büyümenin arkasındaki en büyük etken, petrol-kimya ve dijital işletmelerdeki güçlü performans oldu. O2C bölümünün FAVÖK'ü yüzde 68 artarak 252,03 milyar rupiye yükseldi; bu rakam bir önceki yıl aynı dönemde 150,08 milyar rupi seviyesindeydi. Mukesh Ambani, enerji piyasalarındaki darlık, iyileşen petrokimya marjları ve sağlam iç talebin bu başarıyı getirdiğini ifade etti. Buna karşın, konsolide FAVÖK kâr marjı geçen yılki yüzde 17,8 seviyesinden yüzde 17,2'ye geriledi, ancak bir önceki çeyrekteki yüzde 15,9 oranının üzerinde gerçekleşti.
 
-Şirket yönetimi ayrıca dönemsel dalgalanmalara karşı operasyonel disiplin ve entegre iş modelinin avantaj sağladığını bildirdi. Mali işler direktörü Srikanth Venkatachari, enerji piyasalarındaki benzeri görülmemiş darlığın, aşağı yönlü çatlakların ve yakıt marjlarının olumlu katkı sağladığını kaydetti. Bu dönemde dizel arıtma çatlakları yüzde 252 artışla varil başına 65,8 dolara, jet yakıtı çatlakları yüzde 268 artışla varil başına 59,3 dolara yükseldi. Öte yandan şirket kurulu, 15.000 crore rupiye kadar tahvil ihracı planını onayladı.
+Şirket yönetimi ayrıca dönemsel dalgalanmalara karşı operasyonel disiplin ve entegre iş modelinin avantaj sağladığını bildirdi. Mali işler direktörü Srikanth Venkatachari, enerji piyasalarındaki benzeri görülmemiş darlığın, aşağı yönlü çatlakların ve yakıt marjlarının olumlu katkı sağladığını kaydetti. Bu dönemde dizel arıtma çatlakları yüzde 252 artışla varil başına 65,8 dolara, jet yakıtı çatlakları yüzde 268 artışla varil başına 59,3 dolara yükseldi. Öte yandan şirket kurulu, 150 milyar rupiye kadar tahvil ihracı planını onayladı.
