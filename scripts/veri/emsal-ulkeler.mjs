@@ -40,17 +40,17 @@ export const GOSTERGELER = [
   { anahtar: 'reel', ad: 'Reel faiz (puan)', kaynak: 'Hesaplama', uc: 'politika faizi (BIS) − TÜFE (OECD)', olcu: 'aynı satırdaki iki değerin farkı' },
 ];
 
-// OECD, eşleşme bulamayınca 404 döner; bu hata değil, boş sonuçtur. Aralıklı 5xx / 429 yanıtları için 4 kez denenir;
-// OECD'nin istek sınırı kısa bekleme ile açılmadığı için denemeler arası 15/30/45 sn.
+// OECD, eşleşme bulamayınca 404 döner; bu hata değil, boş sonuçtur. Aralıklı 5xx / 429 yanıtları için 3 kez denenir;
+// OECD'nin istek sınırı çok dar: 429'da 60 sn, diğer hatalarda 15/30 sn beklenir; sorgular arası 20 sn.
 async function oecdCek(yol) {
   let son;
-  for (let deneme = 1; deneme <= 4; deneme++) {
+  for (let deneme = 1; deneme <= 3; deneme++) {
     try {
       return csvAyristir(await hentMetin(`${OECD}/${yol}`, { timeout: 120000, headers: KABUL }));
     } catch (e) {
       if (String(e?.message).startsWith('404')) return [];
       son = e;
-      if (deneme < 4) await sleep(15000 * deneme);
+      if (deneme < 3) await sleep(String(e?.message).startsWith('429') ? 60000 : 15000 * deneme);
     }
   }
   throw son;
@@ -60,7 +60,9 @@ export async function emsalUlkelerUret() {
   const bugun = bugunIso();
   const bas = ayOnce(bugun, 18);
   const kei = await oecdCek(`OECD.SDD.STES,DSD_KEI@DF_KEI/.+M+Q.B1GQ_Q+UNEMP+IRLT....?startPeriod=${bas}&dimensionAtObservation=AllDimensions`);
+  await sleep(20000);
   const fiyat2018 = await oecdCek(`OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/.M.N+HICP.CPI.PA._T+_TXCP01_NRG.N.GY?startPeriod=${bas}`);
+  await sleep(20000);
   const fiyat1999 = await oecdCek(`OECD.SDD.TPS,DSD_PRICES@DF_PRICES_ALL/.M.N+HICP.CPI.PA._T+_TXCP01_NRG.N.GY?startPeriod=${bas}`);
   const seriler = await bisFaizSerileri();
   // Türkiye: BIS'in son gözleminden sonraki TCMB kararları finfolis'in TCMB verisinden (dunya-faizleri.mjs ile aynı).

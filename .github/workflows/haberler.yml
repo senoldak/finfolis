@@ -136,7 +136,6 @@ jobs:
           node scripts/veri/abd-tahvil.mjs || true
           node scripts/veri/abd-tahvilleri-uret.mjs --yaz || true
           node scripts/veri/dunya-faizleri.mjs --yaz || true
-          node scripts/veri/emsal-ulkeler.mjs --yaz || true
           node scripts/veri/dunyada-turkiye-kartlari.mjs || true
           node scripts/veri/enflasyon-katkilari.mjs --yaz || true
           node scripts/veri/veri-takvimi.mjs --yaz || true
@@ -159,6 +158,8 @@ jobs:
           node scripts/veri/tahmin.mjs --yaz || true
           # Kur oynaklığı: günlük kurlar (EVDS, FRED, ECB; son 60 gün) ve geçmiş istatistik, saniyeler, Gemini yok.
           node scripts/veri/kur-oynakligi.mjs --yaz || true
+          # Emsal ülkeler en sonda: OECD istek sınırında 429 beklemeleri (en çok ~6 dk) öndeki betikleri geciktirmesin.
+          node scripts/veri/emsal-ulkeler.mjs --yaz || true
 
       # Üretim adımı düşse de (zaman aşımı, motor hatası, beklenmeyen hata) o ana kadar yazılan haberler ve durum dosyası
       # commit edilir (F4); aksi hâlde aynı adaylar sonraki turda Gemini'yi yeniden harcıyordu. İş yine kırmızı biter.
