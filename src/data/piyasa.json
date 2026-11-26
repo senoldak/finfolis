@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-25T23:51:10.627Z",
+  "guncelleme": "2026-11-26T00:35:18.446Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -7,7 +7,7 @@
       "deger": 50.678,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 42.427,
+      "onceki": 42.451,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -17,10 +17,6 @@
       "gecerlilik": "kur",
       "degisim": 0.1,
       "gecmis": [
-        {
-          "tarih": "2026-08-27",
-          "deger": 48.131
-        },
         {
           "tarih": "2026-08-28",
           "deger": 48.245
@@ -289,7 +285,7 @@
       "deger": 55.4163,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 49.0072,
+      "onceki": 49.1459,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -299,10 +295,6 @@
       "gecerlilik": "kur",
       "degisim": -0.2,
       "gecmis": [
-        {
-          "tarih": "2026-08-27",
-          "deger": 56.0483
-        },
         {
           "tarih": "2026-08-28",
           "deger": 56.1718
@@ -571,7 +563,7 @@
       "deger": 31.808,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 27.163,
+      "onceki": 27.139,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -581,10 +573,6 @@
       "gecerlilik": "kur",
       "degisim": -0.1,
       "gecmis": [
-        {
-          "tarih": "2026-08-27",
-          "deger": 30.197
-        },
         {
           "tarih": "2026-08-28",
           "deger": 30.213
@@ -894,10 +882,6 @@
       "degisim": -1.2,
       "gecmis": [
         {
-          "tarih": "2026-08-27",
-          "deger": 14575.5
-        },
-        {
           "tarih": "2026-08-28",
           "deger": 14641.5996
         },
@@ -1150,7 +1134,7 @@
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 3606.2,
+      "deger": 3602.2,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
@@ -1159,12 +1143,8 @@
       },
       "zaman": "2026-11-25T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 1.2,
+      "degisim": 1.1,
       "gecmis": [
-        {
-          "tarih": "2026-08-27",
-          "deger": 4664
-        },
         {
           "tarih": "2026-08-28",
           "deger": 4529.8999
@@ -1415,7 +1395,7 @@
         },
         {
           "tarih": "2026-11-25",
-          "deger": 3606.2
+          "deger": 3602.2
         }
       ],
       "onEk": "$"
