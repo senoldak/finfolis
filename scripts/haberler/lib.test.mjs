@@ -241,3 +241,12 @@ test('yaziYaz tek blok gövdeyi paragraflara böler, sözcüklere dokunmaz', asy
   assert.ok(yazilan.split('\n\n').length >= 2);
   assert.equal(yazilan.replace(/\s+/g, ' '), govde);
 });
+
+test('yaziYaz bozuk why_matters ve key_points alanını yazmaz', async () => {
+  const rot = await mkdtemp(path.join(os.tmpdir(), 'haber-'));
+  const slug = await yaziYaz(rot, { baslik: 'Alan sınaması', spot: 'Özet.', govde: 'Gövde.', kategori: 'piyasalar', tarih: new Date('2026-11-26T08:00:00Z'), tur: 'haber', kaynaklar: [],
+    why_matters: `Pazar payını artırıyor ${'büyüyorla '.repeat(20)}büyüyor.`, key_points: ['Sağlam madde', 'Liste\nKey Points: kaçak'] });
+  const fm = parse((await readFile(path.join(rot, 'src/content/haberler', slug, 'index.md'), 'utf8')).split('---')[1]);
+  assert.equal(fm.why_matters, undefined);
+  assert.deepEqual(fm.key_points, ['Sağlam madde']);
+});

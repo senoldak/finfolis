@@ -18,7 +18,6 @@ rakamlar:
     deger: "109 milyar dolar"
   - etiket: "Anthropic Halka Arz Taahhüdü"
     deger: "26 milyar dolar"
-why_matters: "Japonya'da enflasyon baskısının hanehalkı harcamalarına etkisi takip edilirken, ABD tarafında yapay zekâ yatırımlarının bilançolara ve halka arzlara yansıması piyasaların odağında yer alıyor.|Sıradaki gelişme: 17 Kasım 2026 tarihinde Nvidia mali üçüncü çeyrek sonuçlarını açıklayacak. | Rakamlar: Japonya GSYH (Yıllıklandırılmış) % -0,1 | Özel Tüketim % -0,3 | Sermaye Harcamaları % +1,6 | Nvidia Tahmini Gelir 109 Milyar $ | Önemli Noktalar: Japonya ekonomisi 4 çeyrek sonra ilk kez daralarak yüzde 0,1 geriledi. | Nvidia'nın 3. çeyrekte yüzde 90 kâr büyümesi açıklaması bekleniyor. | Anthropic, Nasdaq halka arzında 1,41 trilyon dolara varan değerleme hedefliyor."
 cover: kapak.png
 coverAlt: "Japonya GSYH Değişimi % -0,1"
 coverSitede: false

@@ -6,7 +6,7 @@ import { kapakCiz } from '../kapak/kapak.mjs';
 import { kategoriDuzelt } from './kategori-duzelt.mjs';
 import { cumleDuzeni } from './baslik-duzeni.mjs';
 import { hintBirimleriniCevir } from './hint-birimleri.mjs';
-import { paragraflaraBol } from './dil-tr.mjs';
+import { ozetAlaniTemizle, paragraflaraBol } from './dil-tr.mjs';
 
 export const USER_AGENT = 'finfolis-haber-botu (+https://finfolis.com)';
 
@@ -167,11 +167,14 @@ export async function yaziYaz(rot, yazi) {
   // Kaynak gizliyse (kaynaklar boş) sayfa kaynak bağlantısı yerine yalnız tarihi gösterir.
   if (yazi.tablo) fm.push(`tablo: ${JSON.stringify(yazi.tablo)}`);
   if (yazi.grafik) fm.push(`grafik: ${JSON.stringify(yazi.grafik)}`);
-  if (yazi.why_matters) fm.push(`why_matters: ${y(yazi.why_matters)}`);
+  // Kısa okur alanları temizlenir; kurtarılamayan alan yazılmaz (ozetAlaniTemizle, 26 Kasım 2026).
+  const why = ozetAlaniTemizle(yazi.why_matters);
+  if (why) fm.push(`why_matters: ${y(why)}`);
   if (yazi.veriSayfasi) fm.push(`veriSayfasi: ${y(yazi.veriSayfasi)}`);
-  if (yazi.key_points?.length) {
+  const maddeler = (Array.isArray(yazi.key_points) ? yazi.key_points : []).map((p) => ozetAlaniTemizle(p, { azami: 300, cumle: false })).filter(Boolean);
+  if (maddeler.length) {
     fm.push('key_points:');
-    for (const p of yazi.key_points) fm.push(`  - ${y(p)}`);
+    for (const p of maddeler) fm.push(`  - ${y(p)}`);
   }
   // Kapak, klasör açılmadan önce çizilir: çizim hata verirse boş klasör kalmaz.
   const png = yazi.kapak ? await kapakPng(yazi.kapak) : null;

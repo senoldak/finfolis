@@ -1,7 +1,7 @@
 // Kaynak: mecmua/site-ortak/dil/dil-tr.test.mjs. Burada düzenleme; kaynağı düzenleyip node site-ortak/kopyala.mjs çalıştır.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { cumlelereAyir, dilDuzeltTr, dilSorunlariTr, kesinSorunlar, paragrafOranlari, paragraflaraBol, sorunListesi } from './dil-tr.mjs';
+import { cumlelereAyir, dilDuzeltTr, dilSorunlariTr, kesinSorunlar, ozetAlaniTemizle, paragrafOranlari, paragraflaraBol, sorunListesi } from './dil-tr.mjs';
 
 const kodlar = (m, a) => dilSorunlariTr(m, a).map((s) => s.kod);
 
@@ -140,4 +140,36 @@ test('paragraflaraBol: paragraflı, kısa ya da markdown gövdeye dokunmaz', () 
   assert.equal(paragraflaraBol(blok(3)), blok(3));
   assert.equal(paragraflaraBol(`## Başlık ${blok(8)}`), `## Başlık ${blok(8)}`);
   assert.equal(paragraflaraBol('kısa metin.'), 'kısa metin.');
+});
+
+test('ozetAlaniTemizle: sağlam alana dokunmaz', () => {
+  const s = 'Anthropic’in kararı, yapay zekâ sağlayıcılarının yeni denetim mekanizmaları kurduğunu gösteriyor.';
+  assert.equal(ozetAlaniTemizle(s), s);
+  assert.equal(ozetAlaniTemizle('Model, Claude Fable 5.2 modelinin önüne geçti.'), 'Model, Claude Fable 5.2 modelinin önüne geçti.');
+  assert.equal(ozetAlaniTemizle('1 milyon dolar tohum yatırım', { azami: 200, cumle: false }), '1 milyon dolar tohum yatırım');
+});
+
+test('ozetAlaniTemizle: cümle sonundaki artığı siler', () => {
+  assert.equal(ozetAlaniTemizle('Denetim mekanizmalarını gösteriyor.0'), 'Denetim mekanizmalarını gösteriyor.');
+  assert.equal(ozetAlaniTemizle('Fiziksel denetimleri işlevlerle eşleştiriyor.ana'), 'Fiziksel denetimleri işlevlerle eşleştiriyor.');
+});
+
+test('ozetAlaniTemizle: yapışık gövde ya da liste varsa alan atılır', () => {
+  assert.equal(ozetAlaniTemizle('Kesintilerin seyahatleri etkileyebileceği vurgulanıyor.\\n\\nKey Points:\\n- Direktör uyardı.'), '');
+  assert.equal(ozetAlaniTemizle('Birinci cümle tamam.\n\nİkinci paragraf gövdeden.'), '');
+});
+
+test('ozetAlaniTemizle: redaksiyon notu, tekrar döngüsü ve bitmeyen cümle atılır', () => {
+  assert.equal(ozetAlaniTemizle('Zemin hazırladığını gösteriyorur [sic -> gösteriyor]. dejital güvenlik.'), '');
+  assert.equal(ozetAlaniTemizle(`Pazar payını artırıyor ${'büyüyorla '.repeat(40)}büyüyor.`), '');
+  assert.equal(ozetAlaniTemizle('Cümle yarıda kesildi ve bitmedi'), '');
+  assert.equal(ozetAlaniTemizle(`${'Uzun bir cümle '.repeat(40)}bitti.`), '');
+  assert.equal(ozetAlaniTemizle(''), '');
+  assert.equal(ozetAlaniTemizle(undefined), '');
+});
+
+test('ozetAlaniTemizle: azamiyi aşan alan atılır (ilk cümle kurtarılmaz)', () => {
+  const ilk = 'Toplanan yatırım şirketin büyümesini hızlandırıyor.';
+  assert.equal(ozetAlaniTemizle(`${ilk} ${'Ek bilgi cümlesi burada duruyor. '.repeat(15)}`, { azami: 200 }), '');
+  assert.equal(ozetAlaniTemizle(ilk, { azami: 200 }), ilk);
 });

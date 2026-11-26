@@ -271,6 +271,33 @@ export function paragraflaraBol(govde, oranlar = null) {
   return par.join('\n\n');
 }
 
+// Modelin özet alanına sızdırdığı redaksiyon notu ve liste başlıkları (26 Kasım 2026'da canlıda bulundu).
+const OZET_ISARET = /\[sic|key points|kilit noktalar|önemli noktalar|aralıksız düzeltme|yeniden düzenlendi:|düzeltilmiş metin|orijinal metin/i;
+
+/**
+ * Kısa okur alanı (why_matters, perspektif, key_points maddesi) yayın öncesi temizlenir; kurtarılamıyorsa '' döner ve
+ * yazıcı alanı hiç yazmaz. 26 Kasım 2026: alanlara redaksiyon notu ("[sic → …]"), yapışmış gövde paragrafları,
+ * "Key Points" listesi, yüzlerce kez tekrarlanan sözcük ve "eşleştiriyor.ana" gibi artık girmişti.
+ * Model raydan çıktığında bozulma ilk cümleye de giriyor ("sağlıyorünlüyor", "tanıyoriru veriyor demeyelim"), o yüzden
+ * kırpıp kurtarmaya çalışılmaz, alan atılır. Sağlam alanlarda why_matters %99 ≤364, key_points maddesi ≤145 karakter.
+ * - Satır sonu (kaçışsız \n dahil), not/liste işareti ya da art arda 3 kez aynı sözcük varsa ''.
+ * - Harften sonra gelen cümle sonuna yapışık 1–3 küçük harf/rakam ("gösteriyor.0", ".ana") silinir; "5.2" korunur.
+ * - azami karakteri aşarsa ''.
+ * - cumle: true ise metin cümle sonu işaretiyle bitmeli, yoksa ''.
+ */
+export function ozetAlaniTemizle(metin, { azami = 400, cumle = true } = {}) {
+  let s = String(metin ?? '').trim();
+  if (!s || /\n|\\n/.test(s) || OZET_ISARET.test(s)) return '';
+  const sozcukler = s.toLocaleLowerCase('tr').split(/\s+/);
+  for (let i = 2; i < sozcukler.length; i++) {
+    if (sozcukler[i] === sozcukler[i - 1] && sozcukler[i] === sozcukler[i - 2]) return '';
+  }
+  s = s.replace(/(\p{L}[.!?…])[\p{Ll}0-9]{1,3}$/u, '$1');
+  if (s.length > azami) return '';
+  if (cumle && !/[.!?…"”')]$/u.test(s)) return '';
+  return s;
+}
+
 /** Eş dildeki gövdenin paragraf sınırları, paragraflaraBol'a oran olarak (tek paragrafsa null). */
 export function paragrafOranlari(govde) {
   const ps = String(govde ?? '').trim().split(/\n\s*\n/).filter((p) => p.trim());
