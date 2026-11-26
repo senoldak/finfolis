@@ -29,10 +29,10 @@ coverSitede: false
 
 Chainalysis tarafından 21 Kasım 2026 tarihinde yayımlanan rapor, ABD'de geliştirilen yeni yapay zekâ modellerinin piyasaya çıkış dönemleri ile Çin bağlantılı cüzdanlardan yapılan ödemeler arasında doğrudan bir ilişki olduğunu ortaya koyuyor. Rapora göre, önemli ABD yapay zekâ modellerinin yayınlanmasından sonraki üç gün içinde, Çin ile bağlantılı olduğundan şüphelenilen cüzdanlardan yapılan stablecoin ödemelerinde baz seviyenin yüzde 55 üzerinde bir artış yaşandı.
 
-### Aracı Hizmetler ve Ödeme Yöntemleri
+### Aracı hizmetler ve ödeme yöntemleri
 Söz konusu ödemeler, ihracat kontrolleri nedeniyle kısıtlanan gelişmiş ABD yapay zekâ modellerine erişmek isteyen kullanıcıların başvurduğu aracı hizmetlere yapılıyor. Chainalysis'in 100 hizmet sağlayıcı üzerinde yaptığı incelemeye göre, bu sağlayıcıların yüzde 40'ı ödeme yöntemi olarak kripto paraları, özellikle de stablecoin'leri kabul ediyor. Raporda, bazı ödeme işlemcilerinin işlemleri üçüncü taraf kanalları üzerinden yönlendirerek izlenmesini zorlaştırdığına dikkat çekiliyor.
 
 Chainalysis, bu durumun ekonomik nedenlerini, proxy erişimi için ödeme yapmanın, benzer modelleri sıfırdan eğitmekten daha düşük maliyetli olmasıyla açıklıyor. Kullanıcılar, ABD modellerine erişerek bu modellerin çıktılarını yerel sistemlere aktarabiliyor ve temelden bir model inşa etmek yerine mevcut çıktıları kullanarak öğrenme sürecini hızlandırabiliyor.
 
-### Stablecoin Ekosisteminin Boyutu
+### Stablecoin ekosisteminin boyutu
 Bu bulgular, Chainalysis'in daha önceki çalışmalarıyla da destekleniyor. Ekim 2026'da yayımlanan bir önceki raporda, Çin'deki kripto ticareti kısıtlamalarına rağmen, Temmuz 2025 ile Haziran 2026 arasında Çin bağlantılı cüzdanlardan 104,1 milyar dolar değerinde stablecoin transferi yapıldığı kaydedilmişti. Bu transferler, toplam 18,1 milyon işlemde gerçekleşti. Geçtiğimiz yıl boyunca Çin'deki kripto ekosisteminin büyüklüğü en az 176 milyar dolar olarak tahmin edilirken, eşten eşe (peer-to-peer) işlemler bu toplamın yüzde 59,1'ini oluşturdu.

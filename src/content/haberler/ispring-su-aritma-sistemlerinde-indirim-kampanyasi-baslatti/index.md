@@ -30,11 +30,11 @@ coverAlt: "ABD · iSpring su arıtma sistemlerinde indirim kampanyası başlatt�
 coverSitede: false
 ---
 
-### İndirim Dönemi ve Kapsamı
+### İndirim dönemi ve kapsamı
 iSpring Water Systems, konut ve ticari su arıtma çözümlerinde Şükran Günü, Kara Cuma ve Siber Pazartesi dönemini kapsayan bir indirim kampanyası başlattı. 9 Kasım 2026 tarihinde başlayan ve 30 Kasım 2026 tarihine kadar devam edecek olan bu kampanya, tatil sezonu hazırlıkları sırasında evlerdeki su kalitesini iyileştirmeyi hedefliyor. Şirket, yemek hazırlığından temizliğe kadar günlük yaşamın birçok alanında kullanılan suyun kalitesinin, tatil dönemi ve sonrasında konforu artırabileceğini belirtiyor.
 
-### Kademeli İndirim ve Fiyat Güvencesi
+### Kademeli indirim ve fiyat güvencesi
 Kampanya kapsamında uygulanan kademeli indirim yapısı, tüketicilerin daha büyük hacimli siparişlerde daha fazla tasarruf etmesini amaçlıyor. Buna göre, 300 dolar ve üzeri siparişlerde 60 dolar, 600 dolar ve üzeri siparişlerde 120 dolar, 1.000 dolar ve üzeri siparişlerde ise 200 dolar indirim sunuluyor. Şirket, bu sistemin tüketicilerin yedek filtre gibi bakım ürünlerini de aynı siparişe dahil ederek hem gelecekteki ihtiyaçlarını karşılamalarına hem de daha yüksek indirim dilimlerine ulaşmalarına yardımcı olduğunu ifade ediyor. Ayrıca, 9 Kasım ile 30 Kasım 2026 tarihleri arasında yapılan alışverişlerde 30 günlük fiyat koruma garantisi uygulanıyor. Bu güvence, satın alınan ürünün 30 gün içinde aynı web sitesinde daha düşük bir fiyata listelenmesi durumunda, aradaki farkın iade edilmesine olanak tanıyor.
 
-### Çeşitli İhtiyaçlara Yönelik Çözümler
+### Çeşitli ihtiyaçlara yönelik çözümler
 iSpring, farklı hane ihtiyaçlarına yönelik geniş bir ürün yelpazesi sunuyor. Mutfak tezgâhı altı ters ozmoz sistemlerinden, tüm evin su kalitesini iyileştiren sistemlere kadar çeşitli seçenekler kampanya kapsamında yer alıyor. Örneğin, tankless ters ozmoz sistemleri içme suyu ihtiyacını karşılarken, tüm ev tipi arıtma sistemleri banyo ve çamaşır gibi alanlarda kullanılan suyun kalitesini artırmayı amaçlıyor. Şirket, tüketicilerin su kalitesi beklentilerine göre, sediment filtreleme, ters ozmoz ve alkali mineralizasyon gibi farklı teknolojileri birleştiren paket çözümler de sunuyor. Bu sistemlerin kurulumu ve bakımı, kullanıcıların ihtiyaçlarına göre planlanabiliyor.

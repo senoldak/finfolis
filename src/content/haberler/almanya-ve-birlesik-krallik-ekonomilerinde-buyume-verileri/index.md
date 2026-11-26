@@ -30,13 +30,13 @@ coverAlt: "Almanya Enflasyon (Ekim) %2,8"
 coverSitede: false
 ---
 
-### Almanya'da Toparlanma Sinyalleri
+### Almanya'da toparlanma sinyalleri
 
 Bundesbank Başkanı Joachim Nagel, Avrupa'nın en büyük ekonomisi olan Almanya'nın beklenenden daha hızlı bir toparlanma sürecine girdiğini açıkladı. Dünyanın üçüncü büyük ekonomisi konumundaki Almanya, son üç yıldır sanayi sektöründeki rekabet gücünün azalması nedeniyle durgunluk yaşıyordu. Ancak Nagel, savunma ve altyapı alanındaki kamu harcamalarının bu toparlanmaya ek bir ivme kazandırdığını belirtti. Haziran ayında Bundesbank tarafından 2026 yılı için yüzde 0,5 olarak tahmin edilen büyüme oranının, güncel veriler ışığında bu oranın iki katından fazla olması bekleniyor.
 
 İmalat sektöründe, özellikle kimya ve elektrikli ekipman üretiminde gözlenen toparlanma, büyümenin ana unsurlarından biri olarak öne çıkıyor. Bununla birlikte Nagel, toparlanmanın henüz geniş tabanlı olmadığını; özel tüketimin zayıf kaldığını ve makine ile ekipman yatırımlarının ikinci çeyrekte gerilediğini vurguladı. Ayrıca, federal istatistik ofisinin verilerine göre Almanya'da enflasyon Ekim ayında yüzde 2,8 seviyesine geriledi. Eylül ayında yüzde 3,3 olan bu oran, verilerin doğrulanmasıyla birlikte düşüş eğilimini teyit etmiş oldu.
 
-### Birleşik Krallık'ta Büyüme Beklentisi
+### Birleşik Krallık'ta büyüme beklentisi
 
 Birleşik Krallık ekonomisinde ise gözler, Ulusal İstatistik Ofisi (ONS) tarafından Perşembe günü açıklanacak olan gayrisafi yurt içi hasıla (GSYH) verilerine çevrildi. Ekonomistler, yapay zeka ve savunma sanayisine yönelik harcamaların etkisiyle, ikinci çeyrekte yüzde 0,5 olan büyümenin üçüncü çeyrekte yüzde 0,7 seviyesine hızlanmasını bekliyor. Uzmanlar, teknoloji ve altyapı yatırımlarının, enerji fiyatları ve borçlanma maliyetlerinin hanehalkı ve işletmeler üzerindeki baskısını dengelemeye yardımcı olduğunu ifade ediyor.
 

@@ -32,12 +32,12 @@ coverSitede: false
 
 Macaristan merkezli petrol ve doğal gaz şirketi MOL, Rusya'dan yapılan petrol ithalatını teknik olarak 2027 yılı sonuna kadar kademeli olarak durdurabileceğini duyurdu. Şirket, bu dönüşüm sürecini desteklemek amacıyla Avrupa Birliği'nden (AB) finansman desteği talep ediyor. MOL, bu adımıyla enerji kaynaklarını çeşitlendirmeyi ve enerji güvenliğini artırmayı hedefliyor.
 
-### Siyasi İstikrarsızlık Uyarısı
+### Siyasi istikrarsızlık uyarısı
 Şirketin üst yöneticisi György Bacsa, Rus petrolüne olan bağımlılığın azaltılmasının enerji maliyetlerini yükseltebileceğini belirtti. Bacsa, bu durumun hem Macaristan hem de Slovakya'da sosyal huzursuzluklara ve siyasi istikrarsızlığa yol açabileceği uyarısında bulundu. Avrupa Komisyonu verilerine göre, Rusya'nın AB petrol ithalatındaki payı 2021 yılında yüzde 27 seviyesindeyken, bu oran yüzde 2'ye geriledi. Ancak Macaristan ve Slovakya, Sovyet döneminden kalma Druzhba boru hattı üzerinden Rus ham petrolü ithal etmeye devam eden az sayıdaki AB ülkesi arasında yer alıyor.
 
 Uluslararası Para Fonu'nun (IMF) 2025 yılındaki bir çalışmasına göre, Rus enerji kaynaklarının tamamen kesilmesi, Macaristan'ın enerji harcamalarını 2030 yılına kadar yaklaşık yüzde 15 oranında artırabilir. Bacsa, mevcut kriz ortamında daha yüksek maliyetli enerjiye geçişin artık marjinal bir konu olmadığını ifade etti.
 
-### Altyapı ve Finansman İhtiyacı
+### Altyapı ve finansman ihtiyacı
 MOL yönetimi, fosil yakıt projelerine yönelik kısıtlamaların, altyapı genişletme çalışmaları için AB fonlarına erişimlerini zorlaştırdığını belirtiyor. Şirket, Orta ve Doğu Avrupa'nın boru hattı altyapısı konusunda Batı Avrupa'nın gerisinde kaldığını savunuyor. Bacsa, gaz, elektrik ve petrol ürünlerinin altyapı bağlantıları için hedeflenmiş bir Avrupa programı ve kaynağına ihtiyaç duyulduğunu dile getirdi.
 
 Şirketin çeşitlendirme stratejisinde Hırvatistan'dan Macaristan'a uzanan Adria boru hattı kritik bir rol oynuyor. MOL, bu hattın kapasite testleri konusunda Hırvatistan'ın devlet boru hattı işletmecisi JANAF ile yaşanan anlaşmazlıkların çözümü için Avrupa Komisyonu'ndan arabuluculuk talep etti. Ayrıca şirket, Trieste'den Almanya'ya uzanan TAL boru hattına bağlanmak ve Ukrayna'daki Brody-Odesa hattının yeniden faaliyete geçmesini sağlamakla da ilgileniyor.

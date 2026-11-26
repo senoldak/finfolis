@@ -34,10 +34,10 @@ EasyJet hissedarları, 11 Kasım 2026 Çarşamba günü gerçekleştirilen topla
 
 Gerçekleştirilen oylamada, kullanılan payların yüzde 97,07 oranında lehte olduğu ve oy veren hissedarların yüzde 83,29'unun anlaşmayı desteklediği açıklandı. Alınan bu sonuç, hava yolu şirketinin özel bir şirkete dönüştürülmesi için gereken eşiğin aşılmasını sağladı. Şirket, satın almanın gelecek yılın ilk çeyreğinin sonundan önce tamamlanmasını hedeflerken, bu adım aynı zamanda hava yolunun 25 yılı aşkın süren Londra borsasındaki işlem görme geçmişini de sonlandırmaya yaklaştırıyor.
 
-### Düzenleyici Kurumların İncelemesi Sürüyor
+### Düzenleyici kurumların incelemesi sürüyor
 
 Satın alma anlaşması, Avrupa Birliği'ndeki düzenleyici kurumların incelemesiyle karşı karşıya bulunuyor. Brüksel'deki yetkililer, yabancı yatırımcıların taşıyıcılar üzerinde fiili kontrol sağlamasını engellemek amacıyla hava yolu sahipliği kurallarına yönelik bir inceleme hazırlığı yürütüyor. Şirket tarafından paylaşılan verilere göre, Apollo daha önce hisse başına 715 pence fiyat teklifinde bulunmuştu.
 
-### Geçmişten Günümüze EasyJet
+### Geçmişten günümüze EasyJet
 
 1995 yılında Sir Stelios Haji-Ioannou tarafından kurulan EasyJet, 22 Kasım 2000 tarihinde Londra Borsası'nda işlem görmeye başlamıştı. Şirket, İngiliz hava yolu British Airways'e düşük maliyetli bir alternatif sunma hedefiyle yola çıkmıştı. Apollo'nun bu satın alma sürecindeki başarısı, rakip yatırım firması Castlelake'in ağustos ayında teklifini geri çekmesinin ardından kesinleşmiş oldu.

@@ -30,14 +30,14 @@ coverAlt: "Yarı yıl vergi öncesi kâr artışı %41"
 coverSitede: false
 ---
 
-### Stratejik İnceleme ve Satış Süreci
+### Stratejik inceleme ve satış süreci
 
 Metro Bank, büyümesini hızlandırmak ve hissedar getirilerini artırmak amacıyla stratejik bir inceleme kapsamında resmi satış sürecini başlattığını 12 Kasım 2026 tarihinde duyurdu. Londra borsasında işlem gören banka, bu süreci yönetmesi için Morgan Stanley ile anlaştı. Banka yönetimi, potansiyel alıcıları şirket için ilgi beyanında bulunmaya davet etti. Ancak kurum, şu an için herhangi bir alıcıyla görüşme halinde olmadığını ve kendisine ulaşan bir devralma teklifi bulunmadığını belirtti.
 
-### Yeniden Yapılandırma ve Kârlılık
+### Yeniden yapılandırma ve kârlılık
 
 Bu karar, bankanın yıllar süren finansal zorlukların ardından gerçekleştirdiği kapsamlı yeniden yapılandırma sürecinin bir sonucu olarak öne çıkıyor. 2023 yılından bu yana ana akım kredilendirme faaliyetlerinden uzaklaşan Metro Bank, stratejisini daha yüksek marjlı ticari ve uzmanlık gerektiren kredi alanlarına kaydırdı. Bu dönüşümün bir parçası olarak, kurumsal krediler, küçük işletme kredileri ve uzman ipoteklerini içeren çekirdek kredi portföyü, yılın ilk yarısında yıllık bazda yüzde 43 artışla 6,2 milyar sterline yükseldi. Banka, Ağustos ayında açıkladığı verilere göre, Haziran ayında sona eren altı aylık dönemde vergi öncesi kârını yüzde 41 artırarak 60,7 milyon sterline ulaştırdı ve tarihinin en kârlı yarı yılını kaydetti.
 
-### Gelecek Hedefleri ve Yönetim
+### Gelecek hedefleri ve yönetim
 
 Banka, fiziksel şube ağını genişletmeye devam ediyor. Sektör genelinde şube kapatma eğilimi sürerken, Metro Bank bu yıl Newcastle, Leeds ve Nottingham'da yeni şubeler için kira sözleşmeleri imzaladı. İngiltere genelinde 78 şubesi bulunan bankada yönetim değişikliği de yaşandı. Yönetim kurulu başkanı Robert Sharpe, altı yıllık görevinin ardından Ekim ayı sonunda ayrıldı. Bu göreve, düzenleyici onayına tabi olmak üzere, geçici olarak Catherine Brown getirildi. Banka yönetimi, mevcut büyüme stratejisini korurken, somut özkaynak kârlılığının 2026 yılının son çeyreğinde yüzde 13'ün, 2027 yılında yüzde 15'in ve 2028 yılında yüzde 18'in üzerinde olacağını öngörüyor. Yönetim kurulu üyeleri, satış sürecini keşfetmenin hissedarlar için değer yaratma fırsatlarını en üst düzeye çıkaracağı görüşünde birleşti.

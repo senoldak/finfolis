@@ -29,10 +29,10 @@ coverSitede: false
 
 Goldman Sachs ve Apollo Global Management, SpaceX'in yapay zekâ çipi ve sunucu donanımı ihtiyaçlarını karşılamak üzere planlanan 40 milyar dolarlık finansman paketi için yatırımcılarla görüşmelere başladı. 5 Kasım 2026 tarihinde yayımlanan bilgilere göre, iki finans kuruluşu bu büyük ölçekli anlaşmanın farklı dilimlerine ortak bulmak amacıyla potansiyel yatırımcılarla temas kurmuş durumda. Süreç kapsamında bazı yatırımcılardan, resmi sendikasyon süreci başlamadan önce 500 milyon dolara kadar pay satın almaları talep ediliyor.
 
-### Finansman Modeli ve Yapısı
+### Finansman modeli ve yapısı
 Söz konusu anlaşma, SpaceX'in yapay zekâ alanındaki faaliyetlerini genişletirken ihtiyaç duyduğu yüksek işlem gücünü finanse etmeyi hedefliyor. Anlaşmanın yapısı, borcun SpaceX'in kendi bilançosunda görünmemesini sağlayacak şekilde kurgulandı. Bu yöntem, şirketin borç yükümlülüklerini doğrudan bilançosuna dahil etmeden büyük ölçekli donanım yatırımları yapmasına olanak tanıyor. Bu tür bir yapı, grafik işlem birimleri (GPU) için bugüne kadar gerçekleştirilen en büyük finansman düzenlemesi olma özelliğini taşıyor.
 
-### Teslimat ve Kiralama Süreci
+### Teslimat ve Kiralama süreci
 Ekim ayında yapılan açıklamaya göre, Apollo Global Management'ın bir iştiraki, yapay zekâ çiplerini ve sunucu donanımlarını satın alarak SpaceX'e kiralayacak. Ekipmanların teslimatının 2027 yılının ilk yarısında gerçekleşmesi bekleniyor. Kiralama süreci ise ekipman teslimatından itibaren beş yılı aşkın bir dönemi kapsayacak. Bu finansman modeli, SpaceX'in artan bilgi işlem ihtiyaçlarını karşılamak üzere tasarlanmış durumda.
 
 ### Kurumsal Yaklaşımlar

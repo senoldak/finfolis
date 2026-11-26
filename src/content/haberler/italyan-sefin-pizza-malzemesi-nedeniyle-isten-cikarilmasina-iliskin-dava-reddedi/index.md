@@ -22,14 +22,14 @@ coverAlt: "Avrupa · İtalyan şefin pizza malzemesi nedeniyle işten çıkarıl
 coverSitede: false
 ---
 
-### Mutfak Kültürü ve Ticari Beklentiler Arasındaki Çatışma
+### Mutfak kültürü ve ticari beklentiler arasındaki çatışma
 
 Avustralya'nın Queensland eyaletinde bulunan La Costa adlı restoranda yaşanan olay, mutfak kültürü ile ticari beklentiler arasındaki çatışmayı gözler önüne serdi. İtalyan şef Davide Tamburella, pizzaya ananas koymayı reddettiği gerekçesiyle 20 Mayıs 2026 tarihinde işten çıkarıldı. Restoran yönetimi, bu kararı performans sorunları kapsamında değerlendirdiğini açıkladı. Tamburella ise pizzaya ananas eklemenin kendi kültürüne bir hakaret olduğunu savunarak, bu talebi daha önce üç kez geri çevirdiğini belirtti.
 
-### Ticari Zorunluluklar ve Vize Süreci
+### Ticari zorunluluklar ve vize süreci
 
 Restoranın yönetici ortağı Elliot Ingram, bu kararın ticari bir zorunluluk olduğunu ifade etti. Ingram, 15.000 doların üzerinde harcama yapan bir müşteri grubunun ham ve ananaslı pizza talep ettiğini, ancak şefin bu talebi yerine getirmeyi reddettiğini açıkladı. Ingram, 17 yıllık sektör tecrübesiyle savaşlarını seçmeyi öğrendiğini belirterek, müşterilerin taleplerini karşılamanın ticari bir gereklilik olduğunu savundu. Bu süreç, Tamburella'nın kalıcı oturum izni almasını sağlayan 186 numaralı vize sponsorluğu sürecini de olumsuz etkiledi. Restoran yönetimi, yasal yükümlülükleri gereği sponsorluğu geri çekmek zorunda kaldı ve bu durum şefin vize sürecine yeniden başlamasına neden oldu.
 
-### Hukuki Süreç ve Restoranın Kapanışı
+### Hukuki süreç ve Restoranın kapanışı
 
 Tamburella, işten çıkarılmasının haksız olduğunu iddia ederek Avustralya İş Komisyonu'na başvurdu. Şef, işten çıkarılmasının, yaşadığı bir iş kazasıyla bağlantılı olduğunu ve elinde kırıklar oluştuğunu öne sürdü. Ancak Komisyon Üyesi Jennifer Hunt, başvurunun yasal sürenin dışında yapıldığını ve istisnai durum kriterlerini karşılamadığını belirterek davanın reddine karar verdi. La Costa restoranı, yüksek işletme maliyetleri nedeniyle Temmuz 2026'da faaliyetlerini durdurdu. Tamburella ise şu anda başka bir İtalyan restoranında çalışmaya devam ediyor.

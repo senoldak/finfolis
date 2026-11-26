@@ -30,7 +30,7 @@ coverAlt: "Pazar payı %6,5"
 coverSitede: false
 ---
 
-### Pazar Payında Artış
+### Pazar payında artış
 
 Kraken borsasının çatı şirketi Payward, eylül ayında küresel kripto spot işlem piyasasındaki payını bir önceki yıla göre artırarak yüzde 6,5 seviyesine yükseltti. Geçen yıl aynı dönemde bu oran yüzde 3,3 seviyesindeydi. Şirket, pazar payındaki bu artışın, platformlarındaki genel işlem hareketliliğinin artmasından ziyade, rakiplerine kıyasla daha büyük bir pay elde etmesinden kaynaklandığını belirtti. 13 Kasım 2026'da yayımlanan finansal sonuçlara göre, bu büyüme, işlem hacimlerindeki genel yavaşlamanın kârlılık üzerindeki baskısına rağmen gerçekleşti.
 
@@ -42,6 +42,6 @@ Payward, son iki yıldır işlem ücretlerine olan bağımlılığı azaltmak am
 
 Şirketin üçüncü çeyrekte gerçekleştirdiği toplam işlem hacmi, geçen yılın aynı dönemine göre yüzde 30 düşüşle 353 milyar dolar seviyesinde gerçekleşti. Düzeltilmiş FAVÖK değeri ise geçen yılın aynı döneminde bildirilen 178,6 milyon dolar seviyesinden 60 milyon dolara geriledi. Toplam platform marjı da yüzde 12 azalarak 487 milyon dolara düştü. Şirket, bu çeyrekte düzeltilmiş gelir yerine, müşterilere ödenen staking ödüllerinin düşüldüğü toplam platform marjı ölçütünü kullanmaya başladı.
 
-### İyileşme Eğilimi ve Halka Arz
+### İyileşme eğilimi ve halka arz
 
 Finansal sonuçlar, yılın ikinci çeyreğine kıyasla bir toparlanma eğilimi gösterdi. Toplam işlem hacmi yüzde 22, toplam platform marjı ise 436 milyon dolardan 487 milyon dolara yükseldi. Düzeltilmiş FAVÖK, ikinci çeyrekteki 23 milyon dolar seviyesinden 60 milyon dolara çıktı. Bu iyileşme sadece işlem hacimlerinden değil, aynı zamanda staking hizmetleri dahil olmak üzere müşterilerin platformda tuttuğu varlıklardan elde edilen marjın yüzde 26 artarak 128 milyon dolara ulaşmasından kaynaklandı. Payward, Kasım 2025'te gizli bir halka arz başvurusunda bulunmuş ancak piyasa koşullarının zayıflaması nedeniyle Mart ayında süreci askıya almıştı. Şirket için olası en erken halka arz dönemi, 2027 yılının ikinci çeyreği olarak değerlendiriliyor.

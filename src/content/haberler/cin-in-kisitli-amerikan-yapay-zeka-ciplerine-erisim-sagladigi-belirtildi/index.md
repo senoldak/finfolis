@@ -28,11 +28,11 @@ coverSitede: false
 
 ABD istihbarat birimleri, Çin'in Washington'ın ihracat kontrol rejimiyle erişimini engellemeye çalıştığı gelişmiş Amerikan yapay zekâ çiplerine ulaştığını teyit etti. İstihbarat değerlendirmelerine göre, bu süreç Çin Devlet Güvenlik Bakanlığı'nın (MSS) koordinasyonunda yürütülen bir kampanya ile gerçekleşti. Bakanlık liderliğinde, Chen Yixin'in yönetiminde yürütülen çalışmaların en az iki yıldır devam ettiği ve kısıtlı Nvidia grafik işlem birimlerinin (GPU) temin edilmesini hedeflediği belirtildi. İstihbarat raporları, bu sürecin basit bir tedarik çabasından ziyade, çip teknolojilerinin kaçak yollarla elde edilmesi ve tedarik zincirlerine yönelik istihbarat toplanmasını kapsayan sistematik bir çalışma olduğunu ortaya koyuyor.
 
-### Teknik İzler ve Kullanım
+### Teknik izler ve kullanım
 Bağımsız analizler, önde gelen Çinli yapay zekâ modellerinde Nvidia'nın Blackwell serisi B200 ve GB200 çiplerine ait donanım izlerinin bulunduğunu gösteriyor. Bu durum, söz konusu çiplerin Çinli teknoloji şirketleri tarafından kullanıldığını kanıtlar nitelikte. Yapılan bir analizde, Çin'deki yapay zekâ modeli eğitim süreçlerinde 7.000 ile 22.000 arasında Nvidia Blackwell GPU'sunun kullanılmış olabileceği tahmin ediliyor. DeepSeek, Moonshot AI ve Ant Group gibi önde gelen şirketlerin modellerinde bu donanım izlerine rastlanması, çabaların münferit sızıntılardan ziyade organize bir yapıya işaret ettiğini düşündürüyor.
 
-### Askeri Tedarik ve Yeni Düzenlemeler
+### Askeri tedarik ve yeni düzenlemeler
 Çin ordusunun da Nvidia A100 ve H100 çiplerine yönelik tedarik girişimleri, 2019 ile 2025 yılları arasında verilen yüzlerce ihale ile kamu kayıtlarına yansımış durumda. Bu gelişmelerin ardından ABD yönetimi, 16 Kasım 2026 tarihinde yeni ihracat kontrol kurallarını devreye aldı. Yeni düzenlemeler, Çinli kuruluşlara hizmet veren denizaşırı veri merkezleri için lisans zorunluluğu getirirken, Singapur ve Malezya gibi aracı ülkeler üzerinden yapılan sevkiyatları da kısıtlıyor. ABD Ticaret Bakanlığı, Singapur merkezli Megaspeed International şirketinin çip tedarik ağlarındaki rolünü ve bu ağların Çin Halk Kurtuluş Ordusu ile olası bağlantılarını incelemeye devam ediyor.
 
-### Siyasi ve Piyasa Yansımaları
+### Siyasi ve piyasa yansımaları
 Bu durum, teknoloji dünyasında ve siyasi arenada yeni tartışmaları beraberinde getirdi. ABD'deki tahmin piyasaları, yaşanan bu gelişmelerin ardından Nvidia CEO'su Jensen Huang'ın Kongre önünde ifade vermesi ihtimalini yakından izliyor. Mevcut veriler, Huang'ın 2026 yılı sonuna kadar Kongre'de ifade verme olasılığının yaklaşık yüzde 59,5 seviyesinde olduğunu gösteriyor.

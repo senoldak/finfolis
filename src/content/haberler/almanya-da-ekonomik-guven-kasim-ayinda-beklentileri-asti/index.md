@@ -29,14 +29,14 @@ coverAlt: "Ekonomik Güven 35,6"
 coverSitede: false
 ---
 
-### Ekonomik Güvende Belirgin Artış
+### Ekonomik güvende belirgin artış
 
 Almanya'da kasım ayına ilişkin ZEW ekonomik güven endeksi açıklandı. 17 Kasım 2026 tarihinde yayımlanan verilere göre, ekonomik güven endeksi bir önceki ay 28,1 seviyesindeyken, kasım ayında 35,6 seviyesine yükseldi. Bu sonuç, 28,8 olan piyasa beklentisinin üzerinde gerçekleşti. Mevcut ekonomik durum endeksi ise -35,9 seviyesinden -35,3 olan beklentiyi de aşarak -33,2 seviyesine ulaştı. Ayrıca, beklenti endeksi 18,5 seviyesinden 26,5 seviyesine çıkarak yatırımcıların ve analistlerin ekonomik görünüme dair iyimserliklerinin arttığını ortaya koydu.
 
-### Sektörel Görünüm ve İyileşme Dinamikleri
+### Sektörel görünüm ve iyileşme dinamikleri
 
 ZEW Başkanı Achim Wambach, Alman ekonomisinin toparlanma yolunda kalmaya devam ettiğini, ancak bu iyileşmenin hızının hâlâ düşük seviyede olduğunu belirtti. Wambach'a göre, imalat siparişlerindeki artış ve petrol fiyatlarındaki düşüşün toparlanmayı desteklemesi bekleniyor. Bununla birlikte, sektörler arasındaki görünüm farklılık gösteriyor. Kimya, ilaç ve elektrikli cihazlar gibi enerji yoğun sektörlerde iyileşme gözlemlenirken, metal üretimi ve inşaat sektöründeki beklentiler zayıf seyretmeye devam ediyor. Özellikle inşaat sektörü, endeksinin negatif bölgeye daha fazla kaymasıyla baskı altında kalmayı sürdürüyor.
 
-### Kamu Harcamaları ve Euro Bölgesi Etkisi
+### Kamu harcamaları ve Euro Bölgesi etkisi
 
 Kamu harcamaları şu ana kadar ekonomik iyileşmenin temel itici gücü oldu. Ancak ZEW'e göre bu durum, kamu borcunun uzun vadeli sürdürülebilirliğine ilişkin endişeleri de beraberinde getiriyor. Bu konu, Almanya'nın iç talep ve yatırımı desteklemek için mali genişlemeye artan bağımlılığı göz önüne alındığında önem taşıyor. Euro Bölgesi genelinde de ekonomik güven artış gösterdi ve beklenti endeksi 8 puan yükselerek 26,5 seviyesine ulaştı. Mevcut ekonomik koşullara ilişkin değerlendirme ise -14,7 seviyesinde kalarak büyük ölçüde değişmedi. Açıklanan verilerin Avrupa Merkez Bankası'nın (ECB) kararları üzerinde bir değişiklik yaratması beklenmiyor; zira aralık ayı için bir faiz artışı piyasalar tarafından hâlihazırda fiyatlanmış durumda.

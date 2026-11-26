@@ -29,11 +29,11 @@ coverSitede: false
 
 Siemens Energy, 30 Eylül 2026 tarihinde sona eren mali yıl için rekor sonuçlar açıkladı. Şirket, yılın genelinde tüm hedeflerini tutturduğunu veya bu hedeflerin üzerine çıktığını belirtti. Bu dönemde şirketin geliri, karşılaştırılabilir bazda yüzde 15,5 oranında artarak 49,3 milyar dolara ulaştı. Şirket yönetimi, bu başarının arkasında artan elektrik talebiyle birlikte gaz türbini ve şebeke teknolojileri alanındaki faaliyetlerin yattığını ifade etti.
 
-### Siparişlerde Rekor Artış
+### Siparişlerde rekor artış
 Artan elektrik talebi, şirketin gaz türbini ve şebeke teknolojileri iş kollarını doğrudan destekledi. Özellikle gaz hizmetleri ve şebeke teknolojileri birimleri, bugüne kadarki en yüksek çeyreklik gelirlerini kaydetti. Şirketin toplam siparişleri yüzde 18,8 oranında artış gösterdi. Bu artışta gaz hizmetleri birimi yüzde 45,9 ile ana itici güç olurken, şebeke teknolojileri siparişleri yüzde 14,5 oranında yükseldi. Bölgesel bazda ise Amerika Birleşik Devletleri, yüzde 70,8’lik sipariş artışıyla dikkat çekti. Bu gelişmelerle birlikte şirketin toplam küresel sipariş birikimi 183 milyar dolar seviyesine ulaşarak yeni bir rekora imza attı.
 
-### Kârlılıkta İyileşme ve Siemens Gamesa
+### Kârlılıkta iyileşme ve Siemens Gamesa
 Şirketin kâr marjı, bir önceki yıla göre iki katından fazla artarak yüzde 12,4 seviyesine yükseldi. Uzun süredir zarar eden rüzgâr türbini birimi Siemens Gamesa’nın performansı, bu iyileşmede önemli bir rol oynadı. Yıllardır süren kayıplar ve yeniden yapılandırma süreçlerinin ardından Siemens Gamesa, 2026 mali yılında başa baş noktasına ulaştı. Birim, 2025 mali yılında 1,56 milyar dolar zarar açıklamıştı; 2026 yılında ise özel kalemler öncesi 9 milyon dolar kâr elde etti.
 
-### Temettü Ödemesi ve Gelecek Hedefleri
+### Temettü ödemesi ve gelecek hedefleri
 Siemens Energy, güçlü finansal sonuçların ardından hissedarlarına yönelik temettü kararını da duyurdu. Şirket, 2026 mali yılı için hisse başına 2,57 dolar temettü ödemeyi teklif etti. Bu rakam, 2025 mali yılında ödenen 0,78 dolarlık temettünün üç katından fazlasına denk geliyor. Şirket yönetimi, gelecek dönemlere dair hedeflerini de güncelledi. Siemens Energy, 2030 yılına kadar kâr marjını yüzde 20 ile yüzde 22 arasına taşımayı ve her yıl yüzde 12 ile yüzde 14 arasında gelir artışı sağlamayı hedeflediğini açıkladı.

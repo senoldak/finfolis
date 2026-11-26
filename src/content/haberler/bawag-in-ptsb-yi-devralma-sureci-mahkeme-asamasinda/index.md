@@ -32,10 +32,10 @@ coverSitede: false
 
 Avusturya merkezli banka Bawag'ın, İrlandalı PTSB'yi devralma girişimiyle ilgili hukuki süreçte sona gelindi. Yüksek Mahkeme, 1,62 milyar avro değerindeki satın alma işleminin onaylanıp onaylanmayacağına ilişkin kararını 20 Kasım 2026 Cuma günü açıklayacak. Temmuz ayında yapılan hissedarlar toplantısında, pay sahiplerinin yüzde 91'inden fazlası bu işleme onay vermişti.
 
-### Operasyonel Verimlilik Hedefi
+### Operasyonel verimlilik hedefi
 Bawag üst yöneticisi Anas Abuzaakouk, sürecin sorunsuz bir entegrasyonla tamamlanacağını belirtirken, Şubat ayında açıklanacak yıllık sonuçlarla birlikte orta vadeli hedeflerin güncelleneceğini ifade etti. Analistler, Bawag'ın PTSB'yi AIB ve Bank of Ireland gibi büyük oyunculara karşı daha güçlü bir rakip haline getirebileceğini değerlendiriyor. Bawag'ın, PTSB'nin ürün yelpazesini genişletmesi ve özellikle operasyonel maliyetleri düşürerek verimliliği artırması bekleniyor.
 
 PTSB'nin 2026 yılının ilk yarısındaki gelir-gider oranı yüzde 71 seviyesinde gerçekleşti. Aynı dönemde AIB'nin oranı yüzde 44, Bank of Ireland'ın oranı ise yüzde 51 olarak kaydedildi. Dijital odaklı bir yapıya sahip olan Bawag'ın kendi operasyonel maliyet oranı ise yüzde 32'nin altında bulunuyor. PTSB'nin 30,6 milyar avroluk bilançosu, rakiplerine kıyasla daha küçük bir ölçeğe sahip olsa da, Bawag'ın getireceği yeni ürünler ve maliyet yönetimi stratejileriyle bankanın piyasadaki konumunun değişmesi öngörülüyor.
 
-### Pazar Stratejisi ve Gelecek Planları
+### Pazar stratejisi ve gelecek planları
 Bawag, devralma anlaşması kapsamında PTSB'nin Dublin'deki genel merkezini ve İrlanda genelindeki şube ağını en az iki yıl boyunca koruyacağını taahhüt etti. Banka, PTSB'nin ürün yelpazesini çeşitlendirmeyi planlıyor. Bu kapsamda, küçük işletmelere yönelik bankacılık ürünleri, yatırım aracılığı hizmetleri ile konut ve ticari gayrimenkul finansmanı gibi alanların İrlanda pazarına sunulması hedefleniyor. Ayrıca, PTSB'nin kredi portföyünün yüzde 93'ünün konut kredilerinden oluştuğu göz önüne alındığında, Bawag'ın ticari kredi portföyünü genişletme stratejisi öne çıkıyor. Sektör kaynaklarına göre, Bawag'ın PTSB'nin gelirlerini artırmak için faiz dışı gelir kalemlerini yükseltmesi gerekecek; zira PTSB'nin faiz dışı gelirleri toplam gelirinin sadece yüzde 9'unu oluşturuyor.

@@ -30,18 +30,18 @@ coverAlt: "Küresel · Strategy üçüncü çeyrekte rekor faaliyet kârı açı
 coverSitede: false
 ---
 
-### Rekor Kâr ve Bitcoin Etkisi
+### Rekor kâr ve Bitcoin etkisi
 
 Strategy, 2026 yılının üçüncü çeyreğine ilişkin finansal sonuçlarını 29 Ekim 2026 tarihinde paylaştı. Şirket, bu dönemde 20,91 milyar dolar faaliyet kârı elde ederek tarihinin en yüksek seviyesine ulaştı. Şirket yönetimine göre, bu rekor sonucun temelinde Bitcoin fiyatındaki toparlanma yer alıyor. Şirket, her çeyrek döneminde elindeki Bitcoin varlıklarını piyasa değerine göre güncellediği için, fiyat hareketleri doğrudan kazançlara yansıyor.
 
-### Finansal Performans ve Varlıklar
+### Finansal performans ve varlıklar
 
 Şirketin net kârı 19,53 milyar dolar, yani seyreltilmiş hisse başına 44,75 dolar olarak gerçekleşti. Bir önceki yılın aynı döneminde bu rakam 2,79 milyar dolar seviyesindeydi. Şirketin elinde bulundurduğu 848.517 adet Bitcoin, 23 Ekim itibarıyla 81.200 dolarlık token fiyatı üzerinden 68,9 milyar dolar değerine ulaştı. Bu varlıkların ortalama maliyeti ise 75.446 dolar olarak açıklandı. Öte yandan, şirketin toplam geliri geçen yılın aynı dönemine göre yüzde 3 azalarak 125,4 milyon dolara geriledi. Brüt kâr ise 89,6 milyon dolar olarak kaydedildi; bu da yüzde 71'lik bir kâr marjına işaret ediyor.
 
-### Sermaye Yönetimi ve Temettü Politikası
+### Sermaye yönetimi ve temettü politikası
 
 Şirket, 2026 yılı içerisinde 21,23 milyar dolarlık sermaye artışı gerçekleştirdi. Bu tutarın 5,41 milyar doları, sadece üçüncü çeyrekteki piyasa satış programından elde edilen net gelirden oluştu. Yönetim, bu kaynağın bir kısmını kendi imtiyazlı hisselerini geri almak için kullandı. Şirket, hisse başına ortalama 97,39 dolar ödeyerek 20.980.508 adet STRC hissesini 2,04 milyar dolar karşılığında geri topladı. Şirket yönetimi, STRC hisseleri nominal değerin altında işlem gördüğü sürece geri alımlara devam etmeyi planladığını belirtti.
 
-### Günlük Temettü Dönemi
+### Günlük temettü dönemi
 
 Hissedarlar, 28 Ekim tarihinde günlük temettü ödemelerine geçişi onayladı. STRC hisseleri için günlük ödemeler 1 Kasım itibarıyla başlayacak. İcra Kurulu Başkanı Phong Le, bu değişikliği finansal sistemin geleceğine yönelik bir adım olarak nitelendirdi. Le, günlük temettülerin token tabanlı, 7 gün 24 saat işleyen bir finansal sisteme doğru atılmış doğal bir adım olduğunu ifade etti. Şirket, mevcut nakit rezervlerinin 3,4 yıllık temettü ve faiz yükümlülüklerini karşılayabileceğini öngörüyor.

@@ -141,7 +141,7 @@ function sozcukler(c) {
 
 /**
  * Kalan dil sorunlarını döndürür: [{ kod, mesaj, kesin, ornek }].
- * ayar.araBaslikYasak: gövdede ## / ### başlık sorun sayılır. ayar.govde: metin haber gövdesiyse paragraf denetimi yapılır.
+ * ayar.araBaslikYasak: 26 Kasım 2026'dan beri etkisiz (ara başlık kalır, araBasliklariDuzenle düzene sokar). ayar.govde: metin haber gövdesiyse paragraf denetimi yapılır.
  */
 export function dilSorunlariTr(metin, ayar = {}) {
   if (typeof metin !== 'string' || !metin.trim()) return [];
@@ -195,8 +195,6 @@ export function dilSorunlariTr(metin, ayar = {}) {
     const bulunan = metin.match(k.re) ?? [];
     if (bulunan.length >= (k.esik ?? 1)) ekle('kalip', k.mesaj, k.kesin, bulunan[0]);
   }
-
-  if (ayar.araBaslikYasak && /^#{2,4}\s/m.test(metin)) ekle('ara-baslik', 'Gövdede ara başlık var: başlıkları kaldır, metni paragraflarla sürdür', false);
 
   if (ayar.govde) {
     const paragraflar = metin.split(/\n\s*\n/).filter((p) => p.trim() && !/^#/.test(p.trim()));

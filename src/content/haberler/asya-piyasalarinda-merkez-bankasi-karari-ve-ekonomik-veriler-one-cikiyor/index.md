@@ -30,18 +30,18 @@ coverAlt: "Güney Kore faiz beklentisi %3,25"
 coverSitede: false
 ---
 
-### Asya'da Yoğun Veri Gündemi
+### Asya'da yoğun veri gündemi
 
 Asya piyasaları, merkez bankalarının para politikası kararları ve bölge ekonomilerine dair açıklanacak yeni verilerle yoğun bir haftaya giriyor. Yatırımcılar, Güney Kore'den Japonya'ya kadar geniş bir coğrafyada ekonomik aktivitenin seyrini yakından takip edecek.
 
-### Güney Kore'de Faiz Artışı Beklentisi
+### Güney Kore'de faiz artışı beklentisi
 
 Güney Kore Merkez Bankası'nın (BoK) çarşamba günü politika faizini 25 baz puan artırarak yüzde 3,25 seviyesine çıkarması bekleniyor. Bu hamle, bankanın mevcut sıkılaşma döngüsündeki üçüncü faiz artışı olacak. ING'nin değerlendirmesine göre, ülkede enflasyonun hem manşet hem de çekirdek bazda yıllık yüzde 2,8 seviyesinde seyretmesi ve yarı iletken ihracatının büyümeyi desteklemeye devam etmesi, bu faiz artışı beklentisini güçlendiriyor. Ayrıca, hanehalkı kredi büyümesindeki yavaşlama, daha önce atılan adımların finansal koşulları sıkılaştırmaya başladığına dair bir işaret olarak görülüyor.
 
-### Çin ve Tayvan'da Sanayi Görünümü
+### Çin ve Tayvan'da sanayi görünümü
 
 Çin ekonomisinde ise cuma günü ekim ayı sanayi kârları açıklanacak. 2026 yılı genelinde bir toparlanma eğilimi görülse de, bu iyileşmenin sektörler arasında dengeli olmadığı dikkat çekiyor. Yapay zekâ ve elektronik gibi alanlar ile emtia üreticileri kazançlarını artırırken, otomotiv ve inşaatla bağlantılı sektörler ile tüketiciye yönelik üretim yapan birçok firma baskı altında kalmaya devam ediyor. Tayvan tarafında ise teknoloji sektörünün sağladığı ivme ile sanayi üretiminin yıllık yüzde 22,0 oranında artması bekleniyor. Teknoloji dışındaki sektörlerde faaliyetlerin daha sınırlı kalması öngörülse de, bu güçlü verinin dördüncü çeyrekte ekonomik büyümeyi destekleyeceği düşünülüyor.
 
-### Japonya'da Enflasyon Takibi
+### Japonya'da enflasyon takibi
 
 Japonya'da ise perşembe günü açıklanacak Tokyo tüketici fiyat endeksi (TÜFE) verileri, fiyat baskılarının seyrini anlamak açısından kritik önem taşıyor. Piyasa beklentileri, manşet enflasyonun ekim ayındaki yüzde 2,8 seviyesinden kasım ayında yüzde 3,1'e, çekirdek enflasyonun ise yüzde 2,6'dan yüzde 2,9'a yükseleceği yönünde. ING, verilerin bu beklentilerle uyumlu gelmesi durumunda, fiyat baskılarının güçlü kaldığına işaret edeceğini ve bunun Japonya Merkez Bankası'nın aralık ayında faiz artırımına gitme ihtimalini destekleyebileceğini belirtiyor.

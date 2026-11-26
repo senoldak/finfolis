@@ -28,14 +28,14 @@ coverAlt: "Küresel · CoreWeave borç yükü ve iflas endişeleriyle karşı ka
 coverSitede: false
 ---
 
-### Finansal Göstergeler ve Borç Yapısı
+### Finansal göstergeler ve borç yapısı
 
 Yapay zeka ve bulut altyapısı alanında faaliyet gösteren CoreWeave, finansal bir sınavdan geçiyor. Şirket, üç aylık dönemde 640 milyon dolara ulaşan bir faiz ödemesi yükümlülüğüyle karşı karşıya. Bu durum, şirketin borçlanarak büyüme stratejisinin, kârlılık hedeflerinin önüne geçmesiyle oluşan finansal baskıyı gözler önüne seriyor. Şirketin 2026 yılının ikinci çeyreğine ilişkin finansal verileri, güçlü talep ile operasyonel sonuçlar arasındaki farkı ortaya koyuyor. CoreWeave, söz konusu dönemde 104 milyar dolarlık bir gelir birikimine ulaşmış olsa da, borçla finanse edilen genişleme stratejisi nedeniyle 626 milyon dolar GAAP net zarar açıkladı. Yapay zeka hizmetlerine yönelik talebin yüksek seyretmesine rağmen, şirketin kârlı bir büyüme yoluna girmesi, mevcut borç yükü nedeniyle zorlaşıyor.
 
-### Enflasyon ve Piyasa Beklentileri
+### Enflasyon ve piyasa beklentileri
 
 Finansal piyasalarda, devam eden enflasyonun yüksek faiz oranlarını kalıcı kılabileceği endişesi hakim. Bu makroekonomik ortam, CoreWeave gibi borç yükü yüksek şirketlerin finansal yönetimini daha karmaşık hale getiriyor. Piyasa katılımcıları, şirketin bu borç yükümlülüklerini yönetme kapasitesini ve yapay zeka alanındaki sözleşmeli talebi kârlı bir nakit akışına dönüştürüp dönüştüremeyeceğini yakından izliyor.
 
-### İflas İhtimalleri ve İzleme Süreci
+### İflas ihtimalleri ve izleme süreci
 
 Tahmin piyasalarındaki veriler, CoreWeave'in finansal baskısının iflas riskine dair beklentileri artırdığını gösteriyor. Piyasa fiyatlamalarına göre, şirketin 2028 yılı Ocak ayına kadar iflas açıklama olasılığı yüzde 11,5 olarak belirlenmiş durumda. Bu oran, 2030 yılı Ocak ayı için yüzde 29,5 seviyesine kadar yükseliyor. Yatırımcılar ve piyasa gözlemcileri, şirketin önümüzdeki dönemde açıklayacağı finansal raporlara ve borç yapılandırma veya yeniden finansman gibi stratejik hamlelere odaklanmış durumda. Şirketin yönetim kadrosu ve Magnetar Capital ile Blackstone gibi kilit paydaşların, bu finansal zorlukları aşmak için atacakları adımlar, CoreWeave'in gelecekteki rotasını belirleyecek temel unsurlar arasında yer alıyor.

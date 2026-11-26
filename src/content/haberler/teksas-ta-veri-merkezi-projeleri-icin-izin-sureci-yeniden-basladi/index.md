@@ -30,18 +30,18 @@ coverAlt: "Veri merkezi talep kuyruğu 474 GW"
 coverSitede: false
 ---
 
-### İzin Süreçlerinde Yeni Dönem
+### İzin süreçlerinde yeni dönem
 
 Teksas Çevre Kalitesi Komisyonu (TCEQ), veri merkezi projeleri için izin incelemelerine 16 Kasım 2026 tarihinde yeniden başladı. Vali Greg Abbott'ın Eylül ayında başlattığı ve veri merkezi projelerine yönelik hava ve diğer izinlerin verilmesini durduran uygulama, Elektrik Güvenilirlik Konseyi'nin (ERCOT) topluluk etkisi üzerine yürüttüğü denetimlerin tamamlanmasıyla beklenenden erken sona erdi. Bu süreçte ilk izin, SpaceX'in Starbase'deki 24 milyar dolarlık projesi için verildi.
 
-### Şebeke Kapasitesi ve Düzenlemeler
+### Şebeke kapasitesi ve düzenlemeler
 
 Sektördeki büyüme, tamamen durmaktan ziyade kamuoyu önünde yeniden müzakere ediliyor. Elektrik şebekesi operatörü ERCOT'un veri merkezi projeleri için oluşturduğu 474 gigavatlık talep kuyruğu, eyaletin tüm zamanların en yüksek elektrik talebi olan 90 gigavatın üzerinde bulunuyor. Kamu Hizmetleri Komisyonu Başkanı Thomas Gleeson, bu projeksiyonların oldukça yüksek olduğunu ve bu talebin büyük kısmının gerçekleşmeyebileceğini belirtti. Geçen yıl imzalanan 6 numaralı Senato Tasarısı, başvuru sahiplerinin proje sahasını kontrol ettiklerini kanıtlamalarını ve şebeke yükseltme maliyetlerinin çoğunu üstlenmelerini zorunlu kılıyor. Ayrıca, acil durumlarda şebekeden kesilmeyi kabul etmeleri şartı da getirildi. ERCOT'un veri merkezi projelerine ilişkin denetim raporlarının 10 Aralık 2026 tarihinde açıklanması, Kamu Hizmetleri Komisyonu'nun ise bu raporları 17 Aralık 2026 tarihinde görüşmesi hedefleniyor.
 
-### Yerel Ekonomiye Etkiler
+### Yerel ekonomiye etkiler
 
 Yatırımların yoğunlaştığı bölgelerde ekonomik etkiler de gözlemleniyor. Oracle'ın Abilene kampüsünde sekiz binadan altısının tamamlandığı ve bu kısmın 618 megavatlık bir kapasiteye ulaştığı belirtiliyor. Şehirdeki kira fiyatları, veri merkezi yatırımlarının etkisiyle bir yıl içinde yaklaşık yüzde 50 oranında artış gösterdi. Abilene'deki konut piyasasında yaşanan bu değişim, yerel yönetimlerin altyapı çalışmalarını etkilerken, konut bulma süreçlerini de zorlaştırabiliyor.
 
-### Enerji Kaynakları ve Arazi Değerleri
+### Enerji kaynakları ve arazi değerleri
 
 Bölgedeki enerji üretimi de dönüşüm geçiriyor. Taylor County'de medyan arazi fiyatı dönüm başına 10.825 dolar seviyesine ulaşarak eyalet ortalamasının üzerine çıktı. Enerji projelerinde ise rüzgâr enerjisinin yanı sıra güneş enerjisi yatırımları öne çıkıyor. Örneğin, Enbridge tarafından planlanan 8.000 dönümlük güneş enerjisi çiftliğinin yatırım bedeli 1,1 milyar dolar olarak açıklandı.

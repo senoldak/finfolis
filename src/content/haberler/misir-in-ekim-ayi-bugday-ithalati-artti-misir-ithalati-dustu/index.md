@@ -30,14 +30,14 @@ coverAlt: "Küresel · Mısır'ın ekim ayı buğday ithalatı arttı, mısır i
 coverSitede: false
 ---
 
-### İthalatta Rusya ve Ukrayna Öne Çıktı
+### İthalatta Rusya ve Ukrayna öne çıktı
 
 LATT Trading & Shipping verilerine göre Mısır, Ekim 2026'da 985.425 metrik ton buğday ithalatı gerçekleştirdi. Bu miktar, Eylül ayına kıyasla yaklaşık üç katlık bir artışa işaret etse de, geçen yılın aynı dönemine göre yüzde 47 oranında bir düşüşü temsil ediyor. Ekim ayında Rusya, 403.245 metrik tonluk sevkiyatla Mısır'ın en büyük tedarikçisi konumuna geri döndü; bu rakam aylık bazda yüzde 272'lik bir artış anlamına geliyor. Ukrayna'dan gelen buğday miktarı ise Eylül ayına göre neredeyse iki katına çıkarak 269.070 metrik tona ulaştı ve toplam ithalatın yüzde 27'sini oluşturdu. Baltık üzerinden yapılan sevkiyatlar da dikkat çekti; Letonya limanlarından 107.819 metrik ton, Litvanya limanlarından ise 30.700 metrik ton buğday tedarik edildi. Ayrıca Romanya'dan gelen sevkiyatlar yüzde 68 artışla 138.253 metrik tona, Bulgaristan'dan 30.462 metrik tona ve Moldova'dan 5.877 metrik tona ulaştı.
 
-### Fiyatlar ve Piyasa Dinamikleri
+### Fiyatlar ve Piyasa dinamikleri
 
 S&P Global Energy bünyesindeki Platts verilerine göre, 30 Ekim tarihinde Doğu Akdeniz teslimi (CIF) yüzde 12,5 proteinli buğdayın fiyatı, haftalık 11 dolar düşüşle ton başına 307 dolar olarak kaydedildi. Platts'ın "Milling Wheat Marker" göstergesi ise Ekim ayında ortalama 202,59 dolar seviyesinde gerçekleşerek, Eylül ayındaki 211,73 dolarlık ortalamanın altında kaldı. Mısır lirası 56 EGP/dolar seviyesine gerileyerek rekor düşük seviyeyi gördü. Rus buğdayının depo çıkış fiyatları 17.500 ile 18.000 EGP arasında değişirken, devletin özel değirmenlere yaptığı satışlar 16.650 EGP seviyesinde gerçekleşti.
 
-### İthalat Verileri ve Beklentiler
+### İthalat verileri ve beklentiler
 
 Pazarlama yılının ilk dört ayındaki toplam ithalat 2,37 milyon metrik ton olarak gerçekleşti; geçen yılın aynı döneminde bu rakam 5,26 milyon metrik ton seviyesindeydi. Ocak ayından bu yana yapılan toplam ithalat ise 9,2 milyon metrik tona ulaştı. Temmuz ve Ekim ayları arasında kaydedilen tüm sevkiyatlar özel sektör alıcıları tarafından gerçekleştirildi. Piyasa katılımcıları, devlet alıcısının en az beş Fransız ve iki Rumen buğday kargosu alımının ardından Kasım ayında yeniden devreye girmesini bekliyor.

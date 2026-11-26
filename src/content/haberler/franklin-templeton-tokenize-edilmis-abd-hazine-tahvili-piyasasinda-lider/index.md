@@ -32,7 +32,7 @@ Token Terminal verilerine göre, tokenize edilmiş ABD hazine tahvili piyasası 
 
 Franklin Templeton, BENJI ürün grubu aracılığıyla 3,5 milyar dolarlık tokenize varlık ihraç etmiş durumda. Şirketin tokenize edilmiş ürünlerindeki toplam varlık büyüklüğü ise 4 milyar dolara yaklaşıyor. Piyasa, geleneksel varlık yöneticileri ile kripto yerlisi platformlar arasında bölünmüş durumda. Token Terminal analizlerine göre, en büyük ürünler toplam piyasa değerinin yüzde 60 ila yüzde 70'ini oluşturuyor. Ayrıca piyasa, 2026 yılı içinde 15 milyar dolar ile 16 milyar dolar arasında bir zirve görmüş, ardından 14 milyar dolar seviyelerinde dengelenmişti.
 
-### Piyasadaki Diğer Oyuncular
+### Piyasadaki diğer oyuncular
 
 Piyasadaki rekabet, geleneksel finans kuruluşları ile kripto yerlisi platformlar arasında şekilleniyor. Franklin Templeton'ın ardından, USDY token'ı ile yaklaşık 2,7 milyar dolarlık değere sahip olan Ondo Finance ikinci sırada yer alıyor. Üçüncü sırada ise yaklaşık 2 milyar dolarlık USYC token varlığıyla Circle bulunuyor. Circle, daha çok USDC ile tanınan bir şirket olmasına rağmen, bu alanda önemli bir faaliyet yürütüyor. BlackRock da bu piyasada rekabet eden diğer kuruluşlar arasında yer alıyor.
 

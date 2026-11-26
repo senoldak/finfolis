@@ -26,7 +26,7 @@ coverSitede: false
 
 İş birliği kapsamında AMD, kendi donanım ve yazılım çözümlerini sürece dahil edecek. Şirket; işlemcileri (CPU), grafik işlem birimleri (GPU), programlanabilir çipleri (FPGA) ve ROCm yazılım platformu ile katkı sağlayacak. PsiQuantum ise hesaplama temeli olarak ışık parçacıklarını kullanan fotonik kuantum teknolojisini sisteme entegre edecek. Bu modelde amaç, farklı bilgisayar türlerinin bir problem üzerinde en verimli oldukları kısımları üstlenerek birleşik bir sistem olarak çalışmasını sağlamaktır. CPU'lar genel amaçlı işlem gücü sunarken, GPU'lar yoğun paralel iş yüklerini yönetiyor; FPGA'ler ise fabrikadan çıktıktan sonra özelleştirilmiş görevler için yeniden programlanabiliyor.
 
-### Ticari Hedefler ve Yatırım Planı
+### Ticari hedefler ve yatırım planı
 
 İş birliğinin ilk ticari uygulama alanları olarak ilaç araştırmaları ve yeni ilaç geliştirme süreçleri belirlendi. Moleküler davranışların simüle edilmesinin, kuantum makinelerinin yeteneklerine en uygun alanlardan biri olduğu ifade ediliyor. Şirketler ayrıca, Chicago'da bulunan Illinois Kuantum ve Mikroelektronik Parkı'nda bir merkez kurma konusunda görüşmeler yürütüyor; ancak bu konu henüz kesinleşmiş bir plan değil.
 

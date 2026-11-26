@@ -30,15 +30,15 @@ coverAlt: "AI Tahvil Payı %31"
 coverSitede: false
 ---
 
-### Borçlanma Tercihleri Değişiyor
+### Borçlanma tercihleri değişiyor
 
 St. Louis Fed tarafından 10 Kasım 2026 tarihinde yayımlanan rapora göre, yapay zekâ ve ileri hesaplama teknolojilerine yönelik yatırımlar, şirketlerin borçlanma tercihlerini belirgin şekilde değiştiriyor. ABD'de finans dışı sektörlerde faaliyet gösteren şirketlerin gerçekleştirdiği yatırım yapılabilir seviyedeki tahvil ihraçlarının yüzde 31'i, yapay zekâ altyapısını kurmaya yönelik projelerle bağlantılı durumda. Bu durum, şirketlerin kendi nakit kaynaklarını kullanmak yerine borçlanma piyasalarına daha fazla yöneldiğini gösteriyor.
 
-### Nakit Yerine Borçlanma
+### Nakit yerine borçlanma
 
 Microsoft ve Amazon gibi büyük bulut ve teknoloji operatörleri, veri merkezleri, yarı iletken çipler ve enerji altyapısı için yoğun harcama yapıyor. St. Louis Fed verileri, bu şirketlerin nakit varlıklarının toplam varlıklarına oranının 2018 yılında yüzde 35 seviyesindeyken, 2026 itibarıyla yüzde 16'ya gerilediğini ortaya koyuyor. Aynı dönemde, bu şirketlerin yatırım-varlık oranının ise neredeyse iki katına çıktığı gözlemleniyor. Goldman Sachs'ın 2025 sonundaki analizinde de benzer bir eğilim tespit edilmiş ve yapay zekâ bağlantılı borçlanmanın, net yatırım yapılabilir şirket tahvili ihracının yaklaşık yüzde 30'unu oluşturduğu belirtilmişti.
 
-### Tarihi Seviyelerde Tahvil Arzı
+### Tarihi seviyelerde tahvil arzı
 
 Bu borçlanma eğilimi, yatırım yapılabilir tahvil arzını 2025 ve 2026 yıllarında tarihi seviyelere taşıdı. Goldman Sachs verilerine göre, ABD'de yatırım yapılabilir tahvil ihracı 2025 yılında 1,7 trilyon doların üzerine çıktı. Kurumun tahminlerine göre, 2026 yılında yapay zekâ ile ilgili borçlanma ihracının yaklaşık 500 milyar dolar olması bekleniyor. 2027 yılı için ise bu rakamın 440 milyar dolar civarında olacağı öngörülüyor.
 

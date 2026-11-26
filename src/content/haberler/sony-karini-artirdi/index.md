@@ -32,10 +32,10 @@ coverSitede: false
 
 Sony, 5 Kasım 2026 tarihinde açıkladığı ikinci çeyrek sonuçlarıyla dikkat çekti. Şirket, faaliyet kârını yüzde 45 oranında artırarak 622 milyar yen (3,6 milyar avro) seviyesine ulaştı. Bu artışta, özellikle film bölümünün gösterdiği performans etkili oldu.
 
-### Film ve Oyun Bölümlerinde Büyüme
+### Film ve oyun bölümlerinde büyüme
 Sony'nin film bölümü gelirleri, geçen yılın aynı dönemine göre yüzde 48 oranında artış gösterdi. Bu yükselişin temelinde, dünya genelinde 2,5 milyar dolara yakın hasılat elde eden "Spider-Man: Brand New Day" filminin başarısı yatıyor. Söz konusu yapım, tüm zamanların en büyük film gösterimlerinden biri olarak kayıtlara geçti. Aynı dönemde oyun bölümü gelirleri de yüzde 9 oranında yükseldi. Bu artışta, şirketin kendi stüdyolarından çıkan oyunların satışları etkili oldu. Örneğin, Marvel'ın "Wolverine" oyunu, Kasım ayı başı itibarıyla 2,4 milyon adetlik satış rakamına ulaştı.
 
-### Stratejik Dönüşüm ve Beklentiler
+### Stratejik dönüşüm ve beklentiler
 Sony, oyun, anime, film ve müzik iş kollarını birleştirerek küresel markalar oluşturmayı hedefleyen stratejik bir dönüşüm süreci yürütüyor. Bu strateji kapsamında daha önce "The Last of Us" ve "Demon Slayer: Kimetsu no Yaiba" gibi yapımlarla önemli başarılar elde edilmişti. Şirket, bu performansın ardından yıllık kâr beklentisini yüzde 9 oranında yukarı yönlü revize etti.
 
 MST Financial analisti David Gibson, piyasanın Sony'nin film işindeki performansını hafife aldığını belirterek, şirketin beklentilerin üzerinde sonuçlar açıkladığını ifade etti. Gibson, oyun tarafında "Grand Theft Auto VI" oyununun piyasaya sürülmesinin yakın olduğunu ve ön siparişlerin güçlü göründüğünü ekledi.

@@ -25,14 +25,14 @@ coverAlt: "Küresel · OpenAI ChatGPT üzerinden yapay zekâ destekli ödeme sis
 coverSitede: false
 ---
 
-### Güvenli Ödeme Altyapısı
+### Güvenli ödeme altyapısı
 
 OpenAI, 13 Kasım 2026 tarihinde yaptığı duyuruyla, kullanıcıların ChatGPT içerisinde yapay zekâ temsilcileri aracılığıyla doğrudan alışveriş yapabilmelerini sağlayan yeni bir özelliği tanıttı. Bu sistem, American Express, Mastercard ve Visa ile yapılan iş birliği sayesinde mevcut ödeme ağları üzerinden çalışıyor. Yeni özellik, şu an için Amerika Birleşik Devletleri'ndeki ChatGPT Pro abonelerine ve ülkede düzenlenmiş uygun kartlara sahip kullanıcılara sunuluyor. Kullanıcılar, işlemleri yüz tanıma veya parmak izi gibi biyometrik doğrulama yöntemlerini kullanarak onaylayabiliyor. Ödeme ağları, her onaylanan satın alma işlemi için token haline getirilmiş kart bilgileri oluşturuyor. Bu sayede, kullanıcıların gerçek kart bilgileri satıcılarla veya yapay zekâ temsilcileriyle paylaşılmıyor.
 
-### Stratejik Hedefler ve Gelecek Planları
+### Stratejik hedefler ve gelecek planları
 
 Bu gelişme, yapay zekâ şirketlerinin yalnızca ürün önerisi sunmanın ötesine geçerek, doğrudan işlem gerçekleştirme aşamasına odaklandığı bir dönemde gerçekleşti. Şirket, yapay zekâ destekli alışverişlerin mevcut ödeme sistemleri üzerinden güvenle yürütülmesi için ödeme işlemcileri ve dolandırıcılık önleme firmalarıyla birlikte çalıştığını belirtti. OpenAI, ilerleyen dönemlerde kullanıcıların her işlem için onay vermesine gerek kalmadan, önceden belirlenmiş harcama limitleri ve kısıtlamalar dahilinde alışveriş yapılmasına olanak tanımayı planlıyor.
 
-### Sektörel Rekabet ve Pazar Beklentileri
+### Sektörel rekabet ve pazar beklentileri
 
 OpenAI, yapay zekâ temsilcileri için ödeme sistemleri geliştiren şirketler arasına katıldı. Sektördeki diğer oyuncular da benzer adımlar atıyor. Google, 2025 yılında Agent Payments Protocol'ü tanıtmıştı. Visa ve Mastercard da yapay zekâ destekli işlemleri desteklemek için çeşitli girişimler başlattı. Kripto para şirketleri de bu alanda altyapı çalışmaları yürütüyor. Coinbase, 2025 yılında otonom stablecoin ödemelerini mümkün kılan x402 protokolünü tanıtırken, Circle Mayıs ayında temsilcilerin önceden tanımlanmış limitler dahilinde USDC tutmasına ve harcamasına olanak tanıyan Agent Stack'i kullanıma sundu. Crossmint ise stablecoin cüzdanlarını geleneksel kart ağlarıyla birleştiren farklı bir yaklaşım benimsedi. Juniper Research tarafından Nisan ayında yayımlanan bir rapora göre, küresel yapay zekâ destekli ticaret işlem hacminin 2026 yılında 8 milyar dolar seviyesinden, 2030 yılına kadar 1,5 trilyon dolara ulaşması bekleniyor.

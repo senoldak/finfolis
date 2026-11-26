@@ -28,13 +28,13 @@ coverAlt: "ABD · Zenginlere yönelik vergi teklifleri yeni Kongre gündeminde"
 coverSitede: false
 ---
 
-### Siyasi Gündem ve Uzman Görüşleri
+### Siyasi gündem ve uzman görüşleri
 
 Demokratların ara seçimlerdeki başarısı, zenginlerin vergilendirilmesine yönelik ulusal düzeydeki tartışmaları yeniden canlandırdı. Senato Finans Komitesi'nin kontrolünü devralmaya hazırlanan Oregon Senatörü Ron Wyden, milyarderlerin vergi sorumluluklarını yerine getirmeleri konusunda çalışmalarını yoğunlaştıracaklarını belirtti. Wyden, komitenin Amerikan ailelerini önceleyen ve ultra zenginler ile şirketlerin paylarına düşen vergiyi ödemelerini gerektiren bir vergi gündemine öncülük edeceğini ifade etti.
 
 Vergi avukatları, Demokratların başkanlık vetosunu aşacak çoğunluğa sahip olmaması nedeniyle bu tekliflerin kısa vadede yasalaşmasının düşük bir ihtimal olduğunu belirtiyor. Ancak uzmanlar, bu önlemlerin partinin bir sonraki başkanlık seçimine giden süreçteki gündemini şekillendirmesi nedeniyle yakından izlenmesi gerektiğini vurguluyor. Evercore Wealth Management'tan Justin Miller, bu tekliflerin önümüzdeki iki yıl içinde yasalaşmasa bile, olası bir yönetim değişikliğinde nelerin gündeme gelebileceğine dair bir gösterge sunduğunu belirtti.
 
-### Öne Çıkan Üç Vergi Teklifi
+### Öne çıkan üç vergi teklifi
 
 Senato Finans Komitesi'nde bekleyen üç temel teklif öne çıkıyor. Bunlardan ilki olan "Ending the Carried Interest Loophole Act", fon yöneticilerinin kârlarının düşük sermaye kazancı oranından vergilendirilmesini sağlayan "carried interest" vergi avantajını sona erdirmeyi hedefliyor. Holland & Knight ortağı Joshua Odintz, bu düzenlemenin, 2032 yılına kadar rezervlerinin tükenmesi beklenen Sosyal Güvenlik fonunu destekleme baskısı altında daha fazla inceleneceğini öngörüyor.
 

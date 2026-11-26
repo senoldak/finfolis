@@ -74,7 +74,7 @@ test('kalıplar: kesin ve eşikli', () => {
 test('ara başlık ve tek paragraf ayara bağlı', () => {
   const govde = '### Büyüme\n\n' + 'kelime '.repeat(10);
   assert.deepEqual(kodlar(govde), []);
-  assert.deepEqual(kodlar(govde, { araBaslikYasak: true }), ['ara-baslik']);
+  assert.deepEqual(kodlar(govde, { araBaslikYasak: true }), []); // 26 Kasım 2026: ara başlık sorun sayılmaz
   assert.deepEqual(kodlar('kelime '.repeat(200), { govde: true }), ['tek-paragraf']);
 });
 

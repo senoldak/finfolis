@@ -34,6 +34,6 @@ Kaliforniya merkezli elektrikli kamyon üreticisi Harbinger, 5 Kasım 2026 tarih
 
 Lojistik devi FedEx, 30 Eylül 2026 tarihinde Harbinger'a 2.000 adet tamamen elektrikli kamyon için bağlayıcı bir sipariş verdi. Değeri 300 milyon doları aşan bu siparişin, ABD ve Kanada genelindeki operasyonlarda kullanılması planlanıyor. Araçların teslimatının 2027 yılının sonuna kadar yapılması hedefleniyor. FedEx ile yapılan anlaşmanın, yakıt maliyetlerinde yıllık yaklaşık 40 milyon dolar tasarruf sağlaması öngörülüyor. Bu tasarruf miktarının 20 yıllık süreçte toplam 800 milyon dolara ulaşabileceği tahmin ediliyor.
 
-### Ticari Araçlara Odaklanma Stratejisi
+### Ticari araçlara odaklanma stratejisi
 
 Harbinger, elektrikli araç pazarında bireysel tüketicilerden ziyade, 4-6 sınıfı ticari araçlara odaklanıyor. Şirketin stratejisi, büyük otomobil üreticilerinin ilgisini çekmeyen ticari segmentleri hedeflemek üzerine kurulu. Bu kapsamda şirket, teslimat araçları ve kutu kamyonlar gibi lojistik süreçlerinde kullanılan araçların üretimine ağırlık veriyor. Ayrıca şirket, FedEx ile olan iş birliğinin yanı sıra ABD ordusuyla da yeni bir savunma sözleşmesi imzaladı. Harbinger, bu adımlarla birlikte faaliyet alanını genişletmeyi hedefliyor.

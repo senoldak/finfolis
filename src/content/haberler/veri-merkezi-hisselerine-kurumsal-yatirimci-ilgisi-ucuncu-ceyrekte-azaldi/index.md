@@ -32,8 +32,8 @@ coverSitede: false
 
 Kurumsal yatırımcıların veri merkezi hisselerine olan ilgisi, 2026 yılının üçüncü çeyreğinde düşüş gösterdi. Düzenleyici kurumlara yapılan 13F bildirimlerinin analizine göre, bu dönemde veri merkezi hisselerindeki pozisyonlarını tamamen kapatan fonların sayısı, yeni pozisyon açanlardan daha fazla oldu.
 
-### Siyasi Endişeler ve Sektörel Etkiler
+### Siyasi endişeler ve sektörel etkiler
 Yılın başlarında Nvidia ve Microsoft gibi teknoloji şirketlerinin yapay zekâ altyapısına ve işlem kapasitesine yönelik yoğun yatırımları, Vertiv Holdings ve Digital Realty Trust gibi veri merkeziyle ilişkili hisseleri yukarı taşımıştı. Ancak, ABD ara seçim sonuçlarının veri merkezi inşaatlarına yönelik siyasi kısıtlamalar getirebileceğine dair endişeler, bu alandaki yatırımcı coşkusunu azalttı. Yaklaşık 6.400 adet bildirim dosyasının analizine göre, üçüncü çeyrekte en az 138 fon veri merkezi hisselerindeki pozisyonlarını tamamen kapattı; buna karşılık 119 fon yeni pozisyon başlattı. Sekiz büyük veri merkezi şirketindeki kurumsal yatırımcı sayısı ise bir önceki çeyrekteki 3.411 seviyesinden 3.392'ye geriledi.
 
-### Elektrik ve Yapay Zekâ Hisselerinde Durum
+### Elektrik ve yapay zekâ hisselerinde durum
 Yatırımcıların geri çekilmesi özellikle elektrik ve kamu hizmeti hisselerinde belirginleşti. Bu alanda 212 fon pozisyonlarını kapatırken, sadece 96 fon yeni giriş yaptı. Yarı iletken ve yapay zekâ hisselerinde ise kurumsal yatırımcılar net alıcı olmaya devam etti, ancak bu alandaki yeni pozisyonlar çıkışlara kıyasla sınırlı kaldı. Yarı iletken sektöründe 2.951 fon pozisyonlarını artırırken, 2.584 fon azaltma yoluna gitti. Yapay zekâ hisselerindeki toplam kurumsal yatırımcı sayısı ise sadece 33 arttı. 30 Eylül 2026 tarihinde sona eren üçüncü çeyrek verileri, yatırımcıların pozisyonlarını dönem sonu itibarıyla yansıtan bir anlık görüntü sunuyor.

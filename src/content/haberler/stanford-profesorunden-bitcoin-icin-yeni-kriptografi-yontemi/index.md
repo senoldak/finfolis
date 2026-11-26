@@ -27,10 +27,10 @@ coverSitede: false
 
 Bitcoin geliştiricileri, uzun yıllardır ağa "covenant" adı verilen ve işlemlerin nasıl harcanacağını belirleyen kısıtlamaları eklemek için çeşitli yöntemler üzerinde çalışıyor. Bu tür kısıtlamalar, Bitcoin'in belirli kurallar çerçevesinde harcanmasını sağlamayı amaçlıyor. Ancak, bu tür teknik değişikliklerin genellikle "soft fork" olarak adlandırılan yazılım güncellemeleriyle yapılması gerekiyor ve bu yöndeki çabalar yaklaşık 5 ila 10 yıldır sonuçsuz kalıyordu.
 
-### "Soft Fork" Gerektirmeyen Yeni Yaklaşım
+### "Soft fork" gerektirmeyen yeni yaklaşım
 
 Stanford Üniversitesi'nden David Tse ve ekibi, "Praxis" adını verdikleri yeni bir çalışma ile bu teknik tıkanıklığa farklı bir çözüm önerisi getirdi. Tse'nin sunduğu tanık şifreleme tabanlı bu yöntem, Bitcoin ağında herhangi bir yazılım güncellemesine ihtiyaç duymadan, işlemlerin önceden belirlenmiş bir programa göre harcanabilmesini mümkün kılıyor. David Tse, witness encryption yönteminin bu kabiliyeti Bitcoin üzerinde herhangi bir soft fork olmaksızın sağladığını ifade ediyor.
 
-### Kullanım Alanları ve Gelecek Potansiyeli
+### Kullanım alanları ve gelecek potansiyeli
 
 25 Kasım 2026'da paylaşılan bu çalışma, Bitcoin'in kullanım alanlarına dair yeni tartışmaları beraberinde getiriyor. Videoda Praxis ve tanık şifrelemenin Bitcoin için ne ifade ettiği, aracı bulunmayan güven gerektirmeyen Bitcoin köprüleri, herhangi bir rakibe ihtiyaç duyulmaması, yazılım güncellemesi gerektirmeyen Bitcoin sözleşmeleri, bir defalık kurulum sorusu, Praxis'in ne zaman başlatılabileceği, Bitcoin'in üretken hale getirilmesi, Aave ve yerel Bitcoin teminatı, güven gerektirmeyen ve merkezi Bitcoin kredi verenleri, yapay zekânın Bitcoin'i nasıl daha güvenli hale getirebileceği, Bitcoin'in küresel finans içindeki rolü ile P ve NP söylentileri ve kriptografinin geleceği gibi konular ele alınıyor.

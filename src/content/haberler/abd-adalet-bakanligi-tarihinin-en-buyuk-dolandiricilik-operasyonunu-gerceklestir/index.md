@@ -29,10 +29,10 @@ coverSitede: false
 
 ABD Adalet Bakanlığı (DOJ), tarihinin en kapsamlı dolandırıcılıkla mücadele operasyonunu tamamladığını duyurdu. 24 Kasım 2026'da kamuoyuyla paylaşılan sonuçlar, operasyonun 85 federal bölgeye yayılan 400'den fazla dava ve 800'ü aşkın sanığı kapsadığını ortaya koydu. Bu geniş çaplı müdahale, Başkan Trump tarafından 6 Mart 2026'da imzalanan başkanlık kararnamesinin ardından hayata geçirildi. Adalet Bakanı Todd Blanche ve FBI Direktörü Kash Patel'in liderliğinde yürütülen süreç, dolandırıcılık ağlarına karşı uluslararası bir iş birliği modelini de beraberinde getirdi.
 
-### Operasyonun Boyutları ve Uluslararası İş Birliği
+### Operasyonun boyutları ve uluslararası iş birliği
 
 FBI bünyesinde yürütülen Blackout Operasyonu, özellikle çağrı merkezi üzerinden gerçekleştirilen dolandırıcılık ağlarını hedef aldı. Bu ağların birçoğunun ABD sınırları dışında faaliyet gösterdiği tespit edildi. Operasyon kapsamında 10'dan fazla ülkeyle koordineli bir çalışma yürütüldü. Adalet Bakanlığı'nın verilerine göre, bu süreçte 17 milyar dolara yakın yasa dışı fon kısıtlandı ve 14.000'den fazla dijital cihaz ele geçirildi. Bakanlık, bu operasyonların toplamda 8 milyar doları aşan bir planlanmış mağduriyetin önüne geçtiğini ve yurt dışında faaliyet gösteren 29 dolandırıcılık merkezinin faaliyetlerinin durdurulduğunu açıkladı. Ayrıca, süreç içerisinde 30 sanık yargılanmak üzere iade edildi.
 
-### Kripto Varlıklar Mercek Altında
+### Kripto varlıklar mercek altında
 
 Operasyonun önemli bir bölümünü kripto varlık dolandırıcılıkları oluşturdu. Adalet Bakanlığına bağlı Dolandırıcılık Merkezi Görev Gücü, ABD'li mağdurlarla bağlantılı 1,08 milyar dolardan fazla çalınmış kripto varlık tespit etti. Bakanlık, bu varlıkların izini sürerek dolandırıcılık yöntemlerine dair somut örnekler de paylaştı. Bir dava dosyasında, ABD'li mağdurlardan elde edilen 36,9 milyon dolardan fazla tutarın, önce Bahamalar'daki bir banka hesabına aktarıldığı, ardından farklı yöntemlerle dönüştürüldüğü belirtildi. Bu tür vakalar, dolandırıcılık ağlarının fonları nasıl karmaşık yollarla akladığını ve kripto varlıkların bu süreçteki rolünü gözler önüne serdi.

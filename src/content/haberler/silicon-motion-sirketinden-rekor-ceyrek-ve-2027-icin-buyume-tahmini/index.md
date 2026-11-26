@@ -28,15 +28,15 @@ coverAlt: "Küresel · Silicon Motion şirketinden rekor çeyrek ve 2027 için b
 coverSitede: false
 ---
 
-### Rekor Gelir ve Büyüme
+### Rekor gelir ve büyüme
 
 Silicon Motion, 2026 yılının üçüncü çeyreğinde 560,2 milyon dolar gelir elde ederek şirket tarihindeki en yüksek çeyrek dönem performansına ulaştı. Bu rakam, 2025 yılının aynı döneminde kaydedilen 242 milyon dolarlık gelire kıyasla yüzde 131 oranında bir artışa işaret ediyor. Şirketin bir önceki çeyrekte açıkladığı 451 milyon dolarlık gelire göre ise yüzde 24'lük bir büyüme gerçekleşti.
 
-### Stratejik Dönüşüm ve Pazar Değişimi
+### Stratejik dönüşüm ve pazar değişimi
 
 Şirket yönetimi, bu büyümenin temelinde otomotiv, kurumsal SSD'ler ve yapay zekâ sunucuları gibi alanlara yönelmenin yattığını belirtiyor. Uzun yıllar tüketici elektroniği ve akıllı telefon depolama çözümlerine odaklanan Silicon Motion, stratejisini daha uzun vadeli sözleşmeler ve daha yüksek kâr marjları sunan bu yeni pazarlara kaydırıyor. Özellikle Ferri serisi ve önyükleme sürücüsü çözümlerindeki satışlar, yıllık bazda yüzde 2.500'ün üzerinde bir artış gösterdi. SSD kontrolcüsü satışları ise yıllık bazda yüzde 55 ile yüzde 60 arasında yükseldi.
 
-### Finansal Göstergeler ve Nakit Durumu
+### Finansal göstergeler ve nakit durumu
 
 Finansal veriler incelendiğinde, şirketin üçüncü çeyrekteki faaliyet kâr marjı yüzde 32,1, GAAP dışı brüt kâr marjı ise yüzde 53,7 olarak gerçekleşti. Şirket, çeyrek sonunda 953,6 milyon dolar nakit varlığa sahip olduğunu açıkladı. Bu finansal yapı, şirketin tüketici elektroniği pazarındaki döngüsel dalgalanmalardan uzaklaşarak, otomotiv ve veri merkezi gibi daha istikrarlı alanlara odaklanma stratejisini destekliyor. Otomotiv ve sunucu üreticilerinin genellikle çok yıllı sözleşmeler imzalaması, tedarikçilere gelecekteki gelirleri konusunda daha fazla öngörülebilirlik sağlıyor.
 

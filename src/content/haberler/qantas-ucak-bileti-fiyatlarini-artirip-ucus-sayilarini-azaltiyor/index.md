@@ -33,10 +33,10 @@ coverSitede: false
 
 Qantas, Orta Doğu'daki çatışmaların etkisiyle yükselen jet yakıtı fiyatlarına yanıt olarak yeni önlemler aldığını duyurdu. Havayolu grubu, artan maliyetleri dengelemek amacıyla bilet fiyatlarını yükselteceğini ve uçuş kapasitesini yeniden düzenleyeceğini belirtti. Şirket tarafından 6 Kasım 2026 tarihinde yapılan açıklamada, Qantas ve Jetstar'ın iç hat uçuşlarında 2027 yılı içerisinde toplamda yüzde 4 oranında bir azaltmaya gidileceği ifade edildi.
 
-### Yakıt Maliyetlerinde Beklenti
+### Yakıt maliyetlerinde beklenti
 Bu karar, havayolu sektöründe yakıt maliyetlerinin kârlılık üzerindeki baskısını gözler önüne seriyor. Qantas, yüksek yakıt fiyatlarının 2027 mali yılı boyunca etkisini sürdürmesini beklediğini bildirdi. Şirket, finansal riskleri yönetmek amacıyla yıllık yakıt faturasının yaklaşık yüzde 85'i için koruma (hedging) anlaşmalarını genişlettiğini açıkladı. Brent ham petrolünün varil fiyatı, Şubat ayındaki saldırı öncesinde 60 ABD doları seviyelerindeyken, şu anda 100 ABD dolarının üzerinde seyrediyor. Şirket, yeni mali yılın ilk yarısında yakıt maliyetlerinin 3,8 milyar dolar seviyesinde gerçekleşeceğini öngörüyor.
 
-### Geçmiş Performans ve Finansal Görünüm
+### Geçmiş performans ve finansal görünüm
 Uçuşlarda yapılacak kesintilere ve bilet fiyatlarındaki artış beklentisine rağmen, Qantas hem iç hem de dış hatlarda yolcu talebinin güçlü kalmaya devam ettiğini belirtti. Şirket, yolcuların seyahat tercihlerini Orta Doğu dışındaki bölgelere yönlendirmesinin bu talebi desteklediğini ifade etti. Ağustos ayında açıklanan 2025/26 mali yılı sonuçlarına göre şirket, 1,3 milyar dolar net kâr elde etti. Bu rakam, bir önceki yıla göre yaklaşık yüzde 20'lik bir düşüşe işaret ediyor. Şirketin vergi öncesi kârı ise yüzde 14'e yakın bir düşüşle 2,1 milyar dolar seviyesinde gerçekleşti. Buna karşın, toplam gelir yüzde 7 artışla 25,5 milyar dolara ulaştı.
 
 ### Gelecek Planları

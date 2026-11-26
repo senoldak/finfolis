@@ -27,18 +27,18 @@ coverAlt: "Küresel · FBI, Binance saldırısından Kuzey Kore'yi sorumlu tuttu
 coverSitede: false
 ---
 
-### Saldırının Detayları ve FBI Müdahalesi
+### Saldırının detayları ve FBI müdahalesi
 
 ABD Federal Soruşturma Bürosu (FBI), perşembe günü kripto para borsası Binance'e yönelik gerçekleştirilen ve yaklaşık 6,3 milyar dolar değerinde dijital varlığın çalınmasıyla sonuçlanan siber saldırıdan Kuzey Kore'yi sorumlu tuttu. 1 Kasım 2026 tarihinde yayımlanan açıklamada, bu saldırının "TraderTraitor" olarak adlandırılan kötü niyetli siber faaliyetler kapsamında gerçekleştirildiği belirtildi. FBI, saldırganların çalınan varlıkları büyük oranda Ether'e (ETH) dönüştürdüğünü gözlemlediğini ifade etti.
 
-### Aklama Yöntemleri ve Özel Sektöre Çağrı
+### Aklama yöntemleri ve özel sektöre çağrı
 
 FBI'ın değerlendirmesine göre, saldırganlar çalınan varlıkları merkeziyetsiz finans (DeFi) ve anlık takas hizmetlerini kullanarak daha ileri seviyede aklama aşamalarına taşımayı hedefliyor. Kurum, çalınan varlıkların aklanmasını durdurmak amacıyla özel sektör kuruluşlarına çağrıda bulundu. THORNode operatörleri, RPC düğüm operatörleri, anlık takas platformları, DeFi hizmet sağlayıcıları ve blokzinciri analiz firmalarından, "TraderTraitor" aktörlerinin kullandığı adreslerle işlem yapmamaları istendi. Kurum, bu adreslerin tam listesini yayımladığı basın bülteninde paylaştı.
 
-### Kripto Hırsızlığının Boyutu ve Arka Plan
+### Kripto hırsızlığının boyutu ve arka plan
 
 Kuzey Kore bağlantılı siber saldırıların ölçeği, bağımsız araştırmalarla da destekleniyor. CertiK tarafından yayımlanan bir rapora göre, 2025 yılında gerçekleşen kripto para güvenliği kayıplarının yaklaşık 3,4 milyar dolarlık kısmının 2 milyar dolardan fazlası Kuzey Kore bağlantılı gruplara atfedildi. Bu rakam, 2025 yılındaki 656 olayın 79'unu kapsıyor. Ayrıca, 2016 ile 2026 yılının başları arasında Kuzey Kore bağlantılı aktörlerin 263 belgelenmiş olayda toplamda yaklaşık 6,75 milyar dolarlık kripto para çaldığı tahmin ediliyor.
 
-### Finansman Kaynağı Olarak Siber Suçlar
+### Finansman kaynağı olarak siber suçlar
 
 Kuzey Kore'nin kripto para hırsızlığını temel bir devlet geliri mekanizması haline getirdiği değerlendiriliyor. Elde edilen gelirlerin, ülkenin nükleer ve balistik füze programlarının finansmanına destek sağladığı belirtiliyor. MilitarySpend adlı bağımsız araştırma kuruluşuna göre, ülkenin yıllık savunma harcamalarının 6 milyar dolar seviyesinde olduğu tahmin ediliyor. Bunun yanı sıra, 2022-2025 yılları arasında Rusya'ya yapılan silah ihracatından elde edilen 5 milyar dolara varan gelirin de savunma programlarını desteklediği ifade ediliyor.

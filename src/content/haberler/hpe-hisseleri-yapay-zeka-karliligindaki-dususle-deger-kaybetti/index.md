@@ -28,15 +28,15 @@ coverAlt: "Hisse düşüşü %16"
 coverSitede: false
 ---
 
-### Piyasa Tepkisi ve Değer Kaybı
+### Piyasa tepkisi ve değer kaybı
 
 Hewlett Packard Enterprise (HPE) hisseleri, yatırımcıların şirketin artan maliyetler nedeniyle daralan kâr marjlarına odaklanmasıyla Wall Street'te yaklaşık yüzde 16 oranında değer kaybetti. Bu düşüş, şirketin piyasa değerinde yaklaşık 10 milyar dolarlık bir kayba işaret ediyor. Şirket hisseleri, pazartesi günü Nvidia kaynaklı yükselişle yüzde 17'nin üzerinde değer kazanmıştı. Yılbaşından bu yana iki katından fazla değer kazanan hisseler, son işlem gününde bu düşüşü yaşadı.
 
-### Maliyet Baskısı ve Marjlar
+### Maliyet baskısı ve marjlar
 
 Şirketin finans direktörü Marie Myers, kazanç toplantısında maliyetlerin fiyatlandırmadan daha hızlı arttığını belirtti. Şirket yönetimi, yapay zekâ sunucularının sevkiyatı arttıkça yılın ikinci yarısında kâr marjlarının etkileneceğini öngörüyor. B Riley Wealth baş piyasa stratejisti Art Hogan, maliyet artışlarının fiyatlara tam yansıtılamamasının marjları baskıladığını ve fiyatlandırma avantajlarının azalmaya başladığına dair endişeleri artırdığını ifade etti. Hogan ayrıca, 2028 yılına kadar sürmesi beklenen tedarik sıkıntılarının kâr marjlarını etkilemeye devam edeceğini belirtti.
 
-### Gelecek Beklentileri ve Gelir Artışı
+### Gelecek beklentileri ve gelir artışı
 
 HPE, 2027 mali yılı için düzeltilmiş faaliyet kâr marjı tahminini yüzde 14 ile yüzde 15 aralığında açıkladı; bu oran 2026 mali yılında yüzde 15,1 seviyesindeydi. Şirketin büyüme motoru olarak görülen Bulut ve yapay zekâ biriminde ise yıllık marjın önceki mali yıla göre düşüşle yaklaşık yüzde 14 olması bekleniyor. Buna karşın, yapay zekâ sunucularına olan güçlü talep, şirketin dördüncü çeyrek gelirini yüzde 50 artırarak 14,55 milyar dolara taşıdı. Şirket, 2027 mali yılı gelir büyüme tahminini de daha önceki yüzde 13-17 aralığından yüzde 27-35 seviyesine yükseltti.
 

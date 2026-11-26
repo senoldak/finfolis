@@ -27,15 +27,15 @@ coverAlt: "Küresel · Circle beklentileri geride bıraktı"
 coverSitede: false
 ---
 
-### Finansal Sonuçlar ve Beklentiler
+### Finansal sonuçlar ve beklentiler
 
 Circle, 2026 yılının üçüncü çeyreğine ilişkin finansal sonuçlarını paylaştı. Şirket, bu dönemde 865 milyon dolar gelir ve 317 milyon dolar düzeltilmiş faiz, amortisman ve vergi öncesi kâr (EBITDA) elde ettiğini duyurdu. Bu sonuçlar, piyasa analistlerinin yaklaşık 788 milyon dolarlık beklentilerini geride bıraktı. New York Menkul Kıymetler Borsası'nda CRCL koduyla işlem gören şirket, açıklanan bu verilerle birlikte 2026 mali yılına yönelik beklentilerini de koruduğunu belirtti.
 
-### Gelir Kaynakları ve Yeni Ekosistem
+### Gelir kaynakları ve yeni ekosistem
 
 Üçüncü çeyrekteki finansal başarının iki temel dayanağı bulunuyor. İlk olarak, şirketin dolara endeksli sabit coini USDC'yi destekleyen rezervlerden elde edilen gelirler, bilançoya katkı sağlamaya devam etti. İkinci olarak ise, şirketin yeni blok zinciri ekosistemi Arc'ın yerel varlığı olan ARC tokenlarının ön satışı önemli bir gelir kalemi oluşturdu. Bu ön satış süreci, 3 milyar dolarlık değerleme üzerinden yaklaşık 222 milyon dolar fon topladı. Ayrıca, ana ağın devreye girmesiyle eş zamanlı olarak 10 milyar adet ARC token için başlangıç basımı gerçekleştirildi.
 
-### Arc Ağı ve Kurumsal Ortaklıklar
+### Arc ağı ve kurumsal ortaklıklar
 
 Circle, bu dönemde kendi blok zinciri olan Arc'ı da kullanıma sundu. 16 Eylül 2026 tarihinde halka açık ana ağı faaliyete geçen Arc, başlangıç aşamasında 100'den fazla kurumsal ortak ve geliştiriciyle iş birliği yapıyor. Bu ortaklar arasında BlackRock, DTCC ve Visa gibi finans dünyasının önemli kuruluşları yer alıyor. Ağın tasarımında dikkat çeken en önemli özelliklerden biri, işlem ücretlerinin ayrı bir oynak token yerine doğrudan USDC ile ödenmesi. Circle, bu yeni yapıyı tokenleştirilmiş finans ve sınır ötesi ödemeler alanında bir altyapı olarak konumlandırıyor.
 

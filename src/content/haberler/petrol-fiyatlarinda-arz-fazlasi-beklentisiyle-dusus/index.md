@@ -32,14 +32,14 @@ coverAlt: "Brent petrol son altı ay günlük kapanış grafiği: altı ayda −
 
 Petrol fiyatları, Orta Doğu'daki sevkiyatların savaş öncesi seviyelere yaklaşması ve piyasada arz fazlası oluşacağı beklentileriyle 16 Kasım 2026 Pazartesi günü düşüş kaydetti. Brent petrolün varil fiyatı 47 sentlik, yani yüzde 0,49'luk düşüşle 95,37 dolara geriledi. ABD tipi ham petrol (WTI) ise 23 sentlik, yani yüzde 0,26'lık azalışla 88,33 dolara indi. Bu hareket, piyasanın ABD ile İran arasındaki çatışmanın dokuzuncu ayında jeopolitik risklerin azaldığına dair işaretleri değerlendirdiği bir dönemde gerçekleşti. Hatırlatmak gerekirse, gösterge fiyatlar bir önceki hafta sırasıyla yüzde 16 ve yüzde 13 oranında değer kaybetmişti.
 
-### Arz Fazlası Beklentisi
+### Arz fazlası beklentisi
 
 Uluslararası Enerji Ajansı'nın (IEA) verilerine göre, küresel petrol piyasası yılın dördüncü çeyreğinde arz fazlasına dönecek. Ajans, daha önce dördüncü çeyrek için arz açığı öngörürken, Orta Doğu'daki ihracatın küresel petrol talebine rağmen beklenenden hızlı toparlanmasıyla bu beklentisini güncelledi. IEA'nın verilerine göre, dördüncü çeyrekte günlük ortalama petrol arzının 105 milyon varil olması bekleniyor. Bu miktar, tahmin edilen talebin 1,7 milyon varil üzerinde bulunuyor. KCM Trade Baş Analisti Tim Waterer, ABD-İran çatışmasının başlamasından bu yana ilk kez yatırımcıların piyasadaki arz sıkışıklığından ziyade arz fazlası olasılığını değerlendirdiğini ve bu durumun piyasa tonunu yumuşattığını belirtti.
 
-### ABD'den Yeni Düzenleme
+### ABD'den yeni düzenleme
 
 Fiyatlardaki aşağı yönlü baskı, ABD'nin yakıt sevkiyatlarını kolaylaştıran bir düzenlemeyi uzatmasıyla da desteklendi. ABD Başkanı Donald Trump, yabancı bayraklı gemilerin ABD limanları arasında petrol, benzin ve dizel gibi yakıtları taşımasına izin veren Jones Yasası muafiyetini 90 gün daha uzattı. Bu adım, ABD limanları arasında emtia taşıyabilecek tanker sayısını artırıyor. Ayrıca IEA, Mart ayında taahhüt edilen acil durum rezervlerinden 71 milyon varil petrolün, 15 milyon varil dizel de dahil olmak üzere Şubat ayı sonuna kadar piyasaya sunulacağını açıkladı.
 
-### Nakliye Maliyetleri Yüksek Kalıyor
+### Nakliye maliyetleri yüksek kalıyor
 
 Öte yandan, arzın gevşemesine rağmen nakliye maliyetlerinin yüksek kalması fiyatlardaki düşüşü sınırlayan bir unsur olarak öne çıkıyor. KCM Trade analisti Waterer, Hürmüz Boğazı'ndan ham petrol taşıyan tankerlerin karşı karşıya olduğu riskler ve gemilerin bölgedeki transfer süreçleri nedeniyle tanker arzının kısıtlı kalmasının nakliye maliyetlerini yüksek tuttuğunu ifade etti. Pazar gecesi İran donanması, Hürmüz Boğazı'nın doğusunda bir deniz mayınına çarpan bir petrol tankerinin alev aldığına dair bir açıklama yaptı.

@@ -27,14 +27,14 @@ cover: kapak.png
 coverAlt: "USD/JPY paritesi son altı ay günlük kapanış grafiği: altı ayda +%0,5, son kapanış 157,98"
 ---
 
-### Faiz Farkı Beklentisi
+### Faiz farkı beklentisi
 
 TTT Moneycorp Limited ekonomi ve piyasa stratejisi başkanı Neil Parker, yaklaşık otuz yıldır yen hareketlerini takip eden bir isim olarak, Japon para biriminin dolar karşısında değer kazanarak gelecek yıl 147 seviyesine ulaşacağını tahmin ediyor. Parker, bu öngörüsünü Japonya ile ABD arasındaki faiz farkının azalacağı beklentisine dayandırıyor. Bu tahmin, piyasadaki farklı görüşlerin olduğu bir ortamda, yenin güçleneceğine dair iyimser tarafta yer alıyor.
 
-### Piyasadaki Görüş Ayrılıkları
+### Piyasadaki görüş ayrılıkları
 
 Piyasalarda yenin geleceğine dair belirgin görüş ayrılıkları bulunuyor. Parker, yıl sonuna kadar yenin 155 seviyesine güçleneceğini, ardından daha fazla değer kazanacağını belirtiyor. Buna karşın, bir önceki çeyreğin en başarılı tahmincisi, gelecek yıl yenin 170 seviyesine kadar zayıflayabileceğini öngörüyor. Bu görüş ayrılığının temelinde, Japonya Merkez Bankası'nın faiz politikasına dair farklı beklentiler yer alıyor.
 
-### Merkez Bankalarının Politikaları
+### Merkez bankalarının politikaları
 
 Parker, Japonya Merkez Bankası'nın mevcut yüzde 1,25 olan gösterge faiz oranını en az yüzde 2, hatta yüzde 2,25 seviyesine yükselteceğini tahmin ediyor. Bu, piyasanın genelinden daha agresif bir sıkılaştırma beklentisine işaret ediyor. ABD Merkez Bankası'nın (Fed) ise aralık ayında bir faiz artışına daha giderek yüzde 4,00-4,25 aralığında durabileceğini öngörüyor. Japonya'da taze gıda ve enerji hariç tüketici fiyat endeksi, merkez bankasının yakından izlediği bir gösterge olarak eylül ayında yüzde 2,4 artış gösterdi. Parker, bu oranın yüzde 2,6 veya üzerine çıkmasının, merkez bankasını daha hızlı bir sıkılaştırma politikasına itebileceğini ifade ediyor. Parker'a göre, Japonya ile ABD arasındaki faiz farkının yaklaşık 50 baz puan daha daralması, yatırımcı beklentilerini yeniden şekillendirmek için yeterli olabilir.

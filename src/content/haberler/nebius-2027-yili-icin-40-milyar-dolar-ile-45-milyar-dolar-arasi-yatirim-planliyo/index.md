@@ -30,14 +30,14 @@ coverAlt: "Küresel · Nebius 2027 yılı için 40 milyar dolar ile 45 milyar do
 coverSitede: false
 ---
 
-### Kapasite Artışı İçin Büyük Yatırım
+### Kapasite artışı için büyük yatırım
 
 Amsterdam merkezli yapay zekâ bulut altyapı sağlayıcısı Nebius, 2027 yılına yönelik sermaye harcaması planlarını kamuoyuyla paylaştı. Şirket, 12 Kasım 2026 tarihinde yayımlanan 2026 yılı üçüncü çeyrek hissedar mektubunda, 2027 yılı için 40 milyar dolar ile 45 milyar dolar arasında sermaye harcaması öngördüğünü duyurdu. Nasdaq borsasında NBIS koduyla işlem gören şirket, bu yatırımın temel amacının kapasiteyi 1 gigawattın üzerinde artırmak olduğunu belirtti. Söz konusu bütçe, henüz kârlılık aşamasına ulaşmamış bir şirket için oldukça yüksek bir seviyeyi temsil ediyor.
 
-### Yatırım Tahminlerinde Güncelleme
+### Yatırım tahminlerinde güncelleme
 
 Nebius, 2026 yılına ilişkin sermaye harcaması tahminlerini de güncelledi. Daha önce 20 milyar dolar ile 25 milyar dolar aralığında öngörülen 2026 yılı harcamaları, yaklaşık 27 milyar dolara revize edildi. Şirket yönetimi, 2027 yılı için 12 milyar dolar ile 13 milyar dolar arasında satış geliri elde etmeyi bekliyor. Bu rakam, şirketin 2026 yılı için öngördüğü satış gelirlerinin yaklaşık dört katına denk geliyor. Ayrıca Nebius, 2027 yılının dördüncü çeyreğinde vergi öncesi başa baş noktasına ulaşmayı hedeflediğini açıkladı.
 
-### Ön Ödemelerle Finansman Stratejisi
+### Ön ödemelerle finansman stratejisi
 
 Şirketin bu genişleme planındaki en dikkat çekici unsur, finansman yönteminde müşterilerden alınan ön ödemelere ağırlık vermesi oldu. Nebius, 2026 yılında 10 milyar dolarlık ön ödeme taahhüdü aldığını, 2027 yılı için ise bu rakamın 17 milyar dolar ile 20 milyar dolar seviyesine çıkmasını beklediğini ifade etti. Müşterilerin sözleşmeler kapsamında yaptığı ön ödemelerin, sermaye harcamalarını karşılama oranı yıl içinde belirgin bir artış gösterdi. Şirket verilerine göre, 2026 yılının üçüncü çeyreğinde alınan ön ödemeler, ilgili sözleşmelerden kaynaklanan sermaye harcamalarının yüzde 100'ünden fazlasını karşıladı. Bu oran, yılın ikinci çeyreğinde yüzde 50 ile yüzde 60 seviyesindeydi. Şirket, bu ön ödemelerin yanı sıra varlığa dayalı bir finansman stratejisi izlediğini de belirtti.

@@ -30,14 +30,14 @@ coverAlt: "Nvidia Haftalık Kayıp %23"
 coverSitede: false
 ---
 
-### Piyasalarda Düzeltme Eğilimi
+### Piyasalarda düzeltme eğilimi
 
 S&P 500 ve Dow Jones Industrial Average endeksleri, 20 Kasım 2026 Cuma günü kapanış itibarıyla rekor seviyelerinden yüzde 10'dan fazla değer kaybederek düzeltme bölgesine girdi. Nasdaq Composite endeksi ise 2026 yılındaki kazançlarını kaybederek haftayı yüzde 10 düşüşle kapattı. Bu performans, Nasdaq'ın Mart 2020'deki Covid-19 kaynaklı düşüşten bu yana yaşadığı en kötü hafta olarak kaydedildi. Wharton profesörü Jeremy Siegel, bu düzeltmeyi hisse senetlerinde son üç yıldır görülen çift haneli yıllık getirilerin ardından beklentilerin yeniden dengelenmesi süreci olarak tanımlıyor.
 
-### Yapay Zekâ Hisselerinde Satış Baskısı
+### Yapay zekâ hisselerinde satış baskısı
 
 Piyasalardaki satış dalgasının arkasında, yapay zekâ sektöründeki hareketlilik önemli bir rol oynadı. Anthropic şirketinin halka arzı, yatırımcıların beklentilerini karşılamakta zorlanırken, hisse senedi 83 dolarlık arz fiyatından işlem görmeye başladıktan sonra haftayı 88,91 dolar seviyesinde kapattı. Aynı dönemde, yapay zekâ çip üreticisi Nvidia üzerindeki satış baskısı da yoğunlaştı. Şirketin muhasebe uygulamalarına yönelik bir soruşturma haberi ve üst yöneticisinin istifası gibi gelişmelerin etkisiyle Nvidia hisseleri Cuma günü yüzde 14, haftalık bazda ise yüzde 23 değer kaybetti. Şirket hisseleri, Kasım ayı genelinde ise yüzde 40'a yakın bir düşüş yaşadı.
 
-### Enflasyon ve Teknik Göstergeler
+### Enflasyon ve Teknik göstergeler
 
 Teknik tarafta, S&P 500 endeksinin uzun vadeli trend göstergesi olan 200 günlük hareketli ortalamasının altına gerilemesi, piyasada otomatik satış yapan yatırımcıları harekete geçirdi. Makroekonomik tarafta ise enflasyonun Federal Rezerv'in (Fed) yüzde 2'lik hedefinden uzak seyretmesi endişeleri artırdı. Petrol fiyatlarının 83 doların üzerinde seyretmesi ve bölgedeki lojistik baskılar, enflasyonist baskıyı canlı tutuyor. Fed Yönetim Kurulu Üyesi Christopher Waller, enflasyonun yayılma eğiliminde olduğunu belirterek, merkez bankasının faiz artırımlarında daha agresif bir tutum sergileyerek yüzde 0,50'lik bir artışa gidebileceği sinyalini verdi. 10 yıllık Hazine tahvil getirileri de bu beklentilerle yüzde 5 seviyesinin üzerine çıktı.

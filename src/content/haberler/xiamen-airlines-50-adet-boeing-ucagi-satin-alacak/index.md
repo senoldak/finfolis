@@ -30,11 +30,11 @@ coverSitede: false
 
 China Southern Airlines'ın yüzde 55 oranında hissedarı olduğu Xiamen Airlines, filosunu güçlendirme adımları kapsamında 50 adet Boeing 737-8 tipi uçak siparişi için anlaşmaya vardı. Şirket tarafından yapılan resmi açıklamada, bu uçakların toplam liste fiyatının yaklaşık 7,4 milyar dolar olduğu belirtildi. Ancak anlaşma metninde, Boeing tarafından sağlanan indirimler nedeniyle nihai satın alma bedelinin bu tutarın altında kalacağı bilgisi de yer aldı. Taraflar, anlaşmadaki gizlilik hükümleri gereği nihai fiyatı açıklamadı.
 
-### Teslimat ve Finansman Planı
+### Teslimat ve finansman planı
 Söz konusu uçakların teslimat takvimi 2031 ile 2034 yılları arasına yayılan bir süreçte, partiler halinde planlandı. Satın alma işleminin finansmanı ise şirketin kendi iç kaynakları ile dış finansman yöntemlerinin birleşimiyle sağlanacak. İşlemin tamamlanması için hissedarların onayı ve ilgili Çin hükümet makamlarının gerekli izinleri bekleniyor.
 
-### Stratejik Büyüme ve Filo Çeşitlendirme
+### Stratejik büyüme ve filo çeşitlendirme
 Xiamen Airlines'ın bu adımı, şirketin yeni Xiamen Xiang'an Uluslararası Havalimanı'na taşınma planlarını ve uçuş ağını genişletme hedeflerini desteklemeyi amaçlıyor. China Southern Airlines, farklı uçak üreticileriyle çalışmanın filoyu çeşitlendirmeye ve operasyonel esnekliği artırmaya katkı sağlayacağını ifade etti. Grup, bu anlaşmadan önce 137 adet Airbus A320neo ailesi uçak için de bir satın alma sözleşmesi imzalamıştı.
 
-### Sektörel ve Siyasi Bağlam
+### Sektörel ve siyasi bağlam
 Havacılık sektöründeki bu hareketlilik, ABD ile Çin arasındaki ticari ilişkilerle de yakından takip ediliyor. ABD Başkanı Donald Trump, geçtiğimiz hafta düzenlenen APEC zirvesinde Çin Devlet Başkanı Şi Cinping ile yaptığı görüşmenin ardından, Çin'in 250 adet daha Boeing uçağı satın almasını beklediğini ifade etmişti. Mayıs ayında ise Çin, ABD Başkanı'nın Pekin ziyaretinin ardından 200 adetlik bir Boeing uçak alımını onaylamıştı. Bu alım, 2017 yılından bu yana Çin'in ABD yapımı Boeing uçaklarına yönelik ilk taahhüdü olarak kayıtlara geçmişti. Xiamen Airlines'ın son siparişinin, bu genel taahhüt kapsamında olup olmadığı ise henüz netlik kazanmadı.

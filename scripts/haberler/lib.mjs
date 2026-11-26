@@ -4,7 +4,7 @@ import path from 'node:path';
 import { geminiCagir } from './istemci.mjs';
 import { kapakCiz } from '../kapak/kapak.mjs';
 import { kategoriDuzelt } from './kategori-duzelt.mjs';
-import { cumleDuzeni } from './baslik-duzeni.mjs';
+import { araBasliklariDuzenle, cumleDuzeni } from './baslik-duzeni.mjs';
 import { hintBirimleriniCevir } from './hint-birimleri.mjs';
 import { ozetAlaniTemizle, paragraflaraBol } from './dil-tr.mjs';
 
@@ -194,7 +194,9 @@ export async function yaziYaz(rot, yazi) {
   }
   fm.push('---');
   // Model gövdeyi tek blok döndürdüyse cümle sınırlarından paragraflara bölünür (sözcüklere dokunulmaz).
-  await writeFile(path.join(taban, slug, 'index.md'), `${fm.join('\n')}\n\n${paragraflaraBol(htmlSok(yazi.govde).trim())}\n`, 'utf8');
+  // Ara başlıklar cümle düzenine iner ("### Her Kelimesi Büyük" → "### Her kelimesi büyük"; özel adlar gövdeden okunur).
+  const govde = araBasliklariDuzenle(paragraflaraBol(htmlSok(yazi.govde).trim()), yazi.spot ?? '');
+  await writeFile(path.join(taban, slug, 'index.md'), `${fm.join('\n')}\n\n${govde}\n`, 'utf8');
   return slug;
 }
 

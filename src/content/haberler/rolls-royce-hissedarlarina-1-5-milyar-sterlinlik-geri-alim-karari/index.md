@@ -28,13 +28,13 @@ cover: kapak.png
 coverAlt: "GBP/USD paritesi son altı ay günlük kapanış grafiği: altı ayda −%1,8, son kapanış 1,3277"
 ---
 
-### Havacılıkta Güçlü Talep Sürüyor
+### Havacılıkta güçlü talep sürüyor
 
 Rolls-Royce, 12 Kasım 2026 tarihinde yaptığı açıklamada, hissedarlarına yönelik 1,5 milyar sterlin değerinde bir hisse geri alım programı başlatacağını duyurdu. Bu adım, şirketin 2026 ile 2028 yılları arasında yürütmeyi planladığı 7 milyar sterlin ile 9 milyar sterlin arasındaki toplam geri alım programının bir parçası olarak hayata geçiriliyor. Söz konusu geri alım işleminin Şubat ayına kadar tamamlanması hedefleniyor.
 
 Şirket yönetimi, bu kararın arkasında sivil havacılık birimindeki güçlü talebin yattığını ifade ediyor. İran'daki çatışmaların küresel seyahat üzerinde yarattığı aksamalara rağmen, Rolls-Royce'un motorlarının uçuşlarda kullanılma saatleri yılın ilk on ayında yüzde 4 oranında artış gösterdi. Şirket, Orta Doğu merkezli havayolu şirketlerinin uçuş seviyelerinin çatışma öncesi dönemlerin üzerinde seyrettiğini belirtti. Ayrıca savunma sanayii tarafında da hem mevcut hem de yeni programlarda talebin güçlü seyretmeye devam ettiği kaydedildi.
 
-### Dönüşüm ve Büyüme Hedefleri
+### Dönüşüm ve büyüme hedefleri
 
 Rolls-Royce Üst Yöneticisi Tufan Erginbilgic, şirketin dönüşüm sürecinin ve atılan adımların, daha dirençli ve büyüme potansiyeli yüksek, çeşitlendirilmiş bir portföy oluşturduğunu belirtti. Erginbilgic, Şubat ayında açıklanacak yıl sonu sonuçlarıyla birlikte gelecekteki finansal hedeflerin yukarı yönlü revize edilebileceğini de ifade etti. Bu gelişmelerin ardından şirketin hisseleri yüzde 2 oranında değer kazanarak 1369,6 peni seviyesine yükseldi.
 

@@ -30,14 +30,14 @@ coverAlt: "Küresel · Bitmine 2026 mali yılında 6,3 milyar dolar zarar açık
 coverSitede: false
 ---
 
-### Ether Fiyatlarındaki Düşüşün Etkisi
+### Ether fiyatlarındaki düşüşün etkisi
 
 Bitmine Immersion Technologies, 31 Ağustos 2026 tarihinde sona eren mali yılına ilişkin finansal sonuçlarını paylaştı. Şirket, Ether fiyatlarındaki düşüşün etkisiyle 6,3 milyar dolar net zarar açıkladı. Salı günü dosyalanan 10-K raporuna göre, bu zararın 6,2 milyar dolarlık kısmı dijital varlıklardaki gerçekleşmemiş değer kayıplarından kaynaklandı. Şirket, bir önceki mali yılda 348,6 milyon dolar net kâr elde etmişti.
 
-### Gelir Yapısı ve Varlık Durumu
+### Gelir yapısı ve varlık durumu
 
 Şirketin toplam geliri 124,8 milyon dolar olarak gerçekleşti ve analistlerin 119,8 milyon dolarlık beklentisinin üzerinde kaldı. Gelirlerin 121,4 milyon dolarlık kısmı, yani toplam gelirin yüzde 97'si, staking ve doğrulama faaliyetlerinden elde edildi. Bitmine, mali yıl sonu itibarıyla 15,4 milyar dolar toplam varlığa ve 33,7 milyon dolar yükümlülüğe sahip olduğunu belirtti. Varlıklar arasında 545 milyon dolar nakit ve nakit benzerleri, 16,6 milyon dolar değerinde 211 Bitcoin, 186 milyon dolar değerinde Beast Industries hissesi ve 77 milyon dolar değerinde Eightco Holdings hissesi de yer aldı.
 
-### Kurumsal Ether Varlıkları
+### Kurumsal Ether varlıkları
 
 Dünyanın en büyük kurumsal Ether tutucusu olan Bitmine, elindeki Ether miktarının pazar günü itibarıyla 6,07 milyon adede, yani toplam arzın yüzde 4,97'sine ulaştığını duyurdu. Şirket, elinde bulundurduğu 5,23 milyon Ether üzerinden yıllık 309 milyon dolar getiri beklediğini tahmin etti. Bitmine Yönetim Kurulu Başkanı Tom Lee, 7 Ekim 2026 tarihinde Singapur'da düzenlenen Token2049 etkinliğinde, toplam arzın yüzde 5'ini şirket varlıkları için bir üst sınır olarak tanımlamıştı. Salı günü şirket hisseleri yüzde 2,8 değer kaybederek 18,08 dolardan kapandı; yılbaşından bu yana yaşanan düşüş ise yüzde 33 seviyesine ulaştı.

@@ -28,16 +28,16 @@ coverAlt: "Küresel · Sky ekosisteminin USDC rezervleri tek bir cüzdanda tutul
 coverSitede: false
 ---
 
-### Rezervin İşleyişi ve Önemi
+### Rezervin işleyişi ve önemi
 
 Sky ekosistemi (eski adıyla MakerDAO), yaklaşık 2,7 milyar dolarlık USDC rezervini tek bir Ethereum cüzdanında tutuyor. Bu cüzdan, Peg Stability Module (PSM) olarak adlandırılan ve USDC ile USDS ve DAI tokenleri arasında 1:1 oranında takas imkânı sağlayan bir mekanizmanın parçası olarak işlev görüyor. PSM, piyasadaki DAI ve USDS arzına likidite ve istikrar desteği sağlıyor. Bu iki stablecoin'in toplam arzı 8 milyar doları aşıyor. PSM'nin rezervi, toplam arzdan daha küçük olsa da, bu mekanizmanın erişilebilirliği ekosistemin genel sağlığı açısından kritik bir öneme sahip.
 
-### Güvenlik ve Dondurulma Riski
+### Güvenlik ve dondurulma riski
 
 Blockchain analiz firması Inca Digital'in yaptığı incelemeler, bu cüzdan üzerinden yasa dışı faaliyetlerle bağlantılı yüz milyonlarca dolarlık işlem yapıldığını ortaya koydu. 19 Kasım 2026 tarihli verilere göre, bu işlemlerin 518 milyon dolarlık kısmı siber suçlarla bağlantılı. Bu tutarın 102 milyon dolarlık bölümünün ise Kuzey Koreli bilgisayar korsanlarıyla ilişkili olduğu belirtiliyor. 
 
 USDC'nin ihraççısı olan Circle şirketine ulaşacak bir mahkeme kararı, sadece şüpheli işlemleri değil, cüzdandaki tüm rezervi dondurma potansiyeline sahip. Bu durum, ekosistemin likidite yapısı için bir belirsizlik unsuru oluşturuyor.
 
-### Neden Bu Cüzdan Tercih Ediliyor?
+### Neden bu cüzdan tercih ediliyor?
 
 Inca Digital'in analizine göre, kötü niyetli aktörlerin bu takas modülünü kullanmasının temel bir mantığı bulunuyor. USDC, ihraççısı tarafından dondurulabilen bir varlık olduğu için, yasa dışı faaliyet yürüten kişiler bu varlıktan hızla çıkış yapmak istiyor. PSM, derin likiditeye sahip 1:1 oranlı bir takas modülü sunduğu için bu aktörlere hızlı bir çıkış yolu sağlıyor. Bu durum, compliance (uyum) ekiplerinin dikkatini çeken bir detay olarak raporlarda yer alıyor.

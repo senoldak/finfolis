@@ -32,10 +32,10 @@ coverSitede: false
 
 EasyJet, 5,7 milyar sterlin değerindeki özel sermaye şirketi Apollo tarafından devralınma süreci öncesinde genel merkezindeki kadrosunda değişikliğe gidiyor. Luton merkezli havayolu şirketi, 2.300 kişilik genel merkez ekibinden yaklaşık 50 pozisyonun azaltılmasına yönelik istişarelerde bulunuyor. Şirket yönetimi, bu kararın Apollo ile gerçekleşecek devralma süreciyle doğrudan bir bağlantısı olmadığını vurguladı.
 
-### Devralma Süreci ve Hissedar Oylaması
+### Devralma süreci ve hissedar oylaması
 ABD merkezli yatırım firması Apollo, temmuz ayında hisse başına 715 peni üzerinden EasyJet'i devralmak üzere anlaşmaya varmıştı. Şirket hissedarları, 11 Kasım 2026 Çarşamba günü bu anlaşmayı oylayacak. Anlaşmanın onaylanması durumunda sürecin 2027 yılının ilk çeyreğinde tamamlanması bekleniyor. Apollo, devralma işlemi tamamlandıktan sonra bir yıl boyunca herhangi bir işten çıkarma yapmayacağına dair taahhütte bulundu. Bu süreç, daha önce 690 peni hisse başı fiyatla 5,5 milyar sterlinlik teklif sunan ancak ağustos ayında çekilen Castlelake firmasıyla yaşanan rekabetin ardından netleşmişti.
 
-### Şirket Stratejisi ve Sendikal Endişeler
+### Şirket stratejisi ve sendikal endişeler
 EasyJet sözcüsü, düşük maliyetli bir havayolu olarak verimli çalışmanın, uygun fiyatlı bilet sunmak ve gelecekteki büyüme fırsatlarına yatırım yapmak için gerekli olduğunu belirtti. Şirket, bu tekliflerin genel merkez rollerinin çok küçük bir kısmını etkilediğini ve işin iddialı planlarını desteklemek için en iyi şekilde kurulmasını sağlamayı amaçladığını ifade etti. Öte yandan, İngiliz Pilotlar Birliği (Balpa) gibi sendikalar, devralma işleminin uzun vadeli etkileri konusunda endişelerini dile getirdi. Sendika, Apollo'nun bir yıllık koruma süresinin ötesindeki çalışan haklarına ilişkin önemli soruların devam ettiğini vurguladı.
 
 ### Şirketin Geçmişi

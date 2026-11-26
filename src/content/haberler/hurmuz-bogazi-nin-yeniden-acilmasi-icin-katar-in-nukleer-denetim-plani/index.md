@@ -30,10 +30,10 @@ coverSitede: false
 
 Katar, ABD ve İran arasındaki gerilimi düşürmek amacıyla yeni bir diplomatik girişim başlattı. Katar'ın sunduğu öneriye göre, İran'ın nükleer tesislerine Birleşmiş Milletler denetçilerinin girmesine izin vermesi karşılığında, Hürmüz Boğazı'ndaki deniz ablukasının kaldırılması planlanıyor. Bu kapsamda, İran'ın nükleer tesislerinde bulunan zenginleştirilmiş uranyum stoklarının ülke dışına çıkarılması zorunlu tutulmuyor; uranyum içeriğinin azaltılması gibi farklı seçenekler değerlendiriliyor. Katar Emiri Şeyh Temim bin Hamad el-Sani, konuyu ABD Başkanı Donald Trump ile görüştü.
 
-### Diplomatik Süreç ve Şartlar
+### Diplomatik süreç ve şartlar
 Anlaşmanın hayata geçmesi durumunda, Hürmüz Boğazı'nın uygulamanın ikinci gününde yeniden açılması öngörülüyor. Katar'ın arabuluculuğunda yürütülen bu süreçte, ABD'nin İran'a ait 8 milyar dolarlık dondurulmuş varlığın bir kısmını serbest bırakması teklif ediliyor. Buna karşılık İran'ın, Eylül 2025'te Kahire'de üzerinde uzlaşılan ancak daha sonra terk edilen bir anlaşma temelinde, Uluslararası Atom Enerjisi Ajansı denetçilerinin tesislerine girişine izin vermesi bekleniyor. Ancak İran tarafı, nükleer denetçilerin toplayacağı verilerin ABD ve İsrail ile paylaşılmasından endişe duyuyor ve Uluslararası Atom Enerjisi Ajansı Başkanı Rafael Grossi'ye olan güvenini kaybettiğini belirtiyor.
 
 İran'ın boğazı açmak için Lübnan'daki savaşın sona ermesi, ABD güçlerinin İran kıyılarından çekilmesi, bazı ekonomik yaptırımların kaldırılması ve savaş tazminatı ödenmesi gibi başka ön koşulları da bulunuyor. Ayrıca, İran'ın ekonomik toparlanmasına yardımcı olmak amacıyla 300 milyar dolarlık bir yeniden yapılanma fonu kurulması da mutabakat zaptında yer alıyor, ancak bu fonun nasıl finanse edileceği belirsizliğini koruyor.
 
-### Enerji Sevkiyatında Boğazın Önemi
+### Enerji sevkiyatında boğazın önemi
 Hürmüz Boğazı, küresel enerji sevkiyatı için kritik bir geçiş noktası olmaya devam ediyor. Analitik firması Kpler'in verilerine göre, Ekim ayında boğazdan günlük 10,23 milyon varil Körfez ham petrolü geçti. Bu miktarın yüzde 42'si Çin'e, yüzde 13'ü ise Hindistan'a ulaştı. Öte yandan, İran Devrim Muhafızları Ordusu donanması, Hürmüz Boğazı'nın doğu kesiminde yetkisiz bir rotadan geçmeye çalışan iki petrol tankerinin mayınlara çarptığını ve yangın çıktığını bildirdi.

@@ -30,18 +30,18 @@ coverAlt: "Küresel · ConocoPhillips kârını ikiye katladı ve temettü ödem
 coverSitede: false
 ---
 
-### Finansal Sonuçlar ve Piyasa Beklentileri
+### Finansal sonuçlar ve piyasa beklentileri
 
 ConocoPhillips, 5 Kasım 2026 tarihinde paylaştığı üçüncü çeyrek finansal sonuçlarında kârını bir önceki yılın aynı dönemine göre ikiye katlayarak 4 milyar dolara ulaştırdı. Geçen yılın aynı döneminde 1,7 milyar dolar net gelir elde eden şirket, bu çeyrekte hisse başına 3,27 dolar düzeltilmiş kazanç açıkladı. Bu sonuç, piyasa beklentisi olan 2,97 doların üzerinde gerçekleşti.
 
-### Petrol Fiyatları ve Üretim Dengesi
+### Petrol fiyatları ve üretim dengesi
 
 Şirketin kârındaki bu artış, ham petrol fiyatlarındaki yükselişin, İran'daki savaşın neden olduğu üretim aksaklıklarını dengelemesiyle gerçekleşti. ConocoPhillips'in varil başına ortalama gerçekleşen satış fiyatı, yıllık bazda yüzde 32 artışla 61,40 dolara yükseldi. Aynı dönemde Brent petrolün ortalama fiyatı da geçen yıla göre yüzde 31'in üzerinde bir artış gösterdi. Üretim miktarı ise 2,4 milyon varilden 2,3 milyon varile geriledi. Şirket, Katar'daki üretim faaliyetlerinin iyileştiğini ancak yine de savaş öncesi seviyelerin altında kaldığını belirtti.
 
-### Hissedar Getirileri ve Stratejik Odak
+### Hissedar getirileri ve stratejik odak
 
 Şirket, kâr artışıyla birlikte hissedarlarına yönelik nakit dağıtımını da güçlendirdi. Çeyrek dönemde hissedarlara toplam 3,4 milyar dolar geri dönüş sağlayan şirket, bunun 2,4 milyar dolarını hisse geri alımlarıyla gerçekleştirdi. Bu kapsamda, hisse başına ödenen temettü miktarı 84 centten 93 cente çıkarıldı. ConocoPhillips yönetimi, stratejilerini üretim hacmini hızla artırmaktan ziyade nakit akışını güçlendirmeye odakladıklarını ifade etti.
 
-### Gelecek Dönem Beklentileri
+### Gelecek dönem beklentileri
 
 Şirket, dördüncü çeyrekte günlük üretimin 2,32 milyon ile 2,36 milyon varil arasında gerçekleşmesini öngörüyor. Uzun vadeli hedeflerini koruyan şirket, 2029 yılına kadar yıllık serbest nakit akışını 2025 yılına kıyasla 7 milyar dolar artırmayı hedefliyor. Alaska'daki Willow projesinin 2029 yılının başlarında üretime geçmesi planlanıyor ve projenin modül imalatının yüzde 75'ten fazlası tamamlanmış durumda. Ayrıca şirket, Norveç'teki operasyonlarının ve İngiltere'deki Teesside varlığının olası satışı için değerlendirmelerini sürdürüyor.

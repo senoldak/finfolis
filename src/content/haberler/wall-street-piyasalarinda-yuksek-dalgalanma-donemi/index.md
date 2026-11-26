@@ -26,7 +26,7 @@ cover: kapak.png
 coverAlt: "S&P 500 son altı ay günlük kapanış grafiği: altı ayda +%2,1, son kapanış 7.561,67"
 ---
 
-### Piyasalarda Artan Belirsizlik
+### Piyasalarda artan belirsizlik
 
 Kasım ayının ortasına gelinirken, Wall Street'te hisse senedi ve tahvil piyasaları oldukça hareketli bir seyir izliyor. 14 Kasım 2026 itibarıyla, piyasalardaki bu dalgalanma neredeyse hiçbir varlık sınıfını dışarıda bırakmıyor. Enflasyon verilerinin, Federal Rezerv'in (Fed) daha agresif faiz artırımlarına gideceği yönündeki endişeleri hafifletmesine rağmen, çip üreticilerindeki satış baskısı ve petrol fiyatlarındaki ani değişimler piyasayı baskılamaya devam ediyor. Özellikle Nvidia'nın üst yöneticisinin ayrılışı gibi kurumsal gelişmeler, yapay zekâ odaklı yatırımlarda belirsizliği artırdı.
 
@@ -34,7 +34,7 @@ Kasım ayının ortasına gelinirken, Wall Street'te hisse senedi ve tahvil piya
 
 Piyasadaki hareketliliğin boyutunu veriler de net bir şekilde ortaya koyuyor. Kasım ayı boyunca S&P 500 endeksi günlük ortalama yüzde 1,6, Nasdaq 100 endeksi ise yüzde 2,4 oranında değişim gösterdi. Bu oranlar, Nisan 2025'teki tarife tartışmalarından bu yana görülen en büyük günlük hareketler olarak kayıtlara geçti. Tahvil piyasaları da benzer bir türbülans yaşıyor; iki yıllık Hazine tahvili getirisi, cuma günkü geri çekilme öncesinde bu ay yaklaşık 28 baz puan yükselmişti.
 
-### Yatırımcı Stratejileri ve Görüşler
+### Yatırımcı stratejileri ve görüşler
 
 Yatırımcılar bu belirsiz ortamda iki farklı strateji izliyor. Bir tarafta, Vanguard'ın S&P 500 fonu gibi denenmiş ve geniş kapsamlı endeks fonlarına büyük sermaye girişleri devam ediyor. Sadece Vanguard'ın VOO fonu, 2026 yılı içinde yaklaşık 140 milyar dolarlık girişle rekor bir yıllık seviyeye ilerliyor. Diğer tarafta ise, yüksek getiri arayışıyla spekülatif varlıklara yönelen yatırımcılar bulunuyor. Örneğin, Nvidia hisselerindeki düşüşe rağmen, bu şirkete odaklı kaldıraçlı borsa yatırım fonlarına (ETF) son bir haftada yaklaşık 900 milyon dolar giriş oldu.
 

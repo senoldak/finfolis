@@ -29,16 +29,16 @@ coverAlt: "Micron artış oranı %58,9"
 coverSitede: false
 ---
 
-### Çip Sektöründe Portföy Değişimi
+### Çip sektöründe portföy değişimi
 
 Soros Fund Management, 2026 yılının üçüncü çeyreğinde çip üreticisi şirketlere yönelik yatırımlarını artırdı. 13 Kasım 2026 tarihinde kamuoyuna açıklanan ve 30 Eylül 2026 tarihinde sona eren dönemi kapsayan 13F raporuna göre, fonun Micron Technology ve Intel hisselerindeki pozisyonları büyüdü. 13F raporları, büyük yatırım yöneticilerinin ABD borsalarındaki hisse senedi varlıklarını göstermek için sundukları üç aylık bir döküm niteliği taşıyor.
 
-### Micron ve Intel'de Son Durum
+### Micron ve Intel'de son durum
 
 Micron tarafında fon, hisse sayısını yüzde 58,9 oranında artırarak 35.618 adede çıkardı. Hisse başına 1.065 dolar fiyat üzerinden hesaplandığında bu pozisyonun değeri yaklaşık 38 milyon dolar seviyesinde bulunuyor. Fon, ikinci çeyrekte de Micron hisselerini 7,9 kat artırmıştı.
 
 Intel tarafındaki değişim ise daha belirgin bir büyüme kaydetti. Fonun Intel'deki hisse miktarı, bir önceki çeyreğe göre 27 katın üzerinde artarak 2,83 milyon adede ulaştı. 340 milyon dolar değerindeki bu pozisyon, fonun toplam portföyünün yüzde 4,0'ünü oluşturuyor ve kurumun elindeki en büyük hisse senedi yatırımı konumuna geldi.
 
-### Diğer Yatırımcılarla Farklılaşan Strateji
+### Diğer yatırımcılarla farklılaşan strateji
 
 Fonun bu hamleleri, diğer bazı yatırım kuruluşlarının tercihleriyle farklılık gösteriyor. Renaissance ve Bridgewater gibi önde gelen fonlar, 2026 yılının ikinci çeyreğinde Micron'daki paylarını azaltmıştı. Soros Fund Management ise aynı dönemde Micron pozisyonunu oluşturmaya başlamış ve üçüncü çeyrekte bu yatırımı daha da genişletmişti. Portföyde ayrıca Amazon, TSMC, Alphabet ve Nvidia gibi şirketlerde de pozisyonlar bulunuyor.

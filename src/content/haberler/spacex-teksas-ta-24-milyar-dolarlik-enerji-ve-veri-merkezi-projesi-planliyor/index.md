@@ -28,11 +28,11 @@ coverAlt: "Asya · SpaceX, Teksas'ta 24 milyar dolarlık enerji ve veri merkezi 
 coverSitede: false
 ---
 
-### Stratejik Yatırım ve Altyapı
+### Stratejik yatırım ve altyapı
 
 SpaceX, Teksas'ın Starbase bölgesinde yaklaşık 24 milyar dolarlık bir yatırım için hazırlık yapıyor. Kamuoyuna açıklanan resmi bir toplantı duyurusuna göre, şirket bölgede doğal gazla çalışan bir elektrik santrali ve süper bilgisayar tesisi kurmayı hedefliyor. Projenin ilk aşamaları için öngörülen 24 milyar dolarlık yatırımın, birden fazla aşamada tamamlanması ve gelecekte genişletilmesi planlanıyor. SpaceX, söz konusu tesisleri kendisi inşa etmeyi, mülkiyetini elinde tutmayı ve işletmeyi amaçlıyor. Kendi elektrik santralini inşa etmenin, şirkete Teksas'ın ana elektrik şebekesine bağlanmak için gereken yıllar süren bekleme sürecini atlama imkanı sağlayabileceği değerlendiriliyor. Bu yatırım, Rio Grande Vadisi'ndeki en büyük özel sektör projelerinden biri olma potansiyeli taşıyor.
 
-### Vergi İndirimi ve Siyasi Ortam
+### Vergi indirimi ve siyasi ortam
 
 Şirket, proje için bir emlak vergisi indirimi başvurusunda bulundu. Starbase Şehir Komisyonu, bu vergi indirimi talebini ve ilgili ekonomik kalkınma anlaşmasını 9 Aralık 2026 tarihinde yapılacak halka açık bir toplantıda değerlendirecek. Bu başvuru, veri merkezlerine yönelik toplumsal muhalefetin arttığı bir dönemde gerçekleşiyor. Verilere göre, yerel seçimlerdeki 41 oylamadan 40'ında seçmenler veri merkezi projelerine karşı oy kullandı. Ayrıca, ara seçimlerin ardından ABD Kongresi ve Teksas valilik ofisinde kontrolün Demokratlara geçtiği bir siyasi atmosfer söz konusu.
 

@@ -27,10 +27,10 @@ coverSitede: false
 
 OpenAI, "dots" olarak adlandırılan yapay zekâ asistanlarının internet sitelerinde alışveriş yapabilmesine olanak tanıyan ChatGPT Wallet özelliğini 14 Kasım 2026 tarihinde kullanıma sundu. Bu yeni sistem, kullanıcıların American Express, Mastercard ve Visa kartlarını sisteme tanımlayarak yapay zekâ asistanları aracılığıyla ürün satın almalarını sağlıyor.
 
-### Kredi Kartı ile Alışveriş Dönemi
+### Kredi kartı ile alışveriş dönemi
 Sistem, doğrudan kredi kartı numaralarını paylaşmak yerine, kart ağları tarafından oluşturulan ödeme belirteçlerini (token) kullanıyor. Kullanıcılar, her işlem öncesinde parmak izi veya yüz tanıma gibi güvenlik yöntemleriyle ödemeyi onaylıyor. Bu süreç, müşterilerin mevcut kart avantajlarını ve anlaşmazlık korumalarını kullanmaya devam etmelerine olanak tanıyor. OpenAI, bu özelliğin şu an için yalnızca Amerika Birleşik Devletleri'ndeki 18 yaş ve üzeri ChatGPT Pro aboneleri için sınırlı bir şekilde kullanıma sunulduğunu belirtti.
 
-### Geleneksel Yöntemler ve Kripto Varlıklar
+### Geleneksel yöntemler ve kripto varlıklar
 OpenAI daha önce Eylül 2025'te Stripe ile iş birliği yaparak "Instant Checkout" özelliğini tanıtmıştı. Ancak yeni ChatGPT Wallet, yapay zekâ asistanlarının herhangi bir özel entegrasyona ihtiyaç duymadan standart çevrim içi mağazalarda gezinebilmesine ve mevcut ödeme formlarını kullanabilmesine imkân tanıyor. Sektörde Coinbase ve Circle gibi şirketler, yapay zekâ asistanlarının ödemeleri için USDC gibi sabit değerli kripto paraları (stablecoin) kullanan farklı yöntemler geliştiriyor. Coinbase, yazılımın belirli limitler dahilinde harcama yapmasına olanak tanıyan "Agentic Wallets" ürününü Şubat ayında tanıtmıştı.
 
 ### Sektörel Görünüm

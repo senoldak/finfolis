@@ -30,11 +30,11 @@ coverAlt: "Asya · SEBI yabancı portföy yatırımcılarına yönelik ek açık
 coverSitede: false
 ---
 
-### Ek Açıklama Çerçevesi Gözden Geçiriliyor
+### Ek açıklama çerçevesi gözden geçiriliyor
 Hindistan Menkul Kıymetler ve Borsa Kurulu (SEBI), 20 Kasım 2026 Cuma günü, yabancı portföy yatırımcıları (FPI) için uygulanan ek açıklama çerçevesini (ADF) gözden geçirmeyi önerdi. Eğer onaylanırsa, bu adım yabancı fonların sahiplik yapısı, ekonomik çıkarlar ve kontrol mekanizmalarına dair detaylı bilgileri nihai faydalanıcıya kadar açıklama zorunluluğunu hafifletecek. 2023 yılında yürürlüğe giren bu çerçeve, tek bir kurumsal gruba yoğunlaşmış veya büyük miktarda Hindistan hisse senedi tutan yabancı fonları hedef alıyor. SEBI'nin yayımladığı istişare belgesinde, mevcut granüler açıklama gerekliliklerinin Hindistan'a özgü olduğu ve kara para aklamayı önleme kurallarının ötesine geçtiği belirtildi. Kurum, bu düzenlemenin yabancı yatırımcılar için iş yapma kolaylığını artırmayı ve Hindistan sermaye piyasalarını daha cazip bir yatırım noktası haline getirmeyi amaçladığını vurguladı.
 
-### Piyasa Hareketleri ve Sermaye Akışı
+### Piyasa hareketleri ve sermaye akışı
 Yabancı portföy yatırımcıları, yerel hisse senetlerinin yüksek değerlemeleri ve yapay zekâ alanındaki fırsat eksikliği nedeniyle Ocak 2025 ile Ekim 2026 arasında yaklaşık 50 milyar dolar (4,65 trilyon Hindistan rupisi) değerinde satış gerçekleştirdi. Bu yoğun satış baskısı, Hindistan'daki borsa endeksleri üzerinde baskı oluşturmuş, piyasa düzeltmelerine ve volatilite artışına katkıda bulunmuştu. SEBI'nin bu adımı, piyasalardaki uyum zorluklarını azaltmaya yönelik bir çabanın parçası olarak değerlendiriliyor.
 
-### Yönetim Yapısında Değişiklikler
+### Yönetim yapısında değişiklikler
 SEBI, piyasa altyapı kurumlarının (MII) yönetimine ilişkin de yeni düzenlemeler önerdi. Buna göre, borsa, takas kuruluşu ve saklama kuruluşu yöneticilerinin görev sürelerine 12 yıllık bir üst sınır getirilmesi planlanıyor. Ayrıca, borsalardaki kamu yararı direktörlerinin yaş sınırı 75'ten 70'e düşürülürken, görev süreleri de üç dönemden iki döneme indiriliyor. Kurum, bu değişikliklerin piyasa altyapı kurumlarının yönetişimini güçlendirmeyi hedeflediğini belirtti. SEBI, söz konusu önerilere ilişkin kamuoyu görüşlerini 11 Aralık 2026 tarihine kadar kabul edeceğini duyurdu.

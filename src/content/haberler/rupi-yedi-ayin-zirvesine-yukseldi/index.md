@@ -26,15 +26,15 @@ coverAlt: "Rupi/Dolar seviyesi 93,5"
 coverSitede: false
 ---
 
-### Rupi'de Yedi Aylık Zirve
+### Rupi'de yedi aylık zirve
 
 Rupi, 17 Kasım 2026 itibarıyla dolar karşısında 93,5 seviyesine yükselerek son yedi ayın en yüksek değerine ulaştı. Para birimi, gün içinde 42,5 paise değer kazanırken, son iki işlem günündeki toplam değer artışı yaklaşık 72 paise oldu. Rupi, en son 17 Nisan 2026 tarihinde 92,6 seviyelerinde işlem görmüştü. Bu hareket, piyasalarda olumlu bir hava yarattı.
 
-### Piyasa Dinamikleri ve Petrol Fiyatları
+### Piyasa dinamikleri ve petrol fiyatları
 
 Piyasa katılımcıları, bu yükselişi birkaç temel faktöre bağlıyor. Bunların başında ham petrol fiyatlarındaki yumuşama ve yabancı portföy yatırımcılarının (FPI) Hindistan varlıklarına gösterdiği ilginin artması geliyor. Ayrıca, bankalar arası piyasada dolar talebinin azalması da rupinin güçlenmesine destek sağladı. Brent ham petrol vadeli işlemleri, piyasalarda yaklaşık 93,7 dolar seviyesinden işlem görüyor.
 
-### Merkez Bankası'nın Rolü
+### Merkez Bankası'nın rolü
 
 Hindistan Merkez Bankası (RBI), daha önce jeopolitik gerilimler ve yükselen petrol fiyatlarının kuru 100 seviyesine taşıma riski üzerine piyasayı istikrara kavuşturmak için çeşitli önlemler almıştı. Bu önlemlerden biri, petrol pazarlama şirketlerinin (OMC) dolar ihtiyaçlarını doğrudan merkez bankasından karşılamalarına olanak tanıyan özel bir döviz penceresi açılmasıydı. Mecklai Financial Services Finans Direktör Yardımcısı Ritesh Bhansali, devlet kontrolündeki IOC, BPCL ve HPCL gibi rafinerilerin aylık 8-10 milyar dolar civarındaki döviz talebinin bu yöntemle bankalar arası piyasadan çekildiğini belirtti. Bhansali, merkez bankasının ithalatçılara yönelik kısıtlamalarının da piyasadaki likiditeyi emmeye yardımcı olduğunu ifade etti.
 

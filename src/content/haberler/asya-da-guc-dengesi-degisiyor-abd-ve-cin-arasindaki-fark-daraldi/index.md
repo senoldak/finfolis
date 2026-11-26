@@ -26,10 +26,10 @@ coverSitede: false
 
 Lowy Enstitüsü tarafından yayımlanan 2026 Asya Güç Endeksi, Amerika Birleşik Devletleri'nin bölgedeki gücünde ve nüfuzunda bir düşüş yaşandığını ortaya koydu. Araştırmaya göre, ABD Asya'daki diplomatik etkisini kaybederken, Çin çoğu ölçümde konumunu korudu; askeri kapasitesini, kültürel etkisini ve dayanıklılığını güçlendirdi.
 
-### Kaynak Kaymaları ve Odak Değişimi
+### Kaynak kaymaları ve odak değişimi
 Raporda, Trump yönetiminin kaynakları Pasifik'ten Orta Doğu'ya kaydırmasının, ABD liderliğinin bölgedeki nüfuzunu azalttığı ifade edildi. Araştırmacılar Hunter Marston ve Jack Sato, farkın daralmasını Çin'in kaydettiği ilerlemelerden ziyade Washington'ın yaptığı yanlış adımlara atfetti. Raporda, ABD'nin İran ile çözülemeyen savaşının uzun menzilli füze stoklarını tükerterek askeri kapasitesini aşındırdığı ve diplomatik nüfuzuna dair algıları zayıflattığı kaydedildi.
 
-### Askeri ve Ekonomik Alanlardaki Değişim
+### Askeri ve Ekonomik alanlardaki değişim
 Endeks verilerine göre, iki ülke arasındaki askeri kapasite farkı 2018 yılında 27 puan seviyesindeyken 15 puanın biraz üzerine geriledi. İki ülke arasındaki kapsamlı güç farkı ise 5,3 puan olarak ölçüldü; bu değer, endeksin başlangıcından bu yana kaydedilen en dar fark oldu. Çin, endeksteki Ekonomik İlişkiler (Economic Relationship) ve Diplomatik Etki (Diplomatic Influence) ölçümlerinde ilk sırada yer alarak ABD'nin önüne geçti.
 
 ### Bölgesel Etkiler

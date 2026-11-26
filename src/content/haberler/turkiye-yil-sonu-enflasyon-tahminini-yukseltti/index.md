@@ -27,18 +27,18 @@ coverAlt: "2026 yıl sonu tahmini %29,5"
 coverSitede: false
 ---
 
-### Enflasyon Tahmininde Güncelleme
+### Enflasyon tahmininde güncelleme
 
 Türkiye Cumhuriyet Merkez Bankası, yılın son enflasyon raporunu kamuoyuyla paylaştı. 12 Kasım 2026 tarihinde açıklanan verilere göre, banka 2026 yılı sonuna ilişkin enflasyon tahminini yüzde 28 seviyesinden yüzde 29,5 seviyesine yükseltti. Merkez Bankası Başkanı Fatih Karahan, basın toplantısında bu revizyonun temelinde İran savaşı ve geniş kapsamlı jeopolitik gerilimlerin yarattığı arz yönlü baskıların yattığını belirtti.
 
-### Jeopolitik Riskler ve Petrol Fiyatları
+### Jeopolitik riskler ve petrol fiyatları
 
 Karahan, jeopolitik gelişmelerin neden olduğu arz şoklarının manşet enflasyondaki düşüşü sınırladığını ifade etti. Bu durumun enflasyon görünümüne yönelik yukarı yönlü riskleri canlı tuttuğunu vurgulayan Karahan, temkinli bir politika duruşunun sürdürülmesi gerektiğini kaydetti. Ayrıca, bölgesel gerilimlerin artması ve Hürmüz Boğazı üzerinden enerji sevkiyatlarının normalleşmesine dair beklentilerin azalmasıyla yükselen petrol fiyatlarının, bu yukarı yönlü revizyonda belirleyici bir rol oynadığı ifade edildi.
 
-### Geçmişten Geleceğe Enflasyon Görünümü
+### Geçmişten geleceğe enflasyon görünümü
 
 Türkiye, 2019 yılından bu yana çift haneli enflasyon oranlarıyla mücadele ediyor. 2022 yılının sonlarına gelindiğinde enflasyon yüzde 85 seviyesine kadar yükselmişti. O dönemde uygulanan düşük faiz politikalarının ardından, politika değişikliğine gidilerek faiz artırım sürecine geçilmişti. Resmi verilere göre, Ekim 2026 itibarıyla yıllık enflasyon oranı yüzde 29,77 olarak gerçekleşti.
 
-### Orta Vadeli Hedefler
+### Orta vadeli hedefler
 
 Merkez Bankası, enflasyonun izleyeceği yola dair projeksiyonlarını da paylaştı. Banka, enflasyonun 2027 yılı sonunda yüzde 21, 2028 yılı sonunda yüzde 13,5 ve 2029 yılı sonunda yüzde 9 seviyesine gerileyeceğini öngörüyor. Kurumun orta vadeli enflasyon hedefi ise yüzde 5 olarak korunuyor.

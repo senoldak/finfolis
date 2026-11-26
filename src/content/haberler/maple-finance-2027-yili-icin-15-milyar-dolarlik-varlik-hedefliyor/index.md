@@ -30,14 +30,14 @@ coverAlt: "Küresel · Maple Finance 2027 yılı için 15 milyar dolarlık varl�
 coverSitede: false
 ---
 
-### Stratejik Büyüme Hedefi
+### Stratejik büyüme hedefi
 
 Maple Finance Üst Yöneticisi (CEO) Sidney Powell, şirketin yönetilen varlık büyüklüğünü 2027 yılının sonuna kadar 10 milyar dolar ile 15 milyar dolar arasına çıkarmayı hedeflediklerini açıkladı. 17 Kasım 2026 tarihinde paylaşılan bilgilere göre, şirket bu dönemde kredi hacmini de 4,5 milyar dolar ile 5 milyar dolar seviyesine taşımayı amaçlıyor. Maple Finance, üçüncü çeyrek sonunda 4,7 milyar dolarlık yönetilen varlık büyüklüğü bildirmişti. Bu rakam, bir önceki yıla göre yüzde 18'lik bir artışa işaret ediyor.
 
-### Geleneksel Finansla Entegrasyon
+### Geleneksel finansla entegrasyon
 
 Şirketin büyüme stratejisi, kripto para birimlerine dayalı kredilerin ötesine geçerek geleneksel finans kuruluşlarını sisteme dahil etmeye odaklanıyor. Powell, özellikle tokenlaştırılmış varlıkların ve sabit coinlerin şirketin büyümesinde önemli bir rol oynayacağını belirtiyor. Maple Finance, tokenlaştırılmış hisse senetleri gibi geleneksel finansal araçların teminat olarak kullanıldığı kredi modellerini genişletmeyi planlıyor. Bu modelle, borçluların yatırımlarını satmadan teminat olarak kullanabilmeleri hedefleniyor. Şirket ayrıca, Bitcoin destekli kredileri finanse etmek üzere bankalarla kredi olanakları üzerine görüşmeler yürütüyor.
 
-### Yönetim Değişikliği ve Finansal Performans
+### Yönetim değişikliği ve finansal performans
 
 Büyüme hedefleri, şirket yönetimindeki değişimlerle aynı döneme denk geldi. Geçtiğimiz hafta, kurucu ortak ve yönetim kurulu başkanı Joe Flanagan ile operasyon direktörü Ryan O'Shea, şirketin gelecekteki yönü konusundaki görüş ayrılıkları nedeniyle görevlerinden ayrılacaklarını duyurdu. Powell, bu ayrılıkların şirketin kredi defterindeki sorunlarla ilgili olmadığını, sadece stratejik bir yol ayrımı olduğunu ifade etti. Şirketin verilerine göre, 2019 yılından bu yana toplam kredi hacmi 20 milyar doları aşmış durumda. Üçüncü çeyrekte 4,4 milyon dolar gelir elde eden şirketin yıllıklandırılmış geliri ise 17,6 milyon dolar seviyesinde bulunuyor. Maple Finance, 2027 yılının ilk çeyreğinde yeni ürünler ve iş birlikleriyle ilgili duyurular yapmayı planlıyor.

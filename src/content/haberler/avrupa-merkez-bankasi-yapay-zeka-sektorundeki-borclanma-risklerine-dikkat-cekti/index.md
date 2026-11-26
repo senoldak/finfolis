@@ -29,10 +29,10 @@ coverSitede: false
 
 Avrupa Merkez Bankası (ECB), 18 Kasım 2026 tarihinde yayımladığı Finansal İstikrar Gözden Geçirme raporunda, yapay zekâ sektöründeki hızlı yükselişin 2000'li yılların başındaki dotcom balonunu anımsattığına dikkat çekti. Kurum, teknoloji devlerinin yoğun borçlanma eğilimleri ve halka arz piyasasındaki hareketliliğin, finansal piyasaları ani satış risklerine karşı savunmasız bıraktığı uyarısında bulundu. ECB Başkan Yardımcısı Boris Vujčić, jeoekonomik belirsizliklerin ve yapay zekâ sektörüne olan yoğun ilginin, Euro Bölgesi'nin finansal istikrarı üzerindeki riskleri artırdığını belirtti.
 
-### Borçlanma ve Halka Arz Artışı
+### Borçlanma ve halka arz artışı
 Rapora göre, yapay zekâ şirketlerinin hisse fiyatları, gerçekleşmesi zor olabilecek yüksek kazanç beklentileri üzerine kurulu. Yapay zekâ alanındaki harcamalar, şirketlerin ürettiği nakit akışını geride bırakırken, teknoloji devleri rekor düzeyde borçlanmaya gidiyor. ECB verilerine göre, büyük teknoloji firmalarının 2026 yılının ikinci çeyreği sonu itibarıyla 4 trilyon dolardan (3,63 trilyon euro) fazla bilanço dışı taahhüdü bulunuyor. Ayrıca, ABD piyasalarındaki halka arzların bu yıl 212 milyar dolara (192 milyar euro) ulaşması bekleniyor; bu rakam 2025 yılında yaklaşık 44 milyar dolar (40 milyar euro) seviyesindeydi.
 
-### Kamu Borçları ve Bankacılık Sektörü
+### Kamu borçları ve bankacılık sektörü
 ECB, gelişmiş ekonomilerdeki kamu maliyesinin de baskı altında olduğunu vurguladı. Uzun vadeli borçlanma maliyetleri birçok ülkede son yirmi yılın en yüksek seviyelerine ulaşmış durumda. Örneğin, Fransa'nın 10 yıllık borçlanma maliyetleri Ekim ayında yüzde 5 seviyesini aşmış, şu an ise yüzde 4,85 seviyesinde seyrediyor. Avrupa Komisyonu'nun tahminlerine göre, AB kamu borcunun geçen yılki yüzde 82,6 seviyesinden 2028 yılına kadar yüzde 85,6'ya yükselmesi bekleniyor.
 
 Banka tarafında ise durum daha olumlu görünüyor. ECB raporuna göre, bankaların kârlılığı son on yılın en yüksek seviyesinde ve takipteki kredi oranı Eylül ayında yüzde 2,2 ile rekor düşük seviyede kaydedildi. Ancak kurum, yatırım fonları ve hedge fonları gibi banka dışı kuruluşlarda kırılganlıkların daha yüksek olduğunu belirterek, bu alanlarda daha sıkı denetim ve koruma önlemleri çağrısında bulundu.

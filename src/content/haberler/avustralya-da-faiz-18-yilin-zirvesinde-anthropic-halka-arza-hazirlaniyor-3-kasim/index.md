@@ -30,16 +30,16 @@ coverAlt: "RBA Politika Faizi %4,85"
 coverSitede: false
 ---
 
-## Avustralya'da Faiz Artışı
+## Avustralya'da faiz artışı
 
 Avustralya Merkez Bankası (RBA), Kasım ayı politika toplantısında nakit faiz oranını 25 baz puan artırarak yüzde 4,85 seviyesine çıkardı. Bu karar ile faiz oranları son 18 yılın en yüksek seviyesine ulaşmış oldu. Banka yönetim kurulunda yapılan oylama, 6 üyenin artış lehine, 3 üyenin ise karşı yönde oy kullanmasıyla sonuçlandı. RBA tarafından yapılan açıklamada, enflasyonu hedeflenen seviyeye geri getirmek için finansal koşulların sıkılaştırılmasının gerekli görüldüğü ifade edildi.
 
 Banka Başkanı Michele Bullock, faiz oranlarındaki bir sonraki adımın ne olacağının henüz belirsiz olduğunu belirtti. Bullock, bu yıl gerçekleşen beş faiz artışının ardından, sıkı politikanın ekonomi üzerindeki etkilerini değerlendirmek için duraklamanın uygun bir zaman olduğunu dile getirdi. Ancak enflasyon risklerinin yukarı yönlü seyretmeye devam ettiğine ve bu konuda dikkatli olunması gerektiğine dikkat çekti. Bankanın güncel tahminlerine göre, manşet enflasyonun yılın dördüncü çeyreğinde yüzde 4,5 olması, işsizlik oranının ise gelecek iki yıl içinde yüzde 5'in üzerine çıkması bekleniyor.
 
-## Anthropic'ten Dev Halka Arz Adımı
+## Anthropic'ten dev halka arz adımı
 
 Yapay zeka alanında faaliyet gösteren Anthropic firması, Nasdaq Global Select Market borsasında "ANT" sembolüyle işlem görmek üzere ABD Sermaye Piyasası Kurulu'na (SEC) resmi başvurusunu yaptı. Şirketin paylaştığı verilere göre, 2026 yılının ilk yarısında elde edilen gelir, bir önceki yılın aynı dönemine göre yüzde 1.300'den fazla artarak 16,3 milyar dolara ulaştı. Şirket ayrıca, 2026 yılının ikinci çeyreğinde 974 milyon dolar ile ilk işletme kârını elde ettiğini duyurdu.
 
-## Şirket Bilançoları ve Satın Almalar
+## Şirket bilançoları ve satın almalar
 
 Hindistan'ın en büyük kamu bankası olan State Bank of India (SBI), ikinci çeyrek net kârının yüzde 14 artışla 230,38 milyar rupiye ulaştığını açıkladı. Diğer yandan, Carl Icahn'ın kontrolündeki CVR Energy şirketinin, Marathon rafinerilerini satın almak için 4 milyar doları aşan bir anlaşmaya yakın olduğu belirtildi. Küresel piyasalarda ayrıca Bajaj Finserv, Pfizer ve Emcure Pharma gibi şirketlerin de kâr artışları bildirdiği kaydedildi.

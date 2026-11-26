@@ -38,6 +38,6 @@ Uber, 4 Kasım 2026 tarihinde 2026 yılının üçüncü çeyreğine ilişkin fi
 
 Şirketin kârlılık göstergeleri, gelir artışının üzerinde bir ivme sergiledi. GAAP dışı hisse başına kazanç, bir önceki yılın aynı çeyreğine göre yüzde 35 artarak 0,88 dolar oldu. Düzeltilmiş FAVÖK ise yıllık bazda yüzde 31 yükselerek 2,96 milyar dolara ulaştı. Kullanıcı verileri de bu büyümeyi destekledi. Platform üzerinden gerçekleştirilen toplam yolculuk sayısı, geçen yılın aynı dönemine göre yüzde 16 artışla 4,1 milyara yükseldi. Aynı zamanda aylık aktif tüketici sayısı yüzde 14 artarak 215 milyona ulaştı. Brüt rezervasyonların gelirlerden iki kat daha hızlı büyümesi, şirketin finansal tablolarında dikkat çeken bir nokta olarak öne çıktı.
 
-### Gelecek Beklentileri ve Otonom Araçlar
+### Gelecek beklentileri ve otonom araçlar
 
 Uber, 2026 yılının dördüncü çeyreğine dair beklentilerini de paylaştı. Şirket, brüt rezervasyonların 63,25 milyar dolar ile 65,25 milyar dolar arasında gerçekleşeceğini öngörüyor. Düzeltilmiş FAVÖK için ise 3,13 milyar dolar ile 3,23 milyar dolar arasında bir beklenti belirlendi. Şirket üst yöneticisi Dara Khosrowshahi, mevcut odak noktalarının otonom araç teknolojilerinin ticarileştirilmesi olduğunu vurguladı. Bu stratejik hedef doğrultusunda Uber, 2026 yılı sonuna kadar yaklaşık 700 tam sürücüsüz aracı platformuna dahil etmeyi planlıyor. Şirketin yol haritasında, bu sayının 2027 yılında 2.000'in üzerine çıkarılması da yer alıyor.

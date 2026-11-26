@@ -25,15 +25,15 @@ coverAlt: "ABD · Jim Cramer yapay zeka hisselerindeki yükselişe karşı uyard
 coverSitede: false
 ---
 
-### Piyasalarda İyimser Hava
+### Piyasalarda iyimser hava
 
 Yapay zeka teknolojileriyle ilişkili hisse senetleri, 27 Ekim 2026 tarihinde üst üste ikinci işlem gününde de değer kazandı. Bu yükseliş, bir grup banka ve Blackstone'un, Anthropic şirketinin Broadcom'dan bilgisayar donanımı satın alabilmesi amacıyla 63 milyar dolarlık bir finansman paketi sağladığını duyurmasıyla desteklendi. Söz konusu hareketlilik, Anthropic'in S-1 başvurusunun ardından Pazartesi günü başlayan iyimser havanın bir devamı olarak görüldü.
 
-### Finansman Riskleri Devam Ediyor
+### Finansman riskleri devam ediyor
 
 Ancak Jim Cramer, piyasalardaki bu iyimserliğin, veri merkezi ticaretinin karşılaştığı baskıları tamamen ortadan kaldırmadığını ifade etti. Cramer, yatırımcıların teknoloji sektörünün tamamen düzeldiğini düşünerek aceleci davranmamaları gerektiğini vurguladı. Cramer'a göre, piyasada para akışının yeniden başlaması, tüm sorunların çözüldüğü anlamına gelmiyor ve yatırımcıların ekonominin diğer sektörlerine de odaklanması gerekiyor.
 
-### Borçlanma ve Sürdürülebilirlik Endişeleri
+### Borçlanma ve sürdürülebilirlik endişeleri
 
 Cramer'ın endişeleri üç temel risk noktası üzerinde yoğunlaşıyor. Bunların başında, "neocloud" olarak adlandırılan ve veri merkezi kurulumlarını finanse etmek için önemli miktarda borçlanan küçük ölçekli yapay zeka altyapı şirketleri geliyor. Artan faiz oranları, bu şirketlerin borçlanma maliyetlerini sürdürülebilir kılma kapasiteleri üzerindeki endişeleri artırıyor. Cramer, bu kapsamda CoreWeave, Nebius ve Iren gibi şirketleri işaret etti. CoreWeave hisseleri Salı günü yaklaşık yüzde 8 oranında değer kazansa da, şirketin tahvillerinin yüzde 15'e varan getiriler sunduğu belirtildi. Cramer, veri merkeziyle ilgili her olumlu haberin ardından, CoreWeave dahil olmak üzere sektördeki sorunlara dair olumsuz haberlerin de gelebileceği uyarısında bulundu.
 

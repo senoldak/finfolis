@@ -36,10 +36,10 @@ ABD doları, ekonomik verilerin ve merkez bankası yetkililerinin açıklamalar�
 ### Veriler ve Beklentiler
 Piyasalardaki bu hareketlilik, özellikle ABD'den gelen son ekonomik verilerle şekilleniyor. Geçtiğimiz hafta açıklanan enflasyon verilerinin beklentilerin üzerinde gelmesi ve salı günü paylaşılan perakende satış verilerinin de güçlü seyretmesi, yatırımcıların Federal Rezerv'in (Fed) aralık ayında faiz artırımına gideceği yönündeki beklentilerini güçlendirdi. CME Group'un FedWatch verilerine göre, piyasalar aralık ayında 25 baz puanlık bir faiz artışını tamamen fiyatlamış durumda; 50 baz puanlık bir artış ihtimali ise düşük bir olasılık olarak değerlendiriliyor.
 
-### Politika Yapıcıların Görüşleri
+### Politika yapıcıların görüşleri
 Fed yetkililerinin açıklamaları da bu beklentileri destekliyor. New York Fed Başkanı John Williams, salı günü yaptığı değerlendirmede daha sıkı bir para politikasından yana olduğunu ifade etti. Ancak Williams, daha agresif bir politika rotasına geçilmesi gerekliliğine karşı çıkarak temkinli bir duruş sergiledi. Yatırımcılar, Fed'in bir sonraki hamlesini tahmin edebilmek adına ekonomik verilerin yanı sıra bu tür yetkili açıklamalarını yakından takip ediyor.
 
-### Analist Değerlendirmeleri ve Diğer Para Birimleri
+### Analist değerlendirmeleri ve diğer para birimleri
 Pepperstone araştırma stratejisti Dilin Wu, doların mevcut yükselişinin ivme kaybetme riski taşıdığına dikkat çekiyor. Wu'ya göre, doların daha belirgin bir yükseliş sergileyebilmesi için piyasaların 2027 yılına yönelik daha agresif bir faiz artırım rotasını fiyatlaması gerekiyor. CME FedWatch verileri, yatırımcıların önümüzdeki 12 ay içinde gösterge faiz oranının yaklaşık 75 baz puan artarak yüzde 4,50 ile yüzde 4,75 aralığına yükseleceğini öngördüğünü gösteriyor.
 
 Doların güçlenmesi, diğer para birimleri üzerinde baskı oluşturdu. Euro, yüzde 0,3 değer kaybederek 1,0965 seviyesine geriledi. İngiliz sterlini ise İngiltere'de enflasyonun ekim ayında sabit kaldığını gösteren verilerin ardından yüzde 0,3 düşüşle 1,3161 seviyesine indi. Japon yeni ise 159,3 seviyesinde yatay bir seyir izliyor.

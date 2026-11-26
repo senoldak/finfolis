@@ -29,11 +29,11 @@ coverSitede: false
 
 5 Kasım 2026 tarihinde piyasaların odağında İngiltere Merkez Bankası'nın (BoE) faiz kararı ve ABD'den gelecek işsizlik verileri bulunuyor.
 
-### İngiltere Merkez Bankası Faiz Kararı
+### İngiltere Merkez Bankası faiz kararı
 Bankanın, mevcut sıkılaşma döngüsündeki ilk artışını gerçekleştirerek faiz oranlarını 25 baz puan yükseltmesi ve yüzde 4,00 seviyesine çıkarması bekleniyor. Ekonomik aktivitenin beklenenden daha güçlü seyretmesi, iş gücü piyasasındaki iyileşme ve enflasyon baskılarının devam etmesi, faizlerin sabit tutulması seçeneğini zayıflatıyor. Piyasalar, Para Politikası Kurulu'nun (MPC) oy dağılımına ve gelecekteki politikalara dair verilecek mesajlara odaklanmış durumda. Konsensüs, 25 baz puanlık artış lehine 7'ye 2 bir oy dağılımı olacağı yönünde. Enerji kaynaklı enflasyonun ücretlere ve fiyatlara yerleşme riski, bankanın üzerinde durduğu bir konu olmaya devam ediyor. Bununla birlikte, bankanın gelecekteki kararlarını veriye dayalı tutması ve önceden belirlenmiş bir sıkılaşma yoluna girmekten kaçınması bekleniyor.
 
-### ABD İş Gücü Piyasası
+### ABD iş gücü piyasası
 ABD tarafında ise işsizlik başvuruları verileri takip edilecek. İlk işsizlik başvurularının 196 bin, devam eden başvuruların ise 1.710 bin seviyesinde gerçekleşmesi bekleniyor. Bir önceki dönemde bu rakamlar sırasıyla 194 bin ve 1.701 bin seviyesindeydi. ABD iş gücü piyasasının dirençli olduğu görüşü piyasalarda hakim olduğundan, bu verilerin piyasalar üzerinde büyük bir hareketlilik yaratması beklenmiyor. Nitekim açıklanan ABD ADP raporu da bu görüşü destekler nitelikteydi; veriler 65 bin beklentisine karşın 86 bin seviyesinde gerçekleşerek beklentilerin üzerinde geldi.
 
-### Merkez Bankası Yetkililerinin Konuşmaları
+### Merkez Bankası yetkililerinin konuşmaları
 Gün içerisinde merkez bankası yetkililerinin açıklamaları da piyasaların takibinde olacak. Avrupa Merkez Bankası'ndan (ECB) Moulin, Schnabel, Lagarde ve Nagel, İsviçre Merkez Bankası'ndan (SNB) Başkan Schlegel ile ABD Merkez Bankası'ndan (Fed) Hammack ve Barkin gün boyunca farklı saatlerde konuşmalar yapacak. Bu konuşmalar, para politikalarının gelecekteki seyrine dair ipuçları barındırması nedeniyle yakından izleniyor.

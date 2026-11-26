@@ -32,7 +32,7 @@ Amerika Birleşik Devletleri Ticaret Temsilciliği (USTR), 25 Kasım 2026 tarihi
 
 Analistler, Amerika Birleşik Devletleri'nde Embraer jetlerine doğrudan bir yerli alternatif bulunmadığını belirtiyor. Sektör verilerine göre, American Airlines, SkyWest ve Republic Airways şirketlerinin üçüncü çeyrek sonu itibarıyla toplamda yaklaşık 160 adet kesinleşmiş Embraer E175 jet siparişi bulunuyor. American Airlines'ın dosyalarında yer alan bilgilere göre, şirketin sipariş ettiği 66 uçaktan 5'inin 2026 yılı sonuna kadar, 14'ünün ise 2027 yılında teslim alınması planlanıyor. AeroDynamic Advisory yönetici direktörü Richard Aboulafia, Embraer'in Florida'daki fabrikaları gibi unsurlara işaret ederek, yönetimin bu tarifeyi uygulamaya koymasını beklemediğini ifade etti.
 
-### Sektörün Tepkisi ve Embraer'in Savunması
+### Sektörün tepkisi ve Embraer'in savunması
 Airlines for America grubu, havacılık ihracatından elde edilen 93 milyar dolarlık dış ticaret fazlasını belirterek uçaklar ve parçalar üzerindeki sıfır tarife uygulamasının korunmasını istedi. Sektör grubu, hava yolu şirketlerinin hâlihazırda İran savaşıyla bağlantılı yüksek jet yakıtı fiyatlarıyla mücadele ettiğini belirterek, maliyetleri artırmanın zamanı olmadığını savundu. Embraer ise Amerika Birleşik Devletleri'nde 3,5 milyar dolarlık varlığa ve 2.500'den fazla çalışana sahip olduğunu vurgulayarak, tarifesiz havacılık ticaretinin önemini savundu.
 
 ### Belirsizlikler ve Süreç

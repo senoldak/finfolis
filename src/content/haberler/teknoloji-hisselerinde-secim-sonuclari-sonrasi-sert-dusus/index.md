@@ -30,14 +30,14 @@ coverAlt: "Nasdaq Günlük Düşüş %5"
 coverSitede: false
 ---
 
-### Piyasalarda Yapay Zeka Endişesi
+### Piyasalarda yapay zeka endişesi
 
 ABD borsalarında teknoloji ağırlıklı Nasdaq endeksi, 5 Kasım 2026 tarihinde yüzde 5'e varan düşüşle son 18 ayın en kötü gününü yaşama yoluna girdi. Yaşanan bu gerilemeyle birlikte Nasdaq, yakın zamandaki rekor seviyesinin yüzde 10 altına inerek teknik bir eşik olan yüzde 10'luk kayıp seviyesine ulaştı. Piyasalardaki bu hareketlilik, ABD'deki ara seçim sonuçlarının ardından yapay zeka endüstrisinin daha sıkı düzenlemelerle karşılaşabileceği beklentisine dayanıyor.
 
-### Düzenleme ve Yatırım Kaygıları
+### Düzenleme ve yatırım kaygıları
 
 Yatırımcılar, Demokratların seçim başarısının ardından veri merkezi genişletme planlarının daha yakından inceleneceğini öngörüyor. Sektör analistleri, piyasanın yapay zekanın sunduğu potansiyelden ziyade, bu teknolojinin maliyetlerine ve düzenleyici engellere odaklanmaya başladığını belirtiyor. Incline Investment Management Üst Yöneticisi (CEO) Ted Parkhill, piyasanın yapay zekanın vaatlerinden ziyade fiyatına odaklandığını ifade ederek, teknolojinin uzun vadede dönüştürücü olsa da her yapay zeka hissesinin mevcut fiyatının uygun olmayabileceğini belirtti. Saxo UK yatırım stratejisti Neil Wilson ise teknoloji hisselerinde tam bir teslimiyet seviyesinde olay yaşandığını ifade etti.
 
-### Sektörel Etkiler ve Veri Merkezleri
+### Sektörel etkiler ve veri merkezleri
 
 Çip üreticileri düşüşe öncülük etti. SanDisk hisseleri yüzde 19, Western Digital hisseleri ise yüzde 16,5 oranında değer kaybetti. Piyasadaki oynaklığın bir göstergesi olan VIX endeksi ise yüzde 40 oranında yükseldi. Sektördeki baskı sadece çip üreticileriyle sınırlı kalmadı; veri merkezi projelerine yönelik düzenleyici engeller de gündeme geldi. Granite Wealth Management yöneticisi Bruce Zaro, veri merkezlerinin coğrafi konumları, elektrik şebekesi ve su sistemleri üzerindeki yükleri nedeniyle yerel düzeyde dirençle karşılaşabileceğini ve izin süreçlerinin zorlaşabileceğini vurguladı. UBS analistlerinin tahminlerine göre, 2028 yılına kadar beklenen ABD veri merkezi kapasite artışlarının yüzde 30'u, inşaat süreçlerindeki olası duraklamalar nedeniyle risk altında bulunuyor.
