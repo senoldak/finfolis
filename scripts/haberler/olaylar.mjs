@@ -35,7 +35,7 @@ const SEMA = {
 
 const SISTEM = `Sen bir haber editörüsün. Aynı olayı anlatan haber adaylarını gruplar, ayrıca daha önce işlenmiş olaylarla eşleştirirsin.
 Kural: aynı kurumun yeni bir belgesi ya da yeni bir rakamı (karar -> tutanak, veri -> revizyon) YENİ olaydır; aynı konuyla ilgili olsa bile eski olayla eşleştirme ve aynı gruba koyma.
-Yalnızca aynı gelişmeyi anlatan adayları grupla. Benzer konu aynı olay değildir: farklı ülkede, farklı şirkette ya da farklı kurumda yaşanan gelişmeler (ör. ABD'de tatil harcamaları ile İngiltere'de enerji faturaları) ayrı olaylardır. Emin değilsen gruplama.
+Yalnızca aynı gelişmeyi anlatan adayları grupla. Benzer konu aynı olay değildir: farklı ülkede, farklı şirkette ya da farklı kurumda yaşanan gelişmeler (ör. ABD'de tatil harcamaları ile İngiltere'de enerji faturaları) ayrı olaylardır.
 Her adaya finfolis'in (Türk okura dünya piyasalarını anlatan finans sitesi) okuru için 1–100 arası haber değeri puanı ver (onem).
 Ölçüt piyasa ve ekonomi etkisidir: piyasalarla, şirket finansıyla, makro ekonomiyle ya da yatırımcıyla ilgisi zayıf haberler (tüketici ürünü tanıtımı, otomobil modeli, kültür, banknot tasarımı, tatbikat, genel siyaset) en fazla 20 alır.
 90–100 = piyasayı oynatan büyük gelişme (faiz kararı, enflasyon/istihdam verisi, büyük kriz);
