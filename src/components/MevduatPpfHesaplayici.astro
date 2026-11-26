@@ -8,8 +8,8 @@ interface Props {
 
 const {
   varsayilanTutar = 100_000,
-  varsayilanMevduatFaizi = 48.0,
-  varsayilanPpfGetirisi = 47.0,
+  varsayilanMevduatFaizi = 40.0,
+  varsayilanPpfGetirisi = 40.0,
   varsayilanGun = 32,
 } = Astro.props;
 ---
@@ -105,7 +105,7 @@ const {
       <article class="sonuc-kart" id="kart-mevduat">
         <header class="kart-baslik">
           <span class="kart-tur">Vadeli Mevduat</span>
-          <span class="kart-stopaj-rozet" id="mevduat-stopaj-rozet">%10 Stopaj</span>
+          <span class="kart-stopaj-rozet" id="mevduat-stopaj-rozet">%17,5 stopaj</span>
         </header>
 
         <div class="kart-ana-sonuc">
@@ -133,7 +133,7 @@ const {
         </ul>
 
         <footer class="kart-dipnot">
-          <span>⚠️ Vade bozulursa kural olarak getiri hakkı kaybolur.</span>
+          <span>Vadeden önce çekişte faizin ne olacağı bankanın koşullarına bağlıdır.</span>
         </footer>
       </article>
 
@@ -141,7 +141,7 @@ const {
       <article class="sonuc-kart" id="kart-ppf">
         <header class="kart-baslik">
           <span class="kart-tur">Para Piyasası Fonu (PPF)</span>
-          <span class="kart-stopaj-rozet">%10 Stopaj</span>
+          <span class="kart-stopaj-rozet">%17,5 stopaj</span>
         </header>
 
         <div class="kart-ana-sonuc">
@@ -169,7 +169,7 @@ const {
         </ul>
 
         <footer class="kart-dipnot">
-          <span>⚡ Hafta içi 13:30'a kadar getiri kaybı olmadan nakde döner.</span>
+          <span>TEFAS'ta iş günü 13:30'a kadar verilen emirler aynı gün işlenir (yarım günlerde 11:30).</span>
         </footer>
       </article>
     </div>
@@ -177,89 +177,52 @@ const {
 </div>
 
 <script>
-  function formatPara(sayi) {
-    return '₺' + sayi.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  }
+  import { mevduatHesapla, ppfHesapla } from '../lib/hesap/mevduat-ppf.mjs';
 
-  function formatYuzde(sayi) {
-    return '%' + sayi.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  }
-
-  function stopajOrani(gun) {
-    if (gun <= 180) return 0.10;
-    if (gun <= 365) return 0.075;
-    return 0.05;
-  }
+  const formatPara = (sayi) => '₺' + sayi.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const formatYuzde = (sayi) => '%' + sayi.toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const oranYaz = (o) => '%' + (o * 100).toLocaleString('tr-TR', { maximumFractionDigits: 1 }) + ' stopaj';
+  const yaz = (id, metin) => {
+    const e = document.getElementById(id);
+    if (e) e.textContent = metin;
+  };
 
   function hesapla() {
     const anapara = parseFloat(document.getElementById('hesap-anapara').value) || 0;
     const gun = parseInt(document.getElementById('hesap-gun').value, 10) || 1;
-    const mevFaiz = parseFloat(document.getElementById('hesap-mevduat-faiz').value) || 0;
-    const ppfGetiri = parseFloat(document.getElementById('hesap-ppf-getiri').value) || 0;
+    const mev = mevduatHesapla({ anapara, yillikFaiz: parseFloat(document.getElementById('hesap-mevduat-faiz').value) || 0, gun });
+    const ppf = ppfHesapla({ anapara, yillikGetiri: parseFloat(document.getElementById('hesap-ppf-getiri').value) || 0, gun });
 
-    // Mevduat hesabı
-    const mevStopaj = stopajOrani(gun);
-    const mevBrut = anapara * (mevFaiz / 100) * (gun / 365);
-    const mevKesinti = mevBrut * mevStopaj;
-    const mevNet = mevBrut - mevKesinti;
-    const mevBakiye = anapara + mevNet;
-    const mevNetOran = mevFaiz * (1 - mevStopaj);
+    yaz('mevduat-stopaj-rozet', oranYaz(mev.stopajOrani || 0));
+    yaz('mevduat-net-kazanc', formatPara(mev.netKazanc));
+    yaz('mevduat-brut-kazanc', formatPara(mev.brutKazanc));
+    yaz('mevduat-kesilen-stopaj', '-' + formatPara(mev.stopaj));
+    yaz('mevduat-toplam-bakiye', formatPara(mev.netBakiye));
+    yaz('mevduat-net-oran', formatYuzde(mev.netYillikOran));
 
-    // PPF hesabı (günlük bileşik nemalanma)
-    const ppfGunluk = (ppfGetiri / 100) / 365;
-    const ppfSonBrut = anapara * Math.pow(1 + ppfGunluk, gun);
-    const ppfBrut = ppfSonBrut - anapara;
-    const ppfKesinti = ppfBrut * 0.10;
-    const ppfNet = ppfBrut - ppfKesinti;
-    const ppfBakiye = anapara + ppfNet;
-    const ppfEfektifBrut = (Math.pow(1 + ppfGunluk, 365) - 1) * 100;
-    const ppfNetOran = ppfEfektifBrut * 0.90;
+    yaz('ppf-net-kazanc', formatPara(ppf.netKazanc));
+    yaz('ppf-brut-kazanc', formatPara(ppf.brutKazanc));
+    yaz('ppf-kesilen-stopaj', '-' + formatPara(ppf.stopaj));
+    yaz('ppf-toplam-bakiye', formatPara(ppf.netBakiye));
+    yaz('ppf-net-oran', formatYuzde(ppf.netYillikOran));
 
-    // DOM Güncelle
-    document.getElementById('mevduat-stopaj-rozet').textContent = '%' + (mevStopaj * 100) + ' Stopaj';
-    document.getElementById('mevduat-net-kazanc').textContent = formatPara(mevNet);
-    document.getElementById('mevduat-brut-kazanc').textContent = formatPara(mevBrut);
-    document.getElementById('mevduat-kesilen-stopaj').textContent = '-' + formatPara(mevKesinti);
-    document.getElementById('mevduat-toplam-bakiye').textContent = formatPara(mevBakiye);
-    document.getElementById('mevduat-net-oran').textContent = formatYuzde(mevNetOran);
-
-    document.getElementById('ppf-net-kazanc').textContent = formatPara(ppfNet);
-    document.getElementById('ppf-brut-kazanc').textContent = formatPara(ppfBrut);
-    document.getElementById('ppf-kesilen-stopaj').textContent = '-' + formatPara(ppfKesinti);
-    document.getElementById('ppf-toplam-bakiye').textContent = formatPara(ppfBakiye);
-    document.getElementById('ppf-net-oran').textContent = formatYuzde(ppfNetOran);
-
-    // Banner ve Karşılaştırma Özeti
-    const fark = Math.abs(ppfNet - mevNet);
+    // Özet: yalnız girilen varsayımlarla aritmetik fark; tavsiye değildir.
+    const fark = ppf.netKazanc - mev.netKazanc;
     const banner = document.getElementById('banner-kazanan');
-    const baslik = document.getElementById('banner-baslik');
-    const aciklama = document.getElementById('banner-aciklama');
-    const ikon = document.getElementById('banner-ikon');
-
-    if (fark < 1.0) {
-      ikon.textContent = '⚖️';
-      baslik.textContent = 'Net Getiriler Birbirine Eşit';
-      aciklama.textContent = `${gun} günün sonunda her iki enstrüman da yaklaşık aynı net getiriyi sağlıyor. Ancak PPF, vade bekleme şartı olmaksızın günlük likidite sağlar.`;
-      banner.className = 'karsilastirma-banner esit';
-    } else if (ppfNet > mevNet) {
-      ikon.textContent = '🏆';
-      baslik.textContent = `Para Piyasası Fonu ${formatPara(fark)} Daha Fazla Kazandırıyor`;
-      aciklama.textContent = `Günlük bileşik getiri mekanizması sayesinde PPF, ${gun} günlük vadede vadeli mevduata kıyasla daha yüksek net getiri ve anlık likidite sunuyor.`;
-      banner.className = 'karsilastirma-banner ppf-onde';
+    yaz('banner-ikon', '⚖️');
+    if (Math.abs(fark) < 1) {
+      yaz('banner-baslik', 'Net kazançlar yaklaşık aynı');
+      yaz('banner-aciklama', `Girdiğiniz oranlarla ${gun} günün sonunda iki hesabın stopaj sonrası kazancı arasında 1 TL'den az fark var.`);
     } else {
-      ikon.textContent = '🏦';
-      baslik.textContent = `Vadeli Mevduat ${formatPara(fark)} Daha Fazla Kazandırıyor`;
-      aciklama.textContent = `Banka mevduat faizinin yüksekliği, ${gun} günlük vadede PPF'nin bileşik faiz avantajının önüne geçerek net getiride mevduatı avantajlı kılıyor.`;
-      banner.className = 'karsilastirma-banner mevduat-onde';
+      const ad = fark > 0 ? 'PPF' : 'Mevduat';
+      yaz('banner-baslik', `${ad} hesabında net kazanç ${formatPara(Math.abs(fark))} daha yüksek`);
+      yaz('banner-aciklama', `Girdiğiniz oranlarla ${gun} günün sonunda stopaj sonrası fark. Fonun gerçek getirisi fon fiyatına göre değişir; sonuç bir örnek hesaptır.`);
     }
+    if (banner) banner.className = 'karsilastirma-banner esit';
   }
 
-  // Dinleyiciler
   ['hesap-anapara', 'hesap-gun', 'hesap-mevduat-faiz', 'hesap-ppf-getiri'].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('input', hesapla);
-    }
+    document.getElementById(id)?.addEventListener('input', hesapla);
   });
 
   document.querySelectorAll('.gun-buton').forEach((btn) => {
@@ -271,7 +234,6 @@ const {
     });
   });
 
-  // Sayfa açılışında çalıştır
   hesapla();
 </script>
 

@@ -84,7 +84,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/mevduat-ppf-hesaplayici/': 'mevduat ppf para piyasası fonu bileşik faiz getiri hesaplama stopaj tefas',
   '/veri/sinyaller/': 'anomali sinyal erken uyarı z-skor standart sapma stres evds tcmb likidite',
   '/veri/senaryolar/': 'senaryo stres testi what if petrol asgari ücret kur geçişkenliği taylor simülasyon duyarlılık',
-  '/veri/soylem-gerceklik/': 'söylem gerçeklik ovp hedef tcmb taahhüt gerçekleşen tüfe bütçe sapma',
+  '/veri/soylem-gerceklik/': 'söylem gerçeklik ovp enflasyon tahmini tcmb enflasyon raporu gerçekleşen tüfe',
   '/veri/kur-korumali-mevduat/': 'kkm kur korumalı mevduat döviz dönüşümlü tl kkm',
   '/veri/tcmb-bilancosu/': 'merkez bankası bilançosu analitik bilanço rezerv para emisyon zorunlu karşılık serbest mevduat açık piyasa',
   '/veri/doviz-piyasasi/': 'döviz işlem hacmi spot swap vadeli forward efektif bankalararası döviz piyasası',
@@ -293,8 +293,8 @@ const araclar = [
               <span class="fihrist-ozet">Petrol, asgari ücret, kur ve faiz şoklarının enflasyon ve cari açığa duyarlılığı</span>
             </li>
             <li data-ek={aramaEki('/veri/soylem-gerceklik/')}>
-              <a href="/veri/soylem-gerceklik/" class="fihrist-baslik-link">Söylem vs. Gerçeklik Radarı</a>
-              <span class="fihrist-ozet">OVP, TCMB ve bakanlık hedeflerinin fiili resmi verilerle satır satır karşılaştırması</span>
+              <a href="/veri/soylem-gerceklik/" class="fihrist-baslik-link">Resmî enflasyon tahminleri</a>
+              <span class="fihrist-ozet">OVP ve TCMB yıl sonu enflasyon tahminleri ile gerçekleşen TÜFE</span>
             </li>
             <li data-ek={aramaEki('/veri/para-piyasasi/')}>
               <a href="/veri/para-piyasasi/" class="fihrist-baslik-link">Para Piyasası</a>

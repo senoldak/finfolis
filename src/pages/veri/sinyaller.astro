@@ -47,7 +47,7 @@ const jsonLd = sayfaSemasi({
 
     <DogrudanYanit
       baslik="Sinyal Radarı Nasıl Çalışır?"
-      ozet="Normal dağılım kuralına göre bir zaman serisindeki verilerin %95.4'ü ortalamanın ±2 standart sapma bandında kalır. Bu bandın dışına taşan her gözlem istatistiksel bir anomalidir ve trend kırılmalarının, likidite sıkışmalarının veya ani sermaye hareketlerinin erken öncüsüdür."
+      ozet="Seri normal dağılsaydı gözlemlerin yaklaşık %95'i son 12 haftanın ortalamasından en çok 2 standart sapma uzakta kalırdı. Bu bandın dışına çıkan gözlem, son haftalara göre olağan dışı bir hareketi gösterir. Bir kırılmanın kanıtı değildir; ilgili veri sayfasında ayrıca incelenmesi gereken bir işarettir."
       maddeler={[
         'Süreç İçi Filtre: Son 12 haftalık kayan pencere baz alınarak hareketli ortalama ve standart sapma hesaplanır.',
         'Anomali Eşiği: |Z| ≥ 2.0 olan noktalar sarı anomali fişi, |Z| ≥ 3.0 olan uç değerler kırmızı ekstrem sapma fişi alır.',
@@ -112,15 +112,15 @@ const jsonLd = sayfaSemasi({
         <div class="metod-kart">
           <h3>Normal Dağılım ve &plusmn;2&sigma; Eşiği</h3>
           <p>
-            Finansal serilerde olağan dalgalanmalar &plusmn;1&sigma; aralığında kalır.
-            Bir verinin 2 standart sapmanın üzerine çıkması, o hareketin rastgele bir dalgalanma olma olasılığının
-            %5'in altına indiğini gösterir. Bu durum, piyasa rejiminde ya da likidite dengesinde yapısal bir değişim yaşandığına işaret eder.
+            Finansal seriler çoğu zaman normal dağılmaz; uç değerler beklenenden sık görülür. Bu yüzden &plusmn;2&sigma;
+            eşiği bir istatistik testi değil, son 12 haftaya göre olağan dışı hareketleri ayıklayan basit bir süzgeçtir.
+            Eşiği aşan bir hareket piyasada yapısal bir değişim olduğunu kanıtlamaz.
           </p>
         </div>
         <div class="metod-kart">
           <h3>Hangi Seriler Taranır?</h3>
           <p>
-            <KaynakMetni metin="TCMB Açık Piyasa ve Para Piyasası Fonlama hacmi, Yabancı DİBS ve Hisse haftalık net akımları, TCMB Brüt ve Net Döviz Rezervleri ile haftalık Kredi Kartı harcama hacmi gibi sistemsel stres taşıyan ana makro göstergeler günlük/haftalık periyotlarla taranır (TCMB EVDS)." />
+            <KaynakMetni metin="TCMB ağırlıklı ortalama fonlama maliyeti (AOFM), yabancıların haftalık DİBS ve hisse senedi net alımları, TCMB brüt döviz rezervleri ve haftalık kartlı harcamalar taranır (TCMB EVDS)." />
           </p>
         </div>
       </div>

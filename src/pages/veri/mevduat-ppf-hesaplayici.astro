@@ -1,49 +1,74 @@
 ---
-// Mevduat vs. Para Piyasası Fonu (PPF) Net Getiri ve Stopaj Hesaplayıcısı
-// Günlük bileşik getiri, vade dilimli stopaj kesintisi ve likidite karşılaştırması
+// Vadeli mevduat ile para piyasası fonunun (PPF) stopaj sonrası getirisi. Oranlar src/lib/hesap/mevduat-ppf.mjs'te.
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import DogrudanYanit from '../../components/DogrudanYanit.astro';
 import MevduatPpfHesaplayici from '../../components/MevduatPpfHesaplayici.astro';
 import YasalUyari from '../../components/YasalUyari.astro';
+import { RESMI, gunYaz, sayiYaz } from '../../lib/resmi';
 import { sayfaSemasi } from '../../lib/seo';
 import { faqPageSemasi } from '../../lib/json-ld.mjs';
 
-const baslik = 'Mevduat vs. Para Piyasası Fonu (PPF) Getiri Hesaplayıcı';
-const aciklama = 'Vadeli mevduat ile Para Piyasası Fonlarının (PPF) net getirisini stopaj kesintileri ve günlük bileşik faiz etkisiyle anlık karşılaştırın.';
+const baslik = 'Mevduat ve para piyasası fonu: Net getiri hesaplayıcı';
+const aciklama =
+  "TL vadeli mevduat ile para piyasası fonunun stopaj sonrası getirisini aynı tutar ve süre için hesaplayın. Stopaj oranları Cumhurbaşkanı Kararı 10041'e göre.";
+
+// Kutulara konan ilk değer: TCMB'nin son haftalık 1-3 ay vadeli TL mevduat ortalaması (örnek).
+const sonFaiz = RESMI.piyasaFaizleri?.satirlar?.at(-1);
+const ornekFaiz = sonFaiz?.mevduat ? Math.round(sonFaiz.mevduat * 100) / 100 : 40;
 
 const yol = [
   { ad: 'Anasayfa', href: '/' },
   { ad: 'Veriler', href: '/veri/' },
-  { ad: 'Mevduat vs. PPF Hesaplayıcı', href: '/veri/mevduat-ppf-hesaplayici/' },
+  { ad: 'Mevduat ve PPF hesaplayıcı', href: '/veri/mevduat-ppf-hesaplayici/' },
+];
+
+const kaynaklar = [
+  { ad: 'Cumhurbaşkanı Kararı 10041, Resmî Gazete, 9 Temmuz 2025', url: 'https://www.resmigazete.gov.tr/eskiler/2025/07/20250709.htm' },
+  {
+    ad: 'GİB, 2026 GVK Geçici 67. Madde Rehberi',
+    url: 'https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv%2Ffileadmin%2Fbeyannamerehberi%2F2026%2F2026_Gecici67.pdf',
+  },
+  {
+    ad: 'Takasbank, TEFAS işlem saatleri',
+    url: 'https://www.takasbank.com.tr/tr/hizmetler/isletilen-piyasalar/turkiye-elektronik-fon-alim-satim-platformu-tefas/islem-saatleri',
+  },
 ];
 
 const sssSorulari = [
   {
-    soru: 'Mevduat faizi mi, Para Piyasası Fonu (PPF) mu daha çok kazandırır?',
-    cevap: 'Mevduat vade sonuna kadar sabit brüt faiz garantisi sunar. PPF ise günlük bileşik getiri ve T+0 anlık likidite sağlar. Kısa vadede günlük bileşik faiz etkisiyle PPF öne çıkarken, faiz indirim döngülerinde uzun vadeli mevduat faiz oranını sabitleyerek avantaj sağlayabilir.'
+    soru: 'Mevduatta ve para piyasası fonunda stopaj oranı ne kadar?',
+    cevap:
+      "Gerçek kişilerde 9 Temmuz 2025'ten beri TL mevduat faizinden 6 aya kadar vadede %17,5, 1 yıla kadar vadede %15, daha uzun vadede %10 stopaj kesiliyor. Bu tarihten sonra alınan para piyasası fonu paylarının kazancından %17,5 kesiliyor. Daha önce açılan mevduata ve daha önce alınan fon paylarına o tarihte geçerli oran uygulanır.",
   },
   {
-    soru: 'Mevduat ve Para Piyasası Fonlarında stopaj oranları ne kadardır?',
-    cevap: 'TL mevduatlarda güncel stopaj: 6 aya kadar (180 gün dahil) vadede %10, 1 yıla kadar (365 gün dahil) %7.5, 1 yıldan uzun vadede ise %5 olarak uygulanır. TL Para Piyasası Fonlarında (PPF) ise stopaj oranı sabittir ve %10 kesinti yapılır.'
+    soru: 'Hesaplayıcı 6 ayı kaç gün sayıyor?',
+    cevap:
+      'Karar vadeyi ay olarak yazıyor. Hesaplayıcı 182 güne kadarını 6 ay, 365 güne kadarını 1 yıl sayar. Vadeniz bu sınırlara yakınsa bankanın uyguladığı oranı sözleşmeden kontrol edin.',
   },
   {
-    soru: 'Para Piyasası Fonları hafta sonları ve tatillerde getiri sağlar mı?',
-    cevap: 'Evet. PPF portföyündeki ters repo, Takasbank Para Piyasası (TPP) ve vadeli mevduat kıymetleri hafta sonu ve resmî tatil günlerinde de faiz tahakkuk ettirdiği için kümülatif getiri fon pay değerine yansır.'
+    soru: 'Fon getirisi neden günlük bileşik hesaplanıyor?',
+    cevap:
+      "Fonun kazancı pay fiyatının içinde kalır ve fiyat her iş günü yeniden hesaplanır. Hesaplayıcı bunu yıllık getiriyi güne bölüp her gün üstüne ekleyerek yaklaşık hesaplar. Fonun gerçek getirisi pay fiyatının değişimine göre olur; sonuç örnek bir hesaptır.",
   },
   {
-    soru: 'PPF satışında nakit ne zaman hesaba geçer?',
-    cevap: 'Para Piyasası Fonları T+0 valörlü fonlardır. TEFAS işlem saatleri dahilinde (genellikle 09:00 - 13:30 arası) verilen satış talimatları anında hesaba geçer; mesai sonrası veya hafta sonu emirlerinde ise bankaların belirlediği günlük limitler dahilinde anlık nakde çevrilebilir.'
-  }
+    soru: 'Fon emri ne zaman işlenir?',
+    cevap:
+      "TEFAS'ta iş günü 09:00 ile 13:30 arasında verilen emirler aynı gün işleme girer; yarım günlerde son saat 11:30. Paranın hesaba geçeceği gün fonun izahnamesinde yazar. Aracı kurumunuz daha erken bir son saat koyabilir.",
+  },
+  {
+    soru: 'Vadeyi bozarsam ne olur?',
+    cevap:
+      'Vadeden önce çekilen mevduatın faizi bankanın sözleşme koşullarına bağlıdır. Hesaplayıcı paranın vade sonuna kadar beklediğini varsayar.',
+  },
 ];
 
 const faqSemasi = faqPageSemasi(sssSorulari);
-
 const jsonLd = sayfaSemasi({
   yol,
   ad: baslik,
   aciklama,
-  ekler: faqSemasi ? [faqSemasi] : []
+  ekler: faqSemasi ? [faqSemasi] : [],
 });
 ---
 
@@ -53,78 +78,76 @@ const jsonLd = sayfaSemasi({
 
     <header class="sayfa-baslik">
       <div class="etiket-satir">
-        <span class="etiket">Etkileşimli Araç</span>
-        <span class="etiket vurgu">2026 Güncel Stopaj</span>
+        <span class="etiket">Hesaplayıcı</span>
+        <span class="etiket vurgu">Stopaj: CK 10041</span>
       </div>
-      <h1>Mevduat vs. Para Piyasası Fonu Getiri Hesaplayıcı</h1>
+      <h1>Mevduat ve para piyasası fonu: Net getiri hesaplayıcı</h1>
       <p class="ozet">
-        Paranızı vadeli mevduatta bağlamak mı, yoksa T+0 likiditeye sahip Para Piyasası Fonunda (PPF) tutmak mı daha kârlı?
-        Günlük bileşik faiz çarpanı ve güncel stopaj dilimleriyle net getiriyi hesaplayın.
+        Aynı tutarı aynı süre için vadeli mevduatta ve para piyasası fonunda (PPF) tutsaydınız, stopaj kesildikten sonra
+        elinize ne geçerdi? Faizi ve fon getirisini siz yazarsınız; hesaplayıcı stopajı vadeye göre uygular.
       </p>
     </header>
 
     <DogrudanYanit
-      baslik="Hızlı Karar Özeti: Hangisini Seçmelisiniz?"
-      ozet="Acil nakit ihtiyacı olasılığı olan veya faizlerin yükseliş trendinde olduğu dönemlerde T+0 valörlü PPF günlük bileşik faiziyle öne çıkar. Faiz indirimlerinin beklendiği dönemlerde ise 3-6 aylık veya 1 yıllık vadeli mevduat, faiz oranını sabitleyerek ve daha düşük stopaj diliminden (%7.5 veya %5) yararlanarak üstünlük sağlar."
-      maddeler={[
-        'Likidite: PPF T+0 valörle gün içinde anında bozulabilir, vadeli mevduatta ise vade bozulduğunda tüm faiz getirisi sıfırlanır.',
-        'Bileşik Getiri: PPF her gün elde edilen net faizi ana paraya ekleyerek yeniden nemalandırır.',
-        'Stopaj Farkı: 6 aydan uzun vadelerde mevduat stopajı %7.5 ve %5\'e düşerken PPF her zaman %10 stopaja tabidir.'
-      ]}
+      baslik="Kısaca"
+      ozet="Gerçek kişilerde TL mevduat faizinden 6 aya kadar vadede %17,5, 1 yıla kadar %15, daha uzun vadede %10 stopaj kesiliyor. Para piyasası fonu kazancından kesilen oran her vadede %17,5. Altı aya kadar iki oran aynı; 6 aydan uzun vadelerde mevduatta kesinti daha düşük."
+      kaynak="Cumhurbaşkanı Kararı 10041 (Resmî Gazete, 9 Temmuz 2025); GİB, GVK Geçici 67. Madde Rehberi"
       sorular={sssSorulari}
     />
 
     <section class="hesaplayici-alani">
-      <MevduatPpfHesaplayici />
+      <MevduatPpfHesaplayici varsayilanMevduatFaizi={ornekFaiz} varsayilanPpfGetirisi={ornekFaiz} />
+      {sonFaiz && (
+        <p class="ornek-not">
+          Kutulardaki ilk faiz, TCMB'nin {gunYaz(sonFaiz.tarih)} haftası için yayımladığı 1-3 ay vadeli TL mevduat
+          ortalaması (%{sayiYaz(ornekFaiz, 2)}). Fon getirisine de aynı değer örnek olarak kondu; kendi fonunuzun
+          getirisini yazın. Haftalık seri: <a href="/veri/piyasa-faizleri/">Piyasa faizleri</a>.
+        </p>
+      )}
     </section>
 
     <section class="bilgi-bolumu">
-      <h2>Mevduat ile Para Piyasası Fonu Arasındaki Temel Farklar</h2>
-      
+      <h2>Mevduat ile para piyasası fonu arasındaki farklar</h2>
+
       <div class="karsilastirma-tablo-sarmal">
         <table class="karsilastirma-tablo">
           <thead>
             <tr>
               <th>Özellik</th>
-              <th>Vadeli Mevduat (TL)</th>
-              <th>Para Piyasası Fonu (PPF)</th>
+              <th>Vadeli mevduat (TL)</th>
+              <th>Para piyasası fonu</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Nakit Çıkışı / Valör</strong></td>
-              <td>Vade sonu beklenir (erken çıkışta faiz yanar)</td>
-              <td><strong>T+0 (Aynı gün anında nakit)</strong></td>
+              <td><strong>Getiri</strong></td>
+              <td>Vade boyunca sözleşmedeki faiz</td>
+              <td>Pay fiyatının değişimi; her gün farklı olabilir</td>
             </tr>
             <tr>
-              <td><strong>Faiz Garantisi</strong></td>
-              <td>Vade boyunca sabit brüt faiz garantisi</td>
-              <td>Piyasa koşullarına göre günlük değişken</td>
+              <td><strong>Vadeden önce çıkış</strong></td>
+              <td>Faizi bankanın koşulları belirler</td>
+              <td>TEFAS'ta 13:30'a kadar verilen emir aynı gün işlenir</td>
             </tr>
             <tr>
-              <td><strong>Bileşik Faiz</strong></td>
-              <td>Yalnızca vade yenilenmesinde</td>
-              <td><strong>Her gün otomatik bileşik</strong></td>
+              <td><strong>Kazancın ana paraya eklenmesi</strong></td>
+              <td>Vade sonunda yeni vade açılırsa</td>
+              <td>Pay fiyatına her gün yansır</td>
             </tr>
             <tr>
-              <td><strong>Stopaj Oranı (&le;180 gün)</strong></td>
+              <td><strong>Stopaj (6 aya kadar)</strong></td>
+              <td>%17,5</td>
+              <td>%17,5</td>
+            </tr>
+            <tr>
+              <td><strong>Stopaj (6 ay - 1 yıl)</strong></td>
+              <td>%15</td>
+              <td>%17,5</td>
+            </tr>
+            <tr>
+              <td><strong>Stopaj (1 yıldan uzun)</strong></td>
               <td>%10</td>
-              <td>%10</td>
-            </tr>
-            <tr>
-              <td><strong>Stopaj Oranı (181-365 gün)</strong></td>
-              <td><strong>%7.5 (Vergi Avantajı)</strong></td>
-              <td>%10</td>
-            </tr>
-            <tr>
-              <td><strong>Stopaj Oranı (&gt;365 gün)</strong></td>
-              <td><strong>%5 (Yüksek Vergi Avantajı)</strong></td>
-              <td>%10</td>
-            </tr>
-            <tr>
-              <td><strong>Hafta Sonu Kazancı</strong></td>
-              <td>Vade gün sayısına dahildir</td>
-              <td>Hafta sonu kümülatif yansır</td>
+              <td>%17,5</td>
             </tr>
           </tbody>
         </table>
@@ -132,24 +155,23 @@ const jsonLd = sayfaSemasi({
 
       <div class="bilgi-kutulari">
         <article class="bilgi-kutu">
-          <h3>Günlük Bileşik Faizin Matematiksel Gücü</h3>
-          <p>
-            Para Piyasası Fonlarında elde edilen faiz ertesi gün fon portföyünün yeni baz büyüklüğünü oluşturur.
-            Yıllık brüt getiri oranı <em>r</em> olduğunda, <em>N</em> günlük fon birikimi şu formülle çalışır:
-          </p>
-          <code>Ana Para &times; (1 + r / 365)<sup>N</sup></code>
-          <p>
-            Özellikle yüksek faiz ortamında günlük bileşik faiz, basit faize kıyasla ilave getiri farkı yaratır.
-          </p>
+          <h3>Hesap yöntemi</h3>
+          <p>Mevduatta faiz basit hesaplanır; yıllık faiz oranı <em>r</em>, gün sayısı <em>N</em>:</p>
+          <code>Ana para &times; r &times; N / 365</code>
+          <p>Fonda yıllık getiri güne bölünür ve her gün üstüne eklenir:</p>
+          <code>Ana para &times; (1 + r / 365)<sup>N</sup> &minus; Ana para</code>
+          <p>İki sonuçtan vadeye uyan stopaj düşülür. Banka ve fonun kendi hesabı küçük farklar gösterebilir.</p>
         </article>
-
         <article class="bilgi-kutu">
-          <h3>Stopaj Dilimleri Neden Önemli?</h3>
-          <p>
-            Mevduatta vade uzadıkça Gelir Vergisi stopajı %10'dan %7.5 ve %5'e düşer.
-            Uzun vadeli bir yatırım planlıyorsanız ve faiz oranlarının düşeceği bir konjonktürdeyseniz,
-            mevduatın düşük stopajı PPF'nin bileşik getiri avantajını nötralize edebilir ve mevduatı daha kazançlı kılabilir.
-          </p>
+          <h3>Kaynaklar</h3>
+          <ul class="kaynak-liste">
+            {kaynaklar.map((k) => (
+              <li>
+                <a href={k.url} rel="noopener">{k.ad}</a>
+              </li>
+            ))}
+          </ul>
+          <p>Oranlar 26 Kasım 2026'da kontrol edildi.</p>
         </article>
       </div>
     </section>
@@ -159,6 +181,18 @@ const jsonLd = sayfaSemasi({
 </Base>
 
 <style>
+  .ornek-not {
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: #475569;
+    margin: 0.75rem 0 0;
+  }
+  .kaynak-liste {
+    margin: 0 0 0.75rem;
+    padding-left: 1.1rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
   .hesap-sayfasi {
     max-width: 960px;
     margin: 0 auto;
