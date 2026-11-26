@@ -63,8 +63,19 @@ export async function emsalUlkelerUret() {
   // KEI akışı sürümsüz sorguda her seferinde 500 veriyor (26 Kasım 2026'da doğrulandı: aynı sorgu ",4.0" ile 200);
   // sürüm belirtilir. Sürüm emekliye ayrılırsa (404 → boş) sürümsüz sorgu denenir.
   const keiSorgu = `.+M+Q.B1GQ_Q+UNEMP+IRLT....?startPeriod=${bas}&dimensionAtObservation=AllDimensions`;
-  let kei = await oecdCek(`OECD.SDD.STES,DSD_KEI@DF_KEI,${KEI_SURUM}/${keiSorgu}`);
-  if (!kei.length) kei = await oecdCek(`OECD.SDD.STES,DSD_KEI@DF_KEI/${keiSorgu}`);
+  // GitHub'ın sunucularından KEI sorgusu sürümlü de 500 alıyor (26 Kasım; aynı sorgu başka ağdan 200). KEI düşerse
+  // GSYH, işsizlik ve tahvil önceki dosyadan kendi dönem tarihleriyle korunur, fiyat ve BIS yine güncellenir; betik
+  // sonunda hata koduyla biter ki veri alarmı (veri-durumu-bildir.mjs) açık kalsın.
+  let kei = [];
+  let keiHatasi = null;
+  try {
+    kei = await oecdCek(`OECD.SDD.STES,DSD_KEI@DF_KEI,${KEI_SURUM}/${keiSorgu}`);
+    if (!kei.length) kei = await oecdCek(`OECD.SDD.STES,DSD_KEI@DF_KEI/${keiSorgu}`);
+    if (!kei.length) throw new Error('KEI yanıtı boş');
+  } catch (e) {
+    keiHatasi = e?.message ?? String(e);
+    console.warn(`OECD KEI alınamadı, GSYH/işsizlik/tahvil önceki dosyadan: ${keiHatasi}`);
+  }
   await sleep(20000);
   const fiyat2018 = await oecdCek(`OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/.M.N+HICP.CPI.PA._T+_TXCP01_NRG.N.GY?startPeriod=${bas}`);
   await sleep(20000);
@@ -91,7 +102,7 @@ export async function emsalUlkelerUret() {
     }
   }
   let onceki = {};
-  if (dusen.size) {
+  if (dusen.size || keiHatasi) {
     try {
       const eski = JSON.parse(await readFile(HEDEF_DOSYA, 'utf8'));
       onceki = Object.fromEntries((eski.satirlar ?? []).map((s) => [s.kod, s]));
@@ -108,13 +119,17 @@ export async function emsalUlkelerUret() {
     // resmi.json okunamazsa BIS serisi olduğu gibi kalır.
   }
   const fiyat = [...fiyat2018, ...fiyat1999];
-  if (!kei.length || !fiyat.length) throw new Error('OECD yanıtı boş geldi');
+  if (!fiyat.length) throw new Error('OECD fiyat yanıtı boş geldi');
+  if (keiHatasi && !Object.keys(onceki).length) throw new Error(`OECD KEI alınamadı ve önceki dosya yok: ${keiHatasi}`);
 
   const ref = ULKELER.map((u) => seriler[u.bis]?.at(-1)?.t).filter(Boolean).sort().at(-1);
   const satirlar = ULKELER.map((u) => {
     const faiz = seriler[u.bis]?.length ? faizSatiri({ ulke: u, seri: seriler[u.bis], tufe: null, ref, bugun }) : null;
     const satir = emsalSatiri({ ulke: u, kei, fiyat, faiz, bugun });
     const eski = onceki[u.kod];
+    if (eski && keiHatasi) {
+      for (const k of ['gsyhCeyrek', 'gsyhYillik', 'issizlik', 'tahvil']) satir[k] ??= eski[k] ?? null;
+    }
     if (eski && (u.oecd ?? []).some((k) => dusen.has(k))) {
       satir.tufe ??= eski.tufe ?? null;
       satir.cekirdek ??= eski.cekirdek ?? null;
@@ -142,6 +157,8 @@ export async function emsalUlkelerUret() {
     gostergeler: GOSTERGELER,
     baslikDonemleri: donemler,
     satirlar,
+    // Dosyaya yazılmaz (main siler): KEI düştüyse betik hata koduyla biter.
+    keiHatasi,
   };
 }
 
@@ -157,11 +174,16 @@ async function main() {
     );
   }
   console.log('Başlık dönemleri:', JSON.stringify(veri.baslikDonemleri));
+  const { keiHatasi, ...kayit } = veri;
   if (yaz) {
-    await writeFile(HEDEF_DOSYA, `${JSON.stringify(veri, null, 2)}\n`, 'utf-8');
+    await writeFile(HEDEF_DOSYA, `${JSON.stringify(kayit, null, 2)}\n`, 'utf-8');
     console.log(`Veri kaydedildi: ${HEDEF_DOSYA}`);
   } else {
     console.log('Veriyi kaydetmek için --yaz parametresini ekleyin.');
+  }
+  if (keiHatasi) {
+    console.error(`Hata: OECD KEI alınamadı (GSYH, işsizlik, tahvil önceki değerlerle): ${keiHatasi}`);
+    process.exitCode = 1;
   }
 }
 
