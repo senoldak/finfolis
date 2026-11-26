@@ -10,7 +10,7 @@ kaynakIzi: "v1.mVhSMQzMzXh8C4Xy.fFBc0Cw2pTEA6zt8SNKODm7yOo3giLKNRbO0Cg4UyeWf+hiY
 rakamlar:
   - etiket: "Haber tarihi"
     deger: "22 Kasım 2026"
-why_matters: "Sistem modernizasyonu ve siber güvenlik yatırımları süresince kritik altyapılarda yaşanabilecek geçici kesintilerin günlük hizmetleri ve seyahatleri etkileyebileceği vurgulanmaktadır ve bu durum altyapı dayanıklılığı açısından önem taşımaktadır.\n\nKey Points:\n- Ulusal İstihbarat Direktörü Jay Clayton, sistem güncellemeleri nedeniyle teknolojik kesintilerin yaşanabileceği konusunda uyardı.\n- Yetkililer, FAA, Microsoft ve bankalardaki son kesintilerin koordineli bir siber saldırıdan kaynaklanmadığını belirtti.\n- Uyarılar, ABD'de seyahat yoğunluğunun yaşandığı Şükran Günü öncesinde geldi."
+why_matters: "Sistem modernizasyonu ve siber güvenlik yatırımları süresince kritik altyapılarda yaşanabilecek geçici kesintilerin günlük hizmetleri ve seyahatleri etkileyebileceği vurgulanıyor; bu durum altyapı dayanıklılığı açısından önem taşıyor."
 cover: kapak.png
 coverAlt: "ABD · Ulusal İstihbarat Direktörü Clayton teknoloji kesintileri konusunda uyardı"
 coverSitede: false
