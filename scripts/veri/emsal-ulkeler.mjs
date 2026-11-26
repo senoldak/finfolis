@@ -63,9 +63,19 @@ export async function emsalUlkelerUret() {
   // KEI akışı sürümsüz sorguda her seferinde 500 veriyor (26 Kasım 2026'da doğrulandı: aynı sorgu ",4.0" ile 200);
   // sürüm belirtilir. Sürüm emekliye ayrılırsa (404 → boş) sürümsüz sorgu denenir.
   const keiSorgu = `.+M+Q.B1GQ_Q+UNEMP+IRLT....?startPeriod=${bas}&dimensionAtObservation=AllDimensions`;
-  // GitHub'ın sunucularından KEI sorgusu sürümlü de 500 alıyor (26 Kasım; aynı sorgu başka ağdan 200). KEI düşerse
-  // GSYH, işsizlik ve tahvil önceki dosyadan kendi dönem tarihleriyle korunur, fiyat ve BIS yine güncellenir; betik
-  // sonunda hata koduyla biter ki veri alarmı (veri-durumu-bildir.mjs) açık kalsın.
+  // OECD, GitHub sunucularından gelen isteklere kararsız yanıt veriyor (26 Kasım: yedi turun her birinde KEI ya da
+  // fiyat sorgusu 500; aynı sorgular bazen 200). Göstergeler ayda/çeyrekte bir değiştiği için her tur şart değil: düşen
+  // akışın değerleri önceki dosyadan kendi dönem tarihleriyle korunur, BIS faizleri yine güncellenir. Her akışın son
+  // başarılı alınışı dosyada (oecdAlinma); betik yalnız bir akış ESKIME_SAAT'ten uzun süredir alınamıyorsa hata
+  // koduyla biter (veri alarmı, veri-durumu-bildir.mjs). Böylece tek turluk 500 Telegram'a aç-kapa alarmı göndermez.
+  let eskiDosya = null;
+  try {
+    eskiDosya = JSON.parse(await readFile(HEDEF_DOSYA, 'utf8'));
+  } catch {
+    // Önceki dosya yoksa düşen akışın değerleri boş kalır.
+  }
+  const onceki = Object.fromEntries((eskiDosya?.satirlar ?? []).map((s) => [s.kod, s]));
+  const eskiAlinma = eskiDosya?.oecdAlinma ?? { kei: eskiDosya?.alinma ?? null, fiyat: eskiDosya?.alinma ?? null };
   let kei = [];
   let keiHatasi = null;
   try {
@@ -77,20 +87,29 @@ export async function emsalUlkelerUret() {
     console.warn(`OECD KEI alınamadı, GSYH/işsizlik/tahvil önceki dosyadan: ${keiHatasi}`);
   }
   await sleep(20000);
-  const fiyat2018 = await oecdCek(`OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/.M.N+HICP.CPI.PA._T+_TXCP01_NRG.N.GY?startPeriod=${bas}`);
+  let fiyat2018 = [];
+  let fiyatHatasi = null;
+  try {
+    fiyat2018 = await oecdCek(`OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/.M.N+HICP.CPI.PA._T+_TXCP01_NRG.N.GY?startPeriod=${bas}`);
+  } catch (e) {
+    fiyatHatasi = e?.message ?? String(e);
+    console.warn(`OECD fiyat akışı (COICOP 2018) alınamadı, eski akış denenecek: ${fiyatHatasi}`);
+  }
   await sleep(20000);
   // Eski COICOP 1999 akışı: yalnız 2018 akışında TÜFE ya da çekirdek TÜFE'si olmayan ülkeler sorulur.
   // Bütün ülkeleri isteyen geniş sorgu bu akışta zaman aşımıyla 500 veriyordu (28 Ekim–25 Kasım).
   const var2018 = new Set(fiyat2018.filter((r) => r.MEASURE === 'CPI').map((r) => `${r.REF_AREA}|${r.EXPENDITURE}`));
   // Ülke başına: kodlarından hiçbiri iki seriyi birden vermiyorsa sorulur. EA21/EA19 eski akışta yok (404), sorulmaz.
   const tam = (k) => var2018.has(`${k}|_T`) && var2018.has(`${k}|_TXCP01_NRG`);
-  const eksik = [
-    ...new Set(ULKELER.filter((u) => !(u.oecd ?? []).some(tam)).flatMap((u) => (u.oecd ?? []).filter((k) => k !== 'EA21' && k !== 'EA19'))),
-  ];
+  // 2018 akışı hiç gelmediyse eski akışla bütün ülkeler sorulmaz (OECD o an kararsız, adım uzar): hepsinin TÜFE'si
+  // önceki dosyadan kalır.
+  const eksik = fiyatHatasi
+    ? []
+    : [...new Set(ULKELER.filter((u) => !(u.oecd ?? []).some(tam)).flatMap((u) => (u.oecd ?? []).filter((k) => k !== 'EA21' && k !== 'EA19')))];
   // Bu akış kararsız (aynı sorgu bir kez 200, bir kez 500); dörder ülkelik parçalar, aralarında 20 sn.
   // Düşen parçanın ülkelerinde TÜFE/çekirdek önceki dosyadan, kendi dönem tarihiyle korunur; tablo her değerin dönemini gösterir.
   const fiyat1999 = [];
-  const dusen = new Set();
+  const dusen = new Set(fiyatHatasi ? ULKELER.flatMap((u) => u.oecd ?? []) : []);
   for (let i = 0; i < eksik.length; i += 4) {
     if (i) await sleep(20000);
     const parca = eksik.slice(i, i + 4);
@@ -99,15 +118,6 @@ export async function emsalUlkelerUret() {
     } catch (e) {
       console.warn(`OECD eski fiyat akışı düştü (${parca.join('+')}): ${e?.message ?? e}`);
       parca.forEach((k) => dusen.add(k));
-    }
-  }
-  let onceki = {};
-  if (dusen.size || keiHatasi) {
-    try {
-      const eski = JSON.parse(await readFile(HEDEF_DOSYA, 'utf8'));
-      onceki = Object.fromEntries((eski.satirlar ?? []).map((s) => [s.kod, s]));
-    } catch {
-      // Önceki dosya yoksa o ülkelerin TÜFE'si boş kalır.
     }
   }
   const seriler = await bisFaizSerileri();
@@ -119,8 +129,12 @@ export async function emsalUlkelerUret() {
     // resmi.json okunamazsa BIS serisi olduğu gibi kalır.
   }
   const fiyat = [...fiyat2018, ...fiyat1999];
-  if (!fiyat.length) throw new Error('OECD fiyat yanıtı boş geldi');
-  if (keiHatasi && !Object.keys(onceki).length) throw new Error(`OECD KEI alınamadı ve önceki dosya yok: ${keiHatasi}`);
+  const oncekiVar = Object.keys(onceki).length > 0;
+  if (!fiyat.length && !oncekiVar) throw new Error(`OECD fiyat verisi alınamadı ve önceki dosya yok: ${fiyatHatasi ?? 'boş yanıt'}`);
+  if (keiHatasi && !oncekiVar) throw new Error(`OECD KEI alınamadı ve önceki dosya yok: ${keiHatasi}`);
+  const simdi = new Date().toISOString();
+  // Fiyat akışı tam alındıysa (2018 akışı geldi, eski akışın hiçbir parçası düşmedi) zaman damgası yenilenir.
+  const oecdAlinma = { kei: keiHatasi ? eskiAlinma.kei : simdi, fiyat: fiyatHatasi || dusen.size ? eskiAlinma.fiyat : simdi };
 
   const ref = ULKELER.map((u) => seriler[u.bis]?.at(-1)?.t).filter(Boolean).sort().at(-1);
   const satirlar = ULKELER.map((u) => {
@@ -148,7 +162,8 @@ export async function emsalUlkelerUret() {
   if (!satirlar.find((s) => s.kod === 'TUR')?.tufe) throw new Error('Türkiye TÜFE verisi gelmedi');
 
   return {
-    alinma: new Date().toISOString(),
+    alinma: simdi,
+    oecdAlinma,
     referansTarih: ref,
     kaynaklar: [
       { ad: 'OECD Veri Gezgini, sdmx.oecd.org', url: 'https://data-explorer.oecd.org/' },
@@ -157,9 +172,18 @@ export async function emsalUlkelerUret() {
     gostergeler: GOSTERGELER,
     baslikDonemleri: donemler,
     satirlar,
-    // Dosyaya yazılmaz (main siler): KEI düştüyse betik hata koduyla biter.
-    keiHatasi,
+    // Dosyaya yazılmaz (main siler).
+    hatalar: [keiHatasi && `KEI: ${keiHatasi}`, fiyatHatasi && `fiyat: ${fiyatHatasi}`, dusen.size && `eski fiyat akışı: ${[...dusen].join('+')}`].filter(Boolean),
   };
+}
+
+// Bir OECD akışı bu kadar saattir alınamıyorsa veri alarmı açılır (tek turluk 500'ler alarm sayılmaz).
+export const ESKIME_SAAT = 72;
+export function eskimis(oecdAlinma, simdi = Date.now(), saat = ESKIME_SAAT) {
+  return ['kei', 'fiyat'].filter((k) => {
+    const t = Date.parse(oecdAlinma?.[k] ?? '');
+    return !Number.isFinite(t) || simdi - t > saat * 3600e3;
+  });
 }
 
 const f = (g) => (g ? `${g.deger}` + ` (${g.donem ?? g.tarih})` : '–');
@@ -174,15 +198,17 @@ async function main() {
     );
   }
   console.log('Başlık dönemleri:', JSON.stringify(veri.baslikDonemleri));
-  const { keiHatasi, ...kayit } = veri;
+  const { hatalar, ...kayit } = veri;
   if (yaz) {
     await writeFile(HEDEF_DOSYA, `${JSON.stringify(kayit, null, 2)}\n`, 'utf-8');
     console.log(`Veri kaydedildi: ${HEDEF_DOSYA}`);
   } else {
     console.log('Veriyi kaydetmek için --yaz parametresini ekleyin.');
   }
-  if (keiHatasi) {
-    console.error(`Hata: OECD KEI alınamadı (GSYH, işsizlik, tahvil önceki değerlerle): ${keiHatasi}`);
+  if (hatalar.length) console.warn(`OECD uyarısı (önceki değerlerle sürdü): ${hatalar.join(' | ')}`);
+  const eski = eskimis(veri.oecdAlinma);
+  if (eski.length) {
+    console.error(`Hata: OECD verisi ${ESKIME_SAAT} saattir alınamıyor: ${eski.join(', ')}. ${hatalar.join(' | ')}`);
     process.exitCode = 1;
   }
 }
