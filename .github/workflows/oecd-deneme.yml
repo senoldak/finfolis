@@ -1,4 +1,4 @@
-# Geçici deneme (26 Kasım 2026): OECD SDMX GitHub sunucularından hangi sorgu biçimlerine yanıt veriyor. Sonuç alınınca silinir.
+# Geçici deneme (26 Kasım 2026): OECD SDMX GitHub sunucularından hangi istemciye yanıt veriyor. Sonuç alınınca silinir.
 name: OECD deneme
 on: workflow_dispatch
 permissions:
@@ -8,15 +8,28 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
-      - name: Sorgular
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Node fetch (botun hentMetin'i) ve curl
         run: |
-          B='https://sdmx.oecd.org/public/rest/data'
-          H='Accept: application/vnd.sdmx.data+csv; charset=utf-8'
-          dene() { kod=$(curl -s -o /tmp/y -w '%{http_code}' -m 90 -A 'finfolis-veri' -H "$H" "$B/$1"); echo "$kod $(wc -l < /tmp/y) satır  $1"; sleep 12; }
-          dene 'OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/.+M+Q.B1GQ_Q+UNEMP+IRLT....?startPeriod=2025-05&dimensionAtObservation=AllDimensions'
-          dene 'OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/TUR.M.UNEMP....?startPeriod=2025-01'
-          dene 'OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/.M.IRLT....?startPeriod=2025-05'
-          dene 'OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/.Q.B1GQ_Q....?startPeriod=2025-Q1'
-          dene 'OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/USA+DEU+JPN.M+Q.B1GQ_Q+UNEMP+IRLT....?startPeriod=2025-05'
-          dene 'OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/USA.M.N.CPI.PA._T.N.GY?startPeriod=2025-05'
-          curl -s -o /dev/null -w "%{http_code} json-format\n" -m 90 "$B/OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/TUR.M.UNEMP....?startPeriod=2025-01&format=jsondata"
+          cat > ./oecd-deneme.mjs <<'JS'
+          import { hentMetin } from './scripts/haberler/lib.mjs';
+          const u = 'https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/.+M+Q.B1GQ_Q+UNEMP+IRLT....?startPeriod=2025-05&dimensionAtObservation=AllDimensions';
+          const kabul = { Accept: 'application/vnd.sdmx.data+csv; charset=utf-8' };
+          for (let i = 1; i <= 3; i++) {
+            try {
+              const t = await hentMetin(u, { timeout: 120000, headers: kabul });
+              console.log('SONUC node', i, 'tamam', t.split('\n').length);
+            } catch (e) {
+              console.log('SONUC node', i, 'hata', e.message.slice(0, 40));
+            }
+            await new Promise((r) => setTimeout(r, 15000));
+          }
+          JS
+          node ./oecd-deneme.mjs
+          for i in 1 2; do
+            echo "SONUC curl $i $(curl -s -o /tmp/y -w '%{http_code}' -m 90 -A 'finfolis-haber-botu (+https://finfolis.com)' -H 'Accept: application/vnd.sdmx.data+csv; charset=utf-8' 'https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/.+M+Q.B1GQ_Q+UNEMP+IRLT....?startPeriod=2025-05&dimensionAtObservation=AllDimensions')"
+            sleep 15
+          done
