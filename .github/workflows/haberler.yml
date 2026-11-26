@@ -127,39 +127,50 @@ jobs:
           # Yalnız metin tonu (ppk-ton, tcmb-ton, fomc-ton, ecb-ton): yeni metin yoksa Gemini çağrısı yapılmaz.
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_KULLANIM_DOSYASI: ${{ runner.temp }}/gemini-kullanim.json
+        # Her betik `calistir` ile çalışır: hata veren betik işi düşürmez ama adı ve son hata satırı kaydedilir; sonraki
+        # adım (Veri durumunu saate bildir) Redaksjon alarm grubuna alarm açar, düzelince "Düzeldi" gider.
         run: |
-          node scripts/tcmb-altin-kazanci.mjs
-          node scripts/tcmb-swap-orani.mjs || true
-          node scripts/makro-soklar-uret.mjs || true
-          node scripts/veri/bist-tufe.mjs --yaz || true
-          node scripts/tcmb-net-pozisyon-degisimi.mjs || true
-          node scripts/veri/abd-tahvil.mjs || true
-          node scripts/veri/abd-tahvilleri-uret.mjs --yaz || true
-          node scripts/veri/dunya-faizleri.mjs --yaz || true
-          node scripts/veri/dunyada-turkiye-kartlari.mjs || true
-          node scripts/veri/enflasyon-katkilari.mjs --yaz || true
-          node scripts/veri/veri-takvimi.mjs --yaz || true
-          node scripts/veri/ppk-metinler.mjs --yaz || true
-          node scripts/veri/ppk-ton.mjs --yaz || true
+          VB="$RUNNER_TEMP/veri-betikler.txt"; VH="$RUNNER_TEMP/veri-hatalar.tsv"; : > "$VB"; : > "$VH"
+          calistir() {
+            local ad err="$RUNNER_TEMP/veri-son.err"
+            ad=$(basename "$2" .mjs)
+            echo "$ad" >> "$VB"
+            if "$@" 2>"$err"; then cat "$err" >&2; return 0; fi
+            cat "$err" >&2
+            printf '%s\t%s\n' "$ad" "$(grep -v '^[[:space:]]*$' "$err" | tail -n 1 | tr '\t' ' ' | cut -c1-300)" >> "$VH"
+          }
+          calistir node scripts/tcmb-altin-kazanci.mjs
+          calistir node scripts/tcmb-swap-orani.mjs
+          calistir node scripts/makro-soklar-uret.mjs
+          calistir node scripts/veri/bist-tufe.mjs --yaz
+          calistir node scripts/tcmb-net-pozisyon-degisimi.mjs
+          calistir node scripts/veri/abd-tahvil.mjs
+          calistir node scripts/veri/abd-tahvilleri-uret.mjs --yaz
+          calistir node scripts/veri/dunya-faizleri.mjs --yaz
+          calistir node scripts/veri/dunyada-turkiye-kartlari.mjs
+          calistir node scripts/veri/enflasyon-katkilari.mjs --yaz
+          calistir node scripts/veri/veri-takvimi.mjs --yaz
+          calistir node scripts/veri/ppk-metinler.mjs --yaz
+          calistir node scripts/veri/ppk-ton.mjs --yaz
           # Başkan sunumları ve rapor PDF'leri için pdftotext (poppler-utils); runner'da yoksa kurulur.
           command -v pdftotext >/dev/null || sudo apt-get install -y -qq poppler-utils >/dev/null || true
-          node scripts/veri/tcmb-metinler.mjs --yaz || true
-          node scripts/veri/tcmb-ton.mjs --yaz || true
-          node scripts/veri/tcmb-karnesi.mjs --yaz || true
-          node scripts/veri/fomc-metinler.mjs --yaz || true
-          node scripts/veri/ecb-metinler.mjs --yaz || true
-          node scripts/veri/fed-projeksiyonlari.mjs --yaz || true
-          node scripts/veri/fomc-ton.mjs --yaz || true
-          node scripts/veri/ecb-ton.mjs --yaz || true
+          calistir node scripts/veri/tcmb-metinler.mjs --yaz
+          calistir node scripts/veri/tcmb-ton.mjs --yaz
+          calistir node scripts/veri/tcmb-karnesi.mjs --yaz
+          calistir node scripts/veri/fomc-metinler.mjs --yaz
+          calistir node scripts/veri/ecb-metinler.mjs --yaz
+          calistir node scripts/veri/fed-projeksiyonlari.mjs --yaz
+          calistir node scripts/veri/fomc-ton.mjs --yaz
+          calistir node scripts/veri/ecb-ton.mjs --yaz
           # Tahmin sayfası: İTO + PKA (EVDS), sonra modeller ve yalnız ekleme yapılan arşiv (ağsız, saniyeler).
-          node scripts/veri/tahmin-veri.mjs --yaz || true
+          calistir node scripts/veri/tahmin-veri.mjs --yaz
           # Taze meyve-sebze kalemi: İzmir hal bülteninin eksik günleri (ayda ~15 istek) + TÜİK alt sınıfları (EVDS).
-          node scripts/veri/hal-veri.mjs --yaz || true
-          node scripts/veri/tahmin.mjs --yaz || true
+          calistir node scripts/veri/hal-veri.mjs --yaz
+          calistir node scripts/veri/tahmin.mjs --yaz
           # Kur oynaklığı: günlük kurlar (EVDS, FRED, ECB; son 60 gün) ve geçmiş istatistik, saniyeler, Gemini yok.
-          node scripts/veri/kur-oynakligi.mjs --yaz || true
+          calistir node scripts/veri/kur-oynakligi.mjs --yaz
           # Emsal ülkeler en sonda: OECD istek sınırında 429 beklemeleri (en çok ~6 dk) öndeki betikleri geciktirmesin.
-          node scripts/veri/emsal-ulkeler.mjs --yaz || true
+          calistir node scripts/veri/emsal-ulkeler.mjs --yaz
 
       # Üretim adımı düşse de (zaman aşımı, motor hatası, beklenmeyen hata) o ana kadar yazılan haberler ve durum dosyası
       # commit edilir (F4); aksi hâlde aynı adaylar sonraki turda Gemini'yi yeniden harcıyordu. İş yine kırmızı biter.
@@ -231,6 +242,18 @@ jobs:
         run: |
           echo "::error::Gemini anahtarı/modeli reddedildi (400/401/403/404). GEMINI_API_KEY ve GEMINI_MODEL değerlerini kontrol edin; haberler harcanmadı."
           exit 1
+
+      # Veri betiklerinin hataları Redaksjon alarm grubuna (mecmua-saat POST /motor/finfolis/veri); düzelince "Düzeldi".
+      - name: Veri durumunu saate bildir
+        if: ${{ always() && vars.MOTOR_URL != '' }}
+        continue-on-error: true
+        timeout-minutes: 2
+        env:
+          MOTOR_URL: ${{ vars.MOTOR_URL }}
+          MOTOR_ANAHTARI: ${{ secrets.MOTOR_ANAHTARI }}
+          VERI_BETIKLER: ${{ runner.temp }}/veri-betikler.txt
+          VERI_HATALAR: ${{ runner.temp }}/veri-hatalar.tsv
+        run: node scripts/veri-durumu-bildir.mjs
 
       # Katman 0 (Gemini kota planı): bu işin Gemini kullanımını model ve amaç başına mecmua-saat'e bildirir. İşi düşürmez.
       - name: Gemini kullanımını saate bildir
