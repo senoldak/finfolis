@@ -20,4 +20,6 @@ coverAlt: "Asya · Jardine Matheson 2026 yılı hisse başına kazanç tahminini
 coverSitede: false
 ---
 
-Jardine Matheson, 13 Ekim 2026 tarihinde yaptığı açıklamada, 2026 yılı hisse başına kazanç beklentisini daha önceki 5,33 dolar seviyesinden 5,50 dolar ile 5,65 dolar aralığına çıkardığını bildirdi. Şirket, Balfour Beatty'nin Gammon Construction şirketindeki yüzde 50 hissesini 250 milyon sterlin (423,2 milyon Singapur doları) karşılığında satın alarak tek sahibi oldu. Ödemenin 13 Ekim, 31 Aralık 2027 ve 29 Aralık 2028 tarihlerinde olmak üzere üç taksitte yapılacağı belirtildi. Açıklamada, işlemin ilk yıldan itibaren kazanç artırıcı bir etki sağlamasının beklendiği ifade edildi.
+Jardine Matheson, 13 Ekim 2026 tarihinde yaptığı açıklamada, 2026 yılı hisse başına kazanç beklentisini daha önceki 5,33 dolar seviyesinden 5,50 dolar ile 5,65 dolar aralığına çıkardığını bildirdi. Şirket, Balfour Beatty'nin Gammon Construction şirketindeki yüzde 50 hissesini 250 milyon sterlin (423,2 milyon Singapur doları) karşılığında satın alarak tek sahibi oldu.
+
+Ödemenin 13 Ekim, 31 Aralık 2027 ve 29 Aralık 2028 tarihlerinde olmak üzere üç taksitte yapılacağı belirtildi. Açıklamada, işlemin ilk yıldan itibaren kazanç artırıcı bir etki sağlamasının beklendiği ifade edildi.

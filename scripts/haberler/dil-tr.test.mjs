@@ -1,7 +1,7 @@
 // Kaynak: mecmua/site-ortak/dil/dil-tr.test.mjs. Burada düzenleme; kaynağı düzenleyip node site-ortak/kopyala.mjs çalıştır.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { dilDuzeltTr, dilSorunlariTr, kesinSorunlar, sorunListesi } from './dil-tr.mjs';
+import { cumlelereAyir, dilDuzeltTr, dilSorunlariTr, kesinSorunlar, paragrafOranlari, paragraflaraBol, sorunListesi } from './dil-tr.mjs';
 
 const kodlar = (m, a) => dilSorunlariTr(m, a).map((s) => s.kod);
 
@@ -102,4 +102,42 @@ test('yapay zekâ kalıpları: redaksiyona gider, haberi düşürmez', () => {
 
 test('modelin yazı olarak bıraktığı satır sonu gerçek satır sonuna döner', () => {
   assert.equal(dilDuzeltTr('Birinci paragraf.\n\nİkinci paragraf.'), 'Birinci paragraf.\n\nİkinci paragraf.');
+});
+
+test('cumlelereAyir: kısaltma ve baş harfte bölmez', () => {
+  assert.deepEqual(cumlelereAyir('Dr. Ayşe Kaya açıkladı. Şirket J. Smith ile anlaştı. Acme Inc. Paris’e taşındı.'), [
+    'Dr. Ayşe Kaya açıkladı.',
+    'Şirket J. Smith ile anlaştı.',
+    'Acme Inc. Paris’e taşındı.',
+  ]);
+  assert.deepEqual(cumlelereAyir('Kâr 3.5 milyon. "Büyüdük" dedi. %20 arttı.'), ['Kâr 3.5 milyon.', '"Büyüdük" dedi.', '%20 arttı.']);
+});
+
+const cumle = (i) => `Bu, haber gövdesindeki ${i}. sınama cümlesidir ve paragraf bölücünün davranışını ölçmek için yazıldı.`;
+const blok = (n) => Array.from({ length: n }, (_, i) => cumle(i + 1)).join(' ');
+
+test('paragraflaraBol: tek bloğu sözcüklere dokunmadan böler', () => {
+  const g = blok(12);
+  const yeni = paragraflaraBol(g);
+  const ps = yeni.split('\n\n');
+  assert.equal(ps.length, 3);
+  assert.equal(yeni.replace(/\s+/g, ' '), g);
+  for (const p of ps) assert.match(p, /\.$/);
+});
+
+test('paragraflaraBol: eşin oranlarını izler', () => {
+  const g = blok(10);
+  const ps = paragraflaraBol(g, [0.5]).split('\n\n');
+  assert.equal(ps.length, 2);
+  assert.equal(ps[0].split('. ').length, ps[1].split('. ').length);
+  assert.deepEqual(paragrafOranlari('aaaa\n\nbbbb'), [0.5]);
+  assert.equal(paragrafOranlari('tek'), null);
+});
+
+test('paragraflaraBol: paragraflı, kısa ya da markdown gövdeye dokunmaz', () => {
+  const paragrafli = `${blok(4)}\n\n${blok(4)}`;
+  assert.equal(paragraflaraBol(paragrafli), paragrafli);
+  assert.equal(paragraflaraBol(blok(3)), blok(3));
+  assert.equal(paragraflaraBol(`## Başlık ${blok(8)}`), `## Başlık ${blok(8)}`);
+  assert.equal(paragraflaraBol('kısa metin.'), 'kısa metin.');
 });

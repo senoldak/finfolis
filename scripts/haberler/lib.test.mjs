@@ -231,3 +231,13 @@ test('htmlSok iç içe etiket silinince yeniden oluşan etiketi bırakmaz', () =
   }
   assert.equal(htmlSok('3 < 5 ve <https://www.tcmb.gov.tr/>'), '3 < 5 ve <https://www.tcmb.gov.tr/>');
 });
+
+test('yaziYaz tek blok gövdeyi paragraflara böler, sözcüklere dokunmaz', async () => {
+  const rot = await mkdtemp(path.join(os.tmpdir(), 'haber-'));
+  const govde = Array.from({ length: 10 }, (_, i) => `Şirket ${i + 1}. çeyrekte açıkladığı sonuçlarla piyasa beklentisinin üzerinde kaldı ve hisse yükseldi.`).join(' ');
+  const slug = await yaziYaz(rot, { baslik: 'Tek blok sınaması', spot: 'Özet.', govde, kategori: 'piyasalar', tarih: new Date('2026-11-26T08:00:00Z'), tur: 'haber', kaynaklar: [] });
+  const md = await readFile(path.join(rot, 'src/content/haberler', slug, 'index.md'), 'utf8');
+  const yazilan = md.split(/^---$/m)[2].trim();
+  assert.ok(yazilan.split('\n\n').length >= 2);
+  assert.equal(yazilan.replace(/\s+/g, ' '), govde);
+});

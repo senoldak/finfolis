@@ -6,6 +6,7 @@ import { kapakCiz } from '../kapak/kapak.mjs';
 import { kategoriDuzelt } from './kategori-duzelt.mjs';
 import { cumleDuzeni } from './baslik-duzeni.mjs';
 import { hintBirimleriniCevir } from './hint-birimleri.mjs';
+import { paragraflaraBol } from './dil-tr.mjs';
 
 export const USER_AGENT = 'finfolis-haber-botu (+https://finfolis.com)';
 
@@ -189,7 +190,8 @@ export async function yaziYaz(rot, yazi) {
     await writeFile(path.join(rot, 'public/linkedin', `${slug}.png`), dikey);
   }
   fm.push('---');
-  await writeFile(path.join(taban, slug, 'index.md'), `${fm.join('\n')}\n\n${htmlSok(yazi.govde).trim()}\n`, 'utf8');
+  // Model gövdeyi tek blok döndürdüyse cümle sınırlarından paragraflara bölünür (sözcüklere dokunulmaz).
+  await writeFile(path.join(taban, slug, 'index.md'), `${fm.join('\n')}\n\n${paragraflaraBol(htmlSok(yazi.govde).trim())}\n`, 'utf8');
   return slug;
 }
 

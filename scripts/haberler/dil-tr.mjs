@@ -209,6 +209,77 @@ export function dilSorunlariTr(metin, ayar = {}) {
 
 export const kesinSorunlar = (sorunlar) => sorunlar.filter((s) => s.kesin);
 
+// Cümle sonu sayılmayan kısaltmalar (Türkçe ve İngilizce gövde).
+const KISALTMA = new Set(['dr', 'prof', 'doç', 'vb', 'vs', 'vd', 'bkz', 'st', 'mr', 'mrs', 'ms', 'inc', 'ltd', 'co', 'corp', 'jr', 'sr', 'no', 'nr', 'gen', 'lt', 'rev', 'mt', 'fig', 'vol', 'dept', 'est', 'jan', 'feb', 'mar', 'apr', 'aug', 'sep', 'sept', 'oct', 'nov', 'dec']);
+
+/** Metni cümlelere ayırır; kısaltma ("Dr.", "Inc.") ve tek harfli baş harf ("J.") sonrası bölünmez. */
+export function cumlelereAyir(metin) {
+  const out = [];
+  const re = /([.!?…]["”’')\]]*)\s+(?=["“‘(]?[\p{Lu}0-9%])/gu;
+  let bas = 0;
+  let m;
+  while ((m = re.exec(metin))) {
+    if (m[1].startsWith('.')) {
+      const kelime = (metin.slice(bas, m.index).match(/(\S+)$/u)?.[1] ?? '').replace(/^["“(]/, '');
+      // İngilizce kısaltma için toLowerCase da gerek: tr yerelinde "Inc" → "ınc" olur.
+      if (KISALTMA.has(kelime.toLocaleLowerCase('tr')) || KISALTMA.has(kelime.toLowerCase()) || /^\p{Lu}$/u.test(kelime) || /^(\p{L}\.)+\p{L}$/u.test(kelime)) continue;
+    }
+    out.push(metin.slice(bas, m.index + m[1].length).trim());
+    bas = m.index + m[0].length;
+  }
+  out.push(metin.slice(bas).trim());
+  return out.filter(Boolean);
+}
+
+/**
+ * Tek blok kalmış haber gövdesini cümle sınırlarından paragraflara böler; sözcüklere dokunmaz (26 Kasım 2026: model
+ * ara sıra gövdeyi tek paragraf döndürüyor, redaksiyon cümle düzelttiği için paragraf açamıyor). Satır sonu içeren,
+ * markdown öğesiyle başlayan, 500 karakterden ya da 4 cümleden kısa gövdeye dokunmaz. oranlar: eş dildeki metnin
+ * paragraf sınırları (0–1 birikimli); verilmezse 3–4 cümlede bir paragraf (2–6 paragraf).
+ */
+export function paragraflaraBol(govde, oranlar = null) {
+  const g = String(govde ?? '').trim();
+  if (g.length < 500 || /\n/.test(g) || /^[#|>\-*!<]/.test(g)) return govde;
+  const cs = cumlelereAyir(g);
+  if (cs.length < 4) return govde;
+  const n = Math.max(2, Math.min(6, Math.round(cs.length / 3.5)));
+  const hedef = oranlar?.length ? oranlar : Array.from({ length: n - 1 }, (_, i) => (i + 1) / n);
+  const top = cs.reduce((a, c) => a + c.length + 1, 0);
+  const birikim = [];
+  let s = 0;
+  for (const c of cs) birikim.push((s += c.length + 1) / top);
+  const kesimler = [];
+  let son = -1;
+  for (const o of hedef) {
+    let en = -1;
+    let fark = Infinity;
+    for (let i = son + 1; i < cs.length - 1; i++) {
+      const f = Math.abs(birikim[i] - o);
+      if (f < fark) [fark, en] = [f, i];
+    }
+    if (en < 0) break;
+    kesimler.push(en);
+    son = en;
+  }
+  if (!kesimler.length) return govde;
+  const par = [];
+  let b = 0;
+  for (const k of [...kesimler, cs.length - 1]) {
+    par.push(cs.slice(b, k + 1).join(' '));
+    b = k + 1;
+  }
+  return par.join('\n\n');
+}
+
+/** Eş dildeki gövdenin paragraf sınırları, paragraflaraBol'a oran olarak (tek paragrafsa null). */
+export function paragrafOranlari(govde) {
+  const ps = String(govde ?? '').trim().split(/\n\s*\n/).filter((p) => p.trim());
+  if (ps.length < 2) return null;
+  const top = ps.reduce((a, p) => a + p.length, 0);
+  let s = 0;
+  return ps.slice(0, -1).map((p) => (s += p.length) / top);
+}
+
 /** Redaksiyon istemine eklenecek sorun listesi (boşsa boş dize). */
 export function sorunListesi(sorunlar) {
   if (!sorunlar.length) return '';
