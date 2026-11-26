@@ -12,20 +12,16 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .node-version
-      - name: Node fetch (botun hentMetin'i) ve curl
+      - name: Node fetch (botun isteği) ve curl
         run: |
           cat > ./oecd-deneme.mjs <<'JS'
-          import { hentMetin } from './scripts/haberler/lib.mjs';
+          // scripts/haberler/lib.mjs indir() ile aynı istek: User-Agent + Accept, 120 sn zaman aşımı.
           const u = 'https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/.+M+Q.B1GQ_Q+UNEMP+IRLT....?startPeriod=2025-05&dimensionAtObservation=AllDimensions';
-          const kabul = { Accept: 'application/vnd.sdmx.data+csv; charset=utf-8' };
+          const headers = { 'User-Agent': 'finfolis-haber-botu (+https://finfolis.com)', Accept: 'application/vnd.sdmx.data+csv; charset=utf-8' };
           for (let i = 1; i <= 3; i++) {
-            try {
-              const t = await hentMetin(u, { timeout: 120000, headers: kabul });
-              console.log('SONUC node', i, 'tamam', t.split('\n').length);
-            } catch (e) {
-              console.log('SONUC node', i, 'hata', e.message.slice(0, 40));
-            }
-            await new Promise((r) => setTimeout(r, 15000));
+            const r = await fetch(u, { headers, signal: AbortSignal.timeout(120000) }).catch((e) => ({ status: e.message.slice(0, 40), text: async () => '' }));
+            console.log('SONUC node', i, r.status, (await r.text()).split('\n').length);
+            await new Promise((s) => setTimeout(s, 15000));
           }
           JS
           node ./oecd-deneme.mjs
