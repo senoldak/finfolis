@@ -1,5 +1,5 @@
 {
-  "alinma": "2026-11-26T20:00:44.189Z",
+  "alinma": "2026-11-26T21:50:47.348Z",
   "kaynaklar": [
     {
       "ad": "TÜİK ulusal veri yayımlama takvimi (Resmi İstatistik Portalı)",
@@ -15,24 +15,6 @@
     }
   ],
   "olaylar": [
-    {
-      "tarih": "2026-10-27",
-      "saat": "10:00",
-      "kurum": "TCMB",
-      "baslik": "Yerel ve Konsolide Bankacılık İstatistikleri (Uluslararası Ödemeler Bankası-BIS İstatistikleri)",
-      "donem": "2. Çeyrek 2026",
-      "url": "https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Istatistikler/Odemeler+Dengesi+ve+Ilgili+Istatistikler/Yerel+ve+Konsolide+Bankacilik+Istatistikleri/",
-      "kaynak": "tcmb-api"
-    },
-    {
-      "tarih": "2026-10-27",
-      "saat": "10:00",
-      "kurum": "TÜİK",
-      "baslik": "İşgücü İstatistikleri",
-      "donem": "Eylül 2026",
-      "url": "https://data.tuik.gov.tr/Bulten/Index?p=İşgücü-İstatistikleri-Eylül-2026-57988&dil=1",
-      "kaynak": "tuik"
-    },
     {
       "tarih": "2026-10-28",
       "saat": "10:00",
