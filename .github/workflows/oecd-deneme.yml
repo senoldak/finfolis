@@ -1,0 +1,22 @@
+# Geçici deneme (26 Kasım 2026): OECD SDMX GitHub sunucularından hangi sorgu biçimlerine yanıt veriyor. Sonuç alınınca silinir.
+name: OECD deneme
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  deneme:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Sorgular
+        run: |
+          B='https://sdmx.oecd.org/public/rest/data'
+          H='Accept: application/vnd.sdmx.data+csv; charset=utf-8'
+          dene() { kod=$(curl -s -o /tmp/y -w '%{http_code}' -m 90 -A 'finfolis-veri' -H "$H" "$B/$1"); echo "$kod $(wc -l < /tmp/y) satır  $1"; sleep 12; }
+          dene 'OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/.+M+Q.B1GQ_Q+UNEMP+IRLT....?startPeriod=2025-05&dimensionAtObservation=AllDimensions'
+          dene 'OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/TUR.M.UNEMP....?startPeriod=2025-01'
+          dene 'OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/.M.IRLT....?startPeriod=2025-05'
+          dene 'OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/.Q.B1GQ_Q....?startPeriod=2025-Q1'
+          dene 'OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/USA+DEU+JPN.M+Q.B1GQ_Q+UNEMP+IRLT....?startPeriod=2025-05'
+          dene 'OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/USA.M.N.CPI.PA._T.N.GY?startPeriod=2025-05'
+          curl -s -o /dev/null -w "%{http_code} json-format\n" -m 90 "$B/OECD.SDD.STES,DSD_KEI@DF_KEI,4.0/TUR.M.UNEMP....?startPeriod=2025-01&format=jsondata"
