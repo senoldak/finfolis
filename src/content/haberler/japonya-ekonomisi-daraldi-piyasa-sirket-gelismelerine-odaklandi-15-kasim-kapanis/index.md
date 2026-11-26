@@ -18,6 +18,7 @@ rakamlar:
     deger: "109 milyar dolar"
   - etiket: "Anthropic Halka Arz Taahhüdü"
     deger: "26 milyar dolar"
+why_matters: "Japonya'da enflasyon baskısının hanehalkı harcamalarına etkisi takip edilirken, ABD tarafında yapay zekâ yatırımlarının bilançolara ve halka arzlara yansıması piyasaların odağında yer alıyor."
 cover: kapak.png
 coverAlt: "Japonya GSYH Değişimi % -0,1"
 coverSitede: false

@@ -7,6 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.GGI6ZOmgRvy0Orj3.vdlV73KLr7ua+XsKT/OBRt2uaauBlF3ryeboBXTi96UxCfAUqtPeuhe45wJ20UzEnZe/8sBc2ylYKmn5bCuSRhs+p0U2olTX8K/o4EAQh0tAvjyo6czH5gUhteicronFTpUCEerDsG3hlJMOfIw8sm+cQFA7"
+why_matters: "Bayer'in Monsanto satın alımından beri karşılaştığı devasa tazminat riskleri, şirketin piyasa değerini ve mali yapısını doğrudan etkileyen en büyük belirsizlik kaynağıdır."
 cover: kapak.png
 coverAlt: "Avrupa · Bayer hisseleri Roundup mahkeme onayına rağmen geriledi"
 coverSitede: false

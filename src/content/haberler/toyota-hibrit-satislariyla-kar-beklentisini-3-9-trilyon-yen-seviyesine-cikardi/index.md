@@ -7,6 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.NCVhbCU4ms90CfOw.cRg+YLWaeGvOTmcAgB6jhLW0oBL/ZRx449yfvbNI8KDOw8i3YgrzlnmPaoO7Pmj43CCpJzSBwuNEha3Dnj7bJ/HuQUtNrAlYA0NsIxCGkuLpQDM0kDyHYuOEzfh4WBpvTNNoHA6WCKRnwoeriKarbuCq0QlAmvEnkg30+/zCFR3CkLgkhWPvSNEi8Ch9XoPGHYYTrlkmzR05yR/y1K7b6mOCg0RfD1OaO1lyHOSI4tvbxZSsyTJEaNzr3t0zlrEh/GNmzgC+K/CUyGMheXTA4NVQOnTq+PqWkBKZTE5C80mOxD9/46T3dce4+ZxZH1d7x/DLiIvcZQAtq00nKczKbVjEW3BvTn8BBUhGefRg8pDSVwPRqcNiWjJPH21TdvPycpn4E4x9Vbcg4A4rgTb+tY+r+jznAaAe5HlV87ThLHgVLkUM1rG66jTmnKbaf8lVZpADgRNyWmlcCyKgvSl8x9M8eh2KIjsCpgKe1lY9DBrA0iECajrfrn3XBu94Yk8neT7E3oQG85la65H77eMHQ5a+3avt0pbV"
+why_matters: "Hibrit araçlara yönelik talebin gücü, Toyota'nın küresel pazarlardaki kar marjını korumasını sağlarken tam elektrikli araç stratejilerine kıyasla hibrit odaklı yaklaşımın finansal dayanıklılığını gösteriyor."
 cover: kapak.png
 coverAlt: "Toyota hissesi son altı ay günlük kapanış grafiği: altı ayda +%18,6, son kapanış 3.533 yen"
 ---

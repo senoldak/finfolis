@@ -7,6 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.t2rbKY6UwyLuJDq5.36gzqKOPf4dkexmYe45Ksqh0nOAvpS6DA6ilsbcrGLnStLAdDJ/n9WMJmMgMiDgITaj0iSc2niokMiKdUmxry5tK+WdPTogyZuTbLsbjV/aldDXyFbItutY+672BSVNEB2NI357mOMpzjN0iRQD8I3MtBgBMfUHK30w/1VCoDwTzelU="
+why_matters: "Yapay zekâ sektöründeki harcamaların sürdürülebilirliği, artan düzenlemeler ve yükselen faiz oranları beklentisi nedeniyle sorgulanıyor."
 cover: kapak.png
 coverAlt: "S&P 500 son altı ay günlük kapanış grafiği: altı ayda −%3,6, son kapanış 7.175,83"
 ---

@@ -7,6 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.5a1XoaS3YX4JX3xP.kAloYbGYO8rMNIde1znM6GiGeHYriEAkjzvEFNucawJG3wl3dNNvZCcvtBrlJ07OeBYDX+CxNrsvADTTR4gUeBvXZjF+Kz3h/mK/gAx52H484UMmZf9deeWxyhOx/r0u8n4tRKJIIvL/gaOH4axv4q9QN60TSiXJWN897C47tp7I/6e9mJoTXrhBkqJnd7rvthK1K3tiie9TIHDg/XRlVVOezOv65/WMfyKg/1uIKe8AHDFUQnUgj1uunAbj0tB2ESWn/sVrQdpdnONL"
+why_matters: "Küresel havacılık devlerinin tedarik zincirlerini Hindistan'a kaydırması, ülkede havacılık sanayisinin büyümesini hızlandırırken tedarikçi şirketlerin hisse performanslarını olumlu etkiliyor ve Hindistan'ın küresel üretimdeki payını artırıyor."
 cover: kapak.png
 coverAlt: "Asya · Airbus ve Boeing tedarik zinciri değişimi Hindistan havacılık hisselerini yükseltti"
 coverSitede: false
