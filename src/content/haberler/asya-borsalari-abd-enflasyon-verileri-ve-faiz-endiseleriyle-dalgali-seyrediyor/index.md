@@ -20,7 +20,7 @@ sirada:
   tarih: "11 Kasım 2026"
   olay: "Asya borsaları enflasyon verileri ve faiz endişeleriyle dalgalı seyir izledi."
 tablo: {"baslik":"ABD Ekim ayı tüketici fiyatları beklentisi ve gerçekleşen","sutunlar":["Gösterge","Beklenti","Gerçekleşen"],"satirlar":[["Tüketici fiyatları (Ekim)","Yüzde 0,3","Yüzde 0,4"]]}
-grafik: {"baslik":"Ekim 2026 Tüketici Fiyatları Değişimi","simge":"sepet","birimEtiket":"yüzde","birim":0.05,"satirlar":[{"etiket":"Ekim Ayı Gerçekleşen","metin":"0,4","deger":0.4},{"etiket":"Ekim Ayı Beklenti","metin":"0,3","deger":0.3},{"etiket":"Eylül Ayı","metin":"0,6","deger":0.6}]}
+grafik: {"baslik":"Ekim 2026 tüketici fiyatları değişimi","simge":"sepet","birimEtiket":"yüzde","birim":0.05,"satirlar":[{"etiket":"Ekim Ayı Gerçekleşen","metin":"0,4","deger":0.4},{"etiket":"Ekim Ayı Beklenti","metin":"0,3","deger":0.3},{"etiket":"Eylül Ayı","metin":"0,6","deger":0.6}]}
 why_matters: "ABD'deki enflasyon verileri ve Fed'in faiz politikası, küresel piyasalardaki risk iştahını doğrudan etkileyerek teknoloji hisseleri ve genel piyasa hareketleri üzerinde belirleyici rol oynuyor."
 key_points:
   - "ABD'de tüketici fiyatları Ekim ayında yüzde 0,4 oranında arttı."

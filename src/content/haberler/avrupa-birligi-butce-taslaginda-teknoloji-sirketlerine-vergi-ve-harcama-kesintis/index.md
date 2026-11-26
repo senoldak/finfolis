@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "Aralık 2026"
   olay: "Avrupa Konseyi Başkanı Costa'nın bütçe konusunda anlaşmaya varma hedefi."
-tablo: {"baslik":"Bütçe Taslağı ve Gelir Hedefleri","sutunlar":["Kalem","Tutar (Milyar Avro)"],"satirlar":[["Harcama Kesintisi","204"],["Yıllık Öz Kaynak Geliri","60"]]}
+tablo: {"baslik":"Bütçe taslağı ve gelir hedefleri","sutunlar":["Kalem","Tutar (Milyar Avro)"],"satirlar":[["Harcama Kesintisi","204"],["Yıllık Öz Kaynak Geliri","60"]]}
 why_matters: "Bu düzenleme, Avrupa Birliği'nin uzun vadeli finansman yapısını belirlerken, büyük teknoloji şirketlerinin vergilendirilmesi konusunda yeni bir tartışma alanı oluşturuyor."
 key_points:
   - "Bütçe taslağında 204 milyar avroluk harcama kesintisi öngörülüyor."

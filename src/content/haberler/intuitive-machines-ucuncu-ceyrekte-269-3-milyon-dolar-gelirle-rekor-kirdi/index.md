@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "12 Kasım 2026"
   olay: "Şirketin üçüncü çeyrek finansal sonuçlarının açıklanması"
-tablo: {"baslik":"Intuitive Machines Finansal Karşılaştırma","sutunlar":["Gösterge","3Ç 2025","3Ç 2026"],"satirlar":[["Gelir","52,4 milyon dolar","269,3 milyon dolar"],["Brüt Kâr","5 milyon dolar","69 milyon dolar"],["Net Zarar","6,8 milyon dolar","4 milyon dolar"],["Hisse Başına Zarar","0,06 dolar","0,02 dolar"]]}
+tablo: {"baslik":"Intuitive Machines finansal karşılaştırma","sutunlar":["Gösterge","3Ç 2025","3Ç 2026"],"satirlar":[["Gelir","52,4 milyon dolar","269,3 milyon dolar"],["Brüt Kâr","5 milyon dolar","69 milyon dolar"],["Net Zarar","6,8 milyon dolar","4 milyon dolar"],["Hisse Başına Zarar","0,06 dolar","0,02 dolar"]]}
 why_matters: "Uzay ekonomisindeki büyümenin somut bir göstergesi olan bu sonuçlar, özel sektörün Ay misyonları ve uydu altyapısı alanındaki ticari potansiyelini kanıtlıyor."
 key_points:
   - "Üçüncü çeyrek geliri 269,3 milyon dolar ile beklentileri aştı"

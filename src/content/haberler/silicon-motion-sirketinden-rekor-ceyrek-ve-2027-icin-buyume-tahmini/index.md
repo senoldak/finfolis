@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 53,7"
   - etiket: "Nakit Varlık"
     deger: "953,6 milyon dolar"
-tablo: {"baslik":"Finansal Marjlar ve Nakit","sutunlar":["Kalem","Değer"],"satirlar":[["Brüt Kâr Marjı","Yüzde 53,7"],["Faaliyet Kâr Marjı","Yüzde 32,1"],["Nakit Varlık","953,6 Milyon Dolar"]]}
+tablo: {"baslik":"Finansal marjlar ve nakit","sutunlar":["Kalem","Değer"],"satirlar":[["Brüt Kâr Marjı","Yüzde 53,7"],["Faaliyet Kâr Marjı","Yüzde 32,1"],["Nakit Varlık","953,6 Milyon Dolar"]]}
 grafik: {"baslik":"Silicon Motion çeyreklik gelir gelişimi","simge":"lira","birimEtiket":"milyon dolar","birim":50,"satirlar":[{"etiket":"2025 3. Çeyrek","metin":"242","deger":242},{"etiket":"2026 2. Çeyrek","metin":"451","deger":451},{"etiket":"2026 3. Çeyrek","metin":"560,2","deger":560.2}]}
 why_matters: "Şirketin tüketici elektroniği yerine otomotiv ve veri merkezlerine odaklanması, daha istikrarlı ve uzun vadeli sözleşmelere dayalı bir gelir yapısına geçişi temsil ediyor."
 key_points:

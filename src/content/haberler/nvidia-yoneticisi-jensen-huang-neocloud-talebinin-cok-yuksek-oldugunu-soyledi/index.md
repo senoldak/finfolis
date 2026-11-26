@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "22 Ekim 2026 Perşembe"
   olay: "Neocloud hisseleri piyasa öncesi işlemlerde düşüş yaşadı"
-grafik: {"baslik":"Neocloud Hisselerindeki Değişim","simge":"sepet","birimEtiket":"yüzde","birim":0.2,"satirlar":[{"etiket":"Nebius","metin":"3,6","deger":3.6},{"etiket":"CoreWeave","metin":"4","deger":4},{"etiket":"Iren","metin":"4","deger":4}]}
+grafik: {"baslik":"Neocloud hisselerindeki değişim","simge":"sepet","birimEtiket":"yüzde","birim":0.2,"satirlar":[{"etiket":"Nebius","metin":"3,6","deger":3.6},{"etiket":"CoreWeave","metin":"4","deger":4},{"etiket":"Iren","metin":"4","deger":4}]}
 why_matters: "Jensen Huang'ın açıklamaları, yapay zeka altyapısına olan yoğun talebi ve Avrupa pazarındaki sermaye ile enerji kısıtlarının sektör büyümesi üzerindeki etkilerini gösteriyor."
 cover: kapak.png
 coverAlt: "Nvidia hissesi son altı ay günlük kapanış grafiği: altı ayda +%9,6, son kapanış $221,97"

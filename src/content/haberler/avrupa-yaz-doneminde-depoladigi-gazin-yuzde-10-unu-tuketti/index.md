@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "1 Aralık 2026"
   olay: "AB'nin gaz depolama tesisleri için hedeflediği doluluk oranına ulaşılması beklenen son tarih."
-tablo: {"baslik":"Gaz Depolama Verileri Karşılaştırması","sutunlar":["Dönem","Doluluk Oranı"],"satirlar":[["15 Kasım 2026","yüzde 70,5"],["Geçen Yıl","yüzde 82"],["Beş Yıllık Ortalama","yüzde 89"]]}
+tablo: {"baslik":"Gaz depolama verileri karşılaştırması","sutunlar":["Dönem","Doluluk Oranı"],"satirlar":[["15 Kasım 2026","yüzde 70,5"],["Geçen Yıl","yüzde 82"],["Beş Yıllık Ortalama","yüzde 89"]]}
 why_matters: "Avrupa'nın kış aylarındaki enerji ihtiyacını karşılamak için kullandığı gaz depolarındaki stokların azalması, aşırı soğuk hava koşullarında arz güvenliği konusunda risk oluşturuyor."
 key_points:
   - "Avrupa, yazın depoladığı 51,2 milyar metreküp gazın yüzde 10'unu tüketti."

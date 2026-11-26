@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "14 Kasım 2026"
   olay: "İtalyan veri koruma otoritesinin Meta kararını açıklaması"
-tablo: {"baslik":"Meta Finansal Verileri ve Ceza Karşılaştırması","sutunlar":["Kategori","Tutar (Dolar)"],"satirlar":[["2025 Yıllık Ciro","201 milyar"],["2025 Net Kâr","60,5 milyar"],["New Mexico Cezası","25 milyar"],["İtalya Cezası","880 milyon"]]}
+tablo: {"baslik":"Meta finansal verileri ve ceza karşılaştırması","sutunlar":["Kategori","Tutar (Dolar)"],"satirlar":[["2025 Yıllık Ciro","201 milyar"],["2025 Net Kâr","60,5 milyar"],["New Mexico Cezası","25 milyar"],["İtalya Cezası","880 milyon"]]}
 why_matters: "Bu gelişme, büyük teknoloji şirketlerinin kullanıcı verilerini işleme süreçlerinin Avrupa'daki yerel otoriteler tarafından sıkı bir denetime tabi tutulduğunu gösteriyor."
 key_points:
   - "İtalya, Meta'ya fotoğraf verilerine izinsiz erişimden 805 milyon avro ceza kesti."

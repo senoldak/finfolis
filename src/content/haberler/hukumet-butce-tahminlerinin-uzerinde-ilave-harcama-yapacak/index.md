@@ -16,7 +16,7 @@ rakamlar:
     deger: "307 milyon avro"
   - etiket: "Harcama Sınırı"
     deger: "120,5 milyar avro"
-tablo: {"baslik":"Ek Harcama Dağılımı","sutunlar":["Departman","Tutar"],"satirlar":[["Sosyal Koruma","625 milyon avro"],["Ulaştırma","307 milyon avro"],["Dışişleri","252 milyon avro"],["Adalet","103 milyon avro"]]}
+tablo: {"baslik":"Ek harcama dağılımı","sutunlar":["Departman","Tutar"],"satirlar":[["Sosyal Koruma","625 milyon avro"],["Ulaştırma","307 milyon avro"],["Dışişleri","252 milyon avro"],["Adalet","103 milyon avro"]]}
 why_matters: "Hükümetin bütçe tahminlerini aşan ek harcama kararları ve harcama sınırındaki artış kamusal kaynakların yönetimi açısından izleniyor."
 key_points:
   - "Hükümet 2,2 milyar avro ek harcama yapacak."

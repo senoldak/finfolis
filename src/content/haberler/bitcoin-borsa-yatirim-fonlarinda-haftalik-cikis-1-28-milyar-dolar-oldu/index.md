@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Bitcoin Fiyatı"
     deger: "74.049 dolar"
 tablo: {"baslik":"Bitcoin ETF fonlarında haftalık net akışlar","sutunlar":["Fon Adı","Haftalık Akış"],"satirlar":[["BlackRock IBIT","-1,21 milyar dolar"],["Fidelity FBTC","+93 milyon dolar"]]}
-grafik: {"baslik":"Haftalık Net Fon Akışları","simge":"banka","birimEtiket":"milyar dolar","birim":0.1,"satirlar":[{"etiket":"BlackRock (IBIT)","metin":"1,21","deger":1.21},{"etiket":"Fidelity (FBTC)","metin":"0,093","deger":0.093}]}
+grafik: {"baslik":"Haftalık net fon akışları","simge":"banka","birimEtiket":"milyar dolar","birim":0.1,"satirlar":[{"etiket":"BlackRock (IBIT)","metin":"1,21","deger":1.21},{"etiket":"Fidelity (FBTC)","metin":"0,093","deger":0.093}]}
 why_matters: "Bitcoin ETF'lerindeki bu yüksek çıkışlar, kurumsal yatırımcıların piyasa belirsizliklerine ve makroekonomik gelişmelere verdiği tepkiyi göstermesi açısından önem taşıyor."
 key_points:
   - "Spot Bitcoin ETF'lerinden geçen hafta 1,28 milyar dolar net çıkış gerçekleşti."

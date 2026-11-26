@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "10 Kasım 2026"
   olay: "ASEAN Yeşil İşler Raporu'nun güncel verilerinin kamuoyuyla paylaşılması."
-tablo: {"baslik":"İnşaat Sektöründe Yeşil Yetenek İşe Alım Oranları (2024)","sutunlar":["Ülke","Yeşil Yetenek Payı"],"satirlar":[["Singapur","yüzde 25,2"],["Filipinler","yüzde 18,6"],["Malezya","yüzde 15-16"],["Endonezya","yüzde 15-16"]]}
+tablo: {"baslik":"İnşaat sektöründe Yeşil yetenek işe alım oranları (2024)","sutunlar":["Ülke","Yeşil Yetenek Payı"],"satirlar":[["Singapur","yüzde 25,2"],["Filipinler","yüzde 18,6"],["Malezya","yüzde 15-16"],["Endonezya","yüzde 15-16"]]}
 why_matters: "Bölgedeki yeşil iş gücü oranının düşüklüğü, sürdürülebilir ekonomi hedefleri için büyük bir gelişim alanı olduğunu ve yenilenebilir enerji gibi sektörlerin gelecekte milyonlarca yeni istihdam yaratabileceğini gösteriyor."
 key_points:
   - "ASEAN genelinde yeşil işlerin oranı yüzde 1'in altında."

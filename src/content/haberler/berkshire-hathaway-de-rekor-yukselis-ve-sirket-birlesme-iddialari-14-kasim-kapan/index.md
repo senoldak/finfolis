@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "31 Aralık 2026"
   olay: "SpaceX ve Tesla birleşme duyurusu için tahmin piyasalarındaki beklenti tarihi."
-tablo: {"baslik":"Berkshire Hathaway ve S&P 500 Performans Karşılaştırması","sutunlar":["Gösterge","Berkshire B Hisseleri","S&P 500"],"satirlar":[["Haftalık Değişim","yüzde 3,9","yüzde 2,5"],["Dördüncü Çeyrek Değişim","yüzde 19,1","yüzde -1,2"]]}
+tablo: {"baslik":"Berkshire Hathaway ve S&P 500 performans karşılaştırması","sutunlar":["Gösterge","Berkshire B Hisseleri","S&P 500"],"satirlar":[["Haftalık Değişim","yüzde 3,9","yüzde 2,5"],["Dördüncü Çeyrek Değişim","yüzde 19,1","yüzde -1,2"]]}
 why_matters: "Berkshire Hathaway'in piyasa genelinden ayrışan performansı ve büyük şirketlere yönelik birleşme spekülasyonları, yatırımcıların mevcut piyasa koşullarındaki tercihlerini ve beklentilerini yansıtıyor."
 key_points:
   - "Berkshire Hathaway hisseleri dördüncü çeyrekte yüzde 19,1 değer kazandı."

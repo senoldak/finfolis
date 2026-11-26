@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "10 Ekim 2026"
   olay: "Piyasa ve enerji maliyetlerindeki gelişmeler izlenmeye devam ediyor"
-tablo: {"baslik":"Ülkelere Göre Artan Toplam Yakıt Maliyetleri","sutunlar":["Ülke","Toplam Maliyet"],"satirlar":[["ABD","160 milyar dolar"],["Çin","54 milyar dolar"],["Kanada","17 milyar dolar"]]}
+tablo: {"baslik":"Ülkelere göre artan toplam yakıt maliyetleri","sutunlar":["Ülke","Toplam Maliyet"],"satirlar":[["ABD","160 milyar dolar"],["Çin","54 milyar dolar"],["Kanada","17 milyar dolar"]]}
 why_matters: "İran savaşının tetiklediği akaryakıt maliyeti artışları ve ülkenin petrole olan bağımlılığı, Amerikan tüketicilerinin bütçesini ve genel enflasyon oranlarını doğrudan etkiliyor."
 key_points:
   - "Amerikan tüketiciler şubat ayından bu yana ortalama 471 dolar daha fazla yakıt fiyatı ödedi"

@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "16 Kasım 2026"
   olay: "13F düzenleyici bildirimi yayımlandı"
-grafik: {"baslik":"Hisse Değişim Oranları","simge":"banka","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Micron artış","metin":"28","deger":28},{"etiket":"Nvidia artış","metin":"31","deger":31},{"etiket":"Amazon azalış","metin":"10,5","deger":10.5}]}
+grafik: {"baslik":"Hisse değişim oranları","simge":"banka","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Micron artış","metin":"28","deger":28},{"etiket":"Nvidia artış","metin":"31","deger":31},{"etiket":"Amazon azalış","metin":"10,5","deger":10.5}]}
 why_matters: "Büyük fon yöneticilerinin yapay zekâ ve çip tedarik zincirindeki pozisyon değişiklikleri, sektördeki sermaye hareketlerinin yönünü göstermesi açısından piyasada izlenmektedir."
 key_points:
   - "Appaloosa Management portföyü 7,6 milyar dolar büyüklüğe sahip."

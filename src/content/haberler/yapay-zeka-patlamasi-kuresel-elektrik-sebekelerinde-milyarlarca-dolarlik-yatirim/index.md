@@ -7,7 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.gveZKVrGw+5XXVfE.TRSl7ozKvPsJdlnXY9O8HS2aXmbCJBQ5tvyhaFQqw9pBGQoJEbevcLeUii6a9WBUtszROhhNY3gB623XZWeAYm8FKjUP/Mf8dqpzQ9z9/SozVk3ypauR2iZn1A6PYp3/X6MtP9T+wOU7Ocv/bHwt7j7uc1N4JAWBLk/yt7HxtxQmqB60I2J1bAIdlIVhv3X5lQ=="
-tablo: {"baslik":"ABD Veri Merkezi Altyapı Maliyetleri Dağılımı","sutunlar":["Ödeme Yapan","Miktar"],"satirlar":[["Veri merkezi işletmecileri","3,12 milyar dolar"],["Hane halkları","5,13 milyar dolar"]]}
+tablo: {"baslik":"ABD veri merkezi altyapı maliyetleri dağılımı","sutunlar":["Ödeme Yapan","Miktar"],"satirlar":[["Veri merkezi işletmecileri","3,12 milyar dolar"],["Hane halkları","5,13 milyar dolar"]]}
 why_matters: "Yapay zekâ teknolojilerinin getirdiği devasa elektrik talebi, şebeke altyapısının maliyetini katlayarak hane halklarının elektrik faturalarını yükseltiyor ve küresel enerji politikalarını doğrudan etkiliyor."
 cover: kapak.png
 coverAlt: "Küresel · Yapay zekâ patlaması küresel elektrik şebekelerinde milyarlarca dolarlık yatırım gerektiriyor"

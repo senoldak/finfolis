@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "4 Aralık 2026"
   olay: "Hindistan Merkez Bankası para politikası kararı"
-tablo: {"baslik":"Gecelik Takas Faiz Oranları Değişimi","sutunlar":["Vade","Faiz Oranı (yüzde)","Değişim (bps)"],"satirlar":[["2 Yıllık","6,45","+6"],["5 Yıllık","6,44","+6"]]}
+tablo: {"baslik":"Gecelik takas faiz oranları değişimi","sutunlar":["Vade","Faiz Oranı (yüzde)","Değişim (bps)"],"satirlar":[["2 Yıllık","6,45","+6"],["5 Yıllık","6,44","+6"]]}
 grafik: {"baslik":"Tahvil ve swap faizlerindeki değişim","simge":"banka","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"2 yıllık swap oranı","metin":"6,45","deger":6.45},{"etiket":"5 yıllık swap oranı","metin":"6,44","deger":6.44}]}
 why_matters: "Petrol fiyatlarındaki artış ve gıda enflasyonu, Hindistan ekonomisinde cari açık ve para politikası üzerinde baskı oluşturarak tahvil piyasasında dalgalanmalara neden oluyor."
 key_points:

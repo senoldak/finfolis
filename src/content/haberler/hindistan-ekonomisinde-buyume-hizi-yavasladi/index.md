@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "17 Kasım 2026"
   olay: "ICRA'nın güncel büyüme tahminlerini içeren raporu yayımlandı"
-tablo: {"baslik":"Sektörel Büyüme Oranları Karşılaştırması","sutunlar":["Sektör","1. Çeyrek Büyüme","2. Çeyrek Tahmini"],"satirlar":[["Hizmet","yüzde 10,0","yüzde 9,1"],["Sanayi","yüzde 7,7","yüzde 7,2"],["Tarım","yüzde 3,6","yüzde 0,2"]]}
+tablo: {"baslik":"Sektörel büyüme oranları karşılaştırması","sutunlar":["Sektör","1. Çeyrek Büyüme","2. Çeyrek Tahmini"],"satirlar":[["Hizmet","yüzde 10,0","yüzde 9,1"],["Sanayi","yüzde 7,7","yüzde 7,2"],["Tarım","yüzde 3,6","yüzde 0,2"]]}
 why_matters: "Dünyanın en hızlı büyüyen büyük ekonomilerinden biri olan Hindistan'da, tarımsal üretimdeki yavaşlama ve azalan kamu harcamaları nedeniyle büyüme ivmesinin zayıfladığı görülüyor."
 key_points:
   - "2026 Q2 büyüme tahmini: yüzde 7,5"

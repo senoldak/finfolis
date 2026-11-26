@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "28 Ekim 2026"
   olay: "Kanada Merkez Bankası para politikası kararı"
-tablo: {"baslik":"Ağustos ve Eylül 2026 Enflasyon Karşılaştırması","sutunlar":["Gösterge","Ağustos 2026","Eylül 2026"],"satirlar":[["Yıllık Enflasyon","yüzde 3","yüzde 3,1"],["Enerji Fiyatları","yüzde 15,4","yüzde 19"],["Benzin Hariç Yıllık Enflasyon","yüzde 2,4","yüzde 2,2"],["Konut Fiyatları","yüzde 1,5","yüzde 1,8"]]}
+tablo: {"baslik":"Ağustos ve Eylül 2026 enflasyon karşılaştırması","sutunlar":["Gösterge","Ağustos 2026","Eylül 2026"],"satirlar":[["Yıllık Enflasyon","yüzde 3","yüzde 3,1"],["Enerji Fiyatları","yüzde 15,4","yüzde 19"],["Benzin Hariç Yıllık Enflasyon","yüzde 2,4","yüzde 2,2"],["Konut Fiyatları","yüzde 1,5","yüzde 1,8"]]}
 why_matters: "Açıklanan enflasyon verileri, Kanada Merkez Bankası'nın yaklaşan faiz kararı ve para politikası adımları açısından belirleyici bir rol oynamaktadır."
 key_points:
   - "Kanada'da yıllık enflasyon eylül ayında yüzde 3,1 oldu."

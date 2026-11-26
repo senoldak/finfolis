@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "19 Kasım 2026"
   olay: "Anthropic'in Nasdaq borsasında halka arz edilmesi bekleniyor."
-tablo: {"baslik":"Brezilya Tarım Dış Ticaret Verileri (2024)","sutunlar":["Kategori","Tutar (Milyar Dolar)"],"satirlar":[["Tarımsal İhracat","144,4"],["Tarımsal İthalat","15,4"],["Net Ticaret Fazlası","129"],["Azot Gübresi Ticaret Açığı","4,3"]]}
+tablo: {"baslik":"Brezilya tarım dış ticaret verileri (2024)","sutunlar":["Kategori","Tutar (Milyar Dolar)"],"satirlar":[["Tarımsal İhracat","144,4"],["Tarımsal İthalat","15,4"],["Net Ticaret Fazlası","129"],["Azot Gübresi Ticaret Açığı","4,3"]]}
 why_matters: "Yapay zekâ altyapısına yapılan devasa yatırımlar teknoloji sektörünün geleceğini belirlerken, Brezilya'daki gübre bağımlılığı küresel gıda fiyatları ve tedarik zinciri üzerinde doğrudan risk oluşturmaktadır."
 key_points:
   - "Anthropic halka arzında hisse fiyatının 70-78 dolar olması bekleniyor."

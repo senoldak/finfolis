@@ -20,7 +20,7 @@ sirada:
   tarih: "Şubat 2027"
   olay: "Marathon Petroleum'un dördüncü çeyrek kazançlarını açıklaması ve yatırım planlarına dair detay vermesi bekleniyor."
 tablo: {"baslik":"Marathon Petroleum Körfez Kıyısı rafineri kapasiteleri","sutunlar":["Tesis","Günlük Kapasite (varil)"],"satirlar":[["Garyville (Louisiana)","617.000"],["Galveston Bay (Teksas)","631.000"]]}
-grafik: {"baslik":"Körfez Kıyısı Rafineri Kapasiteleri","simge":"banka","birimEtiket":"bin varil/gün","birim":50,"satirlar":[{"etiket":"Garyville Kompleksi","metin":"617","deger":617},{"etiket":"Galveston Bay Kompleksi","metin":"631","deger":631}]}
+grafik: {"baslik":"Körfez Kıyısı rafineri kapasiteleri","simge":"banka","birimEtiket":"bin varil/gün","birim":50,"satirlar":[{"etiket":"Garyville Kompleksi","metin":"617","deger":617},{"etiket":"Galveston Bay Kompleksi","metin":"631","deger":631}]}
 why_matters: "Rafineri satışları ve kapasite artırımları, petrokimya ürünlerinin tedarik zincirini doğrudan etkileyerek aromatik kimyasallar ve propilen arzının sürekliliğini belirliyor."
 key_points:
   - "Valero, Houston rafinerisini satın alarak 2027 sonuna kadar 165.000 varil/gün kapasite eklemeyi planlıyor."

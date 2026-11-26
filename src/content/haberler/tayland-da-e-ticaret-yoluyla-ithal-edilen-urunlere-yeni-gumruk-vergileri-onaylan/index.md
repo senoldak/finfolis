@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 7"
   - etiket: "Muafiyet Sınırı"
     deger: "1.500 baht"
-tablo: {"baslik":"İthal Ürünlerde Yeni Gümrük Vergisi Oranları","sutunlar":["Ürün Kategorisi","Yeni Vergi Oranı"],"satirlar":[["Plastik ürünler","yüzde 30"],["Kulaklık ve mikrofonlar","yüzde 30"],["Kadın çantaları","yüzde 30"],["Spor ekipmanları","yüzde 30"],["Giyim","yüzde 30"],["Mücevher","yüzde 30"],["Güneş gözlüğü","yüzde 30"]]}
+tablo: {"baslik":"İthal ürünlerde Yeni Gümrük vergisi oranları","sutunlar":["Ürün Kategorisi","Yeni Vergi Oranı"],"satirlar":[["Plastik ürünler","yüzde 30"],["Kulaklık ve mikrofonlar","yüzde 30"],["Kadın çantaları","yüzde 30"],["Spor ekipmanları","yüzde 30"],["Giyim","yüzde 30"],["Mücevher","yüzde 30"],["Güneş gözlüğü","yüzde 30"]]}
 why_matters: "E-ticaret yoluyla yapılan ithalata getirilen yüzde 30'a varan yeni gümrük vergileri, Tayland'daki küçük ve orta ölçekli işletmelerin rekabet koşullarını düzenlemeyi ve devlet gelirlerini artırmayı amaçlıyor."
 key_points:
   - "E-ticaret ithalatına yüzde 30'a varan vergi onaylandı"

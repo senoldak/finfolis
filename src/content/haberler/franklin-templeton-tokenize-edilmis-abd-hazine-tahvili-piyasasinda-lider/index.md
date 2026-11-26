@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Pazar Payı Yoğunluğu"
     deger: "yüzde 60-70"
 tablo: {"baslik":"Tokenize edilmiş hazine tahvili piyasasında öne çıkan oyuncular","sutunlar":["Kurum","Varlık Büyüklüğü (Milyar Dolar)"],"satirlar":[["Franklin Templeton","3,5"],["Ondo Finance","2,7"],["Circle","2,0"]]}
-grafik: {"baslik":"Tokenize Hazine Tahvili Piyasasında Öne Çıkanlar","simge":"sepet","birimEtiket":"milyar dolar","birim":0.2,"satirlar":[{"etiket":"Franklin Templeton","metin":"3,5","deger":3.5},{"etiket":"Ondo Finance","metin":"2,7","deger":2.7},{"etiket":"Circle","metin":"2","deger":2}]}
+grafik: {"baslik":"Tokenize hazine tahvili piyasasında öne çıkanlar","simge":"sepet","birimEtiket":"milyar dolar","birim":0.2,"satirlar":[{"etiket":"Franklin Templeton","metin":"3,5","deger":3.5},{"etiket":"Ondo Finance","metin":"2,7","deger":2.7},{"etiket":"Circle","metin":"2","deger":2}]}
 why_matters: "Geleneksel varlık yönetimi şirketlerinin blok zinciri teknolojisini kullanarak hazine tahvillerini tokenize etmesi, finansal piyasalarda yeni bir varlık sınıfının büyümesini ve geleneksel ile dijital finansın entegrasyonunu gösteriyor."
 key_points:
   - "Tokenize edilmiş ABD hazine tahvili piyasası 14 milyar dolara ulaştı."

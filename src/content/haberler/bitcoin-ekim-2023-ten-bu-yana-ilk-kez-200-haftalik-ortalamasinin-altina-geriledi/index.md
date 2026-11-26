@@ -16,7 +16,7 @@ rakamlar:
     deger: "2,12 trilyon dolar"
   - etiket: "Korku ve Açgözlülük Endeksi"
     deger: "12"
-tablo: {"baslik":"Kripto Varlık Fiyatları ve Günlük Değişimler","sutunlar":["Varlık","Fiyat","24 Saatlik Değişim"],"satirlar":[["Bitcoin","60.666 dolar","yüzde -1,2"],["Ethereum","1.711 dolar","yüzde -1,2"],["BNB","548 dolar","yüzde -3,2"],["XRP","0,928 dolar","yüzde -0,7"],["Solana","71 dolar","yüzde -0,1"]]}
+tablo: {"baslik":"Kripto varlık fiyatları ve günlük değişimler","sutunlar":["Varlık","Fiyat","24 Saatlik Değişim"],"satirlar":[["Bitcoin","60.666 dolar","yüzde -1,2"],["Ethereum","1.711 dolar","yüzde -1,2"],["BNB","548 dolar","yüzde -3,2"],["XRP","0,928 dolar","yüzde -0,7"],["Solana","71 dolar","yüzde -0,1"]]}
 why_matters: "200 haftalık hareketli ortalama, Bitcoin için tarihsel olarak en güçlü destek seviyelerinden biri kabul edilir ve bu seviyenin kırılması piyasadaki satış baskısının derinleştiğine işaret edebilir."
 key_points:
   - "Bitcoin fiyatı 68.000 dolar olan 200 haftalık ortalamanın altına indi."

@@ -16,7 +16,7 @@ rakamlar:
     deger: "10,08 milyar €"
   - etiket: "Öngörülen Bilet Fiyatı Artışı"
     deger: "%20"
-tablo: {"baslik":"Ryanair Finansal Performansı ve Dönemsel Veriler","sutunlar":["Dönem","Kâr / Gelir","Değişim"],"satirlar":[["Eylül Çeyreği Vergi Sonrası Kâr","1,61 milyar €","-%6"],["Eylül Çeyreği Yolcu Sayısı","64,5 milyon","+%5"],["Altı Aylık Dönem Vergi Sonrası Kâr","2,15 milyar €","-%15"],["Altı Aylık Dönem Gelirleri","10,08 milyar €","+%3"]]}
+tablo: {"baslik":"Ryanair finansal performansı ve dönemsel veriler","sutunlar":["Dönem","Kâr / Gelir","Değişim"],"satirlar":[["Eylül Çeyreği Vergi Sonrası Kâr","1,61 milyar €","-%6"],["Eylül Çeyreği Yolcu Sayısı","64,5 milyon","+%5"],["Altı Aylık Dönem Vergi Sonrası Kâr","2,15 milyar €","-%15"],["Altı Aylık Dönem Gelirleri","10,08 milyar €","+%3"]]}
 why_matters: "Yükselen jet yakıtı maliyetleri havayolu şirketlerinin bütçelerini zorlarken, uçak bileti fiyatlarında artış beklentisi ve çalışanlara yönelik olası kısıtlama tedbirlerini beraberinde getiriyor."
 key_points:
   - "Yakıt faturasında 2 milyar avroluk artış öngörülüyor"

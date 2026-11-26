@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "16 Kasım 2026"
   olay: "Mohamed Alabbar Emaar'ın Abu Dhabi'ye yönelik planları hakkında açıklama yaptı."
-tablo: {"baslik":"Abu Dhabi Gayrimenkul İşlem Değerleri","sutunlar":["Bölge","İşlem Değeri (Dirhem)"],"satirlar":[["Reem Island","29,86 milyar"],["Al Hudayriyat Island","28,62 milyar"],["Al Saadiyat Island","18,69 milyar"],["Yas Island","13,4 milyar"],["Zayed City","5,36 milyar"]]}
+tablo: {"baslik":"Abu Dhabi gayrimenkul İşlem değerleri","sutunlar":["Bölge","İşlem Değeri (Dirhem)"],"satirlar":[["Reem Island","29,86 milyar"],["Al Hudayriyat Island","28,62 milyar"],["Al Saadiyat Island","18,69 milyar"],["Yas Island","13,4 milyar"],["Zayed City","5,36 milyar"]]}
 why_matters: "Ortaklık, Abu Dhabi'de artan gayrimenkul talebi ve bölgeye yönelen uluslararası ilgi açısından önem taşıyor."
 key_points:
   - "Al Ain Asset Management ve Emaar 8 milyar dirhem değerinde beş proje için ortaklık kurdu."

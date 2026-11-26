@@ -16,7 +16,7 @@ rakamlar:
     deger: "92,3 milyar dolar"
   - etiket: "Anthropic Q3 Geliri"
     deger: "17 milyar dolar"
-tablo: {"baslik":"2026 Üçüncü Çeyrek Gelirleri","sutunlar":["Şirket","Gelir (Milyar Dolar)"],"satirlar":[["OpenAI","10"],["Anthropic","17"]]}
+tablo: {"baslik":"2026 üçüncü çeyrek gelirleri","sutunlar":["Şirket","Gelir (Milyar Dolar)"],"satirlar":[["OpenAI","10"],["Anthropic","17"]]}
 why_matters: "Microsoft'un finansal sonuçlarında OpenAI bağlantılı gelirlerin payı, yapay zeka alanındaki kurumsal talebin büyüklüğünü ve bu ortaklığın piyasa üzerindeki etkisini göstermektedir."
 key_points:
   - "OpenAI 2026 üçüncü çeyreğinde 10 milyar dolar gelir elde etti."

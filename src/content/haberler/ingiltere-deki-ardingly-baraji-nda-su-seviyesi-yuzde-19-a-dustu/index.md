@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "30 Ekim 2026"
   olay: "Ulusal kuraklık grubu toplantısı gerçekleştirildi"
-grafik: {"baslik":"Baraj Doluluk Oranları","simge":"banka","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"Ardingly","metin":"19","deger":19},{"etiket":"Wimbleball","metin":"14,5","deger":14.5}]}
+grafik: {"baslik":"Baraj doluluk oranları","simge":"banka","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"Ardingly","metin":"19","deger":19},{"etiket":"Wimbleball","metin":"14,5","deger":14.5}]}
 why_matters: "Ardingly Barajı'ndaki kritik su seviyesi ve kuraklık şartları, bölgedeki su kaynakları ve altyapı yatırımlarının önemini artırıyor."
 key_points:
   - "Ardingly Barajı doluluk oranı yüzde 19 seviyesine geriledi."

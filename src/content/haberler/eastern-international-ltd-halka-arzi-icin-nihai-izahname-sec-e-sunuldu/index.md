@@ -21,8 +21,8 @@ rakamlar:
 sirada:
   tarih: "19 Kasım 2026"
   olay: "Eastern International Ltd. tarafından SEC'e 424B4 formu ile nihai izahname sunuldu."
-tablo: {"baslik":"Eastern International Ltd. Halka Arz Detayları","sutunlar":["Kalem","Hisse Başına (ABD Doları)","Toplam (ABD Doları)"],"satirlar":[["Halka arz fiyatı","0,36","4.499.997"],["Plasman aracısı komisyonu","0,018","225.000"],["Masraflar hariç şirkete kalan gelir","0,342","4.274.997"]]}
-grafik: {"baslik":"Eastern International Halka Arz Rakamları","simge":"lira","birimEtiket":"ABD doları","birim":250000,"satirlar":[{"etiket":"Toplam halka arz fiyatı","metin":"4.499.997","deger":4499997},{"etiket":"Plasman aracısı komisyonu","metin":"225.000","deger":225000},{"etiket":"Şirkete kalacak net gelir","metin":"4.274.997","deger":4274997}]}
+tablo: {"baslik":"Eastern International Ltd. halka arz detayları","sutunlar":["Kalem","Hisse Başına (ABD Doları)","Toplam (ABD Doları)"],"satirlar":[["Halka arz fiyatı","0,36","4.499.997"],["Plasman aracısı komisyonu","0,018","225.000"],["Masraflar hariç şirkete kalan gelir","0,342","4.274.997"]]}
+grafik: {"baslik":"Eastern International halka arz rakamları","simge":"lira","birimEtiket":"ABD doları","birim":250000,"satirlar":[{"etiket":"Toplam halka arz fiyatı","metin":"4.499.997","deger":4499997},{"etiket":"Plasman aracısı komisyonu","metin":"225.000","deger":225000},{"etiket":"Şirkete kalacak net gelir","metin":"4.274.997","deger":4274997}]}
 why_matters: "Bu halka arz, şirketin sermaye piyasalarından fon sağlamasına ve \"ELOG\" koduyla işlem gören hisselerinin halka arz sürecini resmi olarak yürütmesine imkân tanıyor."
 key_points:
   - "Eastern International Ltd., 12.499.993 adet sıradan hisse senedini halka arz ediyor."

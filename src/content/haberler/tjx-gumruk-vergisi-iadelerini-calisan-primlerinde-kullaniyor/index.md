@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Ekonomik Yük"
     deger: "yüzde 90"
 tablo: {"baslik":"Şirketlerin gümrük vergisi iadesi kullanım tercihleri","sutunlar":["Şirket","Kullanım Amacı"],"satirlar":[["TJX","Çalışan primleri"],["Acushnet","Çalışan primleri"],["Stanley Black & Decker","Çalışan primleri"],["FedEx","Tüketicilere iade"],["Walmart","Fiyat indirimi"],["Target","Fiyat indirimi"]]}
-grafik: {"baslik":"TJX Gümrük Vergisi İadesinin Kullanımı","simge":"lira","birimEtiket":"milyon dolar","birim":20,"satirlar":[{"etiket":"Çalışan Primleri","metin":"167","deger":167},{"etiket":"Gelecek Büyüme","metin":"296","deger":296}]}
+grafik: {"baslik":"TJX gümrük vergisi iadesinin kullanımı","simge":"lira","birimEtiket":"milyon dolar","birim":20,"satirlar":[{"etiket":"Çalışan Primleri","metin":"167","deger":167},{"etiket":"Gelecek Büyüme","metin":"296","deger":296}]}
 why_matters: "Gümrük vergisi iadelerinin şirketler tarafından çalışanlara prim olarak dağıtılması veya tüketicilere fiyat indirimi olarak yansıtılması, ekonomik yükün paylaşımı konusunda farklı yaklaşımları ortaya koyuyor."
 key_points:
   - "TJX, 463 milyon dolarlık iadenin 167 milyon dolarını çalışan primlerine ayırdı."

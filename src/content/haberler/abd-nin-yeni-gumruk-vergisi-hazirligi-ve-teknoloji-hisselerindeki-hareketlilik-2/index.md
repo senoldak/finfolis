@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "10 Ocak"
   olay: "ABD ile Çin arasındaki geçici anlaşmanın sona ermesi"
-tablo: {"baslik":"ABD Borsa Endeksleri (25 Kasım 2026)","sutunlar":["Endeks","Kapanış","Değişim"],"satirlar":[["S&P 500","7.202,45","-%0,48"],["Nasdaq","23.740,52","-%1,45"],["Dow Jones","50.028,79","%0,87"]]}
+tablo: {"baslik":"ABD borsa endeksleri (25 Kasım 2026)","sutunlar":["Endeks","Kapanış","Değişim"],"satirlar":[["S&P 500","7.202,45","-%0,48"],["Nasdaq","23.740,52","-%1,45"],["Dow Jones","50.028,79","%0,87"]]}
 why_matters: "ABD'nin ticaret politikalarındaki olası değişiklikler ve teknoloji sektöründeki hisse hareketleri, küresel piyasalarda yatırımcıların risk algısını etkiliyor."
 key_points:
   - "ABD, 16 bölgeye yönelik yeni gümrük vergileri hazırlığında."

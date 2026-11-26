@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "21 Kasım 2026"
   olay: "En az beş yeni anlaşmanın veri merkezi ve fiber teklifi dahil olmak üzere fiyatlandırılması bekleniyor"
-grafik: {"baslik":"Varlığa Dayalı Menkul Kıymet Satışları","simge":"banka","birimEtiket":"milyar dolar","birim":20,"satirlar":[{"etiket":"2024","metin":"337","deger":337},{"etiket":"2025","metin":"367","deger":367},{"etiket":"2026","metin":"380","deger":380}]}
+grafik: {"baslik":"Varlığa dayalı menkul kıymet satışları","simge":"banka","birimEtiket":"milyar dolar","birim":20,"satirlar":[{"etiket":"2024","metin":"337","deger":337},{"etiket":"2025","metin":"367","deger":367},{"etiket":"2026","metin":"380","deger":380}]}
 why_matters: "Yapay zekâ altyapı yatırımları ve sigorta şirketlerinin yüksek getiri talebi, varlığa dayalı borç piyasasında rekor kırılmasını sağlarken küresel finansal akışların yönünü etkiliyor."
 key_points:
   - "Varlığa dayalı menkul kıymet satışları bu yıl 380 milyar doları aştı"

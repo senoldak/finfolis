@@ -20,7 +20,7 @@ sirada:
   tarih: "2027 yılının başı"
   olay: "Şirketin Northern Data'nın tamamına sahip olması bekleniyor."
 tablo: {"baslik":"Rumble finansal göstergeler (30 Eylül 2026)","sutunlar":["Gösterge","Değer"],"satirlar":[["Bitcoin varlığı (adet)","94,68"],["Toplam gelir (milyon dolar)","96,6"],["Düzeltilmiş FAVÖK (milyon dolar)","4,4"],["Nakit ve nakit benzerleri (milyon dolar)","134,4"]]}
-grafik: {"baslik":"Gelir Dağılımı (Milyon Dolar)","simge":"sepet","birimEtiket":"Milyon Dolar","birim":5,"satirlar":[{"etiket":"Toplam Gelir","metin":"96,6","deger":96.6},{"etiket":"Quake AI Katkısı","metin":"68,2","deger":68.2},{"etiket":"Video Segmenti","metin":"28,4","deger":28.4}]}
+grafik: {"baslik":"Gelir dağılımı (milyon dolar)","simge":"sepet","birimEtiket":"Milyon Dolar","birim":5,"satirlar":[{"etiket":"Toplam Gelir","metin":"96,6","deger":96.6},{"etiket":"Quake AI Katkısı","metin":"68,2","deger":68.2},{"etiket":"Video Segmenti","metin":"28,4","deger":28.4}]}
 why_matters: "Şirketin dijital varlık satışları ve yapay zekâ altyapısına odaklanan yeni iş modeli, finansal sonuçlardaki dönüşümü ve operasyonel verimlilik arayışını yansıtıyor."
 key_points:
   - "Rumble, üçüncü çeyrekte elindeki Bitcoin varlıklarının yaklaşık yüzde 68'ini elden çıkardı."

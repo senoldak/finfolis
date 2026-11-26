@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "11 Kasım 2026"
   olay: "HSBC'nin Hindistan piyasası için görünümünü 'overweight' seviyesine yükseltmesi"
-tablo: {"baslik":"Ekim Ayı Endeks ve Piyasa Karşılaştırması","sutunlar":["Gösterge","Değişim Oranı"],"satirlar":[["MSCI Asya Pasifik (Japonya hariç)","yüzde -6,91"],["MSCI Tüm Dünya Endeksi","yüzde -1,69"]]}
+tablo: {"baslik":"Ekim ayı endeks ve piyasa karşılaştırması","sutunlar":["Gösterge","Değişim Oranı"],"satirlar":[["MSCI Asya Pasifik (Japonya hariç)","yüzde -6,91"],["MSCI Tüm Dünya Endeksi","yüzde -1,69"]]}
 why_matters: "Yapay zeka yatırımlarının kârlılığına dair şüpheler, küresel sermayenin gelişmekte olan Asya piyasalarından gelişmiş piyasalara ve güvenli limanlara çekilmesine neden oluyor."
 key_points:
   - "Asya piyasalarından ekim ayında 49,77 milyar dolar net çıkış yaşandı."

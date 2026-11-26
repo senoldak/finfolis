@@ -16,7 +16,7 @@ rakamlar:
     deger: "2,08 trilyon dolar"
   - etiket: "VIX Değeri"
     deger: "13,82"
-tablo: {"baslik":"Kripto Varlıklar ve Hisse Senetlerinde Son Durum","sutunlar":["Varlık","Fiyat","Değişim"],"satirlar":[["Bitcoin","59.284 dolar","%-6"],["Ethereum","1.632 dolar","%-8,2"],["Solana","69 dolar","%-6,5"],["Nvidia","135 dolar","%-7,4"],["Tesla","352 dolar","%-5,9"]]}
+tablo: {"baslik":"Kripto varlıklar ve hisse senetlerinde son durum","sutunlar":["Varlık","Fiyat","Değişim"],"satirlar":[["Bitcoin","59.284 dolar","%-6"],["Ethereum","1.632 dolar","%-8,2"],["Solana","69 dolar","%-6,5"],["Nvidia","135 dolar","%-7,4"],["Tesla","352 dolar","%-5,9"]]}
 why_matters: "Korku ve Açgözlülük Endeksi'nin 14 seviyesine gerilemesi, hisse senedi piyasalarında duyarlılığın 30 Mart tarihinden bu yana en düşük seviyeye indiğini gösteriyor."
 key_points:
   - "Korku ve Açgözlülük Endeksi 14 seviyesine gerileyerek 30 Mart'tan bu yana en düşük seviyesini gördü."

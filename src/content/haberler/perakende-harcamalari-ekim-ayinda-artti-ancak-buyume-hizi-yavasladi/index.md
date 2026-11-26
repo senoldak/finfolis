@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 0,2"
   - etiket: "Yıllık artış"
     deger: "yüzde 3,6"
-tablo: {"baslik":"Sektörel Harcama Değişimleri","sutunlar":["Sektör","Yıllık Değişim (yüzde)"],"satirlar":[["Elektronik ve ev aletleri","9,3"],["Mobilya ve ev eşyaları","-2,6"],["Eğlence ürünleri","-0,4"]]}
+tablo: {"baslik":"Sektörel harcama değişimleri","sutunlar":["Sektör","Yıllık Değişim (yüzde)"],"satirlar":[["Elektronik ve ev aletleri","9,3"],["Mobilya ve ev eşyaları","-2,6"],["Eğlence ürünleri","-0,4"]]}
 why_matters: "Tüketici harcamaları ABD ekonomisinin büyük bir kısmını oluşturduğu için, bu veriler enflasyonun ve artan yaşam maliyetlerinin hanehalkı üzerindeki etkisini anlamak açısından takip ediliyor."
 key_points:
   - "Toplam perakende harcamaları ekim ayında 561,7 milyar dolar oldu."

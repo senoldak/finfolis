@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "30 Aralık 2026"
   olay: "Brezilya teklifi için yazılı yorumların teslimi"
-grafik: {"baslik":"Belirli Hava Yolu Şirketlerinin Embraer E175 Siparişleri","simge":"sepet","birimEtiket":"adet","birim":5,"satirlar":[{"etiket":"American Airlines","metin":"66","deger":66},{"etiket":"Diğer Şirketler (SkyWest ve Republic)","metin":"94","deger":94}]}
+grafik: {"baslik":"Belirli hava yolu şirketlerinin Embraer E175 siparişleri","simge":"sepet","birimEtiket":"adet","birim":5,"satirlar":[{"etiket":"American Airlines","metin":"66","deger":66},{"etiket":"Diğer Şirketler (SkyWest ve Republic)","metin":"94","deger":94}]}
 why_matters: "Havacılık sektöründe maliyet artışı riski ve ABD ile Brezilya arasındaki ticaret müzakerelerinin seyri açısından önem taşıyor."
 key_points:
   - "Brezilya yapımı uçaklar için yüzde 10 oranında yeni bir tarife teklif edildi."

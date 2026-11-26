@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Yatırım artış oranı"
     deger: "yüzde 90"
 tablo: {"baslik":"Türkiye-Singapur ekonomik verileri","sutunlar":["Gösterge","Değer"],"satirlar":[["2025 ticaret hacmi","1,1 milyar dolar"],["2026 beklenen ticaret hacmi","1,3-1,4 milyar dolar"],["Singapur yatırım stoku","2,7 milyar dolar"],["Yatırım artış oranı (2020'den beri)","yüzde 90"]]}
-grafik: {"baslik":"İkili Ticaret Hacmi Beklentisi (Milyar Dolar)","simge":"sepet","birimEtiket":"milyar dolar","birim":0.1,"satirlar":[{"etiket":"2025 Gerçekleşen","metin":"1,1","deger":1.1},{"etiket":"2026 Beklenen Alt Sınır","metin":"1,3","deger":1.3},{"etiket":"2026 Beklenen Üst Sınır","metin":"1,4","deger":1.4}]}
+grafik: {"baslik":"İkili Ticaret hacmi beklentisi (milyar dolar)","simge":"sepet","birimEtiket":"milyar dolar","birim":0.1,"satirlar":[{"etiket":"2025 Gerçekleşen","metin":"1,1","deger":1.1},{"etiket":"2026 Beklenen Alt Sınır","metin":"1,3","deger":1.3},{"etiket":"2026 Beklenen Üst Sınır","metin":"1,4","deger":1.4}]}
 why_matters: "Protokol, Türkiye ve Singapur arasındaki ticari ilişkileri kurumsal bir istişare mekanizmasına bağlayarak, yatırım ve enerji gibi stratejik alanlarda somut projelerin takibini kolaylaştırmayı amaçlıyor."
 key_points:
   - "Türkiye ve Singapur arasında JETCO protokolü imzalandı."

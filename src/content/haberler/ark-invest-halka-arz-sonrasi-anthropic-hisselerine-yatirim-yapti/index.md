@@ -20,7 +20,7 @@ sirada:
   tarih: "19 Kasım 2026"
   olay: "Ark Invest'in Anthropic hisselerini satın alması"
 tablo: {"baslik":"Anthropic halka arz fiyat verileri","sutunlar":["Gösterge","Değer"],"satirlar":[["Halka arz fiyatı","83 dolar"],["Açılış fiyatı","111,50 dolar"],["Kapanış fiyatı","97,17 dolar"],["Halka arz artış oranı","yüzde 17,1"]]}
-grafik: {"baslik":"Anthropic Halka Arz İlk Gün Performansı","simge":"sepet","birimEtiket":"dolar","birim":5,"satirlar":[{"etiket":"Halka Arz Fiyatı","metin":"83","deger":83},{"etiket":"İlk Gün Kapanış","metin":"97,17","deger":97.17}]}
+grafik: {"baslik":"Anthropic halka arz ilk gün performansı","simge":"sepet","birimEtiket":"dolar","birim":5,"satirlar":[{"etiket":"Halka Arz Fiyatı","metin":"83","deger":83},{"etiket":"İlk Gün Kapanış","metin":"97,17","deger":97.17}]}
 why_matters: "Bu gelişme, fon yöneticilerinin yapay zekâ sektöründeki fırsatları değerlendirirken kripto varlıklar ve teknoloji hisseleri arasında nasıl bir portföy rotasyonu izlediğini göstermesi açısından önem taşıyor."
 key_points:
   - "19 Kasım 2026 tarihinde 934.968 adet Anthropic hissesi satın alındı."

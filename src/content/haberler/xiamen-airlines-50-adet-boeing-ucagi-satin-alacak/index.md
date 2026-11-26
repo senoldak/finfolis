@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "2031"
   olay: "Boeing 737-8 uçaklarının teslimatlarının başlaması"
-grafik: {"baslik":"Havayolu Şirketinin Uçak Siparişleri","simge":"sepet","birimEtiket":"adet","birim":10,"satirlar":[{"etiket":"Boeing 737-8","metin":"50","deger":50},{"etiket":"Airbus A320neo ailesi","metin":"137","deger":137}]}
+grafik: {"baslik":"Havayolu şirketinin uçak siparişleri","simge":"sepet","birimEtiket":"adet","birim":10,"satirlar":[{"etiket":"Boeing 737-8","metin":"50","deger":50},{"etiket":"Airbus A320neo ailesi","metin":"137","deger":137}]}
 why_matters: "Bu anlaşma, Çinli havayolu şirketlerinin filo stratejilerini ve ABD ile Çin arasındaki ticari havacılık ilişkilerinin seyrini yansıtması açısından önem taşıyor."
 key_points:
   - "Xiamen Airlines 50 adet Boeing 737-8 uçağı sipariş etti"

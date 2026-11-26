@@ -7,7 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.Bo/jTjnIHY9P4Hm4.mVPgIq1BQaPlPbapcffStFVxUSxwVmNLUwnlRBa5ql/sIhYtTCPw9m1DpYw7r27f8NLVrKgriCR58TVZdLtKdHdebC3qpvIa6/FFgCyA6zAF6PJ2VCFDxnxonAh0psyE6nfm1/0WvHwRyZZBJVxWAmKa2n3awI5hnMYaFKvzS1HVcASLiqdbMry6hMAAyJ3X5tp1AhFRJOcQ"
-tablo: {"baslik":"Savaş Öncesi ve Sonrası Yakıt Fiyatları","sutunlar":["Yakıt Türü","Savaş Öncesi","Son Durum"],"satirlar":[["Normal Benzin","2,98 dolar","4,33 dolar"],["Dizel","3,76 dolar","6,33 dolar"]]}
+tablo: {"baslik":"Savaş öncesi ve sonrası yakıt fiyatları","sutunlar":["Yakıt Türü","Savaş Öncesi","Son Durum"],"satirlar":[["Normal Benzin","2,98 dolar","4,33 dolar"],["Dizel","3,76 dolar","6,33 dolar"]]}
 cover: kapak.png
 coverAlt: "ABD · İran savaşı her ABD hanesine yaklaşık 2.000 dolara mal oldu"
 coverSitede: false

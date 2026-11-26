@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "11 Kasım 2026"
   olay: "ABD resmi petrol stok verilerinin açıklanması bekleniyor."
-tablo: {"baslik":"Petrol Fiyatlarındaki Günlük Değişim","sutunlar":["Petrol Türü","Fiyat (Dolar)","Değişim Oranı"],"satirlar":[["Brent Petrol","92,77","yüzde 1,4"],["WTI Ham Petrol","86,80","yüzde 0,9"]]}
+tablo: {"baslik":"Petrol fiyatlarındaki günlük değişim","sutunlar":["Petrol Türü","Fiyat (Dolar)","Değişim Oranı"],"satirlar":[["Brent Petrol","92,77","yüzde 1,4"],["WTI Ham Petrol","86,80","yüzde 0,9"]]}
 why_matters: "İran'ın nükleer materyal konusundaki sert tutumu ve Hürmüz Boğazı'ndaki güvenlik riskleri, küresel enerji arzı üzerindeki baskıyı artırarak fiyatları yukarı çekiyor."
 key_points:
   - "Brent petrolün varil fiyatı yüzde 1,4 artışla 92,77 dolara yükseldi."

@@ -14,7 +14,7 @@ rakamlar:
     deger: "yüzde 23"
   - etiket: "Kâr artışı"
     deger: "yüzde 41"
-tablo: {"baslik":"Finansal Performans Karşılaştırması (Milyon Rupi)","sutunlar":["Kalem","Q2 FY26","Q2 FY27"],"satirlar":[["Net Kâr","13.209,8","18.605,5"],["Operasyonel Gelir","122.183,9","149.705"],["Toplam Giderler","105.840","132.280"]]}
+tablo: {"baslik":"Finansal performans karşılaştırması (milyon rupi)","sutunlar":["Kalem","Q2 FY26","Q2 FY27"],"satirlar":[["Net Kâr","13.209,8","18.605,5"],["Operasyonel Gelir","122.183,9","149.705"],["Toplam Giderler","105.840","132.280"]]}
 grafik: {"baslik":"Hero MotoCorp çeyrek dönem büyüme oranları","simge":"lira","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Net kâr artışı","metin":"41","deger":41},{"etiket":"Gelir artışı","metin":"23","deger":23},{"etiket":"Scooter satış artışı","metin":"47","deger":47},{"etiket":"VIDA satış artışı","metin":"76","deger":76}]}
 why_matters: "Şirketin kârlılığındaki bu artış, iki tekerlekli araç pazarındaki talebin ve elektrikli araç segmentindeki büyümenin finansal sonuçlara yansımasını göstermesi açısından önem taşıyor."
 key_points:

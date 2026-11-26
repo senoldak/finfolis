@@ -7,7 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.QOcxzCxofcX2klog.yKVd2jatOEY2NVgxl5JCcUCDKci0ydKFfqoXof6+HcvbrtPqevfHLs22o7Jk3i6CbDi3ye0DJAngh9zqj+hunN1ssF+goPCvJPMrMu/OT9PkmxOX6o93tk/56fkL+uEiFPnX2J/EOyQO3/s4B5eVuM2Aq/MTxO/g/jQzH6qVhjvqSPymFDJi5kg0KE6YrtKcyo6fsU526+7ZJEasLG9KLKLFznF3rIMQcqDovy4="
-tablo: {"baslik":"Euro Bölgesi ve Ülkelerin Çeyreklik Büyüme Oranları","sutunlar":["Ekonomi","Büyüme Oranı"],"satirlar":[["Euro bölgesi","yüzde 0,4"],["İrlanda","yüzde 5,5"],["Almanya","yüzde 0,2"],["İspanya","yüzde 0,6"],["Hollanda","yüzde 0,6"],["Fransa","yüzde -0,1"]]}
+tablo: {"baslik":"Euro Bölgesi ve ülkelerin çeyreklik büyüme oranları","sutunlar":["Ekonomi","Büyüme Oranı"],"satirlar":[["Euro bölgesi","yüzde 0,4"],["İrlanda","yüzde 5,5"],["Almanya","yüzde 0,2"],["İspanya","yüzde 0,6"],["Hollanda","yüzde 0,6"],["Fransa","yüzde -0,1"]]}
 why_matters: "İrlanda ekonomisinin güçlü büyümesi euro bölgesinin genel verilerini yukarı taşısa da, artan enerji maliyetleri ve borçlanma maliyetleri önümüzdeki dönemde ekonomik yavaşlama endişelerini artırıyor."
 cover: kapak.png
 coverAlt: "Avrupa · İrlanda ekonomisi euro bölgesinin büyümesini hızlandırdı"

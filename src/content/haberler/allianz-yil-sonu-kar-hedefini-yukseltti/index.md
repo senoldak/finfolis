@@ -14,7 +14,7 @@ rakamlar:
     deger: "18,6 milyar avro"
   - etiket: "Varlık Yönetimi Kar Artışı"
     deger: "yüzde 35,1"
-tablo: {"baslik":"Allianz Faaliyet Karı Karşılaştırması (3. Çeyrek)","sutunlar":["Birim","2025 3. Çeyrek","2026 3. Çeyrek"],"satirlar":[["Grup Toplam","4,43 milyar avro","4,71 milyar avro"],["Varlık Yönetimi","Belirtilmedi","1,12 milyar avro"],["Mal ve Kaza Sigortası","Belirtilmedi","2,2 milyar avro"]]}
+tablo: {"baslik":"Allianz faaliyet karı karşılaştırması (3. çeyrek)","sutunlar":["Birim","2025 3. Çeyrek","2026 3. Çeyrek"],"satirlar":[["Grup Toplam","4,43 milyar avro","4,71 milyar avro"],["Varlık Yönetimi","Belirtilmedi","1,12 milyar avro"],["Mal ve Kaza Sigortası","Belirtilmedi","2,2 milyar avro"]]}
 why_matters: "Dünyanın en büyük sigorta şirketlerinden birinin kar hedeflerini yükseltmesi, doğal afet maliyetlerindeki artışa rağmen finansal dayanıklılığın ve varlık yönetimi gibi yan kolların gücünü göstermektedir."
 key_points:
   - "Üçüncü çeyrek faaliyet karı yüzde 6,2 artışla 4,71 milyar avro oldu."

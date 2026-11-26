@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "21 Ekim 2026"
   olay: "Hükümet stok verileri açıklanacak."
-tablo: {"baslik":"Petrol Vadeli İşlem Fiyatları","sutunlar":["Petrol Türü","Değişim (Dolar)","Değişim (Yüzde)","Fiyat (Dolar)"],"satirlar":[["Brent ham petrol","1,32","yüzde 1,2","110,11"],["ABD WTI ham petrol","1,18","yüzde 1,2","99"]]}
+tablo: {"baslik":"Petrol vadeli işlem fiyatları","sutunlar":["Petrol Türü","Değişim (Dolar)","Değişim (Yüzde)","Fiyat (Dolar)"],"satirlar":[["Brent ham petrol","1,32","yüzde 1,2","110,11"],["ABD WTI ham petrol","1,18","yüzde 1,2","99"]]}
 why_matters: "Orta Doğu'daki çatışmalar ve arz endişeleri petrol fiyatlarını beş ayın zirvesine taşıyor; bu durum küresel enerji maliyetlerini ve enflasyon beklentilerini etkiliyor."
 key_points:
   - "Brent ham petrol vadeli işlemleri 1,32 dolar artışla varil başına 110,11 dolara yükseldi."

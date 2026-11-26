@@ -18,7 +18,7 @@ rakamlar:
     deger: "474 milyon dolar"
   - etiket: "Qualcomm hisse"
     deger: "172,05 dolar"
-grafik: {"baslik":"Seçim ve Piyasa Verileri","simge":"lira","birimEtiket":"Milyon Dolar","birim":100,"satirlar":[{"etiket":"Kripto PAC Harcamaları","metin":"170","deger":170},{"etiket":"Sherrod Brown Karşıtı Harcama","metin":"64","deger":64},{"etiket":"Bitcoin ETF Çıkışı (Yaklaşık)","metin":"1.160","deger":1160}]}
+grafik: {"baslik":"Seçim ve Piyasa verileri","simge":"lira","birimEtiket":"Milyon Dolar","birim":100,"satirlar":[{"etiket":"Kripto PAC Harcamaları","metin":"170","deger":170},{"etiket":"Sherrod Brown Karşıtı Harcama","metin":"64","deger":64},{"etiket":"Bitcoin ETF Çıkışı (Yaklaşık)","metin":"1.160","deger":1160}]}
 why_matters: "ABD seçim sonuçlarının piyasa beklentileri üzerindeki etkisi ve düzenleyici kurumların yeni finansal enstrümanlara yönelik adımları, yatırım ortamında yeni bir dönemi işaret ediyor."
 key_points:
   - "Bitcoin fiyatı 79.200 dolar seviyelerinde işlem gördü."

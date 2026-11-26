@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde -6,3"
   - etiket: "Bitcoin Üçüncü Çeyrek Getirisi"
     deger: "yüzde 42,7"
-tablo: {"baslik":"Ekim 2026 Fiyat Getirileri","sutunlar":["Varlık","Ekim Fiyat Getirisi"],"satirlar":[["Altın","yüzde -6,3"],["Bitcoin","yüzde -7,3"]]}
+tablo: {"baslik":"Ekim 2026 fiyat getirileri","sutunlar":["Varlık","Ekim Fiyat Getirisi"],"satirlar":[["Altın","yüzde -6,3"],["Bitcoin","yüzde -7,3"]]}
 why_matters: "Merkez bankalarının altın rezervlerini artırması, küresel finansal sistemde doların rezerv para birimi olarak konumuna dair stratejik bir değişimi ve altın piyasasındaki arz-talep dengesini yansıtıyor."
 key_points:
   - "Küresel altın talebi 188 milyar dolara ulaştı."

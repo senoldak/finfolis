@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "3 Kasım 2026"
   olay: "Resmi öncü tahminlerin açıklandığı tarih"
-grafik: {"baslik":"2026 Yılı Çeyreklik GSYİH Büyüme Oranları","simge":"lira","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Birinci Çeyrek","metin":"5,9","deger":5.9},{"etiket":"İkinci Çeyrek","metin":"4,2","deger":4.2},{"etiket":"Üçüncü Çeyrek","metin":"5,2","deger":5.2}]}
+grafik: {"baslik":"2026 yılı çeyreklik GSYİH büyüme oranları","simge":"lira","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Birinci Çeyrek","metin":"5,9","deger":5.9},{"etiket":"İkinci Çeyrek","metin":"4,2","deger":4.2},{"etiket":"Üçüncü Çeyrek","metin":"5,2","deger":5.2}]}
 why_matters: "Hong Kong'un üçüncü çeyrekte yüzde 5,2 büyümesi ve ihracattaki güçlü artış, bölgedeki ekonomik aktivitenin gücünü göstermesi açısından takip ediliyor."
 key_points:
   - "Hong Kong ekonomisi üçüncü çeyrekte yıllık bazda yüzde 5,2 büyüdü."

@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "20 Kasım 2026"
   olay: "Vivien Nguyen tarafından tokenize SpaceX hisseleri piyasa verileri yayımlandı"
-grafik: {"baslik":"Tokenize SpaceX Hisselerinin Pazar Payları","simge":"sepet","birimEtiket":"yüzde","birim":2.5,"satirlar":[{"etiket":"Spcxb","metin":"44","deger":44},{"etiket":"Spcx","metin":"30","deger":30}]}
+grafik: {"baslik":"Tokenize SpaceX hisselerinin Pazar payları","simge":"sepet","birimEtiket":"yüzde","birim":2.5,"satirlar":[{"etiket":"Spcxb","metin":"44","deger":44},{"etiket":"Spcx","metin":"30","deger":30}]}
 why_matters: "Geleneksel borsa saatleri dışında işlem görmeyi sağlayan tokenize hisseler, blokzincir ve merkeziyetsiz finans ekosisteminde yeni bir varlık sınıfı oluşturuyor."
 key_points:
   - "Spcxb piyasa değeri yaklaşık 113 milyon dolara ulaştı"

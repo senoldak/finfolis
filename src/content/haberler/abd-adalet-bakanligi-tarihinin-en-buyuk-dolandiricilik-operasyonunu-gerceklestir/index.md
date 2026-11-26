@@ -16,7 +16,7 @@ rakamlar:
     deger: "17 milyar dolar"
   - etiket: "Ele geçirilen dijital cihaz"
     deger: "14.000"
-grafik: {"baslik":"Operasyonun Finansal Boyutları","simge":"sepet","birimEtiket":"milyar dolar","birim":1,"satirlar":[{"etiket":"Kısıtlanan fonlar","metin":"17","deger":17},{"etiket":"Önlenen mağduriyet","metin":"8","deger":8},{"etiket":"Çalınmış kripto varlık","metin":"1,08","deger":1.08}]}
+grafik: {"baslik":"Operasyonun finansal boyutları","simge":"sepet","birimEtiket":"milyar dolar","birim":1,"satirlar":[{"etiket":"Kısıtlanan fonlar","metin":"17","deger":17},{"etiket":"Önlenen mağduriyet","metin":"8","deger":8},{"etiket":"Çalınmış kripto varlık","metin":"1,08","deger":1.08}]}
 why_matters: "Operasyon, uluslararası dolandırıcılık ağlarının finansal sistem ve kripto varlıklar üzerindeki etkisini ortaya koyması ve büyük ölçekli yasa dışı fonların kısıtlanması açısından önem taşıyor."
 key_points:
   - "800'den fazla sanık operasyon kapsamında yargılanıyor."

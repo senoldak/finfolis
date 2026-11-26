@@ -16,7 +16,7 @@ rakamlar:
     deger: "498,83 dolar"
   - etiket: "Olası Birleşme Değeri"
     deger: "3,5 trilyon dolar"
-tablo: {"baslik":"Şirketlerin İleriye Dönük Hisse Başı Kazanç Oranları","sutunlar":["Şirket","Oran"],"satirlar":[["Tesla","188,24"],["Ford","6,58"],["General Motors","5,16"]]}
+tablo: {"baslik":"Şirketlerin ileriye dönük hisse başı kazanç oranları","sutunlar":["Şirket","Oran"],"satirlar":[["Tesla","188,24"],["Ford","6,58"],["General Motors","5,16"]]}
 why_matters: "Tesla'nın sermaye harcaması tahminini düşürmesi, şirketin yapay zeka ve robotik gibi gelecekteki büyüme alanlarına yönelik stratejilerini ve yatırımcı algısını doğrudan etkiliyor."
 key_points:
   - "Tesla hisseleri bu yıl yaklaşık yüzde 14 değer kaybetti"

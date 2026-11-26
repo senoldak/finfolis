@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "17 Kasım 2026"
   olay: "Irak, Kerkük-Ceyhan boru hattı üzerinden petrol ihracatına yeniden başladığını duyurdu."
-grafik: {"baslik":"Irak Petrol İhracatındaki Değişim","simge":"lira","birimEtiket":"milyon varil/gün","birim":0.2,"satirlar":[{"etiket":"Şubat 2026","metin":"3,36","deger":3.36},{"etiket":"Nisan 2026","metin":"0,131","deger":0.131}]}
+grafik: {"baslik":"Irak Petrol ihracatındaki değişim","simge":"lira","birimEtiket":"milyon varil/gün","birim":0.2,"satirlar":[{"etiket":"Şubat 2026","metin":"3,36","deger":3.36},{"etiket":"Nisan 2026","metin":"0,131","deger":0.131}]}
 why_matters: "Irak bütçesinin büyük çoğunluğu petrol gelirlerine dayandığı için, ihracat rotalarının yeniden açılması ve çeşitlendirilmesi ülkenin ekonomik istikrarı açısından kritik bir rol oynuyor."
 key_points:
   - "Kerkük-Ceyhan hattı üzerinden ihracat günlük 120.000 varil ile yeniden başladı."

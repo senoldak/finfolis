@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "31 Aralık 2026"
   olay: "Husi güçlerinin Aden'e giriş ihtimaline yönelik piyasa vade tarihi"
-tablo: {"baslik":"Aden'e Husi Giriş Olasılığı Sözleşme Oranları","sutunlar":["Tarih","Oran"],"satirlar":[["31 Ekim 2026","yüzde 4,3"],["1 Aralık 2026","yüzde 14,5"],["31 Aralık 2026","yüzde 26"]]}
+tablo: {"baslik":"Aden'e Husi giriş olasılığı sözleşme oranları","sutunlar":["Tarih","Oran"],"satirlar":[["31 Ekim 2026","yüzde 4,3"],["1 Aralık 2026","yüzde 14,5"],["31 Aralık 2026","yüzde 26"]]}
 why_matters: "Taiz'deki çatışmaların derinleşmesi ve Husi güçlerinin stratejik noktalar ile Aden'e yönelik hareketlilik ihtimali, bölgedeki jeopolitik gerilimi artırarak piyasalarda farklı vadelerde fiyatlanıyor."
 key_points:
   - "Taiz'deki saldırılarda bir kadın hayatını kaybetti, beş sivil yaralandı."

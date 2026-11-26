@@ -16,7 +16,7 @@ rakamlar:
     deger: "9,5 baz puan"
   - etiket: "Almanya Haftalık Tahvil Düşüşü"
     deger: "8,8 baz puan"
-grafik: {"baslik":"Avrupa Endekslerinin Haftalık Değişim Oranları","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Alman DAX","metin":"7,29","deger":7.29},{"etiket":"İtalya FTSE MIB","metin":"6,08","deger":6.08},{"etiket":"İspanya IBEX 35","metin":"5,73","deger":5.73},{"etiket":"Fransa CAC 40","metin":"5,27","deger":5.27},{"etiket":"İngiltere FTSE 100","metin":"5,10","deger":5.1}]}
+grafik: {"baslik":"Avrupa endekslerinin haftalık değişim oranları","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Alman DAX","metin":"7,29","deger":7.29},{"etiket":"İtalya FTSE MIB","metin":"6,08","deger":6.08},{"etiket":"İspanya IBEX 35","metin":"5,73","deger":5.73},{"etiket":"Fransa CAC 40","metin":"5,27","deger":5.27},{"etiket":"İngiltere FTSE 100","metin":"5,10","deger":5.1}]}
 why_matters: "Avrupa borsalarındaki bu sert düşüş ve tahvil getirilerindeki değişimler, küresel piyasalardaki risk algısının ve yatırımcı eğilimlerinin haftalık bazda nasıl şekillendiğini gösteriyor."
 key_points:
   - "Alman DAX endeksi haftayı yüzde 7,29 kayıpla kapattı."

@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "24 Kasım 2026"
   olay: "Compass yıllık finansal sonuçlarını açıklayacak ve borsa taşıma niyetini duyurabilecek."
-tablo: {"baslik":"Londra Borsasından Çıkış Yapan Şirketler ve Anlaşma Tutarları","sutunlar":["Şirket","Alıcı Kurum","Tutar (Milyar £)"],"satirlar":[["Segro","Prologis","14"],["Intertek","EQT Konsorsiyumu","10"],["Schroders","ABD'li Yatırımcı","9,9"],["Beazley","Zurich","8"],["easyJet","Apollo","5,7"]]}
+tablo: {"baslik":"Londra borsasından çıkış yapan şirketler ve anlaşma tutarları","sutunlar":["Şirket","Alıcı Kurum","Tutar (Milyar £)"],"satirlar":[["Segro","Prologis","14"],["Intertek","EQT Konsorsiyumu","10"],["Schroders","ABD'li Yatırımcı","9,9"],["Beazley","Zurich","8"],["easyJet","Apollo","5,7"]]}
 why_matters: "FTSE 100 endeksinin devlerinden Compass'ın ayrılma ihtimali, Londra borsasının küresel şirketleri tutmakta zorlandığını ve sermayenin ABD'ye kaydığını gösteriyor."
 key_points:
   - "Compass, birincil borsa kotasyonunu Londra'dan New York'a taşımayı planlıyor."

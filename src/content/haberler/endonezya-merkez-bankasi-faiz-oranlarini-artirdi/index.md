@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 6,75"
   - etiket: "Gecelik mevduat faizi"
     deger: "yüzde 5,25"
-grafik: {"baslik":"Endonezya Merkez Bankası Faiz Oranları","simge":"banka","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Politika faizi","metin":"6","deger":6},{"etiket":"Gecelik kredi faizi","metin":"6,75","deger":6.75},{"etiket":"Gecelik mevduat faizi","metin":"5,25","deger":5.25}]}
+grafik: {"baslik":"Endonezya Merkez Bankası faiz oranları","simge":"banka","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Politika faizi","metin":"6","deger":6},{"etiket":"Gecelik kredi faizi","metin":"6,75","deger":6.75},{"etiket":"Gecelik mevduat faizi","metin":"5,25","deger":5.25}]}
 why_matters: "Merkez bankasının faiz artışı, yerel para birimindeki değer kaybını durdurmak ve siyasi belirsizliklerin yarattığı piyasa oynaklığını dengelemek amacıyla atılmış bir adım olarak öne çıkıyor."
 key_points:
   - "Politika faizi 25 baz puan artırılarak yüzde 6 seviyesine yükseltildi."

@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "12 Kasım 2026"
   olay: "Piyasalarda gelişen döviz ve faiz hareketlerinin takibi"
-grafik: {"baslik":"Doların Diğer Para Birimleri Karşısındaki Değişimi","simge":"sepet","birimEtiket":"yüzde","birim":0.05,"satirlar":[{"etiket":"Japon yeni","metin":"0,69","deger":0.69},{"etiket":"Euro","metin":"0,65","deger":0.65},{"etiket":"İsviçre frangı","metin":"0,93","deger":0.93},{"etiket":"Sterlin","metin":"0,50","deger":0.5}]}
+grafik: {"baslik":"Doların diğer para birimleri karşısındaki değişimi","simge":"sepet","birimEtiket":"yüzde","birim":0.05,"satirlar":[{"etiket":"Japon yeni","metin":"0,69","deger":0.69},{"etiket":"Euro","metin":"0,65","deger":0.65},{"etiket":"İsviçre frangı","metin":"0,93","deger":0.93},{"etiket":"Sterlin","metin":"0,50","deger":0.5}]}
 why_matters: "ABD'de enflasyonun beklenenden yüksek gelmesi ve merkez bankasının faiz artıracağı beklentileri, küresel döviz piyasalarında doların değer kazanmasına yol açıyor."
 cover: kapak.png
 coverAlt: "Aralık Ayı Faiz Artışı Beklentisi %87"

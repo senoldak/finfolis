@@ -16,7 +16,7 @@ rakamlar:
     deger: "137.000"
   - etiket: "PwC UK işe alım"
     deger: "1.300"
-tablo: {"baslik":"Sektörel İş Gücü Verileri","sutunlar":["Kurum/Sektör","Açıklama"],"satirlar":[["Barclays","5.000 pozisyon azaltma planı"],["PwC Birleşik Krallık","1.300 giriş seviyesi işe alım"]]}
+tablo: {"baslik":"Sektörel iş gücü verileri","sutunlar":["Kurum/Sektör","Açıklama"],"satirlar":[["Barclays","5.000 pozisyon azaltma planı"],["PwC Birleşik Krallık","1.300 giriş seviyesi işe alım"]]}
 why_matters: "Yapay zekâ teknolojilerinin, finans ve hukuk gibi sektörlerde giriş seviyesi istihdamı nasıl etkileyeceği konusu, iş gücü piyasasında tartışılmaya devam ediyor."
 key_points:
   - "Amodei, yapay zekânın giriş seviyesi işlerin yüzde 80'ini etkileyebileceğini öngörüyor."

@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "1 Ocak 2027"
   olay: "Teksas veri merkezi moratoryumu için tahmin piyasalarının hedef tarihi."
-tablo: {"baslik":"Al Maktoum Havalimanı Kapasite Hedefleri","sutunlar":["Aşama","Yıl","Yolcu Kapasitesi"],"satirlar":[["İlk Aşama","2032","150 milyon"],["Tamamlandığında","Belirtilmedi","260 milyon"]]}
+tablo: {"baslik":"Al Maktoum Havalimanı kapasite hedefleri","sutunlar":["Aşama","Yıl","Yolcu Kapasitesi"],"satirlar":[["İlk Aşama","2032","150 milyon"],["Tamamlandığında","Belirtilmedi","260 milyon"]]}
 why_matters: "Büyük ölçekli altyapı yatırımları ve teknoloji odaklı enerji talebi, küresel ekonomideki büyüme alanlarını ve bölgesel istihdam piyasalarını şekillendirmektedir."
 key_points:
   - "Poundland'in yönetime devriyle 11.000 kişi iş kaybı riskiyle karşılaştı."

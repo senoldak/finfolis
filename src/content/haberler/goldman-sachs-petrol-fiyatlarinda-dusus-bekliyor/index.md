@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "1 Aralık 2026"
   olay: "Petrol piyasası kontrat vadelerinin takibi"
-tablo: {"baslik":"Petrol Fiyat Öngörüleri","sutunlar":["Gösterge","Dönem","Beklenen Değer"],"satirlar":[["Brent Petrol","2027 Ortalama","88 dolar"],["Brent Petrol","2027 Yıl Sonu","78 dolar"]]}
+tablo: {"baslik":"Petrol fiyat öngörüleri","sutunlar":["Gösterge","Dönem","Beklenen Değer"],"satirlar":[["Brent Petrol","2027 Ortalama","88 dolar"],["Brent Petrol","2027 Yıl Sonu","78 dolar"]]}
 why_matters: "Goldman Sachs'ın arz fazlası uyarısı, küresel enerji maliyetlerinin düşebileceğine ve jeopolitik risklerin fiyatlar üzerindeki etkisinin azalacağına işaret ediyor."
 key_points:
   - "2027 yılı sonunda Brent petrolün 78 dolara düşmesi bekleniyor."

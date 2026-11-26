@@ -15,7 +15,7 @@ rakamlar:
   - etiket: "Açıklama tarihi"
     deger: "18 Kasım 2026"
 tablo: {"baslik":"Bitcoin teminatlı hisselerin getiri oranları","sutunlar":["Varlık","Getiri Oranı"],"satirlar":[["SATA","Yüzde 13"],["SATS","Yüzde 15"]]}
-grafik: {"baslik":"Bitcoin Teminatlı Hisselerin Getiri Oranları","simge":"sepet","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"SATA","metin":"13","deger":13},{"etiket":"SATS","metin":"15","deger":15}]}
+grafik: {"baslik":"Bitcoin teminatlı hisselerin getiri oranları","simge":"sepet","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"SATA","metin":"13","deger":13},{"etiket":"SATS","metin":"15","deger":15}]}
 why_matters: "Kurumsal yatırımcıların geleneksel kredi kanallarını dijital varlık piyasalarına yönlendirmesi, kripto varlıkların kurumsal finansman araçları içindeki yerinin değişebileceğine işaret ediyor."
 key_points:
   - "Strive Risk Direktörü Jeff Walton, kurumsal kredi sermayesinin yapay zekâ veri merkezlerinden Bitcoin piyasasına kayabileceğini öngörüyor."

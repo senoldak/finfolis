@@ -10,7 +10,7 @@ kaynakIzi: "v1.9IWCNsuBjxRsDMXX.chIpBkEFdT2qkdrHya2/4w325t1m1hFZ6Dk0aKXEPayFbRQQ
 rakamlar:
   - etiket: "AMB Ana Faizi"
     deger: "yüzde 2,5"
-grafik: {"baslik":"Avusturya Gayrimenkul Fonlarının Portföy Büyüklükleri","simge":"banka","birimEtiket":"milyar euro","birim":0.2,"satirlar":[{"etiket":"Real Invest","metin":"2,4","deger":2.4},{"etiket":"İmmobilienfonds","metin":"1,3","deger":1.3}]}
+grafik: {"baslik":"Avusturya gayrimenkul fonlarının portföy büyüklükleri","simge":"banka","birimEtiket":"milyar euro","birim":0.2,"satirlar":[{"etiket":"Real Invest","metin":"2,4","deger":2.4},{"etiket":"İmmobilienfonds","metin":"1,3","deger":1.3}]}
 why_matters: "Avusturya'daki gayrimenkul fonlarının likidite sıkışıklığı ve para çekme sınırlamaları, Avrupa genelindeki faiz artışlarının piyasa üzerindeki etkisini gösteriyor."
 key_points:
   - "Bank Austria ve Erste Group Bank AG birimlerince yönetilen fonlar para çekme işlemlerini sınırladı."

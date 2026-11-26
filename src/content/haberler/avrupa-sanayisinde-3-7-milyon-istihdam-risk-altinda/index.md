@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Sanayinin istihdama katkısı"
     deger: "yüzde 29"
 tablo: {"baslik":"Sanayi şirketlerinde finansal sıkıntı oranı","sutunlar":["Yıl","Oran"],"satirlar":[["2023","yüzde 39"],["2024","yüzde 42"],["2025","yüzde 45"]]}
-grafik: {"baslik":"Finansal Stres Altındaki Sanayi Firmalarının Oranı","simge":"banka","birimEtiket":"yüzde","birim":2.5,"satirlar":[{"etiket":"2023","metin":"39","deger":39},{"etiket":"2024","metin":"42","deger":42},{"etiket":"2025","metin":"45","deger":45}]}
+grafik: {"baslik":"Finansal stres altındaki sanayi firmalarının oranı","simge":"banka","birimEtiket":"yüzde","birim":2.5,"satirlar":[{"etiket":"2023","metin":"39","deger":39},{"etiket":"2024","metin":"42","deger":42},{"etiket":"2025","metin":"45","deger":45}]}
 why_matters: "Avrupa ekonomisinin temelini oluşturan sanayi sektöründeki finansal kırılganlık, bölgenin istihdam ve ekonomik büyüme kapasitesini doğrudan etkileme potansiyeli taşıyor."
 key_points:
   - "Yaklaşık 3,7 milyon kişilik istihdam doğrudan risk altında."

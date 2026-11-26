@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Yasal net zarar"
     deger: "3,6 milyar avro"
 tablo: {"baslik":"Vergi öncesi kâr beklentisi (milyar avro)","sutunlar":["Dönem","Alt Sınır","Üst Sınır"],"satirlar":[["Eski Beklenti","13,0","13,3"],["Yeni Beklenti","13,2","13,4"]]}
-grafik: {"baslik":"Vergi Öncesi Kâr Beklentisi (Milyar Avro)","simge":"lira","birimEtiket":"Milyar Avro","birim":1,"satirlar":[{"etiket":"Eski Alt Sınır","metin":"13,0","deger":13},{"etiket":"Eski Üst Sınır","metin":"13,3","deger":13.3},{"etiket":"Yeni Alt Sınır","metin":"13,2","deger":13.2},{"etiket":"Yeni Üst Sınır","metin":"13,4","deger":13.4}]}
+grafik: {"baslik":"Vergi öncesi kâr beklentisi (milyar avro)","simge":"lira","birimEtiket":"Milyar Avro","birim":1,"satirlar":[{"etiket":"Eski Alt Sınır","metin":"13,0","deger":13},{"etiket":"Eski Üst Sınır","metin":"13,3","deger":13.3},{"etiket":"Yeni Alt Sınır","metin":"13,2","deger":13.2},{"etiket":"Yeni Üst Sınır","metin":"13,4","deger":13.4}]}
 why_matters: "Vodafone'un işten çıkarmalar ve konsolidasyon sonrası kâr hedeflerini yükseltmesi, telekomünikasyon sektöründeki maliyet yönetimi ve verimlilik arayışlarının bir göstergesi olarak öne çıkıyor."
 key_points:
   - "Avrupa genelinde 3.000 kişi işten çıkarıldı."

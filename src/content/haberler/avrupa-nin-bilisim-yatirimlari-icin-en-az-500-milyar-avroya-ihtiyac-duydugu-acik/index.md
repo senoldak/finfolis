@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "13 Kasım 2026"
   olay: "Diego Almada Lopez tarafından haberin yayımlanması"
-tablo: {"baslik":"Avrupa'nın Bilişim ve Çip Programları","sutunlar":["Program","Yatırım Tutarı"],"satirlar":[["Bilişim Yatırımı İhtiyacı","500 milyar avro"],["InvestAI","200 milyar avro"],["InvestAI Tesisi","20 milyar avro"],["AI Gigafaktories","30 milyar avro"],["Çip Tasarım Platformu","525 milyon avro"]]}
+tablo: {"baslik":"Avrupa'nın bilişim ve Çip programları","sutunlar":["Program","Yatırım Tutarı"],"satirlar":[["Bilişim Yatırımı İhtiyacı","500 milyar avro"],["InvestAI","200 milyar avro"],["InvestAI Tesisi","20 milyar avro"],["AI Gigafaktories","30 milyar avro"],["Çip Tasarım Platformu","525 milyon avro"]]}
 why_matters: "Avrupa'nın yapay zekâ ve çip açıklarını kapatmak için gereken büyük finansman ihtiyacını ve mevcut fonların bu hedefe ulaşmadaki yetersizliğini ortaya koyuyor."
 key_points:
   - "Avrupa'nın bilişim yatırımları için en az 500 milyar avroya ihtiyacı var."

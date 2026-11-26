@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 0,3"
   - etiket: "Sermaye harcamaları artışı"
     deger: "yüzde 527"
-tablo: {"baslik":"Tencent 2026 Üçüncü Çeyrek Finansal Sonuçları","sutunlar":["Kalem","Tutar (Milyar Yuan)","Değişim (Yıllık)"],"satirlar":[["Toplam Gelir","207,3","yüzde 8"],["Fintech ve İş Hizmetleri","63,6","yüzde 9,4"],["Net Kâr","65,1","yüzde 0,3"],["Sermaye Harcamaları","81,4","yüzde 527"]]}
+tablo: {"baslik":"Tencent 2026 üçüncü çeyrek finansal sonuçları","sutunlar":["Kalem","Tutar (Milyar Yuan)","Değişim (Yıllık)"],"satirlar":[["Toplam Gelir","207,3","yüzde 8"],["Fintech ve İş Hizmetleri","63,6","yüzde 9,4"],["Net Kâr","65,1","yüzde 0,3"],["Sermaye Harcamaları","81,4","yüzde 527"]]}
 why_matters: "ABD'nin teknoloji ihracat kısıtlamaları, Çinli teknoloji devlerinin yapay zekâ geliştirme süreçlerini ve tedarik zinciri stratejilerini etkiliyor."
 key_points:
   - "ABD, gelişmiş yapay zekâ işlemcileri için ihracat kısıtlamalarını genişletti."

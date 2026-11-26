@@ -16,7 +16,7 @@ rakamlar:
     deger: "15,48 milyon dolar"
   - etiket: "En yüksek vergi oranı"
     deger: "yüzde 37"
-tablo: {"baslik":"2026 ve 2027 Standart İndirim Tutarları","sutunlar":["Beyanname Türü","2026 Tutarı","2027 Tutarı"],"satirlar":[["Evli (Ortak)","32.200 dolar","33.200 dolar"],["Tek","16.100 dolar","16.600 dolar"]]}
+tablo: {"baslik":"2026 ve 2027 standart indirim tutarları","sutunlar":["Beyanname Türü","2026 Tutarı","2027 Tutarı"],"satirlar":[["Evli (Ortak)","32.200 dolar","33.200 dolar"],["Tek","16.100 dolar","16.600 dolar"]]}
 why_matters: "ABD'deki vergi dilimlerinin enflasyona göre güncellenmesi, yaşam maliyetlerindeki artışın vergi mükellefleri üzerindeki etkisini dengelemeyi amaçlamaktadır. Bu düzenleme, yatırımcıların sermaye kazancı planlarını ve bireylerin yıllık vergi yükümlülüklerini doğrudan etkilemektedir."
 key_points:
   - "Evli çiftler için standart indirim tutarı 33.200 dolara yükseldi."

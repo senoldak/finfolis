@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "6 Kasım 2026"
   olay: "Küresel piyasalardaki satış dalgası ve Hindistan borsasının ayrışan performansı izleniyor."
-grafik: {"baslik":"Yabancı Yatırımcı İşlemleri","simge":"lira","birimEtiket":"milyar dolar","birim":2,"satirlar":[{"etiket":"Yılbaşından Ekim'e Net Satış","metin":"31","deger":31},{"etiket":"Son Dört Gün Net Alım","metin":"2,3","deger":2.3}]}
+grafik: {"baslik":"Yabancı yatırımcı işlemleri","simge":"lira","birimEtiket":"milyar dolar","birim":2,"satirlar":[{"etiket":"Yılbaşından Ekim'e Net Satış","metin":"31","deger":31},{"etiket":"Son Dört Gün Net Alım","metin":"2,3","deger":2.3}]}
 why_matters: "Küresel yatırımcıların yapay zeka odaklı hisselerden çıkarak Hindistan gibi piyasalara yönelmesi, sermaye akışlarında bölgesel bir değişime işaret ediyor."
 key_points:
   - "Yabancı yatırımcılar son dört günde 2,3 milyar dolar net alım yaptı."

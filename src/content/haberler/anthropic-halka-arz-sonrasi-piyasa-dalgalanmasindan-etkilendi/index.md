@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "1 Ocak 2027"
   olay: "OpenAI şirketinin halka arz için hazır olabileceği öngörülen yılın başlangıcı"
-tablo: {"baslik":"Piyasa Hareketleri Karşılaştırması","sutunlar":["Varlık","Dönem","Değişim Oranı"],"satirlar":[["Anthropic (ANT)","20 Kasım 2026","yüzde -9"],["Nvidia","20 Kasım 2026","yüzde -14"],["VanEck Semiconductor ETF","Haftalık","yüzde -15"]]}
+tablo: {"baslik":"Piyasa hareketleri karşılaştırması","sutunlar":["Varlık","Dönem","Değişim Oranı"],"satirlar":[["Anthropic (ANT)","20 Kasım 2026","yüzde -9"],["Nvidia","20 Kasım 2026","yüzde -14"],["VanEck Semiconductor ETF","Haftalık","yüzde -15"]]}
 why_matters: "Anthropic'in halka arz sonrası performansı, yatırımcıların yüksek değerlemeli yapay zekâ şirketlerine karşı temkinli yaklaşımını ve piyasadaki fiyat keşfi sürecinin zorluğunu gösteriyor."
 key_points:
   - "Anthropic hisseleri ilk işlem gününde yüzde 9 değer kaybetti."

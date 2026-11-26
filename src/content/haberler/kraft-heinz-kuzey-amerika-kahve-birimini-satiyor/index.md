@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "2027 yılının ortaları"
   olay: "Anlaşmanın kapanışı"
-tablo: {"baslik":"Kraft Heinz Satış ve Beklenti Verileri","sutunlar":["Faaliyet / Kalem","Tutar / Oran"],"satirlar":[["Kahve Birimi İşletme Değeri","650 milyon dolar"],["Vergi Sonrası Nakit Gelir","500 milyon dolar"],["Kontrol Dışı Hisse Payı","yüzde 30"],["Dönüşüm Yatırımı","700 milyon dolar"]]}
+tablo: {"baslik":"Kraft Heinz satış ve beklenti verileri","sutunlar":["Faaliyet / Kalem","Tutar / Oran"],"satirlar":[["Kahve Birimi İşletme Değeri","650 milyon dolar"],["Vergi Sonrası Nakit Gelir","500 milyon dolar"],["Kontrol Dışı Hisse Payı","yüzde 30"],["Dönüşüm Yatırımı","700 milyon dolar"]]}
 why_matters: "Kraft Heinz'ın ana markalara odaklanmak için kahve birimini satması ve borç kapatma hamlesi, şirketin kapsamlı dönüşüm stratejisinin ve pazar performansını iyileştirme çabalarının önemli bir göstergesidir."
 key_points:
   - "Kraft Heinz kahve birimini 650 milyon dolara elden çıkarıyor."

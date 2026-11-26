@@ -7,7 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.Ihq8MwyrEBHAMs3X.x0NKPOSS4W1PWFZ1qy/usJFc/TczPhx/rnlJIUrLKrDXFikM4rUHZVqenNWQMw2idHGAVvneqNDfJJy+rfqJiOw+/lQKvuNCtEX/IOEriIY0NG4OqjNUznVlv4nC4+xlqZNUeHhGhpkouU/zCWR1K7kxtJNFZqKhESZgXo4f4XHRvizPS0QYwPt2jaV/8NwkT46R3svctme52Sk371AFCs+/YRNn8jLTZCYV0Yez0vlUB6aaA81ZHSy+P1ptjHaVePYt2Dt5zsRHpnTh9vBbc1wxypKoxFqSxaaSw1FaWrAPH/e6rRhOlF2z"
-tablo: {"baslik":"Öne Çıkan Şirketlerin Temettü Verileri","sutunlar":["Şirket","Temettü (Rupi)","Verim (%)"],"satirlar":[["Coal India","26,50","6,72"],["Gujarat Pipavav Port","10,40","6,45"],["REC","17,10","5,78"],["ONGC","13,25","5,76"],["PFC","18,75","5,69"],["TCS","112","4,49"],["HCL Tech","60","4,19"],["GAIL","5,50","2,96"]]}
+tablo: {"baslik":"Öne çıkan şirketlerin temettü verileri","sutunlar":["Şirket","Temettü (Rupi)","Verim (%)"],"satirlar":[["Coal India","26,50","6,72"],["Gujarat Pipavav Port","10,40","6,45"],["REC","17,10","5,78"],["ONGC","13,25","5,76"],["PFC","18,75","5,69"],["TCS","112","4,49"],["HCL Tech","60","4,19"],["GAIL","5,50","2,96"]]}
 why_matters: "Temettü verimi, hisse senedi yatırımcıları için fiyat artışından bağımsız olarak elde edilen düzenli nakit getirisini ölçen kritik bir göstergedir."
 cover: kapak.png
 coverAlt: "Asya · Hindistan borsasında en yüksek temettü verimine sahip şirketler"

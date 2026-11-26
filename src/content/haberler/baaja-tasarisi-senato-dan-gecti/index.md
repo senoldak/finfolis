@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 8-15"
   - etiket: "Sera gazı azaltımı (2040)"
     deger: "5-148 milyon ton"
-tablo: {"baslik":"Tasarının Öngörülen Etkileri (2040)","sutunlar":["Gösterge","Tahmin Aralığı"],"satirlar":[["Temiz enerji kapasitesi","17-249 gigawatt"],["Doğal gaz ihracat artışı","yüzde 8-15"],["Sera gazı azaltımı","5-148 milyon metrik ton"]]}
+tablo: {"baslik":"Tasarının öngörülen etkileri (2040)","sutunlar":["Gösterge","Tahmin Aralığı"],"satirlar":[["Temiz enerji kapasitesi","17-249 gigawatt"],["Doğal gaz ihracat artışı","yüzde 8-15"],["Sera gazı azaltımı","5-148 milyon metrik ton"]]}
 why_matters: "Enerji altyapısı ve izin süreçlerindeki bu değişiklikler, hem teknoloji sektörünün veri merkezi yatırımları hem de ülkenin uzun vadeli enerji üretim kapasitesi üzerinde belirleyici bir etkiye sahip olabilir."
 key_points:
   - "Senato, BAAJA tasarısını 62'ye karşı 33 oyla kabul etti."

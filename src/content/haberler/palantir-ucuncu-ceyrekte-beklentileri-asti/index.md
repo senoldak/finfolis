@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "10 Ekim 2026"
   olay: "Palantir üçüncü çeyrek sonuçlarını açıkladı"
-tablo: {"baslik":"Palantir Üçüncü Çeyrek Gelir Karşılaştırması","sutunlar":["Gelir Kalemi","Miktar"],"satirlar":[["Toplam Gelir","2,31 milyar dolar"],["ABD Ticari Gelir","984 milyon dolar"],["ABD Hükümet Geliri","953 milyon dolar"],["Net Kâr","1,13 milyar dolar"]]}
+tablo: {"baslik":"Palantir üçüncü çeyrek gelir karşılaştırması","sutunlar":["Gelir Kalemi","Miktar"],"satirlar":[["Toplam Gelir","2,31 milyar dolar"],["ABD Ticari Gelir","984 milyon dolar"],["ABD Hükümet Geliri","953 milyon dolar"],["Net Kâr","1,13 milyar dolar"]]}
 why_matters: "Palantir'in ticari gelirlerinin ilk kez hükümet gelirlerini geçmesi şirketin yapay zeka alanındaki büyümesini gösteriyor."
 key_points:
   - "ABD ticari geliri yüzde 148 artarak 984 milyon dolara ulaştı."

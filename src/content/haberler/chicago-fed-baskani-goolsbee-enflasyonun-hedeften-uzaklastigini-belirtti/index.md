@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "8 Aralık 2026"
   olay: "Federal Açık Piyasa Komitesi (FOMC) toplantısı başlayacak."
-tablo: {"baslik":"Üretici Fiyat Endeksi Değişimi","sutunlar":["Dönem","Aylık Değişim","Yıllık Değişim"],"satirlar":[["Ekim 2026","yüzde 0,3","yüzde 6,5"]]}
+tablo: {"baslik":"Üretici fiyat endeksi değişimi","sutunlar":["Dönem","Aylık Değişim","Yıllık Değişim"],"satirlar":[["Ekim 2026","yüzde 0,3","yüzde 6,5"]]}
 why_matters: "Fed yetkililerinin enflasyonun hedeften uzaklaştığına dair uyarıları, merkez bankasının fiyat istikrarını sağlamak için faiz artırım sürecinde atacağı adımların hızını etkileyebilir."
 key_points:
   - "Yıllık üretici enflasyonu yüzde 6,5 ile Kasım 2022'den bu yana en yüksek seviyeye çıktı."

@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 24"
   - etiket: "ABD Büyüme Oranı"
     deger: "yüzde 3,4"
-grafik: {"baslik":"Çin'de Enflasyon Göstergeleri (Ekim 2026)","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Üretici Enflasyonu","metin":"5,7","deger":5.7},{"etiket":"Tüketici Enflasyonu","metin":"0,7","deger":0.7},{"etiket":"Çekirdek Enflasyon","metin":"0,8","deger":0.8}]}
+grafik: {"baslik":"Çin'de enflasyon göstergeleri (Ekim 2026)","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Üretici Enflasyonu","metin":"5,7","deger":5.7},{"etiket":"Tüketici Enflasyonu","metin":"0,7","deger":0.7},{"etiket":"Çekirdek Enflasyon","metin":"0,8","deger":0.8}]}
 why_matters: "Açıklanan veriler, küresel ekonomideki maliyet baskılarını, şirketlerin finansal performanslarını ve teknoloji yatırımlarının ekonomik büyümeye etkisini göstermesi açısından önem taşıyor."
 key_points:
   - "Çin'de üretici enflasyonu ekim ayında yüzde 5,7'ye yükseldi."

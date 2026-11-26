@@ -15,7 +15,7 @@ rakamlar:
 sirada:
   tarih: "19 Kasım 2026"
   olay: "Petrol fiyatları Orta Doğu tedarik endişeleriyle yeniden yükselişe geçti"
-tablo: {"baslik":"Petrol Fiyatı Beklentileri (2027)","sutunlar":["Kurum","Tahmin (USD)"],"satirlar":[["Goldman Sachs (Ortalama)","88"],["Goldman Sachs (Yıl Sonu)","78"]]}
+tablo: {"baslik":"Petrol fiyatı beklentileri (2027)","sutunlar":["Kurum","Tahmin (USD)"],"satirlar":[["Goldman Sachs (Ortalama)","88"],["Goldman Sachs (Yıl Sonu)","78"]]}
 why_matters: "Orta Doğu'daki jeopolitik riskler petrol arzını tehdit ederken, piyasa analistleri küresel çapta arz fazlası oluşabileceğine dair beklentilerini koruyor; bu durum fiyatların yönü üzerinde belirleyici oluyor."
 key_points:
   - "Brent petrol 92,67 dolar, Batı Teksas türü ham petrol 83,06 dolar seviyesinde işlem gördü."

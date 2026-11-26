@@ -15,7 +15,7 @@ rakamlar:
 sirada:
   tarih: "17 Kasım 2026"
   olay: "Apple servislerinde yaşanan kesintiler ve ardından yapılan açıklamalar"
-grafik: {"baslik":"Downdetector Kullanıcı Bildirimleri","simge":"banka","birimEtiket":"bildirim","birim":200,"satirlar":[{"etiket":"Apple Pay","metin":"2.300","deger":2300},{"etiket":"iCloud","metin":"1.800","deger":1800}]}
+grafik: {"baslik":"Downdetector kullanıcı bildirimleri","simge":"banka","birimEtiket":"bildirim","birim":200,"satirlar":[{"etiket":"Apple Pay","metin":"2.300","deger":2300},{"etiket":"iCloud","metin":"1.800","deger":1800}]}
 why_matters: "Apple servislerinde yaşanan aksaklıklar kullanıcıların müşteri hizmetlerine erişimini geçici olarak etkiledi."
 key_points:
   - "Apple Pay ile ilgili yaklaşık 2.300 kullanıcı bildirimi kaydedildi."

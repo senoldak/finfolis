@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 13"
   - etiket: "Net kâr artışı"
     deger: "yüzde 27"
-grafik: {"baslik":"Ekim ayında BSE Borsasındaki Hisse Hareketleri","simge":"sepet","birimEtiket":"hisse","birim":200,"satirlar":[{"etiket":"Yükselen hisseler","metin":"2.399","deger":2399},{"etiket":"Düşen hisseler","metin":"2.709","deger":2709}]}
+grafik: {"baslik":"Ekim ayında BSE borsasındaki hisse hareketleri","simge":"sepet","birimEtiket":"hisse","birim":200,"satirlar":[{"etiket":"Yükselen hisseler","metin":"2.399","deger":2399},{"etiket":"Düşen hisseler","metin":"2.709","deger":2709}]}
 why_matters: "Piyasa genişliğinin düşmesi ve satış baskısının artması, yatırımcı güveninin zayıfladığını ve risk iştahının küresel gelişmelerle baskı altında kaldığını gösteriyor."
 key_points:
   - "Ekim ayında BSE borsasındaki advance-to-decline oranı 0,89'a geriledi."

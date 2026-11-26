@@ -20,7 +20,7 @@ sirada:
   tarih: "2027 yılının ilk yarısı"
   olay: "Yapay zeka destekli seyahat planlama aracının kullanıma sunulması."
 tablo: {"baslik":"Üçüncü çeyrek finansal karşılaştırma","sutunlar":["Gösterge","2026","2025"],"satirlar":[["Gelir (milyar dolar)","4,87","-"],["Hisse başına kazanç (dolar)","3,16","2,21"]]}
-grafik: {"baslik":"Üçüncü Çeyrek Büyüme Oranları","simge":"sepet","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"Gelir Artışı","metin":"19","deger":19},{"etiket":"Rezervasyon Artışı","metin":"16","deger":16}]}
+grafik: {"baslik":"Üçüncü çeyrek büyüme oranları","simge":"sepet","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"Gelir Artışı","metin":"19","deger":19},{"etiket":"Rezervasyon Artışı","metin":"16","deger":16}]}
 why_matters: "Airbnb'nin gelir tahminini yukarı yönlü revize etmesi, küresel seyahat talebinin jeopolitik belirsizliklere rağmen dirençli kaldığını gösteren bir piyasa göstergesi olarak değerlendiriliyor."
 key_points:
   - "2026 yılı gelir büyüme tahmini yukarı yönlü revize edildi."

@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "11 Kasım 2026"
   olay: "Nvidia yönetim kurulunun bağımsız incelemesine dair piyasa takibi ve olası resmi açıklamalar."
-tablo: {"baslik":"Piyasa Verileri Karşılaştırması","sutunlar":["Varlık","Fiyat","Günlük Değişim"],"satirlar":[["Nvidia (NVDA)","172 dolar","-yüzde 3,7"],["Bitcoin","74.594 dolar","-yüzde 0,2"],["Ethereum","2.089 dolar","-yüzde 1,7"],["Solana","85 dolar","-yüzde 2,6"]]}
+tablo: {"baslik":"Piyasa verileri karşılaştırması","sutunlar":["Varlık","Fiyat","Günlük Değişim"],"satirlar":[["Nvidia (NVDA)","172 dolar","-yüzde 3,7"],["Bitcoin","74.594 dolar","-yüzde 0,2"],["Ethereum","2.089 dolar","-yüzde 1,7"],["Solana","85 dolar","-yüzde 2,6"]]}
 why_matters: "Dünyanın en değerli şirketlerinden biri olan Nvidia'nın liderliği hakkındaki belirsizlikler, küresel yapay zeka çipi tedarik zincirini ve ABD'nin ulusal güvenlik politikalarını doğrudan etkileyebilir."
 key_points:
   - "Nvidia yönetim kurulu, Jensen Huang hakkında bağımsız bir soruşturma başlattı."

@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "2027 yılının ikinci yarısı"
   olay: "Üretim kapasitesinin 8 milyar dolarlık yıllık geliri destekleyecek seviyeye çıkarılması hedefleniyor."
-grafik: {"baslik":"Kurumsal Veri Segmenti Gelir Artışı","simge":"lira","birimEtiket":"milyon dolar","birim":50,"satirlar":[{"etiket":"2025 3. Çeyrek","metin":"191,5","deger":191.5},{"etiket":"2026 3. Çeyrek","metin":"506,7","deger":506.7}]}
+grafik: {"baslik":"Kurumsal Veri segmenti gelir artışı","simge":"lira","birimEtiket":"milyon dolar","birim":50,"satirlar":[{"etiket":"2025 3. Çeyrek","metin":"191,5","deger":191.5},{"etiket":"2026 3. Çeyrek","metin":"506,7","deger":506.7}]}
 why_matters: "Monolithic Power'ın ürettiği güç yönetimi çipleri, yapay zekâ altyapısının temel bileşenlerinden biri olduğu için şirketin satış rakamları, yapay zekâ yatırımlarının hızına dair önemli bir gösterge kabul ediliyor."
 key_points:
   - "Şirket, 2026 üçüncü çeyreğinde 1,202 milyar dolar gelirle rekor kırdı."

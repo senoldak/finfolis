@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "24 Ekim 2026"
   olay: "Piyasa verileri ve endeks düşüşleri güncellendi."
-grafik: {"baslik":"Haftalık Endeks Düşüşleri","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Nifty Midcap 150","metin":"5,26","deger":5.26},{"etiket":"Nifty Smallcap 250","metin":"7,10","deger":7.1}]}
+grafik: {"baslik":"Haftalık endeks düşüşleri","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Nifty Midcap 150","metin":"5,26","deger":5.26},{"etiket":"Nifty Smallcap 250","metin":"7,10","deger":7.1}]}
 why_matters: "Küçük ve orta ölçekli hisselerdeki bu sert düşüş, bireysel yatırımcıların yöneldiği son güvenli alanlarda da risk iştahının azaldığını gösteriyor."
 key_points:
   - "Nifty Midcap 150 endeksi haftalık yüzde 5,26 düştü."

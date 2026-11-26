@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Şubat 2027"
   olay: "Acil durum rezervlerinden 71 milyon varil petrolün piyasaya sunulmasının tamamlanması."
-tablo: {"baslik":"Petrol Fiyatları ve Değişim Oranları","sutunlar":["Petrol Türü","Fiyat (Dolar)","Değişim (Yüzde)"],"satirlar":[["Brent","95,37","-0,49"],["WTI","88,33","-0,26"]]}
+tablo: {"baslik":"Petrol fiyatları ve değişim oranları","sutunlar":["Petrol Türü","Fiyat (Dolar)","Değişim (Yüzde)"],"satirlar":[["Brent","95,37","-0,49"],["WTI","88,33","-0,26"]]}
 grafik: {"baslik":"Petrol fiyatlarında günlük değişim","simge":"lira","birimEtiket":"yüzde","birim":0.025,"satirlar":[{"etiket":"Brent petrol","metin":"0,49","deger":0.49},{"etiket":"WTI ham petrol","metin":"0,26","deger":0.26}]}
 why_matters: "Piyasanın arz sıkışıklığından arz fazlasına dönme beklentisi, Orta Doğu'daki sevkiyatların toparlanması ve ABD'nin lojistik düzenlemeleriyle birleşerek küresel enerji piyasasında fiyat baskısını hafifletiyor."
 key_points:

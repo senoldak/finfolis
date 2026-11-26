@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Ocak 2027"
   olay: "Temettü ödemesinin ilk taksiti yapılacak."
-tablo: {"baslik":"Segmentlerin Finansal Performansı","sutunlar":["Segment","Gelir (Milyar $)","Artış (%)"],"satirlar":[["Eğlence","11,9","17"],["Deneyimler","10,1","15"],["Spor","4,6","16"]]}
+tablo: {"baslik":"Segmentlerin finansal performansı","sutunlar":["Segment","Gelir (Milyar $)","Artış (%)"],"satirlar":[["Eğlence","11,9","17"],["Deneyimler","10,1","15"],["Spor","4,6","16"]]}
 why_matters: "Şirketin gelir ve kâr verilerinin beklentileri aşması ve gelecek dönem için içerik yatırımlarını artırma kararı, medya ve eğlence sektöründeki stratejik yönelimleri göstermesi açısından önem taşıyor."
 key_points:
   - "Hisse başına kâr 1,77 dolar olarak gerçekleşti."

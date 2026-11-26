@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "10 Ekim 2026"
   olay: "Süper Zekâ Gücü'nün faaliyetleri ve rapor süreçleri devam ediyor."
-grafik: {"baslik":"Hisse Senedi Hareketleri","simge":"banka","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"CSI 300 Endeksi Düşüşü","metin":"3,4","deger":3.4},{"etiket":"Zirveden Uzaklık","metin":"17","deger":17}]}
+grafik: {"baslik":"Hisse senedi hareketleri","simge":"banka","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"CSI 300 Endeksi Düşüşü","metin":"3,4","deger":3.4},{"etiket":"Zirveden Uzaklık","metin":"17","deger":17}]}
 why_matters: "Küresel piyasalardaki hareketlilik, çip talebi endişeleri ve yapay zeka alanındaki yeni idari yapılanmalar ekonomik dengeleri etkiliyor."
 key_points:
   - "Çin'in CSI 300 Endeksi beş seanslık dönemde yüzde 3,4 geriledi."

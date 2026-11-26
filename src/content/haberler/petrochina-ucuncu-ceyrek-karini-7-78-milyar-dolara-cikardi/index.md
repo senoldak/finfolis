@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "28 Ekim 2026"
   olay: "Şirketin borsa bildirimi"
-tablo: {"baslik":"PetroChina Finansal ve Operasyonel Özet","sutunlar":["Veri Türü","Miktar / Değer","Değişim"],"satirlar":[["3. Çeyrek Net Kâr","51,84 milyar yuan","yüzde 21,6"],["9 Aylık Net Kâr","155,78 milyar yuan","yüzde 21,9"],["9 Aylık Ham Petrol Üretimi","698,6 milyon varil","yüzde -2,2"],["Rafineri İşleme Hacmi","3,67 milyon bpd","yüzde -3,7"]]}
+tablo: {"baslik":"PetroChina finansal ve operasyonel özet","sutunlar":["Veri Türü","Miktar / Değer","Değişim"],"satirlar":[["3. Çeyrek Net Kâr","51,84 milyar yuan","yüzde 21,6"],["9 Aylık Net Kâr","155,78 milyar yuan","yüzde 21,9"],["9 Aylık Ham Petrol Üretimi","698,6 milyon varil","yüzde -2,2"],["Rafineri İşleme Hacmi","3,67 milyon bpd","yüzde -3,7"]]}
 why_matters: "Asya'nın en büyük enerji üreticisinin kâr artışı, bölgesel savaşların enerji fiyatları üzerindeki etkisini ve Çin'deki elektrikli araç dönüşümünün geleneksel yakıt talebi üzerindeki baskısını göstermektedir."
 key_points:
   - "Üçüncü çeyrek net kârı yüzde 21,6 artışla 7,78 milyar dolara ulaştı."

@@ -63,3 +63,14 @@ test('ara başlık: yalnız cümle başında geçen gerçek ad küçültülmez (
   const g = '### İthalatta Rusya ve Ukrayna Öne Çıktı\n\nİthalat arttı. Ukrayna payını büyüttü. Rusya ilk sırada kaldı.';
   assert.match(araBasliklariDuzenle(g), /^### İthalatta Rusya ve Ukrayna öne çıktı$/m);
 });
+
+test('ara başlık: özel addan türeyen kelime büyük kalır (Güney Koreli)', () => {
+  const g = "## Güney Koreli Gemi İnşa Şirketleri\n\nGüney Kore'nin tersaneleri kâr açıkladı.";
+  assert.match(araBasliklariDuzenle(g), /^## Güney Koreli gemi inşa şirketleri$/m);
+});
+
+test('ara başlık: metinde geçen ikili ad ve yıl izleyen ay büyük kalır', () => {
+  const g = '## Euro Bölgesi Verileri ve Federal Rezerv Anketi (Ekim 2026)\n\nEuro Bölgesi büyüdü. Bu anket Federal Rezerv tarafından yapıldı.';
+  assert.match(araBasliklariDuzenle(g), /^## Euro Bölgesi verileri ve Federal Rezerv anketi \(Ekim 2026\)$/m);
+  assert.match(araBasliklariDuzenle('## Ekim Ayı Bütçe Verileri Açıklandı\n\nVeri açıklandı.'), /^## Ekim ayı bütçe verileri açıklandı$/m);
+});

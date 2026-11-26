@@ -16,7 +16,7 @@ rakamlar:
     deger: "3 milyon ton"
   - etiket: "LNG Canada kapasitesi"
     deger: "28 milyon ton"
-tablo: {"baslik":"LNG Kapasite ve Anlaşma Verileri","sutunlar":["Proje veya Anlaşma","Kapasite veya Miktar","Başlangıç"],"satirlar":[["LNG Canada 2. Faz","28 milyon ton","Eylül 2026"],["KatarEnergy Alımı","3 milyon ton","2030"]]}
+tablo: {"baslik":"LNG kapasite ve anlaşma verileri","sutunlar":["Proje veya Anlaşma","Kapasite veya Miktar","Başlangıç"],"satirlar":[["LNG Canada 2. Faz","28 milyon ton","Eylül 2026"],["KatarEnergy Alımı","3 milyon ton","2030"]]}
 why_matters: "Enerji güvenliğinin öncelik kazanması, ülkelerin enerji altyapılarına yönelik yatırım tercihlerini değiştirerek küresel tedarik zincirlerinde coğrafi çeşitliliğe ve arz güvenliğine dayalı yeni bir dönemi başlatıyor."
 key_points:
   - "İran ile yaşanan savaş, enerji tedarik zincirlerindeki kırılganlıkları artırdı."

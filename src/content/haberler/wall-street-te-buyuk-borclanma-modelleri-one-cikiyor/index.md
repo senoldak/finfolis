@@ -16,7 +16,7 @@ rakamlar:
     deger: "1,9 trilyon dolar"
   - etiket: "Sunulan getiri oranı"
     deger: "yüzde 9"
-grafik: {"baslik":"Skydance Borçlanma Yapısı","simge":"sepet","birimEtiket":"milyar dolar","birim":5,"satirlar":[{"etiket":"Toplam İşlem","metin":"52","deger":52},{"etiket":"Yatırım Yapılabilir Tahvil","metin":"30","deger":30}]}
+grafik: {"baslik":"Skydance borçlanma yapısı","simge":"sepet","birimEtiket":"milyar dolar","birim":5,"satirlar":[{"etiket":"Toplam İşlem","metin":"52","deger":52},{"etiket":"Yatırım Yapılabilir Tahvil","metin":"30","deger":30}]}
 why_matters: "Morgan Stanley'e göre bu karma borçlanma yapısı, büyük satın almalar için ihtiyaç duyulan sermayeyi sağlarken kredi piyasalarındaki yöntemlerin değiştiğini gösteriyor."
 key_points:
   - "Skydance'in 52 milyar dolarlık borçlanma işlemi, gelecekteki büyük finansmanlar için model oluşturuyor."

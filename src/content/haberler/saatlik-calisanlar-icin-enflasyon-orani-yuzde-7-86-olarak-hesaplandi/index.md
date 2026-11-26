@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "3 Kasım 2026"
   olay: "10 eyalette yerel oylamalar gerçekleştirildi"
-grafik: {"baslik":"Harcama Kategorilerinde Yıllık Artış","simge":"sepet","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Borç faizi","metin":"21","deger":21},{"etiket":"Sigorta primleri","metin":"12","deger":12},{"etiket":"Ulaşım","metin":"11","deger":11},{"etiket":"Kira veya konut kredisi","metin":"3","deger":3},{"etiket":"Gıda","metin":"3","deger":3}]}
+grafik: {"baslik":"Harcama kategorilerinde yıllık artış","simge":"sepet","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Borç faizi","metin":"21","deger":21},{"etiket":"Sigorta primleri","metin":"12","deger":12},{"etiket":"Ulaşım","metin":"11","deger":11},{"etiket":"Kira veya konut kredisi","metin":"3","deger":3},{"etiket":"Gıda","metin":"3","deger":3}]}
 why_matters: "Resmi enflasyon verileri ile saatlik çalışanların gerçek yaşam maliyetleri arasındaki fark, hanehalkı bütçeleri ve tüketici davranışları üzerinde belirleyici bir etkiye sahip."
 key_points:
   - "Saatlik çalışanlar için hesaplanan enflasyon oranı yüzde 7,86 seviyesinde."

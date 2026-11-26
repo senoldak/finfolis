@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "2027"
   olay: "İç hat uçuşlarında yüzde 4 oranında kapasite azaltımı uygulanacak."
-tablo: {"baslik":"Qantas Finansal Performans Karşılaştırması","sutunlar":["Kalem","Değer"],"satirlar":[["Toplam Gelir","25,5 milyar dolar"],["Vergi Öncesi Kâr","2,1 milyar dolar"],["Net Kâr","1,3 milyar dolar"]]}
+tablo: {"baslik":"Qantas finansal performans karşılaştırması","sutunlar":["Kalem","Değer"],"satirlar":[["Toplam Gelir","25,5 milyar dolar"],["Vergi Öncesi Kâr","2,1 milyar dolar"],["Net Kâr","1,3 milyar dolar"]]}
 grafik: {"baslik":"Brent ham petrol varil fiyatı değişimi","simge":"sepet","birimEtiket":"ABD doları","birim":5,"satirlar":[{"etiket":"Şubat 2026 öncesi","metin":"60","deger":60},{"etiket":"Güncel","metin":"100","deger":100}]}
 why_matters: "Havayolu şirketlerinin artan yakıt maliyetlerini bilet fiyatlarına yansıtması ve uçuş kapasitelerini düşürmesi, hem seyahat maliyetlerini hem de uçuş seçeneklerini doğrudan etkileyen bir piyasa gelişmesidir."
 key_points:

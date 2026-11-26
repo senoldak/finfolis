@@ -20,7 +20,7 @@ sirada:
   tarih: "13 Kasım 2026"
   olay: "Baird yatırımcı etkinliğinde 2027 mali yılı beklentileri açıklandı."
 tablo: {"baslik":"TE Connectivity 2026 mali yılı büyüme oranları","sutunlar":["Gösterge","Değişim Oranı"],"satirlar":[["Net satışlar (raporlanan)","yüzde 15"],["Net satışlar (organik)","yüzde 12"],["Düzeltilmiş hisse başına kazanç","yüzde 24"],["Toplam siparişler","yüzde 27"],["DDN birimi siparişleri","yüzde 70"]]}
-grafik: {"baslik":"2026 Mali Yılı Finansal Büyüme","simge":"lira","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Net Satış Artışı","metin":"15","deger":15},{"etiket":"Organik Satış Artışı","metin":"12","deger":12},{"etiket":"Hisse Başına Kazanç Artışı","metin":"24","deger":24},{"etiket":"Toplam Sipariş Artışı","metin":"27","deger":27}]}
+grafik: {"baslik":"2026 mali yılı finansal büyüme","simge":"lira","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Net Satış Artışı","metin":"15","deger":15},{"etiket":"Organik Satış Artışı","metin":"12","deger":12},{"etiket":"Hisse Başına Kazanç Artışı","metin":"24","deger":24},{"etiket":"Toplam Sipariş Artışı","metin":"27","deger":27}]}
 why_matters: "TE Connectivity'nin yapay zekâ veri merkezlerine yönelik iş hacminin büyümesi, donanım ve bağlantı altyapısı sektörünün yapay zekâ yatırımlarından nasıl pay aldığını göstermesi açısından önem taşıyor."
 key_points:
   - "2026 mali yılı net satışları 19,9 milyar dolar olarak gerçekleşti."

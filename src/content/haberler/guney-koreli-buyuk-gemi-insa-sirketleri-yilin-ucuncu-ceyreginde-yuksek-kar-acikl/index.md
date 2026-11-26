@@ -7,7 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.Gd91d6n4QsPszzj9.FSAgWG7xrGcnkD1zM558zzdzScKSae4wXmLegLtx78GhXS2VciGScK93Bs+KCq83ixvUe8qR2ytWVdNEiJFa4mDWB75fWvjLmwWRznCUh/VKjs38uwbGLT/rfN+1wdCKbbyeYv5UjgxaDTuimGuJeKnKR9Ifli+Zt7Ol0KfKWwExD1IJ08NFTXuKo4EBmaDpPogLZfFa6Ad6yZ1xTQq+O5S4bJM="
-tablo: {"baslik":"Güney Koreli Gemi İnşa Şirketlerinin Üçüncü Çeyrek Faaliyet Kârları","sutunlar":["Şirket","Faaliyet Kârı (Kore Wonu)","Yıllık Artış"],"satirlar":[["Samsung Heavy Industries","338,4 milyar","yüzde 42,1"],["HD Korea Shipbuilding & Offshore Engineering","1,4472 trilyon","yüzde 37,3"],["Hanwha Ocean","485,7 milyar","yüzde 67,6"]]}
+tablo: {"baslik":"Güney Koreli gemi inşa şirketlerinin üçüncü çeyrek faaliyet kârları","sutunlar":["Şirket","Faaliyet Kârı (Kore Wonu)","Yıllık Artış"],"satirlar":[["Samsung Heavy Industries","338,4 milyar","yüzde 42,1"],["HD Korea Shipbuilding & Offshore Engineering","1,4472 trilyon","yüzde 37,3"],["Hanwha Ocean","485,7 milyar","yüzde 67,6"]]}
 why_matters: "Güney Koreli büyük gemi inşa şirketlerinin kârlılıklarını sürdürmesi, küresel deniz ticaretinde yüksek katma değerli gemi talebinin ve maliyet yönetimi dinamiklerinin sektör üzerindeki etkisini göstermesi açısından önem taşıyor."
 cover: kapak.png
 coverAlt: "Küresel · Güney Koreli büyük gemi inşa şirketleri yılın üçüncü çeyreğinde yüksek kâr açıkladı"

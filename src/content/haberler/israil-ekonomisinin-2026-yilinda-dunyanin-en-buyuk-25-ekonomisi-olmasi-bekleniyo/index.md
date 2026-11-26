@@ -7,7 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.1DGC2RCHCHCsgR+8.49hY6ZMx/WYZLm516mHSsHg6oy5YvA7K7e1bJjZ8sp3tNxLP1NihiSg8iQ3UmGF9Z/3rTBwKzTbfVmNCqdA1962UqOWco7h+HY7+ywSt4DX5htwTqXWeI+bRTcAQQ9LH1uBsRA6kIB09iSvPKxYsXtMJPylaG0rhAyJ+J+TPLADLIrTOuVfMjt2cgPDrRbo05RZjqDlyXsNUxf+NvymOdMOQMsTHz2cN7dMMLn9bQ15Gzg=="
-tablo: {"baslik":"Araştırma ve Geliştirme Harcamalarının GSYİH İçindeki Payı","sutunlar":["Bölge veya Ülke","Yıl","Oran"],"satirlar":[["İsrail","2024","yüzde 6,8"],["Avrupa Birliği","2024","yüzde 2,3"]]}
+tablo: {"baslik":"Araştırma ve geliştirme harcamalarının GSYİH içindeki payı","sutunlar":["Bölge veya Ülke","Yıl","Oran"],"satirlar":[["İsrail","2024","yüzde 6,8"],["Avrupa Birliği","2024","yüzde 2,3"]]}
 why_matters: "İsrail'in teknoloji odaklı büyüme modeli ve araştırma yatırımları, Avrupa'nın üretkenliği artırma ve inovasyonu ticari başarıya dönüştürme çabaları açısından örnek oluşturuyor."
 cover: kapak.png
 coverAlt: "Avrupa · İsrail ekonomisinin 2026 yılında dünyanın en büyük 25. ekonomisi olması bekleniyor"

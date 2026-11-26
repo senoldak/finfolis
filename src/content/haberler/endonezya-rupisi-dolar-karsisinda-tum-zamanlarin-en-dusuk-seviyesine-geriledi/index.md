@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "30 Haziran 2027"
   olay: "MSCI'nın Endonezya için sınıflandırma kararını açıklaması bekleniyor."
-tablo: {"baslik":"Rupi Döviz Kuru Karşılaştırması","sutunlar":["Dönem","Dolar/Rupi Seviyesi"],"satirlar":[["12 Kasım 2026","18.241"],["Haziran 2026","18.190"]]}
+tablo: {"baslik":"Rupi döviz kuru karşılaştırması","sutunlar":["Dönem","Dolar/Rupi Seviyesi"],"satirlar":[["12 Kasım 2026","18.241"],["Haziran 2026","18.190"]]}
 why_matters: "Asya'nın en kötü performans gösteren para birimi olan rupideki bu düşüş, gelişmekte olan piyasalardan sermaye çıkışını hızlandırabilir ve bölge ekonomilerinde finansal istikrar üzerinde baskı oluşturabilir."
 key_points:
   - "Endonezya rupisi 18.241 seviyesiyle tarihi en düşük noktasına ulaştı."

@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 80"
   - etiket: "Woojin payı"
     deger: "yüzde 20"
-tablo: {"baslik":"Jupiter Wagons Hisse Performansı","sutunlar":["Dönem","Değişim (Yüzde)"],"satirlar":[["Son 2 gün","30"],["Son 1 ay","39"],["Son 5 yıl","629"]]}
+tablo: {"baslik":"Jupiter Wagons hisse performansı","sutunlar":["Dönem","Değişim (Yüzde)"],"satirlar":[["Son 2 gün","30"],["Son 1 ay","39"],["Son 5 yıl","629"]]}
 grafik: {"baslik":"Jupiter Wagons hisselerinin iki günlük yükselişi","simge":"lira","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"Önceki gün","metin":"20","deger":20},{"etiket":"26 Kasım Perşembe","metin":"8,5","deger":8.5}]}
 why_matters: "Bu ortaklık, Jupiter Wagons'ın teknoloji yoğunluklu itki sistemleri pazarına girişini sağlayarak Vande Bharat gibi önemli demiryolu projelerinde rol almasının önünü açıyor."
 key_points:

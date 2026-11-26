@@ -16,7 +16,7 @@ rakamlar:
     deger: "2,9 milyar dolar"
   - etiket: "Katılımcı Banka Sayısı"
     deger: "37"
-tablo: {"baslik":"COP31 Kapsamındaki Finansman ve İşbirliği Detayları","sutunlar":["Kurum","Tutar","Kullanım Alanı"],"satirlar":[["Sendikasyon Grubu (37 Banka)","1,1 milyar dolar","Yeşil varlıklar ve sürdürülebilir tarım"],["KfW IPEX-Bank","500 milyon avro","Rüzgar enerjisi ve yeşil dönüşüm"],["JICA ve SMBC Group","300 milyon dolar","Sürdürülebilir tarım ve kırsal kalkınma"],["Citibank","100 milyon dolar","Sosyal içerikli tarım projeleri"]]}
+tablo: {"baslik":"COP31 kapsamındaki finansman ve İşbirliği detayları","sutunlar":["Kurum","Tutar","Kullanım Alanı"],"satirlar":[["Sendikasyon Grubu (37 Banka)","1,1 milyar dolar","Yeşil varlıklar ve sürdürülebilir tarım"],["KfW IPEX-Bank","500 milyon avro","Rüzgar enerjisi ve yeşil dönüşüm"],["JICA ve SMBC Group","300 milyon dolar","Sürdürülebilir tarım ve kırsal kalkınma"],["Citibank","100 milyon dolar","Sosyal içerikli tarım projeleri"]]}
 why_matters: "Bu finansman paketi, Türkiye'nin yeşil dönüşüm hedefleri doğrultusunda yenilenebilir enerji ve sürdürülebilir tarım projelerine uluslararası piyasalardan kaynak aktarılmasını sağlıyor."
 cover: kapak.png
 coverAlt: "Küresel · Ziraat Bankası COP31 kapsamında 2 milyar dolarlık finansman paketi açıkladı"

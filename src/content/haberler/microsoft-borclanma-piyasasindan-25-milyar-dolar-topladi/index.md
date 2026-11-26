@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "4 Kasım 2026"
   olay: "Tahvil ihracının kapanması"
-tablo: {"baslik":"Tahvil İhracı Karşılaştırması","sutunlar":["Yıl","İhraç Tutarı (Milyar Dolar)"],"satirlar":[["2025","93,3"],["2026","182"]]}
+tablo: {"baslik":"Tahvil ihracı karşılaştırması","sutunlar":["Yıl","İhraç Tutarı (Milyar Dolar)"],"satirlar":[["2025","93,3"],["2026","182"]]}
 why_matters: "Microsoft'un yapay zeka altyapısı için borçlanması, teknoloji sektöründeki büyük bulut sağlayıcılarının artan sermaye ihtiyacını ve borçlanma piyasalarını nasıl kullandıklarını gösteriyor."
 key_points:
   - "Tahvil ihracı 25 milyar dolar büyüklüğünde gerçekleşti."

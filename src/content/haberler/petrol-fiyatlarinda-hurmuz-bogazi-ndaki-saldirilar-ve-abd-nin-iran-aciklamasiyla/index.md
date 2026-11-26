@@ -12,7 +12,7 @@ rakamlar:
     deger: "117,56 dolar"
   - etiket: "Batı Teksas Türü Ham Petrol"
     deger: "104,17 dolar"
-tablo: {"baslik":"Petrol Göstergeleri Fiyat Değişimleri","sutunlar":["Petrol Türü","Fiyat (Dolar)","Günlük Değişim (Yüzde)"],"satirlar":[["Brent","117,56","2,37"],["Batı Teksas türü","104,17","2,13"]]}
+tablo: {"baslik":"Petrol göstergeleri fiyat değişimleri","sutunlar":["Petrol Türü","Fiyat (Dolar)","Günlük Değişim (Yüzde)"],"satirlar":[["Brent","117,56","2,37"],["Batı Teksas türü","104,17","2,13"]]}
 why_matters: "Hürmüz Boğazı'ndaki saldırılar ve ABD'nin İran'a yönelik olası hamleleri, küresel petrol arzı endişelerini artırarak fiyatların yükselmesine neden oluyor."
 key_points:
   - "Brent petrolünün varil fiyatı 117,56 dolar oldu."

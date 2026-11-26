@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 3,2"
   - etiket: "ABD Ham Petrol Vadeli İşlemleri"
     deger: "yüzde 2,7"
-tablo: {"baslik":"Şirket Hisse Değişimleri","sutunlar":["Şirket","Değişim (Yüzde)"],"satirlar":[["Gildan Activewear","-18,9"],["Celestica","-12,7"],["Sun Life Financial","-10,2"],["Bombardier","-8,4"],["Canadian Natural Resources","-1,0"]]}
+tablo: {"baslik":"Şirket hisse değişimleri","sutunlar":["Şirket","Değişim (Yüzde)"],"satirlar":[["Gildan Activewear","-18,9"],["Celestica","-12,7"],["Sun Life Financial","-10,2"],["Bombardier","-8,4"],["Canadian Natural Resources","-1,0"]]}
 grafik: {"baslik":"Sektörel düşüş oranları","simge":"sepet","birimEtiket":"yüzde","birim":0.2,"satirlar":[{"etiket":"Teknoloji","metin":"3,8","deger":3.8},{"etiket":"Finans","metin":"3,2","deger":3.2},{"etiket":"Tüketici Ürünleri","metin":"2,9","deger":2.9},{"etiket":"Enerji","metin":"2,5","deger":2.5},{"etiket":"Sanayi","metin":"1,9","deger":1.9}]}
 why_matters: "ABD teknoloji piyasalarındaki düzenleme endişeleri ve sektör rotasyonu, Kanada borsasında geniş çaplı bir değer kaybına yol açarak yatırımcı duyarlılığını etkiledi."
 key_points:

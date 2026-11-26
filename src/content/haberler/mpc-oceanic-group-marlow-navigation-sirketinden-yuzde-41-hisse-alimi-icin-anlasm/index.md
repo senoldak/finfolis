@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "05 Kasım 2026"
   olay: "Mpc Oceanic Group AG ile Marlow Navigation Co. Ltd. arasında hisse alım anlaşmasının imzalanması"
-tablo: {"baslik":"Marlow Navigation Faaliyet Büyüklükleri","sutunlar":["Faaliyet Alanı","Ölçü Birimi / Sayı"],"satirlar":[["Ülke Sayısı","13"],["Karadaki Çalışan","1.300"],["Görev Yapan Denizci","16.000"],["Hizmet Verilen Gemi","1.150"]]}
+tablo: {"baslik":"Marlow Navigation faaliyet büyüklükleri","sutunlar":["Faaliyet Alanı","Ölçü Birimi / Sayı"],"satirlar":[["Ülke Sayısı","13"],["Karadaki Çalışan","1.300"],["Görev Yapan Denizci","16.000"],["Hizmet Verilen Gemi","1.150"]]}
 why_matters: "Mpc Oceanic Group'un Marlow Navigation'daki hisse alımı, denizcilik ve gemi yönetimi sektöründe iki önemli aktörün ortaklık kurması ve sermaye yapısının değişmesi bakımından önem taşıyor."
 key_points:
   - "Mpc Oceanic Group, Marlow Navigation şirketinin yüzde 41 hissesini satın almak için anlaşma imzaladı."

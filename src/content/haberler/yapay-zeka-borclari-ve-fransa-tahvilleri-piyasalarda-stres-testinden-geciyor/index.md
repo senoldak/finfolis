@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "23 Ekim 2026"
   olay: "Moody's, Fransa'nın Aa3 egemen kredi notunu gözden geçirecek."
-grafik: {"baslik":"Beş Yıllık Kredi Temerrüt Takas Primi Değişimleri","simge":"banka","birimEtiket":"baz puan","birim":100,"satirlar":[{"etiket":"CoreWeave","metin":"1.065,84","deger":1065.84},{"etiket":"SoftBank","metin":"432","deger":432},{"etiket":"Oracle","metin":"308,25","deger":308.25},{"etiket":"Fransa","metin":"89,8","deger":89.8},{"etiket":"İtalya","metin":"67,1","deger":67.1}]}
+grafik: {"baslik":"Beş yıllık kredi temerrüt takas primi değişimleri","simge":"banka","birimEtiket":"baz puan","birim":100,"satirlar":[{"etiket":"CoreWeave","metin":"1.065,84","deger":1065.84},{"etiket":"SoftBank","metin":"432","deger":432},{"etiket":"Oracle","metin":"308,25","deger":308.25},{"etiket":"Fransa","metin":"89,8","deger":89.8},{"etiket":"İtalya","metin":"67,1","deger":67.1}]}
 why_matters: "Yapay zeka altyapısına yönelik finansman maliyetlerinin artması ve Fransa gibi ülkelerin kamu borcu sarmalına girmesi, küresel kredi piyasalarındaki risk algısını geniş bir alanda yukarı çekiyor."
 key_points:
   - "CoreWeave'in beş yıllık kredi temerrüt takas primi 21 Ekim 2026 tarihinde 1.065,84 baz puana ulaştı."

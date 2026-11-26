@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 60"
   - etiket: "Alphabet günlük değer kaybı"
     deger: "500 milyar dolar"
-grafik: {"baslik":"Teknoloji Hisselerinde Günlük Değer Kaybı","simge":"lira","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"TSLA","metin":"11,2","deger":11.2},{"etiket":"COIN","metin":"10,2","deger":10.2},{"etiket":"NVDA","metin":"7,3","deger":7.3},{"etiket":"MSFT","metin":"2,4","deger":2.4},{"etiket":"AAPL","metin":"1,2","deger":1.2}]}
+grafik: {"baslik":"Teknoloji hisselerinde günlük değer kaybı","simge":"lira","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"TSLA","metin":"11,2","deger":11.2},{"etiket":"COIN","metin":"10,2","deger":10.2},{"etiket":"NVDA","metin":"7,3","deger":7.3},{"etiket":"MSFT","metin":"2,4","deger":2.4},{"etiket":"AAPL","metin":"1,2","deger":1.2}]}
 why_matters: "S&P 500 endeksinin piyasa değerine göre ağırlıklandırılması, büyük şirketlerin performansının piyasadaki yaygın zayıflığı gizleyebileceğini gösteriyor. Yatırımcıların yapay zeka harcamalarına yönelik şüpheleri, teknoloji sektöründeki hisse senetleri üzerinde baskı oluşturuyor."
 key_points:
   - "S&P 500 endeksinde 6 Ekim 2026'dan bu yana 4 trilyon dolarlık piyasa değeri kaybı yaşandı."

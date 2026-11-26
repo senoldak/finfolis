@@ -20,7 +20,7 @@ sirada:
   tarih: "Kasım 2026"
   olay: "Ohio eyaletinde veri merkezi kısıtlamalarını içeren 21 yerel oylamanın onaylanması"
 tablo: {"baslik":"Ohio veri merkezi yatırımları","sutunlar":["Kategori","Tutar"],"satirlar":[["Hedeflenen yatırım","23 milyar dolar"],["Risk altındaki projeler","17 milyar dolar"]]}
-grafik: {"baslik":"Ohio Yatırım Hedefleri ve Risk Altındaki Projeler","simge":"lira","birimEtiket":"milyar dolar","birim":2,"satirlar":[{"etiket":"Toplam 2030 Hedefi","metin":"23","deger":23},{"etiket":"Risk Altındaki Projeler","metin":"17","deger":17}]}
+grafik: {"baslik":"Ohio yatırım hedefleri ve risk altındaki projeler","simge":"lira","birimEtiket":"milyar dolar","birim":2,"satirlar":[{"etiket":"Toplam 2030 Hedefi","metin":"23","deger":23},{"etiket":"Risk Altındaki Projeler","metin":"17","deger":17}]}
 why_matters: "Amazon'un yapay zekâ altyapısı için kritik olan veri merkezi genişlemesi, hem çalışanların çevresel kaygıları hem de yerel yönetimlerin düzenleyici müdahaleleri nedeniyle finansal ve operasyonel risklerle karşı karşıya."
 key_points:
   - "Ohio'da yaklaşık 17 milyar dolarlık Amazon projesi belirsizliğe girdi."

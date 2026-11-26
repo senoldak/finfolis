@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Hükümet borçlanması"
     deger: "17 milyar sterlin"
 tablo: {"baslik":"İngiltere borsa endekslerinde günlük değişim","sutunlar":["Endeks","Değişim (yüzde)","Kapanış Puanı"],"satirlar":[["FTSE 100","-1,0","10.346,34"],["FTSE 250","-2,2","23.651,73"]]}
-grafik: {"baslik":"Borsa Endekslerindeki Değişim","simge":"banka","birimEtiket":"yüzde","birim":0.2,"satirlar":[{"etiket":"FTSE 100","metin":"1,0","deger":1},{"etiket":"FTSE 250","metin":"2,2","deger":2.2}]}
+grafik: {"baslik":"Borsa endekslerindeki değişim","simge":"banka","birimEtiket":"yüzde","birim":0.2,"satirlar":[{"etiket":"FTSE 100","metin":"1,0","deger":1},{"etiket":"FTSE 250","metin":"2,2","deger":2.2}]}
 why_matters: "Küresel piyasalardaki satış dalgası, yapay zekâ değerlemeleri ve ABD faiz beklentileri gibi temel ekonomik göstergelerin İngiltere borsasındaki bankacılık ve madencilik gibi ana sektörleri nasıl etkilediğini göstermesi açısından önemlidir."
 key_points:
   - "FTSE 100 endeksi yüzde 1,0 düşüşle 10.346,34 puana geriledi."

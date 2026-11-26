@@ -27,7 +27,7 @@ rakamlar:
 sirada:
   tarih: "21 Kasım 2026"
   olay: "Küresel piyasalarda teknoloji hisseleri kaynaklı satışlar gerçekleşti."
-grafik: {"baslik":"Enflasyon Beklentilerindeki Değişim","simge":"sepet","birimEtiket":"yüzde","birim":0.25,"satirlar":[{"etiket":"1 Yıllık (Ekim)","metin":"4,7","deger":4.7},{"etiket":"1 Yıllık (Kasım)","metin":"3,7","deger":3.7},{"etiket":"5 Yıllık (Ekim)","metin":"3,5","deger":3.5},{"etiket":"5 Yıllık (Kasım)","metin":"3,3","deger":3.3}]}
+grafik: {"baslik":"Enflasyon beklentilerindeki değişim","simge":"sepet","birimEtiket":"yüzde","birim":0.25,"satirlar":[{"etiket":"1 Yıllık (Ekim)","metin":"4,7","deger":4.7},{"etiket":"1 Yıllık (Kasım)","metin":"3,7","deger":3.7},{"etiket":"5 Yıllık (Ekim)","metin":"3,5","deger":3.5},{"etiket":"5 Yıllık (Kasım)","metin":"3,3","deger":3.3}]}
 why_matters: "Küresel piyasalardaki teknoloji odaklı satışlar ve tüketici güveni ile enflasyon beklentilerindeki değişimler, yatırımcıların risk algısını ve ekonomik görünümü etkilemektedir."
 key_points:
   - "Tayvan borsası haftalık bazda yüzde 17 geriledi."

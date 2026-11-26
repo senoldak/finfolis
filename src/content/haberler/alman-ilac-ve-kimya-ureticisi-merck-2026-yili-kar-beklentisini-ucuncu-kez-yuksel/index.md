@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "12 Kasım 2026"
   olay: "Şirket verilerinin güncellenmesi"
-tablo: {"baslik":"Finansal Beklentiler Karşılaştırması","sutunlar":["Kalem","Eski Beklenti (Milyar €)","Yeni Beklenti (Milyar €)"],"satirlar":[["EBITDA (Düzeltilmiş)","5,9 - 6,3","6,2 - 6,4"],["Toplam Gelir","21,0 - 21,8","21,5 - 21,9"]]}
+tablo: {"baslik":"Finansal beklentiler karşılaştırması","sutunlar":["Kalem","Eski Beklenti (Milyar €)","Yeni Beklenti (Milyar €)"],"satirlar":[["EBITDA (Düzeltilmiş)","5,9 - 6,3","6,2 - 6,4"],["Toplam Gelir","21,0 - 21,8","21,5 - 21,9"]]}
 why_matters: "Merck'in beklentilerini yükseltmesi, yapay zekâ ve biyoteknoloji gibi stratejik sektörlerdeki büyümenin şirketin finansal performansına olan olumlu etkisini göstermektedir."
 key_points:
   - "2026 yılı çekirdek kâr beklentisi 6,2-6,4 milyar avro aralığına yükseltildi."

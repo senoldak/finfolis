@@ -20,7 +20,7 @@ sirada:
   tarih: "12 Kasım 2026"
   olay: "Siemens finansal sonuçlarını açıkladı"
 tablo: {"baslik":"Siemens finansal sonuçları (Eylül sonu itibarıyla)","sutunlar":["Gösterge","Gerçekleşen","Beklenti"],"satirlar":[["Endüstriyel kâr","3,89 milyar avro","3,71 milyar avro"],["Gelir","23,68 milyar avro","23,39 milyar avro"]]}
-grafik: {"baslik":"Dördüncü Çeyrek Endüstriyel Kâr","simge":"sepet","birimEtiket":"milyar avro","birim":0.2,"satirlar":[{"etiket":"Gerçekleşen Kâr","metin":"3,89","deger":3.89},{"etiket":"Analist Beklentisi","metin":"3,71","deger":3.71}]}
+grafik: {"baslik":"Dördüncü çeyrek endüstriyel kâr","simge":"sepet","birimEtiket":"milyar avro","birim":0.2,"satirlar":[{"etiket":"Gerçekleşen Kâr","metin":"3,89","deger":3.89},{"etiket":"Analist Beklentisi","metin":"3,71","deger":3.71}]}
 why_matters: "Siemens'in büyüme beklentisini yükseltmesi, yapay zekâ teknolojilerinin fiziksel altyapı ve elektrik ekipmanları sektörleri üzerindeki ekonomik etkisini yansıtıyor."
 key_points:
   - "Endüstriyel kâr 3,89 milyar avroya yükseldi"

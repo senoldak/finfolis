@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Küresel Toplam Endeks"
     deger: "12,7"
 tablo: {"baslik":"Sentix endeks verileri (Kasım 2026)","sutunlar":["Endeks","Değer"],"satirlar":[["Euro Bölgesi","2,4"],["ABD Ekonomik","13,1"],["Küresel Toplam","12,7"],["Ekonomik Beklentiler","8,3"]]}
-grafik: {"baslik":"Kasım Ayı Sentix Endeks Değerleri","simge":"sepet","birimEtiket":"puan","birim":1,"satirlar":[{"etiket":"Euro Bölgesi","metin":"2,4","deger":2.4},{"etiket":"ABD Ekonomik Endeksi","metin":"13,1","deger":13.1},{"etiket":"Küresel Toplam Endeks","metin":"12,7","deger":12.7},{"etiket":"Ekonomik Beklentiler","metin":"8,3","deger":8.3}]}
+grafik: {"baslik":"Kasım ayı Sentix endeks değerleri","simge":"sepet","birimEtiket":"puan","birim":1,"satirlar":[{"etiket":"Euro Bölgesi","metin":"2,4","deger":2.4},{"etiket":"ABD Ekonomik Endeksi","metin":"13,1","deger":13.1},{"etiket":"Küresel Toplam Endeks","metin":"12,7","deger":12.7},{"etiket":"Ekonomik Beklentiler","metin":"8,3","deger":8.3}]}
 why_matters: "Sentix endeksi, yatırımcıların ekonomik gidişata dair duyarlılığını ölçerek küresel büyüme ve durgunluk risklerine dair önemli bir öncü gösterge işlevi görüyor."
 key_points:
   - "Euro Bölgesi Sentix yatırımcı güven endeksi kasım ayında 2,4 seviyesine geriledi."

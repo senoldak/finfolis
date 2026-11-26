@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "2027'nin ilk yarısı"
   olay: "Anthropic ve AMD arasındaki Instinct GPU anlaşmasının ilk aşamasının başlaması."
-grafik: {"baslik":"Türkiye Mücevherat İhracatı","simge":"sepet","birimEtiket":"milyar dolar","birim":1,"satirlar":[{"etiket":"2020","metin":"6,7","deger":6.7},{"etiket":"2023","metin":"13,6","deger":13.6},{"etiket":"2025","metin":"13,4","deger":13.4},{"etiket":"2026 (Ocak-Ekim)","metin":"8","deger":8}]}
+grafik: {"baslik":"Türkiye mücevherat ihracatı","simge":"sepet","birimEtiket":"milyar dolar","birim":1,"satirlar":[{"etiket":"2020","metin":"6,7","deger":6.7},{"etiket":"2023","metin":"13,6","deger":13.6},{"etiket":"2025","metin":"13,4","deger":13.4},{"etiket":"2026 (Ocak-Ekim)","metin":"8","deger":8}]}
 why_matters: "Küresel piyasalardaki bu gelişmeler, teknoloji sektöründeki donanım rekabetinin değişimi ve emtia piyasalarındaki arz kısıtlarının ekonomik etkileri açısından önem taşıyor."
 key_points:
   - "Ons altın fiyatı 3.510 dolar seviyesine geriledi."

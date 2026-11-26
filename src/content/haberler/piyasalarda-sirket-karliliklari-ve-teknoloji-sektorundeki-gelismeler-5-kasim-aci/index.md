@@ -16,7 +16,7 @@ rakamlar:
     deger: "2,1 milyar avro"
   - etiket: "Binance saldırısı"
     deger: "6,3 milyar dolar"
-tablo: {"baslik":"PhysicsWallah Finansal Performans","sutunlar":["Kalem","2025 (milyon rupi)","2026 (milyon rupi)"],"satirlar":[["Net Kâr","700","1.436,3"],["Toplam Gelir","10.512,4","12.422,6"]]}
+tablo: {"baslik":"PhysicsWallah finansal performans","sutunlar":["Kalem","2025 (milyon rupi)","2026 (milyon rupi)"],"satirlar":[["Net Kâr","700","1.436,3"],["Toplam Gelir","10.512,4","12.422,6"]]}
 why_matters: "Şirketlerin kârlılık verileri ve teknoloji sektöründeki regülasyon kaynaklı anlaşma iptalleri, piyasalardaki yatırımcı eğilimlerini ve risk algısını doğrudan etkiliyor."
 key_points:
   - "PhysicsWallah net kârı 1,4363 milyar rupiye yükseldi."

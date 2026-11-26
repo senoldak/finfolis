@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "28 Ekim 2026"
   olay: "Üçüncü çeyrek finansal sonuçları açıklandı."
-tablo: {"baslik":"Üçüncü Çeyrek Finansal Performans","sutunlar":["Kalem","Değer (Milyar Dolar)"],"satirlar":[["Net Kâr","1,5"],["Faaliyet Geliri","5,8"],["Varlık Çözümleri Geliri","1,1"],["Küresel Piyasalar Geliri","1"]]}
+tablo: {"baslik":"Üçüncü çeyrek finansal performans","sutunlar":["Kalem","Değer (Milyar Dolar)"],"satirlar":[["Net Kâr","1,5"],["Faaliyet Geliri","5,8"],["Varlık Çözümleri Geliri","1,1"],["Küresel Piyasalar Geliri","1"]]}
 grafik: {"baslik":"Üçüncü çeyrek gelir artış oranları","simge":"banka","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Wealth Solutions","metin":"26","deger":26},{"etiket":"Global Markets","metin":"20","deger":20},{"etiket":"Faaliyet geliri","metin":"13","deger":13}]}
 why_matters: "Küresel ticaretin yeniden şekillendiği bir dönemde, bankanın sınır ötesi işlemlerdeki rolü ve jeopolitik parçalanmayı bir iş fırsatı olarak değerlendirme stratejisi, finans sektörünün değişen dinamiklerini yansıtıyor."
 key_points:

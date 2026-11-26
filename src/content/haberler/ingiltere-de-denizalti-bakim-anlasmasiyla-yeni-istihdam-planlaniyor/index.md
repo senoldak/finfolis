@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "26 Kasım 2026"
   olay: "Babcock hisselerinin perşembe günü yüzde 7 değer kazanması."
-tablo: {"baslik":"HMNB Clyde (Faslane) İstihdam Hedefleri","sutunlar":["Kategori","Sayı"],"satirlar":[["Yeni iş","900"],["Çıraklık ve mezun fırsatı","450"]]}
+tablo: {"baslik":"HMNB Clyde (Faslane) istihdam hedefleri","sutunlar":["Kategori","Sayı"],"satirlar":[["Yeni iş","900"],["Çıraklık ve mezun fırsatı","450"]]}
 why_matters: "Bu anlaşma, İngiltere'nin nükleer denizaltı filosunun bakım süreçlerini hızlandırmayı ve savunma sanayisinde yeni istihdam olanakları yaratmayı amaçlıyor."
 key_points:
   - "Babcock ile yapılan sözleşme yaklaşık 8 milyar sterlin değerinde."

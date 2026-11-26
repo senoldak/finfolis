@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Yakıt maliyeti artışı"
     deger: "Yüzde 30+"
 tablo: {"baslik":"IAG üçüncü çeyrek kâr karşılaştırması","sutunlar":["Dönem","Net Kâr (Milyar Avro)"],"satirlar":[["2025 Üçüncü Çeyrek","1,40"],["2026 Üçüncü Çeyrek","1,23"]]}
-grafik: {"baslik":"Üçüncü Çeyrek Net Kâr Karşılaştırması","simge":"lira","birimEtiket":"milyar avro","birim":0.1,"satirlar":[{"etiket":"2025","metin":"1,40","deger":1.4},{"etiket":"2026","metin":"1,23","deger":1.23}]}
+grafik: {"baslik":"Üçüncü çeyrek net kâr karşılaştırması","simge":"lira","birimEtiket":"milyar avro","birim":0.1,"satirlar":[{"etiket":"2025","metin":"1,40","deger":1.4},{"etiket":"2026","metin":"1,23","deger":1.23}]}
 why_matters: "Havacılık sektöründeki yakıt maliyeti artışları ve operasyonel aksaklıkların, büyük havayolu gruplarının kârlılığı üzerindeki etkisini göstermesi açısından önem taşıyor."
 key_points:
   - "Net kâr 1,23 milyar avroya geriledi."

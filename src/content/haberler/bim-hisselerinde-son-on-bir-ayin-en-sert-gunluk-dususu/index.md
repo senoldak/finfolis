@@ -21,7 +21,7 @@ rakamlar:
 sirada:
   tarih: "16 Ekim 2026"
   olay: "Günlük piyasa kapanış verisi açıklandı"
-grafik: {"baslik":"BİM Hisse Senedi Fiyat Değişimleri","simge":"lira","birimEtiket":"TL","birim":25,"satirlar":[{"etiket":"16 Ekim 2026 Kapanışı","metin":"381,00","deger":381},{"etiket":"Önceki Kapanış","metin":"401,50","deger":401.5},{"etiket":"1 Yıl Önceki Kapanış","metin":"269,75","deger":269.75}]}
+grafik: {"baslik":"BİM hisse senedi fiyat değişimleri","simge":"lira","birimEtiket":"TL","birim":25,"satirlar":[{"etiket":"16 Ekim 2026 Kapanışı","metin":"381,00","deger":381},{"etiket":"Önceki Kapanış","metin":"401,50","deger":401.5},{"etiket":"1 Yıl Önceki Kapanış","metin":"269,75","deger":269.75}]}
 why_matters: "Bu veriler, BİM hisselerinin günlük ve dönemsel piyasa hareketleri ile geçmiş dönem fiyat seviyelerindeki değişimleri göstermektedir."
 key_points:
   - "16 Ekim 2026 kapanış fiyatı 381,00 TL oldu."

@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 48"
   - etiket: "Britanya net kâr artışı"
     deger: "yüzde 40"
-tablo: {"baslik":"Santander Bölgesel Çeyrek Değişimleri","sutunlar":["Bölge","Değişim"],"satirlar":[["ABD","yüzde 48"],["Britanya","yüzde 40"],["Brezilya","yüzde 15 azalış"]]}
+tablo: {"baslik":"Santander bölgesel çeyrek değişimleri","sutunlar":["Bölge","Değişim"],"satirlar":[["ABD","yüzde 48"],["Britanya","yüzde 40"],["Brezilya","yüzde 15 azalış"]]}
 why_matters: "Euro bölgesinin en büyük bankasının kârlılık verileri, küresel bankacılık sektörünün uluslararası pazarlardaki performansı ve bölgesel ekonomik riskler hakkında gösterge niteliği taşır."
 key_points:
   - "Temel net kâr 3,85 milyar euroya yükseldi"

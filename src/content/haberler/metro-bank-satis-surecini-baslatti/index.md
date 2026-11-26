@@ -16,7 +16,7 @@ rakamlar:
     deger: "1 milyar sterlinin üzeri"
   - etiket: "Hisse artışı (erken işlemler)"
     deger: "yüzde 3,58"
-grafik: {"baslik":"Yıllara Göre Kâr ve Zarar Durumu","simge":"lira","birimEtiket":"Milyon Sterlin","birim":20,"satirlar":[{"etiket":"2024 Zarar","metin":"212,1","deger":212.1},{"etiket":"2025 Kâr","metin":"87,2","deger":87.2}]}
+grafik: {"baslik":"Yıllara göre kâr ve zarar durumu","simge":"lira","birimEtiket":"Milyon Sterlin","birim":20,"satirlar":[{"etiket":"2024 Zarar","metin":"212,1","deger":212.1},{"etiket":"2025 Kâr","metin":"87,2","deger":87.2}]}
 why_matters: "Bankanın satış süreci, İngiltere finans sektöründe son dönemde yaşanan şirket devralmaları serisinin bir parçası olarak dikkat çekiyor ve bankanın 2023'teki kurtarma sürecinden sonraki toparlanma çabalarını somutlaştırıyor."
 key_points:
   - "Metro Bank, büyüme stratejisi kapsamında satış sürecini başlattı."

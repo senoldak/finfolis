@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Vergi öncesi kâr"
     deger: "3 milyar avro"
 tablo: {"baslik":"Sürdürülebilir havacılık yakıtı (SAF) kullanım oranları","sutunlar":["Dönem","Hedef Oran"],"satirlar":[["Mevcut","yüzde 3,7"],["On yılın sonu","yüzde 10"]]}
-grafik: {"baslik":"Sürdürülebilir Havacılık Yakıtı (SAF) Kullanım Hedefi","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Mevcut","metin":"3,7","deger":3.7},{"etiket":"On yılın sonu","metin":"10","deger":10}]}
+grafik: {"baslik":"Sürdürülebilir havacılık yakıtı (SAF) kullanım hedefi","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Mevcut","metin":"3,7","deger":3.7},{"etiket":"On yılın sonu","metin":"10","deger":10}]}
 why_matters: "Havacılık sektöründeki çevreci yakıt zorunlulukları ve artan enerji maliyetleri, havayolu şirketlerinin operasyonel giderlerini etkileyerek şirket kârlılığı üzerinde baskı oluşturuyor."
 key_points:
   - "Sürdürülebilir havacılık yakıtı kullanım oranının on yılın sonunda yüzde 10'a çıkması hedefleniyor."

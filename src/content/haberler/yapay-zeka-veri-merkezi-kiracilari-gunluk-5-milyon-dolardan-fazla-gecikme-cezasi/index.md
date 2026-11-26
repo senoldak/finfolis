@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "2028"
   olay: "Project Jupiter kampüsünün planlanan açılış tarihi"
-grafik: {"baslik":"Gecikme Cezalarının Günlük Maliyeti","simge":"lira","birimEtiket":"milyon dolar","birim":0.25,"satirlar":[{"etiket":"Yıl Başı","metin":"1","deger":1},{"etiket":"Ekim 2026","metin":"5","deger":5}]}
+grafik: {"baslik":"Gecikme cezalarının günlük maliyeti","simge":"lira","birimEtiket":"milyon dolar","birim":0.25,"satirlar":[{"etiket":"Yıl Başı","metin":"1","deger":1},{"etiket":"Ekim 2026","metin":"5","deger":5}]}
 why_matters: "Yapay zeka veri merkezlerinin inşasında yaşanan enerji ve ekipman darboğazları, sözleşme şartlarını ve maliyetleri kökten değiştirerek geliştiriciler üzerindeki finansal riskleri artırıyor."
 key_points:
   - "Günlük gecikme cezası 1 milyon dolardan 5 milyon doların üzerine çıktı."

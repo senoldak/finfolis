@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Kasım 2026"
   olay: "Anthropic'in Nasdaq'ta halka arz edilmesi bekleniyor."
-tablo: {"baslik":"Çin Dış Ticaret Beklenti ve Gerçekleşme","sutunlar":["Gösterge","Beklenti","Gerçekleşme"],"satirlar":[["İhracat Artışı","yüzde 33,5","yüzde 35,2"],["İthalat Artışı","yüzde 32","yüzde 41,6"]]}
+tablo: {"baslik":"Çin dış ticaret beklenti ve gerçekleşme","sutunlar":["Gösterge","Beklenti","Gerçekleşme"],"satirlar":[["İhracat Artışı","yüzde 33,5","yüzde 35,2"],["İthalat Artışı","yüzde 32","yüzde 41,6"]]}
 why_matters: "Çin'in ticaret verileri küresel talep ve tedarik zinciri hakkında ipucu verirken, teknoloji ve kripto varlık piyasasındaki büyük sermaye hareketleri sektörün geleceğine dair stratejik adımları yansıtıyor."
 key_points:
   - "Çin'in ticaret fazlası 105 milyar dolara geriledi."

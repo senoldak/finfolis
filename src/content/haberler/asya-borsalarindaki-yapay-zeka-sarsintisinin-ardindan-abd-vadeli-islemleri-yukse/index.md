@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "23 Kasım 2026"
   olay: "Güney Kore maliye bakanının olası piyasa istikrar fonuna ilişkin basın toplantısı düzenlemesi bekleniyor."
-grafik: {"baslik":"Vadeli İşlem ve Hisse Değişimleri","simge":"sepet","birimEtiket":"yüzde","birim":0.2,"satirlar":[{"etiket":"Nasdaq 100 vadeli işlemleri","metin":"3","deger":3},{"etiket":"S&P 500 vadeli işlemleri","metin":"2","deger":2},{"etiket":"Güney Kore hisseleri düşüşü","metin":"4","deger":4}]}
+grafik: {"baslik":"Vadeli işlem ve hisse değişimleri","simge":"sepet","birimEtiket":"yüzde","birim":0.2,"satirlar":[{"etiket":"Nasdaq 100 vadeli işlemleri","metin":"3","deger":3},{"etiket":"S&P 500 vadeli işlemleri","metin":"2","deger":2},{"etiket":"Güney Kore hisseleri düşüşü","metin":"4","deger":4}]}
 why_matters: "Yapay zekâ altyapısına yapılan büyük borçlanma harcamalarının geri dönüşü konusundaki soru işaretleri ve artan faiz oranları, küresel çip ve teknoloji hisselerinde dalgalanmalara yol açarak piyasalarda tedirginliğe neden oluyor."
 key_points:
   - "Nasdaq'ta geçen hafta görülen yüzde 10'luk düşüş, Mart 2020'den bu yana en büyük haftalık gerileme oldu."

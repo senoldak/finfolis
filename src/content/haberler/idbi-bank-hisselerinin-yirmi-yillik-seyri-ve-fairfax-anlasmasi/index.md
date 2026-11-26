@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Cari mali yıl sonu"
   olay: "Stratejik satış sürecinin tamamlanması"
-tablo: {"baslik":"IDBI Bank Hisse Performans Özeti","sutunlar":["Dönem","Değişim Oranı"],"satirlar":[["Yılbaşından bu yana","%-20,67"],["Son bir yıl","%-10,33"],["Son altı ay","%9,63"],["Son üç ay","%-5,42"],["Son beş yıl","%48,82"],["Son on yıl","%13,05"]]}
+tablo: {"baslik":"IDBI Bank hisse performans özeti","sutunlar":["Dönem","Değişim Oranı"],"satirlar":[["Yılbaşından bu yana","%-20,67"],["Son bir yıl","%-10,33"],["Son altı ay","%9,63"],["Son üç ay","%-5,42"],["Son beş yıl","%48,82"],["Son on yıl","%13,05"]]}
 why_matters: "Fairfax Financial Holdings'in IDBI Bank hisselerini devralma anlaşması, Hindistan'ın uzun süredir devam eden bankacılık özelleştirme sürecinde kritik bir dönüm noktası oluşturuyor."
 key_points:
   - "Fairfax Financial Holdings, IDBI Bank'ın yüzde 60,72 hissesini yaklaşık 530 milyar karşılığında almayı kabul etti."

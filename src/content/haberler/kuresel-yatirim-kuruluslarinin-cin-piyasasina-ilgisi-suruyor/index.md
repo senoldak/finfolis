@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "10 Kasım 2026"
   olay: "Ticaret verilerinin açıklanması ve Citi Çin Konferansı'nın başlaması"
-tablo: {"baslik":"Yönetilen Varlık Karşılaştırması","sutunlar":["Kuruluş","Yönetilen Varlık"],"satirlar":[["Franklin Templeton","1,8 trilyon dolar"],["ChinaAMC","3,1 trilyon yuan"],["BlackRock Çin Fonu (Kapanan)","31,7 milyon dolar"]]}
+tablo: {"baslik":"Yönetilen varlık karşılaştırması","sutunlar":["Kuruluş","Yönetilen Varlık"],"satirlar":[["Franklin Templeton","1,8 trilyon dolar"],["ChinaAMC","3,1 trilyon yuan"],["BlackRock Çin Fonu (Kapanan)","31,7 milyon dolar"]]}
 why_matters: "Çin'in finans piyasalarını yabancı yatırımcılara açma taahhüdü küresel firmalar için yeni büyüme alanları yaratırken, piyasadaki düzenleyici kısıtlamalar stratejik uyum gerekliliğini beraberinde getiriyor."
 key_points:
   - "Çin ana karasında 125.000 dolar üzeri varlığı olanların toplam serveti 27 trilyon dolar."

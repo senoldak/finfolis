@@ -20,7 +20,7 @@ sirada:
   tarih: "2027 sonu"
   olay: "Uzaktan erişimin Çin'in yapay zeka işlem gücündeki tahmini payı"
 tablo: {"baslik":"Alibaba'nın Temmuz-Eylül çeyrek performansı","sutunlar":["Gösterge","Değer"],"satirlar":[["Toplam Gelir","272 milyar yuan"],["AI Hizmetleri Geliri","61 milyar yuan"],["Sermaye Harcamaları","50,5 milyar yuan"]]}
-grafik: {"baslik":"Alibaba'nın Çeyrek Dönem Büyüme Oranları","simge":"lira","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Yapay Zeka Hizmetleri Geliri","metin":"53","deger":53},{"etiket":"Toplam Gelir","metin":"10","deger":10},{"etiket":"Sermaye Harcamaları","metin":"60","deger":60}]}
+grafik: {"baslik":"Alibaba'nın çeyrek dönem büyüme oranları","simge":"lira","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Yapay Zeka Hizmetleri Geliri","metin":"53","deger":53},{"etiket":"Toplam Gelir","metin":"10","deger":10},{"etiket":"Sermaye Harcamaları","metin":"60","deger":60}]}
 why_matters: "ABD'nin yeni kısıtlamaları, Çinli teknoloji şirketlerinin yapay zekâ modellerini eğitmek için ihtiyaç duyduğu işlem gücüne erişimini zorlaştırarak, küresel teknoloji rekabetinde yeni bir dönemi işaret ediyor."
 key_points:
   - "Alibaba'nın yapay zekâ hizmetleri geliri yüzde 53 arttı."

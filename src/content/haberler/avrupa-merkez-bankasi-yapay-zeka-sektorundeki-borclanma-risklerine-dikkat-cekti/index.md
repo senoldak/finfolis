@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 2,2"
   - etiket: "Fransa borçlanma maliyeti"
     deger: "yüzde 4,85"
-tablo: {"baslik":"ABD Halka Arz Hacmi Karşılaştırması","sutunlar":["Yıl","Halka Arz Hacmi (Dolar)"],"satirlar":[["2025","44 milyar"],["2026 (Tahmini)","212 milyar"]]}
+tablo: {"baslik":"ABD halka arz hacmi karşılaştırması","sutunlar":["Yıl","Halka Arz Hacmi (Dolar)"],"satirlar":[["2025","44 milyar"],["2026 (Tahmini)","212 milyar"]]}
 why_matters: "ECB'nin yapay zekâ sektöründeki borçlanma ve piyasa hareketliliğine dair uyarıları, teknoloji devlerinin finansal istikrar üzerindeki olası etkilerine ve küresel piyasalardaki ani satış risklerine işaret etmesi açısından önem taşıyor."
 key_points:
   - "Büyük teknoloji firmalarının 2026 ikinci çeyrek sonu itibarıyla 4 trilyon dolardan fazla bilanço dışı taahhüdü bulunuyor."

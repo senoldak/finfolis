@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "28 Ekim 2026"
   olay: "ABD Merkez Bankası faiz kararı ve Jio Platforms borsadaki ilk işlem günü"
-tablo: {"baslik":"Büyük Borsa Endekslerinin Açılış Değerleri","sutunlar":["Endeks","Önceki Kapanış","Açılış","Son Değer"],"satirlar":[["Sensex","73.598,67","73.253,44","72.928,12"],["Nifty 50","22.749,75","22.678,00","22.591,85"]]}
+tablo: {"baslik":"Büyük Borsa endekslerinin açılış değerleri","sutunlar":["Endeks","Önceki Kapanış","Açılış","Son Değer"],"satirlar":[["Sensex","73.598,67","73.253,44","72.928,12"],["Nifty 50","22.749,75","22.678,00","22.591,85"]]}
 why_matters: "ABD Merkez Bankasının faiz kararı ve teknoloji sektöründeki satışlar küresel piyasaların yönünü belirliyor."
 key_points:
   - "Sensex yüzde 0,91 düşüşle 72.928,12 seviyesinde işlem gördü"

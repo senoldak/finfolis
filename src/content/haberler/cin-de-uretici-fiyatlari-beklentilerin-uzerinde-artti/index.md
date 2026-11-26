@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "10 Kasım 2026"
   olay: "Dış ticaret verileri açıklanacak"
-tablo: {"baslik":"Çin Ekonomik Veri Karşılaştırması","sutunlar":["Gösterge","Değer (Yüzde)"],"satirlar":[["Üretici Fiyat Endeksi (Ekim)","5,7"],["Tüketici Fiyat Endeksi (Ekim)","0,7"],["3. Çeyrek Büyüme","4,5"],["2. Çeyrek Büyüme","4,3"]]}
+tablo: {"baslik":"Çin ekonomik veri karşılaştırması","sutunlar":["Gösterge","Değer (Yüzde)"],"satirlar":[["Üretici Fiyat Endeksi (Ekim)","5,7"],["Tüketici Fiyat Endeksi (Ekim)","0,7"],["3. Çeyrek Büyüme","4,5"],["2. Çeyrek Büyüme","4,3"]]}
 grafik: {"baslik":"Çin'de Ekim ayı fiyat değişimleri","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Üretici fiyatları","metin":"5,7","deger":5.7},{"etiket":"Tüketici fiyatları","metin":"0,7","deger":0.7}]}
 why_matters: "Çin'deki üretici fiyatlarındaki artış, küresel enerji ve teknoloji maliyetleri üzerinde baskı oluştururken, zayıf iç talep ve gayrimenkul krizinin ekonomi üzerindeki etkileri yakından izleniyor."
 key_points:

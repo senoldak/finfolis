@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "24 Kasım 2026"
   olay: "Güney Kore'de şirketlerin günlük pay geri alım siparişi limitlerinin esnetilmesi uygulamasının başlaması"
-tablo: {"baslik":"Piyasa Verileri Karşılaştırması","sutunlar":["Endeks/Hisse","Değişim Oranı"],"satirlar":[["Kospi Endeksi","yüzde -3,26"],["CSI 300 (Çin)","yüzde -0,71"],["Tayvan Ağırlıklı Endeks","yüzde +2"],["TSMC Hisse (Haftalık)","yüzde -15"]]}
+tablo: {"baslik":"Piyasa verileri karşılaştırması","sutunlar":["Endeks/Hisse","Değişim Oranı"],"satirlar":[["Kospi Endeksi","yüzde -3,26"],["CSI 300 (Çin)","yüzde -0,71"],["Tayvan Ağırlıklı Endeks","yüzde +2"],["TSMC Hisse (Haftalık)","yüzde -15"]]}
 why_matters: "Yapay zekâ ve yarı iletken sektöründeki küresel satış baskısı, Asya'nın teknoloji odaklı ekonomilerinde piyasa istikrarını korumak için devlet müdahalelerini beraberinde getiriyor."
 key_points:
   - "Güney Kore 10,76 trilyon wonluk piyasa destek fonunu hazırlıyor."

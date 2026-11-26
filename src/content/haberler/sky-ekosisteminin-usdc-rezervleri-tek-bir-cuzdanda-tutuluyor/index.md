@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "DAI ve USDS toplam arzı"
     deger: "8 milyar dolar"
 tablo: {"baslik":"Sky ekosistemi cüzdan verileri","sutunlar":["Kategori","Tutar"],"satirlar":[["Toplam USDC rezervi","2,7 milyar dolar"],["Yasa dışı bağlantılı işlemler","518 milyon dolar"],["Kuzey Kore bağlantılı işlemler","102 milyon dolar"],["DAI ve USDS toplam arzı","8 milyar dolar"]]}
-grafik: {"baslik":"Yasa Dışı Bağlantılı İşlem Hacmi","simge":"lira","birimEtiket":"milyon dolar","birim":50,"satirlar":[{"etiket":"Toplam Yasa Dışı İşlem","metin":"518","deger":518},{"etiket":"Kuzey Kore Bağlantılı","metin":"102","deger":102}]}
+grafik: {"baslik":"Yasa dışı bağlantılı işlem hacmi","simge":"lira","birimEtiket":"milyon dolar","birim":50,"satirlar":[{"etiket":"Toplam Yasa Dışı İşlem","metin":"518","deger":518},{"etiket":"Kuzey Kore Bağlantılı","metin":"102","deger":102}]}
 why_matters: "Rezervlerin tek bir cüzdanda toplanması, Circle'a yönelik tek bir yasal müdahalenin tüm ekosistemin likiditesini dondurma riskini doğuruyor."
 key_points:
   - "Sky ekosistemi 2,7 milyar dolarlık USDC rezervini tek bir cüzdanda tutuyor."

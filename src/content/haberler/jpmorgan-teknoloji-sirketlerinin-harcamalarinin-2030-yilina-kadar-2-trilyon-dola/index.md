@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "2028 Nakit Çıkışı Tahmini"
     deger: "284 milyar dolar"
 tablo: {"baslik":"Şirket bazlı harcama projeksiyonları","sutunlar":["Şirket","Tahmini Harcama (Milyar Dolar)"],"satirlar":[["Amazon","470"],["Alphabet","470"],["Microsoft","330"],["Meta","290"],["Oracle","100"]]}
-grafik: {"baslik":"Şirket Bazlı Harcama Projeksiyonları","simge":"banka","birimEtiket":"milyar dolar","birim":25,"satirlar":[{"etiket":"Amazon","metin":"470","deger":470},{"etiket":"Alphabet","metin":"470","deger":470},{"etiket":"Microsoft","metin":"330","deger":330},{"etiket":"Meta","metin":"290","deger":290},{"etiket":"Oracle","metin":"100","deger":100}]}
+grafik: {"baslik":"Şirket bazlı harcama projeksiyonları","simge":"banka","birimEtiket":"milyar dolar","birim":25,"satirlar":[{"etiket":"Amazon","metin":"470","deger":470},{"etiket":"Alphabet","metin":"470","deger":470},{"etiket":"Microsoft","metin":"330","deger":330},{"etiket":"Meta","metin":"290","deger":290},{"etiket":"Oracle","metin":"100","deger":100}]}
 why_matters: "Yapay zekâ altyapısına yönelik bu sermaye harcaması, teknoloji devlerinin finansal yapılarını ve küresel enerji altyapısının kapasitesini etkileyen bir ekonomik trendi temsil ediyor."
 key_points:
   - "JPMorgan, büyük bulut operatörlerinin harcamalarının 2030 yılına kadar 2 trilyon dolara ulaşacağını öngörüyor."

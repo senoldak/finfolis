@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Kasım 2026"
   olay: "Anthropic'in hisse fiyatlandırmasının yapılması bekleniyor."
-tablo: {"baslik":"Hindistan Borsası Verileri (6 Kasım 2026)","sutunlar":["Endeks","Kapanış","Değişim (Puan)"],"satirlar":[["Sensex","81.028,02","+1.718,01"],["Nifty","25.030,35","+493,75"]]}
+tablo: {"baslik":"Hindistan borsası verileri (6 Kasım 2026)","sutunlar":["Endeks","Kapanış","Değişim (Puan)"],"satirlar":[["Sensex","81.028,02","+1.718,01"],["Nifty","25.030,35","+493,75"]]}
 why_matters: "Teknoloji sektöründeki değerleme endişeleri ve siber güvenlik riskleri, küresel piyasalarda yatırımcı güvenini etkileyerek varlık fiyatlarında dalgalanmalara neden oluyor."
 key_points:
   - "Binance borsasından 6,3 milyar dolar değerinde kripto varlık çalındı."

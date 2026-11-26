@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "19 Kasım 2026"
   olay: "ABD merkez bankasının Ekim ayı toplantı tutanaklarının açıklanması ve Avustralya'da istihdam raporunun yayımlanması"
-tablo: {"baslik":"Para Birimlerinin Dolar Karşısındaki Değişimi","sutunlar":["Para Birimi","Değişim Oranı","Son Fiyat"],"satirlar":[["Euro","-%0,14","1,0982"],["Japon Yeni","+%0,08","159,25"],["İngiliz Sterlini","-%0,13","1,3191"],["Avustralya Doları","-%0,18","0,6719"]]}
+tablo: {"baslik":"Para birimlerinin dolar karşısındaki değişimi","sutunlar":["Para Birimi","Değişim Oranı","Son Fiyat"],"satirlar":[["Euro","-%0,14","1,0982"],["Japon Yeni","+%0,08","159,25"],["İngiliz Sterlini","-%0,13","1,3191"],["Avustralya Doları","-%0,18","0,6719"]]}
 grafik: {"baslik":"Ekim ayı ABD ekonomik verileri","simge":"sepet","birimEtiket":"yüzde","birim":0.1,"satirlar":[{"etiket":"Perakende satış artışı","metin":"0,2","deger":0.2},{"etiket":"İthalat fiyat artışı","metin":"1,1","deger":1.1}]}
 why_matters: "ABD Merkez Bankası'nın faiz politikasına dair beklentiler, küresel sermaye akışlarını ve para birimlerinin değerini doğrudan etkilediği için piyasalar tarafından yakından takip ediliyor."
 key_points:

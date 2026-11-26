@@ -20,7 +20,7 @@ sirada:
   tarih: "2027"
   olay: "OBR'nin ekonominin yüzde 1 büyüyeceğini öngördüğü yıl."
 tablo: {"baslik":"Ekonomik beklentiler karşılaştırması","sutunlar":["Gösterge","Banka Beklentisi","OBR Tahmini"],"satirlar":[["Büyüme (2027)","yüzde 1,6","yüzde 1"],["Enflasyon (TÜFE)","yüzde 4,9","yüzde 3,75"]]}
-grafik: {"baslik":"OBR ve İngiltere Merkez Bankası 2027 Enflasyon Tahminleri","simge":"sepet","birimEtiket":"yüzde","birim":0.25,"satirlar":[{"etiket":"İngiltere Merkez Bankası","metin":"4,9","deger":4.9},{"etiket":"OBR","metin":"3,75","deger":3.75}]}
+grafik: {"baslik":"OBR ve İngiltere Merkez Bankası 2027 enflasyon tahminleri","simge":"sepet","birimEtiket":"yüzde","birim":0.25,"satirlar":[{"etiket":"İngiltere Merkez Bankası","metin":"4,9","deger":4.9},{"etiket":"OBR","metin":"3,75","deger":3.75}]}
 why_matters: "İngiltere Merkez Bankası'nın faiz kararı, yaşam maliyeti kriziyle mücadele eden hanehalkı ve kâr marjları daralan işletmeler üzerinde doğrudan etki yaratma potansiyeli taşıyor. Karar, kurumların ekonomik büyüme ve enflasyon beklentileri arasındaki görüş ayrılığını da gözler önüne seriyor."
 key_points:
   - "İngiltere Merkez Bankası faiz oranlarını yüzde 4 seviyesine yükseltti."

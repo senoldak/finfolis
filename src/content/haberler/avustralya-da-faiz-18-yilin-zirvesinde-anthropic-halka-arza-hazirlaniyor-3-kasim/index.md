@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "16 Kasım 2026"
   olay: "Anthropic şirketinin Nasdaq borsasında halka arzının gerçekleşmesi bekleniyor."
-tablo: {"baslik":"Avustralya Ekonomik Öngörüleri","sutunlar":["Gösterge","Beklenen Değer","Dönem"],"satirlar":[["Manşet Enflasyon","yüzde 4,5","2026 4. Çeyrek"],["İşsizlik Oranı","yüzde 5 üstü","Gelecek 2 yıl"],["Enflasyon Hedef Bandı","yüzde 2-3","2027 2. Yarı"]]}
+tablo: {"baslik":"Avustralya ekonomik öngörüleri","sutunlar":["Gösterge","Beklenen Değer","Dönem"],"satirlar":[["Manşet Enflasyon","yüzde 4,5","2026 4. Çeyrek"],["İşsizlik Oranı","yüzde 5 üstü","Gelecek 2 yıl"],["Enflasyon Hedef Bandı","yüzde 2-3","2027 2. Yarı"]]}
 why_matters: "Merkez bankalarının faiz kararları borçlanma maliyetlerini ve enflasyonu şekillendirirken, teknoloji devlerinin halka arzları piyasadaki yatırım iştahını ve likiditeyi yansıtmaktadır."
 key_points:
   - "Avustralya Merkez Bankası faizi 25 baz puan artırarak yüzde 4,85'e çıkardı."

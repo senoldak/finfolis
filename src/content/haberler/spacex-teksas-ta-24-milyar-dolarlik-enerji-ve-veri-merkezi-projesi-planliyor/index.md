@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "9 Aralık 2026"
   olay: "Starbase Şehir Komisyonu'nun vergi indirimi ve ekonomik kalkınma anlaşmasını görüşeceği toplantı"
-grafik: {"baslik":"Şirket Performansı (3. Çeyrek)","simge":"lira","birimEtiket":"artış oranı","birim":10,"satirlar":[{"etiket":"Toplam Gelir","metin":"yüzde 161","deger":161},{"etiket":"Yapay Zeka Geliri","metin":"9 kat","deger":9}]}
+grafik: {"baslik":"Şirket performansı (3. çeyrek)","simge":"lira","birimEtiket":"artış oranı","birim":10,"satirlar":[{"etiket":"Toplam Gelir","metin":"yüzde 161","deger":161},{"etiket":"Yapay Zeka Geliri","metin":"9 kat","deger":9}]}
 why_matters: "SpaceX'in kendi enerji altyapısını kurma girişimi, şirketin operasyonel bağımsızlığını artırma ve enerji şebekesindeki darboğazları aşma stratejisini yansıtıyor."
 key_points:
   - "24 milyar dolarlık yatırım planı"

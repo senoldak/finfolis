@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "24 Kasım 2026"
   olay: "ABD Hazine Bakanlığının yeni yaptırımları açıklaması"
-tablo: {"baslik":"Petrol Fiyatları Karşılaştırması","sutunlar":["Tür","Fiyat (Dolar)"],"satirlar":[["Brent petrol","89,2"],["Batı Teksas ham petrolü","80,1"]]}
+tablo: {"baslik":"Petrol fiyatları karşılaştırması","sutunlar":["Tür","Fiyat (Dolar)"],"satirlar":[["Brent petrol","89,2"],["Batı Teksas ham petrolü","80,1"]]}
 why_matters: "Hürmüz Boğazı'ndaki tanker saldırıları ve genişletilen yaptırımlar, küresel enerji sevkiyatlarını ve petrol fiyatlarını doğrudan etkilemektedir."
 key_points:
   - "Hürmüz Boğazı'nda üç petrol tankerinin mayına çarparak yangın çıkardığı açıklandı."

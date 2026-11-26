@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "11 Kasım 2026"
   olay: "Hissedarların 5,7 milyar sterlinlik Apollo devralma teklifini oylaması bekleniyor."
-tablo: {"baslik":"EasyJet İçin Sunulan Satın Alma Teklifleri","sutunlar":["Yatırım Grubu","Teklif Tutarı"],"satirlar":[["Apollo","5,7 milyar sterlin"],["Castlelake","5,5 milyar sterlin"]]}
+tablo: {"baslik":"EasyJet için sunulan satın alma teklifleri","sutunlar":["Yatırım Grubu","Teklif Tutarı"],"satirlar":[["Apollo","5,7 milyar sterlin"],["Castlelake","5,5 milyar sterlin"]]}
 why_matters: "Avrupa'nın en büyük düşük maliyetli hava yollarından birinin özel sermayeye geçişi öncesinde yapılan bu kesintiler, sendikaların istihdam güvenliği konusundaki endişelerini artırıyor."
 key_points:
   - "EasyJet genel merkezindeki 2.300 çalışandan 50'sinin işten çıkarılması planlanıyor."

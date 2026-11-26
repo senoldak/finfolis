@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Cochin Shipyard"
     deger: "1.125 Rupi"
 tablo: {"baslik":"Hisse senedi fiyatları ve kritik seviyeler (TL)","sutunlar":["Hisse","Güncel Fiyat","Kritik Seviye"],"satirlar":[["ICICI Bank","1.641","1.495 (Direnç)"],["Gujarat Energy","226","335 (Dönüş)"],["Kaynes Technology","2.902","4.150 (Pozitif)"],["Cochin Shipyard","1.125","1.270 (200-WMA)"]]}
-grafik: {"baslik":"Hisse Senedi Fiyatları","simge":"lira","birimEtiket":"Rupi","birim":200,"satirlar":[{"etiket":"ICICI Bank","metin":"1.641","deger":1641},{"etiket":"Gujarat Energy","metin":"226","deger":226},{"etiket":"Kaynes Technology","metin":"2.902","deger":2902},{"etiket":"Cochin Shipyard","metin":"1.125","deger":1125}]}
+grafik: {"baslik":"Hisse senedi fiyatları","simge":"lira","birimEtiket":"Rupi","birim":200,"satirlar":[{"etiket":"ICICI Bank","metin":"1.641","deger":1641},{"etiket":"Gujarat Energy","metin":"226","deger":226},{"etiket":"Kaynes Technology","metin":"2.902","deger":2902},{"etiket":"Cochin Shipyard","metin":"1.125","deger":1125}]}
 why_matters: "Bu teknik analizler, yatırımcıların hisse senetlerinin mevcut trendlerini ve olası destek-direnç noktalarını anlamalarına yardımcı olmayı amaçlamaktadır."
 key_points:
   - "ICICI Bank hisseleri için kısa vadeli görünüm yükseliş eğiliminde."

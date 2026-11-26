@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "29 Ekim 2026"
   olay: "AIB Autumn 2026 Economic Outlook Report yayımlandı"
-grafik: {"baslik":"Modifiye İç Talep Büyüme Tahminleri","simge":"sepet","birimEtiket":"yüzde","birim":0.25,"satirlar":[{"etiket":"Geçen yıl","metin":"4,7","deger":4.7},{"etiket":"Bu yıl","metin":"3,8","deger":3.8},{"etiket":"Gelecek yıl","metin":"3,1","deger":3.1}]}
+grafik: {"baslik":"Modifiye İç Talep büyüme tahminleri","simge":"sepet","birimEtiket":"yüzde","birim":0.25,"satirlar":[{"etiket":"Geçen yıl","metin":"4,7","deger":4.7},{"etiket":"Bu yıl","metin":"3,8","deger":3.8},{"etiket":"Gelecek yıl","metin":"3,1","deger":3.1}]}
 why_matters: "AIB'nin raporu, iç talep, enflasyon ve konut arzındaki beklentileri ortaya koyarak İrlanda ekonomisinin yakın gelecekteki büyüme seyrine ışık tutuyor."
 key_points:
   - "Modifiye İç Talep bu yıl yüzde 3,8 büyüyecek."

@@ -15,7 +15,7 @@ rakamlar:
 sirada:
   tarih: "19 Kasım 2026"
   olay: "Apec Zirvesi'nde küresel ekonomi ve yapay zeka etkileri değerlendirildi."
-tablo: {"baslik":"Merkez Bankaları Faiz Kararları","sutunlar":["Kurum","Tarih"],"satirlar":[["Avrupa Merkez Bankası","Haziran 2026"],["ABD Federal Rezerv","Eylül 2026"],["İngiltere Merkez Bankası","Kasım 2026"]]}
+tablo: {"baslik":"Merkez bankaları faiz kararları","sutunlar":["Kurum","Tarih"],"satirlar":[["Avrupa Merkez Bankası","Haziran 2026"],["ABD Federal Rezerv","Eylül 2026"],["İngiltere Merkez Bankası","Kasım 2026"]]}
 why_matters: "Yapay zekâ talebinin enflasyonu tetiklemesi, merkez bankalarının faizleri artırmasına ve hanehalkı üzerindeki borçlanma yükünün artmasına neden olabilir."
 key_points:
   - "Yapay zekâ ve enerji şoku küresel enflasyonu bu yıl yüzde 4,7'ye taşıyacak."

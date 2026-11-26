@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "19 Aralık 2026"
   olay: "Dışişleri Bakanı Marco Rubio'nun belirttiği 60 günlük değerlendirme süresinin sonuçlanması bekleniyor."
-grafik: {"baslik":"Petrol Fiyatlarındaki Değişim","simge":"sepet","birimEtiket":"dolar","birim":10,"satirlar":[{"etiket":"Brent ham petrol","metin":"107,57","deger":107.57},{"etiket":"ABD Batı Teksas türü ham petrol","metin":"99,46","deger":99.46}]}
+grafik: {"baslik":"Petrol fiyatlarındaki değişim","simge":"sepet","birimEtiket":"dolar","birim":10,"satirlar":[{"etiket":"Brent ham petrol","metin":"107,57","deger":107.57},{"etiket":"ABD Batı Teksas türü ham petrol","metin":"99,46","deger":99.46}]}
 why_matters: "ABD'nin Rusya yaptırımlarını esnetmesi ve Orta Doğu'daki arz kesintileri küresel petrol fiyatlarını ve akaryakıt maliyetlerini doğrudan etkiliyor."
 key_points:
   - "Brent ham petrolünün varil fiyatı 107,57 dolara geriledi."

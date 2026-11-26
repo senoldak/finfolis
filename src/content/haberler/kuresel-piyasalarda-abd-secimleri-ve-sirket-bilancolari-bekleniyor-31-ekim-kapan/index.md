@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "4 Kasım 2026"
   olay: "ABD ara seçimleri yapılacak."
-tablo: {"baslik":"Q2 Sonuçları Karşılaştırması","sutunlar":["Şirket","Net Kâr","Yıllık Artış"],"satirlar":[["NTPC Limited","70,2956 milyar rupi","yüzde 38,7"],["NTPC Green Energy","1,375 milyar rupi","yüzde 59"]]}
+tablo: {"baslik":"Q2 sonuçları karşılaştırması","sutunlar":["Şirket","Net Kâr","Yıllık Artış"],"satirlar":[["NTPC Limited","70,2956 milyar rupi","yüzde 38,7"],["NTPC Green Energy","1,375 milyar rupi","yüzde 59"]]}
 why_matters: "ABD seçimleri, istihdam verileri ve teknoloji şirketlerinin fonlama turu gelişmeleri küresel piyasalardaki yön arayışını ve yatırımcı kararlarını şekillendiriyor."
 key_points:
   - "S&P 500 endeksi cuma günü 140,32 puan düşüşle 7.580,07 puana geriledi."

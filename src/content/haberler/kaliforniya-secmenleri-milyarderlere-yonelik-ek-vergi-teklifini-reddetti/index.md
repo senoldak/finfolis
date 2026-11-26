@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "1 Ocak 2028"
   olay: "Sendika başkanı Dave Regan'ın milyarder vergisi için yeniden girişimde bulunmayı planladığı yıl."
-tablo: {"baslik":"Proposition 40 Kampanya Verileri","sutunlar":["Kategori","Değer"],"satirlar":[["Toplam Karşı Harcama","425 milyon dolar"],["Sergey Brin Bağışı","132 milyon dolar"],["Ekim Günlük Harcama","2,5 milyon dolar"],["Hedeflenen Servet Eşiği","1 milyar dolar"]]}
+tablo: {"baslik":"Proposition 40 kampanya verileri","sutunlar":["Kategori","Değer"],"satirlar":[["Toplam Karşı Harcama","425 milyon dolar"],["Sergey Brin Bağışı","132 milyon dolar"],["Ekim Günlük Harcama","2,5 milyon dolar"],["Hedeflenen Servet Eşiği","1 milyar dolar"]]}
 why_matters: "Dünyanın en büyük dördüncü ekonomisi sayılan Kaliforniya'daki bu karar, küresel servet eşitsizliğiyle mücadele kapsamında milyarderlere yönelik uygulanması planlanan ilk vergi girişimlerinden birinin başarısız olması anlamına geliyor."
 key_points:
   - "Milyarderlerden bir kerelik yüzde 5 vergi alınması teklifi reddedildi."

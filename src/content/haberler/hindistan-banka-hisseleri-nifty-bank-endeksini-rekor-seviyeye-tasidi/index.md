@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 6,72"
   - etiket: "Özel Banka 5 Günlük Artış"
     deger: "yüzde 5,41"
-tablo: {"baslik":"Banka Endekslerinin 5 Günlük Performans Karşılaştırması","sutunlar":["Endeks Adı","20 Kasım Kapanış","5 Günlük Değişim"],"satirlar":[["Nifty PSU Bank","9.881,05","yüzde 6,72"],["Nifty Private Bank","31.599,50","yüzde 5,41"]]}
+tablo: {"baslik":"Banka endekslerinin 5 günlük performans karşılaştırması","sutunlar":["Endeks Adı","20 Kasım Kapanış","5 Günlük Değişim"],"satirlar":[["Nifty PSU Bank","9.881,05","yüzde 6,72"],["Nifty Private Bank","31.599,50","yüzde 5,41"]]}
 why_matters: "Banka hisselerindeki bu rekor yükseliş, Hindistan ekonomisindeki kredi iştahının ve finansal sistemin genel sağlığının önemli bir göstergesi olarak kabul ediliyor."
 cover: kapak.png
 coverAlt: "Hindistan Nifty 50 son altı ay günlük kapanış grafiği: altı ayda +%8,8, son kapanış 25.800,60"

@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "10 Kasım 2026"
   olay: "ABD ara seçimleri"
-tablo: {"baslik":"Petrol Şirketlerinin Çeyreklik Kârları","sutunlar":["Şirket","Bu Yıl (Milyar Dolar)","Geçen Yıl (Milyar Dolar)"],"satirlar":[["ExxonMobil","15,4","7,5"],["Chevron","9,9","3,5"]]}
+tablo: {"baslik":"Petrol şirketlerinin çeyreklik kârları","sutunlar":["Şirket","Bu Yıl (Milyar Dolar)","Geçen Yıl (Milyar Dolar)"],"satirlar":[["ExxonMobil","15,4","7,5"],["Chevron","9,9","3,5"]]}
 why_matters: "ABD-İran savaşı nedeniyle artan petrol ve akaryakıt fiyatları, küresel enflasyon ve enerji maliyetleri üzerinden tüketicileri ve ekonomileri etkiliyor."
 key_points:
   - "ExxonMobil'in kârı 15,4 milyar dolar oldu."

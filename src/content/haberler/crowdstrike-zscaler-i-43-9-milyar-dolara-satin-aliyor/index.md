@@ -13,7 +13,7 @@ rakamlar:
 sirada:
   tarih: "2028"
   olay: "Satın alma işleminin CrowdStrike'ın 2028 mali yılının ikinci yarısında tamamlanması bekleniyor."
-tablo: {"baslik":"Piyasa Değeri Karşılaştırması","sutunlar":["Şirket / Grup","Piyasa Değeri (Milyar Dolar)"],"satirlar":[["Palo Alto Networks","282"],["CrowdStrike + Zscaler (Birleşik)","265"]]}
+tablo: {"baslik":"Piyasa değeri karşılaştırması","sutunlar":["Şirket / Grup","Piyasa Değeri (Milyar Dolar)"],"satirlar":[["Palo Alto Networks","282"],["CrowdStrike + Zscaler (Birleşik)","265"]]}
 why_matters: "Yapay zekâ destekli siber saldırıların artması, sektördeki dev şirketlerin kapasitelerini birleştirerek daha kapsamlı savunma platformları oluşturmasına neden oluyor."
 key_points:
   - "CrowdStrike, Zscaler'ı 43,9 milyar dolarlık hisse takasıyla satın alıyor."

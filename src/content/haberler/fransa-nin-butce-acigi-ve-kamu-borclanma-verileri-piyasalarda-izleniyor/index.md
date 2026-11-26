@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "Mayıs 2027"
   olay: "Fransa Cumhurbaşkanlığı seçimi"
-grafik: {"baslik":"Fransa'nın Mali Göstergeleri","simge":"sepet","birimEtiket":"yüzde","birim":10,"satirlar":[{"etiket":"Bütçe Açığı","metin":"5,1","deger":5.1},{"etiket":"Kamu Borcu","metin":"115","deger":115}]}
+grafik: {"baslik":"Fransa'nın mali göstergeleri","simge":"sepet","birimEtiket":"yüzde","birim":10,"satirlar":[{"etiket":"Bütçe Açığı","metin":"5,1","deger":5.1},{"etiket":"Kamu Borcu","metin":"115","deger":115}]}
 why_matters: "Fransa'nın mali durumu, Euro Bölgesi'nin genel istikrarı ve Avrupa Birliği'nin ekonomik uyumu açısından bir risk faktörü olarak değerlendiriliyor."
 key_points:
   - "Bütçe açığı yüzde 5,1 seviyesine ulaştı."

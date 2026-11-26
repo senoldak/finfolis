@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Dış borç/GSYH beklentisi"
     deger: "yüzde 31,1"
 tablo: {"baslik":"Sektörlere göre dış borç değişimi (Eylül sonu)","sutunlar":["Sektör","Borç Miktarı (Milyar $)","Değişim (Yüzde)"],"satirlar":[["Özel Sektör","322,2","1,7"],["Kamu Sektörü","203,8","1,2"],["Merkez Bankası","23,2","0,5"]]}
-grafik: {"baslik":"Sektörel Dış Borç Dağılımı (Eylül 2026)","simge":"banka","birimEtiket":"Milyar dolar","birim":20,"satirlar":[{"etiket":"Özel Sektör","metin":"322,2","deger":322.2},{"etiket":"Kamu Sektörü","metin":"203,8","deger":203.8},{"etiket":"Merkez Bankası","metin":"23,2","deger":23.2}]}
+grafik: {"baslik":"Sektörel dış borç dağılımı (Eylül 2026)","simge":"banka","birimEtiket":"Milyar dolar","birim":20,"satirlar":[{"etiket":"Özel Sektör","metin":"322,2","deger":322.2},{"etiket":"Kamu Sektörü","metin":"203,8","deger":203.8},{"etiket":"Merkez Bankası","metin":"23,2","deger":23.2}]}
 why_matters: "Türkiye'nin dış borç stoku ve finansman ihtiyacı, ülkenin ekonomik dayanıklılığı ve dış dengesi açısından kritik göstergeler olarak takip ediliyor."
 key_points:
   - "Brüt dış borcun GSYH'ye oranının yüzde 31,1 olması bekleniyor."

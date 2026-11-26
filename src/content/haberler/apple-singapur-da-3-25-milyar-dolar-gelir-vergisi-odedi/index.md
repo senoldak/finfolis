@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 15"
   - etiket: "Toplam iPhone satışları"
     deger: "254,1 milyar dolar"
-tablo: {"baslik":"Apple 2026 Mali Yılı Finansal Göstergeleri","sutunlar":["Gösterge","Değer (Milyar Dolar)","Yıllık Değişim"],"satirlar":[["Toplam Gelir","478,83","yüzde 15"],["Net Kâr","132,18","yüzde 18"],["iPhone Satışları","254,1","yüzde 21"],["Servis Gelirleri","123,3","yüzde 13"],["Ar-Ge Harcamaları","45,77","yüzde 32"]]}
+tablo: {"baslik":"Apple 2026 mali yılı finansal göstergeleri","sutunlar":["Gösterge","Değer (Milyar Dolar)","Yıllık Değişim"],"satirlar":[["Toplam Gelir","478,83","yüzde 15"],["Net Kâr","132,18","yüzde 18"],["iPhone Satışları","254,1","yüzde 21"],["Servis Gelirleri","123,3","yüzde 13"],["Ar-Ge Harcamaları","45,77","yüzde 32"]]}
 why_matters: "Küresel asgari vergi uygulamasının teknoloji devlerinin vergi stratejileri üzerindeki somut etkisini ve Singapur'un Apple için kritik bir finansal merkez olma özelliğini gösteriyor."
 cover: kapak.png
 coverAlt: "Apple hissesi son altı ay günlük kapanış grafiği: altı ayda +%19,8, son kapanış $350,69"

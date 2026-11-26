@@ -16,7 +16,7 @@ rakamlar:
     deger: "196 bin"
   - etiket: "ABD devam eden işsizlik başvurusu"
     deger: "1.710 bin"
-tablo: {"baslik":"ABD İşsizlik Başvuruları Beklentileri","sutunlar":["Veri","Beklenti","Önceki"],"satirlar":[["İlk İşsizlik Başvuruları","196 bin","194 bin"],["Devam Eden Başvurular","1.710 bin","1.701 bin"]]}
+tablo: {"baslik":"ABD işsizlik başvuruları beklentileri","sutunlar":["Veri","Beklenti","Önceki"],"satirlar":[["İlk İşsizlik Başvuruları","196 bin","194 bin"],["Devam Eden Başvurular","1.710 bin","1.701 bin"]]}
 why_matters: "Merkez bankalarının faiz kararları ve iş gücü piyasası verileri, ekonomik gidişatın yönünü belirlemesi ve para politikalarının geleceğine dair ipuçları taşıması nedeniyle piyasalar tarafından yakından izlenmektedir."
 key_points:
   - "BoE faiz kararı: 25 baz puan artışla yüzde 4,00 beklentisi"

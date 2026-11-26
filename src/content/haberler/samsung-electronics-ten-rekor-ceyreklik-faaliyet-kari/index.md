@@ -16,7 +16,7 @@ rakamlar:
     deger: "195,3 trilyon won"
   - etiket: "Hisse Düşüşü"
     deger: "yüzde 5"
-grafik: {"baslik":"Üçüncü Çeyrek Finansal Sonuçları","simge":"lira","birimEtiket":"trilyon won","birim":10,"satirlar":[{"etiket":"Faaliyet Karı","metin":"107,4","deger":107.4},{"etiket":"Net Kar","metin":"75,1","deger":75.1},{"etiket":"Gelir","metin":"195,3","deger":195.3}]}
+grafik: {"baslik":"Üçüncü çeyrek finansal sonuçları","simge":"lira","birimEtiket":"trilyon won","birim":10,"satirlar":[{"etiket":"Faaliyet Karı","metin":"107,4","deger":107.4},{"etiket":"Net Kar","metin":"75,1","deger":75.1},{"etiket":"Gelir","metin":"195,3","deger":195.3}]}
 why_matters: "Yapay zeka çiplerine olan yoğun talep, yarı iletken üreticilerinin karlarını artırırken, piyasalar bu yatırımların uzun vadeli getirisi konusunda temkinli bir yaklaşım sergiliyor."
 key_points:
   - "Faaliyet karı 107,4 trilyon won seviyesine ulaştı."

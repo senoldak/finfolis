@@ -20,7 +20,7 @@ sirada:
   tarih: "24 Kasım 2026"
   olay: "2027 yılı bütçesinin onaylanması"
 tablo: {"baslik":"Bütçe dengesi karşılaştırması","sutunlar":["Gösterge","2026 Tahmini","2027 Hedefi"],"satirlar":[["Bütçe açığı (milyar riyal)","245","190,56"],["Bütçe açığı (GSYH oranı)","Yüzde 4,9","Yüzde 3,6"]]}
-grafik: {"baslik":"Bütçe Açığının GSYH'ye Oranı","simge":"sepet","birimEtiket":"yüzde","birim":0.25,"satirlar":[{"etiket":"2026 Tahmini","metin":"4,9","deger":4.9},{"etiket":"2027 Öngörüsü","metin":"3,6","deger":3.6}]}
+grafik: {"baslik":"Bütçe açığının GSYH'ye oranı","simge":"sepet","birimEtiket":"yüzde","birim":0.25,"satirlar":[{"etiket":"2026 Tahmini","metin":"4,9","deger":4.9},{"etiket":"2027 Öngörüsü","metin":"3,6","deger":3.6}]}
 why_matters: "Suudi Arabistan'ın bütçe planlaması, ülkenin mali disiplin stratejilerini ve petrol dışı ekonomiye geçiş hedeflerini yansıtması açısından önem taşıyor."
 key_points:
   - "2027 bütçesi 371,2 milyar dolar olarak onaylandı."

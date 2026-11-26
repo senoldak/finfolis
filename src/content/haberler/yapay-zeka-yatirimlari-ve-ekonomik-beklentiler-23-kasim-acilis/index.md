@@ -16,7 +16,7 @@ rakamlar:
     deger: "2,47 trilyon TL"
   - etiket: "Hane halkı enflasyon beklentisi"
     deger: "yüzde 43,24"
-tablo: {"baslik":"Sektörel Enflasyon Beklentileri (12 Ay Sonrası)","sutunlar":["Grup","Kasım 2026 Beklentisi"],"satirlar":[["Hane Halkı","Yüzde 43,24"],["Piyasa Katılımcıları","Yüzde 24,04"],["Reel Sektör","Yüzde 31,70"]]}
+tablo: {"baslik":"Sektörel Enflasyon Beklentileri (12 ay sonrası)","sutunlar":["Grup","Kasım 2026 Beklentisi"],"satirlar":[["Hane Halkı","Yüzde 43,24"],["Piyasa Katılımcıları","Yüzde 24,04"],["Reel Sektör","Yüzde 31,70"]]}
 why_matters: "Yapay zekâ sektörüne yönelik sermaye hareketleri ve finansal risk algısı küresel piyasaları etkilerken, Türkiye'de hane halkı ve reel sektörün enflasyon beklentileri ekonomik görünüm açısından takip ediliyor."
 key_points:
   - "Anthropic, Seri E yatırım turunda 61,5 milyar dolar değerlemeye ulaştı."

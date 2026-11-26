@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Yılın ilk yarısı geliri"
     deger: "2,7 milyar sterlin"
 tablo: {"baslik":"Babcock finansal performans karşılaştırması","sutunlar":["Gösterge","Geçen Yıl","Bu Yıl"],"satirlar":[["Gelir (milyar sterlin)","2,5","2,7"],["Borç (milyon sterlin)","351","267"]]}
-grafik: {"baslik":"Babcock Finansal Göstergeler","simge":"lira","birimEtiket":"milyar sterlin","birim":0.5,"satirlar":[{"etiket":"Yılın ilk yarısı gelir","metin":"2,7","deger":2.7},{"etiket":"Sözleşme birikimi","metin":"8,9","deger":8.9}]}
+grafik: {"baslik":"Babcock finansal göstergeler","simge":"lira","birimEtiket":"milyar sterlin","birim":0.5,"satirlar":[{"etiket":"Yılın ilk yarısı gelir","metin":"2,7","deger":2.7},{"etiket":"Sözleşme birikimi","metin":"8,9","deger":8.9}]}
 why_matters: "Savunma harcamalarındaki artış ve büyük ölçekli sözleşmeler, hem şirketlerin finansal performansını hem de ulusal savunma stratejilerini doğrudan etkiliyor."
 key_points:
   - "8,7 milyar sterlin değerinde 5 yıllık savunma sözleşmesi imzalandı."

@@ -16,7 +16,7 @@ rakamlar:
     deger: "22 milyar dolar"
   - etiket: "Kurumsal Kuruluş Sayısı"
     deger: "500"
-tablo: {"baslik":"Kalshi Değerleme Gelişimi","sutunlar":["Dönem","Değerleme (Milyar Dolar)"],"satirlar":[["Ekim 2025","5"],["Mayıs 2026","22"],["Ekim 2026","40"]]}
+tablo: {"baslik":"Kalshi değerleme gelişimi","sutunlar":["Dönem","Değerleme (Milyar Dolar)"],"satirlar":[["Ekim 2025","5"],["Mayıs 2026","22"],["Ekim 2026","40"]]}
 why_matters: "Tahmin piyasalarının hızla büyümesi ve Kalshi'nin geleneksel borsalarla rekabet edecek şekilde türev ürünlere yönelmesi, finansal piyasaların yapısında önemli bir değişime işaret ediyor."
 key_points:
   - "Kalshi'nin piyasa değeri bir yılda 5 milyar dolardan 40 milyar dolara çıktı."

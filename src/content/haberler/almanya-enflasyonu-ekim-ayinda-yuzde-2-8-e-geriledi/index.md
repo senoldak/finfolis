@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde -0,2"
   - etiket: "Enerji Fiyat Artışı"
     deger: "yüzde 12,2"
-tablo: {"baslik":"Almanya'da Enerji ve Gıda Fiyatlarındaki Değişim (Ekim 2026)","sutunlar":["Ürün Grubu","Yıllık Değişim (%)"],"satirlar":[["Kalorifer Yakıtı","84,5"],["Akaryakıt","28,9"],["Yumurta","15,4"],["Taze Sebze","11,5"],["Doğal Gaz","-1,2"],["Elektrik","-5,2"],["Tereyağı","-18,9"]]}
+tablo: {"baslik":"Almanya'da enerji ve Gıda fiyatlarındaki değişim (Ekim 2026)","sutunlar":["Ürün Grubu","Yıllık Değişim (%)"],"satirlar":[["Kalorifer Yakıtı","84,5"],["Akaryakıt","28,9"],["Yumurta","15,4"],["Taze Sebze","11,5"],["Doğal Gaz","-1,2"],["Elektrik","-5,2"],["Tereyağı","-18,9"]]}
 why_matters: "Almanya'da enflasyonun yavaşlaması, Avrupa genelinde fiyat baskılarının azaldığına işaret ederek Avrupa Merkez Bankası'nın faiz kararları üzerindeki baskıyı hafifletebilir."
 key_points:
   - "Yıllık enflasyon yüzde 3,3'ten yüzde 2,8'e geriledi."

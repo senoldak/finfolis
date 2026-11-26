@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "10 Aralık 2026"
   olay: "ERCOT'un veri merkezi denetim raporlarının açıklanması"
-grafik: {"baslik":"Elektrik Talebi Karşılaştırması","simge":"sepet","birimEtiket":"gigavat","birim":25,"satirlar":[{"etiket":"ERCOT Talep Kuyruğu","metin":"474","deger":474},{"etiket":"Tüm Zamanların En Yüksek Talebi","metin":"90","deger":90}]}
+grafik: {"baslik":"Elektrik talebi karşılaştırması","simge":"sepet","birimEtiket":"gigavat","birim":25,"satirlar":[{"etiket":"ERCOT Talep Kuyruğu","metin":"474","deger":474},{"etiket":"Tüm Zamanların En Yüksek Talebi","metin":"90","deger":90}]}
 why_matters: "Veri merkezlerinin yüksek enerji talebi, Teksas'ın elektrik şebekesi kapasitesi ve yerel altyapı üzerinde önemli bir baskı oluşturarak eyalet genelinde yeni düzenlemeleri ve ekonomik değişimleri beraberinde getiriyor."
 key_points:
   - "ERCOT'un veri merkezi talep kuyruğu 474 gigavat seviyesinde bulunuyor."

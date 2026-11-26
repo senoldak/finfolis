@@ -18,7 +18,7 @@ sirada:
   tarih: "23 Kasım 2026"
   olay: "McElligott'ın piyasa değerlendirmesinin yayımlanması."
 tablo: {"baslik":"Hisse senedi yükselişine bağlı olası alım hacmi","sutunlar":["Hisse senedi yükselişi","Olası alım hacmi"],"satirlar":[["Yüzde 2-4","7,9 - 21,1 milyar dolar"]]}
-grafik: {"baslik":"Hisse Yükselişinde Olası Ek Alım Miktarları","simge":"sepet","birimEtiket":"milyar dolar","birim":2,"satirlar":[{"etiket":"Alt Sınır","metin":"7,9","deger":7.9},{"etiket":"Üst Sınır","metin":"21,1","deger":21.1}]}
+grafik: {"baslik":"Hisse yükselişinde olası ek alım miktarları","simge":"sepet","birimEtiket":"milyar dolar","birim":2,"satirlar":[{"etiket":"Alt Sınır","metin":"7,9","deger":7.9},{"etiket":"Üst Sınır","metin":"21,1","deger":21.1}]}
 why_matters: "Yapay zekâ sektöründeki bu mekanik alım hacmi, piyasadaki fiyat hareketlerinin temel beklentilerden ziyade otomatik sistemler tarafından yönlendirildiğini göstermesi açısından önem taşıyor."
 key_points:
   - "Yapay zekâ hisselerine bağlı kaldıraçlı ETF alımları 41 milyar dolara ulaştı."

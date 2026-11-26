@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "3 Kasım 2026"
   olay: "Kongrenin kontrolünü belirleyecek ara seçimler yapılacak"
-grafik: {"baslik":"Amerikan Endekslerindeki Değişim","simge":"sepet","birimEtiket":"yüzde","birim":0.1,"satirlar":[{"etiket":"Dow Jones","metin":"1,25","deger":1.25},{"etiket":"S&P 500","metin":"0,52","deger":0.52},{"etiket":"Nasdaq","metin":"0,21","deger":0.21}]}
+grafik: {"baslik":"Amerikan endekslerindeki değişim","simge":"sepet","birimEtiket":"yüzde","birim":0.1,"satirlar":[{"etiket":"Dow Jones","metin":"1,25","deger":1.25},{"etiket":"S&P 500","metin":"0,52","deger":0.52},{"etiket":"Nasdaq","metin":"0,21","deger":0.21}]}
 why_matters: "ABD borsalarındaki bu hareketler, yapay zeka harcamalarının geleceği ve yaklaşan Federal Rezerv kararları öncesinde küresel piyasalardaki risk iştahını doğrudan etkiliyor."
 key_points:
   - "Dow Jones endeksi yüzde 1,25 düşüşle 52.209,16 puana geriledi."

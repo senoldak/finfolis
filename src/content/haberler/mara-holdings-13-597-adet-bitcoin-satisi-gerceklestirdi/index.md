@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Önümüzdeki haftalar"
   olay: "Long Ridge doğal gaz santrali satın alımının tamamlanması bekleniyor."
-tablo: {"baslik":"Üçüncü Çeyrek Finansal Veriler","sutunlar":["Kalem","2025","2026"],"satirlar":[["Gelir (milyon dolar)","252,4","164,2"],["Net Gelir (milyon dolar)","123,1","632,1"]]}
+tablo: {"baslik":"Üçüncü çeyrek finansal veriler","sutunlar":["Kalem","2025","2026"],"satirlar":[["Gelir (milyon dolar)","252,4","164,2"],["Net Gelir (milyon dolar)","123,1","632,1"]]}
 grafik: {"baslik":"MARA Holdings Bitcoin satışları (2026)","simge":"sepet","birimEtiket":"adet","birim":2000,"satirlar":[{"etiket":"İlk 9 ay toplam satış","metin":"26.984","deger":26984},{"etiket":"Üçüncü çeyrek satışı","metin":"3.891","deger":3891},{"etiket":"Çeyrek sonrası satış","metin":"13.597","deger":13597}]}
 why_matters: "Şirketin Bitcoin varlıklarını satarak borçlarını kapatması ve yapay zeka altyapısı gibi yeni iş alanlarına odaklanması, madencilik sektöründeki stratejik dönüşümü yansıtıyor."
 key_points:

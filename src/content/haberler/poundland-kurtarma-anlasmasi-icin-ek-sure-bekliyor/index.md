@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "11 Kasım 2026"
   olay: "İflas idaresine atanma niyetine ilişkin 10 günlük sürenin dolması."
-tablo: {"baslik":"Potansiyel Alıcılar ve İlgilenilen Varlıklar","sutunlar":["Kurum","İlgi Alanı"],"satirlar":[["Tesco","150 mağazaya kadar satın alma"],["Xyra Holdings","İşletmenin tamamı"],["Martin Property Group","İşletmenin tamamı veya bir kısmı"],["Iceland ve Lidl","Mağaza ağının bir kısmı"]]}
+tablo: {"baslik":"Potansiyel alıcılar ve ilgilenilen varlıklar","sutunlar":["Kurum","İlgi Alanı"],"satirlar":[["Tesco","150 mağazaya kadar satın alma"],["Xyra Holdings","İşletmenin tamamı"],["Martin Property Group","İşletmenin tamamı veya bir kısmı"],["Iceland ve Lidl","Mağaza ağının bir kısmı"]]}
 why_matters: "Poundland'in bir alıcı bulamaması, 11.000 çalışanın işini kaybetmesine ve 600 mağazanın kapanma riskiyle karşı karşıya kalmasına neden olabilir."
 key_points:
   - "11 Kasım 2026 gece yarısı itibarıyla 10 günlük yasal süre doluyor."

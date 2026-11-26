@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 3,6"
   - etiket: "Tahmini harcama"
     deger: "7,6 trilyon dolar"
-tablo: {"baslik":"Perşembe Günü Gerileyen Şirketler ve Değişim Oranları","sutunlar":["Şirket","Değişim Oranı"],"satirlar":[["Nvidia","yüzde 9,3"],["AMD","yüzde 17,3"],["Microsoft","yüzde 3,6"],["Micron","yüzde 17,5"],["Broadcom","yüzde 10,4"],["Tesla","yüzde 10,8"],["SpaceX","yüzde 9,1"]]}
+tablo: {"baslik":"Perşembe günü gerileyen şirketler ve değişim oranları","sutunlar":["Şirket","Değişim Oranı"],"satirlar":[["Nvidia","yüzde 9,3"],["AMD","yüzde 17,3"],["Microsoft","yüzde 3,6"],["Micron","yüzde 17,5"],["Broadcom","yüzde 10,4"],["Tesla","yüzde 10,8"],["SpaceX","yüzde 9,1"]]}
 why_matters: "Ara seçim sonuçları ve olası veri merkezi kısıtlamaları, devasa yapay zeka altyapı yatırımlarının hızını ve maliyetini doğrudan etkileyebilir."
 cover: kapak.png
 coverAlt: "Nvidia düşüşü %9,3"

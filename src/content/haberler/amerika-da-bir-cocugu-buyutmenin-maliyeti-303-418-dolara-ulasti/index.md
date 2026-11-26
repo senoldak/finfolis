@@ -7,7 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.DGxpkl6Rji7KS5Ta.dXAp9BHhcjCcp+L0ZJLSH0MLu/h3Xe6IWyn9a/BgEeWV7008zHw8HBxwuz0kbwlyareRwMV8nrcdzLrs9fNyzfVpC4Qep2m8JfHs001AFKa6AecPOdCbHVlkoXTt0F9ExfgzcMNcQjTlAoCgTQkXxNAfjmQHL/N0"
-tablo: {"baslik":"Eyaletlere Göre Çocuk Büyütme Maliyetleri","sutunlar":["Eyalet","18 yıllık maliyet","İlk 5 yıl yıllık maliyet"],"satirlar":[["Hawaii","$412.661","$40.342"],["Alaska","$365.047","$29.024"],["Maryland","$326.360","$36.419"],["California","$312.300","$33.692"],["New Jersey","$312.295","$31.948"],["Kansas","$303.250","$27.793"]]}
+tablo: {"baslik":"Eyaletlere göre çocuk büyütme maliyetleri","sutunlar":["Eyalet","18 yıllık maliyet","İlk 5 yıl yıllık maliyet"],"satirlar":[["Hawaii","$412.661","$40.342"],["Alaska","$365.047","$29.024"],["Maryland","$326.360","$36.419"],["California","$312.300","$33.692"],["New Jersey","$312.295","$31.948"],["Kansas","$303.250","$27.793"]]}
 why_matters: "Çocuk büyütme maliyetlerindeki artış, ailelerin kaç çocuk sahibi olacağı yönündeki kararlarını ve bütçe planlamalarını doğrudan etkiliyor."
 cover: kapak.png
 coverAlt: "ABD · Amerika'da bir çocuğu büyütmenin maliyeti 303.418 dolara ulaştı"

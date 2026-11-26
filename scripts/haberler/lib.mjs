@@ -165,8 +165,13 @@ export async function yaziYaz(rot, yazi) {
   if (yazi.sirada?.tarih && yazi.sirada?.olay) fm.push('sirada:', `  tarih: ${y(yazi.sirada.tarih)}`, `  olay: ${y(yazi.sirada.olay)}`);
   // Tablo ve grafiğin her satırı yayın kurulunda kaynak metinde doğrulanır (tabloKaynaktaMi, grafikKaynaktaMi).
   // Kaynak gizliyse (kaynaklar boş) sayfa kaynak bağlantısı yerine yalnız tarihi gösterir.
-  if (yazi.tablo) fm.push(`tablo: ${JSON.stringify(yazi.tablo)}`);
-  if (yazi.grafik) fm.push(`grafik: ${JSON.stringify(yazi.grafik)}`);
+  // Tablo ve grafik başlığı ara başlıkla aynı kuralla cümle düzenine iner (26 Kasım 2026: 187 tablo, 120 grafik başlığı
+  // "Her Kelimesi Büyük" yazılmıştı); özel adlar gövde ve özetten okunur.
+  const kartBasligi = (o) => (typeof o?.baslik === 'string'
+    ? { ...o, baslik: cumleDuzeni(o.baslik, `${yazi.govde ?? ''}\n${yazi.spot ?? ''}`, { enAz: 3, araBaslik: true }) }
+    : o);
+  if (yazi.tablo) fm.push(`tablo: ${JSON.stringify(kartBasligi(yazi.tablo))}`);
+  if (yazi.grafik) fm.push(`grafik: ${JSON.stringify(kartBasligi(yazi.grafik))}`);
   // Kısa okur alanları temizlenir; kurtarılamayan alan yazılmaz (ozetAlaniTemizle, 26 Kasım 2026).
   const why = ozetAlaniTemizle(yazi.why_matters);
   if (why) fm.push(`why_matters: ${y(why)}`);

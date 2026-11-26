@@ -250,3 +250,14 @@ test('yaziYaz bozuk why_matters ve key_points alanını yazmaz', async () => {
   assert.equal(fm.why_matters, undefined);
   assert.deepEqual(fm.key_points, ['Sağlam madde']);
 });
+
+test('yaziYaz tablo ve grafik başlığını cümle düzenine indirir, özel adı korur', async () => {
+  const rot = await mkdtemp(path.join(os.tmpdir(), 'haber-'));
+  const slug = await yaziYaz(rot, { baslik: 'Kart sınaması', spot: 'Özet.', govde: 'Venezuela üretimi arttı. Üretim verisi açıklandı.', kategori: 'piyasalar', tarih: new Date('2026-11-26T08:00:00Z'), tur: 'haber', kaynaklar: [],
+    tablo: { baslik: 'ABD Ekim Ayı Bütçe Verileri (Milyar Dolar)', sutunlar: ['a', 'b'], satirlar: [['x', '1']] },
+    grafik: { baslik: 'Venezuela Günlük Ham Petrol Üretimi', satirlar: [{ etiket: 'Ekim', metin: '1', deger: 1 }] } });
+  const fm = parse((await readFile(path.join(rot, 'src/content/haberler', slug, 'index.md'), 'utf8')).split('---')[1]);
+  assert.equal(fm.tablo.baslik, 'ABD ekim ayı bütçe verileri (milyar dolar)'); // TDK: belirli tarih değilse ay küçük
+  assert.equal(fm.grafik.baslik, 'Venezuela günlük ham petrol üretimi');
+  assert.deepEqual(fm.tablo.satirlar, [['x', '1']]);
+});

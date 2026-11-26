@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "2026 sonu"
   olay: "Wyoming'deki veri merkezi projesi için saha çalışmalarının başlaması planlanıyor."
-tablo: {"baslik":"2026 Yılı Tahvil İhraçları","sutunlar":["Dönem","Tutar (Avro)"],"satirlar":[["Mayıs 2026","9 milyar"],["Son İhraç","6 milyar"]]}
+tablo: {"baslik":"2026 yılı tahvil ihraçları","sutunlar":["Dönem","Tutar (Avro)"],"satirlar":[["Mayıs 2026","9 milyar"],["Son İhraç","6 milyar"]]}
 why_matters: "Alphabet'in yüksek yapay zeka altyapı harcamaları ve veri merkezi stratejisi, şirketin finansal sürdürülebilirliği açısından yatırımcılar tarafından takip ediliyor."
 key_points:
   - "Alphabet hisseleri 5 Kasım 2026 Çarşamba günü yüzde 3,2 artışla 288,93 dolardan kapandı."

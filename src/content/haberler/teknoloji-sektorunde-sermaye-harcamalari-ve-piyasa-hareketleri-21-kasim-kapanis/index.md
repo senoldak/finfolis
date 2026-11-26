@@ -16,7 +16,7 @@ rakamlar:
     deger: "8.700"
   - etiket: "Airbnb 3. çeyrek geliri"
     deger: "4,87 milyar dolar"
-tablo: {"baslik":"Kurumlara Göre 2027 S&P 500 Beklentileri","sutunlar":["Kurum","Tahmin"],"satirlar":[["Morgan Stanley","8.700"],["Goldman Sachs","8.700"],["UBS","8.200"]]}
+tablo: {"baslik":"Kurumlara göre 2027 S&P 500 beklentileri","sutunlar":["Kurum","Tahmin"],"satirlar":[["Morgan Stanley","8.700"],["Goldman Sachs","8.700"],["UBS","8.200"]]}
 why_matters: "Büyük teknoloji şirketlerinin yapay zekâ altyapısına yönelik yüksek sermaye harcamaları ve piyasa değerlemeleri, yatırımcıların gelecek dönem büyüme beklentilerini ve endeks tahminlerini şekillendiriyor."
 key_points:
   - "Meta Platforms, 2026 sermaye harcaması tahminini 135-145 milyar dolar arasına yükseltti."

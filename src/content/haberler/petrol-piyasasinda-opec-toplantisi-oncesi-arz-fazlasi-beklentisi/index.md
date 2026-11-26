@@ -20,7 +20,7 @@ sirada:
   tarih: "29 Kasım 2026"
   olay: "OPEC+ grubu 2027 üretim politikasını belirlemek üzere toplanacak."
 tablo: {"baslik":"Petrol fiyatlarında haftalık değişim","sutunlar":["Petrol Türü","Kapanış Fiyatı","Değişim (%)"],"satirlar":[["Brent","92,57 dolar","-3,41"],["WTI","83,41 dolar","-4,44"],["MCX Ham Petrol","7.695 rupi","-7,09"]]}
-grafik: {"baslik":"Haftalık Fiyat Değişimleri","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Brent Petrol","metin":"3,41","deger":3.41},{"etiket":"WTI Ham Petrol","metin":"4,44","deger":4.44},{"etiket":"MCX Ham Petrol","metin":"7,09","deger":7.09}]}
+grafik: {"baslik":"Haftalık fiyat değişimleri","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Brent Petrol","metin":"3,41","deger":3.41},{"etiket":"WTI Ham Petrol","metin":"4,44","deger":4.44},{"etiket":"MCX Ham Petrol","metin":"7,09","deger":7.09}]}
 why_matters: "Arz fazlası beklentileri ve OPEC+ kararları, küresel enerji maliyetlerini ve buna bağlı olarak enflasyon ile şirket kâr marjlarını etkilediği için piyasalar tarafından izleniyor."
 key_points:
   - "OPEC+ grubu 29 Kasım 2026 tarihinde 2027 üretim politikasını belirlemek üzere toplanacak."

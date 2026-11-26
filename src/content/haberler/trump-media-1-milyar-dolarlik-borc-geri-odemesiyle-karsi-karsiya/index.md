@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "30 Kasım 2026"
   olay: "Dönüştürülebilir borç senetleri için nakit geri ödeme talebi süreci"
-tablo: {"baslik":"Dijital Varlık Performansı","sutunlar":["Varlık","Değişim"],"satirlar":[["Bitcoin","yüzde -50"],["Cronos","yüzde -52,4"]]}
+tablo: {"baslik":"Dijital varlık performansı","sutunlar":["Varlık","Değişim"],"satirlar":[["Bitcoin","yüzde -50"],["Cronos","yüzde -52,4"]]}
 why_matters: "Şirketin varlıklarının büyük kısmının değer kaybeden kripto paralarda bulunması ve hisse fiyatının dönüşüm seviyesinin altında kalması, 1 milyar dolarlık borç yükümlülüğünün karşılanmasını finansal açıdan zorlu bir süreç haline getiriyor."
 key_points:
   - "1 milyar dolarlık dönüştürülebilir borç geri ödemesi gündemde."

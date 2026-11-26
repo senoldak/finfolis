@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 4,848"
   - etiket: "Fed Faiz Artışı Olasılığı"
     deger: "yüzde 98"
-tablo: {"baslik":"Avrupa Borsalarında Günlük Değişimler","sutunlar":["Borsa Endeksi","Değişim Oranı"],"satirlar":[["STOXX 600","yüzde 1,3"],["DAX","yüzde 1,7"],["CAC 40","yüzde 1,5"],["FTSE 100","yüzde 1,3"],["FTSE MIB","yüzde 2,3"]]}
+tablo: {"baslik":"Avrupa borsalarında günlük değişimler","sutunlar":["Borsa Endeksi","Değişim Oranı"],"satirlar":[["STOXX 600","yüzde 1,3"],["DAX","yüzde 1,7"],["CAC 40","yüzde 1,5"],["FTSE 100","yüzde 1,3"],["FTSE MIB","yüzde 2,3"]]}
 why_matters: "ABD gümrük tarifelerinin beklendiği kadar sert olmaması ve tahvil getirilerindeki düşüş, Avrupa borsalarının nefes almasını sağlayarak küresel piyasalardaki oynaklığı azalttı."
 cover: kapak.png
 coverAlt: "Euro Stoxx 50 son altı ay günlük kapanış grafiği: altı ayda −%2,9, son kapanış 5.894,46"

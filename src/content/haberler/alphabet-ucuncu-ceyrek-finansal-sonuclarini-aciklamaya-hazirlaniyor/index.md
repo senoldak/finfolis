@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 90"
   - etiket: "Tahmini Sermaye Harcaması"
     deger: "55,2 milyar dolar"
-tablo: {"baslik":"Alphabet 3. Çeyrek Beklentileri ve Harcamalar","sutunlar":["Gösterge","Beklenen Değer","Yıllık Değişim"],"satirlar":[["Toplam Gelir","128,2 milyar dolar","yüzde 25"],["Bulut Bilişim Geliri","28,7 milyar dolar","yüzde 90"],["Sermaye Harcamaları (Capex)","55,2 milyar dolar","yüzde 130"],["Serbest Nakit Akışı","-2,27 milyar dolar","Belirtilmedi"]]}
+tablo: {"baslik":"Alphabet 3. çeyrek beklentileri ve harcamalar","sutunlar":["Gösterge","Beklenen Değer","Yıllık Değişim"],"satirlar":[["Toplam Gelir","128,2 milyar dolar","yüzde 25"],["Bulut Bilişim Geliri","28,7 milyar dolar","yüzde 90"],["Sermaye Harcamaları (Capex)","55,2 milyar dolar","yüzde 130"],["Serbest Nakit Akışı","-2,27 milyar dolar","Belirtilmedi"]]}
 why_matters: "Yapay zeka yatırımlarının maliyetleri hızla artarken, Alphabet'in bu harcamaları ne kadar sürede gelire dönüştürebileceği teknoloji sektörünün gelecekteki yatırım iştahını belirleyebilir."
 key_points:
   - "Alphabet'in üçüncü çeyrek gelirinin yüzde 25 artışla 128,2 milyar dolara ulaşması bekleniyor."

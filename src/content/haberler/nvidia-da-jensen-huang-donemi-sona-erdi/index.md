@@ -15,7 +15,7 @@ rakamlar:
 sirada:
   tarih: "3 Aralık 2026"
   olay: "Jensen Huang'ın ABD Senatosu Bankacılık Komitesi'ne ifade vermesi bekleniyor."
-tablo: {"baslik":"Senato İfade Çağrıları","sutunlar":["İsim","Tarih"],"satirlar":[["Jensen Huang","3 Aralık 2026"],["Howard Lutnick","10 Aralık 2026"]]}
+tablo: {"baslik":"Senato ifade çağrıları","sutunlar":["İsim","Tarih"],"satirlar":[["Jensen Huang","3 Aralık 2026"],["Howard Lutnick","10 Aralık 2026"]]}
 why_matters: "Huang'ın ayrılışı, yapay zekâ sektörünün önemli oyuncularından birinde yönetim değişikliğine yol açarken, şirketin geleceği ve ulusal güvenlik konuları piyasalar tarafından takip ediliyor."
 key_points:
   - "Nvidia, bu hafta yaklaşık 500 milyar dolar piyasa değeri kaybetti."

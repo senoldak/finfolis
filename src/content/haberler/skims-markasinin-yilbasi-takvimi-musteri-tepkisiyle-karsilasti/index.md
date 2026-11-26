@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "15 Kasım 2026"
   olay: "Skims'in yılbaşı takvimi krizine yönelik pazarlama uzmanlarının değerlendirmeleri yayınlandı."
-tablo: {"baslik":"Tüketici Harcama ve Sadakat Verileri","sutunlar":["Kategori","Oran/Miktar"],"satirlar":[["Hediye kartı bakiyesini aşanlar","yüzde 60"],["Kart bakiyesi üzerine ek harcama","73 dolar"],["Sadece markaya bağlı kalanlar","yüzde 10"],["Kullanılmamış kartı olanlar","yüzde 43"]]}
+tablo: {"baslik":"Tüketici harcama ve sadakat verileri","sutunlar":["Kategori","Oran/Miktar"],"satirlar":[["Hediye kartı bakiyesini aşanlar","yüzde 60"],["Kart bakiyesi üzerine ek harcama","73 dolar"],["Sadece markaya bağlı kalanlar","yüzde 10"],["Kullanılmamış kartı olanlar","yüzde 43"]]}
 why_matters: "Yüksek değerlemeye sahip markaların ürün kalitesi ve müşteri güveni arasındaki dengeyi nasıl yönettiği, marka sadakati ve uzun vadeli gelirler üzerinde belirleyici rol oynuyor."
 key_points:
   - "Yılbaşı takvimi 148 dolardan satışa sunuldu."

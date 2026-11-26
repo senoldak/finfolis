@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Kasım 2026"
   olay: "Anthropic'in olası halka arzı"
-tablo: {"baslik":"Şirketlerin Halka Arz ve Değerleme Verileri","sutunlar":["Şirket","Fon Tutarı","Değerleme"],"satirlar":[["SpaceX","75 milyar dolar","1,77 trilyon dolar"],["Anthropic","100 milyar dolar","2 trilyon dolar"]]}
+tablo: {"baslik":"Şirketlerin halka arz ve değerleme verileri","sutunlar":["Şirket","Fon Tutarı","Değerleme"],"satirlar":[["SpaceX","75 milyar dolar","1,77 trilyon dolar"],["Anthropic","100 milyar dolar","2 trilyon dolar"]]}
 why_matters: "Yapay zeka devlerinin milyarlarca dolarlık fon arayışı ve halka arz planları, piyasanın bu teknolojiye duyduğu güvenin ve sermaye akışının sürdürülebilirliğini test ediyor."
 key_points:
   - "SpaceX Haziran 2026'daki halka arzında 75 milyar dolar topladı."

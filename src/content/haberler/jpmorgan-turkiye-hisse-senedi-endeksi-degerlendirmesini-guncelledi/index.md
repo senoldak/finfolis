@@ -20,7 +20,7 @@ sirada:
   tarih: "Haziran 2027"
   olay: "MSCI, yeterli ilerleme görülmemesi durumunda yeniden sınıflandırma için istişare başlatabileceğini bildirdi."
 tablo: {"baslik":"Fon sektörü ve piyasa verileri","sutunlar":["Gösterge","Değer"],"satirlar":[["Tasfiye edilen fon varlıkları","23 milyar dolar"],["Fon sektörü toplam büyüklüğü","264 milyar dolar"],["Eylül ayı fon çıkışı","14 milyar dolar"],["Eylül ayı TL mevduat artışı","15 milyar dolar"]]}
-grafik: {"baslik":"Fon Sektörü Büyüklüğü (Eylül 2026)","simge":"sepet","birimEtiket":"milyar dolar","birim":20,"satirlar":[{"etiket":"Toplam Fon Sektörü","metin":"264","deger":264},{"etiket":"Tasfiye Edilen Fonlar","metin":"23","deger":23}]}
+grafik: {"baslik":"Fon sektörü büyüklüğü (Eylül 2026)","simge":"sepet","birimEtiket":"milyar dolar","birim":20,"satirlar":[{"etiket":"Toplam Fon Sektörü","metin":"264","deger":264},{"etiket":"Tasfiye Edilen Fonlar","metin":"23","deger":23}]}
 why_matters: "Bu gelişme, uluslararası bir yatırım bankasının Türkiye piyasalarındaki düzenleyici adımları değerlendirmesini ve piyasa beklentilerini ortaya koyması açısından önem taşıyor."
 key_points:
   - "JPMorgan, MSCI Türkiye endeksi notunu yükseltti."

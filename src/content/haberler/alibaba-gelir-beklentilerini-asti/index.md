@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "2027"
   olay: "Bilişim gücü arzının Çin iç pazarında en kısıtlı olacağı dönem olarak öngörülüyor."
-tablo: {"baslik":"Finansal Performans Özeti (Milyar Yuan)","sutunlar":["Kalem","Tutar"],"satirlar":[["Toplam Gelir","271,52"],["Yapay Zeka ve Bulut Geliri","60,97"],["Sermaye Harcaması","50,48"],["Net Kâr","19,9"]]}
+tablo: {"baslik":"Finansal performans özeti (milyar yuan)","sutunlar":["Kalem","Tutar"],"satirlar":[["Toplam Gelir","271,52"],["Yapay Zeka ve Bulut Geliri","60,97"],["Sermaye Harcaması","50,48"],["Net Kâr","19,9"]]}
 why_matters: "Alibaba'nın yapay zekâ yatırımlarına odaklanması, şirketin e-ticaret gelirlerindeki düşüşü dengelemeye çalıştığını ve teknoloji altyapısına yönelik stratejik bir dönüşüm içinde olduğunu gösteriyor."
 key_points:
   - "Çeyreklik gelir 271,52 milyar yuan olarak gerçekleşti."

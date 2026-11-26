@@ -16,7 +16,7 @@ rakamlar:
     deger: "200"
   - etiket: "Washington gelir vergisi"
     deger: "yüzde 9,9"
-tablo: {"baslik":"Eyalet Bazlı Vergi Düzenlemeleri","sutunlar":["Eyalet","Düzenleme","Oran"],"satirlar":[["Washington","Gelir Vergisi","Yüzde 9,9"],["Colorado","Gelir Vergisi Sınırı","Yüzde 4,4"],["Kaliforniya","Servet Vergisi","Yüzde 5"]]}
+tablo: {"baslik":"Eyalet bazlı vergi düzenlemeleri","sutunlar":["Eyalet","Düzenleme","Oran"],"satirlar":[["Washington","Gelir Vergisi","Yüzde 9,9"],["Colorado","Gelir Vergisi Sınırı","Yüzde 4,4"],["Kaliforniya","Servet Vergisi","Yüzde 5"]]}
 why_matters: "Zenginlerin vergilendirilmesine yönelik stratejilerin sandıktaki başarısı, servet vergisi ile gelir vergisi yaklaşımları arasındaki farkı ve seçmen eğilimlerini ortaya koyması açısından önem taşıyor."
 key_points:
   - "Kaliforniya'da 40 numaralı teklif reddedildi."

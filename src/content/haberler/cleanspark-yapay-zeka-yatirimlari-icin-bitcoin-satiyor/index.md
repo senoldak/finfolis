@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "10 Ekim 2026"
   olay: "Şirketin sonraki çeyrek bilançosu"
-grafik: {"baslik":"Teminat Oranı Eşikleri","simge":"banka","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"30 Eylül 2026","metin":"65","deger":65},{"etiket":"Marj çağrısı","metin":"74","deger":74},{"etiket":"Tasfiye tetikleyicisi","metin":"80","deger":80},{"etiket":"Sabit bakiye örneği","metin":"92","deger":92}]}
+grafik: {"baslik":"Teminat oranı eşikleri","simge":"banka","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"30 Eylül 2026","metin":"65","deger":65},{"etiket":"Marj çağrısı","metin":"74","deger":74},{"etiket":"Tasfiye tetikleyicisi","metin":"80","deger":80},{"etiket":"Sabit bakiye örneği","metin":"92","deger":92}]}
 why_matters: "Madencilik gelirlerinin düşmesi ve şirketlerin yapay zekâ altyapısına yönelmesi, kripto varlıkların rezerv yönetimi ve finansman aracı olarak kullanılma biçimini doğrudan etkiliyor."
 key_points:
   - "Cleanspark yapay zekâ yatırımları için Bitcoin satıyor"

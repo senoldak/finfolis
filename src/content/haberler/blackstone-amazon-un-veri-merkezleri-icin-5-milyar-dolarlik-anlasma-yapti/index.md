@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "31 Aralık 2026"
   olay: "Anlaşmanın 2026 yılının dördüncü çeyreğinde tamamlanması bekleniyor."
-tablo: {"baslik":"Ortak Girişim Pay Dağılımı","sutunlar":["Kurum","Pay Oranı"],"satirlar":[["Blackstone Digital Infrastructure Trust","yüzde 75,1"],["Amazon Web Services (AWS)","yüzde 24,9"]]}
+tablo: {"baslik":"Ortak girişim pay dağılımı","sutunlar":["Kurum","Pay Oranı"],"satirlar":[["Blackstone Digital Infrastructure Trust","yüzde 75,1"],["Amazon Web Services (AWS)","yüzde 24,9"]]}
 why_matters: "Bu anlaşma, dünyanın en büyük varlık yöneticilerinden birinin yapay zekâ ve bulut bilişim altyapısına yönelik devasa yatırım stratejisinin ilk somut adımını temsil ediyor."
 key_points:
   - "Anlaşmanın toplam değeri yaklaşık 5 milyar dolar olarak belirlendi."

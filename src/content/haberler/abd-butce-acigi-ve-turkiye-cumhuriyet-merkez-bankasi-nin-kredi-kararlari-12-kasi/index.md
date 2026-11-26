@@ -14,7 +14,7 @@ rakamlar:
     deger: "18,5 milyar dolar"
   - etiket: "Cerebras Çekirdek Geliri"
     deger: "230,9 milyon dolar"
-tablo: {"baslik":"ABD Ekim Ayı Bütçe Verileri (Milyar Dolar)","sutunlar":["Kalem","2025","2026"],"satirlar":[["Harcamalar","689","773"],["Gelirler","404","369"],["Bütçe Açığı","284","404"]]}
+tablo: {"baslik":"ABD ekim ayı bütçe verileri (milyar dolar)","sutunlar":["Kalem","2025","2026"],"satirlar":[["Harcamalar","689","773"],["Gelirler","404","369"],["Bütçe Açığı","284","404"]]}
 why_matters: "ABD'nin bütçe verileri ve tahvil ihaleleri piyasalardaki borçlanma maliyetleri hakkında fikir verirken, merkez bankasının kredi düzenlemeleri finansal sistemin işleyişini etkiliyor."
 key_points:
   - "ABD'de ekim ayı bütçe açığı 404 milyar dolara ulaştı."

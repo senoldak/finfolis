@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 41,1"
   - etiket: "Gerald Heikes oy oranı"
     deger: "yüzde 1,1"
-grafik: {"baslik":"Alaska Ön Seçim Sonuçları","simge":"sepet","birimEtiket":"yüzde","birim":2.5,"satirlar":[{"etiket":"Mary Peltola","metin":"49,5","deger":49.5},{"etiket":"Senatör Sullivan","metin":"41,1","deger":41.1},{"etiket":"Daniel J. Sullivan","metin":"2,5","deger":2.5},{"etiket":"Gerald Heikes","metin":"1,1","deger":1.1}]}
+grafik: {"baslik":"Alaska ön seçim sonuçları","simge":"sepet","birimEtiket":"yüzde","birim":2.5,"satirlar":[{"etiket":"Mary Peltola","metin":"49,5","deger":49.5},{"etiket":"Senatör Sullivan","metin":"41,1","deger":41.1},{"etiket":"Daniel J. Sullivan","metin":"2,5","deger":2.5},{"etiket":"Gerald Heikes","metin":"1,1","deger":1.1}]}
 why_matters: "Bu dava, Kongre'nin üst kanadındaki çoğunluğun korunup korunamayacağını belirleyebilecek kritik bir Senato yarışının sonuçlarını doğrudan etkileyebilir."
 key_points:
   - "Adalet Bakanlığı Alaska'daki Senato seçimi için dava açtı."

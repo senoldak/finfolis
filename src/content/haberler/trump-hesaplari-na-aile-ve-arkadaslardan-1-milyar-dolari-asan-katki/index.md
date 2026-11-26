@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "1 Ocak 2027"
   olay: "Trump Hesapları yıllık katkı limitinin enflasyona göre endekslenmesi süreci başlayacak."
-tablo: {"baslik":"Trump Hesapları Katkı Türleri","sutunlar":["Katkı Türü","Miktar / Limit"],"satirlar":[["Bireysel Katkılar","1 milyar dolar+"],["Toplam Mevduat","9 milyar dolar+"],["Yıllık Kişi Başı Limit","5.000 dolar"],["Hazine Tohum Fonu","1.000 dolar"]]}
+tablo: {"baslik":"Trump Hesapları katkı türleri","sutunlar":["Katkı Türü","Miktar / Limit"],"satirlar":[["Bireysel Katkılar","1 milyar dolar+"],["Toplam Mevduat","9 milyar dolar+"],["Yıllık Kişi Başı Limit","5.000 dolar"],["Hazine Tohum Fonu","1.000 dolar"]]}
 grafik: {"baslik":"Trump Hesapları fon büyüklüğü","simge":"lira","birimEtiket":"milyar dolar","birim":0.5,"satirlar":[{"etiket":"Toplam mevduat","metin":"9","deger":9},{"etiket":"Aile ve arkadaş katkısı","metin":"1","deger":1}]}
 why_matters: "Bu program, çocukların gelecekteki birikimleri için kamusal sermaye ile özel sektör ve bireysel bağışları tek bir yatırım havuzunda birleştirmeyi amaçlıyor."
 key_points:

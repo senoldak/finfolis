@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "3 Kasım 2026"
   olay: "ABD ara seçimleri"
-grafik: {"baslik":"30 Ekim 2026 Günlük Değer Kayıpları","simge":"sepet","birimEtiket":"yüzde","birim":0.2,"satirlar":[{"etiket":"Nasdaq Composite","metin":"3,37","deger":3.37},{"etiket":"S&P 500","metin":"2,08","deger":2.08}]}
+grafik: {"baslik":"30 Ekim 2026 günlük değer kayıpları","simge":"sepet","birimEtiket":"yüzde","birim":0.2,"satirlar":[{"etiket":"Nasdaq Composite","metin":"3,37","deger":3.37},{"etiket":"S&P 500","metin":"2,08","deger":2.08}]}
 why_matters: "Teknoloji şirketlerinin yapay zekâ altyapısına yönelik yüksek harcamalarının kârlılığa dönüşüp dönüşmeyeceği konusundaki belirsizlik, piyasalardaki yatırımcı eğilimlerini etkiliyor."
 key_points:
   - "Nasdaq 100 ve S&P 500 toplamda 3,3 trilyon dolar değer kaybetti."

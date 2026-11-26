@@ -16,7 +16,7 @@ rakamlar:
     deger: "17,9 milyar avro"
   - etiket: "LNG İthalatındaki Düşüş"
     deger: "yüzde 30"
-tablo: {"baslik":"Avrupa Enerji Piyasasında Güncel Fiyatlar","sutunlar":["Kontrat Türü","Fiyat (avro/MWh)","Durum"],"satirlar":[["TTF (Hollanda) Gösterge","100,00","Aralık 2022'den beri en yüksek"],["Almanya Gelecek Yıl Baz Yük","159,30","Haziran 2023'ten beri en yüksek"],["Fransa Gelecek Yıl Baz Yük","122,50","Yaklaşık 2 yılın en yükseği"]]}
+tablo: {"baslik":"Avrupa enerji piyasasında güncel fiyatlar","sutunlar":["Kontrat Türü","Fiyat (avro/MWh)","Durum"],"satirlar":[["TTF (Hollanda) Gösterge","100,00","Aralık 2022'den beri en yüksek"],["Almanya Gelecek Yıl Baz Yük","159,30","Haziran 2023'ten beri en yüksek"],["Fransa Gelecek Yıl Baz Yük","122,50","Yaklaşık 2 yılın en yükseği"]]}
 why_matters: "Doğal gaz fiyatlarındaki bu artış, sanayi üretim maliyetlerini doğrudan yükseltirken, tüketicilerin elektrik ve ısınma faturalarının 2027 yılında daha da artmasına neden olabilir; ayrıca Avrupa'nın enerji arz güvenliğindeki kırılganlığı ortaya koymaktadır."
 cover: kapak.png
 coverAlt: "TTF Doğal Gaz Fiyatı 100 avro"

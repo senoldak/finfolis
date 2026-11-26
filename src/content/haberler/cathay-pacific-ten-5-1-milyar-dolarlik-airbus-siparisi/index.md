@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "2031-2035"
   olay: "A330-900 tipi uçakların teslimat süreci"
-grafik: {"baslik":"Yeni Airbus Siparişleri","simge":"sepet","birimEtiket":"adet","birim":1,"satirlar":[{"etiket":"A330-900","metin":"11","deger":11},{"etiket":"A321neo","metin":"3","deger":3}]}
+grafik: {"baslik":"Yeni Airbus siparişleri","simge":"sepet","birimEtiket":"adet","birim":1,"satirlar":[{"etiket":"A330-900","metin":"11","deger":11},{"etiket":"A321neo","metin":"3","deger":3}]}
 why_matters: "Havayolu şirketinin filo genişletme adımları, bölgesel ağ kapasitesini artırma ve uzun vadeli büyüme stratejisi kapsamında değerlendiriliyor."
 key_points:
   - "Cathay Pacific 11 adet Airbus A330-900 uçağı için 5,1 milyar dolarlık anlaşma yaptı."

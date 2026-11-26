@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "2027'nin ilk çeyreği"
   olay: "NAND flaş bellek sözleşme fiyatlarının açıklanması"
-tablo: {"baslik":"Analist Fiyat Hedefi Revizyonları","sutunlar":["Şirket","Eski Hedef ($)","Yeni Hedef ($)"],"satirlar":[["Micron","1.700","775"],["SanDisk","200","175"]]}
+tablo: {"baslik":"Analist Fiyat hedefi revizyonları","sutunlar":["Şirket","Eski Hedef ($)","Yeni Hedef ($)"],"satirlar":[["Micron","1.700","775"],["SanDisk","200","175"]]}
 why_matters: "Yarı iletken sektöründeki arz-talep dengesi ve yapay zekâ altyapı harcamalarının sürdürülebilirliği, teknoloji şirketlerinin gelecekteki karlılık beklentilerini doğrudan etkiliyor."
 key_points:
   - "SanDisk hisseleri çarşamba günü yüzde 5,57 değer kaybetti."

@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "2027 sonu"
   olay: "FedEx için üretilen elektrikli kamyonların teslimatının yapılması planlanıyor."
-grafik: {"baslik":"Harbinger'ın Finansal ve Operasyonel Verileri","simge":"lira","birimEtiket":"milyon dolar","birim":50,"satirlar":[{"etiket":"Seri D Yatırımı","metin":"240","deger":240},{"etiket":"FedEx Sipariş Değeri","metin":"300","deger":300},{"etiket":"Toplam Finansman","metin":"650","deger":650},{"etiket":"20 Yıllık Yakıt Tasarrufu","metin":"800","deger":800}]}
+grafik: {"baslik":"Harbinger'ın finansal ve operasyonel verileri","simge":"lira","birimEtiket":"milyon dolar","birim":50,"satirlar":[{"etiket":"Seri D Yatırımı","metin":"240","deger":240},{"etiket":"FedEx Sipariş Değeri","metin":"300","deger":300},{"etiket":"Toplam Finansman","metin":"650","deger":650},{"etiket":"20 Yıllık Yakıt Tasarrufu","metin":"800","deger":800}]}
 why_matters: "Bu gelişme, büyük otomobil üreticilerinin elektrikli araç hedeflerini yavaşlattığı bir dönemde, ticari segmentte elektrikli araçlara yönelik somut kurumsal talebin devam ettiğini gösteriyor."
 key_points:
   - "Harbinger, 5 Kasım 2026'da 240 milyon dolarlık Seri D yatırım turunu tamamladı."

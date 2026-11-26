@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "19 Ekim 2026"
   olay: "Dört halka arzın talep toplamasının sona ermesi"
-tablo: {"baslik":"Halka Arz Talep Oranları","sutunlar":["Şirket","Talep Oranı"],"satirlar":[["Tonbo Imaging","7,77 kat"],["Bonfiglioli","yüzde 99"],["Sahajanand","yüzde 82"],["Zetwerk","yüzde 31"]]}
+tablo: {"baslik":"Halka arz talep oranları","sutunlar":["Şirket","Talep Oranı"],"satirlar":[["Tonbo Imaging","7,77 kat"],["Bonfiglioli","yüzde 99"],["Sahajanand","yüzde 82"],["Zetwerk","yüzde 31"]]}
 why_matters: "Halka arz talepleri, şirketlerin borsa performansına ve yatırımcıların piyasa iştahına ilişkin önemli ipuçları sunar."
 key_points:
   - "Tonbo Imaging halka arzı ikinci günde 7,77 kat talep gördü."

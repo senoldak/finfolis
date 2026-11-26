@@ -12,7 +12,7 @@ rakamlar:
     deger: "130 milyar dolar"
   - etiket: "Beklentilerin aşıldığı çeyrek sayısı"
     deger: "17"
-tablo: {"baslik":"Nvidia'daki Önemli Gelişmeler","sutunlar":["Tarih","Olay"],"satirlar":[["12-13 Kasım 2026","Huang'ın görevden alınması"],["15 Kasım 2026","Bessent'in dışarıdan CEO çağrısı"],["17 Kasım 2026","3. çeyrek sonuçları ve güvenlik stratejisi"]]}
+tablo: {"baslik":"Nvidia'daki önemli gelişmeler","sutunlar":["Tarih","Olay"],"satirlar":[["12-13 Kasım 2026","Huang'ın görevden alınması"],["15 Kasım 2026","Bessent'in dışarıdan CEO çağrısı"],["17 Kasım 2026","3. çeyrek sonuçları ve güvenlik stratejisi"]]}
 why_matters: "Nvidia'nın liderlik süreci, şirketin ihracat uyum süreçleri ve ulusal güvenlik stratejileri nedeniyle yatırımcılar ve federal kurumlar tarafından takip ediliyor."
 key_points:
   - "Nvidia, 2027 mali yılı üçüncü çeyrek sonuçlarında beklentileri 17'nci kez aştı."

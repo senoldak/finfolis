@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 1,3"
   - etiket: "Almanya Çeyreklik Büyüme"
     deger: "yüzde 0,2"
-tablo: {"baslik":"Euro Bölgesi Ülkelerinin Çeyreklik Büyüme Oranları","sutunlar":["Ülke","Büyüme Oranı"],"satirlar":[["İrlanda","yüzde 5,5"],["İspanya","yüzde 0,6"],["Hollanda","yüzde 0,6"],["Almanya","yüzde 0,2"],["İtalya","değişmedi"],["Fransa","yüzde -0,1"]]}
+tablo: {"baslik":"Euro Bölgesi ülkelerinin çeyreklik büyüme oranları","sutunlar":["Ülke","Büyüme Oranı"],"satirlar":[["İrlanda","yüzde 5,5"],["İspanya","yüzde 0,6"],["Hollanda","yüzde 0,6"],["Almanya","yüzde 0,2"],["İtalya","değişmedi"],["Fransa","yüzde -0,1"]]}
 why_matters: "İrlanda ekonomisinin yüksek büyümesi euro bölgesinin üçüncü çeyrek verilerini yukarı taşısa da artan enerji ve borçlanma maliyetleri önümüzdeki dönem için risk oluşturuyor."
 key_points:
   - "İrlanda ekonomisi temmuz ve eylül ayları arasında yüzde 5,5 büyüme kaydetti."

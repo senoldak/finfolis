@@ -14,7 +14,7 @@ rakamlar:
     deger: "yüzde 50,4"
   - etiket: "Ticaret Açığı"
     deger: "5,86 milyar dolar"
-tablo: {"baslik":"Tayland Eylül Ayı Dış Ticaret Verileri","sutunlar":["Gösterge","Gerçekleşen","Beklenti"],"satirlar":[["İhracat artışı","yüzde 24,0","yüzde 17,85"],["İthalat artışı","yüzde 50,4","yüzde 31,25"],["Ticaret açığı","5,86 milyar dolar","1,83 milyar dolar"]]}
+tablo: {"baslik":"Tayland eylül ayı dış Ticaret verileri","sutunlar":["Gösterge","Gerçekleşen","Beklenti"],"satirlar":[["İhracat artışı","yüzde 24,0","yüzde 17,85"],["İthalat artışı","yüzde 50,4","yüzde 31,25"],["Ticaret açığı","5,86 milyar dolar","1,83 milyar dolar"]]}
 why_matters: "Tayland'ın dış ticaret verileri, küresel talep koşulları ve elektronik sektörü ile tarım ürünlerindeki hareketliliğin ülkenin ekonomik göstergelerine yansımalarını ortaya koymaktadır."
 key_points:
   - "Eylül ihracatı yüzde 24,0 arttı"

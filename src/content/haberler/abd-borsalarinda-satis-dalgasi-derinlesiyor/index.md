@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "8 Aralık 2026"
   olay: "Fed'in faiz kararını açıklayacağı iki günlük toplantının başlaması"
-tablo: {"baslik":"Piyasa Göstergeleri ve Kritik Seviyeler","sutunlar":["Gösterge","Değer / Durum"],"satirlar":[["S&P 500 Düzeltme Oranı","yüzde 11,6"],["Nasdaq Yılbaşı Getirisi","yüzde -2,7"],["VIX Korku Endeksi","35,89"],["S&P 500 Düşüş Serisi","7 gün"]]}
+tablo: {"baslik":"Piyasa göstergeleri ve kritik seviyeler","sutunlar":["Gösterge","Değer / Durum"],"satirlar":[["S&P 500 Düzeltme Oranı","yüzde 11,6"],["Nasdaq Yılbaşı Getirisi","yüzde -2,7"],["VIX Korku Endeksi","35,89"],["S&P 500 Düşüş Serisi","7 gün"]]}
 why_matters: "ABD borsalarındaki bu gerileme, Mart 2025'ten bu yana yaşanan ilk düzeltme olması ve yapay zekâ odaklı büyüme beklentilerinin sorgulanması açısından önem taşıyor."
 key_points:
   - "S&P 500 endeksi 6 Ekim zirvesinden yüzde 11,6 geriledi."

@@ -16,7 +16,7 @@ rakamlar:
     deger: "51,2"
   - etiket: "Tahmini Büyüme"
     deger: "yüzde 0,3"
-tablo: {"baslik":"Euro Bölgesi PMI Verileri Karşılaştırması","sutunlar":["Gösterge","Ekim","Kasım (Öncü)"],"satirlar":[["Bileşik PMI","51,7","51,7"],["İmalat PMI","52,7","52,9"],["Hizmet PMI","51,4","51,2"]]}
+tablo: {"baslik":"Euro Bölgesi PMI verileri karşılaştırması","sutunlar":["Gösterge","Ekim","Kasım (Öncü)"],"satirlar":[["Bileşik PMI","51,7","51,7"],["İmalat PMI","52,7","52,9"],["Hizmet PMI","51,4","51,2"]]}
 why_matters: "Euro bölgesindeki büyümenin devam etmesi ekonomik dayanıklılığı gösterirken, Almanya ve Fransa arasındaki derinleşen performans farkı bölge ekonomisinin geleceğine dair belirsizlikleri artırıyor. İş dünyası güvenindeki düşüş, önümüzdeki dönemde yatırımların ve büyüme hızının yavaşlayabileceğine işaret ediyor."
 cover: kapak.png
 coverAlt: "Bileşik PMI 51,7"

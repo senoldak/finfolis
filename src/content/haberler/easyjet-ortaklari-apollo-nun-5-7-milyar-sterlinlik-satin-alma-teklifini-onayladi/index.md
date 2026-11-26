@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "31 Mart 2027"
   olay: "Satın alma işleminin ilk çeyrek sonuna kadar tamamlanması hedefleniyor."
-grafik: {"baslik":"Satın Alma Oylaması Sonuçları","simge":"sepet","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Lehte kullanılan paylar","metin":"97,07","deger":97.07},{"etiket":"Destekleyen hissedarlar","metin":"83,29","deger":83.29}]}
+grafik: {"baslik":"Satın alma oylaması sonuçları","simge":"sepet","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Lehte kullanılan paylar","metin":"97,07","deger":97.07},{"etiket":"Destekleyen hissedarlar","metin":"83,29","deger":83.29}]}
 why_matters: "Bu gelişme, Avrupa havacılık sektöründeki en büyük özel sermaye satın almalarından biri olması ve EasyJet'in 25 yılı aşkın süredir işlem gördüğü borsadan çekilme ihtimali nedeniyle önem taşıyor."
 key_points:
   - "Satın alma bedeli 5,7 milyar sterlin (7 milyar avro) olarak belirlendi."

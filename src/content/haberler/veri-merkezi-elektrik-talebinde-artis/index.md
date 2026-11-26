@@ -12,7 +12,7 @@ rakamlar:
     deger: "yüzde 19"
   - etiket: "Şebeke büyümesi"
     deger: "yüzde 2"
-grafik: {"baslik":"Talep ve Kapasite Artış Hızı","simge":"sepet","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"Veri merkezi elektrik talebi","metin":"19","deger":19},{"etiket":"Şebeke kapasitesi büyümesi","metin":"2","deger":2}]}
+grafik: {"baslik":"Talep ve kapasite artış hızı","simge":"sepet","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"Veri merkezi elektrik talebi","metin":"19","deger":19},{"etiket":"Şebeke kapasitesi büyümesi","metin":"2","deger":2}]}
 why_matters: "Veri merkezlerinin enerji talebinin şebeke kapasitesinden çok daha hızlı büyümesi, enerji maliyetlerini artırarak hem şebeke altyapısı üzerinde baskı oluşturuyor hem de konuyu siyasi bir tartışma alanına taşıyor."
 key_points:
   - "Veri merkezlerinin elektrik talebi yılda yüzde 19 artıyor"

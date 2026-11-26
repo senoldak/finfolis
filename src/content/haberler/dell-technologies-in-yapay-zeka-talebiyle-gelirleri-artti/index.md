@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "24 Kasım 2026"
   olay: "Dell Technologies finansal sonuçlarını açıkladı."
-tablo: {"baslik":"Segment Bazlı Gelir Artışı","sutunlar":["Segment","Gelir (Milyar $)","Yıllık Artış"],"satirlar":[["Altyapı Çözümleri (ISG)","42","yüzde 198"],["Yapay Zeka Sunucuları","22","yüzde 291"],["Geleneksel Sunucular","15","yüzde 235"]]}
+tablo: {"baslik":"Segment bazlı gelir artışı","sutunlar":["Segment","Gelir (Milyar $)","Yıllık Artış"],"satirlar":[["Altyapı Çözümleri (ISG)","42","yüzde 198"],["Yapay Zeka Sunucuları","22","yüzde 291"],["Geleneksel Sunucular","15","yüzde 235"]]}
 why_matters: "Yapay zekâ talebinin donanım üreticilerinin gelirlerini ve sipariş birikimlerini nasıl etkilediğini göstermesi bakımından önem taşımaktadır."
 key_points:
   - "Üçüncü çeyrek toplam geliri 54,9 milyar dolar oldu."

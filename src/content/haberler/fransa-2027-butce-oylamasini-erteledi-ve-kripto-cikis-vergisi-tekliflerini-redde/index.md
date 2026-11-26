@@ -7,7 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.RNpPXaJvGYQn66R1.3HjsXEugHq3vzFxaLc+c3j7JAr/3y4n7rJgfKrHs2UjItqtYS5vKB+DOejFKp9uPXQo3KDyEHzh0WbS14j9Pe6nORbkQ69bN6V7v6vGHdb14zDYi1gAt5hAMPfbKXyp1uWahsava+IE3MKXKGvizHbXltT6nPl0BVlIgYSdYlh4QhMSftEJ7EIpPrPbattXMiLkXKFnEU1PL6wQRSv3UyqFXvviVk5TE2FppwrnTVcs71PDhRtOP8lJTs1AW/Q8MGH6HPTCQK5hQYGnv"
-tablo: {"baslik":"Kripto Çıkış Vergisi Teklifleri Oylama Sonuçları","sutunlar":["Teklif","Kabul (Lehte)","Ret (Aleyhte)","Çekimser"],"satirlar":[["İlk teklif","27","55","1"],["İkinci teklif","31","60","0"]]}
+tablo: {"baslik":"Kripto çıkış vergisi teklifleri oylama sonuçları","sutunlar":["Teklif","Kabul (Lehte)","Ret (Aleyhte)","Çekimser"],"satirlar":[["İlk teklif","27","55","1"],["İkinci teklif","31","60","0"]]}
 why_matters: "Fransa'daki bütçe oylamasının ertelenmesi ve kripto varlıklara yönelik vergi tekliflerinin reddedilmesi, ülkenin mali politikaları ve dijital varlık düzenlemelerinin seyrini doğrudan etkiliyor."
 cover: kapak.png
 coverAlt: "Küresel · Fransa 2027 bütçe oylamasını erteledi ve kripto çıkış vergisi tekliflerini reddetti"

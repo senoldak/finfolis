@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "10 Kasım 2026"
   olay: "Irak'ın ABD ile vardığı yeni ihracat koridoru anlaşmasının detaylarının uygulanması bekleniyor."
-tablo: {"baslik":"Irak Petrol İhracat Verileri","sutunlar":["Dönem/Durum","Günlük Miktar (Milyon Varil)"],"satirlar":[["Savaş Öncesi Beklenti","3,3 - 3,5"],["Ekim 2026 Ortalaması","3,4"],["Eylül 2026 Ortalaması","2,65"],["Savaşın İlk Ayları (Güney)","1,3"]]}
+tablo: {"baslik":"Irak Petrol ihracat verileri","sutunlar":["Dönem/Durum","Günlük Miktar (Milyon Varil)"],"satirlar":[["Savaş Öncesi Beklenti","3,3 - 3,5"],["Ekim 2026 Ortalaması","3,4"],["Eylül 2026 Ortalaması","2,65"],["Savaşın İlk Ayları (Güney)","1,3"]]}
 grafik: {"baslik":"Irak günlük petrol ihracatı (milyon varil)","simge":"sepet","birimEtiket":"milyon varil","birim":0.2,"satirlar":[{"etiket":"Eylül","metin":"2,65","deger":2.65},{"etiket":"Ekim","metin":"3,4","deger":3.4}]}
 why_matters: "Hürmüz Boğazı'na bağımlı olan Irak'ın alternatif rotalar geliştirmesi, küresel petrol arz güvenliği ve ülkenin savaş kaynaklı ekonomik kayıplarını telafi etmesi açısından önem taşıyor."
 key_points:

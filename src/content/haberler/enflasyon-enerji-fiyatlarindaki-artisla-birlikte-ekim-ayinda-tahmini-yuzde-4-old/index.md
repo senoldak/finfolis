@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 18,3"
   - etiket: "Yıllık Çekirdek Enflasyon"
     deger: "yüzde 2,5"
-grafik: {"baslik":"Ekim Ayı Fiyat Değişim Tahminleri","simge":"sepet","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"Enerji (Aylık)","metin":"4,5","deger":4.5},{"etiket":"Enerji (Yıllık)","metin":"18,3","deger":18.3},{"etiket":"Gıda (Aylık)","metin":"0,1","deger":0.1},{"etiket":"Gıda (Yıllık)","metin":"0,1","deger":0.1},{"etiket":"Çekirdek Enflasyon (Yıllık)","metin":"2,5","deger":2.5}]}
+grafik: {"baslik":"Ekim ayı fiyat değişim tahminleri","simge":"sepet","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"Enerji (Aylık)","metin":"4,5","deger":4.5},{"etiket":"Enerji (Yıllık)","metin":"18,3","deger":18.3},{"etiket":"Gıda (Aylık)","metin":"0,1","deger":0.1},{"etiket":"Gıda (Yıllık)","metin":"0,1","deger":0.1},{"etiket":"Çekirdek Enflasyon (Yıllık)","metin":"2,5","deger":2.5}]}
 why_matters: "Enerji fiyatlarındaki artış enflasyonu etkilerken, Kate English insanların daha yüksek enerji maliyetleriyle karşı karşıya olduğunu belirtti."
 key_points:
   - "Yıllık tüketici enflasyonu ekim ayında tahmini yüzde 4 oldu."

@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 124"
   - etiket: "Faiz / Gelir Vergisi"
     deger: "yüzde 36,5"
-tablo: {"baslik":"ABD Federal Borç ve Yükümlülüklerinin GSYH Oranları","sutunlar":["Gösterge","2000 Yılı","2026 Yılı"],"satirlar":[["Toplam Federal Borç / GSYH","yüzde 56","yüzde 124"],["Toplam Yükümlülükler / GSYH","yüzde 199","yüzde 452"]]}
+tablo: {"baslik":"ABD federal borç ve yükümlülüklerinin GSYH oranları","sutunlar":["Gösterge","2000 Yılı","2026 Yılı"],"satirlar":[["Toplam Federal Borç / GSYH","yüzde 56","yüzde 124"],["Toplam Yükümlülükler / GSYH","yüzde 199","yüzde 452"]]}
 why_matters: "ABD'nin artan borç yükü ve faiz ödemeleri, toplanan vergilerin kamu hizmetleri yerine borç servisine gitmesine neden olarak ekonomik sürdürülebilirliği ve ulusal güvenliği etkileyebilir."
 key_points:
   - "ABD federal borcu Ağustos 2026 sonunda 40 trilyon doları geçti."

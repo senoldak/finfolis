@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "19 Kasım 2026"
   olay: "Anthropic hisselerinin Nasdaq borsasında işlem görmeye başlaması"
-tablo: {"baslik":"Anthropic Finansman Kaynakları","sutunlar":["Kaynak","Tutar (Milyar Dolar)"],"satirlar":[["Halka Arz","64,3"],["Diğer Şirketler","26"]]}
+tablo: {"baslik":"Anthropic finansman kaynakları","sutunlar":["Kaynak","Tutar (Milyar Dolar)"],"satirlar":[["Halka Arz","64,3"],["Diğer Şirketler","26"]]}
 why_matters: "Şirketlerin büyük ölçekli sermaye yatırımları ve halka arz süreçleri, hem sektörlerin büyüme beklentilerini hem de kurumsal stratejilerin yönünü belirleyen önemli göstergeler arasında yer alıyor."
 key_points:
   - "Anthropic, 64,3 milyar dolarlık halka arz için hazırlık yapıyor."

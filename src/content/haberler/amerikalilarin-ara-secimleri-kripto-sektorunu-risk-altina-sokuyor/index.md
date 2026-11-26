@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "10 Kasım 2026"
   olay: "ABD ara seçim sonuçlarının kesinleşmesi ve piyasa düzenlemelerinin yönü"
-grafik: {"baslik":"Kripto Şirketlerinin Ekim Ayı Hisse Performansı","simge":"sepet","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Galaxy Digital","metin":"30","deger":30},{"etiket":"Bullish","metin":"32","deger":32},{"etiket":"Coinbase","metin":"23","deger":23},{"etiket":"Strategy","metin":"15","deger":15}]}
+grafik: {"baslik":"Kripto şirketlerinin Ekim ayı hisse performansı","simge":"sepet","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Galaxy Digital","metin":"30","deger":30},{"etiket":"Bullish","metin":"32","deger":32},{"etiket":"Coinbase","metin":"23","deger":23},{"etiket":"Strategy","metin":"15","deger":15}]}
 why_matters: "ABD ara seçimleri, kripto varlıkların yasal çerçevesini ve büyük dijital varlık şirketlerinin piyasa değerini doğrudan etkileyebilir."
 key_points:
   - "Coinbase hisseleri Ekim ayında yüzde 23 geriledi"

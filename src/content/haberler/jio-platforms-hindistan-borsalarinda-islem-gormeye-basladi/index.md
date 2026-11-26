@@ -16,7 +16,7 @@ rakamlar:
     deger: "278,7 milyar rupi"
   - etiket: "Paytm Bir Aylık Kayıp"
     deger: "yüzde 39"
-tablo: {"baslik":"Hindistan'ın Büyük Halka Arzları ve Bir Aylık Performansları","sutunlar":["Şirket","Halka Arz Büyüklüğü","Bir Aylık Getiri"],"satirlar":[["Jio Platforms","302,13 milyar rupi","Yeni İşlem"],["Hyundai Motor India","278,7 milyar rupi","yüzde -7"],["NSE","Belirtilmedi","yüzde -3"],["LIC","Belirtilmedi","yüzde -31"],["Paytm","Belirtilmedi","yüzde -39"]]}
+tablo: {"baslik":"Hindistan'ın büyük halka arzları ve bir aylık performansları","sutunlar":["Şirket","Halka Arz Büyüklüğü","Bir Aylık Getiri"],"satirlar":[["Jio Platforms","302,13 milyar rupi","Yeni İşlem"],["Hyundai Motor India","278,7 milyar rupi","yüzde -7"],["NSE","Belirtilmedi","yüzde -3"],["LIC","Belirtilmedi","yüzde -31"],["Paytm","Belirtilmedi","yüzde -39"]]}
 why_matters: "Hindistan tarihinin en büyük halka arzı olması ve geçmişteki dev halka arzların ilk aylarında yaşanan değer kayıpları nedeniyle piyasalar tarafından yakından takip ediliyor."
 cover: kapak.png
 coverAlt: "Asya · Jio Platforms Hindistan borsalarında işlem görmeye başladı"

@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Gelecek hafta"
   olay: "Alacaklılar toplantısı gerçekleştirilecek."
-tablo: {"baslik":"Tedarikçi Ödeme Koşulları Karşılaştırması","sutunlar":["Dönem","Ödeme Süresi","Durum"],"satirlar":[["Nisan 2026 öncesi","14 gün","Düzenli ödeme"],["Nisan 2026 sonrası","30+ gün","Gecikmeli ve yanıtsız"]]}
+tablo: {"baslik":"Tedarikçi ödeme koşulları karşılaştırması","sutunlar":["Dönem","Ödeme Süresi","Durum"],"satirlar":[["Nisan 2026 öncesi","14 gün","Düzenli ödeme"],["Nisan 2026 sonrası","30+ gün","Gecikmeli ve yanıtsız"]]}
 why_matters: "Avustralya'nın en köklü perakendecilerinden birinin yönetime devredilmesi, fiziksel mağazacılığın değişen tüketici alışkanlıkları ve yüksek borçlanma maliyetleri karşısındaki zorluklarını yansıtıyor."
 key_points:
   - "David Jones Perşembe sabahı itibarıyla gönüllü yönetime geçti."

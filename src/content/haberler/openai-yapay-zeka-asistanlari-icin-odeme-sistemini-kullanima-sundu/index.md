@@ -14,7 +14,7 @@ rakamlar:
     deger: "yüzde 7,5"
   - etiket: "Circle ödeme alt sınırı"
     deger: "0,000001 dolar"
-grafik: {"baslik":"Yapay Zeka Asistanlarının Ticaret Hacmindeki Payı","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Alt Sınır","metin":"0,6","deger":0.6},{"etiket":"Üst Sınır","metin":"7,5","deger":7.5}]}
+grafik: {"baslik":"Yapay zeka asistanlarının ticaret hacmindeki payı","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Alt Sınır","metin":"0,6","deger":0.6},{"etiket":"Üst Sınır","metin":"7,5","deger":7.5}]}
 why_matters: "Yapay zekâ asistanlarının otonom alışveriş yapabilmesi, geleneksel ödeme yöntemlerinin dijital asistanlarla entegrasyonunu hızlandırarak e-ticaret süreçlerini değiştirebilir."
 key_points:
   - "ChatGPT Wallet, 14 Kasım 2026'da ABD'deki ChatGPT Pro kullanıcıları için kullanıma sunuldu."

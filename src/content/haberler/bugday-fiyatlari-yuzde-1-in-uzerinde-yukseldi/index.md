@@ -14,8 +14,8 @@ rakamlar:
     deger: "500.000 ton"
   - etiket: "Avustralya Tahmini"
     deger: "32 milyon ton"
-tablo: {"baslik":"Üretim Tahminleri (2026/27 Sezonu)","sutunlar":["Ülke","Tahmin (Milyon Ton)"],"satirlar":[["Arjantin","24,3"],["Avustralya","32"]]}
-grafik: {"baslik":"Üretim Tahminleri (Milyon Ton)","simge":"sepet","birimEtiket":"milyon ton","birim":2,"satirlar":[{"etiket":"Arjantin (2026/27)","metin":"24,3","deger":24.3},{"etiket":"Avustralya (Tahmini)","metin":"32","deger":32}]}
+tablo: {"baslik":"Üretim tahminleri (2026/27 sezonu)","sutunlar":["Ülke","Tahmin (Milyon Ton)"],"satirlar":[["Arjantin","24,3"],["Avustralya","32"]]}
+grafik: {"baslik":"Üretim tahminleri (milyon ton)","simge":"sepet","birimEtiket":"milyon ton","birim":2,"satirlar":[{"etiket":"Arjantin (2026/27)","metin":"24,3","deger":24.3},{"etiket":"Avustralya (Tahmini)","metin":"32","deger":32}]}
 why_matters: "Rusya-Ukrayna arasındaki jeopolitik belirsizlikler ve küresel üretim tahminleri, buğday gibi temel gıda emtialarının fiyatlarında dalgalanmalara yol açarak küresel gıda arzı üzerinde etkili olabiliyor."
 key_points:
   - "Buğday fiyatları 13 Kasım 2026'da kile başına 5,90 dolar seviyesine yükseldi."

@@ -19,8 +19,8 @@ rakamlar:
 sirada:
   tarih: "27 Kasım 2026"
   olay: "Haftalık WTI vadeli işlemleri için piyasa tepkisi"
-tablo: {"baslik":"ABD Haftalık Stok Değişimleri (13 Kasım haftası)","sutunlar":["Ürün","Değişim (milyon varil)"],"satirlar":[["Ham Petrol","3,4"],["Benzin","5,2"],["Distile Ürünler","1,6"]]}
-grafik: {"baslik":"ABD Stok Değişimleri (13 Kasım Haftası)","simge":"sepet","birimEtiket":"milyon varil","birim":0.5,"satirlar":[{"etiket":"Ham Petrol","metin":"3,4","deger":3.4},{"etiket":"Benzin","metin":"5,2","deger":5.2},{"etiket":"Distile Ürün","metin":"1,6","deger":1.6}]}
+tablo: {"baslik":"ABD haftalık stok değişimleri (13 Kasım haftası)","sutunlar":["Ürün","Değişim (milyon varil)"],"satirlar":[["Ham Petrol","3,4"],["Benzin","5,2"],["Distile Ürünler","1,6"]]}
+grafik: {"baslik":"ABD stok değişimleri (13 Kasım haftası)","simge":"sepet","birimEtiket":"milyon varil","birim":0.5,"satirlar":[{"etiket":"Ham Petrol","metin":"3,4","deger":3.4},{"etiket":"Benzin","metin":"5,2","deger":5.2},{"etiket":"Distile Ürün","metin":"1,6","deger":1.6}]}
 why_matters: "Piyasadaki arz fazlası beklentisi, Orta Doğu'daki jeopolitik risklerin fiyatlar üzerindeki etkisini baskılayarak enerji maliyetleri üzerinde belirleyici oluyor."
 key_points:
   - "Ocak vadeli WTI ham petrol fiyatları haftalık bazda yüzde 5,48 geriledi."

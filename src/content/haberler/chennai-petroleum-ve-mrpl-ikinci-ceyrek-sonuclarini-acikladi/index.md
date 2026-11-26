@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "23 Ekim 2026"
   olay: "Şirketlerin ikinci çeyrek finansal sonuçları ve temettü kararları yayımlandı"
-tablo: {"baslik":"Chennai Petroleum ve MRPL İkinci Çeyrek Finansal Karşılaştırması","sutunlar":["Şirket","Net Kâr","Faaliyet Geliri"],"satirlar":[["Chennai Petroleum","22,4703 milyar rupi","220,55 milyar rupi"],["MRPL","18,81 milyar rupi","355,9 milyar rupi"]]}
+tablo: {"baslik":"Chennai Petroleum ve MRPL ikinci çeyrek finansal karşılaştırması","sutunlar":["Şirket","Net Kâr","Faaliyet Geliri"],"satirlar":[["Chennai Petroleum","22,4703 milyar rupi","220,55 milyar rupi"],["MRPL","18,81 milyar rupi","355,9 milyar rupi"]]}
 why_matters: "Rafineri sektöründeki kamu şirketlerinin kâr ve gelir büyümesi, enerji piyasası ve hissedar getirileri açısından yakından izleniyor."
 key_points:
   - "Chennai Petroleum net kârı yıllık yüzde 212 artarak 22,4703 milyar rupi oldu"

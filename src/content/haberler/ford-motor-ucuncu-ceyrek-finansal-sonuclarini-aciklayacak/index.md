@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "28 Ekim 2026"
   olay: "Ford Motor üçüncü çeyrek finansal sonuçlarını piyasa kapanışından sonra açıklayacak."
-tablo: {"baslik":"Ford Motor 2026 Yılı Finansal Hedefleri","sutunlar":["Kalem","Alt Sınır","Üst Sınır"],"satirlar":[["Düzeltilmiş Faiz ve Vergi Öncesi Kâr","10 milyar $","11 milyar $"],["Düzeltilmiş Serbest Nakit Akışı","6 milyar $","7 milyar $"]]}
+tablo: {"baslik":"Ford Motor 2026 yılı finansal hedefleri","sutunlar":["Kalem","Alt Sınır","Üst Sınır"],"satirlar":[["Düzeltilmiş Faiz ve Vergi Öncesi Kâr","10 milyar $","11 milyar $"],["Düzeltilmiş Serbest Nakit Akışı","6 milyar $","7 milyar $"]]}
 why_matters: "Otomotiv sektöründeki tedarik zinciri aksamalarının ve üretim değişimlerinin dev şirketlerin kârlılığı üzerindeki etkisini göstermesi açısından önem taşıyor."
 key_points:
   - "Analistler hisse başına 40 sent düzeltilmiş kâr bekliyor"

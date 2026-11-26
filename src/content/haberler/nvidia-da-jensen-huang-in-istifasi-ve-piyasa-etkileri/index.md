@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Nvidia'nın S&P 500 ağırlığı"
     deger: "yüzde 6"
 tablo: {"baslik":"Nvidia piyasa verileri","sutunlar":["Gösterge","Değer"],"satirlar":[["Haftalık hisse düşüşü","Yüzde 14"],["Zirveden düşüş","Yüzde 30"],["Piyasa değeri kaybı","2 trilyon dolar"],["S&P 500 ağırlığı","Yüzde 6"]]}
-grafik: {"baslik":"Piyasa ve Sektör Verileri","simge":"sepet","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Nvidia hisse düşüşü","metin":"30","deger":30},{"etiket":"Yarı iletken sektörü düşüşü","metin":"30","deger":30},{"etiket":"Nvidia'nın S&P 500 ağırlığı","metin":"6","deger":6}]}
+grafik: {"baslik":"Piyasa ve Sektör verileri","simge":"sepet","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Nvidia hisse düşüşü","metin":"30","deger":30},{"etiket":"Yarı iletken sektörü düşüşü","metin":"30","deger":30},{"etiket":"Nvidia'nın S&P 500 ağırlığı","metin":"6","deger":6}]}
 why_matters: "Nvidia, yapay zekâ sektöründeki ağırlığı nedeniyle şirkette yaşanan yönetim değişikliği ve hisse değerindeki değişim, teknoloji sektöründeki genel beklentilerin ve piyasa dinamiklerinin yeniden değerlendirilmesine neden oluyor."
 key_points:
   - "Nvidia piyasa değerinden yaklaşık 2 trilyon dolar kaybetti."

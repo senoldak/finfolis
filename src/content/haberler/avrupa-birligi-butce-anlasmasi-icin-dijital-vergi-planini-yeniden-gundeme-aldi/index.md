@@ -16,7 +16,7 @@ rakamlar:
     deger: "5 milyar avro"
   - etiket: "Bütçe daralma oranı"
     deger: "yüzde 10,2"
-tablo: {"baslik":"Dijital Vergi Kapsamı","sutunlar":["Kriter","Eşik Değer"],"satirlar":[["Küresel Ciro","750 milyon avro"],["AB İçi Gelir","50 milyon avro"]]}
+tablo: {"baslik":"Dijital vergi kapsamı","sutunlar":["Kriter","Eşik Değer"],"satirlar":[["Küresel Ciro","750 milyon avro"],["AB İçi Gelir","50 milyon avro"]]}
 why_matters: "Bu gelişme, Avrupa Birliği'nin bütçe üzerindeki üye devletler arası anlaşmazlıkları çözmek için yeni gelir kaynakları arayışını ve büyük teknoloji şirketlerinin mali sorumluluklarına yönelik yaklaşımını yansıtıyor."
 key_points:
   - "2028-2034 bütçesi için yüzde 3'lük dijital vergi önerildi."

@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "2027"
   olay: "Çoğu maaş artışının karara bağlanması bekleniyor."
-tablo: {"baslik":"Petrol Fiyatları (Varil Başına Dolar)","sutunlar":["Dönem","Fiyat"],"satirlar":[["Savaş Öncesi","70"],["Son Haftalar","100"],["Salı Günü","90"]]}
+tablo: {"baslik":"Petrol fiyatları (varil başına dolar)","sutunlar":["Dönem","Fiyat"],"satirlar":[["Savaş Öncesi","70"],["Son Haftalar","100"],["Salı Günü","90"]]}
 grafik: {"baslik":"İngiltere ekonomisi büyüme beklentileri","simge":"sepet","birimEtiket":"yüzde","birim":0.1,"satirlar":[{"etiket":"2026 yılı","metin":"1,6","deger":1.6},{"etiket":"2028 yılı","metin":"0,9","deger":0.9}]}
 why_matters: "Enflasyonun kalıcı hale gelme riski ve merkez bankasının faiz politikası, hanehalkı harcamalarını ve ülke ekonomisinin uzun vadeli büyüme beklentilerini etkiliyor."
 key_points:

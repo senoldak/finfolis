@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "7 Şubat 2027"
   olay: "Christine Lagarde'ın görevden ayrılması"
-tablo: {"baslik":"ECB Yönetim Kurulu Atamaları","sutunlar":["İsim","Görev"],"satirlar":[["Pablo Hernández de Cos","Başkan"],["Laurence Boone","Piyasa Operasyonları"],["Markus Brunnermeier","Baş Ekonomist"]]}
+tablo: {"baslik":"ECB Yönetim Kurulu atamaları","sutunlar":["İsim","Görev"],"satirlar":[["Pablo Hernández de Cos","Başkan"],["Laurence Boone","Piyasa Operasyonları"],["Markus Brunnermeier","Baş Ekonomist"]]}
 why_matters: "ECB, euro kullanan 21 ülkenin faiz oranlarını belirleyen kurum olduğu için başkanlık değişimi, bölgenin para politikası açısından takip ediliyor."
 key_points:
   - "Pablo Hernández de Cos, ECB başkanlığı için aday gösterildi"

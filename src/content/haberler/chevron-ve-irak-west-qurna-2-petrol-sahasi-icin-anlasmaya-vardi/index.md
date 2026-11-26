@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "31 Aralık 2026"
   olay: "West Qurna 2 anlaşmasının resmen imzalanması hedefleniyor."
-grafik: {"baslik":"West Qurna 2 Günlük Petrol Üretimi (Varil)","simge":"sepet","birimEtiket":"varil/gün","birim":100000,"satirlar":[{"etiket":"Lukoil dönemi ortalama","metin":"400.000","deger":400000},{"etiket":"Yeni hedef","metin":"800.000","deger":800000},{"etiket":"Potansiyel kapasite","metin":"1.200.000","deger":1200000}]}
+grafik: {"baslik":"West Qurna 2 günlük Petrol üretimi (varil)","simge":"sepet","birimEtiket":"varil/gün","birim":100000,"satirlar":[{"etiket":"Lukoil dönemi ortalama","metin":"400.000","deger":400000},{"etiket":"Yeni hedef","metin":"800.000","deger":800000},{"etiket":"Potansiyel kapasite","metin":"1.200.000","deger":1200000}]}
 why_matters: "Irak, Hürmüz Boğazı'nın kapanmasıyla yaşadığı büyük gelir kaybını telafi etmek için petrol üretimini artırmaya çalışıyor; bu anlaşma, ülkenin en büyük sahalarından birinde üretimi iki katına çıkarma potansiyeli taşıyor."
 key_points:
   - "West Qurna 2 sahası 14 milyar varil rezerve sahip."

@@ -20,7 +20,7 @@ sirada:
   tarih: "9 Aralık 2026"
   olay: "Fed toplantısı ve 2027 faiz artış döngüsüne dair beklentiler."
 tablo: {"baslik":"Nvidia finansal beklentiler ve gerçekleşen veriler","sutunlar":["Kalem","Beklenti (Milyar $)","Gerçekleşen (Milyar $)"],"satirlar":[["Toplam Gelir","109,1","115,8"],["4. Çeyrek Gelir Tahmini","125,3","130,0"]]}
-grafik: {"baslik":"Nvidia Çeyrek Gelir Beklentisi ve Gerçekleşen","simge":"lira","birimEtiket":"milyar dolar","birim":10,"satirlar":[{"etiket":"Beklenen Gelir","metin":"109,1","deger":109.1},{"etiket":"Gerçekleşen Gelir","metin":"115,8","deger":115.8}]}
+grafik: {"baslik":"Nvidia çeyrek gelir beklentisi ve gerçekleşen","simge":"lira","birimEtiket":"milyar dolar","birim":10,"satirlar":[{"etiket":"Beklenen Gelir","metin":"109,1","deger":109.1},{"etiket":"Gerçekleşen Gelir","metin":"115,8","deger":115.8}]}
 why_matters: "Nvidia'nın finansal sonuçları, yapay zekâ sektöründeki talebin devam edip etmediğini göstermesi açısından takip ediliyor. Şirketin piyasa performansı, Bitcoin ve diğer varlıklarla olan korelasyonu nedeniyle geniş piyasaları etkileyebiliyor."
 key_points:
   - "Nvidia yıllık bazda yüzde 103 artışla 115,8 milyar dolar gelir elde etti."

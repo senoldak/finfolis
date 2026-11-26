@@ -7,7 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.zkhWLhJYBlEXE/I8.h/V4SJWsc6cssaCfrOMCCHh+Llto0bCllUu8Js+RVYP9Vb0BuCPlUb669Qyn3lHeGhcSZpANF3cDbQ5q2seAMJMplm5P6hmZGpixORoU3797LST21i5bcg9tUpcnWmqGpb0ubbIFthB52XoJTcqUpXuoI/73tuDJYBMMZI+4iyhR6xQgeHeOZj+hzYvdvCBnmuashWr/gPxOhaeT86P02cwi15r/Q9hBW86orT8="
-tablo: {"baslik":"Borsalara Gelen Net Girişler","sutunlar":["Borsa","Giriş Miktarı"],"satirlar":[["OKX","284,87 milyon dolar"],["Gate","93,22 milyon dolar"],["Bybit","29,25 milyon dolar"]]}
+tablo: {"baslik":"Borsalara gelen net girişler","sutunlar":["Borsa","Giriş Miktarı"],"satirlar":[["OKX","284,87 milyon dolar"],["Gate","93,22 milyon dolar"],["Bybit","29,25 milyon dolar"]]}
 why_matters: "Yaşanan büyük çaplı siber saldırı ve fon çıkışları, dijital varlık güvenliğinin önemini ve piyasalara olan olası etkilerini, kripto para ekosisteminin genelinde yakından takip edilen bir başlık haline getiriyor."
 cover: kapak.png
 coverAlt: "Asya · Binance müşterileri siber saldırının ardından net 4,72 milyar dolar çekti"

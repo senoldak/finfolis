@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Aralık 2026"
   olay: "Fed'in faiz kararı toplantısı"
-tablo: {"baslik":"ABD Borsaları Kapanış Verileri","sutunlar":["Endeks","Değişim (yüzde)","Kapanış"],"satirlar":[["Dow Jones","-1,93","48.147,33"],["S&P 500","-3,70","6.910,42"],["Nasdaq","-5,28","22.617,73"]]}
+tablo: {"baslik":"ABD borsaları kapanış verileri","sutunlar":["Endeks","Değişim (yüzde)","Kapanış"],"satirlar":[["Dow Jones","-1,93","48.147,33"],["S&P 500","-3,70","6.910,42"],["Nasdaq","-5,28","22.617,73"]]}
 why_matters: "ABD borsalarındaki bu düzeltme, yapay zekâ odaklı teknoloji hisselerine olan güvenin sorgulandığı ve Fed'in faiz politikasına dair beklentilerin piyasaları şekillendirdiği bir döneme işaret ediyor."
 key_points:
   - "S&P 500 ve Dow Jones endeksleri, zirve seviyelerinden yüzde 10'dan fazla gerileyerek düzeltme bölgesine girdi."

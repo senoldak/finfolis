@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "10 Ekim 2026"
   olay: "Veri açıklamaları ve pazar takibi"
-grafik: {"baslik":"İmalat PMI Gelişimi","simge":"sepet","birimEtiket":"seviye","birim":5,"satirlar":[{"etiket":"Eylül","metin":"50,1","deger":50.1},{"etiket":"Ekim","metin":"49,3","deger":49.3}]}
+grafik: {"baslik":"İmalat PMI gelişimi","simge":"sepet","birimEtiket":"seviye","birim":5,"satirlar":[{"etiket":"Eylül","metin":"50,1","deger":50.1},{"etiket":"Ekim","metin":"49,3","deger":49.3}]}
 why_matters: "Çin'deki imalat ve talep göstergeleri, ekonomik gidişat ve sektörlerin performansı açısından takip ediliyor."
 key_points:
   - "Resmi imalat PMI ekim ayında 49,3 seviyesine geriledi."

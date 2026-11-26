@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "5 Kasım 2026"
   olay: "İtalya'dan canlı yayın"
-tablo: {"baslik":"Marathon Petroleum Finansal Sonuçları","sutunlar":["Dönem","Hisse Başına Kazanç","FAVÖK"],"satirlar":[["Geçen Yıl","3,01 dolar","3,2 milyar dolar"],["Bu Yıl","26,59 dolar","11,7 milyar dolar"]]}
+tablo: {"baslik":"Marathon Petroleum finansal sonuçları","sutunlar":["Dönem","Hisse Başına Kazanç","FAVÖK"],"satirlar":[["Geçen Yıl","3,01 dolar","3,2 milyar dolar"],["Bu Yıl","26,59 dolar","11,7 milyar dolar"]]}
 why_matters: "Ara seçim sonuçları ve küresel jeopolitik riskler, enerji arzını, veri merkezi yatırımlarını ve petrol fiyatı tahminlerini doğrudan etkiliyor."
 key_points:
   - "Marathon Petroleum hisse başına 26,59 dolar kazanç ve 11,7 milyar dolar FAVÖK açıkladı."

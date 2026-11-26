@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "17 Kasım 2026"
   olay: "General Motors Başkanı Mark Reuss'un Detroit'teki açıklamaları"
-tablo: {"baslik":"ABD Otomotiv Sektörü Verileri","sutunlar":["Gösterge","Değer"],"satirlar":[["GSYH payı","Yüzde 4,8"],["İstihdam","10,1 milyon"]]}
+tablo: {"baslik":"ABD otomotiv sektörü verileri","sutunlar":["Gösterge","Değer"],"satirlar":[["GSYH payı","Yüzde 4,8"],["İstihdam","10,1 milyon"]]}
 grafik: {"baslik":"Çin binek araç ihracatı (milyon adet)","simge":"sepet","birimEtiket":"milyon adet","birim":0.5,"satirlar":[{"etiket":"2025 toplam","metin":"7,1","deger":7.1},{"etiket":"2026 ilk 10 ay","metin":"8","deger":8}]}
 why_matters: "Otomotiv sektörü, ABD ekonomisi ve istihdamı için stratejik bir öneme sahipken, Çin'in artan ihracat kapasitesi küresel rekabet dengelerini etkiliyor."
 key_points:

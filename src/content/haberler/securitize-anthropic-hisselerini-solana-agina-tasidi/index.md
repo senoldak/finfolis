@@ -16,7 +16,7 @@ rakamlar:
     deger: "97,17 dolar"
   - etiket: "Tokenlaştırılmış hisse sayısı"
     deger: "50+"
-grafik: {"baslik":"Anthropic Hisse Fiyatları (USD)","simge":"lira","birimEtiket":"dolar","birim":10,"satirlar":[{"etiket":"Arz Fiyatı","metin":"83","deger":83},{"etiket":"Açılış Fiyatı","metin":"111,50","deger":111.5},{"etiket":"Kapanış Fiyatı","metin":"97,17","deger":97.17}]}
+grafik: {"baslik":"Anthropic hisse fiyatları (USD)","simge":"lira","birimEtiket":"dolar","birim":10,"satirlar":[{"etiket":"Arz Fiyatı","metin":"83","deger":83},{"etiket":"Açılış Fiyatı","metin":"111,50","deger":111.5},{"etiket":"Kapanış Fiyatı","metin":"97,17","deger":97.17}]}
 why_matters: "Tokenlaştırma teknolojisi, geleneksel hisse senetlerinin blokzinciri üzerinde işlem görmesini sağlayarak piyasa erişimini ve işlem saatlerini genişletmeyi hedefliyor."
 key_points:
   - "Anthropic hisseleri 19 Kasım 2026 tarihinde halka arz edildi."

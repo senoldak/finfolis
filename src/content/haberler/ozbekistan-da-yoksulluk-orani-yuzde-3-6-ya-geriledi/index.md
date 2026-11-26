@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 72"
   - etiket: "Cinsiyete dayalı ücret farkı"
     deger: "yüzde 35-40"
-tablo: {"baslik":"Özbekistan'da Yoksulluk ve Sınıf Göstergeleri","sutunlar":["Gösterge","2021","2025"],"satirlar":[["Ulusal Yoksulluk Oranı","yüzde 17","yüzde 5,8"],["Uluslararası Yoksulluk Oranı ($8,30)","yüzde 38,1","yüzde 12,4"],["Orta Sınıf Payı","yüzde 37","yüzde 72"],["Üst Orta Sınıf Payı","yüzde 8","yüzde 31"]]}
+tablo: {"baslik":"Özbekistan'da Yoksulluk ve sınıf göstergeleri","sutunlar":["Gösterge","2021","2025"],"satirlar":[["Ulusal Yoksulluk Oranı","yüzde 17","yüzde 5,8"],["Uluslararası Yoksulluk Oranı ($8,30)","yüzde 38,1","yüzde 12,4"],["Orta Sınıf Payı","yüzde 37","yüzde 72"],["Üst Orta Sınıf Payı","yüzde 8","yüzde 31"]]}
 why_matters: "Özbekistan'ın yoksulluğu azaltmadaki başarısı, ücret artışları ve istihdamın genişlemesiyle desteklenen yapısal bir dönüşümü ve orta sınıfın hızla büyümesini simgeliyor."
 cover: kapak.png
 coverAlt: "Ulusal yoksulluk oranı (2021) %17"

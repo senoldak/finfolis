@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "1 Ocak 2027"
   olay: "Ticaret Bakanlığı'nın önerdiği yüzde 15'lik tarifenin başlangıç tarihi"
-tablo: {"baslik":"Değerli ve Endüstriyel Metallerin Yılbaşından Bu Yana Değişimi","sutunlar":["Metal","Yılbaşından Bu Yana Değişim"],"satirlar":[["Bakır","yüzde 15,8"],["Altın vadeli","yüzde -4,11"]]}
+tablo: {"baslik":"Değerli ve endüstriyel metallerin yılbaşından bu yana değişimi","sutunlar":["Metal","Yılbaşından Bu Yana Değişim"],"satirlar":[["Bakır","yüzde 15,8"],["Altın vadeli","yüzde -4,11"]]}
 why_matters: "Yapay zeka, elektrik şebekesi yatırımları ve savunma harcamalarındaki artış bakırı stratejik bir metal haline getirirken, arz sıkıntıları ve olası gümrük tarifeleri küresel metal piyasalarındaki dengeleri etkiliyor."
 key_points:
   - "Bakır fiyatları yıl başından bu yana yüzde 15,8 oranında arttı."

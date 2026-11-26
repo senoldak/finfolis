@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "31 Ocak 2027"
   olay: "Satın alma işleminin tamamlanması beklenen mali yıl sonu."
-tablo: {"baslik":"Rune Technologies Şirket Özeti","sutunlar":["Kriter","Değer"],"satirlar":[["Kuruluş Yılı","2024"],["Satın Alma Bedeli","375 milyon dolar"],["Toplanan Yatırım","30 milyon dolar"],["Ana Ürün","TyrOS"]]}
+tablo: {"baslik":"Rune Technologies şirket özeti","sutunlar":["Kriter","Değer"],"satirlar":[["Kuruluş Yılı","2024"],["Satın Alma Bedeli","375 milyon dolar"],["Toplanan Yatırım","30 milyon dolar"],["Ana Ürün","TyrOS"]]}
 why_matters: "Dünyanın en büyük yazılım şirketlerinden birinin savunma sanayisine yaptığı bu yatırım, sivil teknoloji devlerinin askeri lojistik ve yapay zeka alanındaki rollerinin arttığını gösteriyor."
 key_points:
   - "Salesforce, Rune Technologies'i 375 milyon dolara satın alıyor."

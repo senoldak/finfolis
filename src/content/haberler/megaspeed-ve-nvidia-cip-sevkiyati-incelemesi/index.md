@@ -16,7 +16,7 @@ rakamlar:
     deger: "7,5 milyar dolar"
   - etiket: "Zarar (2024)"
     deger: "20 milyon dolar"
-tablo: {"baslik":"Megaspeed Finansal Verileri","sutunlar":["Yıl","Varlık (Dolar)","Gelir (Dolar)"],"satirlar":[["2023","33 milyon","0"],["2024","3 milyar","294 milyon"]]}
+tablo: {"baslik":"Megaspeed finansal verileri","sutunlar":["Yıl","Varlık (Dolar)","Gelir (Dolar)"],"satirlar":[["2023","33 milyon","0"],["2024","3 milyar","294 milyon"]]}
 why_matters: "Bu gelişme, ABD'nin Çin'e yönelik teknoloji ihracat kısıtlamalarının etkinliği ve küresel tedarik zincirlerindeki güvenlik açıklarının denetimi açısından önem taşıyor."
 key_points:
   - "7,5 milyar dolarlık çip sevkiyatı iddiası"

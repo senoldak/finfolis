@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "15 Ekim 2026"
   olay: "Fon değerlerinin FnGuide verileriyle açıklandığı tarih"
-grafik: {"baslik":"Emeklilik Fonu Varlık Değeri Değişimi","simge":"lira","birimEtiket":"trilyon won","birim":50,"satirlar":[{"etiket":"Haziran Sonu","metin":"515,93","deger":515.93},{"etiket":"15 Ekim 2026","metin":"333,53","deger":333.53}]}
+grafik: {"baslik":"Emeklilik fonu varlık değeri değişimi","simge":"lira","birimEtiket":"trilyon won","birim":50,"satirlar":[{"etiket":"Haziran Sonu","metin":"515,93","deger":515.93},{"etiket":"15 Ekim 2026","metin":"333,53","deger":333.53}]}
 why_matters: "Dünyanın en büyük emeklilik fonlarından birinin teknoloji hisselerindeki dalgalanmalardan büyük ölçüde etkilenmesi, fonun maruz kaldığı riskleri ve politik tartışmaları beraberinde getiriyor."
 key_points:
   - "National Pension Service 182 trilyon won değer kaybı yaşadı"

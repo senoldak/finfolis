@@ -16,7 +16,7 @@ rakamlar:
     deger: "11"
   - etiket: "Konut fiyatı"
     deger: "$440.000"
-grafik: {"baslik":"Uygun Fiyatlı Konut Satın Alma Programı Durumu","simge":"banka","birimEtiket":"konut","birim":10,"satirlar":[{"etiket":"Toplam Katılımcı Konut","metin":"181","deger":181},{"etiket":"Taşınan Kişi Sayısı","metin":"170","deger":170}]}
+grafik: {"baslik":"Uygun Fiyatlı Konut Satın Alma Programı durumu","simge":"banka","birimEtiket":"konut","birim":10,"satirlar":[{"etiket":"Toplam Katılımcı Konut","metin":"181","deger":181},{"etiket":"Taşınan Kişi Sayısı","metin":"170","deger":170}]}
 why_matters: "Konut edindirme programlarındaki gecikmeler ve yaşanan anlaşmazlıklar, dar gelirli vatandaşların konuta erişim süreçlerindeki zorlukları ve idari denetim mekanizmalarının önemini ortaya koyuyor."
 key_points:
   - "Program kapsamındaki 181 konuttan 170'i sahiplerine teslim edildi"

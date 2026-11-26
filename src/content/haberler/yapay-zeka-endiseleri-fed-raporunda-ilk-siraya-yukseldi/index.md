@@ -16,7 +16,7 @@ rakamlar:
     deger: "680 milyar dolar"
   - etiket: "Risk varlığı düzeltme endişesi"
     deger: "yüzde 52"
-grafik: {"baslik":"Federal Rezerv Anketindeki Başlıca Kaygılar","simge":"sepet","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Yapay zeka riskleri","metin":"87","deger":87},{"etiket":"Risk varlıklarında düzeltme","metin":"52","deger":52},{"etiket":"Yüksek uzun vadeli faiz oranları","metin":"48","deger":48},{"etiket":"Siber saldırılar","metin":"43","deger":43},{"etiket":"Mali borç sürdürülebilirliği","metin":"43","deger":43}]}
+grafik: {"baslik":"Federal Rezerv anketindeki başlıca kaygılar","simge":"sepet","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Yapay zeka riskleri","metin":"87","deger":87},{"etiket":"Risk varlıklarında düzeltme","metin":"52","deger":52},{"etiket":"Yüksek uzun vadeli faiz oranları","metin":"48","deger":48},{"etiket":"Siber saldırılar","metin":"43","deger":43},{"etiket":"Mali borç sürdürülebilirliği","metin":"43","deger":43}]}
 why_matters: "Federal Rezerv raporu, yapay zekâ yatırımları ve borçlanmasındaki hızlı artışın finansal sistem üzerindeki potansiyel etkilerini ve olası riskleri gözler önüne seriyor."
 key_points:
   - "Ankete katılanların yüzde 87'si yapay zekâyı finansal sistem için risk olarak gördü."

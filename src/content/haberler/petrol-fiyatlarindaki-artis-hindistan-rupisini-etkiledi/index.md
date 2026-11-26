@@ -16,7 +16,7 @@ rakamlar:
     deger: "70 baz puan"
   - etiket: "Günlük düşüş"
     deger: "Yüzde 0,2"
-tablo: {"baslik":"USD/INR Piyasa Verileri","sutunlar":["Gösterge","Değer"],"satirlar":[["Kapanış Fiyatı","92,4450"],["Günlük Değişim","yüzde 0,2"]]}
+tablo: {"baslik":"USD/INR piyasa verileri","sutunlar":["Gösterge","Değer"],"satirlar":[["Kapanış Fiyatı","92,4450"],["Günlük Değişim","yüzde 0,2"]]}
 why_matters: "Petrol fiyatlarındaki yükseliş, Hindistan gibi enerji ithalatçısı ülkelerin ithalat maliyetlerini ve enflasyon beklentilerini etkileyerek para birimleri üzerinde baskı oluşturabiliyor."
 key_points:
   - "Rupi, 26 Kasım 2026'da yüzde 0,2 değer kaybetti."

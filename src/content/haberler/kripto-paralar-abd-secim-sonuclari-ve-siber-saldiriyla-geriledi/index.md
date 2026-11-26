@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "4 Kasım 2026"
   olay: "ABD ara seçim sonuçlarının kesinleşmesiyle kripto mevzuat süreci takip edilecek."
-tablo: {"baslik":"Kripto Varlık Fiyatları ve Değişimler","sutunlar":["Varlık","Fiyat (Dolar)","Durum"],"satirlar":[["Bitcoin","78.070","Yatay"],["Ether","2.292","Yüzde 1 artış"],["BNB","718,21","Yüzde 2,45 artış"],["Solana","96,96","Yüzde 3,53 artış"]]}
+tablo: {"baslik":"Kripto varlık fiyatları ve değişimler","sutunlar":["Varlık","Fiyat (Dolar)","Durum"],"satirlar":[["Bitcoin","78.070","Yatay"],["Ether","2.292","Yüzde 1 artış"],["BNB","718,21","Yüzde 2,45 artış"],["Solana","96,96","Yüzde 3,53 artış"]]}
 why_matters: "ABD'deki siyasi güç dengesinin değişmesi, kripto paraların yasal statüsünü belirleyecek düzenlemelerin seyrini etkileyebilir. Aynı zamanda Binance'e yapılan rekor seviyedeki siber saldırı, dijital varlıkların güvenliği açısından kritik bir sınav niteliği taşıyor."
 key_points:
   - "Binance borsasından 6,3 milyar dolar değerinde kripto varlık çalındı."

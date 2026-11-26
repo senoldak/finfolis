@@ -15,7 +15,7 @@ rakamlar:
   - etiket: "AB'nin kestiği ceza"
     deger: "200 milyon avro"
 tablo: {"baslik":"Meta'ya yönelik Avrupa'daki cezalar","sutunlar":["Kurum","Tutar"],"satirlar":[["İrlanda Veri Koruma Komisyonu","1,2 milyar avro"],["Avrupa Komisyonu","200 milyon avro"],["İtalya (İddia)","805 milyon avro"]]}
-grafik: {"baslik":"Meta'ya Avrupa'da Kesilen Cezalar","simge":"lira","birimEtiket":"milyon avro","birim":100,"satirlar":[{"etiket":"İrlanda (2023)","metin":"1.200","deger":1200},{"etiket":"İtalya (İddia)","metin":"805","deger":805},{"etiket":"Avrupa Komisyonu (2025)","metin":"200","deger":200}]}
+grafik: {"baslik":"Meta'ya Avrupa'da kesilen cezalar","simge":"lira","birimEtiket":"milyon avro","birim":100,"satirlar":[{"etiket":"İrlanda (2023)","metin":"1.200","deger":1200},{"etiket":"İtalya (İddia)","metin":"805","deger":805},{"etiket":"Avrupa Komisyonu (2025)","metin":"200","deger":200}]}
 why_matters: "Meta'nın Avrupa'daki veri işleme ve kullanıcı onayı süreçleri, şirketin bölgedeki operasyonel maliyetlerini ve yasal uyum stratejilerini etkileyen bir konu olmaya devam ediyor."
 key_points:
   - "İddia edilen ceza tutarı 805 milyon avro seviyesinde."

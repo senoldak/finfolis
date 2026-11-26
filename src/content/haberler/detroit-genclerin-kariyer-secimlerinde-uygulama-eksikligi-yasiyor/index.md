@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "12 Kasım 2026"
   olay: "Detroit'teki Ford 500 İnovasyon Forumu"
-grafik: {"baslik":"Detroitli Gençlerin Kariyer Deneyimi Oranları","simge":"banka","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Konuk konuşmacı veya mentor dinleyenler","metin":"78","deger":78},{"etiket":"Uygulamalı eğitim alanlar","metin":"35","deger":35}]}
+grafik: {"baslik":"Detroitli gençlerin kariyer deneyimi oranları","simge":"banka","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Konuk konuşmacı veya mentor dinleyenler","metin":"78","deger":78},{"etiket":"Uygulamalı eğitim alanlar","metin":"35","deger":35}]}
 why_matters: "Gençlerin iş gücüne erken yaşta ve uygulamalı olarak hazırlanması, gelecekteki beceri açığının kapatılmasında kritik rol oynuyor."
 key_points:
   - "Gençlerin yüzde 78'i kariyer üzerine konuşmacı dinledi"

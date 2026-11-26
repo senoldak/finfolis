@@ -17,8 +17,8 @@ rakamlar:
 sirada:
   tarih: "16 Ekim 2026"
   olay: "Federal Rezerv'in özel kredi piyasası hesaplarını açıklaması"
-tablo: {"baslik":"Özel Kredi Fonlarının Banka Borçlanması Dağılımı","sutunlar":["Kategori","Banka Borcu"],"satirlar":[["İş geliştirme şirketleri","181 milyar dolar"],["Özel borç fonları","150 milyar dolar"],["Aralık ve ihale teklif fonları","18 milyar dolar"]]}
-grafik: {"baslik":"Özel Kredi Fonlarının Banka Borçları","simge":"banka","birimEtiket":"milyar dolar","birim":10,"satirlar":[{"etiket":"İş geliştirme şirketleri","metin":"181","deger":181},{"etiket":"Özel borç fonları","metin":"150","deger":150},{"etiket":"Aralık ve ihale teklif fonları","metin":"18","deger":18}]}
+tablo: {"baslik":"Özel kredi fonlarının banka borçlanması dağılımı","sutunlar":["Kategori","Banka Borcu"],"satirlar":[["İş geliştirme şirketleri","181 milyar dolar"],["Özel borç fonları","150 milyar dolar"],["Aralık ve ihale teklif fonları","18 milyar dolar"]]}
+grafik: {"baslik":"Özel kredi fonlarının banka borçları","simge":"banka","birimEtiket":"milyar dolar","birim":10,"satirlar":[{"etiket":"İş geliştirme şirketleri","metin":"181","deger":181},{"etiket":"Özel borç fonları","metin":"150","deger":150},{"etiket":"Aralık ve ihale teklif fonları","metin":"18","deger":18}]}
 why_matters: "Özel kredi fonlarının borçlularından nakit toplamakta zorlanması ve bankalara olan yüksek borçlanması, finansal piyasalarda ek varlık satışları ve likidite baskısı yaratma potansiyeli taşıyor."
 key_points:
   - "Amerika Birleşik Devletleri merkezli özel kredi araçlarının bankalara borcu 2025 yıl sonunda 349 milyar dolara ulaştı."

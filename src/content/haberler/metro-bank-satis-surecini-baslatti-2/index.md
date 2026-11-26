@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "12 Kasım 2026"
   olay: "Metro Bank satış süreci haberi yayımlandı"
-tablo: {"baslik":"Metro Bank 2026 Yılı İlk Yarı Performansı","sutunlar":["Gösterge","Değer"],"satirlar":[["Vergi öncesi kâr","60,7 milyon sterlin"],["Kâr artış oranı","yüzde 41"],["Çekirdek kredi portföyü","6,2 milyar sterlin"],["Kredi portföyü büyümesi","yüzde 43"]]}
+tablo: {"baslik":"Metro Bank 2026 yılı ilk yarı performansı","sutunlar":["Gösterge","Değer"],"satirlar":[["Vergi öncesi kâr","60,7 milyon sterlin"],["Kâr artış oranı","yüzde 41"],["Çekirdek kredi portföyü","6,2 milyar sterlin"],["Kredi portföyü büyümesi","yüzde 43"]]}
 why_matters: "Bankanın satış süreci, yıllar süren finansal zorluklar ve kapsamlı bir yeniden yapılandırma döneminin ardından, kurumun gelecekteki stratejik yönünü belirlemek adına kritik bir adım olarak değerlendiriliyor."
 key_points:
   - "Metro Bank, stratejik inceleme kapsamında resmi satış sürecini başlattı."

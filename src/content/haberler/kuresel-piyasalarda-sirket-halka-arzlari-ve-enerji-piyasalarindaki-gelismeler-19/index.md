@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Ocak 2027"
   olay: "Ofgem enerji fiyat tavanının üç aylık dönem için yeniden belirlenmesi."
-grafik: {"baslik":"Bazı Büyük Halka Arzların Büyüklüğü","simge":"lira","birimEtiket":"milyar dolar","birim":5,"satirlar":[{"etiket":"Anthropic","metin":"81,3","deger":81.3},{"etiket":"SpaceX","metin":"75","deger":75}]}
+grafik: {"baslik":"Bazı büyük halka arzların büyüklüğü","simge":"lira","birimEtiket":"milyar dolar","birim":5,"satirlar":[{"etiket":"Anthropic","metin":"81,3","deger":81.3},{"etiket":"SpaceX","metin":"75","deger":75}]}
 why_matters: "Küresel piyasalardaki bu gelişmeler, yapay zekâ yatırımlarının finansal büyüklüğünü, Avrupa'daki bankacılık konsolidasyonlarını ve savaşın enerji arz güvenliği üzerindeki kalıcı etkilerini göstermesi açısından önem taşıyor."
 key_points:
   - "Anthropic, halka arzda 81,3 milyar dolar fon topladı."

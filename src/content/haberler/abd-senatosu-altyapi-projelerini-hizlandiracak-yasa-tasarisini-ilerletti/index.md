@@ -15,7 +15,7 @@ rakamlar:
 sirada:
   tarih: "9 Kasım 2026"
   olay: "Senato'da tasarı üzerine görüşmelerin başlaması"
-tablo: {"baslik":"Partilerin Tasarıya Yaklaşımı","sutunlar":["Grup","Temel Hedef"],"satirlar":[["Cumhuriyetçiler","Kısıtlayıcı çevre yasalarını esneterek büyük projelerin önünü açmak"],["Demokratlar","Temiz enerji projelerini hızlandırarak karbon emisyonlarını düşürmek"]]}
+tablo: {"baslik":"Partilerin tasarıya yaklaşımı","sutunlar":["Grup","Temel Hedef"],"satirlar":[["Cumhuriyetçiler","Kısıtlayıcı çevre yasalarını esneterek büyük projelerin önünü açmak"],["Demokratlar","Temiz enerji projelerini hızlandırarak karbon emisyonlarını düşürmek"]]}
 why_matters: "Bu yasa tasarısı, ABD'deki enerji nakil hatları, madenler ve temiz enerji projelerinin onay süreçlerini kısaltarak ekonomik yatırımların hızlanmasını ve teknoloji devlerinin enerji maliyetlerini üstlenmesini hedefliyor."
 key_points:
   - "Senato, altyapı projelerini hızlandıracak yasa tasarısını 73-25 oyla ilerletti."

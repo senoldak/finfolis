@@ -20,7 +20,7 @@ sirada:
   tarih: "2027 sonu veya 2028'in ilk yarısı"
   olay: "İşlemin tamamlanması bekleniyor"
 tablo: {"baslik":"ABD teslimat platformlarının pazar payı değişimi","sutunlar":["Platform","5 Yıl Önce (Yüzde)","Güncel (Yüzde)"],"satirlar":[["Instacart","26","18"],["DoorDash","44","59"]]}
-grafik: {"baslik":"ABD Teslimat Platformları Pazar Payı Değişimi","simge":"sepet","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Instacart (5 yıl önce)","metin":"26","deger":26},{"etiket":"Instacart (Güncel)","metin":"18","deger":18},{"etiket":"DoorDash (5 yıl önce)","metin":"44","deger":44},{"etiket":"DoorDash (Güncel)","metin":"59","deger":59}]}
+grafik: {"baslik":"ABD teslimat platformları Pazar payı değişimi","simge":"sepet","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Instacart (5 yıl önce)","metin":"26","deger":26},{"etiket":"Instacart (Güncel)","metin":"18","deger":18},{"etiket":"DoorDash (5 yıl önce)","metin":"44","deger":44},{"etiket":"DoorDash (Güncel)","metin":"59","deger":59}]}
 why_matters: "Bu birleşme, yemek teslimatı sektörünün restoran odaklı modelden, market alışverişi ve perakende gibi daha sık ve yüksek değerli siparişlere doğru genişlemesini ifade ediyor."
 key_points:
   - "Satın alma bedeli 17 milyar dolar olarak belirlendi."

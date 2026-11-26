@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "19 Kasım 2026"
   olay: "Araştırma sonuçlarının Science dergisinde yayımlanması"
-tablo: {"baslik":"Sihirli Kare Oyunu Başarı Karşılaştırması","sutunlar":["Yöntem","Başarı Oranı"],"satirlar":[["Willow Kuantum İşlemci","yüzde 98,3"],["Klasik Bilgisayar Üst Sınırı","yüzde 88,9"]]}
+tablo: {"baslik":"Sihirli kare oyunu başarı karşılaştırması","sutunlar":["Yöntem","Başarı Oranı"],"satirlar":[["Willow Kuantum İşlemci","yüzde 98,3"],["Klasik Bilgisayar Üst Sınırı","yüzde 88,9"]]}
 why_matters: "Bu sonuç, kuantum bilgisayarların klasik mantıkla imkânsız görülen işlemleri gerçekleştirebildiğini ve donanımsal gürültüye rağmen teorik sınırları aşabildiğini kanıtlamaktadır."
 key_points:
   - "Willow işlemcisi sihirli kare oyununda yüzde 98,3 başarı oranına ulaştı."

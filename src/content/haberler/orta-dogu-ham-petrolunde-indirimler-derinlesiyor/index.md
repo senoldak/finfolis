@@ -18,7 +18,7 @@ sirada:
   tarih: "16 Kasım 2026"
   olay: "Kpler verilerine göre piyasa dinamikleri güncellendi."
 tablo: {"baslik":"Dubai ham petrolü primindeki değişim","sutunlar":["Dönem","Prim (Dolar/varil)"],"satirlar":[["6 Ekim 2026","+11,03"],["12 Kasım 2026","+1,03"]]}
-grafik: {"baslik":"Dubai M1–M3 Primi Değişimi","simge":"lira","birimEtiket":"dolar/varil","birim":1,"satirlar":[{"etiket":"6 Ekim 2026","metin":"11,03","deger":11.03},{"etiket":"12 Kasım 2026","metin":"1,03","deger":1.03}]}
+grafik: {"baslik":"Dubai M1–M3 primi değişimi","simge":"lira","birimEtiket":"dolar/varil","birim":1,"satirlar":[{"etiket":"6 Ekim 2026","metin":"11,03","deger":11.03},{"etiket":"12 Kasım 2026","metin":"1,03","deger":1.03}]}
 why_matters: "Orta Doğu'daki arz artışı ve fiyat indirimleri, küresel petrol ticaret rotalarını ve Asya'daki rafineri tercihlerini doğrudan etkileyerek enerji piyasalarındaki rekabet dengesini değiştiriyor."
 key_points:
   - "Dubai M1–M3 primi 6 Ekim'den 12 Kasım'a +11,03 dolardan +1,03 dolara geriledi."

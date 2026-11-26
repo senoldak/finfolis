@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "29 Ocak 2026"
   olay: "Altın fiyatlarının rekor seviyeye ulaştığı tarih."
-tablo: {"baslik":"Altın Fiyatı Verileri","sutunlar":["Dönem","Fiyat"],"satirlar":[["29 Ocak 2026 Rekor Seviye","1.80.779 rupi"],["Cuma Kapanışı","1.42.024 rupi"]]}
+tablo: {"baslik":"Altın fiyatı verileri","sutunlar":["Dönem","Fiyat"],"satirlar":[["29 Ocak 2026 Rekor Seviye","1.80.779 rupi"],["Cuma Kapanışı","1.42.024 rupi"]]}
 why_matters: "Altın fiyatlarındaki bu sert gerileme, küresel enflasyon endişeleri, jeopolitik gelişmeler ve yatırımcıların pozisyon değişikliklerinin kıymetli madenler üzerindeki etkisini gösteriyor."
 key_points:
   - "Altın fiyatları rekor seviyeden 38.600 rupiden fazla düştü."

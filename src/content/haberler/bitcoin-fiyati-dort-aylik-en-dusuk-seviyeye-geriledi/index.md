@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "13 Kasım 2026"
   olay: "ABD'deki spot Bitcoin borsa yatırım fonlarının haftalık veri dönemi sona erdi."
-tablo: {"baslik":"Kripto Para Piyasası Haftalık Performans","sutunlar":["Varlık","Değişim Oranı"],"satirlar":[["Ether","yüzde 19,5"],["Solana","yüzde 20,7"]]}
+tablo: {"baslik":"Kripto para piyasası haftalık performans","sutunlar":["Varlık","Değişim Oranı"],"satirlar":[["Ether","yüzde 19,5"],["Solana","yüzde 20,7"]]}
 why_matters: "Küresel kripto para piyasasındaki bu sert düşüş ve kurumsal fon çıkışları, yatırımcı duyarlılığının zayıfladığını ve likiditenin sıkılaştığını gösteriyor."
 key_points:
   - "Bitcoin pazar günü 62.080,91 dolara geriledi."

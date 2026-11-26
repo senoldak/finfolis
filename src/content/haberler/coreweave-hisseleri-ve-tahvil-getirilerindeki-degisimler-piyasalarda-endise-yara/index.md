@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "21 Ekim 2026"
   olay: "Şirketin üçüncü çeyrek finansal sonuçlarını gelecek ay açıklaması bekleniyor."
-grafik: {"baslik":"Şirket Hisselerindeki Aylık Değişim","simge":"sepet","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"CoreWeave","metin":"29","deger":29},{"etiket":"Nebius","metin":"27","deger":27},{"etiket":"IREN","metin":"32","deger":32},{"etiket":"NextDC","metin":"40","deger":40}]}
+grafik: {"baslik":"Şirket hisselerindeki aylık değişim","simge":"sepet","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"CoreWeave","metin":"29","deger":29},{"etiket":"Nebius","metin":"27","deger":27},{"etiket":"IREN","metin":"32","deger":32},{"etiket":"NextDC","metin":"40","deger":40}]}
 why_matters: "Yapay zeka altyapısına odaklanan neocloud şirketlerinin borçlanma maliyetleri ve finansman imkanları, sektörün büyüme sürdürülebilirliği açısından yakından izleniyor."
 key_points:
   - "CoreWeave hisseleri bu ay yüzde 29 oranında düştü."

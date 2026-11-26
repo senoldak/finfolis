@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "30 Eylül 2026"
   olay: "İkinci çeyrek mali döneminin sona ermesi ve finansal sonuçların kesinleşmesi."
-tablo: {"baslik":"Operasyonel Veriler ve Fiyat Değişimleri","sutunlar":["Veri Türü","Miktar / Değişim"],"satirlar":[["Alüminyum Üretimi","649.000 metrik ton"],["Spot Fiyat Yıllık Değişim","yüzde 23"],["Net Kâr Marjı","yüzde 29"],["Tek Seferlik Gider","4,85 milyar rupi"]]}
+tablo: {"baslik":"Operasyonel veriler ve fiyat değişimleri","sutunlar":["Veri Türü","Miktar / Değişim"],"satirlar":[["Alüminyum Üretimi","649.000 metrik ton"],["Spot Fiyat Yıllık Değişim","yüzde 23"],["Net Kâr Marjı","yüzde 29"],["Tek Seferlik Gider","4,85 milyar rupi"]]}
 why_matters: "Orta Doğu'daki jeopolitik gerilimlerin arz zincirini etkilemesiyle yükselen emtia fiyatlarının, büyük üreticilerin kârlılığı üzerindeki doğrudan etkisini göstermektedir."
 key_points:
   - "Net kâr 23,73 milyar rupiden 51,67 milyar rupiye yükseldi."

@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "30 Haziran 2027"
   olay: "İlk tur işten çıkarmaların ve kurumsal değişikliklerin tamamlanması beklenen dönem"
-tablo: {"baslik":"Dış Kaynak Kullanımına Giden Avustralyalı Şirketler (2026)","sutunlar":["Şirket Adı","Sektör"],"satirlar":[["Qantas","Havacılık"],["Woolworths","Perakende"],["Telstra","Telekomünikasyon"],["National Australia Bank","Bankacılık"],["Officeworks","Perakende"]]}
+tablo: {"baslik":"Dış kaynak kullanımına giden Avustralyalı şirketler (2026)","sutunlar":["Şirket Adı","Sektör"],"satirlar":[["Qantas","Havacılık"],["Woolworths","Perakende"],["Telstra","Telekomünikasyon"],["National Australia Bank","Bankacılık"],["Officeworks","Perakende"]]}
 why_matters: "Büyük ölçekli şirketlerin yapay zeka ve maliyet verimliliği gerekçesiyle operasyonlarını gelişmekte olan ülkelere kaydırma trendinin havacılık sektöründeki yansımasını göstermektedir."
 key_points:
   - "850 kurumsal pozisyonun kapatılması planlanıyor"

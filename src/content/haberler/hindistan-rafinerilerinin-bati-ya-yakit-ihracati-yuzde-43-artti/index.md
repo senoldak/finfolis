@@ -16,7 +16,7 @@ rakamlar:
     deger: "667 milyon avro"
   - etiket: "Hindistan'ın Rus petrolü alımındaki düşüş"
     deger: "yüzde 13"
-tablo: {"baslik":"Eylülde Rus Petrolü İşleyen Tesislerden Ürün Alan Başlıca Ülke ve Bölgeler","sutunlar":["Bölge / Ülke","İthalat Tutarı (Milyon Avro)"],"satirlar":[["Avrupa Birliği","667"],["Avustralya","168"],["Amerika Birleşik Devletleri","154"],["Yeni Zelanda","19"]]}
+tablo: {"baslik":"Eylülde Rus petrolü işleyen tesislerden ürün alan başlıca ülke ve bölgeler","sutunlar":["Bölge / Ülke","İthalat Tutarı (Milyon Avro)"],"satirlar":[["Avrupa Birliği","667"],["Avustralya","168"],["Amerika Birleşik Devletleri","154"],["Yeni Zelanda","19"]]}
 why_matters: "Batı'nın Rus petrolüne uyguladığı yaptırımlara rağmen üçüncü ülkeler üzerinden süren ticaret akışları küresel enerji piyasalarındaki dengeyi ve yaptırımların deliklerini gözler önüne seriyor."
 key_points:
   - "Hindistan, Türkiye ve Brunei'nin yaptırım uygulayan ülkelere petrol ürünü ihracatı eylülde 1 milyar avroya (1,2 milyar dolar) ulaştı."

@@ -18,7 +18,7 @@ sirada:
   tarih: "2027 sonu veya 2028 ilk yarısı"
   olay: "Satın alma işleminin tamamlanması bekleniyor."
 tablo: {"baslik":"Şirketlerin 2025 yılı gelirleri","sutunlar":["Şirket","Gelir (Milyar Dolar)"],"satirlar":[["Instacart","3,7"],["DoorDash","13,7"]]}
-grafik: {"baslik":"Sektördeki Yönetim Kurulu Bağlantıları","simge":"banka","birimEtiket":"vaka sayısı","birim":250,"satirlar":[{"etiket":"Aynı kişi rakip yönetim kurullarında","metin":"1.777","deger":1777},{"etiket":"Aynı firmadan iki kişi rakip yönetim kurullarında","metin":"4.632","deger":4632}]}
+grafik: {"baslik":"Sektördeki yönetim kurulu bağlantıları","simge":"banka","birimEtiket":"vaka sayısı","birim":250,"satirlar":[{"etiket":"Aynı kişi rakip yönetim kurullarında","metin":"1.777","deger":1777},{"etiket":"Aynı firmadan iki kişi rakip yönetim kurullarında","metin":"4.632","deger":4632}]}
 why_matters: "Bu gelişme, teknoloji sektöründeki yatırımcıların rakip şirketlerin yönetim kurullarında aynı anda yer almasının yarattığı rekabet hukuku risklerini ve Adalet Bakanlığı'nın bu konudaki inceleme eğilimini ortaya koyuyor."
 key_points:
   - "DoorDash, Instacart'ı 17 milyar dolar karşılığında satın almak için anlaştı."

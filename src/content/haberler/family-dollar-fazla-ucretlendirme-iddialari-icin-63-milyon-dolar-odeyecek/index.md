@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Müşteri indirim tutarı"
     deger: "20 milyon dolar"
 tablo: {"baslik":"İndirim mağazalarına yönelik yasal süreçler","sutunlar":["Mağaza Zinciri","Durum"],"satirlar":[["Family Dollar","63 milyon dolar ödeme ile uzlaşma"],["Dollar General","Ekim ayında dava açıldı"]]}
-grafik: {"baslik":"Family Dollar Anlaşma Ödemeleri","simge":"lira","birimEtiket":"milyon dolar","birim":2,"satirlar":[{"etiket":"Tüketici tazmin fonu","metin":"40","deger":40},{"etiket":"Müşteri indirimleri","metin":"20","deger":20},{"etiket":"Eyalet yetkililerine ödeme","metin":"3","deger":3}]}
+grafik: {"baslik":"Family Dollar anlaşma ödemeleri","simge":"lira","birimEtiket":"milyon dolar","birim":2,"satirlar":[{"etiket":"Tüketici tazmin fonu","metin":"40","deger":40},{"etiket":"Müşteri indirimleri","metin":"20","deger":20},{"etiket":"Eyalet yetkililerine ödeme","metin":"3","deger":3}]}
 why_matters: "Bu gelişme, indirim mağazası zincirlerinde iddia edilen fiyatlandırma hatalarının tüketiciler üzerindeki mali etkisini ve düzenleyici kurumların bu sektöre yönelik artan denetimlerini gösteriyor."
 key_points:
   - "Family Dollar, fazla ücretlendirme iddialarını çözmek için 63 milyon dolar ödeyecek."

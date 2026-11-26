@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "26 Ekim 2026"
   olay: "Japonya Merkez Bankası toplantısı ve hizmet ÜFE verisi izlenecek"
-tablo: {"baslik":"Yapay Zeka Altyapı Yatırımlarının Gelişmiş Piyasalara Enflasyon ve Büyüme Etkisi","sutunlar":["Bölge / Gösterge","Tahmin Edilen Etki"],"satirlar":[["ABD çekirdek PCE","50 baz puan"],["ABD çekirdek TÜFE","20 baz puan"],["ABD dışı gelişmiş piyasalar çekirdek enflasyon ortalaması","25 baz puan"],["İngiltere enflasyon etkisi","0,2 puan"],["Japonya enflasyon etkisi","0,3 puan"],["Gelişmiş piyasalar GSYİH büyüme etkisi","yüzde 0,3"],["Avustralya büyüme etkisi","yüzde 0,6"],["Euro bölgesi büyüme etkisi","yüzde 0,2"]]}
+tablo: {"baslik":"Yapay zeka altyapı yatırımlarının gelişmiş piyasalara Enflasyon ve büyüme etkisi","sutunlar":["Bölge / Gösterge","Tahmin Edilen Etki"],"satirlar":[["ABD çekirdek PCE","50 baz puan"],["ABD çekirdek TÜFE","20 baz puan"],["ABD dışı gelişmiş piyasalar çekirdek enflasyon ortalaması","25 baz puan"],["İngiltere enflasyon etkisi","0,2 puan"],["Japonya enflasyon etkisi","0,3 puan"],["Gelişmiş piyasalar GSYİH büyüme etkisi","yüzde 0,3"],["Avustralya büyüme etkisi","yüzde 0,6"],["Euro bölgesi büyüme etkisi","yüzde 0,2"]]}
 why_matters: "Yapay zeka altyapı yatırımlarının yarattığı geçici enflasyon baskısı, merkez bankalarının sıkı para politikası duruşunu değerlendirdiği bir dönemde maliyetleri artırarak karar süreçlerini etkiliyor."
 key_points:
   - "Yapay zeka yatırımlarının ABD çekirdek PCE enflasyonuna etkisinin en fazla 50 baz puan olması bekleniyor."

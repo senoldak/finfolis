@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 1,2"
   - etiket: "İrlanda Daralma Tahmini"
     deger: "yüzde 0,4"
-tablo: {"baslik":"Avro Bölgesi Dört Büyük Ekonominin Büyüme Tahminleri","sutunlar":["Ülke","Büyüme Tahmini"],"satirlar":[["İspanya","yüzde 2,6"],["Almanya","yüzde 1,3"],["İtalya","yüzde 1,0"],["Fransa","yüzde 0,4"]]}
+tablo: {"baslik":"Avro Bölgesi dört büyük ekonominin büyüme tahminleri","sutunlar":["Ülke","Büyüme Tahmini"],"satirlar":[["İspanya","yüzde 2,6"],["Almanya","yüzde 1,3"],["İtalya","yüzde 1,0"],["Fransa","yüzde 0,4"]]}
 why_matters: "Avrupa ekonomisindeki büyüme ve enflasyon verileri, bölgenin enerji şoklarına karşı direncini ve gelecek dönemdeki mali politikaların yönünü belirlemesi açısından önem taşıyor."
 key_points:
   - "AB ekonomisi için 2026 büyüme tahmini yüzde 1,4 olarak açıklandı."

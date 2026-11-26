@@ -16,7 +16,7 @@ rakamlar:
     deger: "3,8 milyar dolar"
   - etiket: "Cuma Günü IBIT Çıkışı"
     deger: "544,7 milyon dolar"
-tablo: {"baslik":"Haftalık Bitcoin ETF Çıkışları","sutunlar":["Dönem","Çıkış Tutarı"],"satirlar":[["Geçen hafta","1,79 milyar dolar"],["28 Şubat 2025 ile biten hafta","2,61 milyar dolar"]]}
+tablo: {"baslik":"Haftalık Bitcoin ETF çıkışları","sutunlar":["Dönem","Çıkış Tutarı"],"satirlar":[["Geçen hafta","1,79 milyar dolar"],["28 Şubat 2025 ile biten hafta","2,61 milyar dolar"]]}
 why_matters: "Spot Bitcoin ETF'lerindeki yüksek tutarlı çıkışlar, yatırımcıların fonlardaki pozisyonlarında yaşanan değişimleri ve piyasadaki fiyat hareketlerini gösteriyor."
 key_points:
   - "Spot Bitcoin ETF'lerinden geçen hafta 1,79 milyar dolar net çıkış oldu."

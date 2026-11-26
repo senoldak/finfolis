@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Hisse Başına Kazanç"
     deger: "59,14"
 tablo: {"baslik":"Adani Ports SEZ temel performans göstergeleri","sutunlar":["Gösterge","Değer"],"satirlar":[["Son işlem fiyatı","1.936,6"],["Bir yıllık getiri (yüzde)","33,74"],["Beş yıllık getiri (yüzde)","168,54"],["Fiyat/kazanç oranı","32,75"],["Hisse başına kazanç","59,14"]]}
-grafik: {"baslik":"Hareketli Ortalama Karşılaştırması","simge":"lira","birimEtiket":"TL","birim":100,"satirlar":[{"etiket":"7 Günlük Üstel","metin":"1.892,45","deger":1892.45},{"etiket":"5 Günlük Basit","metin":"1.889,18","deger":1889.18}]}
+grafik: {"baslik":"Hareketli ortalama karşılaştırması","simge":"lira","birimEtiket":"TL","birim":100,"satirlar":[{"etiket":"7 Günlük Üstel","metin":"1.892,45","deger":1892.45},{"etiket":"5 Günlük Basit","metin":"1.889,18","deger":1889.18}]}
 why_matters: "Hisse senedi verileri, şirketin piyasa değerlemesini, kârlılık oranlarını ve uzun vadeli performansını anlamak açısından yatırımcılar için temel göstergeler sunar."
 key_points:
   - "Hisse fiyatı 6 Kasım 2026 itibarıyla 1.936,6 seviyesinde gerçekleşti."

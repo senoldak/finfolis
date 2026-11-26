@@ -16,7 +16,7 @@ rakamlar:
     deger: "1,25 milyar euro"
   - etiket: "Bayern Münih Üye"
     deger: "500.000"
-tablo: {"baslik":"Kulüplerin Gelir ve Kâr Karşılaştırması (2025-26)","sutunlar":["Kulüp","Gelir (milyon euro)","Net Kâr (milyon euro)"],"satirlar":[["Real Madrid","1.221","26"],["Bayern Münih","988,2","22,8"]]}
+tablo: {"baslik":"Kulüplerin gelir ve kâr karşılaştırması (2025-26)","sutunlar":["Kulüp","Gelir (milyon euro)","Net Kâr (milyon euro)"],"satirlar":[["Real Madrid","1.221","26"],["Bayern Münih","988,2","22,8"]]}
 why_matters: "Avrupa futbolunun en büyük kulüplerinin gelir ve kârlılık verileri, spor ekonomisinin ulaştığı büyüklüğü ve kulüplerin ticari modellerindeki gelişmeleri göstermesi açısından önem taşıyor."
 key_points:
   - "Real Madrid 2025-26 sezonunda 1,221 milyar euro faaliyet geliri elde etti"

@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Ocak 2027"
   olay: "Demokratların Kongre'deki görevlerine başlaması"
-tablo: {"baslik":"Super Micro Gelir Tahminleri","sutunlar":["Dönem","Tahmin (Milyar Dolar)"],"satirlar":[["2. Çeyrek","19,5 - 21,5"],["2027 Mali Yılı","72 - 82"]]}
+tablo: {"baslik":"Super Micro gelir tahminleri","sutunlar":["Dönem","Tahmin (Milyar Dolar)"],"satirlar":[["2. Çeyrek","19,5 - 21,5"],["2027 Mali Yılı","72 - 82"]]}
 why_matters: "ABD'deki siyasi değişimler ve büyük ölçekli şirket bölünmeleri, hem iç politika hem de piyasa dinamikleri açısından yakından izleniyor."
 key_points:
   - "ABD ara seçimlerinde Demokratlar Kongre'nin kontrolünü kazandı."

@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "1 Ocak 2027"
   olay: "Özel kredi piyasasında beklenen kırılma noktası ve Janus Henderson fonunun kapanışı."
-tablo: {"baslik":"Piyasa Karşılaştırması ve Beklentiler","sutunlar":["Kriter","Suudi Arabistan / Orta Doğu","Yerleşik Pazarlar"],"satirlar":[["Tahmini Getiri Oranı","yüzde 16+","yüzde 8 civarı"],["İşlem Büyüklüğü (Çoğunluk)","30 milyon dolar altı","Milyar dolar seviyeleri"],["İşlem Tamamlanma Süresi","Aylar","Haftalar"]]}
+tablo: {"baslik":"Piyasa karşılaştırması ve beklentiler","sutunlar":["Kriter","Suudi Arabistan / Orta Doğu","Yerleşik Pazarlar"],"satirlar":[["Tahmini Getiri Oranı","yüzde 16+","yüzde 8 civarı"],["İşlem Büyüklüğü (Çoğunluk)","30 milyon dolar altı","Milyar dolar seviyeleri"],["İşlem Tamamlanma Süresi","Aylar","Haftalar"]]}
 why_matters: "Suudi Arabistan'ın petrol dışı ekonomiyi büyütme planları için devasa özel yatırıma ihtiyaç duyması, küresel kredi kuruluşları için yüksek getirili yeni bir pazar kapısı açıyor."
 key_points:
   - "Suudi Arabistan özel kredi piyasasında 100 milyar dolarlık bir fırsat öngörülüyor."

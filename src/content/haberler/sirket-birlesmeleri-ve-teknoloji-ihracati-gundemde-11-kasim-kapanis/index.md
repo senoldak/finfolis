@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Mart ayı"
   olay: "EasyJet devralma işleminin tamamlanması"
-grafik: {"baslik":"Önemli Finansal Büyüklükler","simge":"sepet","birimEtiket":"Milyar","birim":50,"satirlar":[{"etiket":"EasyJet devralma bedeli","metin":"5,7","deger":5.7},{"etiket":"Nvidia piyasa değeri kaybı","metin":"700","deger":700},{"etiket":"Megaspeed çip alımı","metin":"4,8","deger":4.8}]}
+grafik: {"baslik":"Önemli finansal büyüklükler","simge":"sepet","birimEtiket":"Milyar","birim":50,"satirlar":[{"etiket":"EasyJet devralma bedeli","metin":"5,7","deger":5.7},{"etiket":"Nvidia piyasa değeri kaybı","metin":"700","deger":700},{"etiket":"Megaspeed çip alımı","metin":"4,8","deger":4.8}]}
 why_matters: "Şirket birleşmeleri ve teknoloji sektöründeki ihracat kısıtlamaları, küresel piyasalardaki sermaye akışları ve şirket değerlemeleri üzerinde etkili olmaktadır."
 key_points:
   - "EasyJet hissedarları 5,7 milyar sterlinlik devralma teklifini onayladı."

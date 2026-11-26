@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 60"
   - etiket: "Rafineri düşüşü"
     deger: "yüzde 40-45"
-tablo: {"baslik":"Petrol ve Yakıt Piyasası Göstergeleri","sutunlar":["Gösterge","Değer"],"satirlar":[["Brent Petrol (Varil)","91 dolar"],["Haftalık Değişim","Yüzde 5"],["Asya Benzin Marjı (Güncel)","1 dolar"],["Arz Kaybı","2,8 milyar varil"]]}
+tablo: {"baslik":"Petrol ve yakıt piyasası göstergeleri","sutunlar":["Gösterge","Değer"],"satirlar":[["Brent Petrol (Varil)","91 dolar"],["Haftalık Değişim","Yüzde 5"],["Asya Benzin Marjı (Güncel)","1 dolar"],["Arz Kaybı","2,8 milyar varil"]]}
 grafik: {"baslik":"Singapur benzin marjı değişimi","simge":"sepet","birimEtiket":"dolar","birim":5,"satirlar":[{"etiket":"1 Ekim","metin":"50,5","deger":50.5},{"etiket":"20 Kasım","metin":"1","deger":1}]}
 why_matters: "Petrol fiyatlarındaki bu seyir, Orta Doğu'daki jeopolitik risklerin arz akışıyla nasıl dengelendiğini ve küresel enerji piyasalarının mevcut arz-talep dinamiklerini göstermesi açısından önem taşıyor."
 key_points:

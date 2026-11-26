@@ -16,7 +16,7 @@ rakamlar:
     deger: "3,4 milyar dolar"
   - etiket: "2025 yılı NK bağlantılı kayıp"
     deger: "2 milyar dolar"
-tablo: {"baslik":"Kuzey Kore Bağlantılı Kripto Hırsızlık Verileri","sutunlar":["Kategori","Tutar (Milyar Dolar)"],"satirlar":[["2025 Toplam Kayıp","3,4"],["2025 NK Bağlantılı","2,0"],["2016-2026 Toplam","6,75"]]}
+tablo: {"baslik":"Kuzey Kore bağlantılı kripto hırsızlık verileri","sutunlar":["Kategori","Tutar (Milyar Dolar)"],"satirlar":[["2025 Toplam Kayıp","3,4"],["2025 NK Bağlantılı","2,0"],["2016-2026 Toplam","6,75"]]}
 why_matters: "Kripto varlıkların yasa dışı faaliyetlerin finansmanında bir araç olarak kullanılması, küresel finansal güvenlik ve düzenleyici kurumlar açısından kritik bir risk oluşturuyor."
 key_points:
   - "Binance'ten 6,3 milyar dolarlık dijital varlık çalındı."

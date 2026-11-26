@@ -7,7 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.tdwZcgvuX3XY9AV/.YRhWJwP73sqPrELBEonY5gBzGGN9ZJ3+QhLre4og6bXur/yVtEnBLkE9wTqCCoKt/vVpX74NRfFnp1TXM18CsODZ8HBZfNKC54onLWFSKe/JGcb8DykUhjBzfBWZtJQ/S3HbiWB2Opux"
-tablo: {"baslik":"FedEx Çeyrek Sonuçları ve Beklentiler","sutunlar":["Gösterge","Gerçekleşen","Beklenen"],"satirlar":[["Hisse başına kazanç","3,74 dolar","3,36 dolar"],["Gelir","22,86 milyar dolar","22,42 milyar dolar"]]}
+tablo: {"baslik":"FedEx çeyrek sonuçları ve beklentiler","sutunlar":["Gösterge","Gerçekleşen","Beklenen"],"satirlar":[["Hisse başına kazanç","3,74 dolar","3,36 dolar"],["Gelir","22,86 milyar dolar","22,42 milyar dolar"]]}
 why_matters: "FedEx'in beklentileri aşan sonuçları ve yukarı yönlü revize ettiği tam yıl görünümü, şirketin yeniden yapılandırma ve mali yıl takvimi değişiklikleri sonrasındaki performansını gösterdiği için önem taşımaktadır."
 cover: kapak.png
 coverAlt: "ABD · FedEx üçüncü çeyrek sonuçlarıyla beklentileri aştı ve görünümünü yükseltti"

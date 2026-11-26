@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "16 Kasım 2026"
   olay: "Üçüncü çeyrek 13F bildirgesinin yayımlanması"
-tablo: {"baslik":"Şirket Bazlı Pay Değişimleri","sutunlar":["Şirket","Azaltım Oranı","Kalan Hisse/ADR"],"satirlar":[["TSMC","%35,8","3,1 milyon"],["Lam Research","%30,7","2,2 milyon"],["GE Vernova","%27,4","579.294"],["Meta","%20,4","2,2 milyon"],["Reddit","%10,2","2,3 milyon"]]}
+tablo: {"baslik":"Şirket bazlı pay değişimleri","sutunlar":["Şirket","Azaltım Oranı","Kalan Hisse/ADR"],"satirlar":[["TSMC","%35,8","3,1 milyon"],["Lam Research","%30,7","2,2 milyon"],["GE Vernova","%27,4","579.294"],["Meta","%20,4","2,2 milyon"],["Reddit","%10,2","2,3 milyon"]]}
 why_matters: "Büyük ölçekli yatırım fonlarının portföy değişiklikleri, teknoloji sektöründeki kurumsal eğilimleri ve piyasa beklentilerini anlamak açısından önem taşır."
 key_points:
   - "Tiger Global, 16 Kasım 2026 tarihli 13F bildirgesiyle beş şirkette pay azalttı."

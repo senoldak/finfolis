@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "7 Ekim 2026"
   olay: "Bitmine Yönetim Kurulu Başkanı Tom Lee, Ether varlıkları için yüzde 5'lik üst sınırı açıkladı."
-tablo: {"baslik":"Bitmine Finansal Karşılaştırma","sutunlar":["Kalem","Önceki Yıl","2026 Mali Yılı"],"satirlar":[["Net Kâr/Zarar","348,6 milyon dolar (kâr)","6,3 milyar dolar (zarar)"]]}
+tablo: {"baslik":"Bitmine finansal karşılaştırma","sutunlar":["Kalem","Önceki Yıl","2026 Mali Yılı"],"satirlar":[["Net Kâr/Zarar","348,6 milyon dolar (kâr)","6,3 milyar dolar (zarar)"]]}
 why_matters: "Bitmine'ın Ether varlıklarındaki değer kaybı, büyük kurumsal yatırımcıların dijital varlık fiyatlarındaki dalgalanmalardan nasıl etkilendiğini göstermesi açısından önem taşıyor."
 key_points:
   - "Bitmine 2026 mali yılında 6,3 milyar dolar net zarar açıkladı."

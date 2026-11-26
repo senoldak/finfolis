@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "14 Kasım 2026"
   olay: "LSEG Lipper ve BofA verileriyle küresel fon akış raporu yayımlandı."
-tablo: {"baslik":"2026 Yılı Hisse Senedi Fon Girişleri","sutunlar":["Kategori","Net Giriş Tutarı"],"satirlar":[["ABD Hisse Senedi Fonları (Yılbaşından bu yana)","656 milyar dolar"],["Teknoloji Sektörü Fonları (Yılbaşından bu yana)","222 milyar dolar"],["Haftalık Toplam Giriş (11 Kasım'da biten hafta)","50,99 milyar dolar"],["Haftalık Teknoloji Girişi (11 Kasım'da biten hafta)","2,62 milyar dolar"]]}
+tablo: {"baslik":"2026 yılı hisse senedi fon girişleri","sutunlar":["Kategori","Net Giriş Tutarı"],"satirlar":[["ABD Hisse Senedi Fonları (Yılbaşından bu yana)","656 milyar dolar"],["Teknoloji Sektörü Fonları (Yılbaşından bu yana)","222 milyar dolar"],["Haftalık Toplam Giriş (11 Kasım'da biten hafta)","50,99 milyar dolar"],["Haftalık Teknoloji Girişi (11 Kasım'da biten hafta)","2,62 milyar dolar"]]}
 why_matters: "Küresel fon akışlarındaki bu rekor seviyeler, yatırımcıların merkez bankası politikalarına ve ekonomik kazançlara duyduğu güveni gösterirken, yatırımların teknoloji ve ABD odaklı yoğunlaşması piyasa hassasiyetini artırıyor."
 key_points:
   - "Küresel hisse senedi fonlarına 98,3 milyar dolarlık net giriş sağlandı."

@@ -15,7 +15,7 @@ rakamlar:
   - etiket: "Kuruluş yılı"
     deger: "2023"
 tablo: {"baslik":"Yosemite fon büyüklükleri","sutunlar":["Fon","Büyüklük (Dolar)"],"satirlar":[["Birinci Fon","263 milyon"],["İkinci Fon","350 milyon"]]}
-grafik: {"baslik":"Yosemite Fon Büyüklükleri","simge":"lira","birimEtiket":"milyon dolar","birim":20,"satirlar":[{"etiket":"İlk Fon (2024)","metin":"263","deger":263},{"etiket":"İkinci Fon (Ocak 2026)","metin":"200","deger":200},{"etiket":"İkinci Fon (Toplam)","metin":"350","deger":350}]}
+grafik: {"baslik":"Yosemite fon büyüklükleri","simge":"lira","birimEtiket":"milyon dolar","birim":20,"satirlar":[{"etiket":"İlk Fon (2024)","metin":"263","deger":263},{"etiket":"İkinci Fon (Ocak 2026)","metin":"200","deger":200},{"etiket":"İkinci Fon (Toplam)","metin":"350","deger":350}]}
 why_matters: "Kanser araştırmalarına yönelik bu yatırım modeli, geleneksel sermaye ile hayırseverlik hibelerini birleştirerek bilimsel süreçleri hızlandırmayı ve kanseri yönetilebilir bir hastalık haline getirmeyi amaçlıyor."
 key_points:
   - "Yosemite, kanser odaklı ikinci fonunu 350 milyon dolar büyüklüğe ulaştırdı."

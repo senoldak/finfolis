@@ -16,7 +16,7 @@ rakamlar:
     deger: "528 milyon dolar"
   - etiket: "Haftalık Net Giriş"
     deger: "443 milyon dolar"
-grafik: {"baslik":"Perşembe Günü Altcoin ETF Akışları","simge":"sepet","birimEtiket":"milyon dolar","birim":10,"satirlar":[{"etiket":"Ether ETF","metin":"111","deger":111},{"etiket":"Solana ETF","metin":"9","deger":9},{"etiket":"Hyperliquid ETF","metin":"8","deger":8},{"etiket":"XRP ETF","metin":"3,6","deger":3.6}]}
+grafik: {"baslik":"Perşembe günü altcoin ETF akışları","simge":"sepet","birimEtiket":"milyon dolar","birim":10,"satirlar":[{"etiket":"Ether ETF","metin":"111","deger":111},{"etiket":"Solana ETF","metin":"9","deger":9},{"etiket":"Hyperliquid ETF","metin":"8","deger":8},{"etiket":"XRP ETF","metin":"3,6","deger":3.6}]}
 why_matters: "Spot Bitcoin ETF'lerindeki yüksek tutarlı para çıkışları, yatırımcıların piyasadaki kısa vadeli eğilimlerini ve fon hareketlerini göstermesi açısından piyasada izlenmektedir."
 key_points:
   - "Amerika Birleşik Devletleri'ndeki spot Bitcoin ETF'lerinden perşembe günü 635 milyon dolar net çıkış oldu."

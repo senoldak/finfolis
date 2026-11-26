@@ -22,7 +22,7 @@ sirada:
   tarih: "6 Kasım 2026"
   olay: "Hisselerin yatırımcılara teslim edilmesi bekleniyor"
 tablo: {"baslik":"Halka arz finansal detayları","sutunlar":["Kalem","Hisse Başı (Dolar)","Toplam (Dolar)"],"satirlar":[["Halka arz fiyatı","28,50","748.125.000,00"],["Aracı kurum indirimi","1,06875","28.054.687,50"],["Şirkete kalan gelir","27,43125","720.070.312,50"]]}
-grafik: {"baslik":"Halka Arz Finansal Verileri","simge":"lira","birimEtiket":"dolar","birim":50000000,"satirlar":[{"etiket":"Hisse Başına Fiyat","metin":"28,50","deger":28.5},{"etiket":"Toplam Arz Büyüklüğü","metin":"748.125.000","deger":748125000},{"etiket":"Net Gelir","metin":"720.070.312","deger":720070312}]}
+grafik: {"baslik":"Halka arz finansal verileri","simge":"lira","birimEtiket":"dolar","birim":50000000,"satirlar":[{"etiket":"Hisse Başına Fiyat","metin":"28,50","deger":28.5},{"etiket":"Toplam Arz Büyüklüğü","metin":"748.125.000","deger":748125000},{"etiket":"Net Gelir","metin":"720.070.312","deger":720070312}]}
 why_matters: "Şirketin GYO statüsüne geçiş hedefi ve yönetim yapısı, yatırımcıların şirketin stratejisini ve kurumsal yapısını değerlendirmesi açısından önem taşıyor."
 key_points:
   - "Halka arz fiyatı hisse başına 28,50 dolar olarak belirlendi."

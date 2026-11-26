@@ -20,7 +20,7 @@ sirada:
   tarih: "18 Aralık 2026"
   olay: "Ekim ayı perakende satış raporunun tamamının açıklanması"
 tablo: {"baslik":"Eylül ayı perakende satış değişimleri","sutunlar":["Sektör","Değişim (yüzde)"],"satirlar":[["Benzin istasyonları","+6,9"],["Genel mağazacılık","+1,5"],["Gıda ve içecek","-0,4"]]}
-grafik: {"baslik":"Eylül 2026 Perakende Satış Değişimi","simge":"sepet","birimEtiket":"yüzde","birim":0.05,"satirlar":[{"etiket":"Genel Perakende Satışlar","metin":"0,8","deger":0.8},{"etiket":"Temel Perakende Satışlar","metin":"0,1","deger":0.1},{"etiket":"Satış Hacimleri","metin":"0,1","deger":0.1}]}
+grafik: {"baslik":"Eylül 2026 perakende satış değişimi","simge":"sepet","birimEtiket":"yüzde","birim":0.05,"satirlar":[{"etiket":"Genel Perakende Satışlar","metin":"0,8","deger":0.8},{"etiket":"Temel Perakende Satışlar","metin":"0,1","deger":0.1},{"etiket":"Satış Hacimleri","metin":"0,1","deger":0.1}]}
 why_matters: "Perakende satış verileri, tüketici talebinin gücünü ölçmek için izlenir ve Kanada Merkez Bankası'nın para politikası kararları üzerinde etkili olabilir."
 key_points:
   - "Eylül ayında perakende satışlar yüzde 0,8 artışla 75,3 milyar Kanada dolarına ulaştı."

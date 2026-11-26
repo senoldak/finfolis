@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 11,5"
   - etiket: "Toplam halka arz geliri"
     deger: "93,5 milyar dolar"
-tablo: {"baslik":"Hisse Fiyatı Değişimi","sutunlar":["Tarih","Fiyat (Dolar)"],"satirlar":[["20 Kasım 2026","97,17"],["21 Kasım 2026","86"]]}
+tablo: {"baslik":"Hisse fiyatı değişimi","sutunlar":["Tarih","Fiyat (Dolar)"],"satirlar":[["20 Kasım 2026","97,17"],["21 Kasım 2026","86"]]}
 why_matters: "Hisseleri desteklemek için kullanılan mekanizmanın sona ermesi, piyasa dalgalanmalarına karşı hisselerin artık bu korumadan yoksun kalması anlamına geliyor."
 key_points:
   - "Morgan Stanley, 147 milyon hisselik destek opsiyonunu tamamladı."

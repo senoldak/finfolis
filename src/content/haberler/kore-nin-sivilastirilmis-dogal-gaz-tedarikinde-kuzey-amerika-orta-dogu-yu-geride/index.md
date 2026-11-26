@@ -19,8 +19,8 @@ rakamlar:
 sirada:
   tarih: "2028"
   olay: "İngiltere merkezli BP'den yıllık 700.000 ton LNG alımının başlaması"
-tablo: {"baslik":"LNG İthalatında Kaynak Değişimi (Milyon Ton)","sutunlar":["Bölge","Geçen Yıl","Bu Yıl"],"satirlar":[["Orta Doğu","7,09","2,42"],["Kuzey Amerika","3,85","7,82"]]}
-grafik: {"baslik":"LNG İthalatında Bölgesel Değişim (Milyon Ton)","simge":"sepet","birimEtiket":"milyon ton","birim":0.5,"satirlar":[{"etiket":"Orta Doğu (Geçen yıl)","metin":"7,09","deger":7.09},{"etiket":"Orta Doğu (Bu yıl)","metin":"2,42","deger":2.42},{"etiket":"Kuzey Amerika (Geçen yıl)","metin":"3,85","deger":3.85},{"etiket":"Kuzey Amerika (Bu yıl)","metin":"7,82","deger":7.82}]}
+tablo: {"baslik":"LNG ithalatında kaynak değişimi (milyon ton)","sutunlar":["Bölge","Geçen Yıl","Bu Yıl"],"satirlar":[["Orta Doğu","7,09","2,42"],["Kuzey Amerika","3,85","7,82"]]}
+grafik: {"baslik":"LNG ithalatında bölgesel değişim (milyon ton)","simge":"sepet","birimEtiket":"milyon ton","birim":0.5,"satirlar":[{"etiket":"Orta Doğu (Geçen yıl)","metin":"7,09","deger":7.09},{"etiket":"Orta Doğu (Bu yıl)","metin":"2,42","deger":2.42},{"etiket":"Kuzey Amerika (Geçen yıl)","metin":"3,85","deger":3.85},{"etiket":"Kuzey Amerika (Bu yıl)","metin":"7,82","deger":7.82}]}
 why_matters: "Enerji tedarikinin belirli bölgelere yoğunlaşması, jeopolitik risklerin doğrudan bir tedarik krizine dönüşme ihtimalini artırıyor. Bu nedenle Güney Kore, tedarik kaynaklarını çeşitlendirerek riskleri dağıtmayı hedefliyor."
 key_points:
   - "Orta Doğu'dan LNG ithalatı yüzde 66 azaldı."

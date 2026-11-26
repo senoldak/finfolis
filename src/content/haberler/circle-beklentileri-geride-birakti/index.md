@@ -16,7 +16,7 @@ rakamlar:
     deger: "222 milyon dolar"
   - etiket: "Değerleme"
     deger: "3 milyar dolar"
-grafik: {"baslik":"Üçüncü Çeyrek Gelir Performansı","simge":"lira","birimEtiket":"milyon dolar","birim":50,"satirlar":[{"etiket":"Analist Beklentisi","metin":"788","deger":788},{"etiket":"Gerçekleşen Gelir","metin":"865","deger":865}]}
+grafik: {"baslik":"Üçüncü çeyrek gelir performansı","simge":"lira","birimEtiket":"milyon dolar","birim":50,"satirlar":[{"etiket":"Analist Beklentisi","metin":"788","deger":788},{"etiket":"Gerçekleşen Gelir","metin":"865","deger":865}]}
 why_matters: "Circle'ın kendi blok zincirini kurması, sabit coin ihraç eden bir şirketten altyapı sağlayıcısına dönüşümünü temsil etmesi açısından önem taşıyor."
 key_points:
   - "Üçüncü çeyrekte 865 milyon dolar gelir elde edildi."

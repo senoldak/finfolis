@@ -16,7 +16,7 @@ rakamlar:
     deger: "621.000"
   - etiket: "E-ticaret Pazar Payı"
     deger: "yüzde 4"
-tablo: {"baslik":"Affirm Finansal ve Operasyonel Göstergeler","sutunlar":["Gösterge","Değer / Artış"],"satirlar":[["Toplam İşlem Hacmi (GMV) Artışı","yüzde 34"],["Gelir Artışı","yüzde 35"],["Aktif Üye İş Yeri Artışı","yüzde 48"],["Yeni Model Onay Oranı Artışı","2-3 puan"],["2027 Büyüme Hedefi (Alt Sınır)","yüzde 30"]]}
+tablo: {"baslik":"Affirm Finansal ve operasyonel göstergeler","sutunlar":["Gösterge","Değer / Artış"],"satirlar":[["Toplam İşlem Hacmi (GMV) Artışı","yüzde 34"],["Gelir Artışı","yüzde 35"],["Aktif Üye İş Yeri Artışı","yüzde 48"],["Yeni Model Onay Oranı Artışı","2-3 puan"],["2027 Büyüme Hedefi (Alt Sınır)","yüzde 30"]]}
 why_matters: "Affirm'in büyüme hedeflerini yükseltmesi ve yapay zeka tabanlı yeni kredi modeli, şirketin risk yönetimini bozmadan pazar payını artırma kapasitesini gösteriyor."
 key_points:
   - "2027 mali yılı büyüme hedefi en az yüzde 30'a yükseltildi"

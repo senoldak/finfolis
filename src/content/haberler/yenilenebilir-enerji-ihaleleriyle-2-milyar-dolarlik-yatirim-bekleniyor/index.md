@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "2 Kasım 2026"
   olay: "Rüzgar enerjisi YEKA ihalelerinin gerçekleştirilmesi"
-grafik: {"baslik":"YEKA İhale Kapasiteleri","simge":"sepet","birimEtiket":"megavat","birim":100,"satirlar":[{"etiket":"Rüzgar Enerjisi","metin":"1.500","deger":1500},{"etiket":"Güneş Enerjisi","metin":"785","deger":785}]}
+grafik: {"baslik":"YEKA ihale kapasiteleri","simge":"sepet","birimEtiket":"megavat","birim":100,"satirlar":[{"etiket":"Rüzgar Enerjisi","metin":"1.500","deger":1500},{"etiket":"Güneş Enerjisi","metin":"785","deger":785}]}
 why_matters: "Yenilenebilir enerji kapasite artışları, ülkenin enerji ithalatına bağımlılığını azaltmayı ve yerli ekipman üretimini desteklemeyi amaçlıyor."
 key_points:
   - "Rüzgar ve güneş YEKA ihaleleriyle 2 milyar dolar yatırım bekleniyor"

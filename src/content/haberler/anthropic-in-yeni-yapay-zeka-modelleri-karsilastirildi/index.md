@@ -15,7 +15,7 @@ rakamlar:
   - etiket: "Hızlı Mod Girdi Fiyatı"
     deger: "16 dolar"
 tablo: {"baslik":"Remote Labor Index performans karşılaştırması","sutunlar":["Model","Başarı Oranı"],"satirlar":[["Fable 5.2","yüzde 41,3"],["Opus 5.5","yüzde 21,3"]]}
-grafik: {"baslik":"Remote Labor Index Karşılaştırması","simge":"sepet","birimEtiket":"yüzde","birim":2.5,"satirlar":[{"etiket":"Fable 5.2","metin":"41,3","deger":41.3},{"etiket":"Opus","metin":"21,3","deger":21.3}]}
+grafik: {"baslik":"Remote Labor Index karşılaştırması","simge":"sepet","birimEtiket":"yüzde","birim":2.5,"satirlar":[{"etiket":"Fable 5.2","metin":"41,3","deger":41.3},{"etiket":"Opus","metin":"21,3","deger":21.3}]}
 why_matters: "Yapay zeka modellerinin performans karşılaştırmaları, teknoloji şirketlerinin sunduğu araçların verimliliğini anlamak açısından önem taşıyor."
 key_points:
   - "Fable 5.2, Remote Labor Index'te yüzde 41,3 seviyesinde yer aldı."

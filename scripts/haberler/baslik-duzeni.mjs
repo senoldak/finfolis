@@ -8,6 +8,11 @@ const KUCUK = new Set(['ve', 'ile', 'ya', 'da', 'de', 'mi', 'mı', 'mu', 'mü', 
 const harf = /\p{L}/u;
 // Bültenlerin ara başlıklarında sık büyük yazıldığı için özel ad sanılan sıradan kelimeler.
 const SIRADAN = new Set(['küresel', 'yapay', 'şirket', 'faiz', 'halka', 'üst', 'yöneticisi', 'üyesi', 'piyasalar']);
+// Gövdede kısaltmayla anılsa da ("Fed") ara başlıkta tam adı büyük kalması gereken ikili adlar (küçük harfle).
+const IKILI_ADLAR = new Set([
+  'federal rezerv', 'euro bölgesi', 'avro bölgesi', 'avrupa birliği', 'avrupa komisyonu', 'avrupa parlamentosu',
+  'merkez bankası', 'beyaz saray', 'birleşmiş milletler', 'dünya bankası', 'wall street', 'körfez ülkeleri',
+]);
 const AYLAR = new Set(['ocak', 'şubat', 'mart', 'nisan', 'mayıs', 'haziran', 'temmuz', 'ağustos', 'eylül', 'ekim', 'kasım', 'aralık']);
 
 const buyukMu = (w) => harf.test(w[0] ?? '') && w[0] === w[0].toLocaleUpperCase('tr-TR') && w[0] !== w[0].toLocaleLowerCase('tr-TR');
@@ -55,15 +60,16 @@ export function cumleDuzeni(baslik, metin = '', { enAz = 5, araBaslik = false } 
   const ozel = ozelKokler(metin);
   let bolumBasi = true;
   let oncekiSayi = false;
-  return String(baslik)
-    .split(/(\s+)/)
-    .map((p) => {
-      if (/^\s+$/.test(p) || p === '') return p;
+  let onceki = ''; // önceki kelimenin özgün yazımı (ikili ad denetimi)
+  const kelime = (p, sonraki) => {
       const ilk = bolumBasi;
       const sayidanSonra = oncekiSayi;
       oncekiSayi = /^\d+[.,]?$/.test(p);
-      // Belirli tarihte ay adı büyük kalır (TDK): "20 Ekim".
-      if (sayidanSonra && AYLAR.has(p.replace(/[,.;:]+$/, '').toLocaleLowerCase('tr-TR'))) {
+      const oncekiKelime = onceki;
+      onceki = p.replace(/[),.;:!?"”»]+$/, '');
+      // Belirli tarihte ay adı büyük kalır (TDK): "20 Ekim"; ara başlıkta yıl izleyen ay da: "(Ekim 2026)".
+      const ay = AYLAR.has(p.replace(/[,.;:)]+$/, '').toLocaleLowerCase('tr-TR'));
+      if (ay && (sayidanSonra || (araBaslik && /^\d{4}\b/.test(sonraki ?? '')))) {
         bolumBasi = false;
         return p;
       }
@@ -75,7 +81,29 @@ export function cumleDuzeni(baslik, metin = '', { enAz = 5, araBaslik = false } 
       if (/\p{Lu}/u.test(sade.slice(1).split(/['’]/)[0])) return p; // iPhone değil ama McDonald, OpenAI gibi
       if (ozel.has(kok(sade)) && !SIRADAN.has(kok(sade).toLocaleLowerCase('tr-TR'))) return p;
       if (araBaslik && /['’]\p{L}/u.test(sade)) return p; // Singapur'un, Kore'de: kesmeyle çekim özel ad işaretidir
+      // Özel addan türeyen kelime (Kore'nin → Koreli): kök metinde kesmeyle çekimlenmişse büyük kalır.
+      if (araBaslik && [...kesmeli].some((r) => kok(sade).startsWith(r))) return p;
+      // İkili özel ad: önceki kelimeyle birlikte metinde aynı yazımla geçiyorsa ya da bilinen addaysa büyük kalır.
+      if (araBaslik && oncekiKelime && buyukMu(oncekiKelime)) {
+        const ikili = `${oncekiKelime} ${kok(sade)}`;
+        if (metinHam.includes(ikili) || IKILI_ADLAR.has(ikili.toLocaleLowerCase('tr-TR'))) return p;
+      }
       return p.charAt(0).toLocaleLowerCase('tr-TR') + p.slice(1);
+  };
+  const metinHam = String(metin);
+  // Metinde kesmeyle çekimlenmiş büyük harfli kökler (Kore'nin → Kore); türeyen kelimeyi tanımak için.
+  const kesmeli = new Set([...metinHam.matchAll(/(?<![\p{L}])(\p{Lu}\p{L}{2,})['’]\p{L}/gu)].map((m) => m[1]));
+  const parcalar = String(baslik).split(/(\s+)/);
+  const kelimeler = parcalar.filter((x) => x && !/^\s+$/.test(x)).map((x) => x.replace(/^[("“«‘]+/, ''));
+  let k = 0;
+  return parcalar
+    .map((ham) => {
+      if (/^\s+$/.test(ham) || ham === '') return ham;
+      // Baştaki parantez/tırnak ayrılır: "(Milyar" de kelime gibi değerlendirilir (26 Kasım 2026, tablo başlıkları).
+      const on = ham.match(/^[("“«‘]+/)?.[0] ?? '';
+      const p = ham.slice(on.length);
+      k++;
+      return p ? on + kelime(p, kelimeler[k]) : ham;
     })
     .join('');
 }

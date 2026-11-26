@@ -19,8 +19,8 @@ rakamlar:
 sirada:
   tarih: "9 Ekim 2026"
   olay: "Çin'in yeni üretici güçler alanındaki yatırım balonlarını önlemeyi amaçlayan yeni kılavuz ilkeleri yayımlaması"
-tablo: {"baslik":"Endekslerin Tepeden Düşüş Oranları","sutunlar":["Endeks","Düşüş Oranı"],"satirlar":[["STAR50","Yüzde 40"],["CSI 300","Yüzde 20"],["Nasdaq","Yüzde 6"]]}
-grafik: {"baslik":"Endeks ve Piyasaların Düşüş Oranları","simge":"sepet","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"STAR50 endeksi","metin":"40","deger":40},{"etiket":"CSI 300 endeksi","metin":"20","deger":20},{"etiket":"Nasdaq endeksi","metin":"6","deger":6}]}
+tablo: {"baslik":"Endekslerin tepeden düşüş oranları","sutunlar":["Endeks","Düşüş Oranı"],"satirlar":[["STAR50","Yüzde 40"],["CSI 300","Yüzde 20"],["Nasdaq","Yüzde 6"]]}
+grafik: {"baslik":"Endeks ve piyasaların düşüş oranları","simge":"sepet","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"STAR50 endeksi","metin":"40","deger":40},{"etiket":"CSI 300 endeksi","metin":"20","deger":20},{"etiket":"Nasdaq endeksi","metin":"6","deger":6}]}
 why_matters: "Yapay zeka hisselerinin Çin borsa piyasasındaki toplam değerin yüzde 42'sini ve işlem hacminin yüzde 57'sini oluşturması, sektördeki gerilemenin tüm finans piyasasını ve bireysel yatırımcıları derinden etkilemesine neden oluyor."
 key_points:
   - "STAR50 endeksi Temmuz ayındaki zirvesinden yaklaşık yüzde 40 düştü."

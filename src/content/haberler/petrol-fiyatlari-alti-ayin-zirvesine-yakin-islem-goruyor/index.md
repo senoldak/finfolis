@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "3 Kasım 2026"
   olay: "ABD ara seçimleri"
-grafik: {"baslik":"Petrol Vadeli İşlemleri","simge":"sepet","birimEtiket":"dolar","birim":10,"satirlar":[{"etiket":"Brent ham petrol","metin":"117,19","deger":117.19},{"etiket":"WTI ham petrol","metin":"103,88","deger":103.88}]}
+grafik: {"baslik":"Petrol vadeli işlemleri","simge":"sepet","birimEtiket":"dolar","birim":10,"satirlar":[{"etiket":"Brent ham petrol","metin":"117,19","deger":117.19},{"etiket":"WTI ham petrol","metin":"103,88","deger":103.88}]}
 why_matters: "ABD'nin İran'a yönelik olası askeri adımları ve bölgedeki güvenlik gelişmelerine dair haberler, küresel petrol fiyatlarının altı ayın zirvesine yakın seyretmesine neden oluyor."
 key_points:
   - "Brent ham petrolü yüzde 2,1 artışla varil başına 117,19 dolar oldu."

@@ -17,7 +17,7 @@ rakamlar:
   - etiket: "Ekim arz fazlası"
     deger: "1,4 milyon varil/gün"
 tablo: {"baslik":"Kurumların arz fazlası tahminleri","sutunlar":["Kurum","Dönem","Tahmin (varil/gün)"],"satirlar":[["JP Morgan","Ekim 2026","1,4 milyon"],["Goldman Sachs","2027","2 milyon"]]}
-grafik: {"baslik":"Arz Fazlası Beklentileri (Milyon Varil/Gün)","simge":"sepet","birimEtiket":"milyon varil/gün","birim":0.1,"satirlar":[{"etiket":"Eylül (JP Morgan)","metin":"1,1","deger":1.1},{"etiket":"Ekim (JP Morgan)","metin":"1,4","deger":1.4},{"etiket":"2027 (Goldman Sachs)","metin":"2,0","deger":2}]}
+grafik: {"baslik":"Arz fazlası beklentileri (milyon Varil/Gün)","simge":"sepet","birimEtiket":"milyon varil/gün","birim":0.1,"satirlar":[{"etiket":"Eylül (JP Morgan)","metin":"1,1","deger":1.1},{"etiket":"Ekim (JP Morgan)","metin":"1,4","deger":1.4},{"etiket":"2027 (Goldman Sachs)","metin":"2,0","deger":2}]}
 why_matters: "Petrol fiyatlarındaki bu değişim, küresel enerji maliyetlerini ve enflasyon beklentilerini doğrudan etkilediği için piyasalar tarafından yakından izleniyor."
 key_points:
   - "Brent petrol 95,24 dolar seviyesinde işlem görüyor."

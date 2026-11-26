@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "20 Kasım 2026"
   olay: "Üçüncü çeyrek iş gücü ve resmi işsizlik verilerinin açıklanması bekleniyor."
-tablo: {"baslik":"İrlanda İşsizlik Verileri Karşılaştırması","sutunlar":["Gösterge","Eylül 2026","Ekim 2026"],"satirlar":[["Genel İşsizlik Oranı","yüzde 4,7","yüzde 4,8"],["Genç İşsizlik Oranı","yüzde 11,4","yüzde 11,5"]]}
+tablo: {"baslik":"İrlanda işsizlik verileri karşılaştırması","sutunlar":["Gösterge","Eylül 2026","Ekim 2026"],"satirlar":[["Genel İşsizlik Oranı","yüzde 4,7","yüzde 4,8"],["Genç İşsizlik Oranı","yüzde 11,4","yüzde 11,5"]]}
 why_matters: "İşsizlik oranının yüzde 5'in altında kalması, İrlanda ekonomisinin iş gücü piyasasında dayanıklı bir yapı sergilediğini ve işveren talebinin pandemi öncesi seviyelerin üzerine çıktığını göstermektedir."
 key_points:
   - "İrlanda'da işsizlik oranı ekim ayında yüzde 4,8 olarak gerçekleşti."

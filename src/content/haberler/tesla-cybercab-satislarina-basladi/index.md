@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "Aralık 2026"
   olay: "Austin, Teksas'ta ilk Cybercab teslimatlarının başlaması."
-tablo: {"baslik":"Robotaksi Filosu Büyüme Projeksiyonu","sutunlar":["Dönem","Araç Sayısı"],"satirlar":[["Kasım 2026","1.500+"],["2027 Tahmini","18.000"]]}
+tablo: {"baslik":"Robotaksi filosu büyüme projeksiyonu","sutunlar":["Dönem","Araç Sayısı"],"satirlar":[["Kasım 2026","1.500+"],["2027 Tahmini","18.000"]]}
 grafik: {"baslik":"Robotaksi filosu büyüme projeksiyonu","simge":"banka","birimEtiket":"adet","birim":1000,"satirlar":[{"etiket":"Kasım 2026 (Mevcut)","metin":"1.500","deger":1500},{"etiket":"2027 (Tahmini)","metin":"18.000","deger":18000}]}
 why_matters: "Tesla'nın robotaksi hizmetini genişletme stratejisi ve abonelik modeli, şirketin gelecekteki yazılım geliri akışını ve otonom araç pazarındaki rekabet gücünü belirleyecek kritik bir adım olarak görülüyor."
 key_points:

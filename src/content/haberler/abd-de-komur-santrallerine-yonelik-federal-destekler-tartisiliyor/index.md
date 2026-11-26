@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 13"
   - etiket: "Ortalama santral yaşı"
     deger: "44 yıl"
-tablo: {"baslik":"2025 Yılında Kömür Sektörü Verileri","sutunlar":["Gösterge","Değişim"],"satirlar":[["Elektrik sektörü karbon emisyonu","yüzde 4"],["Kömürle elektrik üretimi","yüzde 13"],["Kömür kaynaklı CO2 emisyonu","78 milyon metrik ton"]]}
+tablo: {"baslik":"2025 yılında kömür sektörü verileri","sutunlar":["Gösterge","Değişim"],"satirlar":[["Elektrik sektörü karbon emisyonu","yüzde 4"],["Kömürle elektrik üretimi","yüzde 13"],["Kömür kaynaklı CO2 emisyonu","78 milyon metrik ton"]]}
 why_matters: "Kömür santrallerine sağlanan federal destekler, kamu bütçesi üzerindeki etkileri ve çevresel sonuçları nedeniyle tartışılmaya devam ediyor."
 key_points:
   - "24 kömür santraline 950 milyon dolar federal fon sağlandı."

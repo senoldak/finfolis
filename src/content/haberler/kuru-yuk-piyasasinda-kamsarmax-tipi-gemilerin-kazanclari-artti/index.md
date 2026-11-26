@@ -16,7 +16,7 @@ rakamlar:
     deger: "108,4 milyon ton"
   - etiket: "Kazanç farkı"
     deger: "4.140 USD"
-tablo: {"baslik":"Gemi Sınıfları Kazanç Karşılaştırması","sutunlar":["Gemi Tipi","Günlük Kazanç (USD)"],"satirlar":[["Kamsarmax","19.063"],["Ultramax","23.203"]]}
+tablo: {"baslik":"Gemi sınıfları kazanç karşılaştırması","sutunlar":["Gemi Tipi","Günlük Kazanç (USD)"],"satirlar":[["Kamsarmax","19.063"],["Ultramax","23.203"]]}
 grafik: {"baslik":"Gemi tipi günlük kazançları","simge":"banka","birimEtiket":"USD","birim":2000,"satirlar":[{"etiket":"Kamsarmax","metin":"19.063","deger":19063},{"etiket":"Ultramax","metin":"23.203","deger":23203}]}
 why_matters: "Kuru yük piyasasındaki bu hareketlilik, küresel emtia ticaretinin ve lojistik maliyetlerinin seyrini anlamak açısından kritik bir gösterge niteliği taşıyor."
 key_points:

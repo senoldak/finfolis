@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "1 Ocak 2028"
   olay: "Piyasa tahminlerine konu olan ilk vade sonu ve iflas olasılığı değerlendirmesi."
-tablo: {"baslik":"Vade Yapısına Göre İflas Olasılığı Tahminleri","sutunlar":["Tarih","Olasılık Oranı"],"satirlar":[["1 Ocak 2028","yüzde 10,5"],["1 Ocak 2029","yüzde 20,5"],["1 Ocak 2030","yüzde 28,5"]]}
+tablo: {"baslik":"Vade yapısına göre iflas olasılığı tahminleri","sutunlar":["Tarih","Olasılık Oranı"],"satirlar":[["1 Ocak 2028","yüzde 10,5"],["1 Ocak 2029","yüzde 20,5"],["1 Ocak 2030","yüzde 28,5"]]}
 why_matters: "Kredi koşullarının sıkılaşması, şirketlerin borçlanma maliyetlerini ve finansal istikrarlarını etkileyerek ekonomik görünüm üzerinde belirleyici bir rol oynayabilir."
 key_points:
   - "Eylül ayındaki artışla faiz hedef aralığı yüzde 3,75 - 4,00 oldu."

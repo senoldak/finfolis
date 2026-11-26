@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "11 Kasım 2026"
   olay: "ABD haftalık konut kredisi onay verileri açıklanacak."
-tablo: {"baslik":"Nvidia Hisse Performansı","sutunlar":["Gün","Değişim Oranı"],"satirlar":[["Pazartesi","yüzde 4,27 düşüş"],["Salı","yüzde 5,47 düşüş"]]}
+tablo: {"baslik":"Nvidia hisse performansı","sutunlar":["Gün","Değişim Oranı"],"satirlar":[["Pazartesi","yüzde 4,27 düşüş"],["Salı","yüzde 5,47 düşüş"]]}
 why_matters: "Dünyanın en değerli teknoloji şirketlerinden birinin liderliği ve güvenliği hakkındaki iddialar, küresel yapay zeka pazarındaki kurumsal güveni ve piyasa değerlemelerini doğrudan etkilemektedir."
 key_points:
   - "Nvidia'nın piyasa değeri yaklaşık 430 milyar dolar azaldı."

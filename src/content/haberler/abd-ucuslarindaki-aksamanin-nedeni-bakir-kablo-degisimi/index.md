@@ -15,7 +15,7 @@ rakamlar:
 sirada:
   tarih: "20 Kasım 2026"
   olay: "Şükran Günü tatili seyahat döneminin başlaması"
-tablo: {"baslik":"Havayolu Şirketlerine Göre İptal Edilen Uçuş Sayıları","sutunlar":["Havayolu Şirketi","İptal Edilen Uçuş Sayısı"],"satirlar":[["Delta Air Lines","2.200"],["American Airlines","2.200"],["United Airlines","1.800"]]}
+tablo: {"baslik":"Havayolu şirketlerine göre iptal edilen uçuş sayıları","sutunlar":["Havayolu Şirketi","İptal Edilen Uçuş Sayısı"],"satirlar":[["Delta Air Lines","2.200"],["American Airlines","2.200"],["United Airlines","1.800"]]}
 why_matters: "Dünyanın en büyük havacılık pazarlarından birinde yaşanan bu altyapı kaynaklı kesinti, teknolojik modernizasyonun operasyonel risklerini ve eskiyen sistemlerin maliyetini göstermesi açısından kritik önem taşıyor."
 key_points:
   - "Bakır kablo değişimi sırasında sistem 4-5 saniyede bir 1.000'den fazla bağlantı isteğiyle aşırı yüklendi."

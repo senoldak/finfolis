@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "9 Aralık 2026"
   olay: "Kanada Merkez Bankası faiz kararı açıklaması"
-tablo: {"baslik":"Kanada TÜFE Alt Kalem Değişimleri (Yıllık)","sutunlar":["Kategori","Ekim Değeri","Eylül Değeri"],"satirlar":[["Enerji","yüzde 21,8","yüzde 19,0"],["Ulaştırma","yüzde 8,9","yüzde 8,4"],["Barınma","yüzde 1,4","yüzde 1,8"],["Hizmetler","yüzde 2,1","yüzde 2,6"]]}
+tablo: {"baslik":"Kanada TÜFE alt kalem değişimleri (yıllık)","sutunlar":["Kategori","Ekim Değeri","Eylül Değeri"],"satirlar":[["Enerji","yüzde 21,8","yüzde 19,0"],["Ulaştırma","yüzde 8,9","yüzde 8,4"],["Barınma","yüzde 1,4","yüzde 1,8"],["Hizmetler","yüzde 2,1","yüzde 2,6"]]}
 why_matters: "Yapay zekânın verimlilik ve para politikası üzerindeki potansiyel etkileri ile Kanada'daki enflasyon seyri, merkez bankalarının faiz kararları ve küresel ekonomik büyüme beklentileri açısından kritik önem taşıyor."
 key_points:
   - "Kanada'da yıllık enflasyon Ekim 2026'da yüzde 3,1 ile beklentilerin altında gerçekleşti."

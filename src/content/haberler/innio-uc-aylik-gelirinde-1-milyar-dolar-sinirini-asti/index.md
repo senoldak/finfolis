@@ -16,7 +16,7 @@ rakamlar:
     deger: "8 milyar dolar"
   - etiket: "Yıllık Gelir Artışı"
     deger: "yüzde 57"
-tablo: {"baslik":"Innio Gelir ve Sipariş Karşılaştırması","sutunlar":["Gösterge","Cari Dönem","Yıllık Değişim"],"satirlar":[["Toplam Çeyreklik Gelir","1,2 milyar dolar","yüzde 57"],["Ekipman Geliri","778 milyon dolar","yüzde 86"],["Servis Geliri","390 milyon dolar","yüzde 20"],["Ekipman Sipariş Birikimi","8 milyar dolar","yüzde 142"],["Yılbaşından Bu Yana Sipariş","6,1 milyar dolar","yüzde 91"]]}
+tablo: {"baslik":"Innio gelir ve sipariş karşılaştırması","sutunlar":["Gösterge","Cari Dönem","Yıllık Değişim"],"satirlar":[["Toplam Çeyreklik Gelir","1,2 milyar dolar","yüzde 57"],["Ekipman Geliri","778 milyon dolar","yüzde 86"],["Servis Geliri","390 milyon dolar","yüzde 20"],["Ekipman Sipariş Birikimi","8 milyar dolar","yüzde 142"],["Yılbaşından Bu Yana Sipariş","6,1 milyar dolar","yüzde 91"]]}
 why_matters: "Yapay zeka veri merkezlerinin devasa enerji ihtiyacı, sanayi şirketlerinin gelir modellerini değiştirerek yerinde enerji üretimi ekipmanlarına olan talebi rekor seviyelere taşıyor."
 key_points:
   - "Üçüncü çeyrek geliri yüzde 57 artışla 1,2 milyar dolara ulaştı."

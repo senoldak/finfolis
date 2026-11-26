@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "9 Kasım 2026"
   olay: "Barings'in teklif süresi (PUSU) için talep ettiği ek sürenin sona ermesi"
-tablo: {"baslik":"I-RES Teklif ve Portföy Verileri","sutunlar":["Veri Türü","Değer"],"satirlar":[["Toplam Değerleme","731 milyon avro"],["Hisse Başı Nakit","136,51 sent"],["Hisse Başı Temettü","2,09 sent"],["Kapanış Primi","Yüzde 30,8"],["Mevcut Konut Sayısı","3.627"]]}
+tablo: {"baslik":"I-RES teklif ve portföy verileri","sutunlar":["Veri Türü","Değer"],"satirlar":[["Toplam Değerleme","731 milyon avro"],["Hisse Başı Nakit","136,51 sent"],["Hisse Başı Temettü","2,09 sent"],["Kapanış Primi","Yüzde 30,8"],["Mevcut Konut Sayısı","3.627"]]}
 why_matters: "İrlanda'nın en büyük konut mülk sahibinin el değiştirmesi, ülkedeki konut arzı ve kurumsal gayrimenkul yatırımları açısından önemli bir gelişmedir."
 key_points:
   - "Toplam 731 milyon avro değerinde nakit satın alma anlaşması sağlandı."

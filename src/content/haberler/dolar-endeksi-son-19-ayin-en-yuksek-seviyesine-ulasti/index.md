@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "19 Kasım 2026"
   olay: "ABD Merkez Bankası'nın (Fed) geçen ayki politika toplantısına ait tutanaklar açıklanacak."
-tablo: {"baslik":"Para Birimlerinin Dolar Karşısındaki Değişimi","sutunlar":["Para Birimi","Değer","Değişim Oranı"],"satirlar":[["Dolar Endeksi","103,8","yüzde 0,18"],["Euro","1,0965","yüzde -0,3"],["Sterlin","1,3161","yüzde -0,3"]]}
+tablo: {"baslik":"Para birimlerinin dolar karşısındaki değişimi","sutunlar":["Para Birimi","Değer","Değişim Oranı"],"satirlar":[["Dolar Endeksi","103,8","yüzde 0,18"],["Euro","1,0965","yüzde -0,3"],["Sterlin","1,3161","yüzde -0,3"]]}
 grafik: {"baslik":"Dolar karşısında başlıca para birimleri","simge":"sepet","birimEtiket":"dolar","birim":10,"satirlar":[{"etiket":"Euro","metin":"1,0965","deger":1.0965},{"etiket":"Sterlin","metin":"1,3161","deger":1.3161},{"etiket":"Yen","metin":"159,3","deger":159.3}]}
 why_matters: "ABD Merkez Bankası'nın faiz kararları, küresel piyasalardaki likiditeyi ve doların diğer para birimleri karşısındaki değerini doğrudan etkilediği için yakından izleniyor."
 key_points:

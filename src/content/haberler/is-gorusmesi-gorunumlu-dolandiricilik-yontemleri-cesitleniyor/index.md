@@ -16,7 +16,7 @@ rakamlar:
     deger: "13 milyon dolar"
   - etiket: "Ekim 2026 istihdam artışı"
     deger: "165.000"
-grafik: {"baslik":"İstihdam Odaklı Dolandırıcılık Kayıpları","simge":"lira","birimEtiket":"milyon dolar","birim":20,"satirlar":[{"etiket":"2023","metin":"70","deger":70},{"etiket":"2024","metin":"264","deger":264},{"etiket":"2025","metin":"363","deger":363}]}
+grafik: {"baslik":"İstihdam odaklı dolandırıcılık kayıpları","simge":"lira","birimEtiket":"milyon dolar","birim":20,"satirlar":[{"etiket":"2023","metin":"70","deger":70},{"etiket":"2024","metin":"264","deger":264},{"etiket":"2025","metin":"363","deger":363}]}
 why_matters: "İstihdam odaklı dolandırıcılık vakalarındaki hızlı artış ve yapay zekanın bu süreçleri daha karmaşık hale getirmesi, iş arayanların güvenlik risklerini artırıyor."
 key_points:
   - "Binance, sahte iş görüşmeleri yoluyla 6,34 milyar dolarlık dijital varlığı etkileyen bir güvenlik ihlali yaşadı."

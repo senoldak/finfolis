@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "16 Kasım 2026"
   olay: "Tasarının nihai oylamasının yapılması bekleniyor"
-tablo: {"baslik":"Teksas ERCOT Şebeke Bağlantı Talepleri (Gigavat)","sutunlar":["Enerji Türü","Kapasite"],"satirlar":[["Güneş Enerjisi","158"],["Batarya","166"],["Rüzgar Enerjisi","49"]]}
+tablo: {"baslik":"Teksas ERCOT şebeke bağlantı talepleri (gigavat)","sutunlar":["Enerji Türü","Kapasite"],"satirlar":[["Güneş Enerjisi","158"],["Batarya","166"],["Rüzgar Enerjisi","49"]]}
 grafik: {"baslik":"Teksas şebekesine bağlanmayı bekleyen projeler","simge":"banka","birimEtiket":"gigavat","birim":10,"satirlar":[{"etiket":"Batarya","metin":"166","deger":166},{"etiket":"Güneş enerjisi","metin":"158","deger":158},{"etiket":"Rüzgar enerjisi","metin":"49","deger":49}]}
 why_matters: "Bu tasarı, enerji altyapısı üzerindeki yasal denetimleri değiştirerek yapay zekâ sektörünün enerji ihtiyacını karşılama biçimini ve kamu hizmeti sunan şirketlerin piyasa dinamiklerini etkileyebilir."
 key_points:

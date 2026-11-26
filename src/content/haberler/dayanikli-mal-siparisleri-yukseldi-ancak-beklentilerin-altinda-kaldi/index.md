@@ -14,7 +14,7 @@ rakamlar:
     deger: "yüzde 2,0"
   - etiket: "Önceki ay artış"
     deger: "yüzde 0,1"
-tablo: {"baslik":"Dayanıklı Mal Siparişleri Karşılaştırması","sutunlar":["Dönem","Oran"],"satirlar":[["En son veri","yüzde 1,8"],["Beklenti","yüzde 2,0"],["Önceki dönem","yüzde 0,1"]]}
+tablo: {"baslik":"Dayanıklı mal siparişleri karşılaştırması","sutunlar":["Dönem","Oran"],"satirlar":[["En son veri","yüzde 1,8"],["Beklenti","yüzde 2,0"],["Önceki dönem","yüzde 0,1"]]}
 why_matters: "Dayanıklı mal siparişleri verisi, imalat sektörünün sağlığını ve genel ekonomik eğilimleri gösterdiği için ekonomistler ve yatırımcılar tarafından yakından izleniyor."
 key_points:
   - "Dayanıklı mal siparişleri yüzde 1,8 oranında arttı."

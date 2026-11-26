@@ -15,7 +15,7 @@ rakamlar:
   - etiket: "Günlük değişim"
     deger: "yüzde 1,16"
 tablo: {"baslik":"Geçmiş dönem balina net işlem hareketleri","sutunlar":["Dönem","İşlem türü","Miktar"],"satirlar":[["Ağustos 2024","Net giriş","3.000 BTC üzeri"],["2024 sonu","Net çıkış","5.000 BTC üzeri"]]}
-grafik: {"baslik":"Büyük Yatırımcıların Günlük Net Bitcoin Akışı","simge":"banka","birimEtiket":"BTC","birim":250,"satirlar":[{"etiket":"Ağustos 2024 (Giriş)","metin":"3.000","deger":3000},{"etiket":"2024 Sonu (Çıkış)","metin":"5.000","deger":5000}]}
+grafik: {"baslik":"Büyük yatırımcıların günlük net Bitcoin akışı","simge":"banka","birimEtiket":"BTC","birim":250,"satirlar":[{"etiket":"Ağustos 2024 (Giriş)","metin":"3.000","deger":3000},{"etiket":"2024 Sonu (Çıkış)","metin":"5.000","deger":5000}]}
 why_matters: "Borsalara yapılan yüksek hacimli transferler, piyasadaki satışa hazır arzın artması anlamına gelebilir."
 key_points:
   - "Büyük yatırımcılar borsalara günlük 55 milyon dolar net giriş yapıyor."

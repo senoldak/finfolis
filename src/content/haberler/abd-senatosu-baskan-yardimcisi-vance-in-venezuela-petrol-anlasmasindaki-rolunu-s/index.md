@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "14 Aralık 2026"
   olay: "Başkan Yardımcısı Vance'in ofisinin belgeleri teslim etmesi bekleniyor"
-grafik: {"baslik":"Venezuela Günlük Ham Petrol Üretimi","simge":"sepet","birimEtiket":"milyon varil","birim":0.1,"satirlar":[{"etiket":"Ekim 2026","metin":"1,2","deger":1.2},{"etiket":"2028 Tahmini","metin":"1,5","deger":1.5}]}
+grafik: {"baslik":"Venezuela günlük ham petrol üretimi","simge":"sepet","birimEtiket":"milyon varil","birim":0.1,"satirlar":[{"etiket":"Ekim 2026","metin":"1,2","deger":1.2},{"etiket":"2028 Tahmini","metin":"1,5","deger":1.5}]}
 why_matters: "ABD yönetiminin enerji politikaları ve ticari ilişkilerindeki şeffaflık tartışmaları, enerji piyasalarındaki güven ortamı ve küresel petrol ticareti dinamikleri açısından önem taşıyor."
 key_points:
   - "Senato, Vance'in ofisinden belgeleri 14 Aralık 2026 tarihine kadar talep etti."

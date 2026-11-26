@@ -15,7 +15,7 @@ rakamlar:
 sirada:
   tarih: "2 Kasım 2026"
   olay: "Proje teklifinin detayları ve konsorsiyumun lisans başvuru süreci kamuoyuna yansıdı."
-tablo: {"baslik":"Pakistan Enerji Projeleri ve Piyasa Durumu","sutunlar":["Gelişme","Durum","Değer"],"satirlar":[["ABD Destekli LNG Terminali","Öneri Aşamasında","4,4 milyar dolar"],["Energas (QatarEnergy) Projesi","İptal Edildi","Belirtilmedi"],["Kış Dönemi LNG İhtiyacı","Beklenen Maliyet","1 milyar dolar+"]]}
+tablo: {"baslik":"Pakistan Enerji projeleri ve piyasa durumu","sutunlar":["Gelişme","Durum","Değer"],"satirlar":[["ABD Destekli LNG Terminali","Öneri Aşamasında","4,4 milyar dolar"],["Energas (QatarEnergy) Projesi","İptal Edildi","Belirtilmedi"],["Kış Dönemi LNG İhtiyacı","Beklenen Maliyet","1 milyar dolar+"]]}
 why_matters: "Pakistan'ın enerji krizini aşması ve yüksek maliyetli spot piyasa bağımlılığını azaltması için ilk kez bir LNG depolama tesisine sahip olması kritik önem taşıyor."
 key_points:
   - "Projenin toplam yatırım bedeli 4,4 milyar dolar olarak açıklandı."

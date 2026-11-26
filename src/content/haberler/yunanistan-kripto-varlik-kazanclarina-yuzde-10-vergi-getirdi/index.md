@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "1 Ocak 2027"
   olay: "Kripto varlık kazanç vergisi ve kaynak sorgulama denetimleri yürürlüğe girecek"
-tablo: {"baslik":"Avrupa Ülkelerinde Kripto Vergi Oranları Karşılaştırması","sutunlar":["Ülke","Vergi Oranı"],"satirlar":[["Fransa","yüzde 30"],["Yunanistan","yüzde 10"],["Güney Kıbrıs","yüzde 8"]]}
+tablo: {"baslik":"Avrupa ülkelerinde kripto vergi oranları karşılaştırması","sutunlar":["Ülke","Vergi Oranı"],"satirlar":[["Fransa","yüzde 30"],["Yunanistan","yüzde 10"],["Güney Kıbrıs","yüzde 8"]]}
 grafik: {"baslik":"Kripto vergi oranı taslağı","simge":"sepet","birimEtiket":"yüzde","birim":1,"satirlar":[{"etiket":"Ekim taslağı","metin":"15","deger":15},{"etiket":"Onaylanan oran","metin":"10","deger":10}]}
 why_matters: "Bu düzenleme, Yunanistan'ın kripto varlıklar için oluşturduğu ilk kapsamlı yasal vergi çerçevesini temsil ediyor."
 key_points:

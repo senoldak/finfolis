@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "23 Kasım 2026"
   olay: "Jensen Huang'ın Nvidia CEO'su olarak göreve başlaması ve bağımsız soruşturmanın devamı"
-tablo: {"baslik":"Piyasa Göstergeleri Karşılaştırması","sutunlar":["Varlık","Fiyat","Günlük Değişim"],"satirlar":[["Bitcoin","62.802 $","yüzde 3,3"],["Ethereum","1.776 $","yüzde 3,9"],["Solana","76 $","yüzde 8,6"],["XRP","0,987 $","yüzde 6,8"]]}
+tablo: {"baslik":"Piyasa göstergeleri karşılaştırması","sutunlar":["Varlık","Fiyat","Günlük Değişim"],"satirlar":[["Bitcoin","62.802 $","yüzde 3,3"],["Ethereum","1.776 $","yüzde 3,9"],["Solana","76 $","yüzde 8,6"],["XRP","0,987 $","yüzde 6,8"]]}
 why_matters: "Nvidia'nın yapay zekâ çiplerindeki stratejik konumu nedeniyle, şirketin liderlik değişimi ve devam eden soruşturmalar teknoloji sektörü ve ulusal güvenlik politikaları açısından kritik önem taşıyor."
 key_points:
   - "Jensen Huang, 12 Kasım 2026'daki istifasından 11 gün sonra CEO görevine iade edildi."

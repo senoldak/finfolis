@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "8 Aralık 2026"
   olay: "Federal Reserve toplantısı"
-grafik: {"baslik":"Aralık Ayı Faiz Artışı Beklentisi","simge":"banka","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"25 baz puan","metin":"95","deger":95},{"etiket":"50 baz puan","metin":"5","deger":5}]}
+grafik: {"baslik":"Aralık ayı faiz artışı beklentisi","simge":"banka","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"25 baz puan","metin":"95","deger":95},{"etiket":"50 baz puan","metin":"5","deger":5}]}
 why_matters: "Fed'in enflasyonla mücadele stratejisi, borçlanma maliyetlerini doğrudan etkileyerek hem geleneksel piyasalar hem de dijital varlıklar üzerinde belirleyici bir rol oynuyor."
 key_points:
   - "Waller, Aralık ayı için 50 baz puanlık faiz artışı çağrısında bulundu."

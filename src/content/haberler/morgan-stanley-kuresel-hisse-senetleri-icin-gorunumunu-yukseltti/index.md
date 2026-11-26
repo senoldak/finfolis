@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "31 Aralık 2027"
   olay: "Morgan Stanley'nin S&P 500 endeksi için belirlediği 8.700 puanlık hedef tarihi."
-tablo: {"baslik":"S&P 500 Endeksi Kâr ve Hedef Karşılaştırması","sutunlar":["Gösterge","Mevcut/Beklenen","2027 Hedefi"],"satirlar":[["Endeks Değeri (Puan)","7.561,67","8.700"],["Hisse Başına Kâr (Dolar)","369","420"]]}
+tablo: {"baslik":"S&P 500 endeksi kâr ve hedef karşılaştırması","sutunlar":["Gösterge","Mevcut/Beklenen","2027 Hedefi"],"satirlar":[["Endeks Değeri (Puan)","7.561,67","8.700"],["Hisse Başına Kâr (Dolar)","369","420"]]}
 why_matters: "Morgan Stanley'nin küresel hisse senetleri için en yüksek iyimserlik seviyesine geçmesi, şirket kârlarındaki artış beklentisiyle piyasalarda risk iştahının yükselebileceğine işaret ediyor."
 key_points:
   - "S&P 500 endeksi için 2027 sonu hedefi 8.700 puan olarak belirlendi."

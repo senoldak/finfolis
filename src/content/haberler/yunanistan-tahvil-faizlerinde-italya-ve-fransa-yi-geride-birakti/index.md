@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "2027"
   olay: "Yunan borcunun yüzde 129 seviyesine düşmesi bekleniyor"
-tablo: {"baslik":"Ülkelere Göre 10 Yıllık Tahvil Faizleri","sutunlar":["Ülke","Tahvil Faizi"],"satirlar":[["Yunanistan","yüzde 4,15"],["İtalya","yüzde 4,37"],["Fransa","yüzde 4,73"]]}
+tablo: {"baslik":"Ülkelere göre 10 yıllık tahvil faizleri","sutunlar":["Ülke","Tahvil Faizi"],"satirlar":[["Yunanistan","yüzde 4,15"],["İtalya","yüzde 4,37"],["Fransa","yüzde 4,73"]]}
 why_matters: "Yıllar önce borç krizinin merkezinde yer alan Yunanistan'ın Fransa ve İtalya'dan daha uygun maliyetle borçlanabilmesi, ülkenin kamu maliyesindeki büyük dönüşümün ve yatırımcı güveninin somut göstergesidir."
 key_points:
   - "Yunanistan'ın 10 yıllık tahvil faizi yüzde 4,15'e geriledi."

@@ -19,7 +19,7 @@ rakamlar:
 sirada:
   tarih: "9 Aralık 2026"
   olay: "ABD Merkez Bankası'nın (Fed) iki günlük toplantısının sona ermesi."
-tablo: {"baslik":"Para Birimlerinde Günlük Değişim","sutunlar":["Para Birimi","Değişim (Yüzde)","Değer"],"satirlar":[["Euro","-0,1","1,10093"],["İngiliz Sterlini","-0,2","1,31895"],["Japon Yeni","-0,1","159,48"]]}
+tablo: {"baslik":"Para birimlerinde günlük değişim","sutunlar":["Para Birimi","Değişim (Yüzde)","Değer"],"satirlar":[["Euro","-0,1","1,10093"],["İngiliz Sterlini","-0,2","1,31895"],["Japon Yeni","-0,1","159,48"]]}
 why_matters: "Doların küresel piyasalardaki seyri, hem merkez bankalarının faiz politikalarını hem de yatırımcıların risk iştahını doğrudan etkileyen temel bir gösterge niteliği taşıyor."
 key_points:
   - "Dolar endeksi 103,50 ile Nisan 2025'ten bu yana en yüksek seviyeye çıktı."

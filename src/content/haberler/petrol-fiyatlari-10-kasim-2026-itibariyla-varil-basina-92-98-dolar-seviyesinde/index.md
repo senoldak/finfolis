@@ -7,7 +7,7 @@ tur: "haber"
 uretim: "bot"
 kaynaklar: []
 kaynakIzi: "v1.EtOqjOqjpbCJE7jI.i6HsSUSpmcCszIomPyy+AcZaZcDm2tUctmLyxeCfBth2xQnoVeApwftL3NHQzTMqRMiwG94s2ZLPU2wAbr28Ms1LOYCo/LPx3yOrtShZv9WMAypeczZFmU6AKaQWcyw="
-tablo: {"baslik":"Petrol Fiyatları Karşılaştırması","sutunlar":["Dönem","Fiyat","Değişim"],"satirlar":[["Dün","97,65 dolar","yüzde -4,78"],["1 ay önce","107,28 dolar","yüzde -13,32"],["1 yıl önce","64,34 dolar","yüzde +44,51"]]}
+tablo: {"baslik":"Petrol fiyatları karşılaştırması","sutunlar":["Dönem","Fiyat","Değişim"],"satirlar":[["Dün","97,65 dolar","yüzde -4,78"],["1 ay önce","107,28 dolar","yüzde -13,32"],["1 yıl önce","64,34 dolar","yüzde +44,51"]]}
 why_matters: "Ham petrol fiyatları, akaryakıt pompa fiyatlarından sanayi maliyetlerine kadar geniş bir alanı etkileyerek küresel ekonominin geneline yansır."
 cover: kapak.png
 coverAlt: "Brent petrol son altı ay günlük kapanış grafiği: altı ayda −%12,2, son kapanış $92,76"

@@ -19,7 +19,7 @@ rakamlar:
     deger: "19,1 trilyon dolar"
   - etiket: "Kredi Kartı Sahibi Sayısı"
     deger: "178 milyon"
-tablo: {"baslik":"Kredi Kartı Verileri","sutunlar":["Gösterge","Değer"],"satirlar":[["Toplam Kredi Kartı Borcu","1,29 trilyon dolar"],["Tüketici Başına Ortalama Bakiye","6.678 dolar"],["Toplam Kart Sahibi Sayısı","178 milyon"]]}
+tablo: {"baslik":"Kredi kartı verileri","sutunlar":["Gösterge","Değer"],"satirlar":[["Toplam Kredi Kartı Borcu","1,29 trilyon dolar"],["Tüketici Başına Ortalama Bakiye","6.678 dolar"],["Toplam Kart Sahibi Sayısı","178 milyon"]]}
 why_matters: "Kredi kartı borçlarındaki rekor artış, hanehalklarının finansal sıkıntılarını ve artan yaşam maliyetleri karşısında borçlanma eğilimlerinin yükseldiğini göstermesi açısından önem taşıyor."
 key_points:
   - "Kredi kartı borçları 1,29 trilyon dolarla rekor seviyeye ulaştı."

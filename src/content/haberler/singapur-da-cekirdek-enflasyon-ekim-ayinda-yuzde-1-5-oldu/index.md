@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 2"
   - etiket: "Eylül genel enflasyon"
     deger: "yüzde 2,2"
-grafik: {"baslik":"Ekim Ayı Enflasyon Oranları","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Genel enflasyon","metin":"1,9","deger":1.9},{"etiket":"Çekirdek enflasyon","metin":"1,5","deger":1.5},{"etiket":"Özel ulaşım enflasyonu","metin":"6,7","deger":6.7},{"etiket":"Hizmet enflasyonu","metin":"1,1","deger":1.1},{"etiket":"Gıda enflasyonu","metin":"2,3","deger":2.3}]}
+grafik: {"baslik":"Ekim ayı enflasyon oranları","simge":"sepet","birimEtiket":"yüzde","birim":0.5,"satirlar":[{"etiket":"Genel enflasyon","metin":"1,9","deger":1.9},{"etiket":"Çekirdek enflasyon","metin":"1,5","deger":1.5},{"etiket":"Özel ulaşım enflasyonu","metin":"6,7","deger":6.7},{"etiket":"Hizmet enflasyonu","metin":"1,1","deger":1.1},{"etiket":"Gıda enflasyonu","metin":"2,3","deger":2.3}]}
 why_matters: "Singapur'da enflasyon verileri, hanehalkı masraflarının ve genel piyasa fiyatlarının seyrini göstererek ekonomik duruma ışık tutuyor."
 key_points:
   - "Yıllık çekirdek enflasyon ekim ayında yüzde 1,5'e geriledi."

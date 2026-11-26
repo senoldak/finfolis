@@ -17,7 +17,7 @@ rakamlar:
 sirada:
   tarih: "23 Ekim 2026"
   olay: "Şirketler ve piyasalar İran savaşının enerji pazarlarına etkilerini değerlendirmeye devam ediyor."
-grafik: {"baslik":"Savaşın Başlangıcından Bu Yana Hisse Artışları","simge":"sepet","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Cheniere","metin":"26","deger":26},{"etiket":"Venture Global","metin":"40","deger":40}]}
+grafik: {"baslik":"Savaşın başlangıcından bu yana hisse artışları","simge":"sepet","birimEtiket":"yüzde","birim":2,"satirlar":[{"etiket":"Cheniere","metin":"26","deger":26},{"etiket":"Venture Global","metin":"40","deger":40}]}
 why_matters: "Bu gelişme, İran savaşı nedeniyle Hürmüz Boğazı'ndaki sevkiyatların aksamasının küresel enerji ticaretini ve ABD'li LNG ihracatçılarının pazar payını nasıl dönüştürdüğünü gösteriyor."
 key_points:
   - "KatarEnerji, Cheniere Energy ile 2054 yılına kadar yıllık 4 milyon metrik ton sıvılaştırılmış doğal gaz alım anlaşması imzaladı."

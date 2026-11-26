@@ -16,7 +16,7 @@ rakamlar:
     deger: "yüzde 3,7"
   - etiket: "Nasdaq Düşüş"
     deger: "yüzde 5,3"
-tablo: {"baslik":"Nvidia ve Anthropic Hisse Performansları","sutunlar":["Şirket","Günlük Değişim","Kapanış Fiyatı"],"satirlar":[["Nvidia","yüzde 14","125,53 dolar"],["Anthropic","yüzde 8,5","88,91 dolar"]]}
+tablo: {"baslik":"Nvidia ve Anthropic hisse performansları","sutunlar":["Şirket","Günlük Değişim","Kapanış Fiyatı"],"satirlar":[["Nvidia","yüzde 14","125,53 dolar"],["Anthropic","yüzde 8,5","88,91 dolar"]]}
 why_matters: "Yapay zekâ altyapısına yapılan devasa harcamaların şirketlerin finansal sonuçlarına ve yatırımcılara ne kadar sürede döneceğine dair belirsizlikler piyasalarda sert düşüşlere yol açıyor."
 key_points:
   - "Nvidia hisseleri 20 Kasım 2026 Cuma günü yüzde 14 düşerek 125,53 dolardan kapandı."

@@ -19,8 +19,8 @@ rakamlar:
 sirada:
   tarih: "2 Kasım 2026"
   olay: "Finansal Hizmetler Komisyonu acil toplantı düzenledi."
-tablo: {"baslik":"Borsaların Soğuk Cüzdan Oranları","sutunlar":["Borsa","Oran"],"satirlar":[["Upbit","yüzde 99,17"],["Bithumb","yüzde 94,76"],["Coinone","yüzde 85"],["Digital X","yüzde 82,79"],["GOPAX","yüzde 80,54"]]}
-grafik: {"baslik":"Eylül Sonu İtibarıyla Soğuk Cüzdan Oranları","simge":"banka","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Upbit","metin":"99,17","deger":99.17},{"etiket":"Bithumb","metin":"94,76","deger":94.76},{"etiket":"Coinone","metin":"85","deger":85},{"etiket":"Digital X","metin":"82,79","deger":82.79},{"etiket":"GOPAX","metin":"80,54","deger":80.54}]}
+tablo: {"baslik":"Borsaların soğuk cüzdan oranları","sutunlar":["Borsa","Oran"],"satirlar":[["Upbit","yüzde 99,17"],["Bithumb","yüzde 94,76"],["Coinone","yüzde 85"],["Digital X","yüzde 82,79"],["GOPAX","yüzde 80,54"]]}
+grafik: {"baslik":"Eylül sonu itibarıyla soğuk cüzdan oranları","simge":"banka","birimEtiket":"yüzde","birim":5,"satirlar":[{"etiket":"Upbit","metin":"99,17","deger":99.17},{"etiket":"Bithumb","metin":"94,76","deger":94.76},{"etiket":"Coinone","metin":"85","deger":85},{"etiket":"Digital X","metin":"82,79","deger":82.79},{"etiket":"GOPAX","metin":"80,54","deger":80.54}]}
 why_matters: "Güney Kore'nin Binance saldırısı sonrasında borsalara soğuk cüzdan oranlarını artırma çağrısı yapması, yerel kripto pazarının güvenliğini artırmayı ve benzer siber saldırıların olası etkilerini sınırlamayı amaçlıyor."
 key_points:
   - "Binance saldırısında yaklaşık 6,3 milyar dolar çalındı."
