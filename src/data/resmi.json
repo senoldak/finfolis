@@ -3170,22 +3170,18 @@
     "alinma": "2026-11-02T13:59:50.416Z"
   },
   "rezerv": {
-    "tarih": "2026-11-24",
-    "netDovizPozisyonu": 9.46,
-    "degisimGunluk": 1.14,
+    "tarih": "2026-11-25",
+    "netDovizPozisyonu": 9.52,
+    "degisimGunluk": 0.06,
     "kalemler": {
-      "disVarliklarUSD": 140.4,
-      "dovizYukumlulukleriUSD": 124.75,
-      "netUluslararasiRezervUSD": 15.65,
+      "disVarliklarUSD": 139.12,
+      "dovizYukumlulukleriUSD": 122.31,
+      "netUluslararasiRezervUSD": 16.81,
       "swapStokuUSD": 0,
-      "hazineDoviziUSD": 6.19,
-      "netPozisyonUSD": 9.46
+      "hazineDoviziUSD": 7.29,
+      "netPozisyonUSD": 9.52
     },
     "gecmis": [
-      {
-        "tarih": "2026-07-21",
-        "deger": 45.22
-      },
       {
         "tarih": "2026-07-22",
         "deger": 44.28
@@ -3541,13 +3537,17 @@
       {
         "tarih": "2026-11-24",
         "deger": 9.46
+      },
+      {
+        "tarih": "2026-11-25",
+        "deger": 9.52
       }
     ],
     "kaynak": {
       "ad": "TCMB Analitik Bilanço (EVDS)",
       "url": "https://evds3.tcmb.gov.tr/"
     },
-    "alinma": "2026-11-25T11:59:51.909Z"
+    "alinma": "2026-11-26T12:01:11.461Z"
   },
   "piyasaFaizleri": {
     "kaynak": {
@@ -3981,14 +3981,6 @@
     },
     "satirlar": [
       {
-        "tarih": "2025-11-21",
-        "toplam": 247950.94,
-        "yurtIci": 210844,
-        "bireysel": 133669.9,
-        "tuzel": 77174.09,
-        "altin": 74278.53
-      },
-      {
         "tarih": "2025-11-28",
         "toplam": 250247.02,
         "yurtIci": 213108.7,
@@ -4395,9 +4387,17 @@
         "bireysel": 136712.06,
         "tuzel": 91929.87,
         "altin": 84524.9
+      },
+      {
+        "tarih": "2026-11-20",
+        "toplam": 258131.48,
+        "yurtIci": 222122.88,
+        "bireysel": 131759.55,
+        "tuzel": 90363.33,
+        "altin": 79148.48
       }
     ],
-    "alinma": "2026-11-19T12:01:19.278Z"
+    "alinma": "2026-11-26T12:01:11.461Z"
   },
   "beklenti": {
     "kaynak": {
@@ -15353,9 +15353,58 @@
             "yillik": 49.5965602
           }
         }
+      },
+      {
+        "tarih": "2026-11-20",
+        "sektorler": {
+          "KT1": {
+            "tutar": 714761223,
+            "yillik": 35.34696774
+          },
+          "KT16": {
+            "tutar": 138084200,
+            "yillik": 33.94308044
+          },
+          "KT5": {
+            "tutar": 46234222,
+            "yillik": 28.7768754
+          },
+          "KT24": {
+            "tutar": 42327855,
+            "yillik": 42.0217861
+          },
+          "KT4": {
+            "tutar": 46951274,
+            "yillik": 45.59623047
+          },
+          "KT9": {
+            "tutar": 42649487,
+            "yillik": 33.73903209
+          },
+          "KT8": {
+            "tutar": 26501463,
+            "yillik": 13.4744255
+          },
+          "KT19": {
+            "tutar": 29074114,
+            "yillik": 43.88648166
+          },
+          "KT12": {
+            "tutar": 9688254,
+            "yillik": 51.7894406
+          },
+          "KT10": {
+            "tutar": 6621513,
+            "yillik": 1.61071426
+          },
+          "KT50": {
+            "tutar": 238094615,
+            "yillik": 41.12265104
+          }
+        }
       }
     ],
-    "alinma": "2026-11-25T03:59:37.596Z"
+    "alinma": "2026-11-26T12:01:11.461Z"
   },
   "guven": {
     "kaynak": {
@@ -20421,9 +20470,15 @@
         "toplam": 158950.0994038,
         "altin": 99699.9612909,
         "doviz": 59250.1381129
+      },
+      {
+        "tarih": "2026-11-20",
+        "toplam": 141972.1569873,
+        "altin": 91596.0273807,
+        "doviz": 50376.1296066
       }
     ],
-    "alinma": "2026-11-20T03:59:08.153Z"
+    "alinma": "2026-11-26T12:01:11.461Z"
   },
   "kapasite": {
     "kaynak": {
@@ -32182,7 +32237,7 @@
         "hisse": 37.53,
         "dibs": 196.63,
         "ost": 43.82,
-        "toplam": 169.71,
+        "toplam": 319.42,
         "hisseStok": 41110.82,
         "dibsStok": 16618.81
       },
@@ -32338,9 +32393,18 @@
         "toplam": 4.54,
         "hisseStok": 33898.78,
         "dibsStok": 15876.56
+      },
+      {
+        "tarih": "2026-11-20",
+        "hisse": -48.37,
+        "dibs": -463.07,
+        "ost": -130.05,
+        "toplam": -916.95,
+        "hisseStok": 31735.27,
+        "dibsStok": 15279.11
       }
     ],
-    "alinma": "2026-11-19T12:01:19.278Z"
+    "alinma": "2026-11-26T12:01:11.461Z"
   },
   "portfoyAylik": {
     "kaynak": {
@@ -89634,9 +89698,26 @@
         "repo": 1382788087.6108,
         "ppf": 1790011299.99546,
         "menkul": 126295855.4773
+      },
+      {
+        "tarih": "2026-11-20",
+        "m1": 11036041550.266047,
+        "m2": 29777892358.79818,
+        "m3": 32966784966.77406,
+        "m1Yillik": 21.72823456,
+        "m2Yillik": 27.56537133,
+        "m3Yillik": 27.13606464,
+        "dolasim": 948095701.9,
+        "vadesizTl": 2828894100.10281,
+        "vadesizYp": 7259051748.263236,
+        "vadeliTl": 15080222272,
+        "vadeliYp": 3661628536.532133,
+        "repo": 1336238629.02307,
+        "ppf": 1729982129.70921,
+        "menkul": 122671849.2436
       }
     ],
-    "alinma": "2026-11-19T12:01:19.278Z"
+    "alinma": "2026-11-26T12:01:11.461Z"
   },
   "kkm": {
     "kaynak": {
@@ -102505,23 +102586,23 @@
       }
     ],
     "son": {
-      "tarih": "2026-11-24",
-      "aktif": 11554474939,
-      "disVarlik": 7091753728,
-      "icVarlik": 5145195802,
-      "hazine": 558878012,
-      "bankaKredi": 1303139974,
-      "degerleme": -682474592,
-      "dovizYuk": 6301217020,
-      "mbParasi": 5253257918,
-      "rezervPara": 4926140865,
-      "emisyon": 989376775,
+      "tarih": "2026-11-25",
+      "aktif": 11557277780,
+      "disVarlik": 7031020086,
+      "icVarlik": 5146843853,
+      "hazine": 558793691,
+      "bankaKredi": 1305622739,
+      "degerleme": -620586159,
+      "dovizYuk": 6181417273,
+      "mbParasi": 5375860507,
+      "rezervPara": 5088401187,
+      "emisyon": 984683651,
       "zorunlu": 1024494722,
-      "serbest": 2903560715,
-      "api": -350507049,
-      "kamuMevduat": 677624103
+      "serbest": 3070313508,
+      "api": -333008390,
+      "kamuMevduat": 620467709
     },
-    "alinma": "2026-11-25T11:59:51.909Z"
+    "alinma": "2026-11-26T12:01:11.461Z"
   },
   "faizAyrinti": {
     "kaynak": {

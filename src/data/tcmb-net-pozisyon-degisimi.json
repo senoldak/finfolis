@@ -1,8 +1,8 @@
 {
-  "guncellenme": "2026-11-26T10:00:08.072Z",
+  "guncellenme": "2026-11-26T12:01:30.689Z",
   "kaynak": "TCMB Analitik Bilanço, EVDS & BİST Kıymetli Madenler Piyasası",
   "birim": "milyar USD",
-  "kayit_sayisi": 241,
+  "kayit_sayisi": 242,
   "seri": [
     {
       "tarih": "27-11-2025",
@@ -2654,6 +2654,17 @@
       "net_rezerv_milyar_usd": 15.65,
       "ham_degisim_milyar_usd": 1.18,
       "degisim_altin_arindirilmis_milyar_usd": 3.7
+    },
+    {
+      "tarih": "25-11-2026",
+      "etiket": "25.11",
+      "usd_kuru": 50.5376,
+      "altin_ons_usd": 3683,
+      "altin_fiyat_farki_usd": 83,
+      "altin_degerleme_etkisi_milyar_usd": 1.74,
+      "net_rezerv_milyar_usd": 16.81,
+      "ham_degisim_milyar_usd": 1.16,
+      "degisim_altin_arindirilmis_milyar_usd": -0.6
     }
   ],
   "haftalik_ozet": [
@@ -3232,13 +3243,13 @@
     {
       "haftaKey": "2026-W48",
       "etiket": "48. Hafta (2026)",
-      "tarih_son": "24-11-2026",
-      "toplam_net_degisim_milyar_usd": -2.1,
-      "toplam_ham_degisim_milyar_usd": -4.17,
-      "is_gunu_sayisi": 2,
+      "tarih_son": "25-11-2026",
+      "toplam_net_degisim_milyar_usd": -2.7,
+      "toplam_ham_degisim_milyar_usd": -3.01,
+      "is_gunu_sayisi": 3,
       "alis_gunleri": 1,
-      "satis_gunleri": 1,
-      "kapanis_net_rezerv": 15.65
+      "satis_gunleri": 2,
+      "kapanis_net_rezerv": 16.81
     }
   ],
   "aylik_ozet": [
@@ -3415,14 +3426,14 @@
       "ay": 11,
       "ayKey": "2026-11",
       "etiket": "Kasım 2026",
-      "toplam_net_degisim_milyar_usd": -9.9,
-      "toplam_ham_degisim_milyar_usd": -17.34,
-      "toplam_altin_etkisi_milyar_usd": -7.59,
-      "is_gunu_sayisi": 17,
+      "toplam_net_degisim_milyar_usd": -10.5,
+      "toplam_ham_degisim_milyar_usd": -16.18,
+      "toplam_altin_etkisi_milyar_usd": -5.85,
+      "is_gunu_sayisi": 18,
       "alis_gunleri": 6,
-      "satis_gunleri": 11,
-      "kapanis_net_rezerv": 15.65,
-      "kapanis_usd_kuru": 50.5116
+      "satis_gunleri": 12,
+      "kapanis_net_rezerv": 16.81,
+      "kapanis_usd_kuru": 50.5376
     }
   ]
 }
