@@ -28,7 +28,7 @@ async function main() {
     method: 'POST',
     headers: { Authorization: `Bearer ${MOTOR_ANAHTARI}`, 'content-type': 'application/json' },
     body: JSON.stringify(govde),
-    signal: AbortSignal.timeout(30000),
+    signal: AbortSignal.timeout(60000),
   });
   const j = await r.json().catch(() => ({}));
   console.log(`veri durumu: ${govde.betikler.length} betik, ${govde.hatalar.length} hata → saat ${r.status} ${JSON.stringify(j)}`);
