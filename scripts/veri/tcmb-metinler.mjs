@@ -22,6 +22,7 @@ const HEDEF = fileURLToPath(new URL('../../src/data/tcmb-metinler.json', import.
 const ILK_YIL = 2023;
 const ILK_TARIH = '2023-06-01'; // Haziran 2023'ten önceki belgeler kapsam dışı
 const BEKLEME_MS = 1000;
+const RAPOR_YAYIN_GUN = 45; // rapor tarihinden sonra içeriği boş sayfanın bekleneceği süre
 const KAYNAK = { ad: 'TCMB Başkanın Konuşmaları, Enflasyon Raporu, Finansal İstikrar Raporu', url: 'https://www.tcmb.gov.tr' };
 
 async function mevcutOku() {
@@ -159,6 +160,13 @@ export async function tcmbMetinleriUret({ simdi = new Date(), indir = hentMetin,
       try {
         const sayfa = raporSayfasi(await indir(r.url));
         await bekle(BEKLEME_MS);
+        // TCMB yeni raporun sayfasını içerikten önce listeye koyabiliyor (FİR Sayı 43, 26 Kasım 2026: sayfa boş, bölüm ve
+        // PDF yok). Rapor tarihinden sonraki RAPOR_YAYIN_GUN gün boş sayfa "henüz yayımlanmadı" sayılır: hata değil,
+        // sonraki turda yeniden denenir. Süre geçtiyse biçim değişmiş olabilir, hata sayılır.
+        if (!sayfa.bolumler.length && simdi - Date.parse(r.tarih) < RAPOR_YAYIN_GUN * 864e5) {
+          log(`Rapor henüz yayımlanmadı (${r.id}): sayfa boş, sonraki turda denenecek`);
+          continue;
+        }
         const bolum = genelDegerlendirmeBolumu(sayfa.bolumler);
         if (!bolum) throw new Error('Genel Değerlendirme bölümü bulunamadı');
         const paragraflar = raporParagraflari(await pdfCevir(await pdfAl(bolum.pdfUrl)));
