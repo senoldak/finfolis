@@ -20,6 +20,7 @@ import { bisFaizSerileri } from './dunya-faizleri.mjs';
 
 const HEDEF_DOSYA = fileURLToPath(new URL('../../src/data/emsal-ulkeler.json', import.meta.url));
 const OECD = 'https://sdmx.oecd.org/public/rest/data';
+const KEI_SURUM = '4.0';
 const KABUL = { Accept: 'application/vnd.sdmx.data+csv; charset=utf-8' };
 
 const bugunIso = () => new Date().toISOString().slice(0, 10);
@@ -59,7 +60,11 @@ async function oecdCek(yol) {
 export async function emsalUlkelerUret() {
   const bugun = bugunIso();
   const bas = ayOnce(bugun, 18);
-  const kei = await oecdCek(`OECD.SDD.STES,DSD_KEI@DF_KEI/.+M+Q.B1GQ_Q+UNEMP+IRLT....?startPeriod=${bas}&dimensionAtObservation=AllDimensions`);
+  // KEI akışı sürümsüz sorguda her seferinde 500 veriyor (26 Kasım 2026'da doğrulandı: aynı sorgu ",4.0" ile 200);
+  // sürüm belirtilir. Sürüm emekliye ayrılırsa (404 → boş) sürümsüz sorgu denenir.
+  const keiSorgu = `.+M+Q.B1GQ_Q+UNEMP+IRLT....?startPeriod=${bas}&dimensionAtObservation=AllDimensions`;
+  let kei = await oecdCek(`OECD.SDD.STES,DSD_KEI@DF_KEI,${KEI_SURUM}/${keiSorgu}`);
+  if (!kei.length) kei = await oecdCek(`OECD.SDD.STES,DSD_KEI@DF_KEI/${keiSorgu}`);
   await sleep(20000);
   const fiyat2018 = await oecdCek(`OECD.SDD.TPS,DSD_PRICES_COICOP2018@DF_PRICES_C2018_ALL/.M.N+HICP.CPI.PA._T+_TXCP01_NRG.N.GY?startPeriod=${bas}`);
   await sleep(20000);

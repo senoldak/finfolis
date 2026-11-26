@@ -28,6 +28,7 @@ export const GRUPLAR = [
   { kod: '13', ad: 'Kişisel bakım ve çeşitli mal ve hizmetler' },
 ];
 
+const AGIRLIK_TOLERANS = 0.1;
 const yuvarla = (n, k = 3) => Math.round(n * 10 ** k) / 10 ** k;
 const ak = (yil, ay) => yil * 12 + ay - 1;
 
@@ -45,8 +46,10 @@ export function katkilariHesapla(endeks, agirlik, yil, ay) {
     const w = agirlik[y];
     if (!Array.isArray(w) || w.length !== GRUPLAR.length || w.some((v) => !Number.isFinite(v))) throw new Error(`Ağırlık eksik: ${y}`);
     const toplam = w.reduce((a, b) => a + b, 0);
-    if (Math.abs(toplam - 100) > 0.01) throw new Error(`Ağırlıklar ${y} için 100 etmiyor: ${toplam}`);
-    return w;
+    // TÜİK ağırlıkları iki ondalıkla yayımlanır; toplam yuvarlamadan 100'den biraz sapabilir (2023: 99,99). Küçük sapma
+    // kabul edilir ve ağırlıklar 100'e ölçeklenir; büyük sapma veri hatasıdır.
+    if (Math.abs(toplam - 100) > AGIRLIK_TOLERANS) throw new Error(`Ağırlıklar ${y} için 100 etmiyor: ${toplam}`);
+    return w.map((v) => (v * 100) / toplam);
   };
 
   const t = al(yil, ay);

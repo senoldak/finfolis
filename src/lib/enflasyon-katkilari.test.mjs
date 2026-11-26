@@ -58,6 +58,16 @@ test('eksik endeks ve 100 etmeyen ağırlık hata verir', () => {
   assert.throws(() => katkilariHesapla(endeks, { ...agirlik, 2026: undefined }, 2026, 6), /Ağırlık eksik/);
 });
 
+test('yuvarlamadan 100 etmeyen ağırlık (99,99) kabul edilir ve 100e ölçeklenir', () => {
+  const { agirlik, endeks } = yapay();
+  const w = agirlik[2026];
+  const eksik = w.map((v, i) => (i === 0 ? v - 0.01 : v));
+  const olcekli = eksik.map((v) => (v * 100) / eksik.reduce((a, b) => a + b, 0));
+  const a = katkilariHesapla(endeks, { ...agirlik, 2026: eksik }, 2026, 6);
+  const b = katkilariHesapla(endeks, { ...agirlik, 2026: olcekli }, 2026, 6);
+  assert.deepEqual(a, b);
+});
+
 test('sonTamAy: grubu eksik ya da ağırlığı olmayan ay sayılmaz', () => {
   const { agirlik, endeks } = yapay();
   const e = [...endeks, { yil: 2027, ay: 1, genel: 150, g: GRUPLAR.map(() => 120) }];
