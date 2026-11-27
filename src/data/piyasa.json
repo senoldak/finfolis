@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-26T23:22:07.226Z",
+  "guncelleme": "2026-11-27T03:41:02.117Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -7,7 +7,7 @@
       "deger": 50.677,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 42.451,
+      "onceki": 42.44,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -289,7 +289,7 @@
       "deger": 55.6177,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 49.1459,
+      "onceki": 49.1714,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -571,7 +571,7 @@
       "deger": 31.82,
       "ondalik": 2,
       "simge": "lira",
-      "onceki": 27.139,
+      "onceki": 27.15,
       "oncekiEtiket": "Bir yıl önce",
       "kaynak": {
         "ad": "Avrupa Merkez Bankası referans kuru",
@@ -882,21 +882,17 @@
     {
       "id": "bist100",
       "ad": "BIST 100",
-      "deger": 10655.7002,
+      "deger": 10743.0996,
       "ondalik": 2,
       "simge": "fabrika",
       "kaynak": {
         "ad": "Piyasa kapanış verisi",
         "url": "https://finfolis.com/yayin-ilkeleri/#piyasa-verisi"
       },
-      "zaman": "2026-11-25T00:00:00+03:00",
+      "zaman": "2026-11-26T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": -2.8,
+      "degisim": 0.8,
       "gecmis": [
-        {
-          "tarih": "2026-08-28",
-          "deger": 14641.5996
-        },
         {
           "tarih": "2026-08-31",
           "deger": 14334.0996
@@ -1144,13 +1140,17 @@
         {
           "tarih": "2026-11-25",
           "deger": 10655.7002
+        },
+        {
+          "tarih": "2026-11-26",
+          "deger": 10743.0996
         }
       ]
     },
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 3592.5,
+      "deger": 3652.8,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
@@ -1159,12 +1159,8 @@
       },
       "zaman": "2026-11-26T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 1.6,
+      "degisim": 3.3,
       "gecmis": [
-        {
-          "tarih": "2026-08-28",
-          "deger": 4529.8999
-        },
         {
           "tarih": "2026-08-31",
           "deger": 4481.5
@@ -1415,7 +1411,7 @@
         },
         {
           "tarih": "2026-11-26",
-          "deger": 3592.5
+          "deger": 3652.8
         }
       ],
       "onEk": "$"
