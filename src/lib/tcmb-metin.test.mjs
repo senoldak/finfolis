@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   konusmaListesi, konusmaAyristir, konusmaci, raporListesi, raporSayfasi, genelDegerlendirmeBolumu, erBaslik, firBaslik,
-  raporParagraflari, sunumParagraflari, pdfKonusmaParagraflari, turkceMi,
+  raporParagraflari, raporMetniBozuk, tamMetindenGenelDegerlendirme, sunumParagraflari, pdfKonusmaParagraflari, turkceMi,
 } from './tcmb-metin.mjs';
 
 const KON = '/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Duyurular/Baskanin+Konusmalari';
@@ -82,6 +82,30 @@ test('rapor sayfası: bölüm başlığı ile PDF eşlenir, genel değerlendirme
   assert.equal(g.pdfUrl, 'https://www.tcmb.gov.tr/wps/wcm/connect/g/1b26_iii.pdf?MOD=AJPERES&CACHEID=G');
   assert.equal(genelDegerlendirmeBolumu([{ ad: 'II. Küresel', pdfUrl: 'x' }]), null);
   assert.equal(genelDegerlendirmeBolumu([{ ad: 'I. Genel Değerlendirme', pdfUrl: 'y' }]).pdfUrl, 'y');
+  assert.equal(s.tamMetinUrl, 'https://www.tcmb.gov.tr/wps/wcm/connect/t/enf26_iii_tam.pdf?MOD=AJPERES&CACHEID=T');
+});
+
+test('bozuk rapor metni: kopuk parçalar yakalanır, sağlam paragraflar geçer', () => {
+  const saglam = Array.from({ length: 9 }, (_, i) => `${i + 1}. paragraf `.padEnd(500, 'metin '));
+  assert.equal(raporMetniBozuk(saglam), false);
+  assert.equal(raporMetniBozuk(['Raporu| 2026 - II 1', 'I.', 'Enerji faizleri özellikle', 'Kredi büyümesi zekâ', '.F e yönelen']), true);
+  assert.equal(raporMetniBozuk([]), true);
+});
+
+test('tam metinden genel değerlendirme: içindekiler atlanır, ikinci bölümde durulur', () => {
+  const tam = [
+    'İçindekiler',
+    'I. Genel Değerlendirme ..........1 II. Küresel Finansal Görünüm ......3',
+    '\f Finansal İstikrar Raporu| 2026 - II 1',
+    'I. Genel Değerlendirme',
+    'Birinci paragraf.',
+    'Finansal İstikrar Raporu| 2026 - II 2',
+    'İkinci paragraf.',
+    'II. Küresel Finansal Görünüm',
+    'Alınmaz.',
+  ].join('\n');
+  assert.deepEqual(raporParagraflari(tamMetindenGenelDegerlendirme(tam)), ['Birinci paragraf.', 'İkinci paragraf.']);
+  assert.equal(tamMetindenGenelDegerlendirme('başka metin'), null);
 });
 
 test('rapor başlıkları: ER dönem/tarih, FİR sayı/ay', () => {

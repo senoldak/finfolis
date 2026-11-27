@@ -81,25 +81,51 @@ export function konusmaAyristir(html) {
   return paragraflar;
 }
 
-// Rapor sayfası → { baslik, bolumler: [{ ad, pdfUrl }] }. Bölüm başlığı (h2) ile hemen ardından gelen PDF bağlantısı eşlenir.
+// Rapor sayfası → { baslik, bolumler: [{ ad, pdfUrl }], tamMetinUrl }. Bölüm başlığı (h2) ile hemen ardından gelen PDF
+// bağlantısı eşlenir. İlk h2'den önceki PDF bağlantısı raporun tam metnidir ("Tam Metin İçin Tıklayınız").
 export function raporSayfasi(html) {
   const baslik = duzMetin(html.match(/<title>([^<]*)<\/title>/)?.[1] ?? '').replace(/^TCMB\s*-\s*/, '');
   const i = html.indexOf('id="tcmbMainContent"');
   if (i < 0) throw new Error('Rapor içeriği bulunamadı');
   const bolumler = [];
   let ad = null;
+  let h2Goruldu = false;
+  let tamMetinUrl = null;
   for (const m of html.slice(i).matchAll(/<h2 class="type-h2">([\s\S]*?)<\/h2>|<a\b[^>]*class="[^"]*pdf[^"]*"[^>]*>/g)) {
     if (m[1] !== undefined) {
       ad = duzMetin(m[1]);
+      h2Goruldu = true;
       continue;
     }
     const href = ozellikler(m[0]).href;
-    if (ad && href) {
+    if (!href) continue;
+    if (!h2Goruldu && !tamMetinUrl) tamMetinUrl = mutlakUrl(href);
+    else if (ad) {
       bolumler.push({ ad, pdfUrl: mutlakUrl(href) });
       ad = null;
     }
   }
-  return { baslik, bolumler };
+  return { baslik, bolumler, tamMetinUrl };
+}
+
+// Bölüm PDF'inden çıkan metin okunur mu? FİR Sayı 43'ün bölüm PDF'i (27 Kasım 2026) "Print To PDF" ile basılmış,
+// yazının çoğu çizgiye dönmüştü: pdftotext 22 kopuk parça verdi (ortalama 39 karakter). Sağlam raporlarda ortalama 470+.
+export function raporMetniBozuk(paragraflar) {
+  if (!paragraflar.length) return true;
+  const ortalama = paragraflar.join(' ').length / paragraflar.length;
+  const kisaPay = paragraflar.filter((p) => p.length < 40).length / paragraflar.length;
+  return ortalama < 200 || kisaPay > 0.25;
+}
+
+// Tam metin PDF'inin pdftotext çıktısından "I. Genel Değerlendirme" (ER'de "1. ...") bölümü, ikinci ana bölüm
+// başlığına kadar. İçindekiler satırı ("I. Genel Değerlendirme ......1") başlık sayılmaz. Bulunamazsa null.
+export function tamMetindenGenelDegerlendirme(pdfMetni) {
+  const s = String(pdfMetni).replace(/\f/g, '\n').split(/\r?\n/);
+  const bas = s.findIndex((x) => /^\s*(I|1)\.\s*Genel De[ğg]erlendirme\s*$/i.test(x));
+  if (bas < 0) return null;
+  let son = s.findIndex((x, i) => i > bas && /^\s*(II|2)\.\s+\p{Lu}/u.test(x));
+  if (son < 0) son = s.length;
+  return s.slice(bas, son).join('\n');
 }
 
 export const genelDegerlendirmeBolumu = (bolumler) => bolumler.find((b) => /Genel De[ğg]erlendirme/i.test(b.ad)) ?? null;

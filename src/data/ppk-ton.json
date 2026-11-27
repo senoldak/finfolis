@@ -1778,14 +1778,16 @@
       "okundu": "2026-11-12T09:58:13.769Z"
     },
     "fir_43": {
-      "politikaYok": true,
-      "ileriYon": null,
-      "durus": null,
-      "gerekce": "Metin kesik ve parçalı ifadelerden oluştuğu için para politikasının duruşu veya sonraki adımları hakkında net bir yön veya değerlendirme içermemektedir.",
-      "alintilar": [],
+      "ileriYon": 0,
+      "durus": 2,
+      "gerekce": "Metin, finansal istikrar raporunun genel değerlendirmesini içermekte olup mevcut sıkı para politikası duruşunun sürdürüldüğünü belirtmekte, ancak gelecek dönemin para politikası adımlarına dair yeni bir yön veya sinyal vermemektedir.",
+      "alintilar": [
+        "Kredi büyümesi, sıkı para politikası duruşu ve makroihtiyati politika çerçevesi ile uyumlu bir şekilde yavaşlamıştır.",
+        "kredi koşullarında sıkılık devam etmektedir."
+      ],
       "istemSurumu": 2,
-      "okundu": "2026-11-27T07:56:50.745Z"
+      "okundu": "2026-11-27T10:53:23.821Z"
     }
   },
-  "guncelleme": "2026-11-27T07:56:50.746Z"
+  "guncelleme": "2026-11-27T10:53:23.822Z"
 }

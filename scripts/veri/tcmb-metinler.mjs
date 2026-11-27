@@ -14,7 +14,8 @@ import { hentMetin, sleep, USER_AGENT } from '../haberler/lib.mjs';
 import { cumleBol } from '../../src/lib/ppk-metin.mjs';
 import {
   KONUSMA_TABAN, RAPOR_TABAN, konusmaListesi, konusmaAyristir, konusmaci, raporListesi, raporSayfasi,
-  genelDegerlendirmeBolumu, raporParagraflari, sunumParagraflari, pdfKonusmaParagraflari, turkceMi,
+  genelDegerlendirmeBolumu, raporParagraflari, raporMetniBozuk, tamMetindenGenelDegerlendirme, sunumParagraflari,
+  pdfKonusmaParagraflari, turkceMi,
 } from '../../src/lib/tcmb-metin.mjs';
 
 const calistir = promisify(execFile);
@@ -169,9 +170,21 @@ export async function tcmbMetinleriUret({ simdi = new Date(), indir = hentMetin,
         }
         const bolum = genelDegerlendirmeBolumu(sayfa.bolumler);
         if (!bolum) throw new Error('Genel Değerlendirme bölümü bulunamadı');
-        const paragraflar = raporParagraflari(await pdfCevir(await pdfAl(bolum.pdfUrl)));
+        let paragraflar = raporParagraflari(await pdfCevir(await pdfAl(bolum.pdfUrl)));
+        let pdfUrl = bolum.pdfUrl;
         await bekle(BEKLEME_MS);
+        // Bölüm PDF'i okunmuyorsa (FİR Sayı 43: yazı çizgiye dönmüş) aynı bölüm tam metin PDF'inden alınır.
+        if (raporMetniBozuk(paragraflar) && sayfa.tamMetinUrl) {
+          log(`Bölüm PDF'i okunamadı (${r.id}), tam metin deneniyor`);
+          const kesit = tamMetindenGenelDegerlendirme(await pdfCevir(await pdfAl(sayfa.tamMetinUrl)));
+          await bekle(BEKLEME_MS);
+          if (kesit) {
+            paragraflar = raporParagraflari(kesit);
+            pdfUrl = sayfa.tamMetinUrl;
+          }
+        }
         if (paragraflar.length < 3) throw new Error(`metin çıkarılamadı (${paragraflar.length} paragraf)`);
+        if (raporMetniBozuk(paragraflar)) throw new Error('metin bozuk çıktı (kopuk parçalar); sonraki turda yeniden denenecek');
         const belge = {
           id: r.id,
           tur: r.tur,
@@ -182,7 +195,7 @@ export async function tcmbMetinleriUret({ simdi = new Date(), indir = hentMetin,
           baslik: r.baslik,
           bolum: bolum.ad,
           url: r.url,
-          pdfUrl: bolum.pdfUrl,
+          pdfUrl,
           kaynakBicim: 'pdf',
           paragraflar,
           cumleler: cumleler(paragraflar),
