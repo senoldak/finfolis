@@ -6,7 +6,7 @@ import { kapakCiz } from '../kapak/kapak.mjs';
 import { kategoriDuzelt } from './kategori-duzelt.mjs';
 import { araBasliklariDuzenle, cumleDuzeni } from './baslik-duzeni.mjs';
 import { hintBirimleriniCevir } from './hint-birimleri.mjs';
-import { ozetAlaniTemizle, paragraflaraBol } from './dil-tr.mjs';
+import { kalkanNotlari, ozetAlaniTemizle, paragraflaraBol } from './dil-tr.mjs';
 
 export const USER_AGENT = 'finfolis-haber-botu (+https://finfolis.com)';
 
@@ -200,8 +200,17 @@ export async function yaziYaz(rot, yazi) {
   fm.push('---');
   // Model gövdeyi tek blok döndürdüyse cümle sınırlarından paragraflara bölünür (sözcüklere dokunulmaz).
   // Ara başlıklar cümle düzenine iner ("### Her Kelimesi Büyük" → "### Her kelimesi büyük"; özel adlar gövdeden okunur).
-  const govde = araBasliklariDuzenle(paragraflaraBol(htmlSok(yazi.govde).trim()), yazi.spot ?? '');
+  const hamGovde = htmlSok(yazi.govde).trim();
+  const govde = araBasliklariDuzenle(paragraflaraBol(hamGovde), yazi.spot ?? '');
   await writeFile(path.join(taban, slug, 'index.md'), `${fm.join('\n')}\n\n${govde}\n`, 'utf8');
+  // Kalkan bir şeyi değiştirdiyse günlüğe tek satır (27 Kasım 2026): turda ne kadar devreye girdikleri görülsün.
+  const notlar = kalkanNotlari({
+    govde: [hamGovde, govde],
+    alanlar: { why_matters: [yazi.why_matters, why] },
+    maddeler: [yazi.key_points, maddeler],
+    basliklar: [['tablo', yazi.tablo?.baslik, kartBasligi(yazi.tablo)?.baslik], ['grafik', yazi.grafik?.baslik, kartBasligi(yazi.grafik)?.baslik]],
+  });
+  for (const n of notlar) console.log(`kalkan: ${n} — ${slug}`);
   return slug;
 }
 

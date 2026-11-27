@@ -261,3 +261,20 @@ test('yaziYaz tablo ve grafik başlığını cümle düzenine indirir, özel ad�
   assert.equal(fm.grafik.baslik, 'Venezuela günlük ham petrol üretimi');
   assert.deepEqual(fm.tablo.satirlar, [['x', '1']]);
 });
+
+test('yaziYaz kalkan devreye girince günlüğe tek satır yazar, girmeyince yazmaz', async () => {
+  const rot = await mkdtemp(path.join(os.tmpdir(), 'haber-'));
+  const satirlar = [];
+  const eski = console.log;
+  console.log = (...a) => satirlar.push(a.join(' '));
+  try {
+    const govde = Array.from({ length: 10 }, (_, i) => `Şirket ${i + 1}. çeyrekte açıkladığı sonuçlarla piyasa beklentisinin üzerinde kaldı ve hisse yükseldi.`).join(' ');
+    const slug = await yaziYaz(rot, { baslik: 'Günlük sınaması', spot: 'Özet.', govde, kategori: 'piyasalar', tarih: new Date('2026-11-27T08:00:00Z'), tur: 'haber', kaynaklar: [], why_matters: `Döngü ${'büyüyorla '.repeat(10)}bitti.` });
+    await yaziYaz(rot, { baslik: 'Temiz haber', spot: 'Özet.', govde: 'Kısa gövde.', kategori: 'piyasalar', tarih: new Date('2026-11-27T09:00:00Z'), tur: 'haber', kaynaklar: [] });
+    assert.ok(satirlar.some((s) => s === `kalkan: gövde 1→3 paragraf — ${slug}`), satirlar.join('\n'));
+    assert.ok(satirlar.some((s) => s.startsWith('kalkan: why_matters atıldı') && s.endsWith(slug)));
+    assert.equal(satirlar.filter((s) => s.startsWith('kalkan:')).length, 2);
+  } finally {
+    console.log = eski;
+  }
+});

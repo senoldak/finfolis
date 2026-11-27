@@ -296,6 +296,37 @@ export function ozetAlaniTemizle(metin, { azami = 400, cumle = true } = {}) {
   return s;
 }
 
+/**
+ * Kalkanların bir haberde neyi değiştirdiğini kısa notlarla döndürür (27 Kasım 2026); yazıcı bunları "kalkan: <not> — <slug>"
+ * diye günlüğe yazar. Kaynak adı içermez. Değişiklik yoksa boş dizi.
+ * @param {{ govde?: [string, string], alanlar?: Record<string, [string|undefined, string]>,
+ *   maddeler?: [unknown[]|undefined, string[]], basliklar?: [string, string|undefined, string|undefined][] }} o
+ */
+export function kalkanNotlari({ govde, alanlar = {}, maddeler, basliklar = [] } = {}) {
+  const notlar = [];
+  const paragraf = (s) => String(s ?? '').trim().split(/\n\s*\n/).filter((p) => p.trim()).length;
+  if (govde) {
+    const [eski, yeni] = govde.map((s) => String(s ?? ''));
+    if (paragraf(eski) !== paragraf(yeni)) notlar.push(`gövde ${paragraf(eski)}→${paragraf(yeni)} paragraf`);
+    const hE = eski.match(/^#{2,4}[ \t].*$/gm) ?? [];
+    const hY = yeni.match(/^#{2,4}[ \t].*$/gm) ?? [];
+    const n = hE.filter((h, i) => h !== hY[i]).length;
+    if (n) notlar.push(`${n} ara başlık cümle düzenine indi`);
+  }
+  for (const [ad, [eski, yeni]] of Object.entries(alanlar)) {
+    if (typeof eski !== 'string' || !eski.trim()) continue;
+    if (!yeni) notlar.push(`${ad} atıldı (${eski.length} krk)`);
+    else if (yeni !== eski.trim()) notlar.push(`${ad} sonu temizlendi`);
+  }
+  if (maddeler) {
+    const once = Array.isArray(maddeler[0]) ? maddeler[0].filter((m) => typeof m === 'string' && m.trim()).length : 0;
+    const atilan = once - maddeler[1].length;
+    if (atilan > 0) notlar.push(`${atilan} key_points maddesi atıldı`);
+  }
+  for (const [ad, eski, yeni] of basliklar) if (typeof eski === 'string' && eski !== yeni) notlar.push(`${ad} başlığı cümle düzenine indi`);
+  return notlar;
+}
+
 /** Eş dildeki gövdenin paragraf sınırları, paragraflaraBol'a oran olarak (tek paragrafsa null). */
 export function paragrafOranlari(govde) {
   const ps = String(govde ?? '').trim().split(/\n\s*\n/).filter((p) => p.trim());

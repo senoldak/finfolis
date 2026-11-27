@@ -1,7 +1,7 @@
 // Kaynak: mecmua/site-ortak/dil/dil-tr.test.mjs. Burada düzenleme; kaynağı düzenleyip node site-ortak/kopyala.mjs çalıştır.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { cumlelereAyir, dilDuzeltTr, dilSorunlariTr, kesinSorunlar, ozetAlaniTemizle, paragrafOranlari, paragraflaraBol, sorunListesi } from './dil-tr.mjs';
+import { cumlelereAyir, dilDuzeltTr, kalkanNotlari, dilSorunlariTr, kesinSorunlar, ozetAlaniTemizle, paragrafOranlari, paragraflaraBol, sorunListesi } from './dil-tr.mjs';
 
 const kodlar = (m, a) => dilSorunlariTr(m, a).map((s) => s.kod);
 
@@ -172,4 +172,18 @@ test('ozetAlaniTemizle: azamiyi aşan alan atılır (ilk cümle kurtarılmaz)', 
   const ilk = 'Toplanan yatırım şirketin büyümesini hızlandırıyor.';
   assert.equal(ozetAlaniTemizle(`${ilk} ${'Ek bilgi cümlesi burada duruyor. '.repeat(15)}`, { azami: 200 }), '');
   assert.equal(ozetAlaniTemizle(ilk, { azami: 200 }), ilk);
+});
+
+test('kalkanNotlari: kalkanların değiştirdiğini kısa notla verir, değişiklik yoksa boş', () => {
+  const notlar = kalkanNotlari({
+    govde: ['A. B. C. D.', 'A. B.\n\nC. D.'],
+    alanlar: { why_matters: ['x'.repeat(500), ''], perspektif: ['Sağlam.', 'Sağlam.'], kisa: ['Bitti.0', 'Bitti.'] },
+    maddeler: [['a', 'b', 'c'], ['a', 'b']],
+    basliklar: [['grafik', 'Her Kelimesi Büyük Başlık', 'Her kelimesi büyük başlık'], ['tablo', undefined, undefined]],
+  });
+  assert.deepEqual(notlar, [
+    'gövde 1→2 paragraf', 'why_matters atıldı (500 krk)', 'kisa sonu temizlendi', '1 key_points maddesi atıldı', 'grafik başlığı cümle düzenine indi',
+  ]);
+  assert.deepEqual(kalkanNotlari({ govde: ['## Başlık Büyük Yazıldı\n\nMetin.', '## Başlık büyük yazıldı\n\nMetin.'] }), ['1 ara başlık cümle düzenine indi']);
+  assert.deepEqual(kalkanNotlari({ govde: ['A.\n\nB.', 'A.\n\nB.'], alanlar: { why_matters: [undefined, ''] }, maddeler: [undefined, []] }), []);
 });
