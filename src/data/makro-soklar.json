@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-27T07:56:10.675Z",
+  "guncelleme": "2026-11-27T09:50:17.290Z",
   "gostergeler": {
     "tge": {
       "id": "tge",
@@ -54,7 +54,7 @@
           "diff": -7.11,
           "pct": -7.73,
           "sameRet": -0.2,
-          "nextRet": -0.4,
+          "nextRet": 1.7,
           "ret3m": null,
           "ret6m": null
         },
@@ -133,10 +133,10 @@
       ],
       "istatistik": {
         "ayniAyPozitifOrani": 60,
-        "sonrakiAyPozitifOrani": 60,
+        "sonrakiAyPozitifOrani": 70,
         "sonraki3AyPozitifOrani": 67,
         "ortalamaAyniAyGetiri": 1.8,
-        "ortalamaSonrakiAyGetiri": 1,
+        "ortalamaSonrakiAyGetiri": 1.2,
         "ortalama3AyGetiri": 5.3
       }
     },
