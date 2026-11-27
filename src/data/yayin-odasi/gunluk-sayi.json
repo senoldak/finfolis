@@ -1,5 +1,5 @@
 {
- "guncellendi": "2026-11-27T09:41:19.238Z",
+ "guncellendi": "2026-11-27T11:41:05.299Z",
  "gunler": {
   "2026-11-02": {
    "tur": 4,
@@ -429,21 +429,21 @@
    "bekleyen": 196
   },
   "2026-11-27": {
-   "tur": 6,
-   "gorulen": 961,
-   "degerlendirilen": 431,
+   "tur": 7,
+   "gorulen": 1116,
+   "degerlendirilen": 618,
    "elenen": {
-    "bilinen-olay": 39,
-    "tekrar": 26,
+    "bilinen-olay": 50,
+    "tekrar": 34,
     "diger": 3,
-    "kontrol-masasi": 5,
+    "kontrol-masasi": 6,
     "standart:kapi-medya-adi": 1,
-    "standart:ozel-haber": 2
+    "standart:ozel-haber": 3
    },
-   "yazilan": 32,
-   "yayimlanan": 31,
-   "bulten": 1,
-   "bekleyen": 83
+   "yazilan": 37,
+   "yayimlanan": 35,
+   "bulten": 2,
+   "bekleyen": 104
   }
  }
 }
