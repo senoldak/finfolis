@@ -1,81 +1,35 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import {
-  makroStresTestiHesapla,
-  VARSAYILAN_PARAMETRELER
-} from './stres-testi.mjs';
+import { KAYNAKLAR, cariOnIkiAy, sokEtkileri } from './stres-testi.mjs';
 
-test('makroStresTestiHesapla: sıfır şok durumunda baz senaryoyu korur', () => {
-  const res = makroStresTestiHesapla({
-    bazTufe: 35.0,
-    bazCariAcikMilyarUsd: -25.0,
-    bazPolitikaFaizi: 45.0,
-    brentSokuUsd: 0,
-    asgariUcretArtisiYuzde: 25, // Baz seviye
-    kurArtisiYuzde: 0,
-    faizDegisimiPuan: 0
-  });
-
-  assert.equal(res.simuleTufe, 35.0);
-  assert.equal(res.tufeSapmasiPuan, 0);
-  assert.equal(res.simuleCariAcik, -25.0);
-  assert.equal(res.cariSapmaMilyarUsd, 0);
-  assert.ok(res.taylorBand.alt > 0);
-  assert.ok(res.taylorBand.ust > res.taylorBand.alt);
+test('sokEtkileri: petrol %10 → 1 puan TÜFE, 10 $ → 2,6 milyar $ cari', () => {
+  const r = sokEtkileri({ brentFiyati: 100, brentDegisimUsd: 10 });
+  assert.equal(r.brentYuzde, 10);
+  assert.equal(r.petrolTufe, 1);
+  assert.equal(r.petrolCari, 2.6);
+  const d = sokEtkileri({ brentFiyati: 80, brentDegisimUsd: -20 });
+  assert.equal(d.petrolTufe, -2.5);
+  assert.equal(d.petrolCari, -5.2);
 });
 
-test('makroStresTestiHesapla: +20$ petrol şoku enflasyonu ve cari açığı artırır', () => {
-  const res = makroStresTestiHesapla({
-    bazTufe: 35.0,
-    bazCariAcikMilyarUsd: -25.0,
-    bazPolitikaFaizi: 45.0,
-    brentSokuUsd: 20, // +20$ artış
-    asgariUcretArtisiYuzde: 25,
-    kurArtisiYuzde: 0,
-    faizDegisimiPuan: 0
-  });
-
-  // 20$ petrol -> enflasyona ~+2.8 puan etki, cari açığa ~ -8.5 milyar $ etki (daha derin açık)
-  assert.ok(res.simuleTufe > 37.0);
-  assert.ok(res.tufeSapmasiPuan > 2.0);
-  assert.ok(res.simuleCariAcik < -30.0);
-  assert.ok(res.cariSapmaMilyarUsd < -7.0);
+test('sokEtkileri: asgari ücret ve kur aralıkları, toplam', () => {
+  const r = sokEtkileri({ brentFiyati: 70, brentDegisimUsd: 0, asgariUcretArtisiYuzde: 30, kurDegerKaybiYuzde: 20 });
+  assert.deepEqual(r.ucretTufe, [2.4, 3.6]);
+  assert.equal(r.kurBirYil, 3);
+  assert.deepEqual(r.kurUzun, [7.6, 8]);
+  assert.deepEqual(r.birYilToplam, [5.4, 6.6]);
 });
 
-test('makroStresTestiHesapla: kur artışı ve ücret zammı enflasyonu yukarı iter, Taylor bandı yükselir', () => {
-  const res = makroStresTestiHesapla({
-    bazTufe: 35.0,
-    bazCariAcikMilyarUsd: -25.0,
-    bazPolitikaFaizi: 45.0,
-    brentSokuUsd: 0,
-    asgariUcretArtisiYuzde: 40, // +15 puan ek zam
-    kurArtisiYuzde: 10,         // %10 ilave kur şoku
-    kurGeciskenligi: 0.30,
-    faizDegisimiPuan: 0
-  });
-
-  // Kur şoku: 10 * 0.30 = +3.0 puan
-  // Asgari ücret şoku: (40 - 25) * 0.20 = +3.0 puan
-  // Toplam sapma: ~+6.0 puan
-  assert.ok(res.tufeSapmasiPuan >= 5.5);
-  assert.ok(res.simuleTufe >= 40.5);
-  // Enflasyon yükselince Taylor kuralının tavsiye ettiği faiz bandı yukarı kaymalı
-  assert.ok(res.taylorBand.alt > 40.0);
+test('sokEtkileri: boş ya da geçersiz girdi sıfır döner', () => {
+  const r = sokEtkileri({ brentFiyati: 0, brentDegisimUsd: 10, asgariUcretArtisiYuzde: -5, kurDegerKaybiYuzde: 'x' });
+  assert.equal(r.petrolTufe, 0);
+  assert.deepEqual(r.ucretTufe, [0, 0]);
+  assert.equal(r.kurBirYil, 0);
 });
 
-test('makroStresTestiHesapla: faiz artırımı enflasyonu hafifletir ve Taylor açığını kapatır', () => {
-  const res = makroStresTestiHesapla({
-    bazTufe: 35.0,
-    bazCariAcikMilyarUsd: -25.0,
-    bazPolitikaFaizi: 45.0,
-    brentSokuUsd: 0,
-    asgariUcretArtisiYuzde: 25,
-    kurArtisiYuzde: 0,
-    faizDegisimiPuan: 5 // +500 bp artırım
-  });
-
-  // Faiz artışı enflasyonda soğuma etkisi yaratır
-  assert.ok(res.tufeSapmasiPuan < 0);
-  assert.ok(res.simuleTufe < 35.0);
-  assert.equal(res.simulePolitikaFaizi, 50.0);
+test('cariOnIkiAy: milyon $ → milyar $, 12 aydan azsa null', () => {
+  const s = Array.from({ length: 13 }, (_, i) => ({ yil: 2026, ay: i + 1, cari: -1000 }));
+  assert.equal(cariOnIkiAy(s).toplam, -12);
+  assert.equal(cariOnIkiAy(s.slice(0, 5)), null);
+  assert.ok(Object.values(KAYNAKLAR).every((k) => k.url.startsWith('https://www.tcmb.gov.tr/')));
 });

@@ -1,109 +1,71 @@
-// What-If & Makro Stres Testi Simülatörü
-// Petrol, asgari ücret, kur geçişkenliği ve faiz şoklarının enflasyon, cari denge ve Taylor kuralına duyarlılığı
+// Şok duyarlılığı: petrol, asgari ücret ve kur şoklarının TÜFE ve cari dengeye tek tek etkisi.
+// Yalnız TCMB'nin yayımladığı katsayılar kullanılır (26 Kasım 2026'da kontrol edildi). Sonuç tahmin değildir:
+// her şokun diğer her şey sabitken ortalama etkisidir.
 
-export const VARSAYILAN_PARAMETRELER = {
-  bazTufe: 38.5,             // % Yıllık TÜFE baz beklentisi
-  bazCariAcikMilyarUsd: -20.0,// Milyar USD cari denge
-  bazPolitikaFaizi: 45.0,     // % Mevcut TCMB politika faizi
-  bazAsgariUcretZammı: 25.0,  // % Baz asgari ücret artış varsayımı
-  kurGeciskenligi: 0.28,      // 12 aylık kümülatif kur geçişkenliği katsayısı
-  petrolTufeKatsayisi: 0.14,  // Her 10$'lık petrol artışının enflasyona puan etkisi (0.14 = 1.4 puan / 10$)
-  petrolCariKatsayisi: -0.42, // Her 1$'lık petrol artışının cari açığa net etkisi (-0.42 milyar $)
-  ucretGeciskenligi: 0.20,    // Bazın üzerindeki her 1 puanlık ücret zammının enflasyona puan etkisi
-  faizSıkılasmaKatsayisi: -0.05 // Her 1 puanlık (100 bp) faiz artışının enflasyonu dizginleme etkisi
+export const KAYNAKLAR = {
+  petrol: {
+    ad: 'TCMB Merkezin Güncesi, "Uluslararası Petrol Fiyatlarının Tüketici Fiyatlarına ve Cari Dengeye Yansımaları", Temmuz 2025',
+    url: 'https://www.tcmb.gov.tr/wps/wcm/connect/blog/tr/main%2Bmenu/analizler/uluslararasi%2Bpetrol%2Bfiyatlarinin%2Btuketici%2Bfiyatlarina%2Bve%2Bcari%2Bdengeye%2Byansimalari',
+  },
+  asgariUcret: {
+    ad: 'TCMB Enflasyon Raporu 2023-III, Kutu 2.6, "Asgari Ücret Artışının Enflasyona Etkisi Üzerine Bir Değerlendirme"',
+    url: 'https://www.tcmb.gov.tr/wps/wcm/connect/9e350e68-3d3e-44bf-8590-83cd5eb0cf78/Kutu_2.6_2023_iii..pdf?MOD=AJPERES&CACHEID=ROOTWORKSPACE-9e350e68-3d3e-44bf-8590-83cd5eb0cf78-oCmsQkM',
+  },
+  kurKisa: {
+    ad: 'TCMB Merkezin Güncesi, "Kurdan Enflasyona Geçiş", Ocak 2017',
+    url: 'https://www.tcmb.gov.tr/wps/wcm/connect/blog/tr/main+menu/analizler/kurdan_enflasyona_gecis',
+  },
+  kurUzun: {
+    ad: 'TCMB Çalışma Tebliği 25/05, "Büyük Kur Şokları ve Kur Geçişkenliğinde Doğrusal Olmayan Etkiler", Nisan 2025',
+    url: 'https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB+TR/Main+Menu/Yayinlar/Arastirma+Yayinlari/Calisma+Tebligleri/2025/25-05',
+  },
 };
 
-export const HEDEF_ENFLASYON = 5.0; // TCMB yasal hedefi (%)
+export const KATSAYILAR = {
+  // Brent'te %10 artış → TÜFE nihai olarak +1 puan (yarısı ilk çeyrekte).
+  petrolTufePuanYuzde10: 1.0,
+  // Brent'te her +10 $ → 12 ayda cari açık ~2,6 milyar $ artar.
+  petrolCariMlrUsd10Dolar: 2.6,
+  // Asgari ücrette %1 nominal artış → bir yılda enflasyona 0,08-0,12 puan.
+  asgariUcretPuanYuzde1: [0.08, 0.12],
+  // TL'deki %1 değer kaybı → bir yılda TÜFE ~0,15 puan (2017); uzun dönemde 0,38-0,40 (ılımlı şok, 2025).
+  kurBirYil: 0.15,
+  kurUzunDonem: [0.38, 0.4],
+};
+
+const yuvarla = (n) => Math.round(n * 10) / 10;
+const sayi = (v) => (Number.isFinite(Number(v)) ? Number(v) : 0);
 
 /**
- * Taylor kuralı bandını hesaplar: i = r* + pi + a*(pi - pi*)
- * r* in [1, 3], a in [0.5, 1.0]
+ * @param {{ brentFiyati: number, brentDegisimUsd: number, asgariUcretArtisiYuzde: number, kurDegerKaybiYuzde: number }} g
  */
-export function taylorBandiHesapla(enflasyon) {
-  const rDenge = [1.5, 2.5];
-  const aKatsayilari = [0.5, 1.0];
-  
-  const faizler = [];
-  for (const r of rDenge) {
-    for (const a of aKatsayilari) {
-      const f = r + enflasyon + a * (enflasyon - HEDEF_ENFLASYON);
-      faizler.push(f);
-    }
-  }
+export function sokEtkileri(g = {}) {
+  const brent = sayi(g.brentFiyati);
+  const dBrent = sayi(g.brentDegisimUsd);
+  const ucret = Math.max(0, sayi(g.asgariUcretArtisiYuzde));
+  const kur = Math.max(0, sayi(g.kurDegerKaybiYuzde));
+
+  const brentYuzde = brent > 0 ? (dBrent / brent) * 100 : 0;
+  const petrolTufe = yuvarla((brentYuzde / 10) * KATSAYILAR.petrolTufePuanYuzde10);
+  const petrolCari = yuvarla((dBrent / 10) * KATSAYILAR.petrolCariMlrUsd10Dolar);
+  const ucretTufe = KATSAYILAR.asgariUcretPuanYuzde1.map((k) => yuvarla(ucret * k));
+  const kurBirYil = yuvarla(kur * KATSAYILAR.kurBirYil);
+  const kurUzun = KATSAYILAR.kurUzunDonem.map((k) => yuvarla(kur * k));
 
   return {
-    alt: Math.round(Math.min(...faizler) * 10) / 10,
-    ust: Math.round(Math.max(...faizler) * 10) / 10,
-    orta: Math.round((faizler.reduce((a, b) => a + b, 0) / faizler.length) * 10) / 10
+    brentYuzde: yuvarla(brentYuzde),
+    petrolTufe,
+    petrolCari, // pozitif = cari açık büyür
+    ucretTufe,
+    kurBirYil,
+    kurUzun,
+    birYilToplam: [yuvarla(petrolTufe + ucretTufe[0] + kurBirYil), yuvarla(petrolTufe + ucretTufe[1] + kurBirYil)],
   };
 }
 
-/**
- * Kullanıcı tarafından seçilen makro şok parametreleriyle simülasyon çıktısını üretir.
- */
-export function makroStresTestiHesapla(girdi = {}) {
-  const bazTufe = Number(girdi.bazTufe ?? VARSAYILAN_PARAMETRELER.bazTufe);
-  const bazCari = Number(girdi.bazCariAcikMilyarUsd ?? VARSAYILAN_PARAMETRELER.bazCariAcikMilyarUsd);
-  const bazFaiz = Number(girdi.bazPolitikaFaizi ?? VARSAYILAN_PARAMETRELER.bazPolitikaFaizi);
-
-  const brentSoku = Number(girdi.brentSokuUsd || 0);
-  const asgariUcretArtisi = Number(girdi.asgariUcretArtisiYuzde ?? VARSAYILAN_PARAMETRELER.bazAsgariUcretZammı);
-  const kurArtisi = Number(girdi.kurArtisiYuzde || 0);
-  const kurKatsayisi = Number(girdi.kurGeciskenligi ?? VARSAYILAN_PARAMETRELER.kurGeciskenligi);
-  const faizDegisimi = Number(girdi.faizDegisimiPuan || 0);
-
-  // 1. Petrol şoku etkisi
-  const petrolTufeEtkisi = (brentSoku / 10) * (VARSAYILAN_PARAMETRELER.petrolTufeKatsayisi * 10);
-  const petrolCariEtkisi = brentSoku * VARSAYILAN_PARAMETRELER.petrolCariKatsayisi;
-
-  // 2. Asgari ücret şoku etkisi (Baz artışın üzerindeki/altındaki fark)
-  const ucretFarki = asgariUcretArtisi - VARSAYILAN_PARAMETRELER.bazAsgariUcretZammı;
-  const ucretTufeEtkisi = ucretFarki * VARSAYILAN_PARAMETRELER.ucretGeciskenligi;
-
-  // 3. Döviz kuru geçişkenliği
-  const kurTufeEtkisi = kurArtisi * kurKatsayisi;
-
-  // 4. Politika faizi talep kısıtlama etkisi
-  const faizTufeEtkisi = faizDegisimi * VARSAYILAN_PARAMETRELER.faizSıkılasmaKatsayisi;
-
-  // Kümülatif enflasyon sapması
-  const tufeSapmasiPuan = Math.round((petrolTufeEtkisi + ucretTufeEtkisi + kurTufeEtkisi + faizTufeEtkisi) * 10) / 10;
-  const simuleTufe = Math.max(0, Math.round((bazTufe + tufeSapmasiPuan) * 10) / 10);
-
-  // Kümülatif cari denge etkisi
-  // Kur artışı ithalatı kısarak cari dengeyi bir miktar düzeltir (J-eğrisi sonrası)
-  const kurCariDengeEtkisi = kurArtisi * 0.35;
-  const cariSapmaMilyarUsd = Math.round((petrolCariEtkisi + kurCariDengeEtkisi) * 10) / 10;
-  const simuleCariAcik = Math.round((bazCari + cariSapmaMilyarUsd) * 10) / 10;
-
-  // Simüle edilen politika faizi
-  const simulePolitikaFaizi = Math.max(0, Math.round((bazFaiz + faizDegisimi) * 10) / 10);
-
-  // Taylor Kuralı Bandı
-  const taylorBand = taylorBandiHesapla(simuleTufe);
-  const taylorUyumsuzlukPuan = Math.round((simulePolitikaFaizi - taylorBand.orta) * 10) / 10;
-
-  return {
-    bazTufe,
-    simuleTufe,
-    tufeSapmasiPuan,
-    bazCariAcik: bazCari,
-    simuleCariAcik,
-    cariSapmaMilyarUsd,
-    bazPolitikaFaizi: bazFaiz,
-    simulePolitikaFaizi,
-    brentSokuUsd: brentSoku,
-    asgariUcretArtisiYuzde: asgariUcretArtisi,
-    kurArtisiYuzde: kurArtisi,
-    faizDegisimiPuan: faizDegisimi,
-    taylorBand,
-    taylorUyumsuzlukPuan,
-    bilesenler: {
-      petrolTufe: Math.round(petrolTufeEtkisi * 10) / 10,
-      ucretTufe: Math.round(ucretTufeEtkisi * 10) / 10,
-      kurTufe: Math.round(kurTufeEtkisi * 10) / 10,
-      faizTufe: Math.round(faizTufeEtkisi * 10) / 10,
-      petrolCari: Math.round(petrolCariEtkisi * 10) / 10
-    }
-  };
+/** Son 12 ayın cari denge toplamı (milyar $). satirlar: { yil, ay, cari (milyon $) }. */
+export function cariOnIkiAy(satirlar = []) {
+  const son = satirlar.slice(-12);
+  if (son.length < 12 || son.some((s) => typeof s.cari !== 'number')) return null;
+  return { toplam: yuvarla(son.reduce((a, s) => a + s.cari, 0) / 1000), bas: son[0], bit: son.at(-1) };
 }

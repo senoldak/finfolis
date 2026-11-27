@@ -83,7 +83,7 @@ const ESANLAM: Record<string, string> = {
   '/veri/piyasa-faizleri/': 'mevduat faizi kredi faizi konut kredisi taşıt',
   '/veri/mevduat-ppf-hesaplayici/': 'mevduat ppf para piyasası fonu bileşik faiz getiri hesaplama stopaj tefas',
   '/veri/sinyaller/': 'anomali sinyal erken uyarı z-skor standart sapma stres evds tcmb likidite',
-  '/veri/senaryolar/': 'senaryo stres testi what if petrol asgari ücret kur geçişkenliği taylor simülasyon duyarlılık',
+  '/veri/senaryolar/': 'senaryo stres testi şok duyarlılığı petrol brent asgari ücret kur geçişkenliği cari açık',
   '/veri/soylem-gerceklik/': 'söylem gerçeklik ovp enflasyon tahmini tcmb enflasyon raporu gerçekleşen tüfe',
   '/veri/kur-korumali-mevduat/': 'kkm kur korumalı mevduat döviz dönüşümlü tl kkm',
   '/veri/tcmb-bilancosu/': 'merkez bankası bilançosu analitik bilanço rezerv para emisyon zorunlu karşılık serbest mevduat açık piyasa',
@@ -289,8 +289,8 @@ const araclar = [
               <span class="fihrist-ozet">EVDS öncü serilerinde 12 haftalık ortalamadan &plusmn;2&sigma; sapma gösteren anomali fişleri</span>
             </li>
             <li data-ek={aramaEki('/veri/senaryolar/')}>
-              <a href="/veri/senaryolar/" class="fihrist-baslik-link">What-If &amp; Stres Testi Simülatörü</a>
-              <span class="fihrist-ozet">Petrol, asgari ücret, kur ve faiz şoklarının enflasyon ve cari açığa duyarlılığı</span>
+              <a href="/veri/senaryolar/" class="fihrist-baslik-link">Şok duyarlılığı</a>
+              <span class="fihrist-ozet">Petrol, asgari ücret ve kur şoklarının TÜFE ve cari açığa etkisi, TCMB katsayılarıyla</span>
             </li>
             <li data-ek={aramaEki('/veri/soylem-gerceklik/')}>
               <a href="/veri/soylem-gerceklik/" class="fihrist-baslik-link">Resmî enflasyon tahminleri</a>
