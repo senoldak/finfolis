@@ -1,5 +1,5 @@
 {
-  "guncelleme": "2026-11-28T03:41:02.185Z",
+  "guncelleme": "2026-11-28T05:41:00.243Z",
   "gostergeler": [
     {
       "id": "dolar",
@@ -1166,7 +1166,7 @@
     {
       "id": "altin",
       "ad": "Ons altın (USD)",
-      "deger": 3668.5,
+      "deger": 3639.6001,
       "ondalik": 2,
       "simge": "altigen",
       "kaynak": {
@@ -1175,7 +1175,7 @@
       },
       "zaman": "2026-11-27T00:00:00+03:00",
       "gecerlilik": "kur",
-      "degisim": 3.8,
+      "degisim": 2.9,
       "gecmis": [
         {
           "tarih": "2026-08-31",
@@ -1427,7 +1427,7 @@
         },
         {
           "tarih": "2026-11-27",
-          "deger": 3668.5
+          "deger": 3639.6001
         }
       ],
       "onEk": "$"
