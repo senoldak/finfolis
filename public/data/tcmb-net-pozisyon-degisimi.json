@@ -1,20 +1,9 @@
 {
-  "guncellenme": "2026-11-27T21:50:15.954Z",
+  "guncellenme": "2026-11-28T03:58:22.310Z",
   "kaynak": "TCMB Analitik Bilanço, EVDS & BİST Kıymetli Madenler Piyasası",
   "birim": "milyar USD",
-  "kayit_sayisi": 242,
+  "kayit_sayisi": 241,
   "seri": [
-    {
-      "tarih": "28-11-2025",
-      "etiket": "28.11",
-      "usd_kuru": 42.3624,
-      "altin_ons_usd": 4140,
-      "altin_fiyat_farki_usd": -90,
-      "altin_degerleme_etkisi_milyar_usd": -1.89,
-      "net_rezerv_milyar_usd": 62.6,
-      "ham_degisim_milyar_usd": 1.19,
-      "degisim_altin_arindirilmis_milyar_usd": 3.1
-    },
     {
       "tarih": "01-12-2025",
       "etiket": "01.12",
@@ -2669,17 +2658,6 @@
   ],
   "haftalik_ozet": [
     {
-      "haftaKey": "2025-W48",
-      "etiket": "48. Hafta (2025)",
-      "tarih_son": "28-11-2025",
-      "toplam_net_degisim_milyar_usd": 3.1,
-      "toplam_ham_degisim_milyar_usd": 1.19,
-      "is_gunu_sayisi": 1,
-      "alis_gunleri": 1,
-      "satis_gunleri": 0,
-      "kapanis_net_rezerv": 62.6
-    },
-    {
       "haftaKey": "2025-W49",
       "etiket": "49. Hafta (2025)",
       "tarih_son": "05-12-2025",
@@ -3253,20 +3231,6 @@
     }
   ],
   "aylik_ozet": [
-    {
-      "yil": 2025,
-      "ay": 11,
-      "ayKey": "2025-11",
-      "etiket": "Kasım 2025",
-      "toplam_net_degisim_milyar_usd": 3.1,
-      "toplam_ham_degisim_milyar_usd": 1.19,
-      "toplam_altin_etkisi_milyar_usd": -1.89,
-      "is_gunu_sayisi": 1,
-      "alis_gunleri": 1,
-      "satis_gunleri": 0,
-      "kapanis_net_rezerv": 62.6,
-      "kapanis_usd_kuru": 42.3624
-    },
     {
       "yil": 2025,
       "ay": 12,
